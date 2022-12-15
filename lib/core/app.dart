@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/routes/auth_guard.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 final autoRouteObserver = AutoRouteObserver();
 
@@ -21,6 +22,7 @@ class _AppState extends State<App> {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Loop care',
+      theme: appThemeData,
       routerDelegate: _appRouter.delegate(),
       routeInformationParser: _appRouter.defaultRouteParser(),
       localizationsDelegates: context.localizationDelegates,
