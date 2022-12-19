@@ -5,5 +5,15 @@
   "introItemThird": "Unique selling point 3, told from perspective of LeanOnMe expert",
   "getStarted": "Get started",
   "haveAnAccount": "Have an account?",
-  "logIn": "Log in"
+  "logIn": "Log in",
+  "introPage": "Intro Page!",
+  "joinUsIn2Steps": "Join us in 2 steps",
+  "bodyAndMindFitnessCheck": "Body & Mind fitness check",
+  "joinUsStepOneDesc": "Let’s make sure you are physically and mentally fit to join our program.",
+  "whatAreYourPreferences": "What are your preferences?",
+  "joinUsStepTwoDesc": "We ask you about your preferences so we can make relevant recommendations.",
+  "moreInfo": "More info",
+  "testDuration": "30 minutes",
+  "joinUsNote": "you can take a break anytime and continue later.",
+  "stepOneFitnessCheck": "Step 1:  fitness check"
 }
