@@ -12,6 +12,7 @@ final ThemeData appThemeData = ThemeData(
   inputDecorationTheme: _getInputDecorationTheme(),
   elevatedButtonTheme: _getElevatedButtonTheme(),
   outlinedButtonTheme: _getOutlinedButtonTheme(),
+  tabBarTheme: _getTabBarTheme(),
   textTheme: _getTextTheme(),
   textSelectionTheme: const TextSelectionThemeData(
     cursorColor: AppColors.black,
@@ -144,6 +145,25 @@ OutlinedButtonThemeData _getOutlinedButtonTheme() {
   );
 }
 
+TabBarTheme _getTabBarTheme() {
+  return TabBarTheme(
+    labelColor: AppColors.black,
+    labelStyle: const TextStyle(
+      fontSize: ThemeConstants.fontSize14,
+      fontWeight: FontWeight.w600,
+    ),
+    unselectedLabelColor: AppColors.grey,
+    unselectedLabelStyle: const TextStyle(
+      fontSize: ThemeConstants.fontSize14,
+      fontWeight: FontWeight.w600,
+    ),
+    indicator: BoxDecoration(
+      borderRadius: BorderRadius.circular(6.0),
+      color: AppColors.white,
+    ),
+  );
+}
+
 CheckboxThemeData _getCheckboxTheme() {
   return CheckboxThemeData(
     fillColor: MaterialStateProperty.all(
@@ -181,6 +201,7 @@ TextTheme _getTextTheme() {
     headline1: TextStyle(
       color: AppColors.darkGreen,
       fontSize: ThemeConstants.fontSize78,
+      fontFamily: ThemeConstants.bitterFontFamily,
       fontWeight: FontWeight.w600,
     ),
     headline2: TextStyle(

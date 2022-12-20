@@ -1,0 +1,4 @@
+enum MeasurementType {
+  height,
+  weight
+}

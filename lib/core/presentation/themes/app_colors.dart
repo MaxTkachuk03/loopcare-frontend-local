@@ -37,6 +37,5 @@ class AppColors {
 
   static const Color grey = Color(0xFF72777A);
 
-
   AppColors._();
 }

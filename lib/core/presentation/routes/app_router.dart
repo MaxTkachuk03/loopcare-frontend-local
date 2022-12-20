@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:loopcare_frontend/core/presentation/routes/auth_guard.dart';
+import 'package:loopcare_frontend/features/height/presentation/height_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/login/presentation/login_page.dart';
@@ -17,6 +18,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.login,
       page: LoginPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.height,
+      page: HeightPage,
     ),
     AutoRoute(
       path: AppRoutes.home,
