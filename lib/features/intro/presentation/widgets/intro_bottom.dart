@@ -13,7 +13,7 @@ class IntroBottom extends StatelessWidget {
     return Column(
       children: [
         ElevatedButton(
-          onPressed: _onGetStarted,
+          onPressed: () => _onGetStarted(context),
           style: Theme.of(context)
               .elevatedButtonTheme
               .style
@@ -57,7 +57,9 @@ class IntroBottom extends StatelessWidget {
     );
   }
 
-  void _onGetStarted() {}
+  void _onGetStarted(BuildContext context) {
+    context.router.pushNamed(AppRoutes.joinUs);
+  }
 
   void _onLoginTap(BuildContext context) {
     context.router.pushNamed(AppRoutes.login);

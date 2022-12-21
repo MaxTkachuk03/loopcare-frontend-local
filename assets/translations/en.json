@@ -12,5 +12,15 @@
   "imperial": "Imperial",
   "needHelpWithThis": "Need help with this?",
   "next": "Next",
-  "yourWeight": "Your weight"
+  "yourWeight": "Your weight",
+  "introPage": "Intro Page!",
+  "joinUsIn2Steps": "Join us in 2 steps",
+  "bodyAndMindFitnessCheck": "Body & Mind fitness check",
+  "joinUsStepOneDesc": "Let’s make sure you are physically and mentally fit to join our program.",
+  "whatAreYourPreferences": "What are your preferences?",
+  "joinUsStepTwoDesc": "We ask you about your preferences so we can make relevant recommendations.",
+  "moreInfo": "More info",
+  "testDuration": "30 minutes",
+  "joinUsNote": "you can take a break anytime and continue later.",
+  "stepOneFitnessCheck": "Step 1:  fitness check"
 }
