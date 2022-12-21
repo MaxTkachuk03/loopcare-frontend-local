@@ -54,7 +54,6 @@ class JoinUsStep extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                             color: AppColors.white,
                           ),
-                      // textAlign: TextAlign.center,
                     )
                   ],
                 ),
