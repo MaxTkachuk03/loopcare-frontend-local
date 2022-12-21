@@ -5,20 +5,10 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/underlined_clickable_text.dart';
-import 'package:loopcare_frontend/features/height/presentation/widgets/height_tabs.dart';
+import 'package:loopcare_frontend/features/physical_fitness/presentation/weight/widgets/weight_tabs.dart';
 
-class HeightPage extends StatefulWidget {
-  const HeightPage({Key? key}) : super(key: key);
-
-  @override
-  State<HeightPage> createState() => _HeightPageState();
-}
-
-class _HeightPageState extends State<HeightPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
+class WeightPage extends StatelessWidget {
+  const WeightPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +24,16 @@ class _HeightPageState extends State<HeightPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  LocalizedTexts.youHeight.tr(),
+                  LocalizedTexts.yourWeight.tr(),
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 const SizedBox(
                   height: 48,
                 ),
-                const HeightTabs(),
+                const WeightTabs(),
                 const SizedBox(
                   height: 16.0,
                 ),
@@ -57,9 +47,9 @@ class _HeightPageState extends State<HeightPage> {
                 ElevatedButton(
                   onPressed: _onNextPressed,
                   style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                        backgroundColor:
-                            MaterialStateProperty.all(AppColors.orangeDark),
-                      ),
+                    backgroundColor:
+                    MaterialStateProperty.all(AppColors.orangeDark),
+                  ),
                   child: Text(LocalizedTexts.next.tr()),
                 ),
                 const SizedBox(

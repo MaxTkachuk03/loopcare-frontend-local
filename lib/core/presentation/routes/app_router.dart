@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:loopcare_frontend/core/presentation/routes/auth_guard.dart';
-import 'package:loopcare_frontend/features/height/presentation/height_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/login/presentation/login_page.dart';
+import 'package:loopcare_frontend/features/physical_fitness/presentation/height/height_page.dart';
+import 'package:loopcare_frontend/features/physical_fitness/presentation/weight/weight_page.dart';
 
 part 'app_routes.dart';
 
@@ -11,7 +12,6 @@ part 'app_routes.dart';
   replaceInRouteName: 'Page,Route',
   routes: [
     AutoRoute(
-      initial: true,
       path: AppRoutes.intro,
       page: IntroPage,
     ),
@@ -22,6 +22,11 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.height,
       page: HeightPage,
+    ),
+    AutoRoute(
+      initial: true,
+      path: AppRoutes.weight,
+      page: WeightPage,
     ),
     AutoRoute(
       path: AppRoutes.home,

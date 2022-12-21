@@ -7,9 +7,10 @@
   "haveAnAccount": "Have an account?",
   "logIn": "Log in",
   "bodyAndMind": "Body & Mind",
-  "youHeight": "Your height",
+  "yourHeight": "Your height",
   "metric": "Metric",
   "imperial": "Imperial",
   "needHelpWithThis": "Need help with this?",
-  "next": "Next"
+  "next": "Next",
+  "yourWeight": "Your weight"
 }
