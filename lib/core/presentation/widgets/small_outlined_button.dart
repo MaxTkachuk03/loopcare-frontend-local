@@ -1,13 +1,13 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class SmallOutlinedButton extends StatelessWidget {
+  final String text;
   final VoidCallback onPressed;
 
   const SmallOutlinedButton({
     Key? key,
+    required this.text,
     required this.onPressed,
   }) : super(key: key);
 
@@ -30,7 +30,7 @@ class SmallOutlinedButton extends StatelessWidget {
           textStyle: MaterialStateProperty.all(
               Theme.of(context).textTheme.bodyText2),
         ),
-        child: Text(LocalizedTexts.moreInfo.tr()),
+        child: Text(text),
       ),
     );
   }

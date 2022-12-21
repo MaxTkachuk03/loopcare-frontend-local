@@ -102,6 +102,7 @@ class JoinUsStep extends StatelessWidget {
                       ),
                     ),
                     SmallOutlinedButton(
+                      text: LocalizedTexts.moreInfo.tr(),
                       onPressed: _onMoreInfoPressed,
                     )
                   ],
