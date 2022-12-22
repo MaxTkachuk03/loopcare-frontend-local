@@ -25,11 +25,11 @@ part 'app_routes.dart';
       page: LoginPage,
     ),
     AutoRoute(
+      initial: true,
       path: AppRoutes.height,
       page: HeightPage,
     ),
     AutoRoute(
-      initial: true,
       path: AppRoutes.weight,
       page: WeightPage,
     ),

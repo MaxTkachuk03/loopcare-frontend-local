@@ -4,11 +4,13 @@ import 'package:flutter/services.dart';
 class UnitField extends StatelessWidget {
   final TextEditingController controller;
   final String unit;
+  final bool? isDecimal;
 
   const UnitField({
     Key? key,
     required this.unit,
     required this.controller,
+    this.isDecimal,
   }) : super(key: key);
 
   @override
@@ -22,9 +24,16 @@ class UnitField extends StatelessWidget {
           child: IntrinsicWidth(
             child: TextFormField(
               controller: controller,
-              keyboardType: TextInputType.number,
+              // keyboardType: TextInputType.number,
+              keyboardType: TextInputType.numberWithOptions(decimal: isDecimal),
               inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly
+                // FilteringTextInputFormatter.digitsOnly
+                FilteringTextInputFormatter.allow(RegExp(_getRegexString())),
+                TextInputFormatter.withFunction(
+                  (oldValue, newValue) => newValue.copyWith(
+                    text: newValue.text.replaceAll('.', ','),
+                  ),
+                ),
               ],
               autofocus: true,
               style: Theme.of(context).textTheme.headline1,
@@ -52,5 +61,11 @@ class UnitField extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String _getRegexString() {
+    final isDecimal = this.isDecimal;
+
+    return isDecimal != null && isDecimal ? r'[0-9]+[,.]{0,1}[0-9]*' : r'[0-9]';
   }
 }
