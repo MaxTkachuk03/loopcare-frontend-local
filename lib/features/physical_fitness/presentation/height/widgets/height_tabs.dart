@@ -27,7 +27,7 @@ class _HeightTabsState extends State<HeightTabs> {
         UnitField(
           unit: cm,
           controller: cmController,
-          // isDecimal: true,
+          isDecimal: true,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

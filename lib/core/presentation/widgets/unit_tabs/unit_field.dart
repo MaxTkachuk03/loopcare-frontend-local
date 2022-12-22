@@ -24,16 +24,11 @@ class UnitField extends StatelessWidget {
           child: IntrinsicWidth(
             child: TextFormField(
               controller: controller,
-              // keyboardType: TextInputType.number,
-              keyboardType: TextInputType.numberWithOptions(decimal: isDecimal),
+              keyboardType: TextInputType.numberWithOptions(
+                decimal: isDecimal ?? false,
+              ),
               inputFormatters: <TextInputFormatter>[
-                // FilteringTextInputFormatter.digitsOnly
-                FilteringTextInputFormatter.allow(RegExp(_getRegexString())),
-                TextInputFormatter.withFunction(
-                  (oldValue, newValue) => newValue.copyWith(
-                    text: newValue.text.replaceAll('.', ','),
-                  ),
-                ),
+                FilteringTextInputFormatter.allow(RegExp(_getRegexString()))
               ],
               autofocus: true,
               style: Theme.of(context).textTheme.headline1,
