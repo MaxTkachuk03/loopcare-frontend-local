@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_tabs.dart';
-import 'package:loopcare_frontend/features/height/utils/height_conversion_utils.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/height_conversion_utils.dart';
 
 const cm = 'cm';
 const ft = 'ft';
@@ -27,6 +27,7 @@ class _HeightTabsState extends State<HeightTabs> {
         UnitField(
           unit: cm,
           controller: cmController,
+          isDecimal: true,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/get_measurement_system.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 
@@ -36,10 +37,14 @@ class _UnitTabsState extends State<UnitTabs>
 
   @override
   void initState() {
+    final currentMeasurementSystem = getMeasurementSystem();
+
     _tabController = TabController(
       vsync: this,
       length: tabs.length,
       animationDuration: Duration.zero,
+      initialIndex:
+          currentMeasurementSystem == MeasurementSystemType.imperial ? 1 : 0,
     );
 
     _tabController.addListener(_onTabChanged);

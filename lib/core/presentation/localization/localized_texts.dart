@@ -7,11 +7,12 @@ class LocalizedTexts {
   static const String haveAnAccount = 'haveAnAccount';
   static const String logIn = 'logIn';
   static const String bodyAndMind = 'bodyAndMind';
-  static const String youHeight = 'youHeight';
+  static const String yourHeight = 'yourHeight';
   static const String metric = 'metric';
   static const String imperial = 'imperial';
   static const String needHelpWithThis = 'needHelpWithThis';
   static const String next = 'next';
+  static const String yourWeight = 'yourWeight';
   static const String introPage = 'introPage';
   static const String joinUsIn2Steps = 'joinUsIn2Steps';
   static const String bodyAndMindFitnessCheck = 'bodyAndMindFitnessCheck';
