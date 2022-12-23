@@ -44,6 +44,4 @@ class SexPage extends StatelessWidget {
       ),
     );
   }
-
-  // int _onSexSelected() {}
 }
