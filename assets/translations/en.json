@@ -9,6 +9,7 @@
   "bodyAndMind": "Body & Mind",
   "yourHeight": "Your height",
   "yourSex": "Your sex",
+  "biologicalGenderPageTitle": "Do you consider yourself biologically mostly male or female? ",
   "metric": "Metric",
   "imperial": "Imperial",
   "needHelpWithThis": "Need help with this?",
@@ -21,6 +22,7 @@
   "whatAreYourPreferences": "What are your preferences?",
   "joinUsStepTwoDesc": "We ask you about your preferences so we can make relevant recommendations.",
   "moreInfo": "More info",
+  "whyWeAreAsking": "Why we are asking",
   "testDuration": "30 minutes",
   "joinUsNote": "you can take a break anytime and continue later.",
   "stepOneFitnessCheck": "Step 1:  fitness check"

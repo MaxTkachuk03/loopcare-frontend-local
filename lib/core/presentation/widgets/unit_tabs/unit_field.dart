@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/reg_exp_utils.dart';
 
 class UnitField extends StatelessWidget {
   final TextEditingController controller;
@@ -61,6 +62,8 @@ class UnitField extends StatelessWidget {
   String _getRegexString() {
     final isDecimal = this.isDecimal;
 
-    return isDecimal != null && isDecimal ? r'[0-9]+[,.]{0,1}[0-9]*' : r'[0-9]';
+    return isDecimal != null && isDecimal
+        ? RegExpUtils.withDecimals
+        : RegExpUtils.onlyDigits;
   }
 }
