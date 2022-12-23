@@ -1,0 +1,42 @@
+import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
+import 'package:loopcare_frontend/features/physical_fitness/domain/set_type.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
+
+class SexChips extends StatefulWidget {
+  const SexChips({Key? key}) : super(key: key);
+
+  @override
+  State<SexChips> createState() => _SexChipsState();
+}
+
+class _SexChipsState extends State<SexChips> {
+  SexType? _selectedValue;
+
+  void _onSelectedSexHandler(SexType sex) {
+    setState(() {
+      _selectedValue = sex;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: SexType.values
+          .map(
+            (SexType sex) => Column(
+              children: [
+                AppChoiceChip(
+                  label: sex.name.capitalize(),
+                  selected: sex == _selectedValue,
+                  value: sex,
+                  onSelected: _onSelectedSexHandler,
+                ),
+                const SizedBox(height: 8.0),
+              ],
+            ),
+          )
+          .toList(),
+    );
+  }
+}

@@ -8,6 +8,7 @@ class LocalizedTexts {
   static const String logIn = 'logIn';
   static const String bodyAndMind = 'bodyAndMind';
   static const String yourHeight = 'yourHeight';
+  static const String yourSex = 'yourSex';
   static const String metric = 'metric';
   static const String imperial = 'imperial';
   static const String needHelpWithThis = 'needHelpWithThis';
