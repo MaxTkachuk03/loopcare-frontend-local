@@ -9,6 +9,7 @@ class LocalizedTexts {
   static const String bodyAndMind = 'bodyAndMind';
   static const String yourHeight = 'yourHeight';
   static const String yourSex = 'yourSex';
+  static const String biologicalGenderPageTitle = 'biologicalGenderPageTitle';
   static const String metric = 'metric';
   static const String imperial = 'imperial';
   static const String needHelpWithThis = 'needHelpWithThis';
@@ -21,6 +22,7 @@ class LocalizedTexts {
   static const String whatAreYourPreferences = 'whatAreYourPreferences';
   static const String joinUsStepTwoDesc = 'joinUsStepTwoDesc';
   static const String moreInfo = 'moreInfo';
+  static const String whyWeAreAsking = 'whyWeAreAsking';
   static const String testDuration = 'testDuration';
   static const String joinUsNote = 'joinUsNote';
   static const String stepOneFitnessCheck = 'stepOneFitnessCheck';
