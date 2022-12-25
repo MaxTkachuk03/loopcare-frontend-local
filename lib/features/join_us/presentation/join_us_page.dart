@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polygon/flutter_polygon.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -93,7 +95,8 @@ class JoinUsPage extends StatelessWidget {
                       Column(
                         children: [
                           ElevatedButton(
-                            onPressed: _onStepFitnessCheckPressed,
+                            onPressed: () =>
+                                _onStepFitnessCheckPressed(context),
                             style: Theme.of(context)
                                 .elevatedButtonTheme
                                 .style
@@ -120,5 +123,9 @@ class JoinUsPage extends StatelessWidget {
     );
   }
 
-  void _onStepFitnessCheckPressed() {}
+  void _onStepFitnessCheckPressed(BuildContext context) {
+    context.router.replaceAll(const [
+      HeightRoute(),
+    ]);
+  }
 }
