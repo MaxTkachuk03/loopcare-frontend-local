@@ -18,18 +18,8 @@ part 'onboarding_steps.dart';
 class OnboardingBloc extends HydratedBloc<OnboardingEvent, OnboardingState> {
   OnboardingBloc() : super(OnboardingState.initial()) {
     on<NextStep>(_onNextStep);
-    on<InitFirstStep>(_onInitFirstStep);
     on<PreviousStep>(_onPreviousStep);
     on<CurrentStepProgressChanged>(_onCurrentStepProgressChanged);
-  }
-
-  FutureOr<void> _onInitFirstStep(
-    InitFirstStep event,
-    Emitter<OnboardingState> emit,
-  ) {
-    emit(state.copyWith(
-      currentStep: OnboardingSteps.values[0],
-    ));
   }
 
   FutureOr<void> _onNextStep(NextStep event, Emitter<OnboardingState> emit) {

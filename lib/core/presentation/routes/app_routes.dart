@@ -7,7 +7,7 @@ class AppRoutes {
   static const String height = '/height';
   static const String weight = '/weight';
   static const String sex = '/sex';
-  static const String biologicalGender = '/biologicalGender';
+  static const String biologicalGender = '/biological-gender';
   static const String home = '/home';
 
   AppRoutes._();

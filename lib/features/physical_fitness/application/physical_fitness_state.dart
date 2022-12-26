@@ -11,8 +11,6 @@ class PhysicalFitnessState with _$PhysicalFitnessState {
     @Default(false) bool isCompleted,
   }) = _PhysicalFitnessState;
 
-  const PhysicalFitnessState._();
-
   factory PhysicalFitnessState.fromJson(Map<String, dynamic> json) =>
       _$PhysicalFitnessStateFromJson(json);
 }

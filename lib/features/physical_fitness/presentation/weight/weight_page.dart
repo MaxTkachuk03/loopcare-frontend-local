@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,14 +75,20 @@ class WeightPage extends StatelessWidget {
   void _onHelpTap() {}
 
   void _onNextPressed(BuildContext context) {
-    context.read<PhysicalFitnessBloc>().add(
-      const PhysicalFitnessEvent.nextQuestion(),
-    );
+    final bloc = context.read<PhysicalFitnessBloc>();
+    final currentRoute =
+        bloc.state.currentQuestion.getNextQuestion().currentRoute;
+
+    bloc.add(const PhysicalFitnessEvent.nextQuestion());
+
+    if (currentRoute != null) {
+      context.router.pushNamed(currentRoute);
+    }
   }
 
   _onWillPop(BuildContext context) {
     context.read<PhysicalFitnessBloc>().add(
-          const PhysicalFitnessEvent.nextQuestion(),
+          const PhysicalFitnessEvent.previousQuestion(),
         );
 
     return Future.value(true);

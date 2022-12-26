@@ -7,7 +7,6 @@ enum OnboardingSteps {
 }
 
 extension OnboardingStepsX on OnboardingSteps {
-
   OnboardingSteps getNextStep() {
     if (index == OnboardingSteps.values.length - 1) {
       return this;

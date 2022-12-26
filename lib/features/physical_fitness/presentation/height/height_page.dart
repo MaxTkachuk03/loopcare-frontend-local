@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -77,16 +76,19 @@ class HeightPage extends StatelessWidget {
 
   void _onNextPressed(BuildContext context) {
     final bloc = context.read<PhysicalFitnessBloc>();
-    bloc.add(
-      const PhysicalFitnessEvent.nextQuestion(),
-    );
+    final currentRoute =
+        bloc.state.currentQuestion.getNextQuestion().currentRoute;
 
-    context.router.pushNamed(bloc.state.currentQuestion.currentRoute);
+    bloc.add(const PhysicalFitnessEvent.nextQuestion());
+
+    if (currentRoute != null) {
+      context.router.pushNamed(currentRoute);
+    }
   }
 
   Future<bool> _onWillPop(BuildContext context) {
     context.read<PhysicalFitnessBloc>().add(
-          const PhysicalFitnessEvent.nextQuestion(),
+          const PhysicalFitnessEvent.previousQuestion(),
         );
 
     return Future.value(true);

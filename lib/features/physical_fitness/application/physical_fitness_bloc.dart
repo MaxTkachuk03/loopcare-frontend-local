@@ -31,34 +31,37 @@ class PhysicalFitnessBloc
     NextQuestion event,
     Emitter<PhysicalFitnessState> emit,
   ) {
-    final currentQuestion = state.currentQuestion;
-    if (currentQuestion == null) return null;
+    final isLastQuestion = state.currentQuestion.index ==
+        PhysicalFitnessQuestions.values.length - 1;
 
-    final isLastQuestion =
-        currentQuestion.index == PhysicalFitnessQuestions.values.length - 1;
+    final progress = state.currentQuestion.percentage;
+
     if (isLastQuestion) {
       emit(state.copyWith(isCompleted: true));
     } else {
-      emit(state.copyWith(currentQuestion: currentQuestion.getNextQuestion()));
+      emit(state.copyWith(
+          currentQuestion: state.currentQuestion.getNextQuestion()));
     }
 
-    onboardingBloc.add(const OnboardingEvent.currentStepProgressChanged(90));
+    onboardingBloc.add(
+      OnboardingEvent.currentStepProgressChanged(progress.toInt()),
+    );
   }
 
   FutureOr<void> _onPreviousQuestion(
     PreviousQuestion event,
     Emitter<PhysicalFitnessState> emit,
   ) {
-    final currentQuestion = state.currentQuestion;
-    if (currentQuestion == null) return null;
-
-    final isFirstQuestion = currentQuestion.index == 0;
+    final isFirstQuestion = state.currentQuestion.index == 0;
     if (!isFirstQuestion) {
       emit(state.copyWith(
-        currentQuestion: currentQuestion.getPreviousQuestion(),
+        currentQuestion: state.currentQuestion.getPreviousQuestion(),
       ));
 
-      onboardingBloc.add(const OnboardingEvent.currentStepProgressChanged(90));
+      final progress = state.currentQuestion.percentage;
+
+      onboardingBloc
+          .add(OnboardingEvent.currentStepProgressChanged(progress.toInt()));
     }
   }
 
