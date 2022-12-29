@@ -10,6 +10,7 @@ class AppRoutes {
   static const String sex = '/sex';
   static const String biologicalGender = '/biologicalGender';
   static const String home = '/home';
+  static const String physicalCheckPassed = '/physical-check-passed';
 
   AppRoutes._();
 }

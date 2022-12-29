@@ -1,0 +1,38 @@
+import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+
+class SmallFilledButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+
+  const SmallFilledButton({
+    Key? key,
+    required this.text,
+    required this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 34,
+      child: OutlinedButton(
+        onPressed: onPressed,
+        style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
+              minimumSize: MaterialStateProperty.all(
+                const Size(
+                  0,
+                  32,
+                ),
+              ),
+              side: MaterialStateProperty.all(
+                const BorderSide(width: 1.0, color: AppColors.bgGreen),
+              ),
+              backgroundColor: MaterialStateProperty.all(AppColors.bgGreen),
+              textStyle: MaterialStateProperty.all(
+                  Theme.of(context).textTheme.bodyText2),
+            ),
+        child: Text(text),
+      ),
+    );
+  }
+}
