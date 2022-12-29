@@ -9,6 +9,7 @@ class AppRoutes {
   static const String birthday = '/birthday';
   static const String sex = '/sex';
   static const String biologicalGender = '/biologicalGender';
+  static const String medicalIntro = '/medical-intro';
   static const String home = '/home';
   static const String physicalCheckPassed = '/physical-check-passed';
 

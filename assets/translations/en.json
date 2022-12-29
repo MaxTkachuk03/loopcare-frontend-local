@@ -7,6 +7,7 @@
   "haveAnAccount": "Have an account?",
   "logIn": "Log in",
   "bodyAndMind": "Body & Mind",
+  "mentalHealth": "Mental Health",
   "yourHeight": "Your height",
   "yourSex": "Your sex",
   "biologicalGenderPageTitle": "Do you consider yourself biologically mostly male or female? ",
@@ -33,5 +34,10 @@
   "height": "Height",
   "weight": "Weight",
   "bmi": "BMI",
-  "continueBtn": "Continue"
+  "continueBtn": "Continue",
+  "checkYourMedicalCondition": "Check on your medical condition",
+  "medicalIntroTitle": "As the last part of the fitness check we continue with any medical conditions you might have.",
+  "medicalIntroInstructionFirst": "We continue with a clinical questionnaire (53 questions) to assess your mental health",
+  "medicalIntroInstructionSecond": "Explanation what we do with this. Exit or groups",
+  "medicalIntroInstructionThird": "This will take 5 - 10 minutes. You will see the result after the questionnaire is completed"
 }

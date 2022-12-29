@@ -7,6 +7,7 @@ class LocalizedTexts {
   static const String haveAnAccount = 'haveAnAccount';
   static const String logIn = 'logIn';
   static const String bodyAndMind = 'bodyAndMind';
+  static const String mentalHealth = 'mentalHealth';
   static const String yourHeight = 'yourHeight';
   static const String yourSex = 'yourSex';
   static const String biologicalGenderPageTitle = 'biologicalGenderPageTitle';
@@ -34,4 +35,12 @@ class LocalizedTexts {
   static const String weight = 'weight';
   static const String bmi = 'bmi';
   static const String continueBtn = 'continueBtn';
+  static const String checkYourMedicalCondition = 'checkYourMedicalCondition';
+  static const String medicalIntroTitle = 'medicalIntroTitle';
+  static const String medicalIntroInstructionFirst =
+      'medicalIntroInstructionFirst';
+  static const String medicalIntroInstructionSecond =
+      'medicalIntroInstructionSecond';
+  static const String medicalIntroInstructionThird =
+      'medicalIntroInstructionThird';
 }
