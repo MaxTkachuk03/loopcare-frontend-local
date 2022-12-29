@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
 import 'package:loopcare_frontend/features/login/presentation/login_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/biological_gender/biological_gender_page.dart';
+import 'package:loopcare_frontend/features/physical_fitness/presentation/check_passed/check_passed_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/height/height_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/sex/sex_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/weight/weight_page.dart';
@@ -52,6 +53,10 @@ part 'app_routes.dart';
       path: AppRoutes.home,
       page: HomePage,
       guards: [AuthGuard],
+    ),
+    AutoRoute(
+      path: AppRoutes.physicalCheckPassed,
+      page: CheckPassedPage,
     ),
   ],
 )

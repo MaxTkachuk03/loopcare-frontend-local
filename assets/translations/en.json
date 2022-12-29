@@ -26,5 +26,12 @@
   "testDuration": "30 minutes",
   "joinUsNote": "you can take a break anytime and continue later.",
   "stepOneFitnessCheck": "Step 1:  fitness check",
-  "yourBirthday": "Your birthday"
+  "yourBirthday": "Your birthday",
+  "fitnessCheckPassedTitle": "Physical fitness check passed!",
+  "fitnessCheckPassedText": "Your BMI is quite high and might be damaging for your health, we can help you with that",
+  "age": "Age",
+  "height": "Height",
+  "weight": "Weight",
+  "bmi": "BMI",
+  "continueBtn": "Continue"
 }

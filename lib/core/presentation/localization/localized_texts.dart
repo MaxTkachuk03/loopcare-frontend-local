@@ -27,4 +27,11 @@ class LocalizedTexts {
   static const String joinUsNote = 'joinUsNote';
   static const String stepOneFitnessCheck = 'stepOneFitnessCheck';
   static const String yourBirthday = 'yourBirthday';
+  static const String fitnessCheckPassedTitle = 'fitnessCheckPassedTitle';
+  static const String fitnessCheckPassedText = 'fitnessCheckPassedText';
+  static const String age = 'age';
+  static const String height = 'height';
+  static const String weight = 'weight';
+  static const String bmi = 'bmi';
+  static const String continueBtn = 'continueBtn';
 }
