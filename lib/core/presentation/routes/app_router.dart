@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
 import 'package:loopcare_frontend/features/login/presentation/login_page.dart';
 import 'package:loopcare_frontend/features/medical/presentation/medical_intro/medical_intro_page.dart';
+import 'package:loopcare_frontend/features/medical/presentation/pregnancy/pregnancy_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/biological_gender/biological_gender_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/birthday/birthday_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/check_passed/check_passed_page.dart';
@@ -53,6 +54,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.medicalIntro,
       page: MedicalIntroPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.pregnancy,
+      page: PregnancyPage,
     ),
     AutoRoute(
       path: AppRoutes.home,
