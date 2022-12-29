@@ -43,4 +43,7 @@ class LocalizedTexts {
       'medicalIntroInstructionSecond';
   static const String medicalIntroInstructionThird =
       'medicalIntroInstructionThird';
+  static const String areYouPregnant = 'areYouPregnant';
+  static const String yes = 'yes';
+  static const String no = 'no';
 }

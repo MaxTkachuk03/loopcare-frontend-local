@@ -39,5 +39,8 @@
   "medicalIntroTitle": "As the last part of the fitness check we continue with any medical conditions you might have.",
   "medicalIntroInstructionFirst": "We continue with a clinical questionnaire (53 questions) to assess your mental health",
   "medicalIntroInstructionSecond": "Explanation what we do with this. Exit or groups",
-  "medicalIntroInstructionThird": "This will take 5 - 10 minutes. You will see the result after the questionnaire is completed"
+  "medicalIntroInstructionThird": "This will take 5 - 10 minutes. You will see the result after the questionnaire is completed",
+  "areYouPregnant": "Are you pregnant?",
+  "yes": "yes",
+  "no": "no"
 }
