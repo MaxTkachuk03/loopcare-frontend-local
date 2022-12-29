@@ -6,6 +6,7 @@ class AppRoutes {
   static const String login = '/login';
   static const String height = '/height';
   static const String weight = '/weight';
+  static const String birthday = '/birthday';
   static const String sex = '/sex';
   static const String biologicalGender = '/biologicalGender';
   static const String home = '/home';

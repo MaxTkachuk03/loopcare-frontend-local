@@ -14,13 +14,10 @@ class IntroBottom extends StatelessWidget {
       children: [
         ElevatedButton(
           onPressed: () => _onGetStarted(context),
-          style: Theme.of(context)
-              .elevatedButtonTheme
-              .style
-              ?.copyWith(
-            backgroundColor: MaterialStateProperty.all(
-                AppColors.orangeDark),
-          ),
+          style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                backgroundColor:
+                    MaterialStateProperty.all(AppColors.orangeDark),
+              ),
           child: Text(LocalizedTexts.getStarted.tr()),
         ),
         const SizedBox(
@@ -38,13 +35,10 @@ class IntroBottom extends StatelessWidget {
                 ),
                 TextSpan(
                   text: LocalizedTexts.logIn.tr(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1
-                      ?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.orangeMid,
-                  ),
+                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.orangeMid,
+                      ),
                 ),
               ],
             ),
