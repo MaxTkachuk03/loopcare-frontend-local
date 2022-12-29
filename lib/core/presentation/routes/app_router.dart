@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/features/physical_fitness/presentation/biologi
 import 'package:loopcare_frontend/features/physical_fitness/presentation/height/height_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/sex/sex_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/weight/weight_page.dart';
+import 'package:loopcare_frontend/features/physical_fitness/presentation/birthday/birthday_page.dart';
 
 part 'app_routes.dart';
 
@@ -34,6 +35,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.weight,
       page: WeightPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.birthday,
+      page: BirthdayPage,
     ),
     AutoRoute(
       path: AppRoutes.sex,

@@ -26,4 +26,5 @@ class LocalizedTexts {
   static const String testDuration = 'testDuration';
   static const String joinUsNote = 'joinUsNote';
   static const String stepOneFitnessCheck = 'stepOneFitnessCheck';
+  static const String yourBirthday = 'yourBirthday';
 }
