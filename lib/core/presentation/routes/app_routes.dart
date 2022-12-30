@@ -8,11 +8,12 @@ class AppRoutes {
   static const String weight = '/weight';
   static const String birthday = '/birthday';
   static const String sex = '/sex';
-  static const String biologicalGender = '/biologicalGender';
+  static const String biologicalGender = '/biological-gender';
   static const String medicalIntro = '/medical-intro';
   static const String pregnancy = '/pregnancy';
   static const String home = '/home';
   static const String physicalCheckPassed = '/physical-check-passed';
+  static const String physicalCheckFailed = '/physical-check-failed';
 
   AppRoutes._();
 }

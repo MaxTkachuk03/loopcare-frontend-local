@@ -40,6 +40,9 @@
   "medicalIntroInstructionFirst": "We continue with a clinical questionnaire (53 questions) to assess your mental health",
   "medicalIntroInstructionSecond": "Explanation what we do with this. Exit or groups",
   "medicalIntroInstructionThird": "This will take 5 - 10 minutes. You will see the result after the questionnaire is completed",
+  "yourBodyMassIndex": "Your Body Mass Index is:",
+  "fitnessCheckFailedInformationsText": "We are sorry, but unfortunately our progam is not set up for people with a BMI of 45 or higher.",
+  "fitnessCheckFailedAdviceText": "[Also some advice where to turn next].",
   "areYouPregnant": "Are you pregnant?",
   "yes": "yes",
   "no": "no"
