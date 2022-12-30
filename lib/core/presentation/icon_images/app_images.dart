@@ -17,5 +17,11 @@ class AppImages {
     height: 50,
   );
 
+  static SvgPicture exclamationMark = SvgPicture.asset(
+    '$iconsFilePath/exclamation_mark.svg',
+    width: 50,
+    height: 50,
+  );
+
   AppImages._();
 }

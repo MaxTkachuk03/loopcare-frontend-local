@@ -21,44 +21,53 @@ class CheckPassedPage extends StatelessWidget {
         child: ScrollableContainer(
           child: MainContainer(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const SizedBox(
-                  height: 86,
-                ),
-                Stack(
-                  alignment: AlignmentDirectional.topStart,
+                Column(
                   children: [
-                    PhysicalInformation(
-                      // TODO: add value from  bloc in the future
-                      age: '47 years',
-                      weight: '93 kg',
-                      height: '181 cm',
-                      bmi: '31',
-                      verdict: LocalizedTexts.fitnessCheckPassedText.tr(),
-                      moreInfoPressed: _onMoreInfoPressed,
+                    const SizedBox(
+                      height: 86,
                     ),
-                    const PassedHeader(),
-                    Align(
-                      alignment: AlignmentDirectional.topCenter,
-                      child: AppImages.checkMarkGreen,
+                    Stack(
+                      alignment: AlignmentDirectional.topStart,
+                      children: [
+                        PhysicalInformation(
+                          // TODO: add value from  bloc in the future
+                          age: '47 years',
+                          weight: '93 kg',
+                          height: '181 cm',
+                          bmi: '31',
+                          verdict: LocalizedTexts.fitnessCheckPassedText.tr(),
+                          moreInfoPressed: _onMoreInfoPressed,
+                        ),
+                        const PassedHeader(),
+                        Align(
+                          alignment: AlignmentDirectional.topCenter,
+                          child: AppImages.checkMarkGreen,
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 114,
-                ),
-                ElevatedButton(
-                  onPressed: _onNextPressed,
-                  style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                        backgroundColor:
-                            MaterialStateProperty.all(AppColors.orangeDark),
+                Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: _onNextPressed,
+                      style: Theme.of(context)
+                          .elevatedButtonTheme
+                          .style
+                          ?.copyWith(
+                            backgroundColor:
+                                MaterialStateProperty.all(AppColors.orangeDark),
+                          ),
+                      child: Text(
+                        LocalizedTexts.continueBtn.tr(),
                       ),
-                  child: Text(
-                    LocalizedTexts.continueBtn.tr(),
-                  ),
-                ),
-                const SizedBox(
-                  height: 30.0,
+                    ),
+                    const SizedBox(
+                      height: 30.0,
+                    ),
+                  ],
                 ),
               ],
             ),

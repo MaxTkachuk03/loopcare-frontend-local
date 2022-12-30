@@ -26,80 +26,79 @@ class PhysicalInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 130),
-      child: Expanded(
-        child: Container(
-          padding: const EdgeInsets.only(
-            top: 48,
-            bottom: 25,
-            left: 33,
-            right: 33,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.only(
+          top: 48,
+          bottom: 25,
+          left: 33,
+          right: 33,
+        ),
+        alignment: Alignment.center,
+        decoration: const BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(16),
           ),
-          alignment: Alignment.center,
-          decoration: const BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(16),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(LocalizedTexts.age.tr()),
+                    Text(LocalizedTexts.height.tr()),
+                    Text(LocalizedTexts.weight.tr()),
+                    Text(LocalizedTexts.bmi.tr()),
+                  ],
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      age,
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                    Text(
+                      height,
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                    Text(
+                      weight,
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                    Text(
+                      bmi,
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                  ],
+                )
+              ],
             ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(LocalizedTexts.age.tr()),
-                      Text(LocalizedTexts.height.tr()),
-                      Text(LocalizedTexts.weight.tr()),
-                      Text(LocalizedTexts.bmi.tr()),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        age,
-                        style: Theme.of(context).textTheme.headline5,
-                      ),
-                      Text(
-                        height,
-                        style: Theme.of(context).textTheme.headline5,
-                      ),
-                      Text(
-                        weight,
-                        style: Theme.of(context).textTheme.headline5,
-                      ),
-                      Text(
-                        bmi,
-                        style: Theme.of(context).textTheme.headline5,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Text(
-                verdict,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5
-                    ?.copyWith(color: AppColors.blueDark),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              SmallFilledButton(
-                text: LocalizedTexts.moreInfo.tr(),
-                onPressed: moreInfoPressed,
-              ),
-            ],
-          ),
+            const SizedBox(
+              height: 16,
+            ),
+            Text(
+              verdict,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5
+                  ?.copyWith(color: AppColors.blueDark),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            SmallFilledButton(
+              text: LocalizedTexts.moreInfo.tr(),
+              onPressed: moreInfoPressed,
+            ),
+          ],
         ),
       ),
     );

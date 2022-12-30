@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_polygon/flutter_polygon.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/widgets/join_us_step.dart';
 
@@ -63,14 +63,11 @@ class JoinUsPage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SizedBox(
-                                width: 80,
-                                height: 80,
-                                child: ClipPolygon(
-                                  sides: 6,
+                              Hexagon(
+                                  width: 80,
+                                  height: 80,
                                   borderRadius: 15.0,
-                                  rotate: 90.0,
-                                  child: Container(
+                                  innerWidget: Container(
                                     decoration: const BoxDecoration(
                                       color: AppColors.white,
                                       image: DecorationImage(
@@ -78,9 +75,7 @@ class JoinUsPage extends StatelessWidget {
                                       ),
                                       shape: BoxShape.circle,
                                     ),
-                                  ),
-                                ),
-                              ),
+                                  )),
                               const SizedBox(
                                 width: 18.0,
                               ),
