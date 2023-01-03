@@ -4,6 +4,7 @@ import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
 import 'package:loopcare_frontend/features/login/presentation/login_page.dart';
+import 'package:loopcare_frontend/features/medical/presentation/consent_needed/consent_needed_page.dart';
 import 'package:loopcare_frontend/features/medical/presentation/medical_intro/medical_intro_page.dart';
 import 'package:loopcare_frontend/features/medical/presentation/pregnancy/pregnancy_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/biological_gender/biological_gender_page.dart';
@@ -72,6 +73,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.physicalCheckFailed,
       page: CheckFailedPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.consentNeeded,
+      page: ConsentNeededPage,
     ),
   ],
 )

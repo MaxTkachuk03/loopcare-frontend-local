@@ -45,5 +45,8 @@
   "fitnessCheckFailedAdviceText": "[Also some advice where to turn next].",
   "areYouPregnant": "Are you pregnant?",
   "yes": "yes",
-  "no": "no"
+  "no": "no",
+  "needConsentBodyText1": "You need consent from your specialist to participate in the LeanOnMe pogram",
+  "needConsentBodyText2": "Please download the instuctions what to ask your general practioner",
+  "downloadInstructions": "Download instructions"
 }

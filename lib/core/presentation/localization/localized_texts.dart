@@ -52,4 +52,7 @@ class LocalizedTexts {
   static const String areYouPregnant = 'areYouPregnant';
   static const String yes = 'yes';
   static const String no = 'no';
+  static const String needConsentBodyText1 = 'needConsentBodyText1';
+  static const String needConsentBodyText2 = 'needConsentBodyText2';
+  static const String downloadInstructions = 'downloadInstructions';
 }
