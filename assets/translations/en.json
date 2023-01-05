@@ -48,5 +48,11 @@
   "no": "no",
   "needConsentBodyText1": "You need consent from your specialist to participate in the LeanOnMe pogram",
   "needConsentBodyText2": "Please download the instuctions what to ask your general practioner",
-  "downloadInstructions": "Download instructions"
+  "downloadInstructions": "Download instructions",
+  "forgotYourPasswordTitle": "Forgot your password?",
+  "forgotYourPasswordText": "Enter your email address and we will send you instructions to reset your password",
+  "yourEmail": "Your email",
+  "returnToLoginScreen": "Return to log in screen"
+
+
 }

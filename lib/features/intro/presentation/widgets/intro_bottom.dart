@@ -56,6 +56,6 @@ class IntroBottom extends StatelessWidget {
   }
 
   void _onLoginTap(BuildContext context) {
-    context.router.pushNamed(AppRoutes.physicalCheckFailed);
+    context.router.pushNamed(AppRoutes.forgotPassword);
   }
 }
