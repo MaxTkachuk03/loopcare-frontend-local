@@ -3,6 +3,7 @@ import 'package:loopcare_frontend/core/presentation/routes/auth_guard.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
+import 'package:loopcare_frontend/features/login/presentation/forgot_password/forgot_password_page.dart';
 import 'package:loopcare_frontend/features/login/presentation/login_page.dart';
 import 'package:loopcare_frontend/features/medical/presentation/consent_needed/consent_needed_page.dart';
 import 'package:loopcare_frontend/features/medical/presentation/medical_intro/medical_intro_page.dart';
@@ -77,6 +78,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.consentNeeded,
       page: ConsentNeededPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.forgotPassword,
+      page: ForgotPasswordPage,
     ),
   ],
 )

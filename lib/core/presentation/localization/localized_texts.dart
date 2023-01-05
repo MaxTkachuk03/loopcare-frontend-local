@@ -55,4 +55,9 @@ class LocalizedTexts {
   static const String needConsentBodyText1 = 'needConsentBodyText1';
   static const String needConsentBodyText2 = 'needConsentBodyText2';
   static const String downloadInstructions = 'downloadInstructions';
+
+  static const String forgotYourPasswordTitle = 'forgotYourPasswordTitle';
+  static const String forgotYourPasswordText = 'forgotYourPasswordText';
+  static const String yourEmail = 'yourEmail';
+  static const String returnToLoginScreen = 'returnToLoginScreen';
 }
