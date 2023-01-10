@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_polygon/flutter_polygon.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 
 class IntroItem extends StatelessWidget {
   final AssetImage image;
@@ -21,14 +21,11 @@ class IntroItem extends StatelessWidget {
       width: size.width * 0.70,
       child: Row(
         children: [
-          SizedBox(
-            width: 90,
-            height: 90,
-            child: ClipPolygon(
-              sides: 6,
+          Hexagon(
+              width: 90,
+              height: 90,
               borderRadius: 20.0,
-              rotate: 90.0,
-              child: Container(
+              innerWidget: Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: image,
@@ -39,9 +36,7 @@ class IntroItem extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-            ),
-          ),
+              )),
           Flexible(
               child: Text(
             text,

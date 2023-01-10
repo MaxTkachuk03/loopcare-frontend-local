@@ -5,6 +5,7 @@ class AppIcons {
 
   static const AssetImage iconOpenEye =
       AssetImage('$iconsFilePath/icon_open_eye.png');
+  static const AssetImage iconMail = AssetImage('$iconsFilePath/mail.png');
 
   AppIcons._();
 }

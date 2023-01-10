@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_polygon/flutter_polygon.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/small_outlined_button.dart';
 
 class JoinUsStep extends StatelessWidget {
@@ -35,28 +35,24 @@ class JoinUsStep extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          Hexagon(
             width: 54,
             height: 54,
-            child: ClipPolygon(
-              sides: 6,
-              borderRadius: 15.0,
-              rotate: 90.0,
-              child: Container(
-                color: AppColors.blueDark,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      markLetter,
-                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.white,
-                          ),
-                    )
-                  ],
-                ),
+            borderRadius: 15.0,
+            innerWidget: Container(
+              color: AppColors.blueDark,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    markLetter,
+                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.white,
+                        ),
+                  )
+                ],
               ),
             ),
           ),

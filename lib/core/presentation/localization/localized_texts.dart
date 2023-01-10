@@ -7,6 +7,7 @@ class LocalizedTexts {
   static const String haveAnAccount = 'haveAnAccount';
   static const String logIn = 'logIn';
   static const String bodyAndMind = 'bodyAndMind';
+  static const String mentalHealth = 'mentalHealth';
   static const String yourHeight = 'yourHeight';
   static const String yourSex = 'yourSex';
   static const String biologicalGenderPageTitle = 'biologicalGenderPageTitle';
@@ -26,4 +27,37 @@ class LocalizedTexts {
   static const String testDuration = 'testDuration';
   static const String joinUsNote = 'joinUsNote';
   static const String stepOneFitnessCheck = 'stepOneFitnessCheck';
+  static const String yourBirthday = 'yourBirthday';
+  static const String fitnessCheckPassedTitle = 'fitnessCheckPassedTitle';
+  static const String fitnessCheckPassedText = 'fitnessCheckPassedText';
+  static const String age = 'age';
+  static const String height = 'height';
+  static const String weight = 'weight';
+  static const String bmi = 'bmi';
+  static const String continueBtn = 'continueBtn';
+  static const String checkYourMedicalCondition = 'checkYourMedicalCondition';
+  static const String medicalIntroTitle = 'medicalIntroTitle';
+  static const String medicalIntroInstructionFirst =
+      'medicalIntroInstructionFirst';
+  static const String medicalIntroInstructionSecond =
+      'medicalIntroInstructionSecond';
+  static const String medicalIntroInstructionThird =
+      'medicalIntroInstructionThird';
+
+  static const String yourBodyMassIndex = 'yourBodyMassIndex';
+  static const String fitnessCheckFailedInformationsText =
+      'fitnessCheckFailedInformationsText';
+  static const String fitnessCheckFailedAdviceText =
+      'fitnessCheckFailedAdviceText';
+  static const String areYouPregnant = 'areYouPregnant';
+  static const String yes = 'yes';
+  static const String no = 'no';
+  static const String needConsentBodyText1 = 'needConsentBodyText1';
+  static const String needConsentBodyText2 = 'needConsentBodyText2';
+  static const String downloadInstructions = 'downloadInstructions';
+
+  static const String forgotYourPasswordTitle = 'forgotYourPasswordTitle';
+  static const String forgotYourPasswordText = 'forgotYourPasswordText';
+  static const String yourEmail = 'yourEmail';
+  static const String returnToLoginScreen = 'returnToLoginScreen';
 }
