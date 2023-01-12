@@ -15,7 +15,7 @@ class AppRoutes {
   static const String physicalCheckPassed = '/physical-check-passed';
   static const String physicalCheckFailed = '/physical-check-failed';
   static const String consentNeeded = '/consent-needed';
-
+  static const String welcome = '/welcome';
   static const String forgotPassword = '/forgot-password';
 
   AppRoutes._();
