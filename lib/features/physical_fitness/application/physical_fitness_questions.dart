@@ -5,27 +5,32 @@ enum PhysicalFitnessQuestions {
   birthday,
   weight,
   sex,
-  biologicalGender,
+  result,
 }
 
 extension PhysicalFitnessQuestionsX on PhysicalFitnessQuestions {
-  String? get currentRoute {
+  String? get route {
     switch (this) {
       case PhysicalFitnessQuestions.height:
         return AppRoutes.height;
+      case PhysicalFitnessQuestions.birthday:
+        return AppRoutes.birthday;
       case PhysicalFitnessQuestions.weight:
         return AppRoutes.weight;
       case PhysicalFitnessQuestions.sex:
         return AppRoutes.sex;
-      case PhysicalFitnessQuestions.biologicalGender:
-        return AppRoutes.biologicalGender;
+      case PhysicalFitnessQuestions.result:
+        return AppRoutes.physicalCheckResult;
       default:
         return null;
     }
   }
 
   int get percentage {
-    final value = ((index + 1) * 100) / PhysicalFitnessQuestions.values.length;
+    final valuesWithExclude = PhysicalFitnessQuestions.values
+        .where((element) => element != PhysicalFitnessQuestions.result);
+
+    final value = (index * 100) / valuesWithExclude.length;
 
     return value.toInt();
   }

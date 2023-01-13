@@ -15,7 +15,7 @@ part 'onboarding_state.dart';
 part 'onboarding_steps.dart';
 
 @singleton
-class OnboardingBloc extends HydratedBloc<OnboardingEvent, OnboardingState> {
+class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   OnboardingBloc() : super(OnboardingState.initial()) {
     on<NextStep>(_onNextStep);
     on<PreviousStep>(_onPreviousStep);
@@ -50,12 +50,12 @@ class OnboardingBloc extends HydratedBloc<OnboardingEvent, OnboardingState> {
     emit(state.copyWith(currentStepProgress: event.progress));
   }
 
-  @override
-  OnboardingState? fromJson(Map<String, dynamic> json) =>
-      OnboardingState.fromJson(json);
-
-  @override
-  Map<String, dynamic>? toJson(OnboardingState state) {
-    return state.toJson();
-  }
+  // @override
+  // OnboardingState? fromJson(Map<String, dynamic> json) =>
+  //     OnboardingState.fromJson(json);
+  //
+  // @override
+  // Map<String, dynamic>? toJson(OnboardingState state) {
+  //   return state.toJson();
+  // }
 }

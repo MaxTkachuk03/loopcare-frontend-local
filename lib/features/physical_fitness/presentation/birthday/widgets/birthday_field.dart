@@ -1,23 +1,30 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/birthday/widgets/birthdate_picker.dart';
+import 'package:loopcare_frontend/features/physical_fitness/presentation/physical_fitness_navigation_state.dart';
 
 class BirthdayField extends StatefulWidget {
-  final void Function() onNextPressed;
-
-  const BirthdayField({
-    Key? key,
-    required this.onNextPressed,
-  }) : super(key: key);
+  const BirthdayField({Key? key}) : super(key: key);
 
   @override
   State<BirthdayField> createState() => _BirthdayFieldState();
 }
 
 class _BirthdayFieldState extends State<BirthdayField> {
-  late DateTime value = DateTime.now();
+  late DateTime value;
+
+  @override
+  void initState() {
+    final bloc = context.read<PhysicalFitnessBloc>();
+
+    value = bloc.state.birthday ?? DateTime.now();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +43,7 @@ class _BirthdayFieldState extends State<BirthdayField> {
               ),
               const SizedBox(height: 120.0),
               ElevatedButton(
-                onPressed: widget.onNextPressed,
+                onPressed: () => _onNextPressed(context),
                 style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
                       backgroundColor:
                           MaterialStateProperty.all(AppColors.orangeDark),
@@ -59,5 +66,15 @@ class _BirthdayFieldState extends State<BirthdayField> {
 
   void selectedDate(DateTime selectedDate) {
     setState(() => value = selectedDate);
+  }
+
+  _onNextPressed(BuildContext context) {
+    final bloc = context.read<PhysicalFitnessBloc>();
+
+    bloc.add(PhysicalFitnessEvent.birthdayChanged(value));
+
+    final physicalFitnessNavigationState =
+        PhysicalFitnessNavigationState.of(context);
+    physicalFitnessNavigationState.onNextPage();
   }
 }

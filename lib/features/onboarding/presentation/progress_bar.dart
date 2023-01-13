@@ -10,6 +10,8 @@ class ProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<OnboardingBloc, OnboardingState>(
       builder: (BuildContext context, OnboardingState state) {
+        // print('OnboardingBloc ${state.currentStepProgress}');
+
         final stepsLength = OnboardingSteps.values.length;
         List<Widget> stepsList = [];
 

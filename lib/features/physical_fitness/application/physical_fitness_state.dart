@@ -8,7 +8,17 @@ class PhysicalFitnessState with _$PhysicalFitnessState {
 
   const factory PhysicalFitnessState({
     required PhysicalFitnessQuestions currentQuestion,
-    @Default(false) bool isCompleted,
+    @Default(false) bool isCompletedSuccessfully,
+    @Default(false) bool isCompletedWithError,
+    String? height,
+    @Default(MeasurementSystemType.metric)
+        MeasurementSystemType heightMeasurementSystemType,
+    String? weight,
+    @Default(MeasurementSystemType.metric)
+        MeasurementSystemType weightMeasurementSystemType,
+    DateTime? birthday,
+    SexType? sexType,
+    BiologicalGenderType? biologicalGenderType,
   }) = _PhysicalFitnessState;
 
   factory PhysicalFitnessState.fromJson(Map<String, dynamic> json) =>

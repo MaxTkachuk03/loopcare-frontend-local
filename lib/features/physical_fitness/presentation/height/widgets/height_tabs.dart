@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_tabs.dart';
+import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/height_conversion_utils.dart';
 
 const cm = 'cm';
@@ -16,9 +18,19 @@ class HeightTabs extends StatefulWidget {
 }
 
 class _HeightTabsState extends State<HeightTabs> {
-  TextEditingController cmController = TextEditingController(text: '');
-  TextEditingController ftController = TextEditingController(text: '');
-  TextEditingController inController = TextEditingController(text: '');
+  late TextEditingController cmController;
+  late TextEditingController ftController;
+  late TextEditingController inController;
+
+  @override
+  void initState() {
+    final bloc = context.read<PhysicalFitnessBloc>();
+    cmController = TextEditingController(text: bloc.state.height ?? '');
+    ftController = TextEditingController(text: bloc.state.height ?? '');
+    inController = TextEditingController(text: bloc.state.height ?? '');
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
