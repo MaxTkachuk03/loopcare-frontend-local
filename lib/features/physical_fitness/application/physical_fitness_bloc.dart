@@ -1,9 +1,10 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/biological_gender_type.dart';
@@ -21,7 +22,7 @@ part 'physical_fitness_questions.dart';
 
 @injectable
 class PhysicalFitnessBloc
-    extends Bloc<PhysicalFitnessEvent, PhysicalFitnessState> {
+    extends HydratedBloc<PhysicalFitnessEvent, PhysicalFitnessState> {
   final OnboardingBloc onboardingBloc;
 
   PhysicalFitnessBloc(this.onboardingBloc)
@@ -56,8 +57,9 @@ class PhysicalFitnessBloc
     }
 
     onboardingBloc.add(
-      OnboardingEvent.currentStepProgressChanged(
-        nextQuestion.percentage.toInt(),
+      OnboardingEvent.currentStepChanged(
+        progress: nextQuestion.percentage.toInt(),
+        questionIndex: nextQuestion.index,
       ),
     );
   }
@@ -75,8 +77,10 @@ class PhysicalFitnessBloc
       ));
     }
 
-    onboardingBloc.add(OnboardingEvent.currentStepProgressChanged(
-        previousQuestion.percentage.toInt()));
+    onboardingBloc.add(OnboardingEvent.currentStepChanged(
+      progress: previousQuestion.percentage.toInt(),
+      questionIndex: previousQuestion.index,
+    ));
   }
 
   FutureOr<void> _onHeightChanged(
@@ -84,7 +88,8 @@ class PhysicalFitnessBloc
     Emitter<PhysicalFitnessState> emit,
   ) {
     emit(state.copyWith(
-      height: event.height,
+      heightInCm: event.height,
+      heightMeasurementSystemType: event.measurementSystemType,
     ));
   }
 
@@ -93,7 +98,8 @@ class PhysicalFitnessBloc
     Emitter<PhysicalFitnessState> emit,
   ) {
     emit(state.copyWith(
-      weight: event.weight,
+      weightInKg: event.weight,
+      weightMeasurementSystemType: event.measurementSystemType,
     ));
   }
 
@@ -124,12 +130,12 @@ class PhysicalFitnessBloc
     ));
   }
 
-// @override
-// PhysicalFitnessState? fromJson(Map<String, dynamic> json) =>
-//     PhysicalFitnessState.fromJson(json);
-//
-// @override
-// Map<String, dynamic>? toJson(PhysicalFitnessState state) {
-//   return state.toJson();
-// }
+  @override
+  PhysicalFitnessState? fromJson(Map<String, dynamic> json) =>
+      PhysicalFitnessState.fromJson(json);
+
+  @override
+  Map<String, dynamic>? toJson(PhysicalFitnessState state) {
+    return state.toJson();
+  }
 }

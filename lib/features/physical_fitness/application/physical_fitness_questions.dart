@@ -9,20 +9,18 @@ enum PhysicalFitnessQuestions {
 }
 
 extension PhysicalFitnessQuestionsX on PhysicalFitnessQuestions {
-  String? get route {
+  PageRouteInfo get route {
     switch (this) {
       case PhysicalFitnessQuestions.height:
-        return AppRoutes.height;
+        return const HeightRoute();
       case PhysicalFitnessQuestions.birthday:
-        return AppRoutes.birthday;
+        return const BirthdayRoute();
       case PhysicalFitnessQuestions.weight:
-        return AppRoutes.weight;
+        return const WeightRoute();
       case PhysicalFitnessQuestions.sex:
-        return AppRoutes.sex;
+        return const SexRoute();
       case PhysicalFitnessQuestions.result:
-        return AppRoutes.physicalCheckResult;
-      default:
-        return null;
+        return const PhysicalCheckResultRoute();
     }
   }
 

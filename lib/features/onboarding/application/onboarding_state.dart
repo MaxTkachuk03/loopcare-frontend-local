@@ -9,7 +9,9 @@ class OnboardingState with _$OnboardingState {
   const factory OnboardingState({
     required OnboardingSteps currentStep,
     @Default(0) int currentStepProgress,
+    @Default(0) int currentQuestionIndex,
     @Default(false) bool isCompleted,
+    @Default(false) bool isStarted,
   }) = _OnboardingState;
 
   const OnboardingState._();

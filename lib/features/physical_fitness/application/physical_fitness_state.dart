@@ -10,10 +10,10 @@ class PhysicalFitnessState with _$PhysicalFitnessState {
     required PhysicalFitnessQuestions currentQuestion,
     @Default(false) bool isCompletedSuccessfully,
     @Default(false) bool isCompletedWithError,
-    String? height,
+    String? heightInCm,
     @Default(MeasurementSystemType.metric)
         MeasurementSystemType heightMeasurementSystemType,
-    String? weight,
+    String? weightInKg,
     @Default(MeasurementSystemType.metric)
         MeasurementSystemType weightMeasurementSystemType,
     DateTime? birthday,

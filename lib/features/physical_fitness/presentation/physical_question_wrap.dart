@@ -34,9 +34,7 @@ class PhysicalQuestionWrap extends StatelessWidget {
 
     bloc.add(const PhysicalFitnessEvent.nextQuestion());
 
-    if (nextRoute != null) {
-      context.router.pushNamed(nextRoute);
-    }
+    context.router.push(nextRoute);
   }
 
   Future<bool> _onPreviousPage(BuildContext context) {

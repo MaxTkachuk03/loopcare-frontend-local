@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -8,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/widgets/join_us_step.dart';
+import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 
 class JoinUsPage extends StatelessWidget {
   const JoinUsPage({Key? key}) : super(key: key);
@@ -119,6 +121,7 @@ class JoinUsPage extends StatelessWidget {
   }
 
   void _onStepFitnessCheckPressed(BuildContext context) {
+    context.read<OnboardingBloc>().add(const OnboardingEvent.started());
     context.router.replaceAll(const [
       HeightRoute(),
     ]);

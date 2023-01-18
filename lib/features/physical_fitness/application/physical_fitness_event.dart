@@ -6,11 +6,15 @@ class PhysicalFitnessEvent with _$PhysicalFitnessEvent {
 
   const factory PhysicalFitnessEvent.previousQuestion() = PreviousQuestion;
 
-  const factory PhysicalFitnessEvent.heightChanged(String height) =
-      HeightChanged;
+  const factory PhysicalFitnessEvent.heightChanged({
+    required String height,
+    required MeasurementSystemType measurementSystemType,
+  }) = HeightChanged;
 
-  const factory PhysicalFitnessEvent.weightChanged(String weight) =
-      WeightChanged;
+  const factory PhysicalFitnessEvent.weightChanged({
+    required String weight,
+    required MeasurementSystemType measurementSystemType,
+  }) = WeightChanged;
 
   const factory PhysicalFitnessEvent.birthdayChanged(DateTime birthday) =
       BirthdayChanged;

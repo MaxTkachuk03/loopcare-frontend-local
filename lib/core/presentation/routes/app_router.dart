@@ -21,6 +21,7 @@ part 'app_routes.dart';
   replaceInRouteName: 'Page,Route',
   routes: [
     AutoRoute(
+      initial: true,
       path: AppRoutes.intro,
       page: IntroPage,
     ),
@@ -33,7 +34,6 @@ part 'app_routes.dart';
       page: LoginPage,
     ),
     AutoRoute(
-      initial: true,
       path: AppRoutes.height,
       page: HeightPage,
     ),
