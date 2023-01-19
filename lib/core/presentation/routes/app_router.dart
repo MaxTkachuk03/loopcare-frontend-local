@@ -10,9 +10,8 @@ import 'package:loopcare_frontend/features/medical/presentation/medical_intro/me
 import 'package:loopcare_frontend/features/medical/presentation/pregnancy/pregnancy_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/biological_gender/biological_gender_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/birthday/birthday_page.dart';
-import 'package:loopcare_frontend/features/physical_fitness/presentation/check_failed/check_failed_page.dart';
-import 'package:loopcare_frontend/features/physical_fitness/presentation/check_passed/check_passed_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/height/height_page.dart';
+import 'package:loopcare_frontend/features/physical_fitness/presentation/physical_check_result/presentation/physical_check_result_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/sex/sex_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/weight/weight_page.dart';
 import 'package:loopcare_frontend/features/welcome/welcome_page.dart';
@@ -69,12 +68,8 @@ part 'app_routes.dart';
       guards: [AuthGuard],
     ),
     AutoRoute(
-      path: AppRoutes.physicalCheckPassed,
-      page: CheckPassedPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.physicalCheckFailed,
-      page: CheckFailedPage,
+      path: AppRoutes.physicalCheckResult,
+      page: PhysicalCheckResultPage,
     ),
     AutoRoute(
       path: AppRoutes.consentNeeded,

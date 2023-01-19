@@ -1,21 +1,54 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/routes/auth_guard.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 final autoRouteObserver = AutoRouteObserver();
 
-class App extends StatefulWidget {
+class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
   @override
-  State<App> createState() => _AppState();
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: <BlocProvider>[
+        BlocProvider<PhysicalFitnessBloc>(
+          create: (_) => getIt<PhysicalFitnessBloc>(),
+        ),
+        BlocProvider<OnboardingBloc>(
+          create: (_) => getIt<OnboardingBloc>(),
+        ),
+      ],
+      child: const _App(),
+    );
+  }
 }
 
-class _AppState extends State<App> {
+class _App extends StatefulWidget {
+  const _App({Key? key}) : super(key: key);
+
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<_App> {
   late final AppRouter _appRouter;
+
+  @override
+  void initState() {
+    _appRouter = AppRouter(
+      authGuard:
+          AuthGuard(true), // TODO: add value from auth bloc in the future
+    );
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +62,5 @@ class _AppState extends State<App> {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
     );
-  }
-
-  @override
-  void initState() {
-    _appRouter = AppRouter(
-      authGuard:
-          AuthGuard(true), // TODO: add value from auth bloc in the future
-    );
-
-    super.initState();
   }
 }

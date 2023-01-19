@@ -12,8 +12,7 @@ class AppRoutes {
   static const String medicalIntro = '/medical-intro';
   static const String pregnancy = '/pregnancy';
   static const String home = '/home';
-  static const String physicalCheckPassed = '/physical-check-passed';
-  static const String physicalCheckFailed = '/physical-check-failed';
+  static const String physicalCheckResult = '/physical-check-result';
   static const String consentNeeded = '/consent-needed';
   static const String welcome = '/welcome';
   static const String forgotPassword = '/forgot-password';

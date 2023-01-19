@@ -3,7 +3,12 @@ import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measuremen
 
 MeasurementSystemType getMeasurementSystem() {
   final localeName = Platform.localeName;
-  final countryCode = localeName.split('_')[1];
+  final localeNameArr = localeName.split('_');
+  if (localeNameArr.length == 1) {
+    return MeasurementSystemType.metric;
+  }
+
+  final countryCode = localeNameArr[1];
   final imperialCountryCodes = ['US', 'LR', 'MM'];
 
   if (imperialCountryCodes.contains(countryCode)) {
