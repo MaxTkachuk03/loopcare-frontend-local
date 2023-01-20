@@ -58,6 +58,7 @@ InputDecorationTheme _getInputDecorationTheme() {
   return const InputDecorationTheme(
     filled: true,
     fillColor: AppColors.white,
+    contentPadding: EdgeInsets.all(16.0),
     prefixIconColor: AppColors.greyMid,
     errorStyle: TextStyle(
       color: AppColors.red,
@@ -102,7 +103,7 @@ ElevatedButtonThemeData _getElevatedButtonTheme() {
       backgroundColor: MaterialStateProperty.resolveWith<Color?>(
         (Set<MaterialState> states) {
           if (states.contains(MaterialState.disabled)) {
-            return AppColors.greenMid;
+            return AppColors.greyMid;
           }
 
           return AppColors.blueDark;

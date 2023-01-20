@@ -65,4 +65,8 @@ class LocalizedTexts {
   static const String forgotMyPassword = 'forgotMyPassword';
   static const String yourPassword = 'yourPassword';
   static const String loginBtn = 'login';
+  static const String createAccount = 'createAccount';
+  static const String whatIsYourName = 'whatIsYourName';
+  static const String namePageDescription = 'namePageDescription';
+  static const String yourName = 'yourName';
 }
