@@ -57,7 +57,9 @@
   "forgotYourPasswordTitle": "Forgot your password?",
   "forgotYourPasswordText": "Enter your email address and we will send you instructions to reset your password",
   "yourEmail": "Your email",
-  "returnToLoginScreen": "Return to log in screen"
-
-
+  "returnToLoginScreen": "Return to log in screen",
+  "createAccount": "Create account",
+  "whatIsYourName": "What’s your name?",
+  "namePageDescription": "You always can change your name later on",
+  "yourName": "Your name"
 }
