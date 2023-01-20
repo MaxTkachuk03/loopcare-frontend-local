@@ -16,6 +16,7 @@ class AppRoutes {
   static const String consentNeeded = '/consent-needed';
   static const String welcome = '/welcome';
   static const String forgotPassword = '/forgot-password';
+  static const String resetPassword = '/reset-password';
   static const String name = '/name';
 
   AppRoutes._();
