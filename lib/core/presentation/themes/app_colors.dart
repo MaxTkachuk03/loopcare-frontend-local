@@ -40,5 +40,7 @@ class AppColors {
   static const Color datePickerBg = Color(0xFF3D3D3F);
   static const Color datePickerText = Color(0xFFC4C4C6);
 
+  static const Color appBarBgColor = Color(0xFF9C9F4E);
+
   AppColors._();
 }
