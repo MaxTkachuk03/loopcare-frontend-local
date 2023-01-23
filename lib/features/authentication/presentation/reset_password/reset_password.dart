@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/features/login/presentation/reset_password/widgets/passworg_strength_indicator.dart';
+import 'package:loopcare_frontend/features/authentication/presentation/reset_password/widgets/passworg_strength_indicator.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({Key? key}) : super(key: key);
