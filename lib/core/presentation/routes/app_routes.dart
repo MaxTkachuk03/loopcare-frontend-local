@@ -17,6 +17,7 @@ class AppRoutes {
   static const String forgotPassword = '/forgot-password';
   static const String resetPassword = '/reset-password';
   static const String name = '/name';
+  static const String signUpWelcome = '/sign-up-welcome';
 
   AppRoutes._();
 }
