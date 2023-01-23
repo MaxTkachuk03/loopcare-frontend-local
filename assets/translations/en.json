@@ -68,5 +68,8 @@
   "createAccount": "Create account",
   "whatIsYourName": "What’s your name?",
   "namePageDescription": "You always can change your name later on",
-  "yourName": "Your name"
+  "yourName": "Your name",
+  "signUpWelcomeTitle": "Welcome to the LeanOnMe program",
+  "signYouUp": "Lets sign you up!",
+  "needName": "First we need your name"
 }

@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/features/physical_fitness/presentation/physica
 import 'package:loopcare_frontend/features/physical_fitness/presentation/sex/sex_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/weight/weight_page.dart';
 import 'package:loopcare_frontend/features/welcome/welcome_page.dart';
+import 'package:loopcare_frontend/features/authentication/presentation/welcome/sign_up_welcome_page.dart';
 
 part 'app_routes.dart';
 
@@ -88,6 +89,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.resetPassword,
       page: ResetPasswordPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.signUpWelcome,
+      page: SignUpWelcomePage,
     ),
     AutoRoute(
       path: AppRoutes.name,

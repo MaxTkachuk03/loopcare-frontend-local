@@ -77,4 +77,8 @@ class LocalizedTexts {
   static const String whatIsYourName = 'whatIsYourName';
   static const String namePageDescription = 'namePageDescription';
   static const String yourName = 'yourName';
+  //Sign up welcome page
+  static const String signUpWelcomeTitle = 'signUpWelcomeTitle';
+  static const String signYouUp = 'signYouUp';
+  static const String needName = 'needName';
 }
