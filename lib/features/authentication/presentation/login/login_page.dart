@@ -7,8 +7,8 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 
-class WelcomePage extends StatelessWidget {
-  const WelcomePage({Key? key}) : super(key: key);
+class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +61,9 @@ class WelcomePage extends StatelessWidget {
                             .elevatedButtonTheme
                             .style
                             ?.copyWith(
-                              backgroundColor:
-                                  MaterialStateProperty.all(AppColors.blueDark),
-                            ),
+                          backgroundColor:
+                          MaterialStateProperty.all(AppColors.blueDark),
+                        ),
                         child: Text(LocalizedTexts.loginBtn.tr()),
                       ),
                       const SizedBox(height: 23.0),

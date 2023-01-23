@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:loopcare_frontend/core/presentation/routes/auth_guard.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/forgot_password/forgot_password_page.dart';
-import 'package:loopcare_frontend/features/authentication/presentation/login_page.dart';
+import 'package:loopcare_frontend/features/authentication/presentation/login/login_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/name/name_page.dart';
+import 'package:loopcare_frontend/features/authentication/presentation/reset_password/reset_password.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
-import 'package:loopcare_frontend/features/login/presentation/reset_password/reset_password.dart';
 import 'package:loopcare_frontend/features/medical/presentation/consent_needed/consent_needed_page.dart';
 import 'package:loopcare_frontend/features/medical/presentation/medical_intro/medical_intro_page.dart';
 import 'package:loopcare_frontend/features/medical/presentation/pregnancy/pregnancy_page.dart';
@@ -16,7 +16,6 @@ import 'package:loopcare_frontend/features/physical_fitness/presentation/height/
 import 'package:loopcare_frontend/features/physical_fitness/presentation/physical_check_result/presentation/physical_check_result_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/sex/sex_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/weight/weight_page.dart';
-import 'package:loopcare_frontend/features/welcome/welcome_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/welcome/sign_up_welcome_page.dart';
 
 part 'app_routes.dart';
@@ -32,10 +31,6 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.joinUs,
       page: JoinUsPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.login,
-      page: LoginPage,
     ),
     AutoRoute(
       path: AppRoutes.height,
@@ -79,8 +74,8 @@ part 'app_routes.dart';
       page: ConsentNeededPage,
     ),
     AutoRoute(
-      path: AppRoutes.welcome,
-      page: WelcomePage,
+      path: AppRoutes.login,
+      page: LoginPage,
     ),
     AutoRoute(
       path: AppRoutes.forgotPassword,

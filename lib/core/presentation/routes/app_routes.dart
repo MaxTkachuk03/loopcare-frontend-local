@@ -14,7 +14,6 @@ class AppRoutes {
   static const String home = '/home';
   static const String physicalCheckResult = '/physical-check-result';
   static const String consentNeeded = '/consent-needed';
-  static const String welcome = '/welcome';
   static const String forgotPassword = '/forgot-password';
   static const String resetPassword = '/reset-password';
   static const String name = '/name';
