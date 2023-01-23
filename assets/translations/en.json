@@ -51,7 +51,7 @@
   "needConsentBodyText2": "Please download the instuctions what to ask your general practioner",
   "downloadInstructions": "Download instructions",
   "welcomeTitle": "Welcome to LeanOnMe",
-  "dontHaveAccount": "I dont have an account yet",
+  "dontHaveAccount": "I don't have an account yet",
   "forgotMyPassword": "I forgot my password",
   "yourPassword": "Your password",
   "login": "Login",
@@ -69,7 +69,14 @@
   "whatIsYourName": "What’s your name?",
   "namePageDescription": "You always can change your name later on",
   "yourName": "Your name",
+  "whatIsYourEmailAddress": "What’s your email address?",
+  "emailPageDescription": "On this address you will receive a mail from us in which we ask you to confirm your address",
+  "register": "Register",
+  "iHaveReadAndAcceptThe": "I have read & accept the",
+  "termsAndConditions": "terms & conditions",
   "signUpWelcomeTitle": "Welcome to the LeanOnMe program",
   "signYouUp": "Lets sign you up!",
-  "needName": "First we need your name"
+  "needName": "First we need your name",
+  "somethingIsIncorrect": "Something is incorrect or missing",
+  "emailAlreadyTaken": "Email already taken"
 }

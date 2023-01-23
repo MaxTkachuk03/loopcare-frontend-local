@@ -77,6 +77,14 @@ class LocalizedTexts {
   static const String whatIsYourName = 'whatIsYourName';
   static const String namePageDescription = 'namePageDescription';
   static const String yourName = 'yourName';
+  static const String whatIsYourEmailAddress = 'whatIsYourEmailAddress';
+  static const String emailPageDescription = 'emailPageDescription';
+  static const String register = 'register';
+  static const String iHaveReadAndAcceptThe = 'iHaveReadAndAcceptThe';
+  static const String termsAndConditions = 'termsAndConditions';
+  static const String somethingIsIncorrect = 'somethingIsIncorrect';
+  static const String emailAlreadyTaken = 'emailAlreadyTaken';
+
   //Sign up welcome page
   static const String signUpWelcomeTitle = 'signUpWelcomeTitle';
   static const String signYouUp = 'signYouUp';
