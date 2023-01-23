@@ -15,6 +15,8 @@ class AuthenticationState with _$AuthenticationState {
   ) = Authenticated;
 
   const factory AuthenticationState.guest({
+    String? name,
+    String? password,
     @JsonKey(ignore: true) @Default(false) bool progress,
     @JsonKey(ignore: true) RequestError? error,
   }) = Guest;

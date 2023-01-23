@@ -1,23 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/presentation/email_address/widgets/email_address_form.dart';
 
-class NamePage extends StatefulWidget {
-  const NamePage({Key? key}) : super(key: key);
+class EmailAddressPage extends StatefulWidget {
+  const EmailAddressPage({Key? key}) : super(key: key);
 
   @override
-  State<NamePage> createState() => _NamePageState();
+  State<EmailAddressPage> createState() => _EmailAddressPageState();
 }
 
-class _NamePageState extends State<NamePage> {
-  final TextEditingController _nameController = TextEditingController();
-
+class _EmailAddressPageState extends State<EmailAddressPage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -35,7 +31,7 @@ class _NamePageState extends State<NamePage> {
                     height: 20.0,
                   ),
                   Text(
-                    LocalizedTexts.whatIsYourName.tr(),
+                    LocalizedTexts.whatIsYourEmailAddress.tr(),
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline3?.copyWith(
                           fontFamily: ThemeConstants.bitterFontFamily,
@@ -45,21 +41,13 @@ class _NamePageState extends State<NamePage> {
                     height: 8.0,
                   ),
                   Text(
-                    LocalizedTexts.namePageDescription.tr(),
+                    LocalizedTexts.emailPageDescription.tr(),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(
-                    height: 60.0,
+                    height: 36.0,
                   ),
-                  Field(
-                    controller: _nameController,
-                    hintText: LocalizedTexts.yourName.tr(),
-                  ),
-                  const SizedBox(height: 16.0),
-                  ElevatedButton(
-                    onPressed: _onNextPressed,
-                    child: Text(LocalizedTexts.next.tr()),
-                  ),
+                  const EmailAddressForm(),
                 ],
               ),
             ),
@@ -67,9 +55,5 @@ class _NamePageState extends State<NamePage> {
         ),
       ),
     );
-  }
-
-  void _onNextPressed() {
-    context.read<AuthenticationCubit>().changeGuestName(_nameController.text);
   }
 }
