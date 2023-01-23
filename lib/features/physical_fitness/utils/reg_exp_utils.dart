@@ -5,5 +5,11 @@ class RegExpUtils {
 
   static const onlyDigits = r"[0-9]";
 
+  static const digitsReg = r".*[0-9].*";
+
+  static const letterReg = r".*[A-Za-z].*";
+
+  static const specialCharactersReg = r".*[/$&+,:;=?@#|'<>.^*()%!%~-].*";
+
   RegExpUtils._();
 }

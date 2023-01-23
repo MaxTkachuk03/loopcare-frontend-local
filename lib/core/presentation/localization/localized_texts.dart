@@ -68,11 +68,13 @@ class LocalizedTexts {
   static const String leanOnMe = 'leanOnMe';
   static const String enterNewPassword = 'enterNewPassword';
   static const String repeatPassword = 'repeatPassword';
+  static const String resetPassword = 'resetPassword';
 
   static const String passwordStrengthToShort = 'passwordStrengthToShort';
   static const String passwordStrengthNotSecure = 'passwordStrengthNotSecure';
   static const String passwordStrengthNice = 'passwordStrengthNice';
   static const String passwordStrengthMiddle = 'passwordStrengthMiddle';
+  static const String passwordsNotMatch = 'passwordsNotMatch';
   static const String createAccount = 'createAccount';
   static const String whatIsYourName = 'whatIsYourName';
   static const String namePageDescription = 'namePageDescription';

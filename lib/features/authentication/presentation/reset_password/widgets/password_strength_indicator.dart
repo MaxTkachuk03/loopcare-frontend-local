@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
-class PassworgStrengthIndicator extends StatefulWidget {
+class PasswordStrengthIndicator extends StatefulWidget {
   final double strength;
 
-  const PassworgStrengthIndicator({
+  const PasswordStrengthIndicator({
     super.key,
     required this.strength,
   });
 
   @override
-  State<PassworgStrengthIndicator> createState() => _PassworgStrengthState();
+  State<PasswordStrengthIndicator> createState() => _PasswordStrengthState();
 }
 
-class _PassworgStrengthState extends State<PassworgStrengthIndicator> {
+class _PasswordStrengthState extends State<PasswordStrengthIndicator> {
   @override
   Widget build(BuildContext context) {
     return Row(
