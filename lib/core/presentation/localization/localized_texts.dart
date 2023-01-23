@@ -87,6 +87,15 @@ class LocalizedTexts {
   static const String somethingIsIncorrect = 'somethingIsIncorrect';
   static const String emailAlreadyTaken = 'emailAlreadyTaken';
 
+  //Waiting for confirmation page
+  static const String waitingForConfirmationTitle =
+      'waitingForConfirmationTitle';
+  static const String confirmYourAddress = 'confirmYourAddress';
+  static const String checkSpam = 'checkSpam';
+  static const String address = 'address';
+  static const String resend = 'resend';
+  static const String changeAddress = 'changeAddress';
+
   //Sign up welcome page
   static const String signUpWelcomeTitle = 'signUpWelcomeTitle';
   static const String signYouUp = 'signYouUp';

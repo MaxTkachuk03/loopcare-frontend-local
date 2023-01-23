@@ -19,6 +19,7 @@ class AppRoutes {
   static const String name = '/name';
   static const String emailAddress = '/email-address';
   static const String signUpWelcome = '/sign-up-welcome';
+  static const String waitingForConfirmation = '/waiting-for-confirmation';
 
   AppRoutes._();
 }

@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/features/authentication/presentation/forgot_pa
 import 'package:loopcare_frontend/features/authentication/presentation/login/login_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/name/name_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/reset_password/reset_password.dart';
+import 'package:loopcare_frontend/features/authentication/presentation/waiting_for_confirmation/waiting_for_confirmation_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
@@ -97,6 +98,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.emailAddress,
       page: EmailAddressPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.waitingForConfirmation,
+      page: WaitingForConfirmationPage,
     ),
   ],
 )
