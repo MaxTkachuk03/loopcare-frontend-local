@@ -12,38 +12,31 @@ class SignUpWelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: AppColors.appBarBgColor,
-          statusBarIconBrightness: Brightness.dark,
-          statusBarBrightness: Brightness.light,
-        ),
-        automaticallyImplyLeading: false,
-        toolbarHeight: 0.0,
-      ),
-      body: SafeArea(
-        child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Stack(
-                      clipBehavior: Clip.none,
-                      alignment: AlignmentDirectional.center,
-                      children: [
-                        const Image(image: AppImages.signUpWelcome),
-                        Positioned(
-                          bottom: -53,
-                          child: Align(
-                            child: AppImages.logoSvgGreenBig,
-                          ),
+      extendBodyBehindAppBar: true,
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Stack(
+                    clipBehavior: Clip.none,
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      const Image(image: AppImages.signUpWelcome),
+                      Positioned(
+                        bottom: -53,
+                        child: Align(
+                          child: AppImages.logoSvgGreenBig,
                         ),
-                      ],
-                    ),
-                    MainContainer(
+                      ),
+                    ],
+                  ),
+                  SafeArea(
+                    top: false,
+                    child: MainContainer(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -84,12 +77,12 @@ class SignUpWelcomePage extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
