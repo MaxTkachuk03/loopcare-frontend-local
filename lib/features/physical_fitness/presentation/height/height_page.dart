@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -9,6 +10,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measuremen
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_tabs.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
+import 'package:loopcare_frontend/features/physical_fitness/domain/height/height.dart';
+import 'package:loopcare_frontend/features/physical_fitness/presentation/height/widgets/height_validator.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/physical_fitness_navigation_state.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/physical_question_wrap.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/height_conversion_utils.dart';
@@ -89,6 +92,8 @@ class _HeightPageState extends State<HeightPage> {
                   controller: cmController,
                   isDecimal: true,
                   focusNode: cmFieldFocusNode,
+                  maxLength: Height.maxLengthMetric,
+                  counterText: '',
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -97,6 +102,8 @@ class _HeightPageState extends State<HeightPage> {
                       unit: ft,
                       controller: ftController,
                       focusNode: ftFieldFocusNode,
+                      maxLength: Height.maxLengthImperial,
+                      counterText: '',
                     ),
                     const SizedBox(
                       width: 12.0,
@@ -104,6 +111,8 @@ class _HeightPageState extends State<HeightPage> {
                     UnitField(
                       unit: inches,
                       controller: inController,
+                      maxLength: Height.maxLengthImperial,
+                      counterText: '',
                     ),
                   ],
                 ),
@@ -143,7 +152,6 @@ class _HeightPageState extends State<HeightPage> {
   }
 
   void _onTabChanged(MeasurementSystemType unitType) {
-    print(unitType);
     if (unitType == MeasurementSystemType.metric) {
       cmController.text = getMetricHeight();
       cmFieldFocusNode.requestFocus();
@@ -200,14 +208,27 @@ class _NextButton extends StatelessWidget {
   void _onNextPressed(BuildContext context) {
     final bloc = context.read<PhysicalFitnessBloc>();
 
-    bloc.add(PhysicalFitnessEvent.heightChanged(
-      height: getHeight(),
-      measurementSystemType: measurementSystemType,
-    ));
+    final validator = heightValidator();
 
-    final physicalFitnessNavigationState =
-        PhysicalFitnessNavigationState.of(context);
+    final validationMessage = validator!(getHeight());
 
-    physicalFitnessNavigationState.onNextPage();
+    if (validationMessage != null) {
+      ModalBottomSheet.physicalInvalidMessage(
+        context: context,
+        message: validationMessage,
+        btnText: LocalizedTexts.changeYourHeight.tr(),
+        onBtnPress: () => Navigator.pop(context),
+      );
+    } else {
+      bloc.add(PhysicalFitnessEvent.heightChanged(
+        height: getHeight(),
+        measurementSystemType: measurementSystemType,
+      ));
+
+      final physicalFitnessNavigationState =
+          PhysicalFitnessNavigationState.of(context);
+
+      physicalFitnessNavigationState.onNextPage();
+    }
   }
 }

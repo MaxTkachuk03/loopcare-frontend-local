@@ -21,9 +21,8 @@ class _BiologicalGenderChipsState extends State<BiologicalGenderChips> {
   void initState() {
     final bloc = context.read<PhysicalFitnessBloc>();
 
-    setState(() {
-      _selectedValue = bloc.state.biologicalGenderType;
-    });
+    _selectedValue = bloc.state.biologicalGenderType;
+
     super.initState();
   }
 

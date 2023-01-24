@@ -104,4 +104,10 @@ class LocalizedTexts {
   static const String signUpWelcomeTitle = 'signUpWelcomeTitle';
   static const String signYouUp = 'signYouUp';
   static const String needName = 'needName';
+
+  //Validation
+  static const String enterYourHeight = 'enterYourHeight';
+  static const String heightSmall = 'heightSmall';
+  static const String heightLarge = 'heightLarge';
+  static const String changeYourHeight = 'changeYourHeight';
 }

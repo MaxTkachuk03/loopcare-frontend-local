@@ -7,11 +7,15 @@ class UnitField extends StatelessWidget {
   final String unit;
   final bool? isDecimal;
   final FocusNode? focusNode;
+  final int maxLength;
+  final String counterText;
 
   const UnitField({
     Key? key,
     required this.unit,
     required this.controller,
+    required this.maxLength,
+    required this.counterText,
     this.isDecimal,
     this.focusNode,
   }) : super(key: key);
@@ -26,6 +30,7 @@ class UnitField extends StatelessWidget {
           constraints: const BoxConstraints(minWidth: 50),
           child: IntrinsicWidth(
             child: TextFormField(
+              maxLength: maxLength,
               focusNode: focusNode,
               controller: controller,
               keyboardType: TextInputType.numberWithOptions(
@@ -36,7 +41,8 @@ class UnitField extends StatelessWidget {
               ],
               autofocus: true,
               style: Theme.of(context).textTheme.headline1,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
+                counterText: counterText,
                 contentPadding: EdgeInsets.zero,
                 filled: true,
                 fillColor: Colors.transparent,

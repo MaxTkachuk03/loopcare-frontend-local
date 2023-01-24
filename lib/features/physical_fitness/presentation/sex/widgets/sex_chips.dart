@@ -22,9 +22,7 @@ class _SexChipsState extends State<SexChips> {
   void initState() {
     final bloc = context.read<PhysicalFitnessBloc>();
 
-    setState(() {
-      _selectedValue = bloc.state.sexType;
-    });
+    _selectedValue = bloc.state.sexType;
 
     super.initState();
   }
