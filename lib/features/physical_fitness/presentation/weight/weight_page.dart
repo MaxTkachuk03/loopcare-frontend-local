@@ -26,6 +26,8 @@ class WeightPage extends StatefulWidget {
 class _WeightPageState extends State<WeightPage> {
   late TextEditingController kgController;
   late TextEditingController lbsController;
+  late FocusNode kgFieldFocusNode;
+  late FocusNode lbsFieldFocusNode;
   MeasurementSystemType activeMeasurementType = MeasurementSystemType.metric;
 
   @override
@@ -39,7 +41,17 @@ class _WeightPageState extends State<WeightPage> {
             ? '${WeightConversionUtils.convertKgToLbs(double.parse(weightInKg))}'
             : '');
 
+    kgFieldFocusNode = FocusNode();
+    lbsFieldFocusNode = FocusNode();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    kgFieldFocusNode.dispose();
+    lbsFieldFocusNode.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -66,10 +78,12 @@ class _WeightPageState extends State<WeightPage> {
                 UnitField(
                   unit: kg,
                   controller: kgController,
+                  focusNode: kgFieldFocusNode,
                 ),
                 UnitField(
                   unit: lbs,
                   controller: lbsController,
+                  focusNode: lbsFieldFocusNode,
                 ),
               ],
               onTabChanged: _onTabChanged,
@@ -102,10 +116,11 @@ class _WeightPageState extends State<WeightPage> {
   _onTabChanged(MeasurementSystemType unitType) {
     if (unitType == MeasurementSystemType.metric) {
       kgController.text = getMetricWeight();
+      kgFieldFocusNode.requestFocus();
     } else {
       final kgText = kgController.text;
       if (kgText == '') return;
-
+      lbsFieldFocusNode.requestFocus();
       lbsController.text =
           '${WeightConversionUtils.convertKgToLbs(double.parse(kgText))}';
     }

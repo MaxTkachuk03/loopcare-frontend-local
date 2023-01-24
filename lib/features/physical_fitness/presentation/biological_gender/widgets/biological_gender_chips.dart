@@ -17,6 +17,16 @@ class BiologicalGenderChips extends StatefulWidget {
 class _BiologicalGenderChipsState extends State<BiologicalGenderChips> {
   BiologicalGenderType? _selectedValue;
 
+  @override
+  void initState() {
+    final bloc = context.read<PhysicalFitnessBloc>();
+
+    setState(() {
+      _selectedValue = bloc.state.biologicalGenderType;
+    });
+    super.initState();
+  }
+
   void _onSelectedBiologicalGenderHandler(BiologicalGenderType gender) {
     setState(() {
       _selectedValue = gender;

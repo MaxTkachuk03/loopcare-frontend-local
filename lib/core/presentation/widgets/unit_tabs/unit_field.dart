@@ -6,12 +6,14 @@ class UnitField extends StatelessWidget {
   final TextEditingController controller;
   final String unit;
   final bool? isDecimal;
+  final FocusNode? focusNode;
 
   const UnitField({
     Key? key,
     required this.unit,
     required this.controller,
     this.isDecimal,
+    this.focusNode,
   }) : super(key: key);
 
   @override
@@ -24,6 +26,7 @@ class UnitField extends StatelessWidget {
           constraints: const BoxConstraints(minWidth: 50),
           child: IntrinsicWidth(
             child: TextFormField(
+              focusNode: focusNode,
               controller: controller,
               keyboardType: TextInputType.numberWithOptions(
                 decimal: isDecimal ?? false,

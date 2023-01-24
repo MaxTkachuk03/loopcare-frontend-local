@@ -32,7 +32,10 @@ class QuestionWrap extends StatelessWidget {
             child: IntrinsicHeight(
               child: Column(
                 children: <Widget>[
-                  const ProgressBar(),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.0),
+                    child: ProgressBar(),
+                  ),
                   Expanded(child: child)
                 ],
               ),

@@ -28,6 +28,8 @@ class _HeightPageState extends State<HeightPage> {
   late TextEditingController cmController;
   late TextEditingController ftController;
   late TextEditingController inController;
+  late FocusNode cmFieldFocusNode;
+  late FocusNode ftFieldFocusNode;
   MeasurementSystemType activeMeasurementType = MeasurementSystemType.metric;
 
   @override
@@ -49,6 +51,16 @@ class _HeightPageState extends State<HeightPage> {
             : '');
 
     super.initState();
+    cmFieldFocusNode = FocusNode();
+    ftFieldFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    cmFieldFocusNode.dispose();
+    ftFieldFocusNode.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -76,6 +88,7 @@ class _HeightPageState extends State<HeightPage> {
                   unit: cm,
                   controller: cmController,
                   isDecimal: true,
+                  focusNode: cmFieldFocusNode,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -83,6 +96,7 @@ class _HeightPageState extends State<HeightPage> {
                     UnitField(
                       unit: ft,
                       controller: ftController,
+                      focusNode: ftFieldFocusNode,
                     ),
                     const SizedBox(
                       width: 12.0,
@@ -129,12 +143,14 @@ class _HeightPageState extends State<HeightPage> {
   }
 
   void _onTabChanged(MeasurementSystemType unitType) {
+    print(unitType);
     if (unitType == MeasurementSystemType.metric) {
       cmController.text = getMetricHeight();
+      cmFieldFocusNode.requestFocus();
     } else {
       final cmText = cmController.text;
       if (cmText == '') return;
-
+      ftFieldFocusNode.requestFocus();
       ftController.text = '${HeightConversionUtils.convertCMtoFeet(
         double.parse(cmText),
       )}';

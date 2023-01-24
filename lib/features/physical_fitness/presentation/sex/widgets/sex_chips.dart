@@ -18,18 +18,30 @@ class SexChips extends StatefulWidget {
 class _SexChipsState extends State<SexChips> {
   SexType? _selectedValue;
 
+  @override
+  void initState() {
+    final bloc = context.read<PhysicalFitnessBloc>();
+
+    setState(() {
+      _selectedValue = bloc.state.sexType;
+    });
+
+    super.initState();
+  }
+
   void _onSelectedSexHandler(SexType sex) {
     setState(() {
       _selectedValue = sex;
     });
 
+    final bloc = context.read<PhysicalFitnessBloc>();
+
     if (_selectedValue == SexType.intersex) {
+      bloc.add(PhysicalFitnessEvent.sexChanged(sex));
       context.router.pushNamed(AppRoutes.biologicalGender);
 
       return;
     }
-
-    final bloc = context.read<PhysicalFitnessBloc>();
 
     bloc.add(PhysicalFitnessEvent.sexChanged(sex));
 
