@@ -95,6 +95,10 @@ class LocalizedTexts {
   static const String address = 'address';
   static const String resend = 'resend';
   static const String changeAddress = 'changeAddress';
+  static const String emailConfirmedBottomSheetTitle =
+      'emailConfirmedBottomSheetTitle';
+  static const String emailConfirmedBottomSheetContent =
+      'emailConfirmedBottomSheetContent';
 
   //Sign up welcome page
   static const String signUpWelcomeTitle = 'signUpWelcomeTitle';

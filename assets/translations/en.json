@@ -86,5 +86,7 @@
   "checkSpam": "No message in your inbox? Make sure you check your spam folder",
   "address": "The address you gave us",
   "resend": "Resend",
-  "changeAddress": "Change address"
+  "changeAddress": "Change address",
+  "emailConfirmedBottomSheetTitle": "Email address is confirmed",
+  "emailConfirmedBottomSheetContent": "Please continue to the Your preferences overview so we can make sure we are aware of your preferences and needs"
 }
