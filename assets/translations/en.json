@@ -80,5 +80,11 @@
   "signYouUp": "Lets sign you up!",
   "needName": "First we need your name",
   "somethingIsIncorrect": "Something is incorrect or missing",
-  "emailAlreadyTaken": "Email already taken"
+  "emailAlreadyTaken": "Email already taken",
+  "pleaseEnterYourEmailAddress": "Please enter your email address",
+  "pleaseEnterYourName": "Please enter your name",
+  "pleaseEnterValidEmailAddress": "Please enter a valid email address",
+  "enterPasswordTitle": "So {name}, now create your password",
+  "confirmPassword": "Confirm password",
+  "desiredPassword": "Desired password"
 }

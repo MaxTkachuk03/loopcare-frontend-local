@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/core/domain/user.dart';
+import 'package:loopcare_frontend/core/domain/user/user.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 
 part 'authentication_state.freezed.dart';

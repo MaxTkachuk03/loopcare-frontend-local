@@ -1,17 +1,20 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
-import 'package:loopcare_frontend/features/authentication/presentation/reset_password/widgets/password_strength_indicator.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/password_with_indicator/password_strength_indicator.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/reg_exp_utils.dart';
 
 class PasswordWithIndicator extends StatefulWidget {
-  final Function(String password, double passwordStrength) onChange;
+  final TextEditingController? controller;
+  final AssetImage? prefixIcon;
+  final Function(String password, double passwordStrength)? onChange;
 
   const PasswordWithIndicator({
     Key? key,
-    required this.onChange,
+    this.controller,
+    this.prefixIcon,
+    this.onChange,
   }) : super(key: key);
 
   @override
@@ -74,26 +77,33 @@ class _PasswordWithIndicatorState extends State<PasswordWithIndicator> {
       });
     }
 
-    widget.onChange(value, _strength);
+    widget.onChange?.call(value, _strength);
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Field(
+          controller: widget.controller,
           hintText: LocalizedTexts.yourPassword.tr(),
-          prefixIcon: AppIcons.iconLock,
+          prefixIcon: widget.prefixIcon,
           isToggleEye: true,
           obscureText: true,
           onChanged: _checkPassword,
         ),
-        const SizedBox(height: 16.0),
-        PasswordStrengthIndicator(strength: _strength),
-        if (_displayText != null) const SizedBox(height: 8.0),
-        if (_displayText != null) Text(_displayText!),
+        if (_displayText != null)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 16.0),
+              PasswordStrengthIndicator(strength: _strength),
+              const SizedBox(height: 8.0),
+              Text(_displayText!),
+            ],
+          ),
       ],
     );
   }

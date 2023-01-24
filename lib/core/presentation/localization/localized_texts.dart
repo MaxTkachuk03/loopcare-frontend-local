@@ -91,4 +91,14 @@ class LocalizedTexts {
   static const String signUpWelcomeTitle = 'signUpWelcomeTitle';
   static const String signYouUp = 'signYouUp';
   static const String needName = 'needName';
+
+  // Validation
+  static const String pleaseEnterYourEmailAddress = 'pleaseEnterYourEmailAddress';
+  static const String pleaseEnterValidEmailAddress = 'pleaseEnterValidEmailAddress';
+  static const String pleaseEnterYourName = 'pleaseEnterYourName';
+
+  // Password page
+  static const String enterPasswordTitle = 'enterPasswordTitle';
+  static const String confirmPassword = 'confirmPassword';
+  static const String desiredPassword = 'desiredPassword';
 }
