@@ -5,8 +5,6 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class ModalBottomSheet {
-  ModalBottomSheet();
-
   static void emailConfirmed({
     required BuildContext context,
     required void Function() onContinuePressed,
