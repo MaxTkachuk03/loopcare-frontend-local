@@ -1,11 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/features/authentication/presentation/forgot_password/widgets%20/forgot_password_form.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
@@ -50,27 +50,15 @@ class ForgotPasswordPage extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                         const SizedBox(height: 36.0),
-                        Field(
-                          hintText: LocalizedTexts.yourEmail.tr(),
-                          prefixIcon: AppIcons.iconMail,
-                        ),
-                        const SizedBox(height: 32.0),
-                        ElevatedButton(
-                          onPressed: _onContinuePressed,
-                          style: Theme.of(context)
-                              .elevatedButtonTheme
-                              .style
-                              ?.copyWith(
-                                backgroundColor: MaterialStateProperty.all(
-                                    AppColors.blueDark),
-                              ),
-                          child: Text(LocalizedTexts.continueBtn.tr()),
-                        ),
+                        const ForgotPasswordForm(),
                         const SizedBox(height: 23.0),
-                        Text(
-                          LocalizedTexts.returnToLoginScreen.tr(),
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyText2,
+                        InkWell(
+                          onTap: () => _onReturnLoginTap(context),
+                          child: Text(
+                            LocalizedTexts.returnToLoginScreen.tr(),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodyText2,
+                          ),
                         ),
                         const SizedBox(height: 23.0),
                       ],
@@ -85,5 +73,7 @@ class ForgotPasswordPage extends StatelessWidget {
     );
   }
 
-  void _onContinuePressed() {}
+  _onReturnLoginTap(BuildContext context) {
+    context.router.pop();
+  }
 }

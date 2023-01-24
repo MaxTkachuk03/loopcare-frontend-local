@@ -84,6 +84,7 @@
   "pleaseEnterYourEmailAddress": "Please enter your email address",
   "pleaseEnterYourName": "Please enter your name",
   "pleaseEnterValidEmailAddress": "Please enter a valid email address",
+  "pleaseEnterYourPassword": "Please enter your password",
   "enterPasswordTitle": "So {name}, now create your password",
   "confirmPassword": "Confirm password",
   "desiredPassword": "Desired password",

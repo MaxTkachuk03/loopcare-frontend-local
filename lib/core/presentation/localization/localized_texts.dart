@@ -65,6 +65,7 @@ class LocalizedTexts {
   static const String forgotMyPassword = 'forgotMyPassword';
   static const String yourPassword = 'yourPassword';
   static const String loginBtn = 'login';
+  static const String pleaseEnterYourPassword = 'pleaseEnterYourPassword';
   static const String leanOnMe = 'leanOnMe';
   static const String enterNewPassword = 'enterNewPassword';
   static const String repeatPassword = 'repeatPassword';

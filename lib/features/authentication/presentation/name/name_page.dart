@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/domain/name/name.dart';
-import 'package:loopcare_frontend/features/authentication/presentation/name/name_validator.dart';
+import 'package:loopcare_frontend/core/presentation/validators/name_validator.dart';
 
 class NamePage extends StatefulWidget {
   const NamePage({Key? key}) : super(key: key);
