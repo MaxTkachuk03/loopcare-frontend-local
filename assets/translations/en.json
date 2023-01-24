@@ -86,5 +86,13 @@
   "pleaseEnterValidEmailAddress": "Please enter a valid email address",
   "enterPasswordTitle": "So {name}, now create your password",
   "confirmPassword": "Confirm password",
-  "desiredPassword": "Desired password"
+  "desiredPassword": "Desired password",
+  "waitingForConfirmationTitle": "We have send you a message, you need to confirm",
+  "confirmYourAddress": "Please open your email (outlook or another) and confirm your address",
+  "checkSpam": "No message in your inbox? Make sure you check your spam folder",
+  "address": "The address you gave us",
+  "resend": "Resend",
+  "changeAddress": "Change address",
+  "emailConfirmedBottomSheetTitle": "Email address is confirmed",
+  "emailConfirmedBottomSheetContent": "Please continue to the Your preferences overview so we can make sure we are aware of your preferences and needs"
 }
