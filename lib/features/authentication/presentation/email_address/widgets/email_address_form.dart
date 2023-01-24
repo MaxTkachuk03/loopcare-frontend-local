@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_form_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
@@ -46,9 +47,13 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
         child: Column(
           children: [
             Field(
-                controller: _emailController,
-                hintText: LocalizedTexts.yourEmail.tr(),
-                validator: emailValidator()),
+              controller: _emailController,
+              hintText: LocalizedTexts.yourEmail.tr(),
+              validator: emailValidator(),
+              errorText: emailErrorText,
+              keyboardType: TextInputType.emailAddress,
+              onChanged: _onEmailChanged,
+            ),
             const SizedBox(
               height: 22.0,
             ),
@@ -105,6 +110,14 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
     });
   }
 
+  void _onEmailChanged(String value) {
+    if (emailErrorText == null) return;
+
+    setState(() {
+      emailErrorText = null;
+    });
+  }
+
   void _errorListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(
       guest: (state) {
@@ -129,7 +142,11 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
                 orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
               );
 
-              showAppSnackBar(context: context, text: errorMessage);
+              showAppSnackBar(
+                context: context,
+                text: errorMessage,
+                background: AppColors.red,
+              );
             },
           );
         }
