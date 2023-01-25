@@ -17,6 +17,8 @@ class PhysicalFitnessState with _$PhysicalFitnessState {
     @Default(MeasurementSystemType.metric)
         MeasurementSystemType weightMeasurementSystemType,
     DateTime? birthday,
+    int? age,
+    num? bmi,
     SexType? sexType,
     BiologicalGenderType? biologicalGenderType,
   }) = _PhysicalFitnessState;

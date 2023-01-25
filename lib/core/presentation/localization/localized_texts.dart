@@ -45,6 +45,7 @@ class LocalizedTexts {
       'medicalIntroInstructionThird';
 
   static const String yourBodyMassIndex = 'yourBodyMassIndex';
+  static const String ageCheckFailedText = 'ageCheckFailedText';
   static const String fitnessCheckFailedInformationsText =
       'fitnessCheckFailedInformationsText';
   static const String fitnessCheckFailedAdviceText =
@@ -107,9 +108,15 @@ class LocalizedTexts {
   static const String needName = 'needName';
 
   // Validation
-  static const String pleaseEnterYourEmailAddress = 'pleaseEnterYourEmailAddress';
-  static const String pleaseEnterValidEmailAddress = 'pleaseEnterValidEmailAddress';
+  static const String pleaseEnterYourEmailAddress =
+      'pleaseEnterYourEmailAddress';
+  static const String pleaseEnterValidEmailAddress =
+      'pleaseEnterValidEmailAddress';
   static const String pleaseEnterYourName = 'pleaseEnterYourName';
+  static const String enterYourHeight = 'enterYourHeight';
+  static const String heightSmall = 'heightSmall';
+  static const String heightLarge = 'heightLarge';
+  static const String changeYourHeight = 'changeYourHeight';
 
   // Password page
   static const String enterPasswordTitle = 'enterPasswordTitle';

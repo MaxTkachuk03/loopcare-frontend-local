@@ -58,4 +58,51 @@ class ModalBottomSheet {
       },
     );
   }
+
+  static void physicalInvalidMessage({
+    required BuildContext context,
+    required String message,
+    required String btnText,
+    required void Function() onBtnPress,
+  }) {
+    showModalBottomSheet<void>(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24.0),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
+          height: 300,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 32.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 22.0),
+                child: Text(
+                  message,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2
+                      ?.copyWith(color: AppColors.orangeDark),
+                ),
+              ),
+              const SizedBox(height: 27.0),
+              ElevatedButton(
+                onPressed: onBtnPress,
+                style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                      backgroundColor:
+                          MaterialStateProperty.all(AppColors.bgGreen),
+                      foregroundColor:
+                          MaterialStateProperty.all(AppColors.black),
+                    ),
+                child: Text(btnText),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }
