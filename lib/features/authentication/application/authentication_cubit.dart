@@ -2,6 +2,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/login_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
 
 @singleton
@@ -12,7 +13,20 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     this._authenticationService,
   ) : super(const AuthenticationState.guest());
 
-  void login() async {}
+  void login(String email, String password) async {
+    state.mapOrNull(guest: (state) async {
+      final data = LoginData(email: email, password: password);
+
+      final response = await _authenticationService.login(data);
+
+      response.fold(
+        (error) {
+          emit(state.copyWith(error: error));
+        },
+        (response) {},
+      );
+    });
+  }
 
   void signUp(String email) async {
     state.mapOrNull(

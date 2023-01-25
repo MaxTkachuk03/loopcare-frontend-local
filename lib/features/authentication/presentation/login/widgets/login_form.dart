@@ -1,34 +1,31 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/checkbox_form_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
-import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_bad_request.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
+import 'package:loopcare_frontend/features/authentication/domain/login_password/login_password.dart';
 import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
+import 'package:loopcare_frontend/core/presentation/validators/login_password_validator.dart';
 
-const userAlreadyExists = 'user_with_this_email_already_exists';
-
-class EmailAddressForm extends StatefulWidget {
-  const EmailAddressForm({Key? key}) : super(key: key);
+class LoginForm extends StatefulWidget {
+  const LoginForm({Key? key}) : super(key: key);
 
   @override
-  State<EmailAddressForm> createState() => _EmailAddressFormState();
+  State<LoginForm> createState() => _LoginFormState();
 }
 
-class _EmailAddressFormState extends State<EmailAddressForm> {
-  String? emailErrorText;
-  bool termsAndConditionsAreChecked = false;
+class _LoginFormState extends State<LoginForm> {
   bool _isDisabled = true;
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
@@ -50,38 +47,22 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
               controller: _emailController,
               hintText: LocalizedTexts.yourEmail.tr(),
               validator: emailValidator(),
-              errorText: emailErrorText,
+              prefixIcon: AppIcons.iconMail,
               keyboardType: TextInputType.emailAddress,
-              onChanged: _onEmailChanged,
             ),
-            const SizedBox(
-              height: 22.0,
+            const SizedBox(height: 10.0),
+            Field(
+              hintText: LocalizedTexts.yourPassword.tr(),
+              prefixIcon: AppIcons.iconLock,
+              isToggleEye: true,
+              obscureText: true,
+              controller: _passwordController,
+              validator: loginPasswordValidator(),
             ),
-            CheckboxFormField(
-              text: RichText(
-                maxLines: 2,
-                overflow: TextOverflow.visible,
-                text: TextSpan(
-                  text: '${LocalizedTexts.iHaveReadAndAcceptThe.tr()} ',
-                  style: Theme.of(context).textTheme.bodyText2,
-                  children: [
-                    TextSpan(
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = _onTermsAndConditionsTap,
-                      text: LocalizedTexts.termsAndConditions.tr(),
-                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                            decoration: TextDecoration.underline,
-                          ),
-                    ),
-                  ],
-                ),
-              ),
-              onChanged: _onTermsAndConditionsChanged,
-            ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 32.0),
             ElevatedButton(
-              onPressed: _isDisabled ? null : _onRegisterPressed,
-              child: Text(LocalizedTexts.register.tr()),
+              onPressed: _isDisabled ? null : _onLogin,
+              child: Text(LocalizedTexts.loginBtn.tr()),
             ),
           ],
         ),
@@ -91,31 +72,18 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
 
   _onChangedForm() {
     final isValidForm = Email.create(_emailController.text).isRight() &&
-        termsAndConditionsAreChecked;
+        LoginPassword.create(_passwordController.text).isRight();
 
     setState(() {
       _isDisabled = !isValidForm;
     });
   }
 
-  void _onRegisterPressed() {
-    context.read<AuthenticationCubit>().signUp(_emailController.text);
-  }
-
-  void _onTermsAndConditionsTap() {}
-
-  void _onTermsAndConditionsChanged(bool? value) {
-    setState(() {
-      termsAndConditionsAreChecked = value ?? false;
-    });
-  }
-
-  void _onEmailChanged(String value) {
-    if (emailErrorText == null) return;
-
-    setState(() {
-      emailErrorText = null;
-    });
+  _onLogin() {
+    context.read<AuthenticationCubit>().login(
+          _emailController.text,
+          _passwordController.text,
+        );
   }
 
   void _errorListener(BuildContext context, AuthenticationState state) {
@@ -127,15 +95,10 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
             badRequest: (error) {
               final errorMessage = error.maybeMap(
                 badRequest: (error) {
-                  final message = SignUpBadRequest.fromJson(
-                    error.error.response?.data ?? {},
-                  ).message;
-
-                  if (message == userAlreadyExists) {
-                    setState(() {
-                      emailErrorText = LocalizedTexts.emailAlreadyTaken.tr();
-                    });
-                  }
+                  // TODO: add error for incorrect password or email
+                  // final message = SignUpBadRequest.fromJson(
+                  //   error.error.response?.data ?? {},
+                  // ).message;
 
                   return LocalizedTexts.somethingIsIncorrect.tr();
                 },

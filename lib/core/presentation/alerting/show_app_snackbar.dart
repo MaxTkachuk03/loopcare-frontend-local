@@ -23,6 +23,13 @@ void showAppSnackBar({
         borderRadius: const BorderRadius.all(
           Radius.circular(8.0),
         ),
+        boxShadows: [
+          BoxShadow(
+            color: AppColors.black.withOpacity(0.25),
+            offset: const Offset(0.0, 0.0),
+            blurRadius: 12,
+          ),
+        ],
         child: SizedBox(
           width: size.width * 0.8718,
           child: Padding(

@@ -65,6 +65,7 @@ class LocalizedTexts {
   static const String forgotMyPassword = 'forgotMyPassword';
   static const String yourPassword = 'yourPassword';
   static const String loginBtn = 'login';
+  static const String pleaseEnterYourPassword = 'pleaseEnterYourPassword';
   static const String leanOnMe = 'leanOnMe';
   static const String enterNewPassword = 'enterNewPassword';
   static const String repeatPassword = 'repeatPassword';
@@ -104,4 +105,14 @@ class LocalizedTexts {
   static const String signUpWelcomeTitle = 'signUpWelcomeTitle';
   static const String signYouUp = 'signYouUp';
   static const String needName = 'needName';
+
+  // Validation
+  static const String pleaseEnterYourEmailAddress = 'pleaseEnterYourEmailAddress';
+  static const String pleaseEnterValidEmailAddress = 'pleaseEnterValidEmailAddress';
+  static const String pleaseEnterYourName = 'pleaseEnterYourName';
+
+  // Password page
+  static const String enterPasswordTitle = 'enterPasswordTitle';
+  static const String confirmPassword = 'confirmPassword';
+  static const String desiredPassword = 'desiredPassword';
 }
