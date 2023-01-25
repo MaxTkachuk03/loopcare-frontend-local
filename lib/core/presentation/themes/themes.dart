@@ -88,6 +88,24 @@ InputDecorationTheme _getInputDecorationTheme() {
         width: 2.0,
       ),
     ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(8.0),
+      ),
+      borderSide: BorderSide(
+        color: AppColors.yellowLight,
+        width: 2.0,
+      ),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(8.0),
+      ),
+      borderSide: BorderSide(
+        color: AppColors.yellowLight,
+        width: 2.0,
+      ),
+    ),
   );
 }
 

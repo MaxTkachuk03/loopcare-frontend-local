@@ -7,6 +7,8 @@ class AppIcons {
       AssetImage('$iconsFilePath/icon_open_eye.png');
   static const AssetImage iconMail = AssetImage('$iconsFilePath/mail.png');
   static const AssetImage iconLock = AssetImage('$iconsFilePath/lock.png');
+  static const AssetImage exclamationMark =
+      AssetImage('$iconsFilePath/exclamation_mark.png');
 
   AppIcons._();
 }
