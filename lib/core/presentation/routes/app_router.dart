@@ -4,7 +4,8 @@ import 'package:loopcare_frontend/features/authentication/presentation/email_add
 import 'package:loopcare_frontend/features/authentication/presentation/forgot_password/forgot_password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/login/login_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/name/name_page.dart';
-import 'package:loopcare_frontend/features/authentication/presentation/reset_password/reset_password.dart';
+import 'package:loopcare_frontend/features/authentication/presentation/password/password_page.dart';
+import 'package:loopcare_frontend/features/authentication/presentation/reset_password/reset_password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/waiting_for_confirmation/waiting_for_confirmation_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
@@ -94,6 +95,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.name,
       page: NamePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.password,
+      page: PasswordPage,
     ),
     AutoRoute(
       path: AppRoutes.emailAddress,

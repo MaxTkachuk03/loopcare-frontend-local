@@ -4,6 +4,8 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/login_data.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/login_response.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_response.dart';
 
@@ -18,5 +20,12 @@ class APIAuthenticationService implements AuthenticationService {
     return client.dio
         .post('/users/registration', data: data.toJson())
         .then(parseResponse(SignUpResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, LoginResponse>> login(LoginData data) async {
+    return client.dio
+        .post('/auth/login', data: data.toJson())
+        .then(parseResponse(LoginResponse.fromJson));
   }
 }
