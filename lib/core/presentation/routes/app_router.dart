@@ -35,7 +35,6 @@ part 'app_routes.dart';
       page: JoinUsPage,
     ),
     AutoRoute(
-      // initial: true,
       path: AppRoutes.height,
       page: HeightPage,
     ),
