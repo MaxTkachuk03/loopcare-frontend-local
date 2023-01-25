@@ -9,6 +9,9 @@ import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measuremen
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/biological_gender_type.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/set_type.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/bmi_calculator.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/bmi_validator.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/date_helpers.dart';
 
 part 'physical_fitness_bloc.freezed.dart';
 
@@ -45,11 +48,12 @@ class PhysicalFitnessBloc
 
     final isCompleted = nextQuestion == PhysicalFitnessQuestions.result;
 
-    // TODO: need to add results calculation to check whether result is completed successfully or with an error
-
     if (isCompleted) {
+      final bool isValidBmi =
+          BmiValidator.isUserAllowToProceed(state.age!, state.bmi);
+
       emit(state.copyWith(
-        isCompletedSuccessfully: true,
+        isCompletedSuccessfully: isValidBmi,
         currentQuestion: nextQuestion,
       ));
     } else {
@@ -99,6 +103,7 @@ class PhysicalFitnessBloc
   ) {
     emit(state.copyWith(
       weightInKg: event.weight,
+      bmi: BmiCalculator.getUserBmiIndex(state.heightInCm, event.weight),
       weightMeasurementSystemType: event.measurementSystemType,
     ));
   }
@@ -109,6 +114,7 @@ class PhysicalFitnessBloc
   ) {
     emit(state.copyWith(
       birthday: event.birthday,
+      age: DateHelpers.calculateAge(event.birthday),
     ));
   }
 

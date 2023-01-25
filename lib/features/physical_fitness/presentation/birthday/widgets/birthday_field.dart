@@ -1,11 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/validators/age_validator.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/birthday/widgets/birthdate_picker.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/physical_fitness_navigation_state.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/date_helpers.dart';
 
 class BirthdayField extends StatefulWidget {
   const BirthdayField({Key? key}) : super(key: key);
@@ -69,8 +73,13 @@ class _BirthdayFieldState extends State<BirthdayField> {
   }
 
   _onNextPressed(BuildContext context) {
-    final bloc = context.read<PhysicalFitnessBloc>();
+    final age = DateHelpers.calculateAge(value);
+    if (!ageValidator(age)) {
+      context.router.pushNamed(AppRoutes.checkFailedByAge);
+      return;
+    }
 
+    final bloc = context.read<PhysicalFitnessBloc>();
     bloc.add(PhysicalFitnessEvent.birthdayChanged(value));
 
     final physicalFitnessNavigationState =

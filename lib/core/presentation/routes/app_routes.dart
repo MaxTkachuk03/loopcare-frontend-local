@@ -21,6 +21,7 @@ class AppRoutes {
   static const String emailAddress = '/email-address';
   static const String signUpWelcome = '/sign-up-welcome';
   static const String waitingForConfirmation = '/waiting-for-confirmation';
+  static const String checkFailedByAge = '/failed-age';
 
   AppRoutes._();
 }
