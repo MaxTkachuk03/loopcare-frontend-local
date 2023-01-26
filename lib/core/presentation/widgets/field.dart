@@ -12,6 +12,7 @@ class Field extends StatefulWidget {
   final String? errorText;
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onChanged;
+  final EdgeInsetsGeometry? contentPadding;
 
   const Field({
     Key? key,
@@ -24,6 +25,7 @@ class Field extends StatefulWidget {
     this.isToggleEye,
     this.validator,
     this.onChanged,
+    this.contentPadding,
   }) : super(key: key);
 
   @override
@@ -51,6 +53,7 @@ class _FieldState extends State<Field> {
       obscureText: _isObscureText,
       decoration: InputDecoration(
         errorText: widget.errorText,
+        contentPadding: widget.contentPadding,
         errorMaxLines: 2,
         hintText: widget.hintText,
         prefixIcon: prefixIcon != null ? ImageIcon(prefixIcon) : null,

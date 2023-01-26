@@ -49,6 +49,7 @@ class _LoginFormState extends State<LoginForm> {
               validator: emailValidator(),
               prefixIcon: AppIcons.iconMail,
               keyboardType: TextInputType.emailAddress,
+              contentPadding: const EdgeInsets.only(bottom: 0.0, top: 15.0),
             ),
             const SizedBox(height: 10.0),
             Field(
@@ -58,6 +59,7 @@ class _LoginFormState extends State<LoginForm> {
               obscureText: true,
               controller: _passwordController,
               validator: loginPasswordValidator(),
+              contentPadding: const EdgeInsets.only(bottom: 0.0, top: 15.0),
             ),
             const SizedBox(height: 32.0),
             ElevatedButton(
