@@ -9,10 +9,10 @@ import 'package:loopcare_frontend/core/presentation/widgets/underlined_clickable
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_tabs.dart';
+import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/height/height.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/height/widgets/height_validator.dart';
-import 'package:loopcare_frontend/features/physical_fitness/presentation/physical_fitness_navigation_state.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/physical_question_wrap.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/height_conversion_utils.dart';
 
@@ -225,8 +225,7 @@ class _NextButton extends StatelessWidget {
         measurementSystemType: measurementSystemType,
       ));
 
-      final physicalFitnessNavigationState =
-          PhysicalFitnessNavigationState.of(context);
+      final physicalFitnessNavigationState = StepNavigationState.of(context);
 
       physicalFitnessNavigationState.onNextPage();
     }

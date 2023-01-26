@@ -97,8 +97,21 @@
   "changeAddress": "Change address",
   "emailConfirmedBottomSheetTitle": "Email address is confirmed",
   "emailConfirmedBottomSheetContent": "Please continue to the Your preferences overview so we can make sure we are aware of your preferences and needs",
+  "failedPregnancyTitle": "Unfortunately our program is not suitable for you if you are pregnant",
+  "alsoSomeAdviceWhereToTurnNext": "[Also some advice where to turn next].",
   "enterYourHeight":"Please enter your height",
   "heightSmall": "Are you sure this is correct height? Seems rather small. Please correct your input",
   "heightLarge": "Are you sure this is correct height? Seems rather large. Please correct your input",
-  "changeYourHeight": "Change your height"
+  "changeYourHeight": "Change your height",
+  "medicalCheckPassedTitle": "Medical check passed!",
+  "painInChestQuestion": "Do you have pain in chest?",
+  "noCardiovascularDiseaseBut": "No cardiovascular disease but had a heart surgery more than 24 months ago",
+  "failedPainInChestTitle": "Unfortunately our program is not suitable for you if you have a pain chest",
+  "failedTreatmentByDoctorTitle": "Unfortunately our program is not suitable for you",
+  "treatmentByTheDoctorQuestion": "Treated by psychiatrist or psychologist?",
+  "medicalCheckPassedDescription": "Nice, please continue to the mental fitness check",
+  "failedStomachReductionTitle": "Unfortunately our program is not suitable for you if you stomach reduction in the past 12 months",
+  "stomachReductionQuestion": "Did you have a stomach reduction in the 12 months",
+  "failedCardiovascularDiseaseTitle": "Unfortunately our program is not suitable since you have a cardiovascular disease and/or had a heart surgery in the last 24 months",
+  "cardiovascularDiseaseQuestion": "Are you suffering from cardiovascular disease or did you have heart surgery in last 24 months?"
 }

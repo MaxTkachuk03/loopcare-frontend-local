@@ -1,13 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/small_filled_button.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/success_container.dart';
+import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
-import 'package:loopcare_frontend/features/physical_fitness/presentation/check_passed/widgets/passed_header.dart';
-import 'package:loopcare_frontend/features/physical_fitness/presentation/check_passed/widgets/physical_information.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/physical_question_wrap.dart';
 
 class CheckPassedPage extends StatelessWidget {
@@ -25,30 +27,74 @@ class CheckPassedPage extends StatelessWidget {
             Column(
               children: [
                 const SizedBox(height: 86),
-                Stack(
-                  alignment: AlignmentDirectional.topStart,
-                  children: [
-                    PhysicalInformation(
-                      age: '${bloc.age} years',
-                      weight: '${bloc.weightInKg} kg',
-                      height: '${bloc.heightInCm} cm',
-                      bmi: '${bloc.bmi}',
-                      verdict: LocalizedTexts.fitnessCheckPassedText.tr(),
-                      moreInfoPressed: _onMoreInfoPressed,
-                    ),
-                    const PassedHeader(),
-                    Align(
-                      alignment: AlignmentDirectional.topCenter,
-                      child: AppImages.checkMarkGreen,
-                    ),
-                  ],
+                SuccessContainer(
+                  title: LocalizedTexts.fitnessCheckPassedTitle.tr(),
+                  content: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(LocalizedTexts.age.tr()),
+                              Text(LocalizedTexts.height.tr()),
+                              Text(LocalizedTexts.weight.tr()),
+                              Text(LocalizedTexts.bmi.tr()),
+                            ],
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${bloc.age} years',
+                                style: Theme.of(context).textTheme.headline5,
+                              ),
+                              Text(
+                                '${bloc.heightInCm} cm',
+                                style: Theme.of(context).textTheme.headline5,
+                              ),
+                              Text(
+                                '${bloc.weightInKg} kg',
+                                style: Theme.of(context).textTheme.headline5,
+                              ),
+                              Text(
+                                '${bloc.bmi}',
+                                style: Theme.of(context).textTheme.headline5,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        LocalizedTexts.fitnessCheckPassedText.tr(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5
+                            ?.copyWith(color: AppColors.blueDark),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      SmallFilledButton(
+                        text: LocalizedTexts.moreInfo.tr(),
+                        onPressed: _onMoreInfoPressed,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
             Column(
               children: [
                 ElevatedButton(
-                  onPressed: _onContinuePressed,
+                  onPressed: () => _onContinuePressed(context),
                   style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
                         backgroundColor:
                             MaterialStateProperty.all(AppColors.orangeDark),
@@ -64,7 +110,11 @@ class CheckPassedPage extends StatelessWidget {
     );
   }
 
-  void _onContinuePressed() {}
+  void _onContinuePressed(BuildContext context) {
+    context
+      ..read<OnboardingBloc>().add(const OnboardingEvent.nextStep())
+      ..router.pushNamed(AppRoutes.medicalIntro);
+  }
 
   void _onMoreInfoPressed() {}
 }

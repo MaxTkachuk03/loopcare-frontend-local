@@ -1,15 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/question_wrap.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
-import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 
-class PhysicalQuestionWrap extends StatelessWidget {
+class MedicalQuestionWrap extends StatelessWidget {
   final Widget child;
   final bool? isWithOnWillPop;
 
-  const PhysicalQuestionWrap({
+  const MedicalQuestionWrap({
     Key? key,
     required this.child,
     this.isWithOnWillPop,
@@ -29,17 +29,17 @@ class PhysicalQuestionWrap extends StatelessWidget {
   }
 
   void _onNextPage(BuildContext context) {
-    final bloc = context.read<PhysicalFitnessBloc>();
+    final bloc = context.read<MedicalFitnessBloc>();
     final nextRoute = bloc.state.currentQuestion.getNextQuestion().route;
 
-    bloc.add(const PhysicalFitnessEvent.nextQuestion());
+    bloc.add(const MedicalFitnessEvent.nextQuestion());
 
     context.router.push(nextRoute);
   }
 
   Future<bool> _onPreviousPage(BuildContext context) {
-    context.read<PhysicalFitnessBloc>().add(
-          const PhysicalFitnessEvent.previousQuestion(),
+    context.read<MedicalFitnessBloc>().add(
+          const MedicalFitnessEvent.previousQuestion(),
         );
 
     return Future.value(true);

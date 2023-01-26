@@ -54,18 +54,27 @@ class PhysicalFitnessBloc
 
       emit(state.copyWith(
         isCompletedSuccessfully: isValidBmi,
-        currentQuestion: nextQuestion,
+        currentQuestion: isValidBmi ? nextQuestion : currentQuestion,
       ));
+
+      if (isValidBmi) {
+        onboardingBloc.add(
+          OnboardingEvent.currentStepChanged(
+            progress: nextQuestion.percentage.toInt(),
+            questionIndex: nextQuestion.index,
+          ),
+        );
+      }
     } else {
       emit(state.copyWith(currentQuestion: nextQuestion));
-    }
 
-    onboardingBloc.add(
-      OnboardingEvent.currentStepChanged(
-        progress: nextQuestion.percentage.toInt(),
-        questionIndex: nextQuestion.index,
-      ),
-    );
+      onboardingBloc.add(
+        OnboardingEvent.currentStepChanged(
+          progress: nextQuestion.percentage.toInt(),
+          questionIndex: nextQuestion.index,
+        ),
+      );
+    }
   }
 
   FutureOr<void> _onPreviousQuestion(
