@@ -1,4 +1,0 @@
-enum PregnancyType {
-  yes,
-  no,
-}

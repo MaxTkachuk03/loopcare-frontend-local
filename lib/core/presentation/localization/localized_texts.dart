@@ -122,4 +122,19 @@ class LocalizedTexts {
   static const String enterPasswordTitle = 'enterPasswordTitle';
   static const String confirmPassword = 'confirmPassword';
   static const String desiredPassword = 'desiredPassword';
+
+  // Medical fitness
+  static const String failedPregnancyTitle = 'failedPregnancyTitle';
+  static const String alsoSomeAdviceWhereToTurnNext = 'alsoSomeAdviceWhereToTurnNext';
+  static const String cardiovascularDiseaseQuestion = 'cardiovascularDiseaseQuestion';
+  static const String stomachReductionQuestion = 'stomachReductionQuestion';
+  static const String failedStomachReductionTitle = 'failedStomachReductionTitle';
+  static const String medicalCheckPassedTitle = 'medicalCheckPassedTitle';
+  static const String medicalCheckPassedDescription = 'medicalCheckPassedDescription';
+  static const String painInChestQuestion = 'painInChestQuestion';
+  static const String treatmentByTheDoctorQuestion = 'treatmentByTheDoctorQuestion';
+  static const String failedPainInChestTitle = 'failedPainInChestTitle';
+  static const String failedTreatmentByDoctorTitle = 'failedTreatmentByDoctorTitle';
+  static const String noCardiovascularDiseaseBut = 'noCardiovascularDiseaseBut';
+  static const String failedCardiovascularDiseaseTitle = 'failedCardiovascularDiseaseTitle';
 }

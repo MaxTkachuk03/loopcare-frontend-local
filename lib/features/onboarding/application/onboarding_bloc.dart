@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 
 part 'onboarding_bloc.freezed.dart';
@@ -35,7 +36,11 @@ class OnboardingBloc extends HydratedBloc<OnboardingEvent, OnboardingState> {
     if (isLastStep) {
       emit(state.copyWith(isCompleted: true));
     } else {
-      emit(state.copyWith(currentStep: state.currentStep.getNextStep()));
+      emit(state.copyWith(
+        currentStep: state.currentStep.getNextStep(),
+        currentQuestionIndex: 0,
+        currentStepProgress: 0,
+      ));
     }
   }
 
@@ -46,8 +51,10 @@ class OnboardingBloc extends HydratedBloc<OnboardingEvent, OnboardingState> {
     final isFirstStep = state.currentStep.index == 0;
     if (!isFirstStep) {
       emit(state.copyWith(
-        currentStep: state.currentStep.getPreviousStep(),
-      ));
+          currentStep: state.currentStep.getPreviousStep(),
+          currentStepProgress: 100,
+          currentQuestionIndex:
+              state.currentStep.getPreviousStep().stepRoutes.length - 1));
     }
   }
 

@@ -10,9 +10,19 @@ import 'package:loopcare_frontend/features/authentication/presentation/waiting_f
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
-import 'package:loopcare_frontend/features/medical/presentation/consent_needed/consent_needed_page.dart';
-import 'package:loopcare_frontend/features/medical/presentation/medical_intro/medical_intro_page.dart';
-import 'package:loopcare_frontend/features/medical/presentation/pregnancy/pregnancy_page.dart';
+import 'package:loopcare_frontend/features/medical_fitness/presentation/cardiovascular_disease/presentation/cardiovascular_disease_page.dart';
+import 'package:loopcare_frontend/features/medical_fitness/presentation/cardiovascular_disease_failed/presentation/cardiovascular_disease_failed_page.dart';
+import 'package:loopcare_frontend/features/medical_fitness/presentation/consent_needed/consent_needed_page.dart';
+import 'package:loopcare_frontend/features/medical_fitness/presentation/medical_check_passed/presentation/medical_check_passed_page.dart';
+import 'package:loopcare_frontend/features/medical_fitness/presentation/medical_intro/medical_intro_page.dart';
+import 'package:loopcare_frontend/features/medical_fitness/presentation/pain_in_chest/presentation/pain_in_chest_page.dart';
+import 'package:loopcare_frontend/features/medical_fitness/presentation/pain_in_chest_failled/presentation/pain_in_chest_failled_page.dart';
+import 'package:loopcare_frontend/features/medical_fitness/presentation/pregnancy_failed/presentation/pregnancy_failed.dart';
+import 'package:loopcare_frontend/features/medical_fitness/presentation/pregnancy/pregnancy_page.dart';
+import 'package:loopcare_frontend/features/medical_fitness/presentation/stomach_reduction/stomach_reduction_page.dart';
+import 'package:loopcare_frontend/features/medical_fitness/presentation/stomach_reduction_failed/presentation/stomach_reduction_failed_page.dart';
+import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor/presentation/treatment_by_doctor_page.dart';
+import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor_failled/presentation/treatment_by_doctor_failled_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/biological_gender/biological_gender_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/birthday/birthday_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/check_failed_age/check_failed_age.dart';
@@ -57,12 +67,53 @@ part 'app_routes.dart';
       page: BiologicalGenderPage,
     ),
     AutoRoute(
+      initial: true,
       path: AppRoutes.medicalIntro,
       page: MedicalIntroPage,
     ),
     AutoRoute(
       path: AppRoutes.pregnancy,
       page: PregnancyPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.pregnancyFailed,
+      page: PregnancyFailedPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.cardiovascularDisease,
+      page: CardiovascularDiseasePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.cardiovascularDiseaseFailed,
+      page: CardiovascularDiseaseFailedPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.stomachReduction,
+      page: StomachReductionPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.stomachReductionFailed,
+      page: StomachReductionFailedPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.medicalCheckPassed,
+      page: MedicalCheckPassedPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.painInChest,
+      page: PainInChestPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.painInChestFailed,
+      page: PainInChestFailedPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.treatmentByDoctor,
+      page: TreatmentByDoctorPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.treatmentByDoctorFailed,
+      page: TreatmentByDoctorFailedPage,
     ),
     AutoRoute(
       path: AppRoutes.home,

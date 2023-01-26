@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/routes/auth_guard.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
@@ -21,6 +22,9 @@ class App extends StatelessWidget {
       providers: <BlocProvider>[
         BlocProvider<PhysicalFitnessBloc>(
           create: (_) => getIt<PhysicalFitnessBloc>(),
+        ),
+        BlocProvider<MedicalFitnessBloc>(
+          create: (_) => getIt<MedicalFitnessBloc>(),
         ),
         BlocProvider<OnboardingBloc>(
           create: (_) => getIt<OnboardingBloc>(),

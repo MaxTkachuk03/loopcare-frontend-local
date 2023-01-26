@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/progress_bar.dart';
 
@@ -32,8 +33,7 @@ class QuestionWrap extends StatelessWidget {
             child: IntrinsicHeight(
               child: Column(
                 children: <Widget>[
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24.0),
+                  const MainContainer(
                     child: ProgressBar(),
                   ),
                   Expanded(child: child)

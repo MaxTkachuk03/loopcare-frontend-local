@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
+import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/biological_gender_type.dart';
-import 'package:loopcare_frontend/features/physical_fitness/presentation/physical_fitness_navigation_state.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/reg_exp_utils.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
 
@@ -35,8 +35,7 @@ class _BiologicalGenderChipsState extends State<BiologicalGenderChips> {
 
     bloc.add(PhysicalFitnessEvent.biologicalGenderChanged(gender));
 
-    final physicalFitnessNavigationState =
-        PhysicalFitnessNavigationState.of(context);
+    final physicalFitnessNavigationState = StepNavigationState.of(context);
 
     physicalFitnessNavigationState.onNextPage();
   }

@@ -5,10 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/validators/age_validator.dart';
+import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/birthday/widgets/birthdate_picker.dart';
-import 'package:loopcare_frontend/features/physical_fitness/presentation/physical_fitness_navigation_state.dart';
+import 'package:loopcare_frontend/core/presentation/validators/age_validator.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_helpers.dart';
 
 class BirthdayField extends StatefulWidget {
@@ -82,8 +82,7 @@ class _BirthdayFieldState extends State<BirthdayField> {
     final bloc = context.read<PhysicalFitnessBloc>();
     bloc.add(PhysicalFitnessEvent.birthdayChanged(value));
 
-    final physicalFitnessNavigationState =
-        PhysicalFitnessNavigationState.of(context);
+    final physicalFitnessNavigationState = StepNavigationState.of(context);
     physicalFitnessNavigationState.onNextPage();
   }
 }
