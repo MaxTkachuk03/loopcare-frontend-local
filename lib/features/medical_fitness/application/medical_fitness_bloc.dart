@@ -72,12 +72,12 @@ class MedicalFitnessBloc
       emit(state.copyWith(
         currentQuestion: previousQuestion,
       ));
-    }
 
-    onboardingBloc.add(OnboardingEvent.currentStepChanged(
-      progress: previousQuestion.percentage.toInt(),
-      questionIndex: previousQuestion.index,
-    ));
+      onboardingBloc.add(OnboardingEvent.currentStepChanged(
+        progress: previousQuestion.percentage.toInt(),
+        questionIndex: previousQuestion.index,
+      ));
+    }
   }
 
   FutureOr<void> _onPregnancyChanged(

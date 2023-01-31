@@ -14,8 +14,11 @@ void handleOnboardingRestore(BuildContext context) {
       .map((e) => e.stepRoutes)
       .expand((element) => element)
       .toList();
+  final currentRoute = onboardingState
+      .currentStep.stepRoutes[onboardingState.currentQuestionIndex];
+  final routeIndex = routes.indexOf(currentRoute);
 
   context.router.replaceAll(
-    routes.take(onboardingState.currentQuestionIndex + 1).toList(),
+    routes.take(routeIndex + 1).toList(),
   );
 }

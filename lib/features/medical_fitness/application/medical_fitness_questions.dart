@@ -1,6 +1,7 @@
 part of 'medical_fitness_bloc.dart';
 
 enum MedicalFitnessQuestions {
+  intro,
   pregnancy,
   cardiovascularDisease,
   stomachReduction,
@@ -12,6 +13,8 @@ enum MedicalFitnessQuestions {
 extension MedicalFitnessQuestionsX on MedicalFitnessQuestions {
   PageRouteInfo get route {
     switch (this) {
+      case MedicalFitnessQuestions.intro:
+        return const MedicalIntroRoute();
       case MedicalFitnessQuestions.pregnancy:
         return const PregnancyRoute();
       case MedicalFitnessQuestions.cardiovascularDisease:
@@ -27,11 +30,24 @@ extension MedicalFitnessQuestionsX on MedicalFitnessQuestions {
     }
   }
 
-  int get percentage {
-    final valuesWithExclude = MedicalFitnessQuestions.values
-        .where((element) => element != MedicalFitnessQuestions.result);
+  bool get isQuestion {
+    switch (this) {
+      case MedicalFitnessQuestions.intro:
+        return false;
+      case MedicalFitnessQuestions.result:
+        return false;
+      default:
+        return true;
+    }
+  }
 
-    final value = (index * 100) / valuesWithExclude.length;
+  int get percentage {
+    final valuesWithExclude =
+        MedicalFitnessQuestions.values.where((element) => element.isQuestion);
+
+    final elIndex = index == 0 ? 0 : index - 1;
+
+    final value = (elIndex * 100) / valuesWithExclude.length;
 
     return value.toInt();
   }
