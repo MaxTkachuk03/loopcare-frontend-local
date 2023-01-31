@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/routes/auth_guard.dart';
+import 'package:loopcare_frontend/core/presentation/routes/intro_guard.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
@@ -50,9 +50,14 @@ class _AppState extends State<_App> {
 
   @override
   void initState() {
+    final authBloc = context.read<AuthenticationCubit>();
+    final onboardingBloc = context.read<OnboardingBloc>();
+
     _appRouter = AppRouter(
-      authGuard:
-          AuthGuard(true), // TODO: add value from auth bloc in the future
+      introGuard: IntroGuard(
+        authBloc,
+        onboardingBloc,
+      ),
     );
 
     super.initState();

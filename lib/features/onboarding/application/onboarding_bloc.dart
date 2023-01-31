@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 
@@ -19,11 +20,36 @@ part 'onboarding_steps.dart';
 
 @singleton
 class OnboardingBloc extends HydratedBloc<OnboardingEvent, OnboardingState> {
-  OnboardingBloc() : super(OnboardingState.initial()) {
+  final AuthenticationCubit _authenticationCubit;
+
+  late final StreamSubscription _authBlocStreamSubscription;
+
+  OnboardingBloc(this._authenticationCubit) : super(OnboardingState.initial()) {
     on<Started>(_onStarted);
     on<NextStep>(_onNextStep);
     on<PreviousStep>(_onPreviousStep);
     on<CurrentStepChanged>(_onCurrentStepChanged);
+    on<ResetData>(_onResetData);
+
+    _authBlocStreamSubscription =
+        _authenticationCubit.stream.distinct().listen((s) {
+      s.mapOrNull(
+        authenticated: (_) {
+          add(const OnboardingEvent.resetData());
+        },
+      );
+    });
+  }
+
+  @override
+  Future<void> close() async {
+    _authBlocStreamSubscription.cancel();
+
+    return super.close();
+  }
+
+  FutureOr<void> _onResetData(ResetData event, Emitter<OnboardingState> emit) {
+    emit(OnboardingState.initial());
   }
 
   FutureOr<void> _onStarted(Started event, Emitter<OnboardingState> emit) {

@@ -6,6 +6,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/biological_gender_type.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/set_type.dart';
@@ -23,12 +24,15 @@ part 'physical_fitness_state.dart';
 
 part 'physical_fitness_questions.dart';
 
-@injectable
+@singleton
 class PhysicalFitnessBloc
     extends HydratedBloc<PhysicalFitnessEvent, PhysicalFitnessState> {
   final OnboardingBloc onboardingBloc;
+  final AuthenticationCubit _authenticationCubit;
 
-  PhysicalFitnessBloc(this.onboardingBloc)
+  late final StreamSubscription _authBlocStreamSubscription;
+
+  PhysicalFitnessBloc(this.onboardingBloc, this._authenticationCubit)
       : super(PhysicalFitnessState.initial()) {
     on<NextQuestion>(_onNextQuestion);
     on<PreviousQuestion>(_onPreviousQuestion);
@@ -37,6 +41,30 @@ class PhysicalFitnessBloc
     on<BirthdayChanged>(_onBirthdayChanged);
     on<SexChanged>(_onSexChanged);
     on<BiologicalGenderChanged>(_onBiologicalGenderChanged);
+    on<ResetData>(_onResetData);
+
+    _authBlocStreamSubscription =
+        _authenticationCubit.stream.distinct().listen((s) {
+      s.mapOrNull(
+        authenticated: (_) {
+          add(const PhysicalFitnessEvent.resetData());
+        },
+      );
+    });
+  }
+
+  @override
+  Future<void> close() async {
+    _authBlocStreamSubscription.cancel();
+
+    return super.close();
+  }
+
+  FutureOr<void> _onResetData(
+    ResetData event,
+    Emitter<PhysicalFitnessState> emit,
+  ) {
+    emit(PhysicalFitnessState.initial());
   }
 
   FutureOr<void> _onNextQuestion(

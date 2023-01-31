@@ -6,6 +6,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/medical_fitness/domain/cardiovascular_disease_answers.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 
@@ -19,12 +20,15 @@ part 'medical_fitness_state.dart';
 
 part 'medical_fitness_questions.dart';
 
-@injectable
+@singleton
 class MedicalFitnessBloc
     extends HydratedBloc<MedicalFitnessEvent, MedicalFitnessState> {
   final OnboardingBloc onboardingBloc;
+  final AuthenticationCubit _authenticationCubit;
 
-  MedicalFitnessBloc(this.onboardingBloc)
+  late final StreamSubscription _authBlocStreamSubscription;
+
+  MedicalFitnessBloc(this.onboardingBloc, this._authenticationCubit)
       : super(MedicalFitnessState.initial()) {
     on<NextQuestion>(_onNextQuestion);
     on<PreviousQuestion>(_onPreviousQuestion);
@@ -33,6 +37,30 @@ class MedicalFitnessBloc
     on<StomachReductionChanged>(_onStomachReductionChanged);
     on<TreatmentByTheDoctorChanged>(_onTreatmentByTheDoctorChanged);
     on<PainInChestChanged>(_onPainInChestChanged);
+    on<ResetData>(_onResetData);
+
+    _authBlocStreamSubscription =
+        _authenticationCubit.stream.distinct().listen((s) {
+      s.mapOrNull(
+        authenticated: (_) {
+          add(const MedicalFitnessEvent.resetData());
+        },
+      );
+    });
+  }
+
+  @override
+  Future<void> close() async {
+    _authBlocStreamSubscription.cancel();
+
+    return super.close();
+  }
+
+  FutureOr<void> _onResetData(
+    ResetData event,
+    Emitter<MedicalFitnessState> emit,
+  ) {
+    emit(MedicalFitnessState.initial());
   }
 
   FutureOr<void> _onNextQuestion(
