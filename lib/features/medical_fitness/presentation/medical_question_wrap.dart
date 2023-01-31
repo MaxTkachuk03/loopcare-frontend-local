@@ -8,11 +8,13 @@ import 'package:loopcare_frontend/features/onboarding/presentation/step_navigati
 class MedicalQuestionWrap extends StatelessWidget {
   final Widget child;
   final bool? isWithOnWillPop;
+  final VoidCallback? onWillPop;
 
   const MedicalQuestionWrap({
     Key? key,
     required this.child,
     this.isWithOnWillPop,
+    this.onWillPop,
   }) : super(key: key);
 
   @override
@@ -41,6 +43,8 @@ class MedicalQuestionWrap extends StatelessWidget {
     context.read<MedicalFitnessBloc>().add(
           const MedicalFitnessEvent.previousQuestion(),
         );
+
+    onWillPop?.call();
 
     return Future.value(true);
   }
