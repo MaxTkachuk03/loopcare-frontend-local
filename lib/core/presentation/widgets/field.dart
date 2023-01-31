@@ -9,6 +9,7 @@ class Field extends StatefulWidget {
   final bool? obscureText;
   final AssetImage? prefixIcon;
   final bool? isToggleEye;
+  final int? maxLength;
   final String? errorText;
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onChanged;
@@ -21,6 +22,7 @@ class Field extends StatefulWidget {
     required this.hintText,
     this.obscureText,
     this.prefixIcon,
+    this.maxLength,
     this.errorText,
     this.isToggleEye,
     this.validator,
@@ -51,8 +53,10 @@ class _FieldState extends State<Field> {
       autocorrect: false,
       keyboardType: widget.keyboardType,
       obscureText: _isObscureText,
+      maxLength: widget.maxLength,
       decoration: InputDecoration(
         errorText: widget.errorText,
+        counterText: '',
         contentPadding: widget.contentPadding,
         errorMaxLines: 2,
         hintText: widget.hintText,

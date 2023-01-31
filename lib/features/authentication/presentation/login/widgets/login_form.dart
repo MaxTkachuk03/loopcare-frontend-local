@@ -1,9 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/dto/error_response.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
@@ -12,6 +15,8 @@ import 'package:loopcare_frontend/features/authentication/domain/email/email.dar
 import 'package:loopcare_frontend/features/authentication/domain/login_password/login_password.dart';
 import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
 import 'package:loopcare_frontend/core/presentation/validators/login_password_validator.dart';
+
+const userNotFound = 'user_not_found';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -36,8 +41,15 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthenticationCubit, AuthenticationState>(
-      listener: _errorListener,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AuthenticationCubit, AuthenticationState>(
+          listener: _errorListener,
+        ),
+        BlocListener<AuthenticationCubit, AuthenticationState>(
+          listener: _navigationListener,
+        ),
+      ],
       child: Form(
         key: _formKey,
         onChanged: _onChangedForm,
@@ -93,28 +105,38 @@ class _LoginFormState extends State<LoginForm> {
       guest: (state) {
         final error = state.error;
         if (error != null) {
-          error.mapOrNull(
-            badRequest: (error) {
-              final errorMessage = error.maybeMap(
-                badRequest: (error) {
-                  // TODO: add error for incorrect password or email
-                  // final message = SignUpBadRequest.fromJson(
-                  //   error.error.response?.data ?? {},
-                  // ).message;
+          final errorMessage = error.maybeMap(
+            notFound: (error) {
+              return error.maybeMap(
+                notFound: (e) {
+                  final message = ErrorResponse.fromJson(
+                    error.error.response?.data ?? {},
+                  ).message;
 
-                  return LocalizedTexts.somethingIsIncorrect.tr();
+                  return message == userNotFound
+                      ? LocalizedTexts.emailOrPasswordAreIncorrect.tr()
+                      : LocalizedTexts.somethingIsIncorrect.tr();
                 },
                 orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
               );
-
-              showAppSnackBar(
-                context: context,
-                text: errorMessage,
-                background: AppColors.red,
-              );
             },
+            orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
+          );
+
+          showAppSnackBar(
+            context: context,
+            text: errorMessage,
+            background: AppColors.red,
           );
         }
+      },
+    );
+  }
+
+  void _navigationListener(BuildContext context, AuthenticationState state) {
+    state.mapOrNull(
+      authenticated: (state) {
+        context.router.replaceAll([const HomeRoute()]);
       },
     );
   }

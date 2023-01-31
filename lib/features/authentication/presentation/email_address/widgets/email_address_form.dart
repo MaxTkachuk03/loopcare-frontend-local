@@ -1,15 +1,17 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/dto/error_response.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_form_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
-import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_bad_request.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
 
@@ -39,8 +41,17 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthenticationCubit, AuthenticationState>(
-      listener: _errorListener,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AuthenticationCubit, AuthenticationState>(
+          listener: _errorListener,
+        ),
+        BlocListener<AuthenticationCubit, AuthenticationState>(
+          listenWhen: (previous, current) =>
+              previous is Guest && current is WaitedForConfirmation,
+          listener: _navigationListener,
+        )
+      ],
       child: Form(
         key: _formKey,
         onChanged: _onChangedForm,
@@ -99,6 +110,10 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
   }
 
   void _onRegisterPressed() {
+    setState(() {
+      emailErrorText = null;
+    });
+
     context.read<AuthenticationCubit>().signUp(_emailController.text);
   }
 
@@ -127,7 +142,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
             badRequest: (error) {
               final errorMessage = error.maybeMap(
                 badRequest: (error) {
-                  final message = SignUpBadRequest.fromJson(
+                  final message = ErrorResponse.fromJson(
                     error.error.response?.data ?? {},
                   ).message;
 
@@ -150,6 +165,14 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
             },
           );
         }
+      },
+    );
+  }
+
+  void _navigationListener(BuildContext context, AuthenticationState state) {
+    state.mapOrNull(
+      waitedForConfirmation: (state) {
+        context.router.pushNamed(AppRoutes.waitingForConfirmation);
       },
     );
   }

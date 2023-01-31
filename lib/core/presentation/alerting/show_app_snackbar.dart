@@ -7,10 +7,11 @@ void showAppSnackBar({
   required BuildContext context,
   required String text,
   Color? background,
-}) {
+  VoidCallback? callback,
+}) async {
   final size = MediaQuery.of(context).size;
 
-  showFlash(
+  await showFlash(
     context: context,
     duration: const Duration(
       seconds: 5,
@@ -46,4 +47,6 @@ void showAppSnackBar({
       );
     },
   );
+
+  callback?.call();
 }

@@ -14,10 +14,19 @@ class AuthenticationState with _$AuthenticationState {
     User user,
   ) = Authenticated;
 
+  const factory AuthenticationState.waitedForConfirmation({
+    required String name,
+    required String password,
+    required String email,
+    required int userId,
+    @JsonKey(ignore: true) RequestError? error,
+  }) = WaitedForConfirmation;
+
   const factory AuthenticationState.guest({
     String? name,
     String? password,
-    @JsonKey(ignore: true) @Default(false) bool progress,
+    String? email,
+    @JsonKey(ignore: true) @Default(false) bool emailWasSend,
     @JsonKey(ignore: true) RequestError? error,
   }) = Guest;
 
