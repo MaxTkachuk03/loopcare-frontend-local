@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/presentation/routes/auth_guard.dart';
+import 'package:loopcare_frontend/core/presentation/routes/intro_guard.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/email_address/email_address_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/forgot_password/forgot_password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/login/login_page.dart';
@@ -41,6 +41,7 @@ part 'app_routes.dart';
       initial: true,
       path: AppRoutes.intro,
       page: IntroPage,
+      guards: [IntroGuard]
     ),
     AutoRoute(
       path: AppRoutes.joinUs,
@@ -117,7 +118,6 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.home,
       page: HomePage,
-      guards: [AuthGuard],
     ),
     AutoRoute(
       path: AppRoutes.physicalCheckResult,

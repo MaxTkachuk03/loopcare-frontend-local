@@ -6,6 +6,8 @@ class MedicalFitnessEvent with _$MedicalFitnessEvent {
 
   const factory MedicalFitnessEvent.previousQuestion() = PreviousQuestion;
 
+  const factory MedicalFitnessEvent.resetData() = ResetData;
+
   const factory MedicalFitnessEvent.pregnancyChanged(
     YesNoAnswer value,
   ) = PregnancyChanged;

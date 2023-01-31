@@ -6,6 +6,8 @@ class PhysicalFitnessEvent with _$PhysicalFitnessEvent {
 
   const factory PhysicalFitnessEvent.previousQuestion() = PreviousQuestion;
 
+  const factory PhysicalFitnessEvent.resetData() = ResetData;
+
   const factory PhysicalFitnessEvent.heightChanged({
     required String height,
     required MeasurementSystemType measurementSystemType,
