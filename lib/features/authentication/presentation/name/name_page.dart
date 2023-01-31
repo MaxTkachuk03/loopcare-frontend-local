@@ -74,6 +74,7 @@ class _NamePageState extends State<NamePage> {
                           controller: _nameController,
                           hintText: LocalizedTexts.yourName.tr(),
                           validator: nameValidator(),
+                          maxLength: 64,
                         ),
                         const SizedBox(height: 16.0),
                         ElevatedButton(

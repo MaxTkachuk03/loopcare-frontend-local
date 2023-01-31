@@ -1,15 +1,17 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
+
+const userNotFound = 'user_with_such_email_token_not_found';
 
 class ForgotPasswordForm extends StatefulWidget {
   const ForgotPasswordForm({Key? key}) : super(key: key);
@@ -34,7 +36,8 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationCubit, AuthenticationState>(
-      listener: _errorListener,
+      listenWhen: _redirectListenWhen,
+      listener: _redirectListener,
       child: Form(
         key: _formKey,
         onChanged: _onChangedForm,
@@ -70,34 +73,26 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
     });
   }
 
-  void _errorListener(BuildContext context, AuthenticationState state) {
-    state.mapOrNull(
-      guest: (state) {
-        final error = state.error;
-        if (error != null) {
-          error.mapOrNull(
-            badRequest: (error) {
-              final errorMessage = error.maybeMap(
-                badRequest: (error) {
-                  // TODO: add error for incorrect password or email
-                  // final message = SignUpBadRequest.fromJson(
-                  //   error.error.response?.data ?? {},
-                  // ).message;
+  void _redirectListener(BuildContext context, AuthenticationState state) {
+    state.mapOrNull(guest: (state) {
+      showAppSnackBar(
+        context: context,
+        text: LocalizedTexts.forgotEmailSuccessMessage.tr(namedArgs: {
+          'email': state.maybeMap(guest: (s) => s.email ?? '', orElse: () => '')
+        }),
+        callback: () => context.router.pop(),
+      );
+    });
+  }
 
-                  return LocalizedTexts.somethingIsIncorrect.tr();
-                },
-                orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
-              );
+  bool _redirectListenWhen(
+      AuthenticationState previous, AuthenticationState current) {
+    final previousEmail = previous.maybeMap(
+        guest: (state) => state.emailWasSend, orElse: () => false);
+    final currentEmail = current.maybeMap(
+        guest: (state) => state.emailWasSend, orElse: () => false);
+    final error = current.mapOrNull(guest: (state) => state.error);
 
-              showAppSnackBar(
-                context: context,
-                text: errorMessage,
-                background: AppColors.red,
-              );
-            },
-          );
-        }
-      },
-    );
+    return previousEmail != currentEmail && currentEmail && error == null;
   }
 }

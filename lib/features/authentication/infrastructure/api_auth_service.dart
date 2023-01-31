@@ -4,8 +4,8 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/email_approve_date_response.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/forgot_password_data.dart';
-import 'package:loopcare_frontend/features/authentication/application/dto/forgot_password_response.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/login_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/login_response.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
@@ -18,24 +18,40 @@ class APIAuthenticationService implements AuthenticationService {
   APIAuthenticationService(this.client);
 
   @override
+  Future<Either<RequestError, EmailApproveDateResponse>> emailApproveDate(
+      int userId) async {
+    return client
+        .get('/users/$userId/emailApproveDate')
+        .then(parseResponse(EmailApproveDateResponse.fromJson));
+  }
+
+  @override
   Future<Either<RequestError, SignUpResponse>> signUp(SignUpData data) async {
-    return client.dio
+    return client
         .post('/users/registration', data: data.toJson())
         .then(parseResponse(SignUpResponse.fromJson));
   }
 
   @override
+  Future<Either<RequestError, dynamic>> resendSignUp(int userId) async {
+    return client.post('/users/$userId/resendRegistration', data: {});
+  }
+
+  @override
   Future<Either<RequestError, LoginResponse>> login(LoginData data) async {
-    return client.dio
+    return client
         .post('/auth/login', data: data.toJson())
         .then(parseResponse(LoginResponse.fromJson));
   }
 
   @override
-  Future<Either<RequestError, ForgotPasswordResponse>> forgotPassword(
+  Future<Either<RequestError, dynamic>> logout() async {
+    return client.post('/auth/logout');
+  }
+
+  @override
+  Future<Either<RequestError, dynamic>> forgotPassword(
       ForgotPasswordData data) async {
-    return client.dio
-        .post('/users/forgotPassword', data: data.toJson())
-        .then(parseResponse(ForgotPasswordResponse.fromJson));
+    return client.post('/users/forgotPassword', data: data.toJson());
   }
 }

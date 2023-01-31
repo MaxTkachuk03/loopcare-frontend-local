@@ -3,27 +3,37 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 
-RequestError parseRequestError(DioError error) {
-  switch (error.type) {
-    case DioErrorType.cancel:
-      return RequestError.requestCancelled(error);
-    case DioErrorType.connectTimeout:
-    case DioErrorType.receiveTimeout:
-    case DioErrorType.sendTimeout:
-      return RequestError.timeout(error);
-    case DioErrorType.response:
-      return _handleResponseError(error);
-    case DioErrorType.other:
-      if (error.message.contains('SocketException')) {
-        return const RequestError.socketException(
-          SocketException('Dio SocketException'),
-        );
-      }
+RequestError parseRequestError(dynamic error) {
+  if (error is Exception) {
+    if (error is DioError) {
+      switch (error.type) {
+        case DioErrorType.cancel:
+          return RequestError.requestCancelled(error);
+        case DioErrorType.connectTimeout:
+        case DioErrorType.receiveTimeout:
+        case DioErrorType.sendTimeout:
+          return RequestError.timeout(error);
+        case DioErrorType.response:
+          return _handleResponseError(error);
+        case DioErrorType.other:
+          if (error.message.contains('SocketException')) {
+            return const RequestError.socketException(
+              SocketException('Dio SocketException'),
+            );
+          }
 
-      return RequestError.dioOther(error);
-    default:
-      return RequestError.unhandledError(error);
+          return RequestError.dioOther(error);
+        default:
+          return RequestError.unhandledError(error);
+      }
+    }
+
+    if (error is SocketException) {
+      return RequestError.socketException(error);
+    }
   }
+
+  return RequestError.unhandledError(error);
 }
 
 RequestError _handleResponseError(DioError error) {

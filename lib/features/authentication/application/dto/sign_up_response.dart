@@ -6,11 +6,9 @@ part 'sign_up_response.g.dart';
 @immutable
 @JsonSerializable()
 class SignUpResponse {
-  final int id;
+  final int userId;
 
-  const SignUpResponse(
-    this.id,
-  );
+  const SignUpResponse(this.userId);
 
   static SignUpResponse fromJson(Map<String, dynamic> json) =>
       _$SignUpResponseFromJson(json);

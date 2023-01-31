@@ -117,6 +117,8 @@ class LocalizedTexts {
   static const String heightSmall = 'heightSmall';
   static const String heightLarge = 'heightLarge';
   static const String changeYourHeight = 'changeYourHeight';
+  static const String emailOrPasswordAreIncorrect = 'emailOrPasswordAreIncorrect';
+  static const String forgotEmailSuccessMessage = 'forgotEmailSuccessMessage';
 
   // Password page
   static const String enterPasswordTitle = 'enterPasswordTitle';

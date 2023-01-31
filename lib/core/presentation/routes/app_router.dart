@@ -67,7 +67,6 @@ part 'app_routes.dart';
       page: BiologicalGenderPage,
     ),
     AutoRoute(
-      initial: true,
       path: AppRoutes.medicalIntro,
       page: MedicalIntroPage,
     ),
