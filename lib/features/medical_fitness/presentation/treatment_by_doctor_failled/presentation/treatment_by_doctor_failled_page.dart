@@ -39,7 +39,7 @@ class TreatmentByDoctorFailedPage extends StatelessWidget {
                     children: [
                       Text(
                         LocalizedTexts.failedTreatmentByDoctorTitle.tr(),
-                        style: Theme.of(context).textTheme.headline4,
+                        style: Theme.of(context).textTheme.headline5,
                       ),
                       const SizedBox(height: 26),
                       Text(

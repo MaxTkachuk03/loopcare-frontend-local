@@ -39,7 +39,7 @@ class PainInChestFailedPage extends StatelessWidget {
                     children: [
                       Text(
                         LocalizedTexts.failedPainInChestTitle.tr(),
-                        style: Theme.of(context).textTheme.headline4,
+                        style: Theme.of(context).textTheme.headline5,
                       ),
                       const SizedBox(height: 26),
                       Text(

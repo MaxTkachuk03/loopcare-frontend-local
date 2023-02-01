@@ -58,7 +58,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       const SizedBox(height: 16.0),
                       Text(
                         LocalizedTexts.leanOnMe.tr(),
-                        style: Theme.of(context).textTheme.headline3?.copyWith(
+                        style: Theme.of(context).textTheme.headline4?.copyWith(
                             fontFamily: ThemeConstants.bitterFontFamily,
                             color: AppColors.blueDark),
                         textAlign: TextAlign.center,

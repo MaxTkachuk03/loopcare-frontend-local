@@ -38,7 +38,7 @@ class LoginPage extends StatelessWidget {
                           LocalizedTexts.welcomeTitle.tr(),
                           style: Theme.of(context)
                               .textTheme
-                              .headline3
+                              .headline4
                               ?.copyWith(
                                   fontFamily: ThemeConstants.bitterFontFamily,
                                   color: AppColors.blueDark),

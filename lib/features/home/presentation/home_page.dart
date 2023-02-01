@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
               children: [
                 Text(
                   'Home page!',
-                  style: Theme.of(context).textTheme.headline3,
+                  style: Theme.of(context).textTheme.headline4,
                 ),
                 const SizedBox(
                   height: 20.0,

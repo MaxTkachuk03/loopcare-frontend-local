@@ -37,7 +37,7 @@ class ForgotPasswordPage extends StatelessWidget {
                           LocalizedTexts.forgotYourPasswordTitle.tr(),
                           style: Theme.of(context)
                               .textTheme
-                              .headline3
+                              .headline4
                               ?.copyWith(
                                   fontFamily: ThemeConstants.bitterFontFamily,
                                   color: AppColors.blueDark),

@@ -230,15 +230,20 @@ TextTheme _getTextTheme() {
     ),
     headline3: TextStyle(
       color: AppColors.darkGreen,
-      fontSize: ThemeConstants.fontSize28,
+      fontSize: ThemeConstants.fontSize32,
       fontWeight: FontWeight.w700,
     ),
     headline4: TextStyle(
       color: AppColors.darkGreen,
+      fontSize: ThemeConstants.fontSize28,
+      fontWeight: FontWeight.w700,
+    ),
+    headline5: TextStyle(
+      color: AppColors.darkGreen,
       fontSize: ThemeConstants.fontSize18,
       fontWeight: FontWeight.w600,
     ),
-    headline5: TextStyle(
+    headline6: TextStyle(
       color: AppColors.darkGreen,
       fontSize: ThemeConstants.fontSize16,
       fontWeight: FontWeight.w700,

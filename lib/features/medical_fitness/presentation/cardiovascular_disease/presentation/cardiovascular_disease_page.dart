@@ -20,7 +20,7 @@ class CardiovascularDiseasePage extends StatelessWidget {
             ),
             Text(
               LocalizedTexts.cardiovascularDiseaseQuestion.tr(),
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headline5,
             ),
             const SizedBox(
               height: 16.0,

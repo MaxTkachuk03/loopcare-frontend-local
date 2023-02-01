@@ -48,13 +48,13 @@ class CheckFailedBmiPage extends StatelessWidget {
                         '$bmiIndex',
                         style: Theme.of(context)
                             .textTheme
-                            .headline3
+                            .headline4
                             ?.copyWith(color: AppColors.blueDark),
                       ),
                       const SizedBox(height: 26),
                       Text(
                         LocalizedTexts.fitnessCheckFailedInformationsText.tr(),
-                        style: Theme.of(context).textTheme.headline5,
+                        style: Theme.of(context).textTheme.headline6,
                       ),
                       const SizedBox(height: 26),
                       Text(LocalizedTexts.fitnessCheckFailedAdviceText.tr()),
