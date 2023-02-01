@@ -115,5 +115,11 @@
   "failedStomachReductionTitle": "Unfortunately our program is not suitable for you if you stomach reduction in the past 12 months",
   "stomachReductionQuestion": "Did you have a stomach reduction in the 12 months",
   "failedCardiovascularDiseaseTitle": "Unfortunately our program is not suitable since you have a cardiovascular disease and/or had a heart surgery in the last 24 months",
-  "cardiovascularDiseaseQuestion": "Are you suffering from cardiovascular disease or did you have heart surgery in last 24 months?"
+  "cardiovascularDiseaseQuestion": "Are you suffering from cardiovascular disease or did you have heart surgery in last 24 months?",
+  "consentConfirmationTitle": "Just one more matter",
+  "consentConfirmationQuestion": "Do you have consent from your specialist?",
+  "iStillHaveToAskConsent": "I still have to ask consent",
+  "yesIHaveConsent": "Yes, I have consent",
+  "noIWasNotGratedConsent": "No, I was not granted consent",
+  "medicalFitness": "Medical fitness"
 }

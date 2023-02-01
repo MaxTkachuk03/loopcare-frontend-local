@@ -51,19 +51,19 @@ class CheckPassedPage extends StatelessWidget {
                             children: [
                               Text(
                                 '${bloc.age} years',
-                                style: Theme.of(context).textTheme.headline5,
+                                style: Theme.of(context).textTheme.headline6,
                               ),
                               Text(
                                 '${bloc.heightInCm} cm',
-                                style: Theme.of(context).textTheme.headline5,
+                                style: Theme.of(context).textTheme.headline6,
                               ),
                               Text(
                                 '${bloc.weightInKg} kg',
-                                style: Theme.of(context).textTheme.headline5,
+                                style: Theme.of(context).textTheme.headline6,
                               ),
                               Text(
                                 '${bloc.bmi}',
-                                style: Theme.of(context).textTheme.headline5,
+                                style: Theme.of(context).textTheme.headline6,
                               ),
                             ],
                           )
@@ -76,7 +76,7 @@ class CheckPassedPage extends StatelessWidget {
                         LocalizedTexts.fitnessCheckPassedText.tr(),
                         style: Theme.of(context)
                             .textTheme
-                            .headline5
+                            .headline6
                             ?.copyWith(color: AppColors.blueDark),
                       ),
                       const SizedBox(

@@ -61,7 +61,7 @@ class SuccessContainer extends StatelessWidget {
                   child: Text(
                     title,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline3?.copyWith(
+                    style: Theme.of(context).textTheme.headline4?.copyWith(
                           fontWeight: FontWeight.w600,
                           color: AppColors.white,
                           fontFamily: ThemeConstants.bitterFontFamily,

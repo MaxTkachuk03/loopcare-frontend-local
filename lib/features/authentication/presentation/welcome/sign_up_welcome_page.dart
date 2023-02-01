@@ -45,7 +45,7 @@ class SignUpWelcomePage extends StatelessWidget {
                             LocalizedTexts.signUpWelcomeTitle.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline3
+                                .headline4
                                 ?.copyWith(
                                   fontSize: 30.0,
                                   fontFamily: ThemeConstants.bitterFontFamily,

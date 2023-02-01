@@ -72,7 +72,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                       child: Text(
                         LocalizedTexts.waitingForConfirmationTitle.tr(),
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline3?.copyWith(
+                        style: Theme.of(context).textTheme.headline4?.copyWith(
                               fontFamily: ThemeConstants.bitterFontFamily,
                             ),
                       ),
@@ -99,7 +99,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                         child: Text(
                           LocalizedTexts.confirmYourAddress.tr(),
                           style:
-                              Theme.of(context).textTheme.headline4?.copyWith(
+                              Theme.of(context).textTheme.headline5?.copyWith(
                                     color: AppColors.blueDark,
                                     fontSize: 20.0,
                                   ),

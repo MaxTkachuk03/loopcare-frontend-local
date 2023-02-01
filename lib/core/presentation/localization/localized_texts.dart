@@ -139,4 +139,13 @@ class LocalizedTexts {
   static const String failedTreatmentByDoctorTitle = 'failedTreatmentByDoctorTitle';
   static const String noCardiovascularDiseaseBut = 'noCardiovascularDiseaseBut';
   static const String failedCardiovascularDiseaseTitle = 'failedCardiovascularDiseaseTitle';
+
+  // Consent confirmation
+  static const String consentConfirmationTitle = 'consentConfirmationTitle';
+  static const String consentConfirmationQuestion = 'consentConfirmationQuestion';
+  static const String iStillHaveToAskConsent = 'iStillHaveToAskConsent';
+  static const String yesIHaveConsent = 'yesIHaveConsent';
+  static const String noIWasNotGratedConsent = 'noIWasNotGratedConsent';
+  static const String medicalFitness = 'medicalFitness';
+
 }

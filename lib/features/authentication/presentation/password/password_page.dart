@@ -55,7 +55,7 @@ class _PasswordPageState extends State<PasswordPage> {
                               orElse: () => ''),
                         }),
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline3?.copyWith(
+                        style: Theme.of(context).textTheme.headline4?.copyWith(
                               fontFamily: ThemeConstants.bitterFontFamily,
                             ),
                       );
