@@ -121,5 +121,8 @@
   "iStillHaveToAskConsent": "I still have to ask consent",
   "yesIHaveConsent": "Yes, I have consent",
   "noIWasNotGratedConsent": "No, I was not granted consent",
-  "medicalFitness": "Medical fitness"
+  "medicalFitness": "Medical fitness",
+  "offCourseNoProblem": "Off course, no problem",
+  "asSoonAsYouReceiveAnswer": "As soon as you receive an answer please let us know.",
+  "youCanDownloadTheInstruction": "You can download the “What to ask my specialist” here"
 }
