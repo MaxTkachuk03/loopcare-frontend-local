@@ -151,5 +151,10 @@ class LocalizedTexts {
   static const String asSoonAsYouReceiveAnswer = 'asSoonAsYouReceiveAnswer';
   static const String youCanDownloadTheInstruction = 'youCanDownloadTheInstruction';
   static const String consentConfirmationFailed = 'consentConfirmationFailed';
+  static const String consentConfirmationMoreInfoTitle = 'consentConfirmationMoreInfoTitle';
+  static const String consentConfirmationMoreInfoTextOne = 'consentConfirmationMoreInfoTextOne';
+  static const String consentConfirmationMoreInfoTextTwo = 'consentConfirmationMoreInfoTextTwo';
+  static const String downloadInstructionWhatToAsk = 'downloadInstructionWhatToAsk';
+  static const String close = 'close';
 
 }

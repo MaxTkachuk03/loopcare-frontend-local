@@ -125,5 +125,10 @@
   "offCourseNoProblem": "Off course, no problem",
   "asSoonAsYouReceiveAnswer": "As soon as you receive an answer please let us know.",
   "youCanDownloadTheInstruction": "You can download the “What to ask my specialist” here",
-  "consentConfirmationFailed": "We are sorry but unfortuneately you need consent from your specialist to enter the LeanOnMe program"
+  "consentConfirmationFailed": "We are sorry but unfortuneately you need consent from your specialist to enter the LeanOnMe program",
+  "consentConfirmationMoreInfoTitle": "You indicated that you are suffering from cardiovascular disease or you did have heart surgery in the last 12 months",
+  "consentConfirmationMoreInfoTextOne": "Therefore you need consent from your specialist to participate in the LeanOnMe program",
+  "consentConfirmationMoreInfoTextTwo": "As soon as you have an answer you can return here and continue. For help on what to ask your specialist, you can download the instructions:",
+  "downloadInstructionWhatToAsk": "Download instructions what to ask your specialist",
+  "close": "Close"
 }

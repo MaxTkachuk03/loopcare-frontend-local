@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
@@ -98,6 +99,125 @@ class ModalBottomSheet {
                           MaterialStateProperty.all(AppColors.black),
                     ),
                 child: Text(btnText),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  static void consentConfirmationMoreInfo({
+    required BuildContext context,
+  }) {
+    showModalBottomSheet<void>(
+      isScrollControlled: true,
+      backgroundColor: AppColors.bgGreen,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24.0),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return FractionallySizedBox(
+          heightFactor: 0.9,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 28.0,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: FractionallySizedBox(
+                      widthFactor: 0.25,
+                      child: Container(
+                        height: 5.0,
+                        decoration: const BoxDecoration(
+                          color: AppColors.black,
+                          borderRadius: BorderRadius.all(Radius.circular(2.5)),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 18.0,
+                  ),
+                  Container(
+                    height: 1,
+                    color: AppColors.yellowLight,
+                  ),
+                  const SizedBox(
+                    height: 34.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          LocalizedTexts.consentConfirmationMoreInfoTitle.tr(),
+                          style:
+                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                        ),
+                        const SizedBox(
+                          height: 30.0,
+                        ),
+                        Text(
+                          LocalizedTexts.consentConfirmationMoreInfoTextOne
+                              .tr(),
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        const SizedBox(
+                          height: 30.0,
+                        ),
+                        Text(
+                          LocalizedTexts.consentConfirmationMoreInfoTextTwo
+                              .tr(),
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        const SizedBox(
+                          height: 30.0,
+                        ),
+                        Text(
+                          LocalizedTexts.downloadInstructionWhatToAsk.tr(),
+                          style:
+                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                                    decoration: TextDecoration.underline,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              SafeArea(
+                child: Column(
+                  children: [
+                    Container(
+                      height: 1,
+                      color: AppColors.yellowLight,
+                    ),
+                    const SizedBox(
+                      height: 24.0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                      child: ElevatedButton(
+                        onPressed: () => context.router.pop(),
+                        child: Text(
+                          LocalizedTexts.close.tr(),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16.0,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
