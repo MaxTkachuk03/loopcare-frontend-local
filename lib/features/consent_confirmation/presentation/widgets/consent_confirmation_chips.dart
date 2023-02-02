@@ -5,7 +5,12 @@ import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart
 import 'package:loopcare_frontend/features/consent_confirmation/domain/consent_confirmation_answers.dart';
 
 class ConsentConfirmationChips extends StatefulWidget {
-  const ConsentConfirmationChips({Key? key}) : super(key: key);
+  final void Function(bool value) onSelectHaveToAskOption;
+
+  const ConsentConfirmationChips({
+    Key? key,
+    required this.onSelectHaveToAskOption,
+  }) : super(key: key);
 
   @override
   State<ConsentConfirmationChips> createState() =>
@@ -19,6 +24,8 @@ class _ConsentConfirmationChipsState extends State<ConsentConfirmationChips> {
     setState(() {
       _selectedValue = value;
     });
+
+    widget.onSelectHaveToAskOption(value == ConsentConfirmationAnswers.haveToAsk);
 
     if (value == ConsentConfirmationAnswers.no) {
       context.router.pushNamed(AppRoutes.noConsent);
