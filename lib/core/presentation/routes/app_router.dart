@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/features/authentication/presentation/password/
 import 'package:loopcare_frontend/features/authentication/presentation/reset_password/reset_password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/waiting_for_confirmation/waiting_for_confirmation_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/consent_confirmation_page.dart';
+import 'package:loopcare_frontend/features/consent_confirmation/presentation/no_consent_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
@@ -167,6 +168,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.consentConfirmation,
       page: ConsentConfirmationPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.noConsent,
+      page: NoConsentPage,
     ),
   ],
 )
