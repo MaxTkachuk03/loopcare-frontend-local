@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/domain/consent_confirmation_answers.dart';
 
@@ -24,6 +26,10 @@ class _ConsentConfirmationChipsState extends State<ConsentConfirmationChips> {
     });
 
     widget.onSelectHaveToAskOption(value == ConsentConfirmationAnswers.haveToAsk);
+
+    if (value == ConsentConfirmationAnswers.no) {
+      context.router.pushNamed(AppRoutes.noConsent);
+    }
   }
 
   @override

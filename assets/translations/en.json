@@ -124,5 +124,6 @@
   "medicalFitness": "Medical fitness",
   "offCourseNoProblem": "Off course, no problem",
   "asSoonAsYouReceiveAnswer": "As soon as you receive an answer please let us know.",
-  "youCanDownloadTheInstruction": "You can download the “What to ask my specialist” here"
+  "youCanDownloadTheInstruction": "You can download the “What to ask my specialist” here",
+  "consentConfirmationFailed": "We are sorry but unfortuneately you need consent from your specialist to enter the LeanOnMe program"
 }

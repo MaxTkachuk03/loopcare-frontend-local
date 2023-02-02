@@ -150,5 +150,6 @@ class LocalizedTexts {
   static const String offCourseNoProblem = 'offCourseNoProblem';
   static const String asSoonAsYouReceiveAnswer = 'asSoonAsYouReceiveAnswer';
   static const String youCanDownloadTheInstruction = 'youCanDownloadTheInstruction';
+  static const String consentConfirmationFailed = 'consentConfirmationFailed';
 
 }
