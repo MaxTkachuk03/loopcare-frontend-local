@@ -33,6 +33,7 @@ class AppRoutes {
   static const String waitingForConfirmation = '/waiting-for-confirmation';
   static const String checkFailedByAge = '/failed-age';
   static const String consentConfirmation = '/consent-confirmation';
+  static const String noConsent = '/no-consent';
 
   AppRoutes._();
 }

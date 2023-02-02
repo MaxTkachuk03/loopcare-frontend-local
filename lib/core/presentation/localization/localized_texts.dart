@@ -147,5 +147,6 @@ class LocalizedTexts {
   static const String yesIHaveConsent = 'yesIHaveConsent';
   static const String noIWasNotGratedConsent = 'noIWasNotGratedConsent';
   static const String medicalFitness = 'medicalFitness';
+  static const String consentConfirmationFailed = 'consentConfirmationFailed';
 
 }
