@@ -22,7 +22,7 @@ class PreferencesListItem extends StatelessWidget {
       borderRadius: BorderRadius.circular(12.0),
       child: Material(
         child: InkWell(
-          onTap: () => _onItemPressed(context),
+          onTap: _onItemPressed,
           child: Ink(
             height: 96.0,
             padding: const EdgeInsets.only(right: 26.0),
@@ -109,7 +109,7 @@ class PreferencesListItem extends StatelessWidget {
     );
   }
 
-  void _onItemPressed(BuildContext context) {
+  void _onItemPressed() {
     onTapHandler(item);
   }
 }
