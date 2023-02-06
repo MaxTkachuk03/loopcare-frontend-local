@@ -13,6 +13,9 @@ class AppImages {
   static const AssetImage signUpWelcome =
       AssetImage('$iconsFilePath/sign_up_welcome.png');
 
+  static const AssetImage preferencesDiabetes =
+      AssetImage('$iconsFilePath/diabetes.png');
+
   static SvgPicture logoSvgBig =
       SvgPicture.asset('$iconsFilePath/logo.svg', width: 114, height: 107);
 
@@ -33,6 +36,12 @@ class AppImages {
 
   static SvgPicture exclamationMark = SvgPicture.asset(
     '$iconsFilePath/exclamation_mark.svg',
+    width: 50,
+    height: 50,
+  );
+
+  static SvgPicture like = SvgPicture.asset(
+    '$iconsFilePath/like.svg',
     width: 50,
     height: 50,
   );

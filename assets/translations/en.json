@@ -125,5 +125,10 @@
   "offCourseNoProblem": "Off course, no problem",
   "asSoonAsYouReceiveAnswer": "As soon as you receive an answer please let us know.",
   "youCanDownloadTheInstruction": "You can download the “What to ask my specialist” here",
-  "consentConfirmationFailed": "We are sorry but unfortuneately you need consent from your specialist to enter the LeanOnMe program"
+  "consentConfirmationFailed": "We are sorry but unfortunately you need consent from your specialist to enter the LeanOnMe program",
+  "preferencesOverview": "Your preferences",
+  "preferencesOverviewDescription": "We need so more information about you, so we can tailor a fitting program for you. please fill out the  survey’s",
+  "preferencesOverviewLeftSurveys": "Surveys to do:",
+  "surveyFinishedBottomSheetTitle": "Great you finished all",
+  "surveyFinishedBottomSheetMain": "Bases on your answers we have set up a board with recommendations for you. You can always update your preferences if needed"
 }
