@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -95,5 +96,7 @@ class _ConsentConfirmationPageState extends State<ConsentConfirmationPage> {
     );
   }
 
-  void _onMorePressed(BuildContext context) {}
+  void _onMorePressed(BuildContext context) {
+    ModalBottomSheet.consentConfirmationMoreInfo(context: context);
+  }
 }
