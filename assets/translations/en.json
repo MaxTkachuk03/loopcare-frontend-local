@@ -99,7 +99,7 @@
   "emailConfirmedBottomSheetContent": "Please continue to the Your preferences overview so we can make sure we are aware of your preferences and needs",
   "failedPregnancyTitle": "Unfortunately our program is not suitable for you if you are pregnant",
   "alsoSomeAdviceWhereToTurnNext": "[Also some advice where to turn next].",
-  "enterYourHeight":"Please enter your height",
+  "enterYourHeight": "Please enter your height",
   "heightSmall": "Are you sure this is correct height? Seems rather small. Please correct your input",
   "heightLarge": "Are you sure this is correct height? Seems rather large. Please correct your input",
   "changeYourHeight": "Change your height",
@@ -125,10 +125,15 @@
   "offCourseNoProblem": "Off course, no problem",
   "asSoonAsYouReceiveAnswer": "As soon as you receive an answer please let us know.",
   "youCanDownloadTheInstruction": "You can download the “What to ask my specialist” here",
-  "consentConfirmationFailed": "We are sorry but unfortuneately you need consent from your specialist to enter the LeanOnMe program",
   "consentConfirmationMoreInfoTitle": "You indicated that you are suffering from cardiovascular disease or you did have heart surgery in the last 12 months",
   "consentConfirmationMoreInfoTextOne": "Therefore you need consent from your specialist to participate in the LeanOnMe program",
   "consentConfirmationMoreInfoTextTwo": "As soon as you have an answer you can return here and continue. For help on what to ask your specialist, you can download the instructions:",
   "downloadInstructionWhatToAsk": "Download instructions what to ask your specialist",
-  "close": "Close"
+  "close": "Close",
+  "consentConfirmationFailed": "We are sorry but unfortunately you need consent from your specialist to enter the LeanOnMe program",
+  "preferencesOverview": "Your preferences",
+  "preferencesOverviewDescription": "We need so more information about you, so we can tailor a fitting program for you. please fill out the  survey’s",
+  "preferencesOverviewLeftSurveys": "Surveys to do:",
+  "surveyFinishedBottomSheetTitle": "Great you finished all",
+  "surveyFinishedBottomSheetMain": "Bases on your answers we have set up a board with recommendations for you. You can always update your preferences if needed"
 }

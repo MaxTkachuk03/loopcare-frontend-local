@@ -10,5 +10,9 @@ class AppIcons {
   static const AssetImage exclamationMark =
       AssetImage('$iconsFilePath/exclamation_mark.png');
 
+  static const AssetImage arrow = AssetImage('$iconsFilePath/arrow.png');
+  static const AssetImage checkmark =
+      AssetImage('$iconsFilePath/checkmark.png');
+
   AppIcons._();
 }

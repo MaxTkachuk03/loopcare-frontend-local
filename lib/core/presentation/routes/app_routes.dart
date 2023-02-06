@@ -13,7 +13,8 @@ class AppRoutes {
   static const String pregnancy = '/pregnancy';
   static const String pregnancyFailed = '/pregnancy-failed';
   static const String cardiovascularDisease = '/cardiovascular-disease';
-  static const String cardiovascularDiseaseFailed = '/cardiovascular-disease-failed';
+  static const String cardiovascularDiseaseFailed =
+      '/cardiovascular-disease-failed';
   static const String stomachReduction = '/stomach-reduction';
   static const String stomachReductionFailed = '/stomach-reduction-failed';
   static const String medicalCheckPassed = '/medical-check-passed';
@@ -34,6 +35,7 @@ class AppRoutes {
   static const String checkFailedByAge = '/failed-age';
   static const String consentConfirmation = '/consent-confirmation';
   static const String noConsent = '/no-consent';
+  static const String preferencesOverview = '/preferences-overview';
 
   AppRoutes._();
 }

@@ -225,4 +225,59 @@ class ModalBottomSheet {
       },
     );
   }
+
+  static void surveyFinishedMessage({
+    required BuildContext context,
+    required String btnText,
+    required void Function() onBtnPress,
+  }) {
+    showModalBottomSheet<void>(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24.0),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
+          height: 430,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 54.0),
+              Align(
+                alignment: AlignmentDirectional.topCenter,
+                child: AppImages.like,
+              ),
+              const SizedBox(height: 35.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 22.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      LocalizedTexts.surveyFinishedBottomSheetTitle.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline5
+                          ?.copyWith(color: AppColors.blueDark),
+                    ),
+                    const SizedBox(height: 8.0),
+                    Text(
+                      LocalizedTexts.surveyFinishedBottomSheetMain.tr(),
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 27.0),
+              ElevatedButton(
+                onPressed: onBtnPress,
+                child: Text(btnText),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }
