@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/features/consent_confirmation/presentation/no_
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
+import 'package:loopcare_frontend/features/legal_statement/presentation/legal_statement_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/cardiovascular_disease/presentation/cardiovascular_disease_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/cardiovascular_disease_failed/presentation/cardiovascular_disease_failed_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/consent_needed/consent_needed_page.dart';
@@ -173,6 +174,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.noConsent,
       page: NoConsentPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.legalStatement,
+      page: LegalStatementPage,
     ),
     AutoRoute(
       path: AppRoutes.preferencesOverview,

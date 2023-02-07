@@ -35,6 +35,7 @@ class AppRoutes {
   static const String checkFailedByAge = '/failed-age';
   static const String consentConfirmation = '/consent-confirmation';
   static const String noConsent = '/no-consent';
+  static const String legalStatement = '/legal-statement';
   static const String preferencesOverview = '/preferences-overview';
 
   AppRoutes._();

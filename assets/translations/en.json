@@ -135,5 +135,13 @@
   "preferencesOverviewDescription": "We need so more information about you, so we can tailor a fitting program for you. please fill out the  survey’s",
   "preferencesOverviewLeftSurveys": "Surveys to do:",
   "surveyFinishedBottomSheetTitle": "Great you finished all",
-  "surveyFinishedBottomSheetMain": "Bases on your answers we have set up a board with recommendations for you. You can always update your preferences if needed"
+  "surveyFinishedBottomSheetMain": "Bases on your answers we have set up a board with recommendations for you. You can always update your preferences if needed",
+  "legalStatement": "Legal statement",
+  "legalStatementTextOne": "Is it important for your own health and safety that you truthfully answered all questions.",
+  "legalStatementTextTwo": "Please read our legal statement carrefully before you agree and then continue with confriming that you agree",
+  "readLegalStatement": "Read legal statement",
+  "legalStatementCheckboxTitle": "I hereby declare, that: ",
+  "legalStatementCheckboxItemOne": "I answered all questions to the best of knowlegde and will do so in the future",
+  "legalStatementCheckboxItemTwo": "I have read and do understand and agree with the here dispayed legal statement",
+  "confirm": "Confirm"
 }

@@ -1,13 +1,22 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
+import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 
 class IntroGuard extends AutoRouteGuard {
   AuthenticationCubit authenticationCubit;
   OnboardingBloc onboardingBloc;
+  ConsentConfirmationBloc consentConfirmationBloc;
+  LegalStatementBloc legalStatementBloc;
 
-  IntroGuard(this.authenticationCubit, this.onboardingBloc);
+  IntroGuard(
+    this.authenticationCubit,
+    this.onboardingBloc,
+    this.consentConfirmationBloc,
+    this.legalStatementBloc,
+  );
 
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
@@ -41,6 +50,22 @@ class IntroGuard extends AutoRouteGuard {
       return;
     }
 
+    final consentConfirmationWasPassed = consentConfirmationBloc.state.pageWasPassed;
+
+    if (onboardingState.isCompleted && !consentConfirmationWasPassed) {
+      router.replaceNamed(AppRoutes.consentConfirmation);
+
+      return;
+    }
+
+    final legalStatementWasPassed = legalStatementBloc.state.pageWasPassed;
+
+    if (onboardingState.isCompleted && !legalStatementWasPassed) {
+      router.replaceNamed(AppRoutes.legalStatement);
+
+      return;
+    }
+
     final isGuestMode = authenticationCubit.state.maybeWhen(
       orElse: () => true,
       authenticated: (_) => false,
@@ -55,6 +80,5 @@ class IntroGuard extends AutoRouteGuard {
     }
 
     resolver.next(true);
-
   }
 }

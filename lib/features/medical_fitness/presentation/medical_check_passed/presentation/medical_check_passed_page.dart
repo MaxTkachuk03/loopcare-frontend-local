@@ -7,6 +7,8 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/success_container.dart';
+import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
+import 'package:loopcare_frontend/features/medical_fitness/domain/cardiovascular_disease_answers.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/medical_question_wrap.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 
@@ -50,8 +52,15 @@ class MedicalCheckPassedPage extends StatelessWidget {
   }
 
   void _onContinuePressed(BuildContext context) {
+    final cardiovascularDisease =
+        context.read<MedicalFitnessBloc>().state.cardiovascularDisease;
+    final nextRoute =
+        cardiovascularDisease == CardiovascularDiseaseAnswers.noBut
+            ? AppRoutes.consentConfirmation
+            : AppRoutes.legalStatement;
+
     context
       ..read<OnboardingBloc>().add(const OnboardingEvent.nextStep())
-      ..router.replaceNamed(AppRoutes.signUpWelcome);
+      ..router.pushNamed(nextRoute);
   }
 }
