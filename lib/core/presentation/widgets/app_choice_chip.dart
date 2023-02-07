@@ -6,6 +6,7 @@ class AppChoiceChip<T> extends StatelessWidget {
   final bool selected;
   final T value;
   final void Function(T value) onSelected;
+  final TextAlign? textAlign;
 
   const AppChoiceChip({
     Key? key,
@@ -13,16 +14,18 @@ class AppChoiceChip<T> extends StatelessWidget {
     required this.selected,
     required this.value,
     required this.onSelected,
+    this.textAlign,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ChoiceChip(
+      padding: const EdgeInsets.symmetric(horizontal: 30.0),
       label: SizedBox(
         width: double.infinity,
         child: Text(
           label,
-          textAlign: TextAlign.center,
+          textAlign: textAlign ?? TextAlign.center,
           style: Theme.of(context).textTheme.bodyText2?.copyWith(
                 fontWeight: FontWeight.w600,
                 color: selected ? AppColors.white : AppColors.darkGreen,
