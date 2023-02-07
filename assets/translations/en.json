@@ -151,5 +151,8 @@
   "youAndFoodItemTwo": "If you want to reduce your meat / fish intake",
   "youAndFoodItemThree": "Allergies",
   "youAndFoodItemFour": "Food you dislike",
-  "start": "Start"
+  "start": "Start",
+  "whichTypesOfFoodDoYou": "Which types of food do you",
+  "not": "not",
+  "eatOrDrink": "eat or drink for religious or personal reasons."
 }
