@@ -143,5 +143,13 @@
   "legalStatementCheckboxTitle": "I hereby declare, that: ",
   "legalStatementCheckboxItemOne": "I answered all questions to the best of knowlegde and will do so in the future",
   "legalStatementCheckboxItemTwo": "I have read and do understand and agree with the here dispayed legal statement",
-  "confirm": "Confirm"
+  "confirm": "Confirm",
+  "survey": "survey",
+  "youAndFood": "You and Food",
+  "youAndFoodDesc": "We love to offer you personal and relevant food recommendations.",
+  "youAndFoodItemOne": "Food items you don’t eat due to religious or personal reasons",
+  "youAndFoodItemTwo": "If you want to reduce your meat / fish intake",
+  "youAndFoodItemThree": "Allergies",
+  "youAndFoodItemFour": "Food you dislike",
+  "start": "Start"
 }
