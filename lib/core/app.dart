@@ -6,6 +6,8 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/routes/intro_guard.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
+import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
@@ -32,6 +34,12 @@ class App extends StatelessWidget {
         BlocProvider<AuthenticationCubit>(
           create: (_) => getIt<AuthenticationCubit>(),
         ),
+        BlocProvider<LegalStatementBloc>(
+          create: (_) => getIt<LegalStatementBloc>(),
+        ),
+        BlocProvider<ConsentConfirmationBloc>(
+          create: (_) => getIt<ConsentConfirmationBloc>(),
+        ),
       ],
       child: const _App(),
     );
@@ -52,11 +60,15 @@ class _AppState extends State<_App> {
   void initState() {
     final authBloc = context.read<AuthenticationCubit>();
     final onboardingBloc = context.read<OnboardingBloc>();
+    final legalStatementBloc = context.read<LegalStatementBloc>();
+    final consentConfirmationBloc = context.read<ConsentConfirmationBloc>();
 
     _appRouter = AppRouter(
       introGuard: IntroGuard(
         authBloc,
         onboardingBloc,
+        consentConfirmationBloc,
+        legalStatementBloc,
       ),
     );
 

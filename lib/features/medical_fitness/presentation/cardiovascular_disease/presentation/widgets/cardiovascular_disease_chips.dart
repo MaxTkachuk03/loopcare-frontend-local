@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
+import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
 import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/medical_fitness/domain/cardiovascular_disease_answers.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
@@ -32,6 +33,10 @@ class _CardiovascularDiseaseChipsState
     setState(() {
       _selectedValue = value;
     });
+
+    context.read<ConsentConfirmationBloc>().add(
+        ConsentConfirmationEvent.passageChanged(
+            value == CardiovascularDiseaseAnswers.no));
 
     if (value == CardiovascularDiseaseAnswers.yes) {
       context.router.pushNamed(AppRoutes.cardiovascularDiseaseFailed);

@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
+import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/domain/consent_confirmation_answers.dart';
 
 class ConsentConfirmationChips extends StatefulWidget {
@@ -25,10 +27,20 @@ class _ConsentConfirmationChipsState extends State<ConsentConfirmationChips> {
       _selectedValue = value;
     });
 
-    widget.onSelectHaveToAskOption(value == ConsentConfirmationAnswers.haveToAsk);
+    widget
+        .onSelectHaveToAskOption(value == ConsentConfirmationAnswers.haveToAsk);
 
     if (value == ConsentConfirmationAnswers.no) {
       context.router.pushNamed(AppRoutes.noConsent);
+
+      return;
+    }
+
+    if (value == ConsentConfirmationAnswers.yes) {
+      context
+        ..router.pushNamed(AppRoutes.legalStatement)
+        ..read<ConsentConfirmationBloc>()
+            .add(const ConsentConfirmationEvent.passageChanged(true));
     }
   }
 
