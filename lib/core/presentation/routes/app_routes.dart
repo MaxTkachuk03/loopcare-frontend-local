@@ -9,7 +9,7 @@ class AppRoutes {
   static const String birthday = '/birthday';
   static const String sex = '/sex';
   static const String biologicalGender = '/biological-gender';
-  static const String medicalIntro = '/medical_fitness-intro';
+  static const String medicalIntro = '/medical-fitness-intro';
   static const String pregnancy = '/pregnancy';
   static const String pregnancyFailed = '/pregnancy-failed';
   static const String cardiovascularDisease = '/cardiovascular-disease';
@@ -37,6 +37,7 @@ class AppRoutes {
   static const String noConsent = '/no-consent';
   static const String legalStatement = '/legal-statement';
   static const String preferencesOverview = '/preferences-overview';
+  static const String youAndFoodIntro = '/you-and-food-intro';
 
   AppRoutes._();
 }

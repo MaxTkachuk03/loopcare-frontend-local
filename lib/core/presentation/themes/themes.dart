@@ -40,7 +40,7 @@ ColorScheme _getColorScheme() {
 
 AppBarTheme _getAppBarTheme() {
   return const AppBarTheme(
-    backgroundColor: AppColors.bgGreen,
+    backgroundColor: Colors.transparent,
     titleTextStyle: TextStyle(
       color: AppColors.darkGreen,
       fontSize: ThemeConstants.fontSize14,

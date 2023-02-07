@@ -187,4 +187,15 @@ class LocalizedTexts {
       'surveyFinishedBottomSheetTitle';
   static const String surveyFinishedBottomSheetMain =
       'surveyFinishedBottomSheetMain';
+
+  // Food and You
+  static const String survey = 'survey';
+  static const String youAndFood = 'youAndFood';
+  static const String youAndFoodDesc = 'youAndFoodDesc';
+  static const String youAndFoodItemOne = 'youAndFoodItemOne';
+  static const String youAndFoodItemTwo = 'youAndFoodItemTwo';
+  static const String youAndFoodItemThree = 'youAndFoodItemThree';
+  static const String youAndFoodItemFour = 'youAndFoodItemFour';
+  static const String start = 'start';
+
 }

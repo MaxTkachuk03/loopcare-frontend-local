@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart'
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/widgets/preferences_list.dart';
-import 'package:loopcare_frontend/features/preferences/utils/survey_item_image_clipper.dart';
+import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/survey_item_image_clipper.dart';
 
 class PreferencesListItem extends StatelessWidget {
   final Pref item;
