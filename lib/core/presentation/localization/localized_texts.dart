@@ -200,5 +200,6 @@ class LocalizedTexts {
   static const String whichTypesOfFoodDoYou = 'whichTypesOfFoodDoYou';
   static const String not = 'not';
   static const String eatOrDrink = 'eatOrDrink';
+  static const String meatPreferencesQuestion = 'meatPreferencesQuestion';
 
 }

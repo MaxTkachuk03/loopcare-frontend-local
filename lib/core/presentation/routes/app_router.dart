@@ -35,6 +35,7 @@ import 'package:loopcare_frontend/features/physical_fitness/presentation/sex/sex
 import 'package:loopcare_frontend/features/physical_fitness/presentation/weight/weight_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/welcome/sign_up_welcome_page.dart';
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/preferences_overview_page.dart';
+import 'package:loopcare_frontend/features/you_and_food/presentation/meat_preferences/meat_preferences_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/types_of_food/types_of_food_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/you_and_food_intro/you_and_food_intro_page.dart';
 
@@ -192,6 +193,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.typesOfFood,
       page: TypesOfFoodPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.meatPreferences,
+      page: MeatPreferencesPage,
     ),
   ],
 )

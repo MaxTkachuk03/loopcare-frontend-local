@@ -154,5 +154,6 @@
   "start": "Start",
   "whichTypesOfFoodDoYou": "Which types of food do you",
   "not": "not",
-  "eatOrDrink": "eat or drink for religious or personal reasons."
+  "eatOrDrink": "eat or drink for religious or personal reasons.",
+  "meatPreferencesQuestion": "How often each week would you prefer to eat meat / fish?"
 }
