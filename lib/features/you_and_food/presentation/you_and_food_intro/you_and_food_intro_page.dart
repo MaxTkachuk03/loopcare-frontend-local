@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -120,7 +122,7 @@ class _YouAndFoodIntroPageState extends State<YouAndFoodIntroPage> {
               top: false,
               child: MainContainer(
                 child: ElevatedButton(
-                  onPressed: _onStart,
+                  onPressed: () => _onStart(context),
                   style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
                         backgroundColor:
                             MaterialStateProperty.all(AppColors.orangeDark),
@@ -135,5 +137,7 @@ class _YouAndFoodIntroPageState extends State<YouAndFoodIntroPage> {
     );
   }
 
-  void _onStart() {}
+  void _onStart(BuildContext context) {
+    context.router.pushNamed(AppRoutes.typesOfFood);
+  }
 }

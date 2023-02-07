@@ -197,5 +197,8 @@ class LocalizedTexts {
   static const String youAndFoodItemThree = 'youAndFoodItemThree';
   static const String youAndFoodItemFour = 'youAndFoodItemFour';
   static const String start = 'start';
+  static const String whichTypesOfFoodDoYou = 'whichTypesOfFoodDoYou';
+  static const String not = 'not';
+  static const String eatOrDrink = 'eatOrDrink';
 
 }
