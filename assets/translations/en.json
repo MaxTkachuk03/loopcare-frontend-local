@@ -156,5 +156,7 @@
   "not": "not",
   "eatOrDrink": "eat or drink for religious or personal reasons.",
   "meatPreferencesQuestion": "How often each week would you prefer to eat meat / fish?",
-  "allergicQuestion": "Are you allergic to any of the following?"
+  "allergicQuestion": "Are you allergic to any of the following?",
+  "doYou": "Do you",
+  "likeAnyOfTheFollowing": "like any of the following?"
 }
