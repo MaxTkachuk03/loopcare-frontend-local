@@ -155,5 +155,6 @@
   "whichTypesOfFoodDoYou": "Which types of food do you",
   "not": "not",
   "eatOrDrink": "eat or drink for religious or personal reasons.",
-  "meatPreferencesQuestion": "How often each week would you prefer to eat meat / fish?"
+  "meatPreferencesQuestion": "How often each week would you prefer to eat meat / fish?",
+  "allergicQuestion": "Are you allergic to any of the following?"
 }
