@@ -40,6 +40,7 @@ class AppRoutes {
   static const String youAndFoodIntro = '/you-and-food-intro';
   static const String typesOfFood = '/types-of-food';
   static const String meatPreferences = '/meat-preferences';
+  static const String allergic = '/allergic';
 
   AppRoutes._();
 }
