@@ -42,6 +42,7 @@ class AppRoutes {
   static const String meatPreferences = '/meat-preferences';
   static const String allergic = '/allergic';
   static const String youAndFoodReady = '/you-and-food-ready';
+  static const String doNotLike = '/do-not-like';
 
   AppRoutes._();
 }

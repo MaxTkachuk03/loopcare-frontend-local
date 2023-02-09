@@ -35,6 +35,7 @@ class YouAndFoodQuestion extends StatelessWidget {
       body: SafeArea(
         child: MainContainer(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
                 height: 48.0,
@@ -62,7 +63,7 @@ class YouAndFoodQuestion extends StatelessWidget {
                           backgroundColor:
                               MaterialStateProperty.all(AppColors.orangeDark),
                         ),
-                    child: Text(LocalizedTexts.start.tr()),
+                    child: Text(LocalizedTexts.next.tr()),
                   ),
                   const SizedBox(
                     height: 16.0,

@@ -208,5 +208,7 @@ class LocalizedTexts {
   static const String iAmAllergicTo = 'iAmAllergicTo';
   static const String iDoNotLike = 'iDoNotLike';
   static const String backToTheOverview = 'backToTheOverview';
+  static const String doYou = 'doYou';
+  static const String likeAnyOfTheFollowing = 'likeAnyOfTheFollowing';
 
 }

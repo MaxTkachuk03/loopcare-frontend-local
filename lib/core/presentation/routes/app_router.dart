@@ -36,6 +36,7 @@ import 'package:loopcare_frontend/features/physical_fitness/presentation/weight/
 import 'package:loopcare_frontend/features/authentication/presentation/welcome/sign_up_welcome_page.dart';
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/preferences_overview_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/allergic/allergic_page.dart';
+import 'package:loopcare_frontend/features/you_and_food/presentation/do_not_like/do_not_like_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/meat_preferences/meat_preferences_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/types_of_food/types_of_food_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/you_and_food_intro/you_and_food_intro_page.dart';
@@ -50,7 +51,7 @@ part 'app_routes.dart';
       initial: true,
       path: AppRoutes.intro,
       page: IntroPage,
-      guards: [IntroGuard]
+      guards: [IntroGuard],
     ),
     AutoRoute(
       path: AppRoutes.joinUs,
@@ -207,6 +208,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.youAndFoodReady,
       page: YouAndFoodReadyPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.doNotLike,
+      page: DoNotLikePage,
     ),
   ],
 )
