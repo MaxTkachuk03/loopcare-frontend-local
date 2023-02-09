@@ -202,5 +202,11 @@ class LocalizedTexts {
   static const String eatOrDrink = 'eatOrDrink';
   static const String meatPreferencesQuestion = 'meatPreferencesQuestion';
   static const String allergicQuestion = 'allergicQuestion';
+  static const String ready = 'ready';
+  static const String iDoNotEatOrDrink = 'iDoNotEatOrDrink';
+  static const String iPreferToEatMeatOrFish = 'iPreferToEatMeatOrFish';
+  static const String iAmAllergicTo = 'iAmAllergicTo';
+  static const String iDoNotLike = 'iDoNotLike';
+  static const String backToTheOverview = 'backToTheOverview';
 
 }

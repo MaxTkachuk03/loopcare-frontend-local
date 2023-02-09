@@ -39,6 +39,7 @@ import 'package:loopcare_frontend/features/you_and_food/presentation/allergic/al
 import 'package:loopcare_frontend/features/you_and_food/presentation/meat_preferences/meat_preferences_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/types_of_food/types_of_food_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/you_and_food_intro/you_and_food_intro_page.dart';
+import 'package:loopcare_frontend/features/you_and_food/presentation/you_and_food_ready/you_and_food_ready_page.dart';
 
 part 'app_routes.dart';
 
@@ -202,6 +203,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.allergic,
       page: AllergicPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.youAndFoodReady,
+      page: YouAndFoodReadyPage,
     ),
   ],
 )
