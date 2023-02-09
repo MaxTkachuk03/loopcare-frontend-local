@@ -16,6 +16,9 @@ class AppImages {
   static const AssetImage preferencesDiabetes =
       AssetImage('$iconsFilePath/diabetes.png');
 
+  static const AssetImage editButton =
+      AssetImage('$iconsFilePath/edit_button.png');
+
   static const AssetImage youAndFoodIntro =
       AssetImage('$iconsFilePath/you_and_food_intro.png');
 
