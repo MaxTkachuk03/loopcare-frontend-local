@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/routes/intro_guard.dart';
+import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
@@ -64,6 +65,7 @@ class _AppState extends State<_App> {
     final consentConfirmationBloc = context.read<ConsentConfirmationBloc>();
 
     _appRouter = AppRouter(
+      proxyGuard: ProxyGuard(),
       introGuard: IntroGuard(
         authBloc,
         onboardingBloc,

@@ -7,10 +7,20 @@ import 'package:path_provider/path_provider.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:loopcare_frontend/core/app.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localization_constants.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:loopcare_frontend/injection.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:loopcare_frontend/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  const environment = String.fromEnvironment('FLAVOR', defaultValue: 'dev');
+  await dotenv.load(fileName: '.env.$environment');
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   await EasyLocalization.ensureInitialized();
 
