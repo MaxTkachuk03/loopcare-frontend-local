@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:loopcare_frontend/core/presentation/routes/intro_guard.dart';
+import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/email_address/email_address_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/forgot_password/forgot_password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/login/login_page.dart';
@@ -35,6 +36,7 @@ import 'package:loopcare_frontend/features/physical_fitness/presentation/sex/sex
 import 'package:loopcare_frontend/features/physical_fitness/presentation/weight/weight_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/welcome/sign_up_welcome_page.dart';
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/preferences_overview_page.dart';
+import 'package:loopcare_frontend/features/proxy/proxy_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/allergic/allergic_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/do_not_like/do_not_like_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/meat_preferences/meat_preferences_page.dart';
@@ -49,6 +51,11 @@ part 'app_routes.dart';
   routes: [
     AutoRoute(
       initial: true,
+      path: AppRoutes.proxy,
+      page: ProxyPage,
+      guards: [ProxyGuard],
+    ),
+    AutoRoute(
       path: AppRoutes.intro,
       page: IntroPage,
       guards: [IntroGuard],
