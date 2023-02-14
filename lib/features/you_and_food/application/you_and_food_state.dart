@@ -51,4 +51,14 @@ class YouAndFoodState with _$YouAndFoodState {
 
     return foodPeriods.firstWhere((period) => period.id == selectedPeriod).name;
   }
+
+  bool get userDoesNotEatMeat {
+    return selectedHatesNames.contains('Beef') &&
+        selectedHatesNames.contains('Pork') &&
+        selectedHatesNames.contains('Poultry');
+  }
+
+  bool get userDoesNotEatFish {
+    return selectedHatesNames.contains('Fish/shellfish');
+  }
 }

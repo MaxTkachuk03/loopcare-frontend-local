@@ -16,5 +16,7 @@ class YouAndFoodEvent with _$YouAndFoodEvent {
 
   const factory YouAndFoodEvent.setDislike(int value) = SetDislike;
 
+  const factory YouAndFoodEvent.fetchFoodPreferences() = FetchFoodPreferences;
+
   const factory YouAndFoodEvent.saveFoodPreferences() = SaveFoodPreferences;
 }

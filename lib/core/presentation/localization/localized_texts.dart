@@ -210,5 +210,8 @@ class LocalizedTexts {
   static const String backToTheOverview = 'backToTheOverview';
   static const String doYou = 'doYou';
   static const String likeAnyOfTheFollowing = 'likeAnyOfTheFollowing';
+  static const String of = 'of';
+  static const String meat = 'meat';
+  static const String fish = 'fish';
 
 }

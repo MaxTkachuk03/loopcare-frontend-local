@@ -26,6 +26,7 @@ class YouAndFoodBloc extends Bloc<YouAndFoodEvent, YouAndFoodState> {
     on<SetAllergic>(_onSetAllergic);
     on<SetDislike>(_onSetDislike);
     on<SaveFoodPreferences>(_onSaveFoodPreferences);
+    on<FetchFoodPreferences>(_onFetchFoodPreferences);
   }
 
   FutureOr<void> _onFetchFoodPrefsTypes(
@@ -35,9 +36,11 @@ class YouAndFoodBloc extends Bloc<YouAndFoodEvent, YouAndFoodState> {
     emit(
       state.copyWith(
           foodTypes: [
-        FoodPreference(id: 1, name: 'Test1'),
-        FoodPreference(id: 2, name: 'Test2'),
-        FoodPreference(id: 3, name: 'Test3'),
+        FoodPreference(id: 1, name: 'Beef'),
+        FoodPreference(id: 2, name: 'Pork'),
+        FoodPreference(id: 3, name: 'Poultry'),
+        FoodPreference(id: 4, name: 'Fish/shellfish'),
+        FoodPreference(id: 5, name: 'Dairy'),
       ].toIList()),
     );
     // final response = await youAndFoodService.foodPrefsTypes();
@@ -98,6 +101,7 @@ class YouAndFoodBloc extends Bloc<YouAndFoodEvent, YouAndFoodState> {
     SetHates event,
     Emitter<YouAndFoodState> emit,
   ) {
+
     emit(state.copyWith(
         selectedHates: state.selectedHates.contains(event.value)
             ? state.selectedHates.remove(event.value)
@@ -140,5 +144,21 @@ class YouAndFoodBloc extends Bloc<YouAndFoodEvent, YouAndFoodState> {
     );
 
     youAndFoodService.foodPrefsSave(data);
+  }
+
+  FutureOr<void> _onFetchFoodPreferences(
+    FetchFoodPreferences event,
+    Emitter<YouAndFoodState> emit,
+  ) async {
+    final response = await youAndFoodService.foodPrefsFetch();
+
+    response.fold(
+        (l) => null,
+        (response) => emit(state.copyWith(
+              selectedHates: response.hates,
+              selectedAllergic: response.allergic,
+              selectedDislike: response.dislike,
+              selectedPeriod: response.period,
+            )));
   }
 }
