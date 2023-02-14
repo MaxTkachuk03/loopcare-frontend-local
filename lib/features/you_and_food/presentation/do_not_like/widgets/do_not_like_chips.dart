@@ -35,8 +35,7 @@ class _DoYouLikeChipsState extends State<DoYouLikeChips> {
                     width: width,
                     child: AppChoiceChip(
                       label: e.name,
-                      selected: selectedDislike != null &&
-                          selectedDislike.contains(e.id),
+                      selected: selectedDislike.contains(e.id),
                       value: e.id,
                       onSelected: _onSelected,
                     ),

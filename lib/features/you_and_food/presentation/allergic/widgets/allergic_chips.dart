@@ -35,8 +35,7 @@ class _AllergicChipsState extends State<AllergicChips> {
                     width: width,
                     child: AppChoiceChip(
                       label: e.name,
-                      selected: selectedAllergic != null &&
-                          selectedAllergic.contains(e.id),
+                      selected: selectedAllergic.contains(e.id),
                       value: e.id,
                       onSelected: _onSelected,
                     ),

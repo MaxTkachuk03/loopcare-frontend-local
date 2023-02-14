@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preference.dart';
+import 'package:loopcare_frontend/features/you_and_food/application/dto/food_prefs_data.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_service.dart';
 
 part 'you_and_food_bloc.freezed.dart';
@@ -24,6 +25,7 @@ class YouAndFoodBloc extends Bloc<YouAndFoodEvent, YouAndFoodState> {
     on<SetPeriod>(_onSetPeriod);
     on<SetAllergic>(_onSetAllergic);
     on<SetDislike>(_onSetDislike);
+    on<SaveFoodPreferences>(_onSaveFoodPreferences);
   }
 
   FutureOr<void> _onFetchFoodPrefsTypes(
@@ -96,39 +98,47 @@ class YouAndFoodBloc extends Bloc<YouAndFoodEvent, YouAndFoodState> {
     SetHates event,
     Emitter<YouAndFoodState> emit,
   ) {
-    final selectedHates = state.selectedHates ?? <int>[].toIList();
-
     emit(state.copyWith(
-        selectedHates: selectedHates.contains(event.value)
-            ? selectedHates.remove(event.value)
-            : selectedHates.add(event.value)));
+        selectedHates: state.selectedHates.contains(event.value)
+            ? state.selectedHates.remove(event.value)
+            : state.selectedHates.add(event.value)));
   }
 
   FutureOr<void> _onSetAllergic(
     SetAllergic event,
     Emitter<YouAndFoodState> emit,
   ) {
-    final selectedAllergic = state.selectedAllergic ?? <int>[].toIList();
-
     emit(state.copyWith(
-        selectedAllergic: selectedAllergic.contains(event.value)
-            ? selectedAllergic.remove(event.value)
-            : selectedAllergic.add(event.value)));
+        selectedAllergic: state.selectedAllergic.contains(event.value)
+            ? state.selectedAllergic.remove(event.value)
+            : state.selectedAllergic.add(event.value)));
   }
 
   FutureOr<void> _onSetDislike(
     SetDislike event,
     Emitter<YouAndFoodState> emit,
   ) {
-    final selectedDislike = state.selectedDislike ?? <int>[].toIList();
-
     emit(state.copyWith(
-        selectedDislike: selectedDislike.contains(event.value)
-            ? selectedDislike.remove(event.value)
-            : selectedDislike.add(event.value)));
+        selectedDislike: state.selectedDislike.contains(event.value)
+            ? state.selectedDislike.remove(event.value)
+            : state.selectedDislike.add(event.value)));
   }
 
   FutureOr<void> _onSetPeriod(SetPeriod event, Emitter<YouAndFoodState> emit) {
     emit(state.copyWith(selectedPeriod: event.value));
+  }
+
+  FutureOr<void> _onSaveFoodPreferences(
+    SaveFoodPreferences event,
+    Emitter<YouAndFoodState> emit,
+  ) async {
+    final data = FoodPrefsData(
+      hates: state.selectedHates,
+      allergic: state.selectedAllergic,
+      dislike: state.selectedDislike,
+      period: state.selectedPeriod,
+    );
+
+    youAndFoodService.foodPrefsSave(data);
   }
 }

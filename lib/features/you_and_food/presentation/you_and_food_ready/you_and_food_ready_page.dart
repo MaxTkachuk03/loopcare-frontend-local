@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -8,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/success_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/editable_item.dart';
+import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 class YouAndFoodReadyPage extends StatelessWidget {
   const YouAndFoodReadyPage({Key? key}) : super(key: key);
@@ -30,24 +32,33 @@ class YouAndFoodReadyPage extends StatelessWidget {
                     SuccessContainer(
                       title: LocalizedTexts.ready.tr(),
                       contentPadding: const EdgeInsets.all(0),
-                      content: Column(
-                        children: [
-                          EditableItem(
-                            title: LocalizedTexts.iDoNotEatOrDrink.tr(),
-                          ),
-                          EditableItem(
-                            title: LocalizedTexts.iPreferToEatMeatOrFish.tr(),
-                            subtitle: 'Pork, Alcohol',
-                          ),
-                          EditableItem(
-                            title: LocalizedTexts.iAmAllergicTo.tr(),
-                            subtitle: 'Pork, Alcohol, Pork, Alcohol, Pork, Alcohol, Pork, Alcohol, Pork, Alcohol, Pork, Alcohol Pork, Alcohol Pork, Alcohol',
-                          ),
-                          EditableItem(
-                            title: LocalizedTexts.iDoNotLike.tr(),
-                            subtitle: 'Pork, Alcohol',
-                          ),
-                        ],
+                      content: BlocBuilder<YouAndFoodBloc, YouAndFoodState>(
+                        builder: (BuildContext context, state) {
+                          return Column(
+                            children: [
+                              EditableItem(
+                                title: LocalizedTexts.iDoNotEatOrDrink.tr(),
+                                subtitle: state.selectedHatesNames.join(', '),
+                              ),
+                              if (state.selectedPeriodName != null)
+                                EditableItem(
+                                  title: LocalizedTexts.iPreferToEatMeatOrFish
+                                      .tr(),
+                                  subtitle: state.selectedPeriodName,
+                                ),
+                              EditableItem(
+                                title: LocalizedTexts.iAmAllergicTo.tr(),
+                                subtitle:
+                                    state.selectedAllergicNames.join(', '),
+                              ),
+                              EditableItem(
+                                title: LocalizedTexts.iDoNotLike.tr(),
+                                subtitle:
+                                    state.selectedDislikesNames.join(', '),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ),
                   ],
@@ -77,6 +88,8 @@ class YouAndFoodReadyPage extends StatelessWidget {
   }
 
   _onBackPressed(BuildContext context) {
-    context.router.popUntilRouteWithName(PreferencesOverviewRoute.name);
+    context
+      ..read<YouAndFoodBloc>().add(const YouAndFoodEvent.saveFoodPreferences())
+      ..router.popUntilRouteWithName(PreferencesOverviewRoute.name);
   }
 }

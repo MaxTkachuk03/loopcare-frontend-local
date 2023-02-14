@@ -37,8 +37,7 @@ class _TypesOfFoodChipsState extends State<TypesOfFoodChips> {
                     width: width,
                     child: AppChoiceChip(
                       label: e.name,
-                      selected:
-                          selectedHates != null && selectedHates.contains(e.id),
+                      selected: selectedHates.contains(e.id),
                       value: e.id,
                       onSelected: _onSelected,
                     ),
