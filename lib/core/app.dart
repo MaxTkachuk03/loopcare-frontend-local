@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/features/legal_statement/application/legal_sta
 import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
+import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 final autoRouteObserver = AutoRouteObserver();
@@ -39,6 +40,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<ConsentConfirmationBloc>(
           create: (_) => getIt<ConsentConfirmationBloc>(),
+        ),
+        BlocProvider<YouAndFoodBloc>(
+          create: (_) => getIt<YouAndFoodBloc>(),
         ),
       ],
       child: const _App(),
