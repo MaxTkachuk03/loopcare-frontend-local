@@ -2,6 +2,8 @@ part of 'you_and_food_bloc.dart';
 
 @freezed
 class YouAndFoodState with _$YouAndFoodState {
+  const YouAndFoodState._();
+
   factory YouAndFoodState.initial() => YouAndFoodState(
       foodTypes: <FoodPreference>[].toIList(),
       foodPeriods: <FoodPreference>[].toIList(),
@@ -11,6 +13,7 @@ class YouAndFoodState with _$YouAndFoodState {
       selectedDislike: <int>[].toIList());
 
   const factory YouAndFoodState({
+    @Default(false) bool isCompleted,
     required IList<FoodPreference> foodTypes,
     required IList<FoodPreference> foodPeriods,
     required IList<FoodPreference> foodItems,
@@ -19,8 +22,6 @@ class YouAndFoodState with _$YouAndFoodState {
     required IList<int> selectedAllergic,
     required IList<int> selectedDislike,
   }) = _YouAndFoodState;
-
-  const YouAndFoodState._();
 
   IList<String> get selectedHatesNames {
     return selectedHates.map((hate) {

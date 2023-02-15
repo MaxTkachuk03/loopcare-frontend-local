@@ -213,5 +213,7 @@ class LocalizedTexts {
   static const String of = 'of';
   static const String meat = 'meat';
   static const String fish = 'fish';
+  static const String minutes = 'minutes';
+  static const String foodTemptations = 'foodTemptations';
 
 }

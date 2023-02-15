@@ -32,7 +32,7 @@ class APIYouAndFoodService implements YouAndFoodService {
   @override
   Future<Either<RequestError, FoodPreferenceResponse>> foodPrefsItems() async {
     return client
-        .get('/food-preferences/periods')
+        .get('/food-preferences/items')
         .then(parseResponse(FoodPreferenceResponse.fromJson));
   }
 
@@ -44,9 +44,8 @@ class APIYouAndFoodService implements YouAndFoodService {
   }
 
   @override
-  Future<Either<RequestError, dynamic>> foodPrefsSave(FoodPrefsData data) async {
-    return client
-        .post('/food-preferences', data: data)
-        .then(parseResponse(FoodPreferenceResponse.fromJson));
+  Future<Either<RequestError, dynamic>> foodPrefsSave(
+      FoodPrefsData data) async {
+    return client.post('/food-preferences', data: data);
   }
 }

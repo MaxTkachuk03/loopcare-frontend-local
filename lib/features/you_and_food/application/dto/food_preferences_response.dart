@@ -7,10 +7,10 @@ part 'food_preferences_response.g.dart';
 @immutable
 @JsonSerializable()
 class FoodPreferencesResponse {
-  final IList<int> hates;
-  final IList<int> allergic;
-  final IList<int> dislike;
-  final int period;
+  final IList<int>? hates;
+  final IList<int>? allergic;
+  final IList<int>? dislike;
+  final int? period;
 
   const FoodPreferencesResponse({
     required this.hates,

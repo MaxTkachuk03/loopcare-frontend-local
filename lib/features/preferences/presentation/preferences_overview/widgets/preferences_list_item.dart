@@ -44,12 +44,12 @@ class PreferencesListItem extends StatelessWidget {
                   clipper: SurveyItemImageClipper(),
                   child: Container(
                     width: 98,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(12),
                           bottomLeft: Radius.circular(12)),
                       image: DecorationImage(
-                        image: AppImages.preferencesDiabetes,
+                        image: item.imagePath,
                         fit: BoxFit.cover,
                       ),
                     ),

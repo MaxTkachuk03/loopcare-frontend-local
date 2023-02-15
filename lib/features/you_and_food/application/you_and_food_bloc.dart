@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preference.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/dto/food_prefs_data.dart';
@@ -33,79 +33,56 @@ class YouAndFoodBloc extends Bloc<YouAndFoodEvent, YouAndFoodState> {
     FetchFoodPrefsTypes event,
     Emitter<YouAndFoodState> emit,
   ) async {
-    emit(
-      state.copyWith(
-          foodTypes: [
-        FoodPreference(id: 1, name: 'Beef'),
-        FoodPreference(id: 2, name: 'Pork'),
-        FoodPreference(id: 3, name: 'Poultry'),
-        FoodPreference(id: 4, name: 'Fish/shellfish'),
-        FoodPreference(id: 5, name: 'Dairy'),
-      ].toIList()),
+    final response = await youAndFoodService.foodPrefsTypes();
+
+    response.fold(
+      (l) => null,
+      (r) => emit(
+        state.copyWith(foodTypes: r.data),
+      ),
     );
-    // final response = await youAndFoodService.foodPrefsTypes();
-    //
-    // response.fold(
-    //   (l) => null,
-    //   (r) => emit(
-    //     // state.copyWith(foodTypes: r.preferences),
-    //   ),
-    // );
   }
 
   FutureOr<void> _onFoodPrefsPeriods(
     FoodPrefsPeriods event,
     Emitter<YouAndFoodState> emit,
   ) async {
-    emit(
-      state.copyWith(
-          foodPeriods: [
-        FoodPreference(id: 4, name: 'Test4'),
-        FoodPreference(id: 5, name: 'Test5'),
-        FoodPreference(id: 6, name: 'Test6'),
-      ].toIList()),
+    final response = await youAndFoodService.foodPrefsPeriods();
+
+    response.fold(
+      (l) => null,
+      (r) => emit(
+        state.copyWith(foodPeriods: r.data),
+      ),
     );
-    // final response = await youAndFoodService.foodPrefsPeriods();
-    //
-    // response.fold(
-    //   (l) => null,
-    //   (r) => emit(
-    //     // state.copyWith(foodPeriods: r.preferences),
-    //   ),
-    // );
   }
 
   FutureOr<void> _onFoodPrefsItems(
     FoodPrefsItems event,
     Emitter<YouAndFoodState> emit,
   ) async {
-    emit(
-      state.copyWith(
-          foodItems: [
-        FoodPreference(id: 7, name: 'Test7'),
-        FoodPreference(id: 8, name: 'Test8'),
-        FoodPreference(id: 9, name: 'Test9'),
-      ].toIList()),
+    final response = await youAndFoodService.foodPrefsItems();
+
+    response.fold(
+      (l) => null,
+      (r) => emit(
+        state.copyWith(foodItems: r.data),
+      ),
     );
-    // final response = await youAndFoodService.foodPrefsItems();
-    //
-    // response.fold(
-    //   (l) => null,
-    //   (r) => emit(
-    //     // state.copyWith(foodItems: r.preferences),
-    //   ),
-    // );
   }
 
   FutureOr<void> _onSetHates(
     SetHates event,
     Emitter<YouAndFoodState> emit,
   ) {
-
     emit(state.copyWith(
         selectedHates: state.selectedHates.contains(event.value)
             ? state.selectedHates.remove(event.value)
             : state.selectedHates.add(event.value)));
+
+    if (state.userDoesNotEatMeat && state.userDoesNotEatFish) {
+      emit(state.copyWith(selectedPeriod: null));
+    }
   }
 
   FutureOr<void> _onSetAllergic(
@@ -136,6 +113,8 @@ class YouAndFoodBloc extends Bloc<YouAndFoodEvent, YouAndFoodState> {
     SaveFoodPreferences event,
     Emitter<YouAndFoodState> emit,
   ) async {
+    emit(state.copyWith(isCompleted: true));
+
     final data = FoodPrefsData(
       hates: state.selectedHates,
       allergic: state.selectedAllergic,
@@ -152,13 +131,15 @@ class YouAndFoodBloc extends Bloc<YouAndFoodEvent, YouAndFoodState> {
   ) async {
     final response = await youAndFoodService.foodPrefsFetch();
 
-    response.fold(
-        (l) => null,
+    response.fold((l) {
+      l.mapOrNull(notFound: (_) => emit(state.copyWith(isCompleted: false)));
+    },
         (response) => emit(state.copyWith(
-              selectedHates: response.hates,
-              selectedAllergic: response.allergic,
-              selectedDislike: response.dislike,
+              selectedHates: response.hates ?? <int>[].toIList(),
+              selectedAllergic: response.allergic ?? <int>[].toIList(),
+              selectedDislike: response.dislike ?? <int>[].toIList(),
               selectedPeriod: response.period,
+              isCompleted: true,
             )));
   }
 }

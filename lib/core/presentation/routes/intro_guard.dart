@@ -25,7 +25,7 @@ class IntroGuard extends AutoRouteGuard {
       authenticated: (_) => true,
     );
     if (isAuthenticated) {
-      router.replaceNamed(AppRoutes.home);
+      router.replaceNamed(AppRoutes.preferencesOverview);
 
       return;
     }
