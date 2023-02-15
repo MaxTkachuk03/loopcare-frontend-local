@@ -10,6 +10,9 @@ import 'package:loopcare_frontend/features/authentication/presentation/reset_pas
 import 'package:loopcare_frontend/features/authentication/presentation/waiting_for_confirmation/waiting_for_confirmation_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/consent_confirmation_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/no_consent_page.dart';
+import 'package:loopcare_frontend/features/diabetes/presentation/diabetes/diabetes_page.dart';
+import 'package:loopcare_frontend/features/diabetes/presentation/disclaimer/disclaimer_page.dart';
+import 'package:loopcare_frontend/features/diabetes/presentation/summary/summary_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
@@ -50,7 +53,7 @@ part 'app_routes.dart';
   replaceInRouteName: 'Page,Route',
   routes: [
     AutoRoute(
-      initial: true,
+      // initial: true,
       path: AppRoutes.proxy,
       page: ProxyPage,
       guards: [ProxyGuard],
@@ -219,6 +222,19 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.doNotLike,
       page: DoNotLikePage,
+    ),
+    AutoRoute(
+      initial: true,
+      path: AppRoutes.diabetes,
+      page: DiabetesPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.diabetesDisclaimer,
+      page: DisclaimerPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.diabetesSummary,
+      page: SummaryPage,
     ),
   ],
 )

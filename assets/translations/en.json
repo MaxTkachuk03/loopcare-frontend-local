@@ -164,5 +164,13 @@
   "iDoNotLike": "I do not like:",
   "backToTheOverview": "Back to the overview",
   "doYou": "Do you",
-  "likeAnyOfTheFollowing": "like any of the following?"
+  "likeAnyOfTheFollowing": "like any of the following?",
+  "diabetes": "Diabetes",
+  "doYouHaveDiabetesQuestion": "Have you been diagnosed with diabetes?",
+  "typeOne": "Yes, type I",
+  "typeTwo": "Yes, type II",
+  "diabetesDisclaimerTitle" : "You indicate to have been diagnosed with diabetes",
+  "diabetesDisclaimerParagraphOne" : "People diagnosed with type I or type II diabetes have increased risk for kidney disease.",
+  "diabetesDisclaimerParagraphTwo" : "Signs of kidney disease require specialized dietary restrictions that are not part of this program.",
+  "diabetesDisclaimerParagraphThree" : "Consult with your physician to ensure that you have healthy renal function"
 }
