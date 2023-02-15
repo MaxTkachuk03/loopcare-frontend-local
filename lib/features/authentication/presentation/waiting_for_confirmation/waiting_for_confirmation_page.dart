@@ -193,7 +193,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
     ModalBottomSheet.emailConfirmed(
       context: context,
       onContinuePressed: () {
-        context.router.replaceAll([const HomeRoute()]);
+        context.router.replaceAll([const PreferencesOverviewRoute()]);
       },
     );
   }

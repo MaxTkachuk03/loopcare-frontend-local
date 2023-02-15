@@ -17,7 +17,7 @@ class AuthTokenInterceptor extends Interceptor {
   ) async {
     final token = await authTokenManager.getToken();
     if (token != null) {
-      options.headers['Authorization'] = 'Token $token';
+      options.headers['Authorization'] = 'Bearer $token';
     }
     handler.next(options);
   }
