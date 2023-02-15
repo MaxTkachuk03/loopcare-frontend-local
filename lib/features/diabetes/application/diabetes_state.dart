@@ -7,6 +7,7 @@ class DiabetesState with _$DiabetesState {
       );
 
   const factory DiabetesState({
+    @Default(false) bool isCompleted,
     required IList<DiabetesType> diabetesTypes,
   }) = _DiabetesState;
 

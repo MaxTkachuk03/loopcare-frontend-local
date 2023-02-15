@@ -3,7 +3,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/features/diabetes/application/dto/diabetes_types_response.dart';
 
 abstract class DiabetesService {
-  Future<Either<RequestError, dynamic>> diabetesTypes();
+  Future<Either<RequestError, DiabetesTypesResponse>> diabetesTypes();
 
   // Future<Either<RequestError, FoodPreferenceResponse>> foodPrefsPeriods();
   //

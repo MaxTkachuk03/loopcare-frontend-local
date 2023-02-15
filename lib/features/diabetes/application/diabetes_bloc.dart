@@ -12,7 +12,7 @@ part 'diabetes_event.dart';
 
 part 'diabetes_state.dart';
 
-@injectable
+@singleton
 class DiabetesBloc extends Bloc<DiabetesEvent, DiabetesState> {
   final DiabetesService diabetesService;
 
@@ -26,13 +26,25 @@ class DiabetesBloc extends Bloc<DiabetesEvent, DiabetesState> {
     FetchDiabetesTypes event,
     Emitter<DiabetesState> emit,
   ) async {
-    emit(
-      state.copyWith(
-          diabetesTypes: [
-        DiabetesType(id: 1, name: 'Test1'),
-        DiabetesType(id: 2, name: 'Test2'),
-        DiabetesType(id: 3, name: 'Test3'),
-      ].toIList()),
+    // emit(
+    //   state.copyWith(
+    //       diabetesTypes: [
+    //     DiabetesType(id: 0, name: 'type I'),
+    //     DiabetesType(id: 1, name: 'type II'),
+    //     DiabetesType(id: 2, name: 'no'),
+    //   ].toIList()),
+    // );
+    //
+    final response = await diabetesService.diabetesTypes();
+
+    response.fold(
+      (l) => null,
+      (r) {
+        print(r);
+        emit(
+          state.copyWith(diabetesTypes: r.data.toIList()),
+        );
+      },
     );
   }
 }

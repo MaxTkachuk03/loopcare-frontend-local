@@ -21,7 +21,7 @@ class _DiabetesTypeChipsState extends State<DiabetesTypeChips> {
 
   @override
   void initState() {
-    // context.read<DiabetesBloc>().add(const Dia.fetchFoodPrefsTypes());
+    context.read<DiabetesBloc>().add(const DiabetesEvent.fetchDiabetesTypes());
 
     super.initState();
   }
@@ -49,6 +49,7 @@ class _DiabetesTypeChipsState extends State<DiabetesTypeChips> {
 
   @override
   Widget build(BuildContext context) {
+    print('build method ${context.read<DiabetesBloc>().state}');
     return Column(
       children: DiabetesTypes.values
           .map(

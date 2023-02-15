@@ -7,9 +7,9 @@ part 'diabetes_types_response.g.dart';
 @immutable
 @JsonSerializable()
 class DiabetesTypesResponse {
-  final List<DiabetesType> diabetesTypes;
+  final List<DiabetesType> data;
 
-  const DiabetesTypesResponse(this.diabetesTypes);
+  const DiabetesTypesResponse(this.data);
 
   static DiabetesTypesResponse fromJson(Map<String, dynamic> json) =>
       _$DiabetesTypesResponseFromJson(json);
