@@ -8,11 +8,15 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 class YouAndFoodQuestion extends StatelessWidget {
   final Widget question;
   final Widget questionList;
+  final String subtitle;
+  final VoidCallback? onNextPressed;
 
   const YouAndFoodQuestion({
     Key? key,
     required this.question,
+    required this.subtitle,
     required this.questionList,
+    this.onNextPressed,
   }) : super(key: key);
 
   @override
@@ -23,7 +27,7 @@ class YouAndFoodQuestion extends StatelessWidget {
           children: [
             Text(LocalizedTexts.youAndFood.tr()),
             Text(
-              '1 of 4',
+              subtitle,
               style: Theme.of(context)
                   .textTheme
                   .caption
@@ -55,14 +59,18 @@ class YouAndFoodQuestion extends StatelessWidget {
                     height: 22.0,
                   ),
                   ElevatedButton(
-                    onPressed: _onNextPressed,
-                    style: Theme.of(context)
-                        .elevatedButtonTheme
-                        .style
-                        ?.copyWith(
-                          backgroundColor:
-                              MaterialStateProperty.all(AppColors.orangeDark),
-                        ),
+                    onPressed: onNextPressed,
+                    style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            return AppColors.greyMid;
+                          }
+
+                          return AppColors.orangeDark;
+                        },
+                      ),
+                    ),
                     child: Text(LocalizedTexts.next.tr()),
                   ),
                   const SizedBox(
@@ -76,6 +84,4 @@ class YouAndFoodQuestion extends StatelessWidget {
       ),
     );
   }
-
-  void _onNextPressed() {}
 }

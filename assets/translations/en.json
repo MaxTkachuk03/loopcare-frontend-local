@@ -155,7 +155,9 @@
   "whichTypesOfFoodDoYou": "Which types of food do you",
   "not": "not",
   "eatOrDrink": "eat or drink for religious or personal reasons.",
-  "meatPreferencesQuestion": "How often each week would you prefer to eat meat / fish?",
+  "meatPreferencesQuestion": "How often each week would you prefer to eat",
+  "meat": "meat",
+  "fish": "fish",
   "allergicQuestion": "Are you allergic to any of the following?",
   "ready": "Ready",
   "iDoNotEatOrDrink": "I do not eat/drink:",
@@ -164,5 +166,8 @@
   "iDoNotLike": "I do not like:",
   "backToTheOverview": "Back to the overview",
   "doYou": "Do you",
-  "likeAnyOfTheFollowing": "like any of the following?"
+  "likeAnyOfTheFollowing": "like any of the following?",
+  "of": "of",
+  "minutes": "minutes",
+  "foodTemptations": "Food temptations"
 }
