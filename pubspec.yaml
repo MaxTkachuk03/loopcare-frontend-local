@@ -28,7 +28,6 @@ dependencies:
   path_provider: ^2.0.11
   flutter_svg: ^1.1.6
   email_validator: 2.1.17
-  fast_immutable_collections: ^8.2.0
   flutter_dotenv: ^5.0.2
   firebase_core: ^2.5.0
   fast_immutable_collections: ^8.2.0

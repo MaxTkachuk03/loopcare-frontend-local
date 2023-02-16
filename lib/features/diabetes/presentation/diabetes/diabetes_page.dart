@@ -16,7 +16,7 @@ class DiabetesPage extends StatelessWidget {
           children: [
             Text(LocalizedTexts.diabetes.tr()),
             Text(
-              '1 of 1',
+              '1 ${LocalizedTexts.of.tr()} 1',
               style: Theme.of(context)
                   .textTheme
                   .caption

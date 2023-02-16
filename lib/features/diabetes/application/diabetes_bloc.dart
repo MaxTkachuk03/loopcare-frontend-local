@@ -18,33 +18,36 @@ class DiabetesBloc extends Bloc<DiabetesEvent, DiabetesState> {
 
   DiabetesBloc(this.diabetesService) : super(DiabetesState.initial()) {
     on<FetchDiabetesTypes>(_onFetchDiabetesTypes);
-    // on<SaveDiabetesType>(_onSaveDiabetesType);
-    // on<SetDiabetesType>(_onSetDiabetesType);
+    on<SaveDiabetesType>(_onSaveDiabetesType);
+    on<SetDiabetesType>(_onSetDiabetesType);
   }
 
   FutureOr<void> _onFetchDiabetesTypes(
     FetchDiabetesTypes event,
     Emitter<DiabetesState> emit,
   ) async {
-    // emit(
-    //   state.copyWith(
-    //       diabetesTypes: [
-    //     DiabetesType(id: 0, name: 'type I'),
-    //     DiabetesType(id: 1, name: 'type II'),
-    //     DiabetesType(id: 2, name: 'no'),
-    //   ].toIList()),
-    // );
-    //
     final response = await diabetesService.diabetesTypes();
 
     response.fold(
       (l) => null,
-      (r) {
-        print(r);
-        emit(
-          state.copyWith(diabetesTypes: r.data.toIList()),
-        );
-      },
+      (r) => emit(
+        state.copyWith(diabetesTypes: r.data.toIList()),
+      ),
     );
+  }
+
+  FutureOr<void> _onSaveDiabetesType(
+    SaveDiabetesType event,
+    Emitter<DiabetesState> emit,
+  ) async {
+    // TODO send request to save selected diabetes type on the server
+    emit(state.copyWith(isCompleted: true));
+  }
+
+  FutureOr<void> _onSetDiabetesType(
+    SetDiabetesType event,
+    Emitter<DiabetesState> emit,
+  ) async {
+    emit(state.copyWith(selectedType: event.selectedType));
   }
 }

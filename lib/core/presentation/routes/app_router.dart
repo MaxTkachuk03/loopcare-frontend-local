@@ -224,7 +224,6 @@ part 'app_routes.dart';
       page: DoNotLikePage,
     ),
     AutoRoute(
-      initial: true,
       path: AppRoutes.diabetes,
       page: DiabetesPage,
     ),

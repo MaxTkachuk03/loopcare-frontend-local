@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/features/diabetes/application/diabetes_bloc.dart';
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/widgets/preferences_list_item.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
@@ -88,20 +89,23 @@ class _PreferencesListState extends State<PreferencesList> {
             const SizedBox(height: 8.0),
           ],
         ),
-        Column(
-          children: [
-            PreferencesListItem(
-              item: Pref(
-                title: 'Food temptations',
-                completionTime: '10 minutes',
-                isCompleted: false,
-                imagePath: AppImages.preferencesDiabetes,
+        BlocBuilder<DiabetesBloc, DiabetesState>(
+            builder: (BuildContext context, state) {
+          return Column(
+            children: [
+              PreferencesListItem(
+                item: Pref(
+                  title: LocalizedTexts.diabetes.tr(),
+                  completionTime: '5 ${LocalizedTexts.minutes.tr()}',
+                  isCompleted: state.isCompleted,
+                  imagePath: AppImages.preferencesDiabetes,
+                ),
+                onTapHandler: (Pref item) => _onDiabetesTap(context),
               ),
-              onTapHandler: (Pref item) {},
-            ),
-            const SizedBox(height: 8.0),
-          ],
-        ),
+              const SizedBox(height: 8.0),
+            ],
+          );
+        }),
         Column(
           children: [
             PreferencesListItem(
@@ -118,6 +122,10 @@ class _PreferencesListState extends State<PreferencesList> {
         ),
       ],
     );
+  }
+
+  void _onDiabetesTap(BuildContext context) {
+    context.router.pushNamed(AppRoutes.diabetes);
   }
 
   void _onFoodPreferencesTap(BuildContext context) {

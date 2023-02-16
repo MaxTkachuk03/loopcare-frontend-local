@@ -5,10 +5,12 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 class EditableItem extends StatelessWidget {
   final String title;
   final String? subtitle;
+  final void Function()? onEditTap;
 
   const EditableItem({
     Key? key,
     required this.title,
+    this.onEditTap,
     this.subtitle,
   }) : super(key: key);
 
@@ -57,7 +59,7 @@ class EditableItem extends StatelessWidget {
                 width: 20.0,
               ),
               InkWell(
-                onTap: _onEditTap,
+                onTap: onEditTap,
                 child: const Image(
                   image: AppImages.editButton,
                 ),
@@ -71,6 +73,4 @@ class EditableItem extends StatelessWidget {
       ],
     );
   }
-
-  void _onEditTap() {}
 }
