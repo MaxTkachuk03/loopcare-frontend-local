@@ -164,5 +164,18 @@
   "iDoNotLike": "I do not like:",
   "backToTheOverview": "Back to the overview",
   "doYou": "Do you",
-  "likeAnyOfTheFollowing": "like any of the following?"
+  "likeAnyOfTheFollowing": "like any of the following?",
+  "selfHelp": "Self-Help",
+  "selfHelpDesc": "Part of the program is to discuss and share experiences with people like you.\nWe like to understand if you have any preferences for this.",
+  "selfHelpItemOne": "Do you prefer same gender group?",
+  "selfHelpItemTwo": "What physical group activities do you prefer?",
+  "selfHelpTitle": "Self help preferences",
+  "selfHelpGenderPreferencesPage1Header": "Would you like to limit interactions with peers to the same gender?",
+  "selfHelpGenderPreferencesYesFemale": "Yes, only female",
+  "selfHelpGenderPreferencesYesMale": "Yes, only male",
+  "selfHelpGenderPreferencesNo": "No",
+  "selfHelpGenderPreferences": "Gender preference?",
+
+  "currentStep": "{currentStep} of {totalSteps}"
+
 }
