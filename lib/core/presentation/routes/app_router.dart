@@ -37,9 +37,9 @@ import 'package:loopcare_frontend/features/physical_fitness/presentation/weight/
 import 'package:loopcare_frontend/features/authentication/presentation/welcome/sign_up_welcome_page.dart';
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/preferences_overview_page.dart';
 import 'package:loopcare_frontend/features/proxy/proxy_page.dart';
-import 'package:loopcare_frontend/features/self_help/gender_preferences/self_help_gender_preferences_page.dart';
-import 'package:loopcare_frontend/features/self_help/intro/self_help_intro_page.dart';
-import 'package:loopcare_frontend/features/self_help/ready/self_help_ready_page.dart';
+import 'package:loopcare_frontend/features/self_help/presentation/gender_preferences/self_help_gender_preferences_page.dart';
+import 'package:loopcare_frontend/features/self_help/presentation/intro/self_help_intro_page.dart';
+import 'package:loopcare_frontend/features/self_help/presentation/ready/self_help_ready_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/allergic/allergic_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/do_not_like/do_not_like_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/meat_preferences/meat_preferences_page.dart';

@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/questions_wizard.dart';
-import 'package:loopcare_frontend/features/self_help/gender_preferences/self_help_gender_preferences_chips.dart';
+import 'package:loopcare_frontend/features/self_help/presentation/gender_preferences/self_help_gender_preferences_chips.dart';
 
 class SelfHelpGenderPreferencesPage extends StatelessWidget {
   const SelfHelpGenderPreferencesPage({Key? key}) : super(key: key);
@@ -23,7 +25,9 @@ class SelfHelpGenderPreferencesPage extends StatelessWidget {
             ),
       ),
       questionList: const SelfHelpGenderPreferencesChips(),
-      onNextPressed: () {},
+      onNextPressed: () {
+        context.router.pushNamed(AppRoutes.selfHelpReady);
+      },
     );
   }
 }
