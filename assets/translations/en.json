@@ -155,7 +155,9 @@
   "whichTypesOfFoodDoYou": "Which types of food do you",
   "not": "not",
   "eatOrDrink": "eat or drink for religious or personal reasons.",
-  "meatPreferencesQuestion": "How often each week would you prefer to eat meat / fish?",
+  "meatPreferencesQuestion": "How often each week would you prefer to eat",
+  "meat": "meat",
+  "fish": "fish",
   "allergicQuestion": "Are you allergic to any of the following?",
   "ready": "Ready",
   "iDoNotEatOrDrink": "I do not eat/drink:",
@@ -165,6 +167,9 @@
   "backToTheOverview": "Back to the overview",
   "doYou": "Do you",
   "likeAnyOfTheFollowing": "like any of the following?",
+  "of": "of",
+  "minutes": "minutes",
+  "foodTemptations": "Food temptations",
   "selfHelp": "Self-Help",
   "selfHelpDesc": "Part of the program is to discuss and share experiences with people like you.\nWe like to understand if you have any preferences for this.",
   "selfHelpItemOne": "Do you prefer same gender group?",
@@ -175,7 +180,7 @@
   "selfHelpGenderPreferencesYesMale": "Yes, only male",
   "selfHelpGenderPreferencesNo": "No",
   "selfHelpGenderPreferences": "Gender preference?",
-
   "currentStep": "{currentStep} of {totalSteps}"
+
 
 }
