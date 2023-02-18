@@ -32,7 +32,9 @@ class DioClient {
     );
 
     dio.interceptors.add(_authTokenInterceptor);
-    dio.httpClientAdapter = _createAdapter();
+    if (const String.fromEnvironment('FLAVOR') == 'dev') {
+      dio.httpClientAdapter = _createAdapter();
+    }
   }
 
   HttpClientAdapter _createAdapter() => DefaultHttpClientAdapter()
