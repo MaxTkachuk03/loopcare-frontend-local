@@ -175,5 +175,7 @@
   "householdIntroTextOne": "Who do you live with?",
   "householdIntroTextTwo": "Where do you eat?",
   "householdIntroTextThree": "Who is cooking?",
-  "householdIntroTextFour": "When do you eat together?"
+  "householdIntroTextFour": "When do you eat together?",
+  "householdAndHabits": "Household and habits",
+  "shareMealWithQuestion": "How many people in your household do you share meals with?"
 }
