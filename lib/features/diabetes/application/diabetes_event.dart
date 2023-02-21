@@ -8,4 +8,6 @@ class DiabetesEvent with _$DiabetesEvent {
   const factory DiabetesEvent.fetchDiabetesTypes() = FetchDiabetesTypes;
 
   const factory DiabetesEvent.saveDiabetesType() = SaveDiabetesType;
+
+  const factory DiabetesEvent.getUserDiabetesType() = GetUserDiabetesType;
 }

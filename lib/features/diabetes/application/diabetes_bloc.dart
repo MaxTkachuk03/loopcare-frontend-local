@@ -5,6 +5,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/features/diabetes/application/diabetes_service.dart';
 import 'package:loopcare_frontend/features/diabetes/application/dto/diabetes_type.dart';
+import 'package:loopcare_frontend/features/diabetes/application/dto/add_user_diabetes.dart';
 
 part 'diabetes_bloc.freezed.dart';
 
@@ -20,6 +21,7 @@ class DiabetesBloc extends Bloc<DiabetesEvent, DiabetesState> {
     on<FetchDiabetesTypes>(_onFetchDiabetesTypes);
     on<SaveDiabetesType>(_onSaveDiabetesType);
     on<SetDiabetesType>(_onSetDiabetesType);
+    on<GetUserDiabetesType>(_onGetUserDiabetesType);
   }
 
   FutureOr<void> _onFetchDiabetesTypes(
@@ -40,8 +42,34 @@ class DiabetesBloc extends Bloc<DiabetesEvent, DiabetesState> {
     SaveDiabetesType event,
     Emitter<DiabetesState> emit,
   ) async {
-    // TODO send request to save selected diabetes type on the server
-    emit(state.copyWith(isCompleted: true));
+    final data = AddUserDiabetes(id: state.selectedType?.id ?? 0);
+
+    final response = await diabetesService.saveDiabetesType(data);
+
+    response.fold(
+      (l) => emit(
+        state.copyWith(isCompleted: false),
+      ),
+      (r) => emit(
+        state.copyWith(isCompleted: true),
+      ),
+    );
+  }
+
+  FutureOr<void> _onGetUserDiabetesType(
+    GetUserDiabetesType event,
+    Emitter<DiabetesState> emit,
+  ) async {
+    final response = await diabetesService.getUserDiabetesType();
+
+    response.fold(
+        (l) => emit(
+              state.copyWith(isCompleted: false),
+            ),
+        (r) => emit(state.copyWith(
+              selectedType: DiabetesType(id: r.id, name: r.name),
+              isCompleted: true,
+            )));
   }
 
   FutureOr<void> _onSetDiabetesType(

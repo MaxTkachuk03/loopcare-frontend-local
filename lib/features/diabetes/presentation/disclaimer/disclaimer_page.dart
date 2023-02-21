@@ -48,8 +48,10 @@ class DisclaimerPage extends StatelessWidget {
                       ),
                       BlocBuilder<DiabetesBloc, DiabetesState>(
                         builder: (BuildContext context, state) {
+                          final type = state.selectedType?.name.split(', ')[1];
+
                           return Text(
-                            '${state.selectedType?.name.capitalizeOnlyFirstLetter()}',
+                            '${type?.capitalizeOnlyFirstLetter()}',
                             style:
                                 Theme.of(context).textTheme.headline4?.copyWith(
                                       color: AppColors.blueDark,

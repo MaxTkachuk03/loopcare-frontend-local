@@ -38,7 +38,7 @@ class SummaryPage extends StatelessWidget {
                           title: '${LocalizedTexts.diabetes.tr()}?',
                           subtitle:
                               '${state.selectedType?.name.capitalizeOnlyFirstLetter()}',
-                          onEditTap: () => _onEditTapHandler(context),
+                          routeName: DiabetesRoute.name,
                         );
                       }),
                     ],
@@ -72,9 +72,5 @@ class SummaryPage extends StatelessWidget {
     context
       ..read<DiabetesBloc>().add(const DiabetesEvent.saveDiabetesType())
       ..router.popUntilRouteWithName(PreferencesOverviewRoute.name);
-  }
-
-  void _onEditTapHandler(BuildContext context) {
-    context.router.popUntilRouteWithName(DiabetesRoute.name);
   }
 }
