@@ -228,6 +228,8 @@ class LocalizedTexts {
   static const String householdIntroTextTwo = 'householdIntroTextTwo';
   static const String householdIntroTextThree = 'householdIntroTextThree';
   static const String householdIntroTextFour = 'householdIntroTextFour';
+  static const String householdAndHabits = 'householdAndHabits';
+  static const String shareMealWithQuestion = 'shareMealWithQuestion';
 
   // Diabetes
   static const String diabetes = 'diabetes';

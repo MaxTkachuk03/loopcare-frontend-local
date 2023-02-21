@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/features/diabetes/presentation/disclaimer/disc
 import 'package:loopcare_frontend/features/diabetes/presentation/summary/summary_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/household_and_habits_intro/household_and_habits_intro_page.dart';
+import 'package:loopcare_frontend/features/household_and_habits/presentation/share_meal_with/share_meal_with_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
 import 'package:loopcare_frontend/features/legal_statement/presentation/legal_statement_page.dart';
@@ -54,7 +55,7 @@ part 'app_routes.dart';
   replaceInRouteName: 'Page,Route',
   routes: [
     AutoRoute(
-      // initial: true,
+      initial: true,
       path: AppRoutes.proxy,
       page: ProxyPage,
       guards: [ProxyGuard],
@@ -227,6 +228,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.householdIntro,
       page: HouseholdAndHabitsIntroPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.shareMealWith,
+      page: ShareMealPage,
     ),
     AutoRoute(
       path: AppRoutes.diabetes,
