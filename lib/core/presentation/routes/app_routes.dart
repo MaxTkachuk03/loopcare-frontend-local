@@ -45,6 +45,7 @@ class AppRoutes {
   static const String youAndFoodReady = '/you-and-food-ready';
   static const String doNotLike = '/do-not-like';
   static const String householdIntro = '/household-intro';
+  static const String shareMealWith = '/share-meal-with';
 
   AppRoutes._();
 }

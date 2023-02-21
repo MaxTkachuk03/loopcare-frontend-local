@@ -140,5 +140,6 @@ class _HouseholdAndHabitsIntroPageState
   }
 
   void _onStart(BuildContext context) {
+    context.router.pushNamed(AppRoutes.shareMealWith);
   }
 }
