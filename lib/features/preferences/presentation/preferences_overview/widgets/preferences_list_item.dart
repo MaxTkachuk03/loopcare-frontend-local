@@ -1,6 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/widgets/preferences_list.dart';
@@ -8,12 +8,14 @@ import 'package:loopcare_frontend/features/preferences/presentation/preferences_
 
 class PreferencesListItem extends StatelessWidget {
   final Pref item;
-  final void Function(Pref item) onTapHandler;
+  final String routePath;
+  final Color imageOverlayColor;
 
   const PreferencesListItem({
     Key? key,
     required this.item,
-    required this.onTapHandler,
+    required this.routePath,
+    required this.imageOverlayColor,
   }) : super(key: key);
 
   @override
@@ -22,7 +24,7 @@ class PreferencesListItem extends StatelessWidget {
       borderRadius: BorderRadius.circular(12.0),
       child: Material(
         child: InkWell(
-          onTap: _onItemPressed,
+          onTap: () => _onItemPressed(context),
           child: Ink(
             height: 96.0,
             padding: const EdgeInsets.only(right: 26.0),
@@ -40,18 +42,17 @@ class PreferencesListItem extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ClipPath(
-                  clipper: SurveyItemImageClipper(),
-                  child: Container(
-                    width: 98,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          bottomLeft: Radius.circular(12)),
-                      image: DecorationImage(
-                        image: item.imagePath,
-                        fit: BoxFit.cover,
-                      ),
+                SizedBox(
+                  width: 98,
+                  child: ClipPath(
+                    clipper: SurveyItemImageClipper(),
+                    child: Image(
+                      width: double.infinity,
+                      height: double.infinity,
+                      image: item.imagePath,
+                      fit: BoxFit.cover,
+                      color: imageOverlayColor,
+                      colorBlendMode: BlendMode.multiply,
                     ),
                   ),
                 ),
@@ -109,7 +110,7 @@ class PreferencesListItem extends StatelessWidget {
     );
   }
 
-  void _onItemPressed() {
-    onTapHandler(item);
+  void _onItemPressed(BuildContext context) {
+    context.router.pushNamed(routePath);
   }
 }

@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/features/authentication/presentation/waiting_f
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/consent_confirmation_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/no_consent_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
+import 'package:loopcare_frontend/features/household_and_habits/presentation/household_and_habits_intro/household_and_habits_intro_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
 import 'package:loopcare_frontend/features/legal_statement/presentation/legal_statement_page.dart';
@@ -219,6 +220,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.doNotLike,
       page: DoNotLikePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.householdIntro,
+      page: HouseholdAndHabitsIntroPage,
     ),
   ],
 )
