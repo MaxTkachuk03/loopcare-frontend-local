@@ -215,5 +215,11 @@ class LocalizedTexts {
   static const String fish = 'fish';
   static const String minutes = 'minutes';
   static const String foodTemptations = 'foodTemptations';
+  static const String householdAndEatingHabits = 'householdAndEatingHabits';
+  static const String householdIntroDesc = 'householdIntroDesc';
+  static const String householdIntroTextOne = 'householdIntroTextOne';
+  static const String householdIntroTextTwo = 'householdIntroTextTwo';
+  static const String householdIntroTextThree = 'householdIntroTextThree';
+  static const String householdIntroTextFour = 'householdIntroTextFour';
 
 }
