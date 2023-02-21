@@ -10,11 +10,6 @@ class ShareMealWithChips extends StatefulWidget {
 
 class _ShareMealWithChipsState extends State<ShareMealWithChips> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
