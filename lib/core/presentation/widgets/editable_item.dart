@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -5,13 +6,13 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 class EditableItem extends StatelessWidget {
   final String title;
   final String? subtitle;
-  final void Function()? onEditTap;
+  final String routeName;
 
   const EditableItem({
     Key? key,
     required this.title,
-    this.onEditTap,
     this.subtitle,
+    required this.routeName,
   }) : super(key: key);
 
   @override
@@ -59,7 +60,7 @@ class EditableItem extends StatelessWidget {
                 width: 20.0,
               ),
               InkWell(
-                onTap: onEditTap,
+                onTap: () => _onEditTap(context),
                 child: const Image(
                   image: AppImages.editButton,
                 ),
@@ -72,5 +73,9 @@ class EditableItem extends StatelessWidget {
         )
       ],
     );
+  }
+
+  void _onEditTap(BuildContext context) {
+    context.router.popUntilRouteWithName(routeName);
   }
 }

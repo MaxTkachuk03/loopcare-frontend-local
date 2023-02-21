@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/features/diabetes/application/diabetes_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/widgets/preferences_list_item.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
@@ -49,86 +49,80 @@ class _PreferencesListState extends State<PreferencesList> {
             PreferencesListItem(
               item: Pref(
                 title: 'Food temptations',
-                completionTime: '10 minutes',
+                completionTime: '10 ${LocalizedTexts.minutes.tr()}',
                 isCompleted: false,
                 imagePath: AppImages.preferencesDiabetes,
               ),
-              onTapHandler: (Pref item) {},
+              imageOverlayColor: AppColors.orange.withOpacity(0.8),
+              routePath: AppRoutes.householdIntro,
             ),
             const SizedBox(height: 8.0),
           ],
         ),
         BlocBuilder<YouAndFoodBloc, YouAndFoodState>(
             builder: (BuildContext context, state) {
-          return Column(
-            children: [
-              PreferencesListItem(
-                item: Pref(
-                  title: LocalizedTexts.foodTemptations.tr(),
-                  completionTime: '10 ${LocalizedTexts.minutes.tr()}',
-                  isCompleted: state.isCompleted,
-                  imagePath: AppImages.youAndFoodIntro,
-                ),
-                onTapHandler: (Pref item) => _onFoodPreferencesTap(context),
-              ),
-              const SizedBox(height: 8.0),
-            ],
-          );
-        }),
+              return Column(
+                children: [
+                  PreferencesListItem(
+                    item: Pref(
+                      title: LocalizedTexts.foodTemptations.tr(),
+                      completionTime: '10 ${LocalizedTexts.minutes.tr()}',
+                      isCompleted: state.isCompleted,
+                      imagePath: AppImages.youAndFoodIntro,
+                    ),
+                    imageOverlayColor: AppColors.blueLight.withOpacity(0.8),
+                    routePath: AppRoutes.youAndFoodIntro,
+                  ),
+                  const SizedBox(height: 8.0),
+                ],
+              );
+            }),
         Column(
           children: [
             PreferencesListItem(
               item: Pref(
                 title: 'Food temptations',
-                completionTime: '10 minutes',
+                completionTime: '10 ${LocalizedTexts.minutes.tr()}',
                 isCompleted: false,
                 imagePath: AppImages.preferencesDiabetes,
               ),
-              onTapHandler: (Pref item) {},
+              imageOverlayColor: AppColors.greenLight.withOpacity(0.8),
+              routePath: AppRoutes.householdIntro,
             ),
             const SizedBox(height: 8.0),
           ],
         ),
-        BlocBuilder<DiabetesBloc, DiabetesState>(
-            builder: (BuildContext context, state) {
-          return Column(
-            children: [
-              PreferencesListItem(
-                item: Pref(
-                  title: LocalizedTexts.diabetes.tr(),
-                  completionTime: '5 ${LocalizedTexts.minutes.tr()}',
-                  isCompleted: state.isCompleted,
-                  imagePath: AppImages.preferencesDiabetes,
-                ),
-                onTapHandler: (Pref item) => _onDiabetesTap(context),
+        Column(
+          children: [
+            PreferencesListItem(
+              item: Pref(
+                title: LocalizedTexts.householdAndEatingHabits.tr(),
+                completionTime: '10 ${LocalizedTexts.minutes.tr()}',
+                isCompleted: false,
+                imagePath: AppImages.preferencesDiabetes,
               ),
-              const SizedBox(height: 8.0),
-            ],
-          );
-        }),
+              imageOverlayColor: AppColors.purple.withOpacity(0.8),
+              routePath: AppRoutes.householdIntro,
+            ),
+            const SizedBox(height: 8.0),
+          ],
+        ),
         Column(
           children: [
             PreferencesListItem(
               item: Pref(
                 title: 'Food temptations',
-                completionTime: '10 minutes',
+                completionTime: '10 ${LocalizedTexts.minutes.tr()}',
                 isCompleted: false,
-                imagePath: AppImages.preferencesDiabetes,
+                imagePath: AppImages.youAndFoodIntro,
               ),
-              onTapHandler: (Pref item) {},
+              imageOverlayColor: AppColors.yellowish.withOpacity(0.8),
+              routePath: AppRoutes.householdIntro,
             ),
             const SizedBox(height: 8.0),
           ],
         ),
       ],
     );
-  }
-
-  void _onDiabetesTap(BuildContext context) {
-    context.router.pushNamed(AppRoutes.diabetes);
-  }
-
-  void _onFoodPreferencesTap(BuildContext context) {
-    context.router.pushNamed(AppRoutes.youAndFoodIntro);
   }
 }
