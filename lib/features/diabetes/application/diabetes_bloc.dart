@@ -42,7 +42,11 @@ class DiabetesBloc extends Bloc<DiabetesEvent, DiabetesState> {
     SaveDiabetesType event,
     Emitter<DiabetesState> emit,
   ) async {
-    final data = AddUserDiabetes(id: state.selectedType?.id ?? 0);
+    final id = state.selectedType?.id;
+
+    if (id == null) return;
+
+    final data = AddUserDiabetes(id: id);
 
     final response = await diabetesService.saveDiabetesType(data);
 
