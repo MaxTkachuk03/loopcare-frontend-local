@@ -47,6 +47,7 @@ class AppRoutes {
   static const String householdIntro = '/household-intro';
   static const String shareMealWith = '/share-meal-with';
   static const String cooking = '/cooking';
+  static const String healthierFood = '/healthier-food';
   // Diabetes
   static const String diabetes = '/diabetes';
   static const String diabetesDisclaimer = '/diabetes-disclaimer';
