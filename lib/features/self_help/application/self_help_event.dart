@@ -2,19 +2,13 @@ part of 'self_help_bloc.dart';
 
 @freezed
 class SelfHelpEvent with _$SelfHelpEvent {
-  const factory SelfHelpEvent.nextQuestion() = NextQuestion;
+  const factory SelfHelpEvent.setUserPreferGender(PreferGender preferGender) =
+      SetUserPreferGender;
 
-  const factory SelfHelpEvent.previousQuestion() = PreviousQuestion;
+  const factory SelfHelpEvent.getUserPreferGender() = GetUserPreferGender;
 
-  const factory SelfHelpEvent.resetData() = ResetData;
+  const factory SelfHelpEvent.saveUserPreferGender() = SaveUserPreferGender;
 
-  const factory SelfHelpEvent.setUserPreferGender(
-    PreferGenderType preferGender,
-  ) = SetUserPreferGender;
-
-  const factory DiabetesEvent.getUserPreferGender() = GetUserPreferGender;
-
-   const factory DiabetesEvent.saveUserPreferGender() = SaveUserPreferGender;
-
-
+  const factory SelfHelpEvent.fetchPreferGendersTypes() =
+      FetchPreferGendersTypes;
 }

@@ -39,27 +39,34 @@ class YouAndFoodReadyPage extends StatelessWidget {
                               EditableItem(
                                 title: LocalizedTexts.iDoNotEatOrDrink.tr(),
                                 subtitle: state.selectedHatesNames.join(', '),
+                                routeName: TypesOfFoodRoute.name,
                               ),
                               if (state.selectedPeriodName != null)
                                 EditableItem(
                                   title: LocalizedTexts.iPreferToEatMeatOrFish
                                       .tr(),
                                   subtitle: state.selectedPeriodName,
+                                  routeName: MeatPreferencesRoute.name,
                                 ),
                               EditableItem(
                                 title: LocalizedTexts.iAmAllergicTo.tr(),
                                 subtitle:
                                     state.selectedAllergicNames.join(', '),
+                                routeName: AllergicRoute.name,
                               ),
                               EditableItem(
                                 title: LocalizedTexts.iDoNotLike.tr(),
                                 subtitle:
                                     state.selectedDislikesNames.join(', '),
+                                routeName: DoNotLikeRoute.name,
                               ),
                             ],
                           );
                         },
                       ),
+                    ),
+                    const SizedBox(
+                      height: 24.0,
                     ),
                   ],
                 ),

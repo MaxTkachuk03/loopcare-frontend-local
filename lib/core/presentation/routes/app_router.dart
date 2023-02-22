@@ -10,7 +10,14 @@ import 'package:loopcare_frontend/features/authentication/presentation/reset_pas
 import 'package:loopcare_frontend/features/authentication/presentation/waiting_for_confirmation/waiting_for_confirmation_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/consent_confirmation_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/no_consent_page.dart';
+import 'package:loopcare_frontend/features/diabetes/presentation/diabetes/diabetes_page.dart';
+import 'package:loopcare_frontend/features/diabetes/presentation/disclaimer/disclaimer_page.dart';
+import 'package:loopcare_frontend/features/diabetes/presentation/summary/summary_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
+import 'package:loopcare_frontend/features/household_and_habits/presentation/cooking/cooking_page.dart';
+import 'package:loopcare_frontend/features/household_and_habits/presentation/healthier_food/healthier_food_page.dart';
+import 'package:loopcare_frontend/features/household_and_habits/presentation/household_and_habits_intro/household_and_habits_intro_page.dart';
+import 'package:loopcare_frontend/features/household_and_habits/presentation/share_meal_with/share_meal_with_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
 import 'package:loopcare_frontend/features/legal_statement/presentation/legal_statement_page.dart';
@@ -234,6 +241,34 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.selfHelpReady,
       page: SelfHelpReadyPage,
+          ),
+    AutoRoute(
+      path: AppRoutes.householdIntro,
+      page: HouseholdAndHabitsIntroPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.shareMealWith,
+      page: ShareMealPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.cooking,
+      page: CookingPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.healthierFood,
+      page: HealthierFoodPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.diabetes,
+      page: DiabetesPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.diabetesDisclaimer,
+      page: DisclaimerPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.diabetesSummary,
+      page: SummaryPage,
     ),
   ],
 )

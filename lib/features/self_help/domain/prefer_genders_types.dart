@@ -2,24 +2,24 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
 
-enum PreferGenderType {
+enum PreferGendersTypes {
   onlyFemale,
   onlyMale,
   no,
 }
 
-extension PreferGenderTypeX on PreferGenderType {
+extension PreferGendersTypesX on PreferGendersTypes {
   String get label {
     switch (this) {
-      case PreferGenderType.onlyFemale:
+      case PreferGendersTypes.onlyFemale:
         return LocalizedTexts.selfHelpGenderPreferencesYesFemale
             .tr()
             .capitalize();
-      case PreferGenderType.onlyMale:
+      case PreferGendersTypes.onlyMale:
         return LocalizedTexts.selfHelpGenderPreferencesYesMale
             .tr()
             .capitalize();
-      case PreferGenderType.no:
+      case PreferGendersTypes.no:
         return LocalizedTexts.selfHelpGenderPreferencesNo.tr().capitalize();
     }
   }

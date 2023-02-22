@@ -5,13 +5,13 @@ part 'update_prefer_gender.freezed.dart';
 part 'update_prefer_gender.g.dart';
 
 @freezed
-abstract class UpdatePreferGender implements _$UpdateUserDiabetes {
-  const UpdatePreferGender._();
+abstract class UpdateUserPreferGender implements _$UpdateUserPreferGender {
+  const UpdateUserPreferGender._();
 
-  const factory UpdatePreferGender({
+  const factory UpdateUserPreferGender({
     required int id,
-  }) = _UpdatePreferGender;
+  }) = _UpdateUserPreferGender;
 
-  factory UpdatePreferGender.fromJson(Map<String, dynamic> json) =>
-      _$UpdatePreferGenderFromJson(json);
+  factory UpdateUserPreferGender.fromJson(Map<String, dynamic> json) =>
+      _$UpdateUserPreferGenderFromJson(json);
 }

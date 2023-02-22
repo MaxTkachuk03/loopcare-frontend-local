@@ -5,9 +5,10 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
-import 'package:loopcare_frontend/features/self_help/domain/prefer_gender_type.dart';
+import 'package:loopcare_frontend/features/self_help/application/dto/prefer_gender.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
+import 'package:loopcare_frontend/features/self_help/application/dto/update_prefer_gender.dart';
+import 'package:loopcare_frontend/features/self_help/application/user_prefer_gender_service.dart';
 
 part 'self_help_bloc.freezed.dart';
 
@@ -21,71 +22,74 @@ part 'self_help_questions.dart';
 
 @singleton
 class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
-  final PreferGenderService preferGenderService;
+  final UserPreferGenderService userPreferGenderService;
 
-
-  SelfHelpBloc(this.preferGenderService)
-      : super(SelfHelpState.initial()) {
-    on<NextQuestion>(_onNextQuestion);
-    on<PreviousQuestion>(_onPreviousQuestion); 
+  SelfHelpBloc(this.userPreferGenderService) : super(SelfHelpState.initial()) {
     on<SetUserPreferGender>(_onSetPreferGender);
     on<GetUserPreferGender>(_onGetPreferGender);
-    on<SaveUserPreferGender>(_onSaveDiabetesType);
-
-    on<ResetData>(_onResetData);
-
-
+    on<SaveUserPreferGender>(_onSavePreferGender);
+    on<FetchPreferGendersTypes>(_onFetchPreferGendersTypes);
   }
 
-
-  FutureOr<void> _onResetData(
-    ResetData event,
+  FutureOr<void> _onFetchPreferGendersTypes(
+    FetchPreferGendersTypes event,
     Emitter<SelfHelpState> emit,
-  ) {
-    emit(SelfHelpState.initial());
+  ) async {
+    final response = await userPreferGenderService.getAllPreferGenderTypes();
+
+    response.fold(
+      (l) => null,
+      (r) => emit(
+        state.copyWith(preferedGenderTypes: r.data.toIList()),
+      ),
+    );
   }
 
-  FutureOr<void> _onNextQuestion(
-    NextQuestion event,
+  FutureOr<void> _onSavePreferGender(
+    SaveUserPreferGender event,
     Emitter<SelfHelpState> emit,
-  ) {
-    final currentQuestion = state.currentQuestion;
-    final nextQuestion = currentQuestion.getNextQuestion();
+  ) async {
+    final id = state.selectedType?.id;
 
-    emit(state.copyWith(currentQuestion: nextQuestion));
-  }
+    if (id == null) return;
 
-  FutureOr<void> _onPreviousQuestion(
-    PreviousQuestion event,
-    Emitter<SelfHelpState> emit,
-  ) {
-    final isFirstQuestion = state.currentQuestion.index == 0;
-    final previousQuestion = state.currentQuestion.getPreviousQuestion();
+    final data = UpdateUserPreferGender(id: id);
 
-    if (!isFirstQuestion) {
-      emit(state.copyWith(
-        currentQuestion: previousQuestion,
-      ));
-    }
+    final response = await userPreferGenderService.savePreferGender(data);
 
+    response.fold(
+      (l) => emit(
+        state.copyWith(isCompleted: false),
+      ),
+      (r) => emit(
+        state.copyWith(isCompleted: true),
+      ),
+    );
   }
 
   FutureOr<void> _onSetPreferGender(
-    PreferGenderTypeChanged event,
+    SetUserPreferGender event,
     Emitter<SelfHelpState> emit,
   ) {
     emit(state.copyWith(
-      preferGenderType: event.preferGender,
+      selectedType: event.preferGender,
     ));
   }
 
-    FutureOr<void> _onGetPreferGender(
+  Future<FutureOr<void>> _onGetPreferGender(
     GetUserPreferGender event,
     Emitter<SelfHelpState> emit,
-  ) {
-    emit(state.copyWith(
-      preferGenderType: event.preferGender,
-    ));
+  ) async {
+    final response = await userPreferGenderService.getUserPreferGenderType();
+
+    response.fold(
+        (l) => emit(
+              state.copyWith(isCompleted: false),
+            ),
+        (r) => emit(state.copyWith(
+              selectedType: PreferGender(id: r.id, name: r.name),
+              isCompleted: true,
+            )));
   }
 
   @override

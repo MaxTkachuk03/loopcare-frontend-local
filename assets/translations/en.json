@@ -180,7 +180,23 @@
   "selfHelpGenderPreferencesYesMale": "Yes, only male",
   "selfHelpGenderPreferencesNo": "No",
   "selfHelpGenderPreferences": "Gender preference?",
-  "currentStep": "{currentStep} of {totalSteps}"
-
-
+  "currentStep": "{currentStep} of {totalSteps}",
+  "householdAndEatingHabits": "Household & eating habits",
+  "householdIntroDesc": "Food is a essential part of the social fabric of society. It’s important to understand your situation to increase the chance of successfully changing your lifestyle.",
+  "householdIntroTextOne": "Who do you live with?",
+  "householdIntroTextTwo": "Where do you eat?",
+  "householdIntroTextThree": "Who is cooking?",
+  "householdIntroTextFour": "When do you eat together?",
+  "householdAndHabits": "Household and habits",
+  "shareMealWithQuestion": "How many people in your household do you share meals with?",
+  "diabetes": "Diabetes",
+  "doYouHaveDiabetesQuestion": "Have you been diagnosed with diabetes?",
+  "typeOne": "Yes, type I",
+  "typeTwo": "Yes, type II",
+  "diabetesDisclaimerTitle" : "You indicate to have been diagnosed with diabetes",
+  "diabetesDisclaimerParagraphOne" : "People diagnosed with type I or type II diabetes have increased risk for kidney disease.",
+  "diabetesDisclaimerParagraphTwo" : "Signs of kidney disease require specialized dietary restrictions that are not part of this program.",
+  "diabetesDisclaimerParagraphThree" : "Consult with your physician to ensure that you have healthy renal function",
+  "cookingQuestion": "Who is doing the cooking in your household?",
+  "healthierFood": "Is your household open to eating healthier food along with you?"
 }

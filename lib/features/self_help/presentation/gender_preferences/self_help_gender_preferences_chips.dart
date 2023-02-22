@@ -1,8 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
+import 'package:loopcare_frontend/features/self_help/application/dto/prefer_gender.dart';
 import 'package:loopcare_frontend/features/self_help/application/self_help_bloc.dart';
-import 'package:loopcare_frontend/features/self_help/domain/prefer_gender_type.dart';
 
 class SelfHelpGenderPreferencesChips extends StatefulWidget {
   const SelfHelpGenderPreferencesChips({Key? key}) : super(key: key);
@@ -14,38 +17,46 @@ class SelfHelpGenderPreferencesChips extends StatefulWidget {
 
 class _SelfHelpGenderPreferencesChipsState
     extends State<SelfHelpGenderPreferencesChips> {
-  PreferGenderType? _selectedValue;
+  @override
+  void initState() {
+    context
+        .read<SelfHelpBloc>()
+        .add(const SelfHelpEvent.fetchPreferGendersTypes());
 
-  void _onSelected(PreferGenderType gender) {
-    setState(() {
-      _selectedValue = gender;
-    });
+    super.initState();
+  }
 
-    final bloc = context.read<SelfHelpBloc>();
-    bloc.add(SelfHelpEvent.preferGenderChanged(gender));
+  void _onSelectedTypeHandler(PreferGender preferGenderType) {
+    context
+        .read<SelfHelpBloc>()
+        .add(SelfHelpEvent.setUserPreferGender(preferGenderType));
 
-    // final selfHelpNavigationState = StepNavigationState.of(context);
-    // selfHelpNavigationState.onNextPage();
+    context.router.pushNamed(AppRoutes.selfHelpReady);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: PreferGenderType.values
-          .map(
-            (PreferGenderType value) => Column(
-              children: [
-                AppChoiceChip(
-                  label: value.label,
-                  selected: value == _selectedValue,
-                  value: value,
-                  onSelected: _onSelected,
-                ),
-                const SizedBox(height: 8.0),
-              ],
-            ),
-          )
-          .toList(),
+    return BlocBuilder<SelfHelpBloc, SelfHelpState>(
+      builder: (BuildContext context, state) {
+        return Column(
+          children: state.preferedGenderTypes
+              .map((PreferGender preferedGenderType) => Column(
+                    children: [
+                      AppChoiceChip(
+                        label:
+                            preferedGenderType.name.capitalizeOnlyFirstLetter(),
+                        selected:
+                            state.selectedType?.id == preferedGenderType.id,
+                        value: preferedGenderType,
+                        onSelected: _onSelectedTypeHandler,
+                        textAlign: TextAlign.left,
+                      ),
+                      const SizedBox(height: 8.0)
+                    ],
+                  ))
+              .toList(),
+        );
+      },
     );
   }
 }

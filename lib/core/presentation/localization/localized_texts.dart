@@ -225,6 +225,7 @@ class LocalizedTexts {
   static const String minutes = 'minutes';
   static const String foodTemptations = 'foodTemptations';
 
+  // Self Help
   static const String selfHelp = 'selfHelp';
   static const String selfHelpDesc = 'selfHelpDesc';
   static const String selfHelpItemOne = 'selfHelpItemOne';
@@ -241,7 +242,33 @@ class LocalizedTexts {
   static const String selfHelpGenderPreferences = 'selfHelpGenderPreferences';
 
   static const String currentStep = 'currentStep';
-}
+
+  // Household and eating habits
+  static const String householdAndEatingHabits = 'householdAndEatingHabits';
+  static const String householdIntroDesc = 'householdIntroDesc';
+  static const String householdIntroTextOne = 'householdIntroTextOne';
+  static const String householdIntroTextTwo = 'householdIntroTextTwo';
+  static const String householdIntroTextThree = 'householdIntroTextThree';
+  static const String householdIntroTextFour = 'householdIntroTextFour';
+  static const String householdAndHabits = 'householdAndHabits';
+  static const String shareMealWithQuestion = 'shareMealWithQuestion';
+  static const String cookingQuestion = 'cookingQuestion';
+  static const String healthierFood = 'healthierFood';
+
+  // Diabetes
+  static const String diabetes = 'diabetes';
+  static const String doYouHaveDiabetesQuestion = 'doYouHaveDiabetesQuestion';
+  static const String typeOne = 'typeOne';
+  static const String typeTwo = 'typeTwo';
+  static const String diabetesDisclaimerTitle = 'diabetesDisclaimerTitle';
+  static const String diabetesDisclaimerParagraphOne =
+      'diabetesDisclaimerParagraphOne';
+  static const String diabetesDisclaimerParagraphTwo =
+      'diabetesDisclaimerParagraphTwo';
+  static const String diabetesDisclaimerParagraphThree =
+      'diabetesDisclaimerParagraphThree';
+
+      }
 
 extension StringX on String {
   String get translation => this.tr();
