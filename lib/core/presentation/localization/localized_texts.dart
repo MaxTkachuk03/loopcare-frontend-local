@@ -234,6 +234,11 @@ class LocalizedTexts {
   static const String shareMealWithQuestion = 'shareMealWithQuestion';
   static const String cookingQuestion = 'cookingQuestion';
   static const String healthierFood = 'healthierFood';
+  static const String whereDoYouEatQuestion = 'whereDoYouEatQuestion';
+  static const String breakfast = 'breakfast';
+  static const String lunch = 'lunch';
+  static const String dinner = 'dinner';
+  static const String lateDinner = 'lateDinner';
 
   // Diabetes
   static const String diabetes = 'diabetes';
