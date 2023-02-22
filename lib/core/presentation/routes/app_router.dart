@@ -18,6 +18,7 @@ import 'package:loopcare_frontend/features/household_and_habits/presentation/coo
 import 'package:loopcare_frontend/features/household_and_habits/presentation/healthier_food/healthier_food_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/household_and_habits_intro/household_and_habits_intro_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/share_meal_with/share_meal_with_page.dart';
+import 'package:loopcare_frontend/features/household_and_habits/presentation/where_do_you_eat/where_do_you_eat_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
 import 'package:loopcare_frontend/features/legal_statement/presentation/legal_statement_page.dart';
@@ -242,6 +243,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.healthierFood,
       page: HealthierFoodPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.whereDoYouEat,
+      page: WhereDoYouEatPage,
     ),
     AutoRoute(
       path: AppRoutes.diabetes,

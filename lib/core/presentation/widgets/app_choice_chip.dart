@@ -7,6 +7,7 @@ class AppChoiceChip<T> extends StatelessWidget {
   final T value;
   final void Function(T value) onSelected;
   final TextAlign? textAlign;
+  final EdgeInsetsGeometry? padding;
 
   const AppChoiceChip({
     Key? key,
@@ -15,12 +16,13 @@ class AppChoiceChip<T> extends StatelessWidget {
     required this.value,
     required this.onSelected,
     this.textAlign,
+    this.padding,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ChoiceChip(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+      padding: padding ?? const EdgeInsets.symmetric(horizontal: 30.0),
       label: SizedBox(
         width: double.infinity,
         child: Text(
