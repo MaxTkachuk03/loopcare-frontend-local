@@ -233,6 +233,7 @@ class LocalizedTexts {
   static const String householdAndHabits = 'householdAndHabits';
   static const String shareMealWithQuestion = 'shareMealWithQuestion';
   static const String cookingQuestion = 'cookingQuestion';
+  static const String healthierFood = 'healthierFood';
 
   // Diabetes
   static const String diabetes = 'diabetes';
