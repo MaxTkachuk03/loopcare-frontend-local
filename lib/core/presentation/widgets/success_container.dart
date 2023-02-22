@@ -73,12 +73,13 @@ class SuccessContainer extends StatelessWidget {
         ),
         Container(
           width: double.infinity,
-          padding: contentPadding ?? const EdgeInsets.only(
-            top: 48,
-            bottom: 34,
-            left: 34,
-            right: 34,
-          ),
+          padding: contentPadding ??
+              const EdgeInsets.only(
+                top: 48,
+                bottom: 34,
+                left: 34,
+                right: 34,
+              ),
           alignment: Alignment.center,
           decoration: const BoxDecoration(
               color: AppColors.white,

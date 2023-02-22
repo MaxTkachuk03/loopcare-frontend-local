@@ -10,6 +10,9 @@ import 'package:loopcare_frontend/features/authentication/presentation/reset_pas
 import 'package:loopcare_frontend/features/authentication/presentation/waiting_for_confirmation/waiting_for_confirmation_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/consent_confirmation_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/no_consent_page.dart';
+import 'package:loopcare_frontend/features/diabetes/presentation/diabetes/diabetes_page.dart';
+import 'package:loopcare_frontend/features/diabetes/presentation/disclaimer/disclaimer_page.dart';
+import 'package:loopcare_frontend/features/diabetes/presentation/summary/summary_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/household_and_habits_intro/household_and_habits_intro_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/share_meal_with/share_meal_with_page.dart';
@@ -229,6 +232,18 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.shareMealWith,
       page: ShareMealPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.diabetes,
+      page: DiabetesPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.diabetesDisclaimer,
+      page: DisclaimerPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.diabetesSummary,
+      page: SummaryPage,
     ),
   ],
 )

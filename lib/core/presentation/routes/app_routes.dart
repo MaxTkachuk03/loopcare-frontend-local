@@ -46,6 +46,10 @@ class AppRoutes {
   static const String doNotLike = '/do-not-like';
   static const String householdIntro = '/household-intro';
   static const String shareMealWith = '/share-meal-with';
+  // Diabetes
+  static const String diabetes = '/diabetes';
+  static const String diabetesDisclaimer = '/diabetes-disclaimer';
+  static const String diabetesSummary = '/diabetes-summary';
 
   AppRoutes._();
 }

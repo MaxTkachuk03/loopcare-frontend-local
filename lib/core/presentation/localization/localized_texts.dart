@@ -161,10 +161,14 @@ class LocalizedTexts {
   static const String youCanDownloadTheInstruction =
       'youCanDownloadTheInstruction';
   static const String consentConfirmationFailed = 'consentConfirmationFailed';
-  static const String consentConfirmationMoreInfoTitle = 'consentConfirmationMoreInfoTitle';
-  static const String consentConfirmationMoreInfoTextOne = 'consentConfirmationMoreInfoTextOne';
-  static const String consentConfirmationMoreInfoTextTwo = 'consentConfirmationMoreInfoTextTwo';
-  static const String downloadInstructionWhatToAsk = 'downloadInstructionWhatToAsk';
+  static const String consentConfirmationMoreInfoTitle =
+      'consentConfirmationMoreInfoTitle';
+  static const String consentConfirmationMoreInfoTextOne =
+      'consentConfirmationMoreInfoTextOne';
+  static const String consentConfirmationMoreInfoTextTwo =
+      'consentConfirmationMoreInfoTextTwo';
+  static const String downloadInstructionWhatToAsk =
+      'downloadInstructionWhatToAsk';
   static const String close = 'close';
 
   // Legal Statement
@@ -172,9 +176,12 @@ class LocalizedTexts {
   static const String legalStatementTextOne = 'legalStatementTextOne';
   static const String legalStatementTextTwo = 'legalStatementTextTwo';
   static const String readLegalStatement = 'readLegalStatement';
-  static const String legalStatementCheckboxTitle = 'legalStatementCheckboxTitle';
-  static const String legalStatementCheckboxItemOne = 'legalStatementCheckboxItemOne';
-  static const String legalStatementCheckboxItemTwo = 'legalStatementCheckboxItemTwo';
+  static const String legalStatementCheckboxTitle =
+      'legalStatementCheckboxTitle';
+  static const String legalStatementCheckboxItemOne =
+      'legalStatementCheckboxItemOne';
+  static const String legalStatementCheckboxItemTwo =
+      'legalStatementCheckboxItemTwo';
   static const String confirm = 'confirm';
 
   // Preferences overview
@@ -224,4 +231,16 @@ class LocalizedTexts {
   static const String householdAndHabits = 'householdAndHabits';
   static const String shareMealWithQuestion = 'shareMealWithQuestion';
 
+  // Diabetes
+  static const String diabetes = 'diabetes';
+  static const String doYouHaveDiabetesQuestion = 'doYouHaveDiabetesQuestion';
+  static const String typeOne = 'typeOne';
+  static const String typeTwo = 'typeTwo';
+  static const String diabetesDisclaimerTitle = 'diabetesDisclaimerTitle';
+  static const String diabetesDisclaimerParagraphOne =
+      'diabetesDisclaimerParagraphOne';
+  static const String diabetesDisclaimerParagraphTwo =
+      'diabetesDisclaimerParagraphTwo';
+  static const String diabetesDisclaimerParagraphThree =
+      'diabetesDisclaimerParagraphThree';
 }
