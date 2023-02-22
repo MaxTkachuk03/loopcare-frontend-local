@@ -1,4 +1,4 @@
-part of 'physical_fitness_bloc.dart';
+part of 'self_help_bloc.dart';
 
 @freezed
 class SelfHelpEvent with _$SelfHelpEvent {
@@ -8,7 +8,13 @@ class SelfHelpEvent with _$SelfHelpEvent {
 
   const factory SelfHelpEvent.resetData() = ResetData;
 
-  const factory SelfHelpEvent.preferGenderChanged(
+  const factory SelfHelpEvent.setUserPreferGender(
     PreferGenderType preferGender,
-  ) = PreferGenderTypeChanged;
+  ) = SetUserPreferGender;
+
+  const factory DiabetesEvent.getUserPreferGender() = GetUserPreferGender;
+
+   const factory DiabetesEvent.saveUserPreferGender() = SaveUserPreferGender;
+
+
 }

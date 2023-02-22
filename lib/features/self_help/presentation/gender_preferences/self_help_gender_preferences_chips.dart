@@ -22,7 +22,7 @@ class _SelfHelpGenderPreferencesChipsState
     });
 
     final bloc = context.read<SelfHelpBloc>();
-    bloc.add(SelfHelpEvent.biologicalGenderChanged(gender));
+    bloc.add(SelfHelpEvent.preferGenderChanged(gender));
 
     // final selfHelpNavigationState = StepNavigationState.of(context);
     // selfHelpNavigationState.onNextPage();

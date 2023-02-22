@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/bmi_validator.dart';
+import 'package:loopcare_frontend/features/self_help/domain/prefer_gender_type.dart';
 
 part 'self_help_bloc.freezed.dart';
 
@@ -19,35 +21,22 @@ part 'self_help_questions.dart';
 
 @singleton
 class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
-  final OnboardingBloc onboardingBloc;
-  final AuthenticationCubit _authenticationCubit;
+  final PreferGenderService preferGenderService;
 
-  late final StreamSubscription _authBlocStreamSubscription;
 
-  SelfHelpBloc(this.onboardingBloc, this._authenticationCubit)
+  SelfHelpBloc(this.preferGenderService)
       : super(SelfHelpState.initial()) {
     on<NextQuestion>(_onNextQuestion);
-    on<PreviousQuestion>(_onPreviousQuestion);
-    on<PreferGenderTypeChanged>(_onPreferGenderTypeChanged);
+    on<PreviousQuestion>(_onPreviousQuestion); 
+    on<SetUserPreferGender>(_onSetPreferGender);
+    on<GetUserPreferGender>(_onGetPreferGender);
+    on<SaveUserPreferGender>(_onSaveDiabetesType);
 
     on<ResetData>(_onResetData);
 
-    _authBlocStreamSubscription =
-        _authenticationCubit.stream.distinct().listen((s) {
-      s.mapOrNull(
-        authenticated: (_) {
-          add(const SelfHelpEvent.resetData());
-        },
-      );
-    });
+
   }
 
-  @override
-  Future<void> close() async {
-    _authBlocStreamSubscription.cancel();
-
-    return super.close();
-  }
 
   FutureOr<void> _onResetData(
     ResetData event,
@@ -63,35 +52,7 @@ class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
     final currentQuestion = state.currentQuestion;
     final nextQuestion = currentQuestion.getNextQuestion();
 
-    final isCompleted = nextQuestion == SelfHelpQuestions.result;
-
-    if (isCompleted) {
-      final bool isValidBmi =
-          BmiValidator.isUserAllowToProceed(state.age!, state.bmi);
-
-      emit(state.copyWith(
-        isCompletedSuccessfully: isValidBmi,
-        currentQuestion: isValidBmi ? nextQuestion : currentQuestion,
-      ));
-
-      if (isValidBmi) {
-        onboardingBloc.add(
-          OnboardingEvent.currentStepChanged(
-            progress: nextQuestion.percentage.toInt(),
-            questionIndex: nextQuestion.index,
-          ),
-        );
-      }
-    } else {
-      emit(state.copyWith(currentQuestion: nextQuestion));
-
-      onboardingBloc.add(
-        OnboardingEvent.currentStepChanged(
-          progress: nextQuestion.percentage.toInt(),
-          questionIndex: nextQuestion.index,
-        ),
-      );
-    }
+    emit(state.copyWith(currentQuestion: nextQuestion));
   }
 
   FutureOr<void> _onPreviousQuestion(
@@ -107,19 +68,23 @@ class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
       ));
     }
 
-    onboardingBloc.add(OnboardingEvent.currentStepChanged(
-      progress: previousQuestion.percentage.toInt(),
-      questionIndex: previousQuestion.index,
-    ));
   }
 
-  FutureOr<void> _onPreferGenderTypeChanged(
+  FutureOr<void> _onSetPreferGender(
     PreferGenderTypeChanged event,
     Emitter<SelfHelpState> emit,
   ) {
     emit(state.copyWith(
-      heightInCm: event.height,
-      heightMeasurementSystemType: event.measurementSystemType,
+      preferGenderType: event.preferGender,
+    ));
+  }
+
+    FutureOr<void> _onGetPreferGender(
+    GetUserPreferGender event,
+    Emitter<SelfHelpState> emit,
+  ) {
+    emit(state.copyWith(
+      preferGenderType: event.preferGender,
     ));
   }
 
