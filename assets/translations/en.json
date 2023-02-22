@@ -185,5 +185,6 @@
   "diabetesDisclaimerTitle" : "You indicate to have been diagnosed with diabetes",
   "diabetesDisclaimerParagraphOne" : "People diagnosed with type I or type II diabetes have increased risk for kidney disease.",
   "diabetesDisclaimerParagraphTwo" : "Signs of kidney disease require specialized dietary restrictions that are not part of this program.",
-  "diabetesDisclaimerParagraphThree" : "Consult with your physician to ensure that you have healthy renal function"
+  "diabetesDisclaimerParagraphThree" : "Consult with your physician to ensure that you have healthy renal function",
+  "cookingQuestion": "Who is doing the cooking in your household?"
 }

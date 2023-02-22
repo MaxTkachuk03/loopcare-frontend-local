@@ -222,6 +222,8 @@ class LocalizedTexts {
   static const String fish = 'fish';
   static const String minutes = 'minutes';
   static const String foodTemptations = 'foodTemptations';
+
+  // Household and eating habits
   static const String householdAndEatingHabits = 'householdAndEatingHabits';
   static const String householdIntroDesc = 'householdIntroDesc';
   static const String householdIntroTextOne = 'householdIntroTextOne';
@@ -230,6 +232,7 @@ class LocalizedTexts {
   static const String householdIntroTextFour = 'householdIntroTextFour';
   static const String householdAndHabits = 'householdAndHabits';
   static const String shareMealWithQuestion = 'shareMealWithQuestion';
+  static const String cookingQuestion = 'cookingQuestion';
 
   // Diabetes
   static const String diabetes = 'diabetes';
