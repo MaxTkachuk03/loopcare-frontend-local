@@ -29,8 +29,8 @@ class _ProxyPageState extends State<ProxyPage> {
     prefs.setString('_ip', _ipController.text);
     prefs.setString('_port', _portController.text);
 
-    // context.router.pushNamed(AppRoutes.intro);
-    context.router.pushNamed(AppRoutes.selfHelpIntro);
+    context.router.pushNamed(AppRoutes.intro);
+    // context.router.pushNamed(AppRoutes.selfHelpIntro);
   }
 
   @override

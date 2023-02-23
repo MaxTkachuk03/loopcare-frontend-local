@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -8,6 +9,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/success_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/editable_item.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
+import 'package:loopcare_frontend/features/self_help/application/self_help_bloc.dart';
 
 class SelfHelpReadyPage extends StatelessWidget {
   const SelfHelpReadyPage({Key? key}) : super(key: key);
@@ -32,12 +35,16 @@ class SelfHelpReadyPage extends StatelessWidget {
                       contentPadding: const EdgeInsets.all(0),
                       content: Column(
                         children: [
-                          EditableItem(
-                            title:
-                                LocalizedTexts.selfHelpGenderPreferences.tr(),
-                            subtitle:
-                                LocalizedTexts.selfHelpGenderPreferencesNo.tr(),
-                            routeName: SelfHelpIntroRoute.name,
+                          BlocBuilder<SelfHelpBloc, SelfHelpState>(
+                            builder: (BuildContext context, state) {
+                              return EditableItem(
+                                title: LocalizedTexts.selfHelpGenderPreferences
+                                    .tr(),
+                                subtitle:
+                                    '${state.selectedType?.name.capitalizeOnlyFirstLetter()}',
+                                routeName: SelfHelpIntroRoute.name,
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -69,6 +76,8 @@ class SelfHelpReadyPage extends StatelessWidget {
   }
 
   _onBackPressed(BuildContext context) {
-    context.router.popUntilRouteWithName(PreferencesOverviewRoute.name);
+    context
+      ..read<SelfHelpBloc>().add(const SelfHelpEvent.saveUserPreferGender())
+      ..router.popUntilRouteWithName(PreferencesOverviewRoute.name);
   }
 }
