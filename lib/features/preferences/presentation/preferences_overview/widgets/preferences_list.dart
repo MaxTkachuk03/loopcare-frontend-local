@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/diabetes/application/diabetes_bloc.dart';
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/widgets/preferences_list_item.dart';
+import 'package:loopcare_frontend/features/self_help/application/self_help_bloc.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 class Pref {
@@ -79,36 +80,36 @@ class _PreferencesListState extends State<PreferencesList> {
             ],
           );
         }),
-        Column(
-          children: [
-            PreferencesListItem(
-              item: Pref(
-                title: 'Food temptations',
-                completionTime: '10 ${LocalizedTexts.minutes.tr()}',
-                isCompleted: false,
-                imagePath: AppImages.preferencesDiabetes,
-              ),
-              imageOverlayColor: AppColors.greenLight.withOpacity(0.8),
-              routePath: AppRoutes.householdIntro,
-            ),
-            const SizedBox(height: 8.0),
-          ],
-        ),
-        Column(
-          children: [
-            PreferencesListItem(
-              item: Pref(
-                title: LocalizedTexts.householdAndEatingHabits.tr(),
-                completionTime: '10 ${LocalizedTexts.minutes.tr()}',
-                isCompleted: false,
-                imagePath: AppImages.preferencesDiabetes,
-              ),
-              imageOverlayColor: AppColors.purple.withOpacity(0.8),
-              routePath: AppRoutes.householdIntro,
-            ),
-            const SizedBox(height: 8.0),
-          ],
-        ),
+        // Column(
+        //   children: [
+        //     PreferencesListItem(
+        //       item: Pref(
+        //         title: 'Food temptations',
+        //         completionTime: '10 ${LocalizedTexts.minutes.tr()}',
+        //         isCompleted: false,
+        //         imagePath: AppImages.preferencesDiabetes,
+        //       ),
+        //       imageOverlayColor: AppColors.greenLight.withOpacity(0.8),
+        //       routePath: AppRoutes.householdIntro,
+        //     ),
+        //     const SizedBox(height: 8.0),
+        //   ],
+        // ),
+        // Column(
+        //   children: [
+        //     PreferencesListItem(
+        //       item: Pref(
+        //         title: LocalizedTexts.householdAndEatingHabits.tr(),
+        //         completionTime: '10 ${LocalizedTexts.minutes.tr()}',
+        //         isCompleted: false,
+        //         imagePath: AppImages.preferencesDiabetes,
+        //       ),
+        //       imageOverlayColor: AppColors.purple.withOpacity(0.8),
+        //       routePath: AppRoutes.householdIntro,
+        //     ),
+        //     const SizedBox(height: 8.0),
+        //   ],
+        // ),
         BlocBuilder<DiabetesBloc, DiabetesState>(
             builder: (BuildContext context, state) {
           return Column(
@@ -122,6 +123,24 @@ class _PreferencesListState extends State<PreferencesList> {
                 ),
                 imageOverlayColor: AppColors.yellowish.withOpacity(0.8),
                 routePath: AppRoutes.diabetes,
+              ),
+              const SizedBox(height: 8.0),
+            ],
+          );
+        }),
+        BlocBuilder<SelfHelpBloc, SelfHelpState>(
+            builder: (BuildContext context, state) {
+          return Column(
+            children: [
+              PreferencesListItem(
+                item: Pref(
+                  title: LocalizedTexts.selfHelp.tr(),
+                  completionTime: '2 ${LocalizedTexts.minutes.tr()}',
+                  isCompleted: state.isCompleted,
+                  imagePath: AppImages.selfHelpIntro,
+                ),
+                imageOverlayColor: AppColors.yellowish.withOpacity(0.8),
+                routePath: AppRoutes.selfHelpIntro,
               ),
               const SizedBox(height: 8.0),
             ],

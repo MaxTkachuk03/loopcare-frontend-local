@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 class LocalizedTexts {
   static const String introTitle = 'introTitle';
   static const String introItemFirst = 'introItemFirst';
@@ -223,6 +225,24 @@ class LocalizedTexts {
   static const String minutes = 'minutes';
   static const String foodTemptations = 'foodTemptations';
 
+  // Self Help
+  static const String selfHelp = 'selfHelp';
+  static const String selfHelpDesc = 'selfHelpDesc';
+  static const String selfHelpItemOne = 'selfHelpItemOne';
+  static const String selfHelpItemTwo = 'selfHelpItemTwo';
+  static const String selfHelpTitle = 'selfHelpTitle';
+  static const String selfHelpGenderPreferencesPage1Header =
+      'selfHelpGenderPreferencesPage1Header';
+  static const String selfHelpGenderPreferencesYesFemale =
+      'selfHelpGenderPreferencesYesFemale';
+  static const String selfHelpGenderPreferencesYesMale =
+      'selfHelpGenderPreferencesYesMale';
+  static const String selfHelpGenderPreferencesNo =
+      'selfHelpGenderPreferencesNo';
+  static const String selfHelpGenderPreferences = 'selfHelpGenderPreferences';
+
+  static const String currentStep = 'currentStep';
+
   // Household and eating habits
   static const String householdAndEatingHabits = 'householdAndEatingHabits';
   static const String householdIntroDesc = 'householdIntroDesc';
@@ -252,4 +272,12 @@ class LocalizedTexts {
       'diabetesDisclaimerParagraphTwo';
   static const String diabetesDisclaimerParagraphThree =
       'diabetesDisclaimerParagraphThree';
+
+      }
+
+extension StringX on String {
+  String get translation => this.tr();
+
+  String translateWithNamedArgs(Map<String, String> namedArgs) =>
+      this.tr(namedArgs: namedArgs);
 }
