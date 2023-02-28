@@ -13,5 +13,9 @@ class BmiValidator {
     return minValue <= bmiIndex && bmiIndex <= (percent * index);
   }
 
+  static String getMaxBmiIndexValue(int age) {
+    return age > minAllowedAge ? '$maxValue' : '${percent * index}';
+  }
+
   BmiValidator._();
 }
