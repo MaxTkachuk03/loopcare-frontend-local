@@ -184,7 +184,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
 
   void _onChangeAddressPressed(BuildContext context) {
     context
-      ..read<AuthenticationCubit>().restoreToGuest()
+      ..read<AuthenticationCubit>().changeAddress()
       ..router.pop();
   }
 

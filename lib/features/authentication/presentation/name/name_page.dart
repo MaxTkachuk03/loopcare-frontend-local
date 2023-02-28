@@ -103,7 +103,7 @@ class _NamePageState extends State<NamePage> {
 
   void _onNextPressed() {
     context
-      ..read<AuthenticationCubit>().changeGuestName(_nameController.text)
+      ..read<AuthenticationCubit>().changeToPasswordState(_nameController.text)
       ..router.pushNamed(AppRoutes.password);
   }
 }

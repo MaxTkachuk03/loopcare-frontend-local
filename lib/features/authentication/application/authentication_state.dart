@@ -14,6 +14,18 @@ class AuthenticationState with _$AuthenticationState {
     User user,
   ) = Authenticated;
 
+  const factory AuthenticationState.name() = Name;
+
+  const factory AuthenticationState.password({
+    required String name,
+  }) = Password;
+
+  const factory AuthenticationState.emailAddress({
+    required String name,
+    required String password,
+    @JsonKey(ignore: true) RequestError? error,
+  }) = EmailAddress;
+
   const factory AuthenticationState.waitedForConfirmation({
     required String name,
     required String password,
@@ -23,8 +35,6 @@ class AuthenticationState with _$AuthenticationState {
   }) = WaitedForConfirmation;
 
   const factory AuthenticationState.guest({
-    String? name,
-    String? password,
     String? email,
     @JsonKey(ignore: true) @Default(false) bool emailWasSend,
     @JsonKey(ignore: true) RequestError? error,

@@ -51,7 +51,7 @@ class _PasswordPageState extends State<PasswordPage> {
                       return Text(
                         LocalizedTexts.enterPasswordTitle.tr(namedArgs: {
                           'name': state.maybeMap(
-                              guest: (state) => state.name ?? '',
+                              password: (state) => state.name ?? '',
                               orElse: () => ''),
                         }),
                         textAlign: TextAlign.center,
@@ -84,8 +84,7 @@ class _PasswordPageState extends State<PasswordPage> {
 
   void _onNextPressed() {
     context
-      ..read<AuthenticationCubit>()
-          .changeGuestPassword(_passwordController.text)
+      ..read<AuthenticationCubit>().changeToEmailState(_passwordController.text)
       ..router.pushNamed(AppRoutes.emailAddress);
   }
 

@@ -66,16 +66,11 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
 
   void signUp(String email) async {
     state.mapOrNull(
-      guest: (state) async {
-        final name = state.name;
-        final password = state.password;
-
-        if (name == null || password == null) return;
-
+      emailAddress: (state) async {
         final data = SignUpData(
-          name: name,
+          name: state.name,
           email: email,
-          password: password,
+          password: state.password,
           isConsentApproved: true,
           isLegalApproved: true,
         );
@@ -90,8 +85,8 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
             emit(AuthenticationState.waitedForConfirmation(
               email: data.email,
               userId: response.userId,
-              name: name,
-              password: password,
+              name: state.name,
+              password: state.password,
             ));
           },
         );
@@ -136,27 +131,36 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     );
   }
 
-  void restoreToGuest() {
+  void changeAddress() {
     state.mapOrNull(waitedForConfirmation: (state) {
-      emit(AuthenticationState.guest(
+      emit(AuthenticationState.emailAddress(
         name: state.name,
         password: state.password,
       ));
     });
   }
 
-  void changeGuestName(String name) {
+  void changeToNameState() {
     state.mapOrNull(
-      guest: (state) async {
-        emit(state.copyWith(name: name));
+      guest: (state) {
+        emit(const AuthenticationState.name());
       },
     );
   }
 
-  void changeGuestPassword(String password) {
+  void changeToPasswordState(String name) {
     state.mapOrNull(
-      guest: (state) async {
-        emit(state.copyWith(password: password));
+      name: (state) {
+        emit(AuthenticationState.password(name: name));
+      },
+    );
+  }
+
+  void changeToEmailState(String password) {
+    state.mapOrNull(
+      password: (state) {
+        emit(AuthenticationState.emailAddress(
+            name: state.name, password: password));
       },
     );
   }
