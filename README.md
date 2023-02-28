@@ -1,8 +1,9 @@
-# LoopCare Application
+# LeanOnMe Application
 
-A new Flutter project.
 
 ## Getting Started
+
+Project was setted up and developed with flutter version 3.3.10
 
 Follow these steps to set up a project:
 
