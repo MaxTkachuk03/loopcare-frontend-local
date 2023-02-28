@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/underlined_clickable_text.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/get_measurement_system.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_tabs.dart';
@@ -33,7 +34,7 @@ class _HeightPageState extends State<HeightPage> {
   late TextEditingController inController;
   late FocusNode cmFieldFocusNode;
   late FocusNode ftFieldFocusNode;
-  MeasurementSystemType activeMeasurementType = MeasurementSystemType.metric;
+  MeasurementSystemType activeMeasurementType = getMeasurementSystem();
 
   @override
   void initState() {
@@ -60,6 +61,10 @@ class _HeightPageState extends State<HeightPage> {
 
   @override
   void dispose() {
+    cmController.dispose();
+    ftController.dispose();
+    inController.dispose();
+
     cmFieldFocusNode.dispose();
     ftFieldFocusNode.dispose();
 
