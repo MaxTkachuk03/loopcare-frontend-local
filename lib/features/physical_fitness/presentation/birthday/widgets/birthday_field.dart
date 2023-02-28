@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/features/physical_fitness/application/physical
 import 'package:loopcare_frontend/features/physical_fitness/presentation/birthday/widgets/birthdate_picker.dart';
 import 'package:loopcare_frontend/core/presentation/validators/age_validator.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_helpers.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class BirthdayField extends StatefulWidget {
   const BirthdayField({Key? key}) : super(key: key);
@@ -38,12 +39,16 @@ class _BirthdayFieldState extends State<BirthdayField> {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             children: [
-              Text(
-                DateFormat('d MMMM yyyy').format(value),
-                style: Theme.of(context).textTheme.headline2?.copyWith(
-                      fontFamily: ThemeConstants.bitterFontFamily,
-                      fontSize: ThemeConstants.fontSize38,
-                    ),
+              SizedBox(
+                height: 100,
+                child: AutoSizeText(
+                  maxLines: 1,
+                  DateFormat.yMMMMd(Intl.getCurrentLocale()).format(value),
+                  style: Theme.of(context).textTheme.headline2?.copyWith(
+                        fontFamily: ThemeConstants.bitterFontFamily,
+                        fontSize: ThemeConstants.fontSize38,
+                      ),
+                ),
               ),
               const SizedBox(height: 120.0),
               ElevatedButton(
