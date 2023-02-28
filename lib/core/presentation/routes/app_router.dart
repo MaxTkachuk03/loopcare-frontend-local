@@ -242,7 +242,7 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.selfHelpReady,
       page: SelfHelpReadyPage,
-          ),
+    ),
     AutoRoute(
       path: AppRoutes.householdIntro,
       page: HouseholdAndHabitsIntroPage,

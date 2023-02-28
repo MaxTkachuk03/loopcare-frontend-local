@@ -46,7 +46,7 @@ class APIAuthenticationService implements AuthenticationService {
 
   @override
   Future<Either<RequestError, dynamic>> logout() async {
-    return client.post('/auth/logout');
+    return client.post('/auth/logout', data: {});
   }
 
   @override
