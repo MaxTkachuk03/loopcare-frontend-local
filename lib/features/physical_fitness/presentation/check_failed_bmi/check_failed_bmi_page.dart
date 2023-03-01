@@ -7,16 +7,13 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/bmi_calculator.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/bmi_validator.dart';
 
 class CheckFailedBmiPage extends StatelessWidget {
   const CheckFailedBmiPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<PhysicalFitnessBloc>().state;
-    final bmiIndex =
-        BmiCalculator.getUserBmiIndex(bloc.heightInCm, bloc.weightInKg);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(LocalizedTexts.bodyAndMind.tr()),
@@ -44,18 +41,35 @@ class CheckFailedBmiPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(LocalizedTexts.yourBodyMassIndex.tr()),
-                      Text(
-                        '$bmiIndex',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline4
-                            ?.copyWith(color: AppColors.blueDark),
-                      ),
+                      BlocBuilder<PhysicalFitnessBloc, PhysicalFitnessState>(
+                          builder: (BuildContext context, state) {
+                        final bmiIndex = BmiCalculator.getUserBmiIndex(
+                          state.heightInCm,
+                          state.weightInKg,
+                        );
+
+                        return Text(
+                          '$bmiIndex',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4
+                              ?.copyWith(color: AppColors.blueDark),
+                        );
+                      }),
                       const SizedBox(height: 26),
-                      Text(
-                        LocalizedTexts.fitnessCheckFailedInformationsText.tr(),
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
+                      BlocBuilder<PhysicalFitnessBloc, PhysicalFitnessState>(
+                          builder: (BuildContext context, state) {
+                        final bmiMaxValue =
+                            BmiValidator.getMaxBmiIndexValue(state.age ?? 0);
+
+                        return Text(
+                          LocalizedTexts.fitnessCheckFailedInformationsText
+                              .tr(namedArgs: {
+                            'bmiIndex': bmiMaxValue,
+                          }),
+                          style: Theme.of(context).textTheme.headline6,
+                        );
+                      }),
                       const SizedBox(height: 26),
                       Text(LocalizedTexts.fitnessCheckFailedAdviceText.tr()),
                     ],

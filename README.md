@@ -1,8 +1,8 @@
-# LoopCare Application
-
-A new Flutter project.
+# LeanOnMe Application
 
 ## Getting Started
+
+Project was setted up and developed with flutter version 3.3.10
 
 Follow these steps to set up a project:
 
@@ -22,6 +22,16 @@ Follow these steps to set up a project:
 14. File `.env.example` contains needed variable names, copy it to the `.env.dev` and `.env.prod`.You can find env file variable values in the project documentation. Also firebase variables you can get from the `google-services.json` and `GoogleService-Info.plist` respectevly
 
 ## Application development
+
+## Application delivery
+
+Android build command
+`flutter build apk --release --dart-define FLAVOR=<environment> --flavor <environment>`
+
+IOS build command
+`flutter build ipa --release --export-method ad-hoc --dart-define FLAVOR=<environment> --flavor <environment>`
+
+`environment` - could be `dev` or `prod`
 
 ### Application architecture
 

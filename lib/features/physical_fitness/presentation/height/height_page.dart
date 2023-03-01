@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/underlined_clickable_text.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/get_measurement_system.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_tabs.dart';
@@ -33,25 +34,20 @@ class _HeightPageState extends State<HeightPage> {
   late TextEditingController inController;
   late FocusNode cmFieldFocusNode;
   late FocusNode ftFieldFocusNode;
-  MeasurementSystemType activeMeasurementType = MeasurementSystemType.metric;
+  MeasurementSystemType activeMeasurementType = getMeasurementSystem();
+  late int heightInCm;
+  late int heightFT;
+  late int heightIN;
 
   @override
   void initState() {
     final bloc = context.read<PhysicalFitnessBloc>();
-    final heightInCm = bloc.state.heightInCm;
-    cmController = TextEditingController(text: heightInCm ?? '');
-    ftController = TextEditingController(
-        text: heightInCm != null
-            ? '${HeightConversionUtils.convertCMtoFeet(
-                double.parse(heightInCm),
-              )}'
-            : '');
-    inController = TextEditingController(
-        text: heightInCm != null
-            ? '${HeightConversionUtils.convertCMtoInches(
-                double.parse(heightInCm),
-              )}'
-            : '');
+    heightInCm = int.parse(bloc.state.heightInCm ?? "0");
+    heightFT = HeightConversionUtils.convertCMtoFT(heightInCm);
+    heightIN = HeightConversionUtils.convertCMtoFtIn(heightInCm);
+    cmController = TextEditingController(text: heightInCm.toString());
+    ftController = TextEditingController(text: heightFT.toString());
+    inController = TextEditingController(text: heightIN.toString());
 
     super.initState();
     cmFieldFocusNode = FocusNode();
@@ -60,6 +56,10 @@ class _HeightPageState extends State<HeightPage> {
 
   @override
   void dispose() {
+    cmController.dispose();
+    ftController.dispose();
+    inController.dispose();
+
     cmFieldFocusNode.dispose();
     ftFieldFocusNode.dispose();
 
@@ -72,9 +72,7 @@ class _HeightPageState extends State<HeightPage> {
       child: MainContainer(
         child: Column(
           children: [
-            const SizedBox(
-              height: 70.0,
-            ),
+            const SizedBox(height: 70.0),
             Text(
               LocalizedTexts.yourHeight.tr(),
               textAlign: TextAlign.center,
@@ -82,9 +80,7 @@ class _HeightPageState extends State<HeightPage> {
                     fontWeight: FontWeight.w600,
                   ),
             ),
-            const SizedBox(
-              height: 48,
-            ),
+            const SizedBox(height: 48),
             UnitTabs(
               tabBarViewChildren: [
                 UnitField(
@@ -94,6 +90,7 @@ class _HeightPageState extends State<HeightPage> {
                   focusNode: cmFieldFocusNode,
                   maxLength: Height.maxLengthMetric,
                   counterText: '',
+                  onChanged: _setCM,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -104,83 +101,86 @@ class _HeightPageState extends State<HeightPage> {
                       focusNode: ftFieldFocusNode,
                       maxLength: Height.maxLengthImperial,
                       counterText: '',
+                      onChanged: _setFT,
                     ),
-                    const SizedBox(
-                      width: 12.0,
-                    ),
+                    const SizedBox(width: 12.0),
                     UnitField(
                       unit: inches,
                       controller: inController,
                       maxLength: Height.maxLengthImperial,
                       counterText: '',
+                      onChanged: _setIN,
                     ),
                   ],
                 ),
               ],
               onTabChanged: _onTabChanged,
             ),
-            const SizedBox(
-              height: 16.0,
-            ),
+            const SizedBox(height: 16.0),
             UnderlinedClickableText(
               text: LocalizedTexts.needHelpWithThis.tr(),
               onTap: _onHelpTap,
             ),
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             _NextButton(
-                measurementSystemType: activeMeasurementType,
-                getHeight: getHeight),
-            const SizedBox(
-              height: 30.0,
+              measurementSystemType: activeMeasurementType,
+              getHeight: getHeight,
             ),
+            const SizedBox(height: 30.0),
           ],
         ),
       ),
     );
   }
 
+  void _setCM(String value) {
+    if (value == '') value = "0";
+    setState(() {
+      heightInCm = int.parse(value);
+
+      heightFT = HeightConversionUtils.convertCMtoFT(heightInCm);
+      heightIN = HeightConversionUtils.convertCMtoFtIn(heightInCm);
+    });
+  }
+
+  void _setFT(String value) {
+    if (value == '') value = "0";
+    setState(() {
+      heightFT = int.parse(value);
+
+      heightInCm =
+          HeightConversionUtils.convertFeetAndInchesToCM(heightFT, heightIN);
+    });
+  }
+
+  void _setIN(String value) {
+    if (value == '') value = "0";
+    setState(() {
+      heightIN = int.parse(value);
+
+      heightInCm =
+          HeightConversionUtils.convertFeetAndInchesToCM(heightFT, heightIN);
+    });
+  }
+
   void _onHelpTap() {}
 
-  String getHeight() {
-    if (activeMeasurementType == MeasurementSystemType.metric) {
-      return cmController.text;
-    }
-
-    return getMetricHeight();
-  }
+  String getHeight() => heightInCm.toString();
 
   void _onTabChanged(MeasurementSystemType unitType) {
     if (unitType == MeasurementSystemType.metric) {
-      cmController.text = getMetricHeight();
+      cmController.text = heightInCm.toString();
       cmFieldFocusNode.requestFocus();
     } else {
-      final cmText = cmController.text;
-      if (cmText == '') return;
       ftFieldFocusNode.requestFocus();
-      ftController.text = '${HeightConversionUtils.convertCMtoFeet(
-        double.parse(cmText),
-      )}';
-      inController.text = '${HeightConversionUtils.convertCMtoInches(
-        double.parse(cmText),
-      )}';
+      ftController.text = '${HeightConversionUtils.convertCMtoFT(heightInCm)}';
+      inController.text =
+          '${HeightConversionUtils.convertCMtoFtIn(heightInCm)}';
     }
 
     setState(() {
       activeMeasurementType = unitType;
     });
-  }
-
-  String getMetricHeight() {
-    final ftText = ftController.text;
-    final inText = inController.text;
-    if (ftText == '') return '';
-
-    return '${HeightConversionUtils.convertFeetAndInchesToCM(
-      double.parse(ftText),
-      inText == '' ? 0 : double.parse(inText),
-    )}';
   }
 }
 
