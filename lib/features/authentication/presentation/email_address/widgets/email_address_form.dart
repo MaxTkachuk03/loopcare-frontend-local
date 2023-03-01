@@ -48,7 +48,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
         ),
         BlocListener<AuthenticationCubit, AuthenticationState>(
           listenWhen: (previous, current) =>
-              previous is Email && current is WaitedForConfirmation,
+              previous is EmailAddress && current is WaitedForConfirmation,
           listener: _navigationListener,
         )
       ],

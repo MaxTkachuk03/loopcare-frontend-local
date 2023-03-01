@@ -53,12 +53,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
 
       response.fold((l) => null, (r) {
         if (r.emailApproveDate != null) {
-          emit(
-            // TODO: get user from backend
-            const AuthenticationState.authenticated(
-              User(id: 1, name: 'Nastya'),
-            ),
-          );
+          emit(const AuthenticationState.guest());
         }
       });
     });
@@ -84,7 +79,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
           (response) {
             emit(AuthenticationState.waitedForConfirmation(
               email: data.email,
-              userId: response.userId,
+              userId: response.id,
               name: state.name,
               password: state.password,
             ));
@@ -131,13 +126,22 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     );
   }
 
-  void changeAddress() {
-    state.mapOrNull(waitedForConfirmation: (state) {
-      emit(AuthenticationState.emailAddress(
-        name: state.name,
-        password: state.password,
-      ));
-    });
+  void previousStep() {
+    state.maybeMap(
+      orElse: () => emit(const AuthenticationState.guest()),
+      waitedForConfirmation: (state) {
+        emit(
+          AuthenticationState.emailAddress(
+              name: state.name, password: state.password),
+        );
+      },
+      emailAddress: (state) {
+        emit(
+          AuthenticationState.password(name: state.name),
+        );
+      },
+      password: (state) => emit(const AuthenticationState.name()),
+    );
   }
 
   void changeToNameState() {

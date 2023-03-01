@@ -40,6 +40,13 @@ class AuthenticationState with _$AuthenticationState {
     @JsonKey(ignore: true) RequestError? error,
   }) = Guest;
 
+  bool get isAuthenticated {
+    return maybeWhen(
+      orElse: () => false,
+      authenticated: (_) => true,
+    );
+  }
+
   factory AuthenticationState.fromJson(Map<String, dynamic> json) =>
       _$AuthenticationStateFromJson(json);
 }

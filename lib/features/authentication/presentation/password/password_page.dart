@@ -32,54 +32,64 @@ class _PasswordPageState extends State<PasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(LocalizedTexts.createAccount.tr()),
-        ),
-        body: SafeArea(
-          child: ScrollableContainer(
-            child: MainContainer(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                    builder: (BuildContext context, state) {
-                      return Text(
-                        LocalizedTexts.enterPasswordTitle.tr(namedArgs: {
-                          'name': state.maybeMap(
-                              password: (state) => state.name ?? '',
-                              orElse: () => ''),
-                        }),
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline4?.copyWith(
-                              fontFamily: ThemeConstants.bitterFontFamily,
-                            ),
-                      );
-                    },
-                  ),
-                  const SizedBox(
-                    height: 100.0,
-                  ),
-                  PasswordWithIndicator(
-                    controller: _passwordController,
-                    onChange: _onPasswordChanged,
-                  ),
-                  const SizedBox(height: 16.0),
-                  ElevatedButton(
-                    onPressed: _isDisabled ? null : _onNextPressed,
-                    child: Text(LocalizedTexts.confirmPassword.tr()),
-                  ),
-                ],
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(LocalizedTexts.createAccount.tr()),
+          ),
+          body: SafeArea(
+            child: ScrollableContainer(
+              child: MainContainer(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                      builder: (BuildContext context, state) {
+                        return Text(
+                          LocalizedTexts.enterPasswordTitle.tr(namedArgs: {
+                            'name': state.maybeMap(
+                                password: (state) => state.name ?? '',
+                                orElse: () => ''),
+                          }),
+                          textAlign: TextAlign.center,
+                          style:
+                              Theme.of(context).textTheme.headline4?.copyWith(
+                                    fontFamily: ThemeConstants.bitterFontFamily,
+                                  ),
+                        );
+                      },
+                    ),
+                    const SizedBox(
+                      height: 100.0,
+                    ),
+                    PasswordWithIndicator(
+                      controller: _passwordController,
+                      onChange: _onPasswordChanged,
+                    ),
+                    const SizedBox(height: 16.0),
+                    ElevatedButton(
+                      onPressed: _isDisabled ? null : _onNextPressed,
+                      child: Text(LocalizedTexts.confirmPassword.tr()),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  Future<bool> _onWillPop() {
+    context.read<AuthenticationCubit>().previousStep();
+
+    return Future.value(true);
   }
 
   void _onNextPressed() {
