@@ -7,7 +7,7 @@ import Foundation
 
 import firebase_core
 import path_provider_foundation
-import shared_preferences_foundation
+import shared_preferences_macos
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   FLTFirebaseCorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseCorePlugin"))

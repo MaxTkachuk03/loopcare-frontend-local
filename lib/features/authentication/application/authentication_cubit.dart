@@ -53,12 +53,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
 
       response.fold((l) => null, (r) {
         if (r.emailApproveDate != null) {
-          emit(
-            // TODO: get user from backend
-            const AuthenticationState.authenticated(
-              User(id: 1, name: 'Nastya'),
-            ),
-          );
+          emit(const AuthenticationState.guest());
         }
       });
     });
@@ -66,16 +61,11 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
 
   void signUp(String email) async {
     state.mapOrNull(
-      guest: (state) async {
-        final name = state.name;
-        final password = state.password;
-
-        if (name == null || password == null) return;
-
+      emailAddress: (state) async {
         final data = SignUpData(
-          name: name,
+          name: state.name,
           email: email,
-          password: password,
+          password: state.password,
           isConsentApproved: true,
           isLegalApproved: true,
         );
@@ -89,9 +79,9 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
           (response) {
             emit(AuthenticationState.waitedForConfirmation(
               email: data.email,
-              userId: response.userId,
-              name: name,
-              password: password,
+              userId: response.id,
+              name: state.name,
+              password: state.password,
             ));
           },
         );
@@ -136,27 +126,45 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     );
   }
 
-  void restoreToGuest() {
-    state.mapOrNull(waitedForConfirmation: (state) {
-      emit(AuthenticationState.guest(
-        name: state.name,
-        password: state.password,
-      ));
-    });
+  void previousStep() {
+    state.maybeMap(
+      orElse: () => emit(const AuthenticationState.guest()),
+      waitedForConfirmation: (state) {
+        emit(
+          AuthenticationState.emailAddress(
+              name: state.name, password: state.password),
+        );
+      },
+      emailAddress: (state) {
+        emit(
+          AuthenticationState.password(name: state.name),
+        );
+      },
+      password: (state) => emit(const AuthenticationState.name()),
+    );
   }
 
-  void changeGuestName(String name) {
+  void changeToNameState() {
     state.mapOrNull(
-      guest: (state) async {
-        emit(state.copyWith(name: name));
+      guest: (state) {
+        emit(const AuthenticationState.name());
       },
     );
   }
 
-  void changeGuestPassword(String password) {
+  void changeToPasswordState(String name) {
     state.mapOrNull(
-      guest: (state) async {
-        emit(state.copyWith(password: password));
+      name: (state) {
+        emit(AuthenticationState.password(name: name));
+      },
+    );
+  }
+
+  void changeToEmailState(String password) {
+    state.mapOrNull(
+      password: (state) {
+        emit(AuthenticationState.emailAddress(
+            name: state.name, password: password));
       },
     );
   }

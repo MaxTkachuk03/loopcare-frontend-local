@@ -48,7 +48,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
         ),
         BlocListener<AuthenticationCubit, AuthenticationState>(
           listenWhen: (previous, current) =>
-              previous is Guest && current is WaitedForConfirmation,
+              previous is EmailAddress && current is WaitedForConfirmation,
           listener: _navigationListener,
         )
       ],
@@ -135,7 +135,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
 
   void _errorListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(
-      guest: (state) {
+      emailAddress: (state) {
         final error = state.error;
         if (error != null) {
           error.mapOrNull(

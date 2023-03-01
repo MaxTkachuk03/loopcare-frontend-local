@@ -34,63 +34,72 @@ class _NamePageState extends State<NamePage> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(LocalizedTexts.createAccount.tr()),
-        ),
-        body: SafeArea(
-          child: ScrollableContainer(
-            child: MainContainer(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  Text(
-                    LocalizedTexts.whatIsYourName.tr(),
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline4?.copyWith(
-                          fontFamily: ThemeConstants.bitterFontFamily,
-                        ),
-                  ),
-                  const SizedBox(
-                    height: 8.0,
-                  ),
-                  Text(
-                    LocalizedTexts.namePageDescription.tr(),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(
-                    height: 60.0,
-                  ),
-                  Form(
-                    key: _formKey,
-                    onChanged: _onChangedForm,
-                    child: Column(
-                      children: [
-                        Field(
-                          controller: _nameController,
-                          hintText: LocalizedTexts.yourName.tr(),
-                          validator: nameValidator(),
-                          maxLength: 64,
-                        ),
-                        const SizedBox(height: 16.0),
-                        ElevatedButton(
-                          onPressed: _isDisabled ? null : _onNextPressed,
-                          child: Text(LocalizedTexts.next.tr()),
-                        ),
-                      ],
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(LocalizedTexts.createAccount.tr()),
+          ),
+          body: SafeArea(
+            child: ScrollableContainer(
+              child: MainContainer(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 20.0,
                     ),
-                  ),
-                ],
+                    Text(
+                      LocalizedTexts.whatIsYourName.tr(),
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline4?.copyWith(
+                        fontFamily: ThemeConstants.bitterFontFamily,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8.0,
+                    ),
+                    Text(
+                      LocalizedTexts.namePageDescription.tr(),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(
+                      height: 60.0,
+                    ),
+                    Form(
+                      key: _formKey,
+                      onChanged: _onChangedForm,
+                      child: Column(
+                        children: [
+                          Field(
+                            controller: _nameController,
+                            hintText: LocalizedTexts.yourName.tr(),
+                            validator: nameValidator(),
+                            maxLength: 64,
+                          ),
+                          const SizedBox(height: 16.0),
+                          ElevatedButton(
+                            onPressed: _isDisabled ? null : _onNextPressed,
+                            child: Text(LocalizedTexts.next.tr()),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  Future<bool> _onWillPop() {
+    context.read<AuthenticationCubit>().previousStep();
+
+    return Future.value(true);
   }
 
   _onChangedForm() {
@@ -103,7 +112,7 @@ class _NamePageState extends State<NamePage> {
 
   void _onNextPressed() {
     context
-      ..read<AuthenticationCubit>().changeGuestName(_nameController.text)
+      ..read<AuthenticationCubit>().changeToPasswordState(_nameController.text)
       ..router.pushNamed(AppRoutes.password);
   }
 }
