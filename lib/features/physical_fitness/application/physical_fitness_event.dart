@@ -26,4 +26,6 @@ class PhysicalFitnessEvent with _$PhysicalFitnessEvent {
   const factory PhysicalFitnessEvent.biologicalGenderChanged(
     BiologicalGenderType biologicalGender,
   ) = BiologicalGenderChanged;
+
+  const factory PhysicalFitnessEvent.savePhysicalData() = SavePhysicalData;
 }
