@@ -35,19 +35,25 @@ class _HeightPageState extends State<HeightPage> {
   late FocusNode cmFieldFocusNode;
   late FocusNode ftFieldFocusNode;
   MeasurementSystemType activeMeasurementType = getMeasurementSystem();
-  late int heightInCm;
+  int? heightInCm;
   late int heightFT;
   late int heightIN;
 
   @override
   void initState() {
     final bloc = context.read<PhysicalFitnessBloc>();
-    heightInCm = int.parse(bloc.state.heightInCm ?? "0");
-    heightFT = HeightConversionUtils.convertCMtoFT(heightInCm);
-    heightIN = HeightConversionUtils.convertCMtoFtIn(heightInCm);
-    cmController = TextEditingController(text: heightInCm.toString());
-    ftController = TextEditingController(text: heightFT.toString());
-    inController = TextEditingController(text: heightIN.toString());
+    if (bloc.state.heightInCm != null) {
+      heightInCm = int.parse(bloc.state.heightInCm ?? "0");
+      heightFT = HeightConversionUtils.convertCMtoFT(heightInCm ?? 0);
+      heightIN = HeightConversionUtils.convertCMtoFtIn(heightInCm ?? 0);
+      cmController = TextEditingController(text: heightInCm.toString());
+      ftController = TextEditingController(text: heightFT.toString());
+      inController = TextEditingController(text: heightIN.toString());
+    } else {
+      cmController = TextEditingController(text: '');
+      ftController = TextEditingController(text: '');
+      inController = TextEditingController(text: '');
+    }
 
     super.initState();
     cmFieldFocusNode = FocusNode();
@@ -138,8 +144,8 @@ class _HeightPageState extends State<HeightPage> {
     setState(() {
       heightInCm = int.parse(value);
 
-      heightFT = HeightConversionUtils.convertCMtoFT(heightInCm);
-      heightIN = HeightConversionUtils.convertCMtoFtIn(heightInCm);
+      heightFT = HeightConversionUtils.convertCMtoFT(heightInCm ?? 0);
+      heightIN = HeightConversionUtils.convertCMtoFtIn(heightInCm ?? 0);
     });
   }
 
@@ -169,13 +175,16 @@ class _HeightPageState extends State<HeightPage> {
 
   void _onTabChanged(MeasurementSystemType unitType) {
     if (unitType == MeasurementSystemType.metric) {
-      cmController.text = heightInCm.toString();
       cmFieldFocusNode.requestFocus();
+      if (heightInCm == null) return;
+      cmController.text = heightInCm.toString();
     } else {
       ftFieldFocusNode.requestFocus();
-      ftController.text = '${HeightConversionUtils.convertCMtoFT(heightInCm)}';
+      if (heightInCm == null) return;
+      ftController.text =
+          '${HeightConversionUtils.convertCMtoFT(heightInCm ?? 0)}';
       inController.text =
-          '${HeightConversionUtils.convertCMtoFtIn(heightInCm)}';
+          '${HeightConversionUtils.convertCMtoFtIn(heightInCm ?? 0)}';
     }
 
     setState(() {
