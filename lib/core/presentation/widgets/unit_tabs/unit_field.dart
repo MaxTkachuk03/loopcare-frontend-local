@@ -9,6 +9,7 @@ class UnitField extends StatelessWidget {
   final FocusNode? focusNode;
   final int maxLength;
   final String counterText;
+  final ValueChanged<String>? onChanged;
 
   const UnitField({
     Key? key,
@@ -16,6 +17,7 @@ class UnitField extends StatelessWidget {
     required this.controller,
     required this.maxLength,
     required this.counterText,
+    this.onChanged,
     this.isDecimal,
     this.focusNode,
   }) : super(key: key);
@@ -49,12 +51,11 @@ class UnitField extends StatelessWidget {
                 enabledBorder: InputBorder.none,
                 focusedBorder: InputBorder.none,
               ),
+              onChanged: onChanged,
             ),
           ),
         ),
-        const SizedBox(
-          width: 6.0,
-        ),
+        const SizedBox(width: 6.0),
         Padding(
           padding: const EdgeInsets.only(bottom: 6.0),
           child: Text(
