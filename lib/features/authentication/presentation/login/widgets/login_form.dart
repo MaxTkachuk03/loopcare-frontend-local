@@ -137,7 +137,7 @@ class _LoginFormState extends State<LoginForm> {
   void _navigationListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(
       authenticated: (state) {
-        context.router.replaceAll([const HomeRoute()]);
+        context.router.replaceAll([const PreferencesOverviewRoute()]);
       },
     );
   }

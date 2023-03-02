@@ -32,10 +32,12 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
       },
       (response) {
         authTokenManager.setToken(response.accessToken);
-
-        // TODO: get user from backend
-        emit(
-            const AuthenticationState.authenticated(User(id: 1, name: 'Test')));
+        emit(AuthenticationState.authenticated(User(
+          id: response.id,
+          name: response.name,
+          email: response.email,
+          country: response.country,
+        )));
       },
     );
   }
