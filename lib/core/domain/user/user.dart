@@ -11,6 +11,8 @@ abstract class User implements _$User {
   const factory User({
     required int id,
     required String name,
+    required String email,
+    required String? country,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
