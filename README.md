@@ -27,11 +27,15 @@ Follow these steps to set up a project:
 
 Android build command
 `flutter build apk --release --dart-define FLAVOR=<environment> --flavor <environment>`
+You can find APK file in `build/app/outputs/flutter-apk` folder
 
 IOS build command
 `flutter build ipa --release --export-method ad-hoc --dart-define FLAVOR=<environment> --flavor <environment>`
+You can find IPA file in `build/ios/ipa` folder
 
 `environment` - could be `dev` or `prod`
+
+Also check troubleshooting section on order to figure out with the most general bugs
 
 ### Application architecture
 
@@ -70,3 +74,8 @@ To add new language:
 2. Add new languageCode in the `CFBundleLocalizations` in the `ios/Runner/Info.plist` file
 3. Add new supported locale in the `lib/core/presentation/localization/localization_constants.dart`
    file
+
+### Troubleshooting
+1. When run android build command you can face an error in the console `Runtime JAR files in the classpath should have the same version`
+   To fix it - move to the android folder in `cd android` and run `./gradlew` command, you can run both commands with `cd android && ./gradlew` command
+   Rerun build command
