@@ -25,15 +25,27 @@ Follow these steps to set up a project:
 
 ## Application delivery
 
-Android build command
-`flutter build apk --release --dart-define FLAVOR=<environment> --flavor <environment>`
+There is a build_script.sh file in the root project folder.
+
+To build app run
+`./build_script.sh <environment> <platform_name>`
+
+Android build command example
+
+- `./build_script.sh dev android`
+- `./build_script.sh prod android`
+
 You can find APK file in `build/app/outputs/flutter-apk` folder
 
-IOS build command
-`flutter build ipa --release --export-method ad-hoc --dart-define FLAVOR=<environment> --flavor <environment>`
+IOS build command example
+
+- `./build_script.sh dev ios`
+- `./build_script.sh prod ios`
+
 You can find IPA file in `build/ios/ipa` folder
 
-`environment` - could be `dev` or `prod`
+- `environment` - could be `dev` or `prod`
+- `platform_name` - could be `android` or `ios`
 
 Also check troubleshooting section on order to figure out with the most general bugs
 
