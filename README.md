@@ -47,9 +47,9 @@ And each feature separate into layers:
 1. **presentation** - is all widgets and the local state of the them. It is dumbest part of the app.
 2. **application** - is place for BLoC. Storing and managing state for the presentation layer.
 3. **domain** - consists of:
-   3.1 Validating data and keeping it valid.
-   3.2 Transforming data
-   3.3 Models (f. e. entities `User` or `Note` entities) and failures
+   - Validating data and keeping it valid.
+   - Transforming data
+   - Models (f. e. entities `User` or `Note` entities) and failures
 4. **infrastructure** - work with APIs, Firebase libraries, databases, services. Also it holds data
    transfer objects (DTOs).
 
@@ -76,6 +76,7 @@ To add new language:
    file
 
 ### Troubleshooting
+
 1. When run android build command you can face an error in the console `Runtime JAR files in the classpath should have the same version`
-   To fix it - move to the android folder in `cd android` and run `./gradlew` command, you can run both commands with `cd android && ./gradlew` command
-   Rerun build command
+   - To fix it - move to the android folder in `cd android` and run `./gradlew` command, you can run both commands with `cd android && ./gradlew` command
+   - Rerun build command
