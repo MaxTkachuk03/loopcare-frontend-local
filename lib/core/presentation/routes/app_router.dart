@@ -35,6 +35,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/stomach_
 import 'package:loopcare_frontend/features/medical_fitness/presentation/stomach_reduction_failed/presentation/stomach_reduction_failed_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor/presentation/treatment_by_doctor_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor_failled/presentation/treatment_by_doctor_failled_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_value/nutrition_value_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/biological_gender/biological_gender_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/birthday/birthday_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/check_failed_age/check_failed_age.dart';
@@ -263,6 +264,7 @@ part 'app_routes.dart';
       path: AppRoutes.whereDoYouEat,
       page: WhereDoYouEatPage,
     ),
+    //Diabetes
     AutoRoute(
       path: AppRoutes.diabetes,
       page: DiabetesPage,
@@ -274,6 +276,11 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.diabetesSummary,
       page: SummaryPage,
+    ),
+    //Nutrition
+    AutoRoute(
+      path: AppRoutes.nutritionValues,
+      page: NutritionValuePage,
     ),
   ],
 )

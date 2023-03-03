@@ -25,6 +25,12 @@ class AppImages {
   static const AssetImage selfHelpIntro =
       AssetImage('$iconsFilePath/self_help_intro.png');
 
+  static const AssetImage calorieDensityFoodA =
+      AssetImage('$iconsFilePath/calorie_dencity_food_a.png');
+
+  static const AssetImage calorieDensityFoodB =
+      AssetImage('$iconsFilePath/calorie_dencity_food_b.png');
+
   static SvgPicture logoSvgBig =
       SvgPicture.asset('$iconsFilePath/logo.svg', width: 114, height: 107);
 
