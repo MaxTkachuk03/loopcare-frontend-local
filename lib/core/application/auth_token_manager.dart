@@ -1,7 +1,22 @@
+typedef AccessTokenSubscription = void Function();
+typedef AccessTokenListener = void Function(String? token);
+
 abstract class AuthTokenManager {
-  Future<String?> getToken();
+  Future<String?> getAccessToken();
 
-  Future<void> setToken(String token);
+  Future<String?> getRefreshToken();
 
-  Future<void> removeToken();
+  Future<void> setAccessToken(String token);
+
+  Future<void> setRefreshToken(String token);
+
+  Future<void> updateAccessToken();
+
+  Future<void> updateRefreshToken();
+
+  Future<void> removeAccessToken();
+
+  Future<void> removeRefreshToken();
+
+  AccessTokenSubscription addListener(AccessTokenListener listener);
 }

@@ -15,7 +15,7 @@ class AuthTokenInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    final token = await authTokenManager.getToken();
+    final token = await authTokenManager.getAccessToken();
     if (token != null) {
       options.headers['Authorization'] = 'Bearer $token';
     }
@@ -25,8 +25,10 @@ class AuthTokenInterceptor extends Interceptor {
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == HttpStatus.unauthorized) {
-      await authTokenManager.removeToken();
+      await authTokenManager.updateAccessToken();
+      await authTokenManager.updateRefreshToken();
     }
+
     handler.next(err);
   }
 }

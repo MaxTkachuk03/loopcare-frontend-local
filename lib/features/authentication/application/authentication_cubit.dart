@@ -14,12 +14,26 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
   final AuthenticationService _authenticationService;
   final DioClient client;
   final AuthTokenManager authTokenManager;
+  AccessTokenSubscription? _accessTokenSubscription;
 
   AuthenticationCubit(
     this._authenticationService,
     this.client,
     this.authTokenManager,
-  ) : super(const AuthenticationState.guest());
+  ) : super(const AuthenticationState.guest()){
+    hydrate();
+    _accessTokenSubscription = authTokenManager.addListener((token) {
+      if (token == null) {
+        emit(const AuthenticationState.guest());
+      }
+    });
+  }
+
+  @override
+  Future<void> close() async {
+    _accessTokenSubscription?.call();
+    await super.close();
+  }
 
   void login(String email, String password) async {
     final data = LoginData(email: email, password: password);
@@ -31,7 +45,9 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
         emit(AuthenticationState.guest(error: error));
       },
       (response) {
-        authTokenManager.setToken(response.accessToken);
+        authTokenManager.setAccessToken(response.accessToken);
+        authTokenManager.setRefreshToken(response.refreshToken);
+
         emit(AuthenticationState.authenticated(User(
           id: response.id,
           name: response.name,
@@ -44,7 +60,8 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
 
   void logout() async {
     await _authenticationService.logout();
-    await authTokenManager.removeToken();
+    await authTokenManager.removeAccessToken();
+    await authTokenManager.removeRefreshToken();
     emit(const AuthenticationState.guest());
   }
 
