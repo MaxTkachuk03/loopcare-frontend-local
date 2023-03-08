@@ -16,27 +16,18 @@ class NutritionInstructionsState with _$NutritionInstructionsState {
     required double calorieDensityValue,
   }) = _NutritionInstructionsState;
 
-  bool _proteinDegreeFilter(NutritionValue el) {
-    final double doubleMinValue = double.parse(el.minValue);
-    final double doubleMaxValue = double.parse(el.maxValue);
+  _filter(double value) => (NutritionValue el) {
+        final double doubleMinValue = double.parse(el.minValue);
+        final double doubleMaxValue = double.parse(el.maxValue);
 
-    return doubleMinValue <= proteinDegreeValue &&
-        proteinDegreeValue <= doubleMaxValue;
-  }
-
-  bool _calorieDensityFilter(NutritionValue el) {
-    final double doubleMinValue = double.parse(el.minValue);
-    final double doubleMaxValue = double.parse(el.maxValue);
-
-    return doubleMinValue <= calorieDensityValue &&
-        calorieDensityValue <= doubleMaxValue;
-  }
+        return doubleMinValue <= value && value <= doubleMaxValue;
+      };
 
   NutritionValue get currentCalorieDensityItem =>
-      calorieDensityValues.firstWhere(_calorieDensityFilter);
+      calorieDensityValues.firstWhere(_filter(calorieDensityValue));
 
   NutritionValue get currentProteinDegreeItem =>
-      proteinDegreeValues.firstWhere(_proteinDegreeFilter);
+      proteinDegreeValues.firstWhere(_filter(proteinDegreeValue));
 
   const NutritionInstructionsState._();
 }
