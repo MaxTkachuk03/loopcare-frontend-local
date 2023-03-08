@@ -10,9 +10,9 @@ abstract class AuthTokenManager {
 
   Future<void> setRefreshToken(String token);
 
-  Future<void> updateAccessToken();
+  Future<bool> updateAccessToken();
 
-  Future<void> updateRefreshToken();
+  Future<bool> updateRefreshToken();
 
   Future<void> removeAccessToken();
 

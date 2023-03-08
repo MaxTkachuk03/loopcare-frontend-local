@@ -43,10 +43,10 @@ class TokenManagerSharedPrefs extends AuthTokenManager {
   }
 
   @override
-  Future<void> updateAccessToken() async {
+  Future<bool> updateAccessToken() async {
     final token = await getRefreshToken();
 
-    if (token == null) return;
+    if (token == null) return false;
 
     final request = await _authTokenService.updateAccessToken(token);
 
@@ -59,13 +59,15 @@ class TokenManagerSharedPrefs extends AuthTokenManager {
         setAccessToken(response.accessToken);
       },
     );
+
+    return request.isRight();
   }
 
   @override
-  Future<void> updateRefreshToken() async {
+  Future<bool> updateRefreshToken() async {
     final token = await getRefreshToken();
 
-    if (token == null) return;
+    if (token == null) return false;
 
     final request = await _authTokenService.updateRefreshToken(token);
 
@@ -78,6 +80,8 @@ class TokenManagerSharedPrefs extends AuthTokenManager {
         setRefreshToken(response.refreshToken);
       },
     );
+
+    return request.isRight();
   }
 
   @override
