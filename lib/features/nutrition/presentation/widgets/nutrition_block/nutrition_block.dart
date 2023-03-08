@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions_bloc.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
 
 class NutritionBlock extends StatelessWidget {
   const NutritionBlock({Key? key}) : super(key: key);
@@ -69,7 +70,8 @@ class NutritionBlock extends StatelessWidget {
                               }
 
                               return Text(
-                                state.currentCalorieDensityItem.label,
+                                state.currentCalorieDensityItem.label
+                                    .capitalizeOnlyFirstLetter(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline6!
@@ -125,7 +127,8 @@ class NutritionBlock extends StatelessWidget {
                             }
 
                             return Text(
-                              state.currentProteinDegreeItem.label,
+                              state.currentProteinDegreeItem.label
+                                  .capitalizeOnlyFirstLetter(),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6!

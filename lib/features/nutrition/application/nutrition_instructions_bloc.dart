@@ -6,6 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dto/nutrition_value.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/nutrition_instruction_category.dart';
 
 part 'nutrition_instructions_event.dart';
 part 'nutrition_instructions_state.dart';
@@ -30,10 +31,14 @@ class NutritionInstructionsBloc
     final response = await nutritionService.getValuesExplanation();
 
     response.fold((l) => null, (r) {
-      final calorieDensityValues =
-          r.data.where((el) => el.category == 'calorie density').toIList();
-      final proteinDegreeValues =
-          r.data.where((el) => el.category == 'protein degree').toIList();
+      final calorieDensityValues = r.data
+          .where((el) =>
+              el.category == NutritionInstructionCategory.calorieDensity.name)
+          .toIList();
+      final proteinDegreeValues = r.data
+          .where((el) =>
+              el.category == NutritionInstructionCategory.proteinDegree.name)
+          .toIList();
 
       emit(
         state.copyWith(

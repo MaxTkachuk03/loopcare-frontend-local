@@ -17,8 +17,8 @@ class _DashboardPageState extends State<DashboardPage> {
   void initState() {
     context.read<NutritionInstructionsBloc>()
       ..add(const NutritionInstructionsEvent.fetchValuesExplanation())
-      ..add(const NutritionInstructionsEvent.setCalorieDensity(1.0))
-      ..add(const NutritionInstructionsEvent.setProteinDegree(10.0));
+      ..add(const NutritionInstructionsEvent.setCalorieDensity(2.0))
+      ..add(const NutritionInstructionsEvent.setProteinDegree(50.0));
 
     super.initState();
   }
