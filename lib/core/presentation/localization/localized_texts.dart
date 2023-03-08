@@ -273,7 +273,17 @@ class LocalizedTexts {
   static const String diabetesDisclaimerParagraphThree =
       'diabetesDisclaimerParagraphThree';
 
-      }
+  //Nutrition
+  static const String nutritionValues = 'nutritionValues';
+  static const String calorieDensity = 'calorieDensity';
+  static const String proteinDegree = 'proteinDegree';
+  static const String whatIsCalorieDensity = 'whatIsCalorieDensity';
+  static const String whatIsProtein = 'whatIsProtein';
+  static const String calorieDensityExplanationOne =
+      'calorieDensityExplanationOne';
+  static const String calorieDensityExplanationTwo =
+      'calorieDensityExplanationTwo';
+}
 
 extension StringX on String {
   String get translation => this.tr();

@@ -203,5 +203,13 @@
   "breakfast": "Breakfast",
   "lunch": "Lunch",
   "dinner": "Dinner",
-  "lateDinner": "Late night"
+  "lateDinner": "Late night",
+  "nutritionValues": "Nutrition values",
+  "calorieDensity": "Calorie density",
+  "proteinDegree": "Protein degree",
+  "whatIsCalorieDensity": "What is calorie density",
+  "whatIsProtein": "What is protein",
+  "calorieDensityExplanationOne": "Calorie density is  a measure of how many calories are in a given weight of food, most often expressed as calories per pound.",
+  "calorieDensityExplanationTwo": "A food high in calorie density has a large number of calories relative to the weight of food (A) , whereas a food low in calorie density has much fewer calories in the same weight of food (B)"
 }
+
