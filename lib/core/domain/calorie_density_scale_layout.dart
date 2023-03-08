@@ -1,0 +1,4 @@
+enum CalorieDensityScaleLayout {
+  horizontal,
+  vertical,
+}

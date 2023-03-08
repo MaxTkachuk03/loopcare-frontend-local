@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/features/consent_confirmation/application/cons
 import 'package:loopcare_frontend/features/diabetes/application/diabetes_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/nutrition_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/self_help/application/self_help_bloc.dart';
@@ -52,6 +53,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<SelfHelpBloc>(
           create: (_) => getIt<SelfHelpBloc>(),
+        ),
+        BlocProvider<NutritionBloc>(
+          create: (_) => getIt<NutritionBloc>(),
         ),
       ],
       child: const _App(),

@@ -40,9 +40,16 @@ class AppColors {
   static const Color grey = Color(0xFF72777A);
 
   static const Color datePickerBg = Color(0xFF3D3D3F);
+
   static const Color datePickerText = Color(0xFFC4C4C6);
 
   static const Color appBarBgColor = Color(0xFF9C9F4E);
+
+  static const Color caloriesDensityGradiendStart = Color(0xFF24CB34);
+
+  static const Color caloriesDensityGradiendMid = Color(0xFFEA9456);
+
+  static const Color caloriesDensityGradiendEnd = Color(0xFFB6111D);
 
   AppColors._();
 }
