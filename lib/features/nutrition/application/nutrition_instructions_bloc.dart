@@ -7,21 +7,25 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dto/nutrition_value.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 
-part 'nutrition_event.dart';
-part 'nutrition_state.dart';
-part 'nutrition_bloc.freezed.dart';
+part 'nutrition_instructions_event.dart';
+part 'nutrition_instructions_state.dart';
+part 'nutrition_instructions_bloc.freezed.dart';
 
 @singleton
-class NutritionBloc extends Bloc<NutritionEvent, NutritionState> {
+class NutritionInstructionsBloc
+    extends Bloc<NutritionInstructionsEvent, NutritionInstructionsState> {
   final NutritionService nutritionService;
 
-  NutritionBloc(this.nutritionService) : super(NutritionState.initial()) {
+  NutritionInstructionsBloc(this.nutritionService)
+      : super(NutritionInstructionsState.initial()) {
     on<FetchValuesExplanation>(_onFetchValuesExplanation);
+    on<SetCalorieDensity>(_onSetCalorieDensity);
+    on<SetProteinDegree>(_onSetProteinDegree);
   }
 
   FutureOr<void> _onFetchValuesExplanation(
     FetchValuesExplanation event,
-    Emitter<NutritionState> emit,
+    Emitter<NutritionInstructionsState> emit,
   ) async {
     final response = await nutritionService.getValuesExplanation();
 
@@ -38,5 +42,19 @@ class NutritionBloc extends Bloc<NutritionEvent, NutritionState> {
         ),
       );
     });
+  }
+
+  _onSetCalorieDensity(
+    SetCalorieDensity event,
+    Emitter<NutritionInstructionsState> emit,
+  ) {
+    emit(state.copyWith(calorieDensityValue: event.value));
+  }
+
+  _onSetProteinDegree(
+    SetProteinDegree event,
+    Emitter<NutritionInstructionsState> emit,
+  ) {
+    emit(state.copyWith(proteinDegreeValue: event.value));
   }
 }
