@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/domain/calorie_dencity_scale_layout.dart';
+import 'package:loopcare_frontend/core/domain/calorie_density_scale_layout.dart';
 import 'package:loopcare_frontend/core/domain/calorie_density_scale_values.dart';
 import 'package:loopcare_frontend/core/presentation/calorie_density_scale/widgets/scale_item/scale_item.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 class CalorieDensityScale extends StatelessWidget {
   final double density;
   final CalorieDensityScaleLayout layout;
+  final double? separatorSize;
   final Color
       separatorColor; // should be the same color as components bg to make it transparent
   final bool _useHorizontal;
@@ -16,6 +17,7 @@ class CalorieDensityScale extends StatelessWidget {
     required this.density,
     required this.layout,
     required this.separatorColor,
+    this.separatorSize = 3,
   })  : _useHorizontal =
             layout == CalorieDensityScaleLayout.horizontal ? true : false,
         super(key: key);
@@ -27,6 +29,7 @@ class CalorieDensityScale extends StatelessWidget {
               density: density,
               useHorizontalLayout: _useHorizontal,
               separatorColor: separatorColor,
+              separatorSize: separatorSize,
             ))
         .toList();
   }

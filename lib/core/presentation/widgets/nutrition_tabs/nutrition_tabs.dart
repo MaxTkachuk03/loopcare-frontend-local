@@ -5,10 +5,14 @@ import 'package:loopcare_frontend/core/presentation/widgets/nutrition_tabs/nutri
 import 'package:loopcare_frontend/core/presentation/widgets/nutrition_tabs/nutrition_value_tab_type.dart';
 
 class NutritionTabs extends StatefulWidget {
+  final int initialIndex;
   final List<Widget> tabBarViewChildren;
 
-  const NutritionTabs({Key? key, required this.tabBarViewChildren})
-      : super(key: key);
+  const NutritionTabs({
+    Key? key,
+    required this.tabBarViewChildren,
+    required this.initialIndex,
+  }) : super(key: key);
 
   @override
   State<NutritionTabs> createState() => _NutritionTabsState();
@@ -37,14 +41,15 @@ class _NutritionTabsState extends State<NutritionTabs>
       vsync: this,
       length: tabs.length,
       animationDuration: Duration.zero,
-      initialIndex: 0,
+      initialIndex: widget.initialIndex,
     );
-
-    _tabController.addListener(_onTabChanged);
   }
 
-  void _onTabChanged() {
-    print(_tabController.index);
+  @override
+  void dispose() {
+    _tabController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -64,7 +69,7 @@ class _NutritionTabsState extends State<NutritionTabs>
           ),
         ),
         const SizedBox(height: 32.0),
-        Container(
+        SizedBox(
           height: 700,
           child: TabBarView(
             controller: _tabController,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/domain/calorie_dencity_scale_layout.dart';
+import 'package:loopcare_frontend/core/domain/calorie_density_scale_layout.dart';
 import 'package:loopcare_frontend/core/presentation/calorie_density_scale/calorie_density_scale.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';

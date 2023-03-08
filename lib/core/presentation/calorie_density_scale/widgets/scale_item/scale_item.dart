@@ -8,7 +8,7 @@ class ScaleItem extends StatelessWidget {
   final Color separatorColor;
   final bool useHorizontalLayout;
   final double minimalPosibleValue = 0.99;
-  final double _separatorSize = 3;
+  final double? separatorSize;
 
   const ScaleItem({
     Key? key,
@@ -16,13 +16,14 @@ class ScaleItem extends StatelessWidget {
     required this.density,
     required this.useHorizontalLayout,
     required this.separatorColor,
+    this.separatorSize,
   }) : super(key: key);
 
   Widget _renderSeparator() {
     return Container(
       color: separatorColor,
-      width: useHorizontalLayout ? _separatorSize : null,
-      height: useHorizontalLayout ? null : _separatorSize,
+      width: useHorizontalLayout ? separatorSize : null,
+      height: useHorizontalLayout ? null : separatorSize,
     );
   }
 

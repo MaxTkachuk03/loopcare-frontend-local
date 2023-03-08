@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/calorie_dencity_scale_layout.dart';
+import 'package:loopcare_frontend/core/domain/calorie_density_scale_layout.dart';
 import 'package:loopcare_frontend/core/presentation/calorie_density_scale/calorie_density_scale.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dto/nutrition_value.dart';
-import 'package:loopcare_frontend/features/nutrition/application/nutrition_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/instructions_block/instructions_block.dart';
 
 class CalorieDensity extends StatelessWidget {
-  const CalorieDensity({Key? key}) : super(key: key);
+  final double calorieDensity;
+  final NutritionValue currentCalorieDensityItem;
 
-  _calorieDensityFilter(density) => (NutritionValue el) {
-        final double doubleMinValue = double.parse(el.minValue);
-        final double doubleMaxValue = double.parse(el.maxValue);
-
-        return doubleMinValue <= density && density <= doubleMaxValue;
-      };
+  const CalorieDensity({
+    Key? key,
+    required this.calorieDensity,
+    required this.currentCalorieDensityItem,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +35,7 @@ class CalorieDensity extends StatelessWidget {
                 width: 26,
                 height: 140,
                 child: CalorieDensityScale(
-                  // TODO get value from the bloc
-                  density: 1,
+                  density: calorieDensity,
                   separatorColor: AppColors.white,
                   layout: CalorieDensityScaleLayout.vertical,
                 ),
@@ -49,42 +46,26 @@ class CalorieDensity extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // TODO get value from the bloc
                     Text(
-                      '${LocalizedTexts.calorieDensity.translation}: 1',
+                      '${LocalizedTexts.calorieDensity.translation}: $calorieDensity',
                       style: Theme.of(context).textTheme.subtitle1?.copyWith(
                             fontWeight: FontWeight.w600,
                           ),
                     ),
                     const SizedBox(height: 8.0),
-                    BlocBuilder<NutritionBloc, NutritionState>(
-                        builder: (BuildContext context, state) {
-                      const density = 2; // TODO  get from the other bloc
-
-                      var currentValue = state.calorieDensityValues
-                          .firstWhere(_calorieDensityFilter(density));
-
-                      print(currentValue);
-
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(
-                            currentValue.label.toUpperCase(),
-                            style: const TextStyle(
-                              fontSize: 16.0,
-                              color: AppColors.blueDark,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          const SizedBox(height: 8.0),
-                          Text(
-                            currentValue.text,
-                            style: Theme.of(context).textTheme.bodyText2,
-                          ),
-                        ],
-                      );
-                    }),
+                    Text(
+                      currentCalorieDensityItem.label.toUpperCase(),
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        color: AppColors.blueDark,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 8.0),
+                    Text(
+                      currentCalorieDensityItem.text,
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
                   ],
                 ),
               )
