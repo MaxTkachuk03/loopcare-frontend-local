@@ -5,33 +5,24 @@ import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/auth_token_interceptor.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<Either<RequestError, T>> _process<T>(Future<T> Function() request) =>
+Future<Either<RequestError, T>> process<T>(Future<T> Function() request) =>
     Task(request).attempt().map((e) => e.leftMap(parseRequestError)).run();
 
 @lazySingleton
 class DioClient {
   late final Dio dio;
-
-  final AppConfig _appConfig;
   final AuthTokenInterceptor _authTokenInterceptor;
   final SharedPreferences sharedPreferences;
 
-  DioClient(
-      this._appConfig, this._authTokenInterceptor, this.sharedPreferences) {
-    dio = Dio(
-      BaseOptions(
-        baseUrl: _appConfig.baseUrl,
-        connectTimeout: 5000,
-        receiveTimeout: 5000,
-      ),
-    );
+  DioClient(this._authTokenInterceptor, this.sharedPreferences) {
+    dio = dioOptions;
 
     dio.interceptors.add(_authTokenInterceptor);
 
@@ -75,7 +66,7 @@ class DioClient {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    return _process(() => dio.get(
+    return process(() => dio.get(
           path,
           queryParameters: queryParameters,
           options: options,
@@ -94,7 +85,7 @@ class DioClient {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    return _process(() => dio.post(
+    return process(() => dio.post(
           path,
           data: data,
           queryParameters: queryParameters,
