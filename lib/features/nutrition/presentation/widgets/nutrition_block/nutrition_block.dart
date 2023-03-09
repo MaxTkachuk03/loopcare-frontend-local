@@ -1,25 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/calorie_density_scale_layout.dart';
 import 'package:loopcare_frontend/core/presentation/calorie_density_scale/calorie_density_scale.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/nutrition/application/dto/nutrition_value.dart';
+import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions_bloc.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
 
 class NutritionBlock extends StatelessWidget {
-  final double calorieDensityValue;
-  final double proteinDegreeValue;
-  final NutritionValue currentCalorieDensityItem;
-  final NutritionValue currentProteinDegreeItem;
-
-  const NutritionBlock({
-    Key? key,
-    required this.calorieDensityValue,
-    required this.proteinDegreeValue,
-    required this.currentCalorieDensityItem,
-    required this.currentProteinDegreeItem,
-  }) : super(key: key);
+  const NutritionBlock({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +29,16 @@ class NutritionBlock extends StatelessWidget {
                   SizedBox(
                     width: 15.0,
                     height: 55.0,
-                    child: CalorieDensityScale(
-                      density: calorieDensityValue,
-                      layout: CalorieDensityScaleLayout.vertical,
-                      separatorColor: AppColors.bgGreen,
-                      separatorSize: 1,
+                    child: BlocBuilder<NutritionInstructionsBloc,
+                        NutritionInstructionsState>(
+                      builder: (BuildContext context, state) {
+                        return CalorieDensityScale(
+                          density: state.calorieDensityValue,
+                          layout: CalorieDensityScaleLayout.vertical,
+                          separatorColor: AppColors.bgGreen,
+                          separatorSize: 1,
+                        );
+                      },
                     ),
                   ),
                   const SizedBox(width: 16.0),
@@ -55,18 +51,35 @@ class NutritionBlock extends StatelessWidget {
                               fontSize: 12.0,
                             ),
                       ),
-                      Text(
-                        '$calorieDensityValue',
-                        style: Theme.of(context).textTheme.bodyText2,
+                      BlocBuilder<NutritionInstructionsBloc,
+                          NutritionInstructionsState>(
+                        builder: (BuildContext context, state) {
+                          return Text(
+                            '${state.calorieDensityValue}',
+                            style: Theme.of(context).textTheme.bodyText2,
+                          );
+                        },
                       ),
                       Row(
                         children: [
-                          Text(
-                            currentCalorieDensityItem.label,
-                            style:
-                                Theme.of(context).textTheme.headline6!.copyWith(
+                          BlocBuilder<NutritionInstructionsBloc,
+                              NutritionInstructionsState>(
+                            builder: (BuildContext context, state) {
+                              if (state.calorieDensityValues.isEmpty) {
+                                return const SizedBox();
+                              }
+
+                              return Text(
+                                state.currentCalorieDensityItem.label
+                                    .capitalizeOnlyFirstLetter(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .copyWith(
                                       fontSize: 14.0,
                                     ),
+                              );
+                            },
                           ),
                         ],
                       )
@@ -95,18 +108,35 @@ class NutritionBlock extends StatelessWidget {
                             fontSize: 12.0,
                           ),
                     ),
-                    Text(
-                      '$proteinDegreeValue',
-                      style: Theme.of(context).textTheme.bodyText2,
+                    BlocBuilder<NutritionInstructionsBloc,
+                        NutritionInstructionsState>(
+                      builder: (BuildContext context, state) {
+                        return Text(
+                          '${state.proteinDegreeValue}',
+                          style: Theme.of(context).textTheme.bodyText2,
+                        );
+                      },
                     ),
                     Row(
                       children: [
-                        Text(
-                          currentProteinDegreeItem.label,
-                          style:
-                              Theme.of(context).textTheme.headline6!.copyWith(
+                        BlocBuilder<NutritionInstructionsBloc,
+                            NutritionInstructionsState>(
+                          builder: (BuildContext context, state) {
+                            if (state.proteinDegreeValues.isEmpty) {
+                              return const SizedBox();
+                            }
+
+                            return Text(
+                              state.currentProteinDegreeItem.label
+                                  .capitalizeOnlyFirstLetter(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .copyWith(
                                     fontSize: 14.0,
                                   ),
+                            );
+                          },
                         ),
                       ],
                     )
@@ -121,14 +151,6 @@ class NutritionBlock extends StatelessWidget {
   }
 
   _onItemPressed(BuildContext context, {required int tabIndex}) {
-    context.router.push(
-      NutritionValueRoute(
-        calorieDensity: calorieDensityValue,
-        proteinDegree: proteinDegreeValue,
-        currentCalorieDensityItem: currentCalorieDensityItem,
-        currentProteinDegreeItem: currentProteinDegreeItem,
-        tabIndex: tabIndex,
-      ),
-    );
+    context.router.push(NutritionValueRoute(tabIndex: tabIndex));
   }
 }

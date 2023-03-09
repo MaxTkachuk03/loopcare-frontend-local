@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/nutrition/application/dto/nutrition_value.dart';
+import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions_bloc.dart';
 
 class ProteinDegree extends StatelessWidget {
-  final double proteinDegree;
-  final NutritionValue currentProteinDegreeItem;
-
-  const ProteinDegree({
-    Key? key,
-    required this.proteinDegree,
-    required this.currentProteinDegreeItem,
-  }) : super(key: key);
+  const ProteinDegree({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,25 +22,39 @@ class ProteinDegree extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '${LocalizedTexts.proteinDegree.translation}: $proteinDegree',
-                style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-              ),
-              const SizedBox(height: 8.0),
-              Text(
-                currentProteinDegreeItem.label.toUpperCase(),
-                style: const TextStyle(
-                  fontSize: 16.0,
-                  color: AppColors.blueDark,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 8.0),
-              Text(
-                currentProteinDegreeItem.text,
-                style: Theme.of(context).textTheme.bodyText2,
+              BlocBuilder<NutritionInstructionsBloc,
+                  NutritionInstructionsState>(
+                builder: (BuildContext context, state) {
+                  if (state.proteinDegreeValues.isEmpty) {
+                    return const SizedBox();
+                  }
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        '${LocalizedTexts.proteinDegree.translation}: ${state.proteinDegreeValue}',
+                        style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        state.currentProteinDegreeItem.label.toUpperCase(),
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          color: AppColors.blueDark,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        state.currentProteinDegreeItem.text,
+                        style: Theme.of(context).textTheme.bodyText2,
+                      ),
+                    ],
+                  );
+                },
               ),
             ],
           ),
