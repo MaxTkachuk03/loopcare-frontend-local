@@ -63,7 +63,7 @@ part 'app_routes.dart';
   replaceInRouteName: 'Page,Route',
   routes: [
     AutoRoute(
-      // initial: true,
+      initial: true,
       path: AppRoutes.proxy,
       page: ProxyPage,
       guards: [ProxyGuard],
@@ -280,7 +280,6 @@ part 'app_routes.dart';
     ),
     //Nutrition
     AutoRoute(
-      initial: true,
       path: AppRoutes.nutritionDashboard,
       page: DashboardPage,
     ),

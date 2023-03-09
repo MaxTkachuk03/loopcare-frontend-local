@@ -25,13 +25,29 @@ Follow these steps to set up a project:
 
 ## Application delivery
 
-Android build command
-`flutter build apk --release --dart-define FLAVOR=<environment> --flavor <environment>`
+There is a build_script.sh file in the root project folder.
 
-IOS build command
-`flutter build ipa --release --export-method ad-hoc --dart-define FLAVOR=<environment> --flavor <environment>`
+To build app run
+`./build_script.sh <environment> <platform_name>`
 
-`environment` - could be `dev` or `prod`
+Android build command example
+
+- `./build_script.sh dev android`
+- `./build_script.sh prod android`
+
+You can find APK file in `build/app/outputs/flutter-apk` folder
+
+IOS build command example
+
+- `./build_script.sh dev ios`
+- `./build_script.sh prod ios`
+
+You can find IPA file in `build/ios/ipa` folder
+
+- `environment` - could be `dev` or `prod`
+- `platform_name` - could be `android` or `ios`
+
+Also check troubleshooting section on order to figure out with the most general bugs
 
 ### Application architecture
 
@@ -43,9 +59,9 @@ And each feature separate into layers:
 1. **presentation** - is all widgets and the local state of the them. It is dumbest part of the app.
 2. **application** - is place for BLoC. Storing and managing state for the presentation layer.
 3. **domain** - consists of:
-   3.1 Validating data and keeping it valid.
-   3.2 Transforming data
-   3.3 Models (f. e. entities `User` or `Note` entities) and failures
+   - Validating data and keeping it valid.
+   - Transforming data
+   - Models (f. e. entities `User` or `Note` entities) and failures
 4. **infrastructure** - work with APIs, Firebase libraries, databases, services. Also it holds data
    transfer objects (DTOs).
 
@@ -70,3 +86,9 @@ To add new language:
 2. Add new languageCode in the `CFBundleLocalizations` in the `ios/Runner/Info.plist` file
 3. Add new supported locale in the `lib/core/presentation/localization/localization_constants.dart`
    file
+
+### Troubleshooting
+
+1. When run android build command you can face an error in the console `Runtime JAR files in the classpath should have the same version`
+   - To fix it - move to the android folder in `cd android` and run `./gradlew` command, you can run both commands with `cd android && ./gradlew` command
+   - Rerun build command
