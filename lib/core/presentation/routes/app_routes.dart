@@ -61,5 +61,6 @@ class AppRoutes {
   // Nutrition
   static const String nutritionDashboard = '/nutrition-dashboard';
   static const String nutritionValues = '/nutrition-values';
+  static const String selectFood = '/select-food';
   AppRoutes._();
 }

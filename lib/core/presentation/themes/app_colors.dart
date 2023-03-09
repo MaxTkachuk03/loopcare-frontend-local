@@ -37,6 +37,8 @@ class AppColors {
 
   static const Color greyMid = Color(0xFFCDCFD0);
 
+  static const Color greyLabel = Color(0xFF999999);
+
   static const Color grey = Color(0xFF72777A);
 
   static const Color datePickerBg = Color(0xFF3D3D3F);
