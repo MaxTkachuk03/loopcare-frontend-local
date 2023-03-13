@@ -53,7 +53,7 @@ class _PasswordPageState extends State<PasswordPage> {
                         return Text(
                           LocalizedTexts.enterPasswordTitle.tr(namedArgs: {
                             'name': state.maybeMap(
-                                password: (state) => state.name ?? '',
+                                password: (state) => state.name,
                                 orElse: () => ''),
                           }),
                           textAlign: TextAlign.center,

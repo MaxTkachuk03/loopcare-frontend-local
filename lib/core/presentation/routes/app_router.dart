@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/features/authentication/presentation/name/name
 import 'package:loopcare_frontend/features/authentication/presentation/password/password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/reset_password/reset_password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/waiting_for_confirmation/waiting_for_confirmation_page.dart';
+import 'package:loopcare_frontend/features/barcode_scanner/presentation/barcode_scanner_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/consent_confirmation_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/no_consent_page.dart';
 import 'package:loopcare_frontend/features/diabetes/presentation/diabetes/diabetes_page.dart';
@@ -277,6 +278,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.diabetesSummary,
       page: SummaryPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.barcodeScanner,
+      page: BarcodeScannerPage,
     ),
     //Nutrition
     AutoRoute(

@@ -68,18 +68,19 @@ class JoinUsPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Hexagon(
-                                  width: 80,
-                                  height: 80,
-                                  borderRadius: 15.0,
-                                  innerWidget: Container(
-                                    decoration: const BoxDecoration(
-                                      color: AppColors.white,
-                                      image: DecorationImage(
-                                        image: AppImages.coffee,
-                                      ),
-                                      shape: BoxShape.circle,
+                                width: 80,
+                                height: 80,
+                                borderRadius: 15.0,
+                                innerWidget: Container(
+                                  decoration: const BoxDecoration(
+                                    color: AppColors.white,
+                                    image: DecorationImage(
+                                      image: AppImages.coffee,
                                     ),
-                                  )),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
                               const SizedBox(
                                 width: 18.0,
                               ),

@@ -283,6 +283,14 @@ class LocalizedTexts {
       'calorieDensityExplanationOne';
   static const String calorieDensityExplanationTwo =
       'calorieDensityExplanationTwo';
+
+  //QR Code
+  static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';
+  static const String qrCodeSubtext_2 = 'qrCodeSubtext_2';
+  static const String qrCodeSubtext_3 = 'qrCodeSubtext_3';
+  static const String scanOtherProduct = 'scanOtherProduct';
+  static const String addProductDetails = 'addProductDetails';
+  static const String sorryNotFound = 'sorryNotFound';
 }
 
 extension StringX on String {
