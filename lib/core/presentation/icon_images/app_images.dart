@@ -31,6 +31,9 @@ class AppImages {
   static const AssetImage calorieDensityFoodB =
       AssetImage('$iconsFilePath/calorie_dencity_food_b.png');
 
+  static const AssetImage questionMark =
+      AssetImage('$iconsFilePath/question.png');
+
   static SvgPicture logoSvgBig =
       SvgPicture.asset('$iconsFilePath/logo.svg', width: 114, height: 107);
 
