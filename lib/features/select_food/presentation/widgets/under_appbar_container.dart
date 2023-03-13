@@ -12,10 +12,13 @@ class UnderAppBarContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.blueDark,
+      color: AppColors.blueAppBar,
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Column(
         children: [
+          const SizedBox(
+            height: 8.0,
+          ),
           SizedBox(
             height: 38,
             child: NutritionField(

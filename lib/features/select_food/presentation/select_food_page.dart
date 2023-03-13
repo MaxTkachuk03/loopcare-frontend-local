@@ -16,11 +16,9 @@ class SelectFoodPage extends StatelessWidget {
         titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
               color: AppColors.white,
             ),
-        title: Text(
-          'Dinner 20 February',
-        ),
-        backgroundColor: AppColors.blueDark,
-        actions: [SelectedItemsLabel()],
+        title: Text('Dinner 20 February'),
+        backgroundColor: AppColors.blueAppBar,
+        actions: [const SelectedItemsLabel()],
       ),
       body: SafeArea(
         child: DefaultTabController(
