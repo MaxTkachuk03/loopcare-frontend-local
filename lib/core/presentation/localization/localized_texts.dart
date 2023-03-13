@@ -290,6 +290,14 @@ class LocalizedTexts {
   static const String myLunchFavorites = 'myLunchFavorites';
   static const String myLunchDishes = 'myLunchDishes';
   static const String showMy = 'showMy';
+
+  //QR Code
+  static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';
+  static const String qrCodeSubtext_2 = 'qrCodeSubtext_2';
+  static const String qrCodeSubtext_3 = 'qrCodeSubtext_3';
+  static const String scanOtherProduct = 'scanOtherProduct';
+  static const String addProductDetails = 'addProductDetails';
+  static const String sorryNotFound = 'sorryNotFound';
 }
 
 extension StringX on String {

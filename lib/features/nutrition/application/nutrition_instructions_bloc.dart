@@ -1,0 +1,65 @@
+import 'dart:async';
+
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dto/nutrition_value.dart';
+import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/nutrition_instruction_category.dart';
+
+part 'nutrition_instructions_event.dart';
+part 'nutrition_instructions_state.dart';
+part 'nutrition_instructions_bloc.freezed.dart';
+
+@singleton
+class NutritionInstructionsBloc
+    extends Bloc<NutritionInstructionsEvent, NutritionInstructionsState> {
+  final NutritionService nutritionService;
+
+  NutritionInstructionsBloc(this.nutritionService)
+      : super(NutritionInstructionsState.initial()) {
+    on<FetchValuesExplanation>(_onFetchValuesExplanation);
+    on<SetCalorieDensity>(_onSetCalorieDensity);
+    on<SetProteinDegree>(_onSetProteinDegree);
+  }
+
+  FutureOr<void> _onFetchValuesExplanation(
+    FetchValuesExplanation event,
+    Emitter<NutritionInstructionsState> emit,
+  ) async {
+    final response = await nutritionService.getValuesExplanation();
+
+    response.fold((l) => null, (r) {
+      final calorieDensityValues = r.data
+          .where((el) =>
+              el.category == NutritionInstructionCategory.calorieDensity.name)
+          .toIList();
+      final proteinDegreeValues = r.data
+          .where((el) =>
+              el.category == NutritionInstructionCategory.proteinDegree.name)
+          .toIList();
+
+      emit(
+        state.copyWith(
+          calorieDensityValues: calorieDensityValues,
+          proteinDegreeValues: proteinDegreeValues,
+        ),
+      );
+    });
+  }
+
+  _onSetCalorieDensity(
+    SetCalorieDensity event,
+    Emitter<NutritionInstructionsState> emit,
+  ) {
+    emit(state.copyWith(calorieDensityValue: event.value));
+  }
+
+  _onSetProteinDegree(
+    SetProteinDegree event,
+    Emitter<NutritionInstructionsState> emit,
+  ) {
+    emit(state.copyWith(proteinDegreeValue: event.value));
+  }
+}

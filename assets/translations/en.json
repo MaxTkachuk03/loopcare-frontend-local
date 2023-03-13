@@ -193,10 +193,10 @@
   "doYouHaveDiabetesQuestion": "Have you been diagnosed with diabetes?",
   "typeOne": "Yes, type I",
   "typeTwo": "Yes, type II",
-  "diabetesDisclaimerTitle" : "You indicate to have been diagnosed with diabetes",
-  "diabetesDisclaimerParagraphOne" : "People diagnosed with type I or type II diabetes have increased risk for kidney disease.",
-  "diabetesDisclaimerParagraphTwo" : "Signs of kidney disease require specialized dietary restrictions that are not part of this program.",
-  "diabetesDisclaimerParagraphThree" : "Consult with your physician to ensure that you have healthy renal function",
+  "diabetesDisclaimerTitle": "You indicate to have been diagnosed with diabetes",
+  "diabetesDisclaimerParagraphOne": "People diagnosed with type I or type II diabetes have increased risk for kidney disease.",
+  "diabetesDisclaimerParagraphTwo": "Signs of kidney disease require specialized dietary restrictions that are not part of this program.",
+  "diabetesDisclaimerParagraphThree": "Consult with your physician to ensure that you have healthy renal function",
   "cookingQuestion": "Who is doing the cooking in your household?",
   "healthierFood": "Is your household open to eating healthier food along with you?",
   "whereDoYouEatQuestion": "Where do you typically eat?",
@@ -217,6 +217,11 @@
   "scan": "Scan",
   "myLunchFavorites": "My lunch favorites",
   "myLunchDishes": "My lunch dishes",
-  "showMy": "Show my"
+  "showMy": "Show my",
+  "qrCodeSubtext_1": "Keep the barcode right in front of your camera and make sure it is within the indicated area.",
+  "qrCodeSubtext_2": "If the barcode is identified you will hear a bliep sound",
+  "qrCodeSubtext_3": "If the camera image is blurry than move the product slightly around, this help the camera to refocus ",
+  "scanOtherProduct": "Scan other product",
+  "addProductDetails": "Add product details yourselft",
+  "sorryNotFound": "Sorry, but we can not find this barcode in our system"
 }
-
