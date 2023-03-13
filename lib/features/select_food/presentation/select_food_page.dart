@@ -34,7 +34,7 @@ class SelectFoodPage extends StatelessWidget {
                   children: [
                     MyList(
                       title: LocalizedTexts.myLunchFavorites.tr(),
-                      list: [1, 2, 3],
+                      list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
                     ),
                     MyList(
                       title: LocalizedTexts.myLunchDishes.tr(),

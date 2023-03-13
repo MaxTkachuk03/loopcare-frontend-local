@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dialog_filter.dart';
 import 'package:loopcare_frontend/features/select_food/presentation/widgets/clickable_list_item.dart';
+import 'package:loopcare_frontend/features/select_food/presentation/widgets/footer_overlay.dart';
 
 class MyList extends StatelessWidget {
   final String title;
@@ -59,12 +60,19 @@ class MyList extends StatelessWidget {
             ),
           ),
         ),
-        ...list.map(
-          (e) => const ClickableListItem(
-            title: 'Test',
-            description: 'Test2',
+        Expanded(
+          child: ListView.builder(
+            itemCount: list.length,
+            itemBuilder: (BuildContext context, int index) {
+              return const ClickableListItem(
+                title: 'Test',
+                description: 'Test2',
+              );
+            },
           ),
-        )
+        ),
+        // TODO: add check if there are selected items
+        // const FooterOverlay(),
       ],
     );
   }

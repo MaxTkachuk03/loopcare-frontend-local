@@ -290,6 +290,11 @@ class LocalizedTexts {
   static const String myLunchFavorites = 'myLunchFavorites';
   static const String myLunchDishes = 'myLunchDishes';
   static const String showMy = 'showMy';
+  static const String item = 'item';
+  static const String items = 'items';
+  static const String selected = 'selected';
+  static const String deselectAll = 'deselectAll';
+  static const String add = 'add';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';

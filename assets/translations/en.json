@@ -222,6 +222,11 @@
   "qrCodeSubtext_2": "If the barcode is identified you will hear a bliep sound",
   "qrCodeSubtext_3": "If the camera image is blurry than move the product slightly around, this help the camera to refocus ",
   "scanOtherProduct": "Scan other product",
-  "addProductDetails": "Add product details yourselft",
-  "sorryNotFound": "Sorry, but we can not find this barcode in our system"
+  "addProductDetails": "Add product details yourself",
+  "sorryNotFound": "Sorry, but we can not find this barcode in our system",
+  "item": "item",
+  "items": "items",
+  "selected": "selected",
+  "deselectAll": "Deselect all",
+  "add": "Add"
 }
