@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
 
 class ClickableListItem extends StatelessWidget {
   final String title;
@@ -19,11 +20,12 @@ class ClickableListItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       child: Row(
         children: [
-          Checkbox(
-            checkColor: Colors.white,
-            // fillColor: MaterialStateProperty.resolveWith(Colors.red),
-            value: false,
-            onChanged: _onChanged,
+          Align(
+            alignment: Alignment.topCenter,
+            child: CheckboxBlue(
+              value: true,
+              onChanged: _onChanged,
+            ),
           ),
           Expanded(
             child: Column(

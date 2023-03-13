@@ -1,6 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/select_food/presentation/widgets/clickable_list_item.dart';
+import 'package:loopcare_frontend/features/select_food/presentation/widgets/my_list.dart';
+import 'package:loopcare_frontend/features/select_food/presentation/widgets/selected_items_label.dart';
+import 'package:loopcare_frontend/features/select_food/presentation/widgets/under_appbar_container.dart';
 
 class SelectFoodPage extends StatelessWidget {
   const SelectFoodPage({Key? key}) : super(key: key);
@@ -9,22 +13,40 @@ class SelectFoodPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dinner 20 February'),
+        titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
+              color: AppColors.white,
+            ),
+        title: Text(
+          'Dinner 20 February',
+        ),
         backgroundColor: AppColors.blueDark,
-        flexibleSpace: FlexibleSpaceBar(
-          background: Column(
-            children: [Text('123')],
+        actions: [SelectedItemsLabel()],
+      ),
+      body: SafeArea(
+        child: DefaultTabController(
+          length: 2,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const UnderAppBarContainer(),
+              Flexible(
+                child: TabBarView(
+                  children: [
+                    MyList(
+                      title: LocalizedTexts.myLunchFavorites.tr(),
+                      list: [1, 2, 3],
+                    ),
+                    MyList(
+                      title: LocalizedTexts.myLunchDishes.tr(),
+                      list: [1, 2, 3],
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
-      body: Column(
-        children: [
-          ClickableListItem(
-            title: 'Edit this favorite',
-            description: '1 glass 300 ml',
-          ),
-        ],
-      )
     );
   }
 }
