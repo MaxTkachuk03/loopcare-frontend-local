@@ -26,8 +26,8 @@ class UnderAppBarContainer extends StatelessWidget {
               hintText: LocalizedTexts.searchYourFood.tr(),
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 0, horizontal: 16.0),
-              prefixIcon: const ImageIcon(
-                AppIcons.search,
+              prefixIcon: const Icon(
+                Icons.search,
                 color: AppColors.blueDark,
               ),
             ),

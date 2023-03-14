@@ -17,10 +17,6 @@ class AppIcons {
       AssetImage('$iconsFilePath/list.png');
   static const AssetImage scan =
       AssetImage('$iconsFilePath/scan.png');
-  static const AssetImage search =
-      AssetImage('$iconsFilePath/search.png');
-  static const AssetImage close =
-      AssetImage('$iconsFilePath/close.png');
 
   AppIcons._();
 }
