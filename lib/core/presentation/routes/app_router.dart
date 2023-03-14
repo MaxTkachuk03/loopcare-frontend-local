@@ -36,8 +36,8 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/stomach_
 import 'package:loopcare_frontend/features/medical_fitness/presentation/stomach_reduction_failed/presentation/stomach_reduction_failed_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor/presentation/treatment_by_doctor_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor_failled/presentation/treatment_by_doctor_failled_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/dashboard_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/nutrition_instructions_page.dart';
+import 'package:loopcare_frontend/features/nutrition/dashboard/presentation/dashboard/dashboard_page.dart';
+import 'package:loopcare_frontend/features/nutrition/nutrition_instructions/presentation/nutrition_instructions/nutrition_instructions_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/biological_gender/biological_gender_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/birthday/birthday_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/check_failed_age/check_failed_age.dart';
@@ -49,6 +49,7 @@ import 'package:loopcare_frontend/features/authentication/presentation/welcome/s
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/preferences_overview_page.dart';
 import 'package:loopcare_frontend/features/proxy/proxy_page.dart';
 import 'package:loopcare_frontend/features/select_food/presentation/select_food_page.dart';
+import 'package:loopcare_frontend/features/nutrition/select_serving/presentation/select_serving_page/select_serving_page.dart';
 import 'package:loopcare_frontend/features/self_help/presentation/gender_preferences/self_help_gender_preferences_page.dart';
 import 'package:loopcare_frontend/features/self_help/presentation/intro/self_help_intro_page.dart';
 import 'package:loopcare_frontend/features/self_help/presentation/ready/self_help_ready_page.dart';
@@ -293,9 +294,13 @@ part 'app_routes.dart';
       page: NutritionInstructionsPage,
     ),
     AutoRoute(
-      initial: true,
       path: AppRoutes.selectFood,
       page: SelectFoodPage,
+    ),
+    AutoRoute(
+      initial: true,
+      path: AppRoutes.selectServing,
+      page: SelectServingPage,
     ),
   ],
 )

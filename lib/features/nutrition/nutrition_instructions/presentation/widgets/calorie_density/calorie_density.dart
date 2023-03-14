@@ -4,8 +4,8 @@ import 'package:loopcare_frontend/core/domain/calorie_density_scale_layout.dart'
 import 'package:loopcare_frontend/core/presentation/calorie_density_scale/calorie_density_scale.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/instructions_block/instructions_block.dart';
+import 'package:loopcare_frontend/features/nutrition/nutrition_instructions/application/nutrition_instructions_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/nutrition_instructions/presentation/widgets/instructions_block/instructions_block.dart';
 
 class CalorieDensity extends StatelessWidget {
   const CalorieDensity({Key? key}) : super(key: key);

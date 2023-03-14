@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/presentation/calorie_density_scale/calori
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/nutrition_instructions/application/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
 
 class NutritionBlock extends StatelessWidget {

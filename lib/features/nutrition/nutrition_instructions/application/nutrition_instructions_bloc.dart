@@ -4,9 +4,9 @@ import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:loopcare_frontend/features/nutrition/application/dto/nutrition_value.dart';
-import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/nutrition_instruction_category.dart';
+import 'package:loopcare_frontend/features/nutrition/nutrition_instructions/application/dto/nutrition_instruction_value.dart';
+import 'package:loopcare_frontend/features/nutrition/nutrition_instructions/application/nutrition_service.dart';
+import 'package:loopcare_frontend/features/nutrition/nutrition_instructions/domain/nutrition_instruction_category.dart';
 
 part 'nutrition_instructions_event.dart';
 part 'nutrition_instructions_state.dart';

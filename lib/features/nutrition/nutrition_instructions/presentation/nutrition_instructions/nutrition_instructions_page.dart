@@ -3,8 +3,8 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/nutrition_tabs/nutrition_tabs.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/calorie_density/calorie_density.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/protein_degree/protein_degree.dart';
+import 'package:loopcare_frontend/features/nutrition/nutrition_instructions/presentation/widgets/calorie_density/calorie_density.dart';
+import 'package:loopcare_frontend/features/nutrition/nutrition_instructions/presentation/widgets/protein_degree/protein_degree.dart';
 
 class NutritionInstructionsPage extends StatelessWidget {
   final int tabIndex;
