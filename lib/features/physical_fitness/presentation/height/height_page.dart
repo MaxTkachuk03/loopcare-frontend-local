@@ -36,8 +36,8 @@ class _HeightPageState extends State<HeightPage> {
   late FocusNode ftFieldFocusNode;
   MeasurementSystemType activeMeasurementType = getMeasurementSystem();
   int? heightInCm;
-  late int heightFT;
-  late int heightIN;
+  int heightFT = 0;
+  int heightIN = 0;
 
   @override
   void initState() {
