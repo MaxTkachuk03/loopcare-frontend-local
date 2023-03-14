@@ -8,16 +8,20 @@ class SelectedItemsLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [Container(
-        height: 40.0,
-        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-        decoration: const BoxDecoration(
-          color: AppColors.blueMid,
-          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-        ),
-        child: Row(
+      children: [
+        Container(
+          height: 40.0,
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+          decoration: const BoxDecoration(
+            color: AppColors.blueMid,
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ),
+          child: Row(
             children: [
-              const ImageIcon(AppIcons.list, color: AppColors.white,),
+              const ImageIcon(
+                AppIcons.list,
+                color: AppColors.white,
+              ),
               Container(
                 padding: const EdgeInsets.all(2.0),
                 decoration: const BoxDecoration(
@@ -27,14 +31,18 @@ class SelectedItemsLabel extends StatelessWidget {
                 child: Text(
                   '20',
                   style: Theme.of(context).textTheme.caption?.copyWith(
-                    color: AppColors.darkGreen,
-                    fontWeight: FontWeight.w600,
-                  ),
+                        color: AppColors.darkGreen,
+                        fontWeight: FontWeight.w600,
+                      ),
                 ),
               )
             ],
+          ),
         ),
-      )],
+        const SizedBox(
+          width: 24.0,
+        ),
+      ],
     );
   }
 }

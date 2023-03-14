@@ -38,6 +38,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/treatmen
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor_failled/presentation/treatment_by_doctor_failled_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/dashboard_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_value/nutrition_value_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/select_food/presentation/select_food_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/biological_gender/biological_gender_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/birthday/birthday_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/check_failed_age/check_failed_age.dart';
@@ -48,7 +49,6 @@ import 'package:loopcare_frontend/features/physical_fitness/presentation/weight/
 import 'package:loopcare_frontend/features/authentication/presentation/welcome/sign_up_welcome_page.dart';
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/preferences_overview_page.dart';
 import 'package:loopcare_frontend/features/proxy/proxy_page.dart';
-import 'package:loopcare_frontend/features/select_food/presentation/select_food_page.dart';
 import 'package:loopcare_frontend/features/self_help/presentation/gender_preferences/self_help_gender_preferences_page.dart';
 import 'package:loopcare_frontend/features/self_help/presentation/intro/self_help_intro_page.dart';
 import 'package:loopcare_frontend/features/self_help/presentation/ready/self_help_ready_page.dart';
@@ -65,6 +65,7 @@ part 'app_routes.dart';
   replaceInRouteName: 'Page,Route',
   routes: [
     AutoRoute(
+      initial: true,
       path: AppRoutes.proxy,
       page: ProxyPage,
       guards: [ProxyGuard],
@@ -293,7 +294,6 @@ part 'app_routes.dart';
       page: NutritionValuePage,
     ),
     AutoRoute(
-      initial: true,
       path: AppRoutes.selectFood,
       page: SelectFoodPage,
     ),

@@ -295,6 +295,7 @@ class LocalizedTexts {
   static const String selected = 'selected';
   static const String deselectAll = 'deselectAll';
   static const String add = 'add';
+  static const String log = 'log';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';
