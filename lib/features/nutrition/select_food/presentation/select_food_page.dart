@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/back_button_hexagon.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/select_food/presentation/widgets/food_list.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/select_food/presentation/widgets/selected_items_label.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/select_food/presentation/widgets/under_appbar_container.dart';
+import 'package:loopcare_frontend/features/nutrition/select_food/presentation/widgets/food_list.dart';
+import 'package:loopcare_frontend/features/nutrition/select_food/presentation/widgets/selected_items_label.dart';
+import 'package:loopcare_frontend/features/nutrition/select_food/presentation/widgets/under_appbar_container.dart';
 
 class SelectFoodPage extends StatelessWidget {
   const SelectFoodPage({Key? key}) : super(key: key);

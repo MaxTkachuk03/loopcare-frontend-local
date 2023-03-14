@@ -7,11 +7,8 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/dialog_filter.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/select_food/presentation/widgets/clickable_list_item.dart';
+import 'package:loopcare_frontend/features/nutrition/select_food/presentation/widgets/clickable_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/nutrition_instructions/domain/dialog_filter.dart';
-import 'package:loopcare_frontend/features/select_food/presentation/widgets/clickable_list_item.dart';
-import 'package:loopcare_frontend/features/select_food/presentation/widgets/footer_overlay.dart';
 
 class FoodList extends StatelessWidget {
   final String title;
