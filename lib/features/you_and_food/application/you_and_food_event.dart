@@ -6,7 +6,9 @@ class YouAndFoodEvent with _$YouAndFoodEvent {
 
   const factory YouAndFoodEvent.foodPrefsPeriods() = FoodPrefsPeriods;
 
-  const factory YouAndFoodEvent.foodPrefsItems() = FoodPrefsItems;
+  const factory YouAndFoodEvent.foodPrefsDislikes() = FoodPrefsDislikes;
+
+  const factory YouAndFoodEvent.foodPrefsAllergens() = FoodPrefsAllergens;
 
   const factory YouAndFoodEvent.setHates(int value) = SetHates;
 

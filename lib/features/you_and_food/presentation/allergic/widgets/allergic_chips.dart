@@ -13,7 +13,7 @@ class AllergicChips extends StatefulWidget {
 class _AllergicChipsState extends State<AllergicChips> {
   @override
   void initState() {
-    context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.foodPrefsItems());
+    context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.foodPrefsAllergens());
     super.initState();
   }
 
@@ -29,7 +29,7 @@ class _AllergicChipsState extends State<AllergicChips> {
           return Wrap(
             spacing: 10.0,
             runSpacing: 10.0,
-            children: state.foodItems
+            children: state.foodAllergens
                 .map(
                   (e) => SizedBox(
                     width: width,

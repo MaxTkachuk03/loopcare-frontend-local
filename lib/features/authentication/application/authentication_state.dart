@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/core/domain/user/user.dart';
+import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 
 part 'authentication_state.freezed.dart';
@@ -11,7 +11,7 @@ class AuthenticationState with _$AuthenticationState {
   const AuthenticationState._();
 
   const factory AuthenticationState.authenticated(
-    User user,
+    Account account,
   ) = Authenticated;
 
   const factory AuthenticationState.name() = Name;
@@ -30,7 +30,7 @@ class AuthenticationState with _$AuthenticationState {
     required String name,
     required String password,
     required String email,
-    required int userId,
+    required int accountId,
     @JsonKey(ignore: true) RequestError? error,
   }) = WaitedForConfirmation;
 

@@ -13,7 +13,7 @@ class DoYouLikeChips extends StatefulWidget {
 class _DoYouLikeChipsState extends State<DoYouLikeChips> {
   @override
   void initState() {
-    context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.foodPrefsItems());
+    context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.foodPrefsDislikes());
     super.initState();
   }
 
@@ -29,7 +29,7 @@ class _DoYouLikeChipsState extends State<DoYouLikeChips> {
           return Wrap(
             spacing: 10.0,
             runSpacing: 10.0,
-            children: state.foodItems
+            children: state.foodDislikes
                 .map(
                   (e) => SizedBox(
                     width: width,

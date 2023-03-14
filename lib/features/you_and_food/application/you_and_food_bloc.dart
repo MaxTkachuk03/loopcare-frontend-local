@@ -20,7 +20,8 @@ class YouAndFoodBloc extends Bloc<YouAndFoodEvent, YouAndFoodState> {
   YouAndFoodBloc(this.youAndFoodService) : super(YouAndFoodState.initial()) {
     on<FetchFoodPrefsTypes>(_onFetchFoodPrefsTypes);
     on<FoodPrefsPeriods>(_onFoodPrefsPeriods);
-    on<FoodPrefsItems>(_onFoodPrefsItems);
+    on<FoodPrefsDislikes>(_onFoodPrefsDislikes);
+    on<FoodPrefsAllergens>(_onFoodPrefsAllergens);
     on<SetHates>(_onSetHates);
     on<SetPeriod>(_onSetPeriod);
     on<SetAllergic>(_onSetAllergic);
@@ -33,7 +34,7 @@ class YouAndFoodBloc extends Bloc<YouAndFoodEvent, YouAndFoodState> {
     FetchFoodPrefsTypes event,
     Emitter<YouAndFoodState> emit,
   ) async {
-    final response = await youAndFoodService.foodPrefsTypes();
+    final response = await youAndFoodService.foodPrefsHates();
 
     response.fold(
       (l) => null,
@@ -57,16 +58,30 @@ class YouAndFoodBloc extends Bloc<YouAndFoodEvent, YouAndFoodState> {
     );
   }
 
-  FutureOr<void> _onFoodPrefsItems(
-    FoodPrefsItems event,
+  FutureOr<void> _onFoodPrefsAllergens(
+    FoodPrefsAllergens event,
     Emitter<YouAndFoodState> emit,
   ) async {
-    final response = await youAndFoodService.foodPrefsItems();
+    final response = await youAndFoodService.foodPrefsAllergens();
 
     response.fold(
       (l) => null,
       (r) => emit(
-        state.copyWith(foodItems: r.data),
+        state.copyWith(foodAllergens: r.data),
+      ),
+    );
+  }
+
+  FutureOr<void> _onFoodPrefsDislikes(
+    FoodPrefsDislikes event,
+    Emitter<YouAndFoodState> emit,
+  ) async {
+    final response = await youAndFoodService.foodPrefsDislikes();
+
+    response.fold(
+      (l) => null,
+      (r) => emit(
+        state.copyWith(foodDislikes: r.data),
       ),
     );
   }

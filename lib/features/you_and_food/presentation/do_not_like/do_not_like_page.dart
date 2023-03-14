@@ -12,7 +12,7 @@ class DoNotLikePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return YouAndFoodQuestion(
-      subtitle: '4 ${LocalizedTexts.of.tr()} 4',
+      subtitle: '3 ${LocalizedTexts.of.tr()} 3',
       question: RichText(
         text: TextSpan(
           text: '${LocalizedTexts.doYou.tr()} ',
