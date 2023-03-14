@@ -151,6 +151,6 @@ class NutritionBlock extends StatelessWidget {
   }
 
   _onItemPressed(BuildContext context, {required int tabIndex}) {
-    context.router.push(NutritionValueRoute(tabIndex: tabIndex));
+    context.router.push(NutritionInstructionsRoute(tabIndex: tabIndex));
   }
 }
