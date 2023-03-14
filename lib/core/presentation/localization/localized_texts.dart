@@ -295,6 +295,7 @@ class LocalizedTexts {
   static const String selected = 'selected';
   static const String deselectAll = 'deselectAll';
   static const String add = 'add';
+  static const String log = 'log';
   static const String calories = 'calories';
   static const String amount = 'amount';
   static const String addAsFavourite = 'addAsFavourite';

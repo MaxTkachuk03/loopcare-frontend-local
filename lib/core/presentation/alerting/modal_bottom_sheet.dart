@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -259,9 +258,14 @@ class ModalBottomSheet {
                 children: [
                   Align(
                     alignment: Alignment.centerRight,
-                    child: InkWell(
-                      onTap: () => context.router.pop(),
-                      child: const ImageIcon(AppIcons.close),
+                    child: SizedBox(
+                      width: 16.0,
+                      height: 16.0,
+                      child: IconButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () => context.router.pop(),
+                        icon: const Icon(Icons.close),
+                      ),
                     ),
                   ),
                   const SizedBox(

@@ -231,5 +231,6 @@
   "items": "items",
   "selected": "selected",
   "deselectAll": "Deselect all",
-  "add": "Add"
+  "add": "Add",
+  "log": "Log"
 }

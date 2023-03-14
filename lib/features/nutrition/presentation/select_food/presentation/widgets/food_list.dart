@@ -1,21 +1,23 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/dialog_filter.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/select_food/presentation/widgets/clickable_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/nutrition_instructions/domain/dialog_filter.dart';
 import 'package:loopcare_frontend/features/select_food/presentation/widgets/clickable_list_item.dart';
 import 'package:loopcare_frontend/features/select_food/presentation/widgets/footer_overlay.dart';
 
-class MyList extends StatelessWidget {
+class FoodList extends StatelessWidget {
   final String title;
   final List<dynamic> list; // TODO: change type
 
-  const MyList({
+  const FoodList({
     Key? key,
     required this.title,
     required this.list,
