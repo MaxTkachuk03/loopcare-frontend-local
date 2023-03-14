@@ -6,10 +6,10 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/calorie_density/calorie_density.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/protein_degree/protein_degree.dart';
 
-class NutritionValuePage extends StatelessWidget {
+class NutritionInstructionsPage extends StatelessWidget {
   final int tabIndex;
 
-  const NutritionValuePage({
+  const NutritionInstructionsPage({
     Key? key,
     required this.tabIndex,
   }) : super(key: key);
