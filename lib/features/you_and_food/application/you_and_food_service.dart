@@ -5,11 +5,13 @@ import 'package:loopcare_frontend/features/you_and_food/application/dto/food_pre
 import 'package:loopcare_frontend/features/you_and_food/application/dto/food_prefs_data.dart';
 
 abstract class YouAndFoodService {
-  Future<Either<RequestError, FoodPreferenceResponse>> foodPrefsTypes();
+  Future<Either<RequestError, FoodPreferenceResponse>> foodPrefsHates();
 
   Future<Either<RequestError, FoodPreferenceResponse>> foodPrefsPeriods();
 
-  Future<Either<RequestError, FoodPreferenceResponse>> foodPrefsItems();
+  Future<Either<RequestError, FoodPreferenceResponse>> foodPrefsAllergens();
+
+  Future<Either<RequestError, FoodPreferenceResponse>> foodPrefsDislikes();
 
   Future<Either<RequestError, FoodPreferencesResponse>> foodPrefsFetch();
 

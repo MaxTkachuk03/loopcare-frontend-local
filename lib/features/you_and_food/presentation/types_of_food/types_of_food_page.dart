@@ -14,7 +14,7 @@ class TypesOfFoodPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return YouAndFoodQuestion(
-      subtitle: '1 ${LocalizedTexts.of.tr()} 4',
+      subtitle: '1 ${LocalizedTexts.of.tr()} 3',
       question: RichText(
         text: TextSpan(
           text: '${LocalizedTexts.whichTypesOfFoodDoYou.tr()} ',
@@ -40,13 +40,16 @@ class TypesOfFoodPage extends StatelessWidget {
   }
 
   _onNextPressed(BuildContext context) {
-    final youAndFoodState = context.read<YouAndFoodBloc>().state;
+    context.router.pushNamed(AppRoutes.allergic);
 
-    if (youAndFoodState.userDoesNotEatFish &&
-        youAndFoodState.userDoesNotEatMeat) {
-      context.router.pushNamed(AppRoutes.allergic);
-    } else {
-      context.router.pushNamed(AppRoutes.meatPreferences);
-    }
+    // decided to hide periods screen
+
+    // final youAndFoodState = context.read<YouAndFoodBloc>().state;
+    // if (youAndFoodState.userDoesNotEatFish &&
+    //     youAndFoodState.userDoesNotEatMeat) {
+    //   context.router.pushNamed(AppRoutes.allergic);
+    // } else {
+    //   context.router.pushNamed(AppRoutes.meatPreferences);
+    // }
   }
 }

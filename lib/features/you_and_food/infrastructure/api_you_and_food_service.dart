@@ -15,9 +15,9 @@ class APIYouAndFoodService implements YouAndFoodService {
   APIYouAndFoodService(this.client);
 
   @override
-  Future<Either<RequestError, FoodPreferenceResponse>> foodPrefsTypes() async {
+  Future<Either<RequestError, FoodPreferenceResponse>> foodPrefsHates() async {
     return client
-        .get('/food-preferences/types')
+        .get('/food-preferences/hates')
         .then(parseResponse(FoodPreferenceResponse.fromJson));
   }
 
@@ -30,9 +30,16 @@ class APIYouAndFoodService implements YouAndFoodService {
   }
 
   @override
-  Future<Either<RequestError, FoodPreferenceResponse>> foodPrefsItems() async {
+  Future<Either<RequestError, FoodPreferenceResponse>> foodPrefsAllergens() async {
     return client
-        .get('/food-preferences/items')
+        .get('/food-preferences/allergens')
+        .then(parseResponse(FoodPreferenceResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, FoodPreferenceResponse>> foodPrefsDislikes() async {
+    return client
+        .get('/food-preferences/dislikes')
         .then(parseResponse(FoodPreferenceResponse.fromJson));
   }
 

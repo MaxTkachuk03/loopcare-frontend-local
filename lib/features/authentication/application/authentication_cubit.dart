@@ -1,7 +1,7 @@
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
-import 'package:loopcare_frontend/core/domain/user/user.dart';
+import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
@@ -48,7 +48,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
         authTokenManager.setAccessToken(response.accessToken);
         authTokenManager.setRefreshToken(response.refreshToken);
 
-        emit(AuthenticationState.authenticated(User(
+        emit(AuthenticationState.authenticated(Account(
           id: response.id,
           name: response.name,
           email: response.email,
@@ -68,7 +68,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
   Future<void> authenticatedCheck() async {
     await state.mapOrNull(waitedForConfirmation: (state) async {
       final response =
-          await _authenticationService.emailApproveDate(state.userId);
+          await _authenticationService.emailApproveDate(state.accountId);
 
       response.fold((l) => null, (r) {
         if (r.emailApproveDate != null) {
@@ -98,7 +98,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
           (response) {
             emit(AuthenticationState.waitedForConfirmation(
               email: data.email,
-              userId: response.id,
+              accountId: response.id,
               name: state.name,
               password: state.password,
             ));
@@ -110,7 +110,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
 
   void resendEmail() async {
     state.mapOrNull(waitedForConfirmation: (state) async {
-      final response = await _authenticationService.resendSignUp(state.userId);
+      final response = await _authenticationService.resendSignUp(state.accountId);
 
       response.leftMap(
         (error) {
