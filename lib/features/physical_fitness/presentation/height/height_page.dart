@@ -210,7 +210,9 @@ class _NextButton extends StatelessWidget {
       style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
             backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
           ),
-      child: Text(LocalizedTexts.next.tr()),
+      child: Text(
+        LocalizedTexts.next.tr(),
+      ),
     );
   }
 
@@ -229,10 +231,12 @@ class _NextButton extends StatelessWidget {
         onBtnPress: () => Navigator.pop(context),
       );
     } else {
-      bloc.add(PhysicalFitnessEvent.heightChanged(
-        height: getHeight(),
-        measurementSystemType: measurementSystemType,
-      ));
+      bloc.add(
+        PhysicalFitnessEvent.heightChanged(
+          height: getHeight(),
+          measurementSystemType: measurementSystemType,
+        ),
+      );
 
       final physicalFitnessNavigationState = StepNavigationState.of(context);
 
