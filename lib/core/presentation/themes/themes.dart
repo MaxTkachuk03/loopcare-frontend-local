@@ -154,7 +154,7 @@ OutlinedButtonThemeData _getOutlinedButtonTheme() {
           Radius.circular(30.0),
         ),
       ),
-      side: const BorderSide(width: 2.0, color: AppColors.yellowLight),
+      side: const BorderSide(width: 1.0, color: AppColors.darkGreen),
       minimumSize: const Size(double.infinity, 52.0),
       textStyle: const TextStyle(
         fontSize: ThemeConstants.fontSize16,

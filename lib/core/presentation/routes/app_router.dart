@@ -38,6 +38,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/treatmen
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor_failled/presentation/treatment_by_doctor_failled_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/dashboard_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/nutrition_instructions_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/select_food/presentation/select_food_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/biological_gender/biological_gender_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/birthday/birthday_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/check_failed_age/check_failed_age.dart';
@@ -291,6 +292,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.nutritionInstructions,
       page: NutritionInstructionsPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.selectFood,
+      page: SelectFoodPage,
     ),
   ],
 )

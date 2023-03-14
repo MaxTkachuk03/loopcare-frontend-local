@@ -211,11 +211,23 @@
   "whatIsProtein": "What is protein",
   "calorieDensityExplanationOne": "Calorie density is  a measure of how many calories are in a given weight of food, most often expressed as calories per pound.",
   "calorieDensityExplanationTwo": "A food high in calorie density has a large number of calories relative to the weight of food (A) , whereas a food low in calorie density has much fewer calories in the same weight of food (B)",
+  "searchYourFood": "Search your food",
+  "myFavorites": "My favorites",
+  "myDishes": "My dishes",
+  "scan": "Scan",
+  "myLunchFavorites": "My lunch favorites",
+  "myLunchDishes": "My lunch dishes",
+  "showMy": "Show my",
   "qrCodeSubtext_1": "Keep the barcode right in front of your camera and make sure it is within the indicated area.",
   "qrCodeSubtext_2": "If the barcode is identified you will hear a bliep sound",
   "qrCodeSubtext_3": "If the camera image is blurry than move the product slightly around, this help the camera to refocus ",
   "scanOtherProduct": "Scan other product",
-  "addProductDetails": "Add product details yourselft",
-  "sorryNotFound": "Sorry, but we can not find this barcode in our system"
-
+  "addProductDetails": "Add product details yourself",
+  "sorryNotFound": "Sorry, but we can not find this barcode in our system",
+  "item": "item",
+  "items": "items",
+  "selected": "selected",
+  "deselectAll": "Deselect all",
+  "add": "Add",
+  "log": "Log"
 }

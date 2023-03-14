@@ -283,6 +283,19 @@ class LocalizedTexts {
       'calorieDensityExplanationOne';
   static const String calorieDensityExplanationTwo =
       'calorieDensityExplanationTwo';
+  static const String searchYourFood = 'searchYourFood';
+  static const String myFavorites = 'myFavorites';
+  static const String myDishes = 'myDishes';
+  static const String scan = 'scan';
+  static const String myLunchFavorites = 'myLunchFavorites';
+  static const String myLunchDishes = 'myLunchDishes';
+  static const String showMy = 'showMy';
+  static const String item = 'item';
+  static const String items = 'items';
+  static const String selected = 'selected';
+  static const String deselectAll = 'deselectAll';
+  static const String add = 'add';
+  static const String log = 'log';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';
