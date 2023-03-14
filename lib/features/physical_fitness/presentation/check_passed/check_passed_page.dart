@@ -23,7 +23,7 @@ class CheckPassedPage extends StatelessWidget {
       int.parse(heightInCm),
     );
 
-    final heightInches = HeightConversionUtils.convertCMtoIN(
+    final heightInches = HeightConversionUtils.convertCMtoFtIn(
       int.parse(heightInCm),
     );
 
