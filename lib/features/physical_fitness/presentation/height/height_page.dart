@@ -37,8 +37,8 @@ class _HeightPageState extends State<HeightPage> {
   late FocusNode ftFieldFocusNode;
   MeasurementSystemType activeMeasurementType = getMeasurementSystem();
   int? heightInCm;
-  late int heightFT;
-  late int heightIN;
+  int heightFT = 0;
+  int heightIN = 0;
 
   @override
   void initState() {
@@ -211,7 +211,9 @@ class _NextButton extends StatelessWidget {
       style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
             backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
           ),
-      child: Text(LocalizedTexts.next.tr()),
+      child: Text(
+        LocalizedTexts.next.tr(),
+      ),
     );
   }
 
@@ -230,10 +232,12 @@ class _NextButton extends StatelessWidget {
         onBtnPress: () => context.router.pop(),
       );
     } else {
-      bloc.add(PhysicalFitnessEvent.heightChanged(
-        height: getHeight(),
-        measurementSystemType: measurementSystemType,
-      ));
+      bloc.add(
+        PhysicalFitnessEvent.heightChanged(
+          height: getHeight(),
+          measurementSystemType: measurementSystemType,
+        ),
+      );
 
       final physicalFitnessNavigationState = StepNavigationState.of(context);
 

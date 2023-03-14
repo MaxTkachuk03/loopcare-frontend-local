@@ -11,7 +11,7 @@ class UserPhysicalSurveyResponse {
   final DateTime birthDate;
   final int weight;
   final int bmi;
-  final int user;
+  final int account;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -21,7 +21,7 @@ class UserPhysicalSurveyResponse {
     required this.birthDate,
     required this.weight,
     required this.bmi,
-    required this.user,
+    required this.account,
     required this.createdAt,
     required this.updatedAt,
   });

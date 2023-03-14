@@ -12,7 +12,7 @@ class AllergicPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return YouAndFoodQuestion(
-      subtitle: '3 ${LocalizedTexts.of.tr()} 4',
+      subtitle: '2 ${LocalizedTexts.of.tr()} 3',
       question: Text(
         LocalizedTexts.allergicQuestion.tr(),
         style: Theme.of(context).textTheme.bodyText1?.copyWith(

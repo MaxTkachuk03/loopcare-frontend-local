@@ -123,13 +123,19 @@ class _HouseholdAndHabitsIntroPageState
             SafeArea(
               top: false,
               child: MainContainer(
-                child: ElevatedButton(
-                  onPressed: () => _onStart(context),
-                  style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                        backgroundColor:
-                            MaterialStateProperty.all(AppColors.orangeDark),
-                      ),
-                  child: Text(LocalizedTexts.start.tr()),
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 53.0),
+                  child: ElevatedButton(
+                    onPressed: () => _onStart(context),
+                    style: Theme.of(context)
+                        .elevatedButtonTheme
+                        .style
+                        ?.copyWith(
+                          backgroundColor:
+                              MaterialStateProperty.all(AppColors.orangeDark),
+                        ),
+                    child: Text(LocalizedTexts.start.tr()),
+                  ),
                 ),
               ),
             ),

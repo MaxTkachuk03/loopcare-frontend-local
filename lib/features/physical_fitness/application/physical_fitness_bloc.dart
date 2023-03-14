@@ -158,21 +158,25 @@ class PhysicalFitnessBloc
     HeightChanged event,
     Emitter<PhysicalFitnessState> emit,
   ) {
-    emit(state.copyWith(
-      heightInCm: event.height,
-      heightMeasurementSystemType: event.measurementSystemType,
-    ));
+    emit(
+      state.copyWith(
+        heightInCm: event.height,
+        heightMeasurementSystemType: event.measurementSystemType,
+      ),
+    );
   }
 
   FutureOr<void> _onWeightChanged(
     WeightChanged event,
     Emitter<PhysicalFitnessState> emit,
   ) {
-    emit(state.copyWith(
-      weightInKg: event.weight,
-      bmi: BmiCalculator.getUserBmiIndex(state.heightInCm, event.weight),
-      weightMeasurementSystemType: event.measurementSystemType,
-    ));
+    emit(
+      state.copyWith(
+        weightInKg: event.weight,
+        bmi: BmiCalculator.getUserBmiIndex(state.heightInCm, event.weight),
+        weightMeasurementSystemType: event.measurementSystemType,
+      ),
+    );
   }
 
   FutureOr<void> _onBirthdayChanged(

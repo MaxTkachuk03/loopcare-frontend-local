@@ -5,7 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'food_prefs_data.g.dart';
 
 @immutable
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class FoodPrefsData {
   final IList<int> hates;
   final IList<int> allergic;

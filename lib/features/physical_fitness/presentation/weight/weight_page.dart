@@ -171,17 +171,21 @@ class _NextButton extends StatelessWidget {
       style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
             backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
           ),
-      child: Text(LocalizedTexts.next.tr()),
+      child: Text(
+        LocalizedTexts.next.tr(),
+      ),
     );
   }
 
   void _onNextPressed(BuildContext context) {
     final bloc = context.read<PhysicalFitnessBloc>();
 
-    bloc.add(PhysicalFitnessEvent.weightChanged(
-      weight: getWeight(),
-      measurementSystemType: measurementSystemType,
-    ));
+    bloc.add(
+      PhysicalFitnessEvent.weightChanged(
+        weight: getWeight(),
+        measurementSystemType: measurementSystemType,
+      ),
+    );
 
     final physicalFitnessNavigationState = StepNavigationState.of(context);
 

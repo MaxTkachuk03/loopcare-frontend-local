@@ -41,13 +41,15 @@ class YouAndFoodReadyPage extends StatelessWidget {
                                 subtitle: state.selectedHatesNames.join(', '),
                                 routeName: TypesOfFoodRoute.name,
                               ),
-                              if (state.selectedPeriodName != null)
-                                EditableItem(
-                                  title: LocalizedTexts.iPreferToEatMeatOrFish
-                                      .tr(),
-                                  subtitle: state.selectedPeriodName,
-                                  routeName: MeatPreferencesRoute.name,
-                                ),
+                              // decided to hide periods screen
+
+                              // if (state.selectedPeriodName != null)
+                              //   EditableItem(
+                              //     title: LocalizedTexts.iPreferToEatMeatOrFish
+                              //         .tr(),
+                              //     subtitle: state.selectedPeriodName,
+                              //     routeName: MeatPreferencesRoute.name,
+                              //   ),
                               EditableItem(
                                 title: LocalizedTexts.iAmAllergicTo.tr(),
                                 subtitle:

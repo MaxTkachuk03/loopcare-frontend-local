@@ -7,7 +7,8 @@ class YouAndFoodState with _$YouAndFoodState {
   factory YouAndFoodState.initial() => YouAndFoodState(
       foodTypes: <FoodPreference>[].toIList(),
       foodPeriods: <FoodPreference>[].toIList(),
-      foodItems: <FoodPreference>[].toIList(),
+      foodAllergens: <FoodPreference>[].toIList(),
+      foodDislikes: <FoodPreference>[].toIList(),
       selectedHates: <int>[].toIList(),
       selectedAllergic: <int>[].toIList(),
       selectedDislike: <int>[].toIList());
@@ -16,7 +17,8 @@ class YouAndFoodState with _$YouAndFoodState {
     @Default(false) bool isCompleted,
     required IList<FoodPreference> foodTypes,
     required IList<FoodPreference> foodPeriods,
-    required IList<FoodPreference> foodItems,
+    required IList<FoodPreference> foodAllergens,
+    required IList<FoodPreference> foodDislikes,
     required IList<int> selectedHates,
     int? selectedPeriod,
     required IList<int> selectedAllergic,
@@ -33,7 +35,7 @@ class YouAndFoodState with _$YouAndFoodState {
 
   IList<String> get selectedAllergicNames {
     return selectedAllergic.map((allergic) {
-      final item = foodItems.firstWhere((i) => i.id == allergic);
+      final item = foodAllergens.firstWhere((i) => i.id == allergic);
 
       return item.name;
     }).toIList();
@@ -41,7 +43,7 @@ class YouAndFoodState with _$YouAndFoodState {
 
   IList<String> get selectedDislikesNames {
     return selectedDislike.map((dislike) {
-      final item = foodItems.firstWhere((i) => i.id == dislike);
+      final item = foodDislikes.firstWhere((i) => i.id == dislike);
 
       return item.name;
     }).toIList();
