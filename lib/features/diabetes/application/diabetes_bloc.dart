@@ -67,13 +67,16 @@ class DiabetesBloc extends Bloc<DiabetesEvent, DiabetesState> {
     final response = await diabetesService.getUserDiabetesType();
 
     response.fold(
-        (l) => emit(
-              state.copyWith(isCompleted: false),
-            ),
-        (r) => emit(state.copyWith(
-              selectedType: DiabetesType(id: r.id, name: r.name),
-              isCompleted: true,
-            )));
+      (l) => emit(
+        state.copyWith(isCompleted: false),
+      ),
+      (r) => emit(
+        state.copyWith(
+          selectedType: DiabetesType(id: r.id, name: r.name),
+          isCompleted: true,
+        ),
+      ),
+    );
   }
 
   FutureOr<void> _onSetDiabetesType(

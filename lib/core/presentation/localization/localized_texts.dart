@@ -307,6 +307,7 @@ class LocalizedTexts {
   static const String scanOtherProduct = 'scanOtherProduct';
   static const String addProductDetails = 'addProductDetails';
   static const String sorryNotFound = 'sorryNotFound';
+  static const String scanYourProduct = 'scanYourProduct';
 }
 
 extension StringX on String {
