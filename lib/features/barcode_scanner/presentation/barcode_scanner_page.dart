@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
+import 'package:loopcare_frontend/features/barcode_scanner/presentation/widgets/barcode_scanner_app_bar.dart';
 import 'package:loopcare_frontend/features/barcode_scanner/presentation/widgets/info/info_widget.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -23,9 +25,9 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
   void reassemble() {
     super.reassemble();
     if (Platform.isAndroid) {
-      controller?.pauseCamera();
+      controller!.pauseCamera();
     }
-    controller?.resumeCamera();
+    controller!.resumeCamera();
   }
 
   void _onQRViewCreated(QRViewController controller) {
@@ -34,6 +36,7 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
     });
     controller.scannedDataStream.listen((scanData) {
       setState(() {
+        HapticFeedback.mediumImpact();
         barCodeResult = scanData;
         showModal();
       });
@@ -77,6 +80,7 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: BarcodeScannerAppBar(controller: controller),
         body: Stack(
           children: <Widget>[
             Column(
