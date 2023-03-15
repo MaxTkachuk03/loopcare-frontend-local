@@ -5,7 +5,8 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart'
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
-import 'package:loopcare_frontend/features/nutrition/nutrition_instructions/domain/dialog_filter.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/nutrition_instructions/dialog_filter.dart';
 
 class ModalBottomSheet {
   static void emailConfirmed({
@@ -237,106 +238,106 @@ class ModalBottomSheet {
     VoidCallback? onConfirmed,
   }) {
     showModalBottomSheet<void>(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.only(
-            top: 32.0,
-            left: 40.0,
-            right: 24.0,
-            bottom: 40.0,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: SizedBox(
-                      width: 16.0,
-                      height: 16.0,
-                      child: IconButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: () => context.router.pop(),
-                        icon: const Icon(Icons.close),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 2.0,
-                  ),
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                  ),
-                  if (subtitle != null)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 14.0,
-                        ),
-                        Text(
-                          subtitle,
-                          style:
-                              Theme.of(context).textTheme.bodyText2?.copyWith(
-                                    fontStyle: FontStyle.italic,
-                                  ),
-                        ),
-                      ],
-                    ),
-                  const SizedBox(
-                    height: 24.0,
-                  ),
-                  const Divider(
-                      height: 2, thickness: 2, color: AppColors.bgGreen),
-                  ...list.map(
-                    (item) => Container(
-                      padding: const EdgeInsets.symmetric(vertical: 14.0),
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom:
-                              BorderSide(width: 2, color: AppColors.bgGreen),
+        return ScrollableContainer(
+          child: Container(
+            padding: const EdgeInsets.only(
+              top: 32.0,
+              left: 40.0,
+              right: 24.0,
+              bottom: 40.0,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: SizedBox(
+                        width: 16.0,
+                        height: 16.0,
+                        child: IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () => context.router.pop(),
+                          icon: const Icon(Icons.close),
                         ),
                       ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 16.0,
-                            width: 16.0,
-                            child: CheckboxBlue(
-                              value: item.selected,
-                              onChanged: (value) =>
-                                  onChanged(value ?? false, item.id),
-                            ),
+                    ),
+                    const SizedBox(
+                      height: 2.0,
+                    ),
+                    Text(
+                      title,
+                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                            fontWeight: FontWeight.w600,
                           ),
-                          const SizedBox(width: 16.0),
-                          Expanded(child: Text(item.name))
+                    ),
+                    if (subtitle != null)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 14.0,
+                          ),
+                          Text(
+                            subtitle,
+                            style:
+                                Theme.of(context).textTheme.bodyText2?.copyWith(
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                          ),
                         ],
                       ),
+                    const SizedBox(
+                      height: 24.0,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 26.0,
-                  ),
-                ],
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text(
-                  LocalizedTexts.continueBtn.tr(),
+                    const Divider(
+                        height: 2, thickness: 2, color: AppColors.bgGreen),
+                    ...list.map(
+                      (item) => Container(
+                        padding: const EdgeInsets.symmetric(vertical: 14.0),
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom:
+                                BorderSide(width: 2, color: AppColors.bgGreen),
+                          ),
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 16.0,
+                              width: 16.0,
+                              child: CheckboxBlue(
+                                value: item.selected,
+                                onChanged: (value) =>
+                                    onChanged(value ?? false, item.id),
+                              ),
+                            ),
+                            const SizedBox(width: 16.0),
+                            Expanded(child: Text(item.name))
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 26.0,
+                    ),
+                  ],
                 ),
-              ),
-            ],
+                ElevatedButton(
+                  onPressed: onConfirmed,
+                  child: Text(
+                    LocalizedTexts.continueBtn.tr(),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
