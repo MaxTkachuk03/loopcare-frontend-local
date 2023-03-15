@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/nutrition/nutrition_instructions/domain/dialog_filter.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/nutrition_instructions/dialog_filter.dart';
 
 class ModalBottomSheet {
   static void emailConfirmed({
