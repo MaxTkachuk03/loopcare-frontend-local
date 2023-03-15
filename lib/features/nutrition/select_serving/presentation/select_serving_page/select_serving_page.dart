@@ -53,10 +53,17 @@ class _SelectServingPageState extends State<SelectServingPage> {
   _onFavouriteFilterPressed(bool value, int id) {}
 
   _onFavouritePressed() {
+    if (_isFavourite) {
+      //TODO send request to delete foodItem from favourites
+      setState(() {
+        _isFavourite = false;
+      });
+    }
     ModalBottomSheet.filterDialog(
       context: context,
       title: LocalizedTexts.addAsFavourite.translation,
-      subtitle: 'Chicken roasted or grilled serving: 1 piece (150 g)',
+      subtitle:
+          'Chicken roasted or grilled serving: 1 piece (150 g)', //TODO foodItem name + selected servingType
       onConfirmed: _onAddAsFavouriteConfirmedPressed,
       onChanged: _onFavouriteFilterPressed,
       list: const [
