@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
@@ -26,13 +25,11 @@ class BirthDatePicker extends StatelessWidget {
           ),
         ),
         child: CupertinoDatePicker(
-            mode: CupertinoDatePickerMode.date,
-            initialDateTime: DateTime.now(),
-            onDateTimeChanged: (dateTime) => selectedDate(dateTime),
-            backgroundColor: AppColors.datePickerBg,
-            dateOrder: Intl.getCurrentLocale() == 'en_US'
-                ? DatePickerDateOrder.mdy
-                : DatePickerDateOrder.dmy),
+          mode: CupertinoDatePickerMode.date,
+          initialDateTime: DateTime.now(),
+          onDateTimeChanged: (dateTime) => selectedDate(dateTime),
+          backgroundColor: AppColors.datePickerBg,
+        ),
       ),
     );
   }
