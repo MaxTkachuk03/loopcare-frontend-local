@@ -233,5 +233,11 @@
   "selected": "selected",
   "deselectAll": "Deselect all",
   "add": "Add",
-  "log": "Log"
+  "log": "Log",
+  "searchHint": "Search your food",
+  "searchFilterIn": "In:",
+  "searchFilterAll": "All",
+  "searchFilterProducts": "Products",
+  "searchFilterRecipes": "Recipes",
+  "searchFilterMy": "My Food"
 }

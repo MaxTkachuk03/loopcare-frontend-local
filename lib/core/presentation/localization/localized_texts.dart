@@ -308,6 +308,14 @@ class LocalizedTexts {
   static const String addProductDetails = 'addProductDetails';
   static const String sorryNotFound = 'sorryNotFound';
   static const String scanYourProduct = 'scanYourProduct';
+
+  //Search
+  static const String searchHint = 'searchHint';
+  static const String searchFilterIn = 'searchFilterIn';
+  static const String searchFilterAll = 'searchFilterAll';
+  static const String searchFilterProducts = 'searchFilterProducts';
+  static const String searchFilterRecipes = 'searchFilterRecipes';
+  static const String searchFilterMy = 'searchFilterMy';
 }
 
 extension StringX on String {

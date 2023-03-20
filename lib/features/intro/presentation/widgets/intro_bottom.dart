@@ -28,14 +28,14 @@ class IntroBottom extends StatelessWidget {
           child: RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
               children: [
                 TextSpan(
                   text: '${LocalizedTexts.haveAnAccount.tr()} ',
                 ),
                 TextSpan(
                   text: LocalizedTexts.logIn.tr(),
-                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         fontWeight: FontWeight.w600,
                         color: AppColors.orangeMid,
                       ),

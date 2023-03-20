@@ -29,6 +29,8 @@ class AppColors {
 
   static const Color blueLight = Color(0xFFA2E1E4);
 
+  static const Color ballBlue = Color(0xFF21ABCD);
+
   static const Color purple = Color(0xFFBDBAE3);
 
   static const Color red = Color(0xFFC20000);
