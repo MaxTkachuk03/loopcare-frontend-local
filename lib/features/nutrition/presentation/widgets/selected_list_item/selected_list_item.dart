@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/serving_type.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_serving.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_serving/food_item_servings_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/serving_input_field/serving_input_field.dart';
 
 class SelectedListItem extends StatelessWidget {
-  final ServingType item;
+  final FoodItemServing item;
   final TextEditingController inputController;
-  final void Function(ServingType item) onPressed;
+  final void Function(FoodItemServing item) onPressed;
 
   const SelectedListItem({
     Key? key,
@@ -15,6 +17,14 @@ class SelectedListItem extends StatelessWidget {
     required this.onPressed,
     required this.inputController,
   }) : super(key: key);
+
+  void _onAmountChange(BuildContext context, String value) {
+    final String amount = value.isEmpty ? '0' : value;
+
+    context
+        .read<FoodItemServingsBloc>()
+        .add(FoodItemServingsEvent.setSelectedServingAmount(amount));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +47,7 @@ class SelectedListItem extends StatelessWidget {
                 ),
                 const SizedBox(width: 8.0),
                 Text(
-                  item.name,
+                  item.servingLabel,
                   style: Theme.of(context).textTheme.caption!.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 16.0,
@@ -76,15 +86,21 @@ class SelectedListItem extends StatelessWidget {
                           ServingInputField(
                             controller: inputController,
                             fillColor: AppColors.bgGreen,
+                            onChange: (value) =>
+                                _onAmountChange(context, value),
                           ),
-                          Text(
-                            item.calories,
-                            style:
-                                Theme.of(context).textTheme.caption!.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.darkGreen,
-                                    ),
-                          )
+                          BlocBuilder<FoodItemServingsBloc,
+                                  FoodItemServingsState>(
+                              builder: (BuildContext context, state) {
+                            return Text(
+                              '${state.selectedServingCalories}',
+                              style:
+                                  Theme.of(context).textTheme.caption!.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.darkGreen,
+                                      ),
+                            );
+                          }),
                         ],
                       ),
                     ],

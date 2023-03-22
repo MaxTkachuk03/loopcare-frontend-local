@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/serving_type.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_serving.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/default_list_item/default_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/selected_list_item/selected_list_item.dart';
 
 class ServingListItem extends StatelessWidget {
-  final ServingType item;
+  final FoodItemServing item;
   final bool isSelected;
   final TextEditingController inputController;
-  final void Function(ServingType item) onPressed;
+  final void Function(FoodItemServing item) onPressed;
 
   const ServingListItem({
     Key? key,

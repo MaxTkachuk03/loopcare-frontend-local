@@ -128,6 +128,7 @@ class _LoginFormState extends State<LoginForm> {
             context: context,
             text: errorMessage,
             background: AppColors.red,
+            textColor: Colors.white,
           );
         }
       },

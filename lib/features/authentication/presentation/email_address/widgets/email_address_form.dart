@@ -161,6 +161,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
                 context: context,
                 text: errorMessage,
                 background: AppColors.red,
+                textColor: Colors.white,
               );
             },
           );

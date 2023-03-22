@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/nutrition_instructions/dialog_filter.dart';
 
 class ModalBottomSheet {
   static void emailConfirmed({
@@ -232,9 +230,8 @@ class ModalBottomSheet {
   static void filterDialog({
     required BuildContext context,
     required String title,
+    required Widget listWidget,
     String? subtitle,
-    required List<DialogFilter> list,
-    required void Function(bool value, int id) onChanged,
     VoidCallback? onConfirmed,
   }) {
     showModalBottomSheet<void>(
@@ -298,33 +295,7 @@ class ModalBottomSheet {
                     ),
                     const Divider(
                         height: 2, thickness: 2, color: AppColors.bgGreen),
-                    ...list.map(
-                      (item) => Container(
-                        padding: const EdgeInsets.symmetric(vertical: 14.0),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            bottom:
-                                BorderSide(width: 2, color: AppColors.bgGreen),
-                          ),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 16.0,
-                              width: 16.0,
-                              child: CheckboxBlue(
-                                value: item.selected,
-                                onChanged: (value) =>
-                                    onChanged(value ?? false, item.id),
-                              ),
-                            ),
-                            const SizedBox(width: 16.0),
-                            Expanded(child: Text(item.name))
-                          ],
-                        ),
-                      ),
-                    ),
+                    listWidget,
                     const SizedBox(
                       height: 26.0,
                     ),

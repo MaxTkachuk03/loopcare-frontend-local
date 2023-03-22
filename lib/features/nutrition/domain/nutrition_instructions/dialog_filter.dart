@@ -9,7 +9,6 @@ abstract class DialogFilter implements _$DialogFilter {
   const DialogFilter._();
 
   const factory DialogFilter({
-    required int id,
     required String name,
     required bool selected,
   }) = _DialogFilter;

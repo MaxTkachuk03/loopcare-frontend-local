@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class ServingInputField extends StatelessWidget {
   final TextEditingController controller;
   final Color fillColor;
+  final void Function(String) onChange;
 
   const ServingInputField({
     Key? key,
     required this.controller,
     required this.fillColor,
+    required this.onChange,
   }) : super(key: key);
 
   @override
@@ -17,6 +19,7 @@ class ServingInputField extends StatelessWidget {
       child: TextField(
         controller: controller,
         maxLength: 2,
+        onChanged: onChange,
         textAlign: TextAlign.center,
         decoration: InputDecoration(
           counterText: '',
