@@ -1,37 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/serving_type.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_serving.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_serving/food_item_servings_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/serving_list_item/serving_list_item.dart';
-
-final List<ServingType> servingsList = [
-  const ServingType(id: 0, name: 'Pieces (150 g)', calories: '125'),
-  const ServingType(id: 1, name: 'Leg  (130 g)', calories: '125'),
-  const ServingType(id: 2, name: 'Halve (220 g)', calories: '125'),
-  const ServingType(id: 3, name: 'Whole (440 g)', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-  const ServingType(id: 4, name: 'Gram', calories: '125'),
-];
 
 class ServingList extends StatefulWidget {
   const ServingList({Key? key}) : super(key: key);
@@ -41,14 +12,26 @@ class ServingList extends StatefulWidget {
 }
 
 class _ServingListState extends State<ServingList> {
-  ServingType? _selectedItem;
   final TextEditingController _amountFieldController = TextEditingController();
 
-  void _onListItemPressedHandler(ServingType item) {
-    print(item);
-    setState(() {
-      _selectedItem = item;
-    });
+  void _onListItemPressedHandler(FoodItemServing item) {
+    _amountFieldController.text = item.numberOfUnits.round().toString();
+    context
+        .read<FoodItemServingsBloc>()
+        .add(FoodItemServingsEvent.setSelectedFoodItemServing(item));
+  }
+
+  @override
+  void initState() {
+    final initialValue = context
+            .read<FoodItemServingsBloc>()
+            .state
+            .selectedServing
+            ?.numberOfUnits ??
+        '1';
+
+    _amountFieldController.text = '$initialValue';
+    super.initState();
   }
 
   @override
@@ -60,17 +43,25 @@ class _ServingListState extends State<ServingList> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: servingsList.length,
-      itemBuilder: (BuildContext context, int index) {
-        final ServingType listItem = servingsList[index];
+    return BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(
+        builder: (BuildContext context, state) {
+      if (state.servings.isEmpty) return const SizedBox();
 
-        return ServingListItem(
+      return ListView.builder(
+        itemCount: state.servings.length,
+        itemBuilder: (BuildContext context, int index) {
+          final FoodItemServing listItem = state.servings[index];
+          final isSelected =
+              state.selectedServing?.servingId == listItem.servingId;
+
+          return ServingListItem(
             item: listItem,
             onPressed: _onListItemPressedHandler,
-            isSelected: _selectedItem?.id == listItem.id,
-            inputController: _amountFieldController);
-      },
-    );
+            isSelected: isSelected,
+            inputController: _amountFieldController,
+          );
+        },
+      );
+    });
   }
 }

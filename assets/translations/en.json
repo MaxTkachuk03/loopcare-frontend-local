@@ -215,6 +215,9 @@
   "calories": "Calories",
   "amount": "Amount",
   "addAsFavourite": "Add as favorite",
+  "removeFromFavorites": "Remove from favourites",
+  "addedToFavorites": "Added to Favorites",
+  "removedFromFavorites": "Removed from Favorites",
   "myFavorites": "My favorites",
   "myDishes": "My dishes",
   "scan": "Scan",
@@ -239,5 +242,7 @@
   "searchFilterAll": "All",
   "searchFilterProducts": "Products",
   "searchFilterRecipes": "Recipes",
-  "searchFilterMy": "My Food"
+  "searchFilterMy": "My Food",
+  "inbetweens": "inbetweens & snacks",
+  "drinks": "drinks"
 }

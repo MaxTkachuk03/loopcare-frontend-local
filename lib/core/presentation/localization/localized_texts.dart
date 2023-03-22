@@ -299,6 +299,11 @@ class LocalizedTexts {
   static const String calories = 'calories';
   static const String amount = 'amount';
   static const String addAsFavourite = 'addAsFavourite';
+  static const String removeFromFavorites = 'removeFromFavorites';
+  static const String addedToFavorites = 'addedToFavorites';
+  static const String removedFromFavorites = 'removedFromFavorites';
+  static const String inbetweens = 'inbetweens';
+  static const String drinks = 'drinks';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';
@@ -307,10 +312,10 @@ class LocalizedTexts {
   static const String scanOtherProduct = 'scanOtherProduct';
   static const String addProductDetails = 'addProductDetails';
   static const String sorryNotFound = 'sorryNotFound';
-  static const String scanYourProduct = 'scanYourProduct';
 
   //Search
   static const String searchHint = 'searchHint';
+  static const String scanYourProduct = 'scanYourProduct';
   static const String searchFilterIn = 'searchFilterIn';
   static const String searchFilterAll = 'searchFilterAll';
   static const String searchFilterProducts = 'searchFilterProducts';

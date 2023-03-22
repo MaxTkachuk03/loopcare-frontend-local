@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
 
@@ -69,5 +71,10 @@ class ClickableListItem extends StatelessWidget {
 
   void _onChanged(bool? value) {}
 
-  _onTap(BuildContext context) {}
+  _onTap(BuildContext context) {
+    context.router.push(SelectServingRoute(
+        foodItemId: '38225',
+        initialServingId: '37553',
+        foodItemName: 'Black Beans'));
+  }
 }

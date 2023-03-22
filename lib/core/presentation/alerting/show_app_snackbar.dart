@@ -8,6 +8,7 @@ void showAppSnackBar({
   required String text,
   Color? background,
   VoidCallback? callback,
+  Color? textColor,
 }) async {
   final size = MediaQuery.of(context).size;
 
@@ -38,7 +39,7 @@ void showAppSnackBar({
             child: Text(
               text,
               style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                    color: AppColors.white,
+                    color: textColor,
                     fontWeight: FontWeight.w600,
                   ),
             ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/serving_type.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_serving.dart';
 
 class DefaultListItem extends StatelessWidget {
-  final ServingType item;
-  final void Function(ServingType item) onPressed;
+  final FoodItemServing item;
+  final void Function(FoodItemServing item) onPressed;
 
   const DefaultListItem({
     Key? key,
@@ -33,7 +33,7 @@ class DefaultListItem extends StatelessWidget {
                 ),
                 const SizedBox(width: 8.0),
                 Text(
-                  item.name,
+                  item.servingLabel,
                   style: Theme.of(context)
                       .textTheme
                       .caption!
@@ -42,7 +42,7 @@ class DefaultListItem extends StatelessWidget {
               ],
             ),
             Text(
-              item.calories,
+              '${item.calories}',
               style: Theme.of(context).textTheme.caption!.copyWith(
                     fontWeight: FontWeight.w400,
                     color: AppColors.greyLabel,

@@ -7,6 +7,8 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/clickable_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_instructions/dialog_filter.dart';
 
@@ -77,16 +79,17 @@ class FoodList extends StatelessWidget {
   }
 
   void _onShowMy(BuildContext context) {
-    ModalBottomSheet.filterDialog(
-      context: context,
-      title: LocalizedTexts.showMy.tr(),
-      subtitle: 'Chicken roasted or grilled serving: 1 piece (150 g)',
-      onConfirmed: () {},
-      list: [
-        DialogFilter(id: 1, name: 'Breakfast favorites', selected: false),
-        DialogFilter(id: 2, name: 'Lunch favorites', selected: true),
-      ],
-      onChanged: (bool value, int id) {},
-    );
+    final List<MealCategoryFilter> filters = MealCategory.values.map((v) {
+      return MealCategoryFilter(name: v.name, selected: false);
+    }).toList();
+
+    // ModalBottomSheet.filterDialog(
+    //   context: context,
+    //   title: LocalizedTexts.showMy.tr(),
+    //   subtitle: 'Chicken roasted or grilled serving: 1 piece (150 g)',
+    //   onConfirmed: () {},
+    //   list: filters,
+    //   onChanged: (bool value, String name) {},
+    // );
   }
 }
