@@ -69,6 +69,7 @@ class FoodItemServingsBloc
         state.copyWith(
           servings: r.data.toIList(),
           mealCategoryFilters: _initializeMealCategoryFilters(),
+          selectedServingAmount: selectedServing.numberOfUnits.toString(),
           selectedServing: selectedServing,
         ),
       );

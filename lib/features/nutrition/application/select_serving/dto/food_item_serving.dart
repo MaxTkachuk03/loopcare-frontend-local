@@ -41,6 +41,10 @@ abstract class FoodItemServing implements _$FoodItemServing {
     return '$measurementDescription ($metricServingAmount $metricServingUnit)';
   }
 
+  num caloriesAmount(String servingAmount) {
+    return (calories * double.parse(servingAmount) / numberOfUnits);
+  }
+
   factory FoodItemServing.fromJson(Map<String, dynamic> json) =>
       _$FoodItemServingFromJson(json);
 }
