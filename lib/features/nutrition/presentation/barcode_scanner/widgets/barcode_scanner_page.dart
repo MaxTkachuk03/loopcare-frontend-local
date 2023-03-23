@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
-import 'package:loopcare_frontend/features/barcode_scanner/presentation/widgets/barcode_scanner_app_bar.dart';
-import 'package:loopcare_frontend/features/barcode_scanner/presentation/widgets/info/info_widget.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/barcode_scanner_app_bar.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/info/info_widget.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class BarcodeScannerPage extends StatefulWidget {
@@ -68,7 +68,7 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
             context: context,
             backgroundColor: Colors.transparent,
             builder: (BuildContext context) {
-              return QRCodeInfoWidget(title: barCodeResult?.code ?? '');
+              return QRCodeInfoWidget(code: barCodeResult?.code ?? '');
             },
           ).whenComplete(() {
             controller?.resumeCamera();

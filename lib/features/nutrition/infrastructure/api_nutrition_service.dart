@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dto/barcode_scanner/barcode_information_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/dto/values_explanation_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_body.dart';
@@ -61,5 +62,13 @@ class APINutritionService implements NutritionService {
     return client
         .patch('/food-items/$foodItemId/favorites/$servingId', data: data)
         .then(parseResponse(AddToFavoritesResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, BarcodeInformationResponse>>
+      getBarcodeInformation(String barCode) {
+    return client
+        .get('/food-items/barcode/$barCode')
+        .then(parseResponse(BarcodeInformationResponse.fromJson));
   }
 }

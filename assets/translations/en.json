@@ -231,6 +231,8 @@
   "addProductDetails": "Add product details yourselft",
   "sorryNotFound": "Sorry, but we can not find this barcode in our system",
   "scanYourProduct": "Scan your barcode",
+  "barCodeResultCalories": "Calories: ",
+  "barCodeResultPerServing": "Per serving : ",
   "item": "item",
   "items": "items",
   "selected": "selected",
