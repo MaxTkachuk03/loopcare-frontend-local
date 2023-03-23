@@ -13,7 +13,6 @@ class BirthDatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var l = Intl.getCurrentLocale();
     return SizedBox(
       height: 262,
       child: CupertinoTheme(
