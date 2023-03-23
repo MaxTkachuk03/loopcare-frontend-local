@@ -8,22 +8,29 @@ class UnderlinedTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TabBar(
-      isScrollable: true,
-      padding: const EdgeInsets.all(0),
-      indicatorPadding: const EdgeInsets.only(right: 16),
-      labelPadding: const EdgeInsets.only(right: 16),
-      labelColor: AppColors.white,
-      labelStyle: Theme.of(context).textTheme.bodyText2?.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
-      unselectedLabelStyle: Theme.of(context).textTheme.bodyText2,
-      unselectedLabelColor: AppColors.white,
-      indicatorColor: AppColors.blueMid,
-      indicatorSize: TabBarIndicatorSize.tab,
-      indicator: const UnderlineTabIndicator(
-          borderSide: BorderSide(width: 2.0, color: AppColors.white)),
-      tabs: tabs,
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(width: 2, color: AppColors.white.withOpacity(0.3))
+        )
+      ),
+      child: TabBar(
+        isScrollable: true,
+        padding: const EdgeInsets.all(0),
+        indicatorPadding: const EdgeInsets.only(right: 16),
+        labelPadding: const EdgeInsets.only(right: 16),
+        labelColor: AppColors.white,
+        labelStyle: Theme.of(context).textTheme.bodyText2?.copyWith(
+          fontWeight: FontWeight.w600,
+        ),
+        unselectedLabelStyle: Theme.of(context).textTheme.bodyText2,
+        unselectedLabelColor: AppColors.white,
+        indicatorColor: AppColors.blueMid,
+        indicatorSize: TabBarIndicatorSize.tab,
+        indicator: const UnderlineTabIndicator(
+            borderSide: BorderSide(width: 2.0, color: AppColors.white)),
+        tabs: tabs,
+      ),
     );
   }
 }

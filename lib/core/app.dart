@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/features/legal_statement/application/legal_sta
 import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/barcode_scanner_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/food_item_servings_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
@@ -58,6 +59,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<NutritionInstructionsBloc>(
           create: (_) => getIt<NutritionInstructionsBloc>(),
+        ),
+        BlocProvider<SelectFoodBloc>(
+          create: (_) => getIt<SelectFoodBloc>(),
         ),
         BlocProvider<FoodItemServingsBloc>(
           create: (_) => getIt<FoodItemServingsBloc>(),

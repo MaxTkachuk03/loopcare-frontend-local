@@ -33,7 +33,7 @@ class _BarcodeScannerAppBarState extends State<BarcodeScannerAppBar> {
   @override
   Widget build(BuildContext context) {
     return BlueAppBar(
-      text: LocalizedTexts.scanYourProduct.tr(),
+      title: LocalizedTexts.scanYourProduct.tr(),
       leading: IconButton(
         onPressed: _flashPressed,
         icon: isFlashOn
