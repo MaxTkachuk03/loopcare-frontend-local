@@ -47,7 +47,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         innerWidget: Container(
                           color: AppColors.yellowLight,
                           child: IconButton(
-                            icon: const ImageIcon(
+                            icon: ImageIcon(
                               AppIcons.plus,
                               color: AppColors.darkGreen,
                               size: 18,
