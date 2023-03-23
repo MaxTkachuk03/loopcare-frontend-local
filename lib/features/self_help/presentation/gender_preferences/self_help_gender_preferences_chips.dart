@@ -6,7 +6,12 @@ import 'package:loopcare_frontend/features/self_help/application/dto/prefer_gend
 import 'package:loopcare_frontend/features/self_help/application/self_help_bloc.dart';
 
 class SelfHelpGenderPreferencesChips extends StatefulWidget {
-  const SelfHelpGenderPreferencesChips({Key? key}) : super(key: key);
+  final void Function(bool value) onSelected;
+
+  const SelfHelpGenderPreferencesChips({
+    Key? key,
+    required this.onSelected,
+  }) : super(key: key);
 
   @override
   State<SelfHelpGenderPreferencesChips> createState() =>
@@ -17,14 +22,15 @@ class _SelfHelpGenderPreferencesChipsState
     extends State<SelfHelpGenderPreferencesChips> {
   @override
   void initState() {
-    context
-        .read<SelfHelpBloc>()
-        .add(const SelfHelpEvent.fetchPreferGendersTypes());
+    context.read<SelfHelpBloc>()
+      ..add(const FetchPreferGendersTypes())
+      ..add(const GetUserPreferGender());
 
     super.initState();
   }
 
   void _onSelectedTypeHandler(PreferGender preferGenderType) {
+    widget.onSelected(true);
     context
         .read<SelfHelpBloc>()
         .add(SelfHelpEvent.setUserPreferGender(preferGenderType));
@@ -36,20 +42,21 @@ class _SelfHelpGenderPreferencesChipsState
       builder: (BuildContext context, state) {
         return Column(
           children: state.preferedGenderTypes
-              .map((PreferGender preferedGenderType) => Column(
-                    children: [
-                      AppChoiceChip(
-                        label:
-                            preferedGenderType.name.capitalizeOnlyFirstLetter(),
-                        selected:
-                            state.selectedType?.id == preferedGenderType.id,
-                        value: preferedGenderType,
-                        onSelected: _onSelectedTypeHandler,
-                        textAlign: TextAlign.left,
-                      ),
-                      const SizedBox(height: 8.0)
-                    ],
-                  ))
+              .map(
+                (PreferGender preferedGenderType) => Column(
+                  children: [
+                    AppChoiceChip(
+                      label:
+                          preferedGenderType.name.capitalizeOnlyFirstLetter(),
+                      selected: state.selectedType?.id == preferedGenderType.id,
+                      value: preferedGenderType,
+                      onSelected: _onSelectedTypeHandler,
+                      textAlign: TextAlign.left,
+                    ),
+                    const SizedBox(height: 8.0)
+                  ],
+                ),
+              )
               .toList(),
         );
       },
