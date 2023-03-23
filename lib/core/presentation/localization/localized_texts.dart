@@ -312,10 +312,12 @@ class LocalizedTexts {
   static const String scanOtherProduct = 'scanOtherProduct';
   static const String addProductDetails = 'addProductDetails';
   static const String sorryNotFound = 'sorryNotFound';
+  static const String scanYourProduct = 'scanYourProduct';
+  static const String barCodeResultCalories = 'barCodeResultCalories';
+  static const String barCodeResultPerServing = 'barCodeResultPerServing';
 
   //Search
   static const String searchHint = 'searchHint';
-  static const String scanYourProduct = 'scanYourProduct';
   static const String searchFilterIn = 'searchFilterIn';
   static const String searchFilterAll = 'searchFilterAll';
   static const String searchFilterProducts = 'searchFilterProducts';

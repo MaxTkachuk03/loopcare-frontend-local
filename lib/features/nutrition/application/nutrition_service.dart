@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dto/barcode_scanner/barcode_information_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/dto/values_explanation_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_response.dart';
@@ -28,5 +29,10 @@ abstract class NutritionService {
     String foodItemId,
     String? servingId,
     UpdateFavoriteBody data,
+  );
+
+  Future<Either<RequestError, BarcodeInformationResponse>>
+      getBarcodeInformation(
+    String barCode,
   );
 }

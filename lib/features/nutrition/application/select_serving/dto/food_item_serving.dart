@@ -10,14 +10,14 @@ abstract class FoodItemServing implements _$FoodItemServing {
 
   const factory FoodItemServing({
     required String? servingId,
-    required bool isSelectedFavorite,
+    required bool? isSelectedFavorite,
     required double calcium,
     required double calories,
     required double carbohydrate,
     required double cholesterol,
     required double fat,
     required double fiber,
-    required double iron,
+    required double? iron,
     required String? measurementDescription,
     required double? metricServingAmount,
     required String metricServingUnit,
@@ -32,8 +32,8 @@ abstract class FoodItemServing implements _$FoodItemServing {
     required double? sodium,
     required double? sugar,
     required double? transFat,
-    required double vitaminA,
-    required double vitaminC,
+    required double? vitaminA,
+    required double? vitaminC,
     required List<String>? favoriteMealCategories,
   }) = _FoodItemServing;
 

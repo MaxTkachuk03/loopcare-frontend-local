@@ -6,10 +6,16 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class ProductInformation extends StatelessWidget {
   final String title;
+  final String calories;
+  final String perServing;
+  final bool isReady;
 
   const ProductInformation({
     Key? key,
     required this.title,
+    required this.calories,
+    required this.perServing,
+    required this.isReady,
   }) : super(key: key);
 
   @override
@@ -37,28 +43,36 @@ class ProductInformation extends StatelessWidget {
         Expanded(
           flex: 4,
           child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              if (isReady)
                 Text(
                   title,
-                  style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                 ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Text('Calories: 80'),
-                Text('Per serving : 100 g'),
-              ]),
+              const SizedBox(height: 8),
+              if (isReady)
+                Text('${LocalizedTexts.barCodeResultCalories.tr()} $calories',
+                    style: Theme.of(context).textTheme.bodyMedium),
+              if (isReady)
+                Text(
+                    '${LocalizedTexts.barCodeResultPerServing.tr()} $perServing',
+                    style: Theme.of(context).textTheme.bodyMedium),
+            ],
+          ),
         ),
         OutlinedButton(
           style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
                 side: MaterialStateProperty.all(
-                    const BorderSide(width: 1.0, color: AppColors.black)),
+                  const BorderSide(width: 1.0, color: AppColors.black),
+                ),
               ),
           onPressed: () => context.router.pop(),
-          child: Text(LocalizedTexts.scanOtherProduct.tr()),
+          child: Text(
+            LocalizedTexts.scanOtherProduct.tr(),
+          ),
         ),
         const SizedBox(height: 14),
         OutlinedButton(
@@ -72,7 +86,7 @@ class ProductInformation extends StatelessWidget {
             LocalizedTexts.continueBtn.tr(),
             style: Theme.of(context)
                 .textTheme
-                .bodyText2
+                .bodyMedium
                 ?.copyWith(color: AppColors.white),
           ),
         ),

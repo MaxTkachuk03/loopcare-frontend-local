@@ -7,11 +7,8 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 
 class NoInformation extends StatelessWidget {
-  final String title;
-
   const NoInformation({
     Key? key,
-    required this.title,
   }) : super(key: key);
 
   @override
