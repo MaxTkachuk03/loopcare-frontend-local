@@ -1,0 +1,114 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
+
+class FavoriteListItem extends StatelessWidget {
+  final FoodItem foodItem;
+
+  const FavoriteListItem({
+    Key? key,
+    required this.foodItem,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SelectFoodBloc, SelectFoodState>(
+      builder: (BuildContext context, state) {
+        final isSelected = state.mapOrNull(
+                selectFood: (state) =>
+                    state.selectedFavoritesItems.contains(foodItem.id)) ??
+            false;
+
+        return Material(
+          child: InkWell(
+            onTap: isSelected ? null : () => _onTap(context),
+            child: Ink(
+              color: AppColors.white,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 18.0,
+                              height: 24.0,
+                              child: CheckboxBlue(
+                                value: isSelected,
+                                onChanged: (bool? value) =>
+                                    _onChanged(value, foodItem.id, context),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 14.0,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              foodItem.foodName,
+                              style:
+                                  Theme.of(context).textTheme.caption?.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                            ),
+                            Text(
+                              '${foodItem.brandName} | ${foodItem.serving.servingDescription}',
+                              style:
+                                  Theme.of(context).textTheme.caption?.copyWith(
+                                        color: AppColors.greyLabel,
+                                      ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  if (!isSelected)
+                    const ImageIcon(
+                      AppIcons.arrow,
+                      color: AppColors.greyLabel,
+                    )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _onChanged(bool? value, String id, BuildContext context) {
+    final val = value ?? false;
+    final bloc = context.read<SelectFoodBloc>();
+
+    if (val) {
+      bloc.add(SelectFoodEvent.itemAdded(id));
+    } else {
+      bloc.add(SelectFoodEvent.itemDeleted(id));
+    }
+  }
+
+  _onTap(BuildContext context) {
+    final servingId = foodItem.serving.servingId;
+
+    if (servingId == null) return;
+
+    context.router.push(SelectServingRoute(
+        foodItemId: foodItem.id,
+        initialServingId: servingId,
+        foodItemName: foodItem.foodName));
+  }
+}

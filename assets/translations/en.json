@@ -245,6 +245,9 @@
   "searchFilterProducts": "Products",
   "searchFilterRecipes": "Recipes",
   "searchFilterMy": "My Food",
-  "inbetweens": "inbetweens & snacks",
-  "drinks": "drinks"
+  "emptyList": "Your list is empty",
+  "inbetweens": "Inbetweens & snacks",
+  "c": "Drinks",
+  "favorites": "favorites",
+  "allMy": "All my"
 }

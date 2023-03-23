@@ -1,25 +1,36 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/back_button_hexagon.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/food_list.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/dishes_list.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/favorites_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/selected_items_label.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/under_appbar_container.dart';
 
-class SelectFoodPage extends StatelessWidget {
+class SelectFoodPage extends StatefulWidget {
   const SelectFoodPage({Key? key}) : super(key: key);
+
+  @override
+  State<SelectFoodPage> createState() => _SelectFoodPageState();
+}
+
+class _SelectFoodPageState extends State<SelectFoodPage> {
+  @override
+  void initState() {
+    context.read<SelectFoodBloc>().add(const SelectFoodEvent.fetchFavorites());
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: BlueAppBar(
         leading: const BackButtonHexagon(),
-        titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
-              color: AppColors.white,
-            ),
-        title: Text('${LocalizedTexts.log.tr()} lunch'),
-        backgroundColor: AppColors.blueAppBar,
+        title: '${LocalizedTexts.log.tr()} lunch',
         actions: const [SelectedItemsLabel()],
       ),
       body: SafeArea(
@@ -27,19 +38,13 @@ class SelectFoodPage extends StatelessWidget {
           length: 2,
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [
-              const UnderAppBarContainer(),
+            children: const [
+              UnderAppBarContainer(),
               Flexible(
                 child: TabBarView(
                   children: [
-                    FoodList(
-                      title: LocalizedTexts.myLunchFavorites.tr(),
-                      list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
-                    ),
-                    FoodList(
-                      title: LocalizedTexts.myLunchDishes.tr(),
-                      list: [1, 2, 3],
-                    ),
+                    FavoriteList(),
+                    DishesList(),
                   ],
                 ),
               ),

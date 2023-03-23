@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/dto/favorites_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dto/barcode_scanner/barcode_information_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/dto/values_explanation_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
@@ -23,6 +24,22 @@ class APINutritionService implements NutritionService {
     return client
         .get('/nutrition/value-explanation')
         .then(parseResponse(ValuesExplanationResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, FavoritesResponse>> getFavorites() async {
+    return client
+        .get('/food-items/favorites')
+        .then(parseResponse(FavoritesResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, FavoritesResponse>> getFilteredFavorites(
+    List<String> mealCategories,
+  ) async {
+    return client.get('/food-items/favorites', queryParameters: {
+      "mealCategories": mealCategories,
+    }).then(parseResponse(FavoritesResponse.fromJson));
   }
 
   @override

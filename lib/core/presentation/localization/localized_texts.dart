@@ -299,11 +299,14 @@ class LocalizedTexts {
   static const String calories = 'calories';
   static const String amount = 'amount';
   static const String addAsFavourite = 'addAsFavourite';
+  static const String emptyList = 'emptyList';
   static const String removeFromFavorites = 'removeFromFavorites';
   static const String addedToFavorites = 'addedToFavorites';
   static const String removedFromFavorites = 'removedFromFavorites';
   static const String inbetweens = 'inbetweens';
   static const String drinks = 'drinks';
+  static const String favorites = 'favorites';
+  static const String allMy = 'allMy';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';
