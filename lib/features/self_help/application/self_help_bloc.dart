@@ -40,7 +40,9 @@ class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
     response.fold(
       (l) => null,
       (r) => emit(
-        state.copyWith(preferedGenderTypes: r.data.toIList()),
+        state.copyWith(
+          preferedGenderTypes: r.data.toIList(),
+        ),
       ),
     );
   }
@@ -71,9 +73,11 @@ class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
     SetUserPreferGender event,
     Emitter<SelfHelpState> emit,
   ) {
-    emit(state.copyWith(
-      selectedType: event.preferGender,
-    ));
+    emit(
+      state.copyWith(
+        selectedType: event.preferGender,
+      ),
+    );
   }
 
   Future<FutureOr<void>> _onGetPreferGender(
@@ -83,13 +87,16 @@ class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
     final response = await userPreferGenderService.getUserPreferGenderType();
 
     response.fold(
-        (l) => emit(
-              state.copyWith(isCompleted: false),
-            ),
-        (r) => emit(state.copyWith(
-              selectedType: PreferGender(id: r.id, name: r.name),
-              isCompleted: true,
-            )));
+      (l) => emit(
+        state.copyWith(isCompleted: false),
+      ),
+      (r) => emit(
+        state.copyWith(
+          selectedType: PreferGender(id: r.id, name: r.name),
+          isCompleted: true,
+        ),
+      ),
+    );
   }
 
   @override
