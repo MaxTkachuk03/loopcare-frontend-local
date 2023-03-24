@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/features/authentication/presentation/name/name
 import 'package:loopcare_frontend/features/authentication/presentation/password/password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/reset_password/reset_password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/waiting_for_confirmation/waiting_for_confirmation_page.dart';
+
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/consent_confirmation_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/no_consent_page.dart';
 import 'package:loopcare_frontend/features/diabetes/presentation/diabetes/diabetes_page.dart';
@@ -35,8 +36,10 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/stomach_
 import 'package:loopcare_frontend/features/medical_fitness/presentation/stomach_reduction_failed/presentation/stomach_reduction_failed_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor/presentation/treatment_by_doctor_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor_failled/presentation/treatment_by_doctor_failled_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/barcode_scanner_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/select_food/select_food_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/dashboard_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_value/nutrition_value_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/nutrition_instructions_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/biological_gender/biological_gender_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/birthday/birthday_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/check_failed_age/check_failed_age.dart';
@@ -47,6 +50,7 @@ import 'package:loopcare_frontend/features/physical_fitness/presentation/weight/
 import 'package:loopcare_frontend/features/authentication/presentation/welcome/sign_up_welcome_page.dart';
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/preferences_overview_page.dart';
 import 'package:loopcare_frontend/features/proxy/proxy_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/select_serving_page/select_serving_page.dart';
 import 'package:loopcare_frontend/features/self_help/presentation/gender_preferences/self_help_gender_preferences_page.dart';
 import 'package:loopcare_frontend/features/self_help/presentation/intro/self_help_intro_page.dart';
 import 'package:loopcare_frontend/features/self_help/presentation/ready/self_help_ready_page.dart';
@@ -278,14 +282,26 @@ part 'app_routes.dart';
       path: AppRoutes.diabetesSummary,
       page: SummaryPage,
     ),
+    AutoRoute(
+      path: AppRoutes.barcodeScanner,
+      page: BarcodeScannerPage,
+    ),
     //Nutrition
     AutoRoute(
       path: AppRoutes.nutritionDashboard,
       page: DashboardPage,
     ),
     AutoRoute(
-      path: AppRoutes.nutritionValues,
-      page: NutritionValuePage,
+      path: AppRoutes.nutritionInstructions,
+      page: NutritionInstructionsPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.selectFood,
+      page: SelectFoodPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.selectServing,
+      page: SelectServingPage,
     ),
   ],
 )

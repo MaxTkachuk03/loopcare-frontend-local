@@ -3,8 +3,14 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/features/nutrition/application/dto/values_explanation_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/dto/favorites_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dto/barcode_scanner/barcode_information_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/dto/values_explanation_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_servings_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/update_favorite_body.dart';
 
 @Injectable(as: NutritionService)
 class APINutritionService implements NutritionService {
@@ -18,5 +24,68 @@ class APINutritionService implements NutritionService {
     return client
         .get('/nutrition/value-explanation')
         .then(parseResponse(ValuesExplanationResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, FavoritesResponse>> getFavorites() async {
+    return client
+        .get('/food-items/favorites')
+        .then(parseResponse(FavoritesResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, FavoritesResponse>> getFilteredFavorites(
+    List<String> mealCategories,
+  ) async {
+    return client.get('/food-items/favorites', queryParameters: {
+      "mealCategories": mealCategories,
+    }).then(parseResponse(FavoritesResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, FoodItemServingsResponse>> getFoodItemServings(
+      String id) async {
+    return client
+        .get('/food-items/$id/servings')
+        .then(parseResponse(FoodItemServingsResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, AddToFavoritesResponse>> addToFavorites(
+    String foodItemId,
+    AddToFavoritesBody data,
+  ) {
+    return client
+        .post('/food-items/$foodItemId/favorites', data: data)
+        .then(parseResponse(AddToFavoritesResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, AddToFavoritesResponse>> removeFromFavorites(
+    String foodItemId,
+    String? servingId,
+  ) {
+    return client
+        .delete('/food-items/$foodItemId/favorites/$servingId')
+        .then(parseResponse(AddToFavoritesResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, AddToFavoritesResponse>> updateFavorites(
+    String foodItemId,
+    String? servingId,
+    UpdateFavoriteBody data,
+  ) {
+    return client
+        .patch('/food-items/$foodItemId/favorites/$servingId', data: data)
+        .then(parseResponse(AddToFavoritesResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, BarcodeInformationResponse>>
+      getBarcodeInformation(String barCode) {
+    return client
+        .get('/food-items/barcode/$barCode')
+        .then(parseResponse(BarcodeInformationResponse.fromJson));
   }
 }

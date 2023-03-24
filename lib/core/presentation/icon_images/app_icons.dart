@@ -13,6 +13,12 @@ class AppIcons {
   static const AssetImage arrow = AssetImage('$iconsFilePath/arrow.png');
   static const AssetImage checkmark =
       AssetImage('$iconsFilePath/checkmark.png');
+  static const AssetImage list =
+      AssetImage('$iconsFilePath/list.png');
+  static const AssetImage scan =
+      AssetImage('$iconsFilePath/scan.png');
+  static const AssetImage plus =
+      AssetImage('$iconsFilePath/plus.png');
 
   AppIcons._();
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -9,6 +10,7 @@ class Field extends StatefulWidget {
   final bool? obscureText;
   final AssetImage? prefixIcon;
   final bool? isToggleEye;
+  final bool? isClearField;
   final int? maxLength;
   final String? errorText;
   final FormFieldValidator<String>? validator;
@@ -25,6 +27,7 @@ class Field extends StatefulWidget {
     this.maxLength,
     this.errorText,
     this.isToggleEye,
+    this.isClearField,
     this.validator,
     this.onChanged,
     this.contentPadding,
@@ -67,7 +70,13 @@ class _FieldState extends State<Field> {
                 color: _isObscureText ? AppColors.greyMid : AppColors.darkGreen,
                 onPressed: _toggleEye,
               )
-            : null,
+            : widget.isClearField ?? false
+                ? IconButton(
+                    icon: const Icon(CupertinoIcons.clear_thick_circled),
+                    color: AppColors.greyMid,
+                    onPressed: _clearField,
+                  )
+                : null,
       ),
       validator: widget.validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -78,6 +87,12 @@ class _FieldState extends State<Field> {
   _toggleEye() {
     setState(() {
       _isObscureText = !_isObscureText;
+    });
+  }
+
+  _clearField() {
+    setState(() {
+      widget.controller?.clear();
     });
   }
 }
