@@ -48,7 +48,7 @@ class SelectedListItem extends StatelessWidget {
                 const SizedBox(width: 8.0),
                 Text(
                   item.servingLabel,
-                  style: Theme.of(context).textTheme.caption!.copyWith(
+                  style: Theme.of(context).textTheme.caption?.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 16.0,
                         color: AppColors.blueDark,
@@ -69,12 +69,12 @@ class SelectedListItem extends StatelessWidget {
                         children: [
                           Text(LocalizedTexts.amount.translation,
                               style:
-                                  Theme.of(context).textTheme.caption!.copyWith(
+                                  Theme.of(context).textTheme.caption?.copyWith(
                                         fontSize: 12.0,
                                       )),
                           Text(LocalizedTexts.calories.translation,
                               style:
-                                  Theme.of(context).textTheme.caption!.copyWith(
+                                  Theme.of(context).textTheme.caption?.copyWith(
                                         fontSize: 12.0,
                                       )),
                         ],
@@ -95,7 +95,7 @@ class SelectedListItem extends StatelessWidget {
                             return Text(
                               '${state.selectedServingCalories}',
                               style:
-                                  Theme.of(context).textTheme.caption!.copyWith(
+                                  Theme.of(context).textTheme.caption?.copyWith(
                                         fontWeight: FontWeight.w600,
                                         color: AppColors.darkGreen,
                                       ),

@@ -299,6 +299,12 @@ class LocalizedTexts {
   static const String calories = 'calories';
   static const String amount = 'amount';
   static const String addAsFavourite = 'addAsFavourite';
+  static const String addFoodItem = 'addFoodItem';
+  static const String saveToMyDishes = 'saveToMyDishes';
+  static const String viewRecipe = 'viewRecipe';
+  static const String ingredientsBasedOn = 'ingredientsBasedOn';
+  static const String portionMeal = 'portionMeal';
+  static const String totalEnergy = 'totalEnergy';
   static const String emptyList = 'emptyList';
   static const String removeFromFavorites = 'removeFromFavorites';
   static const String addedToFavorites = 'addedToFavorites';
@@ -307,6 +313,8 @@ class LocalizedTexts {
   static const String drinks = 'drinks';
   static const String favorites = 'favorites';
   static const String allMy = 'allMy';
+  static const String showNutritionValue = 'showNutritionValue';
+  static const String recipe = 'recipe';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';

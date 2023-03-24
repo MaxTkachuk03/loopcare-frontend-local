@@ -42,9 +42,9 @@ class CalorieDensityScale extends StatelessWidget {
           begin: _useHorizontal ? Alignment.centerLeft : Alignment.bottomCenter,
           end: _useHorizontal ? Alignment.centerRight : Alignment.topCenter,
           colors: const [
-            AppColors.caloriesDensityGradiendStart,
-            AppColors.caloriesDensityGradiendMid,
-            AppColors.caloriesDensityGradiendEnd,
+            AppColors.caloriesDensityGradientStart,
+            AppColors.caloriesDensityGradientMid,
+            AppColors.caloriesDensityGradientEnd,
           ],
         ),
       ),

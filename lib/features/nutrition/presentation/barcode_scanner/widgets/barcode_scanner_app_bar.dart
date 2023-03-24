@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -33,7 +32,7 @@ class _BarcodeScannerAppBarState extends State<BarcodeScannerAppBar> {
   @override
   Widget build(BuildContext context) {
     return BlueAppBar(
-      title: LocalizedTexts.scanYourProduct.tr(),
+      title: LocalizedTexts.scanYourProduct.translation,
       leading: IconButton(
         onPressed: _flashPressed,
         icon: isFlashOn
