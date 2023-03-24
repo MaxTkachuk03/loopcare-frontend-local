@@ -80,6 +80,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
         text: LocalizedTexts.forgotEmailSuccessMessage.tr(namedArgs: {
           'email': state.maybeMap(guest: (s) => s.email ?? '', orElse: () => '')
         }),
+        textColor: Colors.white,
         callback: () => context.router.pop(),
       );
     });

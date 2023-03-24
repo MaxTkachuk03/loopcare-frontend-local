@@ -128,6 +128,7 @@ class _LoginFormState extends State<LoginForm> {
             context: context,
             text: errorMessage,
             background: AppColors.red,
+            textColor: Colors.white,
           );
         }
       },
@@ -137,7 +138,7 @@ class _LoginFormState extends State<LoginForm> {
   void _navigationListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(
       authenticated: (state) {
-        context.router.replaceAll([const PreferencesOverviewRoute()]);
+        context.router.replaceAll([const DashboardRoute()]);
       },
     );
   }

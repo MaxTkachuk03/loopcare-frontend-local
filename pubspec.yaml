@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: 'none'
 
-version: 1.0.4+5
+version: 1.0.5+6
 
 environment:
   sdk: '>=2.18.4 <3.0.0'
@@ -33,6 +33,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   firebase_core: ^2.5.0
   fast_immutable_collections: ^8.2.0
+  qr_code_scanner: ^1.0.1
 
 dev_dependencies:
   build_runner: ^2.3.2

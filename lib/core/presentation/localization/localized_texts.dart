@@ -279,10 +279,53 @@ class LocalizedTexts {
   static const String proteinDegree = 'proteinDegree';
   static const String whatIsCalorieDensity = 'whatIsCalorieDensity';
   static const String whatIsProtein = 'whatIsProtein';
-  static const String calorieDensityExplanationOne =
-      'calorieDensityExplanationOne';
   static const String calorieDensityExplanationTwo =
       'calorieDensityExplanationTwo';
+  static const String calorieDensityExplanationOne =
+      'calorieDensityExplanationOne';
+  static const String searchYourFood = 'searchYourFood';
+  static const String myFavorites = 'myFavorites';
+  static const String myDishes = 'myDishes';
+  static const String scan = 'scan';
+  static const String myLunchFavorites = 'myLunchFavorites';
+  static const String myLunchDishes = 'myLunchDishes';
+  static const String showMy = 'showMy';
+  static const String item = 'item';
+  static const String items = 'items';
+  static const String selected = 'selected';
+  static const String deselectAll = 'deselectAll';
+  static const String add = 'add';
+  static const String log = 'log';
+  static const String calories = 'calories';
+  static const String amount = 'amount';
+  static const String addAsFavourite = 'addAsFavourite';
+  static const String emptyList = 'emptyList';
+  static const String removeFromFavorites = 'removeFromFavorites';
+  static const String addedToFavorites = 'addedToFavorites';
+  static const String removedFromFavorites = 'removedFromFavorites';
+  static const String inbetweens = 'inbetweens';
+  static const String drinks = 'drinks';
+  static const String favorites = 'favorites';
+  static const String allMy = 'allMy';
+
+  //QR Code
+  static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';
+  static const String qrCodeSubtext_2 = 'qrCodeSubtext_2';
+  static const String qrCodeSubtext_3 = 'qrCodeSubtext_3';
+  static const String scanOtherProduct = 'scanOtherProduct';
+  static const String addProductDetails = 'addProductDetails';
+  static const String sorryNotFound = 'sorryNotFound';
+  static const String scanYourProduct = 'scanYourProduct';
+  static const String barCodeResultCalories = 'barCodeResultCalories';
+  static const String barCodeResultPerServing = 'barCodeResultPerServing';
+
+  //Search
+  static const String searchHint = 'searchHint';
+  static const String searchFilterIn = 'searchFilterIn';
+  static const String searchFilterAll = 'searchFilterAll';
+  static const String searchFilterProducts = 'searchFilterProducts';
+  static const String searchFilterRecipes = 'searchFilterRecipes';
+  static const String searchFilterMy = 'searchFilterMy';
 }
 
 extension StringX on String {

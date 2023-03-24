@@ -95,4 +95,38 @@ class DioClient {
           onReceiveProgress: onReceiveProgress,
         ));
   }
+
+  Future<Either<RequestError, Response<dynamic>>> delete(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    String? baseUrl,
+    CancelToken? cancelToken,
+  }) async {
+    return process(() => dio.delete(
+          path,
+          data: data,
+          queryParameters: queryParameters,
+          options: options,
+          cancelToken: cancelToken,
+        ));
+  }
+
+  Future<Either<RequestError, Response<dynamic>>> patch(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    String? baseUrl,
+    CancelToken? cancelToken,
+  }) async {
+    return process(() => dio.patch(
+          path,
+          data: data,
+          queryParameters: queryParameters,
+          options: options,
+          cancelToken: cancelToken,
+        ));
+  }
 }

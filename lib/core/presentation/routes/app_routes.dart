@@ -58,8 +58,13 @@ class AppRoutes {
   static const String diabetes = '/diabetes';
   static const String diabetesDisclaimer = '/diabetes-disclaimer';
   static const String diabetesSummary = '/diabetes-summary';
+//Barcode Scanner
+  static const String barcodeScanner = '/barcode-scanner';
+
   // Nutrition
   static const String nutritionDashboard = '/nutrition-dashboard';
-  static const String nutritionValues = '/nutrition-values';
+  static const String nutritionInstructions = '/nutrition-instructions';
+  static const String selectFood = '/select-food';
+  static const String selectServing = '/select-serving';
   AppRoutes._();
 }

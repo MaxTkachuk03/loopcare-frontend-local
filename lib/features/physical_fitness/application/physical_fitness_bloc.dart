@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -9,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measuremen
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/dto/add_physical_survey.dart';
+import 'package:loopcare_frontend/features/physical_fitness/application/dto/registratio_physical_fitness_data.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_service.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/biological_gender_type.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
@@ -110,10 +112,12 @@ class PhysicalFitnessBloc
       final bool isValidBmi =
           BmiValidator.isUserAllowToProceed(state.age!, state.bmi);
 
-      emit(state.copyWith(
-        isCompletedSuccessfully: isValidBmi,
-        currentQuestion: isValidBmi ? nextQuestion : currentQuestion,
-      ));
+      emit(
+        state.copyWith(
+          isCompletedSuccessfully: isValidBmi,
+          currentQuestion: isValidBmi ? nextQuestion : currentQuestion,
+        ),
+      );
 
       if (isValidBmi) {
         onboardingBloc.add(
@@ -148,10 +152,12 @@ class PhysicalFitnessBloc
       ));
     }
 
-    onboardingBloc.add(OnboardingEvent.currentStepChanged(
-      progress: previousQuestion.percentage.toInt(),
-      questionIndex: previousQuestion.index,
-    ));
+    onboardingBloc.add(
+      OnboardingEvent.currentStepChanged(
+        progress: previousQuestion.percentage.toInt(),
+        questionIndex: previousQuestion.index,
+      ),
+    );
   }
 
   FutureOr<void> _onHeightChanged(
