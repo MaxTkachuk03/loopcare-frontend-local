@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -25,7 +24,7 @@ class UnderAppBarContainer extends StatelessWidget {
             height: 38,
             child: NutritionField(
               readOnly: true,
-              hintText: LocalizedTexts.searchYourFood.tr(),
+              hintText: LocalizedTexts.searchYourFood.translation,
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 0, horizontal: 16.0),
               prefixIcon: const Icon(
@@ -46,10 +45,10 @@ class UnderAppBarContainer extends StatelessWidget {
                   child: UnderlinedTabBar(
                     tabs: [
                       Tab(
-                        text: LocalizedTexts.myFavorites.tr(),
+                        text: LocalizedTexts.myFavorites.translation,
                       ),
                       Tab(
-                        text: LocalizedTexts.myDishes.tr(),
+                        text: LocalizedTexts.myDishes.translation,
                       ),
                     ],
                   ),
@@ -59,7 +58,7 @@ class UnderAppBarContainer extends StatelessWidget {
                     context.router.pushNamed(AppRoutes.barcodeScanner);
                   },
                   icon: const ImageIcon(AppIcons.scan),
-                  label: Text(LocalizedTexts.scan.tr()),
+                  label: Text(LocalizedTexts.scan.translation),
                   style: TextButton.styleFrom(
                       padding: const EdgeInsets.all(0),
                       minimumSize: const Size(0, 0),

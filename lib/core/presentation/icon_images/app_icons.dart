@@ -19,6 +19,10 @@ class AppIcons {
       AssetImage('$iconsFilePath/scan.png');
   static const AssetImage plus =
       AssetImage('$iconsFilePath/plus.png');
+  static const AssetImage dish =
+      AssetImage('$iconsFilePath/dish.png');
+  static const AssetImage chef =
+      AssetImage('$iconsFilePath/chef.png');
 
   AppIcons._();
 }

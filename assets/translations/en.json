@@ -239,6 +239,12 @@
   "deselectAll": "Deselect all",
   "add": "Add",
   "log": "Log",
+  "addFoodItem": "Add food item",
+  "saveToMyDishes": "Save to My dishes",
+  "viewRecipe": "View recipe",
+  "ingredientsBasedOn": "ingredients based on",
+  "portionMeal": "{numberOfPortion} portion meal",
+  "totalEnergy": "total energy",
   "searchHint": "Search your food",
   "searchFilterIn": "In:",
   "searchFilterAll": "All",
@@ -249,5 +255,7 @@
   "inbetweens": "Inbetweens & snacks",
   "c": "Drinks",
   "favorites": "favorites",
-  "allMy": "All my"
+  "allMy": "All my",
+  "showNutritionValue": "Show nutrition value",
+  "recipe": "Recipe"
 }

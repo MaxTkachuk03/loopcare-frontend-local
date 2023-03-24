@@ -7,7 +7,7 @@ class ScaleItem extends StatelessWidget {
   final double density;
   final Color separatorColor;
   final bool useHorizontalLayout;
-  final double minimalPosibleValue = 0.99;
+  final double minimalPossibleValue = 0.99;
   final double? separatorSize;
 
   const ScaleItem({

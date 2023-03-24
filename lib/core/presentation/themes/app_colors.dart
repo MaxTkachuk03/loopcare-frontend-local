@@ -51,11 +51,11 @@ class AppColors {
 
   static const Color appBarBgColor = Color(0xFF9C9F4E);
 
-  static const Color caloriesDensityGradiendStart = Color(0xFF24CB34);
+  static const Color caloriesDensityGradientStart = Color(0xFF24CB34);
 
-  static const Color caloriesDensityGradiendMid = Color(0xFFEA9456);
+  static const Color caloriesDensityGradientMid = Color(0xFFEA9456);
 
-  static const Color caloriesDensityGradiendEnd = Color(0xFFB6111D);
+  static const Color caloriesDensityGradientEnd = Color(0xFFB6111D);
 
   AppColors._();
 }

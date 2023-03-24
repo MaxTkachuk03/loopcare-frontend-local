@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart'
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 
 class ModalBottomSheet {
@@ -228,6 +229,84 @@ class ModalBottomSheet {
     );
   }
 
+  static void nutrientFactsDialog({
+    required BuildContext context,
+    required List<dynamic> list,
+    required void Function(dynamic item) onSelect,
+  }) {
+    showModalBottomSheet<void>(
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.only(
+            top: 32.0,
+            left: 40.0,
+            right: 24.0,
+            bottom: 40.0,
+          ),
+          child: Wrap(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: SizedBox(
+                      width: 16.0,
+                      height: 16.0,
+                      child: IconButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () => context.router.pop(),
+                        icon: const Icon(Icons.close),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 2.0,
+                  ),
+                  Text(
+                    LocalizedTexts.showNutritionValue.translation,
+                    style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                  const SizedBox(
+                    height: 24.0,
+                  ),
+                  const Divider(
+                    height: 2,
+                    thickness: 2,
+                    color: AppColors.bgGreen,
+                  ),
+                  ...list.map(
+                    (item) => InkWell(
+                      onTap: () => onSelect(item),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 14.0),
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom:
+                                BorderSide(width: 2, color: AppColors.bgGreen),
+                          ),
+                        ),
+                        child: Text('Test'),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 56.0,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   static void filterDialog({
     required BuildContext context,
     required String title,
@@ -357,7 +436,7 @@ class ModalBottomSheet {
     );
   }
 
-  static void filterDialogFavorites({
+  static void filterDialogServings({
     required BuildContext context,
     required String title,
     required Widget listWidget,

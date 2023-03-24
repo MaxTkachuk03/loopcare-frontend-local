@@ -43,7 +43,7 @@ class DefaultListItem extends StatelessWidget {
             ),
             Text(
               '${item.calories}',
-              style: Theme.of(context).textTheme.caption!.copyWith(
+              style: Theme.of(context).textTheme.caption?.copyWith(
                     fontWeight: FontWeight.w400,
                     color: AppColors.greyLabel,
                   ),
