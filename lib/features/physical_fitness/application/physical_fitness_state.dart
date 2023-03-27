@@ -25,15 +25,18 @@ class PhysicalFitnessState with _$PhysicalFitnessState {
     BiologicalGenderType? biologicalGenderType,
   }) = _PhysicalFitnessState;
 
-  RegistrationPhysicalFitnessData get registrationPhysicalFitnessData =>
-      RegistrationPhysicalFitnessData(
-        birthday: birthday?.toIso8601String() ?? '',
-        bmi: bmi as int,
-        height: int.parse(heightInCm ?? '0'),
-        gender: describeEnum(sexType as SexType),
-        weight: int.parse(weightInKg ?? '0'),
-        bioGender: describeEnum(biologicalGenderType as BiologicalGenderType),
-      );
+  RegistrationPhysicalFitnessData get registrationPhysicalFitnessData {
+    return RegistrationPhysicalFitnessData(
+      birthday: birthday?.toIso8601String() ?? '',
+      bmi: bmi as int,
+      height: int.parse(heightInCm ?? '0'),
+      gender: describeEnum(sexType as SexType),
+      weight: int.parse(weightInKg ?? '0'),
+      bioGender: biologicalGenderType != null
+          ? describeEnum(biologicalGenderType as BiologicalGenderType)
+          : 'preferNotToSay',
+    );
+  }
 
   factory PhysicalFitnessState.fromJson(Map<String, dynamic> json) =>
       _$PhysicalFitnessStateFromJson(json);
