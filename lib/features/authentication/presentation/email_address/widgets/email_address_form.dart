@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
+import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 
 const userAlreadyExists = 'user_with_this_email_already_exists';
 
@@ -91,7 +92,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
             ),
             const SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: _isDisabled ? null : _onRegisterPressed,
+              onPressed: () => _isDisabled ? null : _onRegisterPressed(context),
               child: Text(LocalizedTexts.register.tr()),
             ),
           ],
@@ -109,12 +110,19 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
     });
   }
 
-  void _onRegisterPressed() {
+  void _onRegisterPressed(BuildContext context) {
     setState(() {
       emailErrorText = null;
     });
+    final registrationPhysicalFitnessData = context
+        .read<PhysicalFitnessBloc>()
+        .state
+        .registrationPhysicalFitnessData;
 
-    context.read<AuthenticationCubit>().signUp(_emailController.text);
+    context.read<AuthenticationCubit>().signUp(
+          _emailController.text,
+          registrationPhysicalFitnessData,
+        );
   }
 
   void _onTermsAndConditionsTap() {}

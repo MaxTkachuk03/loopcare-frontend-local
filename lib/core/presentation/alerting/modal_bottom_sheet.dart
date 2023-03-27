@@ -5,7 +5,6 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart'
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 
 class ModalBottomSheet {
@@ -436,7 +435,7 @@ class ModalBottomSheet {
     );
   }
 
-  static void filterDialogServings({
+  static void filterDialogFavorites({
     required BuildContext context,
     required String title,
     required Widget listWidget,

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -53,7 +54,7 @@ class NoInformation extends StatelessWidget {
             ),
             Text(
               textAlign: TextAlign.center,
-              LocalizedTexts.sorryNotFound.translation,
+              LocalizedTexts.sorryNotFound.tr(),
               style: Theme.of(context).textTheme.bodyText2?.copyWith(
                     fontWeight: FontWeight.w600,
                     color: AppColors.orangeDark,
@@ -68,7 +69,7 @@ class NoInformation extends StatelessWidget {
                     const BorderSide(width: 1.0, color: AppColors.black)),
               ),
           onPressed: () => context.router.pop(),
-          child: Text(LocalizedTexts.scanOtherProduct.translation),
+          child: Text(LocalizedTexts.scanOtherProduct.tr()),
         ),
       ],
     );

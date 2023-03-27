@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -25,7 +26,7 @@ class FooterOverlay extends StatelessWidget {
               final count = state.selectedFavoritesItemsLength;
 
               return Text(
-                '$count ${count > 1 ? LocalizedTexts.items.translation : LocalizedTexts.item.translation} ${LocalizedTexts.selected.translation}',
+                '$count ${count > 1 ? LocalizedTexts.items.tr() : LocalizedTexts.item.tr()} ${LocalizedTexts.selected.tr()}',
                 style: Theme.of(context)
                     .textTheme
                     .caption
@@ -41,7 +42,7 @@ class FooterOverlay extends StatelessWidget {
               Expanded(
                 child: OutlinedButton(
                   onPressed: () => _onDeselectAll(context),
-                  child: Text(LocalizedTexts.deselectAll.translation),
+                  child: Text(LocalizedTexts.deselectAll.tr()),
                 ),
               ),
               const SizedBox(
@@ -50,7 +51,7 @@ class FooterOverlay extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   onPressed: _onAdd,
-                  child: Text(LocalizedTexts.add.translation),
+                  child: Text(LocalizedTexts.add.tr()),
                 ),
               ),
             ],

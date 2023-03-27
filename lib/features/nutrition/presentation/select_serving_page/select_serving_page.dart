@@ -213,7 +213,7 @@ class _SelectServingPageState extends State<SelectServingPage> {
           state.filtersForSelectedServing,
         ));
 
-    ModalBottomSheet.filterDialogServings(
+    ModalBottomSheet.filterDialogFavorites(
       context: context,
       title: title,
       subtitle: subTitle,

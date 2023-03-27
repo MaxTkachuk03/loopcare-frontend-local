@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
@@ -8,6 +9,10 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/application/dto/forgot_password_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/login_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
+import 'package:loopcare_frontend/features/physical_fitness/application/dto/registratio_physical_fitness_data.dart';
+import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
+import 'package:loopcare_frontend/features/physical_fitness/domain/biological_gender_type.dart';
+import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
 
 @singleton
 class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
@@ -20,7 +25,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     this._authenticationService,
     this.client,
     this.authTokenManager,
-  ) : super(const AuthenticationState.guest()){
+  ) : super(const AuthenticationState.guest()) {
     hydrate();
     _accessTokenSubscription = authTokenManager.addListener((token) {
       if (token == null) {
@@ -48,12 +53,16 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
         authTokenManager.setAccessToken(response.accessToken);
         authTokenManager.setRefreshToken(response.refreshToken);
 
-        emit(AuthenticationState.authenticated(Account(
-          id: response.id,
-          name: response.name,
-          email: response.email,
-          country: response.country,
-        )));
+        emit(
+          AuthenticationState.authenticated(
+            Account(
+              id: response.id,
+              name: response.name,
+              email: response.email,
+              country: response.country,
+            ),
+          ),
+        );
       },
     );
   }
@@ -78,7 +87,8 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     });
   }
 
-  void signUp(String email) async {
+  void signUp(String email,
+      RegistrationPhysicalFitnessData registrationPhysicalFitnessData) async {
     state.mapOrNull(
       emailAddress: (state) async {
         final data = SignUpData(
@@ -87,21 +97,31 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
           password: state.password,
           isConsentApproved: true,
           isLegalApproved: true,
+          bmi: registrationPhysicalFitnessData.bmi,
+          height: registrationPhysicalFitnessData.height,
+          weight: registrationPhysicalFitnessData.weight,
+          birthDate: registrationPhysicalFitnessData.birthday,
+          bioGender: registrationPhysicalFitnessData.bioGender,
+          gender: registrationPhysicalFitnessData.gender,
         );
 
         final response = await _authenticationService.signUp(data);
 
         response.fold(
           (error) {
-            emit(state.copyWith(error: error));
+            emit(
+              state.copyWith(error: error),
+            );
           },
           (response) {
-            emit(AuthenticationState.waitedForConfirmation(
-              email: data.email,
-              accountId: response.id,
-              name: state.name,
-              password: state.password,
-            ));
+            emit(
+              AuthenticationState.waitedForConfirmation(
+                email: data.email,
+                accountId: response.id,
+                name: state.name,
+                password: state.password,
+              ),
+            );
           },
         );
       },
@@ -110,7 +130,8 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
 
   void resendEmail() async {
     state.mapOrNull(waitedForConfirmation: (state) async {
-      final response = await _authenticationService.resendSignUp(state.accountId);
+      final response =
+          await _authenticationService.resendSignUp(state.accountId);
 
       response.leftMap(
         (error) {

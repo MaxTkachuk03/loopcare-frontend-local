@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -39,7 +40,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
               padding: const EdgeInsets.fromLTRB(25, 8, 0, 8),
               child: Field(
                 contentPadding: const EdgeInsets.only(left: 12),
-                hintText: LocalizedTexts.searchHint.translation,
+                hintText: LocalizedTexts.searchHint.tr(),
                 controller: _searchTextController,
                 isClearField: true,
               ),
@@ -64,7 +65,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                 Padding(
                   padding: const EdgeInsets.only(left: 25, right: 8),
                   child: Text(
-                    LocalizedTexts.searchFilterIn.translation,
+                    LocalizedTexts.searchFilterIn.tr(),
                     style: Theme.of(context).textTheme.bodyText2?.copyWith(
                           color: AppColors.white,
                         ),
@@ -72,10 +73,10 @@ class _SearchAppBarState extends State<SearchAppBar> {
                 ),
                 UnderlinedTabBar(
                   tabs: [
-                    Tab(text: LocalizedTexts.searchFilterAll.translation),
-                    Tab(text: LocalizedTexts.searchFilterProducts.translation),
-                    Tab(text: LocalizedTexts.searchFilterRecipes.translation),
-                    Tab(text: LocalizedTexts.searchFilterMy.translation),
+                    Tab(text: LocalizedTexts.searchFilterAll.tr()),
+                    Tab(text: LocalizedTexts.searchFilterProducts.tr()),
+                    Tab(text: LocalizedTexts.searchFilterRecipes.tr()),
+                    Tab(text: LocalizedTexts.searchFilterMy.tr()),
                   ],
                 ),
               ],

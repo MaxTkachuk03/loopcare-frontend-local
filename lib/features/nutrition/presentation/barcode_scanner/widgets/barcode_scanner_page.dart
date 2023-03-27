@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -112,21 +113,21 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
                       children: [
                         BulletListItem(
                           text: Text(
-                            LocalizedTexts.qrCodeSubtext_1.translation,
+                            LocalizedTexts.qrCodeSubtext_1.tr(),
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
                           bulletSize: 18.0,
                         ),
                         BulletListItem(
                           text: Text(
-                            LocalizedTexts.qrCodeSubtext_2.translation,
+                            LocalizedTexts.qrCodeSubtext_2.tr(),
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
                           bulletSize: 18.0,
                         ),
                         BulletListItem(
                           text: Text(
-                            LocalizedTexts.qrCodeSubtext_3.translation,
+                            LocalizedTexts.qrCodeSubtext_3.tr(),
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
                           bulletSize: 18.0,

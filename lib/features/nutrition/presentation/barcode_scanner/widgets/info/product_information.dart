@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -53,11 +54,11 @@ class ProductInformation extends StatelessWidget {
                 ),
               const SizedBox(height: 8),
               if (isReady)
-                Text('${LocalizedTexts.barCodeResultCalories.translation} $calories',
+                Text('${LocalizedTexts.barCodeResultCalories.tr()} $calories',
                     style: Theme.of(context).textTheme.bodyMedium),
               if (isReady)
                 Text(
-                    '${LocalizedTexts.barCodeResultPerServing.translation} $perServing',
+                    '${LocalizedTexts.barCodeResultPerServing.tr()} $perServing',
                     style: Theme.of(context).textTheme.bodyMedium),
             ],
           ),
@@ -70,7 +71,7 @@ class ProductInformation extends StatelessWidget {
               ),
           onPressed: () => context.router.pop(),
           child: Text(
-            LocalizedTexts.scanOtherProduct.translation,
+            LocalizedTexts.scanOtherProduct.tr(),
           ),
         ),
         const SizedBox(height: 14),
@@ -82,7 +83,7 @@ class ProductInformation extends StatelessWidget {
               ),
           onPressed: () => context.router.pop(),
           child: Text(
-            LocalizedTexts.continueBtn.translation,
+            LocalizedTexts.continueBtn.tr(),
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium
