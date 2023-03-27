@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
@@ -9,10 +8,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/application/dto/forgot_password_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/login_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
-import 'package:loopcare_frontend/features/physical_fitness/application/dto/registratio_physical_fitness_data.dart';
-import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/biological_gender_type.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
+import 'package:loopcare_frontend/features/physical_fitness/application/dto/registration_physical_fitness_data.dart';
 
 @singleton
 class AuthenticationCubit extends HydratedCubit<AuthenticationState> {

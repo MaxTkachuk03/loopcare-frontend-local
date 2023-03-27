@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measuremen
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/dto/add_physical_survey.dart';
-import 'package:loopcare_frontend/features/physical_fitness/application/dto/registratio_physical_fitness_data.dart';
+import 'package:loopcare_frontend/features/physical_fitness/application/dto/registration_physical_fitness_data.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_service.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/biological_gender_type.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
