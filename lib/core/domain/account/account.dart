@@ -13,6 +13,7 @@ abstract class Account implements _$Account {
     required String name,
     required String email,
     required String? country,
+    required bool isPreferencesComplete,
   }) = _Account;
 
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);

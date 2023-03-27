@@ -56,11 +56,33 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
               name: response.name,
               email: response.email,
               country: response.country,
+              isPreferencesComplete: response.isPreferencesComplete,
             ),
           ),
         );
       },
     );
+  }
+
+  void updateAccount() async {
+    await state.mapOrNull(authenticated: (state) async {
+      final response = await _authenticationService.fetchAccount();
+
+      response.fold(
+        (l) => null,
+        (r) {
+          emit(state.copyWith(
+            account: Account(
+              id: r.id,
+              name: r.name,
+              email: r.email,
+              country: r.country,
+              isPreferencesComplete: r.isPreferencesComplete,
+            ),
+          ));
+        },
+      );
+    });
   }
 
   void logout() async {

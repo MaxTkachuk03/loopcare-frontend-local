@@ -138,7 +138,10 @@ class _LoginFormState extends State<LoginForm> {
   void _navigationListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(
       authenticated: (state) {
-        context.router.replaceAll([const DashboardRoute()]);
+        final route = state.isPreferencesComplete
+            ? const DashboardRoute()
+            : const PreferencesOverviewRoute();
+        context.router.replaceAll([route]);
       },
     );
   }
