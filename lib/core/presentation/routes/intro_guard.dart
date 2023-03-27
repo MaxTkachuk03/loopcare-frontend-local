@@ -22,7 +22,11 @@ class IntroGuard extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
     if (authenticationCubit.state.isAuthenticated) {
-      router.replaceNamed(AppRoutes.nutritionDashboard);
+      final route = authenticationCubit.state.isPreferencesComplete
+          ? AppRoutes.nutritionDashboard
+          : AppRoutes.preferencesOverview;
+
+      router.replaceNamed(route);
 
       return;
     }
