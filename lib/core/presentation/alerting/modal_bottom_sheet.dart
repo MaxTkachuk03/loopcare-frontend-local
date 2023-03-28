@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
 
 class ModalBottomSheet {
   static void emailConfirmed({
@@ -407,7 +408,9 @@ class ModalBottomSheet {
                                 ),
                               ),
                               const SizedBox(width: 16.0),
-                              Expanded(child: Text(item.name))
+                              Expanded(
+                                  child: Text(
+                                      item.name.capitalizeOnlyFirstLetter()))
                             ],
                           ),
                         ),
