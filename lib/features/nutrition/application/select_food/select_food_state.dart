@@ -11,7 +11,7 @@ class SelectFoodState with _$SelectFoodState {
   const factory SelectFoodState.selectFood({
     required IList<FoodItem> favorites,
     required IList<dynamic> dishes,
-    required IList<String> selectedFavoritesItems,
+    required IList<FoodItem> selectedFavoritesItems,
     required IList<MealCategoryFilter> mealFavoritesCategories,
   }) = _SelectFood;
 

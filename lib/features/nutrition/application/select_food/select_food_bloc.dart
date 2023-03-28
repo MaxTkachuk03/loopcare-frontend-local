@@ -48,7 +48,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
           mealFavoritesCategories: MealFavoritesCategory.values
               .map((e) => MealCategoryFilter(name: e.name, selected: false))
               .toIList(),
-          selectedFavoritesItems: <String>[].toIList(),
+          selectedFavoritesItems: <FoodItem>[].toIList(),
         ));
       },
     );
@@ -91,7 +91,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
   ) async {
     state.mapOrNull(selectFood: (state) {
       emit(state.copyWith(
-          selectedFavoritesItems: state.selectedFavoritesItems.add(event.id)));
+          selectedFavoritesItems: state.selectedFavoritesItems.add(event.foodItem)));
     });
   }
 
@@ -102,7 +102,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     state.mapOrNull(selectFood: (state) {
       emit(state.copyWith(
           selectedFavoritesItems:
-              state.selectedFavoritesItems.remove(event.id)));
+              state.selectedFavoritesItems.remove(event.foodItem)));
     });
   }
 
@@ -111,7 +111,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     Emitter<SelectFoodState> emit,
   ) {
     state.mapOrNull(selectFood: (state) {
-      emit(state.copyWith(selectedFavoritesItems: <String>[].toIList()));
+      emit(state.copyWith(selectedFavoritesItems: <FoodItem>[].toIList()));
     });
   }
 }
