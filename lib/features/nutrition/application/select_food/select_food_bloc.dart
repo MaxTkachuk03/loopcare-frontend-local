@@ -59,19 +59,21 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     Emitter<SelectFoodState> emit,
   ) async {
     await state.mapOrNull(selectFood: (state) async {
-      final mealList = event.filtersList
-          .where((e) => e.selected)
-          .map((element) {
-            final label = MealFavoritesCategory.values
-                .firstWhereOrNull((e) => e.name == element.name)
-                ?.label;
+      final mealList =
+          event.filtersList.where((e) => e.selected).map((element) {
+        final label = MealFavoritesCategory.values
+            .firstWhereOrNull((e) => e.name == element.name)
+            ?.label;
 
-            return label;
-          })
-          .whereNotNull()
-          .toList();
+        return label;
+      });
 
-      final response = await nutritionService.getFilteredFavorites(mealList);
+      final isSelectedAll = mealList.contains(null);
+      final filters = isSelectedAll
+          ? <String>[].toList()
+          : mealList.whereNotNull().toList();
+
+      final response = await nutritionService.getFilteredFavorites(filters);
 
       response.fold(
         (l) => null,
