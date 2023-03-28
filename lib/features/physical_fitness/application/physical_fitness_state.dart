@@ -28,10 +28,10 @@ class PhysicalFitnessState with _$PhysicalFitnessState {
   RegistrationPhysicalFitnessData get registrationPhysicalFitnessData {
     return RegistrationPhysicalFitnessData(
       birthday: birthday?.toIso8601String() ?? '',
-      bmi: bmi as int,
-      height: int.parse(heightInCm ?? '0'),
+      bmi: bmi != null ? bmi!.toDouble() : 0,
+      height: double.parse(heightInCm ?? '0'),
       gender: describeEnum(sexType as SexType),
-      weight: int.parse(weightInKg ?? '0'),
+      weight: double.parse(weightInKg ?? '0'),
       bioGender: biologicalGenderType != null
           ? describeEnum(biologicalGenderType as BiologicalGenderType)
           : 'preferNotToSay',

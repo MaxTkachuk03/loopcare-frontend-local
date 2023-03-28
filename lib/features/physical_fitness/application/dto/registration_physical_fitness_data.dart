@@ -10,9 +10,9 @@ abstract class RegistrationPhysicalFitnessData
   const RegistrationPhysicalFitnessData._();
 
   const factory RegistrationPhysicalFitnessData({
-    required final int height,
-    required final int weight,
-    required final int bmi,
+    required final double height,
+    required final double weight,
+    required final double bmi,
     required final String birthday,
     required final String gender,
     required final String bioGender,

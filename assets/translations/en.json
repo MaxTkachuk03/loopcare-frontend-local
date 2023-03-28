@@ -42,7 +42,7 @@
   "medicalIntroInstructionSecond": "Explanation what we do with this. Exit or groups",
   "medicalIntroInstructionThird": "This will take 5 - 10 minutes. You will see the result after the questionnaire is completed",
   "yourBodyMassIndex": "Your Body Mass Index is:",
-  "fitnessCheckFailedInformationsText": "We are sorry, but unfortunately our program is not set up for people with a BMI of {bmiIndex} or higher.",
+  "fitnessCheckFailedInformationsText": "We are sorry, but unfortunately our program is not set up for people with a BMI lower than {bmiMinIndex} and higher than {bmiMaxIndex}.",
   "ageCheckFailedText": "We are sorry, but unfortunately our program is not set up for people younger than 18 years",
   "fitnessCheckFailedAdviceText": "[Also some advice where to turn next].",
   "areYouPregnant": "Are you pregnant?",
