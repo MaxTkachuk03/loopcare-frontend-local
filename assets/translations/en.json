@@ -257,5 +257,8 @@
   "favorites": "favorites",
   "allMy": "All my",
   "showNutritionValue": "Show nutrition value",
-  "recipe": "Recipe"
+  "recipe": "Recipe",
+  "myDish": "My Dish",
+  "editMyDish": "Edit My Dish",
+  "serving": "serving"
 }
