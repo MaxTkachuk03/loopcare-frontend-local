@@ -12,9 +12,9 @@ class SignUpData {
   final bool isConsentApproved;
   final bool isLegalApproved;
 
-  final int height;
-  final int weight;
-  final int bmi;
+  final double height;
+  final double weight;
+  final double bmi;
   final String birthDate;
   final String gender;
   final String bioGender;
