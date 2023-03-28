@@ -28,6 +28,7 @@ class BarcodeScannerBloc
     GetInformation event,
     Emitter<BarcodeScannerState> emit,
   ) async {
+    emit(BarcodeScannerState.loading());
     final response = await barcodeService
         .getBarcodeInformation(event.barCode); //'020357122682'
 

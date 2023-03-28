@@ -6,6 +6,8 @@ class BarcodeScannerState with _$BarcodeScannerState {
         foodItem: null,
       );
 
+  factory BarcodeScannerState.loading() = _Loading;
+
   const factory BarcodeScannerState.success({
     FoodItem? foodItem,
     RequestError? barcodeError,
