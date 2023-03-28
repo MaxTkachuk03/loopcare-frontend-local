@@ -22,7 +22,7 @@ class FavoriteListItem extends StatelessWidget {
       builder: (BuildContext context, state) {
         final isSelected = state.mapOrNull(
                 selectFood: (state) =>
-                    state.selectedFavoritesItems.contains(foodItem.id)) ??
+                    state.selectedFavoritesItems.contains(foodItem)) ??
             false;
 
         return Material(
@@ -46,7 +46,7 @@ class FavoriteListItem extends StatelessWidget {
                               child: CheckboxBlue(
                                 value: isSelected,
                                 onChanged: (bool? value) =>
-                                    _onChanged(value, foodItem.id, context),
+                                    _onChanged(value, foodItem, context),
                               ),
                             ),
                             const SizedBox(
@@ -90,14 +90,14 @@ class FavoriteListItem extends StatelessWidget {
     );
   }
 
-  void _onChanged(bool? value, String id, BuildContext context) {
+  void _onChanged(bool? value, FoodItem foodItem, BuildContext context) {
     final val = value ?? false;
     final bloc = context.read<SelectFoodBloc>();
 
     if (val) {
-      bloc.add(SelectFoodEvent.itemAdded(id));
+      bloc.add(SelectFoodEvent.itemAdded(foodItem));
     } else {
-      bloc.add(SelectFoodEvent.itemDeleted(id));
+      bloc.add(SelectFoodEvent.itemDeleted(foodItem));
     }
   }
 
