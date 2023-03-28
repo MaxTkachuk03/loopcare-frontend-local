@@ -31,6 +31,12 @@ class _BarcodeScannerAppBarState extends State<BarcodeScannerAppBar> {
   }
 
   @override
+  void dispose() {
+    widget.controller?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlueAppBar(
       title: LocalizedTexts.scanYourProduct.tr(),
