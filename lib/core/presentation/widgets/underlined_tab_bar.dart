@@ -10,19 +10,20 @@ class UnderlinedTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(width: 2, color: AppColors.white.withOpacity(0.3))
-        )
-      ),
+          border: Border(
+              bottom: BorderSide(
+                  width: 2, color: AppColors.white.withOpacity(0.3)))),
       child: TabBar(
         isScrollable: true,
         padding: const EdgeInsets.all(0),
-        indicatorPadding: const EdgeInsets.only(right: 16),
-        labelPadding: const EdgeInsets.only(right: 16),
+        labelPadding: const EdgeInsets.only(
+          left: 8,
+          right: 8,
+        ),
         labelColor: AppColors.white,
         labelStyle: Theme.of(context).textTheme.bodyText2?.copyWith(
-          fontWeight: FontWeight.w600,
-        ),
+              fontWeight: FontWeight.w600,
+            ),
         unselectedLabelStyle: Theme.of(context).textTheme.bodyText2,
         unselectedLabelColor: AppColors.white,
         indicatorColor: AppColors.blueMid,
