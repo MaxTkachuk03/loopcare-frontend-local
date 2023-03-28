@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'registratio_physical_fitness_data.freezed.dart';
+part 'registration_physical_fitness_data.freezed.dart';
 
-part 'registratio_physical_fitness_data.g.dart';
+part 'registration_physical_fitness_data.g.dart';
 
 @freezed
 abstract class RegistrationPhysicalFitnessData

@@ -1,22 +1,18 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'login_response.g.dart';
+part 'account_response.g.dart';
 
 @immutable
 @JsonSerializable()
-class LoginResponse {
-  final String accessToken;
-  final String refreshToken;
+class AccountResponse {
   final int id;
   final String name;
   final String email;
   final String? country;
   final bool isPreferencesComplete;
 
-  const LoginResponse({
-    required this.accessToken,
-    required this.refreshToken,
+  const AccountResponse({
     required this.id,
     required this.name,
     required this.email,
@@ -24,8 +20,8 @@ class LoginResponse {
     required this.isPreferencesComplete,
   });
 
-  static LoginResponse fromJson(Map<String, dynamic> json) =>
-      _$LoginResponseFromJson(json);
+  factory AccountResponse.fromJson(Map<String, dynamic> json) =>
+      _$AccountResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$LoginResponseToJson(this);
+  Map<String, dynamic> toJson() => _$AccountResponseToJson(this);
 }

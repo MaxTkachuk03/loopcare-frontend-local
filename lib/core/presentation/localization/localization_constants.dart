@@ -9,10 +9,11 @@ class LocalizationConstants {
 
   static const Locale localeDutch = Locale('nl');
 
+  // TODO comment other languages before get translations
   static const List<Locale> supportedLocales = [
     localeEnglish,
-    localeGermany,
-    localeDutch,
+    // localeGermany,
+    // localeDutch,
   ];
 
   LocalizationConstants._();

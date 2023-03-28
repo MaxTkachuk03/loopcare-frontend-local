@@ -47,6 +47,13 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
+  bool get isPreferencesComplete {
+    return maybeWhen(
+      orElse: () => false,
+      authenticated: (state) => state.isPreferencesComplete,
+    );
+  }
+
   factory AuthenticationState.fromJson(Map<String, dynamic> json) =>
       _$AuthenticationStateFromJson(json);
 }

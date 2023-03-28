@@ -128,8 +128,6 @@ class YouAndFoodBloc extends Bloc<YouAndFoodEvent, YouAndFoodState> {
     SaveFoodPreferences event,
     Emitter<YouAndFoodState> emit,
   ) async {
-    emit(state.copyWith(isCompleted: true));
-
     final data = FoodPrefsData(
       hates: state.selectedHates,
       allergic: state.selectedAllergic,
@@ -137,7 +135,18 @@ class YouAndFoodBloc extends Bloc<YouAndFoodEvent, YouAndFoodState> {
       period: state.selectedPeriod,
     );
 
-    youAndFoodService.foodPrefsSave(data);
+    final response = await youAndFoodService.foodPrefsSave(data);
+
+    response.fold(
+      (l) => emit(
+        state.copyWith(isCompleted: false),
+      ),
+      (r) => emit(
+        state.copyWith(
+          isCompleted: true,
+        ),
+      ),
+    );
   }
 
   FutureOr<void> _onFetchFoodPreferences(

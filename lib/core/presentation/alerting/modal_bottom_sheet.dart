@@ -522,10 +522,11 @@ class ModalBottomSheet {
 
   static void surveyFinishedMessage({
     required BuildContext context,
-    required String btnText,
     required void Function() onBtnPress,
   }) {
     showModalBottomSheet<void>(
+      isDismissible: false,
+      enableDrag: false,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24.0),
       ),
@@ -566,7 +567,7 @@ class ModalBottomSheet {
               const SizedBox(height: 27.0),
               ElevatedButton(
                 onPressed: onBtnPress,
-                child: Text(btnText),
+                child: Text(LocalizedTexts.getStarted.translation),
               ),
             ],
           ),

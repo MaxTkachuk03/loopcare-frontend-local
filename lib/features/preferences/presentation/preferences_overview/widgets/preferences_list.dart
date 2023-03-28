@@ -40,6 +40,8 @@ class _PreferencesListState extends State<PreferencesList> {
 
     context.read<DiabetesBloc>().add(const DiabetesEvent.getUserDiabetesType());
 
+    context.read<SelfHelpBloc>().add(const SelfHelpEvent.getUserPreferGender());
+
     super.initState();
   }
 
@@ -47,21 +49,6 @@ class _PreferencesListState extends State<PreferencesList> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Column(
-          children: [
-            PreferencesListItem(
-              item: Pref(
-                title: 'Food temptations',
-                completionTime: '10 ${LocalizedTexts.minutes.tr()}',
-                isCompleted: false,
-                imagePath: AppImages.preferencesDiabetes,
-              ),
-              imageOverlayColor: AppColors.orange.withOpacity(0.8),
-              routePath: AppRoutes.householdIntro,
-            ),
-            const SizedBox(height: 8.0),
-          ],
-        ),
         BlocBuilder<YouAndFoodBloc, YouAndFoodState>(
             builder: (BuildContext context, state) {
           return Column(
@@ -80,36 +67,6 @@ class _PreferencesListState extends State<PreferencesList> {
             ],
           );
         }),
-        // Column(
-        //   children: [
-        //     PreferencesListItem(
-        //       item: Pref(
-        //         title: 'Food temptations',
-        //         completionTime: '10 ${LocalizedTexts.minutes.tr()}',
-        //         isCompleted: false,
-        //         imagePath: AppImages.preferencesDiabetes,
-        //       ),
-        //       imageOverlayColor: AppColors.greenLight.withOpacity(0.8),
-        //       routePath: AppRoutes.householdIntro,
-        //     ),
-        //     const SizedBox(height: 8.0),
-        //   ],
-        // ),
-        // Column(
-        //   children: [
-        //     PreferencesListItem(
-        //       item: Pref(
-        //         title: LocalizedTexts.householdAndEatingHabits.tr(),
-        //         completionTime: '10 ${LocalizedTexts.minutes.tr()}',
-        //         isCompleted: false,
-        //         imagePath: AppImages.preferencesDiabetes,
-        //       ),
-        //       imageOverlayColor: AppColors.purple.withOpacity(0.8),
-        //       routePath: AppRoutes.householdIntro,
-        //     ),
-        //     const SizedBox(height: 8.0),
-        //   ],
-        // ),
         BlocBuilder<DiabetesBloc, DiabetesState>(
             builder: (BuildContext context, state) {
           return Column(
