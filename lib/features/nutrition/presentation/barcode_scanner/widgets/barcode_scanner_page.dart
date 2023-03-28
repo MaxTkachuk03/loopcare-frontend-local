@@ -43,18 +43,6 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
     });
   }
 
-  void _onPermissionSet(
-    BuildContext context,
-    QRViewController ctrl,
-    bool p,
-  ) {
-    if (!p) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('no Permission')),
-      );
-    }
-  }
-
   @override
   void dispose() {
     controller?.dispose();
@@ -97,11 +85,6 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
                       borderWidth: 6,
                       cutOutWidth: 260,
                       cutOutHeight: 200,
-                    ),
-                    onPermissionSet: (ctrl, p) => _onPermissionSet(
-                      context,
-                      ctrl,
-                      p,
                     ),
                   ),
                 ),
