@@ -38,9 +38,9 @@ class _PreferencesListState extends State<PreferencesList> {
         .read<YouAndFoodBloc>()
         .add(const YouAndFoodEvent.fetchFoodPreferences());
 
-    context.read<DiabetesBloc>().add(const DiabetesEvent.getUserDiabetesType());
+    context.read<DiabetesBloc>().add(const DiabetesEvent.getAccountDiabetesType());
 
-    context.read<SelfHelpBloc>().add(const SelfHelpEvent.getUserPreferGender());
+    context.read<SelfHelpBloc>().add(const SelfHelpEvent.getAccountPreferGender());
 
     super.initState();
   }

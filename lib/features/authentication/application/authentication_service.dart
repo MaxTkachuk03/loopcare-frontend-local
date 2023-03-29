@@ -10,11 +10,11 @@ import 'package:loopcare_frontend/features/authentication/application/dto/sign_u
 
 abstract class AuthenticationService {
   Future<Either<RequestError, EmailApproveDateResponse>> emailApproveDate(
-      int userId);
+      int accountId);
 
   Future<Either<RequestError, SignUpResponse>> signUp(SignUpData data);
 
-  Future<Either<RequestError, dynamic>> resendSignUp(int userId);
+  Future<Either<RequestError, dynamic>> resendSignUp(int accountId);
 
   Future<Either<RequestError, AccountResponse>> fetchAccount();
 

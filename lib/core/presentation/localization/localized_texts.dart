@@ -88,6 +88,7 @@ class LocalizedTexts {
   static const String register = 'register';
   static const String iHaveReadAndAcceptThe = 'iHaveReadAndAcceptThe';
   static const String termsAndConditions = 'termsAndConditions';
+  static const String pleaseAcceptTOC = 'pleaseAcceptTOC';
   static const String somethingIsIncorrect = 'somethingIsIncorrect';
   static const String emailAlreadyTaken = 'emailAlreadyTaken';
 
