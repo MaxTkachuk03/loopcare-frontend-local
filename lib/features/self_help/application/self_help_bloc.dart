@@ -7,8 +7,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/features/self_help/application/dto/prefer_gender.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
-import 'package:loopcare_frontend/features/self_help/application/dto/update_prefer_gender.dart';
-import 'package:loopcare_frontend/features/self_help/application/user_prefer_gender_service.dart';
+import 'package:loopcare_frontend/features/self_help/application/dto/update_account_prefer_gender.dart';
+import 'package:loopcare_frontend/features/self_help/application/account_prefer_gender_service.dart';
 
 part 'self_help_bloc.freezed.dart';
 
@@ -22,12 +22,12 @@ part 'self_help_questions.dart';
 
 @singleton
 class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
-  final UserPreferGenderService userPreferGenderService;
+  final AccountPreferGenderService accountPreferGenderService;
 
-  SelfHelpBloc(this.userPreferGenderService) : super(SelfHelpState.initial()) {
-    on<SetUserPreferGender>(_onSetPreferGender);
-    on<GetUserPreferGender>(_onGetPreferGender);
-    on<SaveUserPreferGender>(_onSavePreferGender);
+  SelfHelpBloc(this.accountPreferGenderService) : super(SelfHelpState.initial()) {
+    on<SetAccountPreferGender>(_onSetPreferGender);
+    on<GetAccountPreferGender>(_onGetPreferGender);
+    on<SaveAccountPreferGender>(_onSavePreferGender);
     on<FetchPreferGendersTypes>(_onFetchPreferGendersTypes);
   }
 
@@ -35,7 +35,7 @@ class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
     FetchPreferGendersTypes event,
     Emitter<SelfHelpState> emit,
   ) async {
-    final response = await userPreferGenderService.getAllPreferGenderTypes();
+    final response = await accountPreferGenderService.getAllPreferGenderTypes();
 
     response.fold(
       (l) => null,
@@ -48,16 +48,16 @@ class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
   }
 
   FutureOr<void> _onSavePreferGender(
-    SaveUserPreferGender event,
+    SaveAccountPreferGender event,
     Emitter<SelfHelpState> emit,
   ) async {
     final id = state.selectedType?.id;
 
     if (id == null) return;
 
-    final data = UpdateUserPreferGender(id: id);
+    final data = UpdateAccountPreferGender(id: id);
 
-    final response = await userPreferGenderService.savePreferGender(data);
+    final response = await accountPreferGenderService.savePreferGender(data);
 
     response.fold(
       (l) => emit(
@@ -70,7 +70,7 @@ class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
   }
 
   FutureOr<void> _onSetPreferGender(
-    SetUserPreferGender event,
+    SetAccountPreferGender event,
     Emitter<SelfHelpState> emit,
   ) {
     emit(
@@ -81,10 +81,10 @@ class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
   }
 
   Future<FutureOr<void>> _onGetPreferGender(
-    GetUserPreferGender event,
+    GetAccountPreferGender event,
     Emitter<SelfHelpState> emit,
   ) async {
-    final response = await userPreferGenderService.getUserPreferGenderType();
+    final response = await accountPreferGenderService.getAccountPreferGenderType();
 
     response.fold(
       (l) => emit(

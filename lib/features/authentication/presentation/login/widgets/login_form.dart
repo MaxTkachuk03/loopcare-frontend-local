@@ -16,7 +16,8 @@ import 'package:loopcare_frontend/features/authentication/domain/login_password/
 import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
 import 'package:loopcare_frontend/core/presentation/validators/login_password_validator.dart';
 
-const userNotFound = 'user_not_found';
+const accountNotFound = 'account_not_found';
+const emailOrPasswordAreIncorrect = 'email_or_password_are_incorrect';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -114,12 +115,21 @@ class _LoginFormState extends State<LoginForm> {
                     error.error.response?.data ?? {},
                   ).message;
 
-                  return message == userNotFound
+                  return message == accountNotFound
                       ? LocalizedTexts.emailOrPasswordAreIncorrect.tr()
                       : LocalizedTexts.somethingIsIncorrect.tr();
                 },
                 orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
               );
+            },
+            badRequest: (error) {
+              final message = ErrorResponse.fromJson(
+                error.error.response?.data ?? {},
+              ).message;
+
+              return message == emailOrPasswordAreIncorrect
+                  ? LocalizedTexts.emailOrPasswordAreIncorrect.tr()
+                  : LocalizedTexts.somethingIsIncorrect.tr();
             },
             orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
           );

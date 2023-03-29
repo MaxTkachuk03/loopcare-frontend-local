@@ -5,7 +5,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/features/diabetes/application/diabetes_service.dart';
 import 'package:loopcare_frontend/features/diabetes/application/dto/diabetes_type.dart';
-import 'package:loopcare_frontend/features/diabetes/application/dto/add_user_diabetes.dart';
+import 'package:loopcare_frontend/features/diabetes/application/dto/add_account_diabetes.dart';
 
 part 'diabetes_bloc.freezed.dart';
 
@@ -21,7 +21,7 @@ class DiabetesBloc extends Bloc<DiabetesEvent, DiabetesState> {
     on<FetchDiabetesTypes>(_onFetchDiabetesTypes);
     on<SaveDiabetesType>(_onSaveDiabetesType);
     on<SetDiabetesType>(_onSetDiabetesType);
-    on<GetUserDiabetesType>(_onGetUserDiabetesType);
+    on<GetAccountDiabetesType>(_onGetAccountDiabetesType);
   }
 
   FutureOr<void> _onFetchDiabetesTypes(
@@ -46,7 +46,7 @@ class DiabetesBloc extends Bloc<DiabetesEvent, DiabetesState> {
 
     if (id == null) return;
 
-    final data = AddUserDiabetes(id: id);
+    final data = AddAccountDiabetes(id: id);
 
     final response = await diabetesService.saveDiabetesType(data);
 
@@ -60,11 +60,11 @@ class DiabetesBloc extends Bloc<DiabetesEvent, DiabetesState> {
     );
   }
 
-  FutureOr<void> _onGetUserDiabetesType(
-    GetUserDiabetesType event,
+  FutureOr<void> _onGetAccountDiabetesType(
+    GetAccountDiabetesType event,
     Emitter<DiabetesState> emit,
   ) async {
-    final response = await diabetesService.getUserDiabetesType();
+    final response = await diabetesService.getAccountDiabetesType();
 
     response.fold(
       (l) => emit(

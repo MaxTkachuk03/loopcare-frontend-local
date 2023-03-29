@@ -22,9 +22,9 @@ class _SelfHelpGenderPreferencesChipsState
     extends State<SelfHelpGenderPreferencesChips> {
   @override
   void initState() {
-    context.read<SelfHelpBloc>()
-      ..add(const FetchPreferGendersTypes())
-      ..add(const GetUserPreferGender());
+    context
+        .read<SelfHelpBloc>()
+        .add(const SelfHelpEvent.fetchPreferGendersTypes());
 
     super.initState();
   }
@@ -33,7 +33,7 @@ class _SelfHelpGenderPreferencesChipsState
     widget.onSelected(true);
     context
         .read<SelfHelpBloc>()
-        .add(SelfHelpEvent.setUserPreferGender(preferGenderType));
+        .add(SelfHelpEvent.setAccountPreferGender(preferGenderType));
   }
 
   @override

@@ -16,7 +16,7 @@ import 'package:loopcare_frontend/features/authentication/domain/email/email.dar
 import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 
-const userAlreadyExists = 'user_with_this_email_already_exists';
+const accountAlreadyExists = 'account_with_this_email_already_exists';
 
 class EmailAddressForm extends StatefulWidget {
   const EmailAddressForm({Key? key}) : super(key: key);
@@ -70,6 +70,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
               height: 22.0,
             ),
             CheckboxFormField(
+              errorText: LocalizedTexts.pleaseAcceptTOC.translation,
               text: RichText(
                 maxLines: 2,
                 overflow: TextOverflow.visible,
@@ -92,7 +93,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
             ),
             const SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: () => _isDisabled ? null : _onRegisterPressed(context),
+              onPressed: _isDisabled ? null : () => _onRegisterPressed(context),
               child: Text(LocalizedTexts.register.tr()),
             ),
           ],
@@ -154,7 +155,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
                     error.error.response?.data ?? {},
                   ).message;
 
-                  if (message == userAlreadyExists) {
+                  if (message == accountAlreadyExists) {
                     setState(() {
                       emailErrorText = LocalizedTexts.emailAlreadyTaken.tr();
                     });
