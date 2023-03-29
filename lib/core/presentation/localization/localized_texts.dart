@@ -94,6 +94,7 @@ class LocalizedTexts {
   //Waiting for confirmation page
   static const String waitingForConfirmationTitle =
       'waitingForConfirmationTitle';
+  static const String resendConfirmationMessage = 'resendConfirmationMessage';
   static const String confirmYourAddress = 'confirmYourAddress';
   static const String checkSpam = 'checkSpam';
   static const String address = 'address';

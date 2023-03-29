@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -195,6 +196,11 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
 
   void _onResendPressed() {
     context.read<AuthenticationCubit>().resendEmail();
+    showAppSnackBar(
+      context: context,
+      background: AppColors.white,
+      text: LocalizedTexts.resendConfirmationMessage.translation,
+    );
   }
 
   void _onChangeAddressPressed(BuildContext context) {
