@@ -2,51 +2,82 @@ part of 'food_item_servings_bloc.dart';
 
 @freezed
 class FoodItemServingsState with _$FoodItemServingsState {
-  factory FoodItemServingsState.initial() => FoodItemServingsState(
-        servings: <FoodItemServing>[].toIList(),
-        selectedServing: null,
-        selectedServingAmount: '1',
-        mealCategoryFilters: <MealCategoryFilter>[].toList(),
-      );
+  const FoodItemServingsState._();
 
-  const factory FoodItemServingsState({
+  const factory FoodItemServingsState.initial() = _Initial;
+
+  const factory FoodItemServingsState.loading() = _Loading;
+
+  const factory FoodItemServingsState.foodItemServings({
     required IList<FoodItemServing> servings,
     required FoodItemServing? selectedServing,
     required String selectedServingAmount,
     required List<MealCategoryFilter> mealCategoryFilters,
-  }) = _FoodItemServingsState;
+  }) = _FoodItemServings;
+
+  const factory FoodItemServingsState.error(RequestError fetchError) = _Error;
+
+  FoodItemServing? get selectedServingItem {
+    return mapOrNull(foodItemServings: (state) => state.selectedServing);
+  }
+
+  IList<FoodItemServing> get servingsIList {
+    return maybeMap(
+      foodItemServings: (state) => state.servings,
+      orElse: () => <FoodItemServing>[].toIList(),
+    );
+  }
 
   num get selectedServingCalories {
-    if (selectedServing == null) return 0;
-    final calories = selectedServing?.calories ?? 0;
-    final units = selectedServing?.numberOfUnits ?? 1;
+    return maybeMap(
+      foodItemServings: (state) {
+        if (state.selectedServing == null) return 0;
+        final calories = state.selectedServing?.calories ?? 0;
+        final units = state.selectedServing?.numberOfUnits ?? 1;
 
-    return (calories * double.parse(selectedServingAmount) / units);
+        return (calories * double.parse(state.selectedServingAmount) / units);
+      },
+      orElse: () => 0,
+    );
   }
 
   bool get hasSelectedMealCategoryFilters {
-    return mealCategoryFilters.any((e) => e.selected);
+    return maybeMap(
+      foodItemServings: (state) {
+        return state.mealCategoryFilters.any((e) => e.selected);
+      },
+      orElse: () => false,
+    );
   }
 
   List<String> get selectedMealCategoriesNames {
-    return mealCategoryFilters
-        .where((e) => e.selected)
-        .map((e) => e.name)
-        .toList();
+    return maybeMap(
+      foodItemServings: (state) {
+        return state.mealCategoryFilters
+            .where((e) => e.selected)
+            .map((e) => e.name)
+            .toList();
+      },
+      orElse: () => <String>[],
+    );
   }
 
   List<MealCategoryFilter> get filtersForSelectedServing {
-    return mealCategoryFilters.map((f) {
-      final selectedFiltersValues = selectedServing?.favoriteMealCategories;
+    return maybeMap(
+      foodItemServings: (state) {
+        return state.mealCategoryFilters.map((f) {
+          final selectedFiltersValues =
+              state.selectedServing?.favoriteMealCategories;
 
-      return MealCategoryFilter(
-        name: f.name.toLowerCase(),
-        selected: selectedFiltersValues == null
-            ? false
-            : selectedFiltersValues.contains(f.name.toLowerCase()),
-      );
-    }).toList();
+          return MealCategoryFilter(
+            name: f.name.toLowerCase(),
+            selected: selectedFiltersValues == null
+                ? false
+                : selectedFiltersValues.contains(f.name.toLowerCase()),
+          );
+        }).toList();
+      },
+      orElse: () => <MealCategoryFilter>[],
+    );
   }
-
-  const FoodItemServingsState._();
 }

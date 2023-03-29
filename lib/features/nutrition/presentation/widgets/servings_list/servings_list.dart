@@ -26,7 +26,7 @@ class _ServingListState extends State<ServingList> {
     final initialValue = context
             .read<FoodItemServingsBloc>()
             .state
-            .selectedServing
+            .selectedServingItem
             ?.numberOfUnits ??
         '1';
 
@@ -45,14 +45,14 @@ class _ServingListState extends State<ServingList> {
   Widget build(BuildContext context) {
     return BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(
         builder: (BuildContext context, state) {
-      if (state.servings.isEmpty) return const SizedBox();
+      if (state.servingsIList.isEmpty) return const SizedBox();
 
       return ListView.builder(
-        itemCount: state.servings.length,
+        itemCount: state.servingsIList.length,
         itemBuilder: (BuildContext context, int index) {
-          final FoodItemServing listItem = state.servings[index];
+          final FoodItemServing listItem = state.servingsIList[index];
           final isSelected =
-              state.selectedServing?.servingId == listItem.servingId;
+              state.selectedServingItem?.servingId == listItem.servingId;
 
           return ServingListItem(
             item: listItem,
