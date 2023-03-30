@@ -88,12 +88,14 @@ class LocalizedTexts {
   static const String register = 'register';
   static const String iHaveReadAndAcceptThe = 'iHaveReadAndAcceptThe';
   static const String termsAndConditions = 'termsAndConditions';
+  static const String pleaseAcceptTOC = 'pleaseAcceptTOC';
   static const String somethingIsIncorrect = 'somethingIsIncorrect';
   static const String emailAlreadyTaken = 'emailAlreadyTaken';
 
   //Waiting for confirmation page
   static const String waitingForConfirmationTitle =
       'waitingForConfirmationTitle';
+  static const String resendConfirmationMessage = 'resendConfirmationMessage';
   static const String confirmYourAddress = 'confirmYourAddress';
   static const String checkSpam = 'checkSpam';
   static const String address = 'address';

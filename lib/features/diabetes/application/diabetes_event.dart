@@ -9,5 +9,5 @@ class DiabetesEvent with _$DiabetesEvent {
 
   const factory DiabetesEvent.saveDiabetesType() = SaveDiabetesType;
 
-  const factory DiabetesEvent.getUserDiabetesType() = GetUserDiabetesType;
+  const factory DiabetesEvent.getAccountDiabetesType() = GetAccountDiabetesType;
 }

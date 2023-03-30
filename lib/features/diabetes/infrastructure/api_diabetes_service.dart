@@ -4,9 +4,9 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/diabetes/application/diabetes_service.dart';
-import 'package:loopcare_frontend/features/diabetes/application/dto/add_user_diabetes.dart';
+import 'package:loopcare_frontend/features/diabetes/application/dto/add_account_diabetes.dart';
 import 'package:loopcare_frontend/features/diabetes/application/dto/diabetes_types_response.dart';
-import 'package:loopcare_frontend/features/diabetes/application/dto/user_diabetes_response.dart';
+import 'package:loopcare_frontend/features/diabetes/application/dto/account_diabetes_response.dart';
 
 @Injectable(as: DiabetesService)
 class APIDiabetesService implements DiabetesService {
@@ -23,15 +23,15 @@ class APIDiabetesService implements DiabetesService {
 
   @override
   Future<Either<RequestError, dynamic>> saveDiabetesType(
-      AddUserDiabetes data) async {
+      AddAccountDiabetes data) async {
     return client.post('/diabetes', data: data);
   }
 
   @override
-  Future<Either<RequestError, UserDiabetesResponse>>
-      getUserDiabetesType() async {
+  Future<Either<RequestError, AccountDiabetesResponse>>
+      getAccountDiabetesType() async {
     return client
         .get('/diabetes')
-        .then(parseResponse(UserDiabetesResponse.fromJson));
+        .then(parseResponse(AccountDiabetesResponse.fromJson));
   }
 }

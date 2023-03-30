@@ -11,8 +11,6 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 
-const userNotFound = 'user_with_such_email_token_not_found';
-
 class ForgotPasswordForm extends StatefulWidget {
   const ForgotPasswordForm({Key? key}) : super(key: key);
 

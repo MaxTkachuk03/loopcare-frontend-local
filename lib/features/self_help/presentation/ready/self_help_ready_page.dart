@@ -77,7 +77,7 @@ class SelfHelpReadyPage extends StatelessWidget {
 
   _onBackPressed(BuildContext context) {
     context
-      ..read<SelfHelpBloc>().add(const SelfHelpEvent.saveUserPreferGender())
+      ..read<SelfHelpBloc>().add(const SelfHelpEvent.saveAccountPreferGender())
       ..router.popUntilRouteWithName(PreferencesOverviewRoute.name);
   }
 }

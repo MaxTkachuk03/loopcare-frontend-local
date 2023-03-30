@@ -16,7 +16,7 @@ class CheckFailedBmiPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(LocalizedTexts.bodyAndMind.tr()),
+        title: Text(LocalizedTexts.bodyAndMind.translation),
       ),
       body: SafeArea(
         child: ScrollableContainer(
@@ -40,38 +40,46 @@ class CheckFailedBmiPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(LocalizedTexts.yourBodyMassIndex.tr()),
+                      Text(LocalizedTexts.yourBodyMassIndex.translation),
                       BlocBuilder<PhysicalFitnessBloc, PhysicalFitnessState>(
-                          builder: (BuildContext context, state) {
-                        final bmiIndex = BmiCalculator.getUserBmiIndex(
-                          state.heightInCm,
-                          state.weightInKg,
-                        );
+                        builder: (BuildContext context, state) {
+                          final bmiIndex = BmiCalculator.getUserBmiIndex(
+                            state.heightInCm,
+                            state.weightInKg,
+                          );
 
-                        return Text(
-                          '$bmiIndex',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline4
-                              ?.copyWith(color: AppColors.blueDark),
-                        );
-                      }),
+                          return Text(
+                            '$bmiIndex',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium
+                                ?.copyWith(color: AppColors.blueDark),
+                          );
+                        },
+                      ),
                       const SizedBox(height: 26),
                       BlocBuilder<PhysicalFitnessBloc, PhysicalFitnessState>(
-                          builder: (BuildContext context, state) {
-                        final bmiMaxValue =
-                            BmiValidator.getMaxBmiIndexValue(state.age ?? 0);
+                        builder: (BuildContext context, state) {
+                          final bmiMaxValue =
+                              BmiValidator.getMaxBmiIndexValue(state.age ?? 0);
+                          final bmiMinValue =
+                              BmiValidator.getMinBmiIndexValue();
 
-                        return Text(
-                          LocalizedTexts.fitnessCheckFailedInformationsText
-                              .tr(namedArgs: {
-                            'bmiIndex': bmiMaxValue,
-                          }),
-                          style: Theme.of(context).textTheme.headline6,
-                        );
-                      }),
+                          return Text(
+                            LocalizedTexts.fitnessCheckFailedInformationsText
+                                .tr(
+                              namedArgs: {
+                                'bmiMaxIndex': bmiMaxValue,
+                                'bmiMinIndex': bmiMinValue,
+                              },
+                            ),
+                            style: Theme.of(context).textTheme.titleLarge,
+                          );
+                        },
+                      ),
                       const SizedBox(height: 26),
-                      Text(LocalizedTexts.fitnessCheckFailedAdviceText.tr()),
+                      Text(LocalizedTexts
+                          .fitnessCheckFailedAdviceText.translation),
                     ],
                   ),
                 ),
