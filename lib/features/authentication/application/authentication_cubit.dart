@@ -107,10 +107,8 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
 
   void signUp(String email,
       RegistrationPhysicalFitnessData registrationPhysicalFitnessData) async {
-    print('Sign up was called');
     state.mapOrNull(
       emailAddress: (state) async {
-        print('Sign up was called in email address state');
         final data = SignUpData(
           name: state.name,
           email: email,

@@ -46,7 +46,9 @@ class ModalBottomSheet {
               ),
               const SizedBox(height: 40.0),
               ElevatedButton(
-                onPressed: onContinuePressed,
+                onPressed: () {
+                  context.router.pop();
+                },
                 style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
                       backgroundColor:
                           MaterialStateProperty.all(AppColors.orangeDark),
@@ -59,7 +61,9 @@ class ModalBottomSheet {
           ),
         );
       },
-    );
+    ).whenComplete(() {
+      onContinuePressed();
+    });
   }
 
   static void physicalInvalidMessage({
