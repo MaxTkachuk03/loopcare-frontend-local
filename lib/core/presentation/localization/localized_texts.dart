@@ -317,6 +317,9 @@ class LocalizedTexts {
   static const String allMy = 'allMy';
   static const String showNutritionValue = 'showNutritionValue';
   static const String recipe = 'recipe';
+  static const String myDish = 'myDish';
+  static const String editMyDish = 'editMyDish';
+  static const String serving = 'serving';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';
