@@ -16,6 +16,7 @@ class Field extends StatefulWidget {
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onChanged;
   final EdgeInsetsGeometry? contentPadding;
+  final bool? autofocus;
 
   const Field({
     Key? key,
@@ -31,6 +32,7 @@ class Field extends StatefulWidget {
     this.validator,
     this.onChanged,
     this.contentPadding,
+    this.autofocus,
   }) : super(key: key);
 
   @override
@@ -51,6 +53,7 @@ class _FieldState extends State<Field> {
     final prefixIcon = widget.prefixIcon;
 
     return TextFormField(
+      autofocus: widget.autofocus ?? false,
       controller: widget.controller,
       enableSuggestions: false,
       autocorrect: false,

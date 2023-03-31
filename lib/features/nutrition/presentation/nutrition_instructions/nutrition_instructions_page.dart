@@ -20,7 +20,7 @@ class NutritionInstructionsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           LocalizedTexts.nutritionValues.translation,
-          style: Theme.of(context).textTheme.bodyText2?.copyWith(
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w600,
               ),
         ),

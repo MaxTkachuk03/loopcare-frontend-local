@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -23,14 +22,19 @@ class UnderAppBarContainer extends StatelessWidget {
           ),
           SizedBox(
             height: 38,
-            child: NutritionField(
-              readOnly: true,
-              hintText: LocalizedTexts.searchYourFood.tr(),
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 0, horizontal: 16.0),
-              prefixIcon: const Icon(
-                Icons.search,
-                color: AppColors.blueDark,
+            child: InkWell(
+              onTap: () => context.router.pushNamed(AppRoutes.search),
+              child: IgnorePointer(
+                child: NutritionField(
+                  readOnly: true,
+                  hintText: LocalizedTexts.searchHint.translation,
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 16.0),
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    color: AppColors.blueDark,
+                  ),
+                ),
               ),
             ),
           ),
@@ -45,12 +49,8 @@ class UnderAppBarContainer extends StatelessWidget {
                 Flexible(
                   child: UnderlinedTabBar(
                     tabs: [
-                      Tab(
-                        text: LocalizedTexts.myFavorites.tr(),
-                      ),
-                      Tab(
-                        text: LocalizedTexts.myDishes.tr(),
-                      ),
+                      Tab(text: LocalizedTexts.myFavorites.translation),
+                      Tab(text: LocalizedTexts.myDishes.translation),
                     ],
                   ),
                 ),
@@ -59,13 +59,14 @@ class UnderAppBarContainer extends StatelessWidget {
                     context.router.pushNamed(AppRoutes.barcodeScanner);
                   },
                   icon: const ImageIcon(AppIcons.scan),
-                  label: Text(LocalizedTexts.scan.tr()),
+                  label: Text(LocalizedTexts.scan.translation),
                   style: TextButton.styleFrom(
-                      padding: const EdgeInsets.all(0),
-                      minimumSize: const Size(0, 0),
-                      foregroundColor: AppColors.white,
-                      textStyle: Theme.of(context).textTheme.bodyMedium,
-                      alignment: Alignment.bottomCenter),
+                    padding: const EdgeInsets.all(0),
+                    minimumSize: const Size(0, 0),
+                    foregroundColor: AppColors.white,
+                    textStyle: Theme.of(context).textTheme.bodyMedium,
+                    alignment: Alignment.bottomCenter,
+                  ),
                 ),
               ],
             ),

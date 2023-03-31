@@ -21,10 +21,10 @@ class SexPage extends StatelessWidget {
             Text(
               LocalizedTexts.yourSex.tr(),
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                fontWeight: FontWeight.w600,
-                fontSize: ThemeConstants.fontSize18,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    fontSize: ThemeConstants.fontSize18,
+                  ),
             ),
             const SizedBox(
               height: 16,

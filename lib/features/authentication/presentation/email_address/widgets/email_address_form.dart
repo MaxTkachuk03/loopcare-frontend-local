@@ -82,7 +82,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
                       recognizer: TapGestureRecognizer()
                         ..onTap = _onTermsAndConditionsTap,
                       text: LocalizedTexts.termsAndConditions.tr(),
-                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             decoration: TextDecoration.underline,
                           ),
                     ),
