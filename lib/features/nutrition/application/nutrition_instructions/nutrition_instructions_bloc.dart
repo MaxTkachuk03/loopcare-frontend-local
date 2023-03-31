@@ -9,7 +9,9 @@ import 'package:loopcare_frontend/features/nutrition/application/nutrition_servi
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_instructions/nutrition_instruction_category.dart';
 
 part 'nutrition_instructions_event.dart';
+
 part 'nutrition_instructions_state.dart';
+
 part 'nutrition_instructions_bloc.freezed.dart';
 
 @singleton
@@ -18,7 +20,7 @@ class NutritionInstructionsBloc
   final NutritionService nutritionService;
 
   NutritionInstructionsBloc(this.nutritionService)
-      : super(NutritionInstructionsState.initial()) {
+      : super(const NutritionInstructionsState.initial()) {
     on<FetchValuesExplanation>(_onFetchValuesExplanation);
     on<SetCalorieDensity>(_onSetCalorieDensity);
     on<SetProteinDegree>(_onSetProteinDegree);
@@ -41,9 +43,11 @@ class NutritionInstructionsBloc
           .toIList();
 
       emit(
-        state.copyWith(
+        NutritionInstructionsState.nutritionInstructions(
           calorieDensityValues: calorieDensityValues,
           proteinDegreeValues: proteinDegreeValues,
+          proteinDegreeValue: 0.0,
+          calorieDensityValue: 0.0,
         ),
       );
     });

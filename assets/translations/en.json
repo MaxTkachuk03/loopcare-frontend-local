@@ -262,5 +262,9 @@
   "recipe": "Recipe",
   "myDish": "My Dish",
   "editMyDish": "Edit My Dish",
-  "serving": "serving"
+  "serving": "serving",
+  "logList": "log list",
+  "deleteMeal": "Delete Meal",
+  "logListEmptyMessage": "Nothing logged yet\u2028What did you have for lunch?",
+  "backToDashboard": "Back to dashboard"
 }

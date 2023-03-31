@@ -5,7 +5,7 @@ import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/back_button_hexagon.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/food_item_servings_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/favourite_btn/favourite_btn.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_category_filters_list/meal_category_filters_list.dart';
