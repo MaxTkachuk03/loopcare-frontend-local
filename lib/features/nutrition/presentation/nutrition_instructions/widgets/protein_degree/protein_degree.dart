@@ -65,7 +65,7 @@ class ProteinDegree extends StatelessWidget {
           children: [
             Text(
               LocalizedTexts.whatIsProtein.translation,
-              style: Theme.of(context).textTheme.bodyText2?.copyWith(
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
             ),

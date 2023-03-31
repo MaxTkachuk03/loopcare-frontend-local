@@ -98,7 +98,7 @@ class CalorieDensity extends StatelessWidget {
           children: [
             Text(
               LocalizedTexts.whatIsCalorieDensity.translation,
-              style: Theme.of(context).textTheme.bodyText2?.copyWith(
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
             ),

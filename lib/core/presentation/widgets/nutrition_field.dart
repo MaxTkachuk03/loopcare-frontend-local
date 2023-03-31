@@ -21,7 +21,7 @@ class NutritionField extends StatelessWidget {
       readOnly: readOnly,
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: Theme.of(context).textTheme.bodyText2?.copyWith(
+        hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: AppColors.greyLabel,
             ),
         contentPadding: contentPadding,

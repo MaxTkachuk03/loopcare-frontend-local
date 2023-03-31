@@ -37,13 +37,13 @@ class ModalBottomSheet {
                 LocalizedTexts.emailConfirmedBottomSheetTitle.tr(),
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText1
+                    .bodyLarge
                     ?.copyWith(fontWeight: FontWeight.w900),
               ),
               const SizedBox(height: 20.0),
               Text(
                 LocalizedTexts.emailConfirmedBottomSheetContent.tr(),
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(),
               ),
               const SizedBox(height: 40.0),
               ElevatedButton(
@@ -166,7 +166,7 @@ class ModalBottomSheet {
                         Text(
                           LocalizedTexts.consentConfirmationMoreInfoTitle.tr(),
                           style:
-                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
                                     fontWeight: FontWeight.w700,
                                   ),
                         ),
@@ -176,7 +176,7 @@ class ModalBottomSheet {
                         Text(
                           LocalizedTexts.consentConfirmationMoreInfoTextOne
                               .tr(),
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         const SizedBox(
                           height: 30.0,
@@ -184,7 +184,7 @@ class ModalBottomSheet {
                         Text(
                           LocalizedTexts.consentConfirmationMoreInfoTextTwo
                               .tr(),
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         const SizedBox(
                           height: 30.0,
@@ -192,7 +192,7 @@ class ModalBottomSheet {
                         Text(
                           LocalizedTexts.downloadInstructionWhatToAsk.tr(),
                           style:
-                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
                                     decoration: TextDecoration.underline,
                                   ),
                         ),
@@ -566,7 +566,7 @@ class ModalBottomSheet {
                     const SizedBox(height: 8.0),
                     Text(
                       LocalizedTexts.surveyFinishedBottomSheetMain.tr(),
-                      style: Theme.of(context).textTheme.bodyText1?.copyWith(),
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(),
                     ),
                   ],
                 ),

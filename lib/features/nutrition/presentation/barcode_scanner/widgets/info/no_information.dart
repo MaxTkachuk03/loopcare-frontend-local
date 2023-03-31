@@ -55,7 +55,7 @@ class NoInformation extends StatelessWidget {
             Text(
               textAlign: TextAlign.center,
               LocalizedTexts.sorryNotFound.tr(),
-              style: Theme.of(context).textTheme.bodyText2?.copyWith(
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                     color: AppColors.orangeDark,
                   ),
