@@ -44,14 +44,12 @@ class MealPage extends StatelessWidget {
                         OutlinedRoundedButton(
                           text: LocalizedTexts.saveToMyDishes.translation,
                           icon: AppIcons.dish,
-                          // onPressed: () {},
                         ),
                         const SizedBox(
                           width: 8.0,
                         ),
                         OutlinedRoundedButton(
                           text: LocalizedTexts.deleteMeal.translation,
-                          // icon: AppIcons.dish,
                           onPressed: () {},
                         )
                       ],

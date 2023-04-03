@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 
-class EmptyProteinDegreeBlock extends StatelessWidget {
-  const EmptyProteinDegreeBlock({Key? key}) : super(key: key);
+class DisabledProteinDegreeBlock extends StatelessWidget {
+  const DisabledProteinDegreeBlock({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

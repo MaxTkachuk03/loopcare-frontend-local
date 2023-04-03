@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/calorie_density_block/calorie_density_block.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/empty_calorie_density_block/empty_calorie_density_block.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/empty_protein_degree_block/empty_protein_degree_block.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/disabled_calorie_density_block/disabled_calorie_density_block.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/disabled_protein_degree_block/disabled_protein_degree_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/protein_degree_block/protein_degree_block.dart';
 
 class NutritionBlock extends StatelessWidget {
@@ -27,7 +27,7 @@ class NutritionBlock extends StatelessWidget {
                   NutritionInstructionsState>(
                 builder: (BuildContext context, state) {
                   return state.maybeMap(
-                    disabled: (_) => const EmptyCalorieDensityBlock(),
+                    disabled: (_) => const DisabledCalorieDensityBlock(),
                     nutritionInstructions: (_) => const CalorieDensityBlock(),
                     orElse: () => const SizedBox.shrink(),
                   );
@@ -44,7 +44,7 @@ class NutritionBlock extends StatelessWidget {
                   NutritionInstructionsState>(
                 builder: (BuildContext context, state) {
                   return state.maybeMap(
-                    disabled: (_) => const EmptyProteinDegreeBlock(),
+                    disabled: (_) => const DisabledProteinDegreeBlock(),
                     nutritionInstructions: (_) => const ProteinDegreeBlock(),
                     orElse: () => const SizedBox.shrink(),
                   );

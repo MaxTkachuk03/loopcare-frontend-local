@@ -4,8 +4,8 @@ import 'package:loopcare_frontend/core/presentation/calorie_density_scale/calori
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
-class EmptyCalorieDensityBlock extends StatelessWidget {
-  const EmptyCalorieDensityBlock({Key? key}) : super(key: key);
+class DisabledCalorieDensityBlock extends StatelessWidget {
+  const DisabledCalorieDensityBlock({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
