@@ -31,10 +31,15 @@ class CalorieDensity extends StatelessWidget {
                 child: BlocBuilder<NutritionInstructionsBloc,
                     NutritionInstructionsState>(
                   builder: (BuildContext context, state) {
-                    return CalorieDensityScale(
-                      density: state.calorieDensityValue,
-                      separatorColor: AppColors.white,
-                      layout: CalorieDensityScaleLayout.vertical,
+                    return state.maybeMap(
+                      nutritionInstructions: (state) {
+                        return CalorieDensityScale(
+                          density: state.calorieDensityValue,
+                          separatorColor: AppColors.white,
+                          layout: CalorieDensityScaleLayout.vertical,
+                        );
+                      },
+                      orElse: () => const SizedBox.shrink(),
                     );
                   },
                 ),
@@ -48,12 +53,19 @@ class CalorieDensity extends StatelessWidget {
                     BlocBuilder<NutritionInstructionsBloc,
                         NutritionInstructionsState>(
                       builder: (BuildContext context, state) {
-                        return Text(
-                          '${LocalizedTexts.calorieDensity.translation}: ${state.calorieDensityValue}',
-                          style:
-                              Theme.of(context).textTheme.subtitle1?.copyWith(
+                        return state.maybeMap(
+                          nutritionInstructions: (state) {
+                            return Text(
+                              '${LocalizedTexts.calorieDensity.translation}: ${state.calorieDensityValue}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1
+                                  ?.copyWith(
                                     fontWeight: FontWeight.w600,
                                   ),
+                            );
+                          },
+                          orElse: () => const SizedBox.shrink(),
                         );
                       },
                     ),
@@ -61,28 +73,36 @@ class CalorieDensity extends StatelessWidget {
                     BlocBuilder<NutritionInstructionsBloc,
                         NutritionInstructionsState>(
                       builder: (BuildContext context, state) {
-                        if (state.calorieDensityValues.isEmpty) {
-                          return const SizedBox();
-                        }
+                        return state.maybeMap(
+                          nutritionInstructions: (state) {
+                            final currentCalorieDensityItem =
+                                state.currentCalorieDensityItem;
 
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              state.currentCalorieDensityItem.label
-                                  .toUpperCase(),
-                              style: const TextStyle(
-                                fontSize: 16.0,
-                                color: AppColors.blueDark,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const SizedBox(height: 8.0),
-                            Text(
-                              state.currentCalorieDensityItem.text,
-                              style: Theme.of(context).textTheme.bodyText2,
-                            ),
-                          ],
+                            if (state.calorieDensityValues.isEmpty ||
+                                currentCalorieDensityItem == null) {
+                              return const SizedBox();
+                            }
+
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Text(
+                                  currentCalorieDensityItem.label.toUpperCase(),
+                                  style: const TextStyle(
+                                    fontSize: 16.0,
+                                    color: AppColors.blueDark,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                const SizedBox(height: 8.0),
+                                Text(
+                                  currentCalorieDensityItem.text,
+                                  style: Theme.of(context).textTheme.bodyText2,
+                                ),
+                              ],
+                            );
+                          },
+                          orElse: () => const SizedBox.shrink(),
                         );
                       },
                     ),
@@ -98,7 +118,7 @@ class CalorieDensity extends StatelessWidget {
           children: [
             Text(
               LocalizedTexts.whatIsCalorieDensity.translation,
-              style: Theme.of(context).textTheme.bodyText2?.copyWith(
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
             ),

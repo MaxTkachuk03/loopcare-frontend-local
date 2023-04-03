@@ -5,7 +5,7 @@ import 'package:loopcare_frontend/core/presentation/calorie_density_scale/widget
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class CalorieDensityScale extends StatelessWidget {
-  final double density;
+  final double? density;
   final CalorieDensityScaleLayout layout;
   final double? separatorSize;
   final Color
@@ -14,7 +14,7 @@ class CalorieDensityScale extends StatelessWidget {
 
   const CalorieDensityScale({
     Key? key,
-    required this.density,
+    this.density,
     required this.layout,
     required this.separatorColor,
     this.separatorSize = 3,

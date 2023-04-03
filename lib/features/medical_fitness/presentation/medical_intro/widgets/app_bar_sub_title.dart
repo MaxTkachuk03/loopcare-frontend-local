@@ -25,7 +25,7 @@ class AppBarSubTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       getText(),
-      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontWeight: FontWeight.w800,
             fontSize: ThemeConstants.fontSize14,
           ),

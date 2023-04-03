@@ -15,13 +15,34 @@ class OutlinedRoundedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    if (onPressed == null) {
+      return ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          minimumSize: const Size(0, 38.0),
+          disabledForegroundColor: AppColors.darkGreen.withOpacity(0.4),
+          disabledBackgroundColor: AppColors.darkGreen.withOpacity(0.1),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(5.0),
+            ),
+          ),
+          textStyle: Theme.of(context).textTheme.caption?.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        onPressed: onPressed,
+        icon: ImageIcon(icon),
+        label: Text(text),
+      );
+    }
+
     final styles = OutlinedButton.styleFrom(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(5.0),
         ),
       ),
-      disabledBackgroundColor: AppColors.darkGreen.withOpacity(0.1),
       side: const BorderSide(width: 1.0, color: AppColors.darkGreen),
       minimumSize: const Size(0, 38.0),
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0.0),

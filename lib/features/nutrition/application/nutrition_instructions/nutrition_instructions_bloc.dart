@@ -24,6 +24,7 @@ class NutritionInstructionsBloc
     on<FetchValuesExplanation>(_onFetchValuesExplanation);
     on<SetCalorieDensity>(_onSetCalorieDensity);
     on<SetProteinDegree>(_onSetProteinDegree);
+    on<Disable>(_onDisable);
   }
 
   FutureOr<void> _onFetchValuesExplanation(
@@ -57,13 +58,24 @@ class NutritionInstructionsBloc
     SetCalorieDensity event,
     Emitter<NutritionInstructionsState> emit,
   ) {
-    emit(state.copyWith(calorieDensityValue: event.value));
+    state.mapOrNull(nutritionInstructions: (state) {
+      emit(state.copyWith(calorieDensityValue: event.value));
+    });
   }
 
   _onSetProteinDegree(
     SetProteinDegree event,
     Emitter<NutritionInstructionsState> emit,
   ) {
-    emit(state.copyWith(proteinDegreeValue: event.value));
+    state.mapOrNull(nutritionInstructions: (state) {
+      emit(state.copyWith(proteinDegreeValue: event.value));
+    });
+  }
+
+  FutureOr<void> _onDisable(
+    Disable event,
+    Emitter<NutritionInstructionsState> emit,
+  ) {
+    emit(const NutritionInstructionsState.disabled());
   }
 }

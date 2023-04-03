@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
@@ -30,7 +29,7 @@ class _SelectFoodPageState extends State<SelectFoodPage> {
     return Scaffold(
       appBar: BlueAppBar(
         isCustomLeading: true,
-        title: '${LocalizedTexts.log.tr()} lunch',
+        title: '${LocalizedTexts.log.translation} lunch',
         actions: const [SelectedItemsLabel()],
       ),
       body: SafeArea(

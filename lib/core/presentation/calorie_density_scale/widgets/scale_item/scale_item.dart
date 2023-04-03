@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class ScaleItem extends StatelessWidget {
   final Range range;
-  final double density;
+  final double? density;
   final Color separatorColor;
   final bool useHorizontalLayout;
   final double minimalPossibleValue = 0.99;
@@ -13,7 +13,7 @@ class ScaleItem extends StatelessWidget {
   const ScaleItem({
     Key? key,
     required this.range,
-    required this.density,
+    this.density,
     required this.useHorizontalLayout,
     required this.separatorColor,
     this.separatorSize,
@@ -28,6 +28,10 @@ class ScaleItem extends StatelessWidget {
   }
 
   bool _isDensityInRange() {
+    final density = this.density;
+
+    if (density == null) return false;
+
     return (range.min <= density && density <= range.max) ||
         density >= range.max;
   }

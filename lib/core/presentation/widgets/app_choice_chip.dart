@@ -28,7 +28,7 @@ class AppChoiceChip<T> extends StatelessWidget {
         child: Text(
           label,
           textAlign: textAlign ?? TextAlign.center,
-          style: Theme.of(context).textTheme.bodyText2?.copyWith(
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w600,
                 color: selected ? AppColors.white : AppColors.darkGreen,
               ),
@@ -42,7 +42,7 @@ class AppChoiceChip<T> extends StatelessWidget {
       shadowColor: Colors.transparent,
       elevation: 0,
       backgroundColor: AppColors.white,
-      labelStyle: Theme.of(context).textTheme.bodyText2?.copyWith(
+      labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: selected ? AppColors.white : AppColors.darkGreen,
           ),
       shape: const RoundedRectangleBorder(

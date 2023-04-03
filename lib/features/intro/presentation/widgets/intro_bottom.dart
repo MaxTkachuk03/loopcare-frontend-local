@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -18,7 +18,7 @@ class IntroBottom extends StatelessWidget {
                 backgroundColor:
                     MaterialStateProperty.all(AppColors.orangeDark),
               ),
-          child: Text(LocalizedTexts.getStarted.tr()),
+          child: Text(LocalizedTexts.getStarted.translation),
         ),
         const SizedBox(
           height: 16.0,
@@ -31,10 +31,10 @@ class IntroBottom extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyLarge,
               children: [
                 TextSpan(
-                  text: '${LocalizedTexts.haveAnAccount.tr()} ',
+                  text: '${LocalizedTexts.haveAnAccount.translation} ',
                 ),
                 TextSpan(
-                  text: LocalizedTexts.logIn.tr(),
+                  text: LocalizedTexts.logIn.translation,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         fontWeight: FontWeight.w600,
                         color: AppColors.orangeMid,
