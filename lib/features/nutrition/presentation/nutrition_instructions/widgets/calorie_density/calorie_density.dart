@@ -59,7 +59,7 @@ class CalorieDensity extends StatelessWidget {
                               '${LocalizedTexts.calorieDensity.translation}: ${state.calorieDensityValue}',
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1
+                                  .titleMedium
                                   ?.copyWith(
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -97,7 +97,7 @@ class CalorieDensity extends StatelessWidget {
                                 const SizedBox(height: 8.0),
                                 Text(
                                   currentCalorieDensityItem.text,
-                                  style: Theme.of(context).textTheme.bodyText2,
+                                  style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                               ],
                             );
@@ -125,12 +125,12 @@ class CalorieDensity extends StatelessWidget {
             const SizedBox(height: 8.0),
             Text(
               LocalizedTexts.calorieDensityExplanationOne.translation,
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 16.0),
             Text(
               LocalizedTexts.calorieDensityExplanationTwo.translation,
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 52.0),
             const InstructionsBlock(),

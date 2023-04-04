@@ -38,19 +38,19 @@ class ProteinDegreeBlock extends StatelessWidget {
                           LocalizedTexts.proteinDegree.translation
                               .toUpperCase(),
                           style:
-                              Theme.of(context).textTheme.bodyText2?.copyWith(
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
                                     fontSize: 12.0,
                                   ),
                         ),
                         Text(
                           '${state.proteinDegreeValue}',
-                          style: Theme.of(context).textTheme.bodyText2,
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         Text(
                           currentProteinDegreeItem.label
                               .capitalizeOnlyFirstLetter(),
                           style:
-                              Theme.of(context).textTheme.headline6?.copyWith(
+                              Theme.of(context).textTheme.titleLarge?.copyWith(
                                     fontSize: 14.0,
                                   ),
                         ),

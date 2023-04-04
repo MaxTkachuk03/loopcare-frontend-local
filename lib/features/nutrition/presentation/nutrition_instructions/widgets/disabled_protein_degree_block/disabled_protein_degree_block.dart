@@ -18,14 +18,14 @@ class DisabledProteinDegreeBlock extends StatelessWidget {
                 LocalizedTexts.proteinDegree.translation
                     .toUpperCase(),
                 style:
-                Theme.of(context).textTheme.bodyText2?.copyWith(
+                Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontSize: 12.0,
                 ),
               ),
               Text(
                 '-',
                 style:
-                Theme.of(context).textTheme.bodyText2,
+                Theme.of(context).textTheme.bodyMedium,
               ),
             ],
           ),

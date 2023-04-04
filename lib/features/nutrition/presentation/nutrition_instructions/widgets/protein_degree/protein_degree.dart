@@ -41,7 +41,7 @@ class ProteinDegree extends StatelessWidget {
                           Text(
                             '${LocalizedTexts.proteinDegree.translation}: ${state.proteinDegreeValue}',
                             style:
-                                Theme.of(context).textTheme.subtitle1?.copyWith(
+                                Theme.of(context).textTheme.titleMedium?.copyWith(
                                       fontWeight: FontWeight.w600,
                                     ),
                           ),
@@ -57,7 +57,7 @@ class ProteinDegree extends StatelessWidget {
                           const SizedBox(height: 8.0),
                           Text(
                             currentProteinDegreeItem.text,
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ],
                       );
@@ -82,12 +82,12 @@ class ProteinDegree extends StatelessWidget {
             const SizedBox(height: 8.0),
             Text(
               LocalizedTexts.calorieDensityExplanationOne.translation,
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 16.0),
             Text(
               LocalizedTexts.calorieDensityExplanationTwo.translation,
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
         ),

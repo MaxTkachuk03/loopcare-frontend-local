@@ -27,7 +27,7 @@ class OutlinedRoundedButton extends StatelessWidget {
               Radius.circular(5.0),
             ),
           ),
-          textStyle: Theme.of(context).textTheme.caption?.copyWith(
+          textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -46,7 +46,7 @@ class OutlinedRoundedButton extends StatelessWidget {
       side: const BorderSide(width: 1.0, color: AppColors.darkGreen),
       minimumSize: const Size(0, 38.0),
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0.0),
-      textStyle: Theme.of(context).textTheme.caption?.copyWith(
+      textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
             fontWeight: FontWeight.w600,
           ),
     );

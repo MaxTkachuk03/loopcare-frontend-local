@@ -49,19 +49,19 @@ class CalorieDensityBlock extends StatelessWidget {
                           LocalizedTexts.calorieDensity.translation
                               .toUpperCase(),
                           style:
-                              Theme.of(context).textTheme.bodyText2?.copyWith(
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
                                     fontSize: 12.0,
                                   ),
                         ),
                         Text(
                           '${state.calorieDensityValue}',
-                          style: Theme.of(context).textTheme.bodyText2,
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         Text(
                           currentCalorieDensityItem.label
                               .capitalizeOnlyFirstLetter(),
                           style:
-                              Theme.of(context).textTheme.headline6!.copyWith(
+                              Theme.of(context).textTheme.titleLarge?.copyWith(
                                     fontSize: 14.0,
                                   ),
                         )

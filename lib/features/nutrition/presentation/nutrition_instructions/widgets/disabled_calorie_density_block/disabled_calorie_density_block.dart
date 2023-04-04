@@ -27,13 +27,13 @@ class DisabledCalorieDensityBlock extends StatelessWidget {
           children: [
             Text(
               LocalizedTexts.calorieDensity.translation.toUpperCase(),
-              style: Theme.of(context).textTheme.bodyText2?.copyWith(
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontSize: 12.0,
                   ),
             ),
             Text(
               '-',
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
         ),

@@ -20,7 +20,7 @@ class MealNutritionValues extends StatelessWidget {
             Text(
               LocalizedTexts.totalEnergy.translation
                   .capitalizeOnlyFirstLetter(),
-              style: Theme.of(context).textTheme.caption,
+              style: Theme.of(context).textTheme.bodySmall,
             ),
             InkWell(
               onTap: () => _onTap(context),
@@ -28,7 +28,7 @@ class MealNutritionValues extends StatelessWidget {
                 children: [
                   Text(
                     '560 kcal',
-                    style: Theme.of(context).textTheme.caption?.copyWith(
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
                   ),
