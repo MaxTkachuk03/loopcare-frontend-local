@@ -319,6 +319,10 @@ class LocalizedTexts {
   static const String myDish = 'myDish';
   static const String editMyDish = 'editMyDish';
   static const String serving = 'serving';
+  static const String logList = 'logList';
+  static const String deleteMeal = 'deleteMeal';
+  static const String logListEmptyMessage = 'logListEmptyMessage';
+  static const String backToDashboard = 'backToDashboard';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';

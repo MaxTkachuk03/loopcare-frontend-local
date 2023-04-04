@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/nutrition_field.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/widgets/nutrition_field/nutrition_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/underlined_tab_bar.dart';
 
 class UnderAppBarContainer extends StatelessWidget {

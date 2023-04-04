@@ -25,34 +25,44 @@ class ProteinDegree extends StatelessWidget {
               BlocBuilder<NutritionInstructionsBloc,
                   NutritionInstructionsState>(
                 builder: (BuildContext context, state) {
-                  if (state.proteinDegreeValues.isEmpty) {
-                    return const SizedBox();
-                  }
+                  return state.maybeMap(
+                    nutritionInstructions: (state) {
+                      final currentProteinDegreeItem =
+                          state.currentProteinDegreeItem;
 
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        '${LocalizedTexts.proteinDegree.translation}: ${state.proteinDegreeValue}',
-                        style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                      if (state.proteinDegreeValues.isEmpty ||
+                          currentProteinDegreeItem == null) {
+                        return const SizedBox();
+                      }
+
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            '${LocalizedTexts.proteinDegree.translation}: ${state.proteinDegreeValue}',
+                            style:
+                                Theme.of(context).textTheme.titleMedium?.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                          ),
+                          const SizedBox(height: 8.0),
+                          Text(
+                            currentProteinDegreeItem.label.toUpperCase(),
+                            style: const TextStyle(
+                              fontSize: 16.0,
+                              color: AppColors.blueDark,
                               fontWeight: FontWeight.w600,
                             ),
-                      ),
-                      const SizedBox(height: 8.0),
-                      Text(
-                        state.currentProteinDegreeItem.label.toUpperCase(),
-                        style: const TextStyle(
-                          fontSize: 16.0,
-                          color: AppColors.blueDark,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(height: 8.0),
-                      Text(
-                        state.currentProteinDegreeItem.text,
-                        style: Theme.of(context).textTheme.bodyText2,
-                      ),
-                    ],
+                          ),
+                          const SizedBox(height: 8.0),
+                          Text(
+                            currentProteinDegreeItem.text,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ],
+                      );
+                    },
+                    orElse: () => const SizedBox.shrink(),
                   );
                 },
               ),
@@ -72,12 +82,12 @@ class ProteinDegree extends StatelessWidget {
             const SizedBox(height: 8.0),
             Text(
               LocalizedTexts.calorieDensityExplanationOne.translation,
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 16.0),
             Text(
               LocalizedTexts.calorieDensityExplanationTwo.translation,
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
         ),

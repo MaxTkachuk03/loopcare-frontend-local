@@ -10,4 +10,6 @@ class NutritionInstructionsEvent with _$NutritionInstructionsEvent {
 
   const factory NutritionInstructionsEvent.setProteinDegree(double value) =
       SetProteinDegree;
+
+  const factory NutritionInstructionsEvent.disable() = Disable;
 }

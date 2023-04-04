@@ -9,7 +9,9 @@ import 'package:loopcare_frontend/features/nutrition/application/nutrition_servi
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_instructions/nutrition_instruction_category.dart';
 
 part 'nutrition_instructions_event.dart';
+
 part 'nutrition_instructions_state.dart';
+
 part 'nutrition_instructions_bloc.freezed.dart';
 
 @singleton
@@ -18,10 +20,11 @@ class NutritionInstructionsBloc
   final NutritionService nutritionService;
 
   NutritionInstructionsBloc(this.nutritionService)
-      : super(NutritionInstructionsState.initial()) {
+      : super(const NutritionInstructionsState.initial()) {
     on<FetchValuesExplanation>(_onFetchValuesExplanation);
     on<SetCalorieDensity>(_onSetCalorieDensity);
     on<SetProteinDegree>(_onSetProteinDegree);
+    on<Disable>(_onDisable);
   }
 
   FutureOr<void> _onFetchValuesExplanation(
@@ -41,9 +44,11 @@ class NutritionInstructionsBloc
           .toIList();
 
       emit(
-        state.copyWith(
+        NutritionInstructionsState.nutritionInstructions(
           calorieDensityValues: calorieDensityValues,
           proteinDegreeValues: proteinDegreeValues,
+          proteinDegreeValue: 0.0,
+          calorieDensityValue: 0.0,
         ),
       );
     });
@@ -53,13 +58,24 @@ class NutritionInstructionsBloc
     SetCalorieDensity event,
     Emitter<NutritionInstructionsState> emit,
   ) {
-    emit(state.copyWith(calorieDensityValue: event.value));
+    state.mapOrNull(nutritionInstructions: (state) {
+      emit(state.copyWith(calorieDensityValue: event.value));
+    });
   }
 
   _onSetProteinDegree(
     SetProteinDegree event,
     Emitter<NutritionInstructionsState> emit,
   ) {
-    emit(state.copyWith(proteinDegreeValue: event.value));
+    state.mapOrNull(nutritionInstructions: (state) {
+      emit(state.copyWith(proteinDegreeValue: event.value));
+    });
+  }
+
+  FutureOr<void> _onDisable(
+    Disable event,
+    Emitter<NutritionInstructionsState> emit,
+  ) {
+    emit(const NutritionInstructionsState.disabled());
   }
 }

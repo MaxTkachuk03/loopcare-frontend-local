@@ -38,6 +38,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/treatmen
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor_failled/presentation/treatment_by_doctor_failled_page.dart';
 import 'package:loopcare_frontend/features/nutrition/search/presentation/search/search_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dish_page/dish_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/meal/meal_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe/recipe_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/barcode_scanner_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/select_food_page.dart';
@@ -317,6 +318,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.dish,
       page: DishPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.meal,
+      page: MealPage,
     ),
   ],
 )

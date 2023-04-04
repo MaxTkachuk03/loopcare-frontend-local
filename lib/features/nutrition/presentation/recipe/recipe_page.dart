@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/back_button_hexagon.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
@@ -23,7 +23,6 @@ class _RecipePageState extends State<RecipePage> {
   @override
   void initState() {
     context.read<NutritionInstructionsBloc>()
-      ..add(const NutritionInstructionsEvent.fetchValuesExplanation())
       ..add(const NutritionInstructionsEvent.setCalorieDensity(2.0))
       ..add(const NutritionInstructionsEvent.setProteinDegree(50.0));
 
@@ -34,7 +33,7 @@ class _RecipePageState extends State<RecipePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BlueAppBar(
-        leading: const BackButtonHexagon(),
+        isCustomLeading: true,
         title: 'Greek salad',
         subtitle: LocalizedTexts.recipe.translation,
       ),

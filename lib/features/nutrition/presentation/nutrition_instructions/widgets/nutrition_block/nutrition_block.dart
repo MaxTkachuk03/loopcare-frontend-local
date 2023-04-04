@@ -1,14 +1,11 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/calorie_density_scale_layout.dart';
-import 'package:loopcare_frontend/core/presentation/calorie_density_scale/calorie_density_scale.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/calorie_density_block/calorie_density_block.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/disabled_calorie_density_block/disabled_calorie_density_block.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/disabled_protein_degree_block/disabled_protein_degree_block.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/protein_degree_block/protein_degree_block.dart';
 
 class NutritionBlock extends StatelessWidget {
   const NutritionBlock({Key? key}) : super(key: key);
@@ -26,91 +23,15 @@ class NutritionBlock extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: GestureDetector(
-                onTap: () => _onItemPressed(context, tabIndex: 0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    SizedBox(
-                      width: 15.0,
-                      height: 55.0,
-                      child: BlocBuilder<NutritionInstructionsBloc,
-                          NutritionInstructionsState>(
-                        builder: (BuildContext context, state) {
-                          return CalorieDensityScale(
-                            density: state.calorieDensityValue,
-                            layout: CalorieDensityScaleLayout.vertical,
-                            separatorColor: AppColors.bgGreen,
-                            separatorSize: 1,
-                          );
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 16.0),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          LocalizedTexts.calorieDensity.translation.toUpperCase(),
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodyText2
-                              ?.copyWith(
-                            fontSize: 12.0,
-                          ),
-                        ),
-                        BlocBuilder<NutritionInstructionsBloc,
-                            NutritionInstructionsState>(
-                          builder: (BuildContext context, state) {
-                            return Text(
-                              '${state.calorieDensityValue}',
-                              style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .bodyText2,
-                            );
-                          },
-                        ),
-                        Row(
-                          children: [
-                            BlocBuilder<NutritionInstructionsBloc,
-                                NutritionInstructionsState>(
-                              builder: (BuildContext context, state) {
-                                if (state.calorieDensityValues.isEmpty) {
-                                  return const SizedBox();
-                                }
-
-                                return Text(
-                                  state.currentCalorieDensityItem.label
-                                      .capitalizeOnlyFirstLetter(),
-                                  style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .headline6!
-                                      .copyWith(
-                                    fontSize: 14.0,
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 8.0,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                      height: 14,
-                      child: ImageIcon(
-                        AppIcons.arrow,
-                        color: AppColors.darkGreen,
-                      ),
-                    ),
-                  ],
-                ),
+              child: BlocBuilder<NutritionInstructionsBloc,
+                  NutritionInstructionsState>(
+                builder: (BuildContext context, state) {
+                  return state.maybeMap(
+                    disabled: (_) => const DisabledCalorieDensityBlock(),
+                    nutritionInstructions: (_) => const CalorieDensityBlock(),
+                    orElse: () => const SizedBox.shrink(),
+                  );
+                },
               ),
             ),
             const VerticalDivider(
@@ -119,88 +40,20 @@ class NutritionBlock extends StatelessWidget {
               thickness: 1.0,
             ),
             Expanded(
-              child: GestureDetector(
-                onTap: () => _onItemPressed(context, tabIndex: 1),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 18.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            LocalizedTexts.proteinDegree.translation
-                                .toUpperCase(),
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .bodyText2
-                                ?.copyWith(
-                              fontSize: 12.0,
-                            ),
-                          ),
-                          BlocBuilder<NutritionInstructionsBloc,
-                              NutritionInstructionsState>(
-                            builder: (BuildContext context, state) {
-                              return Text(
-                                '${state.proteinDegreeValue}',
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .bodyText2,
-                              );
-                            },
-                          ),
-                          Row(
-                            children: [
-                              BlocBuilder<NutritionInstructionsBloc,
-                                  NutritionInstructionsState>(
-                                builder: (BuildContext context, state) {
-                                  if (state.proteinDegreeValues.isEmpty) {
-                                    return const SizedBox();
-                                  }
-
-                                  return Text(
-                                    state.currentProteinDegreeItem.label
-                                        .capitalizeOnlyFirstLetter(),
-                                    style: Theme
-                                        .of(context)
-                                        .textTheme
-                                        .headline6!
-                                        .copyWith(
-                                      fontSize: 14.0,
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        width: 8.0,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                        height: 14,
-                        child: ImageIcon(
-                          AppIcons.arrow,
-                          color: AppColors.darkGreen,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              child: BlocBuilder<NutritionInstructionsBloc,
+                  NutritionInstructionsState>(
+                builder: (BuildContext context, state) {
+                  return state.maybeMap(
+                    disabled: (_) => const DisabledProteinDegreeBlock(),
+                    nutritionInstructions: (_) => const ProteinDegreeBlock(),
+                    orElse: () => const SizedBox.shrink(),
+                  );
+                },
               ),
             ),
           ],
         ),
       ),
     );
-  }
-
-  _onItemPressed(BuildContext context, {required int tabIndex}) {
-    context.router.push(NutritionInstructionsRoute(tabIndex: tabIndex));
   }
 }
