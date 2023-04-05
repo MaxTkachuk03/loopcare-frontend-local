@@ -7,9 +7,10 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dar
 
 @injectable
 class AuthTokenInterceptor extends InterceptorsWrapper {
+  Dio dio;
   AuthTokenManager authTokenManager;
 
-  AuthTokenInterceptor(this.authTokenManager);
+  AuthTokenInterceptor(this.dio, this.authTokenManager);
 
   @override
   Future<void> onRequest(
@@ -28,6 +29,8 @@ class AuthTokenInterceptor extends InterceptorsWrapper {
     if (err.response?.statusCode != HttpStatus.unauthorized) {
       return handler.next(err);
     }
+    dio.interceptors.requestLock.lock();
+    dio.interceptors.responseLock.lock();
     try {
       final accessTokenIsUpdated = await authTokenManager.updateAccessToken();
       final refreshTokenIsUpdated = await authTokenManager.updateRefreshToken();
@@ -35,18 +38,27 @@ class AuthTokenInterceptor extends InterceptorsWrapper {
       if (accessTokenIsUpdated && refreshTokenIsUpdated) {
         return _createUpdatedRequest(err.requestOptions);
       } else {
+        _unlockDio();
         return handler.next(err);
       }
     } catch (e) {
+      _unlockDio();
       return handler.next(err);
     }
   }
 
+  void _unlockDio() {
+    dio.interceptors.requestLock.unlock();
+    dio.interceptors.responseLock.unlock();
+  }
+
   Future _createUpdatedRequest(RequestOptions request) async {
     final token = await authTokenManager.getAccessToken();
-    final dio = dioOptions;
+    final dioBaseOption = dioOptions;
 
-    return dio.request(
+    _unlockDio();
+
+    return dioBaseOption.request(
       request.path,
       cancelToken: request.cancelToken,
       data: request.data,
