@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_serving.dart';
@@ -25,24 +26,30 @@ class DefaultListItem extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                const Icon(
-                  Icons.check,
-                  color: AppColors.greyMid,
-                ),
-                const SizedBox(width: 8.0),
-                Text(
-                  item.servingLabel,
-                  style: Theme.of(context)
-                      .textTheme
-                      .caption!
-                      .copyWith(fontWeight: FontWeight.w600),
-                ),
-              ],
+            Flexible(
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.check,
+                    color: AppColors.greyMid,
+                  ),
+                  const SizedBox(width: 8.0),
+                  Flexible(
+                    child: AutoSizeText(
+                      item.servingLabel,
+                      maxLines: 2,
+                      style: Theme.of(context)
+                          .textTheme
+                          .caption!
+                          .copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            Text(
+            AutoSizeText(
               '${item.calories}',
+              maxLines: 1,
               style: Theme.of(context).textTheme.caption?.copyWith(
                     fontWeight: FontWeight.w400,
                     color: AppColors.greyLabel,

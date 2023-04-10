@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -39,22 +40,27 @@ class SelectedListItem extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                const Icon(
-                  Icons.check,
-                  color: AppColors.blueDark,
-                ),
-                const SizedBox(width: 8.0),
-                Text(
-                  item.servingLabel,
-                  style: Theme.of(context).textTheme.caption?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16.0,
-                        color: AppColors.blueDark,
-                      ),
-                ),
-              ],
+            Flexible(
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.check,
+                    color: AppColors.blueDark,
+                  ),
+                  const SizedBox(width: 8.0),
+                  Flexible(
+                    child: AutoSizeText(
+                      maxLines: 2,
+                      item.servingLabel,
+                      style: Theme.of(context).textTheme.caption?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16.0,
+                            color: AppColors.blueDark,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 8.0),
             Row(
@@ -83,22 +89,29 @@ class SelectedListItem extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          ServingInputField(
-                            controller: inputController,
-                            fillColor: AppColors.bgGreen,
-                            onChange: (value) =>
-                                _onAmountChange(context, value),
+                          Flexible(
+                            child: ServingInputField(
+                              controller: inputController,
+                              fillColor: AppColors.bgGreen,
+                              onChange: (value) =>
+                                  _onAmountChange(context, value),
+                            ),
                           ),
                           BlocBuilder<FoodItemServingsBloc,
                                   FoodItemServingsState>(
                               builder: (BuildContext context, state) {
-                            return Text(
-                              '${state.selectedServingCalories}',
-                              style:
-                                  Theme.of(context).textTheme.caption?.copyWith(
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.darkGreen,
-                                      ),
+                            return Flexible(
+                              child: AutoSizeText(
+                                '${state.selectedServingCalories}',
+                                maxLines: 1,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .caption
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.darkGreen,
+                                    ),
+                              ),
                             );
                           }),
                         ],
