@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
@@ -54,6 +55,7 @@ class FavoriteList extends StatelessWidget {
                   ),
                 );
               },
+              loading: (state) => const Loader(),
               orElse: () => const SizedBox.shrink(),
             );
           },
