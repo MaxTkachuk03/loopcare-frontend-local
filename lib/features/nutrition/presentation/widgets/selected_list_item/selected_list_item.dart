@@ -89,22 +89,29 @@ class SelectedListItem extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          ServingInputField(
-                            controller: inputController,
-                            fillColor: AppColors.bgGreen,
-                            onChange: (value) =>
-                                _onAmountChange(context, value),
+                          Flexible(
+                            child: ServingInputField(
+                              controller: inputController,
+                              fillColor: AppColors.bgGreen,
+                              onChange: (value) =>
+                                  _onAmountChange(context, value),
+                            ),
                           ),
                           BlocBuilder<FoodItemServingsBloc,
                                   FoodItemServingsState>(
                               builder: (BuildContext context, state) {
-                            return Text(
-                              '${state.selectedServingCalories}',
-                              style:
-                                  Theme.of(context).textTheme.caption?.copyWith(
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.darkGreen,
-                                      ),
+                            return Flexible(
+                              child: AutoSizeText(
+                                '${state.selectedServingCalories}',
+                                maxLines: 1,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .caption
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.darkGreen,
+                                    ),
+                              ),
                             );
                           }),
                         ],
