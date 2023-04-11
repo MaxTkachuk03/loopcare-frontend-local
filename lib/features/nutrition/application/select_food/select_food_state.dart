@@ -17,9 +17,17 @@ class SelectFoodState with _$SelectFoodState {
 
   const factory SelectFoodState.error(RequestError fetchError) = _Error;
 
+  List<FoodItem> get selectedFavoritesItemsList {
+    return mapOrNull(
+          selectFood: (state) => state.selectedFavoritesItems.toList(),
+        ) ??
+        <FoodItem>[];
+  }
+
   int get selectedFavoritesItemsLength {
     return mapOrNull(
-            selectFood: (state) => state.selectedFavoritesItems.length) ??
+          selectFood: (state) => state.selectedFavoritesItems.length,
+        ) ??
         0;
   }
 }

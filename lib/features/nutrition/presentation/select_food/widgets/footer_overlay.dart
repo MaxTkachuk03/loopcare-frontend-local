@@ -1,12 +1,18 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
 
 class FooterOverlay extends StatelessWidget {
-  const FooterOverlay({Key? key}) : super(key: key);
+  const FooterOverlay({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +22,7 @@ class FooterOverlay extends StatelessWidget {
           right: 24.0, left: 24.0, top: 16.0, bottom: 40.0),
       decoration: const BoxDecoration(
           border: Border(
-        top: BorderSide(width: 1, color: AppColors.yellowLight),
+        top: BorderSide(color: AppColors.yellowLight),
       )),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +35,7 @@ class FooterOverlay extends StatelessWidget {
                 '$count ${count > 1 ? LocalizedTexts.items.tr() : LocalizedTexts.item.tr()} ${LocalizedTexts.selected.tr()}',
                 style: Theme.of(context)
                     .textTheme
-                    .caption
+                    .bodySmall
                     ?.copyWith(fontStyle: FontStyle.italic),
               );
             },
@@ -49,10 +55,16 @@ class FooterOverlay extends StatelessWidget {
                 width: 14.0,
               ),
               Expanded(
-                child: ElevatedButton(
-                  onPressed: _onAdd,
-                  child: Text(LocalizedTexts.add.tr()),
-                ),
+                child: BlocBuilder<SelectFoodBloc, SelectFoodState>(
+                    builder: (BuildContext context, state) {
+                  return ElevatedButton(
+                    onPressed: () => _onAdd(
+                      context,
+                      state.selectedFavoritesItemsList.toList(),
+                    ),
+                    child: Text(LocalizedTexts.add.tr()),
+                  );
+                }),
               ),
             ],
           )
@@ -67,5 +79,11 @@ class FooterOverlay extends StatelessWidget {
         .add(const SelectFoodEvent.itemsDeselectAll());
   }
 
-  void _onAdd() {}
+  void _onAdd(BuildContext context, List<FoodItem> foodItemList) {
+    context.read<MealsBloc>().add(
+          MealsEvent.createFromFavorites(foodItemList),
+        );
+
+    context.router.pushNamed(AppRoutes.meal);
+  }
 }

@@ -5,9 +5,9 @@ class DishListItem extends StatelessWidget {
   final dynamic dishItem;
 
   const DishListItem({
-    Key? key,
+    super.key,
     required this.dishItem,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +23,14 @@ class DishListItem extends StatelessWidget {
               Text(
                 'Name',
                 style: Theme.of(context).textTheme.caption?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+                      fontWeight: FontWeight.w600,
+                    ),
               ),
               Text(
                 'Description',
                 style: Theme.of(context).textTheme.caption?.copyWith(
-                  color: AppColors.greyLabel,
-                ),
+                      color: AppColors.greyLabel,
+                    ),
               ),
             ],
           ),

@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () => _onLogOutPressed(context),
-                  child: Text('Log out'),
+                  child: const Text('Log out'),
                 ),
               ],
             ),

@@ -6,8 +6,6 @@ part 'food_item_serving.g.dart';
 
 @freezed
 abstract class FoodItemServing implements _$FoodItemServing {
-  const FoodItemServing._();
-
   const factory FoodItemServing({
     required String? servingId,
     required bool? isSelectedFavorite,
@@ -36,6 +34,7 @@ abstract class FoodItemServing implements _$FoodItemServing {
     required double? vitaminC,
     required List<String>? favoriteMealCategories,
   }) = _FoodItemServing;
+  const FoodItemServing._();
 
   String get servingLabel {
     return '$measurementDescription ($metricServingAmount $metricServingUnit)';

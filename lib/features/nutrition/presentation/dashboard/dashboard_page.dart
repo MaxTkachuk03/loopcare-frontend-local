@@ -11,11 +11,12 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class DashboardPage extends StatefulWidget {
-  const DashboardPage({Key? key}) : super(key: key);
+  const DashboardPage({super.key});
 
   @override
   State<DashboardPage> createState() => _DashboardPageState();
@@ -24,6 +25,8 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   @override
   void initState() {
+    context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
+
     context
         .read<NutritionInstructionsBloc>()
         .add(const NutritionInstructionsEvent.fetchValuesExplanation());
@@ -35,7 +38,7 @@ class _DashboardPageState extends State<DashboardPage> {
     return BlocListener<AuthenticationCubit, AuthenticationState>(
       listener: _logoutListener,
       child: Scaffold(
-        appBar: BlueAppBar(
+        appBar: const BlueAppBar(
           title: 'Dashboard',
         ),
         body: SafeArea(
@@ -48,7 +51,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     children: [
                       Text(
                         'Log your meals',
-                        style: Theme.of(context).textTheme.headline5,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       Hexagon(
                         width: 54,
@@ -57,7 +60,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         innerWidget: Container(
                           color: AppColors.yellowLight,
                           child: IconButton(
-                            icon: ImageIcon(
+                            icon: const ImageIcon(
                               AppIcons.plus,
                               color: AppColors.darkGreen,
                               size: 18,
@@ -69,11 +72,86 @@ class _DashboardPageState extends State<DashboardPage> {
                       ),
                     ],
                   ),
+                  Row(
+                    children: [
+                      Text(
+                        'Receipts Details Page',
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                      Hexagon(
+                        width: 54,
+                        height: 54,
+                        borderRadius: 16,
+                        innerWidget: Container(
+                          color: AppColors.yellowLight,
+                          child: IconButton(
+                            icon: const ImageIcon(
+                              AppIcons.plus,
+                              color: AppColors.darkGreen,
+                              size: 18,
+                            ),
+                            onPressed: () =>
+                                context.router.pushNamed(AppRoutes.recipe),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'My Dish',
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                      Hexagon(
+                        width: 54,
+                        height: 54,
+                        borderRadius: 16,
+                        innerWidget: Container(
+                          color: AppColors.yellowLight,
+                          child: IconButton(
+                            icon: const ImageIcon(
+                              AppIcons.plus,
+                              color: AppColors.darkGreen,
+                              size: 18,
+                            ),
+                            onPressed: () =>
+                                context.router.pushNamed(AppRoutes.dish),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'Todays meals screen',
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                      Hexagon(
+                        width: 54,
+                        height: 54,
+                        borderRadius: 16,
+                        innerWidget: Container(
+                          color: AppColors.yellowLight,
+                          child: IconButton(
+                            icon: const ImageIcon(
+                              AppIcons.plus,
+                              color: AppColors.darkGreen,
+                              size: 18,
+                            ),
+                            onPressed: () =>
+                                context.router.pushNamed(AppRoutes.meal),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   Column(
                     children: [
                       ElevatedButton(
                         onPressed: () => _onLogOutPressed(context),
-                        child: Text('Log out'),
+                        child: const Text('Log out'),
                       ),
                       const SizedBox(
                         height: 40.0,

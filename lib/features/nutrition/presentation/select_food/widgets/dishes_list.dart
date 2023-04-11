@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -9,7 +8,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/select_food/wi
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/list_filters.dart';
 
 class DishesList extends StatelessWidget {
-  const DishesList({Key? key}) : super(key: key);
+  const DishesList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +39,7 @@ class DishesList extends StatelessWidget {
                               child: ListView.builder(
                                 itemCount: selectFoodState.dishes.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  return DishListItem(
+                                  return const DishListItem(
                                     dishItem: {},
                                   );
                                 },

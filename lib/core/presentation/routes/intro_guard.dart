@@ -20,7 +20,8 @@ class IntroGuard extends AutoRouteGuard {
   );
 
   @override
-  void onNavigation(NavigationResolver resolver, StackRouter router) async {
+  Future<void> onNavigation(
+      NavigationResolver resolver, StackRouter router) async {
     if (authenticationCubit.state.isAuthenticated) {
       final route = authenticationCubit.state.isPreferencesComplete
           ? AppRoutes.nutritionDashboard

@@ -110,7 +110,7 @@ class PhysicalFitnessBloc
 
     if (isCompleted) {
       final bool isValidBmi =
-          BmiValidator.isUserAllowToProceed(state.age!, state.bmi);
+          BmiValidator.isUserAllowToProceed(state.age!, state.bmi!);
 
       emit(
         state.copyWith(
