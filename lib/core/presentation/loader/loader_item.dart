@@ -61,7 +61,9 @@ class _LoaderItemState extends State<LoaderItem>
 
     // Adding delay before animation starts
     Future.delayed(widget.delayBeforeStart, () {
-      _controller.forward();
+      if (mounted) {
+        _controller.forward();
+      }
     });
   }
 
