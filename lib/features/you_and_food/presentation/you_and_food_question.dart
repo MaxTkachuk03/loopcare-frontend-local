@@ -12,12 +12,12 @@ class YouAndFoodQuestion extends StatelessWidget {
   final VoidCallback? onNextPressed;
 
   const YouAndFoodQuestion({
-    Key? key,
+    super.key,
     required this.question,
     required this.subtitle,
     required this.questionList,
     this.onNextPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +60,11 @@ class YouAndFoodQuestion extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: onNextPressed,
-                    style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                      backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                            (Set<MaterialState> states) {
+                    style:
+                        Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                      backgroundColor:
+                          MaterialStateProperty.resolveWith<Color?>(
+                        (Set<MaterialState> states) {
                           if (states.contains(MaterialState.disabled)) {
                             return AppColors.greyMid;
                           }

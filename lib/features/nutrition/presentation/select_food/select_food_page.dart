@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/select_food/wi
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/under_appbar_container.dart';
 
 class SelectFoodPage extends StatefulWidget {
-  const SelectFoodPage({Key? key}) : super(key: key);
+  const SelectFoodPage({super.key});
 
   @override
   State<SelectFoodPage> createState() => _SelectFoodPageState();

@@ -5,7 +5,7 @@ class BmiValidator {
   static const index = 27.5;
   static const minAllowedAge = 19;
 
-  static bool isUserAllowToProceed(num age, bmiIndex) {
+  static bool isUserAllowToProceed(num age, num bmiIndex) {
     if (age > minAllowedAge) {
       return minValue <= bmiIndex && bmiIndex <= maxValue;
     }

@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/features/nutrition/application/nutrition_instr
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 
 class EmptyMeal extends StatefulWidget {
-  const EmptyMeal({Key? key}) : super(key: key);
+  const EmptyMeal({super.key});
 
   @override
   State<EmptyMeal> createState() => _EmptyMealState();
@@ -54,7 +54,7 @@ class _EmptyMealState extends State<EmptyMeal> {
             ],
           ),
         ),
-        const NutritionBlock(),
+        // const NutritionBlock(),
       ],
     );
   }

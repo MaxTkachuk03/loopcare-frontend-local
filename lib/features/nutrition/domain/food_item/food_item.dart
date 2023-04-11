@@ -7,8 +7,6 @@ part 'food_item.g.dart';
 
 @freezed
 abstract class FoodItem implements _$FoodItem {
-  const FoodItem._();
-
   const factory FoodItem({
     required String id,
     required String foodName,
@@ -17,6 +15,7 @@ abstract class FoodItem implements _$FoodItem {
     required String? foodDescription,
     required FoodItemServing serving,
   }) = _FoodItem;
+  const FoodItem._();
 
   factory FoodItem.fromJson(Map<String, dynamic> json) =>
       _$FoodItemFromJson(json);

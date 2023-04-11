@@ -2,12 +2,6 @@ part of 'physical_fitness_bloc.dart';
 
 @freezed
 class PhysicalFitnessState with _$PhysicalFitnessState {
-  const PhysicalFitnessState._();
-
-  factory PhysicalFitnessState.initial() => PhysicalFitnessState(
-        currentQuestion: PhysicalFitnessQuestions.values[0],
-      );
-
   const factory PhysicalFitnessState({
     required PhysicalFitnessQuestions currentQuestion,
     @Default(false) bool isCompletedSuccessfully,
@@ -24,6 +18,11 @@ class PhysicalFitnessState with _$PhysicalFitnessState {
     SexType? sexType,
     BiologicalGenderType? biologicalGenderType,
   }) = _PhysicalFitnessState;
+  const PhysicalFitnessState._();
+
+  factory PhysicalFitnessState.initial() => PhysicalFitnessState(
+        currentQuestion: PhysicalFitnessQuestions.values[0],
+      );
 
   RegistrationPhysicalFitnessData get registrationPhysicalFitnessData {
     return RegistrationPhysicalFitnessData(
