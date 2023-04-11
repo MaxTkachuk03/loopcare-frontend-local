@@ -22,13 +22,6 @@ class MealPage extends StatefulWidget {
 
 class _MealPageState extends State<MealPage> {
   @override
-  void initState() {
-    context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
         builder: (BuildContext context, state) {

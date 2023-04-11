@@ -11,7 +11,7 @@ class MealItem with _$MealItem {
     required String? description,
     required int calorieDensity,
     required int proteinDegree,
-    required String id,
+    required int id,
     required String name,
     required String type,
     required FoodItemServing serving,

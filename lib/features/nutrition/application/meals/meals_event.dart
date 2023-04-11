@@ -10,30 +10,30 @@ class MealsEvent with _$MealsEvent {
   ) = AddMeal;
 
   const factory MealsEvent.addFoodItemToMeal(
-    String mealId,
-    String foodItemId,
+    int mealId,
+    int foodItemId,
     AddFoodItemToMealBody data,
   ) = AddFoodItemToMeal;
 
   const factory MealsEvent.updateFoodItemInMeal(
-    String mealId,
-    String foodItemId,
+    int mealId,
+    int foodItemId,
     AddFoodItemToMealBody data,
   ) = UpdateFoodItemInMeal;
 
   const factory MealsEvent.deleteMeal(
-    String mealId,
+    int mealId,
   ) = DeleteMeal;
 
   const factory MealsEvent.deleteFoodItemFromMeal(
-    // String mealId,
-    String foodItemId,
+    // int mealId,
+    int foodItemId,
   ) = DeleteFoodItemFromMeal;
 
   const factory MealsEvent.createFromFavorites(List<FoodItem> foodItemList) =
       CreateFromFavorites;
 
   const factory MealsEvent.setMealId(
-    String mealId,
+    int mealId,
   ) = SetMealId;
 }

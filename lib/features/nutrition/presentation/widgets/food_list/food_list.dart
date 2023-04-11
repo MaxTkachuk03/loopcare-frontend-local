@@ -19,8 +19,9 @@ class FoodList extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         // TODO: change to real list
         return FoodItem(
+          onDeletePressed: _onDeletePressed,
           foodItem: MealItem(
-            id: '0',
+            id: 0,
             description: 'Name',
             calorieDensity: 0,
             proteinDegree: 0,
@@ -61,4 +62,9 @@ class FoodList extends StatelessWidget {
       },
     );
   }
+
+  void _onDeletePressed(
+    BuildContext context,
+    int? foodItemId,
+  ) {}
 }
