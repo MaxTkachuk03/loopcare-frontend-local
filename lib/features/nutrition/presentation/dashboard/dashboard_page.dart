@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -82,6 +83,22 @@ class _DashboardPageState extends State<DashboardPage> {
                 ],
               ),
             ),
+          ),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          child: FutureBuilder<PackageInfo>(
+            future: PackageInfo.fromPlatform(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text(
+                  '${snapshot.data?.version}.${snapshot.data?.buildNumber}',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 11),
+                );
+              } else {
+                return Text('');
+              }
+            },
           ),
         ),
       ),
