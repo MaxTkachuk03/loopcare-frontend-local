@@ -1,6 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
 class SelectedItemsLabel extends StatelessWidget {
   const SelectedItemsLabel({Key? key}) : super(key: key);
@@ -12,7 +16,9 @@ class SelectedItemsLabel extends StatelessWidget {
         Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              context.router.pushNamed(AppRoutes.meal);
+            },
             child: Ink(
               height: 40.0,
               padding:
@@ -37,14 +43,17 @@ class SelectedItemsLabel extends StatelessWidget {
                       shape: BoxShape.circle,
                       color: AppColors.white,
                     ),
-                    child: Text(
-                      '20',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.caption?.copyWith(
-                            color: AppColors.darkGreen,
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
+                    child: BlocBuilder<MealsBloc, MealsState>(
+                        builder: (BuildContext context, state) {
+                      return Text(
+                        state.mealListLength ?? '0',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.caption?.copyWith(
+                              color: AppColors.darkGreen,
+                              fontWeight: FontWeight.w600,
+                            ),
+                      );
+                    }),
                   )
                 ],
               ),

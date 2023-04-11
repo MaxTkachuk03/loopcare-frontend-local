@@ -54,32 +54,32 @@ abstract class NutritionService {
   );
 
   Future<Either<RequestError, MealsListItem>> getMealById(
-    String mealId,
+    int mealId,
   );
 
   Future<Either<RequestError, MealsListItem>> removeMeal(
-    String mealId,
+    int mealId,
   );
 
   Future<Either<RequestError, MealsResponse>> addFoodItemToMeal(
-    String mealId,
-    String foodItemId,
+    int mealId,
+    int foodItemId,
     AddFoodItemToMealBody data,
   );
 
   Future<Either<RequestError, MealsResponse>> addManyFoodItemsToMeal(
-    String mealId,
+    int mealId,
     AddManyFoodItemsToMealBody data,
   );
 
   Future<Either<RequestError, MealsListItem>> updateFoodItemInMeal(
-    String mealId,
-    String foodItemId,
+    int mealId,
+    int foodItemId,
     AddFoodItemToMealBody data,
   );
 
   Future<Either<RequestError, MealsListItem>> removeFoodItemFromMeal(
-    String mealId,
-    String foodItemId,
+    int mealId,
+    int foodItemId,
   );
 }

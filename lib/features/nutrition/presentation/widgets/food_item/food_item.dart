@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
-import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
 class FoodItem extends StatelessWidget {
   final MealItem foodItem;
+  final Function(BuildContext, int?) onDeletePressed;
 
   const FoodItem({
     super.key,
     required this.foodItem,
+    required this.onDeletePressed,
   });
 
   @override
@@ -47,7 +47,7 @@ class FoodItem extends StatelessWidget {
                             splashRadius: 20,
                             padding: EdgeInsets.zero,
                             iconSize: 22,
-                            onPressed: () => _onDeletePressed(
+                            onPressed: () => onDeletePressed(
                               context,
                               foodItem.id,
                             ),
@@ -86,7 +86,7 @@ class FoodItem extends StatelessWidget {
                                         overflow: TextOverflow.ellipsis),
                               ),
                               Text(
-                                foodItem.description ?? '',
+                                foodItem.description,
                                 maxLines: 2,
                                 style: Theme.of(context)
                                     .textTheme
@@ -103,7 +103,7 @@ class FoodItem extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    foodItem.serving.servingDescription ?? '',
+                    foodItem.serving.servingDescription,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
@@ -133,13 +133,4 @@ class FoodItem extends StatelessWidget {
   }
 
   void _onTap() {}
-
-  void _onDeletePressed(
-    BuildContext context,
-    String foodItemId,
-  ) {
-    context.read<MealsBloc>().add(
-          MealsEvent.deleteFoodItemFromMeal(foodItemId),
-        );
-  }
 }

@@ -171,10 +171,10 @@ class _DashboardPageState extends State<DashboardPage> {
                 return Text(
                   '${snapshot.data?.version}.${snapshot.data?.buildNumber}',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 11),
+                  style: const TextStyle(fontSize: 11),
                 );
               } else {
-                return Text('');
+                return const Text('');
               }
             },
           ),

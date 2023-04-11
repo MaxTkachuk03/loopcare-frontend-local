@@ -58,3 +58,5 @@ app.*.map.json
 *.g.dart*
 *.gr.dart*
 *.config.dart*
+
+pubspec.lock

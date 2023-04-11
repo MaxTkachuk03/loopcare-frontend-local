@@ -4,7 +4,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-// import 'package:loopcare_frontend/features/nutrition/application/dto/food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_food_item_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_food_items_list_element.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_many_food_items_to_meal_body.dart';
@@ -69,10 +68,11 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             currentDate: DateTime.now(),
             meals: response.data.toIList(),
             selectedServing: null,
-            currentMealId: response.data
-                .firstWhere((item) => item.mealCategory == 'dinner')
-                .id
-                .toString(),
+            currentMealId: response.data.isEmpty
+                ? 0
+                : response.data
+                    .firstWhere((item) => item.mealCategory == 'dinner')
+                    .id,
           ),
         );
       },
@@ -97,7 +97,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         response.fold(
           (l) => null,
           (r) async {
-            final mealId = r.id.toString();
+            final mealId = r.id;
             final manyFoodItemsListData = AddManyFoodItemsToMealBody(
               foodItems: event.foodItemList
                   .map(
@@ -116,10 +116,9 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             );
 
             response2.fold((l) => null, (r) {
-              // final updatedList = _getUpdatedMealsList(r);
-
               emit(
                 state.copyWith(
+                  currentMealId: mealId,
                   meals: r.data.toIList(),
                 ),
               );
@@ -206,22 +205,25 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
   ) async {
     await state.mapOrNull(
       meals: (state) async {
-        final response = await nutritionService.removeFoodItemFromMeal(
-          state.getCurrentMealId ?? '-1',
-          event.foodItemId,
-        );
+        final currentMealId = state.getCurrentMealId;
+        if (currentMealId != null) {
+          final response = await nutritionService.removeFoodItemFromMeal(
+            state.getCurrentMealId!,
+            event.foodItemId,
+          );
 
-        response.fold(
-          (l) => null,
-          (r) {
-            final updatedList = _getUpdatedMealsList(r);
-            emit(
-              state.copyWith(
-                meals: updatedList.toIList(),
-              ),
-            );
-          },
-        );
+          response.fold(
+            (l) => null,
+            (r) {
+              final updatedList = _getUpdatedMealsList(r);
+              emit(
+                state.copyWith(
+                  meals: updatedList.toIList(),
+                ),
+              );
+            },
+          );
+        }
       },
     );
   }

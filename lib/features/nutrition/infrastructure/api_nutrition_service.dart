@@ -110,7 +110,7 @@ class APINutritionService implements NutritionService {
 
   @override
   Future<Either<RequestError, MealsListItem>> getMealById(
-    String mealId,
+    int mealId,
   ) async {
     return client
         .get('/meals/$mealId')
@@ -119,7 +119,7 @@ class APINutritionService implements NutritionService {
 
   @override
   Future<Either<RequestError, MealsListItem>> removeMeal(
-    String mealId,
+    int mealId,
   ) {
     return client
         .delete('/meals/$mealId')
@@ -128,8 +128,8 @@ class APINutritionService implements NutritionService {
 
   @override
   Future<Either<RequestError, MealsResponse>> addFoodItemToMeal(
-    String mealId,
-    String foodItemId,
+    int mealId,
+    int foodItemId,
     AddFoodItemToMealBody data,
   ) {
     return client
@@ -139,7 +139,7 @@ class APINutritionService implements NutritionService {
 
   @override
   Future<Either<RequestError, MealsResponse>> addManyFoodItemsToMeal(
-    String mealId,
+    int mealId,
     AddManyFoodItemsToMealBody data,
   ) {
     return client
@@ -149,8 +149,8 @@ class APINutritionService implements NutritionService {
 
   @override
   Future<Either<RequestError, MealsListItem>> updateFoodItemInMeal(
-    String mealId,
-    String foodItemId,
+    int mealId,
+    int foodItemId,
     AddFoodItemToMealBody data,
   ) {
     return client
@@ -160,8 +160,8 @@ class APINutritionService implements NutritionService {
 
   @override
   Future<Either<RequestError, MealsListItem>> removeFoodItemFromMeal(
-    String mealId,
-    String foodItemId,
+    int mealId,
+    int foodItemId,
   ) {
     return client
         .delete('/meals/$mealId/food-items/$foodItemId')

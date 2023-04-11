@@ -1,143 +1,175 @@
-include: package:lint/analysis_options.yaml
+# This file configures the analyzer, which statically analyzes Dart code to
+# check for errors, warnings, and lints.
+#
+# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
+# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
+# invoked from the command line by running `flutter analyze`.
+
+# The following line activates a set of recommended lints for Flutter apps,
+# packages, and plugins designed to encourage good coding practices.
+include: package:flutter_lints/flutter.yaml
 
 linter:
+  # The lint rules applied to this project can be customized in the
+  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
+  # included above or to enable additional rules. A list of all available lints
+  # and their documentation is published at
+  # https://dart-lang.github.io/linter/lints/index.html.
+  #
+  # Instead of disabling a lint rule for the entire project in the
+  # section below, it can also be suppressed for a single line of code
+  # or a specific dart file by using the `// ignore: name_of_lint` and
+  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
+  # producing the lint.
   rules:
-    sort_pub_dependencies: true
-    directives_ordering: false
+    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
+    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options
 
 
-analyzer:
-  strong-mode:
-    implicit-dynamic: true
 
-  errors:
-    prefer_mixin: warning
-    require_trailing_commas: ignore
-    avoid_escaping_inner_quotes: ignore
-    depend_on_referenced_packages: ignore
-    no_leading_underscores_for_local_identifiers: ignore
-    prefer_if_elements_to_conditional_expressions: ignore
-    avoid_bool_literals_in_conditional_expressions: ignore
-    always_use_package_imports: ignore
-    avoid_positional_boolean_parameters: ignore
-    avoid_web_libraries_in_flutter: ignore
-    use_setters_to_change_properties: ignore
-    avoid_dynamic_calls: ignore
-    use_build_context_synchronously: ignore
-    prefer_const_constructors: warning
-    missing_required_param: error
-    argument_type_not_assignable: ignore
+# include: package:lint/analysis_options.yaml
+
+# linter:
+#   rules:
+#     sort_pub_dependencies: true
+#     directives_ordering: false
+
+
+# analyzer:
+#   strong-mode:
+#     implicit-dynamic: true
+
+#   errors:
+#     prefer_mixin: warning
+#     require_trailing_commas: ignore
+#     avoid_escaping_inner_quotes: ignore
+#     depend_on_referenced_packages: ignore
+#     no_leading_underscores_for_local_identifiers: ignore
+#     prefer_if_elements_to_conditional_expressions: ignore
+#     avoid_bool_literals_in_conditional_expressions: ignore
+#     always_use_package_imports: ignore
+#     avoid_positional_boolean_parameters: ignore
+#     avoid_web_libraries_in_flutter: ignore
+#     use_setters_to_change_properties: ignore
+#     avoid_dynamic_calls: ignore
+#     use_build_context_synchronously: ignore
+#     prefer_const_constructors: warning
+#     missing_required_param: error
+#     argument_type_not_assignable: ignore
     
 
-  exclude:
-  - "**/*.g.dart"
-  - "**/*.freezed.dart"
+#   exclude:
+#   - "**/*.g.dart"
+#   - "**/*.freezed.dart"
 
 
-dart_code_metrics:
-  extends:
-    - package:dart_code_metrics_presets/all.yaml
-  metrics:
-    cyclomatic-complexity: 20
-    halstead-volume: 150
-    lines-of-code: 100
-    maintainability-index: 50
-    maximum-nesting-level: 5
-    number-of-methods: 10
-    number-of-parameters: 4
-    source-lines-of-code: 50
-    technical-debt:
-      threshold: 1
-      todo-cost: 161
-      ignore-cost: 320
-      ignore-for-file-cost: 1
-      as-dynamic-cost: 322
-      deprecated-annotations-cost: 37
-      file-nullsafety-migration-cost: 41
-    weight-of-class: 0.33
+# dart_code_metrics:
+#   extends:
+#     - package:dart_code_metrics_presets/all.yaml
+#   metrics:
+#     cyclomatic-complexity: 20
+#     halstead-volume: 150
+#     lines-of-code: 100
+#     maintainability-index: 50
+#     maximum-nesting-level: 5
+#     number-of-methods: 10
+#     number-of-parameters: 4
+#     source-lines-of-code: 50
+#     technical-debt:
+#       threshold: 1
+#       todo-cost: 161
+#       ignore-cost: 320
+#       ignore-for-file-cost: 1
+#       as-dynamic-cost: 322
+#       deprecated-annotations-cost: 37
+#       file-nullsafety-migration-cost: 41
+#     weight-of-class: 0.33
     
-  metrics-exclude:
-    - test/**
-    - "**/*.g.dart"
-  anti-patterns:
-    - long-method
-    - long-parameter-list
-  rules:
-    # - avoid-dynamic
-    - avoid-passing-async-when-sync-expected
-    - avoid-redundant-async
-    - avoid-unnecessary-type-assertions
-    - avoid-unnecessary-type-casts
-    - avoid-unrelated-type-assertions
-    - avoid-unused-parameters
-    - avoid-nested-conditional-expressions
-    - newline-before-return
-    - no-boolean-literal-compare
-    - no-empty-block
-    - prefer-trailing-comma
-    - prefer-conditional-expressions
-    - no-equal-then-else
-    - prefer-moving-to-variable
-    - prefer-match-file-name
-    - avoid-collection-methods-with-unrelated-types
-    - avoid-double-slash-imports
-    - avoid-duplicate-exports
-    - avoid-global-state
-    - avoid-ignoring-return-values
-    - avoid-missing-enum-constant-in-map
-    - avoid-non-ascii-symbols
-    - avoid-non-null-assertion
-    - avoid-throw-in-catch-block
-    - avoid-top-level-members-in-tests
-    - avoid-unnecessary-conditionals
-    - ban-name
-    - binary-expression-operand-order
-    - double-literal-format
-    - list-all-equatable-fields
-    - member-ordering:
-        alphabetize: true
-        order:
-          - public-fields
-          - private-fields
-          - constructors
-    - missing-test-assertion
-    - newline-before-return
-    - no-boolean-literal-compare
-    - no-empty-block
-    - no-equal-arguments
-    - no-equal-then-else
-    - no-magic-number
-    - no-object-declaration
-    - prefer-async-await
-    - prefer-commenting-analyzer-ignores
-    - prefer-conditional-expressions
-    - prefer-correct-identifier-length:
-        max-identifier-length: 30
-        min-identifier-length: 4
-    - prefer-correct-test-file-name
-    - prefer-correct-type-name:
-        min-length: 3
-        max-length: 40
-    - prefer-enums-by-name
-    - prefer-first
-    - prefer-immediate-return
-    - prefer-iterable-of
-    - prefer-last
-    - prefer-match-file-name
-    - prefer-moving-to-variable
-    - prefer-static-class
-    - always-remove-listener
-    - avoid-border-all
-    - avoid-expanded-as-spacer
-    - avoid-returning-widgets
-    - avoid-shrink-wrap-in-lists
-    - avoid-unnecessary-setstate
-    - avoid-wrapping-in-padding
-    - check-for-equals-in-render-object-setters
-    - consistent-update-render-object
-    - prefer-const-border-radius
-    - prefer-correct-edge-insets-constructor
-    - prefer-extracting-callbacks
-    - prefer-single-widget-per-file
-    - prefer-using-list-view
-    - use-setstate-synchronously
+#   metrics-exclude:
+#     - test/**
+#     - "**/*.g.dart"
+#   anti-patterns:
+#     - long-method
+#     - long-parameter-list
+#   rules:
+#     # - avoid-dynamic
+#     - avoid-passing-async-when-sync-expected
+#     - avoid-redundant-async
+#     - avoid-unnecessary-type-assertions
+#     - avoid-unnecessary-type-casts
+#     - avoid-unrelated-type-assertions
+#     - avoid-unused-parameters
+#     - avoid-nested-conditional-expressions
+#     - newline-before-return
+#     - no-boolean-literal-compare
+#     - no-empty-block
+#     - prefer-trailing-comma
+#     - prefer-conditional-expressions
+#     - no-equal-then-else
+#     - prefer-moving-to-variable
+#     - prefer-match-file-name
+#     - avoid-collection-methods-with-unrelated-types
+#     - avoid-double-slash-imports
+#     - avoid-duplicate-exports
+#     - avoid-global-state
+#     - avoid-ignoring-return-values
+#     - avoid-missing-enum-constant-in-map
+#     - avoid-non-ascii-symbols
+#     - avoid-non-null-assertion
+#     - avoid-throw-in-catch-block
+#     - avoid-top-level-members-in-tests
+#     - avoid-unnecessary-conditionals
+#     - ban-name
+#     - binary-expression-operand-order
+#     - double-literal-format
+#     - list-all-equatable-fields
+#     - member-ordering:
+#         alphabetize: true
+#         order:
+#           - public-fields
+#           - private-fields
+#           - constructors
+#     - missing-test-assertion
+#     - newline-before-return
+#     - no-boolean-literal-compare
+#     - no-empty-block
+#     - no-equal-arguments
+#     - no-equal-then-else
+#     - no-magic-number
+#     - no-object-declaration
+#     - prefer-async-await
+#     - prefer-commenting-analyzer-ignores
+#     - prefer-conditional-expressions
+#     - prefer-correct-identifier-length:
+#         max-identifier-length: 30
+#         min-identifier-length: 4
+#     - prefer-correct-test-file-name
+#     - prefer-correct-type-name:
+#         min-length: 3
+#         max-length: 40
+#     - prefer-enums-by-name
+#     - prefer-first
+#     - prefer-immediate-return
+#     - prefer-iterable-of
+#     - prefer-last
+#     - prefer-match-file-name
+#     - prefer-moving-to-variable
+#     - prefer-static-class
+#     - always-remove-listener
+#     - avoid-border-all
+#     - avoid-expanded-as-spacer
+#     - avoid-returning-widgets
+#     - avoid-shrink-wrap-in-lists
+#     - avoid-unnecessary-setstate
+#     - avoid-wrapping-in-padding
+#     - check-for-equals-in-render-object-setters
+#     - consistent-update-render-object
+#     - prefer-const-border-radius
+#     - prefer-correct-edge-insets-constructor
+#     - prefer-extracting-callbacks
+#     - prefer-single-widget-per-file
+#     - prefer-using-list-view
+#     - use-setstate-synchronously
