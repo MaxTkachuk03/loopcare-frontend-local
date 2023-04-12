@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
@@ -54,24 +55,32 @@ class FavoriteListItem extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              foodItem.foodName,
-                              style:
-                                  Theme.of(context).textTheme.caption?.copyWith(
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                            ),
-                            Text(
-                              '${foodItem.brandName} | ${foodItem.serving.servingDescription}',
-                              style:
-                                  Theme.of(context).textTheme.caption?.copyWith(
-                                        color: AppColors.greyLabel,
-                                      ),
-                            ),
-                          ],
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AutoSizeText(
+                                foodItem.foodName,
+                                maxLines: 2,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .caption
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                              ),
+                              AutoSizeText(
+                                '${foodItem.brandName} | ${foodItem.serving.servingDescription}',
+                                maxLines: 1,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .caption
+                                    ?.copyWith(
+                                      color: AppColors.greyLabel,
+                                    ),
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     ),
