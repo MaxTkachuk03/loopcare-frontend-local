@@ -117,8 +117,8 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   FutureOr<void> _onServingChanged(
     ServingChanged event,
     Emitter<RecipeState> emit,
-  ) {
-    state.mapOrNull(recipeInfo: (state) async {
+  ) async {
+    await state.mapOrNull(recipeInfo: (state) async {
       final response = await nutritionService.updateRecipeNumberOfServing(
         mealId: event.mealId,
         recipeId: state.recipe.id,

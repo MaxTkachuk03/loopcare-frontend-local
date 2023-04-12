@@ -78,6 +78,7 @@ class _RecipePageState extends State<RecipePage> {
             child: BlocBuilder<RecipeBloc, RecipeState>(
               builder: (BuildContext context, state) {
                 return state.maybeMap(
+                  loading: (_) => const Loader(),
                   recipeInfo: (recipeState) {
                     final currentRecipeNutritionFact = recipeState
                         .recipe.servingSize
