@@ -64,6 +64,7 @@ class _MealPageState extends State<MealPage> {
                 ),
                 Column(
                   children: [
+                    const SizedBox(height: 26.0),
                     MainContainer(
                       child: ElevatedButton(
                         onPressed: () {},

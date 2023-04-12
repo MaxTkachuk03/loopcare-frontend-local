@@ -3,9 +3,23 @@ import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 
-class MealPortions extends StatelessWidget {
-  const MealPortions({Key? key}) : super(key: key);
+class NutritionValuesBlock extends StatelessWidget {
+  final int numberOfPortions;
+  final double nutritionValue;
+  final NutritionItem selectedNutritionItem;
+  final List<NutritionItem> nutritionValuesList;
+  final void Function(NutritionItem item) onNutritionFactSelect;
+
+  const NutritionValuesBlock({
+    Key? key,
+    required this.numberOfPortions,
+    required this.nutritionValue,
+    required this.selectedNutritionItem,
+    required this.nutritionValuesList,
+    required this.onNutritionFactSelect,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +45,8 @@ class MealPortions extends StatelessWidget {
                     ),
               ),
               Text(
-                LocalizedTexts.portionMeal
-                    .translateWithNamedArgs({'numberOfPortion': '4'}),
+                LocalizedTexts.portionMeal.translateWithNamedArgs(
+                    {'numberOfPortion': '$numberOfPortions'}),
                 style: Theme.of(context).textTheme.caption?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -43,7 +57,7 @@ class MealPortions extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                LocalizedTexts.totalEnergy.translation.toUpperCase(),
+                '${LocalizedTexts.total.translation.toUpperCase()} ${selectedNutritionItem.name.toUpperCase()}',
                 style: Theme.of(context).textTheme.bodyText2?.copyWith(
                       fontSize: 12.0,
                     ),
@@ -54,7 +68,7 @@ class MealPortions extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      '560 kcal',
+                      '$nutritionValue ${selectedNutritionItem.unitLabel}',
                       style: Theme.of(context).textTheme.caption?.copyWith(
                             fontWeight: FontWeight.w600,
                           ),
@@ -83,9 +97,8 @@ class MealPortions extends StatelessWidget {
   _onNutritionFactTap(BuildContext context) {
     ModalBottomSheet.nutrientFactsDialog(
       context: context,
-      list: [1, 2],
-      onSelect: (item) {
-      },
+      list: nutritionValuesList,
+      onSelect: onNutritionFactSelect,
     );
   }
 }

@@ -59,7 +59,8 @@ class NutritionInstructionsBloc
     Emitter<NutritionInstructionsState> emit,
   ) {
     state.mapOrNull(nutritionInstructions: (state) {
-      emit(state.copyWith(calorieDensityValue: event.value));
+      emit(state.copyWith(
+          calorieDensityValue: double.parse(event.value.toStringAsFixed(2))));
     });
   }
 
@@ -68,7 +69,8 @@ class NutritionInstructionsBloc
     Emitter<NutritionInstructionsState> emit,
   ) {
     state.mapOrNull(nutritionInstructions: (state) {
-      emit(state.copyWith(proteinDegreeValue: event.value));
+      emit(state.copyWith(
+          proteinDegreeValue: double.parse(event.value.toStringAsFixed(2))));
     });
   }
 

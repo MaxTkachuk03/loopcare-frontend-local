@@ -9,8 +9,8 @@ part 'meal_item.g.dart';
 class MealItem with _$MealItem {
   const factory MealItem({
     required String? description,
-    required int calorieDensity,
-    required int proteinDegree,
+    required double calorieDensity,
+    required double proteinDegree,
     required int id,
     required String name,
     required String type,

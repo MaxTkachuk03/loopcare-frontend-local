@@ -26,7 +26,7 @@ class DefaultListItem extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Flexible(
+            Expanded(
               child: Row(
                 children: [
                   const Icon(
@@ -34,14 +34,14 @@ class DefaultListItem extends StatelessWidget {
                     color: AppColors.greyMid,
                   ),
                   const SizedBox(width: 8.0),
-                  Flexible(
-                    child: AutoSizeText(
+                  Expanded(
+                    child: Text(
                       item.servingLabel,
                       maxLines: 2,
-                      style: Theme.of(context)
-                          .textTheme
-                          .caption!
-                          .copyWith(fontWeight: FontWeight.w600),
+                      style: Theme.of(context).textTheme.caption?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                     ),
                   ),
                 ],

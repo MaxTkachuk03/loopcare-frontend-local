@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart'
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
 
@@ -237,24 +238,27 @@ class ModalBottomSheet {
 
   static void nutrientFactsDialog({
     required BuildContext context,
-    required List<dynamic> list,
-    required void Function(dynamic item) onSelect,
+    required List<NutritionItem> list,
+    required void Function(NutritionItem item) onSelect,
   }) {
     showModalBottomSheet<void>(
       isScrollControlled: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.only(
-            top: 32.0,
-            left: 40.0,
-            right: 24.0,
-            bottom: 40.0,
+        return ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height - 100,
           ),
-          child: Wrap(
-            children: [
-              Column(
+          child: SafeArea(
+            child: Container(
+              padding: const EdgeInsets.only(
+                top: 32.0,
+                left: 40.0,
+                right: 24.0,
+                bottom: 20.0,
+              ),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Align(
@@ -286,19 +290,29 @@ class ModalBottomSheet {
                     thickness: 2,
                     color: AppColors.bgGreen,
                   ),
-                  ...list.map(
-                    (item) => InkWell(
-                      onTap: () => onSelect(item),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 14.0),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            bottom:
-                                BorderSide(width: 2, color: AppColors.bgGreen),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: list.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final item = list[index];
+
+                        return InkWell(
+                          onTap: () {
+                            context.router.pop();
+                            onSelect(item);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 14.0),
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                    width: 2, color: AppColors.bgGreen),
+                              ),
+                            ),
+                            child: Text(item.name),
                           ),
-                        ),
-                        child: const Text('Test'),
-                      ),
+                        );
+                      },
                     ),
                   ),
                   const SizedBox(
@@ -306,7 +320,7 @@ class ModalBottomSheet {
                   ),
                 ],
               ),
-            ],
+            ),
           ),
         );
       },

@@ -3,14 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-
+import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/food_list/food_list.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/meal_portions.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_amount/servings_amount.dart';
 
 class DishPage extends StatefulWidget {
@@ -62,10 +61,17 @@ class _DishPageState extends State<DishPage> {
                 inputController: _servingController,
                 onValueChangeHandler: _onServingChanges,
               ),
-              const MealPortions(),
-              const FoodList(
-                list: [1, 2, 3],
+              NutritionValuesBlock(
+                numberOfPortions: 4,
+                nutritionValue: 21,
+                nutritionValuesList: [],
+                selectedNutritionItem:
+                    NutritionItem(name: '', key: '', unitLabel: ''),
+                onNutritionFactSelect: (NutritionItem item) {},
               ),
+              // const FoodList(
+              //   list: [1, 2, 3],
+              // ),
               const NutritionBlock(),
               const SizedBox(
                 height: 26.0,

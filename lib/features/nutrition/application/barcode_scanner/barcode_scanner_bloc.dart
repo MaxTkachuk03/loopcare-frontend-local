@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/features/nutrition/application/dto/food_item.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dto/food_item_bar_code/food_item_bar_code.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 
 part 'barcode_scanner_bloc.freezed.dart';
