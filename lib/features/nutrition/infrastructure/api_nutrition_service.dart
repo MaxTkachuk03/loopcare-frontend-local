@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_recipe_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/dto/favorites_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/dto/barcode_information_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_food_item_to_meal_body.dart';
@@ -229,5 +230,19 @@ class APINutritionService implements NutritionService {
     return client
         .delete('/meals/$mealId/food-items/$foodItemId')
         .then(parseResponse(MealsListItem.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, SearchResponse>> search(
+    String query,
+    int? limit,
+  ) {
+    return client.get(
+      '/nutrition/search',
+      queryParameters: {
+        'query': query,
+        if (limit != null) 'limit': limit,
+      },
+    ).then(parseResponse(SearchResponse.fromJson));
   }
 }

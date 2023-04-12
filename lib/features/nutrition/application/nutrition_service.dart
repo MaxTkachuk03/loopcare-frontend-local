@@ -4,6 +4,7 @@ import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_recipe_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/dto/favorites_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/dto/barcode_information_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_food_item_to_meal_body.dart';
@@ -117,5 +118,10 @@ abstract class NutritionService {
   Future<Either<RequestError, MealsListItem>> removeFoodItemFromMeal(
     int mealId,
     String foodItemId,
+  );
+
+  Future<Either<RequestError, SearchResponse>> search(
+    String query,
+    int? limit,
   );
 }

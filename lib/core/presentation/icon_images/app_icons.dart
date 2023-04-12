@@ -41,5 +41,18 @@ class AppIcons {
     '$iconsFilePath/edit.png',
   );
 
+  static const AssetImage starFilled = AssetImage(
+    '$iconsFilePath/icon_star_filled.png',
+  );
+  static const AssetImage pan = AssetImage(
+    '$iconsFilePath/icon_pan.png',
+  );
+  static const AssetImage magnifyingGlass = AssetImage(
+    '$iconsFilePath/icon_magnifying_glass.png',
+  );
+  static const AssetImage cook = AssetImage(
+    '$iconsFilePath/icon_cook.png',
+  );
+
   AppIcons._();
 }

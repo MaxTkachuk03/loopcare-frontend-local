@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/underlined_tab_bar.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
 
 class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
   const SearchAppBar({
@@ -18,7 +20,7 @@ class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _SearchAppBarState extends State<SearchAppBar> {
-  bool isFlashOn = false;
+  // bool isFlashOn = false;
   final TextEditingController _searchTextController = TextEditingController();
 
   @override
@@ -27,6 +29,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
 
     _searchTextController.dispose();
   }
+
+  //  String _searchText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +47,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                 hintText: LocalizedTexts.searchHint.translation,
                 controller: _searchTextController,
                 isClearField: true,
+                onChanged: _onTextChange,
               ),
             ),
           ),
@@ -85,5 +90,13 @@ class _SearchAppBarState extends State<SearchAppBar> {
         ),
       ),
     );
+  }
+
+  void _onTextChange(String value) {
+    if (value.length > 2) {
+      context.read<SearchBloc>().add(
+            SearchEvent.search(value, 10),
+          );
+    }
   }
 }

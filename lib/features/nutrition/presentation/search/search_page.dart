@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/nutrition/search/presentation/search/widgets/search_app_bar.dart';
-import 'package:loopcare_frontend/features/nutrition/search/presentation/search/widgets/search_result_list.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_app_bar.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_result_list.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -13,9 +12,7 @@ class SearchPage extends StatelessWidget {
       appBar: SearchAppBar(),
       body: SafeArea(
         child: ScrollableContainer(
-          child: MainContainer(
-            child: SearchResultList(),
-          ),
+          child: SearchResultList(),
         ),
       ),
     );
