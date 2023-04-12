@@ -55,7 +55,7 @@ class FavoriteList extends StatelessWidget {
                   ),
                 );
               },
-              loading: (state) => const Loader(),
+              loading: (state) => const Expanded(child: Loader()),
               orElse: () => const SizedBox.shrink(),
             );
           },
