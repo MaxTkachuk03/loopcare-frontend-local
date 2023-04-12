@@ -1,12 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_recipe_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_food/dto/favorites_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/dto/barcode_information_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_food_item_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_many_food_items_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_response.dart';
-import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/dto/favorites_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/dto/values_explanation_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_response.dart';
@@ -47,6 +51,38 @@ abstract class NutritionService {
     String barCode,
   );
 
+  Future<Either<RequestError, RecipeResponse>> getRecipe(int id);
+
+  Future<Either<RequestError, RecipeResponse>> addRecipeToMeal({
+    required int mealId,
+    required int recipeId,
+    required AddRecipeToMealBody data,
+  });
+
+  Future<Either<RequestError, RecipeResponse>> addFoodItemToRecipeInMeal({
+    required int mealId,
+    required int recipeId,
+    required String foodItemId,
+    required AddFoodItemToRecipeBody data,
+  });
+
+  Future<Either<RequestError, RecipeResponse>> removeFoodItemFromRecipeInMeal({
+    required int mealId,
+    required int recipeId,
+    required String foodItemId,
+  });
+
+  Future<Either<RequestError, RecipeResponse>> updateRecipeNumberOfServing({
+    required int mealId,
+    required int recipeId,
+    required UpdateRecipeBody data,
+  });
+
+  Future<Either<RequestError, RecipeResponse>> getRecipeInMeal(
+    int mealId,
+    int recipeId,
+  );
+
   Future<Either<RequestError, MealsResponse>> getMeals();
 
   Future<Either<RequestError, MealsListItem>> addMeal(
@@ -80,6 +116,6 @@ abstract class NutritionService {
 
   Future<Either<RequestError, MealsListItem>> removeFoodItemFromMeal(
     int mealId,
-    int foodItemId,
+    String foodItemId,
   );
 }

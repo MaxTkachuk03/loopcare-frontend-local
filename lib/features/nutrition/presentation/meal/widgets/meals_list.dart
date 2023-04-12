@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/meal/widgets/empty_meal.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/food_item/food_item.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/widgets/food_list_item/food_list_item.dart';
 
 class MealsList extends StatelessWidget {
   const MealsList({super.key});
@@ -21,8 +22,18 @@ class MealsList extends StatelessWidget {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
-                      return FoodItem(
-                        foodItem: mealsState.currentFoodItems[index],
+                      final item = mealsState.currentFoodItems[index];
+
+                      return FoodListItem(
+                        foodItem: FoodItem(
+                          id: item.id.toString(),
+                          foodName: item.name,
+                          foodType: item.type,
+                          brandName: item.description ?? '',
+                          foodDescription: item.description,
+                          serving: item.serving,
+                        ),
+                        nutritionKey: 'calories',
                         onDeletePressed: _onDeletePressed,
                       );
                     },
@@ -37,12 +48,10 @@ class MealsList extends StatelessWidget {
 
   void _onDeletePressed(
     BuildContext context,
-    int? foodItemId,
+    String foodItemId,
   ) {
-    if (foodItemId != null) {
-      context.read<MealsBloc>().add(
-            MealsEvent.deleteFoodItemFromMeal(foodItemId),
-          );
-    }
+    context
+        .read<MealsBloc>()
+        .add(MealsEvent.deleteFoodItemFromMeal(foodItemId));
   }
 }

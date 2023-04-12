@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
 
@@ -20,7 +21,7 @@ class MealNutritionValues extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              LocalizedTexts.totalEnergy.translation
+              LocalizedTexts.total.translation
                   .capitalizeOnlyFirstLetter(),
               style: Theme.of(context).textTheme.bodySmall,
             ),
@@ -69,8 +70,8 @@ class MealNutritionValues extends StatelessWidget {
   _onTap(BuildContext context) {
     ModalBottomSheet.nutrientFactsDialog(
       context: context,
-      list: [1, 2],
-      onSelect: (_) {},
+      list: <NutritionItem>[],
+      onSelect: (NutritionItem item) {},
     );
   }
 }

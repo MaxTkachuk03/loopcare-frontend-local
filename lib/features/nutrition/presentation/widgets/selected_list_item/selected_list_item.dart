@@ -40,7 +40,7 @@ class SelectedListItem extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Flexible(
+            Expanded(
               child: Row(
                 children: [
                   const Icon(
@@ -48,14 +48,15 @@ class SelectedListItem extends StatelessWidget {
                     color: AppColors.blueDark,
                   ),
                   const SizedBox(width: 8.0),
-                  Flexible(
-                    child: AutoSizeText(
-                      maxLines: 2,
+                  Expanded(
+                    child: Text(
                       item.servingLabel,
+                      maxLines: 2,
                       style: Theme.of(context).textTheme.caption?.copyWith(
                             fontWeight: FontWeight.w700,
                             fontSize: 16.0,
                             color: AppColors.blueDark,
+                            overflow: TextOverflow.ellipsis,
                           ),
                     ),
                   ),

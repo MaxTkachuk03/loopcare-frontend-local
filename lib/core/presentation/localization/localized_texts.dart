@@ -305,7 +305,7 @@ class LocalizedTexts {
   static const String viewRecipe = 'viewRecipe';
   static const String ingredientsBasedOn = 'ingredientsBasedOn';
   static const String portionMeal = 'portionMeal';
-  static const String totalEnergy = 'totalEnergy';
+  static const String total = 'total';
   static const String emptyList = 'emptyList';
   static const String removeFromFavorites = 'removeFromFavorites';
   static const String addedToFavorites = 'addedToFavorites';

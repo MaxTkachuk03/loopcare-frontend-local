@@ -9,7 +9,7 @@ class BarcodeScannerState with _$BarcodeScannerState {
   factory BarcodeScannerState.loading() = _Loading;
 
   const factory BarcodeScannerState.success({
-    FoodItem? foodItem,
+    FoodItemBarCode? foodItem,
     RequestError? barcodeError,
   }) = _Success;
 

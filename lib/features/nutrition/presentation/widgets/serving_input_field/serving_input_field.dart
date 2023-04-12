@@ -16,6 +16,7 @@ class ServingInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 45.0,
+      height: 34.0,
       child: TextField(
         controller: controller,
         maxLength: 2,
@@ -30,8 +31,8 @@ class ServingInputField extends StatelessWidget {
         keyboardType: TextInputType.number,
         style: Theme.of(context)
             .textTheme
-            .caption!
-            .copyWith(fontWeight: FontWeight.w600),
+            .caption
+            ?.copyWith(fontWeight: FontWeight.w600),
       ),
     );
   }
