@@ -94,7 +94,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           data,
         );
 
-        response.fold(
+        await response.fold(
           (l) => null,
           (r) async {
             final mealId = r.id;
@@ -115,14 +115,19 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
               manyFoodItemsListData,
             );
 
-            response2.fold((l) => null, (r) {
-              emit(
-                state.copyWith(
-                  currentMealId: mealId,
-                  meals: r.data.toIList(),
-                ),
-              );
-            });
+            response2.fold(
+              (l) => null,
+              (r) {
+                final updatedList = _getUpdatedMealsList(r);
+
+                emit(
+                  state.copyWith(
+                    currentMealId: mealId,
+                    meals: updatedList,
+                  ),
+                );
+              },
+            );
           },
         );
       },
