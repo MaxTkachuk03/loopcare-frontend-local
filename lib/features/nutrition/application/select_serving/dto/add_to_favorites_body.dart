@@ -9,7 +9,6 @@ abstract class AddToFavoritesBody implements _$AddToFavoritesBody {
   const AddToFavoritesBody._();
 
   const factory AddToFavoritesBody({
-    required String servingId,
     required double? numberOfUnits,
     required List<String> mealCategories,
   }) = _AddToFavoritesBody;

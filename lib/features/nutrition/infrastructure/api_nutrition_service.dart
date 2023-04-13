@@ -62,10 +62,11 @@ class APINutritionService implements NutritionService {
   @override
   Future<Either<RequestError, AddToFavoritesResponse>> addToFavorites(
     String foodItemId,
+    String servingId,
     AddToFavoritesBody data,
   ) {
     return client
-        .post('/food-items/$foodItemId/favorites', data: data)
+        .post('/food-items/$foodItemId/favorites/$servingId', data: data)
         .then(parseResponse(AddToFavoritesResponse.fromJson));
   }
 
