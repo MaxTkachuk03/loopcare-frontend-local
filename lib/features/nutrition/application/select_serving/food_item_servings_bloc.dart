@@ -117,13 +117,12 @@ class FoodItemServingsBloc
       if (id == null) return;
 
       final data = AddToFavoritesBody(
-        servingId: id,
         numberOfUnits: numberOfUnits,
         mealCategories: state.selectedMealCategoriesNames,
       );
 
       final response =
-          await nutritionService.addToFavorites(event.foodItemId, data);
+          await nutritionService.addToFavorites(event.foodItemId, id, data);
 
       response.fold((l) => null, (r) {
         final updatedList = _getUpdatedServingsList(r.serving);
@@ -168,11 +167,13 @@ class FoodItemServingsBloc
   ) async {
     await state.mapOrNull(foodItemServings: (state) async {
       final id = state.selectedServing?.servingId;
+      final numberOfUnits = state.selectedServing?.numberOfUnits;
 
       if (id == null) return;
 
       final data = UpdateFavoriteBody(
         mealCategories: state.selectedMealCategoriesNames,
+        numberOfUnits: numberOfUnits,
       );
 
       final response = await nutritionService.updateFavorites(

@@ -32,6 +32,7 @@ abstract class NutritionService {
 
   Future<Either<RequestError, AddToFavoritesResponse>> addToFavorites(
     String foodItemId,
+    String servingId,
     AddToFavoritesBody data,
   );
 

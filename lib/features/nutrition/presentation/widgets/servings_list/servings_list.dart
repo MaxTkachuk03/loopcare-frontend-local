@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_serving.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/food_item_servings_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/serving_list_item/serving_list_item.dart';
@@ -45,23 +46,28 @@ class _ServingListState extends State<ServingList> {
   Widget build(BuildContext context) {
     return BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(
         builder: (BuildContext context, state) {
-      if (state.servingsIList.isEmpty) return const SizedBox();
+      return state.maybeMap(
+          orElse: () => const SizedBox(),
+          loading: (_) => const Loader(),
+          foodItemServings: (foodItemServingsState) {
+            return ListView.builder(
+              itemCount: foodItemServingsState.servingsIList.length,
+              itemBuilder: (BuildContext context, int index) {
+                final FoodItemServing listItem =
+                    foodItemServingsState.servingsIList[index];
+                final isSelected =
+                    foodItemServingsState.selectedServingItem?.servingId ==
+                        listItem.servingId;
 
-      return ListView.builder(
-        itemCount: state.servingsIList.length,
-        itemBuilder: (BuildContext context, int index) {
-          final FoodItemServing listItem = state.servingsIList[index];
-          final isSelected =
-              state.selectedServingItem?.servingId == listItem.servingId;
-
-          return ServingListItem(
-            item: listItem,
-            onPressed: _onListItemPressedHandler,
-            isSelected: isSelected,
-            inputController: _amountFieldController,
-          );
-        },
-      );
+                return ServingListItem(
+                  item: listItem,
+                  onPressed: _onListItemPressedHandler,
+                  isSelected: isSelected,
+                  inputController: _amountFieldController,
+                );
+              },
+            );
+          });
     });
   }
 }
