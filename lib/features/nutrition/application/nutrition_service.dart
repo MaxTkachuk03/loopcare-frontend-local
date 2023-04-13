@@ -104,7 +104,7 @@ abstract class NutritionService {
     AddFoodItemToMealBody data,
   );
 
-  Future<Either<RequestError, MealsResponse>> addManyFoodItemsToMeal(
+  Future<Either<RequestError, MealsListItem>> addManyFoodItemsToMeal(
     int mealId,
     AddManyFoodItemsToMealBody data,
   );

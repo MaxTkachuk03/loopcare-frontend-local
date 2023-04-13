@@ -202,13 +202,13 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, MealsResponse>> addManyFoodItemsToMeal(
+  Future<Either<RequestError, MealsListItem>> addManyFoodItemsToMeal(
     int mealId,
     AddManyFoodItemsToMealBody data,
   ) {
     return client
         .post('/meals/$mealId/food-items', data: data)
-        .then(parseResponse(MealsResponse.fromJson));
+        .then(parseResponse(MealsListItem.fromJson));
   }
 
   @override
