@@ -48,10 +48,16 @@ class MealsList extends StatelessWidget {
 
   void _onDeletePressed(
     BuildContext context,
-    String foodItemId,
+    FoodItem item,
   ) {
-    context
-        .read<MealsBloc>()
-        .add(MealsEvent.deleteFoodItemFromMeal(foodItemId));
+    if (item.foodType == 'recipe') {
+      context.read<MealsBloc>().add(MealsEvent.deleteRecipeFromMeal(item.id));
+
+      return;
+    }
+
+    if (item.foodType == 'food') {
+      context.read<MealsBloc>().add(MealsEvent.deleteFoodItemFromMeal(item.id));
+    }
   }
 }
