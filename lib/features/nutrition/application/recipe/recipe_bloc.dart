@@ -180,30 +180,32 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     RemoveFoodItemToRecipe event,
     Emitter<RecipeState> emit,
   ) async {
-    await state.mapOrNull(recipeInfo: (state) async {
-      final response = await nutritionService.removeFoodItemFromRecipeInMeal(
-        mealId: event.mealId,
-        recipeId: state.recipe.id,
-        foodItemId: event.foodItemId,
-      );
+    await state.mapOrNull(
+      recipeInfo: (state) async {
+        final response = await nutritionService.removeFoodItemFromRecipeInMeal(
+          mealId: event.mealId,
+          recipeId: state.recipe.id,
+          foodItemId: event.foodItemId,
+        );
 
-      response.fold(
-        (l) => null,
-        (r) {
-          emit(
-            state.copyWith(
-              recipe: Recipe(
-                id: r.id,
-                ingredients: r.ingredients,
-                calorieDensity: r.calorieDensity,
-                proteinDegree: r.proteinDegree,
-                servingSize: r.servingSize,
-                numberOfServings: r.numberOfServings,
+        response.fold(
+          (l) => null,
+          (r) {
+            emit(
+              state.copyWith(
+                recipe: Recipe(
+                  id: r.id,
+                  ingredients: r.ingredients,
+                  calorieDensity: r.calorieDensity,
+                  proteinDegree: r.proteinDegree,
+                  servingSize: r.servingSize,
+                  numberOfServings: r.numberOfServings,
+                ),
               ),
-            ),
-          );
-        },
-      );
-    });
+            );
+          },
+        );
+      },
+    );
   }
 }
