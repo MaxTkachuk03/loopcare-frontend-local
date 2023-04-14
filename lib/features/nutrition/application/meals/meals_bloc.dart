@@ -102,7 +102,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
               foodItems: event.foodItemList
                   .map(
                     (element) => AddFoodItemsListElement(
-                      foodItemId: element.id,
+                      externalFoodItemId: element.id,
                       numberOfUnits: element.serving.numberOfUnits,
                       servingId: element.serving.servingId ?? "0",
                     ),
