@@ -32,6 +32,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     on<UpdateFoodItemInMeal>(_onUpdateFoodItemInMeal);
     on<DeleteMeal>(_onDeleteMeal);
     on<DeleteFoodItemFromMeal>(_onDeleteFoodItemFromMeal);
+    on<DeleteRecipeFromMeal>(_onDeleteRecipeFromMeal);
     on<CreateFromFavorites>(_onCreateFromFavorites);
     on<SetMealId>(_onSetMealId);
   }
@@ -216,6 +217,34 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
       final response = await nutritionService.removeFoodItemFromMeal(
         mealId,
         event.foodItemId,
+      );
+
+      response.fold(
+        (l) => null,
+        (r) {
+          final updatedList = _getUpdatedMealsList(r);
+          emit(
+            state.copyWith(
+              meals: updatedList.toIList(),
+            ),
+          );
+        },
+      );
+    });
+  }
+
+  FutureOr<void> _onDeleteRecipeFromMeal(
+    DeleteRecipeFromMeal event,
+    Emitter<MealsState> emit,
+  ) async {
+    await state.mapOrNull(meals: (state) async {
+      final mealId = state.getCurrentMealId;
+
+      if (mealId == null) return;
+
+      final response = await nutritionService.deleteRecipeFromMeal(
+        mealId,
+        event.recipeId,
       );
 
       response.fold(

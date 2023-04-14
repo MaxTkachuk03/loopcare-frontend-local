@@ -165,6 +165,16 @@ class APINutritionService implements NutritionService {
   }
 
   @override
+  Future<Either<RequestError, MealsListItem>> deleteRecipeFromMeal(
+    int mealId,
+    String recipeId,
+  ) {
+    return client
+        .delete('/meals/$mealId/recipes/$recipeId')
+        .then(parseResponse(MealsListItem.fromJson));
+  }
+
+  @override
   Future<Either<RequestError, MealsResponse>> getMeals() async {
     return client.get('/meals').then(parseResponse(MealsResponse.fromJson));
   }
