@@ -1,13 +1,16 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/recipe_food_item/recipe_food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/food_list_item/food_list_item.dart';
 
 class RecipeList extends StatelessWidget {
   final String nutritionKey;
-  final List<FoodItem> list;
+  final List<RecipeFoodItem> list;
 
   const RecipeList({
     Key? key,
@@ -22,10 +25,23 @@ class RecipeList extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
+        final item = list[index];
+
         return FoodListItem(
-          foodItem: list[index],
+          foodItem: FoodItem(
+            id: item.id,
+            foodName: item.foodName,
+            foodType: item.foodType,
+            brandName: item.brandName,
+            foodDescription: item.foodDescription,
+            serving: item.serving,
+          ),
           nutritionKey: nutritionKey,
           onDeletePressed: _onDeletePressed,
+          onTap: (BuildContext context) => _onTap(
+            context,
+            item,
+          ),
         );
       },
     );
@@ -42,5 +58,19 @@ class RecipeList extends StatelessWidget {
             foodItemId: item.id,
           ),
         );
+  }
+
+  _onTap(BuildContext context, RecipeFoodItem item) {
+    final servingId = item.serving.servingId;
+
+    if (servingId == null) return;
+
+    context.router.push(
+      SelectServingRoute(
+        foodItemId: item.externalId,
+        initialServingId: servingId,
+        foodItemName: item.foodName,
+      ),
+    );
   }
 }

@@ -1,8 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
@@ -10,6 +8,7 @@ import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.
 class FoodListItem extends StatelessWidget {
   final String nutritionKey;
   final FoodItem foodItem;
+  final void Function(BuildContext context) onTap;
   final void Function(BuildContext context, FoodItem item) onDeletePressed;
 
   const FoodListItem({
@@ -17,6 +16,7 @@ class FoodListItem extends StatelessWidget {
     required this.nutritionKey,
     required this.foodItem,
     required this.onDeletePressed,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -38,7 +38,7 @@ class FoodListItem extends StatelessWidget {
 
     return Material(
       child: InkWell(
-        onTap: () => _onTap(context),
+        onTap: () => onTap(context),
         child: Ink(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
           decoration: const BoxDecoration(
@@ -137,26 +137,5 @@ class FoodListItem extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _onTap(BuildContext context) {
-    final servingId = foodItem.serving.servingId;
-
-    if (servingId == null) return;
-
-    if (foodItem.foodType == 'recipe') {
-      context.router.push(RecipeRoute(
-        id: int.parse(foodItem.id),
-        name: foodItem.foodName,
-        isMealRecipe: true,
-      ));
-
-      return;
-    }
-
-    context.router.push(SelectServingRoute(
-        foodItemId: foodItem.id,
-        initialServingId: servingId,
-        foodItemName: foodItem.foodName));
   }
 }

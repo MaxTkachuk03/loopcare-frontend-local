@@ -1,6 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/meal/widgets/empty_meal.dart';
@@ -35,6 +38,7 @@ class MealsList extends StatelessWidget {
                         ),
                         nutritionKey: 'calories',
                         onDeletePressed: _onDeletePressed,
+                        onTap: (BuildContext context) => _onTap(context, item),
                       );
                     },
                   );
@@ -59,5 +63,28 @@ class MealsList extends StatelessWidget {
     if (item.foodType == 'food') {
       context.read<MealsBloc>().add(MealsEvent.deleteFoodItemFromMeal(item.id));
     }
+  }
+
+  void _onTap(BuildContext context, MealItem item) {
+    if (item.type == 'recipe') {
+      context.router.push(RecipeRoute(
+        id: item.id,
+        name: item.name,
+        isMealRecipe: true,
+      ));
+
+      return;
+    }
+
+    final servingId = item.serving.servingId;
+
+    if (servingId == null) return;
+
+    context.router.push(
+      SelectServingRoute(
+          foodItemId: item.externalId,
+          initialServingId: servingId,
+          foodItemName: item.name),
+    );
   }
 }
