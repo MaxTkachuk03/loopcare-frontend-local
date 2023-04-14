@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
@@ -26,6 +28,10 @@ class RecipeList extends StatelessWidget {
           foodItem: list[index],
           nutritionKey: nutritionKey,
           onDeletePressed: _onDeletePressed,
+          onTap: (BuildContext context) => _onTap(
+            context,
+            list[index],
+          ),
         );
       },
     );
@@ -42,5 +48,19 @@ class RecipeList extends StatelessWidget {
             foodItemId: id,
           ),
         );
+  }
+
+  _onTap(BuildContext context, FoodItem item) {
+    final servingId = item.serving.servingId;
+
+    if (servingId == null) return;
+
+    context.router.push(
+      SelectServingRoute(
+        foodItemId: item.id,
+        initialServingId: servingId,
+        foodItemName: item.foodName,
+      ),
+    );
   }
 }
