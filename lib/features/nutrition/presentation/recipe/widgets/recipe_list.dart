@@ -47,7 +47,7 @@ class RecipeList extends StatelessWidget {
     );
   }
 
-  void _onDeletePressed(BuildContext context, String id) {
+  void _onDeletePressed(BuildContext context, FoodItem item) {
     final mealId = context.read<MealsBloc>().state.getCurrentMealId;
 
     if (mealId == null) return;
@@ -55,7 +55,7 @@ class RecipeList extends StatelessWidget {
     context.read<RecipeBloc>().add(
           RecipeEvent.removeFoodItemFromRecipe(
             mealId: mealId,
-            foodItemId: id,
+            foodItemId: item.id,
           ),
         );
   }

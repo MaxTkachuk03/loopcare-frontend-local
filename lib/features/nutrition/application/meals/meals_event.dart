@@ -26,9 +26,12 @@ class MealsEvent with _$MealsEvent {
   ) = DeleteMeal;
 
   const factory MealsEvent.deleteFoodItemFromMeal(
-    // int mealId,
     String foodItemId,
   ) = DeleteFoodItemFromMeal;
+
+  const factory MealsEvent.deleteRecipeFromMeal(
+    String recipeId,
+  ) = DeleteRecipeFromMeal;
 
   const factory MealsEvent.createFromFavorites(List<FoodItem> foodItemList) =
       CreateFromFavorites;

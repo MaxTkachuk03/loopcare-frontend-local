@@ -8,8 +8,8 @@ import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.
 class FoodListItem extends StatelessWidget {
   final String nutritionKey;
   final FoodItem foodItem;
-  final void Function(BuildContext context, String id) onDeletePressed;
   final void Function(BuildContext context) onTap;
+  final void Function(BuildContext context, FoodItem item) onDeletePressed;
 
   const FoodListItem({
     Key? key,
@@ -64,7 +64,7 @@ class FoodListItem extends StatelessWidget {
                       splashRadius: 20,
                       padding: EdgeInsets.zero,
                       iconSize: 22,
-                      onPressed: () => onDeletePressed(context, foodItem.id),
+                      onPressed: () => onDeletePressed(context, foodItem),
                       icon: const Icon(
                         Icons.close,
                         color: AppColors.darkGreen,
