@@ -41,5 +41,39 @@ class AppIcons {
     '$iconsFilePath/edit.png',
   );
 
+  // Dashboard
+  static const AssetImage dashboardWeight =
+      AssetImage('$iconsFilePath/dashboard_weight.png');
+
+  static const AssetImage dashbordLogMeals =
+      AssetImage('$iconsFilePath/dashboard_log_meals.png');
+
+  static const AssetImage dashbordPlanMeals =
+      AssetImage('$iconsFilePath/dashboard_plan_meals.png');
+
+  static const AssetImage dashbordExplore =
+      AssetImage('$iconsFilePath/dashboard_explore.png');
+
+  static const AssetImage dashbordReflection =
+      AssetImage('$iconsFilePath/dashboard_reflection.png');
+
+  static const AssetImage dashbordReflectionDone =
+      AssetImage('$iconsFilePath/dashboard_reflection_done.png');
+
+  static const AssetImage diaryEmotionGreat =
+      AssetImage('$iconsFilePath/diary_emotion_great.png');
+
+  static const AssetImage diaryEmotionHappy =
+      AssetImage('$iconsFilePath/diary_emotion_happy.png');
+
+  static const AssetImage diaryEmotionNeutral =
+      AssetImage('$iconsFilePath/diary_emotion_neutral.png');
+
+  static const AssetImage diaryEmotionSad =
+      AssetImage('$iconsFilePath/diary_emotion_sad.png');
+
+  static const AssetImage diaryEmotionUnhappy =
+      AssetImage('$iconsFilePath/diary_emotion_unhappy.png');
+
   AppIcons._();
 }
