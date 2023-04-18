@@ -265,5 +265,12 @@
   "logList": "log list",
   "deleteMeal": "Delete Meal",
   "logListEmptyMessage": "Nothing logged yet\u2028What did you have for lunch?",
-  "backToDashboard": "Back to dashboard"
+  "backToDashboard": "Back to dashboard",
+  "goodMorning": "Good morning",
+  "logYourWeight": "Log your weight",
+  "logYourMeals": "Log your meals",
+  "planYourMeals": "Plan your meals",
+  "diary": "Diary",
+  "reflection": "Reflection",
+  "activities": "Activities"
 }

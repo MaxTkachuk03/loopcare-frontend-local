@@ -342,6 +342,15 @@ class LocalizedTexts {
   static const String searchFilterProducts = 'searchFilterProducts';
   static const String searchFilterRecipes = 'searchFilterRecipes';
   static const String searchFilterMy = 'searchFilterMy';
+
+  //Dashboard
+  static const String goodMorning = 'goodMorning';
+  static const String logYourWeight = 'logYourWeight';
+  static const String logYourMeals = 'logYourMeals';
+  static const String planYourMeals = 'planYourMeals';
+  static const String diary = 'diary';
+  static const String reflection = 'reflection';
+  static const String activities = 'activities';
 }
 
 extension StringX on String {

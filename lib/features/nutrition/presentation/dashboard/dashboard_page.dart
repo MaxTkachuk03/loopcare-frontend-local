@@ -2,17 +2,20 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/diary/diary.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/plan_meal/plan_meal.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/reflection/reflection.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/slider_calendar/slider_calendar.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/log_meal/log_meal.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/weight/weight_block.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -23,8 +26,13 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  late final bool _isWeightBlocEditable;
+  late final bool _isMealBlockEditable;
+
   @override
   void initState() {
+    _isWeightBlocEditable = true;
+    _isMealBlockEditable = false;
     context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
 
     context
@@ -38,53 +46,50 @@ class _DashboardPageState extends State<DashboardPage> {
     return BlocListener<AuthenticationCubit, AuthenticationState>(
       listener: _logoutListener,
       child: Scaffold(
-        appBar: const BlueAppBar(
-          title: 'Dashboard',
-        ),
+        appBar: const BlueAppBar(),
         body: SafeArea(
           child: ScrollableContainer(
-            child: MainContainer(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
+            child: Column(
+              children: [
+                const SliderCalendar(),
+                MainContainer(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      const SizedBox(height: 28),
                       Text(
-                        'Log your meals',
-                        style: Theme.of(context).textTheme.headlineSmall,
+                        '${LocalizedTexts.goodMorning.translation} ${context.read<AuthenticationCubit>().state.name}',
+                        style: Theme.of(context).textTheme.bodyText2,
                       ),
-                      Hexagon(
-                        width: 54,
-                        height: 54,
-                        borderRadius: 16,
-                        innerWidget: Container(
-                          color: AppColors.yellowLight,
-                          child: IconButton(
-                            icon: const ImageIcon(
-                              AppIcons.plus,
-                              color: AppColors.darkGreen,
-                              size: 18,
-                            ),
-                            onPressed: () =>
-                                context.router.pushNamed(AppRoutes.selectFood),
+                      const SizedBox(height: 16.0),
+                      WeightBlock(isEditable: _isWeightBlocEditable),
+                      const SizedBox(height: 8.0),
+                      LogMeal(isEditable: _isMealBlockEditable),
+                      const SizedBox(height: 8.0),
+                      PlanMeal(isEditable: _isMealBlockEditable),
+                      const SizedBox(height: 8.0),
+                      Diary(isEditable: _isMealBlockEditable),
+                      const SizedBox(height: 16.0),
+                      Text(
+                        LocalizedTexts.activities.translation,
+                        style: Theme.of(context).textTheme.bodyText2,
+                      ),
+                      const SizedBox(height: 16.0),
+                      Reflection(isEditable: _isMealBlockEditable),
+                      const SizedBox(height: 8.0),
+                      Column(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () => _onLogOutPressed(context),
+                            child: const Text('Log out'),
                           ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () => _onLogOutPressed(context),
-                        child: const Text('Log out'),
-                      ),
-                      const SizedBox(
-                        height: 40.0,
+                          const SizedBox(height: 40.0)
+                        ],
                       )
                     ],
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
           ),
         ),
