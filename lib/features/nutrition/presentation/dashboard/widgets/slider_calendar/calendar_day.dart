@@ -1,10 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/slider_calendar/slider_calendar.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class CalendarDay extends StatelessWidget {
-  final Function(Day day) onPressHandler;
-  final Day day;
+  final Function(DateTime day) onPressHandler;
+  final DateTime day;
   final bool isSelected;
 
   const CalendarDay({
@@ -38,8 +38,8 @@ class CalendarDay extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              day.name,
-              style: Theme.of(context).textTheme.caption!.copyWith(
+              DateFormat('E').format(day),
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     color: isSelected ? AppColors.darkGreen : AppColors.white,
                     decoration: isSelected
                         ? TextDecoration.underline
@@ -48,14 +48,14 @@ class CalendarDay extends StatelessWidget {
                   ),
             ),
             Text(
-              day.number,
-              style: Theme.of(context).textTheme.subtitle1!.copyWith(
+              DateFormat('d').format(day),
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
                   color: isSelected ? AppColors.darkGreen : AppColors.white,
                   fontSize: 12.0),
             ),
             Text(
-              day.month,
-              style: Theme.of(context).textTheme.subtitle1!.copyWith(
+              DateFormat('MMM').format(day),
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
                   color: isSelected ? AppColors.darkGreen : AppColors.white,
                   fontSize: 12.0),
             ),

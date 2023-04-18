@@ -28,6 +28,7 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   late final bool _isWeightBlocEditable;
   late final bool _isMealBlockEditable;
+  DateTime _selectedDay = DateTime.now();
 
   @override
   void initState() {
@@ -41,6 +42,12 @@ class _DashboardPageState extends State<DashboardPage> {
     super.initState();
   }
 
+  void _onDaySelected(DateTime day) {
+    setState(() {
+      _selectedDay = day;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationCubit, AuthenticationState>(
@@ -51,7 +58,7 @@ class _DashboardPageState extends State<DashboardPage> {
           child: ScrollableContainer(
             child: Column(
               children: [
-                const SliderCalendar(),
+                SliderCalendar(onSelectDay: _onDaySelected),
                 MainContainer(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -59,7 +66,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       const SizedBox(height: 28),
                       Text(
                         '${LocalizedTexts.goodMorning.translation} ${context.read<AuthenticationCubit>().state.name}',
-                        style: Theme.of(context).textTheme.bodyText2,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 16.0),
                       WeightBlock(isEditable: _isWeightBlocEditable),
@@ -72,7 +79,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       const SizedBox(height: 16.0),
                       Text(
                         LocalizedTexts.activities.translation,
-                        style: Theme.of(context).textTheme.bodyText2,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 16.0),
                       Reflection(isEditable: _isMealBlockEditable),
