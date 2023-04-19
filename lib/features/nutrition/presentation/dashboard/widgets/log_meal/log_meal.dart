@@ -1,10 +1,11 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 
 class LogMeal extends StatelessWidget {
   final bool isEditable;
@@ -15,8 +16,13 @@ class LogMeal extends StatelessWidget {
   }) : super(key: key);
 
   void onPressHandler(BuildContext context) {
-    // TODO do logic depends on editable weight block state
-    context.router.pushNamed(AppRoutes.selectFood);
+    ModalBottomSheet.selectAMealDialog(
+      context: context,
+      list: MealCategory.values
+          .map((e) => NameLabel(name: e.name, label: e.label ?? ''))
+          .toList(),
+      onSelect: (NameLabel item) {},
+    );
   }
 
   @override
