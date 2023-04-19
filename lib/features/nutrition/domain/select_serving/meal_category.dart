@@ -25,4 +25,21 @@ extension MealCategoryExtension on MealCategory {
         return '';
     }
   }
+
+  String? get label {
+    switch (this) {
+      case MealCategory.breakfast:
+        return LocalizedTexts.breakfast.translation.toLowerCase();
+      case MealCategory.lunch:
+        return LocalizedTexts.lunch.translation.toLowerCase();
+      case MealCategory.dinner:
+        return LocalizedTexts.dinner.translation.toLowerCase();
+      case MealCategory.inbetweens:
+        return LocalizedTexts.inbetweens.translation.toLowerCase();
+      case MealCategory.drinks:
+        return LocalizedTexts.drinks.translation.toLowerCase();
+      default:
+        return null;
+    }
+  }
 }
