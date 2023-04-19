@@ -69,7 +69,9 @@ class _DashboardPageState extends State<DashboardPage> {
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 16.0),
-                      WeightBlock(isEditable: _isWeightBlocEditable),
+                      WeightBlock(
+                        date: _selectedDay,
+                      ),
                       const SizedBox(height: 8.0),
                       LogMeal(isEditable: _isMealBlockEditable),
                       const SizedBox(height: 8.0),

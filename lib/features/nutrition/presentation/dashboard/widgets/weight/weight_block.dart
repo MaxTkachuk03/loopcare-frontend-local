@@ -7,12 +7,34 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 
 class WeightBlock extends StatelessWidget {
-  final bool isEditable;
+  final DateTime date;
 
-  const WeightBlock({
+  final Duration _pastDuration = const Duration(days: 7);
+  late final DateTime _todayMidnight;
+  late final DateTime _selectedDateMidnight;
+  late final bool _isToday;
+  late final bool _isPastDate;
+  late final bool _isLessThanSevenDaysPastDate;
+  late final bool _isDisabled;
+  late final bool _isEditable;
+
+  WeightBlock({
     Key? key,
-    required this.isEditable,
-  }) : super(key: key);
+    required this.date,
+  }) : super(key: key) {
+    _todayMidnight = convertDateToMidnightTime(DateTime.now());
+    _selectedDateMidnight = convertDateToMidnightTime(date);
+
+    _isToday = _selectedDateMidnight == _todayMidnight;
+    _isPastDate = _selectedDateMidnight.isBefore(_todayMidnight);
+    _isLessThanSevenDaysPastDate =
+        _todayMidnight.difference(_selectedDateMidnight) <= _pastDuration;
+    _isDisabled = _isToday || (_isPastDate && _isLessThanSevenDaysPastDate);
+    _isEditable = true;
+  }
+
+  DateTime convertDateToMidnightTime(DateTime date) =>
+      DateTime(date.year, date.month, date.day);
 
   void onPressHandler(BuildContext context) {
     // TODO do logic depends on editable weight block state
@@ -43,31 +65,36 @@ class WeightBlock extends StatelessWidget {
               const SizedBox(width: 24.0),
               // TODO get data from the user bloc
               Text(
-                isEditable
+                _isDisabled
                     ? LocalizedTexts.logYourWeight.translation
                     : "${LocalizedTexts.weight.translation} : 87,9 kg",
                 style: Theme.of(context).textTheme.headline5!.copyWith(
                       fontFamily: ThemeConstants.bitterFontFamily,
+                      color: _isDisabled
+                          ? AppColors.darkGreen
+                          : AppColors.greyLabel,
                     ),
               ),
             ],
           ),
-          Hexagon(
-            width: 54,
-            height: 54,
-            borderRadius: 16,
-            innerWidget: Container(
-              color: AppColors.bgGreen,
-              child: IconButton(
-                icon: ImageIcon(
-                  isEditable ? AppIcons.edit : AppIcons.plus,
-                  color: AppColors.darkGreen,
-                  size: 18,
-                ),
-                onPressed: () => onPressHandler(context),
-              ),
-            ),
-          ),
+          _isDisabled
+              ? Hexagon(
+                  width: 54,
+                  height: 54,
+                  borderRadius: 16,
+                  innerWidget: Container(
+                    color: AppColors.bgGreen,
+                    child: IconButton(
+                      icon: ImageIcon(
+                        _isEditable ? AppIcons.edit : AppIcons.plus,
+                        color: AppColors.darkGreen,
+                        size: 18,
+                      ),
+                      onPressed: () => onPressHandler(context),
+                    ),
+                  ),
+                )
+              : Container(),
         ],
       ),
     );
