@@ -2,8 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/app_version/app_version.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/bottom_navigation/bottom_navigation.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/diary/diary.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/explore/explore.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/physical_exercise/physical_exercise.dart';
@@ -19,7 +23,21 @@ import 'package:loopcare_frontend/features/nutrition/application/nutrition_instr
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/log_meal/log_meal.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/support_group/support_group.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/weight/weight_block.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+
+final Map<DashboardNavbarItems, BottomNavigationBarItem> _navBarItems = {
+  DashboardNavbarItems.overview: BottomNavigationBarItem(
+    icon: const ImageIcon(AppIcons.overview),
+    label: DashboardNavbarItems.overview.name,
+  ),
+  DashboardNavbarItems.explore: BottomNavigationBarItem(
+    icon: const ImageIcon(AppIcons.explore),
+    label: DashboardNavbarItems.explore.name,
+  ),
+  DashboardNavbarItems.account: BottomNavigationBarItem(
+    icon: const ImageIcon(AppIcons.account),
+    label: DashboardNavbarItems.account.name,
+  ),
+};
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -29,6 +47,8 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  DashboardNavbarItems _selectedNavigationItem = DashboardNavbarItems.overview;
+
   late final bool _isWeightBlocEditable;
   late final bool _isMealBlockEditable;
   DateTime _selectedDay = DateTime.now();
@@ -51,8 +71,17 @@ class _DashboardPageState extends State<DashboardPage> {
     });
   }
 
+  void onNavigationPressed(int index) {
+    // TODO do navigation
+    setState(() {
+      _selectedNavigationItem = DashboardNavbarItems.values[index];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final String userName = context.read<AuthenticationCubit>().state.name;
+
     return BlocListener<AuthenticationCubit, AuthenticationState>(
       listener: _logoutListener,
       child: Scaffold(
@@ -67,9 +96,10 @@ class _DashboardPageState extends State<DashboardPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+                        const AppVersion(),
                         const SizedBox(height: 28),
                         Text(
-                          '${LocalizedTexts.goodMorning.translation} ${context.read<AuthenticationCubit>().state.name}',
+                          '${LocalizedTexts.goodMorning.translation} $userName',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         const SizedBox(height: 16.0),
@@ -95,15 +125,11 @@ class _DashboardPageState extends State<DashboardPage> {
                         SupportGroup(isEditable: _isMealBlockEditable),
                         const SizedBox(height: 10.0),
                         Explore(isEditable: _isMealBlockEditable),
-                        Column(
-                          children: [
-                            ElevatedButton(
-                              onPressed: () => _onLogOutPressed(context),
-                              child: const Text('Log out'),
-                            ),
-                            const SizedBox(height: 40.0)
-                          ],
-                        )
+                        const SizedBox(height: 10.0),
+                        ElevatedButton(
+                          onPressed: () => _onLogOutPressed(context),
+                          child: const Text('Log out'),
+                        ),
                       ],
                     ),
                   ),
@@ -112,21 +138,10 @@ class _DashboardPageState extends State<DashboardPage> {
             ],
           ),
         ),
-        bottomNavigationBar: BottomAppBar(
-          child: FutureBuilder<PackageInfo>(
-            future: PackageInfo.fromPlatform(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Text(
-                  '${snapshot.data?.version}.${snapshot.data?.buildNumber}',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 11),
-                );
-              } else {
-                return const Text('');
-              }
-            },
-          ),
+        bottomNavigationBar: BottomNavigation(
+          onItemPress: onNavigationPressed,
+          items: _navBarItems.values.toList(),
+          selectedItem: _selectedNavigationItem,
         ),
       ),
     );
