@@ -353,6 +353,11 @@ class LocalizedTexts {
   static const String activities = 'activities';
   static const String selectAMeal = 'selectAMeal';
   static const String today = 'today';
+  static const String physicalExercise = 'physicalExercise';
+  static const String supportGroup = 'supportGroup';
+  static const String explore = 'explore';
+  static const String overview = 'overview';
+  static const String account = 'account';
 }
 
 extension StringX on String {

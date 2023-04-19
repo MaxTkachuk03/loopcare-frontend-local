@@ -272,7 +272,12 @@
   "planYourMeals": "Plan your meals",
   "diary": "Diary",
   "reflection": "Reflection",
-  "activities": "Activities",
   "selectAMeal": "Select a meal",
-  "today": "Today"
+  "today": "Today",
+  "activities": "Activities",
+  "physicalExercise": "Physical exercise",
+  "supportGroup": "Support group",
+  "explore": "Explore",
+  "overview": "Overview",
+  "account": "Account"
 }
