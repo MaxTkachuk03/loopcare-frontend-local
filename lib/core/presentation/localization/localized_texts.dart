@@ -351,6 +351,8 @@ class LocalizedTexts {
   static const String diary = 'diary';
   static const String reflection = 'reflection';
   static const String activities = 'activities';
+  static const String selectAMeal = 'selectAMeal';
+  static const String today = 'today';
 }
 
 extension StringX on String {
