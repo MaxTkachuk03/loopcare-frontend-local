@@ -31,24 +31,42 @@ class Diary extends StatelessWidget {
           Radius.circular(6),
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Image(
-                image: AppIcons.diaryEmotionGreat,
+              Row(
+                children: [
+                  const Image(
+                    image: AppIcons.diaryEmotionGreat,
+                  ),
+                  const SizedBox(width: 24.0),
+                  Text(
+                    LocalizedTexts.diary.translation,
+                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                          fontFamily: ThemeConstants.bitterFontFamily,
+                        ),
+                  ),
+                ],
               ),
-              const SizedBox(width: 24.0),
-              // TODO get data from the user bloc
-              Text(
-                LocalizedTexts.diary.translation,
-                style: Theme.of(context).textTheme.headline5!.copyWith(
-                      fontFamily: ThemeConstants.bitterFontFamily,
-                    ),
+              const ImageIcon(
+                AppIcons.arrow,
+                color: AppColors.greyLabel,
               ),
             ],
           ),
+          const SizedBox(height: 8.0),
+          const Divider(color: AppColors.yellowLight),
+          // TODO will be text from the server
+          Text(
+            '“Today felt great. Several friends visited and they all brought presents, most special was a”',
+            style: Theme.of(context).textTheme.caption!.copyWith(
+                  fontStyle: FontStyle.italic,
+                ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          )
         ],
       ),
     );

@@ -5,6 +5,8 @@ import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/diary/diary.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/explore/explore.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/physical_exercise/physical_exercise.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/plan_meal/plan_meal.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/reflection/reflection.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/slider_calendar/slider_calendar.dart';
@@ -15,6 +17,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/log_meal/log_meal.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/support_group/support_group.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/weight/weight_block.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -55,51 +58,58 @@ class _DashboardPageState extends State<DashboardPage> {
       child: Scaffold(
         appBar: const BlueAppBar(),
         body: SafeArea(
-          child: ScrollableContainer(
-            child: Column(
-              children: [
-                SliderCalendar(onSelectDay: _onDaySelected),
-                MainContainer(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const SizedBox(height: 28),
-                      Text(
-                        '${LocalizedTexts.goodMorning.translation} ${context.read<AuthenticationCubit>().state.name}',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      const SizedBox(height: 16.0),
-                      WeightBlock(
-                        date: _selectedDay,
-                      ),
-                      const SizedBox(height: 8.0),
-                      LogMeal(isEditable: _isMealBlockEditable),
-                      const SizedBox(height: 8.0),
-                      PlanMeal(isEditable: _isMealBlockEditable),
-                      const SizedBox(height: 8.0),
-                      Diary(isEditable: _isMealBlockEditable),
-                      const SizedBox(height: 16.0),
-                      Text(
-                        LocalizedTexts.activities.translation,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      const SizedBox(height: 16.0),
-                      Reflection(isEditable: _isMealBlockEditable),
-                      const SizedBox(height: 8.0),
-                      Column(
-                        children: [
-                          ElevatedButton(
-                            onPressed: () => _onLogOutPressed(context),
-                            child: const Text('Log out'),
-                          ),
-                          const SizedBox(height: 40.0)
-                        ],
-                      )
-                    ],
+          child: Column(
+            children: [
+              SliderCalendar(onSelectDay: _onDaySelected),
+              Expanded(
+                child: ScrollableContainer(
+                  child: MainContainer(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const SizedBox(height: 28),
+                        Text(
+                          '${LocalizedTexts.goodMorning.translation} ${context.read<AuthenticationCubit>().state.name}',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const SizedBox(height: 16.0),
+                        WeightBlock(
+                          date: _selectedDay,
+                        ),
+                        const SizedBox(height: 10.0),
+                        LogMeal(isEditable: _isMealBlockEditable),
+                        const SizedBox(height: 10.0),
+                        PlanMeal(isEditable: _isMealBlockEditable),
+                        const SizedBox(height: 10.0),
+                        Diary(isEditable: _isMealBlockEditable),
+                        const SizedBox(height: 16.0),
+                        Text(
+                          LocalizedTexts.activities.translation,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const SizedBox(height: 16.0),
+                        Reflection(isEditable: _isMealBlockEditable),
+                        const SizedBox(height: 10.0),
+                        PhysicalExercise(isEditable: _isMealBlockEditable),
+                        const SizedBox(height: 10.0),
+                        SupportGroup(isEditable: _isMealBlockEditable),
+                        const SizedBox(height: 10.0),
+                        Explore(isEditable: _isMealBlockEditable),
+                        Column(
+                          children: [
+                            ElevatedButton(
+                              onPressed: () => _onLogOutPressed(context),
+                              child: const Text('Log out'),
+                            ),
+                            const SizedBox(height: 40.0)
+                          ],
+                        )
+                      ],
+                    ),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
         bottomNavigationBar: BottomAppBar(

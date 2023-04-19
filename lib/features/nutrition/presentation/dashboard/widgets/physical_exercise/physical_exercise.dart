@@ -6,10 +6,10 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
-class Reflection extends StatelessWidget {
+class PhysicalExercise extends StatelessWidget {
   final bool isEditable;
 
-  const Reflection({
+  const PhysicalExercise({
     Key? key,
     required this.isEditable,
   }) : super(key: key);
@@ -45,7 +45,7 @@ class Reflection extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    LocalizedTexts.reflection.translation,
+                    LocalizedTexts.physicalExercise.translation,
                     style: Theme.of(context).textTheme.headline5!.copyWith(
                           fontFamily: ThemeConstants.bitterFontFamily,
                         ),
@@ -53,14 +53,14 @@ class Reflection extends StatelessWidget {
                   const SizedBox(height: 3.0),
                   // TODO get text from the server
                   AutoSizeText(
-                    'Looking back at past 2 weeks',
+                    'Walking program - Squat',
                     style: Theme.of(context).textTheme.caption!.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
                     maxLines: 1,
                   ),
                   Text(
-                    'Completed',
+                    'Today',
                     style: Theme.of(context).textTheme.caption!.copyWith(
                           fontStyle: FontStyle.italic,
                           color: Color(0xFF919B8C),
