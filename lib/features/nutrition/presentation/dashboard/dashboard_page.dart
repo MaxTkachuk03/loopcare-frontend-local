@@ -75,6 +75,8 @@ class _DashboardPageState extends State<DashboardPage> {
     context.read<DashboardWeightBloc>().add(DashboardWeightEvent.setDate(day));
     setState(() {
       _selectedDay = day;
+
+      context.read<MealsBloc>().add(MealsEvent.setCurrentDate(day));
     });
   }
 

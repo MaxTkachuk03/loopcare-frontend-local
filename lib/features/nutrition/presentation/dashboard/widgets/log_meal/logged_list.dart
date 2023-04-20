@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/meal_category/logged_category_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/log_meal/logged_list_item.dart';
 
 class LoggedList extends StatelessWidget {
-  final List<LoggedCategoryItem> list;
+  final List<String> categoryList;
+  final List<String> filledList;
 
   const LoggedList({
     super.key,
-    required this.list,
+    required this.categoryList,
+    required this.filledList,
   });
 
   @override
   Widget build(BuildContext context) {
-    return list.isEmpty
+    return categoryList.isEmpty
         ? const SizedBox()
         : ListView.builder(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
-            itemCount: list.length,
+            itemCount: categoryList.length,
             itemBuilder: (BuildContext context, int index) {
               return LoggedListItem(
-                label: list[index].label,
-                isFilled: list[index].isFilled,
+                label: categoryList[index],
+                isFilled:
+                    filledList.contains(categoryList[index].toLowerCase()),
               );
             },
           );

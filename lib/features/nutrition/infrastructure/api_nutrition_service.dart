@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/get_dashboard_weights_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/save_weight_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/dto/get_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
@@ -177,8 +178,20 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, MealsResponse>> getMeals() async {
-    return client.get('/meals').then(parseResponse(MealsResponse.fromJson));
+  Future<Either<RequestError, MealsResponse>> getMeals({
+    String? startDate,
+    String? endDate,
+  }) async {
+    final queryParameters = <String, dynamic>{};
+    if (startDate != null && endDate != null) {
+      queryParameters.addAll({
+        'startDate': startDate,
+        'endDate': endDate,
+      });
+    }
+    return client
+        .get('/meals', queryParameters: queryParameters)
+        .then(parseResponse(MealsResponse.fromJson));
   }
 
   @override

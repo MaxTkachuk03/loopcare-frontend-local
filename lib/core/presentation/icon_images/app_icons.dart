@@ -87,6 +87,16 @@ class AppIcons {
 
   static const AssetImage account = AssetImage('$iconsFilePath/account.png');
 
+  static const AssetImage drinks = AssetImage('$iconsFilePath/icon_drinks.png');
+
+  static const AssetImage iconCheckmark =
+      AssetImage('$iconsFilePath/icon_checkmark.png');
+
+  static const AssetImage porkKnife =
+      AssetImage('$iconsFilePath/icon_pork_knife.png');
+
+  static const AssetImage snack = AssetImage('$iconsFilePath/icon_snack.png');
+
   static const AssetImage calendar = AssetImage('$iconsFilePath/calendar.png');
 
   static const AssetImage book = AssetImage('$iconsFilePath/book.png');

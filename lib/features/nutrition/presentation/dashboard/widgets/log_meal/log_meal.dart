@@ -1,13 +1,17 @@
 import 'dart:math';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/calorie_density_scale_layout.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/calorie_density_scale/calorie_density_scale.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/meal_category/logged_category_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
@@ -28,7 +32,15 @@ class LogMeal extends StatelessWidget {
       list: MealCategory.values
           .map((e) => NameLabel(name: e.name, label: e.label ?? ''))
           .toList(),
-      onSelect: (NameLabel item) {},
+      onSelect: (NameLabel item) {
+        context.read<MealsBloc>().add(
+              MealsEvent.addMeal(
+                item.name.toLowerCase(),
+              ),
+            );
+
+        context.router.pushNamed(AppRoutes.meal);
+      },
     );
   }
 
@@ -113,18 +125,16 @@ class LogMeal extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 5),
-                    LoggedList(
-                      list: MealCategory.values
-                          .map(
-                            (e) => LoggedCategoryItem(
-                              label:
-                                  e.shortLabel?.capitalizeOnlyFirstLetter() ??
-                                      '',
-                              isFilled: Random().nextBool(),
-                            ),
-                          )
-                          .toList(),
-                    ),
+                    BlocBuilder<MealsBloc, MealsState>(
+                        builder: (BuildContext context, state) {
+                      return LoggedList(
+                        categoryList: MealCategory.values
+                            .map((e) =>
+                                e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
+                            .toList(),
+                        filledList: state.filledCategories,
+                      );
+                    }),
                   ],
                 ),
               ),

@@ -11,12 +11,46 @@ class MealsState with _$MealsState {
   const factory MealsState.error(RequestError fetchError) = _Error;
 
   const factory MealsState.meals({
-    required int? currentMealId,
-    required DateTime currentDate,
-    required String currentMealCategory,
+    int? currentMealId,
+    DateTime? currentDate,
+    String? currentMealCategory,
     required IList<MealsListItem> meals,
-    required FoodItemServing? selectedServing,
+    FoodItemServing? selectedServing,
   }) = _Meals;
+
+  List<String> get filledCategories {
+    return map(
+      meals: (state) {
+        if (state.meals.isEmpty) {
+          return <String>[];
+        }
+        var allCategory = state.meals
+            .where((item) => item.loggingDate.isSameDate(state.currentDate!))
+            .toList()
+            .map((e) => e.mealCategory)
+            .toList()
+            .toSet()
+            .toList();
+
+        return state.meals
+            .where((item) => item.loggingDate.isSameDate(state.currentDate!))
+            .toList()
+            .map((e) => e.mealCategory)
+            .toList()
+            .toSet()
+            .toList();
+      },
+      error: (_Error value) {
+        return <String>[];
+      },
+      initial: (_Initial value) {
+        return <String>[];
+      },
+      loading: (_Loading value) {
+        return <String>[];
+      },
+    );
+  }
 
   int? get getCurrentMealId {
     return mapOrNull(
@@ -34,7 +68,7 @@ class MealsState with _$MealsState {
 
   String? get currentMealCategory {
     return mapOrNull(
-      meals: (state) => state.currentMealCategory.capitalizeOnlyFirstLetter(),
+      meals: (state) => state.currentMealCategory?.capitalizeOnlyFirstLetter(),
     );
   }
 
