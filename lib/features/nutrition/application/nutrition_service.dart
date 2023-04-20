@@ -128,8 +128,8 @@ abstract class NutritionService {
   );
 
   Future<Either<RequestError, GetDashboardWeightsResponse>> getDashboardWeights(
-    DateTime startDate,
-    DateTime endDate,
+    String startDate,
+    String endDate,
   );
 
   Future<Either<RequestError, SaveWeightResponse>> saveWeight(

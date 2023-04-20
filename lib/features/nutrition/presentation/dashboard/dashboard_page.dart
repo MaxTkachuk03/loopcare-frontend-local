@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/bottom_navigation/bottom_navigation.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/diary/diary.dart';
@@ -24,15 +25,16 @@ import 'package:loopcare_frontend/features/nutrition/application/nutrition_instr
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/log_meal/log_meal.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/support_group/support_group.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/weight/weight_block.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
 
 final Map<DashboardNavbarItems, BottomNavigationBarItem> _navBarItems = {
-  DashboardNavbarItems.overview: BottomNavigationBarItem(
-    icon: const ImageIcon(AppIcons.overview),
-    label: DashboardNavbarItems.overview.name,
+  DashboardNavbarItems.today: BottomNavigationBarItem(
+    icon: const ImageIcon(AppIcons.calendar),
+    label: DashboardNavbarItems.today.name,
   ),
-  DashboardNavbarItems.explore: BottomNavigationBarItem(
-    icon: const ImageIcon(AppIcons.explore),
-    label: DashboardNavbarItems.explore.name,
+  DashboardNavbarItems.education: BottomNavigationBarItem(
+    icon: const ImageIcon(AppIcons.book),
+    label: DashboardNavbarItems.education.name,
   ),
   DashboardNavbarItems.account: BottomNavigationBarItem(
     icon: const ImageIcon(AppIcons.account),
@@ -48,16 +50,19 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  DashboardNavbarItems _selectedNavigationItem = DashboardNavbarItems.overview;
+  DashboardNavbarItems _selectedNavigationItem = DashboardNavbarItems.today;
 
-  late final bool _isWeightBlocEditable;
   late final bool _isMealBlockEditable;
   DateTime _selectedDay = DateTime.now();
 
   @override
   void initState() {
-    _isWeightBlocEditable = true;
     _isMealBlockEditable = false;
+
+    context.read<DashboardWeightBloc>().add(DashboardWeightEvent.fetchWeights(
+          _selectedDay.midnightTime.subtract(const Duration(days: 7)),
+        ));
+
     context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
 
     context
@@ -67,6 +72,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   void _onDaySelected(DateTime day) {
+    context.read<DashboardWeightBloc>().add(DashboardWeightEvent.setDate(day));
     setState(() {
       _selectedDay = day;
     });
