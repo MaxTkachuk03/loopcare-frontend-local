@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/app_version/app_version.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
@@ -87,55 +88,63 @@ class _DashboardPageState extends State<DashboardPage> {
       child: Scaffold(
         appBar: const BlueAppBar(),
         body: SafeArea(
-          child: Column(
-            children: [
-              SliderCalendar(onSelectDay: _onDaySelected),
-              Expanded(
-                child: ScrollableContainer(
-                  child: MainContainer(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        const AppVersion(),
-                        const SizedBox(height: 28),
-                        Text(
-                          '${LocalizedTexts.goodMorning.translation} $userName',
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        const SizedBox(height: 16.0),
-                        WeightBlock(
-                          date: _selectedDay,
-                        ),
-                        const SizedBox(height: 10.0),
-                        LogMeal(isEditable: _isMealBlockEditable),
-                        const SizedBox(height: 10.0),
-                        PlanMeal(isEditable: _isMealBlockEditable),
-                        const SizedBox(height: 10.0),
-                        Diary(isEditable: _isMealBlockEditable),
-                        const SizedBox(height: 16.0),
-                        Text(
-                          LocalizedTexts.activities.translation,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        const SizedBox(height: 16.0),
-                        Reflection(isEditable: _isMealBlockEditable),
-                        const SizedBox(height: 10.0),
-                        PhysicalExercise(isEditable: _isMealBlockEditable),
-                        const SizedBox(height: 10.0),
-                        SupportGroup(isEditable: _isMealBlockEditable),
-                        const SizedBox(height: 10.0),
-                        Explore(isEditable: _isMealBlockEditable),
-                        const SizedBox(height: 10.0),
-                        ElevatedButton(
-                          onPressed: () => _onLogOutPressed(context),
-                          child: const Text('Log out'),
-                        ),
-                      ],
+          child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AppImages.dashboardBg,
+                fit: BoxFit.contain,
+              ),
+            ),
+            child: Column(
+              children: [
+                SliderCalendar(onSelectDay: _onDaySelected),
+                Expanded(
+                  child: ScrollableContainer(
+                    child: MainContainer(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const AppVersion(),
+                          const SizedBox(height: 28),
+                          Text(
+                            '${LocalizedTexts.goodMorning.translation} $userName',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          const SizedBox(height: 16.0),
+                          WeightBlock(
+                            date: _selectedDay,
+                          ),
+                          const SizedBox(height: 10.0),
+                          LogMeal(isEditable: _isMealBlockEditable),
+                          const SizedBox(height: 10.0),
+                          PlanMeal(isEditable: _isMealBlockEditable),
+                          const SizedBox(height: 10.0),
+                          Diary(isEditable: _isMealBlockEditable),
+                          const SizedBox(height: 16.0),
+                          Text(
+                            LocalizedTexts.activities.translation,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          const SizedBox(height: 16.0),
+                          Reflection(isEditable: _isMealBlockEditable),
+                          const SizedBox(height: 10.0),
+                          PhysicalExercise(isEditable: _isMealBlockEditable),
+                          const SizedBox(height: 10.0),
+                          SupportGroup(isEditable: _isMealBlockEditable),
+                          const SizedBox(height: 10.0),
+                          Explore(isEditable: _isMealBlockEditable),
+                          const SizedBox(height: 10.0),
+                          ElevatedButton(
+                            onPressed: () => _onLogOutPressed(context),
+                            child: const Text('Log out'),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: BottomNavigation(

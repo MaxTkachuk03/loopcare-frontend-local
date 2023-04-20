@@ -75,6 +75,12 @@ class AppIcons {
   static const AssetImage diaryEmotionUnhappy =
       AssetImage('$iconsFilePath/diary_emotion_unhappy.png');
 
+  static const AssetImage physicalExercise =
+      AssetImage('$iconsFilePath/physical_exercise.png');
+
+  static const AssetImage supportGroup =
+      AssetImage('$iconsFilePath/support_group.png');
+
   static const AssetImage overview = AssetImage('$iconsFilePath/overview.png');
 
   static const AssetImage explore = AssetImage('$iconsFilePath/explore.png');

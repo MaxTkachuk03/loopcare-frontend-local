@@ -38,7 +38,7 @@ class PhysicalExercise extends StatelessWidget {
           Row(
             children: [
               const Image(
-                image: AppIcons.dashbordReflectionDone,
+                image: AppIcons.physicalExercise,
               ),
               const SizedBox(width: 24.0),
               Column(

@@ -37,6 +37,9 @@ class AppImages {
   static const AssetImage emptyMeal =
       AssetImage('$iconsFilePath/empty_meal.png');
 
+  static const AssetImage dashboardBg =
+      AssetImage('$iconsFilePath/dashboard_bg.png');
+
   static SvgPicture logoSvgBig =
       SvgPicture.asset('$iconsFilePath/logo.svg', width: 114, height: 107);
 

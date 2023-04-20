@@ -38,7 +38,7 @@ class SupportGroup extends StatelessWidget {
             child: Row(
               children: [
                 const Image(
-                  image: AppIcons.dashbordReflectionDone,
+                  image: AppIcons.supportGroup,
                 ),
                 const SizedBox(width: 24.0),
                 Flexible(
