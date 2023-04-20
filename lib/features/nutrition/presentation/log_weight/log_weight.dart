@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/get_measurement_system.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_field.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_tabs.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/weight_conversion_utils.dart';
 
@@ -48,7 +47,10 @@ class _LogWeightState extends State<LogWeight> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const BlueAppBar(),
+      appBar: AppBar(
+        backgroundColor: AppColors.blueAppBar,
+        title: const Text('weight'),
+      ),
       body: SafeArea(
         child: ScrollableContainer(
           child: MainContainer(

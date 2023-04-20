@@ -246,12 +246,13 @@ class APINutritionService implements NutritionService {
 
   @override
   Future<Either<RequestError, GetDashboardWeightsResponse>> getDashboardWeights(
-    DateTime startDate,
-    DateTime endDate,
+    String startDate,
+    String endDate,
   ) {
-    return client
-        .delete('/weights/log')
-        .then(parseResponse(GetDashboardWeightsResponse.fromJson));
+    return client.get(
+      '/weight/logs',
+      queryParameters: {"startDate": startDate, "endDate": endDate},
+    ).then(parseResponse(GetDashboardWeightsResponse.fromJson));
   }
 
   @override

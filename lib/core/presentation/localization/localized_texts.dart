@@ -362,6 +362,8 @@ class LocalizedTexts {
   static const String calendar = 'calendar';
   static const String education = 'education';
   static const String logged = 'logged';
+  static const String preferableInTheMorning = 'preferableInTheMorning';
+  static const String noWeightLogged = 'noWeightLogged';
 }
 
 extension StringX on String {

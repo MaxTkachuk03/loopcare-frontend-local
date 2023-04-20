@@ -280,8 +280,10 @@
   "supportGroup": "Support group",
   "explore": "Explore",
   "overview": "Overview",
-  "logged": "Logged"
+  "logged": "Logged",
   "account": "Account",
   "calendar": "Calendar",
-  "education": "Education"
+  "education": "Education",
+  "preferableInTheMorning": "Preferable in the morning",
+  "noWeightLogged": "No weight logged"
 }
