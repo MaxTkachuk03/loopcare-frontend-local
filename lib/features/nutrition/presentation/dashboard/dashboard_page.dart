@@ -26,13 +26,13 @@ import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widg
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/weight/weight_block.dart';
 
 final Map<DashboardNavbarItems, BottomNavigationBarItem> _navBarItems = {
-  DashboardNavbarItems.overview: BottomNavigationBarItem(
-    icon: const ImageIcon(AppIcons.overview),
-    label: DashboardNavbarItems.overview.name,
+  DashboardNavbarItems.today: BottomNavigationBarItem(
+    icon: const ImageIcon(AppIcons.calendar),
+    label: DashboardNavbarItems.today.name,
   ),
-  DashboardNavbarItems.explore: BottomNavigationBarItem(
-    icon: const ImageIcon(AppIcons.explore),
-    label: DashboardNavbarItems.explore.name,
+  DashboardNavbarItems.education: BottomNavigationBarItem(
+    icon: const ImageIcon(AppIcons.book),
+    label: DashboardNavbarItems.education.name,
   ),
   DashboardNavbarItems.account: BottomNavigationBarItem(
     icon: const ImageIcon(AppIcons.account),
@@ -48,7 +48,7 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  DashboardNavbarItems _selectedNavigationItem = DashboardNavbarItems.overview;
+  DashboardNavbarItems _selectedNavigationItem = DashboardNavbarItems.today;
 
   late final bool _isWeightBlocEditable;
   late final bool _isMealBlockEditable;

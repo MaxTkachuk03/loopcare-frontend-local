@@ -38,7 +38,7 @@ class WeightBlock extends StatelessWidget {
 
   void onPressHandler(BuildContext context) {
     // TODO do logic depends on editable weight block state
-    context.router.pushNamed(AppRoutes.selectFood);
+    context.router.pushNamed(AppRoutes.logWeight);
   }
 
   @override

@@ -280,6 +280,8 @@
   "supportGroup": "Support group",
   "explore": "Explore",
   "overview": "Overview",
-  "account": "Account",
   "logged": "Logged"
+  "account": "Account",
+  "calendar": "Calendar",
+  "education": "Education"
 }
