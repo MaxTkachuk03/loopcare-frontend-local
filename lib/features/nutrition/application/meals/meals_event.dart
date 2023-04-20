@@ -5,7 +5,6 @@ class MealsEvent with _$MealsEvent {
   const factory MealsEvent.fetchMeals() = FetchMeals;
 
   const factory MealsEvent.addMeal(
-    String loggingDate,
     String mealCategory,
   ) = AddMeal;
 
@@ -39,4 +38,8 @@ class MealsEvent with _$MealsEvent {
   const factory MealsEvent.setMealId(
     int mealId,
   ) = SetMealId;
+
+  const factory MealsEvent.setCurrentDate(
+    DateTime currentDate,
+  ) = SetCurrentDate;
 }

@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_serving.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
 
 part 'meals_event.dart';
@@ -35,6 +36,35 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     on<DeleteRecipeFromMeal>(_onDeleteRecipeFromMeal);
     on<CreateFromFavorites>(_onCreateFromFavorites);
     on<SetMealId>(_onSetMealId);
+    on<SetCurrentDate>(_onSetCurrentDate);
+  }
+
+  FutureOr<void> _onSetCurrentDate(
+    SetCurrentDate event,
+    Emitter<MealsState> emit,
+  ) async {
+    emit(const MealsState.loading());
+
+    final response = await nutritionService.getMeals(
+      startDate:
+          event.currentDate.subtract(const Duration(days: 7)).toIso8601String(),
+      endDate: event.currentDate.toIso8601String(),
+    );
+
+    response.fold(
+      (error) {
+        emit(MealsState.error(error));
+      },
+      (response) {
+        emit(
+          MealsState.meals(
+            currentDate: event.currentDate,
+            meals: response.data.toIList(),
+            selectedServing: null,
+          ),
+        );
+      },
+    );
   }
 
   FutureOr<void> _onSetMealId(
@@ -293,7 +323,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     await state.mapOrNull(
       meals: (state) async {
         final data = AddMealBody(
-          loggingDate: event.loggingDate,
+          loggingDate: state.currentDate?.toIso8601String() ??
+              DateTime.now().toIso8601String(),
           mealCategory: event.mealCategory,
         );
 

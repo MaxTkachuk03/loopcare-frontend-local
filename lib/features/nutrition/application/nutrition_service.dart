@@ -91,7 +91,10 @@ abstract class NutritionService {
     String recipeId,
   );
 
-  Future<Either<RequestError, MealsResponse>> getMeals();
+  Future<Either<RequestError, MealsResponse>> getMeals({
+    String? startDate,
+    String? endDate,
+  });
 
   Future<Either<RequestError, MealsListItem>> addMeal(
     AddMealBody data,
