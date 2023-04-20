@@ -311,6 +311,7 @@ class LocalizedTexts {
   static const String addedToFavorites = 'addedToFavorites';
   static const String removedFromFavorites = 'removedFromFavorites';
   static const String inbetweens = 'inbetweens';
+  static const String inbetweensShort = 'inbetweensShort';
   static const String drinks = 'drinks';
   static const String favorites = 'favorites';
   static const String allMy = 'allMy';
@@ -358,6 +359,7 @@ class LocalizedTexts {
   static const String explore = 'explore';
   static const String overview = 'overview';
   static const String account = 'account';
+  static const String logged = 'logged';
 }
 
 extension StringX on String {

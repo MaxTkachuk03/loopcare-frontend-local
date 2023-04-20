@@ -42,4 +42,21 @@ extension MealCategoryExtension on MealCategory {
         return null;
     }
   }
+
+  String? get shortLabel {
+    switch (this) {
+      case MealCategory.breakfast:
+        return LocalizedTexts.breakfast.translation.toLowerCase();
+      case MealCategory.lunch:
+        return LocalizedTexts.lunch.translation.toLowerCase();
+      case MealCategory.dinner:
+        return LocalizedTexts.dinner.translation.toLowerCase();
+      case MealCategory.inbetweens:
+        return LocalizedTexts.inbetweensShort.translation.toLowerCase();
+      case MealCategory.drinks:
+        return LocalizedTexts.drinks.translation.toLowerCase();
+      default:
+        return null;
+    }
+  }
 }

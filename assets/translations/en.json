@@ -254,6 +254,7 @@
   "searchFilterMy": "My Food",
   "emptyList": "Your list is empty",
   "inbetweens": "Inbetweens & snacks",
+  "inbetweensShort": "Inbetweens",
   "drinks": "Drinks",
   "favorites": "favorites",
   "allMy": "All my",
@@ -279,5 +280,6 @@
   "supportGroup": "Support group",
   "explore": "Explore",
   "overview": "Overview",
-  "account": "Account"
+  "account": "Account",
+  "logged": "Logged"
 }
