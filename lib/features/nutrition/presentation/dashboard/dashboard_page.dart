@@ -123,7 +123,13 @@ class _DashboardPageState extends State<DashboardPage> {
                             date: _selectedDay,
                           ),
                           const SizedBox(height: 10.0),
-                          LogMeal(isEditable: _isMealBlockEditable),
+                          BlocBuilder<MealsBloc, MealsState>(
+                            builder: (BuildContext context, state) {
+                              return state.isNeedToHideOnDashboard
+                                  ? const SizedBox(height: 0.0)
+                                  : LogMeal(isEditable: _isMealBlockEditable);
+                            },
+                          ),
                           const SizedBox(height: 10.0),
                           PlanMeal(isEditable: _isMealBlockEditable),
                           const SizedBox(height: 10.0),

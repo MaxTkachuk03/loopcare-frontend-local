@@ -43,28 +43,38 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     SetCurrentDate event,
     Emitter<MealsState> emit,
   ) async {
-    emit(const MealsState.loading());
+    if (event.currentDate.isAfter(DateTime.now())) {
+      emit(
+        MealsState.meals(
+          currentDate: event.currentDate,
+          meals: <MealsListItem>[].toIList(),
+        ),
+      );
+    } else {
+      emit(const MealsState.loading());
 
-    final response = await nutritionService.getMeals(
-      startDate:
-          event.currentDate.subtract(const Duration(days: 7)).toIso8601String(),
-      endDate: event.currentDate.toIso8601String(),
-    );
+      final response = await nutritionService.getMeals(
+        startDate: event.currentDate
+            .subtract(const Duration(days: 1))
+            .toIso8601String(),
+        endDate: event.currentDate.toIso8601String(),
+      );
 
-    response.fold(
-      (error) {
-        emit(MealsState.error(error));
-      },
-      (response) {
-        emit(
-          MealsState.meals(
-            currentDate: event.currentDate,
-            meals: response.data.toIList(),
-            selectedServing: null,
-          ),
-        );
-      },
-    );
+      response.fold(
+        (error) {
+          emit(MealsState.error(error));
+        },
+        (response) {
+          emit(
+            MealsState.meals(
+              currentDate: event.currentDate,
+              meals: response.data.toIList(),
+              selectedServing: null,
+            ),
+          );
+        },
+      );
+    }
   }
 
   FutureOr<void> _onSetMealId(
@@ -86,7 +96,11 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
   ) async {
     emit(const MealsState.loading());
 
-    final response = await nutritionService.getMeals();
+    final response = await nutritionService.getMeals(
+      startDate:
+          DateTime.now().subtract(const Duration(days: 7)).toIso8601String(),
+      endDate: DateTime.now().toIso8601String(),
+    );
 
     response.fold(
       (error) {
@@ -95,15 +109,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
       (response) {
         emit(
           MealsState.meals(
-            currentMealCategory: 'dinner',
             currentDate: DateTime.now(),
             meals: response.data.toIList(),
-            selectedServing: null,
-            currentMealId: response.data.isEmpty
-                ? 0
-                : response.data
-                    .firstWhere((item) => item.mealCategory == 'dinner')
-                    .id,
           ),
         );
       },
