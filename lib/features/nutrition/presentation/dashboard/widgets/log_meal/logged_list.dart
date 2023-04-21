@@ -3,11 +3,13 @@ import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widg
 
 class LoggedList extends StatelessWidget {
   final List<String> categoryList;
+  final List<String> categoryListRaw;
   final List<String> filledList;
 
   const LoggedList({
     super.key,
     required this.categoryList,
+    required this.categoryListRaw,
     required this.filledList,
   });
 
@@ -23,7 +25,7 @@ class LoggedList extends StatelessWidget {
               return LoggedListItem(
                 label: categoryList[index],
                 isFilled:
-                    filledList.contains(categoryList[index].toLowerCase()),
+                    filledList.contains(categoryListRaw[index].toLowerCase()),
               );
             },
           );

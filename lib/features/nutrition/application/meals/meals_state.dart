@@ -18,13 +18,43 @@ class MealsState with _$MealsState {
     FoodItemServing? selectedServing,
   }) = _Meals;
 
+  bool get isNeedToHideOnDashboard {
+    return maybeWhen(
+      meals: (
+        currentMealId,
+        currentDate,
+        currentMealCategory,
+        meals,
+        selectedServing,
+      ) =>
+          currentDate?.isAfter(DateTime.now()) ?? false,
+      orElse: () => false,
+    );
+  }
+
+  bool get isEnableOnDashboard {
+    return maybeWhen(
+      meals: (
+        currentMealId,
+        currentDate,
+        currentMealCategory,
+        meals,
+        selectedServing,
+      ) =>
+          currentDate
+              ?.isAfter(DateTime.now().subtract(const Duration(days: 7))) ??
+          false,
+      orElse: () => false,
+    );
+  }
+
   List<String> get filledCategories {
     return map(
       meals: (state) {
-        if (state.meals.isEmpty) {
+        if (state.meals.isEmpty || state.currentDate == null) {
           return <String>[];
         }
-        var allCategory = state.meals
+        var filledCategory = state.meals
             .where((item) => item.loggingDate.isSameDate(state.currentDate!))
             .toList()
             .map((e) => e.mealCategory)
@@ -74,7 +104,7 @@ class MealsState with _$MealsState {
 
   FoodItemServing? get currentMealServing {
     return mapOrNull(meals: (state) {
-      if (state.meals.isEmpty) return null;
+      if (state.meals.isEmpty || state.currentMealCategory == null) return null;
       return state.meals
           .firstWhere((item) => item.mealCategory == state.currentMealCategory)
           .serving;
@@ -84,7 +114,7 @@ class MealsState with _$MealsState {
   List<MealItem> get currentFoodItems {
     return map(
       meals: (state) {
-        if (state.meals.isEmpty) {
+        if (state.meals.isEmpty || state.currentMealId == null) {
           return <MealItem>[];
         }
         return state.meals
