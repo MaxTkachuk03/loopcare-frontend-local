@@ -32,39 +32,106 @@ class PlanMeal extends StatelessWidget {
           Radius.circular(6),
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Image(
-                image: AppIcons.dashbordPlanMeals,
+              Row(
+                children: [
+                  const Image(
+                    image: AppIcons.dashbordPlanMeals,
+                  ),
+                  const SizedBox(width: 24.0),
+                  Text(
+                    LocalizedTexts.planYourMeals.translation,
+                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                          fontFamily: ThemeConstants.bitterFontFamily,
+                        ),
+                  ),
+                ],
               ),
-              const SizedBox(width: 24.0),
-              // TODO get data from the user bloc
-              Text(
-                LocalizedTexts.logYourMeals.translation,
-                style: Theme.of(context).textTheme.headline5!.copyWith(
-                      fontFamily: ThemeConstants.bitterFontFamily,
+              Hexagon(
+                width: 54,
+                height: 54,
+                borderRadius: 16,
+                innerWidget: Container(
+                  color: AppColors.bgGreen,
+                  child: IconButton(
+                    icon: ImageIcon(
+                      isEditable ? AppIcons.edit : AppIcons.plus,
+                      color: AppColors.darkGreen,
+                      size: 18,
                     ),
+                    onPressed: () => onPressHandler(context),
+                  ),
+                ),
               ),
             ],
           ),
-          Hexagon(
-            width: 54,
-            height: 54,
-            borderRadius: 16,
-            innerWidget: Container(
-              color: AppColors.bgGreen,
-              child: IconButton(
-                icon: ImageIcon(
-                  isEditable ? AppIcons.edit : AppIcons.plus,
-                  color: AppColors.darkGreen,
-                  size: 18,
-                ),
-                onPressed: () => onPressHandler(context),
+          const SizedBox(height: 8.0),
+          const Divider(color: AppColors.yellowLight),
+          // TODO will be text from the server
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Today's lunch".toUpperCase(),
+                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                          fontSize: 12.0,
+                          color: AppColors.greyLabel,
+                        ),
+                  ),
+                  Text(
+                    'Tomato salat, milk, bowl of rice',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline5!
+                        .copyWith(fontSize: 12.0),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  )
+                ],
               ),
-            ),
+              const Image(
+                image: AppIcons.arrow,
+                color: AppColors.greyLabel,
+              ),
+            ],
+          ),
+          const SizedBox(height: 14.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Today's dinner".toUpperCase(),
+                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                          fontSize: 12.0,
+                          color: AppColors.greyLabel,
+                        ),
+                  ),
+                  Text(
+                    'Pasta, Broccoli, Chicken Marsala',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline5!
+                        .copyWith(fontSize: 12.0),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  )
+                ],
+              ),
+              const Image(
+                image: AppIcons.arrow,
+                color: AppColors.greyLabel,
+              ),
+            ],
           ),
         ],
       ),

@@ -4,8 +4,8 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/get_dashboard_weights_response.dart';
-import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/save_weight_response.dart';
-import 'package:loopcare_frontend/features/nutrition/application/meals/dto/get_meal_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
@@ -269,24 +269,11 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, SaveWeightResponse>> saveWeight(
-    DateTime startDate,
-    String value,
+  Future<Either<RequestError, LogWeightResponse>> logWeight(
+    LogWeightBody data,
   ) {
-    // TODO update logic with backend URL
     return client
-        .delete('/weights/log')
-        .then(parseResponse(SaveWeightResponse.fromJson));
-  }
-
-  @override
-  Future<Either<RequestError, SaveWeightResponse>> updateWeight(
-    DateTime startDate,
-    String value,
-  ) {
-    // TODO update logic with backend URL
-    return client
-        .delete('/weights/log')
-        .then(parseResponse(SaveWeightResponse.fromJson));
+        .post('/weight/log', data: data)
+        .then(parseResponse(LogWeightResponse.fromJson));
   }
 }
