@@ -39,4 +39,16 @@ class DashboardWeightState with _$DashboardWeightState {
 
     return isToday(date) || (isPastDate && isLessThanSevenDaysPastDate);
   }
+
+  bool get isMetricSystem {
+    return getMeasurementSystem() == MeasurementSystemType.metric;
+  }
+
+  String get userWeightUnits {
+    return isMetricSystem ? WeightUnits.kg.name : WeightUnits.lbs.name;
+  }
+
+  Map<String, DashboardWeightItem> get weights {
+    return mapOrNull(weights: (s) => s.weights) ?? {};
+  }
 }

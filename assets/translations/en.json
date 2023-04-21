@@ -285,5 +285,7 @@
   "calendar": "Calendar",
   "education": "Education",
   "preferableInTheMorning": "Preferable in the morning",
-  "noWeightLogged": "No weight logged"
+  "noWeightLogged": "No weight logged",
+  "ok": "ok",
+  "todaysWeight": "Today's weight"
 }

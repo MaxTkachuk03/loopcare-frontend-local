@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/app_version/app_version.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/bottom_navigation/bottom_navigation.dart';
@@ -94,7 +94,10 @@ class _DashboardPageState extends State<DashboardPage> {
     return BlocListener<AuthenticationCubit, AuthenticationState>(
       listener: _logoutListener,
       child: Scaffold(
-        appBar: const BlueAppBar(),
+        appBar: AppBar(
+          toolbarHeight: 0.0,
+          backgroundColor: AppColors.blueAppBar,
+        ),
         body: SafeArea(
           child: Container(
             decoration: const BoxDecoration(
@@ -112,16 +115,13 @@ class _DashboardPageState extends State<DashboardPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          const AppVersion(),
                           const SizedBox(height: 28),
                           Text(
                             '${LocalizedTexts.goodMorning.translation} $userName',
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           const SizedBox(height: 16.0),
-                          WeightBlock(
-                            date: _selectedDay,
-                          ),
+                          WeightBlock(date: _selectedDay),
                           const SizedBox(height: 10.0),
                           BlocBuilder<MealsBloc, MealsState>(
                             builder: (BuildContext context, state) {
@@ -152,6 +152,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             onPressed: () => _onLogOutPressed(context),
                             child: const Text('Log out'),
                           ),
+                          const AppVersion(),
                         ],
                       ),
                     ),

@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/weight_conversion_utils.dart';
 
 class WeightBlock extends StatelessWidget {
   final DateTime date;
@@ -18,8 +19,7 @@ class WeightBlock extends StatelessWidget {
   }) : super(key: key);
 
   void onPressHandler(BuildContext context) {
-    // TODO do logic depends on editable weight block state
-    context.router.pushNamed(AppRoutes.logWeight);
+    context.router.push(LogWeightRoute(selectedDay: date));
   }
 
   @override
@@ -51,8 +51,13 @@ class WeightBlock extends StatelessWidget {
                     final bool isEditable = s.isEditable(date);
                     final hasLog = weightValue != null;
 
+                    final inputWeightValue = s.isMetricSystem
+                        ? weightValue
+                        : WeightConversionUtils.convertKgToLbs(
+                            weightValue ?? 0.0);
+
                     final text = hasLog
-                        ? "${LocalizedTexts.weight.translation} : $weightValue"
+                        ? "${LocalizedTexts.weight.translation} : $inputWeightValue ${s.userWeightUnits}"
                         : isEditable
                             ? LocalizedTexts.logYourWeight.translation
                             : LocalizedTexts.noWeightLogged.translation;
