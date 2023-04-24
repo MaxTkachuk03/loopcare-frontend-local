@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -61,41 +62,66 @@ class Explore extends StatelessWidget {
           ),
           const SizedBox(height: 8.0),
           const Divider(color: AppColors.yellowLight),
+          const SizedBox(height: 16.0),
           // TODO will be text from the server
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "open to explore".toUpperCase(),
-                    style: Theme.of(context).textTheme.headline5!.copyWith(
-                          fontSize: 12.0,
-                          color: AppColors.greyLabel,
-                        ),
-                  ),
-                  Text(
-                    'The importance of the buddy system',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5!
-                        .copyWith(fontSize: 12.0),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Row(
-                    children: [
-                      AppIcons.clock,
-                      const SizedBox(width: 8.0),
-                      Text(
-                        '3m 59s',
-                        style: Theme.of(context).textTheme.caption,
+              Expanded(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Image(
+                      image: AppImages.exploreFaces,
+                      width: 100,
+                    ),
+                    const SizedBox(width: 16.0),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "mind".toUpperCase(),
+                            style:
+                                Theme.of(context).textTheme.headline5!.copyWith(
+                                      fontSize: 14.0,
+                                      color: AppColors.orangeDark,
+                                    ),
+                          ),
+                          Text(
+                            'How loved ones help',
+                            style:
+                                Theme.of(context).textTheme.caption!.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Row(
+                            children: [
+                              AppIcons.clock,
+                              const SizedBox(width: 8.0),
+                              Text(
+                                '3m 59s',
+                                style: Theme.of(context).textTheme.caption,
+                              ),
+                            ],
+                          ),
+                          Text(
+                            'Before friday 17 March',
+                            style:
+                                Theme.of(context).textTheme.caption!.copyWith(
+                                      fontStyle: FontStyle.italic,
+                                      color: const Color(0xFF919B8C),
+                                    ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
+              const SizedBox(width: 10.0),
               const Image(
                 image: AppIcons.arrow,
                 color: AppColors.greyLabel,
@@ -106,37 +132,61 @@ class Explore extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "open to explore".toUpperCase(),
-                    style: Theme.of(context).textTheme.headline5!.copyWith(
-                          fontSize: 12.0,
-                          color: AppColors.greyLabel,
-                        ),
-                  ),
-                  Text(
-                    'The importance of the buddy system',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5!
-                        .copyWith(fontSize: 12.0),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Row(
-                    children: [
-                      AppIcons.clock,
-                      const SizedBox(width: 8.0),
-                      Text(
-                        '3m 59s',
-                        style: Theme.of(context).textTheme.caption,
+              Expanded(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Image(
+                      image: AppImages.exploreFaces,
+                      width: 100,
+                    ),
+                    const SizedBox(width: 16.0),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "general".toUpperCase(),
+                            style:
+                                Theme.of(context).textTheme.headline5!.copyWith(
+                                      fontSize: 14.0,
+                                      color: AppColors.orangeDark,
+                                    ),
+                          ),
+                          Text(
+                            'Yo-yo effect',
+                            style:
+                                Theme.of(context).textTheme.caption!.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Row(
+                            children: [
+                              AppIcons.clock,
+                              const SizedBox(width: 8.0),
+                              Text(
+                                '4m 21s',
+                                style: Theme.of(context).textTheme.caption,
+                              ),
+                            ],
+                          ),
+                          Text(
+                            'Before friday 17 March',
+                            style:
+                                Theme.of(context).textTheme.caption!.copyWith(
+                                      fontStyle: FontStyle.italic,
+                                      color: const Color(0xFF919B8C),
+                                    ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
+              const SizedBox(width: 10.0),
               const Image(
                 image: AppIcons.arrow,
                 color: AppColors.greyLabel,
