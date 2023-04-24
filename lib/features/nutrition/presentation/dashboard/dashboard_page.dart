@@ -104,7 +104,7 @@ class _DashboardPageState extends State<DashboardPage> {
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 0.0,
-          backgroundColor: AppColors.blueAppBar,
+          backgroundColor: AppColors.blueMid,
         ),
         body: SafeArea(
           child: Container(

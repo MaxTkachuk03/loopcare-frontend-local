@@ -19,8 +19,9 @@ class SliderCalendar extends StatefulWidget {
 class _SliderCalendarState extends State<SliderCalendar> {
   late DateTime _selectedDay;
   late List<DateTime> _days;
-  final scrollDirection = Axis.horizontal;
+  final Axis _scrollDirection = Axis.horizontal;
   final ItemScrollController _itemScrollController = ItemScrollController();
+  final DateTime _today = DateTime.now().midnightTime;
 
   @override
   void initState() {
@@ -37,9 +38,10 @@ class _SliderCalendarState extends State<SliderCalendar> {
   void _scrollToIndex() {
     var scrollIndex = _days.indexOf(DateUtils.dateOnly(_selectedDay)) - 2;
     if (scrollIndex < 0) scrollIndex = 0;
-    _itemScrollController.jumpTo(
+    _itemScrollController.scrollTo(
       index: scrollIndex,
       alignment: 0.07,
+      duration: const Duration(milliseconds: 100),
     );
   }
 
@@ -61,7 +63,7 @@ class _SliderCalendarState extends State<SliderCalendar> {
       height: 70,
       child: ScrollablePositionedList.builder(
         itemCount: _days.length,
-        scrollDirection: scrollDirection,
+        scrollDirection: _scrollDirection,
         itemScrollController: _itemScrollController,
         itemBuilder: (_, index) {
           final day = _days[index];
@@ -71,6 +73,7 @@ class _SliderCalendarState extends State<SliderCalendar> {
             day: day,
             onPressHandler: onCalendarItemPressedHandler,
             isSelected: isSelected,
+            isFutureDate: day.midnightTime.isAfter(_today),
           );
         },
       ),

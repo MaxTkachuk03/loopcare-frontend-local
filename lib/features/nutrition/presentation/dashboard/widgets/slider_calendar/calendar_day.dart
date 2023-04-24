@@ -6,13 +6,23 @@ class CalendarDay extends StatelessWidget {
   final Function(DateTime day) onPressHandler;
   final DateTime day;
   final bool isSelected;
+  final bool isFutureDate;
 
   const CalendarDay({
     Key? key,
     required this.onPressHandler,
     required this.day,
     required this.isSelected,
+    required this.isFutureDate,
   }) : super(key: key);
+
+  Color _getDayColor() {
+    return isFutureDate
+        ? AppColors.blueAppBar
+        : isSelected
+            ? AppColors.bgGreen
+            : AppColors.blueMid;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +31,8 @@ class CalendarDay extends StatelessWidget {
       child: Container(
         width: 68,
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.bgGreen : AppColors.blueMid,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(6),
-          ),
+          color: _getDayColor(),
+          borderRadius: const BorderRadius.all(Radius.circular(6)),
           boxShadow: const [
             BoxShadow(
               color: AppColors.blueAppBar,
