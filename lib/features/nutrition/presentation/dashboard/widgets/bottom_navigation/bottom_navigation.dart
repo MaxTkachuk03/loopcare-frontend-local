@@ -37,6 +37,7 @@ class BottomNavigation extends StatelessWidget {
           child: BottomNavigationBar(
             backgroundColor: AppColors.bgGreen,
             items: items,
+            iconSize: 24,
             currentIndex: selectedItem.index,
             selectedItemColor: AppColors.darkGreen,
             unselectedItemColor: AppColors.greyLabel,

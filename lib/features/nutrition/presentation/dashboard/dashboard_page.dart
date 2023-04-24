@@ -26,21 +26,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widg
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/support_group/support_group.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/weight/weight_block.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
-
-final Map<DashboardNavbarItems, BottomNavigationBarItem> _navBarItems = {
-  DashboardNavbarItems.today: BottomNavigationBarItem(
-    icon: const ImageIcon(AppIcons.calendar),
-    label: DashboardNavbarItems.today.name,
-  ),
-  DashboardNavbarItems.education: BottomNavigationBarItem(
-    icon: const ImageIcon(AppIcons.book),
-    label: DashboardNavbarItems.education.name,
-  ),
-  DashboardNavbarItems.account: BottomNavigationBarItem(
-    icon: const ImageIcon(AppIcons.account),
-    label: DashboardNavbarItems.account.name,
-  ),
-};
+import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -54,6 +40,28 @@ class _DashboardPageState extends State<DashboardPage> {
 
   late final bool _isMealBlockEditable;
   DateTime _selectedDay = DateTime.now();
+
+  Map<DashboardNavbarItems, BottomNavigationBarItem> _getNavBarItems(
+    String userName,
+  ) {
+    return {
+      DashboardNavbarItems.today: BottomNavigationBarItem(
+        icon: const ImageIcon(AppIcons.calendarEmpty),
+        activeIcon: const ImageIcon(AppIcons.calendar),
+        label: DashboardNavbarItems.today.name.capitalize(),
+      ),
+      DashboardNavbarItems.education: BottomNavigationBarItem(
+        icon: const ImageIcon(AppIcons.bookEmpty),
+        activeIcon: const ImageIcon(AppIcons.book),
+        label: DashboardNavbarItems.education.name.capitalize(),
+      ),
+      DashboardNavbarItems.account: BottomNavigationBarItem(
+        icon: const ImageIcon(AppIcons.accountEmpty),
+        activeIcon: const ImageIcon(AppIcons.account),
+        label: userName.capitalize(),
+      ),
+    };
+  }
 
   @override
   void initState() {
@@ -164,7 +172,7 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
         bottomNavigationBar: BottomNavigation(
           onItemPress: onNavigationPressed,
-          items: _navBarItems.values.toList(),
+          items: _getNavBarItems(userName).values.toList(),
           selectedItem: _selectedNavigationItem,
         ),
       ),

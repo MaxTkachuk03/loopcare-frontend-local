@@ -87,6 +87,9 @@ class AppIcons {
 
   static const AssetImage account = AssetImage('$iconsFilePath/account.png');
 
+  static const AssetImage accountEmpty =
+      AssetImage('$iconsFilePath/account_empty.png');
+
   static const AssetImage drinks = AssetImage('$iconsFilePath/icon_drinks.png');
 
   static const AssetImage iconCheckmark =
@@ -99,7 +102,13 @@ class AppIcons {
 
   static const AssetImage calendar = AssetImage('$iconsFilePath/calendar.png');
 
+  static const AssetImage calendarEmpty =
+      AssetImage('$iconsFilePath/calendar_empty.png');
+
   static const AssetImage book = AssetImage('$iconsFilePath/book.png');
+
+  static const AssetImage bookEmpty = AssetImage('$iconsFilePath/book_empty'
+      '.png');
 
   AppIcons._();
 }
