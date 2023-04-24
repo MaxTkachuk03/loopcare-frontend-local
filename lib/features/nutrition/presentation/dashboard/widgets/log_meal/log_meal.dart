@@ -51,7 +51,7 @@ class LogMeal extends StatelessWidget {
       decoration: const BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.all(
-          Radius.circular(6),
+          Radius.circular(8),
         ),
       ),
       child: Column(

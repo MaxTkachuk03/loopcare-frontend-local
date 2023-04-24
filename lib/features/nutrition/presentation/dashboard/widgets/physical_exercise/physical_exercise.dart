@@ -29,13 +29,14 @@ class PhysicalExercise extends StatelessWidget {
       decoration: const BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.all(
-          Radius.circular(6),
+          Radius.circular(8),
         ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Image(
                 image: AppIcons.physicalExercise,

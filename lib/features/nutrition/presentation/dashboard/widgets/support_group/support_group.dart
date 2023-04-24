@@ -21,62 +21,95 @@ class SupportGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 8.0,
-      ),
       decoration: const BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.all(
-          Radius.circular(6),
+          Radius.circular(8),
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Stack(
         children: [
-          Expanded(
-            child: Row(
-              children: [
-                const Image(
-                  image: AppIcons.supportGroup,
+          Positioned(
+            top: 0,
+            right: 0,
+            child: Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+              decoration: const BoxDecoration(
+                color: AppColors.blueAppBar,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(8),
+                  bottomLeft: Radius.circular(8),
                 ),
-                const SizedBox(width: 24.0),
-                Flexible(
-                  child: Column(
+              ),
+              child: Text(
+                'comming up'.toUpperCase(),
+                style: const TextStyle(
+                  fontSize: 10.0,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.white,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        LocalizedTexts.supportGroup.translation,
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                              fontFamily: ThemeConstants.bitterFontFamily,
-                            ),
+                      const Image(
+                        image: AppIcons.supportGroup,
                       ),
-                      const SizedBox(height: 3.0),
-                      // TODO get text from the server
-                      Text(
-                        'Eating Behaviour & Stressful Situations',
-                        style: Theme.of(context).textTheme.caption!.copyWith(
-                              fontWeight: FontWeight.w600,
+                      const SizedBox(width: 24.0),
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              LocalizedTexts.supportGroup.translation,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline5!
+                                  .copyWith(
+                                    fontFamily: ThemeConstants.bitterFontFamily,
+                                  ),
                             ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Text(
-                        'Thursday from 21:00 to 22:00',
-                        style: Theme.of(context).textTheme.caption!.copyWith(
-                              fontStyle: FontStyle.italic,
-                              color: Color(0xFF919B8C),
+                            const SizedBox(height: 3.0),
+                            // TODO get text from the server
+                            Text(
+                              'Eating Behaviour & Stressful Situations',
+                              style:
+                                  Theme.of(context).textTheme.caption!.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                             ),
+                            Text(
+                              'Thursday from 21:00 to 22:00',
+                              style:
+                                  Theme.of(context).textTheme.caption!.copyWith(
+                                        fontStyle: FontStyle.italic,
+                                        color: const Color(0xFF919B8C),
+                                      ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
+                const ImageIcon(
+                  AppIcons.arrow,
+                  color: AppColors.greyLabel,
+                ),
               ],
             ),
-          ),
-          const ImageIcon(
-            AppIcons.arrow,
-            color: AppColors.greyLabel,
           ),
         ],
       ),
