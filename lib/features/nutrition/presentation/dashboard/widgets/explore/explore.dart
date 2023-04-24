@@ -31,29 +31,117 @@ class Explore extends StatelessWidget {
           Radius.circular(8),
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const SizedBox(
-                width: 55.0,
-                child: Image(
-                  image: AppIcons.dashbordExplore,
-                ),
-              ),
-              const SizedBox(width: 24.0),
-              Text(
-                LocalizedTexts.explore.translation,
-                style: Theme.of(context).textTheme.headline5!.copyWith(
-                      fontFamily: ThemeConstants.bitterFontFamily,
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 55.0,
+                    child: Image(
+                      image: AppIcons.dashbordExplore,
                     ),
+                  ),
+                  const SizedBox(width: 24.0),
+                  Text(
+                    LocalizedTexts.explore.translation,
+                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                          fontFamily: ThemeConstants.bitterFontFamily,
+                        ),
+                  ),
+                ],
+              ),
+              const ImageIcon(
+                AppIcons.arrow,
+                color: AppColors.greyLabel,
               ),
             ],
           ),
-          const ImageIcon(
-            AppIcons.arrow,
-            color: AppColors.greyLabel,
+          const SizedBox(height: 8.0),
+          const Divider(color: AppColors.yellowLight),
+          // TODO will be text from the server
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "open to explore".toUpperCase(),
+                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                          fontSize: 12.0,
+                          color: AppColors.greyLabel,
+                        ),
+                  ),
+                  Text(
+                    'The importance of the buddy system',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline5!
+                        .copyWith(fontSize: 12.0),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Row(
+                    children: [
+                      AppIcons.clock,
+                      const SizedBox(width: 8.0),
+                      Text(
+                        '3m 59s',
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const Image(
+                image: AppIcons.arrow,
+                color: AppColors.greyLabel,
+              ),
+            ],
+          ),
+          const SizedBox(height: 14.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "open to explore".toUpperCase(),
+                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                          fontSize: 12.0,
+                          color: AppColors.greyLabel,
+                        ),
+                  ),
+                  Text(
+                    'The importance of the buddy system',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline5!
+                        .copyWith(fontSize: 12.0),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Row(
+                    children: [
+                      AppIcons.clock,
+                      const SizedBox(width: 8.0),
+                      Text(
+                        '3m 59s',
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const Image(
+                image: AppIcons.arrow,
+                color: AppColors.greyLabel,
+              ),
+            ],
           ),
         ],
       ),

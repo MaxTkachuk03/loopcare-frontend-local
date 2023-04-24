@@ -40,6 +40,9 @@ class AppImages {
   static const AssetImage dashboardBg =
       AssetImage('$iconsFilePath/dashboard_bg.png');
 
+  static const AssetImage exploreFaces =
+      AssetImage('$iconsFilePath/explore_faces.png');
+
   static SvgPicture logoSvgBig =
       SvgPicture.asset('$iconsFilePath/logo.svg', width: 114, height: 107);
 

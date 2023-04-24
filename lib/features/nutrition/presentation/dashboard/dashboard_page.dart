@@ -46,18 +46,18 @@ class _DashboardPageState extends State<DashboardPage> {
   ) {
     return {
       DashboardNavbarItems.today: BottomNavigationBarItem(
-        icon: const Image(image: AppIcons.calendarEmpty),
-        activeIcon: const Image(image: AppIcons.calendar),
+        icon: AppIcons.calendar,
+        activeIcon: AppIcons.calendarFull,
         label: DashboardNavbarItems.today.name.capitalize(),
       ),
       DashboardNavbarItems.education: BottomNavigationBarItem(
-        icon: const Image(image: AppIcons.bookEmpty),
-        activeIcon: const Image(image: AppIcons.book),
+        icon: AppIcons.book,
+        activeIcon: AppIcons.bookFull,
         label: DashboardNavbarItems.education.name.capitalize(),
       ),
       DashboardNavbarItems.account: BottomNavigationBarItem(
-        icon: const Image(image: AppIcons.accountEmpty),
-        activeIcon: const Image(image: AppIcons.account),
+        icon: AppIcons.account,
+        activeIcon: AppIcons.accountFull,
         label: userName.capitalize(),
       ),
     };

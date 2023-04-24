@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AppIcons {
   static const String iconsFilePath = 'assets/icons';
@@ -85,11 +86,6 @@ class AppIcons {
 
   static const AssetImage explore = AssetImage('$iconsFilePath/explore.png');
 
-  static const AssetImage account = AssetImage('$iconsFilePath/account.png');
-
-  static const AssetImage accountEmpty =
-      AssetImage('$iconsFilePath/account_empty.png');
-
   static const AssetImage drinks = AssetImage('$iconsFilePath/icon_drinks.png');
 
   static const AssetImage iconCheckmark =
@@ -100,15 +96,21 @@ class AppIcons {
 
   static const AssetImage snack = AssetImage('$iconsFilePath/icon_snack.png');
 
-  static const AssetImage calendar = AssetImage('$iconsFilePath/calendar.png');
+  static SvgPicture clock = SvgPicture.asset('$iconsFilePath/clock.svg');
 
-  static const AssetImage calendarEmpty =
-      AssetImage('$iconsFilePath/calendar_empty.png');
+  static SvgPicture calendar = SvgPicture.asset('$iconsFilePath/calendar.svg');
 
-  static const AssetImage book = AssetImage('$iconsFilePath/book.png');
+  static SvgPicture calendarFull =
+      SvgPicture.asset('$iconsFilePath/calendar_full.svg');
 
-  static const AssetImage bookEmpty = AssetImage('$iconsFilePath/book_empty'
-      '.png');
+  static SvgPicture book = SvgPicture.asset('$iconsFilePath/book.svg');
+
+  static SvgPicture bookFull = SvgPicture.asset('$iconsFilePath/book_full.svg');
+
+  static SvgPicture account = SvgPicture.asset('$iconsFilePath/account.svg');
+
+  static SvgPicture accountFull =
+      SvgPicture.asset('$iconsFilePath/account_full.svg');
 
   AppIcons._();
 }
