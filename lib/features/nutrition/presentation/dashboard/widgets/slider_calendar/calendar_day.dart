@@ -17,10 +17,10 @@ class CalendarDay extends StatelessWidget {
   }) : super(key: key);
 
   Color _getDayColor() {
-    return isFutureDate
-        ? AppColors.blueAppBar
-        : isSelected
-            ? AppColors.bgGreen
+    return isSelected
+        ? AppColors.bgGreen
+        : isFutureDate
+            ? AppColors.blueAppBar
             : AppColors.blueMid;
   }
 
