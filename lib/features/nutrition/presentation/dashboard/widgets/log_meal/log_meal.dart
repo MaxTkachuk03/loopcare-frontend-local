@@ -10,7 +10,6 @@ import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
-
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/log_meal/logged_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/log_meal/nutrition_block/calorie_nutrition_block.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
@@ -100,69 +99,71 @@ class LogMeal extends StatelessWidget {
             ],
           ),
           BlocBuilder<MealsBloc, MealsState>(
-              builder: (BuildContext context, state) {
-            return state.filledCategories.isNotEmpty
-                ? Column(
-                    children: [
-                      const SizedBox(height: 8.0),
-                      const Divider(color: AppColors.yellowLight),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      LocalizedTexts.logged.translation
-                                          .toUpperCase(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .caption
-                                          ?.copyWith(
-                                            fontSize: ThemeConstants.fontSize12,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.greyLabel,
-                                          ),
-                                    ),
-                                    const SizedBox(
-                                      width: 4.0,
-                                    ),
-                                    const ImageIcon(
-                                      AppIcons.arrow,
-                                      color: AppColors.greyLabel,
-                                      size: 10,
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 5),
-                                LoggedList(
-                                  categoryList: MealCategory.values
-                                      .map((e) =>
-                                          e.shortLabel
-                                              ?.capitalizeOnlyFirstLetter() ??
-                                          '')
-                                      .toList(),
-                                  categoryListRaw: MealCategory.values
-                                      .map((e) => e.label ?? '')
-                                      .toList(),
-                                  filledList: state.filledCategories,
-                                ),
-                              ],
+            builder: (BuildContext context, state) {
+              return state.filledCategories.isNotEmpty
+                  ? Column(
+                      children: [
+                        const SizedBox(height: 8.0),
+                        const Divider(color: AppColors.yellowLight),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        LocalizedTexts.logged.translation
+                                            .toUpperCase(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .caption
+                                            ?.copyWith(
+                                              fontSize:
+                                                  ThemeConstants.fontSize12,
+                                              fontWeight: FontWeight.w600,
+                                              color: AppColors.greyLabel,
+                                            ),
+                                      ),
+                                      const SizedBox(
+                                        width: 4.0,
+                                      ),
+                                      const ImageIcon(
+                                        AppIcons.arrow,
+                                        color: AppColors.greyLabel,
+                                        size: 10,
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 5),
+                                  LoggedList(
+                                    categoryList: MealCategory.values
+                                        .map((e) =>
+                                            e.shortLabel
+                                                ?.capitalizeOnlyFirstLetter() ??
+                                            '')
+                                        .toList(),
+                                    categoryListRaw: MealCategory.values
+                                        .map((e) => e.label ?? '')
+                                        .toList(),
+                                    filledList: state.filledCategories,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 40),
-                          const CalorieNutritionBlock(),
-                        ],
-                      ),
-                    ],
-                  )
-                : const SizedBox();
-          }),
+                            const SizedBox(width: 40),
+                            const CalorieNutritionBlock(),
+                          ],
+                        ),
+                      ],
+                    )
+                  : const SizedBox();
+            },
+          ),
         ],
       ),
     );

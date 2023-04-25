@@ -91,7 +91,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
   }
 
   FutureOr<void> _onFetchMeals(
-    FetchMeals event,
+    FetchMeals _,
     Emitter<MealsState> emit,
   ) async {
     emit(const MealsState.loading());
@@ -195,8 +195,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         );
 
         response.fold((l) => null, (r) {
-          // final updatedList = _getUpdatedMealsList(r);
-
           emit(
             state.copyWith(
               meals: r.data.toIList(),
@@ -342,10 +340,9 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         response.fold(
           (l) => null,
           (r) {
-            final updatedList = _getUpdatedMealsList(r);
             emit(
               state.copyWith(
-                meals: updatedList,
+                meals: (state.meals.toList()..add(r)).toIList(),
               ),
             );
           },

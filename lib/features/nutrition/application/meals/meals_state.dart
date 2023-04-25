@@ -8,6 +8,8 @@ class MealsState with _$MealsState {
 
   const factory MealsState.loading() = _Loading;
 
+  const factory MealsState.updating() = _Updating;
+
   const factory MealsState.error(RequestError fetchError) = _Error;
 
   const factory MealsState.meals({
@@ -16,7 +18,7 @@ class MealsState with _$MealsState {
     String? currentMealCategory,
     required IList<MealsListItem> meals,
     FoodItemServing? selectedServing,
-  }) = _Meals;
+  }) = Meals;
 
   bool get isNeedToHideOnDashboard {
     return maybeWhen(
@@ -79,6 +81,9 @@ class MealsState with _$MealsState {
       loading: (_Loading value) {
         return <String>[];
       },
+      updating: (_Updating value) {
+        return <String>[];
+      },
     );
   }
 
@@ -129,6 +134,9 @@ class MealsState with _$MealsState {
         return <MealItem>[];
       },
       loading: (_Loading value) {
+        return <MealItem>[];
+      },
+      updating: (_Updating value) {
         return <MealItem>[];
       },
     );
