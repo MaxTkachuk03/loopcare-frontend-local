@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:loopcare_frontend/core/presentation/routes/intro_guard.dart';
 import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
+import 'package:loopcare_frontend/features/account/presentation/account_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/email_address/email_address_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/forgot_password/forgot_password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/login/login_page.dart';
@@ -14,7 +15,6 @@ import 'package:loopcare_frontend/features/consent_confirmation/presentation/no_
 import 'package:loopcare_frontend/features/diabetes/presentation/diabetes/diabetes_page.dart';
 import 'package:loopcare_frontend/features/diabetes/presentation/disclaimer/disclaimer_page.dart';
 import 'package:loopcare_frontend/features/diabetes/presentation/summary/summary_page.dart';
-import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/cooking/cooking_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/healthier_food/healthier_food_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/household_and_habits_intro/household_and_habits_intro_page.dart';
@@ -36,6 +36,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/stomach_
 import 'package:loopcare_frontend/features/medical_fitness/presentation/stomach_reduction_failed/presentation/stomach_reduction_failed_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor/presentation/treatment_by_doctor_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor_failled/presentation/treatment_by_doctor_failled_page.dart';
+import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/log_weight_page/log_weight_page.dart';
 import 'package:loopcare_frontend/features/nutrition/search/presentation/search/search_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dish_page/dish_page.dart';
@@ -153,10 +154,6 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.treatmentByDoctorFailed,
       page: TreatmentByDoctorFailedPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.home,
-      page: HomePage,
     ),
     AutoRoute(
       path: AppRoutes.physicalCheckResult,
@@ -327,6 +324,14 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.logWeight,
       page: LogWeightPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.home,
+      page: HomePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.account,
+      page: AccountPage,
     ),
   ],
 )

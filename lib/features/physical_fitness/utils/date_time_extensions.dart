@@ -5,10 +5,6 @@ extension DateTimeExtension on DateTime {
     return year == other.year && month == other.month && day == other.day;
   }
 
-  DateTime getMidnightTimeForDate() {
-    return DateTime(year, month, day);
-  }
-
   DateTime get midnightTime {
     return DateTime(year, month, day);
   }
