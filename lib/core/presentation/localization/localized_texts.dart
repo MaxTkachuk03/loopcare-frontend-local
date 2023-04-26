@@ -366,6 +366,9 @@ class LocalizedTexts {
   static const String noWeightLogged = 'noWeightLogged';
   static const String ok = 'ok';
   static const String todaysWeight = 'todaysWeight';
+
+  static const String noMealsLogged = 'noMealsLogged';
+  static const String noMealsLoggedYet = 'noMealsLoggedYet';
 }
 
 extension StringX on String {

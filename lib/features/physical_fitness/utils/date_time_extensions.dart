@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 extension DateTimeExtension on DateTime {
   bool isSameDate(DateTime other) {
     return year == other.year && month == other.month && day == other.day;
@@ -13,5 +15,9 @@ extension DateTimeExtension on DateTime {
 
   String get isoStringWithoutTime {
     return toIso8601String().split('T')[0];
+  }
+
+  String get shortDate {
+    return DateFormat('d MMMM').format(this);
   }
 }
