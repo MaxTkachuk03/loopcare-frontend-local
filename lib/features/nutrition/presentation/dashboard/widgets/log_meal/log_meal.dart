@@ -12,7 +12,7 @@ import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/log_meal/logged_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/log_meal/nutrition_block/calorie_nutrition_block.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 class LogMeal extends StatelessWidget {
   final bool isEditable;

@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 class CalorieDensityBlock extends StatelessWidget {
   const CalorieDensityBlock({Key? key}) : super(key: key);

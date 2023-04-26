@@ -5,7 +5,7 @@ import 'package:loopcare_frontend/features/onboarding/presentation/step_navigati
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/biological_gender_type.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/reg_exp_utils.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 class BiologicalGenderChips extends StatefulWidget {
   const BiologicalGenderChips({Key? key}) : super(key: key);

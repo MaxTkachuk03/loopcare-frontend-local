@@ -69,7 +69,7 @@ class _MealPageState extends State<MealPage> {
                                   );
 
                               context.router
-                                  .popUntilRouteWithName(DashboardRoute.name);
+                                  .popUntilRouteWithName(HomeRoute.name);
                             },
                           )
                         ],
@@ -83,7 +83,7 @@ class _MealPageState extends State<MealPage> {
                     MainContainer(
                       child: ElevatedButton(
                         onPressed: () => context.router
-                            .popUntilRouteWithName(DashboardRoute.name),
+                            .popUntilRouteWithName(HomeRoute.name),
                         child: Text(LocalizedTexts.backToDashboard.translation),
                       ),
                     ),

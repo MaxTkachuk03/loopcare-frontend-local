@@ -11,7 +11,7 @@ import 'package:loopcare_frontend/features/education/presentation/education_page
 import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/dashboard_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/bottom_navigation/bottom_navigation.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
