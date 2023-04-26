@@ -24,6 +24,7 @@ class LoggedListItem extends StatelessWidget {
         Text(
           label,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontSize: ThemeConstants.fontSize12,
                 color: isFilled ? AppColors.darkGreen : AppColors.greyLabel,
               ),
         ),

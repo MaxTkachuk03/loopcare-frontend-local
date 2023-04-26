@@ -287,5 +287,7 @@
   "preferableInTheMorning": "Preferable in the morning",
   "noWeightLogged": "No weight logged",
   "ok": "ok",
-  "todaysWeight": "Today's weight"
+  "todaysWeight": "Today's weight",
+  "noMealsLogged": "No meals logged",
+  "noMealsLoggedYet": "No meals logged yet"
 }

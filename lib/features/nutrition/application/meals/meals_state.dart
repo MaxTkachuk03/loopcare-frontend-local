@@ -8,21 +8,33 @@ class MealsState with _$MealsState {
 
   const factory MealsState.loading() = _Loading;
 
-  const factory MealsState.updating() = _Updating;
-
   const factory MealsState.error(RequestError fetchError) = _Error;
 
-  const factory MealsState.meals({
+  const factory MealsState.mealsInfo({
     int? currentMealId,
     DateTime? currentDate,
     String? currentMealCategory,
     required IList<MealsListItem> meals,
     FoodItemServing? selectedServing,
-  }) = Meals;
+  }) = _MealsInfo;
+
+  DateTime get getCurrentDate {
+    return maybeWhen(
+      mealsInfo: (
+        currentMealId,
+        currentDate,
+        currentMealCategory,
+        meals,
+        selectedServing,
+      ) =>
+          currentDate ?? DateTime.now(),
+      orElse: () => DateTime.now(),
+    );
+  }
 
   bool get isNeedToHideOnDashboard {
     return maybeWhen(
-      meals: (
+      mealsInfo: (
         currentMealId,
         currentDate,
         currentMealCategory,
@@ -36,7 +48,7 @@ class MealsState with _$MealsState {
 
   bool get isEnableOnDashboard {
     return maybeWhen(
-      meals: (
+      mealsInfo: (
         currentMealId,
         currentDate,
         currentMealCategory,
@@ -44,7 +56,7 @@ class MealsState with _$MealsState {
         selectedServing,
       ) =>
           currentDate
-              ?.isAfter(DateTime.now().subtract(const Duration(days: 7))) ??
+              ?.isAfter(DateTime.now().subtract(const Duration(days: 8))) ??
           false,
       orElse: () => false,
     );
@@ -52,18 +64,11 @@ class MealsState with _$MealsState {
 
   List<String> get filledCategories {
     return map(
-      meals: (state) {
+      mealsInfo: (state) {
         if (state.meals.isEmpty || state.currentDate == null) {
           return <String>[];
         }
-        var filledCategory = state.meals
-            .where((item) => item.loggingDate.isSameDate(state.currentDate!))
-            .toList()
-            .map((e) => e.mealCategory)
-            .toList()
-            .toSet()
-            .toList();
-
+        // TODO store as a Map for optimization
         return state.meals
             .where((item) => item.loggingDate.isSameDate(state.currentDate!))
             .toList()
@@ -81,47 +86,49 @@ class MealsState with _$MealsState {
       loading: (_Loading value) {
         return <String>[];
       },
-      updating: (_Updating value) {
-        return <String>[];
-      },
     );
   }
 
   int? get getCurrentMealId {
     return mapOrNull(
-      meals: (state) => state.meals
-          .firstWhere((item) => item.mealCategory == state.currentMealCategory)
-          .id,
+      mealsInfo: (state) => state.currentMealId,
     );
   }
 
   String? get mealListLength {
     return mapOrNull(
-      meals: (state) => state.meals.length.toString(),
+      mealsInfo: (state) => state.meals.length.toString(),
     );
   }
 
   String? get currentMealCategory {
     return mapOrNull(
-      meals: (state) => state.currentMealCategory?.capitalizeOnlyFirstLetter(),
+      mealsInfo: (state) =>
+          state.currentMealCategory?.capitalizeOnlyFirstLetter(),
     );
   }
 
   FoodItemServing? get currentMealServing {
-    return mapOrNull(meals: (state) {
-      if (state.meals.isEmpty || state.currentMealCategory == null) return null;
-      return state.meals
-          .firstWhere((item) => item.mealCategory == state.currentMealCategory)
-          .serving;
-    });
+    return mapOrNull(
+      mealsInfo: (state) {
+        if (state.meals.isEmpty || state.currentMealCategory == null) {
+          return null;
+        }
+        return state.meals
+            .firstWhere(
+                (item) => item.mealCategory == state.currentMealCategory)
+            .serving;
+      },
+    );
   }
 
   List<MealItem> get currentFoodItems {
     return map(
-      meals: (state) {
+      mealsInfo: (state) {
         if (state.meals.isEmpty || state.currentMealId == null) {
           return <MealItem>[];
         }
+
         return state.meals
             .firstWhere((item) => item.id == state.currentMealId)
             .mealItems
@@ -134,9 +141,6 @@ class MealsState with _$MealsState {
         return <MealItem>[];
       },
       loading: (_Loading value) {
-        return <MealItem>[];
-      },
-      updating: (_Updating value) {
         return <MealItem>[];
       },
     );

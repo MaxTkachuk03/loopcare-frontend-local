@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
 
 class ModalBottomSheet {
@@ -605,23 +606,10 @@ class ModalBottomSheet {
   static void selectAMealDialog({
     required BuildContext context,
     required List<NameLabel> list,
+    required List<String> filledList,
+    required DateTime currentDate,
     required void Function(NameLabel item) onSelect,
   }) {
-    AssetImage _getIcon(String name) {
-      if (name == MealCategory.breakfast.name) {
-        return AppIcons.iconCheckmark;
-      } else if (name == MealCategory.lunch.name ||
-          name == MealCategory.dinner.name) {
-        return AppIcons.porkKnife;
-      } else if (name == MealCategory.inbetweens.name) {
-        return AppIcons.snack;
-      } else if (name == MealCategory.drinks.name) {
-        return AppIcons.drinks;
-      } else {
-        return AppIcons.iconCheckmark;
-      }
-    }
-
     showModalBottomSheet<void>(
       isScrollControlled: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
@@ -654,25 +642,24 @@ class ModalBottomSheet {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 2.0,
-                  ),
+                  const SizedBox(height: 2.0),
                   Text(
                     LocalizedTexts.selectAMeal.translation,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontFamily: ThemeConstants.bitterFontFamily,
-                        color: AppColors.blueDark),
+                          fontWeight: FontWeight.w600,
+                          fontFamily: ThemeConstants.bitterFontFamily,
+                          color: AppColors.blueDark,
+                        ),
                   ),
                   Text(
-                    LocalizedTexts.today.translation,
+                    currentDate.isSameDate(DateTime.now())
+                        ? LocalizedTexts.today.translation
+                        : currentDate.shortDate,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           color: AppColors.blueDark,
                         ),
                   ),
-                  const SizedBox(
-                    height: 24.0,
-                  ),
+                  const SizedBox(height: 24.0),
                   const Divider(
                     height: 2,
                     thickness: 2,
@@ -683,6 +670,8 @@ class ModalBottomSheet {
                       itemCount: list.length,
                       itemBuilder: (BuildContext context, int index) {
                         final item = list[index];
+                        final isFilled =
+                            filledList.contains(item.label.toLowerCase());
 
                         return InkWell(
                           onTap: () {
@@ -704,9 +693,26 @@ class ModalBottomSheet {
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 20.0),
-                                  child: ImageIcon(_getIcon(item.name)),
+                                  child: ImageIcon(
+                                    isFilled
+                                        ? AppIcons.iconCheckmark
+                                        : item.icon,
+                                    color: isFilled
+                                        ? AppColors.blueDark
+                                        : AppColors.darkGreen,
+                                  ),
                                 ),
-                                Text(item.name),
+                                Text(
+                                  item.name,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        color: isFilled
+                                            ? AppColors.greyLabel
+                                            : AppColors.darkGreen,
+                                      ),
+                                ),
                               ],
                             ),
                           ),
@@ -714,9 +720,7 @@ class ModalBottomSheet {
                       },
                     ),
                   ),
-                  const SizedBox(
-                    height: 56.0,
-                  ),
+                  const SizedBox(height: 56.0),
                 ],
               ),
             ),

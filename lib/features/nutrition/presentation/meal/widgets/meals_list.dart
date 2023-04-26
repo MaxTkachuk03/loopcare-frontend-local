@@ -17,7 +17,7 @@ class MealsList extends StatelessWidget {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (BuildContext context, state) {
         return state.maybeMap(
-          meals: (mealsState) {
+          mealsInfo: (mealsState) {
             return mealsState.currentFoodItems.isEmpty
                 ? const EmptyMeal()
                 : ListView.builder(

@@ -1,3 +1,6 @@
+// ignore_for_file: invalid_annotation_target
+
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'name_label.freezed.dart';
@@ -11,6 +14,7 @@ abstract class NameLabel implements _$NameLabel {
   const factory NameLabel({
     required String name,
     required String label,
+    @JsonKey(ignore: true) AssetImage? icon,
   }) = _NameLabel;
 
   factory NameLabel.fromJson(Map<String, dynamic> json) =>
