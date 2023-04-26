@@ -71,13 +71,16 @@ class _LogWeightPageState extends State<LogWeightPage> {
 
     if (weight.isEmpty) return;
 
+    String formattedWeight = weight.replaceAll(',', '.');
+
     if (!_isMetricSystem) {
-      weight =
-          WeightConversionUtils.convertLbsToKg(double.parse(weight)).toString();
+      formattedWeight =
+          WeightConversionUtils.convertLbsToKg(double.parse(formattedWeight))
+              .toString();
     }
 
     context.read<DashboardWeightBloc>().add(DashboardWeightEvent.logWeight(
-        widget.selectedDay, double.parse(weight)));
+        widget.selectedDay, double.parse(formattedWeight)));
 
     context.router.pop();
   }
