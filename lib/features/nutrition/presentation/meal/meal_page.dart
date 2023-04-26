@@ -60,10 +60,12 @@ class _MealPageState extends State<MealPage> {
                             text: LocalizedTexts.deleteMeal.translation,
                             onPressed: () {
                               context.read<MealsBloc>().add(
-                                    MealsEvent.deleteMeal(context
-                                        .read<MealsBloc>()
-                                        .state
-                                        .getCurrentMealId),
+                                    MealsEvent.deleteMeal(
+                                      context
+                                          .read<MealsBloc>()
+                                          .state
+                                          .getCurrentMealId,
+                                    ),
                                   );
 
                               context.router
