@@ -99,7 +99,7 @@ class PreferencesOverviewPage extends StatelessWidget {
     ModalBottomSheet.surveyFinishedMessage(
       context: context,
       onBtnPress: () {
-        context.router.replaceAll([const DashboardRoute()]);
+        context.router.replaceAll([const HomeRoute()]);
       },
     );
   }

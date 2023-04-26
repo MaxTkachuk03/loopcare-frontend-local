@@ -367,6 +367,13 @@ class LocalizedTexts {
   static const String ok = 'ok';
   static const String todaysWeight = 'todaysWeight';
 
+  // Education
+  static const String all = 'all';
+  static const String general = 'general';
+  static const String nutrition = 'nutrition';
+  static const String mind = 'mind';
+  static const String activity = 'activity';
+
   static const String noMealsLogged = 'noMealsLogged';
   static const String noMealsLoggedYet = 'noMealsLoggedYet';
 }

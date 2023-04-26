@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
@@ -32,12 +34,14 @@ class BottomNavigation extends StatelessWidget {
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
-        child: SizedBox(
-          height: 85.0,
+        child: Container(
+          constraints: const BoxConstraints(
+            minHeight: 85.0,
+          ),
           child: BottomNavigationBar(
             backgroundColor: AppColors.bgGreen,
             items: items,
-            iconSize: 24,
+            iconSize: 32,
             currentIndex: selectedItem.index,
             selectedItemColor: AppColors.darkGreen,
             unselectedItemColor: AppColors.greyLabel,

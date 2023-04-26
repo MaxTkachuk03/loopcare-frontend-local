@@ -288,6 +288,11 @@
   "noWeightLogged": "No weight logged",
   "ok": "ok",
   "todaysWeight": "Today's weight",
+  "all": "All",
+  "general": "General",
+  "nutrition": "Nutrition",
+  "mind": "Mind",
+  "activity": "Activity",
   "noMealsLogged": "No meals logged",
   "noMealsLoggedYet": "No meals logged yet"
 }

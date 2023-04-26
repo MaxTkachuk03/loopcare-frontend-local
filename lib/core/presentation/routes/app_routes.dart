@@ -23,7 +23,6 @@ class AppRoutes {
   static const String painInChestFailed = '/pain-in-chest-failed';
   static const String treatmentByDoctor = '/treatment-by-doctor';
   static const String treatmentByDoctorFailed = '/treatment-by-doctor-failed';
-  static const String home = '/home';
   static const String physicalCheckResult = '/physical-check-result';
   static const String consentNeeded = '/consent-needed';
   static const String forgotPassword = '/forgot-password';
@@ -72,5 +71,7 @@ class AppRoutes {
   static const String dish = '/dish';
   static const String meal = '/meal';
   static const String logWeight = '/log-weight';
+  static const String home = '/home';
+  static const String account = '/account';
   AppRoutes._();
 }
