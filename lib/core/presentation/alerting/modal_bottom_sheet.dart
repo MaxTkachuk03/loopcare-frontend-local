@@ -13,7 +13,7 @@ import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutri
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 class ModalBottomSheet {
   static void emailConfirmed({
