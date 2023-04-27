@@ -46,8 +46,6 @@ class DashboardWeightBloc
     FetchWeights event,
     Emitter<DashboardWeightState> emit,
   ) async {
-    final Map<String, DashboardWeightItem> weights = {};
-
     emit(const DashboardWeightState.loading());
 
     final response = await nutritionService.getDashboardWeights(
@@ -63,7 +61,7 @@ class DashboardWeightBloc
         emit(
           DashboardWeightState.weights(
             weights: _combineWeightsByDate(
-              weights,
+              null,
               response.data,
             ),
           ),
