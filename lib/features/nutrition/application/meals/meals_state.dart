@@ -63,7 +63,7 @@ class MealsState with _$MealsState {
   }
 
   List<String> get filledCategories {
-    return map(
+    return maybeMap(
       mealsInfo: (state) {
         if (state.meals.isEmpty || state.currentDate == null) {
           return <String>[];
@@ -77,15 +77,7 @@ class MealsState with _$MealsState {
             .toSet()
             .toList();
       },
-      error: (_Error value) {
-        return <String>[];
-      },
-      initial: (_Initial value) {
-        return <String>[];
-      },
-      loading: (_Loading value) {
-        return <String>[];
-      },
+      orElse: () => <String>[],
     );
   }
 
@@ -123,26 +115,20 @@ class MealsState with _$MealsState {
   }
 
   List<MealItem> get currentFoodItems {
-    return map(
+    return maybeMap(
       mealsInfo: (state) {
         if (state.meals.isEmpty || state.currentMealId == null) {
           return <MealItem>[];
         }
 
-        return state.meals
-            .firstWhere((item) => item.id == state.currentMealId)
-            .mealItems
-            .toList();
+        final MealsListItem? currentMeal = state.meals
+            .firstWhereOrNull((item) => item.id == state.currentMealId);
+
+        if (currentMeal == null) return <MealItem>[];
+
+        return currentMeal.mealItems.toList();
       },
-      error: (_Error value) {
-        return <MealItem>[];
-      },
-      initial: (_Initial value) {
-        return <MealItem>[];
-      },
-      loading: (_Loading value) {
-        return <MealItem>[];
-      },
+      orElse: () => <MealItem>[],
     );
   }
 }

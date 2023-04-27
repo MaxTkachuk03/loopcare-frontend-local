@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/features/nutrition/application/select_serving/
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:collection/collection.dart';
 
 part 'meals_event.dart';
 
