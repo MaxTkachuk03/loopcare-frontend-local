@@ -67,24 +67,39 @@ class MealsList extends StatelessWidget {
 
   void _onTap(BuildContext context, MealItem item) {
     if (item.type == 'recipe') {
-      context.router.push(RecipeRoute(
-        id: item.id,
-        name: item.name,
-        isMealRecipe: true,
-      ));
+      context.router.push(
+        RecipeRoute(
+          id: item.id,
+          name: item.name,
+          isMealRecipe: true,
+        ),
+      );
+
+      return;
+    }
+    if (item.type == 'dish') {
+      context.router.push(
+        const DishRoute(
+            // id: item.id,
+            // name: item.name,
+            // isMealRecipe: true,
+            ),
+      );
 
       return;
     }
 
     final servingId = item.serving.servingId;
+    final externalId = item.externalId;
 
-    if (servingId == null) return;
+    if (servingId == null || externalId == null) return;
 
     context.router.push(
       SelectServingRoute(
-          foodItemId: item.externalId,
-          initialServingId: servingId,
-          foodItemName: item.name),
+        foodItemId: externalId,
+        initialServingId: servingId,
+        foodItemName: item.name,
+      ),
     );
   }
 }
