@@ -37,7 +37,6 @@ class LogMeal extends StatelessWidget {
           )
           .toList(),
       onSelect: (NameLabel item) {
-        print(item);
         context.read<MealsBloc>().add(
               MealsEvent.addMeal(
                 item.name.toLowerCase(),
