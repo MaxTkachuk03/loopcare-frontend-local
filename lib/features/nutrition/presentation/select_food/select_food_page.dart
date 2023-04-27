@@ -9,7 +9,12 @@ import 'package:loopcare_frontend/features/nutrition/presentation/select_food/wi
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/under_appbar_container.dart';
 
 class SelectFoodPage extends StatefulWidget {
-  const SelectFoodPage({super.key});
+  final String mealCategory;
+
+  const SelectFoodPage({
+    super.key,
+    required this.mealCategory,
+  });
 
   @override
   State<SelectFoodPage> createState() => _SelectFoodPageState();
@@ -28,7 +33,7 @@ class _SelectFoodPageState extends State<SelectFoodPage> {
     return Scaffold(
       appBar: BlueAppBar(
         isCustomLeading: true,
-        title: '${LocalizedTexts.log.translation} lunch',
+        title: '${LocalizedTexts.log.translation} ${widget.mealCategory}',
         actions: const [SelectedItemsLabel()],
       ),
       body: SafeArea(

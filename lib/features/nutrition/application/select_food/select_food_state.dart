@@ -30,4 +30,20 @@ class SelectFoodState with _$SelectFoodState {
         ) ??
         0;
   }
+
+  List<MealCategoryFilter> get selectedMealCategories {
+    return mapOrNull(
+                selectFood: (state) =>
+                    state.mealFavoritesCategories.where((e) => e.selected))
+            ?.toList() ??
+        [];
+  }
+
+  bool get hasSelectedMealCategories {
+    return mapOrNull(
+            selectFood: (state) => state.mealFavoritesCategories
+                .where((e) => e.selected)
+                .isNotEmpty) ??
+        false;
+  }
 }
