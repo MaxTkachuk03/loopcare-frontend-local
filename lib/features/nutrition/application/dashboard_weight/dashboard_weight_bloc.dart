@@ -46,8 +46,7 @@ class DashboardWeightBloc
     FetchWeights event,
     Emitter<DashboardWeightState> emit,
   ) async {
-    final Map<String, DashboardWeightItem>? weights =
-        state.mapOrNull(weights: (s) => s.weights);
+    final Map<String, DashboardWeightItem> weights = {};
 
     emit(const DashboardWeightState.loading());
 
