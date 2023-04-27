@@ -46,7 +46,7 @@ class SelectedItemsLabel extends StatelessWidget {
                     child: BlocBuilder<MealsBloc, MealsState>(
                         builder: (BuildContext context, state) {
                       return Text(
-                        state.mealListLength ?? '0',
+                        '${state.currentFoodItems.length}',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.caption?.copyWith(
                               color: AppColors.darkGreen,
