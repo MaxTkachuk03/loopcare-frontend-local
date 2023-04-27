@@ -60,7 +60,7 @@ class Diary extends StatelessWidget {
           const Divider(color: AppColors.yellowLight),
           // TODO will be text from the server
           Text(
-            '“Today felt great. Several friends visited and they all brought presents, most special was a”',
+            '“Today felt great. Several friends visited and they all brought presents, most special was a...”',
             style: Theme.of(context).textTheme.caption!.copyWith(
                   fontStyle: FontStyle.italic,
                 ),
