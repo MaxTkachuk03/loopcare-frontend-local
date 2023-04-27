@@ -286,6 +286,7 @@ class LocalizedTexts {
   static const String calorieDensityExplanationOne =
       'calorieDensityExplanationOne';
   static const String myFavorites = 'myFavorites';
+  static const String my = 'my';
   static const String myDishes = 'myDishes';
   static const String scan = 'scan';
   static const String myLunchFavorites = 'myLunchFavorites';
