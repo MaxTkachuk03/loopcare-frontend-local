@@ -39,11 +39,14 @@ class SelectFoodState with _$SelectFoodState {
         [];
   }
 
-  bool get hasSelectedMealCategories {
+  bool get hasOneSelectedMealCategorie {
     return mapOrNull(
-            selectFood: (state) => state.mealFavoritesCategories
-                .where((e) => e.selected)
-                .isNotEmpty) ??
+            selectFood: (state) =>
+                state.mealFavoritesCategories
+                    .where((e) =>
+                        e.selected && e.name != MealFavoritesCategory.all.name)
+                    .length ==
+                1) ??
         false;
   }
 }

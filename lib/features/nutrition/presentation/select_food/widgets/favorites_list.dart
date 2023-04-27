@@ -22,11 +22,9 @@ class FavoriteList extends StatelessWidget {
           builder: (BuildContext context, state) {
             return state.maybeMap(
               selectFood: (selectFoodState) {
-                final String title = !selectFoodState.hasSelectedMealCategories
-                    ? LocalizedTexts.myFavorites.translation
-                    : selectFoodState.selectedMealCategories.length == 1
-                        ? '${LocalizedTexts.my.translation} ${selectFoodState.selectedMealCategories[0].name}'
-                        : LocalizedTexts.allMyFavorites.translation;
+                final String title = selectFoodState.hasOneSelectedMealCategorie
+                    ? '${LocalizedTexts.my.translation} ${selectFoodState.selectedMealCategories[0].name}'
+                    : LocalizedTexts.myFavorites.translation;
 
                 return Expanded(
                   child: Column(
