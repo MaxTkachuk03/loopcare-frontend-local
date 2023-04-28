@@ -1,21 +1,16 @@
 import 'dart:async';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_food_item_in_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_recipe_body.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:collection/collection.dart';
-import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
-import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/meal_favorites_category/meal_favorites_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/recipe/recipe.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 
 part 'recipe_event.dart';
 
@@ -40,6 +35,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     );
     on<AddFoodItemToRecipe>(_onAddFoodItemToRecipe);
     on<RemoveFoodItemToRecipe>(_onRemoveFoodItemToRecipe);
+    on<UpdateFoodItemToRecipe>(_onUpdateFoodItemToRecipe);
   }
 
   FutureOr<void> _onFetchRecipe(
@@ -207,5 +203,40 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
         );
       },
     );
+  }
+
+  FutureOr<void> _onUpdateFoodItemToRecipe(
+    UpdateFoodItemToRecipe event,
+    Emitter<RecipeState> emit,
+  ) async {
+    await state.mapOrNull(recipeInfo: (state) async {
+      final response = await nutritionService.updateFoodItemInRecipeInMeal(
+        mealId: event.mealId,
+        recipeId: state.recipe.id,
+        foodItemId: event.foodItemId,
+        data: UpdateFoodItemInRecipeBody(
+          numberOfUnits: event.numberOfUnits,
+          servingId: event.servingId,
+        ),
+      );
+
+      response.fold(
+        (l) => null,
+        (r) {
+          emit(
+            state.copyWith(
+              recipe: Recipe(
+                id: r.id,
+                ingredients: r.ingredients,
+                calorieDensity: r.calorieDensity,
+                proteinDegree: r.proteinDegree,
+                servingSize: r.servingSize,
+                numberOfServings: r.numberOfServings,
+              ),
+            ),
+          );
+        },
+      );
+    });
   }
 }

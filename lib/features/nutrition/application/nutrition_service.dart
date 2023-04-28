@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/features/nutrition/application/dashboard_weigh
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_food_item_in_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/dto/favorites_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/dto/barcode_information_response.dart';
@@ -68,6 +69,13 @@ abstract class NutritionService {
     required int recipeId,
     required String foodItemId,
     required AddFoodItemToRecipeBody data,
+  });
+
+  Future<Either<RequestError, RecipeResponse>> updateFoodItemInRecipeInMeal({
+    required int mealId,
+    required int recipeId,
+    required String foodItemId,
+    required UpdateFoodItemInRecipeBody data,
   });
 
   Future<Either<RequestError, RecipeResponse>> removeFoodItemFromRecipeInMeal({

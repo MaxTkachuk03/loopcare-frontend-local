@@ -98,7 +98,9 @@ class MealsList extends StatelessWidget {
       SelectServingRoute(
         foodItemId: externalId,
         initialServingId: servingId,
+        initialServingAmount: item.serving.numberOfUnits,
         foodItemName: item.name,
+        onConfirm: (_, __) {},
       ),
     );
   }
