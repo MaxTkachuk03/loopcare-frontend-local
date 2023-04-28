@@ -15,12 +15,16 @@ class SelectServingPage extends StatefulWidget {
   final String foodItemId;
   final String initialServingId;
   final String foodItemName;
+  final double initialServingAmount;
+  final void Function(double numberOfUnits, String servingId) onConfirm;
 
   const SelectServingPage({
     Key? key,
     required this.foodItemId,
     required this.initialServingId,
     required this.foodItemName,
+    required this.initialServingAmount,
+    required this.onConfirm,
   }) : super(key: key);
 
   @override
@@ -35,6 +39,7 @@ class _SelectServingPageState extends State<SelectServingPage> {
         .add(FoodItemServingsEvent.fetchFoodItemServings(
           widget.foodItemId,
           widget.initialServingId,
+          widget.initialServingAmount,
         ));
 
     super.initState();
@@ -67,8 +72,8 @@ class _SelectServingPageState extends State<SelectServingPage> {
                           maxLines: 2,
                           style: Theme.of(context)
                               .textTheme
-                              .headline5!
-                              .copyWith(color: Colors.white),
+                              .headline5
+                              ?.copyWith(color: Colors.white),
                         ),
                       ),
                       const SizedBox(width: 21.0),
@@ -123,7 +128,14 @@ class _SelectServingPageState extends State<SelectServingPage> {
   }
 
   _onConfirmPressed(BuildContext context) {
-    // TODO add foodItem to the meal, have no API for this right now, so just go to the previous screen
+    final state = context.read<FoodItemServingsBloc>().state;
+
+    final servingAmount = state.selectedServingAmount;
+    final servingId = state.selectedServingItem?.servingId;
+
+    if (servingAmount != null && servingId != null) {
+      widget.onConfirm.call(double.parse(servingAmount), servingId);
+    }
     context.router.pop();
   }
 

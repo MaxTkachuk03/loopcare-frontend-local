@@ -4,21 +4,25 @@ part of 'food_item_servings_bloc.dart';
 class FoodItemServingsState with _$FoodItemServingsState {
   const FoodItemServingsState._();
 
-  const factory FoodItemServingsState.initial() = _Initial;
+  const factory FoodItemServingsState.initial() = Initial;
 
-  const factory FoodItemServingsState.loading() = _Loading;
+  const factory FoodItemServingsState.loading() = Loading;
 
   const factory FoodItemServingsState.foodItemServings({
     required IList<FoodItemServing> servings,
     required FoodItemServing? selectedServing,
     required String selectedServingAmount,
     required List<MealCategoryFilter> mealCategoryFilters,
-  }) = _FoodItemServings;
+  }) = FoodItemServings;
 
-  const factory FoodItemServingsState.error(RequestError fetchError) = _Error;
+  const factory FoodItemServingsState.error(RequestError fetchError) = Error;
 
   FoodItemServing? get selectedServingItem {
     return mapOrNull(foodItemServings: (state) => state.selectedServing);
+  }
+
+  String? get selectedServingAmount {
+    return mapOrNull(foodItemServings: (state) => state.selectedServingAmount);
   }
 
   IList<FoodItemServing> get servingsIList {

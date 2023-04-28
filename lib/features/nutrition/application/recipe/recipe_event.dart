@@ -12,6 +12,11 @@ class RecipeEvent with _$RecipeEvent {
   const factory RecipeEvent.nutritionItemChanged(NutritionItem item) =
       NutritionItemChanged;
 
+  const factory RecipeEvent.servingChanged({
+    required int mealId,
+    required int servingAmount,
+  }) = ServingChanged;
+
   const factory RecipeEvent.addFoodItemToRecipe({
     required int mealId,
     required String foodItemId,
@@ -24,8 +29,10 @@ class RecipeEvent with _$RecipeEvent {
     required String foodItemId,
   }) = RemoveFoodItemToRecipe;
 
-  const factory RecipeEvent.servingChanged({
+  const factory RecipeEvent.updateFoodItemFromRecipe({
     required int mealId,
-    required int servingAmount,
-  }) = ServingChanged;
+    required String foodItemId,
+    required double numberOfUnits,
+    required String servingId,
+  }) = UpdateFoodItemToRecipe;
 }

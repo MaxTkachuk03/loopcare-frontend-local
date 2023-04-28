@@ -194,7 +194,11 @@ class _RecipePageState extends State<RecipePage> {
   }
 
   void _recipeUpdatingListener(BuildContext context, RecipeState state) {
-    context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
+    final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+
+    if (mealId != null) {
+      context.read<MealsBloc>().add(MealsEvent.fetchMealById(mealId));
+    }
   }
 
   bool _whenRecipeUpdated(

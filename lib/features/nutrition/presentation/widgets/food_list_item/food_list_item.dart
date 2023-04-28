@@ -110,7 +110,7 @@ class FoodListItem extends StatelessWidget {
                 ],
               )),
               Text(
-                foodItem.serving.servingDescription ?? '',
+                foodItem.serving.servingSizeLabel,
                 maxLines: 2,
                 style: Theme.of(context).textTheme.caption?.copyWith(
                       fontWeight: FontWeight.w600,
@@ -120,6 +120,7 @@ class FoodListItem extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  const SizedBox(width: 4.0,),
                   Text('${currentNutritionFact.value}',
                       style: Theme.of(context).textTheme.caption),
                   const SizedBox(

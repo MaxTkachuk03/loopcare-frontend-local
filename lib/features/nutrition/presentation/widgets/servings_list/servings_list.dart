@@ -23,19 +23,6 @@ class _ServingListState extends State<ServingList> {
   }
 
   @override
-  void initState() {
-    final initialValue = context
-            .read<FoodItemServingsBloc>()
-            .state
-            .selectedServingItem
-            ?.numberOfUnits ??
-        '1';
-
-    _amountFieldController.text = '$initialValue';
-    super.initState();
-  }
-
-  @override
   void dispose() {
     _amountFieldController.dispose();
 
@@ -44,30 +31,51 @@ class _ServingListState extends State<ServingList> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(
+    return BlocListener<FoodItemServingsBloc, FoodItemServingsState>(
+      listenWhen: _foodServingListenWhen,
+      listener: _foodServingListener,
+      child: BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(
         builder: (BuildContext context, state) {
-      return state.maybeMap(
-          orElse: () => const SizedBox(),
-          loading: (_) => const Loader(),
-          foodItemServings: (foodItemServingsState) {
-            return ListView.builder(
-              itemCount: foodItemServingsState.servingsIList.length,
-              itemBuilder: (BuildContext context, int index) {
-                final FoodItemServing listItem =
-                    foodItemServingsState.servingsIList[index];
-                final isSelected =
-                    foodItemServingsState.selectedServingItem?.servingId ==
-                        listItem.servingId;
+          return state.maybeMap(
+              orElse: () => const SizedBox(),
+              loading: (_) => const Loader(),
+              foodItemServings: (foodItemServingsState) {
+                return ListView.builder(
+                  itemCount: foodItemServingsState.servingsIList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final FoodItemServing listItem =
+                        foodItemServingsState.servingsIList[index];
+                    final isSelected =
+                        foodItemServingsState.selectedServingItem?.servingId ==
+                            listItem.servingId;
 
-                return ServingListItem(
-                  item: listItem,
-                  onPressed: _onListItemPressedHandler,
-                  isSelected: isSelected,
-                  inputController: _amountFieldController,
+                    return ServingListItem(
+                      item: listItem,
+                      onPressed: _onListItemPressedHandler,
+                      isSelected: isSelected,
+                      inputController: _amountFieldController,
+                    );
+                  },
                 );
-              },
-            );
-          });
-    });
+              });
+        },
+      ),
+    );
+  }
+
+  void _foodServingListener(BuildContext context, FoodItemServingsState state) {
+    final initialValue = context
+            .read<FoodItemServingsBloc>()
+            .state
+            .selectedServingItem
+            ?.numberOfUnits.round() ??
+        '1';
+
+    _amountFieldController.text = '$initialValue';
+  }
+
+  bool _foodServingListenWhen(
+      FoodItemServingsState previous, FoodItemServingsState current) {
+    return previous is Loading && current is FoodItemServings;
   }
 }

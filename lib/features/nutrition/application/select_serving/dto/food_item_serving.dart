@@ -34,10 +34,17 @@ abstract class FoodItemServing implements _$FoodItemServing {
     required double? vitaminC,
     required List<String>? favoriteMealCategories,
   }) = _FoodItemServing;
+
   const FoodItemServing._();
 
   String get servingLabel {
     return '$measurementDescription ($metricServingAmount $metricServingUnit)';
+  }
+
+  String get servingSizeLabel {
+    final regex = RegExp(r'([.]*0)(?!.*\d)');
+
+    return '${numberOfUnits.toString().replaceAll(regex, '')} ${measurementDescription ?? 'serving'}';
   }
 
   num caloriesAmount(String servingAmount) {
