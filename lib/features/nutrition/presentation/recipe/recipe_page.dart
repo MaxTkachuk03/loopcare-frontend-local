@@ -33,8 +33,7 @@ class RecipePage extends StatefulWidget {
 }
 
 class _RecipePageState extends State<RecipePage> {
-  final TextEditingController _servingController =
-      TextEditingController(text: '1');
+  late TextEditingController _servingController;
 
   @override
   void initState() {
@@ -185,6 +184,8 @@ class _RecipePageState extends State<RecipePage> {
     final recipeState = state.mapOrNull(recipeInfo: (s) => s.recipe);
 
     if (recipeState == null) return;
+
+    // _servingController = TextEditingController(text: "${recipeState.numberOfServings}");
 
     context.read<NutritionInstructionsBloc>()
       ..add(NutritionInstructionsEvent.setProteinDegree(
