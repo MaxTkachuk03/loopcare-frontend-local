@@ -1,8 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/meal/widgets/meal_nutrition_values.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -55,7 +58,19 @@ class _MealPageState extends State<MealPage> {
                           const SizedBox(width: 8.0),
                           OutlinedRoundedButton(
                             text: LocalizedTexts.deleteMeal.translation,
-                            onPressed: () {},
+                            onPressed: () {
+                              context.read<MealsBloc>().add(
+                                    MealsEvent.deleteMeal(
+                                      context
+                                          .read<MealsBloc>()
+                                          .state
+                                          .getCurrentMealId,
+                                    ),
+                                  );
+
+                              context.router
+                                  .popUntilRouteWithName(HomeRoute.name);
+                            },
                           )
                         ],
                       ),
@@ -67,7 +82,8 @@ class _MealPageState extends State<MealPage> {
                     const SizedBox(height: 26.0),
                     MainContainer(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => context.router
+                            .popUntilRouteWithName(HomeRoute.name),
                         child: Text(LocalizedTexts.backToDashboard.translation),
                       ),
                     ),

@@ -3,13 +3,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 class ModalBottomSheet {
   static void emailConfirmed({
@@ -593,6 +597,133 @@ class ModalBottomSheet {
                 child: Text(LocalizedTexts.getStarted.translation),
               ),
             ],
+          ),
+        );
+      },
+    );
+  }
+
+  static void selectAMealDialog({
+    required BuildContext context,
+    required List<NameLabel> list,
+    required List<String> filledList,
+    required DateTime currentDate,
+    required void Function(NameLabel item) onSelect,
+  }) {
+    showModalBottomSheet<void>(
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      context: context,
+      builder: (BuildContext context) {
+        return ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height - 100,
+          ),
+          child: SafeArea(
+            child: Container(
+              padding: const EdgeInsets.only(
+                top: 32.0,
+                left: 40.0,
+                right: 24.0,
+                bottom: 20.0,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: SizedBox(
+                      width: 16.0,
+                      height: 16.0,
+                      child: IconButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () => context.router.pop(),
+                        icon: const Icon(Icons.close),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 2.0),
+                  Text(
+                    LocalizedTexts.selectAMeal.translation,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          fontFamily: ThemeConstants.bitterFontFamily,
+                          color: AppColors.blueDark,
+                        ),
+                  ),
+                  Text(
+                    currentDate.isSameDate(DateTime.now())
+                        ? LocalizedTexts.today.translation
+                        : currentDate.shortDate,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: AppColors.blueDark,
+                        ),
+                  ),
+                  const SizedBox(height: 24.0),
+                  const Divider(
+                    height: 2,
+                    thickness: 2,
+                    color: AppColors.bgGreen,
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: list.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final item = list[index];
+                        final isFilled =
+                            filledList.contains(item.label.toLowerCase());
+
+                        return InkWell(
+                          onTap: () {
+                            context.router.pop();
+                            onSelect(item);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 14.0),
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  width: 2,
+                                  color: AppColors.bgGreen,
+                                ),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20.0),
+                                  child: ImageIcon(
+                                    isFilled
+                                        ? AppIcons.iconCheckmark
+                                        : item.icon,
+                                    color: isFilled
+                                        ? AppColors.blueDark
+                                        : AppColors.darkGreen,
+                                  ),
+                                ),
+                                Text(
+                                  item.name,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        color: isFilled
+                                            ? AppColors.greyLabel
+                                            : AppColors.darkGreen,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 56.0),
+                ],
+              ),
+            ),
           ),
         );
       },

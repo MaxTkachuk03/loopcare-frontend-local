@@ -22,12 +22,16 @@ class FavoriteList extends StatelessWidget {
           builder: (BuildContext context, state) {
             return state.maybeMap(
               selectFood: (selectFoodState) {
+                final String title = selectFoodState.hasOneSelectedMealCategorie
+                    ? '${LocalizedTexts.my.translation} ${selectFoodState.selectedMealCategories[0].name}'
+                    : LocalizedTexts.myFavorites.translation;
+
                 return Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ListFilters(
-                        title: LocalizedTexts.myLunchFavorites.translation,
+                        title: title,
                         mealsList:
                             selectFoodState.mealFavoritesCategories.toList(),
                         onConfirmed: (list) => _onConfirmed(context, list),
@@ -55,7 +59,7 @@ class FavoriteList extends StatelessWidget {
                   ),
                 );
               },
-              loading: (state) => const Loader(),
+              loading: (state) => const Expanded(child: Loader()),
               orElse: () => const SizedBox.shrink(),
             );
           },

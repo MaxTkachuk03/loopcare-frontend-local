@@ -149,7 +149,7 @@ class _LoginFormState extends State<LoginForm> {
     state.mapOrNull(
       authenticated: (state) {
         final route = state.isPreferencesComplete
-            ? const DashboardRoute()
+            ? const HomeRoute()
             : const PreferencesOverviewRoute();
         context.router.replaceAll([route]);
       },

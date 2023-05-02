@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_food_item_in_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_recipe_body.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -34,6 +35,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     );
     on<AddFoodItemToRecipe>(_onAddFoodItemToRecipe);
     on<RemoveFoodItemToRecipe>(_onRemoveFoodItemToRecipe);
+    on<UpdateFoodItemToRecipe>(_onUpdateFoodItemToRecipe);
   }
 
   FutureOr<void> _onFetchRecipe(
@@ -111,8 +113,8 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   FutureOr<void> _onServingChanged(
     ServingChanged event,
     Emitter<RecipeState> emit,
-  ) {
-    state.mapOrNull(recipeInfo: (state) async {
+  ) async {
+    await state.mapOrNull(recipeInfo: (state) async {
       final response = await nutritionService.updateRecipeNumberOfServing(
         mealId: event.mealId,
         recipeId: state.recipe.id,
@@ -174,11 +176,48 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     RemoveFoodItemToRecipe event,
     Emitter<RecipeState> emit,
   ) async {
+    await state.mapOrNull(
+      recipeInfo: (state) async {
+        final response = await nutritionService.removeFoodItemFromRecipeInMeal(
+          mealId: event.mealId,
+          recipeId: state.recipe.id,
+          foodItemId: event.foodItemId,
+        );
+
+        response.fold(
+          (l) => null,
+          (r) {
+            emit(
+              state.copyWith(
+                recipe: Recipe(
+                  id: r.id,
+                  ingredients: r.ingredients,
+                  calorieDensity: r.calorieDensity,
+                  proteinDegree: r.proteinDegree,
+                  servingSize: r.servingSize,
+                  numberOfServings: r.numberOfServings,
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  FutureOr<void> _onUpdateFoodItemToRecipe(
+    UpdateFoodItemToRecipe event,
+    Emitter<RecipeState> emit,
+  ) async {
     await state.mapOrNull(recipeInfo: (state) async {
-      final response = await nutritionService.removeFoodItemFromRecipeInMeal(
+      final response = await nutritionService.updateFoodItemInRecipeInMeal(
         mealId: event.mealId,
         recipeId: state.recipe.id,
         foodItemId: event.foodItemId,
+        data: UpdateFoodItemInRecipeBody(
+          numberOfUnits: event.numberOfUnits,
+          servingId: event.servingId,
+        ),
       );
 
       response.fold(

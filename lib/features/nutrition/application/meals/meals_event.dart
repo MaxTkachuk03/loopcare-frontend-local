@@ -4,8 +4,9 @@ part of 'meals_bloc.dart';
 class MealsEvent with _$MealsEvent {
   const factory MealsEvent.fetchMeals() = FetchMeals;
 
+  const factory MealsEvent.fetchMealById(int id) = FetchMealById;
+
   const factory MealsEvent.addMeal(
-    String loggingDate,
     String mealCategory,
   ) = AddMeal;
 
@@ -22,13 +23,18 @@ class MealsEvent with _$MealsEvent {
   ) = UpdateFoodItemInMeal;
 
   const factory MealsEvent.deleteMeal(
-    int mealId,
+    int? mealId,
   ) = DeleteMeal;
 
+  const factory MealsEvent.deleteCurrentMeal() = DeleteCurrentMeal;
+
   const factory MealsEvent.deleteFoodItemFromMeal(
-    // int mealId,
     String foodItemId,
   ) = DeleteFoodItemFromMeal;
+
+  const factory MealsEvent.deleteRecipeFromMeal(
+    String recipeId,
+  ) = DeleteRecipeFromMeal;
 
   const factory MealsEvent.createFromFavorites(List<FoodItem> foodItemList) =
       CreateFromFavorites;
@@ -36,4 +42,8 @@ class MealsEvent with _$MealsEvent {
   const factory MealsEvent.setMealId(
     int mealId,
   ) = SetMealId;
+
+  const factory MealsEvent.setCurrentDate(
+    DateTime currentDate,
+  ) = SetCurrentDate;
 }

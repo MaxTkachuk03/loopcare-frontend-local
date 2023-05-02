@@ -9,7 +9,7 @@ class AddFoodItemsListElement with _$AddFoodItemsListElement {
   const factory AddFoodItemsListElement({
     required double numberOfUnits,
     required String servingId,
-    required String foodItemId,
+    required String externalFoodItemId,
   }) = _AddFoodItemsListElement;
 
   factory AddFoodItemsListElement.fromJson(Map<String, dynamic> json) =>

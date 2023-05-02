@@ -12,6 +12,7 @@ class MealItem with _$MealItem {
     required double calorieDensity,
     required double proteinDegree,
     required int id,
+    required String? externalId,
     required String name,
     required String type,
     required FoodItemServing serving,

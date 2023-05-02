@@ -78,12 +78,18 @@ class FoodItemServingsBloc
         await nutritionService.getFoodItemServings(event.foodItemId);
 
     response.fold((l) => null, (r) {
+      final servingList = r.data
+          .map((e) => e.servingId == event.selectedItemId
+              ? e.copyWith(numberOfUnits: event.initialServingAmount)
+              : e)
+          .toList();
+
       final selectedServing =
-          r.data.firstWhere((e) => e.servingId == event.selectedItemId);
+          servingList.firstWhere((e) => e.servingId == event.selectedItemId);
 
       emit(
         FoodItemServingsState.foodItemServings(
-          servings: r.data.toIList(),
+          servings: servingList.toIList(),
           mealCategoryFilters: _initializeMealCategoryFilters(),
           selectedServingAmount: selectedServing.numberOfUnits.toString(),
           selectedServing: selectedServing,
@@ -117,13 +123,12 @@ class FoodItemServingsBloc
       if (id == null) return;
 
       final data = AddToFavoritesBody(
-        servingId: id,
         numberOfUnits: numberOfUnits,
         mealCategories: state.selectedMealCategoriesNames,
       );
 
       final response =
-          await nutritionService.addToFavorites(event.foodItemId, data);
+          await nutritionService.addToFavorites(event.foodItemId, id, data);
 
       response.fold((l) => null, (r) {
         final updatedList = _getUpdatedServingsList(r.serving);
@@ -168,11 +173,13 @@ class FoodItemServingsBloc
   ) async {
     await state.mapOrNull(foodItemServings: (state) async {
       final id = state.selectedServing?.servingId;
+      final numberOfUnits = state.selectedServing?.numberOfUnits;
 
       if (id == null) return;
 
       final data = UpdateFavoriteBody(
         mealCategories: state.selectedMealCategoriesNames,
+        numberOfUnits: numberOfUnits,
       );
 
       final response = await nutritionService.updateFavorites(

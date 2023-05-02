@@ -1,8 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
@@ -10,13 +8,15 @@ import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.
 class FoodListItem extends StatelessWidget {
   final String nutritionKey;
   final FoodItem foodItem;
-  final void Function(BuildContext context, String id) onDeletePressed;
+  final void Function(BuildContext context) onTap;
+  final void Function(BuildContext context, FoodItem item) onDeletePressed;
 
   const FoodListItem({
     Key? key,
     required this.nutritionKey,
     required this.foodItem,
     required this.onDeletePressed,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -36,10 +36,9 @@ class FoodListItem extends StatelessWidget {
       label = foodItem.brandName;
     }
 
-
     return Material(
       child: InkWell(
-        onTap: () => _onTap(context),
+        onTap: () => onTap(context),
         child: Ink(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
           decoration: const BoxDecoration(
@@ -65,10 +64,7 @@ class FoodListItem extends StatelessWidget {
                       splashRadius: 20,
                       padding: EdgeInsets.zero,
                       iconSize: 22,
-                      onPressed: () => onDeletePressed(
-                        context,
-                        foodItem.id,
-                      ),
+                      onPressed: () => onDeletePressed(context, foodItem),
                       icon: const Icon(
                         Icons.close,
                         color: AppColors.darkGreen,
@@ -114,7 +110,7 @@ class FoodListItem extends StatelessWidget {
                 ],
               )),
               Text(
-                foodItem.serving.servingDescription ?? '',
+                foodItem.serving.servingSizeLabel,
                 maxLines: 2,
                 style: Theme.of(context).textTheme.caption?.copyWith(
                       fontWeight: FontWeight.w600,
@@ -124,6 +120,7 @@ class FoodListItem extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  const SizedBox(width: 4.0,),
                   Text('${currentNutritionFact.value}',
                       style: Theme.of(context).textTheme.caption),
                   const SizedBox(
@@ -141,26 +138,5 @@ class FoodListItem extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _onTap(BuildContext context) {
-    final servingId = foodItem.serving.servingId;
-
-    if (servingId == null) return;
-
-    if (foodItem.foodType == 'recipe') {
-      context.router.push(RecipeRoute(
-        id: int.parse(foodItem.id),
-        name: foodItem.foodName,
-        isMealRecipe: true,
-      ));
-
-      return;
-    }
-
-    context.router.push(SelectServingRoute(
-        foodItemId: foodItem.id,
-        initialServingId: servingId,
-        foodItemName: foodItem.foodName));
   }
 }

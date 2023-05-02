@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/success_container.dart';
 import 'package:loopcare_frontend/features/diabetes/application/diabetes_bloc.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/string_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 class SummaryPage extends StatelessWidget {
   const SummaryPage({Key? key}) : super(key: key);

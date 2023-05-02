@@ -3,9 +3,13 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/get_dashboard_weights_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_food_item_in_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/dto/favorites_response.dart';
@@ -63,10 +67,11 @@ class APINutritionService implements NutritionService {
   @override
   Future<Either<RequestError, AddToFavoritesResponse>> addToFavorites(
     String foodItemId,
+    String servingId,
     AddToFavoritesBody data,
   ) {
     return client
-        .post('/food-items/$foodItemId/favorites', data: data)
+        .post('/food-items/$foodItemId/favorites/$servingId', data: data)
         .then(parseResponse(AddToFavoritesResponse.fromJson));
   }
 
@@ -143,6 +148,21 @@ class APINutritionService implements NutritionService {
   }
 
   @override
+  Future<Either<RequestError, RecipeResponse>> updateFoodItemInRecipeInMeal({
+    required int mealId,
+    required int recipeId,
+    required String foodItemId,
+    required UpdateFoodItemInRecipeBody data,
+  }) {
+    return client
+        .patch(
+          '/meals/$mealId/recipes/$recipeId/food-items/$foodItemId',
+          data: data,
+        )
+        .then(parseResponse(RecipeResponse.fromJson));
+  }
+
+  @override
   Future<Either<RequestError, RecipeResponse>> removeFoodItemFromRecipeInMeal({
     required int mealId,
     required int recipeId,
@@ -165,8 +185,30 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, MealsResponse>> getMeals() async {
-    return client.get('/meals').then(parseResponse(MealsResponse.fromJson));
+  Future<Either<RequestError, MealsListItem>> deleteRecipeFromMeal(
+    int mealId,
+    String recipeId,
+  ) {
+    return client
+        .delete('/meals/$mealId/recipes/$recipeId')
+        .then(parseResponse(MealsListItem.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, MealsResponse>> getMeals({
+    String? startDate,
+    String? endDate,
+  }) async {
+    final queryParameters = <String, dynamic>{};
+    if (startDate != null && endDate != null) {
+      queryParameters.addAll({
+        'startDate': startDate,
+        'endDate': endDate,
+      });
+    }
+    return client
+        .get('/meals', queryParameters: queryParameters)
+        .then(parseResponse(MealsResponse.fromJson));
   }
 
   @override
@@ -184,10 +226,10 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, MealsListItem>> removeMeal(int mealId) {
+  Future<Either<RequestError, MealsResponse>> removeMeal(int mealId) {
     return client
         .delete('/meals/$mealId')
-        .then(parseResponse(MealsListItem.fromJson));
+        .then(parseResponse(MealsResponse.fromJson));
   }
 
   @override
@@ -202,13 +244,13 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, MealsResponse>> addManyFoodItemsToMeal(
+  Future<Either<RequestError, MealsListItem>> addManyFoodItemsToMeal(
     int mealId,
     AddManyFoodItemsToMealBody data,
   ) {
     return client
         .post('/meals/$mealId/food-items', data: data)
-        .then(parseResponse(MealsResponse.fromJson));
+        .then(parseResponse(MealsListItem.fromJson));
   }
 
   @override
@@ -244,5 +286,25 @@ class APINutritionService implements NutritionService {
         if (limit != null) 'limit': limit,
       },
     ).then(parseResponse(SearchResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, GetDashboardWeightsResponse>> getDashboardWeights(
+    String startDate,
+    String endDate,
+  ) {
+    return client.get(
+      '/weight/logs',
+      queryParameters: {"startDate": startDate, "endDate": endDate},
+    ).then(parseResponse(GetDashboardWeightsResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, LogWeightResponse>> logWeight(
+    LogWeightBody data,
+  ) {
+    return client
+        .post('/weight/log', data: data)
+        .then(parseResponse(LogWeightResponse.fromJson));
   }
 }

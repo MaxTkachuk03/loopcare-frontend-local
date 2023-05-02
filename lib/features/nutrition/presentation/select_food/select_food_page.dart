@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/dishes_list.dart';
@@ -10,7 +9,12 @@ import 'package:loopcare_frontend/features/nutrition/presentation/select_food/wi
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/under_appbar_container.dart';
 
 class SelectFoodPage extends StatefulWidget {
-  const SelectFoodPage({super.key});
+  final String mealCategory;
+
+  const SelectFoodPage({
+    super.key,
+    required this.mealCategory,
+  });
 
   @override
   State<SelectFoodPage> createState() => _SelectFoodPageState();
@@ -29,7 +33,7 @@ class _SelectFoodPageState extends State<SelectFoodPage> {
     return Scaffold(
       appBar: BlueAppBar(
         isCustomLeading: true,
-        title: '${LocalizedTexts.log.translation} lunch',
+        title: '${LocalizedTexts.log.translation} ${widget.mealCategory}',
         actions: const [SelectedItemsLabel()],
       ),
       body: SafeArea(

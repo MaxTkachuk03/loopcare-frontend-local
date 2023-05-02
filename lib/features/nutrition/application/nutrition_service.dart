@@ -1,8 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/get_dashboard_weights_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_food_item_in_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/dto/favorites_response.dart';
@@ -33,6 +37,7 @@ abstract class NutritionService {
 
   Future<Either<RequestError, AddToFavoritesResponse>> addToFavorites(
     String foodItemId,
+    String servingId,
     AddToFavoritesBody data,
   );
 
@@ -67,6 +72,13 @@ abstract class NutritionService {
     required AddFoodItemToRecipeBody data,
   });
 
+  Future<Either<RequestError, RecipeResponse>> updateFoodItemInRecipeInMeal({
+    required int mealId,
+    required int recipeId,
+    required String foodItemId,
+    required UpdateFoodItemInRecipeBody data,
+  });
+
   Future<Either<RequestError, RecipeResponse>> removeFoodItemFromRecipeInMeal({
     required int mealId,
     required int recipeId,
@@ -84,7 +96,15 @@ abstract class NutritionService {
     int recipeId,
   );
 
-  Future<Either<RequestError, MealsResponse>> getMeals();
+  Future<Either<RequestError, MealsListItem>> deleteRecipeFromMeal(
+    int mealId,
+    String recipeId,
+  );
+
+  Future<Either<RequestError, MealsResponse>> getMeals({
+    String? startDate,
+    String? endDate,
+  });
 
   Future<Either<RequestError, MealsListItem>> addMeal(
     AddMealBody data,
@@ -94,7 +114,7 @@ abstract class NutritionService {
     int mealId,
   );
 
-  Future<Either<RequestError, MealsListItem>> removeMeal(
+  Future<Either<RequestError, MealsResponse>> removeMeal(
     int mealId,
   );
 
@@ -104,7 +124,7 @@ abstract class NutritionService {
     AddFoodItemToMealBody data,
   );
 
-  Future<Either<RequestError, MealsResponse>> addManyFoodItemsToMeal(
+  Future<Either<RequestError, MealsListItem>> addManyFoodItemsToMeal(
     int mealId,
     AddManyFoodItemsToMealBody data,
   );
@@ -123,5 +143,14 @@ abstract class NutritionService {
   Future<Either<RequestError, SearchResponse>> search(
     String query,
     int? limit,
+  );
+
+  Future<Either<RequestError, GetDashboardWeightsResponse>> getDashboardWeights(
+    String startDate,
+    String endDate,
+  );
+
+  Future<Either<RequestError, LogWeightResponse>> logWeight(
+    LogWeightBody data,
   );
 }

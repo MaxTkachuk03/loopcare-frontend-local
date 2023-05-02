@@ -5,6 +5,7 @@ class FoodItemServingsEvent with _$FoodItemServingsEvent {
   const factory FoodItemServingsEvent.fetchFoodItemServings(
     String foodItemId,
     String selectedItemId,
+    double initialServingAmount,
   ) = FetchFoodItemServings;
 
   const factory FoodItemServingsEvent.setSelectedFoodItemServing(

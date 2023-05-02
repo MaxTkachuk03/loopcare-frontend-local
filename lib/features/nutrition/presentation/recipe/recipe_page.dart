@@ -63,10 +63,18 @@ class _RecipePageState extends State<RecipePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<RecipeBloc, RecipeState>(
-      listenWhen: (previous, current) =>
-          previous is Loading && current is RecipeInfo,
-      listener: _recipeListener,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<RecipeBloc, RecipeState>(
+          listener: _recipeListener,
+          listenWhen: (previous, current) =>
+              previous is Loading && current is RecipeInfo,
+        ),
+        BlocListener<RecipeBloc, RecipeState>(
+          listenWhen: _whenRecipeUpdated,
+          listener: _recipeUpdatingListener,
+        )
+      ],
       child: Scaffold(
         appBar: BlueAppBar(
           isCustomLeading: true,
@@ -78,6 +86,7 @@ class _RecipePageState extends State<RecipePage> {
             child: BlocBuilder<RecipeBloc, RecipeState>(
               builder: (BuildContext context, state) {
                 return state.maybeMap(
+                  loading: (_) => const Loader(),
                   recipeInfo: (recipeState) {
                     final currentRecipeNutritionFact = recipeState
                         .recipe.servingSize
@@ -182,6 +191,23 @@ class _RecipePageState extends State<RecipePage> {
           recipeState.proteinDegree))
       ..add(NutritionInstructionsEvent.setCalorieDensity(
           recipeState.calorieDensity));
+  }
+
+  void _recipeUpdatingListener(BuildContext context, RecipeState state) {
+    final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+
+    if (mealId != null) {
+      context.read<MealsBloc>().add(MealsEvent.fetchMealById(mealId));
+    }
+  }
+
+  bool _whenRecipeUpdated(
+    RecipeState previous,
+    RecipeState current,
+  ) {
+    return previous is RecipeInfo &&
+        current is RecipeInfo &&
+        current.recipe != previous.recipe;
   }
 
   void _onNutritionFactSelect(NutritionItem item) {

@@ -286,6 +286,7 @@ class LocalizedTexts {
   static const String calorieDensityExplanationOne =
       'calorieDensityExplanationOne';
   static const String myFavorites = 'myFavorites';
+  static const String my = 'my';
   static const String myDishes = 'myDishes';
   static const String scan = 'scan';
   static const String myLunchFavorites = 'myLunchFavorites';
@@ -311,6 +312,7 @@ class LocalizedTexts {
   static const String addedToFavorites = 'addedToFavorites';
   static const String removedFromFavorites = 'removedFromFavorites';
   static const String inbetweens = 'inbetweens';
+  static const String inbetweensShort = 'inbetweensShort';
   static const String drinks = 'drinks';
   static const String favorites = 'favorites';
   static const String allMy = 'allMy';
@@ -342,6 +344,39 @@ class LocalizedTexts {
   static const String searchFilterProducts = 'searchFilterProducts';
   static const String searchFilterRecipes = 'searchFilterRecipes';
   static const String searchFilterMy = 'searchFilterMy';
+
+  //Dashboard
+  static const String goodMorning = 'goodMorning';
+  static const String logYourWeight = 'logYourWeight';
+  static const String logYourMeals = 'logYourMeals';
+  static const String planYourMeals = 'planYourMeals';
+  static const String diary = 'diary';
+  static const String reflection = 'reflection';
+  static const String activities = 'activities';
+  static const String selectAMeal = 'selectAMeal';
+  static const String today = 'today';
+  static const String physicalExercise = 'physicalExercise';
+  static const String supportGroup = 'supportGroup';
+  static const String explore = 'explore';
+  static const String overview = 'overview';
+  static const String account = 'account';
+  static const String calendar = 'calendar';
+  static const String education = 'education';
+  static const String logged = 'logged';
+  static const String preferableInTheMorning = 'preferableInTheMorning';
+  static const String noWeightLogged = 'noWeightLogged';
+  static const String ok = 'ok';
+  static const String todaysWeight = 'todaysWeight';
+
+  // Education
+  static const String all = 'all';
+  static const String general = 'general';
+  static const String nutrition = 'nutrition';
+  static const String mind = 'mind';
+  static const String activity = 'activity';
+
+  static const String noMealsLogged = 'noMealsLogged';
+  static const String noMealsLoggedYet = 'noMealsLoggedYet';
 }
 
 extension StringX on String {
