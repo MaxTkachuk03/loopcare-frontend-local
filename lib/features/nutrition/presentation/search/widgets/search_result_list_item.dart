@@ -1,8 +1,7 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
 
 class SearchResultListItem extends StatelessWidget {
   final SearchItem item;
@@ -19,33 +18,42 @@ class SearchResultListItem extends StatelessWidget {
         onTap: () => _onTap(context),
         child: Ink(
           color: AppColors.white,
-          padding: const EdgeInsets.symmetric(vertical: 12.0),
-          child: Row(
+          child: Column(
             children: [
-              Expanded(
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(left: 25, right: 15),
-                      child: SizedBox(
-                        width: 17,
-                        height: 17,
-                        child: ImageIcon(
-                          AppIcons.arrow,
-                          color: AppColors.greyLabel,
-                        ),
-                      ),
-                    ),
                     Expanded(
-                      child: Text(item.name,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.titleMedium),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 25, right: 15),
+                            child: SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: ImageIcon(
+                                item.type.icon,
+                                color: AppColors.blueMid,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(item.name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context).textTheme.titleMedium),
+                          ),
+                          const SizedBox(width: 12.0),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
+              const Divider(
+                  color: AppColors.yellowLight, height: 1, thickness: 1),
             ],
           ),
         ),

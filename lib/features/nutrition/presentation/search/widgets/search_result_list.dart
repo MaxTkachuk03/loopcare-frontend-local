@@ -22,7 +22,7 @@ class _SearchResultListState extends State<SearchResultList> {
     return BlocBuilder<SearchBloc, SearchState>(
         builder: (BuildContext context, state) {
       return state.maybeMap(
-        result: (itemsState) {
+        searchResult: (itemsState) {
           return itemsState.items.isEmpty
               ? const SizedBox.shrink()
               : ListView.builder(

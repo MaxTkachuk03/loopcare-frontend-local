@@ -276,13 +276,15 @@ class APINutritionService implements NutritionService {
 
   @override
   Future<Either<RequestError, SearchResponse>> search(
-    String query,
+    String query, {
+    String? mode,
     int? limit,
-  ) {
+  }) {
     return client.get(
       '/nutrition/search',
       queryParameters: {
         'query': query,
+        if (mode != null) 'mode': mode,
         if (limit != null) 'limit': limit,
       },
     ).then(parseResponse(SearchResponse.fromJson));

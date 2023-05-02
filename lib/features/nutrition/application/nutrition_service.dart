@@ -141,9 +141,10 @@ abstract class NutritionService {
   );
 
   Future<Either<RequestError, SearchResponse>> search(
-    String query,
+    String query, {
+    String? mode,
     int? limit,
-  );
+  });
 
   Future<Either<RequestError, GetDashboardWeightsResponse>> getDashboardWeights(
     String startDate,

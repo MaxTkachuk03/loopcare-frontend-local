@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/underlined_tab_bar.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
 
 class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -19,18 +20,36 @@ class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height * 2);
 }
 
-class _SearchAppBarState extends State<SearchAppBar> {
-  // bool isFlashOn = false;
+class _SearchAppBarState extends State<SearchAppBar>
+    with TickerProviderStateMixin {
+  String searchText = '';
+  String? searchMode = '';
   final TextEditingController _searchTextController = TextEditingController();
+  late TabController _tabController;
+
+  final List<String> tabs = SearchMode.values.map((e) => e.label).toList();
+
+  @override
+  initState() {
+    super.initState();
+
+    _tabController = TabController(
+      initialIndex: 0,
+      length: tabs.length,
+      vsync: this,
+    );
+
+    _tabController.addListener(_tabsChangeListener);
+  }
 
   @override
   void dispose() {
     super.dispose();
 
+    _tabController.removeListener(_tabsChangeListener);
+    _tabController.dispose();
     _searchTextController.dispose();
   }
-
-  //  String _searchText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -77,12 +96,15 @@ class _SearchAppBarState extends State<SearchAppBar> {
                   ),
                 ),
                 UnderlinedTabBar(
-                  tabs: [
-                    Tab(text: LocalizedTexts.searchFilterAll.translation),
-                    Tab(text: LocalizedTexts.searchFilterProducts.translation),
-                    Tab(text: LocalizedTexts.searchFilterRecipes.translation),
-                    Tab(text: LocalizedTexts.searchFilterMy.translation),
-                  ],
+                  tabs: tabs.map((e) => Tab(text: e)).toList(),
+                  tabController: _tabController,
+                  // tabs: [
+
+                  //   Tab(text: LocalizedTexts.searchFilterAll.translation),
+                  //   Tab(text: LocalizedTexts.searchFilterProducts.translation),
+                  //   Tab(text: LocalizedTexts.searchFilterRecipes.translation),
+                  //   Tab(text: LocalizedTexts.searchFilterMy.translation),
+                  // ],
                 ),
               ],
             ),
@@ -92,11 +114,39 @@ class _SearchAppBarState extends State<SearchAppBar> {
     );
   }
 
-  void _onTextChange(String value) {
-    if (value.length > 2) {
-      context.read<SearchBloc>().add(
-            SearchEvent.search(value, 10),
+  void _tabsChangeListener() {
+    setState(
+      () {
+        String? mode = _tabController.index == 0
+            ? null
+            : SearchMode.values.toList()[_tabController.index].searchModeValue;
+
+        searchMode = mode;
+
+        context.read<SearchBloc>()
+          ..add(SearchEvent.setSearchMode(searchMode))
+          ..add(
+            SearchEvent.search(
+              searchText,
+              mode: searchMode,
+            ),
           );
-    }
+      },
+    );
+  }
+
+  void _onTextChange(String value) {
+    setState(
+      () {
+        searchText = value;
+
+        context.read<SearchBloc>().add(
+              SearchEvent.search(
+                searchText,
+                mode: searchMode,
+              ),
+            );
+      },
+    );
   }
 }

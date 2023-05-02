@@ -837,8 +837,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
-<<<<<<< HEAD
-=======
   scrollable_positioned_list:
     dependency: "direct main"
     description:
@@ -847,7 +845,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.5"
->>>>>>> feature/epic/LOOPCARE-417-Nutrition
   shared_preferences:
     dependency: "direct main"
     description:

@@ -4,13 +4,14 @@ part of 'search_bloc.dart';
 class SearchState with _$SearchState {
   const SearchState._();
 
-  const factory SearchState.initial() = _Initial;
+  const factory SearchState.initial({String? mode}) = _Initial;
 
   const factory SearchState.loading() = _Loading;
 
   const factory SearchState.error(RequestError fetchError) = _Error;
 
-  const factory SearchState.result({
+  const factory SearchState.searchResult({
+    String? mode,
     required IList<SearchItem> items,
   }) = _SearchResult;
 }
