@@ -87,14 +87,6 @@ class _RecipePageState extends State<RecipePage> {
                 return state.maybeMap(
                   loading: (_) => const Loader(),
                   recipeInfo: (recipeState) {
-                    final currentRecipeNutritionFact = recipeState
-                        .recipe.servingSize
-                        .toJson()
-                        .entries
-                        .firstWhere((element) =>
-                            element.key ==
-                            recipeState.currentRecipeNutritionItem.key);
-
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -109,8 +101,8 @@ class _RecipePageState extends State<RecipePage> {
                             selectedNutritionItem:
                                 recipeState.currentRecipeNutritionItem,
                             nutritionValuesList:
-                                recipeState.recipe.servingSize.list,
-                            nutritionValue: currentRecipeNutritionFact.value,
+                                recipeState.recipe.nutritionValues,
+                            nutritionValue: recipeState.currentRecipeNutritionItem.value,
                             onNutritionFactSelect: _onNutritionFactSelect),
                         RecipeList(
                           nutritionKey:
@@ -185,7 +177,7 @@ class _RecipePageState extends State<RecipePage> {
 
     if (recipeState == null) return;
 
-    // _servingController = TextEditingController(text: "${recipeState.numberOfServings}");
+    _servingController = TextEditingController(text: "1");
 
     context.read<NutritionInstructionsBloc>()
       ..add(NutritionInstructionsEvent.setProteinDegree(
