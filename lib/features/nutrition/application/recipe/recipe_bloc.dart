@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:loopcare_frontend/core/presentation/utils/double_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_food_item_in_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_recipe_body.dart';

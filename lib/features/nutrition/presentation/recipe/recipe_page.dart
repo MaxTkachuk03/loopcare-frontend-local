@@ -37,17 +37,22 @@ class _RecipePageState extends State<RecipePage> {
 
   @override
   void initState() {
+    final recipeBloc = context.read<RecipeBloc>();
+
+    _servingController =
+        TextEditingController(text: recipeBloc.state.servingAmount);
+
     if (widget.isMealRecipe ?? false) {
       final mealId = context.read<MealsBloc>().state.getCurrentMealId;
 
       if (mealId == null) return;
 
-      context.read<RecipeBloc>().add(RecipeEvent.fetchRecipeFromMeal(
-            recipeId: widget.id,
-            mealId: mealId,
-          ));
+      recipeBloc.add(RecipeEvent.fetchRecipeFromMeal(
+        recipeId: widget.id,
+        mealId: mealId,
+      ));
     } else {
-      context.read<RecipeBloc>().add(RecipeEvent.fetchRecipe(widget.id));
+      recipeBloc.add(RecipeEvent.fetchRecipe(widget.id));
     }
 
     super.initState();
@@ -102,7 +107,8 @@ class _RecipePageState extends State<RecipePage> {
                                 recipeState.currentRecipeNutritionItem,
                             nutritionValuesList:
                                 recipeState.recipe.nutritionValues,
-                            nutritionValue: recipeState.currentRecipeNutritionItem.value,
+                            nutritionValue:
+                                recipeState.currentRecipeNutritionItem.value,
                             onNutritionFactSelect: _onNutritionFactSelect),
                         RecipeList(
                           nutritionKey:
@@ -177,7 +183,7 @@ class _RecipePageState extends State<RecipePage> {
 
     if (recipeState == null) return;
 
-    _servingController = TextEditingController(text: "1");
+    _servingController = TextEditingController(text: state.servingAmount);
 
     context.read<NutritionInstructionsBloc>()
       ..add(NutritionInstructionsEvent.setProteinDegree(
