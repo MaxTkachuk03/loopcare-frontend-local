@@ -20,6 +20,7 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/dto/values_explanation_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_food/dto/get_dishes_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_servings_response.dart';
@@ -40,18 +41,11 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, FavoritesResponse>> getFavorites() async {
-    return client
-        .get('/food-items/favorites')
-        .then(parseResponse(FavoritesResponse.fromJson));
-  }
-
-  @override
-  Future<Either<RequestError, FavoritesResponse>> getFilteredFavorites(
-    List<String> mealCategories,
+  Future<Either<RequestError, FavoritesResponse>> getFavorites(
+    List<String>? mealCategories,
   ) async {
     return client.get('/food-items/favorites', queryParameters: {
-      "mealCategories": mealCategories,
+      "mealCategories": mealCategories ?? [],
     }).then(parseResponse(FavoritesResponse.fromJson));
   }
 
@@ -291,5 +285,15 @@ class APINutritionService implements NutritionService {
     return client
         .post('/weight/log', data: data)
         .then(parseResponse(LogWeightResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, GetDishesResponse>> getDishes(
+    List<String>? mealCategories,
+  ) {
+    return client.get(
+      '/dishes',
+      queryParameters: {"mealCategory": mealCategories ?? []},
+    ).then(parseResponse(GetDishesResponse.fromJson));
   }
 }

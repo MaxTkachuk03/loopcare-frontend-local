@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
 
 class DishListItem extends StatelessWidget {
-  final dynamic dishItem;
+  final Dish dishItem;
 
   const DishListItem({
     super.key,
@@ -21,13 +23,13 @@ class DishListItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Name',
+                dishItem.name,
                 style: Theme.of(context).textTheme.caption?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
               ),
               Text(
-                'Description',
+                '${dishItem.numberOfServings} ${LocalizedTexts.serving.translation}',
                 style: Theme.of(context).textTheme.caption?.copyWith(
                       color: AppColors.greyLabel,
                     ),

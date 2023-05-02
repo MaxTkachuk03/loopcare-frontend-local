@@ -288,6 +288,7 @@ class LocalizedTexts {
   static const String myFavorites = 'myFavorites';
   static const String my = 'my';
   static const String myDishes = 'myDishes';
+  static const String dishes = 'dishes';
   static const String scan = 'scan';
   static const String myLunchFavorites = 'myLunchFavorites';
   static const String myLunchDishes = 'myLunchDishes';

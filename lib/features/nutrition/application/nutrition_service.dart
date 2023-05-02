@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_m
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/dto/values_explanation_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_food/dto/get_dishes_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_servings_response.dart';
@@ -25,10 +26,8 @@ abstract class NutritionService {
   Future<Either<RequestError, ValuesExplanationResponse>>
       getValuesExplanation();
 
-  Future<Either<RequestError, FavoritesResponse>> getFavorites();
-
-  Future<Either<RequestError, FavoritesResponse>> getFilteredFavorites(
-      List<String> mealCategories);
+  Future<Either<RequestError, FavoritesResponse>> getFavorites(
+      List<String>? mealCategories);
 
   Future<Either<RequestError, FoodItemServingsResponse>> getFoodItemServings(
     String id,
@@ -146,5 +145,9 @@ abstract class NutritionService {
 
   Future<Either<RequestError, LogWeightResponse>> logWeight(
     LogWeightBody data,
+  );
+
+  Future<Either<RequestError, GetDishesResponse>> getDishes(
+    List<String>? mealCategories,
   );
 }
