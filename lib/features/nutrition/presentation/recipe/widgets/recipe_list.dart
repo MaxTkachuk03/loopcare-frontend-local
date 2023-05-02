@@ -69,7 +69,22 @@ class RecipeList extends StatelessWidget {
       SelectServingRoute(
         foodItemId: item.externalId,
         initialServingId: servingId,
+        initialServingAmount: item.serving.numberOfUnits,
         foodItemName: item.foodName,
+        onConfirm: (double numberOfUnits, String servingId) {
+          final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+
+          if (mealId == null) return;
+
+          context.read<RecipeBloc>().add(
+                RecipeEvent.updateFoodItemFromRecipe(
+                  mealId: mealId,
+                  foodItemId: item.id,
+                  numberOfUnits: numberOfUnits,
+                  servingId: servingId,
+                ),
+              );
+        },
       ),
     );
   }

@@ -116,8 +116,11 @@ class FavoriteListItem extends StatelessWidget {
     if (servingId == null) return;
 
     context.router.push(SelectServingRoute(
-        foodItemId: foodItem.id,
-        initialServingId: servingId,
-        foodItemName: foodItem.foodName));
+      foodItemId: foodItem.id,
+      initialServingId: servingId,
+      initialServingAmount: foodItem.serving.numberOfUnits,
+      foodItemName: foodItem.foodName,
+      onConfirm: (_, __) {},
+    ));
   }
 }

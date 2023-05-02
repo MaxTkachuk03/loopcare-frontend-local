@@ -29,6 +29,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
   MealsBloc(this.nutritionService) : super(const MealsState.initial()) {
     on<FetchMeals>(_onFetchMeals);
+    on<FetchMealById>(_onFetchMealById);
     on<AddMeal>(_onAddMeal);
     on<AddFoodItemToMeal>(_onAddFoodItemToMeal);
     on<UpdateFoodItemInMeal>(_onUpdateFoodItemInMeal);
@@ -113,6 +114,30 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             currentDate: DateTime.now(),
             meals: response.data.toIList(),
           ),
+        );
+      },
+    );
+  }
+
+  FutureOr<void> _onFetchMealById(
+    FetchMealById event,
+    Emitter<MealsState> emit,
+  ) async {
+    await state.mapOrNull(
+      mealsInfo: (state) async {
+        final response = await nutritionService.getMealById(event.id);
+
+        response.fold(
+          (error) => null,
+          (response) {
+            emit(
+              state.copyWith(
+                  meals: state.meals
+                      .map((element) =>
+                          element.id == event.id ? response : element)
+                      .toIList()),
+            );
+          },
         );
       },
     );

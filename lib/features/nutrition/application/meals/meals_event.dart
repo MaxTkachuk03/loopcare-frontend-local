@@ -4,6 +4,8 @@ part of 'meals_bloc.dart';
 class MealsEvent with _$MealsEvent {
   const factory MealsEvent.fetchMeals() = FetchMeals;
 
+  const factory MealsEvent.fetchMealById(int id) = FetchMealById;
+
   const factory MealsEvent.addMeal(
     String mealCategory,
   ) = AddMeal;
