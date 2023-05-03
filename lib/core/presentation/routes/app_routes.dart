@@ -73,5 +73,8 @@ class AppRoutes {
   static const String logWeight = '/log-weight';
   static const String home = '/home';
   static const String account = '/account';
+
+  // Dish
+  static const String createDish = '/create-dish';
   AppRoutes._();
 }

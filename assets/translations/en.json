@@ -296,5 +296,6 @@
   "mind": "Mind",
   "activity": "Activity",
   "noMealsLogged": "No meals logged",
-  "noMealsLoggedYet": "No meals logged yet"
+  "noMealsLoggedYet": "No meals logged yet",
+  "createMyDish": "Create my dish"
 }

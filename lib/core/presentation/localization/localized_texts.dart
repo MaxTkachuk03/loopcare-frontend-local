@@ -378,6 +378,9 @@ class LocalizedTexts {
 
   static const String noMealsLogged = 'noMealsLogged';
   static const String noMealsLoggedYet = 'noMealsLoggedYet';
+
+  // Dish
+  static const String createMyDish = 'createMyDish';
 }
 
 extension StringX on String {

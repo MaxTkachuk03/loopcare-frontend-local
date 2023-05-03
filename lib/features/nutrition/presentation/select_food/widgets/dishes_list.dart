@@ -1,8 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/dish_list_item.dart';
@@ -50,6 +54,7 @@ class _DishesListState extends State<DishesList>
                 return Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       ListFilters(
                         title: title,
@@ -77,6 +82,14 @@ class _DishesListState extends State<DishesList>
                                 ),
                               ),
                             ),
+                      const SizedBox(height: 8.0),
+                      MainContainer(
+                        child: OutlinedRoundedButton(
+                          text: LocalizedTexts.createMyDish.translation,
+                          icon: AppIcons.dish,
+                          onPressed: _onCreateDish,
+                        ),
+                      )
                     ],
                   ),
                 );
@@ -87,6 +100,10 @@ class _DishesListState extends State<DishesList>
         ),
       ],
     );
+  }
+
+  _onCreateDish() {
+    context.router.pushNamed(AppRoutes.createDish);
   }
 
   _onConfirmed(
