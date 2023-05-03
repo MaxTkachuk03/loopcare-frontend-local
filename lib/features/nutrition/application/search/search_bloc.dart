@@ -20,6 +20,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc(this.nutritionService) : super(const SearchState.initial()) {
     on<Search>(_onSearch);
     on<SetSearchMode>(_onSetSearchMode);
+    on<ResetData>(_onResetData);
+  }
+
+  FutureOr<void> _onResetData(
+    ResetData event,
+    Emitter<SearchState> emit,
+  ) {
+    emit(const SearchState.initial());
   }
 
   FutureOr<void> _onSetSearchMode(

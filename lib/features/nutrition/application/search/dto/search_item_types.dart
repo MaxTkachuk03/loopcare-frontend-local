@@ -12,8 +12,8 @@ enum SearchItemTypes {
   @JsonValue("dish")
   dish,
 
-  @JsonValue("receipe")
-  receipe;
+  @JsonValue("recipe")
+  recipe;
 }
 
 extension SearchItemTypesX on SearchItemTypes {
@@ -25,7 +25,7 @@ extension SearchItemTypesX on SearchItemTypes {
         return AppIcons.pan;
       case SearchItemTypes.dish:
         return AppIcons.magnifyingGlass;
-      case SearchItemTypes.receipe:
+      case SearchItemTypes.recipe:
         return AppIcons.cook;
 
       default:

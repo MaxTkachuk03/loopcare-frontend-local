@@ -3,6 +3,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/get_dashboard_weights_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_dish_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
@@ -58,12 +59,6 @@ abstract class NutritionService {
   );
 
   Future<Either<RequestError, RecipeResponse>> getRecipe(int id);
-
-  Future<Either<RequestError, RecipeResponse>> addRecipeToMeal({
-    required int mealId,
-    required int recipeId,
-    required AddRecipeToMealBody data,
-  });
 
   Future<Either<RequestError, RecipeResponse>> addFoodItemToRecipeInMeal({
     required int mealId,
@@ -128,6 +123,17 @@ abstract class NutritionService {
     int mealId,
     AddManyFoodItemsToMealBody data,
   );
+
+  Future<Either<RequestError, MealsListItem>> addRecipeToMeal({
+    required int mealId,
+    required String recipeId,
+    required AddRecipeToMealBody data,
+  });
+
+  Future<Either<RequestError, MealsResponse>> addDishToMeal({
+    required int mealId,
+    required AddDishToMealBody data,
+  });
 
   Future<Either<RequestError, MealsListItem>> updateFoodItemInMeal(
     int mealId,

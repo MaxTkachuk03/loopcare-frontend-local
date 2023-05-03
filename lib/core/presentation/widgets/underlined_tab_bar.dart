@@ -15,9 +15,13 @@ class UnderlinedTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(
-                  width: 2, color: AppColors.white.withOpacity(0.3)))),
+        border: Border(
+          bottom: BorderSide(
+            width: 2,
+            color: AppColors.white.withOpacity(0.3),
+          ),
+        ),
+      ),
       child: TabBar(
         controller: tabController,
         isScrollable: true,

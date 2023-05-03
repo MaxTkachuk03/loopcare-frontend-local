@@ -34,7 +34,6 @@ class _SearchAppBarState extends State<SearchAppBar>
     super.initState();
 
     _tabController = TabController(
-      initialIndex: 0,
       length: tabs.length,
       vsync: this,
     );
@@ -98,13 +97,6 @@ class _SearchAppBarState extends State<SearchAppBar>
                 UnderlinedTabBar(
                   tabs: tabs.map((e) => Tab(text: e)).toList(),
                   tabController: _tabController,
-                  // tabs: [
-
-                  //   Tab(text: LocalizedTexts.searchFilterAll.translation),
-                  //   Tab(text: LocalizedTexts.searchFilterProducts.translation),
-                  //   Tab(text: LocalizedTexts.searchFilterRecipes.translation),
-                  //   Tab(text: LocalizedTexts.searchFilterMy.translation),
-                  // ],
                 ),
               ],
             ),
@@ -117,20 +109,18 @@ class _SearchAppBarState extends State<SearchAppBar>
   void _tabsChangeListener() {
     setState(
       () {
-        String? mode = _tabController.index == 0
-            ? null
-            : SearchMode.values.toList()[_tabController.index].searchModeValue;
+        if (_tabController.indexIsChanging) {
+          String? mode =
+              SearchMode.values.toList()[_tabController.index].searchModeValue;
+          searchMode = mode;
 
-        searchMode = mode;
-
-        context.read<SearchBloc>()
-          ..add(SearchEvent.setSearchMode(searchMode))
-          ..add(
-            SearchEvent.search(
-              searchText,
-              mode: searchMode,
-            ),
-          );
+          context.read<SearchBloc>().add(
+                SearchEvent.search(
+                  searchText,
+                  mode: searchMode,
+                ),
+              );
+        }
       },
     );
   }

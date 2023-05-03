@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/get_dashboard_weights_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_dish_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
@@ -122,14 +123,24 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, RecipeResponse>> addRecipeToMeal({
+  Future<Either<RequestError, MealsResponse>> addDishToMeal({
     required int mealId,
-    required int recipeId,
+    required AddDishToMealBody data,
+  }) {
+    return client
+        .post('/meals/$mealId/dishes', data: data)
+        .then(parseResponse(MealsResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, MealsListItem>> addRecipeToMeal({
+    required int mealId,
+    required String recipeId,
     required AddRecipeToMealBody data,
   }) {
     return client
         .post('/meals/$mealId/recipes/$recipeId', data: data)
-        .then(parseResponse(RecipeResponse.fromJson));
+        .then(parseResponse(MealsListItem.fromJson));
   }
 
   @override
@@ -284,7 +295,7 @@ class APINutritionService implements NutritionService {
       '/nutrition/search',
       queryParameters: {
         'query': query,
-        if (mode != null) 'mode': mode,
+        if (mode != null && mode.isNotEmpty) 'mode': mode,
         if (limit != null) 'limit': limit,
       },
     ).then(parseResponse(SearchResponse.fromJson));

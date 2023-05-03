@@ -32,6 +32,16 @@ class MealsEvent with _$MealsEvent {
     String foodItemId,
   ) = DeleteFoodItemFromMeal;
 
+  const factory MealsEvent.addRecipeToMeal(
+    int mealId,
+    String recipeId,
+  ) = AddRecipeToMeal;
+
+  const factory MealsEvent.addDishToMeal(
+    int mealId,
+    String dishId,
+  ) = AddDishToMeal;
+
   const factory MealsEvent.deleteRecipeFromMeal(
     String recipeId,
   ) = DeleteRecipeFromMeal;
