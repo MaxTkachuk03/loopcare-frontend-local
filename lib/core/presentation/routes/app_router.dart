@@ -38,6 +38,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/treatmen
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor_failled/presentation/treatment_by_doctor_failled_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/log_weight_page/log_weight_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/recipe_details_page.dart';
 import 'package:loopcare_frontend/features/nutrition/search/presentation/search/search_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dish_page/dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/meal/meal_page.dart';
@@ -73,7 +74,6 @@ part 'app_routes.dart';
   replaceInRouteName: 'Page,Route',
   routes: [
     AutoRoute(
-      initial: true,
       path: AppRoutes.proxy,
       page: ProxyPage,
       guards: [ProxyGuard],
@@ -332,6 +332,11 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.account,
       page: AccountPage,
+    ),
+    AutoRoute(
+      initial: true,
+      path: AppRoutes.recipeDetails,
+      page: RecipeDetailsPage,
     ),
   ],
 )
