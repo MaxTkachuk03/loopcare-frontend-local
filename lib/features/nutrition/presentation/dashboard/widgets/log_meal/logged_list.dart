@@ -17,17 +17,13 @@ class LoggedList extends StatelessWidget {
   Widget build(BuildContext context) {
     return categoryList.isEmpty
         ? const SizedBox()
-        : ListView.builder(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: categoryList.length,
-            itemBuilder: (BuildContext context, int index) {
+        : Column(
+            children: categoryList.map((category) {
               return LoggedListItem(
-                label: categoryList[index],
-                isFilled:
-                    filledList.contains(categoryListRaw[index].toLowerCase()),
+                label: category,
+                isFilled: filledList.contains(category.toLowerCase()),
               );
-            },
+            }).toList(),
           );
   }
 }

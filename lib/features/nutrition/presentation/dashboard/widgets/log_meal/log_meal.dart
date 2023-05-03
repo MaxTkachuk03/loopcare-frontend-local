@@ -51,9 +51,11 @@ class LogMeal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 8.0,
+      padding: const EdgeInsets.only(
+        top: 8.0,
+        bottom: 24.0,
+        right: 16.0,
+        left: 16.0,
       ),
       decoration: const BoxDecoration(
         color: AppColors.white,
