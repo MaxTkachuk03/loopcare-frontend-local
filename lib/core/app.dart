@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/features/legal_statement/application/legal_sta
 import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/barcode_scanner_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
@@ -80,6 +81,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<DashboardWeightBloc>(
           create: (_) => getIt<DashboardWeightBloc>(),
+        ),
+        BlocProvider<DishBloc>(
+          create: (_) => getIt<DishBloc>(),
         ),
       ],
       child: const _App(),

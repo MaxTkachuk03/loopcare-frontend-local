@@ -66,34 +66,29 @@ class _Title extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (subtitle != null) {
-      return RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
-            text: title,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: AppColors.white,
+              ),
+        ),
+        if (subtitle != null)
+          Text(
+            subtitle!,
             style: Theme.of(context).textTheme.bodyText2?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: AppColors.white,
+                  fontStyle: FontStyle.italic,
                 ),
-            children: <TextSpan>[
-              TextSpan(
-                text: '\n$subtitle',
-                style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.white,
-                      fontStyle: FontStyle.italic,
-                    ),
-              ),
-            ]),
-      );
-    }
-
-    return Text(
-      title,
-      style: Theme.of(context).textTheme.bodyText2?.copyWith(
-            fontWeight: FontWeight.w600,
-            color: AppColors.white,
           ),
+      ],
     );
   }
 }
