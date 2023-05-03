@@ -11,6 +11,7 @@ abstract class NutritionItem implements _$NutritionItem {
   const factory NutritionItem({
     required String name,
     required String key,
+    required double value,
     required String unitLabel,
   }) = _NutritionItem;
 
