@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/presentation/utils/double_extensions.dart';
 
 part 'food_item_serving.freezed.dart';
 
@@ -42,9 +43,8 @@ abstract class FoodItemServing implements _$FoodItemServing {
   }
 
   String get servingSizeLabel {
-    final regex = RegExp(r'([.]*0)(?!.*\d)');
 
-    return '${numberOfUnits.toString().replaceAll(regex, '')} ${measurementDescription ?? 'serving'}';
+    return '${numberOfUnits.removeDecimalZeroFormat()} ${measurementDescription ?? 'serving'}';
   }
 
   num caloriesAmount(String servingAmount) {

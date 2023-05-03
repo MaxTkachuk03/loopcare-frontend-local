@@ -66,7 +66,7 @@ class _DishPageState extends State<DishPage> {
                 nutritionValue: 21,
                 nutritionValuesList: [],
                 selectedNutritionItem:
-                    NutritionItem(name: '', key: '', unitLabel: ''),
+                    NutritionItem(name: '', key: '', unitLabel: '', value: 0),
                 onNutritionFactSelect: (NutritionItem item) {},
               ),
               // const FoodList(
