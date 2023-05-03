@@ -295,5 +295,8 @@
   "mind": "Mind",
   "activity": "Activity",
   "noMealsLogged": "No meals logged",
-  "noMealsLoggedYet": "No meals logged yet"
+  "noMealsLoggedYet": "No meals logged yet",
+  "searchEmptyResultTitle": "Sorry no results for this one",
+  "searchEmptyResultText": "Maybe check your spelling or try another term"
+
 }

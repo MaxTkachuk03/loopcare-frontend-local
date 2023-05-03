@@ -9,6 +9,4 @@ class SearchEvent with _$SearchEvent {
     String? mode,
     int? limit,
   }) = Search;
-
-  const factory SearchEvent.setSearchMode(String? mode) = SetSearchMode;
 }

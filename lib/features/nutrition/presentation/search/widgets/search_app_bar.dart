@@ -107,36 +107,28 @@ class _SearchAppBarState extends State<SearchAppBar>
   }
 
   void _tabsChangeListener() {
-    setState(
-      () {
-        if (_tabController.indexIsChanging) {
-          String? mode =
-              SearchMode.values.toList()[_tabController.index].searchModeValue;
-          searchMode = mode;
+    if (_tabController.indexIsChanging) {
+      String? mode =
+          SearchMode.values.toList()[_tabController.index].searchModeValue;
+      searchMode = mode;
 
-          context.read<SearchBloc>().add(
-                SearchEvent.search(
-                  searchText,
-                  mode: searchMode,
-                ),
-              );
-        }
-      },
-    );
+      context.read<SearchBloc>().add(
+            SearchEvent.search(
+              searchText,
+              mode: searchMode,
+            ),
+          );
+    }
   }
 
   void _onTextChange(String value) {
-    setState(
-      () {
-        searchText = value;
+    searchText = value;
 
-        context.read<SearchBloc>().add(
-              SearchEvent.search(
-                searchText,
-                mode: searchMode,
-              ),
-            );
-      },
-    );
+    context.read<SearchBloc>().add(
+          SearchEvent.search(
+            searchText,
+            mode: searchMode,
+          ),
+        );
   }
 }

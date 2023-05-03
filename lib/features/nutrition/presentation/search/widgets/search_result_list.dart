@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_empty_result.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_result_list_item.dart';
 
 class SearchResultList extends StatefulWidget {
@@ -24,7 +25,7 @@ class _SearchResultListState extends State<SearchResultList> {
       return state.maybeMap(
         searchResult: (itemsState) {
           return itemsState.items.isEmpty
-              ? const SizedBox.shrink()
+              ? const SearchEmptyResult()
               : ListView.builder(
                   itemCount: itemsState.items.length,
                   shrinkWrap: true,

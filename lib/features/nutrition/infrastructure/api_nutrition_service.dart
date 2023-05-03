@@ -297,6 +297,8 @@ class APINutritionService implements NutritionService {
         'query': query,
         if (mode != null && mode.isNotEmpty) 'mode': mode,
         if (limit != null) 'limit': limit,
+        // TODO: Remove after pagination will be implemented on backend
+        if (limit == null) 'limit': 20,
       },
     ).then(parseResponse(SearchResponse.fromJson));
   }

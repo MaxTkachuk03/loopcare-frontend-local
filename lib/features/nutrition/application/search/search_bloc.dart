@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
+import 'package:rxdart/rxdart.dart';
 
 part 'search_event.dart';
 
@@ -18,8 +19,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final NutritionService nutritionService;
 
   SearchBloc(this.nutritionService) : super(const SearchState.initial()) {
-    on<Search>(_onSearch);
-    on<SetSearchMode>(_onSetSearchMode);
+    on<Search>(
+      _onSearch,
+      transformer: (events, mapper) => events
+          .map((q) => q.copyWith(query: q.query.trim()))
+          .distinct()
+          .debounceTime(const Duration(milliseconds: 300))
+          .switchMap(mapper),
+    );
     on<ResetData>(_onResetData);
   }
 
@@ -28,24 +35,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     Emitter<SearchState> emit,
   ) {
     emit(const SearchState.initial());
-  }
-
-  FutureOr<void> _onSetSearchMode(
-    SetSearchMode event,
-    Emitter<SearchState> emit,
-  ) async {
-    state.mapOrNull(
-      initial: (state) => emit(
-        state.copyWith(
-          mode: event.mode,
-        ),
-      ),
-      searchResult: (state) => emit(
-        state.copyWith(
-          mode: event.mode,
-        ),
-      ),
-    );
   }
 
   FutureOr<void> _onSearch(
@@ -70,7 +59,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         emit(
           SearchState.searchResult(
             items: response.data.toIList(),
-            mode: event.mode,
           ),
         );
       },

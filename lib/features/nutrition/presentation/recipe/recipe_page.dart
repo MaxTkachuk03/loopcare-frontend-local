@@ -43,10 +43,12 @@ class _RecipePageState extends State<RecipePage> {
 
       if (mealId == null) return;
 
-      context.read<RecipeBloc>().add(RecipeEvent.fetchRecipeFromMeal(
-            recipeId: widget.id,
-            mealId: mealId,
-          ));
+      context.read<RecipeBloc>().add(
+            RecipeEvent.fetchRecipeFromMeal(
+              recipeId: widget.id,
+              mealId: mealId,
+            ),
+          );
     } else {
       context.read<RecipeBloc>().add(RecipeEvent.fetchRecipe(widget.id));
     }
