@@ -54,7 +54,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   ) async {
     if (event.query.length < 3) return;
 
-    // final mode = state.mapOrNull(searchResult: (s) => s.mode);
     emit(const SearchState.loading());
 
     final response = await nutritionService.search(
