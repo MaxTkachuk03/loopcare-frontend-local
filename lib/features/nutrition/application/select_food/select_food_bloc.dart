@@ -100,6 +100,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     Emitter<SelectFoodState> emit,
   ) async {
     await state.mapOrNull(selectFood: (state) async {
+      // TODO refactor logic to get filter values fron the popup
       final selectedFiltersValues =
           event.filtersList.where((e) => e.selected).map((element) {
         final label = MealFavoritesCategory.values

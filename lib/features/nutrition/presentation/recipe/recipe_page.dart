@@ -33,22 +33,26 @@ class RecipePage extends StatefulWidget {
 }
 
 class _RecipePageState extends State<RecipePage> {
-  final TextEditingController _servingController =
-      TextEditingController(text: '1');
+  late TextEditingController _servingController;
 
   @override
   void initState() {
+    final recipeBloc = context.read<RecipeBloc>();
+
+    _servingController =
+        TextEditingController(text: recipeBloc.state.servingAmount);
+
     if (widget.isMealRecipe ?? false) {
       final mealId = context.read<MealsBloc>().state.getCurrentMealId;
 
       if (mealId == null) return;
 
-      context.read<RecipeBloc>().add(RecipeEvent.fetchRecipeFromMeal(
-            recipeId: widget.id,
-            mealId: mealId,
-          ));
+      recipeBloc.add(RecipeEvent.fetchRecipeFromMeal(
+        recipeId: widget.id,
+        mealId: mealId,
+      ));
     } else {
-      context.read<RecipeBloc>().add(RecipeEvent.fetchRecipe(widget.id));
+      recipeBloc.add(RecipeEvent.fetchRecipe(widget.id));
     }
 
     super.initState();
@@ -88,14 +92,6 @@ class _RecipePageState extends State<RecipePage> {
                 return state.maybeMap(
                   loading: (_) => const Loader(),
                   recipeInfo: (recipeState) {
-                    final currentRecipeNutritionFact = recipeState
-                        .recipe.servingSize
-                        .toJson()
-                        .entries
-                        .firstWhere((element) =>
-                            element.key ==
-                            recipeState.currentRecipeNutritionItem.key);
-
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -110,8 +106,9 @@ class _RecipePageState extends State<RecipePage> {
                             selectedNutritionItem:
                                 recipeState.currentRecipeNutritionItem,
                             nutritionValuesList:
-                                recipeState.recipe.servingSize.list,
-                            nutritionValue: currentRecipeNutritionFact.value,
+                                recipeState.recipe.nutritionValues,
+                            nutritionValue:
+                                recipeState.currentRecipeNutritionItem.value,
                             onNutritionFactSelect: _onNutritionFactSelect),
                         RecipeList(
                           nutritionKey:
@@ -185,6 +182,8 @@ class _RecipePageState extends State<RecipePage> {
     final recipeState = state.mapOrNull(recipeInfo: (s) => s.recipe);
 
     if (recipeState == null) return;
+
+    _servingController = TextEditingController(text: state.servingAmount);
 
     context.read<NutritionInstructionsBloc>()
       ..add(NutritionInstructionsEvent.setProteinDegree(

@@ -381,6 +381,7 @@ class LocalizedTexts {
 
   // Dish
   static const String createMyDish = 'createMyDish';
+  static const String logItem = 'logItem';
 }
 
 extension StringX on String {

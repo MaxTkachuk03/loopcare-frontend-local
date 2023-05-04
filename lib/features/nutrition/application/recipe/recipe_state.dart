@@ -14,4 +14,11 @@ class RecipeState with _$RecipeState {
   }) = RecipeInfo;
 
   const factory RecipeState.error(RequestError fetchError) = Error;
+
+  String get servingAmount {
+    return maybeMap(
+      recipeInfo: (s) => s.recipe.servingAmount.removeDecimalZeroFormat(),
+      orElse: () => '1',
+    );
+  }
 }

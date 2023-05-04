@@ -78,13 +78,13 @@ class MealsList extends StatelessWidget {
       return;
     }
     if (item.type == 'dish') {
-      context.router.push(
-        const DishRoute(
-            // id: item.id,
-            // name: item.name,
-            // isMealRecipe: true,
-            ),
-      );
+      // context.router.push(
+      //   const DishDetailsRoute(
+      //       // id: item.id,
+      //       // name: item.name,
+      //       // isMealRecipe: true,
+      //       ),
+      // );
 
       return;
     }
