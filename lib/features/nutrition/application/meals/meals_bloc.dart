@@ -12,7 +12,6 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_m
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
-import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_dish_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_serving.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
@@ -148,35 +147,35 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     );
   }
 
-  FutureOr<void> _onAddDishToMeal(
-    AddDishToMeal event,
-    Emitter<MealsState> emit,
-  ) async {
-    await state.mapOrNull(
-      mealsInfo: (state) async {
-        const numberOfUnits = 1;
-        final dishId = event.dishId;
+  // FutureOr<void> _onAddDishToMeal(
+  //   AddDishToMeal event,
+  //   Emitter<MealsState> emit,
+  // ) async {
+  //   await state.mapOrNull(
+  //     mealsInfo: (state) async {
+  //       const numberOfUnits = 1;
+  //       final dishId = event.dishId;
 
-        var data = AddDishToMealBody(
-          numberOfUnits: numberOfUnits,
-          dishId: int.parse(dishId),
-        );
+  //       var data = AddDishToMealBody(
+  //         numberOfUnits: numberOfUnits,
+  //         dishId: int.parse(dishId),
+  //       );
 
-        final response = await nutritionService.addDishToMeal(
-          mealId: event.mealId,
-          data: data,
-        );
+  //       final response = await nutritionService.addDishToMeal(
+  //         mealId: event.mealId,
+  //         data: data,
+  //       );
 
-        response.fold((l) => null, (r) {
-          emit(
-            state.copyWith(
-              meals: r.data.toIList(),
-            ),
-          );
-        });
-      },
-    );
-  }
+  //       response.fold((l) => null, (r) {
+  //         emit(
+  //           state.copyWith(
+  //             meals: r.data.toIList(),
+  //           ),
+  //         );
+  //       });
+  //     },
+  //   );
+  // }
 
   FutureOr<void> _onAddRecipeToMeal(
     AddRecipeToMeal event,
@@ -473,6 +472,25 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         return state.meals.removeWhere((e) => e.id == mealItem).toIList();
       },
       orElse: () => <MealsListItem>[].toIList(),
+    );
+  }
+
+  FutureOr<void> _onAddDishToMeal(
+    AddDishToMeal event,
+    Emitter<MealsState> emit,
+  ) async {
+    await state.mapOrNull(
+      mealsInfo: (state) async {
+        final mealsList = state.meals.map((meal) {
+          return meal.id == event.meal.id ? event.meal : meal;
+        }).toIList();
+
+        emit(
+          state.copyWith(
+            meals: mealsList,
+          ),
+        );
+      },
     );
   }
 }

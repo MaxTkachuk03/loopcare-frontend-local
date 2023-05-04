@@ -10,7 +10,7 @@ abstract class AddDishToMealBody implements _$AddDishToMealBody {
 
   const factory AddDishToMealBody({
     required int dishId,
-    required int numberOfUnits,
+    required double numberOfUnits,
   }) = _AddDishToMealBody;
 
   factory AddDishToMealBody.fromJson(Map<String, dynamic> json) =>

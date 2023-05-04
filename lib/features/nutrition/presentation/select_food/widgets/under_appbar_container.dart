@@ -1,9 +1,19 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/dish_food_item/dish_food_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/nutrition_field/nutrition_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/underlined_tab_bar.dart';
 
@@ -17,13 +27,11 @@ class UnderAppBarContainer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Column(
         children: [
-          const SizedBox(
-            height: 8.0,
-          ),
+          const SizedBox(height: 8.0),
           SizedBox(
             height: 38,
             child: InkWell(
-              onTap: () => context.router.pushNamed(AppRoutes.search),
+              onTap: _onSearchTap(context),
               child: IgnorePointer(
                 child: NutritionField(
                   readOnly: true,
@@ -38,9 +46,7 @@ class UnderAppBarContainer extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 18.0,
-          ),
+          const SizedBox(height: 18.0),
           SizedBox(
             height: 24,
             child: Row(
@@ -71,10 +77,60 @@ class UnderAppBarContainer extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(
-            height: 24.0,
-          ),
+          const SizedBox(height: 24.0),
         ],
+      ),
+    );
+  }
+
+  _onSearchTap(BuildContext context) {
+    context.router.push(
+      SearchRoute(
+        onItemTap: (SearchItem item) {
+          var mealBloc = context.read<MealsBloc>();
+          var mealId = mealBloc.state.getCurrentMealId;
+          if (mealId != null) {
+            if (item.type == SearchItemTypes.recipe) {
+            } else if (item.type == SearchItemTypes.dish) {
+              context.router.push(
+                DishDetailsRoute(
+                  selectedDish: Dish(
+                    id: 1,
+                    numberOfServings: 1,
+                    name: 'name',
+                    foodItems: <DishFoodItem>[],
+                    mealCategories: <MealCategory>[],
+                    recipeId: null,
+                    calorieDensity: 0,
+                    proteinDegree: 0,
+                    createdAt: DateTime.now(),
+                    updatedAt: DateTime.now(),
+                    serving: const ServingSize(
+                      calcium: 0,
+                      calories: 0,
+                      carbohydrate: 0,
+                      cholesterol: 0,
+                      fat: 0,
+                      fiber: 0,
+                      iron: 0,
+                      monounsaturatedFat: 0,
+                      numberOfUnits: 0,
+                      polyunsaturatedFat: 0,
+                      potassium: 0,
+                      protein: 0,
+                      saturatedFat: 0,
+                      sodium: 0,
+                      sugar: 0,
+                      transFat: 0,
+                      vitaminA: 0,
+                      vitaminC: 0,
+                    ),
+                  ),
+                ),
+              );
+            }
+          }
+        },
       ),
     );
   }

@@ -4,9 +4,15 @@ part of 'select_food_bloc.dart';
 class SelectFoodEvent with _$SelectFoodEvent {
   const factory SelectFoodEvent.fetchFavorites() = FetchFavorites;
 
+  const factory SelectFoodEvent.fetchDishes() = FetchDishes;
+
   const factory SelectFoodEvent.filterFavorites(
     IList<MealCategoryFilter> filtersList,
   ) = FilterFavorites;
+
+  const factory SelectFoodEvent.filterDishes(
+    IList<MealCategoryFilter> filtersList,
+  ) = FilterDishes;
 
   const factory SelectFoodEvent.itemAdded(FoodItem foodItem) = ItemAdded;
 
