@@ -22,11 +22,11 @@ import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_p
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_amount/servings_amount.dart';
 
 class DishDetailsPage extends StatefulWidget {
-  final Dish selectedDish;
+  final int dishId;
 
   const DishDetailsPage({
     Key? key,
-    required this.selectedDish,
+    required this.dishId,
   }) : super(key: key);
 
   @override
@@ -38,18 +38,19 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
 
   @override
   void initState() {
-    context.read<DishBloc>().add(DishEvent.setCurrentDish(widget.selectedDish));
+    final dishBloc = context.read<DishBloc>();
 
-    _servingController.text =
-        widget.selectedDish.serving.numberOfUnits.toString();
+    dishBloc.add(DishEvent.getClonedDish(widget.dishId));
 
-    context.read<NutritionInstructionsBloc>()
-      ..add(NutritionInstructionsEvent.setCalorieDensity(
-        widget.selectedDish.calorieDensity,
-      ))
-      ..add(NutritionInstructionsEvent.setProteinDegree(
-        widget.selectedDish.proteinDegree,
-      ));
+    _servingController =
+        TextEditingController(text: dishBloc.state.servingAmount);
+    // context.read<NutritionInstructionsBloc>()
+    //   ..add(NutritionInstructionsEvent.setCalorieDensity(
+    //     widget.selectedDish.calorieDensity,
+    //   ))
+    //   ..add(NutritionInstructionsEvent.setProteinDegree(
+    //     widget.selectedDish.proteinDegree,
+    //   ));
 
     super.initState();
   }
@@ -61,9 +62,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
     super.dispose();
   }
 
-  void _onServingChanges(String val) {
-    // TODO implement logic on serving update
-  }
+  void _onServingChanges(String _) {}
 
   void _onNutritionFactSelect(NutritionItem item) {
     context.read<DishBloc>().add(DishEvent.nutritionItemChanged(item));
@@ -109,15 +108,18 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
     return MultiBlocListener(
       listeners: [
         BlocListener<DishBloc, DishState>(
-          listener: _dishListener,
-          listenWhen: (previous, current) =>
-              previous is Loading && current is Dish,
-        ),
+            listener: _dishListener,
+            listenWhen: (previous, current) {
+              return previous is Loading && current is Dish;
+            }),
       ],
       child: Scaffold(
         appBar: BlueAppBar(
           isCustomLeading: true,
-          title: widget.selectedDish.name,
+          title: context
+              .watch<DishBloc>()
+              .state
+              .mapOrNull(dish: (s) => s.selectedDish.name),
           subtitle: LocalizedTexts.myDish.translation,
         ),
         body: SafeArea(

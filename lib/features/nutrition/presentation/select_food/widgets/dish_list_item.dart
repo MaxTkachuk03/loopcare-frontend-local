@@ -44,6 +44,6 @@ class DishListItem extends StatelessWidget {
   }
 
   _onTap(BuildContext context, Dish item) {
-    context.router.push(DishDetailsRoute(selectedDish: item));
+    context.router.push(DishDetailsRoute(dishId: item.id));
   }
 }

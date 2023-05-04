@@ -3,12 +3,13 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/clone_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/dish_food_item/dish_food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 
@@ -27,11 +28,10 @@ class DishBloc extends Bloc<DishEvent, DishState> {
     this.nutritionService,
     this.mealsBloc,
   ) : super(const DishState.initial()) {
-    on<SetCurrentDish>(_onSetCurrentDish);
+    on<GetClonedDish>(_onGetClonedDish);
     on<NutritionItemChanged>(_onNutritionItemChanged);
     on<UpdateFoodItemInDish>(_onUpdateFoodItemInDish);
     on<DeleteFoodItemFromDish>(_onDeleteFoodItemFromDish);
-    on<DeleteFoodItemFromDishLocally>(_onDeleteFoodItemFromDishLocally);
     on<AddToMeal>(_onAddToMeal);
   }
 
@@ -51,18 +51,32 @@ class DishBloc extends Bloc<DishEvent, DishState> {
     );
   }
 
-  FutureOr<void> _onSetCurrentDish(
-    SetCurrentDish event,
+  FutureOr<void> _onGetClonedDish(
+    GetClonedDish event,
     Emitter<DishState> emit,
   ) async {
     emit(const DishState.loading());
 
-    emit(
-      DishState.dish(
-        selectedDish: event.dish,
-        currentNutritionItem: event.dish.serving.list
-            .firstWhere((e) => e.key == NutritionValuesTypes.calories.name),
-      ),
+    final response = await nutritionService.cloneDish(
+      CloneDishBody(dishId: event.dishId),
+    );
+
+    response.fold(
+      (e) {
+        emit(DishState.error(e));
+      },
+      (r) {
+        final Dish selectedDish = _createDish(r);
+
+        final updatedNutritionItem = selectedDish.serving.list
+            .firstWhere((e) => e.key == NutritionValuesTypes.calories.name);
+
+        emit(DishState.dish(
+          originalDishId: event.dishId,
+          selectedDish: selectedDish,
+          currentNutritionItem: updatedNutritionItem,
+        ));
+      },
     );
   }
 
@@ -133,37 +147,6 @@ class DishBloc extends Bloc<DishEvent, DishState> {
             ),
           );
         },
-      );
-    });
-  }
-
-  FutureOr<void> _onDeleteFoodItemFromDishLocally(
-    DeleteFoodItemFromDishLocally event,
-    Emitter<DishState> emit,
-  ) async {
-    await state.mapOrNull(dish: (state) async {
-      final List<DishFoodItem> dishFoodItems = state.selectedDish.foodItems
-          .where((e) => e.id != event.foodItemId)
-          .toList();
-
-      final selectedDish = Dish(
-        id: state.selectedDish.id,
-        calorieDensity: state.selectedDish.calorieDensity,
-        proteinDegree: state.selectedDish.proteinDegree,
-        numberOfServings: state.selectedDish.numberOfServings,
-        name: state.selectedDish.name,
-        foodItems: dishFoodItems,
-        mealCategories: state.selectedDish.mealCategories,
-        recipeId: state.selectedDish.recipeId,
-        createdAt: state.selectedDish.createdAt,
-        updatedAt: state.selectedDish.updatedAt,
-        serving: state.selectedDish.serving,
-      );
-
-      emit(
-        state.copyWith(
-          selectedDish: selectedDish,
-        ),
       );
     });
   }
