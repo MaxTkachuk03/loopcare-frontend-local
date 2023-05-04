@@ -2,11 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_food_item/dish_food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/recipe_food_item/recipe_food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/food_list_item/food_list_item.dart';
 
 class DishList extends StatelessWidget {
@@ -49,6 +49,7 @@ class DishList extends StatelessWidget {
   }
 
   void _onDeletePressed(BuildContext context, FoodItem item) {
+    // TODO implement delete foodItem from the dish
     final mealId = context.read<MealsBloc>().state.getCurrentMealId;
 
     if (mealId == null) return;
@@ -66,27 +67,30 @@ class DishList extends StatelessWidget {
 
     if (servingId == null) return;
 
-    // context.router.push(
-    //   SelectServingRoute(
-    //     foodItemId: item.externalId,
-    //     initialServingId: servingId,
-    //     initialServingAmount: item.serving.numberOfUnits,
-    //     foodItemName: item.foodName,
-    //     onConfirm: (double numberOfUnits, String servingId) {
-    //       final mealId = context.read<MealsBloc>().state.getCurrentMealId;
-    //
-    //       if (mealId == null) return;
-    //
-    //       context.read<RecipeBloc>().add(
-    //             RecipeEvent.updateFoodItemFromRecipe(
-    //               mealId: mealId,
-    //               foodItemId: item.id,
-    //               numberOfUnits: numberOfUnits,
-    //               servingId: servingId,
-    //             ),
-    //           );
-    //     },
-    //   ),
-    // );
+    context.router.push(
+      SelectServingRoute(
+        foodItemId: item.externalId,
+        initialServingId: servingId,
+        initialServingAmount: item.serving.numberOfUnits,
+        foodItemName: item.foodName,
+        onConfirm: (double numberOfUnits, String servingId) {
+          final dishId = context
+              .read<DishBloc>()
+              .state
+              .mapOrNull(dish: (s) => s.selectedDish.id);
+
+          if (dishId == null) return;
+
+          context.read<DishBloc>().add(
+                DishEvent.updateFoodItemInDish(
+                  dishId: dishId,
+                  internalFoodItemId: item.id.toString(),
+                  numberOfUnits: numberOfUnits,
+                  servingId: servingId,
+                ),
+              );
+        },
+      ),
+    );
   }
 }

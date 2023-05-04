@@ -6,4 +6,11 @@ class DishEvent with _$DishEvent {
 
   const factory DishEvent.nutritionItemChanged(NutritionItem item) =
       NutritionItemChanged;
+
+  const factory DishEvent.updateFoodItemInDish({
+    required int dishId,
+    required String internalFoodItemId,
+    required double numberOfUnits,
+    required String servingId,
+  }) = UpdateFoodItemInDish;
 }

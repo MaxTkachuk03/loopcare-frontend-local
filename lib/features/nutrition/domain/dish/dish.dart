@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_serving.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_food_item/dish_food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';

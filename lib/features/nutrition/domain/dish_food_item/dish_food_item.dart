@@ -11,6 +11,7 @@ abstract class DishFoodItem implements _$DishFoodItem {
 
   const factory DishFoodItem({
     required int id,
+    required String externalId,
     required String foodName,
     required String brandName,
     required double calorieDensity,

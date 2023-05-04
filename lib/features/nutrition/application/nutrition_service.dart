@@ -3,6 +3,8 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/get_dashboard_weights_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
@@ -149,5 +151,11 @@ abstract class NutritionService {
 
   Future<Either<RequestError, GetDishesResponse>> getDishes(
     List<String>? mealCategories,
+  );
+
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> updateFoodItemInDish(
+    int dishId,
+    String internalFoodItemId,
+    UpdateFoodItemInDishBody data,
   );
 }
