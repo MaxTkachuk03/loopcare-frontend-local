@@ -4,7 +4,9 @@ import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dish_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
@@ -88,6 +90,16 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
           dishState.calorieDensity));
   }
 
+  _onLogDishHandler() {
+    final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+
+    if (mealId == null) return;
+
+    final numberOfServings = _servingController.text;
+
+    context.read<DishBloc>().add(DishEvent.addToMeal(mealId, numberOfServings));
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -112,55 +124,79 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                     loading: (_) => const Loader(),
                     dish: (dishState) {
                       return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          ServingsAmount(
-                            inputController: _servingController,
-                            onValueChangeHandler: _onServingChanges,
-                          ),
-                          NutritionValuesBlock(
-                            numberOfPortions:
-                                dishState.selectedDish.numberOfServings.toInt(),
-                            nutritionValue:
-                                dishState.currentNutritionItem.value,
-                            nutritionValuesList:
-                                dishState.selectedDish.serving.list,
-                            selectedNutritionItem:
-                                dishState.currentNutritionItem,
-                            onNutritionFactSelect: _onNutritionFactSelect,
-                          ),
-                          DishList(
-                            list: dishState.selectedDish.foodItems,
-                            nutritionKey: dishState.currentNutritionItem.key,
-                          ),
-                          const NutritionBlock(),
-                          const SizedBox(height: 26.0),
-                          MainContainer(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
+                          Column(
+                            children: [
+                              ServingsAmount(
+                                inputController: _servingController,
+                                onValueChangeHandler: _onServingChanges,
+                              ),
+                              NutritionValuesBlock(
+                                numberOfPortions: dishState
+                                    .selectedDish.numberOfServings
+                                    .toInt(),
+                                nutritionValue:
+                                    dishState.currentNutritionItem.value,
+                                nutritionValuesList:
+                                    dishState.selectedDish.serving.list,
+                                selectedNutritionItem:
+                                    dishState.currentNutritionItem,
+                                onNutritionFactSelect: _onNutritionFactSelect,
+                              ),
+                              DishList(
+                                list: dishState.selectedDish.foodItems,
+                                nutritionKey:
+                                    dishState.currentNutritionItem.key,
+                              ),
+                              const NutritionBlock(),
+                              const SizedBox(height: 26.0),
+                              MainContainer(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    OutlinedRoundedButton(
-                                      text: LocalizedTexts
-                                          .addFoodItem.translation,
-                                      icon: AppIcons.plus,
-                                      onPressed: _onAddFoodItemHandler,
+                                    Row(
+                                      children: [
+                                        OutlinedRoundedButton(
+                                          text: LocalizedTexts
+                                              .addFoodItem.translation,
+                                          icon: AppIcons.plus,
+                                          onPressed: _onAddFoodItemHandler,
+                                        ),
+                                        const SizedBox(width: 16.0),
+                                        OutlinedRoundedButton(
+                                          text: LocalizedTexts
+                                              .editMyDish.translation,
+                                          icon: AppIcons.edit,
+                                          onPressed: _onEditDishHandler,
+                                        )
+                                      ],
                                     ),
-                                    OutlinedRoundedButton(
-                                      text:
-                                          LocalizedTexts.editMyDish.translation,
-                                      icon: AppIcons.edit,
-                                      onPressed: _onEditDishHandler,
-                                    )
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 16.0,
+                              )
+                            ],
+                          ),
+                          MainContainer(
+                            child: Column(
+                              children: [
+                                ElevatedButton(
+                                  onPressed: _onLogDishHandler,
+                                  style: Theme.of(context)
+                                      .elevatedButtonTheme
+                                      .style
+                                      ?.copyWith(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                AppColors.orangeDark),
+                                      ),
+                                  child: Text(
+                                    LocalizedTexts.logItem.translation,
+                                  ),
                                 ),
+                                const SizedBox(height: 30.0),
                               ],
                             ),
                           ),

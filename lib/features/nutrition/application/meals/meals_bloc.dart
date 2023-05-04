@@ -39,6 +39,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     on<CreateFromFavorites>(_onCreateFromFavorites);
     on<SetMealId>(_onSetMealId);
     on<SetCurrentDate>(_onSetCurrentDate);
+    on<AddDishToMeal>(_onAddDishToMeal);
   }
 
   FutureOr<void> _onSetCurrentDate(
@@ -405,6 +406,25 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         return state.meals.removeWhere((e) => e.id == mealItem).toIList();
       },
       orElse: () => <MealsListItem>[].toIList(),
+    );
+  }
+
+  FutureOr<void> _onAddDishToMeal(
+    AddDishToMeal event,
+    Emitter<MealsState> emit,
+  ) async {
+    await state.mapOrNull(
+      mealsInfo: (state) async {
+        final mealsList = state.meals.map((meal) {
+          return meal.id == event.meal.id ? event.meal : meal;
+        }).toIList();
+
+        emit(
+          state.copyWith(
+            meals: mealsList,
+          ),
+        );
+      },
     );
   }
 }

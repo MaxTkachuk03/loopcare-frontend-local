@@ -13,4 +13,7 @@ class DishEvent with _$DishEvent {
     required double numberOfUnits,
     required String servingId,
   }) = UpdateFoodItemInDish;
+
+  const factory DishEvent.addToMeal(int mealId, String numberOfServings) =
+      AddToMeal;
 }

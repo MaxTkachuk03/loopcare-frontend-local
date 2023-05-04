@@ -4,10 +4,13 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
+
+import 'dto/add_dish_to_meal_body.dart';
 
 part 'dish_event.dart';
 part 'dish_state.dart';
@@ -16,11 +19,16 @@ part 'dish_bloc.freezed.dart';
 @singleton
 class DishBloc extends Bloc<DishEvent, DishState> {
   final NutritionService nutritionService;
+  final MealsBloc mealsBloc;
 
-  DishBloc(this.nutritionService) : super(const DishState.initial()) {
+  DishBloc(
+    this.nutritionService,
+    this.mealsBloc,
+  ) : super(const DishState.initial()) {
     on<SetCurrentDish>(_onSetCurrentDish);
     on<NutritionItemChanged>(_onNutritionItemChanged);
     on<UpdateFoodItemInDish>(_onUpdateFoodItemInDish);
+    on<AddToMeal>(_onAddToMeal);
   }
 
   FutureOr<void> _onSetCurrentDish(
@@ -87,6 +95,27 @@ class DishBloc extends Bloc<DishEvent, DishState> {
               currentNutritionItem: updatedNutritionItem,
             ),
           );
+        },
+      );
+    });
+  }
+
+  FutureOr<void> _onAddToMeal(
+    AddToMeal event,
+    Emitter<DishState> emit,
+  ) async {
+    await state.mapOrNull(dish: (state) async {
+      final data = AddDishToMealBody(
+        dishId: state.selectedDish.id,
+        numberOfUnits: double.parse(event.numberOfServings),
+      );
+
+      final response = await nutritionService.addDishToMeal(event.mealId, data);
+
+      response.fold(
+        (l) => null,
+        (r) {
+          mealsBloc.add(MealsEvent.addDishToMeal(r));
         },
       );
     });
