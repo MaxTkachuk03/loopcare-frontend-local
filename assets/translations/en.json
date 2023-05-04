@@ -222,6 +222,7 @@
   "myFavorites": "My favorites",
   "my": "My",
   "myDishes": "My dishes",
+  "dishes": "dishes",
   "scan": "Scan",
   "myLunchFavorites": "My lunch favorites",
   "myLunchDishes": "My lunch dishes",
@@ -295,5 +296,7 @@
   "mind": "Mind",
   "activity": "Activity",
   "noMealsLogged": "No meals logged",
-  "noMealsLoggedYet": "No meals logged yet"
+  "noMealsLoggedYet": "No meals logged yet",
+  "createMyDish": "Create my dish",
+  "logItem": "Log item"
 }

@@ -46,4 +46,8 @@ class MealsEvent with _$MealsEvent {
   const factory MealsEvent.setCurrentDate(
     DateTime currentDate,
   ) = SetCurrentDate;
+
+  const factory MealsEvent.addDishToMeal(
+    MealsListItem meal,
+  ) = AddDishToMeal;
 }

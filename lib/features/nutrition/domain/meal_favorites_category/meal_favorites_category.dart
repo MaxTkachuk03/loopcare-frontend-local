@@ -1,13 +1,6 @@
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 
-enum MealFavoritesCategory {
-  breakfast,
-  lunch,
-  dinner,
-  inbetweens,
-  drinks,
-  all
-}
+enum MealFavoritesCategory { breakfast, lunch, dinner, inbetweens, drinks, all }
 
 extension MealFavoritesCategoryExtension on MealFavoritesCategory {
   String get name {
@@ -22,7 +15,7 @@ extension MealFavoritesCategoryExtension on MealFavoritesCategory {
         return '${LocalizedTexts.inbetweens.translation} ${LocalizedTexts.favorites.translation}';
       case MealFavoritesCategory.drinks:
         return '${LocalizedTexts.drinks.translation} ${LocalizedTexts.favorites.translation}';
-        case MealFavoritesCategory.all:
+      case MealFavoritesCategory.all:
         return '${LocalizedTexts.allMy.translation} ${LocalizedTexts.favorites.translation}';
       default:
         return '';
@@ -41,6 +34,23 @@ extension MealFavoritesCategoryExtension on MealFavoritesCategory {
         return LocalizedTexts.inbetweens.translation.toLowerCase();
       case MealFavoritesCategory.drinks:
         return LocalizedTexts.drinks.translation.toLowerCase();
+      default:
+        return null;
+    }
+  }
+
+  String? get value {
+    switch (this) {
+      case MealFavoritesCategory.breakfast:
+        return 'breakfast';
+      case MealFavoritesCategory.lunch:
+        return 'lunch';
+      case MealFavoritesCategory.dinner:
+        return 'dinner';
+      case MealFavoritesCategory.inbetweens:
+        return 'inbetweens & snacks';
+      case MealFavoritesCategory.drinks:
+        return 'drinks';
       default:
         return null;
     }

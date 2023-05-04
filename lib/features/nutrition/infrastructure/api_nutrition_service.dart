@@ -6,6 +6,9 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/get_dashboard_weights_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_dish_to_meal_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
@@ -20,6 +23,7 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/dto/values_explanation_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_food/dto/get_dishes_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_servings_response.dart';
@@ -40,18 +44,11 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, FavoritesResponse>> getFavorites() async {
-    return client
-        .get('/food-items/favorites')
-        .then(parseResponse(FavoritesResponse.fromJson));
-  }
-
-  @override
-  Future<Either<RequestError, FavoritesResponse>> getFilteredFavorites(
-    List<String> mealCategories,
+  Future<Either<RequestError, FavoritesResponse>> getFavorites(
+    List<String>? mealCategories,
   ) async {
     return client.get('/food-items/favorites', queryParameters: {
-      "mealCategories": mealCategories,
+      "mealCategories": mealCategories ?? [],
     }).then(parseResponse(FavoritesResponse.fromJson));
   }
 
@@ -291,5 +288,47 @@ class APINutritionService implements NutritionService {
     return client
         .post('/weight/log', data: data)
         .then(parseResponse(LogWeightResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, GetDishesResponse>> getDishes(
+    List<String>? mealCategories,
+  ) {
+    return client.get(
+      '/dishes',
+      queryParameters: {"mealCategories": mealCategories ?? []},
+    ).then(parseResponse(GetDishesResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> updateFoodItemInDish(
+    int dishId,
+    String internalFoodItemId,
+    UpdateFoodItemInDishBody data,
+  ) {
+    return client
+        .patch('/dishes/$dishId/food-items/$internalFoodItemId', data: data)
+        .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, UpdateDishFoodItemResponse>>
+      deleteFoodItemFromDish(
+    int dishId,
+    String internalFoodItemId,
+  ) {
+    return client
+        .delete('/dishes/$dishId/food-items/$internalFoodItemId')
+        .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, MealsListItem>> addDishToMeal(
+    int mealId,
+    AddDishToMealBody data,
+  ) {
+    return client
+        .post('/meals/$mealId/dishes', data: data)
+        .then(parseResponse(MealsListItem.fromJson));
   }
 }
