@@ -13,7 +13,7 @@ class UpdateDishFoodItemResponse {
   final double numberOfServings;
   final String name;
   final List<DishFoodItem> foodItems;
-  final MealCategory mealCategory;
+  final List<MealCategory> mealCategories;
   final int? recipeId;
   final double calorieDensity;
   final double proteinDegree;
@@ -26,7 +26,7 @@ class UpdateDishFoodItemResponse {
     this.numberOfServings,
     this.name,
     this.foodItems,
-    this.mealCategory,
+    this.mealCategories,
     this.recipeId,
     this.calorieDensity,
     this.proteinDegree,

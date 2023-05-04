@@ -160,6 +160,12 @@ abstract class NutritionService {
     UpdateFoodItemInDishBody data,
   );
 
+  Future<Either<RequestError, UpdateDishFoodItemResponse>>
+      deleteFoodItemFromDish(
+    int dishId,
+    String internalFoodItemId,
+  );
+
   Future<Either<RequestError, MealsListItem>> addDishToMeal(
     int mealId,
     AddDishToMealBody data,

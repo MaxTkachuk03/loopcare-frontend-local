@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dish_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_food_item/dish_food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/food_list_item/food_list_item.dart';
@@ -49,17 +47,9 @@ class DishList extends StatelessWidget {
   }
 
   void _onDeletePressed(BuildContext context, FoodItem item) {
-    // TODO implement delete foodItem from the dish
-    final mealId = context.read<MealsBloc>().state.getCurrentMealId;
-
-    if (mealId == null) return;
-
-    context.read<RecipeBloc>().add(
-          RecipeEvent.removeFoodItemFromRecipe(
-            mealId: mealId,
-            foodItemId: item.id,
-          ),
-        );
+    // Original dish is not affected, only local version
+    context.read<DishBloc>().add(DishEvent.deleteFoodItemFromDishLocally(
+        foodItemId: int.parse(item.id)));
   }
 
   _onTap(BuildContext context, DishFoodItem item) {

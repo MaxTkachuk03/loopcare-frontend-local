@@ -14,6 +14,15 @@ class DishEvent with _$DishEvent {
     required String servingId,
   }) = UpdateFoodItemInDish;
 
+  const factory DishEvent.deleteFoodItemFromDish({
+    required int dishId,
+    required String internalFoodItemId,
+  }) = DeleteFoodItemFromDish;
+
+  const factory DishEvent.deleteFoodItemFromDishLocally({
+    required int foodItemId,
+  }) = DeleteFoodItemFromDishLocally;
+
   const factory DishEvent.addToMeal(int mealId, String numberOfServings) =
       AddToMeal;
 }

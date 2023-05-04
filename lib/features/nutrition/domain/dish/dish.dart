@@ -16,7 +16,7 @@ abstract class Dish implements _$Dish {
     required double numberOfServings,
     required String name,
     required List<DishFoodItem> foodItems,
-    required MealCategory mealCategory,
+    required List<MealCategory> mealCategories,
     required int? recipeId,
     required double calorieDensity,
     required double proteinDegree,

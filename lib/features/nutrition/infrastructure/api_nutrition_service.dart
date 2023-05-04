@@ -312,6 +312,17 @@ class APINutritionService implements NutritionService {
   }
 
   @override
+  Future<Either<RequestError, UpdateDishFoodItemResponse>>
+      deleteFoodItemFromDish(
+    int dishId,
+    String internalFoodItemId,
+  ) {
+    return client
+        .delete('/dishes/$dishId/food-items/$internalFoodItemId')
+        .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
+  }
+
+  @override
   Future<Either<RequestError, MealsListItem>> addDishToMeal(
     int mealId,
     AddDishToMealBody data,
