@@ -6,14 +6,9 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/dish_food_item/dish_food_item.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/nutrition_field/nutrition_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/underlined_tab_bar.dart';
 
@@ -31,7 +26,7 @@ class UnderAppBarContainer extends StatelessWidget {
           SizedBox(
             height: 38,
             child: InkWell(
-              onTap: _onSearchTap(context),
+              onTap: () => _onSearchTap(context),
               child: IgnorePointer(
                 child: NutritionField(
                   readOnly: true,
