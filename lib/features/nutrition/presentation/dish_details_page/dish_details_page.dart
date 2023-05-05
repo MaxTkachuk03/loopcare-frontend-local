@@ -7,7 +7,6 @@ import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
@@ -193,20 +192,21 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                         MainContainer(
                           child: Column(
                             children: [
-                              ElevatedButton(
-                                onPressed: _onLogDishHandler,
-                                style: Theme.of(context)
-                                    .elevatedButtonTheme
-                                    .style
-                                    ?.copyWith(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              AppColors.orangeDark),
-                                    ),
-                                child: Text(
-                                  LocalizedTexts.logItem.translation,
-                                ),
-                              ),
+                              BlocBuilder<DishBloc, DishState>(
+                                  builder: (BuildContext context, state) {
+                                return state.maybeMap(
+                                    dish: (dishState) {
+                                      return ElevatedButton(
+                                        onPressed: dishState.hasFoodItems
+                                            ? _onLogDishHandler
+                                            : null,
+                                        child: Text(
+                                          LocalizedTexts.logItem.translation,
+                                        ),
+                                      );
+                                    },
+                                    orElse: () => const SizedBox.shrink());
+                              }),
                               const SizedBox(height: 30.0),
                             ],
                           ),
