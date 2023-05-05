@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/features/nutrition/application/dashboard_weigh
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_response.dart';
 
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_dish_to_meal_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_food_item_to_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/clone_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
@@ -186,5 +187,10 @@ abstract class NutritionService {
 
   Future<Either<RequestError, UpdateDishFoodItemResponse>> deleteDish(
     int dishId,
+  );
+
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> addFoodItemToDish(
+    int dishId,
+    AddFoodItemToDishBody data,
   );
 }

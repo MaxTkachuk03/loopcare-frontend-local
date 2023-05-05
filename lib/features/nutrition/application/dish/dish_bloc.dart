@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_food_item_to_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/clone_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
@@ -40,6 +41,7 @@ class DishBloc extends Bloc<DishEvent, DishState> {
     on<DeleteFoodItemFromDish>(_onDeleteFoodItemFromDish);
     on<AddToMeal>(_onAddToMeal);
     on<DeleteOriginalDish>(_onDeleteOriginalDish);
+    on<AddFoodItemToDish>(_onAddFoodItemToDish);
   }
 
   Dish _createDish(UpdateDishFoodItemResponse data) {
@@ -209,5 +211,41 @@ class DishBloc extends Bloc<DishEvent, DishState> {
         selectFoodBloc.add(SelectFoodEvent.removeDish(r));
       },
     );
+  }
+
+  FutureOr<void> _onAddFoodItemToDish(
+    AddFoodItemToDish event,
+    Emitter<DishState> emit,
+  ) async {
+    await state.mapOrNull(dish: (state) async {
+      final dishId = state.selectedDish.id;
+
+      final data = AddFoodItemToDishBody(
+        numberOfUnits: event.numberOfUnits,
+        servingId: event.servingId,
+        externalFoodItemId: event.externalFoodItemId,
+      );
+
+      final response = await nutritionService.addFoodItemToDish(dishId, data);
+
+      response.fold(
+        (l) => null,
+        (r) {
+          final Dish selectedDish = _createDish(r);
+
+          final updatedNutritionItem = selectedDish.serving.list
+              .firstWhere((e) => e.key == state.currentNutritionItem.key);
+
+          _setNutritionFacts(selectedDish);
+
+          emit(
+            state.copyWith(
+              selectedDish: selectedDish,
+              currentNutritionItem: updatedNutritionItem,
+            ),
+          );
+        },
+      );
+    });
   }
 }

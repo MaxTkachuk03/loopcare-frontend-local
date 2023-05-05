@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/features/nutrition/application/dashboard_weigh
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_response.dart';
 
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_dish_to_meal_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_food_item_to_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/clone_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
@@ -368,6 +369,16 @@ class APINutritionService implements NutritionService {
   ) {
     return client
         .delete('/dishes/$dishId')
+        .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> addFoodItemToDish(
+    int dishId,
+    AddFoodItemToDishBody data,
+  ) {
+    return client
+        .post('/dishes/$dishId/food-item', data: data)
         .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
   }
 }
