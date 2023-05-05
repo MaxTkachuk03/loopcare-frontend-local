@@ -95,7 +95,9 @@ class UnderAppBarContainer extends StatelessWidget {
                 foodItemName: item.name,
                 initialServingAmount: 1,
                 initialServingId: null,
-                onConfirm: (double a, String b) {},
+                onConfirm: (double a, String b) {
+                  //TODO add selected food item to the meal
+                },
               ),
             );
           } else if (item.type == SearchItemTypes.recipe) {

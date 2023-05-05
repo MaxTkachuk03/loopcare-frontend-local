@@ -82,20 +82,20 @@ class FoodItemServingsBloc
       (r) {
         IList<FoodItemServing> servingList;
         // TODO how to refactor this code
-        if (event.selectedItemId == null) {
+        if (event.selectedServingId == null) {
           servingList = r.data.toIList();
         } else {
           servingList = r.data
-              .map((e) => e.servingId == event.selectedItemId
+              .map((e) => e.servingId == event.selectedServingId
                   ? e.copyWith(numberOfUnits: event.initialServingAmount)
                   : e)
               .toIList();
         }
 
-        final selectedServing = event.selectedItemId == null
+        final selectedServing = event.selectedServingId == null
             ? servingList[0]
             : servingList
-                .firstWhere((e) => e.servingId == event.selectedItemId);
+                .firstWhere((e) => e.servingId == event.selectedServingId);
 
         emit(
           FoodItemServingsState.foodItemServings(
