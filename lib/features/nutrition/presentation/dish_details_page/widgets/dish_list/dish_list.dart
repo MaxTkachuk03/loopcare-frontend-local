@@ -47,9 +47,17 @@ class DishList extends StatelessWidget {
   }
 
   void _onDeletePressed(BuildContext context, FoodItem item) {
-    // Original dish is not affected, only local version
-    context.read<DishBloc>().add(DishEvent.deleteFoodItemFromDishLocally(
-        foodItemId: int.parse(item.id)));
+    final dishId = context
+        .read<DishBloc>()
+        .state
+        .mapOrNull(dish: (s) => s.selectedDish.id);
+
+    if (dishId == null) return;
+
+    context.read<DishBloc>().add(DishEvent.deleteFoodItemFromDish(
+          dishId: dishId,
+          internalFoodItemId: int.parse(item.id),
+        ));
   }
 
   _onTap(BuildContext context, DishFoodItem item) {

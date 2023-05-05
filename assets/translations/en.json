@@ -298,5 +298,6 @@
   "noMealsLogged": "No meals logged",
   "noMealsLoggedYet": "No meals logged yet",
   "createMyDish": "Create my dish",
-  "logItem": "Log item"
+  "logItem": "Log item",
+  "deleteDish": "Delete this dish"
 }

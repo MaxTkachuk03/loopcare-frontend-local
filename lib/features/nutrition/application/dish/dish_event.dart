@@ -2,7 +2,7 @@ part of 'dish_bloc.dart';
 
 @freezed
 class DishEvent with _$DishEvent {
-  const factory DishEvent.setCurrentDish(Dish dish) = SetCurrentDish;
+  const factory DishEvent.getClonedDish(int dishId) = GetClonedDish;
 
   const factory DishEvent.nutritionItemChanged(NutritionItem item) =
       NutritionItemChanged;
@@ -16,13 +16,11 @@ class DishEvent with _$DishEvent {
 
   const factory DishEvent.deleteFoodItemFromDish({
     required int dishId,
-    required String internalFoodItemId,
+    required int internalFoodItemId,
   }) = DeleteFoodItemFromDish;
-
-  const factory DishEvent.deleteFoodItemFromDishLocally({
-    required int foodItemId,
-  }) = DeleteFoodItemFromDishLocally;
 
   const factory DishEvent.addToMeal(int mealId, String numberOfServings) =
       AddToMeal;
+
+  const factory DishEvent.deleteOriginalDish() = DeleteOriginalDish;
 }

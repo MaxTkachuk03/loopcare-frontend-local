@@ -8,8 +8,18 @@ class DishState with _$DishState {
 
   const factory DishState.loading() = _Loading;
 
+  const factory DishState.error(RequestError fetchError) = _Error;
+
   const factory DishState.dish({
     required Dish selectedDish,
+    required int originalDishId,
     required NutritionItem currentNutritionItem,
   }) = _Dish;
+
+  String get servingAmount {
+    return maybeMap(
+      dish: (s) => s.selectedDish.serving.numberOfUnits.toString(),
+      orElse: () => '1',
+    );
+  }
 }
