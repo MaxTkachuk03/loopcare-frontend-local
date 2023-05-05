@@ -110,38 +110,7 @@ class UnderAppBarContainer extends StatelessWidget {
             } else if (item.type == SearchItemTypes.dish) {
               context.router.push(
                 DishDetailsRoute(
-                  selectedDish: Dish(
-                    id: 1,
-                    numberOfServings: 1,
-                    name: 'name',
-                    foodItems: <DishFoodItem>[],
-                    mealCategories: <MealCategory>[],
-                    recipeId: null,
-                    calorieDensity: 0,
-                    proteinDegree: 0,
-                    createdAt: DateTime.now(),
-                    updatedAt: DateTime.now(),
-                    serving: const ServingSize(
-                      calcium: 0,
-                      calories: 0,
-                      carbohydrate: 0,
-                      cholesterol: 0,
-                      fat: 0,
-                      fiber: 0,
-                      iron: 0,
-                      monounsaturatedFat: 0,
-                      numberOfUnits: 0,
-                      polyunsaturatedFat: 0,
-                      potassium: 0,
-                      protein: 0,
-                      saturatedFat: 0,
-                      sodium: 0,
-                      sugar: 0,
-                      transFat: 0,
-                      vitaminA: 0,
-                      vitaminC: 0,
-                    ),
-                  ),
+                  dishId: int.parse(item.id),
                 ),
               );
             }
