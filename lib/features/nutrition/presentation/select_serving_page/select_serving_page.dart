@@ -34,13 +34,13 @@ class SelectServingPage extends StatefulWidget {
 class _SelectServingPageState extends State<SelectServingPage> {
   @override
   void initState() {
-    context
-        .read<FoodItemServingsBloc>()
-        .add(FoodItemServingsEvent.fetchFoodItemServings(
-          widget.foodItemId,
-          widget.initialServingId,
-          widget.initialServingAmount,
-        ));
+    context.read<FoodItemServingsBloc>().add(
+          FoodItemServingsEvent.fetchFoodItemServings(
+            widget.foodItemId,
+            widget.initialServingId,
+            widget.initialServingAmount,
+          ),
+        );
 
     super.initState();
   }

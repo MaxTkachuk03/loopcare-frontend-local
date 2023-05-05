@@ -77,25 +77,28 @@ class FoodItemServingsBloc
     final response =
         await nutritionService.getFoodItemServings(event.foodItemId);
 
-    response.fold((l) => null, (r) {
-      final servingList = r.data
-          .map((e) => e.servingId == event.selectedItemId
-              ? e.copyWith(numberOfUnits: event.initialServingAmount)
-              : e)
-          .toList();
+    response.fold(
+      (l) => null,
+      (r) {
+        final servingList = r.data
+            .map((e) => e.servingId == event.selectedItemId
+                ? e.copyWith(numberOfUnits: event.initialServingAmount)
+                : e)
+            .toList();
 
-      final selectedServing =
-          servingList.firstWhere((e) => e.servingId == event.selectedItemId);
+        final selectedServing =
+            servingList.firstWhere((e) => e.servingId == event.selectedItemId);
 
-      emit(
-        FoodItemServingsState.foodItemServings(
-          servings: servingList.toIList(),
-          mealCategoryFilters: _initializeMealCategoryFilters(),
-          selectedServingAmount: selectedServing.numberOfUnits.toString(),
-          selectedServing: selectedServing,
-        ),
-      );
-    });
+        emit(
+          FoodItemServingsState.foodItemServings(
+            servings: servingList.toIList(),
+            mealCategoryFilters: _initializeMealCategoryFilters(),
+            selectedServingAmount: selectedServing.numberOfUnits.toString(),
+            selectedServing: selectedServing,
+          ),
+        );
+      },
+    );
   }
 
   FutureOr<void> _onSetSelectedFoodItemServing(
