@@ -74,7 +74,6 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
               foodItemId: item.id,
               foodItemName: item.name,
               initialServingAmount: 1,
-              initialServingId: null,
               onConfirm: (double numberOfUnits, String servingId) {
                 context.read<DishBloc>().add(DishEvent.addFoodItemToDish(
                       numberOfUnits: numberOfUnits,

@@ -21,10 +21,10 @@ class SelectServingPage extends StatefulWidget {
   const SelectServingPage({
     Key? key,
     required this.foodItemId,
-    required this.initialServingId,
     required this.foodItemName,
     required this.initialServingAmount,
     required this.onConfirm,
+    this.initialServingId,
   }) : super(key: key);
 
   @override

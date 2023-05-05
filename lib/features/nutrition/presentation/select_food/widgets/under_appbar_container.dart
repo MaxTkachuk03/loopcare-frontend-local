@@ -88,14 +88,12 @@ class UnderAppBarContainer extends StatelessWidget {
           if (mealId == null) return;
 
           if (item.type == SearchItemTypes.food) {
-            print('search food item case');
             context.router.push(
               SelectServingRoute(
                 foodItemId: item.id,
                 foodItemName: item.name,
                 initialServingAmount: 1,
-                initialServingId: null,
-                onConfirm: (double a, String b) {
+                onConfirm: (double numberOfUnits, String servingId) {
                   //TODO add selected food item to the meal
                 },
               ),
