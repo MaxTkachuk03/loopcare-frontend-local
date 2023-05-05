@@ -103,6 +103,12 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
     context.router.pushNamed(AppRoutes.meal);
   }
 
+  void _onDeleteDishHandler() {
+    context.read<DishBloc>().add(const DishEvent.deleteOriginalDish());
+
+    context.router.pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -180,6 +186,14 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                                         )
                                       ],
                                     ),
+                                    const SizedBox(height: 16),
+                                    OutlinedRoundedButton(
+                                      text:
+                                          LocalizedTexts.deleteDish.translation,
+                                      icon: AppIcons.delete,
+                                      onPressed: _onDeleteDishHandler,
+                                    ),
+                                    const SizedBox(height: 16),
                                   ],
                                 ),
                               )

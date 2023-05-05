@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
@@ -23,16 +24,19 @@ part 'dish_bloc.freezed.dart';
 class DishBloc extends Bloc<DishEvent, DishState> {
   final NutritionService nutritionService;
   final MealsBloc mealsBloc;
+  final SelectFoodBloc selectFoodBloc;
 
   DishBloc(
     this.nutritionService,
     this.mealsBloc,
+    this.selectFoodBloc,
   ) : super(const DishState.initial()) {
     on<GetClonedDish>(_onGetClonedDish);
     on<NutritionItemChanged>(_onNutritionItemChanged);
     on<UpdateFoodItemInDish>(_onUpdateFoodItemInDish);
     on<DeleteFoodItemFromDish>(_onDeleteFoodItemFromDish);
     on<AddToMeal>(_onAddToMeal);
+    on<DeleteOriginalDish>(_onDeleteOriginalDish);
   }
 
   Dish _createDish(UpdateDishFoodItemResponse data) {
@@ -170,5 +174,22 @@ class DishBloc extends Bloc<DishEvent, DishState> {
         },
       );
     });
+  }
+
+  FutureOr<void> _onDeleteOriginalDish(
+    DeleteOriginalDish event,
+    Emitter<DishState> emit,
+  ) async {
+    final originalDishId = state.mapOrNull(dish: (s) => s.originalDishId);
+
+    if (originalDishId == null) return;
+
+    final response = await nutritionService.deleteDish(originalDishId);
+    response.fold(
+      (l) => null,
+      (r) {
+        selectFoodBloc.add(SelectFoodEvent.removeDish(r));
+      },
+    );
   }
 }

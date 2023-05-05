@@ -341,4 +341,13 @@ class APINutritionService implements NutritionService {
         .post('/dishes/clone', data: data)
         .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
   }
+
+  @override
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> deleteDish(
+    int dishId,
+  ) {
+    return client
+        .delete('/dishes/$dishId')
+        .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
+  }
 }

@@ -175,4 +175,8 @@ abstract class NutritionService {
     int mealId,
     AddDishToMealBody data,
   );
+
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> deleteDish(
+    int dishId,
+  );
 }

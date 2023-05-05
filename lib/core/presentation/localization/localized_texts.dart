@@ -382,6 +382,7 @@ class LocalizedTexts {
   // Dish
   static const String createMyDish = 'createMyDish';
   static const String logItem = 'logItem';
+  static const String deleteDish = 'deleteDish';
 }
 
 extension StringX on String {

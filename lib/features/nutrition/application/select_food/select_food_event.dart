@@ -19,4 +19,7 @@ class SelectFoodEvent with _$SelectFoodEvent {
   const factory SelectFoodEvent.itemDeleted(FoodItem foodItem) = ItemDeleted;
 
   const factory SelectFoodEvent.itemsDeselectAll() = ItemsDeselectAll;
+
+  const factory SelectFoodEvent.removeDish(UpdateDishFoodItemResponse dish) =
+      RemoveDish;
 }

@@ -21,4 +21,6 @@ class DishEvent with _$DishEvent {
 
   const factory DishEvent.addToMeal(int mealId, String numberOfServings) =
       AddToMeal;
+
+  const factory DishEvent.deleteOriginalDish() = DeleteOriginalDish;
 }

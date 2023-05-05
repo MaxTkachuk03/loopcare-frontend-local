@@ -96,6 +96,8 @@ class AppIcons {
 
   static const AssetImage snack = AssetImage('$iconsFilePath/icon_snack.png');
 
+  static const AssetImage delete = AssetImage('$iconsFilePath/delete.png');
+
   static SvgPicture clock = SvgPicture.asset('$iconsFilePath/clock.svg');
 
   static SvgPicture calendar = SvgPicture.asset('$iconsFilePath/calendar.svg');
