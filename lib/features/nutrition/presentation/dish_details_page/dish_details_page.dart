@@ -44,13 +44,6 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
 
     _servingController =
         TextEditingController(text: dishBloc.state.servingAmount);
-    // context.read<NutritionInstructionsBloc>()
-    //   ..add(NutritionInstructionsEvent.setCalorieDensity(
-    //     widget.selectedDish.calorieDensity,
-    //   ))
-    //   ..add(NutritionInstructionsEvent.setProteinDegree(
-    //     widget.selectedDish.proteinDegree,
-    //   ));
 
     super.initState();
   }
@@ -80,9 +73,6 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
     final dishState = state.mapOrNull(dish: (s) => s.selectedDish);
 
     if (dishState == null) return;
-
-    _servingController =
-        TextEditingController(text: dishState.serving.numberOfUnits.toString());
 
     context.read<NutritionInstructionsBloc>()
       ..add(

@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/features/nutrition/application/dish/dto/clone_
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
@@ -25,11 +26,13 @@ class DishBloc extends Bloc<DishEvent, DishState> {
   final NutritionService nutritionService;
   final MealsBloc mealsBloc;
   final SelectFoodBloc selectFoodBloc;
+  final NutritionInstructionsBloc nutritionInstructionsBloc;
 
   DishBloc(
     this.nutritionService,
     this.mealsBloc,
     this.selectFoodBloc,
+    this.nutritionInstructionsBloc,
   ) : super(const DishState.initial()) {
     on<GetClonedDish>(_onGetClonedDish);
     on<NutritionItemChanged>(_onNutritionItemChanged);
@@ -53,6 +56,15 @@ class DishBloc extends Bloc<DishEvent, DishState> {
       updatedAt: data.updatedAt,
       serving: data.serving,
     );
+  }
+
+  void _setNutritionFacts(Dish selectedDish) {
+    nutritionInstructionsBloc.add(NutritionInstructionsEvent.setCalorieDensity(
+      selectedDish.calorieDensity,
+    ));
+    nutritionInstructionsBloc.add(NutritionInstructionsEvent.setProteinDegree(
+      selectedDish.proteinDegree,
+    ));
   }
 
   FutureOr<void> _onGetClonedDish(
@@ -80,6 +92,8 @@ class DishBloc extends Bloc<DishEvent, DishState> {
           selectedDish: selectedDish,
           currentNutritionItem: updatedNutritionItem,
         ));
+
+        _setNutritionFacts(selectedDish);
       },
     );
   }
@@ -115,6 +129,8 @@ class DishBloc extends Bloc<DishEvent, DishState> {
           final updatedNutritionItem = selectedDish.serving.list
               .firstWhere((e) => e.key == state.currentNutritionItem.key);
 
+          _setNutritionFacts(selectedDish);
+
           emit(
             state.copyWith(
               selectedDish: selectedDish,
@@ -143,6 +159,8 @@ class DishBloc extends Bloc<DishEvent, DishState> {
 
           final updatedNutritionItem = selectedDish.serving.list
               .firstWhere((e) => e.key == state.currentNutritionItem.key);
+
+          _setNutritionFacts(selectedDish);
 
           emit(
             state.copyWith(
