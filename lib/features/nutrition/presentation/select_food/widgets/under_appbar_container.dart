@@ -82,33 +82,35 @@ class UnderAppBarContainer extends StatelessWidget {
     context.router.push(
       SearchRoute(
         onItemTap: (SearchItem item) {
-          var mealBloc = context.read<MealsBloc>();
-          var mealId = mealBloc.state.getCurrentMealId;
-          if (mealId != null) {
-            if (item.type == SearchItemTypes.food) {
-              context.router.push(
-                SelectServingRoute(
-                  foodItemId: item.id,
-                  foodItemName: item.name,
-                  initialServingAmount: 1,
-                  initialServingId: '',
-                  onConfirm: (double, String) {},
-                ),
-              );
-            } else if (item.type == SearchItemTypes.recipe) {
-              context.router.push(
-                RecipeRoute(
-                  id: int.parse(item.id),
-                  name: item.name,
-                ),
-              );
-            } else if (item.type == SearchItemTypes.dish) {
-              context.router.push(
-                DishDetailsRoute(
-                  dishId: int.parse(item.id),
-                ),
-              );
-            }
+          final mealBloc = context.read<MealsBloc>();
+          final mealId = mealBloc.state.getCurrentMealId;
+
+          if (mealId == null) return;
+
+          if (item.type == SearchItemTypes.food) {
+            print('search food item case');
+            context.router.push(
+              SelectServingRoute(
+                foodItemId: item.id,
+                foodItemName: item.name,
+                initialServingAmount: 1,
+                initialServingId: null,
+                onConfirm: (double a, String b) {},
+              ),
+            );
+          } else if (item.type == SearchItemTypes.recipe) {
+            context.router.push(
+              RecipeRoute(
+                id: int.parse(item.id),
+                name: item.name,
+              ),
+            );
+          } else if (item.type == SearchItemTypes.dish) {
+            context.router.push(
+              DishDetailsRoute(
+                dishId: int.parse(item.id),
+              ),
+            );
           }
         },
       ),

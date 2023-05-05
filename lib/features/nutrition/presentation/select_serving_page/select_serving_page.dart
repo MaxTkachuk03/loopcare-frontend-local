@@ -13,7 +13,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servin
 
 class SelectServingPage extends StatefulWidget {
   final String foodItemId;
-  final String initialServingId;
+  final String? initialServingId;
   final String foodItemName;
   final double initialServingAmount;
   final void Function(double numberOfUnits, String servingId) onConfirm;

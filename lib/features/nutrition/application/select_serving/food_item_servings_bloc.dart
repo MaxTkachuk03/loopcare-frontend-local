@@ -80,18 +80,26 @@ class FoodItemServingsBloc
     response.fold(
       (l) => null,
       (r) {
-        final servingList = r.data
-            .map((e) => e.servingId == event.selectedItemId
-                ? e.copyWith(numberOfUnits: event.initialServingAmount)
-                : e)
-            .toList();
+        IList<FoodItemServing> servingList;
+        // TODO how to refactor this code
+        if (event.selectedItemId == null) {
+          servingList = r.data.toIList();
+        } else {
+          servingList = r.data
+              .map((e) => e.servingId == event.selectedItemId
+                  ? e.copyWith(numberOfUnits: event.initialServingAmount)
+                  : e)
+              .toIList();
+        }
 
-        final selectedServing =
-            servingList.firstWhere((e) => e.servingId == event.selectedItemId);
+        final selectedServing = event.selectedItemId == null
+            ? servingList[0]
+            : servingList
+                .firstWhere((e) => e.servingId == event.selectedItemId);
 
         emit(
           FoodItemServingsState.foodItemServings(
-            servings: servingList.toIList(),
+            servings: servingList,
             mealCategoryFilters: _initializeMealCategoryFilters(),
             selectedServingAmount: selectedServing.numberOfUnits.toString(),
             selectedServing: selectedServing,
