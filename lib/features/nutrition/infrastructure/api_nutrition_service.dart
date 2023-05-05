@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/features/nutrition/application/dashboard_weigh
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_response.dart';
 
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_dish_to_meal_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/clone_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
@@ -117,16 +118,6 @@ class APINutritionService implements NutritionService {
     return client
         .get('/meals/$mealId/recipes/$recipeId')
         .then(parseResponse(RecipeResponse.fromJson));
-  }
-
-  @override
-  Future<Either<RequestError, MealsListItem>> addDishToMeal(
-    int mealId,
-    AddDishToMealBody data,
-  ) {
-    return client
-        .post('/meals/$mealId/dishes', data: data)
-        .then(parseResponse(MealsListItem.fromJson));
   }
 
   @override
@@ -345,10 +336,38 @@ class APINutritionService implements NutritionService {
   Future<Either<RequestError, UpdateDishFoodItemResponse>>
       deleteFoodItemFromDish(
     int dishId,
-    String internalFoodItemId,
+    int internalFoodItemId,
   ) {
     return client
         .delete('/dishes/$dishId/food-items/$internalFoodItemId')
+        .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, MealsListItem>> addDishToMeal(
+    int mealId,
+    AddDishToMealBody data,
+  ) {
+    return client
+        .post('/meals/$mealId/dishes', data: data)
+        .then(parseResponse(MealsListItem.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> cloneDish(
+    CloneDishBody data,
+  ) {
+    return client
+        .post('/dishes/clone', data: data)
+        .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> deleteDish(
+    int dishId,
+  ) {
+    return client
+        .delete('/dishes/$dishId')
         .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
   }
 }

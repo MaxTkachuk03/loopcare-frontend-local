@@ -300,5 +300,6 @@
   "searchEmptyResultTitle": "Sorry no results for this one",
   "searchEmptyResultText": "Maybe check your spelling or try another term",
   "createMyDish": "Create my dish",
-  "logItem": "Log item"
+  "logItem": "Log item",
+  "deleteDish": "Delete this dish"
 }

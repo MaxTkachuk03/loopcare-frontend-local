@@ -5,6 +5,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_favorites_category/dish_favorites_category.dart';
@@ -31,6 +32,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     on<ItemAdded>(_onItemAdded);
     on<ItemDeleted>(_onItemDeleted);
     on<ItemsDeselectAll>(_onItemsDeselectAll);
+    on<RemoveDish>(_onRemoveDish);
   }
 
   FutureOr<void> _onFetchFavorites(
@@ -192,6 +194,17 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
   ) {
     state.mapOrNull(selectFood: (state) {
       emit(state.copyWith(selectedFavoritesItems: <FoodItem>[].toIList()));
+    });
+  }
+
+  FutureOr<void> _onRemoveDish(
+    RemoveDish event,
+    Emitter<SelectFoodState> emit,
+  ) {
+    state.mapOrNull(selectFood: (state) {
+      final dishes = state.dishes.where((e) => e.id != event.dish.id).toIList();
+
+      emit(state.copyWith(dishes: dishes));
     });
   }
 }
