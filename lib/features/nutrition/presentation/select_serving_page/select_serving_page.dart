@@ -13,7 +13,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servin
 
 class SelectServingPage extends StatefulWidget {
   final String foodItemId;
-  final String initialServingId;
+  final String? initialServingId;
   final String foodItemName;
   final double initialServingAmount;
   final void Function(double numberOfUnits, String servingId) onConfirm;
@@ -21,10 +21,10 @@ class SelectServingPage extends StatefulWidget {
   const SelectServingPage({
     Key? key,
     required this.foodItemId,
-    required this.initialServingId,
     required this.foodItemName,
     required this.initialServingAmount,
     required this.onConfirm,
+    this.initialServingId,
   }) : super(key: key);
 
   @override
@@ -34,13 +34,13 @@ class SelectServingPage extends StatefulWidget {
 class _SelectServingPageState extends State<SelectServingPage> {
   @override
   void initState() {
-    context
-        .read<FoodItemServingsBloc>()
-        .add(FoodItemServingsEvent.fetchFoodItemServings(
-          widget.foodItemId,
-          widget.initialServingId,
-          widget.initialServingAmount,
-        ));
+    context.read<FoodItemServingsBloc>().add(
+          FoodItemServingsEvent.fetchFoodItemServings(
+            widget.foodItemId,
+            widget.initialServingId,
+            widget.initialServingAmount,
+          ),
+        );
 
     super.initState();
   }

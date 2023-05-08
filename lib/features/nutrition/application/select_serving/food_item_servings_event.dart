@@ -4,7 +4,7 @@ part of 'food_item_servings_bloc.dart';
 class FoodItemServingsEvent with _$FoodItemServingsEvent {
   const factory FoodItemServingsEvent.fetchFoodItemServings(
     String foodItemId,
-    String selectedItemId,
+    String? selectedServingId,
     double initialServingAmount,
   ) = FetchFoodItemServings;
 

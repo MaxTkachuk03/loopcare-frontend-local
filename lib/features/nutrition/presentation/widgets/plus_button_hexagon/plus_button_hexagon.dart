@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 
@@ -23,7 +24,7 @@ class PlusButtonHexagon extends StatelessWidget {
                 color: AppColors.blueMid,
                 size: 18,
               ),
-              onPressed: () => context.router.pop(),
+              onPressed: () => context.router.pushNamed(AppRoutes.search),
             ),
           ),
         )
