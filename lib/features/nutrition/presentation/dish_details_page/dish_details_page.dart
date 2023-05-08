@@ -118,10 +118,9 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
     return Scaffold(
       appBar: BlueAppBar(
         isCustomLeading: true,
-        title: context
-            .watch<DishBloc>()
-            .state
-            .mapOrNull(dish: (s) => s.selectedDish.name),
+        title: context.watch<DishBloc>().state.mapOrNull(
+              dish: (s) => s.selectedDish.name,
+            ),
         subtitle: LocalizedTexts.myDish.translation,
       ),
       body: SafeArea(

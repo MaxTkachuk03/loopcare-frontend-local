@@ -12,7 +12,7 @@ class MealsEvent with _$MealsEvent {
 
   const factory MealsEvent.addFoodItemToMeal(
     int mealId,
-    int foodItemId,
+    String foodItemId,
     AddFoodItemToMealBody data,
   ) = AddFoodItemToMeal;
 

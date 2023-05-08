@@ -17,7 +17,7 @@ class SearchResultListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: InkWell(
-        onTap: () => onTap(item), // .call(item),
+        onTap: () => onTap(item),
         child: Ink(
           color: AppColors.white,
           child: Column(

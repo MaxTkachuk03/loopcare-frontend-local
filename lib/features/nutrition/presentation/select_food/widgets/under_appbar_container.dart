@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_food_item_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
@@ -94,7 +95,20 @@ class UnderAppBarContainer extends StatelessWidget {
                 foodItemName: item.name,
                 initialServingAmount: 1,
                 onConfirm: (double numberOfUnits, String servingId) {
-                  //TODO add selected food item to the meal
+                  final mealId = mealBloc.state.getCurrentMealId;
+                  if (mealId != null) {
+                    mealBloc.add(
+                      MealsEvent.addFoodItemToMeal(
+                        mealId,
+                        item.id,
+                        AddFoodItemToMealBody(
+                          numberOfUnits: numberOfUnits,
+                          servingId: servingId,
+                        ),
+                      ),
+                    );
+                    context.router.pushNamed(AppRoutes.meal);
+                  }
                 },
               ),
             );

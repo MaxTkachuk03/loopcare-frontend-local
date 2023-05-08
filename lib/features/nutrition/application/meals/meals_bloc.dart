@@ -147,36 +147,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     );
   }
 
-  // FutureOr<void> _onAddDishToMeal(
-  //   AddDishToMeal event,
-  //   Emitter<MealsState> emit,
-  // ) async {
-  //   await state.mapOrNull(
-  //     mealsInfo: (state) async {
-  //       const numberOfUnits = 1;
-  //       final dishId = event.dishId;
-
-  //       var data = AddDishToMealBody(
-  //         numberOfUnits: numberOfUnits,
-  //         dishId: int.parse(dishId),
-  //       );
-
-  //       final response = await nutritionService.addDishToMeal(
-  //         mealId: event.mealId,
-  //         data: data,
-  //       );
-
-  //       response.fold((l) => null, (r) {
-  //         emit(
-  //           state.copyWith(
-  //             meals: r.data.toIList(),
-  //           ),
-  //         );
-  //       });
-  //     },
-  //   );
-  // }
-
   FutureOr<void> _onAddRecipeToMeal(
     AddRecipeToMeal event,
     Emitter<MealsState> emit,
@@ -213,28 +183,23 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
   ) async {
     await state.mapOrNull(
       mealsInfo: (state) async {
-        final servingId = state.selectedServing?.servingId;
-        final numberOfUnits = state.selectedServing?.numberOfUnits;
-
-        if (servingId == null) return;
-
-        final data = AddFoodItemToMealBody(
-          servingId: servingId,
-          numberOfUnits: numberOfUnits,
-        );
+        // final servingId = state.selectedServing?.servingId;
+        // final numberOfUnits = state.selectedServing?.numberOfUnits;
+        // if (servingId == null) return;
 
         final response = await nutritionService.addFoodItemToMeal(
           event.mealId,
           event.foodItemId,
-          data,
+          event.data,
         );
 
         response.fold(
           (l) => null,
           (r) {
+            final updatedList = _getUpdatedMealsList(r);
             emit(
               state.copyWith(
-                meals: r.data.toIList(),
+                meals: updatedList.toIList(),
               ),
             );
           },
@@ -265,15 +230,18 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           data,
         );
 
-        response.fold((l) => null, (r) {
-          final updatedList = _getUpdatedMealsList(r);
+        response.fold(
+          (l) => null,
+          (r) {
+            final updatedList = _getUpdatedMealsList(r);
 
-          emit(
-            state.copyWith(
-              meals: updatedList.toIList(),
-            ),
-          );
-        });
+            emit(
+              state.copyWith(
+                meals: updatedList.toIList(),
+              ),
+            );
+          },
+        );
       },
     );
   }
