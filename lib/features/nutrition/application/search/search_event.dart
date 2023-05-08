@@ -6,6 +6,7 @@ class SearchEvent with _$SearchEvent {
 
   const factory SearchEvent.search(
     String query, {
+    String? filteredMode,
     String? mode,
     int? limit,
   }) = Search;

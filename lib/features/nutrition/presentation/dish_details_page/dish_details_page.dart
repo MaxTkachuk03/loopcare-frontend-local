@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
@@ -62,6 +63,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
   void _onAddFoodItemHandler() {
     context.router.push(
       SearchRoute(
+        mode: SearchMode.dish,
         onItemTap: (SearchItem item) {
           final mealBloc = context.read<MealsBloc>();
           final mealId = mealBloc.state.getCurrentMealId;
@@ -74,11 +76,13 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
               foodItemName: item.name,
               initialServingAmount: 1,
               onConfirm: (double numberOfUnits, String servingId) {
-                context.read<DishBloc>().add(DishEvent.addFoodItemToDish(
-                      numberOfUnits: numberOfUnits,
-                      servingId: servingId,
-                      externalFoodItemId: item.id,
-                    ));
+                context.read<DishBloc>().add(
+                      DishEvent.addFoodItemToDish(
+                        numberOfUnits: numberOfUnits,
+                        servingId: servingId,
+                        externalFoodItemId: item.id,
+                      ),
+                    );
               },
             ),
           );

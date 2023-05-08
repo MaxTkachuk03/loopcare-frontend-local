@@ -147,7 +147,7 @@ abstract class NutritionService {
 
   Future<Either<RequestError, SearchResponse>> search(
     String query, {
-    String? mode,
+    List<String>? mode,
     int? limit,
   });
 

@@ -9,8 +9,10 @@ import 'package:loopcare_frontend/features/nutrition/application/search/dto/sear
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
 
 class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
+  final SearchMode? mode;
   const SearchAppBar({
     Key? key,
+    this.mode,
   }) : super(key: key);
 
   @override
@@ -26,12 +28,20 @@ class _SearchAppBarState extends State<SearchAppBar>
   String? searchMode = '';
   final TextEditingController _searchTextController = TextEditingController();
   late TabController _tabController;
-
-  final List<String> tabs = SearchMode.values.map((e) => e.label).toList();
+  late List<String> tabs;
 
   @override
   initState() {
     super.initState();
+    var mode = widget.mode;
+    if (mode != null) {
+      tabs = <String>[mode.label];
+    } else {
+      tabs = SearchMode.values
+          .where((e) => e.label != SearchMode.favorite.label)
+          .map((e) => e.label)
+          .toList();
+    }
 
     _tabController = TabController(
       length: tabs.length,
@@ -108,14 +118,15 @@ class _SearchAppBarState extends State<SearchAppBar>
 
   void _tabsChangeListener() {
     if (_tabController.indexIsChanging) {
-      String? mode =
+      String? selectedMode =
           SearchMode.values.toList()[_tabController.index].searchModeValue;
-      searchMode = mode;
+      searchMode = selectedMode;
 
       context.read<SearchBloc>().add(
             SearchEvent.search(
               searchText,
               mode: searchMode,
+              filteredMode: widget.mode?.searchModeValue,
             ),
           );
     }
@@ -128,6 +139,7 @@ class _SearchAppBarState extends State<SearchAppBar>
           SearchEvent.search(
             searchText,
             mode: searchMode,
+            filteredMode: widget.mode?.searchModeValue,
           ),
         );
   }

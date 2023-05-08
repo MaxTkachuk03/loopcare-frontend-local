@@ -5,6 +5,7 @@ enum SearchMode {
   recipe,
   food,
   dish,
+  favorite,
 }
 
 extension SearchModeX on SearchMode {
@@ -18,6 +19,8 @@ extension SearchModeX on SearchMode {
         return LocalizedTexts.searchFilterMy.translation;
       case SearchMode.all:
         return LocalizedTexts.searchFilterAll.translation;
+      case SearchMode.favorite:
+        return 'favorite';
     }
   }
 
@@ -31,6 +34,8 @@ extension SearchModeX on SearchMode {
         return SearchMode.dish.name;
       case SearchMode.all:
         return SearchMode.all.name;
+      case SearchMode.favorite:
+        return SearchMode.favorite.name;
     }
   }
 }

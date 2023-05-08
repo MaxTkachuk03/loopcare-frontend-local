@@ -277,7 +277,7 @@ class APINutritionService implements NutritionService {
   @override
   Future<Either<RequestError, SearchResponse>> search(
     String query, {
-    String? mode,
+    List<String>? mode,
     int? limit,
   }) {
     return client.get(

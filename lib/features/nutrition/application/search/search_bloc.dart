@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'search_event.dart';
@@ -45,9 +46,23 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     emit(const SearchState.loading());
 
+    var eventMode = event.mode;
+    var eventFilteredMode = event.filteredMode;
+    var searchMode = <String>[];
+
+    if (eventMode != null) {
+      searchMode = <String>[eventMode];
+    }
+    if (eventFilteredMode != null) {
+      searchMode = [
+        eventFilteredMode,
+        SearchMode.favorite.searchModeValue,
+      ];
+    }
+
     final response = await nutritionService.search(
       event.query,
-      mode: event.mode,
+      mode: searchMode,
       limit: event.limit,
     );
 
