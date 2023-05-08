@@ -3,7 +3,9 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/get_dashboard_weights_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_response.dart';
+
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_dish_to_meal_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_food_item_to_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/clone_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
@@ -12,6 +14,7 @@ import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_food_item_in_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_recipe_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/dto/favorites_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/dto/barcode_information_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_food_item_to_meal_body.dart';
@@ -60,12 +63,6 @@ abstract class NutritionService {
   );
 
   Future<Either<RequestError, RecipeResponse>> getRecipe(int id);
-
-  Future<Either<RequestError, RecipeResponse>> addRecipeToMeal({
-    required int mealId,
-    required int recipeId,
-    required AddRecipeToMealBody data,
-  });
 
   Future<Either<RequestError, RecipeResponse>> addFoodItemToRecipeInMeal({
     required int mealId,
@@ -120,9 +117,9 @@ abstract class NutritionService {
     int mealId,
   );
 
-  Future<Either<RequestError, MealsResponse>> addFoodItemToMeal(
+  Future<Either<RequestError, MealsListItem>> addFoodItemToMeal(
     int mealId,
-    int foodItemId,
+    String foodItemId,
     AddFoodItemToMealBody data,
   );
 
@@ -130,6 +127,12 @@ abstract class NutritionService {
     int mealId,
     AddManyFoodItemsToMealBody data,
   );
+
+  Future<Either<RequestError, MealsListItem>> addRecipeToMeal({
+    required int mealId,
+    required String recipeId,
+    required AddRecipeToMealBody data,
+  });
 
   Future<Either<RequestError, MealsListItem>> updateFoodItemInMeal(
     int mealId,
@@ -141,6 +144,12 @@ abstract class NutritionService {
     int mealId,
     String foodItemId,
   );
+
+  Future<Either<RequestError, SearchResponse>> search(
+    String query, {
+    List<String>? mode,
+    int? limit,
+  });
 
   Future<Either<RequestError, GetDashboardWeightsResponse>> getDashboardWeights(
     String startDate,
@@ -178,5 +187,10 @@ abstract class NutritionService {
 
   Future<Either<RequestError, UpdateDishFoodItemResponse>> deleteDish(
     int dishId,
+  );
+
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> addFoodItemToDish(
+    int dishId,
+    AddFoodItemToDishBody data,
   );
 }

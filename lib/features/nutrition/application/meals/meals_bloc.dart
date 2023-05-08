@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -11,11 +12,11 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_m
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_serving.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
-import 'package:collection/collection.dart';
 
 part 'meals_event.dart';
 
@@ -31,7 +32,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     on<FetchMeals>(_onFetchMeals);
     on<FetchMealById>(_onFetchMealById);
     on<AddMeal>(_onAddMeal);
-    on<AddFoodItemToMeal>(_onAddFoodItemToMeal);
+
     on<UpdateFoodItemInMeal>(_onUpdateFoodItemInMeal);
     on<DeleteMeal>(_onDeleteMeal);
     on<DeleteFoodItemFromMeal>(_onDeleteFoodItemFromMeal);
@@ -39,6 +40,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     on<CreateFromFavorites>(_onCreateFromFavorites);
     on<SetMealId>(_onSetMealId);
     on<SetCurrentDate>(_onSetCurrentDate);
+    on<AddFoodItemToMeal>(_onAddFoodItemToMeal);
+    on<AddRecipeToMeal>(_onAddRecipeToMeal);
     on<AddDishToMeal>(_onAddDishToMeal);
   }
 
@@ -144,35 +147,59 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     );
   }
 
+  FutureOr<void> _onAddRecipeToMeal(
+    AddRecipeToMeal event,
+    Emitter<MealsState> emit,
+  ) async {
+    await state.mapOrNull(
+      mealsInfo: (state) async {
+        const numberOfUnits = 1;
+
+        const data = AddRecipeToMealBody(
+          numberOfUnits: numberOfUnits,
+        );
+
+        final response = await nutritionService.addRecipeToMeal(
+          mealId: event.mealId,
+          recipeId: event.recipeId,
+          data: data,
+        );
+
+        response.fold((l) => null, (r) {
+          final updatedList = _getUpdatedMealsList(r);
+          emit(
+            state.copyWith(
+              meals: updatedList.toIList(),
+            ),
+          );
+        });
+      },
+    );
+  }
+
   FutureOr<void> _onAddFoodItemToMeal(
     AddFoodItemToMeal event,
     Emitter<MealsState> emit,
   ) async {
     await state.mapOrNull(
       mealsInfo: (state) async {
-        final servingId = state.selectedServing?.servingId;
-        final numberOfUnits = state.selectedServing?.numberOfUnits;
-
-        if (servingId == null) return;
-
-        final data = AddFoodItemToMealBody(
-          servingId: servingId,
-          numberOfUnits: numberOfUnits,
-        );
-
         final response = await nutritionService.addFoodItemToMeal(
           event.mealId,
           event.foodItemId,
-          data,
+          event.data,
         );
 
-        response.fold((l) => null, (r) {
-          emit(
-            state.copyWith(
-              meals: r.data.toIList(),
-            ),
-          );
-        });
+        response.fold(
+          (l) => null,
+          (r) {
+            final updatedList = _getUpdatedMealsList(r);
+            emit(
+              state.copyWith(
+                meals: updatedList.toIList(),
+              ),
+            );
+          },
+        );
       },
     );
   }
@@ -199,15 +226,18 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           data,
         );
 
-        response.fold((l) => null, (r) {
-          final updatedList = _getUpdatedMealsList(r);
+        response.fold(
+          (l) => null,
+          (r) {
+            final updatedList = _getUpdatedMealsList(r);
 
-          emit(
-            state.copyWith(
-              meals: updatedList.toIList(),
-            ),
-          );
-        });
+            emit(
+              state.copyWith(
+                meals: updatedList.toIList(),
+              ),
+            );
+          },
+        );
       },
     );
   }

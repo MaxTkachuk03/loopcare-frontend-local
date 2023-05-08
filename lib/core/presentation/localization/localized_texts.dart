@@ -345,6 +345,8 @@ class LocalizedTexts {
   static const String searchFilterProducts = 'searchFilterProducts';
   static const String searchFilterRecipes = 'searchFilterRecipes';
   static const String searchFilterMy = 'searchFilterMy';
+  static const String searchEmptyResultTitle = 'searchEmptyResultTitle';
+  static const String searchEmptyResultText = 'searchEmptyResultText';
 
   //Dashboard
   static const String goodMorning = 'goodMorning';

@@ -22,4 +22,11 @@ class DishState with _$DishState {
       orElse: () => '1',
     );
   }
+
+  bool get hasFoodItems {
+    return maybeMap(
+      dish: (s) => s.selectedDish.foodItems.isNotEmpty,
+      orElse: () => false,
+    );
+  }
 }

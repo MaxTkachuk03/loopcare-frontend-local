@@ -10,7 +10,7 @@ class MealItem with _$MealItem {
   const factory MealItem({
     required String? description,
     required double calorieDensity,
-    required double proteinDegree,
+    required double? proteinDegree,
     required int id,
     required String? externalId,
     required String name,

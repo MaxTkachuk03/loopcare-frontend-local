@@ -77,25 +77,36 @@ class FoodItemServingsBloc
     final response =
         await nutritionService.getFoodItemServings(event.foodItemId);
 
-    response.fold((l) => null, (r) {
-      final servingList = r.data
-          .map((e) => e.servingId == event.selectedItemId
-              ? e.copyWith(numberOfUnits: event.initialServingAmount)
-              : e)
-          .toList();
+    response.fold(
+      (l) => null,
+      (r) {
+        IList<FoodItemServing> servingList;
+        // TODO how to refactor this code
+        if (event.selectedServingId == null) {
+          servingList = r.data.toIList();
+        } else {
+          servingList = r.data
+              .map((e) => e.servingId == event.selectedServingId
+                  ? e.copyWith(numberOfUnits: event.initialServingAmount)
+                  : e)
+              .toIList();
+        }
 
-      final selectedServing =
-          servingList.firstWhere((e) => e.servingId == event.selectedItemId);
+        final selectedServing = event.selectedServingId == null
+            ? servingList[0]
+            : servingList
+                .firstWhere((e) => e.servingId == event.selectedServingId);
 
-      emit(
-        FoodItemServingsState.foodItemServings(
-          servings: servingList.toIList(),
-          mealCategoryFilters: _initializeMealCategoryFilters(),
-          selectedServingAmount: selectedServing.numberOfUnits.toString(),
-          selectedServing: selectedServing,
-        ),
-      );
-    });
+        emit(
+          FoodItemServingsState.foodItemServings(
+            servings: servingList,
+            mealCategoryFilters: _initializeMealCategoryFilters(),
+            selectedServingAmount: selectedServing.numberOfUnits.toString(),
+            selectedServing: selectedServing,
+          ),
+        );
+      },
+    );
   }
 
   FutureOr<void> _onSetSelectedFoodItemServing(

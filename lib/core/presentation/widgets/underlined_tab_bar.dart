@@ -3,17 +3,27 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class UnderlinedTabBar extends StatelessWidget {
   final List<Widget> tabs;
+  final TabController? tabController;
 
-  const UnderlinedTabBar({Key? key, required this.tabs}) : super(key: key);
+  const UnderlinedTabBar({
+    Key? key,
+    required this.tabs,
+    this.tabController,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(
-                  width: 2, color: AppColors.white.withOpacity(0.3)))),
+        border: Border(
+          bottom: BorderSide(
+            width: 2,
+            color: AppColors.white.withOpacity(0.3),
+          ),
+        ),
+      ),
       child: TabBar(
+        controller: tabController,
         isScrollable: true,
         padding: const EdgeInsets.all(0),
         labelPadding: const EdgeInsets.only(
