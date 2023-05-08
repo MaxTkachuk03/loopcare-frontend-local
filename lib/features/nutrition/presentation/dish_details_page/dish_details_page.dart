@@ -63,7 +63,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
   void _onAddFoodItemHandler() {
     context.router.push(
       SearchRoute(
-        mode: SearchMode.dish,
+        mode: SearchMode.food,
         onItemTap: (SearchItem item) {
           final mealBloc = context.read<MealsBloc>();
           final mealId = mealBloc.state.getCurrentMealId;

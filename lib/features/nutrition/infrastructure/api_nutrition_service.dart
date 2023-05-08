@@ -284,7 +284,11 @@ class APINutritionService implements NutritionService {
       '/nutrition/search',
       queryParameters: {
         'query': query,
+<<<<<<< HEAD
         if (mode != null && mode.isNotEmpty) 'mode': mode,
+=======
+        if (mode != null && mode.isNotEmpty) 'modes': mode,
+>>>>>>> feature/epic/LOOPCARE-417-Nutrition
         if (limit != null) 'limit': limit,
         // TODO: Remove after pagination will be implemented on backend
         if (limit == null) 'limit': 20,
