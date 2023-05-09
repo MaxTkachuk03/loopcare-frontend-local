@@ -75,6 +75,7 @@ part 'app_routes.dart';
   replaceInRouteName: 'Page,Route',
   routes: [
     AutoRoute(
+      initial: true,
       path: AppRoutes.proxy,
       page: ProxyPage,
       guards: [ProxyGuard],
@@ -331,11 +332,9 @@ part 'app_routes.dart';
       page: AccountPage,
     ),
     AutoRoute(
-      initial: true,
       path: AppRoutes.recipeDetails,
       page: RecipeDetailsPage,
     ),
-
     // Dish
     AutoRoute(
       path: AppRoutes.createDish,

@@ -8,7 +8,9 @@ import 'package:loopcare_frontend/features/nutrition/application/recipe_details/
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/sliver_recipe_app_bar_delegate.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/ingredients.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/instructions.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/recipe_details_app_bar.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/summary.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
 class RecipeDetailsPage extends StatefulWidget {
   const RecipeDetailsPage({Key? key}) : super(key: key);
@@ -37,7 +39,11 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
         return state.maybeMap(
           loading: (_) {
             return Scaffold(
-              appBar: AppBar(),
+              appBar: AppBar(
+                leading: BackButtonHexagon(
+                  background: AppColors.white.withOpacity(0.2),
+                ),
+              ),
               body: const Loader(),
             );
           },
@@ -46,50 +52,36 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
               length: 3,
               child: Scaffold(
                 body: NestedScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
                   headerSliverBuilder:
                       (BuildContext context, bool innerBoxIsScrolled) {
                     return <Widget>[
-                      SliverAppBar(
-                        pinned: true,
-                        expandedHeight: 160.0,
-                        flexibleSpace: FlexibleSpaceBar(
-                          title: Text(
-                            s.recipe.name,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                  fontFamily: ThemeConstants.bitterFontFamily,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.white,
-                                ),
-                          ),
-                          background: Image.network(
-                            'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
+                      const RecipeDetailsAppBar(),
                       SliverPersistentHeader(
+                        pinned: true,
                         delegate: SliverRecipeAppBarDelegate(
                           TabBar(
                             tabs: [
                               Tab(text: LocalizedTexts.summary.translation),
-                              Tab(text: LocalizedTexts.instructions.translation),
+                              Tab(
+                                  text:
+                                      LocalizedTexts.instructions.translation),
                               Tab(text: LocalizedTexts.ingredients.translation),
                             ],
                           ),
                         ),
-                        pinned: true,
                       ),
                     ];
                   },
-                  body: const TabBarView(
-                    children: [
-                      Summary(),
-                      Instructions(),
-                      Ingredients(),
-                    ],
+                  body: const SafeArea(
+                    top: false,
+                    child: TabBarView(
+                      children: [
+                        Summary(),
+                        Instructions(),
+                        Ingredients(),
+                      ],
+                    ),
                   ),
                 ),
               ),

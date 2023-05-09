@@ -27,7 +27,11 @@ class Ingredients extends StatelessWidget {
                   selectedNutritionItem: recipeState.currentRecipeNutritionItem,
                   nutritionValuesList: recipeState.recipe.nutritionValues,
                   nutritionValue: recipeState.currentRecipeNutritionItem.value,
-                  onNutritionFactSelect: _onNutritionFactSelect,
+                  onNutritionFactSelect: (NutritionItem item) =>
+                      _onNutritionFactSelect(
+                    context,
+                    item,
+                  ),
                 ),
                 ListView.builder(
                   padding: const EdgeInsets.all(0),
@@ -60,5 +64,7 @@ class Ingredients extends StatelessWidget {
     );
   }
 
-  void _onNutritionFactSelect(NutritionItem item) {}
+  void _onNutritionFactSelect(BuildContext context, NutritionItem item) {
+    context.read<RecipeBloc>().add(RecipeEvent.nutritionItemChanged(item));
+  }
 }

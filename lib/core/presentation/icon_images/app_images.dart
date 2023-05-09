@@ -51,6 +51,9 @@ class AppImages {
   static const AssetImage educationVideoPreview =
       AssetImage('$imagesFilePath/education_video_preview.png');
 
+  static const AssetImage recipePlaceholder =
+      AssetImage('$imagesFilePath/recipe_placeholder.png');
+
   static SvgPicture logoSvgBig =
       SvgPicture.asset('$imagesFilePath/logo.svg', width: 114, height: 107);
 

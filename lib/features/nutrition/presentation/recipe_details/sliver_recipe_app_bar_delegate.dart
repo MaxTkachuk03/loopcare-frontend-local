@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/underlined_tab_bar.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/single_underlined_tab_bar.dart';
 
-const _padding = 16.0;
+const _padding = 28.0;
 
 class SliverRecipeAppBarDelegate extends SliverPersistentHeaderDelegate {
   SliverRecipeAppBarDelegate(this._tabBar);
@@ -19,13 +20,20 @@ class SliverRecipeAppBarDelegate extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      color: AppColors.orange,
-      child: Column(
-        children: [
-          UnderlinedTabBar(
-            tabs: _tabBar.tabs,
-          )
-        ],
+      color: AppColors.darkGreen,
+      child: MainContainer(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 28,
+              child: SingleUnderlinedTabBar(
+                tabs: _tabBar.tabs,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
