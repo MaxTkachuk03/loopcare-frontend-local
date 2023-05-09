@@ -70,9 +70,13 @@ class AppRoutes {
   static const String recipe = '/recipe';
   static const String recipeDetails = '/recipe-details';
   static const String dish = '/dish';
+  static const String dishDetails = '/dish-details';
   static const String meal = '/meal';
   static const String logWeight = '/log-weight';
   static const String home = '/home';
   static const String account = '/account';
+
+  // Dish
+  static const String createDish = '/create-dish';
   AppRoutes._();
 }

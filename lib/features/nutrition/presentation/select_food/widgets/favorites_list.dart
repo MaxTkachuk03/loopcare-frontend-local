@@ -10,11 +10,35 @@ import 'package:loopcare_frontend/features/nutrition/presentation/select_food/wi
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/footer_overlay.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/list_filters.dart';
 
-class FavoriteList extends StatelessWidget {
+class FavoriteList extends StatefulWidget {
   const FavoriteList({Key? key}) : super(key: key);
 
   @override
+  State<FavoriteList> createState() => _FavoriteListState();
+}
+
+class _FavoriteListState extends State<FavoriteList>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool wantKeepAlive = true;
+
+  @override
+  void initState() {
+    context.read<SelectFoodBloc>().add(const SelectFoodEvent.fetchFavorites());
+
+    super.initState();
+  }
+
+  Future _onRefresh() async {
+    return context
+        .read<SelectFoodBloc>()
+        .add(const SelectFoodEvent.fetchFavorites());
+  }
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -22,7 +46,7 @@ class FavoriteList extends StatelessWidget {
           builder: (BuildContext context, state) {
             return state.maybeMap(
               selectFood: (selectFoodState) {
-                final String title = selectFoodState.hasOneSelectedMealCategorie
+                final String title = selectFoodState.hasOneSelectedMealCategory
                     ? '${LocalizedTexts.my.translation} ${selectFoodState.selectedMealCategories[0].name}'
                     : LocalizedTexts.myFavorites.translation;
 
@@ -43,13 +67,18 @@ class FavoriteList extends StatelessWidget {
                               ),
                             )
                           : Expanded(
-                              child: ListView.builder(
-                                itemCount: selectFoodState.favorites.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return FavoriteListItem(
-                                    foodItem: selectFoodState.favorites[index],
-                                  );
-                                },
+                              child: RefreshIndicator(
+                                onRefresh: _onRefresh,
+                                child: ListView.builder(
+                                  itemCount: selectFoodState.favorites.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return FavoriteListItem(
+                                      foodItem:
+                                          selectFoodState.favorites[index],
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                       state.selectedFavoritesItemsLength > 0

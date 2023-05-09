@@ -6,12 +6,19 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/get_dashboard_weights_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_response.dart';
+
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_dish_to_meal_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_food_item_to_dish_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/clone_dish_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_food_item_in_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe_details/dto/recipe_details_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/dto/favorites_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/dto/barcode_information_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_food_item_to_meal_body.dart';
@@ -21,6 +28,7 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/dto/values_explanation_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
+import 'package:loopcare_frontend/features/nutrition/application/select_food/dto/get_dishes_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_servings_response.dart';
@@ -41,18 +49,11 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, FavoritesResponse>> getFavorites() async {
-    return client
-        .get('/food-items/favorites')
-        .then(parseResponse(FavoritesResponse.fromJson));
-  }
-
-  @override
-  Future<Either<RequestError, FavoritesResponse>> getFilteredFavorites(
-    List<String> mealCategories,
+  Future<Either<RequestError, FavoritesResponse>> getFavorites(
+    List<String>? mealCategories,
   ) async {
     return client.get('/food-items/favorites', queryParameters: {
-      "mealCategories": mealCategories,
+      "mealCategories": mealCategories ?? [],
     }).then(parseResponse(FavoritesResponse.fromJson));
   }
 
@@ -122,14 +123,14 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, RecipeResponse>> addRecipeToMeal({
+  Future<Either<RequestError, MealsListItem>> addRecipeToMeal({
     required int mealId,
-    required int recipeId,
+    required String recipeId,
     required AddRecipeToMealBody data,
   }) {
     return client
         .post('/meals/$mealId/recipes/$recipeId', data: data)
-        .then(parseResponse(RecipeResponse.fromJson));
+        .then(parseResponse(MealsListItem.fromJson));
   }
 
   @override
@@ -233,14 +234,14 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, MealsResponse>> addFoodItemToMeal(
+  Future<Either<RequestError, MealsListItem>> addFoodItemToMeal(
     int mealId,
-    int foodItemId,
+    String foodItemId,
     AddFoodItemToMealBody data,
   ) {
     return client
         .post('/meals/$mealId/food-items/$foodItemId', data: data)
-        .then(parseResponse(MealsResponse.fromJson));
+        .then(parseResponse(MealsListItem.fromJson));
   }
 
   @override
@@ -275,6 +276,24 @@ class APINutritionService implements NutritionService {
   }
 
   @override
+  Future<Either<RequestError, SearchResponse>> search(
+    String query, {
+    List<String>? mode,
+    int? limit,
+  }) {
+    return client.get(
+      '/nutrition/search',
+      queryParameters: {
+        'query': query,
+        if (mode != null && mode.isNotEmpty) 'modes': mode,
+        if (limit != null) 'limit': limit,
+        // TODO: Remove after pagination will be implemented on backend
+        if (limit == null) 'limit': 20,
+      },
+    ).then(parseResponse(SearchResponse.fromJson));
+  }
+
+  @override
   Future<Either<RequestError, GetDashboardWeightsResponse>> getDashboardWeights(
     String startDate,
     String endDate,
@@ -292,5 +311,75 @@ class APINutritionService implements NutritionService {
     return client
         .post('/weight/log', data: data)
         .then(parseResponse(LogWeightResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, GetDishesResponse>> getDishes(
+    List<String>? mealCategories,
+  ) {
+    return client.get(
+      '/dishes',
+      queryParameters: {"mealCategories": mealCategories ?? []},
+    ).then(parseResponse(GetDishesResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> updateFoodItemInDish(
+    int dishId,
+    String internalFoodItemId,
+    UpdateFoodItemInDishBody data,
+  ) {
+    return client
+        .patch('/dishes/$dishId/food-items/$internalFoodItemId', data: data)
+        .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, UpdateDishFoodItemResponse>>
+      deleteFoodItemFromDish(
+    int dishId,
+    int internalFoodItemId,
+  ) {
+    return client
+        .delete('/dishes/$dishId/food-items/$internalFoodItemId')
+        .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, MealsListItem>> addDishToMeal(
+    int mealId,
+    AddDishToMealBody data,
+  ) {
+    return client
+        .post('/meals/$mealId/dishes', data: data)
+        .then(parseResponse(MealsListItem.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> cloneDish(
+    CloneDishBody data,
+  ) {
+    return client
+        .post('/dishes/clone', data: data)
+        .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> deleteDish(
+    int dishId,
+  ) {
+    return client
+        .delete('/dishes/$dishId')
+        .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> addFoodItemToDish(
+    int dishId,
+    AddFoodItemToDishBody data,
+  ) {
+    return client
+        .post('/dishes/$dishId/food-item', data: data)
+        .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
   }
 }

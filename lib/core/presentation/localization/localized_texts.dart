@@ -288,6 +288,7 @@ class LocalizedTexts {
   static const String myFavorites = 'myFavorites';
   static const String my = 'my';
   static const String myDishes = 'myDishes';
+  static const String dishes = 'dishes';
   static const String scan = 'scan';
   static const String myLunchFavorites = 'myLunchFavorites';
   static const String myLunchDishes = 'myLunchDishes';
@@ -352,6 +353,8 @@ class LocalizedTexts {
   static const String searchFilterProducts = 'searchFilterProducts';
   static const String searchFilterRecipes = 'searchFilterRecipes';
   static const String searchFilterMy = 'searchFilterMy';
+  static const String searchEmptyResultTitle = 'searchEmptyResultTitle';
+  static const String searchEmptyResultText = 'searchEmptyResultText';
 
   //Dashboard
   static const String goodMorning = 'goodMorning';
@@ -385,6 +388,11 @@ class LocalizedTexts {
 
   static const String noMealsLogged = 'noMealsLogged';
   static const String noMealsLoggedYet = 'noMealsLoggedYet';
+
+  // Dish
+  static const String createMyDish = 'createMyDish';
+  static const String logItem = 'logItem';
+  static const String deleteDish = 'deleteDish';
 }
 
 extension StringX on String {

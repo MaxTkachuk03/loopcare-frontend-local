@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/underlined_tab_bar.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
 
 class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
+  final SearchMode? mode;
   const SearchAppBar({
     Key? key,
+    this.mode,
   }) : super(key: key);
 
   @override
@@ -17,14 +22,41 @@ class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height * 2);
 }
 
-class _SearchAppBarState extends State<SearchAppBar> {
-  bool isFlashOn = false;
+class _SearchAppBarState extends State<SearchAppBar>
+    with TickerProviderStateMixin {
+  String searchText = '';
+  String? searchMode = '';
   final TextEditingController _searchTextController = TextEditingController();
+  late TabController _tabController;
+  late List<String> tabs;
+
+  @override
+  initState() {
+    super.initState();
+    var mode = widget.mode;
+    if (mode != null) {
+      tabs = <String>[mode.label];
+    } else {
+      tabs = SearchMode.values
+          .where((e) => e.label != SearchMode.favorite.label)
+          .map((e) => e.label)
+          .toList();
+    }
+
+    _tabController = TabController(
+      length: tabs.length,
+      vsync: this,
+    );
+
+    _tabController.addListener(_tabsChangeListener);
+  }
 
   @override
   void dispose() {
     super.dispose();
 
+    _tabController.removeListener(_tabsChangeListener);
+    _tabController.dispose();
     _searchTextController.dispose();
   }
 
@@ -43,6 +75,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                 hintText: LocalizedTexts.searchHint.translation,
                 controller: _searchTextController,
                 isClearField: true,
+                onChanged: _onTextChange,
               ),
             ),
           ),
@@ -72,12 +105,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
                   ),
                 ),
                 UnderlinedTabBar(
-                  tabs: [
-                    Tab(text: LocalizedTexts.searchFilterAll.translation),
-                    Tab(text: LocalizedTexts.searchFilterProducts.translation),
-                    Tab(text: LocalizedTexts.searchFilterRecipes.translation),
-                    Tab(text: LocalizedTexts.searchFilterMy.translation),
-                  ],
+                  tabs: tabs.map((e) => Tab(text: e)).toList(),
+                  tabController: _tabController,
                 ),
               ],
             ),
@@ -85,5 +114,33 @@ class _SearchAppBarState extends State<SearchAppBar> {
         ),
       ),
     );
+  }
+
+  void _tabsChangeListener() {
+    if (_tabController.indexIsChanging) {
+      String? selectedMode =
+          SearchMode.values.toList()[_tabController.index].searchModeValue;
+      searchMode = selectedMode;
+
+      context.read<SearchBloc>().add(
+            SearchEvent.search(
+              searchText,
+              mode: searchMode,
+              filteredMode: widget.mode?.searchModeValue,
+            ),
+          );
+    }
+  }
+
+  void _onTextChange(String value) {
+    searchText = value;
+
+    context.read<SearchBloc>().add(
+          SearchEvent.search(
+            searchText,
+            mode: searchMode,
+            filteredMode: widget.mode?.searchModeValue,
+          ),
+        );
   }
 }
