@@ -295,5 +295,13 @@
   "mind": "Mind",
   "activity": "Activity",
   "noMealsLogged": "No meals logged",
-  "noMealsLoggedYet": "No meals logged yet"
+  "noMealsLoggedYet": "No meals logged yet",
+  "summary": "Summary",
+  "instructions": "Instructions",
+  "ingredients": "Ingredients",
+  "addToMyDishes": "Add to My dishes",
+  "cookingTime": "Cooking time",
+  "preparation": "Preparation",
+  "portions": "Portions",
+  "howToPrepare": "How to prepare"
 }

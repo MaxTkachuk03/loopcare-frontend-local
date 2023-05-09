@@ -1,9 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -147,7 +150,7 @@ class _RecipePageState extends State<RecipePage> {
                               OutlinedRoundedButton(
                                 text: LocalizedTexts.viewRecipe.translation,
                                 icon: AppIcons.chef,
-                                onPressed: () {},
+                                onPressed: _onViewRecipePressed,
                               ),
                               const SizedBox(
                                 height: 24.0,
@@ -211,5 +214,9 @@ class _RecipePageState extends State<RecipePage> {
 
   void _onNutritionFactSelect(NutritionItem item) {
     context.read<RecipeBloc>().add(RecipeEvent.nutritionItemChanged(item));
+  }
+
+  void _onViewRecipePressed() {
+    context.router.pushNamed(AppRoutes.recipeDetails);
   }
 }
