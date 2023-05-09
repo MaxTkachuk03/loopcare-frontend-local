@@ -22,6 +22,8 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  String? selectedRecentSearchItem;
+
   @override
   void initState() {
     super.initState();
@@ -32,10 +34,20 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SearchAppBar(mode: widget.mode),
+      appBar: SearchAppBar(
+        mode: widget.mode,
+        selectedRecentSearchItem: selectedRecentSearchItem ?? '',
+      ),
       body: SafeArea(
         child: ScrollableContainer(
-          child: SearchResultList(onItemTap: widget.onItemTap),
+          child: SearchResultList(
+            onItemTap: widget.onItemTap,
+            onRecentSearchItemTap: (item) {
+              setState(() {
+                selectedRecentSearchItem = item;
+              });
+            },
+          ),
         ),
       ),
     );

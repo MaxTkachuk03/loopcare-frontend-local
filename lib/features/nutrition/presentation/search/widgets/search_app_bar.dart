@@ -10,9 +10,12 @@ import 'package:loopcare_frontend/features/nutrition/application/search/search_b
 
 class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
   final SearchMode? mode;
+  final String? selectedRecentSearchItem;
+
   const SearchAppBar({
     Key? key,
     this.mode,
+    this.selectedRecentSearchItem,
   }) : super(key: key);
 
   @override
@@ -49,6 +52,7 @@ class _SearchAppBarState extends State<SearchAppBar>
     );
 
     _tabController.addListener(_tabsChangeListener);
+    _searchTextController.addListener(_onTextChange);
   }
 
   @override
@@ -62,8 +66,12 @@ class _SearchAppBarState extends State<SearchAppBar>
 
   @override
   Widget build(BuildContext context) {
+    String? selectedRecentSearchItem = widget.selectedRecentSearchItem;
+    if (selectedRecentSearchItem != null) {
+      _searchTextController.text = selectedRecentSearchItem;
+    }
     return DefaultTabController(
-      length: 4,
+      length: tabs.length,
       child: BlueAppBar(
         actions: [
           Expanded(
@@ -75,7 +83,6 @@ class _SearchAppBarState extends State<SearchAppBar>
                 hintText: LocalizedTexts.searchHint.translation,
                 controller: _searchTextController,
                 isClearField: true,
-                onChanged: _onTextChange,
               ),
             ),
           ),
@@ -132,8 +139,12 @@ class _SearchAppBarState extends State<SearchAppBar>
     }
   }
 
-  void _onTextChange(String value) {
-    searchText = value;
+  void _onTextChange() {
+    searchText = _searchTextController.text;
+
+    if (searchText.isEmpty) {
+      context.read<SearchBloc>().add(const SearchEvent.resetData());
+    }
 
     context.read<SearchBloc>().add(
           SearchEvent.search(

@@ -183,13 +183,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
   ) async {
     await state.mapOrNull(
       mealsInfo: (state) async {
-<<<<<<< HEAD
-        // final servingId = state.selectedServing?.servingId;
-        // final numberOfUnits = state.selectedServing?.numberOfUnits;
-        // if (servingId == null) return;
-
-=======
->>>>>>> feature/epic/LOOPCARE-417-Nutrition
         final response = await nutritionService.addFoodItemToMeal(
           event.mealId,
           event.foodItemId,

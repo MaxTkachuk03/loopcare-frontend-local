@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/features/nutrition/application/nutrition_servi
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'search_event.dart';
 
@@ -15,9 +16,12 @@ part 'search_state.dart';
 
 part 'search_bloc.freezed.dart';
 
+part 'search_bloc.g.dart';
+
 @singleton
-class SearchBloc extends Bloc<SearchEvent, SearchState> {
+class SearchBloc extends HydratedBloc<SearchEvent, SearchState> {
   final NutritionService nutritionService;
+  static const maxRecentSearchListSize = 5;
 
   SearchBloc(this.nutritionService) : super(const SearchState.initial()) {
     on<Search>(
@@ -29,13 +33,53 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           .switchMap(mapper),
     );
     on<ResetData>(_onResetData);
+    on<AddSearchResult>(_onAddSearchResult);
   }
 
-  FutureOr<void> _onResetData(
-    ResetData event,
+  FutureOr<void> _onAddSearchResult(
+    AddSearchResult event,
     Emitter<SearchState> emit,
   ) {
-    emit(const SearchState.initial());
+    _addRecentSearch(event.query);
+  }
+
+  Future<void> _addRecentSearch(String query) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var list = await _getRecentSearch();
+
+    if (!list.contains(query)) {
+      if (list.length > maxRecentSearchListSize - 1) {
+        list.removeAt(maxRecentSearchListSize - 1);
+      }
+      list.insert(0, query);
+    }
+
+    prefs.setStringList('recent_search', list);
+  }
+
+  Future<List<String>> _getRecentSearch() async {
+    var list = <String>[];
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    List<String>? savedList = prefs.getStringList('recent_search');
+    if (savedList != null) {
+      list.addAll(savedList);
+    }
+
+    return list;
+  }
+
+  Future<FutureOr<void>> _onResetData(
+    ResetData event,
+    Emitter<SearchState> emit,
+  ) async {
+    var list = await _getRecentSearch();
+    emit(
+      SearchState.initial(
+        recentSearch: list,
+      ),
+    );
   }
 
   FutureOr<void> _onSearch(
@@ -50,7 +94,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     var eventFilteredMode = event.filteredMode;
     var searchMode = <String>[];
 
-    if (eventMode != null) {
+    if (eventMode != null && eventMode.isNotEmpty && eventMode != 'all') {
       searchMode = <String>[eventMode];
     }
     if (eventFilteredMode != null) {
@@ -68,7 +112,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     response.fold(
       (error) {
-        emit(SearchState.error(error));
+        emit(
+          SearchState.error(
+            fetchError: error,
+          ),
+        );
       },
       (response) {
         emit(
@@ -78,5 +126,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         );
       },
     );
+  }
+
+  @override
+  SearchState? fromJson(Map<String, dynamic> json) =>
+      SearchState.fromJson(json);
+
+  @override
+  Map<String, dynamic>? toJson(SearchState state) {
+    return state.toJson();
   }
 }
