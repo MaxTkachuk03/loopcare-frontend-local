@@ -15,12 +15,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widg
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 class LogMeal extends StatelessWidget {
-  final bool isEditable;
-
-  const LogMeal({
-    Key? key,
-    required this.isEditable,
-  }) : super(key: key);
+  const LogMeal({Key? key}) : super(key: key);
 
   void onPressHandler(BuildContext context) {
     ModalBottomSheet.selectAMealDialog(
@@ -185,7 +180,11 @@ class LogMeal extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 40),
-                          const CalorieNutritionBlock(),
+                          CalorieNutritionBlock(
+                            proteinDegree: mealsState.currentMealProteinDegree,
+                            calorieDensity:
+                                mealsState.currentMealCalorieDensity,
+                          ),
                         ],
                       ),
                     ],

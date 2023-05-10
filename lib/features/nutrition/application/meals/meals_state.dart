@@ -131,4 +131,38 @@ class MealsState with _$MealsState {
       orElse: () => <MealItem>[],
     );
   }
+
+  double? get currentMealProteinDegree {
+    return mapOrNull(
+      mealsInfo: (state) {
+        if (state.meals.isEmpty || state.currentMealId == null) {
+          return null;
+        }
+
+        final MealsListItem? currentMeal = state.meals
+            .firstWhereOrNull((item) => item.id == state.currentMealId);
+
+        if (currentMeal == null) return null;
+
+        return currentMeal.proteinDegree;
+      },
+    );
+  }
+
+  double? get currentMealCalorieDensity {
+    return mapOrNull(
+      mealsInfo: (state) {
+        if (state.meals.isEmpty || state.currentMealId == null) {
+          return null;
+        }
+
+        final MealsListItem? currentMeal = state.meals
+            .firstWhereOrNull((item) => item.id == state.currentMealId);
+
+        if (currentMeal == null) return null;
+
+        return currentMeal.calorieDensity;
+      },
+    );
+  }
 }

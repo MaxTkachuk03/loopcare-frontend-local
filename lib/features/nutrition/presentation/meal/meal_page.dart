@@ -46,7 +46,10 @@ class _MealPageState extends State<MealPage> {
                   children: [
                     const MealNutritionValues(),
                     const MealsList(),
-                    const NutritionBlock(),
+                    NutritionBlock(
+                      proteinDegree: state.currentMealProteinDegree,
+                      calorieDensity: state.currentMealCalorieDensity,
+                    ),
                     const SizedBox(height: 26.0),
                     MainContainer(
                       child: Row(

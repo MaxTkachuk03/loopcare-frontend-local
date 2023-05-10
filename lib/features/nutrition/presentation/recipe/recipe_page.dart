@@ -6,12 +6,10 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
-import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe/widgets/recipe_list.dart';
@@ -118,7 +116,10 @@ class _RecipePageState extends State<RecipePage> {
                               recipeState.currentRecipeNutritionItem.key,
                           list: recipeState.recipe.ingredients,
                         ),
-                        const NutritionBlock(),
+                        NutritionBlock(
+                          proteinDegree: recipeState.recipe.proteinDegree,
+                          calorieDensity: recipeState.recipe.calorieDensity,
+                        ),
                         const SizedBox(
                           height: 26.0,
                         ),
@@ -187,12 +188,6 @@ class _RecipePageState extends State<RecipePage> {
     if (recipeState == null) return;
 
     _servingController = TextEditingController(text: state.servingAmount);
-
-    context.read<NutritionInstructionsBloc>()
-      ..add(NutritionInstructionsEvent.setProteinDegree(
-          recipeState.proteinDegree))
-      ..add(NutritionInstructionsEvent.setCalorieDensity(
-          recipeState.calorieDensity));
   }
 
   void _recipeUpdatingListener(BuildContext context, RecipeState state) {

@@ -21,15 +21,19 @@ class NutritionInstructionsState with _$NutritionInstructionsState {
         return doubleMinValue <= value && value <= doubleMaxValue;
       };
 
-  NutritionInstructionValue? get currentCalorieDensityItem {
+  NutritionInstructionValue? getCalorieDensityItem(double? value) {
+    if (value == null) return null;
+
     return mapOrNull(
-        nutritionInstructions: (state) => state.calorieDensityValues
-            .firstWhere(_filter(state.calorieDensityValue)));
+        nutritionInstructions: (state) =>
+            state.calorieDensityValues.firstWhere(_filter(value)));
   }
 
-  NutritionInstructionValue? get currentProteinDegreeItem {
+  NutritionInstructionValue? getProteinDegreeItem(double? value) {
+    if (value == null) return null;
+
     return mapOrNull(
-        nutritionInstructions: (state) => state.proteinDegreeValues
-            .firstWhere(_filter(state.proteinDegreeValue)));
+        nutritionInstructions: (state) =>
+            state.proteinDegreeValues.firstWhere(_filter(value)));
   }
 }

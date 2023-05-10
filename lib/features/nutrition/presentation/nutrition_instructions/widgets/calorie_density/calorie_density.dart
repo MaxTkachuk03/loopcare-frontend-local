@@ -8,7 +8,12 @@ import 'package:loopcare_frontend/features/nutrition/application/nutrition_instr
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/instructions_block/instructions_block.dart';
 
 class CalorieDensity extends StatelessWidget {
-  const CalorieDensity({Key? key}) : super(key: key);
+  final double? value;
+
+  const CalorieDensity({
+    Key? key,
+    this.value,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +39,7 @@ class CalorieDensity extends StatelessWidget {
                     return state.maybeMap(
                       nutritionInstructions: (state) {
                         return CalorieDensityScale(
-                          density: state.calorieDensityValue,
+                          density: value,
                           separatorColor: AppColors.white,
                           layout: CalorieDensityScaleLayout.vertical,
                         );
@@ -56,7 +61,7 @@ class CalorieDensity extends StatelessWidget {
                         return state.maybeMap(
                           nutritionInstructions: (state) {
                             return Text(
-                              '${LocalizedTexts.calorieDensity.translation}: ${state.calorieDensityValue}',
+                              '${LocalizedTexts.calorieDensity.translation}: ${value?.toStringAsFixed(2)}',
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium
@@ -76,7 +81,7 @@ class CalorieDensity extends StatelessWidget {
                         return state.maybeMap(
                           nutritionInstructions: (state) {
                             final currentCalorieDensityItem =
-                                state.currentCalorieDensityItem;
+                                state.getCalorieDensityItem(value);
 
                             if (state.calorieDensityValues.isEmpty ||
                                 currentCalorieDensityItem == null) {

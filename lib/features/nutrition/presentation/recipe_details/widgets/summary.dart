@@ -17,78 +17,81 @@ class Summary extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RecipeDetailsBloc, RecipeDetailsState>(
       builder: (BuildContext context, state) {
-        return state.maybeMap(recipeInfo: (s) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.only(
-                  top: 18.0,
-                  left: 24.4,
-                  right: 24.0,
-                  bottom: 30.0,
-                ),
-                color: AppColors.white,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      s.recipe.description,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(
-                        color: AppColors.black,
+        return state.maybeMap(
+          recipeInfo: (s) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(
+                    top: 18.0,
+                    left: 24.4,
+                    right: 24.0,
+                    bottom: 30.0,
+                  ),
+                  color: AppColors.white,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        s.recipe.description,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: AppColors.black,
+                            ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 18.0,
-                    ),
-                    Row(
-                      children: [
-                        SummaryItem(
-                          label: LocalizedTexts.cookingTime.translation,
-                          icon: AppIcons.clockGrey,
-                          quantity: '${s.recipe.cookingTimeMin}',
-                          quantityLabel: 'min',
-                        ),
-                        const SizedBox(
-                          width: 20.0,
-                        ),
-                        SummaryItem(
-                          label: LocalizedTexts.preparation.translation,
-                          icon: AppIcons.clockGrey,
-                          quantity: '${s.recipe.preparationTimeMin}',
-                          quantityLabel: 'min',
-                        ),
-                        const SizedBox(
-                          width: 30.0,
-                        ),
-                        SummaryItem(
-                          label: LocalizedTexts.portions.translation,
-                          icon: AppIcons.person,
-                          quantity: s.recipe.servingAmount.removeDecimalZeroFormat(),
-                        ),
-                      ],
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 18.0,
+                      ),
+                      Row(
+                        children: [
+                          SummaryItem(
+                            label: LocalizedTexts.cookingTime.translation,
+                            icon: AppIcons.clockGrey,
+                            quantity: '${s.recipe.cookingTimeMin}',
+                            quantityLabel: 'min',
+                          ),
+                          const SizedBox(
+                            width: 20.0,
+                          ),
+                          SummaryItem(
+                            label: LocalizedTexts.preparation.translation,
+                            icon: AppIcons.clockGrey,
+                            quantity: '${s.recipe.preparationTimeMin}',
+                            quantityLabel: 'min',
+                          ),
+                          const SizedBox(
+                            width: 30.0,
+                          ),
+                          SummaryItem(
+                            label: LocalizedTexts.portions.translation,
+                            icon: AppIcons.person,
+                            quantity: s.recipe.servingAmount
+                                .removeDecimalZeroFormat(),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const NutritionBlock(),
-              const SizedBox(
-                height: 30.0,
-              ),
-              MainContainer(
-                child: OutlinedRoundedButton(
-                  text: LocalizedTexts.addFoodItem.translation,
-                  icon: AppIcons.dish,
-                  onPressed: () {},
+                NutritionBlock(
+                  calorieDensity: s.recipe.calorieDensity,
+                  proteinDegree: s.recipe.proteinDegree,
                 ),
-              ),
-            ],
-          );
-        }, orElse: () => const SizedBox.shrink(),);
+                const SizedBox(
+                  height: 30.0,
+                ),
+                MainContainer(
+                  child: OutlinedRoundedButton(
+                    text: LocalizedTexts.addFoodItem.translation,
+                    icon: AppIcons.dish,
+                    onPressed: () {},
+                  ),
+                ),
+              ],
+            );
+          },
+          orElse: () => const SizedBox.shrink(),
+        );
       },
     );
   }

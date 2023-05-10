@@ -22,8 +22,6 @@ class NutritionInstructionsBloc
   NutritionInstructionsBloc(this.nutritionService)
       : super(const NutritionInstructionsState.initial()) {
     on<FetchValuesExplanation>(_onFetchValuesExplanation);
-    on<SetCalorieDensity>(_onSetCalorieDensity);
-    on<SetProteinDegree>(_onSetProteinDegree);
     on<Disable>(_onDisable);
   }
 
@@ -52,28 +50,6 @@ class NutritionInstructionsBloc
           isDisabled: false,
         ),
       );
-    });
-  }
-
-  _onSetCalorieDensity(
-    SetCalorieDensity event,
-    Emitter<NutritionInstructionsState> emit,
-  ) {
-    state.mapOrNull(nutritionInstructions: (state) {
-      emit(state.copyWith(
-        calorieDensityValue: double.parse(event.value.toStringAsFixed(2)),
-        isDisabled: false,
-      ));
-    });
-  }
-
-  _onSetProteinDegree(
-    SetProteinDegree event,
-    Emitter<NutritionInstructionsState> emit,
-  ) {
-    state.mapOrNull(nutritionInstructions: (state) {
-      emit(state.copyWith(
-          proteinDegreeValue: double.parse(event.value.toStringAsFixed(2))));
     });
   }
 
