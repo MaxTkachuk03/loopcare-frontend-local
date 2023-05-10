@@ -21,7 +21,7 @@ part 'search_bloc.g.dart';
 @singleton
 class SearchBloc extends HydratedBloc<SearchEvent, SearchState> {
   final NutritionService nutritionService;
-  static const maxRecentSearchListSize = 5;
+  static const maxRecentSearchListSize = 10;
 
   SearchBloc(this.nutritionService) : super(const SearchState.initial()) {
     on<Search>(
