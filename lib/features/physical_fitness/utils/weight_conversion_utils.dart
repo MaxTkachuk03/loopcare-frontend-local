@@ -1,4 +1,4 @@
-import 'package:loopcare_frontend/features/physical_fitness/utils/fixed_value_to_one.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/fixed_value_to.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/is_zero_after_decimal.dart';
 
 class WeightConversionUtils {
@@ -11,7 +11,7 @@ class WeightConversionUtils {
   }
 
   static num convertLbsToKg(double weight) {
-    final fixedValue = fixedValueToOne(weight * lbsInKg);
+    final fixedValue = fixedValueToTwo(weight * lbsInKg);
     return isZeroAfterDecimal(fixedValue) ? fixedValue.toInt() : fixedValue;
   }
 
