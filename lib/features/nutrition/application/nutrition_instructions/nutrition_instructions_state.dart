@@ -2,15 +2,16 @@ part of 'nutrition_instructions_bloc.dart';
 
 @freezed
 class NutritionInstructionsState with _$NutritionInstructionsState {
-  const factory NutritionInstructionsState.initial() = _Initial;
+  const NutritionInstructionsState._();
 
-  const factory NutritionInstructionsState.disabled() = _Disabled;
+  const factory NutritionInstructionsState.initial() = _Initial;
 
   const factory NutritionInstructionsState.nutritionInstructions({
     required IList<NutritionInstructionValue> calorieDensityValues,
     required IList<NutritionInstructionValue> proteinDegreeValues,
     required double proteinDegreeValue,
     required double calorieDensityValue,
+    required bool isDisabled,
   }) = _NutritionInstructions;
 
   _filter(double value) => (NutritionInstructionValue el) {
@@ -31,6 +32,4 @@ class NutritionInstructionsState with _$NutritionInstructionsState {
         nutritionInstructions: (state) => state.proteinDegreeValues
             .firstWhere(_filter(state.proteinDegreeValue)));
   }
-
-  const NutritionInstructionsState._();
 }
