@@ -394,6 +394,12 @@ class LocalizedTexts {
   static const String createMyDish = 'createMyDish';
   static const String logItem = 'logItem';
   static const String deleteDish = 'deleteDish';
+
+  // Account
+  static const String deleteMyAccount = 'deleteMyAccount';
+  static const String deleteModalMessage = 'deleteModalMessage';
+  static const String yesDelete = 'yesDelete';
+  static const String noCancel = 'noCancel';
 }
 
 extension StringX on String {

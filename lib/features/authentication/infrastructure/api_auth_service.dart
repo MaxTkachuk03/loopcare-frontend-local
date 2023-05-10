@@ -34,6 +34,11 @@ class APIAuthenticationService implements AuthenticationService {
   }
 
   @override
+  Future<Either<RequestError, dynamic>> deleteAccount() async {
+    return client.delete('/accounts');
+  }
+
+  @override
   Future<Either<RequestError, SignUpResponse>> signUp(SignUpData data) async {
     return client
         .post('/accounts/registration', data: data.toJson())

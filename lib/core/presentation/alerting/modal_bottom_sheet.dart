@@ -120,6 +120,63 @@ class ModalBottomSheet {
     );
   }
 
+  static void deleteAccount({
+    required BuildContext context,
+    required void Function() onDeleted,
+  }) {
+    showModalBottomSheet<void>(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24.0),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  children: [
+                    const SizedBox(height: 32.0),
+                    Text(
+                      LocalizedTexts.deleteModalMessage.translation,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    const SizedBox(height: 47.0),
+                  ],
+                ),
+                Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () => context.router.pop(),
+                      style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                        backgroundColor:
+                        MaterialStateProperty.all(AppColors.bgGreen),
+                        foregroundColor:
+                        MaterialStateProperty.all(AppColors.black),
+                      ),
+                      child: Text(LocalizedTexts.noCancel.translation),
+                    ),
+                    const SizedBox(
+                      height: 12.0,
+                    ),
+                    ElevatedButton(
+                      onPressed: onDeleted,
+                      child: Text(LocalizedTexts.yesDelete.translation),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   static void consentConfirmationMoreInfo({
     required BuildContext context,
   }) {
