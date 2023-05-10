@@ -1,15 +1,20 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 class ProteinDegreeBlock extends StatelessWidget {
-  const ProteinDegreeBlock({Key? key}) : super(key: key);
+  final double? value;
+  final void Function({required int tabIndex}) onPress;
+
+  const ProteinDegreeBlock({
+    Key? key,
+    this.value,
+    required this.onPress,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,7 @@ class ProteinDegreeBlock extends StatelessWidget {
       builder: (BuildContext context, state) {
         return state.maybeMap(
           nutritionInstructions: (state) {
-            final currentProteinDegreeItem = state.currentProteinDegreeItem;
+            final currentProteinDegreeItem = state.getProteinDegreeItem(value);
 
             if (state.proteinDegreeValues.isEmpty ||
                 currentProteinDegreeItem == null) {
@@ -43,17 +48,20 @@ class ProteinDegreeBlock extends StatelessWidget {
                                   ),
                         ),
                         Text(
-                          '${state.proteinDegreeValue}',
+                          '${value?.round() ?? '-'}',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
-                        Text(
-                          currentProteinDegreeItem.label
-                              .capitalizeOnlyFirstLetter(),
-                          style:
-                              Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    fontSize: 14.0,
-                                  ),
-                        ),
+                        if (value != null)
+                          Text(
+                            currentProteinDegreeItem.label
+                                .capitalizeOnlyFirstLetter(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                                  fontSize: 14.0,
+                                ),
+                          ),
                       ],
                     ),
                     const SizedBox(
@@ -79,6 +87,6 @@ class ProteinDegreeBlock extends StatelessWidget {
   }
 
   _onItemPressed(BuildContext context) {
-    context.router.push(NutritionInstructionsRoute(tabIndex: 1));
+    onPress(tabIndex: 1);
   }
 }

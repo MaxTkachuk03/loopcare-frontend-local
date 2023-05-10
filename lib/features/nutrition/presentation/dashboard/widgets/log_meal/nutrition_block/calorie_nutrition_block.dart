@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/log_meal/nutrition_block/calorie_block.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/log_meal/nutrition_block/disabled_calorie_block.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/log_meal/nutrition_block/disabled_protein_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/log_meal/nutrition_block/protein_block.dart';
 
 class CalorieNutritionBlock extends StatelessWidget {
-  const CalorieNutritionBlock({Key? key}) : super(key: key);
+  final double? calorieDensity;
+  final double? proteinDegree;
+
+  const CalorieNutritionBlock({
+    Key? key,
+    this.calorieDensity,
+    this.proteinDegree,
+  }) : super(key: key);
+
+  void _onPressHandler({required context, required int tabIndex}) {
+    context.router.push(NutritionInstructionsRoute(tabIndex: tabIndex));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,23 +28,20 @@ class CalorieNutritionBlock extends StatelessWidget {
           BlocBuilder<NutritionInstructionsBloc, NutritionInstructionsState>(
             builder: (BuildContext context, state) {
               return state.maybeMap(
-                nutritionInstructions: (state) => state.isDisabled
-                    ? const DisabledCalorieBlock()
-                    : const CalorieBlock(),
+                nutritionInstructions: (state) => CalorieBlock(
+                  value: calorieDensity,
+                  onPress: ({required int tabIndex}) =>
+                      _onPressHandler(context: context, tabIndex: tabIndex),
+                ),
                 orElse: () => const SizedBox.shrink(),
               );
             },
           ),
           const SizedBox(height: 34.0),
-          BlocBuilder<NutritionInstructionsBloc, NutritionInstructionsState>(
-            builder: (BuildContext context, state) {
-              return state.maybeMap(
-                nutritionInstructions: (state) => state.isDisabled
-                    ? const DiabledProteinBlock()
-                    : const ProteinBlock(),
-                orElse: () => const SizedBox.shrink(),
-              );
-            },
+          ProteinBlock(
+            value: proteinDegree,
+            onPress: ({required int tabIndex}) =>
+                _onPressHandler(context: context, tabIndex: tabIndex),
           ),
         ],
       ),

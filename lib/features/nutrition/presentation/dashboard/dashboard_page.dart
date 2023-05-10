@@ -36,17 +36,16 @@ class _DashboardPageState extends State<DashboardPage> {
   void initState() {
     _isMealBlockEditable = false;
 
-    context.read<DashboardWeightBloc>().add(
-          DashboardWeightEvent.fetchWeights(
-            _selectedDay.midnightTime.subtract(const Duration(days: 8)),
-          ),
-        );
-
-    context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
-
     context
         .read<NutritionInstructionsBloc>()
         .add(const NutritionInstructionsEvent.fetchValuesExplanation());
+
+    context.read<DashboardWeightBloc>().add(DashboardWeightEvent.fetchWeights(
+          _selectedDay.midnightTime.subtract(const Duration(days: 8)),
+        ));
+
+    context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
+
     super.initState();
   }
 
@@ -94,7 +93,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         builder: (BuildContext context, state) {
                           return state.isNeedToHideOnDashboard
                               ? const SizedBox(height: 0.0)
-                              : LogMeal(isEditable: _isMealBlockEditable);
+                              : const LogMeal();
                         },
                       ),
                       const SizedBox(height: 10.0),

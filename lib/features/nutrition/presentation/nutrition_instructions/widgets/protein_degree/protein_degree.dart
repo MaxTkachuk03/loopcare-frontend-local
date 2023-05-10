@@ -5,7 +5,12 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 
 class ProteinDegree extends StatelessWidget {
-  const ProteinDegree({Key? key}) : super(key: key);
+  final double? value;
+
+  const ProteinDegree({
+    Key? key,
+    this.value,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +33,7 @@ class ProteinDegree extends StatelessWidget {
                   return state.maybeMap(
                     nutritionInstructions: (state) {
                       final currentProteinDegreeItem =
-                          state.currentProteinDegreeItem;
+                          state.getProteinDegreeItem(value);
 
                       if (state.proteinDegreeValues.isEmpty ||
                           currentProteinDegreeItem == null) {
@@ -39,11 +44,13 @@ class ProteinDegree extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
-                            '${LocalizedTexts.proteinDegree.translation}: ${state.proteinDegreeValue}',
-                            style:
-                                Theme.of(context).textTheme.titleMedium?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                            '${LocalizedTexts.proteinDegree.translation}: ${value?.round()}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
                           ),
                           const SizedBox(height: 8.0),
                           Text(

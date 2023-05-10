@@ -155,7 +155,12 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                               list: dishState.selectedDish.foodItems,
                               nutritionKey: dishState.currentNutritionItem.key,
                             ),
-                            const NutritionBlock(),
+                            NutritionBlock(
+                              calorieDensity:
+                                  dishState.selectedDish.calorieDensity,
+                              proteinDegree:
+                                  dishState.selectedDish.proteinDegree,
+                            ),
                             const SizedBox(height: 26.0),
                             MainContainer(
                               child: Column(
