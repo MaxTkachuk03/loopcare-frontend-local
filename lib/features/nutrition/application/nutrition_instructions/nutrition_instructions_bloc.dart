@@ -49,6 +49,7 @@ class NutritionInstructionsBloc
           proteinDegreeValues: proteinDegreeValues,
           proteinDegreeValue: 0.0,
           calorieDensityValue: 0.0,
+          isDisabled: false,
         ),
       );
     });
@@ -60,7 +61,9 @@ class NutritionInstructionsBloc
   ) {
     state.mapOrNull(nutritionInstructions: (state) {
       emit(state.copyWith(
-          calorieDensityValue: double.parse(event.value.toStringAsFixed(2))));
+        calorieDensityValue: double.parse(event.value.toStringAsFixed(2)),
+        isDisabled: false,
+      ));
     });
   }
 
@@ -78,6 +81,10 @@ class NutritionInstructionsBloc
     Disable event,
     Emitter<NutritionInstructionsState> emit,
   ) {
-    emit(const NutritionInstructionsState.disabled());
+    state.mapOrNull(nutritionInstructions: (state) {
+      emit(state.copyWith(
+        isDisabled: true,
+      ));
+    });
   }
 }

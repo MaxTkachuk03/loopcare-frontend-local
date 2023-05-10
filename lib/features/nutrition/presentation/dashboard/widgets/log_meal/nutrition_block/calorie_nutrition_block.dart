@@ -18,8 +18,9 @@ class CalorieNutritionBlock extends StatelessWidget {
           BlocBuilder<NutritionInstructionsBloc, NutritionInstructionsState>(
             builder: (BuildContext context, state) {
               return state.maybeMap(
-                disabled: (_) => const DisabledCalorieBlock(),
-                nutritionInstructions: (_) => const CalorieBlock(),
+                nutritionInstructions: (state) => state.isDisabled
+                    ? const DisabledCalorieBlock()
+                    : const CalorieBlock(),
                 orElse: () => const SizedBox.shrink(),
               );
             },
@@ -28,8 +29,9 @@ class CalorieNutritionBlock extends StatelessWidget {
           BlocBuilder<NutritionInstructionsBloc, NutritionInstructionsState>(
             builder: (BuildContext context, state) {
               return state.maybeMap(
-                disabled: (_) => const DiabledProteinBlock(),
-                nutritionInstructions: (_) => const ProteinBlock(),
+                nutritionInstructions: (state) => state.isDisabled
+                    ? const DiabledProteinBlock()
+                    : const ProteinBlock(),
                 orElse: () => const SizedBox.shrink(),
               );
             },
