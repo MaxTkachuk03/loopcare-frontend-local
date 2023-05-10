@@ -52,35 +52,40 @@ class _SearchResultListState extends State<SearchResultList> {
                 );
         },
         initial: (initialState) {
-          return ListView.builder(
-            itemCount: initialState.recentSearch.isEmpty
-                ? 1
-                : initialState.recentSearch.length + 1,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (BuildContext context, int index) {
-              if (index == 0) {
-                // return the header
-                return SearchListTitleItem(
-                  text: LocalizedTexts.recentSearch.translation,
+          var recentSearchList = initialState.recentSearch;
+          recentSearchList ??= <String>[];
+          if (recentSearchList.isNotEmpty) {
+            return ListView.builder(
+              itemCount:
+                  recentSearchList.isEmpty ? 1 : recentSearchList.length + 1,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                if (index == 0) {
+                  // return the header
+                  return SearchListTitleItem(
+                    text: LocalizedTexts.recentSearch.translation,
+                  );
+                }
+                index -= 1;
+
+                final item = recentSearchList![index];
+
+                return SearchResultListItem(
+                  item: SearchItem(
+                    id: index.toString(),
+                    name: item,
+                    type: SearchItemTypes.recent,
+                  ),
+                  onTap: (SearchItem item) {
+                    widget.onRecentSearchItemTap(item.name);
+                  },
                 );
-              }
-              index -= 1;
-
-              final item = initialState.recentSearch[index];
-
-              return SearchResultListItem(
-                item: SearchItem(
-                  id: index.toString(),
-                  name: item,
-                  type: SearchItemTypes.recent,
-                ),
-                onTap: (SearchItem item) {
-                  widget.onRecentSearchItemTap(item.name);
-                },
-              );
-            },
-          );
+              },
+            );
+          } else {
+            return const SizedBox.shrink();
+          }
         },
         loading: (_) => const SizedBox(height: 240, child: Loader()),
         orElse: () => const SizedBox.shrink(),

@@ -5,7 +5,7 @@ class SearchState with _$SearchState {
   const SearchState._();
 
   const factory SearchState.initial({
-    @Default(<String>[]) List<String> recentSearch,
+    @Default(<String>[]) List<String>? recentSearch,
   }) = _Initial;
 
   const factory SearchState.loading() = _Loading;

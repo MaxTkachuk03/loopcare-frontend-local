@@ -19,7 +19,7 @@ part 'search_bloc.freezed.dart';
 part 'search_bloc.g.dart';
 
 @singleton
-class SearchBloc extends HydratedBloc<SearchEvent, SearchState> {
+class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final NutritionService nutritionService;
   static const maxRecentSearchListSize = 10;
 
@@ -126,14 +126,5 @@ class SearchBloc extends HydratedBloc<SearchEvent, SearchState> {
         );
       },
     );
-  }
-
-  @override
-  SearchState? fromJson(Map<String, dynamic> json) =>
-      SearchState.fromJson(json);
-
-  @override
-  Map<String, dynamic>? toJson(SearchState state) {
-    return state.toJson();
   }
 }
