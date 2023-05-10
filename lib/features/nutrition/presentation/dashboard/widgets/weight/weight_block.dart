@@ -54,7 +54,8 @@ class WeightBlock extends StatelessWidget {
                     final inputWeightValue = s.isMetricSystem
                         ? weightValue
                         : WeightConversionUtils.convertKgToLbs(
-                            weightValue ?? 0.0);
+                            weightValue ?? 0.0,
+                          );
 
                     final text = hasLog
                         ? "${LocalizedTexts.weight.translation} : $inputWeightValue ${s.userWeightUnits}"
