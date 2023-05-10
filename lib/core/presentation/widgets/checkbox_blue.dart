@@ -14,6 +14,7 @@ class CheckboxBlue extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Checkbox(
+      materialTapTargetSize: MaterialTapTargetSize.padded,
       checkColor: AppColors.white,
       activeColor: AppColors.blueDark,
       side: const BorderSide(width: 1.0, color: AppColors.yellowLight),

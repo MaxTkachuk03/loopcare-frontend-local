@@ -69,13 +69,20 @@ class _FavoriteListState extends State<FavoriteList>
                           : Expanded(
                               child: RefreshIndicator(
                                 onRefresh: _onRefresh,
-                                child: ListView.builder(
+                                child: ListView.separated(
                                   itemCount: selectFoodState.favorites.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return FavoriteListItem(
                                       foodItem:
                                           selectFoodState.favorites[index],
+                                    );
+                                  },
+                                  separatorBuilder:
+                                      (BuildContext context, int _) {
+                                    return const Divider(
+                                      height: 1,
+                                      color: Colors.transparent,
                                     );
                                   },
                                 ),
