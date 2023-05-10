@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class AppIcons {
   static const String iconsFilePath = 'assets/icons';
@@ -109,9 +110,18 @@ class AppIcons {
 
   static const AssetImage snack = AssetImage('$iconsFilePath/icon_snack.png');
 
+  static SvgPicture person = SvgPicture.asset('$iconsFilePath/person.svg');
+
   static const AssetImage delete = AssetImage('$iconsFilePath/delete.png');
 
   static SvgPicture clock = SvgPicture.asset('$iconsFilePath/clock.svg');
+
+  static SvgPicture clockGrey = SvgPicture.asset(
+    '$iconsFilePath/clock.svg',
+    color: AppColors.greyLabel,
+    width: 21,
+    height: 21,
+  );
 
   static SvgPicture calendar = SvgPicture.asset('$iconsFilePath/calendar.svg');
 

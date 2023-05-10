@@ -21,4 +21,6 @@ class RecipeState with _$RecipeState {
       orElse: () => '1',
     );
   }
+
+  int? get recipeId => mapOrNull(recipeInfo: (s) => s.recipe.id);
 }

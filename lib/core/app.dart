@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/features/nutrition/application/dish/dish_bloc.
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recipe_details/recipe_details_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/food_item_servings_bloc.dart';
@@ -85,6 +86,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<DashboardWeightBloc>(
           create: (_) => getIt<DashboardWeightBloc>(),
+        ),
+        BlocProvider<RecipeDetailsBloc>(
+          create: (_) => getIt<RecipeDetailsBloc>(),
         ),
         BlocProvider<DishBloc>(
           create: (_) => getIt<DishBloc>(),

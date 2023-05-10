@@ -4,7 +4,9 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 
 class BackButtonHexagon extends StatelessWidget {
-  const BackButtonHexagon({Key? key}) : super(key: key);
+  final Color? background;
+
+  const BackButtonHexagon({Key? key, this.background}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,7 @@ class BackButtonHexagon extends StatelessWidget {
       height: 44,
       borderRadius: 16,
       innerWidget: Container(
-        color: AppColors.blueMid,
+        color: background ?? AppColors.blueMid,
         child: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new_rounded,

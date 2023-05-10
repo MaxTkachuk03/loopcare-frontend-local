@@ -41,6 +41,7 @@ import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/create_dish/create_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dish_details_page/dish_details_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/log_weight_page/log_weight_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/recipe_details_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/meal/meal_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe/recipe_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/barcode_scanner_page.dart';
@@ -330,7 +331,10 @@ part 'app_routes.dart';
       path: AppRoutes.account,
       page: AccountPage,
     ),
-
+    AutoRoute(
+      path: AppRoutes.recipeDetails,
+      page: RecipeDetailsPage,
+    ),
     // Dish
     AutoRoute(
       path: AppRoutes.createDish,

@@ -8,15 +8,15 @@ import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.
 class FoodListItem extends StatelessWidget {
   final String nutritionKey;
   final FoodItem foodItem;
-  final void Function(BuildContext context) onTap;
-  final void Function(BuildContext context, FoodItem item) onDeletePressed;
+  final void Function(BuildContext context)? onTap;
+  final void Function(BuildContext context, FoodItem item)? onDeletePressed;
 
   const FoodListItem({
     Key? key,
     required this.nutritionKey,
     required this.foodItem,
-    required this.onDeletePressed,
-    required this.onTap,
+    this.onDeletePressed,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -38,7 +38,7 @@ class FoodListItem extends StatelessWidget {
 
     return Material(
       child: InkWell(
-        onTap: () => onTap(context),
+        onTap: onTap == null ? null : () => onTap?.call(context),
         child: Ink(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
           decoration: const BoxDecoration(
@@ -57,23 +57,29 @@ class FoodListItem extends StatelessWidget {
                   child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    width: 20.0,
-                    height: 20.0,
-                    child: IconButton(
-                      splashRadius: 20,
-                      padding: EdgeInsets.zero,
-                      iconSize: 22,
-                      onPressed: () => onDeletePressed(context, foodItem),
-                      icon: const Icon(
-                        Icons.close,
-                        color: AppColors.darkGreen,
-                      ),
+                  if (onDeletePressed != null)
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 20.0,
+                          height: 20.0,
+                          child: IconButton(
+                            splashRadius: 20,
+                            padding: EdgeInsets.zero,
+                            iconSize: 22,
+                            onPressed: () =>
+                                onDeletePressed?.call(context, foodItem),
+                            icon: const Icon(
+                              Icons.close,
+                              color: AppColors.darkGreen,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 6.0,
+                        ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(
-                    width: 6.0,
-                  ),
                   Hexagon(
                     width: 20,
                     height: 20,
@@ -128,11 +134,12 @@ class FoodListItem extends StatelessWidget {
                   const SizedBox(
                     width: 4.0,
                   ),
-                  const ImageIcon(
-                    AppIcons.arrow,
-                    color: AppColors.greyLabel,
-                    size: 10,
-                  ),
+                  if (onTap != null)
+                    const ImageIcon(
+                      AppIcons.arrow,
+                      color: AppColors.greyLabel,
+                      size: 10,
+                    ),
                 ],
               ),
             ])

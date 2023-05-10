@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_food_item_in_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_recipe_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recipe_details/dto/recipe_details_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/dto/favorites_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/dto/barcode_information_response.dart';
@@ -62,7 +63,7 @@ abstract class NutritionService {
     String barCode,
   );
 
-  Future<Either<RequestError, RecipeResponse>> getRecipe(int id);
+  Future<Either<RequestError, RecipeDetailsResponse>> getRecipe(int id);
 
   Future<Either<RequestError, RecipeResponse>> addFoodItemToRecipeInMeal({
     required int mealId,
