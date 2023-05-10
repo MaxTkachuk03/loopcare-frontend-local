@@ -35,8 +35,8 @@ class ListFilters extends StatelessWidget {
                   ),
             ),
             Hexagon(
-              width: 24.0,
-              height: 24.0,
+              width: 28.0,
+              height: 28.0,
               borderRadius: 3,
               innerWidget: Container(
                 color: AppColors.yellowLight,

@@ -53,18 +53,18 @@ class NutritionValuesBlock extends StatelessWidget {
               ),
             ],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                '${LocalizedTexts.total.translation.toUpperCase()} ${selectedNutritionItem.name.toUpperCase()}',
-                style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                      fontSize: 12.0,
-                    ),
-              ),
-              InkWell(
-                onTap: () => _onNutritionFactTap(context),
-                child: Row(
+          InkWell(
+            onTap: () => _onNutritionFactTap(context),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  '${LocalizedTexts.total.translation.toUpperCase()} ${selectedNutritionItem.name.toUpperCase()}',
+                  style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                        fontSize: 12.0,
+                      ),
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
@@ -86,8 +86,8 @@ class NutritionValuesBlock extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           )
         ],
       ),

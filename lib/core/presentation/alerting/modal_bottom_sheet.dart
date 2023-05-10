@@ -10,7 +10,6 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
@@ -348,33 +347,27 @@ class ModalBottomSheet {
         return StatefulBuilder(
           builder:
               (BuildContext context, void Function(void Function()) setState) {
-            return Container(
-              padding: const EdgeInsets.only(
-                top: 32.0,
-                left: 40.0,
-                right: 24.0,
-                bottom: 40.0,
-              ),
-              child: Wrap(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            return Wrap(
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8, top: 12),
+                    child: IconButton(
+                      onPressed: () => context.router.pop(),
+                      icon: const Icon(Icons.close),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 40.0,
+                    right: 24.0,
+                    bottom: 40.0,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: SizedBox(
-                          width: 16.0,
-                          height: 16.0,
-                          child: IconButton(
-                            padding: EdgeInsets.zero,
-                            onPressed: () => context.router.pop(),
-                            icon: const Icon(Icons.close),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 2.0,
-                      ),
                       Text(
                         title,
                         style: Theme.of(context).textTheme.bodyText2?.copyWith(
@@ -399,14 +392,15 @@ class ModalBottomSheet {
                             ),
                           ],
                         ),
-                      const SizedBox(
-                        height: 24.0,
-                      ),
+                      const SizedBox(height: 24.0),
                       const Divider(
-                          height: 2, thickness: 2, color: AppColors.bgGreen),
+                        height: 2,
+                        thickness: 2,
+                        color: AppColors.bgGreen,
+                      ),
                       ...updatedList.map(
                         (item) => Container(
-                          padding: const EdgeInsets.symmetric(vertical: 14.0),
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
                           decoration: const BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
@@ -417,8 +411,8 @@ class ModalBottomSheet {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               SizedBox(
-                                height: 16.0,
-                                width: 16.0,
+                                height: 32.0,
+                                width: 32.0,
                                 child: CheckboxBlue(
                                   onChanged: (bool? value) {
                                     final index = updatedList.indexOf(item);
@@ -439,22 +433,20 @@ class ModalBottomSheet {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 26.0,
+                      const SizedBox(height: 26.0),
+                      ElevatedButton(
+                        onPressed: () {
+                          context.router.pop();
+                          onConfirmed?.call(updatedList);
+                        },
+                        child: Text(
+                          LocalizedTexts.continueBtn.tr(),
+                        ),
                       ),
                     ],
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      context.router.pop();
-                      onConfirmed?.call(updatedList);
-                    },
-                    child: Text(
-                      LocalizedTexts.continueBtn.tr(),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             );
           },
         );

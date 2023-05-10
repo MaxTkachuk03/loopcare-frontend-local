@@ -72,12 +72,19 @@ class _DishesListState extends State<DishesList>
                           : Expanded(
                               child: RefreshIndicator(
                                 onRefresh: _onRefresh,
-                                child: ListView.builder(
+                                child: ListView.separated(
                                   itemCount: selectFoodState.dishes.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return DishListItem(
                                       dishItem: selectFoodState.dishes[index],
+                                    );
+                                  },
+                                  separatorBuilder:
+                                      (BuildContext context, int index) {
+                                    return const Divider(
+                                      height: 1,
+                                      color: Colors.transparent,
                                     );
                                   },
                                 ),
