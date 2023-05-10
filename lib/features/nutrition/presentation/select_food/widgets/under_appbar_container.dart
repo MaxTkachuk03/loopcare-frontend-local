@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_f
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/nutrition_field/nutrition_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/underlined_tab_bar.dart';
 
@@ -87,6 +88,10 @@ class UnderAppBarContainer extends StatelessWidget {
           final mealId = mealBloc.state.getCurrentMealId;
 
           if (mealId == null) return;
+
+          context.read<SearchBloc>().add(
+                SearchEvent.addSearchResult(item.name),
+              );
 
           if (item.type == SearchItemTypes.food) {
             context.router.push(

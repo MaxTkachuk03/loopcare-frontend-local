@@ -355,6 +355,7 @@ class LocalizedTexts {
   static const String searchFilterMy = 'searchFilterMy';
   static const String searchEmptyResultTitle = 'searchEmptyResultTitle';
   static const String searchEmptyResultText = 'searchEmptyResultText';
+  static const String recentSearch = 'recentSearch';
 
   //Dashboard
   static const String goodMorning = 'goodMorning';

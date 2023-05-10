@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_empty_result.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_list_title_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_result_list_item.dart';
 
 class SearchResultList extends StatefulWidget {
   final void Function(SearchItem item) onItemTap;
+  final Function(String) onRecentSearchItemTap;
 
   const SearchResultList({
     Key? key,
     required this.onItemTap,
+    required this.onRecentSearchItemTap,
   }) : super(key: key);
 
   @override
@@ -45,6 +50,42 @@ class _SearchResultListState extends State<SearchResultList> {
                     );
                   },
                 );
+        },
+        initial: (initialState) {
+          var recentSearchList = initialState.recentSearch;
+          recentSearchList ??= <String>[];
+          if (recentSearchList.isNotEmpty) {
+            return ListView.builder(
+              itemCount:
+                  recentSearchList.isEmpty ? 1 : recentSearchList.length + 1,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                if (index == 0) {
+                  // return the header
+                  return SearchListTitleItem(
+                    text: LocalizedTexts.recentSearch.translation,
+                  );
+                }
+                index -= 1;
+
+                final item = recentSearchList![index];
+
+                return SearchResultListItem(
+                  item: SearchItem(
+                    id: index.toString(),
+                    name: item,
+                    type: SearchItemTypes.recent,
+                  ),
+                  onTap: (SearchItem item) {
+                    widget.onRecentSearchItemTap(item.name);
+                  },
+                );
+              },
+            );
+          } else {
+            return const SizedBox.shrink();
+          }
         },
         loading: (_) => const SizedBox(height: 240, child: Loader()),
         orElse: () => const SizedBox.shrink(),

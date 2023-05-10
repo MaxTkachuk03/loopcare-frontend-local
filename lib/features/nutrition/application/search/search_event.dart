@@ -4,6 +4,8 @@ part of 'search_bloc.dart';
 class SearchEvent with _$SearchEvent {
   const factory SearchEvent.resetData() = ResetData;
 
+  const factory SearchEvent.addSearchResult(String query) = AddSearchResult;
+
   const factory SearchEvent.search(
     String query, {
     String? filteredMode,
