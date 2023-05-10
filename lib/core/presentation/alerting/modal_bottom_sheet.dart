@@ -254,47 +254,43 @@ class ModalBottomSheet {
             maxHeight: MediaQuery.of(context).size.height - 100,
           ),
           child: SafeArea(
-            child: Container(
-              padding: const EdgeInsets.only(
-                top: 32.0,
-                left: 40.0,
-                right: 24.0,
-                bottom: 20.0,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: SizedBox(
-                      width: 16.0,
-                      height: 16.0,
-                      child: IconButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: () => context.router.pop(),
-                        icon: const Icon(Icons.close),
-                      ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8.0, top: 12.0),
+                    child: IconButton(
+                      onPressed: () => context.router.pop(),
+                      icon: const Icon(Icons.close),
                     ),
                   ),
-                  const SizedBox(
-                    height: 2.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 40.0, right: 24.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        LocalizedTexts.showNutritionValue.translation,
+                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                      const SizedBox(height: 24.0),
+                      const Divider(
+                        height: 2,
+                        thickness: 2,
+                        color: AppColors.bgGreen,
+                      ),
+                    ],
                   ),
-                  Text(
-                    LocalizedTexts.showNutritionValue.translation,
-                    style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                  ),
-                  const SizedBox(
-                    height: 24.0,
-                  ),
-                  const Divider(
-                    height: 2,
-                    thickness: 2,
-                    color: AppColors.bgGreen,
-                  ),
-                  Expanded(
-                    child: ListView.builder(
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 40.0, right: 24.0),
+                    child: ListView.separated(
                       itemCount: list.length,
                       itemBuilder: (BuildContext context, int index) {
                         final item = list[index];
@@ -306,23 +302,21 @@ class ModalBottomSheet {
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 14.0),
-                            decoration: const BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                    width: 2, color: AppColors.bgGreen),
-                              ),
-                            ),
                             child: Text(item.name),
                           ),
                         );
                       },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const Divider(
+                          thickness: 2.0,
+                          height: 2.0,
+                          color: AppColors.bgGreen,
+                        );
+                      },
                     ),
                   ),
-                  const SizedBox(
-                    height: 56.0,
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );
