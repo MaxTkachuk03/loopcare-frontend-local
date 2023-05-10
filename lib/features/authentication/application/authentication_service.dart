@@ -18,6 +18,8 @@ abstract class AuthenticationService {
 
   Future<Either<RequestError, AccountResponse>> fetchAccount();
 
+  Future<Either<RequestError, dynamic>> deleteAccount();
+
   Future<Either<RequestError, LoginResponse>> login(LoginData data);
 
   Future<Either<RequestError, dynamic>> logout();

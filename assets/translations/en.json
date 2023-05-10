@@ -310,5 +310,9 @@
   "createMyDish": "Create my dish",
   "logItem": "Log item",
   "deleteDish": "Delete this dish",
+  "deleteModalMessage": "Are you sure you want to delete your account? This action is not reversible",
+  "deleteMyAccount": "Delete My Account",
+  "yesDelete": "Yes, delete",
+  "noCancel": "No, cancel",
   "recentSearch": "Recent searches"
 }

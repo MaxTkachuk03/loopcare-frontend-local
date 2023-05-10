@@ -85,6 +85,19 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     });
   }
 
+  void deleteAccount() async {
+    await state.mapOrNull(
+      authenticated: (state) async {
+        final response = await _authenticationService.deleteAccount();
+
+        response.fold(
+          (l) => null,
+          (r) => logout(),
+        );
+      },
+    );
+  }
+
   void logout() async {
     await _authenticationService.logout();
     await authTokenManager.removeAccessToken();
