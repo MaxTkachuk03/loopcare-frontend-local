@@ -15,6 +15,7 @@ abstract class RecipeDetails implements _$RecipeDetails {
     required int id,
     required String name,
     required String description,
+    required List<String>? image,
     required List<DirectionItem> directions,
     required int cookingTimeMin,
     required int preparationTimeMin,
