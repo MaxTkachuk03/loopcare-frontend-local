@@ -63,33 +63,28 @@ class MealsState with _$MealsState {
   }
 
   double? get selectedDayMealCalorieDensitySum {
-    // TODO should get sum for the whole day, will be discussed
-    return mapOrNull(
-      mealsInfo: (state) {
-        final currentDate = state.currentDate;
-        if (state.meals.isEmpty || currentDate == null) {
-          return null;
+    return mapOrNull(mealsInfo: (state) {
+      final currentDate = state.currentDate;
+
+      if (state.meals.isEmpty || currentDate == null) {
+        return null;
+      }
+
+      double caloriesSum = 0;
+      double amountSum = 0;
+
+      for (var meal in state.meals) {
+        if (meal.loggingDate.isSameDate(currentDate)) {
+          caloriesSum += meal.serving.calories;
+          amountSum += meal.serving.metricServingAmount ?? 0;
         }
+      }
 
-        final currentMeal = state.meals.firstWhereOrNull(
-            (meal) => meal.loggingDate.isSameDate(currentDate));
-
-        if (currentMeal == null) return null;
-
-        return currentMeal.calorieDensity;
-
-        // return state.meals.fold<double>(0.0, (previousValue, item) {
-        //   if (item.loggingDate.isSameDate(currentDate)) {
-        //     previousValue += item.calorieDensity;
-        //   }
-        //   return previousValue;
-        // });
-      },
-    );
+      return caloriesSum / amountSum;
+    });
   }
 
   double? get selectedDayMealProteinDegreeSum {
-    // TODO should get sum for the whole day, will be discussed
     return mapOrNull(
       mealsInfo: (state) {
         final currentDate = state.currentDate;
@@ -97,12 +92,17 @@ class MealsState with _$MealsState {
           return null;
         }
 
-        final currentMeal = state.meals.firstWhereOrNull(
-            (meal) => meal.loggingDate.isSameDate(currentDate));
+        double caloriesSum = 0;
+        double proteinSum = 0;
 
-        if (currentMeal == null) return null;
+        for (var meal in state.meals) {
+          if (meal.loggingDate.isSameDate(currentDate)) {
+            caloriesSum += meal.serving.calories;
+            proteinSum += meal.serving.protein;
+          }
+        }
 
-        return currentMeal.proteinDegree;
+        return (proteinSum * 4 / caloriesSum) / 100;
       },
     );
   }
