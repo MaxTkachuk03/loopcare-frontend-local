@@ -29,6 +29,9 @@ class ProteinDegreeBlock extends StatelessWidget {
               return const SizedBox();
             }
 
+            final proteinDegreeValue =
+                value != null ? '${value?.round()}%' : '-';
+
             return GestureDetector(
               onTap: () => _onItemPressed(context),
               child: Padding(
@@ -48,7 +51,7 @@ class ProteinDegreeBlock extends StatelessWidget {
                                   ),
                         ),
                         Text(
-                          '${value?.round() ?? '-'}',
+                          proteinDegreeValue,
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         if (value != null)
