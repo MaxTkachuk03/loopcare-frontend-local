@@ -27,35 +27,23 @@ class FavoriteListItem extends StatelessWidget {
             false;
 
         return Material(
-          child: InkWell(
-            onTap: isSelected ? null : () => _onTap(context),
-            child: Ink(
-              color: AppColors.white,
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 18.0,
-                              height: 24.0,
-                              child: CheckboxBlue(
-                                value: isSelected,
-                                onChanged: (bool? value) =>
-                                    _onChanged(value, foodItem, context),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 14.0,
-                            ),
-                          ],
-                        ),
-                        Flexible(
+          child: Row(
+            children: [
+              Expanded(
+                child: InkWell(
+                  onTap: () => _onChanged(!isSelected, foodItem, context),
+                  child: Row(
+                    children: [
+                      CheckboxBlue(
+                        value: isSelected,
+                        onChanged: (bool? value) =>
+                            _onChanged(value, foodItem, context),
+                      ),
+                      const SizedBox(width: 14.0),
+                      Expanded(
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.only(top: 12.0, bottom: 12.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -81,18 +69,21 @@ class FavoriteListItem extends StatelessWidget {
                               ),
                             ],
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   ),
-                  if (!isSelected)
-                    const ImageIcon(
-                      AppIcons.arrow,
-                      color: AppColors.greyLabel,
-                    )
-                ],
+                ),
               ),
-            ),
+              if (!isSelected)
+                IconButton(
+                  onPressed: isSelected ? null : () => _onTap(context),
+                  icon: const ImageIcon(
+                    AppIcons.arrow,
+                    color: AppColors.greyLabel,
+                  ),
+                ),
+            ],
           ),
         );
       },
