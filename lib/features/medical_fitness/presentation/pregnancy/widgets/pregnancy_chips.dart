@@ -6,9 +6,6 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
 import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
-import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/biological_gender_type.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
 
 class PregnancyChips extends StatefulWidget {
   const PregnancyChips({Key? key}) : super(key: key);
@@ -26,21 +23,6 @@ class _PregnancyChipsState extends State<PregnancyChips> {
     _selectedValue = bloc.state.pregnancy;
 
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    final bloc = context.read<MedicalFitnessBloc>();
-    final physicalBloc = context.read<PhysicalFitnessBloc>();
-    bool isfemale = physicalBloc.state.sexType == SexType.female;
-    bool tooOldAge = (physicalBloc.state.age ?? 0) >= 60;
-    if (!isfemale || tooOldAge) {
-      bloc.add(const MedicalFitnessEvent.pregnancyChanged(YesNoAnswer.no));
-      final medicalFitnessNavigationState = StepNavigationState.of(context);
-      medicalFitnessNavigationState.onNextPage();
-    }
-
-    super.didChangeDependencies();
   }
 
   void _onSelectedPregnancyHandler(YesNoAnswer value) {

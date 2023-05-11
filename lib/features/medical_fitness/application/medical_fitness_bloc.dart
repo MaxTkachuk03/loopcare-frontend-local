@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -9,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/medical_fitness/domain/cardiovascular_disease_answers.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
 
 part 'medical_fitness_bloc.freezed.dart';
 
@@ -38,6 +40,9 @@ class MedicalFitnessBloc
     on<TreatmentByTheDoctorChanged>(_onTreatmentByTheDoctorChanged);
     on<PainInChestChanged>(_onPainInChestChanged);
     on<ResetData>(_onResetData);
+    on<AddPregnancyQuestion>(_onAddPregnancyQuestion);
+    on<RemovePregnancyQuestion>(_onRemovePregnancyQuestion);
+    on<HandleSexType>(_onHandleSexType);
 
     _authBlocStreamSubscription =
         _authenticationCubit.stream.distinct().listen((s) {
@@ -47,6 +52,30 @@ class MedicalFitnessBloc
         },
       );
     });
+  }
+
+  FutureOr<void> _onHandleSexType(HandleSexType event, _) {
+    if (event.sexType == SexType.female) {
+      if (!medicalFitnessQuestions.contains('pregnancy')) {
+        medicalFitnessQuestions.insert(1, 'pregnancy');
+      }
+    } else {
+      if (medicalFitnessQuestions.contains('pregnancy')) {
+        medicalFitnessQuestions
+            .removeAt(medicalFitnessQuestions.indexOf('pregnancy'));
+      }
+    }
+  }
+
+  FutureOr<void> _onRemovePregnancyQuestion(RemovePregnancyQuestion event, _) {
+    medicalFitnessQuestions
+        .removeAt(medicalFitnessQuestions.indexOf('pregnancy'));
+  }
+
+  FutureOr<void> _onAddPregnancyQuestion(AddPregnancyQuestion event, _) {
+    if (medicalFitnessQuestions.get(1) != 'pregnancy') {
+      medicalFitnessQuestions.insert(1, 'pregnancy');
+    }
   }
 
   @override
@@ -68,23 +97,25 @@ class MedicalFitnessBloc
     Emitter<MedicalFitnessState> emit,
   ) {
     final currentQuestion = state.currentQuestion;
-    final nextQuestion = currentQuestion.getNextQuestion();
+    final nextQuestion = getNextQuestion(currentQuestion);
 
-    final isCompleted = nextQuestion == MedicalFitnessQuestions.result;
+    final isCompleted = nextQuestion == medicalFitnessQuestions.last;
 
     if (isCompleted) {
-      emit(state.copyWith(
-        isCompletedSuccessfully: true,
-        currentQuestion: nextQuestion,
-      ));
+      emit(
+        state.copyWith(
+          isCompletedSuccessfully: true,
+          currentQuestion: nextQuestion,
+        ),
+      );
     } else {
       emit(state.copyWith(currentQuestion: nextQuestion));
     }
 
     onboardingBloc.add(
       OnboardingEvent.currentStepChanged(
-        progress: nextQuestion.percentage.toInt(),
-        questionIndex: nextQuestion.index,
+        progress: _percentage(nextQuestion).toInt(),
+        questionIndex: medicalFitnessQuestions.indexOf(nextQuestion),
       ),
     );
   }
@@ -93,18 +124,23 @@ class MedicalFitnessBloc
     PreviousQuestion event,
     Emitter<MedicalFitnessState> emit,
   ) {
-    final isFirstQuestion = state.currentQuestion.index == 0;
-    final previousQuestion = state.currentQuestion.getPreviousQuestion();
+    final currentQuestion = state.currentQuestion;
+    final isFirstQuestion = currentQuestion == medicalFitnessQuestions.first;
+    final previousQuestion = _getPreviousQuestion(currentQuestion);
 
     if (!isFirstQuestion) {
-      emit(state.copyWith(
-        currentQuestion: previousQuestion,
-      ));
+      emit(
+        state.copyWith(
+          currentQuestion: previousQuestion,
+        ),
+      );
 
-      onboardingBloc.add(OnboardingEvent.currentStepChanged(
-        progress: previousQuestion.percentage.toInt(),
-        questionIndex: previousQuestion.index,
-      ));
+      onboardingBloc.add(
+        OnboardingEvent.currentStepChanged(
+          progress: _percentage(previousQuestion).toInt(),
+          questionIndex: medicalFitnessQuestions.indexOf(previousQuestion),
+        ),
+      );
     }
   }
 
@@ -112,45 +148,55 @@ class MedicalFitnessBloc
     PregnancyChanged event,
     Emitter<MedicalFitnessState> emit,
   ) {
-    emit(state.copyWith(
-      pregnancy: event.value,
-    ));
+    emit(
+      state.copyWith(
+        pregnancy: event.value,
+      ),
+    );
   }
 
   FutureOr<void> _onCardiovascularDiseaseChanged(
     CardiovascularDiseaseChanged event,
     Emitter<MedicalFitnessState> emit,
   ) {
-    emit(state.copyWith(
-      cardiovascularDisease: event.value,
-    ));
+    emit(
+      state.copyWith(
+        cardiovascularDisease: event.value,
+      ),
+    );
   }
 
   FutureOr<void> _onStomachReductionChanged(
     StomachReductionChanged event,
     Emitter<MedicalFitnessState> emit,
   ) {
-    emit(state.copyWith(
-      stomachReductionDisease: event.value,
-    ));
+    emit(
+      state.copyWith(
+        stomachReductionDisease: event.value,
+      ),
+    );
   }
 
   FutureOr<void> _onTreatmentByTheDoctorChanged(
     TreatmentByTheDoctorChanged event,
     Emitter<MedicalFitnessState> emit,
   ) {
-    emit(state.copyWith(
-      treatmentByTheDoctor: event.value,
-    ));
+    emit(
+      state.copyWith(
+        treatmentByTheDoctor: event.value,
+      ),
+    );
   }
 
   FutureOr<void> _onPainInChestChanged(
     PainInChestChanged event,
     Emitter<MedicalFitnessState> emit,
   ) {
-    emit(state.copyWith(
-      painInChest: event.value,
-    ));
+    emit(
+      state.copyWith(
+        painInChest: event.value,
+      ),
+    );
   }
 
   @override
