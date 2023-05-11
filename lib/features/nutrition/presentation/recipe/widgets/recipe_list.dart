@@ -9,11 +9,13 @@ import 'package:loopcare_frontend/features/nutrition/domain/recipe_food_item/rec
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/food_list_item/food_list_item.dart';
 
 class RecipeList extends StatelessWidget {
+  final bool isMealRecipe;
   final String nutritionKey;
   final List<RecipeFoodItem> list;
 
   const RecipeList({
     Key? key,
+    required this.isMealRecipe,
     required this.list,
     required this.nutritionKey,
   }) : super(key: key);
@@ -48,13 +50,23 @@ class RecipeList extends StatelessWidget {
   }
 
   void _onDeletePressed(BuildContext context, FoodItem item) {
-    final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+    final mealState = context.read<MealsBloc>().state;
+    final recipeState = context.read<RecipeBloc>().state;
+    final mealId = mealState.getCurrentMealId;
+    final recipeId = !isMealRecipe
+        ? mealState.currentFoodItems
+            .firstWhere((element) =>
+                element.type == 'recipe' &&
+                element.externalId == recipeState.externalRecipeId)
+            .id
+        : recipeState.recipeId;
 
-    if (mealId == null) return;
+    if (mealId == null || recipeId == null) return;
 
     context.read<RecipeBloc>().add(
           RecipeEvent.removeFoodItemFromRecipe(
             mealId: mealId,
+            recipeId: recipeId,
             foodItemId: item.id,
           ),
         );
@@ -72,13 +84,24 @@ class RecipeList extends StatelessWidget {
         initialServingAmount: item.serving.numberOfUnits,
         foodItemName: item.foodName,
         onConfirm: (double numberOfUnits, String servingId) {
-          final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+          final mealState = context.read<MealsBloc>().state;
+          final recipeState = context.read<RecipeBloc>().state;
+          final mealId = mealState.getCurrentMealId;
 
-          if (mealId == null) return;
+          final recipeId = !isMealRecipe
+              ? mealState.currentFoodItems
+                  .firstWhere((element) =>
+                      element.type == 'recipe' &&
+                      element.externalId == recipeState.externalRecipeId)
+                  .id
+              : recipeState.recipeId;
+
+          if (mealId == null || recipeId == null) return;
 
           context.read<RecipeBloc>().add(
                 RecipeEvent.updateFoodItemFromRecipe(
                   mealId: mealId,
+                  recipeId: recipeId,
                   foodItemId: item.id,
                   numberOfUnits: numberOfUnits,
                   servingId: servingId,

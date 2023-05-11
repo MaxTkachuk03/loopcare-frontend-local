@@ -23,4 +23,6 @@ class RecipeState with _$RecipeState {
   }
 
   int? get recipeId => mapOrNull(recipeInfo: (s) => s.recipe.id);
+
+  String? get externalRecipeId => mapOrNull(recipeInfo: (s) => s.recipe.externalId);
 }

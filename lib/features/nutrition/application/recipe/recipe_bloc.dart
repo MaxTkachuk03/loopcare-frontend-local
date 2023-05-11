@@ -56,6 +56,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
           RecipeState.recipeInfo(
             recipe: Recipe(
               id: response.id,
+              externalId: response.externalId,
               ingredients: response.ingredients,
               calorieDensity: response.calorieDensity,
               proteinDegree: response.proteinDegree,
@@ -89,6 +90,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
           RecipeState.recipeInfo(
             recipe: Recipe(
               id: response.id,
+              externalId: response.externalId,
               ingredients: response.ingredients,
               calorieDensity: response.calorieDensity,
               proteinDegree: response.proteinDegree,
@@ -120,7 +122,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     await state.mapOrNull(recipeInfo: (state) async {
       final response = await nutritionService.updateRecipeNumberOfServing(
         mealId: event.mealId,
-        recipeId: state.recipe.id,
+        recipeId: event.recipeId,
         data: UpdateRecipeBody(numberOfUnits: event.servingAmount),
       );
 
@@ -129,6 +131,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
         (r) => emit(state.copyWith(
           recipe: Recipe(
             id: r.id,
+            externalId: r.externalId,
             ingredients: r.ingredients,
             calorieDensity: r.calorieDensity,
             proteinDegree: r.proteinDegree,
@@ -148,7 +151,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     await state.mapOrNull(recipeInfo: (state) async {
       final response = await nutritionService.addFoodItemToRecipeInMeal(
         mealId: event.mealId,
-        recipeId: state.recipe.id,
+        recipeId: event.recipeId,
         foodItemId: event.foodItemId,
         data: AddFoodItemToRecipeBody(
           numberOfUnits: event.numberOfUnits,
@@ -163,6 +166,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
             state.copyWith(
               recipe: Recipe(
                 id: r.id,
+                externalId: r.externalId,
                 ingredients: r.ingredients,
                 calorieDensity: r.calorieDensity,
                 proteinDegree: r.proteinDegree,
@@ -185,7 +189,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       recipeInfo: (state) async {
         final response = await nutritionService.removeFoodItemFromRecipeInMeal(
           mealId: event.mealId,
-          recipeId: state.recipe.id,
+          recipeId: event.recipeId,
           foodItemId: event.foodItemId,
         );
 
@@ -196,6 +200,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
               state.copyWith(
                 recipe: Recipe(
                   id: r.id,
+                  externalId: r.externalId,
                   ingredients: r.ingredients,
                   calorieDensity: r.calorieDensity,
                   proteinDegree: r.proteinDegree,
@@ -218,7 +223,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     await state.mapOrNull(recipeInfo: (state) async {
       final response = await nutritionService.updateFoodItemInRecipeInMeal(
         mealId: event.mealId,
-        recipeId: state.recipe.id,
+        recipeId: event.recipeId,
         foodItemId: event.foodItemId,
         data: UpdateFoodItemInRecipeBody(
           numberOfUnits: event.numberOfUnits,
@@ -232,14 +237,14 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
           emit(
             state.copyWith(
               recipe: Recipe(
-                id: r.id,
-                ingredients: r.ingredients,
-                calorieDensity: r.calorieDensity,
-                proteinDegree: r.proteinDegree,
-                nutritionValues: r.servingSize.list,
-                numberOfServings: r.numberOfServings,
-                servingAmount: r.servingSize.numberOfUnits
-              ),
+                  id: r.id,
+                  externalId: r.externalId,
+                  ingredients: r.ingredients,
+                  calorieDensity: r.calorieDensity,
+                  proteinDegree: r.proteinDegree,
+                  nutritionValues: r.servingSize.list,
+                  numberOfServings: r.numberOfServings,
+                  servingAmount: r.servingSize.numberOfUnits),
             ),
           );
         },

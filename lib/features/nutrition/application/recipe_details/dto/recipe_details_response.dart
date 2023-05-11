@@ -11,6 +11,7 @@ part 'recipe_details_response.g.dart';
 @JsonSerializable()
 class RecipeDetailsResponse {
   final int id;
+  final String externalId;
   final String name;
   final String description;
   final List<String>? image;
@@ -25,6 +26,7 @@ class RecipeDetailsResponse {
 
   const RecipeDetailsResponse({
     required this.id,
+    required this.externalId,
     required this.name,
     required this.description,
     required this.image,
