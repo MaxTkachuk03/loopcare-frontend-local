@@ -62,6 +62,40 @@ class MealsState with _$MealsState {
     );
   }
 
+  double? get selectedDayMealCalorieDensitySum {
+    return mapOrNull(
+      mealsInfo: (state) {
+        if (state.meals.isEmpty || state.currentDate == null) {
+          return null;
+        }
+
+        return state.meals.fold<double>(0.0, (previousValue, item) {
+          if (item.loggingDate.isSameDate(state.currentDate!)) {
+            previousValue += item.calorieDensity;
+          }
+          return previousValue;
+        });
+      },
+    );
+  }
+
+  double? get selectedDayMealProteinDegreeSum {
+    return mapOrNull(
+      mealsInfo: (state) {
+        if (state.meals.isEmpty || state.currentDate == null) {
+          return null;
+        }
+
+        return state.meals.fold<double>(0.0, (previousValue, item) {
+          if (item.loggingDate.isSameDate(state.currentDate!)) {
+            previousValue += item.proteinDegree;
+          }
+          return previousValue;
+        });
+      },
+    );
+  }
+
   List<String> get filledCategories {
     return maybeMap(
       mealsInfo: (state) {
