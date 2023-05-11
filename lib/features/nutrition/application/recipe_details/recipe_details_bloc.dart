@@ -51,6 +51,7 @@ class RecipeDetailsBloc extends Bloc<RecipeDetailsEvent, RecipeDetailsState> {
               cookingTimeMin: response.cookingTimeMin,
               preparationTimeMin: response.preparationTimeMin,
               description: response.description,
+              image: response.image,
               directions: response.directions,
             ),
             currentRecipeNutritionItem: response.servingSize.list.firstWhere(

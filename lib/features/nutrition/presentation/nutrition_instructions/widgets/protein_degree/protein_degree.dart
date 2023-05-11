@@ -44,7 +44,7 @@ class ProteinDegree extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
-                            '${LocalizedTexts.proteinDegree.translation}: ${value?.round()}',
+                            '${LocalizedTexts.proteinDegree.translation}: ${value?.round()}%',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium
