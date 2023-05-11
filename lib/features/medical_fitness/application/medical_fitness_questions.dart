@@ -1,70 +1,72 @@
 part of 'medical_fitness_bloc.dart';
 
-enum MedicalFitnessQuestions {
-  intro,
-  pregnancy,
-  cardiovascularDisease,
-  stomachReduction,
-  painInChest,
-  treatmentByTheDoctor,
-  result
+List<String> medicalFitnessQuestions = [
+  'intro',
+  'pregnancy',
+  'cardiovascularDisease',
+  'stomachReduction',
+  'painInChest',
+  'treatmentByTheDoctor',
+  'result'
+];
+bool _isQuestion(String question) {
+  switch (question) {
+    case 'intro':
+      return false;
+    case 'result':
+      return false;
+    default:
+      return true;
+  }
 }
 
-extension MedicalFitnessQuestionsX on MedicalFitnessQuestions {
-  PageRouteInfo get route {
-    switch (this) {
-      case MedicalFitnessQuestions.intro:
-        return const MedicalIntroRoute();
-      case MedicalFitnessQuestions.pregnancy:
-        return const PregnancyRoute();
-      case MedicalFitnessQuestions.cardiovascularDisease:
-        return const CardiovascularDiseaseRoute();
-      case MedicalFitnessQuestions.stomachReduction:
-        return const StomachReductionRoute();
-      case MedicalFitnessQuestions.painInChest:
-        return const PainInChestRoute();
-      case MedicalFitnessQuestions.treatmentByTheDoctor:
-        return const TreatmentByDoctorRoute();
-      case MedicalFitnessQuestions.result:
-        return const MedicalCheckPassedRoute();
-    }
+int _percentage(String currentQuestion) {
+  final valuesWithExclude =
+      medicalFitnessQuestions.where((element) => _isQuestion(element));
+
+  final elIndex = medicalFitnessQuestions.indexOf(currentQuestion) == 0
+      ? 0
+      : medicalFitnessQuestions.indexOf(currentQuestion) - 1;
+
+  final value = (elIndex * 100) / valuesWithExclude.length;
+
+  return value.toInt();
+}
+
+String _getPreviousQuestion(String currentQuestion) {
+  if (currentQuestion == medicalFitnessQuestions.first) {
+    return currentQuestion;
   }
 
-  bool get isQuestion {
-    switch (this) {
-      case MedicalFitnessQuestions.intro:
-        return false;
-      case MedicalFitnessQuestions.result:
-        return false;
-      default:
-        return true;
-    }
+  return medicalFitnessQuestions
+      .get(medicalFitnessQuestions.indexOf(currentQuestion) - 1);
+}
+
+String getNextQuestion(String currentQuestion) {
+  if (currentQuestion == medicalFitnessQuestions.last) {
+    return currentQuestion;
   }
 
-  int get percentage {
-    final valuesWithExclude =
-        MedicalFitnessQuestions.values.where((element) => element.isQuestion);
+  return medicalFitnessQuestions
+      .get(medicalFitnessQuestions.indexOf(currentQuestion) + 1);
+}
 
-    final elIndex = index == 0 ? 0 : index - 1;
-
-    final value = (elIndex * 100) / valuesWithExclude.length;
-
-    return value.toInt();
+PageRouteInfo getQuestionRoute(String question) {
+  switch (question) {
+    case 'intro':
+      return const MedicalIntroRoute();
+    case 'pregnancy':
+      return const PregnancyRoute();
+    case 'cardiovascularDisease':
+      return const CardiovascularDiseaseRoute();
+    case 'stomachReduction':
+      return const StomachReductionRoute();
+    case 'painInChest':
+      return const PainInChestRoute();
+    case 'treatmentByTheDoctor':
+      return const TreatmentByDoctorRoute();
+    case 'result':
+      return const MedicalCheckPassedRoute();
   }
-
-  MedicalFitnessQuestions getNextQuestion() {
-    if (index == MedicalFitnessQuestions.values.length - 1) {
-      return this;
-    }
-
-    return MedicalFitnessQuestions.values[index + 1];
-  }
-
-  MedicalFitnessQuestions getPreviousQuestion() {
-    if (index == 0) {
-      return this;
-    }
-
-    return MedicalFitnessQuestions.values[index - 1];
-  }
+  return const MedicalIntroRoute();
 }

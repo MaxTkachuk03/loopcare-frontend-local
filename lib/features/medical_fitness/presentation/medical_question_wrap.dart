@@ -32,7 +32,9 @@ class MedicalQuestionWrap extends StatelessWidget {
 
   void _onNextPage(BuildContext context) {
     final bloc = context.read<MedicalFitnessBloc>();
-    final nextRoute = bloc.state.currentQuestion.getNextQuestion().route;
+    final nextRoute = getQuestionRoute(
+      getNextQuestion(bloc.state.currentQuestion),
+    );
 
     bloc.add(const MedicalFitnessEvent.nextQuestion());
 
