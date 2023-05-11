@@ -62,14 +62,21 @@ class QuestionsWizard extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: onNextPressed,
-                    style: Theme.of(context)
-                        .elevatedButtonTheme
-                        .style
-                        ?.copyWith(
-                          backgroundColor:
-                              MaterialStateProperty.all(AppColors.orangeDark),
-                        ),
-                    child: Text(LocalizedTexts.next.tr()),
+                    style:
+                        Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                      backgroundColor:
+                          MaterialStateProperty.resolveWith<Color?>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            return AppColors.greyMid;
+                          }
+                          return AppColors.orangeDark;
+                        },
+                      ),
+                    ),
+                    child: Text(
+                      LocalizedTexts.next.tr(),
+                    ),
                   ),
                   const SizedBox(
                     height: 16.0,

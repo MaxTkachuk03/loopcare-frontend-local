@@ -54,7 +54,10 @@ class Ingredients extends StatelessWidget {
                     );
                   },
                 ),
-                const NutritionBlock(),
+                NutritionBlock(
+                  calorieDensity: recipeState.recipe.calorieDensity,
+                  proteinDegree: recipeState.recipe.proteinDegree,
+                ),
               ],
             );
           },

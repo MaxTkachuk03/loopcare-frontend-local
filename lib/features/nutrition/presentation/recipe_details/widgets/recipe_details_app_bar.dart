@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe_details/recipe_details_bloc.dart';
@@ -14,6 +15,8 @@ class RecipeDetailsAppBar extends StatelessWidget {
       builder: (BuildContext context, state) {
         return state.maybeMap(
           recipeInfo: (s) {
+            final images = s.recipe.image;
+
             return SliverAppBar(
               leading: BackButtonHexagon(
                 background: AppColors.white.withOpacity(0.2),
@@ -37,10 +40,16 @@ class RecipeDetailsAppBar extends StatelessWidget {
                           ],
                         ),
                       ),
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AppImages.recipePlaceholder,
-                            fit: BoxFit.cover),
+                      decoration: BoxDecoration(
+                        image: images != null
+                            ? DecorationImage(
+                                image: CachedNetworkImageProvider(images.first),
+                                fit: BoxFit.cover,
+                              )
+                            : const DecorationImage(
+                                image: AppImages.recipePlaceholder,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
                   ),

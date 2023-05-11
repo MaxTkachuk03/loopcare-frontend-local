@@ -6,11 +6,8 @@ import 'package:loopcare_frontend/features/self_help/application/dto/prefer_gend
 import 'package:loopcare_frontend/features/self_help/application/self_help_bloc.dart';
 
 class SelfHelpGenderPreferencesChips extends StatefulWidget {
-  final void Function(bool value) onSelected;
-
   const SelfHelpGenderPreferencesChips({
     Key? key,
-    required this.onSelected,
   }) : super(key: key);
 
   @override
@@ -30,7 +27,6 @@ class _SelfHelpGenderPreferencesChipsState
   }
 
   void _onSelectedTypeHandler(PreferGender preferGenderType) {
-    widget.onSelected(true);
     context
         .read<SelfHelpBloc>()
         .add(SelfHelpEvent.setAccountPreferGender(preferGenderType));

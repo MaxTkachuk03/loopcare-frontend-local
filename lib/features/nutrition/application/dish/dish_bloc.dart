@@ -60,15 +60,6 @@ class DishBloc extends Bloc<DishEvent, DishState> {
     );
   }
 
-  void _setNutritionFacts(Dish selectedDish) {
-    nutritionInstructionsBloc.add(NutritionInstructionsEvent.setCalorieDensity(
-      selectedDish.calorieDensity,
-    ));
-    nutritionInstructionsBloc.add(NutritionInstructionsEvent.setProteinDegree(
-      selectedDish.proteinDegree,
-    ));
-  }
-
   FutureOr<void> _onGetClonedDish(
     GetClonedDish event,
     Emitter<DishState> emit,
@@ -94,8 +85,6 @@ class DishBloc extends Bloc<DishEvent, DishState> {
           selectedDish: selectedDish,
           currentNutritionItem: updatedNutritionItem,
         ));
-
-        _setNutritionFacts(selectedDish);
       },
     );
   }
@@ -131,8 +120,6 @@ class DishBloc extends Bloc<DishEvent, DishState> {
           final updatedNutritionItem = selectedDish.serving.list
               .firstWhere((e) => e.key == state.currentNutritionItem.key);
 
-          _setNutritionFacts(selectedDish);
-
           emit(
             state.copyWith(
               selectedDish: selectedDish,
@@ -161,8 +148,6 @@ class DishBloc extends Bloc<DishEvent, DishState> {
 
           final updatedNutritionItem = selectedDish.serving.list
               .firstWhere((e) => e.key == state.currentNutritionItem.key);
-
-          _setNutritionFacts(selectedDish);
 
           emit(
             state.copyWith(
@@ -235,8 +220,6 @@ class DishBloc extends Bloc<DishEvent, DishState> {
 
           final updatedNutritionItem = selectedDish.serving.list
               .firstWhere((e) => e.key == state.currentNutritionItem.key);
-
-          _setNutritionFacts(selectedDish);
 
           emit(
             state.copyWith(

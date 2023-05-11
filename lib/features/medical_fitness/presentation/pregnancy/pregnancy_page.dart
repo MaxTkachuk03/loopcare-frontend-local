@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -19,8 +18,8 @@ class PregnancyPage extends StatelessWidget {
               height: 74.0,
             ),
             Text(
-              LocalizedTexts.areYouPregnant.tr(),
-              style: Theme.of(context).textTheme.headline5,
+              LocalizedTexts.areYouPregnant.translation,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(
               height: 16.0,

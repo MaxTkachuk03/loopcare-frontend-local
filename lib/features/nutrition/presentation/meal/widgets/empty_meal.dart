@@ -1,26 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 
-class EmptyMeal extends StatefulWidget {
+class EmptyMeal extends StatelessWidget {
   const EmptyMeal({super.key});
-
-  @override
-  State<EmptyMeal> createState() => _EmptyMealState();
-}
-
-class _EmptyMealState extends State<EmptyMeal> {
-  @override
-  void initState() {
-    context
-        .read<NutritionInstructionsBloc>()
-        .add(const NutritionInstructionsEvent.disable());
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +37,6 @@ class _EmptyMealState extends State<EmptyMeal> {
             ],
           ),
         ),
-        // const NutritionBlock(),
       ],
     );
   }

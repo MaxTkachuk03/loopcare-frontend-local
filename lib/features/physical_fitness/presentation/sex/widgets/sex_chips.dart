@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
+import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
@@ -33,18 +34,18 @@ class _SexChipsState extends State<SexChips> {
     });
 
     final bloc = context.read<PhysicalFitnessBloc>();
+    final medicalBloc = context.read<MedicalFitnessBloc>();
+
+    bloc.add(PhysicalFitnessEvent.sexChanged(sex));
+    medicalBloc.add(MedicalFitnessEvent.handleSexType(sex));
 
     if (_selectedValue == SexType.intersex) {
-      bloc.add(PhysicalFitnessEvent.sexChanged(sex));
       context.router.pushNamed(AppRoutes.biologicalGender);
 
       return;
     }
 
-    bloc.add(PhysicalFitnessEvent.sexChanged(sex));
-
     final physicalFitnessNavigationState = StepNavigationState.of(context);
-
     physicalFitnessNavigationState.onNextPage();
   }
 

@@ -6,12 +6,10 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
-import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe/widgets/recipe_list.dart';
@@ -71,7 +69,7 @@ class _RecipePageState extends State<RecipePage> {
   @override
   Widget build(BuildContext context) {
     final isMealRecipe = widget.isMealRecipe ?? false;
-    
+
     return MultiBlocListener(
       listeners: [
         BlocListener<RecipeBloc, RecipeState>(
@@ -110,20 +108,23 @@ class _RecipePageState extends State<RecipePage> {
                             ),
                             NutritionValuesBlock(
                                 numberOfPortions:
-                                recipeState.recipe.numberOfServings,
+                                    recipeState.recipe.numberOfServings,
                                 selectedNutritionItem:
-                                recipeState.currentRecipeNutritionItem,
+                                    recipeState.currentRecipeNutritionItem,
                                 nutritionValuesList:
-                                recipeState.recipe.nutritionValues,
-                                nutritionValue:
-                                recipeState.currentRecipeNutritionItem.value,
+                                    recipeState.recipe.nutritionValues,
+                                nutritionValue: recipeState
+                                    .currentRecipeNutritionItem.value,
                                 onNutritionFactSelect: _onNutritionFactSelect),
                             RecipeList(
                               nutritionKey:
-                              recipeState.currentRecipeNutritionItem.key,
+                                  recipeState.currentRecipeNutritionItem.key,
                               list: recipeState.recipe.ingredients,
                             ),
-                            const NutritionBlock(),
+                            NutritionBlock(
+                              proteinDegree: recipeState.recipe.proteinDegree,
+                              calorieDensity: recipeState.recipe.calorieDensity,
+                            ),
                             const SizedBox(
                               height: 26.0,
                             ),
@@ -133,11 +134,11 @@ class _RecipePageState extends State<RecipePage> {
                                 children: [
                                   Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       OutlinedRoundedButton(
-                                        text:
-                                        LocalizedTexts.addFoodItem.translation,
+                                        text: LocalizedTexts
+                                            .addFoodItem.translation,
                                         icon: AppIcons.plus,
                                         onPressed: () {},
                                       ),
@@ -160,26 +161,25 @@ class _RecipePageState extends State<RecipePage> {
                                   const SizedBox(
                                     height: 24.0,
                                   ),
-
                                 ],
                               ),
                             ),
+                            if (!isMealRecipe)
+                              MainContainer(
+                                child: Column(
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: _onLogRecipePressed,
+                                      child: Text(
+                                        LocalizedTexts.logItem.translation,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 30.0),
+                                  ],
+                                ),
+                              ),
                           ],
                         ),
-                        if (!isMealRecipe)
-                          MainContainer(
-                            child: Column(
-                              children: [
-                                ElevatedButton(
-                                  onPressed: _onLogRecipePressed,
-                                  child: Text(
-                                    LocalizedTexts.logItem.translation,
-                                  ),
-                                ),
-                                const SizedBox(height: 30.0),
-                              ],
-                            ),
-                          ),
                       ],
                     );
                   },
@@ -209,12 +209,6 @@ class _RecipePageState extends State<RecipePage> {
     if (recipeState == null) return;
 
     _servingController = TextEditingController(text: state.servingAmount);
-
-    context.read<NutritionInstructionsBloc>()
-      ..add(NutritionInstructionsEvent.setProteinDegree(
-          recipeState.proteinDegree))
-      ..add(NutritionInstructionsEvent.setCalorieDensity(
-          recipeState.calorieDensity));
   }
 
   void _recipeUpdatingListener(BuildContext context, RecipeState state) {
@@ -242,6 +236,5 @@ class _RecipePageState extends State<RecipePage> {
     context.router.pushNamed(AppRoutes.recipeDetails);
   }
 
-  void _onLogRecipePressed() {
-  }
+  void _onLogRecipePressed() {}
 }

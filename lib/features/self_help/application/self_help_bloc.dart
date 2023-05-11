@@ -24,7 +24,8 @@ part 'self_help_questions.dart';
 class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
   final AccountPreferGenderService accountPreferGenderService;
 
-  SelfHelpBloc(this.accountPreferGenderService) : super(SelfHelpState.initial()) {
+  SelfHelpBloc(this.accountPreferGenderService)
+      : super(SelfHelpState.initial()) {
     on<SetAccountPreferGender>(_onSetPreferGender);
     on<GetAccountPreferGender>(_onGetPreferGender);
     on<SaveAccountPreferGender>(_onSavePreferGender);
@@ -84,7 +85,8 @@ class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
     GetAccountPreferGender event,
     Emitter<SelfHelpState> emit,
   ) async {
-    final response = await accountPreferGenderService.getAccountPreferGenderType();
+    final response =
+        await accountPreferGenderService.getAccountPreferGenderType();
 
     response.fold(
       (l) => emit(

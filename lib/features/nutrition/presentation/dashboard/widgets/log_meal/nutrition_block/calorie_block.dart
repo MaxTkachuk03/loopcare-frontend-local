@@ -1,17 +1,22 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/calorie_density_scale_layout.dart';
 import 'package:loopcare_frontend/core/presentation/calorie_density_scale/calorie_density_scale.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 class CalorieBlock extends StatelessWidget {
-  const CalorieBlock({Key? key}) : super(key: key);
+  final double? value;
+  final void Function({required int tabIndex}) onPress;
+
+  const CalorieBlock({
+    Key? key,
+    this.value,
+    required this.onPress,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +24,17 @@ class CalorieBlock extends StatelessWidget {
       builder: (BuildContext context, state) {
         return state.maybeMap(
             nutritionInstructions: (state) {
-              final currentCalorieDensityItem = state.currentCalorieDensityItem;
+              final currentCalorieDensityItem =
+                  state.getCalorieDensityItem(value);
 
-              if (state.calorieDensityValues.isEmpty ||
-                  currentCalorieDensityItem == null) {
-                return const SizedBox();
-              }
+              if (state.calorieDensityValues.isEmpty) return const SizedBox();
+
+              final label = currentCalorieDensityItem != null
+                  ? currentCalorieDensityItem.label.capitalizeOnlyFirstLetter()
+                  : '-';
 
               return GestureDetector(
-                onTap: () => _onItemPressed(context),
+                onTap: _onItemPressed,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -53,18 +60,18 @@ class CalorieBlock extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 5.0),
-                    Text(
-                      currentCalorieDensityItem.label
-                          .capitalizeOnlyFirstLetter(),
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontSize: 14.0,
-                          ),
-                    ),
+                    if (value != null)
+                      Text(
+                        label,
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontSize: 14.0,
+                            ),
+                      ),
                     const SizedBox(height: 5.0),
                     SizedBox(
                       height: 22.0,
                       child: CalorieDensityScale(
-                        density: state.calorieDensityValue,
+                        density: value,
                         layout: CalorieDensityScaleLayout.horizontal,
                         separatorColor: AppColors.bgGreen,
                         separatorSize: 1,
@@ -79,7 +86,7 @@ class CalorieBlock extends StatelessWidget {
     );
   }
 
-  _onItemPressed(BuildContext context) {
-    context.router.push(NutritionInstructionsRoute(tabIndex: 0));
+  _onItemPressed() {
+    onPress(tabIndex: 0);
   }
 }

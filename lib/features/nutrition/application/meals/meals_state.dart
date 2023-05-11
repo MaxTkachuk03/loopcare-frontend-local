@@ -62,6 +62,40 @@ class MealsState with _$MealsState {
     );
   }
 
+  double? get selectedDayMealCalorieDensitySum {
+    return mapOrNull(
+      mealsInfo: (state) {
+        if (state.meals.isEmpty || state.currentDate == null) {
+          return null;
+        }
+
+        return state.meals.fold<double>(0.0, (previousValue, item) {
+          if (item.loggingDate.isSameDate(state.currentDate!)) {
+            previousValue += item.calorieDensity;
+          }
+          return previousValue;
+        });
+      },
+    );
+  }
+
+  double? get selectedDayMealProteinDegreeSum {
+    return mapOrNull(
+      mealsInfo: (state) {
+        if (state.meals.isEmpty || state.currentDate == null) {
+          return null;
+        }
+
+        return state.meals.fold<double>(0.0, (previousValue, item) {
+          if (item.loggingDate.isSameDate(state.currentDate!)) {
+            previousValue += item.proteinDegree;
+          }
+          return previousValue;
+        });
+      },
+    );
+  }
+
   List<String> get filledCategories {
     return maybeMap(
       mealsInfo: (state) {
@@ -129,6 +163,40 @@ class MealsState with _$MealsState {
         return currentMeal.mealItems.toList();
       },
       orElse: () => <MealItem>[],
+    );
+  }
+
+  double? get currentMealProteinDegree {
+    return mapOrNull(
+      mealsInfo: (state) {
+        if (state.meals.isEmpty || state.currentMealId == null) {
+          return null;
+        }
+
+        final MealsListItem? currentMeal = state.meals
+            .firstWhereOrNull((item) => item.id == state.currentMealId);
+
+        if (currentMeal == null) return null;
+
+        return currentMeal.proteinDegree;
+      },
+    );
+  }
+
+  double? get currentMealCalorieDensity {
+    return mapOrNull(
+      mealsInfo: (state) {
+        if (state.meals.isEmpty || state.currentMealId == null) {
+          return null;
+        }
+
+        final MealsListItem? currentMeal = state.meals
+            .firstWhereOrNull((item) => item.id == state.currentMealId);
+
+        if (currentMeal == null) return null;
+
+        return currentMeal.calorieDensity;
+      },
     );
   }
 }

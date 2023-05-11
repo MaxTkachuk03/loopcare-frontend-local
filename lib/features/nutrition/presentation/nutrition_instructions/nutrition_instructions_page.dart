@@ -7,11 +7,15 @@ import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_inst
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/protein_degree/protein_degree.dart';
 
 class NutritionInstructionsPage extends StatelessWidget {
+  final double? calorieDensity;
+  final double? proteinDegree;
   final int tabIndex;
 
   const NutritionInstructionsPage({
     Key? key,
     required this.tabIndex,
+    this.calorieDensity,
+    this.proteinDegree,
   }) : super(key: key);
 
   @override
@@ -32,9 +36,9 @@ class NutritionInstructionsPage extends StatelessWidget {
               children: [
                 NutritionTabs(
                   initialIndex: tabIndex,
-                  tabBarViewChildren: const [
-                    CalorieDensity(),
-                    ProteinDegree(),
+                  tabBarViewChildren: [
+                    CalorieDensity(value: calorieDensity),
+                    ProteinDegree(value: proteinDegree),
                   ],
                 ),
               ],
