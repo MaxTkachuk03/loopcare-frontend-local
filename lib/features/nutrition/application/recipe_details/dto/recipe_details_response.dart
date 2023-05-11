@@ -13,6 +13,7 @@ class RecipeDetailsResponse {
   final int id;
   final String name;
   final String description;
+  final List<String>? image;
   final List<DirectionItem> directions;
   final int cookingTimeMin;
   final int preparationTimeMin;
@@ -26,6 +27,7 @@ class RecipeDetailsResponse {
     required this.id,
     required this.name,
     required this.description,
+    required this.image,
     required this.directions,
     required this.cookingTimeMin,
     required this.preparationTimeMin,
