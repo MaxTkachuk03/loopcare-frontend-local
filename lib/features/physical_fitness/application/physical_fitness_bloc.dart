@@ -199,9 +199,11 @@ class PhysicalFitnessBloc
     SexChanged event,
     Emitter<PhysicalFitnessState> emit,
   ) {
-    emit(state.copyWith(
-      sexType: event.sexType,
-    ));
+    emit(
+      state.copyWith(
+        sexType: event.sexType,
+      ),
+    );
   }
 
   FutureOr<void> _onBiologicalGenderChanged(

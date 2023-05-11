@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -18,16 +17,12 @@ class SelfHelpGenderPreferencesPage extends StatefulWidget {
 
 class _SelfHelpGenderPreferencesPageState
     extends State<SelfHelpGenderPreferencesPage> {
-  bool _isEnabled = false;
-
-  void _onSelectedDHandler(bool isSelected) => _isEnabled = isSelected;
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SelfHelpBloc, SelfHelpState>(
       builder: (BuildContext context, state) {
         return QuestionsWizard(
-          stepTitle: LocalizedTexts.selfHelpTitle.tr(),
+          stepTitle: LocalizedTexts.selfHelpTitle.translation,
           currentStep:
               LocalizedTexts.currentStep.translation.translateWithNamedArgs(
             {
@@ -36,17 +31,13 @@ class _SelfHelpGenderPreferencesPageState
             },
           ),
           question: Text(
-            LocalizedTexts.selfHelpGenderPreferencesPage1Header.tr(),
+            LocalizedTexts.selfHelpGenderPreferencesPage1Header.translation,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
           ),
-          questionList: SelfHelpGenderPreferencesChips(
-            onSelected: (bool value) {
-              _onSelectedDHandler(value);
-            },
-          ),
-          onNextPressed: () => _isEnabled || state.isCompleted
+          questionList: const SelfHelpGenderPreferencesChips(),
+          onNextPressed: () => state.selectedType != null || state.isCompleted
               ? context.router.pushNamed(AppRoutes.selfHelpReady)
               : null,
         );
