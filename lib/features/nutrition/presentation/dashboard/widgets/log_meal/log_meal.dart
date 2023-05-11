@@ -181,9 +181,10 @@ class LogMeal extends StatelessWidget {
                           ),
                           const SizedBox(width: 40),
                           CalorieNutritionBlock(
-                            proteinDegree: mealsState.currentMealProteinDegree,
+                            proteinDegree:
+                                mealsState.selectedDayMealProteinDegreeSum,
                             calorieDensity:
-                                mealsState.currentMealCalorieDensity,
+                                mealsState.selectedDayMealCalorieDensitySum,
                           ),
                         ],
                       ),

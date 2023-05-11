@@ -34,7 +34,7 @@ class CalorieBlock extends StatelessWidget {
                   : '-';
 
               return GestureDetector(
-                onTap: () => _onItemPressed(context),
+                onTap: _onItemPressed,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -86,7 +86,7 @@ class CalorieBlock extends StatelessWidget {
     );
   }
 
-  _onItemPressed(BuildContext context) {
+  _onItemPressed() {
     onPress(tabIndex: 0);
   }
 }
