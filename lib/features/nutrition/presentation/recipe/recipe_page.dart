@@ -70,6 +70,8 @@ class _RecipePageState extends State<RecipePage> {
 
   @override
   Widget build(BuildContext context) {
+    final isMealRecipe = widget.isMealRecipe ?? false;
+    
     return MultiBlocListener(
       listeners: [
         BlocListener<RecipeBloc, RecipeState>(
@@ -96,68 +98,88 @@ class _RecipePageState extends State<RecipePage> {
                   loading: (_) => const Loader(),
                   recipeInfo: (recipeState) {
                     return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        ServingsAmount(
-                          inputController: _servingController,
-                          onValueChangeHandler: _onValueChangeHandler,
-                        ),
-                        NutritionValuesBlock(
-                            numberOfPortions:
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ServingsAmount(
+                              inputController: _servingController,
+                              onValueChangeHandler: _onValueChangeHandler,
+                            ),
+                            NutritionValuesBlock(
+                                numberOfPortions:
                                 recipeState.recipe.numberOfServings,
-                            selectedNutritionItem:
+                                selectedNutritionItem:
                                 recipeState.currentRecipeNutritionItem,
-                            nutritionValuesList:
+                                nutritionValuesList:
                                 recipeState.recipe.nutritionValues,
-                            nutritionValue:
+                                nutritionValue:
                                 recipeState.currentRecipeNutritionItem.value,
-                            onNutritionFactSelect: _onNutritionFactSelect),
-                        RecipeList(
-                          nutritionKey:
+                                onNutritionFactSelect: _onNutritionFactSelect),
+                            RecipeList(
+                              nutritionKey:
                               recipeState.currentRecipeNutritionItem.key,
-                          list: recipeState.recipe.ingredients,
-                        ),
-                        const NutritionBlock(),
-                        const SizedBox(
-                          height: 26.0,
-                        ),
-                        MainContainer(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                              list: recipeState.recipe.ingredients,
+                            ),
+                            const NutritionBlock(),
+                            const SizedBox(
+                              height: 26.0,
+                            ),
+                            MainContainer(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  OutlinedRoundedButton(
-                                    text:
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      OutlinedRoundedButton(
+                                        text:
                                         LocalizedTexts.addFoodItem.translation,
-                                    icon: AppIcons.plus,
-                                    onPressed: () {},
+                                        icon: AppIcons.plus,
+                                        onPressed: () {},
+                                      ),
+                                      OutlinedRoundedButton(
+                                        text: LocalizedTexts
+                                            .saveToMyDishes.translation,
+                                        icon: AppIcons.dish,
+                                        onPressed: () {},
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 16.0,
                                   ),
                                   OutlinedRoundedButton(
-                                    text: LocalizedTexts
-                                        .saveToMyDishes.translation,
-                                    icon: AppIcons.dish,
-                                    onPressed: () {},
-                                  )
+                                    text: LocalizedTexts.viewRecipe.translation,
+                                    icon: AppIcons.chef,
+                                    onPressed: _onViewRecipePressed,
+                                  ),
+                                  const SizedBox(
+                                    height: 24.0,
+                                  ),
+
                                 ],
                               ),
-                              const SizedBox(
-                                height: 16.0,
-                              ),
-                              OutlinedRoundedButton(
-                                text: LocalizedTexts.viewRecipe.translation,
-                                icon: AppIcons.chef,
-                                onPressed: _onViewRecipePressed,
-                              ),
-                              const SizedBox(
-                                height: 24.0,
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
+                        if (!isMealRecipe)
+                          MainContainer(
+                            child: Column(
+                              children: [
+                                ElevatedButton(
+                                  onPressed: _onLogRecipePressed,
+                                  child: Text(
+                                    LocalizedTexts.logItem.translation,
+                                  ),
+                                ),
+                                const SizedBox(height: 30.0),
+                              ],
+                            ),
+                          ),
                       ],
                     );
                   },
@@ -218,5 +240,8 @@ class _RecipePageState extends State<RecipePage> {
 
   void _onViewRecipePressed() {
     context.router.pushNamed(AppRoutes.recipeDetails);
+  }
+
+  void _onLogRecipePressed() {
   }
 }
