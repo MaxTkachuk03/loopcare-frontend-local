@@ -65,12 +65,13 @@ class MealsState with _$MealsState {
   double? get selectedDayMealCalorieDensitySum {
     return mapOrNull(
       mealsInfo: (state) {
-        if (state.meals.isEmpty || state.currentDate == null) {
+        final currentDate = state.currentDate;
+        if (state.meals.isEmpty || currentDate == null) {
           return null;
         }
 
         return state.meals.fold<double>(0.0, (previousValue, item) {
-          if (item.loggingDate.isSameDate(state.currentDate!)) {
+          if (item.loggingDate.isSameDate(currentDate)) {
             previousValue += item.calorieDensity;
           }
           return previousValue;
@@ -80,18 +81,20 @@ class MealsState with _$MealsState {
   }
 
   double? get selectedDayMealProteinDegreeSum {
+    // TODO should get sum for the whole day, will be discussed
     return mapOrNull(
       mealsInfo: (state) {
-        if (state.meals.isEmpty || state.currentDate == null) {
+        final currentDate = state.currentDate;
+        if (state.meals.isEmpty || currentDate == null) {
           return null;
         }
 
-        return state.meals.fold<double>(0.0, (previousValue, item) {
-          if (item.loggingDate.isSameDate(state.currentDate!)) {
-            previousValue += item.proteinDegree;
-          }
-          return previousValue;
-        });
+        final currentMeal = state.meals.firstWhereOrNull(
+            (meal) => meal.loggingDate.isSameDate(currentDate));
+
+        if (currentMeal == null) return null;
+
+        return currentMeal.proteinDegree;
       },
     );
   }
