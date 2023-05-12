@@ -76,11 +76,12 @@ class MealsState with _$MealsState {
       for (var meal in state.meals) {
         if (meal.loggingDate.isSameDate(currentDate)) {
           caloriesSum += meal.serving.calories;
-          amountSum += meal.serving.metricServingAmount ?? 0;
+          amountSum += meal.serving.metricServingAmount ?? 1;
         }
       }
 
-      return caloriesSum / amountSum;
+      final result = caloriesSum / amountSum;
+      return result.isNaN ? null : result;
     });
   }
 
@@ -102,7 +103,8 @@ class MealsState with _$MealsState {
           }
         }
 
-        return ((proteinSum * 4) / caloriesSum) * 100;
+        final result = (((proteinSum * 4) / caloriesSum) * 100);
+        return result.isNaN ? null : result;
       },
     );
   }

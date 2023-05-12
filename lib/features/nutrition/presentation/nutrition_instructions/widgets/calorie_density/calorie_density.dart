@@ -60,8 +60,12 @@ class CalorieDensity extends StatelessWidget {
                       builder: (BuildContext context, state) {
                         return state.maybeMap(
                           nutritionInstructions: (state) {
+                            final valueLabel = value == null
+                                ? '-'
+                                : '${value?.toStringAsFixed(2)}';
+
                             return Text(
-                              '${LocalizedTexts.calorieDensity.translation}: ${value?.toStringAsFixed(2)}',
+                              '${LocalizedTexts.calorieDensity.translation}: $valueLabel',
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium

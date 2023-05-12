@@ -51,14 +51,13 @@ class ProteinBlock extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 5.0),
-                  if (value != null)
-                    Text(
-                      (currentProteinDegreeItem?.label ?? '-')
-                          .capitalizeOnlyFirstLetter(),
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontSize: 14.0,
-                          ),
-                    ),
+                  Text(
+                    (currentProteinDegreeItem?.label ?? '-')
+                        .capitalizeOnlyFirstLetter(),
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontSize: 14.0,
+                        ),
+                  ),
                 ],
               ),
             );

@@ -60,13 +60,12 @@ class CalorieBlock extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 5.0),
-                    if (value != null)
-                      Text(
-                        label,
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              fontSize: 14.0,
-                            ),
-                      ),
+                    Text(
+                      label,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            fontSize: 14.0,
+                          ),
+                    ),
                     const SizedBox(height: 5.0),
                     SizedBox(
                       height: 22.0,
