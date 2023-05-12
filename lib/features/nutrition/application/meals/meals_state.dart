@@ -102,7 +102,7 @@ class MealsState with _$MealsState {
           }
         }
 
-        return (proteinSum * 4 / caloriesSum) / 100;
+        return ((proteinSum * 4) / caloriesSum) * 100;
       },
     );
   }
