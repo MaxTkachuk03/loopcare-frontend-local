@@ -116,8 +116,11 @@ class MealsState with _$MealsState {
           return <String>[];
         }
         // TODO store as a Map for optimization
+
         return state.meals
-            .where((item) => item.loggingDate.isSameDate(state.currentDate!))
+            .where((item) =>
+                item.loggingDate.isSameDate(state.currentDate!) &&
+                item.mealItems.isNotEmpty)
             .toList()
             .map((e) => e.mealCategory)
             .toList()
