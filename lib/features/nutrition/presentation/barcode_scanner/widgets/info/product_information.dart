@@ -1,8 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/barcode_scanner_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_food_item_to_meal_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
 class ProductInformation extends StatelessWidget {
   final String title;
@@ -81,7 +87,7 @@ class ProductInformation extends StatelessWidget {
                     const BorderSide(width: 1.0, color: AppColors.blueDark)),
                 backgroundColor: MaterialStateProperty.all(AppColors.blueDark),
               ),
-          onPressed: () => context.router.pop(),
+          onPressed: () => _onContinue(context),
           child: Text(
             LocalizedTexts.continueBtn.tr(),
             style: Theme.of(context)
@@ -91,6 +97,47 @@ class ProductInformation extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  void _onContinue(BuildContext context) {
+    final foodItem = context
+        .read<BarcodeScannerBloc>()
+        .state
+        .mapOrNull(success: (state) => state.foodItem);
+
+    if (foodItem == null) return;
+
+    final serving = foodItem.servings.first;
+
+    final servingId = serving.servingId;
+
+    if (servingId == null) return;
+
+    context.router.push(
+      SelectServingRoute(
+        foodItemId: foodItem.id,
+        initialServingId: servingId,
+        initialServingAmount: serving.numberOfUnits,
+        foodItemName: foodItem.foodName,
+        onConfirm: (double numberOfUnits, String servingId) {
+          final mealBloc = context.read<MealsBloc>();
+          final mealId = mealBloc.state.getCurrentMealId;
+          if (mealId != null) {
+            mealBloc.add(
+              MealsEvent.addFoodItemToMeal(
+                mealId,
+                foodItem.id,
+                AddFoodItemToMealBody(
+                  numberOfUnits: numberOfUnits,
+                  servingId: servingId,
+                ),
+              ),
+            );
+            context.router.pushNamed(AppRoutes.meal);
+          }
+        },
+      ),
     );
   }
 }
