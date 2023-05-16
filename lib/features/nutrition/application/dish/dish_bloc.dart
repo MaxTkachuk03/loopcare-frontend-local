@@ -40,7 +40,6 @@ class DishBloc extends Bloc<DishEvent, DishState> {
     on<UpdateFoodItemInDish>(_onUpdateFoodItemInDish);
     on<DeleteFoodItemFromDish>(_onDeleteFoodItemFromDish);
     on<AddToMeal>(_onAddToMeal);
-    on<DeleteOriginalDish>(_onDeleteOriginalDish);
     on<AddFoodItemToDish>(_onAddFoodItemToDish);
   }
 
@@ -179,23 +178,6 @@ class DishBloc extends Bloc<DishEvent, DishState> {
         },
       );
     });
-  }
-
-  FutureOr<void> _onDeleteOriginalDish(
-    DeleteOriginalDish event,
-    Emitter<DishState> emit,
-  ) async {
-    final originalDishId = state.mapOrNull(dish: (s) => s.originalDishId);
-
-    if (originalDishId == null) return;
-
-    final response = await nutritionService.deleteDish(originalDishId);
-    response.fold(
-      (l) => null,
-      (r) {
-        selectFoodBloc.add(SelectFoodEvent.removeDish(r));
-      },
-    );
   }
 
   FutureOr<void> _onAddFoodItemToDish(

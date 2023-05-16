@@ -4,6 +4,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions_input/meal_portions_input.dart';
 
 class NutritionValuesBlock extends StatelessWidget {
   final int numberOfPortions;
@@ -11,6 +12,8 @@ class NutritionValuesBlock extends StatelessWidget {
   final NutritionItem selectedNutritionItem;
   final List<NutritionItem> nutritionValuesList;
   final void Function(NutritionItem item) onNutritionFactSelect;
+  final TextEditingController? portionsController;
+  final bool? isPortionsEditable;
 
   const NutritionValuesBlock({
     Key? key,
@@ -19,6 +22,8 @@ class NutritionValuesBlock extends StatelessWidget {
     required this.selectedNutritionItem,
     required this.nutritionValuesList,
     required this.onNutritionFactSelect,
+    this.portionsController,
+    this.isPortionsEditable,
   }) : super(key: key);
 
   @override
@@ -44,13 +49,16 @@ class NutritionValuesBlock extends StatelessWidget {
                       fontSize: 12.0,
                     ),
               ),
-              Text(
-                LocalizedTexts.portionMeal.translateWithNamedArgs(
-                    {'numberOfPortion': '$numberOfPortions'}),
-                style: Theme.of(context).textTheme.caption?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-              ),
+              if (isPortionsEditable != null)
+                MealPortionsInput(controller: portionsController),
+              if (isPortionsEditable == null)
+                Text(
+                  LocalizedTexts.portionMeal.translateWithNamedArgs(
+                      {'numberOfPortion': '$numberOfPortions'}),
+                  style: Theme.of(context).textTheme.caption?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
             ],
           ),
           InkWell(

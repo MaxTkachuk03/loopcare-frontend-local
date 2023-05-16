@@ -394,6 +394,15 @@ class LocalizedTexts {
   static const String createMyDish = 'createMyDish';
   static const String logItem = 'logItem';
   static const String deleteDish = 'deleteDish';
+  static const String addToMyDishedAs = 'addToMyDishedAs';
+  static const String giveNameToThisDish = 'giveNameToThisDish';
+  static const String save = 'save';
+  static const String dishWasSaved = 'dishWasSaved';
+  static const String invalidDishNameMessage = 'invalidDishNameMessage';
+  static const String invalidDishServingsAmountMessage =
+      'invalidDishServingsAmountMessage';
+  static const String invalidDishPortionsAmountMessage =
+      'invalidDishPortionsAmountMessage';
 
   // Account
   static const String deleteMyAccount = 'deleteMyAccount';
