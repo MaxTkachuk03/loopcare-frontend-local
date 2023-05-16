@@ -40,9 +40,11 @@ class _DashboardPageState extends State<DashboardPage> {
         .read<NutritionInstructionsBloc>()
         .add(const NutritionInstructionsEvent.fetchValuesExplanation());
 
-    context.read<DashboardWeightBloc>().add(DashboardWeightEvent.fetchWeights(
-          _selectedDay.midnightTime.subtract(const Duration(days: 8)),
-        ));
+    context.read<DashboardWeightBloc>().add(
+          DashboardWeightEvent.fetchWeights(
+            _selectedDay.midnightTime.subtract(const Duration(days: 8)),
+          ),
+        );
 
     context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
 
