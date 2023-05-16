@@ -1,8 +1,4 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/features/nutrition/application/dish/dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_food_item/dish_food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/food_list_item/food_list_item.dart';
@@ -10,19 +6,23 @@ import 'package:loopcare_frontend/features/nutrition/presentation/widgets/food_l
 class DishList extends StatelessWidget {
   final String nutritionKey;
   final List<DishFoodItem> list;
+  final Function(BuildContext context, FoodItem item) onDeleteHandler;
+  final Function(BuildContext context, DishFoodItem item) onListItemTapHandler;
 
   const DishList({
     Key? key,
     required this.list,
     required this.nutritionKey,
+    required this.onDeleteHandler,
+    required this.onListItemTapHandler,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: list.length,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+      // shrinkWrap: true,
+      // physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
         final item = list[index];
 
@@ -36,59 +36,13 @@ class DishList extends StatelessWidget {
             serving: item.serving,
           ),
           nutritionKey: nutritionKey,
-          onDeletePressed: _onDeletePressed,
-          onTap: (BuildContext context) => _onTap(
+          onDeletePressed: onDeleteHandler,
+          onTap: (BuildContext context) => onListItemTapHandler(
             context,
             item,
           ),
         );
       },
-    );
-  }
-
-  void _onDeletePressed(BuildContext context, FoodItem item) {
-    final dishId = context
-        .read<DishBloc>()
-        .state
-        .mapOrNull(dish: (s) => s.selectedDish.id);
-
-    if (dishId == null) return;
-
-    context.read<DishBloc>().add(DishEvent.deleteFoodItemFromDish(
-          dishId: dishId,
-          internalFoodItemId: int.parse(item.id),
-        ));
-  }
-
-  _onTap(BuildContext context, DishFoodItem item) {
-    final servingId = item.serving.servingId;
-
-    if (servingId == null) return;
-
-    context.router.push(
-      SelectServingRoute(
-        foodItemId: item.externalId,
-        initialServingId: servingId,
-        initialServingAmount: item.serving.numberOfUnits,
-        foodItemName: item.foodName,
-        onConfirm: (double numberOfUnits, String servingId) {
-          final dishId = context
-              .read<DishBloc>()
-              .state
-              .mapOrNull(dish: (s) => s.selectedDish.id);
-
-          if (dishId == null) return;
-
-          context.read<DishBloc>().add(
-                DishEvent.updateFoodItemInDish(
-                  dishId: dishId,
-                  internalFoodItemId: item.id.toString(),
-                  numberOfUnits: numberOfUnits,
-                  servingId: servingId,
-                ),
-              );
-        },
-      ),
     );
   }
 }

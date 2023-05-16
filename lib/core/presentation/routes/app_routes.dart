@@ -57,7 +57,7 @@ class AppRoutes {
   static const String diabetes = '/diabetes';
   static const String diabetesDisclaimer = '/diabetes-disclaimer';
   static const String diabetesSummary = '/diabetes-summary';
-//Barcode Scanner
+  //Barcode Scanner
   static const String barcodeScanner = '/barcode-scanner';
 
   // Nutrition
@@ -69,14 +69,15 @@ class AppRoutes {
 
   static const String recipe = '/recipe';
   static const String recipeDetails = '/recipe-details';
-  static const String dish = '/dish';
-  static const String dishDetails = '/dish-details';
   static const String meal = '/meal';
   static const String logWeight = '/log-weight';
   static const String home = '/home';
   static const String account = '/account';
 
   // Dish
+  static const String dish = '/dish';
+  static const String dishDetails = '/dish-details';
   static const String createDish = '/create-dish';
+  static const String editDish = '/edit-dish';
   AppRoutes._();
 }

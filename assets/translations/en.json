@@ -301,6 +301,9 @@
   "instructions": "Instructions",
   "ingredients": "Ingredients",
   "addToMyDishes": "Add to My dishes",
+  "addToMyDishedAs": "Add to My dishes as",
+  "giveNameToThisDish": "Give name to this dish",
+  "save": "Save",
   "cookingTime": "Cooking time",
   "preparation": "Preparation",
   "portions": "Portions",
@@ -314,5 +317,9 @@
   "deleteMyAccount": "Delete My Account",
   "yesDelete": "Yes, delete",
   "noCancel": "No, cancel",
-  "recentSearch": "Recent searches"
+  "recentSearch": "Recent searches",
+  "dishWasSaved": "Dish was saved",
+  "invalidDishNameMessage": "Give this dish a name please",
+  "invalidDishServingsAmountMessage": "Serving size can't be empty",
+  "invalidDishPortionsAmountMessage": "Portions can't be empty"
 }

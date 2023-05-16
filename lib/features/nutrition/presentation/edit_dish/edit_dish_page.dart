@@ -1,0 +1,401 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
+import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/dish_food_item/dish_food_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/dish_details_page/widgets/dish_list/dish_list.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/widgets/meal_category_chips.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_amount/servings_amount.dart';
+
+class EditDishPage extends StatefulWidget {
+  final int id;
+  final String name;
+
+  const EditDishPage({
+    Key? key,
+    required this.id,
+    required this.name,
+  }) : super(key: key);
+
+  @override
+  State<EditDishPage> createState() => _EditDishPageState();
+}
+
+class _EditDishPageState extends State<EditDishPage> {
+  final _chips = [
+    MealCategory.breakfast,
+    MealCategory.lunch,
+    MealCategory.dinner,
+  ];
+  List<MealCategory> _selectedMealCategories = [];
+  late final TextEditingController _servingController = TextEditingController();
+  late final TextEditingController _portionsController =
+      TextEditingController();
+  late final TextEditingController _dishNameController =
+      TextEditingController();
+
+  @override
+  void initState() {
+    final editDishBloc = context.read<EditDishBloc>();
+    editDishBloc.add(EditDishEvent.getDish(widget.id));
+
+    _servingController.text = editDishBloc.state.servingAmount;
+    _dishNameController.text = widget.name;
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _servingController.dispose();
+    _dishNameController.dispose();
+
+    super.dispose();
+  }
+
+  void _onNutritionFactSelect(NutritionItem item) {
+    context.read<EditDishBloc>().add(EditDishEvent.nutritionItemChanged(item));
+  }
+
+  void _onAddFoodItemHandler() {
+    context.router.push(
+      SearchRoute(
+        mode: SearchMode.food,
+        onItemTap: (SearchItem item) {
+          context.router.push(
+            SelectServingRoute(
+              foodItemId: item.id,
+              foodItemName: item.name,
+              initialServingAmount: 1,
+              onConfirm: (double numberOfUnits, String servingId) {
+                context.read<EditDishBloc>().add(
+                      EditDishEvent.addFoodItemToDish(
+                        numberOfUnits: numberOfUnits,
+                        servingId: servingId,
+                        externalFoodItemId: item.id,
+                      ),
+                    );
+              },
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  void _onDeleteDishHandler() {
+    context.read<EditDishBloc>().add(const EditDishEvent.deleteDish());
+  }
+
+  void _onServingChanges(String value) {}
+
+  String? _validationError() {
+    if (_dishNameController.text.isEmpty) {
+      return LocalizedTexts.invalidDishNameMessage.translation;
+    }
+    if (_portionsController.text.isEmpty) {
+      return LocalizedTexts.invalidDishPortionsAmountMessage.translation;
+    }
+    if (_servingController.text.isEmpty) {
+      return LocalizedTexts.invalidDishServingsAmountMessage.translation;
+    }
+    return null;
+  }
+
+  void _onSaveDishHandler() {
+    final state = context.read<EditDishBloc>();
+    final error = _validationError();
+
+    if (error != null) {
+      _showValidationSnackbar(error);
+      return;
+    }
+
+    state.add(EditDishEvent.updateDish(
+      name: _dishNameController.text,
+      numberOfUnits: double.parse(_portionsController.text),
+      numberOfServings: double.parse(_servingController.text),
+      mealCategories: _selectedMealCategories,
+    ));
+
+    showAppSnackBar(
+      context: context,
+      background: AppColors.white,
+      text: LocalizedTexts.dishWasSaved.translation,
+    );
+
+    context.router.pop();
+  }
+
+  void _showValidationSnackbar(String error) {
+    showAppSnackBar(
+      context: context,
+      background: AppColors.white,
+      text: error,
+    );
+  }
+
+  void _onDeleteFoodItem(BuildContext context, FoodItem item) {
+    final dishId = context
+        .read<EditDishBloc>()
+        .state
+        .mapOrNull(dishInfo: (s) => s.currentDish.id);
+
+    if (dishId == null) return;
+
+    context.read<EditDishBloc>().add(EditDishEvent.deleteFoodItemFromDish(
+          dishId: dishId,
+          internalFoodItemId: int.parse(item.id),
+        ));
+  }
+
+  void _onTapFoodItem(BuildContext context, DishFoodItem item) {
+    final servingId = item.serving.servingId;
+
+    if (servingId == null) return;
+
+    context.router.push(
+      SelectServingRoute(
+        foodItemId: item.externalId,
+        initialServingId: servingId,
+        initialServingAmount: item.serving.numberOfUnits,
+        foodItemName: item.foodName,
+        onConfirm: (double numberOfUnits, String servingId) {
+          final dishId = context
+              .read<EditDishBloc>()
+              .state
+              .mapOrNull(dishInfo: (s) => s.currentDish.id);
+
+          if (dishId == null) return;
+
+          context.read<EditDishBloc>().add(
+                EditDishEvent.updateFoodItemInDish(
+                  dishId: dishId,
+                  internalFoodItemId: item.id.toString(),
+                  numberOfUnits: numberOfUnits,
+                  servingId: servingId,
+                ),
+              );
+        },
+      ),
+    );
+  }
+
+  _onChipPressed(item) {
+    List<MealCategory> updatedCategories = List.from(_selectedMealCategories);
+
+    if (updatedCategories.contains(item)) {
+      updatedCategories.remove(item);
+    } else {
+      updatedCategories.add(item);
+    }
+
+    setState(() {
+      _selectedMealCategories = updatedCategories;
+    });
+  }
+
+  _dishLoadedlistener(BuildContext context, state) {
+    if (state is DishInfo) {
+      _selectedMealCategories = state.currentDish.mealCategories;
+    }
+  }
+
+  _deleteDishListener(BuildContext context, state) {
+    context.router.popUntilRouteWithName(SelectFoodRoute.name);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocListener(
+        listeners: [
+          BlocListener<EditDishBloc, EditDishState>(
+            listener: _dishLoadedlistener,
+            listenWhen: (previous, current) =>
+                previous is Loading && current is DishInfo,
+          ),
+          BlocListener<EditDishBloc, EditDishState>(
+            listener: _deleteDishListener,
+            listenWhen: (previous, current) =>
+                previous is DishInfo && current is Deleted,
+          )
+        ],
+        child: Scaffold(
+          appBar: BlueAppBar(
+            isCustomLeading: true,
+            title: '${LocalizedTexts.addToMyDishedAs.translation}:',
+          ),
+          body: SafeArea(
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  color: AppColors.blueAppBar,
+                  child: BlocBuilder<EditDishBloc, EditDishState>(
+                    builder: (BuildContext context, state) {
+                      return state.maybeMap(
+                          dishInfo: (dishState) {
+                            return MealCategoryChips(
+                              data: _chips,
+                              selectedChips: _selectedMealCategories,
+                              onItemPressHandler: _onChipPressed,
+                            );
+                          },
+                          orElse: () => const SizedBox.shrink());
+                    },
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(24.0),
+                  color: AppColors.blueAppBar,
+                  child: TextField(
+                    controller: _dishNameController,
+                    decoration: InputDecoration(
+                      hintText: LocalizedTexts.giveNameToThisDish.translation,
+                      hintStyle:
+                          Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                color: AppColors.greyLabel,
+                              ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 0, horizontal: 16.0),
+                    ),
+                  ),
+                ),
+                BlocBuilder<EditDishBloc, EditDishState>(
+                  builder: (BuildContext context, state) {
+                    return state.maybeMap(
+                        loading: (_) => const Loader(),
+                        dishInfo: (dishState) {
+                          _servingController.text = dishState.numberOfServings;
+                          _portionsController.text = dishState.numberOfPortions;
+
+                          return Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      ServingsAmount(
+                                        inputController: _servingController,
+                                        onValueChangeHandler: _onServingChanges,
+                                      ),
+                                      NutritionValuesBlock(
+                                        portionsController: _portionsController,
+                                        isPortionsEditable: true,
+                                        numberOfPortions: dishState
+                                            .currentDish.numberOfServings
+                                            .toInt(),
+                                        nutritionValue: dishState
+                                            .currentNutritionItem.value,
+                                        nutritionValuesList:
+                                            dishState.currentDish.serving.list,
+                                        selectedNutritionItem:
+                                            dishState.currentNutritionItem,
+                                        onNutritionFactSelect:
+                                            _onNutritionFactSelect,
+                                      ),
+                                      Expanded(
+                                        child: DishList(
+                                          list: dishState.currentDish.foodItems,
+                                          nutritionKey: dishState
+                                              .currentNutritionItem.key,
+                                          onDeleteHandler: _onDeleteFoodItem,
+                                          onListItemTapHandler: _onTapFoodItem,
+                                        ),
+                                      ),
+                                      NutritionBlock(
+                                        calorieDensity: dishState
+                                            .currentDish.calorieDensity,
+                                        proteinDegree:
+                                            dishState.currentDish.proteinDegree,
+                                      ),
+                                      const SizedBox(height: 26.0),
+                                      MainContainer(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                OutlinedRoundedButton(
+                                                  text: LocalizedTexts
+                                                      .addFoodItem.translation,
+                                                  icon: AppIcons.plus,
+                                                  onPressed:
+                                                      _onAddFoodItemHandler,
+                                                ),
+                                                const SizedBox(width: 16.0),
+                                                OutlinedRoundedButton(
+                                                  text: LocalizedTexts
+                                                      .deleteDish.translation,
+                                                  icon: AppIcons.delete,
+                                                  onPressed:
+                                                      _onDeleteDishHandler,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 20.0),
+                                MainContainer(
+                                  child: Column(
+                                    children: [
+                                      BlocBuilder<EditDishBloc, EditDishState>(
+                                          builder:
+                                              (BuildContext context, state) {
+                                        return state.maybeMap(
+                                            dishInfo: (dishState) {
+                                              return ElevatedButton(
+                                                onPressed:
+                                                    dishState.hasFoodItems
+                                                        ? _onSaveDishHandler
+                                                        : null,
+                                                child: Text(
+                                                  LocalizedTexts
+                                                      .save.translation,
+                                                ),
+                                              );
+                                            },
+                                            orElse: () =>
+                                                const SizedBox.shrink());
+                                      }),
+                                      const SizedBox(height: 30.0),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        orElse: () => const SizedBox.shrink());
+                  },
+                ),
+              ],
+            ),
+          ),
+        ));
+  }
+}

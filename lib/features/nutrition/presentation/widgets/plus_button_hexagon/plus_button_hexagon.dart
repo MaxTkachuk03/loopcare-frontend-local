@@ -87,6 +87,7 @@ class PlusButtonHexagon extends StatelessWidget {
             context.router.push(
               DishDetailsRoute(
                 dishId: int.parse(item.id),
+                canEditDish: false,
               ),
             );
           }

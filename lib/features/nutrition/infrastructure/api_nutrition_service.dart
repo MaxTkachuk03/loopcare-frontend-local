@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_fo
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/clone_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/update_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
@@ -321,6 +322,25 @@ class APINutritionService implements NutritionService {
       '/dishes',
       queryParameters: {"mealCategories": mealCategories ?? []},
     ).then(parseResponse(GetDishesResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> getDishById(
+    int id,
+  ) {
+    return client
+        .get('/dishes/$id')
+        .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> updateDishById(
+    int id,
+    UpdateDishBody data,
+  ) {
+    return client
+        .patch('/dishes/$id', data: data)
+        .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
   }
 
   @override
