@@ -60,10 +60,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
       emit(const MealsState.loading());
 
       final response = await nutritionService.getMeals(
-        startDate: event.currentDate
-            .subtract(const Duration(days: 1))
-            .toIso8601String(),
-        endDate: event.currentDate.toIso8601String(),
+        startDate: event.currentDate.isoStringWithoutTime,
+        endDate: event.currentDate.isoStringWithoutTime,
       );
 
       response.fold(
@@ -104,8 +102,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
     final response = await nutritionService.getMeals(
       startDate:
-          DateTime.now().subtract(const Duration(days: 8)).toIso8601String(),
-      endDate: DateTime.now().toIso8601String(),
+          DateTime.now().subtract(const Duration(days: 8)).isoStringWithoutTime,
+      endDate: DateTime.now().isoStringWithoutTime,
     );
 
     response.fold(
