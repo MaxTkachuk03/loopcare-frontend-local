@@ -9,7 +9,7 @@ abstract class AddFoodItemToRecipeBody implements _$AddFoodItemToRecipeBody {
   const AddFoodItemToRecipeBody._();
 
   const factory AddFoodItemToRecipeBody({
-    required int numberOfUnits,
+    required double numberOfUnits,
     required String servingId,
   }) = _AddFoodItemToRecipeBody;
 

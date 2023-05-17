@@ -10,6 +10,7 @@ part 'recipe_response.g.dart';
 @JsonSerializable()
 class RecipeResponse {
   final int id;
+  final String externalId;
   final List<RecipeFoodItem> ingredients;
   final double calorieDensity;
   final double proteinDegree;
@@ -18,6 +19,7 @@ class RecipeResponse {
 
   const RecipeResponse({
     required this.id,
+    required this.externalId,
     required this.ingredients,
     required this.calorieDensity,
     required this.proteinDegree,

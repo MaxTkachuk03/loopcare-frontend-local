@@ -12,6 +12,7 @@ abstract class Recipe implements _$Recipe {
 
   const factory Recipe({
     required int id,
+    required String externalId,
     required List<RecipeFoodItem> ingredients,
     required double calorieDensity,
     required double proteinDegree,

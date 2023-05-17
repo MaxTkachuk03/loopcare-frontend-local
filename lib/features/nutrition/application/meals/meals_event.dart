@@ -34,7 +34,7 @@ class MealsEvent with _$MealsEvent {
 
   const factory MealsEvent.addRecipeToMeal(
     int mealId,
-    String recipeId,
+    int recipeId,
   ) = AddRecipeToMeal;
 
   const factory MealsEvent.deleteRecipeFromMeal(

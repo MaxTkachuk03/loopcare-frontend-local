@@ -32,7 +32,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     on<FetchMeals>(_onFetchMeals);
     on<FetchMealById>(_onFetchMealById);
     on<AddMeal>(_onAddMeal);
-
     on<UpdateFoodItemInMeal>(_onUpdateFoodItemInMeal);
     on<DeleteMeal>(_onDeleteMeal);
     on<DeleteFoodItemFromMeal>(_onDeleteFoodItemFromMeal);

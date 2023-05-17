@@ -126,7 +126,7 @@ class APINutritionService implements NutritionService {
   @override
   Future<Either<RequestError, MealsListItem>> addRecipeToMeal({
     required int mealId,
-    required String recipeId,
+    required int recipeId,
     required AddRecipeToMealBody data,
   }) {
     return client
