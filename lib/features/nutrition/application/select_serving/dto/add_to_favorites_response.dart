@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_serving.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 
 part 'add_to_favorites_response.g.dart';
 
@@ -13,7 +13,7 @@ class AddToFavoritesResponse {
   final String foodName;
   final String foodType;
   final String foodUrl;
-  final FoodItemServing serving;
+  final ServingSize serving;
 
   const AddToFavoritesResponse(
     this.brandName,

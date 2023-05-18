@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_serving.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/food_item_servings_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/serving_list_item/serving_list_item.dart';
 
 class ServingList extends StatefulWidget {
@@ -15,7 +15,7 @@ class ServingList extends StatefulWidget {
 class _ServingListState extends State<ServingList> {
   final TextEditingController _amountFieldController = TextEditingController();
 
-  void _onListItemPressedHandler(FoodItemServing item) {
+  void _onListItemPressedHandler(ServingSize item) {
     _amountFieldController.text = item.numberOfUnits.round().toString();
     context
         .read<FoodItemServingsBloc>()
@@ -43,7 +43,7 @@ class _ServingListState extends State<ServingList> {
                 return ListView.builder(
                   itemCount: foodItemServingsState.servingsIList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final FoodItemServing listItem =
+                    final ServingSize listItem =
                         foodItemServingsState.servingsIList[index];
                     final isSelected =
                         foodItemServingsState.selectedServingItem?.servingId ==
@@ -68,7 +68,8 @@ class _ServingListState extends State<ServingList> {
             .read<FoodItemServingsBloc>()
             .state
             .selectedServingItem
-            ?.numberOfUnits.round() ??
+            ?.numberOfUnits
+            .round() ??
         '1';
 
     _amountFieldController.text = '$initialValue';

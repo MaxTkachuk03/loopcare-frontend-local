@@ -7,10 +7,10 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_body.dart';
-import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_serving.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/update_favorite_body.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 
 part 'food_item_servings_event.dart';
 
@@ -41,7 +41,7 @@ class FoodItemServingsBloc
     }).toList();
   }
 
-  IList<FoodItemServing> _getUpdatedServingsList(FoodItemServing serving) {
+  IList<ServingSize> _getUpdatedServingsList(ServingSize serving) {
     return state.maybeMap(
       foodItemServings: (state) {
         return state.servings
@@ -49,7 +49,7 @@ class FoodItemServingsBloc
             .map((e) => e.servingId == serving.servingId ? serving : e)
             .toIList();
       },
-      orElse: () => <FoodItemServing>[].toIList(),
+      orElse: () => <ServingSize>[].toIList(),
     );
   }
 
@@ -80,7 +80,7 @@ class FoodItemServingsBloc
     response.fold(
       (l) => null,
       (r) {
-        IList<FoodItemServing> servingList;
+        IList<ServingSize> servingList;
         // TODO how to refactor this code
         if (event.selectedServingId == null) {
           servingList = r.data.toIList();

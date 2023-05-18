@@ -55,4 +55,7 @@ class MealsEvent with _$MealsEvent {
   const factory MealsEvent.addDishToMeal(
     MealsListItem meal,
   ) = AddDishToMeal;
+
+  const factory MealsEvent.nutritionItemChanged(NutritionItem item) =
+      NutritionItemChanged;
 }

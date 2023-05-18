@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_serving.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 
 part 'dish_food_item.freezed.dart';
 
@@ -16,7 +16,7 @@ abstract class DishFoodItem implements _$DishFoodItem {
     required String brandName,
     required double calorieDensity,
     required double proteinDegree,
-    required FoodItemServing serving,
+    required ServingSize serving,
   }) = _DishFoodItem;
 
   factory DishFoodItem.fromJson(Map<String, dynamic> json) =>

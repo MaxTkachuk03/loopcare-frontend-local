@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -13,8 +12,10 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
-import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_serving.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
@@ -42,6 +43,24 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     on<AddFoodItemToMeal>(_onAddFoodItemToMeal);
     on<AddRecipeToMeal>(_onAddRecipeToMeal);
     on<AddDishToMeal>(_onAddDishToMeal);
+    on<NutritionItemChanged>(_onNutritionItemChanged);
+  }
+
+  Map<String, List<MealsListItem>> _combineMealsByDate(
+    Map<String, List<MealsListItem>>? previousWeightsData,
+    List<MealsListItem> data,
+  ) {
+    Map<String, List<MealsListItem>> meals =
+        Map<String, List<MealsListItem>>.from(previousWeightsData ?? {});
+
+    for (var element in data) {
+      List<MealsListItem> dayData =
+          meals[element.loggingDate.isoStringWithoutTime] ?? <MealsListItem>[];
+      dayData.add(element);
+      meals[element.loggingDate.isoStringWithoutTime] = dayData;
+    }
+
+    return meals;
   }
 
   FutureOr<void> _onSetCurrentDate(
@@ -52,10 +71,12 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
       emit(
         MealsState.mealsInfo(
           currentDate: event.currentDate,
-          meals: <MealsListItem>[].toIList(),
+          meals: {},
         ),
       );
     } else {
+      final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
+
       emit(const MealsState.loading());
 
       final response = await nutritionService.getMeals(
@@ -71,7 +92,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           emit(
             MealsState.mealsInfo(
               currentDate: event.currentDate,
-              meals: response.data.toIList(),
+              meals: _combineMealsByDate(meals, response.data),
               selectedServing: null,
             ),
           );
@@ -97,6 +118,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     FetchMeals _,
     Emitter<MealsState> emit,
   ) async {
+    final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
+
     emit(const MealsState.loading());
 
     final response = await nutritionService.getMeals(
@@ -113,7 +136,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         emit(
           MealsState.mealsInfo(
             currentDate: DateTime.now(),
-            meals: response.data.toIList(),
+            meals: _combineMealsByDate(meals, response.data),
           ),
         );
       },
@@ -131,12 +154,16 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         response.fold(
           (error) => null,
           (response) {
+            final updatedList = _getUpdatedMealsList(response);
             emit(
               state.copyWith(
-                  meals: state.meals
-                      .map((element) =>
-                          element.id == event.id ? response : element)
-                      .toIList()),
+                meals: updatedList,
+                currentMeal: response,
+                currentNutritionItem: response.serving.list.firstWhere(
+                  (element) =>
+                      element.key == NutritionValuesTypes.calories.name,
+                ),
+              ),
             );
           },
         );
@@ -166,7 +193,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           final updatedList = _getUpdatedMealsList(r);
           emit(
             state.copyWith(
-              meals: updatedList.toIList(),
+              meals: updatedList,
             ),
           );
         });
@@ -192,7 +219,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             final updatedList = _getUpdatedMealsList(r);
             emit(
               state.copyWith(
-                meals: updatedList.toIList(),
+                meals: updatedList,
               ),
             );
           },
@@ -230,7 +257,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
             emit(
               state.copyWith(
-                meals: updatedList.toIList(),
+                meals: updatedList,
               ),
             );
           },
@@ -260,7 +287,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             final updatedList = _getUpdatedMealsList(r);
             emit(
               state.copyWith(
-                meals: updatedList.toIList(),
+                meals: updatedList,
               ),
             );
           },
@@ -290,7 +317,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             final updatedList = _getUpdatedMealsList(r);
             emit(
               state.copyWith(
-                meals: updatedList.toIList(),
+                meals: updatedList,
               ),
             );
           },
@@ -320,7 +347,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
               final updatedList = _deleteMealFromList(mealId);
               emit(
                 state.copyWith(
-                  meals: updatedList.toIList(),
+                  meals: updatedList,
                 ),
               );
             },
@@ -392,21 +419,35 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         response.fold(
           (l) => null,
           (r) {
-            var updatedList = <MealsListItem>[].toIList();
-            if (state.meals.isEmpty) {
-              updatedList = (state.meals.toList()..add(r)).toIList();
+            var updatedList = <MealsListItem>[];
+
+            Map<String, List<MealsListItem>> meals =
+                Map<String, List<MealsListItem>>.from(state.meals);
+            var selectedDayMeals =
+                meals[r.loggingDate.isoStringWithoutTime] ?? <MealsListItem>[];
+
+            if (selectedDayMeals.isEmpty) {
+              updatedList = (selectedDayMeals.toList()..add(r)).toList();
             } else {
-              if (!state.meals.toList().any((item) => item.id == r.id)) {
-                updatedList = (state.meals.toList()..add(r)).toIList();
+              if (!selectedDayMeals.any((item) => item.id == r.id)) {
+                updatedList = (selectedDayMeals.toList()..add(r)).toList();
               } else {
-                updatedList = state.meals;
+                updatedList = selectedDayMeals;
               }
             }
+
+            meals[r.loggingDate.isoStringWithoutTime] = updatedList;
+
             emit(
               state.copyWith(
                 currentMealCategory: event.mealCategory,
                 currentMealId: r.id,
-                meals: updatedList,
+                meals: meals,
+                currentMeal: r,
+                currentNutritionItem: r.serving.list.firstWhere(
+                  (element) =>
+                      element.key == NutritionValuesTypes.calories.name,
+                ),
               ),
             );
           },
@@ -415,24 +456,44 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     );
   }
 
-  IList<MealsListItem> _getUpdatedMealsList(MealsListItem mealItem) {
+  Map<String, List<MealsListItem>> _getUpdatedMealsList(
+    MealsListItem mealItem,
+  ) {
     return state.maybeMap(
       mealsInfo: (state) {
-        return state.meals
-            .toList()
+        Map<String, List<MealsListItem>> meals =
+            Map<String, List<MealsListItem>>.from(state.meals);
+        var selectedDayMeals =
+            meals[mealItem.loggingDate.isoStringWithoutTime] ??
+                <MealsListItem>[];
+        var updatedSelectedDayMeals = selectedDayMeals
             .map((e) => e.id == mealItem.id ? mealItem : e)
-            .toIList();
+            .toList();
+
+        meals[mealItem.loggingDate.isoStringWithoutTime] =
+            updatedSelectedDayMeals;
+
+        return meals;
       },
-      orElse: () => <MealsListItem>[].toIList(),
+      orElse: () => {},
     );
   }
 
-  IList<MealsListItem> _deleteMealFromList(int mealItem) {
+  Map<String, List<MealsListItem>> _deleteMealFromList(int mealItem) {
     return state.maybeMap(
       mealsInfo: (state) {
-        return state.meals.removeWhere((e) => e.id == mealItem).toIList();
+        final currentDate = state.currentDate ?? DateTime.now();
+        Map<String, List<MealsListItem>> meals =
+            Map<String, List<MealsListItem>>.from(state.meals);
+        var selectedDayMeals =
+            meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+
+        selectedDayMeals.removeWhere((e) => e.id == mealItem);
+        meals[currentDate.isoStringWithoutTime] = selectedDayMeals;
+
+        return meals;
       },
-      orElse: () => <MealsListItem>[].toIList(),
+      orElse: () => {},
     );
   }
 
@@ -442,16 +503,33 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
   ) async {
     await state.mapOrNull(
       mealsInfo: (state) async {
-        final mealsList = state.meals.map((meal) {
+        final currentDate = event.meal.loggingDate;
+        Map<String, List<MealsListItem>> meals =
+            Map<String, List<MealsListItem>>.from(state.meals);
+        var selectedDayMeals =
+            meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+
+        final updatedSelectedDayMeals = selectedDayMeals.map((meal) {
           return meal.id == event.meal.id ? event.meal : meal;
-        }).toIList();
+        }).toList();
+
+        meals[currentDate.isoStringWithoutTime] = updatedSelectedDayMeals;
 
         emit(
           state.copyWith(
-            meals: mealsList,
+            meals: meals,
           ),
         );
       },
     );
+  }
+
+  FutureOr<void> _onNutritionItemChanged(
+    NutritionItemChanged event,
+    Emitter<MealsState> emit,
+  ) {
+    state.mapOrNull(mealsInfo: (state) {
+      emit(state.copyWith(currentNutritionItem: event.item));
+    });
   }
 }
