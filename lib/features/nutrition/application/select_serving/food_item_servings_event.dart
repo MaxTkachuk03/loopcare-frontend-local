@@ -9,7 +9,7 @@ class FoodItemServingsEvent with _$FoodItemServingsEvent {
   ) = FetchFoodItemServings;
 
   const factory FoodItemServingsEvent.setSelectedFoodItemServing(
-    FoodItemServing item,
+    ServingSize item,
   ) = SetSelectedFoodItemServing;
 
   const factory FoodItemServingsEvent.addToFavorites(

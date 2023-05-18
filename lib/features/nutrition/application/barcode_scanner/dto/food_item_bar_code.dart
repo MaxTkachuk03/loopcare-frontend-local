@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_serving.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 
 part 'food_item_bar_code.freezed.dart';
 
@@ -16,7 +16,7 @@ abstract class FoodItemBarCode implements _$FoodItemBarCode {
     required String foodUrl,
     required String brandName,
     required String? foodDescription,
-    required List<FoodItemServing> servings,
+    required List<ServingSize> servings,
   }) = _FoodItemBarCode;
 
   factory FoodItemBarCode.fromJson(Map<String, dynamic> json) =>

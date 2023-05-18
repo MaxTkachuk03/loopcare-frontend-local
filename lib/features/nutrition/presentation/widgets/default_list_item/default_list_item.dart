@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_serving.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 
 class DefaultListItem extends StatelessWidget {
-  final FoodItemServing item;
-  final void Function(FoodItemServing item) onPressed;
+  final ServingSize item;
+  final void Function(ServingSize item) onPressed;
 
   const DefaultListItem({
     Key? key,

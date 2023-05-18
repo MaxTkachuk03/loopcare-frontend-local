@@ -9,15 +9,15 @@ class FoodItemServingsState with _$FoodItemServingsState {
   const factory FoodItemServingsState.loading() = Loading;
 
   const factory FoodItemServingsState.foodItemServings({
-    required IList<FoodItemServing> servings,
-    required FoodItemServing? selectedServing,
+    required IList<ServingSize> servings,
+    required ServingSize? selectedServing,
     required String selectedServingAmount,
     required List<MealCategoryFilter> mealCategoryFilters,
   }) = FoodItemServings;
 
   const factory FoodItemServingsState.error(RequestError fetchError) = Error;
 
-  FoodItemServing? get selectedServingItem {
+  ServingSize? get selectedServingItem {
     return mapOrNull(foodItemServings: (state) => state.selectedServing);
   }
 
@@ -25,10 +25,10 @@ class FoodItemServingsState with _$FoodItemServingsState {
     return mapOrNull(foodItemServings: (state) => state.selectedServingAmount);
   }
 
-  IList<FoodItemServing> get servingsIList {
+  IList<ServingSize> get servingsIList {
     return maybeMap(
       foodItemServings: (state) => state.servings,
-      orElse: () => <FoodItemServing>[].toIList(),
+      orElse: () => <ServingSize>[].toIList(),
     );
   }
 

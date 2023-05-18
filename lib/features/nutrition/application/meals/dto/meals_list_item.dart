@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
-import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_serving.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 
 part 'meals_list_item.freezed.dart';
 
@@ -15,7 +15,7 @@ class MealsListItem with _$MealsListItem {
     required String mealCategory,
     required double calorieDensity,
     required double proteinDegree,
-    required FoodItemServing serving,
+    required ServingSize serving,
     required DateTime createdAt,
     required DateTime updatedAt,
   }) = _MealItem;

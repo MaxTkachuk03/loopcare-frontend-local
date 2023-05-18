@@ -189,10 +189,12 @@ class PhysicalFitnessBloc
     BirthdayChanged event,
     Emitter<PhysicalFitnessState> emit,
   ) {
-    emit(state.copyWith(
-      birthday: event.birthday,
-      age: DateHelpers.calculateAge(event.birthday),
-    ));
+    emit(
+      state.copyWith(
+        birthday: event.birthday,
+        age: DateHelpers.calculateAge(event.birthday),
+      ),
+    );
   }
 
   FutureOr<void> _onSexChanged(
