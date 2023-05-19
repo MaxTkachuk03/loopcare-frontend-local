@@ -26,12 +26,9 @@ class MedicalFitnessEvent with _$MedicalFitnessEvent {
     YesNoAnswer value,
   ) = TreatmentByTheDoctorChanged;
 
-  const factory MedicalFitnessEvent.addPregnancyQuestion() =
-      AddPregnancyQuestion;
-
-  const factory MedicalFitnessEvent.removePregnancyQuestion() =
-      RemovePregnancyQuestion;
-
   const factory MedicalFitnessEvent.handleSexType(SexType sexType) =
       HandleSexType;
+
+  const factory MedicalFitnessEvent.handleBirthday(DateTime birthday) =
+      HandleBirthday;
 }

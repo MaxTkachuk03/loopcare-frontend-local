@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/medical_fitness/domain/cardiovascular_disease_answers.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/date_helpers.dart';
 
 part 'medical_fitness_bloc.freezed.dart';
 
@@ -40,9 +41,8 @@ class MedicalFitnessBloc
     on<TreatmentByTheDoctorChanged>(_onTreatmentByTheDoctorChanged);
     on<PainInChestChanged>(_onPainInChestChanged);
     on<ResetData>(_onResetData);
-    on<AddPregnancyQuestion>(_onAddPregnancyQuestion);
-    on<RemovePregnancyQuestion>(_onRemovePregnancyQuestion);
     on<HandleSexType>(_onHandleSexType);
+    on<HandleBirthday>(_onHandleBirthday);
 
     _authBlocStreamSubscription =
         _authenticationCubit.stream.distinct().listen((s) {
@@ -54,28 +54,52 @@ class MedicalFitnessBloc
     });
   }
 
-  FutureOr<void> _onHandleSexType(HandleSexType event, _) {
-    if (event.sexType == SexType.female) {
-      if (!medicalFitnessQuestions.contains('pregnancy')) {
-        medicalFitnessQuestions.insert(1, 'pregnancy');
-      }
+  void _handleQuestions() {
+    final age = state.age ?? 0;
+    if (state.sexType == SexType.female && age < 60) {
+      _onAddPregnancyQuestion();
     } else {
-      if (medicalFitnessQuestions.contains('pregnancy')) {
-        medicalFitnessQuestions
-            .removeAt(medicalFitnessQuestions.indexOf('pregnancy'));
-      }
+      _onRemovePregnancyQuestion();
     }
   }
 
-  FutureOr<void> _onRemovePregnancyQuestion(RemovePregnancyQuestion event, _) {
-    medicalFitnessQuestions
-        .removeAt(medicalFitnessQuestions.indexOf('pregnancy'));
+  void _onRemovePregnancyQuestion() {
+    if (medicalFitnessQuestions.contains('pregnancy')) {
+      medicalFitnessQuestions
+          .removeAt(medicalFitnessQuestions.indexOf('pregnancy'));
+    }
   }
 
-  FutureOr<void> _onAddPregnancyQuestion(AddPregnancyQuestion event, _) {
-    if (medicalFitnessQuestions.get(1) != 'pregnancy') {
+  void _onAddPregnancyQuestion() {
+    if (!medicalFitnessQuestions.contains('pregnancy')) {
       medicalFitnessQuestions.insert(1, 'pregnancy');
     }
+  }
+
+  FutureOr<void> _onHandleBirthday(
+    HandleBirthday event,
+    Emitter<MedicalFitnessState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        age: DateHelpers.calculateAge(event.birthday),
+      ),
+    );
+
+    _handleQuestions();
+  }
+
+  FutureOr<void> _onHandleSexType(
+    HandleSexType event,
+    Emitter<MedicalFitnessState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        sexType: event.sexType,
+      ),
+    );
+
+    _handleQuestions();
   }
 
   @override
