@@ -16,6 +16,8 @@ class MedicalFitnessState with _$MedicalFitnessState {
     YesNoAnswer? painInChest,
     YesNoAnswer? treatmentByTheDoctor,
     YesNoAnswer? stomachReductionDisease,
+    int? age,
+    SexType? sexType,
   }) = _MedicalFitnessState;
 
   factory MedicalFitnessState.fromJson(Map<String, dynamic> json) =>
