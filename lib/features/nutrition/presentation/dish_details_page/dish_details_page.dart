@@ -208,6 +208,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                                     dishState.currentNutritionItem.key,
                                 onDeleteHandler: _onDeleteFoodItemPressed,
                                 onListItemTapHandler: _onFoodItemPressed,
+                                isScrollable: true,
                               ),
                             ),
                             NutritionBlock(

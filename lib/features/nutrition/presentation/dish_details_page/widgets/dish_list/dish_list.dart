@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/widgets/food_l
 class DishList extends StatelessWidget {
   final String nutritionKey;
   final List<DishFoodItem> list;
+  final bool isScrollable;
   final Function(BuildContext context, FoodItem item) onDeleteHandler;
   final Function(BuildContext context, DishFoodItem item) onListItemTapHandler;
 
@@ -15,14 +16,15 @@ class DishList extends StatelessWidget {
     required this.nutritionKey,
     required this.onDeleteHandler,
     required this.onListItemTapHandler,
+    required this.isScrollable,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: list.length,
-      // shrinkWrap: true,
-      // physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: !isScrollable,
+      physics: isScrollable ? null : const NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
         final item = list[index];
 

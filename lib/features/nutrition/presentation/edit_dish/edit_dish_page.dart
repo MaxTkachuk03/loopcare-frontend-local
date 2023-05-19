@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
@@ -310,75 +311,81 @@ class _EditDishPageState extends State<EditDishPage> {
                                   Expanded(
                                     child: Column(
                                       children: [
-                                        ServingsAmount(
-                                          inputController: _servingController,
-                                          onValueChangeHandler:
-                                              _onServingChanges,
-                                        ),
-                                        NutritionValuesBlock(
-                                          portionsController:
-                                              _portionsController,
-                                          isPortionsEditable: true,
-                                          numberOfPortions: dishState
-                                              .currentDish.numberOfServings
-                                              .toInt(),
-                                          nutritionValue: dishState
-                                              .currentNutritionItem.value,
-                                          nutritionValuesList: dishState
-                                              .currentDish.serving.list,
-                                          selectedNutritionItem:
-                                              dishState.currentNutritionItem,
-                                          onNutritionFactSelect:
-                                              _onNutritionFactSelect,
-                                        ),
                                         Expanded(
-                                          child: DishList(
-                                            list:
-                                                dishState.currentDish.foodItems,
-                                            nutritionKey: dishState
-                                                .currentNutritionItem.key,
-                                            onDeleteHandler: _onDeleteFoodItem,
-                                            onListItemTapHandler:
-                                                _onTapFoodItem,
-                                          ),
-                                        ),
-                                        NutritionBlock(
-                                          calorieDensity: dishState
-                                              .currentDish.calorieDensity,
-                                          proteinDegree: dishState
-                                              .currentDish.proteinDegree,
-                                        ),
-                                        const SizedBox(height: 26.0),
-                                        MainContainer(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                          child: ScrollableContainer(
+                                              child: Column(
                                             children: [
-                                              Row(
-                                                children: [
-                                                  OutlinedRoundedButton(
-                                                    text: LocalizedTexts
-                                                        .addFoodItem
-                                                        .translation,
-                                                    icon: AppIcons.plus,
-                                                    onPressed:
-                                                        _onAddFoodItemHandler,
-                                                  ),
-                                                  const SizedBox(width: 16.0),
-                                                  OutlinedRoundedButton(
-                                                    text: LocalizedTexts
-                                                        .deleteDish.translation,
-                                                    icon: AppIcons.delete,
-                                                    onPressed:
-                                                        _onDeleteDishHandler,
-                                                  ),
-                                                ],
+                                              ServingsAmount(
+                                                inputController:
+                                                    _servingController,
+                                                onValueChangeHandler:
+                                                    _onServingChanges,
+                                              ),
+                                              NutritionValuesBlock(
+                                                portionsController:
+                                                    _portionsController,
+                                                isPortionsEditable: true,
+                                                numberOfPortions: dishState
+                                                    .currentDish
+                                                    .numberOfServings
+                                                    .toInt(),
+                                                nutritionValue: dishState
+                                                    .currentNutritionItem.value,
+                                                nutritionValuesList: dishState
+                                                    .currentDish.serving.list,
+                                                selectedNutritionItem: dishState
+                                                    .currentNutritionItem,
+                                                onNutritionFactSelect:
+                                                    _onNutritionFactSelect,
+                                              ),
+                                              DishList(
+                                                list: dishState
+                                                    .currentDish.foodItems,
+                                                nutritionKey: dishState
+                                                    .currentNutritionItem.key,
+                                                onDeleteHandler:
+                                                    _onDeleteFoodItem,
+                                                onListItemTapHandler:
+                                                    _onTapFoodItem,
+                                                isScrollable: false,
+                                              ),
+                                              NutritionBlock(
+                                                calorieDensity: dishState
+                                                    .currentDish.calorieDensity,
+                                                proteinDegree: dishState
+                                                    .currentDish.proteinDegree,
                                               ),
                                             ],
-                                          ),
-                                        )
+                                          )),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20.0),
+                                  MainContainer(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            OutlinedRoundedButton(
+                                              text: LocalizedTexts
+                                                  .addFoodItem.translation,
+                                              icon: AppIcons.plus,
+                                              onPressed: _onAddFoodItemHandler,
+                                            ),
+                                            const SizedBox(width: 16.0),
+                                            OutlinedRoundedButton(
+                                              text: LocalizedTexts
+                                                  .deleteDish.translation,
+                                              icon: AppIcons.delete,
+                                              onPressed: _onDeleteDishHandler,
+                                            ),
+                                          ],
+                                        ),
                                       ],
                                     ),
                                   ),
