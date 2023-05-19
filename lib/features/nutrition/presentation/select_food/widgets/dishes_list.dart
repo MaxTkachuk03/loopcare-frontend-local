@@ -5,17 +5,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/dish_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/list_filters.dart';
 
 class DishesList extends StatefulWidget {
-  const DishesList({super.key});
+  final String mealCategory;
+
+  const DishesList({
+    super.key,
+    required this.mealCategory,
+  });
 
   @override
   State<DishesList> createState() => _DishesListState();
@@ -23,6 +29,9 @@ class DishesList extends StatefulWidget {
 
 class _DishesListState extends State<DishesList>
     with AutomaticKeepAliveClientMixin {
+  static const double _defaultNewDishNumberOfUnits = 10.0;
+  static const String _defaultNewDishName = 'new dish';
+
   @override
   bool wantKeepAlive = true;
 
@@ -123,7 +132,24 @@ class _DishesListState extends State<DishesList>
   }
 
   _onCreateDish() {
-    context.router.pushNamed(AppRoutes.createDish);
+    context.router.push(EditDishRoute(
+        event: EditDishEvent.createDish(
+      _defaultNewDishName,
+      _defaultNewDishNumberOfUnits,
+      _selectedMealCategories,
+    )));
+  }
+
+  List<MealCategory> get _selectedMealCategories {
+    List<MealCategory> defaultMealCategories = [];
+
+    for (final mealCategory in MealCategory.values) {
+      if (mealCategory.name == widget.mealCategory) {
+        defaultMealCategories.add(mealCategory);
+      }
+    }
+
+    return defaultMealCategories;
   }
 
   _onConfirmed(

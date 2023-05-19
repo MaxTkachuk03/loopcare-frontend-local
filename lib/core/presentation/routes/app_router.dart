@@ -39,7 +39,6 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/treatmen
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/search_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/create_dish/create_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dish_details_page/dish_details_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/log_weight_page/log_weight_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/recipe_details_page.dart';
@@ -337,10 +336,6 @@ part 'app_routes.dart';
       page: RecipeDetailsPage,
     ),
     // Dish
-    AutoRoute(
-      path: AppRoutes.createDish,
-      page: CreateDishPage,
-    ),
     AutoRoute(
       path: AppRoutes.dishDetails,
       page: DishDetailsPage,

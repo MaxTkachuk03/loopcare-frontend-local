@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dish_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
@@ -113,7 +114,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
 
     if (id == null || name == null) return;
 
-    context.router.push(EditDishRoute(id: id, name: name));
+    context.router.push(EditDishRoute(event: EditDishEvent.getDish(id)));
   }
 
   void _onDeleteFoodItemPressed(BuildContext context, FoodItem item) {

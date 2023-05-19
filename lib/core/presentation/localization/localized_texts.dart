@@ -403,6 +403,8 @@ class LocalizedTexts {
       'invalidDishServingsAmountMessage';
   static const String invalidDishPortionsAmountMessage =
       'invalidDishPortionsAmountMessage';
+  static const String invalidCreateDishFromMealMessage =
+      'invalidCreateDishFromMealMessage';
 
   // Account
   static const String deleteMyAccount = 'deleteMyAccount';

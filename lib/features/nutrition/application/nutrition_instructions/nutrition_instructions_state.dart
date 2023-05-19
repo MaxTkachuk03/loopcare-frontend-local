@@ -25,8 +25,8 @@ class NutritionInstructionsState with _$NutritionInstructionsState {
     if (value == null) return null;
 
     return mapOrNull(
-        nutritionInstructions: (state) =>
-            state.calorieDensityValues.firstWhere(_filter(value)));
+        nutritionInstructions: (state) => state.calorieDensityValues
+            .firstWhere(_filter(double.parse(value.toStringAsFixed(2)))));
   }
 
   NutritionInstructionValue? getProteinDegreeItem(double? value) {

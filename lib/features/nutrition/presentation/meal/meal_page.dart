@@ -1,15 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/meal/widgets/meal_nutrition_values.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -27,6 +29,40 @@ class MealPage extends StatefulWidget {
 }
 
 class _MealPageState extends State<MealPage> {
+  static const double _defaultNumberOfUnitsForDish = 1.0;
+
+  void _onSaveToMyDishesHandler() {
+    final state = context.read<MealsBloc>().state;
+    final mealCategory = state.currentMealCategory;
+    final mealId = state.getCurrentMealId;
+
+    if (mealId == null || mealCategory == null) return;
+
+    if (state.isContainsRecipeOrDish) {
+      showAppSnackBar(
+        context: context,
+        background: AppColors.white,
+        text: LocalizedTexts.invalidCreateDishFromMealMessage.translation,
+      );
+      return;
+    }
+
+    context.router.push(EditDishRoute(
+        event: EditDishEvent.createDishFromMeal(
+      mealId,
+      _defaultNumberOfUnitsForDish,
+      mealCategory,
+      _genericDishName,
+    )));
+  }
+
+  String get _genericDishName {
+    // TODO dish name cant be empty, so get generic name for now
+    final mealCategory = context.read<MealsBloc>().state.currentMealCategory;
+    final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+    return '$mealCategory dish from meal $mealId';
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
@@ -84,6 +120,7 @@ class _MealPageState extends State<MealPage> {
                                   text:
                                       LocalizedTexts.saveToMyDishes.translation,
                                   icon: AppIcons.dish,
+                                  onPressed: _onSaveToMyDishesHandler,
                                 ),
                                 const SizedBox(width: 8.0),
                                 OutlinedRoundedButton(

@@ -77,7 +77,6 @@ class AppRoutes {
   // Dish
   static const String dish = '/dish';
   static const String dishDetails = '/dish-details';
-  static const String createDish = '/create-dish';
   static const String editDish = '/edit-dish';
   AppRoutes._();
 }

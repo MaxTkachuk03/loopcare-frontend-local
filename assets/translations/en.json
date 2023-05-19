@@ -321,5 +321,6 @@
   "dishWasSaved": "Dish was saved",
   "invalidDishNameMessage": "Give this dish a name please",
   "invalidDishServingsAmountMessage": "Serving size can't be empty",
-  "invalidDishPortionsAmountMessage": "Portions can't be empty"
+  "invalidDishPortionsAmountMessage": "Portions can't be empty",
+  "invalidCreateDishFromMealMessage": "A dish cannot contain other dishes or recipes. Please remove dishes or recipes and try again"
 }
