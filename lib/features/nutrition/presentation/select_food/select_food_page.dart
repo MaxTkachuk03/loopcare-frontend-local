@@ -27,13 +27,13 @@ class SelectFoodPage extends StatelessWidget {
           length: 2,
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const [
-              UnderAppBarContainer(),
+            children: [
+              const UnderAppBarContainer(),
               Flexible(
                 child: TabBarView(
                   children: [
-                    FavoriteList(),
-                    DishesList(),
+                    const FavoriteList(),
+                    DishesList(mealCategory: mealCategory),
                   ],
                 ),
               ),

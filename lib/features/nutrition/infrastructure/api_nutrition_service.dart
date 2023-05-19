@@ -12,6 +12,9 @@ import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_fo
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/clone_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_from_meal_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_from_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/update_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
@@ -330,6 +333,33 @@ class APINutritionService implements NutritionService {
   ) {
     return client
         .get('/dishes/$id')
+        .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> createDishFromRecipe(
+    CreateDishFromRecipeBody data,
+  ) {
+    return client
+        .post('/dishes/recipes', data: data)
+        .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> createDishFromMeal(
+    CreateDishFromMealBody data,
+  ) {
+    return client
+        .post('/dishes/meals', data: data)
+        .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> createDish(
+    CreateDishBody data,
+  ) {
+    return client
+        .post('/dishes', data: data)
         .then(parseResponse(UpdateDishFoodItemResponse.fromJson));
   }
 

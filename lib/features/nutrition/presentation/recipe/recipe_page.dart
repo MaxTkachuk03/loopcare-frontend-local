@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -14,6 +15,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_but
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe/widgets/recipe_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
@@ -71,6 +73,52 @@ class _RecipePageState extends State<RecipePage> {
     super.dispose();
   }
 
+  get _currentRecipeId {
+    final recipeState = context.read<RecipeBloc>().state;
+    final mealState = context.read<MealsBloc>().state;
+    final isMealRecipe = widget.isMealRecipe ?? false;
+
+    final recipeId = !isMealRecipe
+        ? mealState.currentFoodItems
+            .firstWhere((element) =>
+                element.type == 'recipe' &&
+                element.externalId == recipeState.externalRecipeId)
+            .id
+        : recipeState.recipeId;
+
+    return recipeId;
+  }
+
+  void _onSaveToMyDishesHandler() {
+    final recipeState = context.read<RecipeBloc>().state;
+    final numberOfUnits = recipeState.numberOfUnits;
+    final mealState = context.read<MealsBloc>().state;
+
+    final recipeId = _currentRecipeId;
+
+    if (recipeId == null || numberOfUnits == null) return;
+
+    context.router.push(EditDishRoute(
+        event: EditDishEvent.createDishFromRecipe(
+      recipeId,
+      numberOfUnits,
+      _getSelectedMealCategories(mealState.currentMealCategory),
+    )));
+  }
+
+  List<MealCategory> _getSelectedMealCategories(String? category) {
+    List<MealCategory> defaultMealCategories = [];
+    if (category == null) return defaultMealCategories;
+
+    for (final mealCategory in MealCategory.values) {
+      if (mealCategory.name == category) {
+        defaultMealCategories.add(mealCategory);
+      }
+    }
+
+    return defaultMealCategories;
+  }
+
   @override
   Widget build(BuildContext context) {
     final isMealRecipe = widget.isMealRecipe ?? false;
@@ -81,8 +129,7 @@ class _RecipePageState extends State<RecipePage> {
         listeners: [
           BlocListener<RecipeBloc, RecipeState>(
             listener: _recipeListener,
-            listenWhen: (previous, current) =>
-                previous is Loading && current is RecipeInfo,
+            listenWhen: (previous, current) => current is RecipeInfo,
           ),
           BlocListener<RecipeBloc, RecipeState>(
             listenWhen: _whenRecipeUpdated,
@@ -159,7 +206,7 @@ class _RecipePageState extends State<RecipePage> {
                                           text: LocalizedTexts
                                               .saveToMyDishes.translation,
                                           icon: AppIcons.dish,
-                                          onPressed: () {},
+                                          onPressed: _onSaveToMyDishesHandler,
                                         )
                                       ],
                                     ),
@@ -210,17 +257,9 @@ class _RecipePageState extends State<RecipePage> {
 
   void _onValueChangeHandler(String val) {
     final mealState = context.read<MealsBloc>().state;
-    final recipeState = context.read<RecipeBloc>().state;
     final mealId = mealState.getCurrentMealId;
-    final isMealRecipe = widget.isMealRecipe ?? false;
 
-    final recipeId = !isMealRecipe
-        ? mealState.currentFoodItems
-            .firstWhere((element) =>
-                element.type == 'recipe' &&
-                element.externalId == recipeState.externalRecipeId)
-            .id
-        : recipeState.recipeId;
+    final recipeId = _currentRecipeId;
 
     if (mealId == null || val.isEmpty || recipeId == null) return;
 

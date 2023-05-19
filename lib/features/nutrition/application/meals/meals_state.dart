@@ -92,7 +92,7 @@ class MealsState with _$MealsState {
       }
 
       final result = caloriesSum / amountSum;
-      return result.isNaN ? null : result;
+      return result.isNaN || result.isInfinite ? null : result;
     });
   }
 
@@ -118,7 +118,7 @@ class MealsState with _$MealsState {
         }
 
         final result = (((proteinSum * 4) / caloriesSum) * 100);
-        return result.isNaN ? null : result;
+        return (result.isNaN || result.isInfinite) ? null : result;
       },
     );
   }
@@ -206,6 +206,25 @@ class MealsState with _$MealsState {
         return currentMeal.mealItems.toList();
       },
       orElse: () => <MealItem>[],
+    );
+  }
+
+  bool get isContainsRecipeOrDish {
+    return maybeMap(
+      mealsInfo: (state) {
+        if (state.meals.isEmpty || state.currentMealId == null) {
+          return false;
+        }
+
+        final MealsListItem? currentMeal = state.meals[state.currentDate]
+            ?.firstWhereOrNull((item) => item.id == state.currentMealId);
+
+        if (currentMeal == null) return false;
+
+        return currentMeal.mealItems
+            .any((e) => e.type == 'recipe' || e.type == 'dish');
+      },
+      orElse: () => false,
     );
   }
 

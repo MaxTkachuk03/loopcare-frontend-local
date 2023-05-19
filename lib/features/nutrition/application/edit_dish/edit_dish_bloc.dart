@@ -7,6 +7,9 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_food_item_to_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_from_meal_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_from_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/update_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
@@ -24,6 +27,9 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
 
   EditDishBloc(this.nutritionService) : super(const EditDishState.initial()) {
     on<GetDish>(_onGetDish);
+    on<CreateDishFromRecipe>(_onCreateDishFromRecipe);
+    on<CreateDishFromMeal>(_onCreateDishFromMeal);
+    on<CreateDish>(_onCreateDish);
     on<NutritionItemChanged>(_onNutritionItemChanged);
     on<AddFoodItemToDish>(_onAddFoodItemToDish);
     on<DeleteFoodItemFromDish>(_onDeleteFoodItemFromDish);
@@ -55,6 +61,100 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
     emit(const EditDishState.loading());
 
     final response = await nutritionService.getDishById(event.id);
+
+    response.fold(
+      (e) {
+        emit(EditDishState.error(e));
+      },
+      (r) {
+        final Dish dish = _createDish(r);
+        final updatedNutritionItem = dish.serving.list
+            .firstWhere((e) => e.key == NutritionValuesTypes.calories.name);
+
+        emit(EditDishState.dishInfo(
+          currentNutritionItem: updatedNutritionItem,
+          currentDish: dish,
+        ));
+      },
+    );
+  }
+
+  FutureOr<void> _onCreateDishFromRecipe(
+    CreateDishFromRecipe event,
+    Emitter<EditDishState> emit,
+  ) async {
+    emit(const EditDishState.loading());
+
+    final data = CreateDishFromRecipeBody(
+      mealRecipeId: event.mealRecipeId,
+      numberOfUnits: event.numberOfUnits,
+      mealCategories: event.mealCategories,
+    );
+
+    final response = await nutritionService.createDishFromRecipe(data);
+
+    response.fold(
+      (e) {
+        emit(EditDishState.error(e));
+      },
+      (r) {
+        final Dish dish = _createDish(r);
+        final updatedNutritionItem = dish.serving.list
+            .firstWhere((e) => e.key == NutritionValuesTypes.calories.name);
+
+        emit(EditDishState.dishInfo(
+          currentNutritionItem: updatedNutritionItem,
+          currentDish: dish,
+        ));
+      },
+    );
+  }
+
+  FutureOr<void> _onCreateDishFromMeal(
+    CreateDishFromMeal event,
+    Emitter<EditDishState> emit,
+  ) async {
+    emit(const EditDishState.loading());
+
+    final data = CreateDishFromMealBody(
+      mealId: event.mealId,
+      numberOfUnits: event.numberOfUnits,
+      mealCategory: event.mealCategory,
+      name: event.name,
+    );
+
+    final response = await nutritionService.createDishFromMeal(data);
+
+    response.fold(
+      (e) {
+        emit(EditDishState.error(e));
+      },
+      (r) {
+        final Dish dish = _createDish(r);
+        final updatedNutritionItem = dish.serving.list
+            .firstWhere((e) => e.key == NutritionValuesTypes.calories.name);
+
+        emit(EditDishState.dishInfo(
+          currentNutritionItem: updatedNutritionItem,
+          currentDish: dish,
+        ));
+      },
+    );
+  }
+
+  FutureOr<void> _onCreateDish(
+    CreateDish event,
+    Emitter<EditDishState> emit,
+  ) async {
+    emit(const EditDishState.loading());
+
+    final data = CreateDishBody(
+      numberOfUnits: event.numberOfUnits,
+      mealCategories: event.mealCategories,
+      name: event.name,
+    );
+
+    final response = await nutritionService.createDish(data);
 
     response.fold(
       (e) {
