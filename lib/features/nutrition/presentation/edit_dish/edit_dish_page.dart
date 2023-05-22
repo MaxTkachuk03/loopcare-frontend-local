@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_food_item/dish_food_item.dart';
@@ -260,38 +261,53 @@ class _EditDishPageState extends State<EditDishPage> {
             body: SafeArea(
               child: Column(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                    color: AppColors.blueAppBar,
-                    child: BlocBuilder<EditDishBloc, EditDishState>(
-                      builder: (BuildContext context, state) {
-                        return state.maybeMap(
-                            dishInfo: (dishState) {
-                              return MealCategoryChips(
-                                data: _chips,
-                                selectedChips: _selectedMealCategories,
-                                onItemPressHandler: _onChipPressed,
-                              );
-                            },
-                            orElse: () => const SizedBox.shrink());
-                      },
-                    ),
+                  BlocBuilder<MealsBloc, MealsState>(
+                    builder: (context, state) {
+                      return Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        color: state.isPlanningMeals
+                            ? AppColors.darkGreen
+                            : AppColors.blueAppBar,
+                        child: BlocBuilder<EditDishBloc, EditDishState>(
+                          builder: (BuildContext context, state) {
+                            return state.maybeMap(
+                                dishInfo: (dishState) {
+                                  return MealCategoryChips(
+                                    data: _chips,
+                                    selectedChips: _selectedMealCategories,
+                                    onItemPressHandler: _onChipPressed,
+                                  );
+                                },
+                                orElse: () => const SizedBox.shrink());
+                          },
+                        ),
+                      );
+                    },
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(24.0),
-                    color: AppColors.blueAppBar,
-                    child: TextField(
-                      controller: _dishNameController,
-                      decoration: InputDecoration(
-                        hintText: LocalizedTexts.giveNameToThisDish.translation,
-                        hintStyle:
-                            Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  BlocBuilder<MealsBloc, MealsState>(
+                    builder: (context, state) {
+                      return Container(
+                        padding: const EdgeInsets.all(24.0),
+                        color: state.isPlanningMeals
+                            ? AppColors.darkGreen
+                            : AppColors.blueAppBar,
+                        child: TextField(
+                          controller: _dishNameController,
+                          decoration: InputDecoration(
+                            hintText:
+                                LocalizedTexts.giveNameToThisDish.translation,
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
                                   color: AppColors.greyLabel,
                                 ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 0, horizontal: 16.0),
-                      ),
-                    ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 16.0),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   BlocBuilder<EditDishBloc, EditDishState>(
                     builder: (BuildContext context, state) {
