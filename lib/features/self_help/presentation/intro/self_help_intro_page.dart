@@ -54,7 +54,7 @@ class _SelfHelpIntroPageState extends State<SelfHelpIntroPage> {
                           Text(
                             LocalizedTexts.survey.tr().toUpperCase(),
                             style:
-                                Theme.of(context).textTheme.caption?.copyWith(
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
                                       fontWeight: FontWeight.w600,
                                     ),
                           ),
@@ -65,7 +65,7 @@ class _SelfHelpIntroPageState extends State<SelfHelpIntroPage> {
                             LocalizedTexts.selfHelp.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline3
+                                .displaySmall
                                 ?.copyWith(
                                   fontFamily: ThemeConstants.bitterFontFamily,
                                   color: AppColors.blueDark,
@@ -76,7 +76,7 @@ class _SelfHelpIntroPageState extends State<SelfHelpIntroPage> {
                           ),
                           Text(
                             LocalizedTexts.selfHelpDesc.tr(),
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           const SizedBox(
                             height: 36.0,
@@ -84,14 +84,14 @@ class _SelfHelpIntroPageState extends State<SelfHelpIntroPage> {
                           BulletListItem(
                             text: Text(
                               LocalizedTexts.selfHelpItemOne.tr(),
-                              style: Theme.of(context).textTheme.bodyText1,
+                              style: Theme.of(context).textTheme.bodyLarge,
                             ),
                             bulletSize: 18.0,
                           ),
                           BulletListItem(
                             text: Text(
                               LocalizedTexts.selfHelpItemTwo.tr(),
-                              style: Theme.of(context).textTheme.bodyText1,
+                              style: Theme.of(context).textTheme.bodyLarge,
                             ),
                             bulletSize: 18.0,
                           ),

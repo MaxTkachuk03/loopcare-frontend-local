@@ -13,7 +13,7 @@ class CheckboxFormField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CheckboxFormFieldState createState() => _CheckboxFormFieldState();
+  State<CheckboxFormField> createState() => _CheckboxFormFieldState();
 }
 
 class _CheckboxFormFieldState extends State<CheckboxFormField> {

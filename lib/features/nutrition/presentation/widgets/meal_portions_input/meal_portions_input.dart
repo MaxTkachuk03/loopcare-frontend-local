@@ -27,7 +27,7 @@ class MealPortionsInput extends StatelessWidget {
         keyboardType: TextInputType.number,
         style: Theme.of(context)
             .textTheme
-            .caption
+            .bodySmall
             ?.copyWith(fontWeight: FontWeight.w600),
       ),
     );

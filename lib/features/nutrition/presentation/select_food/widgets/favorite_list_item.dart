@@ -52,7 +52,7 @@ class FavoriteListItem extends StatelessWidget {
                                 maxLines: 2,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .caption
+                                    .bodySmall
                                     ?.copyWith(
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -62,7 +62,7 @@ class FavoriteListItem extends StatelessWidget {
                                 maxLines: 1,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .caption
+                                    .bodySmall
                                     ?.copyWith(
                                       color: AppColors.greyLabel,
                                     ),

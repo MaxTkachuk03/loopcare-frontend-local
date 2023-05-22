@@ -51,7 +51,7 @@ class ConsentNeededPage extends StatelessWidget {
                               LocalizedTexts.needConsentBodyText1.tr(),
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1
+                                  .bodyLarge
                                   ?.copyWith(),
                             ),
                             const SizedBox(
@@ -61,7 +61,7 @@ class ConsentNeededPage extends StatelessWidget {
                               LocalizedTexts.needConsentBodyText2.tr(),
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1
+                                  .bodyLarge
                                   ?.copyWith(),
                             ),
                             const SizedBox(

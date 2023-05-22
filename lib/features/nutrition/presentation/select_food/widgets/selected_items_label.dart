@@ -5,7 +5,6 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/meal_action_mode/meal_action_modes.dart';
 
 class SelectedItemsLabel extends StatelessWidget {
   const SelectedItemsLabel({Key? key}) : super(key: key);
@@ -54,7 +53,7 @@ class SelectedItemsLabel extends StatelessWidget {
                             '${state.currentFoodItems.length}',
                             textAlign: TextAlign.center,
                             style:
-                                Theme.of(context).textTheme.caption?.copyWith(
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
                                       color: AppColors.darkGreen,
                                       fontWeight: FontWeight.w600,
                                     ),

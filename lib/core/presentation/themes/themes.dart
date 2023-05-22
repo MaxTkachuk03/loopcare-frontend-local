@@ -202,53 +202,53 @@ CheckboxThemeData _getCheckboxTheme() {
 
 TextTheme _getTextTheme() {
   return const TextTheme(
-    bodyText1: TextStyle(
+    bodyLarge: TextStyle(
       color: AppColors.darkGreen,
       fontSize: ThemeConstants.fontSize18,
       fontWeight: FontWeight.w400,
     ),
-    bodyText2: TextStyle(
+    bodyMedium: TextStyle(
       color: AppColors.darkGreen,
       fontSize: ThemeConstants.fontSize16,
       fontWeight: FontWeight.w400,
     ),
-    caption: TextStyle(
+    bodySmall: TextStyle(
       color: AppColors.darkGreen,
       fontSize: ThemeConstants.fontSize14,
       fontWeight: FontWeight.w400,
     ),
-    headline1: TextStyle(
+    displayLarge: TextStyle(
       color: AppColors.darkGreen,
       fontSize: ThemeConstants.fontSize78,
       fontFamily: ThemeConstants.bitterFontFamily,
       fontWeight: FontWeight.w600,
     ),
-    headline2: TextStyle(
+    displayMedium: TextStyle(
       color: AppColors.darkGreen,
       fontSize: ThemeConstants.fontSize48,
       fontWeight: FontWeight.w600,
     ),
-    headline3: TextStyle(
+    displaySmall: TextStyle(
       color: AppColors.darkGreen,
       fontSize: ThemeConstants.fontSize32,
       fontWeight: FontWeight.w700,
     ),
-    headline4: TextStyle(
+    headlineMedium: TextStyle(
       color: AppColors.darkGreen,
       fontSize: ThemeConstants.fontSize28,
       fontWeight: FontWeight.w700,
     ),
-    headline5: TextStyle(
+    headlineSmall: TextStyle(
       color: AppColors.darkGreen,
       fontSize: ThemeConstants.fontSize18,
       fontWeight: FontWeight.w600,
     ),
-    headline6: TextStyle(
+    titleLarge: TextStyle(
       color: AppColors.darkGreen,
       fontSize: ThemeConstants.fontSize16,
       fontWeight: FontWeight.w700,
     ),
-    subtitle1: TextStyle(
+    titleMedium: TextStyle(
       color: AppColors.black,
       fontSize: ThemeConstants.fontSize16,
       fontWeight: FontWeight.w400,

@@ -29,7 +29,7 @@ class SmallFilledButton extends StatelessWidget {
               ),
               backgroundColor: MaterialStateProperty.all(AppColors.bgGreen),
               textStyle: MaterialStateProperty.all(
-                  Theme.of(context).textTheme.bodyText2),
+                  Theme.of(context).textTheme.bodyMedium),
             ),
         child: Text(text),
       ),

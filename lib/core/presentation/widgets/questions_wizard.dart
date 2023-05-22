@@ -32,7 +32,7 @@ class QuestionsWizard extends StatelessWidget {
               currentStep,
               style: Theme.of(context)
                   .textTheme
-                  .caption
+                  .bodySmall
                   ?.copyWith(fontWeight: FontWeight.w700),
             ),
           ],

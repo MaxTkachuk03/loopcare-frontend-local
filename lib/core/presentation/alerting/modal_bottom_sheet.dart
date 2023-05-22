@@ -98,7 +98,7 @@ class ModalBottomSheet {
                   message,
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText2
+                      .bodyMedium
                       ?.copyWith(color: AppColors.orangeDark),
                 ),
               ),
@@ -152,12 +152,15 @@ class ModalBottomSheet {
                   children: [
                     ElevatedButton(
                       onPressed: () => context.router.pop(),
-                      style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                        backgroundColor:
-                        MaterialStateProperty.all(AppColors.bgGreen),
-                        foregroundColor:
-                        MaterialStateProperty.all(AppColors.black),
-                      ),
+                      style: Theme.of(context)
+                          .elevatedButtonTheme
+                          .style
+                          ?.copyWith(
+                            backgroundColor:
+                                MaterialStateProperty.all(AppColors.bgGreen),
+                            foregroundColor:
+                                MaterialStateProperty.all(AppColors.black),
+                          ),
                       child: Text(LocalizedTexts.noCancel.translation),
                     ),
                     const SizedBox(
@@ -331,7 +334,7 @@ class ModalBottomSheet {
                     children: [
                       Text(
                         LocalizedTexts.showNutritionValue.translation,
-                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.w600,
                             ),
                       ),
@@ -421,7 +424,7 @@ class ModalBottomSheet {
                     children: [
                       Text(
                         title,
-                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.w600,
                             ),
                       ),
@@ -436,7 +439,7 @@ class ModalBottomSheet {
                               subtitle,
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText2
+                                  .bodyMedium
                                   ?.copyWith(
                                     fontStyle: FontStyle.italic,
                                   ),
@@ -546,7 +549,7 @@ class ModalBottomSheet {
                   ),
                   Text(
                     title,
-                    style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
                   ),
@@ -560,7 +563,7 @@ class ModalBottomSheet {
                         Text(
                           subtitle,
                           style:
-                              Theme.of(context).textTheme.bodyText2?.copyWith(
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
                                     fontStyle: FontStyle.italic,
                                   ),
                         ),
@@ -623,7 +626,7 @@ class ModalBottomSheet {
                       LocalizedTexts.surveyFinishedBottomSheetTitle.tr(),
                       style: Theme.of(context)
                           .textTheme
-                          .headline5
+                          .headlineSmall
                           ?.copyWith(color: AppColors.blueDark),
                     ),
                     const SizedBox(height: 8.0),

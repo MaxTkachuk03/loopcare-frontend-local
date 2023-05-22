@@ -38,7 +38,7 @@ class NoConsentPage extends StatelessWidget {
                     children: [
                       Text(
                         LocalizedTexts.consentConfirmationFailed.tr(),
-                        style: Theme.of(context).textTheme.headline5,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ],
                   ),

@@ -16,13 +16,13 @@ class DoNotLikePage extends StatelessWidget {
       question: RichText(
         text: TextSpan(
           text: '${LocalizedTexts.doYou.tr()} ',
-          style: Theme.of(context).textTheme.bodyText1?.copyWith(
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 fontWeight: FontWeight.w600,
               ),
           children: [
             TextSpan(
               text: LocalizedTexts.not.tr().toUpperCase(),
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     fontWeight: FontWeight.w800,
                   ),
             ),

@@ -12,7 +12,7 @@ class LegalStatementConfirmationBox extends StatefulWidget {
   const LegalStatementConfirmationBox({Key? key}) : super(key: key);
 
   @override
-  _LegalStatementConfirmationBoxState createState() =>
+  State<LegalStatementConfirmationBox> createState() =>
       _LegalStatementConfirmationBoxState();
 }
 
@@ -57,7 +57,7 @@ class _LegalStatementConfirmationBoxState
                     LocalizedTexts.legalStatementCheckboxTitle.tr(),
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText1
+                        .bodyLarge
                         ?.copyWith(fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(
@@ -66,14 +66,14 @@ class _LegalStatementConfirmationBoxState
                   BulletListItem(
                     text: Text(
                       LocalizedTexts.legalStatementCheckboxItemOne.tr(),
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     bulletSize: 18.0,
                   ),
                   BulletListItem(
                     text: Text(
                       LocalizedTexts.legalStatementCheckboxItemTwo.tr(),
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     bulletSize: 18.0,
                   ),

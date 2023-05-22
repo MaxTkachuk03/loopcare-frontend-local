@@ -55,7 +55,7 @@ class _HouseholdAndHabitsIntroPageState
                           Text(
                             LocalizedTexts.survey.tr().toUpperCase(),
                             style:
-                                Theme.of(context).textTheme.caption?.copyWith(
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
                                       fontWeight: FontWeight.w600,
                                     ),
                           ),
@@ -66,7 +66,7 @@ class _HouseholdAndHabitsIntroPageState
                             LocalizedTexts.householdAndEatingHabits.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline3
+                                .displaySmall
                                 ?.copyWith(
                                   fontFamily: ThemeConstants.bitterFontFamily,
                                   color: AppColors.blueDark,
@@ -77,7 +77,7 @@ class _HouseholdAndHabitsIntroPageState
                           ),
                           Text(
                             LocalizedTexts.householdIntroDesc.tr(),
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           const SizedBox(
                             height: 36.0,
@@ -85,28 +85,28 @@ class _HouseholdAndHabitsIntroPageState
                           BulletListItem(
                             text: Text(
                               LocalizedTexts.householdIntroTextOne.tr(),
-                              style: Theme.of(context).textTheme.bodyText1,
+                              style: Theme.of(context).textTheme.bodyLarge,
                             ),
                             bulletSize: 18.0,
                           ),
                           BulletListItem(
                             text: Text(
                               LocalizedTexts.householdIntroTextTwo.tr(),
-                              style: Theme.of(context).textTheme.bodyText1,
+                              style: Theme.of(context).textTheme.bodyLarge,
                             ),
                             bulletSize: 18.0,
                           ),
                           BulletListItem(
                             text: Text(
                               LocalizedTexts.householdIntroTextThree.tr(),
-                              style: Theme.of(context).textTheme.bodyText1,
+                              style: Theme.of(context).textTheme.bodyLarge,
                             ),
                             bulletSize: 18.0,
                           ),
                           BulletListItem(
                             text: Text(
                               LocalizedTexts.householdIntroTextFour.tr(),
-                              style: Theme.of(context).textTheme.bodyText1,
+                              style: Theme.of(context).textTheme.bodyLarge,
                             ),
                             bulletSize: 18.0,
                           ),

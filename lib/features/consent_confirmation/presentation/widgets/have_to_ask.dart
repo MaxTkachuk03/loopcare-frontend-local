@@ -59,19 +59,19 @@ class _HaveToAskState extends State<HaveToAsk>
               LocalizedTexts.offCourseNoProblem.tr(),
               style: Theme.of(context)
                   .textTheme
-                  .bodyText1
+                  .bodyLarge
                   ?.copyWith(fontWeight: FontWeight.w700),
             ),
             const SizedBox(
               height: 16.0,
             ),
             Text(LocalizedTexts.asSoonAsYouReceiveAnswer.tr(),
-                style: Theme.of(context).textTheme.bodyText1),
+                style: Theme.of(context).textTheme.bodyLarge),
             const SizedBox(
               height: 16.0,
             ),
             Text(LocalizedTexts.youCanDownloadTheInstruction.tr(),
-                style: Theme.of(context).textTheme.bodyText1),
+                style: Theme.of(context).textTheme.bodyLarge),
             const SizedBox(
               height: 20.0,
             ),

@@ -15,9 +15,9 @@ class ShareMealPage extends StatelessWidget {
       subtitle: '1 ${LocalizedTexts.of.tr()} 6',
       question: Text(
         LocalizedTexts.shareMealWithQuestion.tr(),
-        style: Theme.of(context).textTheme.bodyText1?.copyWith(
-          fontWeight: FontWeight.w600,
-        ),
+        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
       ),
       questionList: const ShareMealWithChips(),
       onNextPressed: () => _onNextPressed(context),

@@ -70,20 +70,22 @@ class WeightBlock extends StatelessWidget {
                       children: [
                         Text(
                           text,
-                          style:
-                              Theme.of(context).textTheme.headline5!.copyWith(
-                                    fontFamily: ThemeConstants.bitterFontFamily,
-                                    color: isEditable
-                                        ? AppColors.darkGreen
-                                        : AppColors.greyLabel,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(
+                                fontFamily: ThemeConstants.bitterFontFamily,
+                                color: isEditable
+                                    ? AppColors.darkGreen
+                                    : AppColors.greyLabel,
+                              ),
                         ),
                         if (showSubText)
                           Text(
                             LocalizedTexts.preferableInTheMorning.translation,
                             style: Theme.of(context)
                                 .textTheme
-                                .caption!
+                                .bodySmall!
                                 .copyWith(color: AppColors.greyLabel),
                           )
                       ],

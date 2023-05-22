@@ -47,7 +47,7 @@ class JoinUsStep extends StatelessWidget {
                 children: [
                   Text(
                     markLetter,
-                    style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontWeight: FontWeight.w600,
                           color: AppColors.white,
                         ),
@@ -71,7 +71,7 @@ class JoinUsStep extends StatelessWidget {
                 ),
                 Text(
                   subtitle,
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(
                   height: 16.0,
@@ -93,7 +93,7 @@ class JoinUsStep extends StatelessWidget {
                       ),
                       child: Text(
                         LocalizedTexts.testDuration.tr(),
-                        style: Theme.of(context).textTheme.caption,
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
                     SmallOutlinedButton(

@@ -43,12 +43,12 @@ class EditableItem extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     Text(
                       subtitle ?? '',
                       maxLines: 3,
-                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             fontWeight: FontWeight.w600,
                             overflow: TextOverflow.ellipsis,
                           ),

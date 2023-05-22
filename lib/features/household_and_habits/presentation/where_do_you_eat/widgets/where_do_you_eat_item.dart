@@ -25,7 +25,7 @@ class WhereDoYouEatItem extends StatelessWidget {
                 label,
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText1
+                    .bodyLarge
                     ?.copyWith(fontStyle: FontStyle.italic),
               ),
             ),

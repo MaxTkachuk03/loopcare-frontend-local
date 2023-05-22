@@ -39,7 +39,7 @@ class JoinUsPage extends StatelessWidget {
                             LocalizedTexts.joinUsIn2Steps.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline4
+                                .headlineMedium
                                 ?.copyWith(
                                   fontFamily: ThemeConstants.bitterFontFamily,
                                 ),

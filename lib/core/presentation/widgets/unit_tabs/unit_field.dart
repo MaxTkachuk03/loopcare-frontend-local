@@ -42,7 +42,7 @@ class UnitField extends StatelessWidget {
                 FilteringTextInputFormatter.allow(RegExp(_getRegexString()))
               ],
               autofocus: true,
-              style: Theme.of(context).textTheme.headline1,
+              style: Theme.of(context).textTheme.displayLarge,
               decoration: InputDecoration(
                 counterText: counterText,
                 contentPadding: EdgeInsets.zero,
@@ -60,7 +60,7 @@ class UnitField extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 6.0),
           child: Text(
             unit,
-            style: Theme.of(context).textTheme.bodyText1?.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
           ),
