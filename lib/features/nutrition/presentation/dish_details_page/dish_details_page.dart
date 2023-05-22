@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
@@ -100,7 +101,8 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
 
     if (mealId == null) return;
 
-    final numberOfServings = _servingController.text;
+    final numberOfServings =
+        _servingController.text.replaceCommaWithDot.deleteDotAtTheEnd;
 
     context.read<DishBloc>().add(DishEvent.addToMeal(mealId, numberOfServings));
 
