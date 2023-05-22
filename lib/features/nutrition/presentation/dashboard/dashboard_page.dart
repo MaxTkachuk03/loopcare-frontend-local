@@ -52,10 +52,11 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   void _onDaySelected(DateTime day) {
-    context.read<DashboardWeightBloc>().add(DashboardWeightEvent.setDate(day));
     setState(() {
       _selectedDay = day;
-
+      context
+          .read<DashboardWeightBloc>()
+          .add(DashboardWeightEvent.setDate(day));
       context.read<MealsBloc>().add(MealsEvent.setCurrentDate(day));
     });
   }
