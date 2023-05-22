@@ -11,13 +11,14 @@ class MealsListItem with _$MealsListItem {
   const factory MealsListItem({
     required int id,
     required List<MealItem> mealItems,
-    required DateTime loggingDate,
+    required DateTime? loggingDate,
     required String mealCategory,
     required double calorieDensity,
     required double proteinDegree,
     required ServingSize serving,
     required DateTime createdAt,
     required DateTime updatedAt,
+    List<DateTime>? planningDates,
   }) = _MealItem;
 
   factory MealsListItem.fromJson(Map<String, dynamic> json) =>

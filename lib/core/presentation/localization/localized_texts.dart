@@ -389,6 +389,8 @@ class LocalizedTexts {
 
   static const String noMealsLogged = 'noMealsLogged';
   static const String noMealsLoggedYet = 'noMealsLoggedYet';
+  static const String noMealsPlanned = 'noMealsPlanned';
+  static const String noMealsPlannedYet = 'noMealsPlannedYet';
 
   // Dish
   static const String createMyDish = 'createMyDish';

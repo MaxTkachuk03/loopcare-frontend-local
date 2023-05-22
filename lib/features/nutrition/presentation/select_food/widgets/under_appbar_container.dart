@@ -19,64 +19,70 @@ class UnderAppBarContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.blueAppBar,
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
-      child: Column(
-        children: [
-          const SizedBox(height: 8.0),
-          SizedBox(
-            height: 38,
-            child: InkWell(
-              onTap: () => _onSearchTap(context),
-              child: IgnorePointer(
-                child: NutritionField(
-                  readOnly: true,
-                  hintText: LocalizedTexts.searchHint.translation,
-                  contentPadding:
-                      const EdgeInsets.symmetric(vertical: 0, horizontal: 16.0),
-                  prefixIcon: const Icon(
-                    Icons.search,
-                    color: AppColors.blueDark,
+    return BlocBuilder<MealsBloc, MealsState>(
+      builder: (BuildContext context, state) {
+        return Container(
+          color: state.isPlanningMeals
+              ? AppColors.darkGreen
+              : AppColors.blueAppBar,
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 8.0),
+              SizedBox(
+                height: 38,
+                child: InkWell(
+                  onTap: () => _onSearchTap(context),
+                  child: IgnorePointer(
+                    child: NutritionField(
+                      readOnly: true,
+                      hintText: LocalizedTexts.searchHint.translation,
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 0, horizontal: 16.0),
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: AppColors.greyLabel,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-          const SizedBox(height: 18.0),
-          SizedBox(
-            height: 24,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: UnderlinedTabBar(
-                    tabs: [
-                      Tab(text: LocalizedTexts.myFavorites.translation),
-                      Tab(text: LocalizedTexts.myDishes.translation),
-                    ],
-                  ),
+              const SizedBox(height: 18.0),
+              SizedBox(
+                height: 24,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: UnderlinedTabBar(
+                        tabs: [
+                          Tab(text: LocalizedTexts.myFavorites.translation),
+                          Tab(text: LocalizedTexts.myDishes.translation),
+                        ],
+                      ),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
+                        context.router.pushNamed(AppRoutes.barcodeScanner);
+                      },
+                      icon: const ImageIcon(AppIcons.scan),
+                      label: Text(LocalizedTexts.scan.translation),
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.all(0),
+                        minimumSize: const Size(0, 0),
+                        foregroundColor: AppColors.white,
+                        textStyle: Theme.of(context).textTheme.bodyMedium,
+                        alignment: Alignment.bottomCenter,
+                      ),
+                    ),
+                  ],
                 ),
-                TextButton.icon(
-                  onPressed: () {
-                    context.router.pushNamed(AppRoutes.barcodeScanner);
-                  },
-                  icon: const ImageIcon(AppIcons.scan),
-                  label: Text(LocalizedTexts.scan.translation),
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.all(0),
-                    minimumSize: const Size(0, 0),
-                    foregroundColor: AppColors.white,
-                    textStyle: Theme.of(context).textTheme.bodyMedium,
-                    alignment: Alignment.bottomCenter,
-                  ),
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 24.0),
+            ],
           ),
-          const SizedBox(height: 24.0),
-        ],
-      ),
+        );
+      },
     );
   }
 

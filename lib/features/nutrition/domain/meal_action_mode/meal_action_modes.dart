@@ -1,0 +1,4 @@
+enum MealActionModes {
+  mealLogging,
+  mealPlanning,
+}

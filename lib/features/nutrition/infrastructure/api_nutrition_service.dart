@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_fo
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/clone_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_planned_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_from_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_from_recipe_body.dart';
@@ -217,9 +218,33 @@ class APINutritionService implements NutritionService {
   }
 
   @override
+  Future<Either<RequestError, MealsResponse>> getPlannedMeals({
+    String? startDate,
+    String? endDate,
+  }) async {
+    final queryParameters = <String, dynamic>{};
+    if (startDate != null && endDate != null) {
+      queryParameters.addAll({
+        'startDate': startDate,
+        'endDate': endDate,
+      });
+    }
+    return client
+        .get('/planned-meals', queryParameters: queryParameters)
+        .then(parseResponse(MealsResponse.fromJson));
+  }
+
+  @override
   Future<Either<RequestError, MealsListItem>> addMeal(AddMealBody data) {
     return client
         .post('/meals', data: data)
+        .then(parseResponse(MealsListItem.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, MealsListItem>> addPlannedMeal(AddPlannedMealBody data) {
+    return client
+        .post('/planned-meals', data: data)
         .then(parseResponse(MealsListItem.fromJson));
   }
 
@@ -231,9 +256,23 @@ class APINutritionService implements NutritionService {
   }
 
   @override
+  Future<Either<RequestError, MealsListItem>> getPlannedMealById(int mealId) async {
+    return client
+        .get('/planned-meals/$mealId')
+        .then(parseResponse(MealsListItem.fromJson));
+  }
+
+  @override
   Future<Either<RequestError, MealsResponse>> removeMeal(int mealId) {
     return client
         .delete('/meals/$mealId')
+        .then(parseResponse(MealsResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, MealsResponse>> removePlannedMeal(int mealId) {
+    return client
+        .delete('/planned-meals/$mealId')
         .then(parseResponse(MealsResponse.fromJson));
   }
 
