@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -132,7 +133,8 @@ class _EditDishPageState extends State<EditDishPage> {
     state.add(EditDishEvent.updateDish(
       name: _dishNameController.text,
       numberOfUnits: double.parse(_portionsController.text),
-      numberOfServings: double.parse(_servingController.text),
+      numberOfServings: double.parse(
+          _servingController.text.replaceCommaWithDot.deleteDotAtTheEnd),
       mealCategories: _selectedMealCategories,
     ));
 

@@ -11,5 +11,7 @@ class RegExpUtils {
 
   static const specialCharactersReg = r".*[/$&+,:;=?@#|'<>.^*()%!%~-].*";
 
+  static const digitsWithDotOrComma = r"^\d+([.,]\d*)?$";
+
   RegExpUtils._();
 }
