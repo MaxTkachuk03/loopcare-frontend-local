@@ -86,7 +86,6 @@ class _MealPageState extends State<MealPage> {
                     children: [
                       Column(
                         children: [
-                          // const MealNutritionValues(),
                           NutritionValuesBlock(
                             numberOfPortions: mealsState
                                     .currentMeal?.serving.numberOfUnits

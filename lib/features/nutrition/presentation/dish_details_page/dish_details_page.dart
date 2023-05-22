@@ -88,6 +88,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                         externalFoodItemId: item.id,
                       ),
                     );
+                // also need navigate to base page
               },
             ),
           );

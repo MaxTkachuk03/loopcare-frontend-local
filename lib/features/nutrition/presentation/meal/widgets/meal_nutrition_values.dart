@@ -21,8 +21,7 @@ class MealNutritionValues extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              LocalizedTexts.total.translation
-                  .capitalizeOnlyFirstLetter(),
+              LocalizedTexts.total.translation.capitalizeOnlyFirstLetter(),
               style: Theme.of(context).textTheme.bodySmall,
             ),
             InkWell(
@@ -30,23 +29,28 @@ class MealNutritionValues extends StatelessWidget {
               child: Row(
                 children: [
                   BlocBuilder<MealsBloc, MealsState>(
-                      builder: (BuildContext context, state) {
-                    return state.currentMealServing?.calories != null
-                        ? Text(
-                            '${state.currentMealServing?.calories} kcal',
-                            style:
-                                Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                          )
-                        : Text(
-                            '0 kcal',
-                            style:
-                                Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                          );
-                  }),
+                    builder: (BuildContext context, state) {
+                      return state.currentMealServing?.calories != null
+                          ? Text(
+                              '${state.currentMealServing?.calories} kcal',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            )
+                          : Text(
+                              '0 kcal',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            );
+                    },
+                  ),
                   const SizedBox(
                     width: 8.0,
                   ),

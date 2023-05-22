@@ -44,9 +44,11 @@ class DishListItem extends StatelessWidget {
   }
 
   _onTap(BuildContext context, Dish item) {
-    context.router.push(DishDetailsRoute(
-      dishId: item.id,
-      canEditDish: true,
-    ));
+    context.router.push(
+      DishDetailsRoute(
+        dishId: item.id,
+        canEditDish: true,
+      ),
+    );
   }
 }
