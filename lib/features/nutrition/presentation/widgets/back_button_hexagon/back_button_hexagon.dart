@@ -15,7 +15,7 @@ class BackButtonHexagon extends StatelessWidget {
       height: 44,
       borderRadius: 16,
       innerWidget: Container(
-        color: background ?? AppColors.blueMid,
+        color: background ?? AppColors.white.withOpacity(0.2),
         child: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new_rounded,

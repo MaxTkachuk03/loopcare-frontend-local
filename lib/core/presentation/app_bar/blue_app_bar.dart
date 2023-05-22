@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/meal_action_mode/meal_action_modes.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
 class BlueAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -36,20 +40,26 @@ class _BlueAppBarState extends State<BlueAppBar> {
   Widget build(BuildContext context) {
     final title = widget.title;
 
-    return AppBar(
-      backgroundColor: AppColors.blueAppBar,
-      title: (title != null)
-          ? _Title(
-              title: title,
-              subtitle: widget.subtitle,
-            )
-          : null,
-      leading: widget.isCustomLeading ?? false
-          ? const BackButtonHexagon()
-          : widget.leading,
-      bottom: widget.bottom,
-      automaticallyImplyLeading: false,
-      actions: widget.actions,
+    return BlocBuilder<MealsBloc, MealsState>(
+      builder: (BuildContext context, state) {
+        return AppBar(
+          backgroundColor: state.isPlanningMeals
+              ? AppColors.darkGreen
+              : AppColors.blueAppBar,
+          title: (title != null)
+              ? _Title(
+                  title: title,
+                  subtitle: widget.subtitle,
+                )
+              : null,
+          leading: widget.isCustomLeading ?? false
+              ? const BackButtonHexagon()
+              : widget.leading,
+          bottom: widget.bottom,
+          automaticallyImplyLeading: false,
+          actions: widget.actions,
+        );
+      },
     );
   }
 }

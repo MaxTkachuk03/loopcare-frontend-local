@@ -79,8 +79,8 @@ class LogMeal extends StatelessWidget {
                           LocalizedTexts.logYourMeals.translation,
                           style: Theme.of(context)
                               .textTheme
-                              .headlineSmall!
-                              .copyWith(
+                              .headlineSmall
+                              ?.copyWith(
                                 fontFamily: ThemeConstants.bitterFontFamily,
                                 color: mealsState.isEnableOnDashboard
                                     ? AppColors.darkGreen
@@ -93,7 +93,7 @@ class LogMeal extends StatelessWidget {
                                 ? LocalizedTexts.noMealsLoggedYet.translation
                                 : LocalizedTexts.noMealsLogged.translation,
                             style:
-                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
                                       color: mealsState.isEnableOnDashboard
                                           ? AppColors.darkGreen
                                           : AppColors.greyLabel,

@@ -10,6 +10,10 @@ class MealsEvent with _$MealsEvent {
     String mealCategory,
   ) = AddMeal;
 
+  const factory MealsEvent.addPlannedMeal(
+    String mealCategory,
+  ) = AddPlannedMeal;
+
   const factory MealsEvent.addFoodItemToMeal(
     int mealId,
     String foodItemId,
@@ -43,10 +47,6 @@ class MealsEvent with _$MealsEvent {
 
   const factory MealsEvent.createFromFavorites(List<FoodItem> foodItemList) =
       CreateFromFavorites;
-
-  const factory MealsEvent.setMealId(
-    int mealId,
-  ) = SetMealId;
 
   const factory MealsEvent.setCurrentDate(
     DateTime currentDate,

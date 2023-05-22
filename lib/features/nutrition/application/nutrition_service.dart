@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_fo
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/clone_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_planned_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_from_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_from_recipe_body.dart';
@@ -110,15 +111,32 @@ abstract class NutritionService {
     String? endDate,
   });
 
+  Future<Either<RequestError, MealsResponse>> getPlannedMeals({
+    String? startDate,
+    String? endDate,
+  });
+
   Future<Either<RequestError, MealsListItem>> addMeal(
     AddMealBody data,
+  );
+
+  Future<Either<RequestError, MealsListItem>> addPlannedMeal(
+    AddPlannedMealBody data,
   );
 
   Future<Either<RequestError, MealsListItem>> getMealById(
     int mealId,
   );
 
+  Future<Either<RequestError, MealsListItem>> getPlannedMealById(
+    int mealId,
+  );
+
   Future<Either<RequestError, MealsResponse>> removeMeal(
+    int mealId,
+  );
+
+  Future<Either<RequestError, MealsResponse>> removePlannedMeal(
     int mealId,
   );
 
