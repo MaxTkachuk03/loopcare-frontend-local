@@ -43,9 +43,11 @@ class _SearchPageState extends State<SearchPage> {
           child: SearchResultList(
             onItemTap: widget.onItemTap,
             onRecentSearchItemTap: (item) {
-              setState(() {
-                selectedRecentSearchItem = item;
-              });
+              setState(
+                () {
+                  selectedRecentSearchItem = item;
+                },
+              );
             },
           ),
         ),
