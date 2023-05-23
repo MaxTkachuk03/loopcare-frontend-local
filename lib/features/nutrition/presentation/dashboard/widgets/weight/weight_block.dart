@@ -73,7 +73,7 @@ class WeightBlock extends StatelessWidget {
                             text,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline5!
+                                .headlineSmall!
                                 .copyWith(
                                   fontFamily: ThemeConstants.bitterFontFamily,
                                   color: isEditable
@@ -86,7 +86,7 @@ class WeightBlock extends StatelessWidget {
                               LocalizedTexts.preferableInTheMorning.translation,
                               style: Theme.of(context)
                                   .textTheme
-                                  .caption!
+                                  .bodySmall!
                                   .copyWith(color: AppColors.greyLabel),
                             )
                         ],

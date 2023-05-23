@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
@@ -22,7 +21,7 @@ class LoadingWeight extends StatelessWidget {
         children: [
           Text(
             LocalizedTexts.logYourWeight.translation,
-            style: Theme.of(context).textTheme.headline5!.copyWith(
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                   fontFamily: ThemeConstants.bitterFontFamily,
                   color: AppColors.greyLabel,
                 ),
@@ -31,7 +30,7 @@ class LoadingWeight extends StatelessWidget {
             LocalizedTexts.preferableInTheMorning.translation,
             style: Theme.of(context)
                 .textTheme
-                .caption!
+                .bodySmall!
                 .copyWith(color: AppColors.greyLabel),
           )
         ],
