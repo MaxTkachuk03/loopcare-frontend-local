@@ -47,7 +47,7 @@ class Explore extends StatelessWidget {
                   const SizedBox(width: 24.0),
                   Text(
                     LocalizedTexts.explore.translation,
-                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                           fontFamily: ThemeConstants.bitterFontFamily,
                         ),
                   ),
@@ -81,16 +81,18 @@ class Explore extends StatelessWidget {
                         children: [
                           Text(
                             "mind".toUpperCase(),
-                            style:
-                                Theme.of(context).textTheme.headline5!.copyWith(
-                                      fontSize: 14.0,
-                                      color: AppColors.orangeDark,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall!
+                                .copyWith(
+                                  fontSize: 14.0,
+                                  color: AppColors.orangeDark,
+                                ),
                           ),
                           Text(
                             'How loved ones help',
                             style:
-                                Theme.of(context).textTheme.caption!.copyWith(
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
                                       fontWeight: FontWeight.w600,
                                     ),
                             maxLines: 2,
@@ -102,14 +104,14 @@ class Explore extends StatelessWidget {
                               const SizedBox(width: 8.0),
                               Text(
                                 '3m 59s',
-                                style: Theme.of(context).textTheme.caption,
+                                style: Theme.of(context).textTheme.bodySmall,
                               ),
                             ],
                           ),
                           Text(
                             'Before friday 17 March',
                             style:
-                                Theme.of(context).textTheme.caption!.copyWith(
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
                                       fontStyle: FontStyle.italic,
                                       color: const Color(0xFF919B8C),
                                     ),
@@ -146,16 +148,18 @@ class Explore extends StatelessWidget {
                         children: [
                           Text(
                             "general".toUpperCase(),
-                            style:
-                                Theme.of(context).textTheme.headline5!.copyWith(
-                                      fontSize: 14.0,
-                                      color: AppColors.orangeDark,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall!
+                                .copyWith(
+                                  fontSize: 14.0,
+                                  color: AppColors.orangeDark,
+                                ),
                           ),
                           Text(
                             'Yo-yo effect',
                             style:
-                                Theme.of(context).textTheme.caption!.copyWith(
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
                                       fontWeight: FontWeight.w600,
                                     ),
                             maxLines: 2,
@@ -167,14 +171,14 @@ class Explore extends StatelessWidget {
                               const SizedBox(width: 8.0),
                               Text(
                                 '4m 21s',
-                                style: Theme.of(context).textTheme.caption,
+                                style: Theme.of(context).textTheme.bodySmall,
                               ),
                             ],
                           ),
                           Text(
                             'Before friday 17 March',
                             style:
-                                Theme.of(context).textTheme.caption!.copyWith(
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
                                       fontStyle: FontStyle.italic,
                                       color: const Color(0xFF919B8C),
                                     ),

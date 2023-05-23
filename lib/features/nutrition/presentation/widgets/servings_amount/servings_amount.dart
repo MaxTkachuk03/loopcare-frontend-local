@@ -33,7 +33,7 @@ class ServingsAmount extends StatelessWidget {
           const SizedBox(width: 10),
           Text(
             LocalizedTexts.serving.translation.capitalize(),
-            style: Theme.of(context).textTheme.caption?.copyWith(
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
           ),

@@ -98,17 +98,21 @@ class FoodListItem extends StatelessWidget {
                         Text(
                           foodItem.foodName,
                           maxLines: 2,
-                          style: Theme.of(context).textTheme.caption?.copyWith(
-                              fontWeight: FontWeight.w600,
-                              overflow: TextOverflow.ellipsis),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  overflow: TextOverflow.ellipsis),
                         ),
                         Text(
                           label,
                           maxLines: 2,
-                          style: Theme.of(context).textTheme.caption?.copyWith(
-                                color: AppColors.greyLabel,
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: AppColors.greyLabel,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                         )
                       ],
                     ),
@@ -118,7 +122,7 @@ class FoodListItem extends StatelessWidget {
               Text(
                 foodItem.serving.servingSizeLabel,
                 maxLines: 2,
-                style: Theme.of(context).textTheme.caption?.copyWith(
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       fontWeight: FontWeight.w600,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -130,7 +134,7 @@ class FoodListItem extends StatelessWidget {
                     width: 4.0,
                   ),
                   Text('${currentNutritionFact.value}',
-                      style: Theme.of(context).textTheme.caption),
+                      style: Theme.of(context).textTheme.bodySmall),
                   const SizedBox(
                     width: 4.0,
                   ),

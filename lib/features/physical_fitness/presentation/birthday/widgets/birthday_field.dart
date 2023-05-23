@@ -45,7 +45,7 @@ class _BirthdayFieldState extends State<BirthdayField> {
                 child: AutoSizeText(
                   maxLines: 1,
                   DateFormat.yMMMMd(Intl.getCurrentLocale()).format(value),
-                  style: Theme.of(context).textTheme.headline2?.copyWith(
+                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontFamily: ThemeConstants.bitterFontFamily,
                         fontSize: ThemeConstants.fontSize38,
                       ),

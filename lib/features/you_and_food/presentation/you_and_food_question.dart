@@ -30,7 +30,7 @@ class YouAndFoodQuestion extends StatelessWidget {
               subtitle,
               style: Theme.of(context)
                   .textTheme
-                  .caption
+                  .bodySmall
                   ?.copyWith(fontWeight: FontWeight.w700),
             ),
           ],

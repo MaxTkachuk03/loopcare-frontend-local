@@ -21,7 +21,7 @@ class MeatPreferencesPage extends StatelessWidget {
           subtitle: '2 ${LocalizedTexts.of.tr()} 4',
           question: Text(
             '${LocalizedTexts.meatPreferencesQuestion.tr()} $meatOrFishText?',
-            style: Theme.of(context).textTheme.bodyText1?.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
           ),

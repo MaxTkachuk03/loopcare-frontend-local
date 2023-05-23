@@ -43,7 +43,7 @@ class Diary extends StatelessWidget {
                   const SizedBox(width: 24.0),
                   Text(
                     LocalizedTexts.diary.translation,
-                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                           fontFamily: ThemeConstants.bitterFontFamily,
                         ),
                   ),
@@ -60,7 +60,7 @@ class Diary extends StatelessWidget {
           // TODO will be text from the server
           Text(
             '“Today felt great. Several friends visited and they all brought presents, most special was a...”',
-            style: Theme.of(context).textTheme.caption!.copyWith(
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   fontStyle: FontStyle.italic,
                 ),
             maxLines: 2,

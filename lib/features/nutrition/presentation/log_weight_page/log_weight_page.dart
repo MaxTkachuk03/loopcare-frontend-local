@@ -104,7 +104,7 @@ class _LogWeightPageState extends State<LogWeightPage> {
                     Text(
                       LocalizedTexts.yourWeight.translation,
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             fontWeight: FontWeight.w600,
                           ),
                     ),

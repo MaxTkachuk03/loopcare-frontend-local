@@ -75,7 +75,7 @@ class SupportGroup extends StatelessWidget {
                               LocalizedTexts.supportGroup.translation,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline5!
+                                  .headlineSmall!
                                   .copyWith(
                                     fontFamily: ThemeConstants.bitterFontFamily,
                                   ),
@@ -84,20 +84,24 @@ class SupportGroup extends StatelessWidget {
                             // TODO get text from the server
                             Text(
                               'Eating Behaviour & Stressful Situations',
-                              style:
-                                  Theme.of(context).textTheme.caption!.copyWith(
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                             ),
                             Text(
                               'Thursday from 21:00 to 22:00',
-                              style:
-                                  Theme.of(context).textTheme.caption!.copyWith(
-                                        fontStyle: FontStyle.italic,
-                                        color: const Color(0xFF919B8C),
-                                      ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                    fontStyle: FontStyle.italic,
+                                    color: const Color(0xFF919B8C),
+                                  ),
                             ),
                           ],
                         ),

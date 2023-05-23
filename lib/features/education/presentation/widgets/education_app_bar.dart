@@ -6,7 +6,7 @@ class EducationAppBar extends StatefulWidget {
   const EducationAppBar({Key? key}) : super(key: key);
 
   @override
-  _EducationAppBarState createState() => _EducationAppBarState();
+  State<EducationAppBar> createState() => _EducationAppBarState();
 }
 
 class _EducationAppBarState extends State<EducationAppBar> {
@@ -34,14 +34,13 @@ class _EducationAppBarState extends State<EducationAppBar> {
       backgroundColor: AppColors.orange,
       expandedHeight: _sliverBarHeight,
       flexibleSpace: FlexibleSpaceBar(
-        background:
-        Opacity(
+        background: Opacity(
           opacity: _isLoaded ? 1 : 0,
           child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 24.0, vertical: 36),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 36),
                 key: _appBarKey,
                 child: Column(
                   children: const [

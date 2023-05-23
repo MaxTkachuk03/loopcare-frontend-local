@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:loopcare_frontend/core/domain/input_formatters/serving_formatter.dart';
 
 class ServingInputField extends StatefulWidget {
@@ -63,7 +62,7 @@ class _ServingInputFieldState extends State<ServingInputField> {
           contentPadding: const EdgeInsets.symmetric(horizontal: 4),
         ),
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
-        style: Theme.of(context).textTheme.caption?.copyWith(
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
             fontWeight: FontWeight.w600,
             fontSize: _fontSizeDependsOnValueLength),
       ),

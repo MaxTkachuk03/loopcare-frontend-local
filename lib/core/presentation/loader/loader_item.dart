@@ -16,7 +16,7 @@ class LoaderItem extends StatefulWidget {
   });
 
   @override
-  _LoaderItemState createState() => _LoaderItemState();
+  State<LoaderItem> createState() => _LoaderItemState();
 }
 
 class _LoaderItemState extends State<LoaderItem>

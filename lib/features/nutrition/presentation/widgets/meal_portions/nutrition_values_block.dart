@@ -45,7 +45,7 @@ class NutritionValuesBlock extends StatelessWidget {
             children: [
               Text(
                 LocalizedTexts.ingredientsBasedOn.translation.toUpperCase(),
-                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontSize: 12.0,
                     ),
               ),
@@ -55,7 +55,7 @@ class NutritionValuesBlock extends StatelessWidget {
                 Text(
                   LocalizedTexts.portionMeal.translateWithNamedArgs(
                       {'numberOfPortion': '$numberOfPortions'}),
-                  style: Theme.of(context).textTheme.caption?.copyWith(
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                 ),
@@ -68,7 +68,7 @@ class NutritionValuesBlock extends StatelessWidget {
               children: [
                 Text(
                   '${LocalizedTexts.total.translation.toUpperCase()} ${selectedNutritionItem.name.toUpperCase()}',
-                  style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontSize: 12.0,
                       ),
                 ),
@@ -77,7 +77,7 @@ class NutritionValuesBlock extends StatelessWidget {
                   children: [
                     Text(
                       '$nutritionValue ${selectedNutritionItem.unitLabel}',
-                      style: Theme.of(context).textTheme.caption?.copyWith(
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontWeight: FontWeight.w600,
                           ),
                     ),

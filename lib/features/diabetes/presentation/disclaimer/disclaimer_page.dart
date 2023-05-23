@@ -43,7 +43,7 @@ class DisclaimerPage extends StatelessWidget {
                         '${LocalizedTexts.diabetesDisclaimerTitle.tr()}: ',
                         style: Theme.of(context)
                             .textTheme
-                            .bodyText1
+                            .bodyLarge
                             ?.copyWith(fontWeight: FontWeight.w600),
                       ),
                       BlocBuilder<DiabetesBloc, DiabetesState>(
@@ -52,27 +52,29 @@ class DisclaimerPage extends StatelessWidget {
 
                           return Text(
                             '${type?.capitalizeOnlyFirstLetter()}',
-                            style:
-                                Theme.of(context).textTheme.headline4?.copyWith(
-                                      color: AppColors.blueDark,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium
+                                ?.copyWith(
+                                  color: AppColors.blueDark,
+                                ),
                           );
                         },
                       ),
                       const SizedBox(height: 32.0),
                       Text(
                         LocalizedTexts.diabetesDisclaimerParagraphOne.tr(),
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       const SizedBox(height: 32.0),
                       Text(
                         LocalizedTexts.diabetesDisclaimerParagraphTwo.tr(),
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       const SizedBox(height: 32.0),
                       Text(
                         LocalizedTexts.diabetesDisclaimerParagraphThree.tr(),
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       const SizedBox(
                         height: 16.0,

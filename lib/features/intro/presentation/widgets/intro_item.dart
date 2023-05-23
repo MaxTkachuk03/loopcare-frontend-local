@@ -40,7 +40,7 @@ class IntroItem extends StatelessWidget {
           Flexible(
               child: Text(
             text,
-            style: Theme.of(context).textTheme.caption?.copyWith(
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
             softWrap: true,

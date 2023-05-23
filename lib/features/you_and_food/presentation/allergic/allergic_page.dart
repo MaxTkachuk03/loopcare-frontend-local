@@ -15,7 +15,7 @@ class AllergicPage extends StatelessWidget {
       subtitle: '2 ${LocalizedTexts.of.tr()} 3',
       question: Text(
         LocalizedTexts.allergicQuestion.tr(),
-        style: Theme.of(context).textTheme.bodyText1?.copyWith(
+        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w600,
             ),
       ),

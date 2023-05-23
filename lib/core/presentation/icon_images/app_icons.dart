@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class AppIcons {
   static const String iconsFilePath = 'assets/icons';
@@ -118,7 +117,6 @@ class AppIcons {
 
   static SvgPicture clockGrey = SvgPicture.asset(
     '$iconsFilePath/clock.svg',
-    color: AppColors.greyLabel,
     width: 21,
     height: 21,
   );

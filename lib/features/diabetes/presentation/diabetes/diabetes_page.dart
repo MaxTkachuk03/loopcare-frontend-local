@@ -19,7 +19,7 @@ class DiabetesPage extends StatelessWidget {
               '1 ${LocalizedTexts.of.tr()} 1',
               style: Theme.of(context)
                   .textTheme
-                  .caption
+                  .bodySmall
                   ?.copyWith(fontWeight: FontWeight.w700),
             ),
           ],
@@ -36,7 +36,7 @@ class DiabetesPage extends StatelessWidget {
                 ),
                 Text(
                   LocalizedTexts.doYouHaveDiabetesQuestion.tr(),
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(
                   height: 16.0,

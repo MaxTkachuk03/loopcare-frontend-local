@@ -15,7 +15,7 @@ class WhereDoYouEatPage extends StatelessWidget {
       subtitle: '4 ${LocalizedTexts.of.tr()} 6',
       question: Text(
         LocalizedTexts.whereDoYouEatQuestion.tr(),
-        style: Theme.of(context).textTheme.bodyText1?.copyWith(
+        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w600,
             ),
       ),

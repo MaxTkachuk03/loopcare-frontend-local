@@ -50,7 +50,7 @@ class _SelectServingPageState extends State<SelectServingPage> {
     return Scaffold(
       appBar: AppBar(
         leading: const BackButtonHexagon(),
-        titleTextStyle: Theme.of(context).textTheme.headline5?.copyWith(
+        titleTextStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
               color: AppColors.white,
             ),
         backgroundColor: AppColors.blueAppBar,
@@ -72,7 +72,7 @@ class _SelectServingPageState extends State<SelectServingPage> {
                           maxLines: 2,
                           style: Theme.of(context)
                               .textTheme
-                              .headline5
+                              .headlineSmall
                               ?.copyWith(color: Colors.white),
                         ),
                       ),

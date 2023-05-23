@@ -30,7 +30,7 @@ class HouseholdAndHabitsQuestion extends StatelessWidget {
               subtitle,
               style: Theme.of(context)
                   .textTheme
-                  .caption
+                  .bodySmall
                   ?.copyWith(fontWeight: FontWeight.w700),
             ),
           ],
@@ -60,9 +60,11 @@ class HouseholdAndHabitsQuestion extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: onNextPressed,
-                    style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                      backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                            (Set<MaterialState> states) {
+                    style:
+                        Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                      backgroundColor:
+                          MaterialStateProperty.resolveWith<Color?>(
+                        (Set<MaterialState> states) {
                           if (states.contains(MaterialState.disabled)) {
                             return AppColors.greyMid;
                           }

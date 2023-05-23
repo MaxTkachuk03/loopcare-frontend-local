@@ -38,7 +38,7 @@ class LoginPage extends StatelessWidget {
                           LocalizedTexts.welcomeTitle.tr(),
                           style: Theme.of(context)
                               .textTheme
-                              .headline4
+                              .headlineMedium
                               ?.copyWith(
                                   fontFamily: ThemeConstants.bitterFontFamily,
                                   color: AppColors.blueDark),
@@ -48,7 +48,7 @@ class LoginPage extends StatelessWidget {
                         Text(
                           LocalizedTexts.dontHaveAccount.tr(),
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyText2,
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         const SizedBox(height: 36.0),
                         const LoginForm(),
@@ -58,7 +58,7 @@ class LoginPage extends StatelessWidget {
                           child: Text(
                             LocalizedTexts.forgotMyPassword.tr(),
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ),
                         const SizedBox(height: 23.0),

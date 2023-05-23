@@ -47,7 +47,7 @@ class _ConsentConfirmationPageState extends State<ConsentConfirmationPage> {
                     ),
                     Text(
                       LocalizedTexts.consentConfirmationTitle.tr(),
-                      style: Theme.of(context).textTheme.headline3?.copyWith(
+                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
                             fontFamily: ThemeConstants.bitterFontFamily,
                           ),
                     ),
@@ -56,7 +56,7 @@ class _ConsentConfirmationPageState extends State<ConsentConfirmationPage> {
                     ),
                     Text(
                       LocalizedTexts.consentConfirmationQuestion.tr(),
-                      style: Theme.of(context).textTheme.headline5,
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     const SizedBox(
                       height: 20.0,

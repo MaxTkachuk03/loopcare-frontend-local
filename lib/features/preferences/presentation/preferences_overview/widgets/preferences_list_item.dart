@@ -67,7 +67,7 @@ class PreferencesListItem extends StatelessWidget {
                           item.title,
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText2
+                              .bodyMedium
                               ?.copyWith(fontWeight: FontWeight.w600),
                         ),
                         const SizedBox(
@@ -77,7 +77,7 @@ class PreferencesListItem extends StatelessWidget {
                           item.completionTime,
                           style: Theme.of(context)
                               .textTheme
-                              .caption
+                              .bodySmall
                               ?.copyWith(fontWeight: FontWeight.w600),
                         ),
                       ],
