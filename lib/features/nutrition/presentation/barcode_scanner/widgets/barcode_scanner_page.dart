@@ -97,21 +97,21 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
                         BulletListItem(
                           text: Text(
                             LocalizedTexts.qrCodeSubtext_1.tr(),
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           bulletSize: 18.0,
                         ),
                         BulletListItem(
                           text: Text(
                             LocalizedTexts.qrCodeSubtext_2.tr(),
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           bulletSize: 18.0,
                         ),
                         BulletListItem(
                           text: Text(
                             LocalizedTexts.qrCodeSubtext_3.tr(),
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           bulletSize: 18.0,
                         ),

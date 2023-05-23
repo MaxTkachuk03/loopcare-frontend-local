@@ -46,7 +46,7 @@ class PhysicalExercise extends StatelessWidget {
                 children: [
                   Text(
                     LocalizedTexts.physicalExercise.translation,
-                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                           fontFamily: ThemeConstants.bitterFontFamily,
                         ),
                   ),
@@ -54,16 +54,16 @@ class PhysicalExercise extends StatelessWidget {
                   // TODO get text from the server
                   AutoSizeText(
                     'Walking program - Squat',
-                    style: Theme.of(context).textTheme.caption!.copyWith(
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
                     maxLines: 1,
                   ),
                   Text(
                     'Today',
-                    style: Theme.of(context).textTheme.caption!.copyWith(
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontStyle: FontStyle.italic,
-                          color: Color(0xFF919B8C),
+                          color: const Color(0xFF919B8C),
                         ),
                   ),
                 ],

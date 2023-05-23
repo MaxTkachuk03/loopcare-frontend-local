@@ -58,16 +58,19 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       const SizedBox(height: 16.0),
                       Text(
                         LocalizedTexts.leanOnMe.tr(),
-                        style: Theme.of(context).textTheme.headline4?.copyWith(
-                            fontFamily: ThemeConstants.bitterFontFamily,
-                            color: AppColors.blueDark),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(
+                                fontFamily: ThemeConstants.bitterFontFamily,
+                                color: AppColors.blueDark),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 4.0),
                       Text(
                         LocalizedTexts.enterNewPassword.tr(),
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyText2,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 36.0),
                       PasswordWithIndicator(onChange: _onPasswordChanged),
@@ -85,10 +88,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       if (!_passwordsMatch)
                         Text(
                           passwordsNotMatchError,
-                          style: Theme.of(context).textTheme.caption?.copyWith(
-                                color: AppColors.red,
-                                fontWeight: FontWeight.w600,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: AppColors.red,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                           textAlign: TextAlign.left,
                         ),
                       const SizedBox(height: 32.0),

@@ -52,7 +52,7 @@ class SelectedListItem extends StatelessWidget {
                     child: Text(
                       item.servingLabel,
                       maxLines: 2,
-                      style: Theme.of(context).textTheme.caption?.copyWith(
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontWeight: FontWeight.w700,
                             fontSize: 16.0,
                             color: AppColors.blueDark,
@@ -75,15 +75,19 @@ class SelectedListItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(LocalizedTexts.amount.translation,
-                              style:
-                                  Theme.of(context).textTheme.caption?.copyWith(
-                                        fontSize: 12.0,
-                                      )),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                    fontSize: 12.0,
+                                  )),
                           Text(LocalizedTexts.calories.translation,
-                              style:
-                                  Theme.of(context).textTheme.caption?.copyWith(
-                                        fontSize: 12.0,
-                                      )),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                    fontSize: 12.0,
+                                  )),
                         ],
                       ),
                       const SizedBox(height: 8.0),
@@ -107,7 +111,7 @@ class SelectedListItem extends StatelessWidget {
                                 maxLines: 1,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .caption
+                                    .bodySmall
                                     ?.copyWith(
                                       fontWeight: FontWeight.w600,
                                       color: AppColors.darkGreen,

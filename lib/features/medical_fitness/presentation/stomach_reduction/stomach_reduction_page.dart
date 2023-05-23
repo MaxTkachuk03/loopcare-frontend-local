@@ -20,7 +20,7 @@ class StomachReductionPage extends StatelessWidget {
             ),
             Text(
               LocalizedTexts.stomachReductionQuestion.tr(),
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(
               height: 16.0,

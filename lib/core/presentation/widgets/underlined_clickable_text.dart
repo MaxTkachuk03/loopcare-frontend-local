@@ -17,7 +17,7 @@ class UnderlinedClickableText extends StatelessWidget {
       onTap: onTap,
       child: Text(
         text,
-        style: Theme.of(context).textTheme.caption?.copyWith(
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
           shadows: const [
             Shadow(color: AppColors.black, offset: Offset(0, -2))
           ],

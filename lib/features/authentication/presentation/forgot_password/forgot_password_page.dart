@@ -37,7 +37,7 @@ class ForgotPasswordPage extends StatelessWidget {
                           LocalizedTexts.forgotYourPasswordTitle.tr(),
                           style: Theme.of(context)
                               .textTheme
-                              .headline4
+                              .headlineMedium
                               ?.copyWith(
                                   fontFamily: ThemeConstants.bitterFontFamily,
                                   color: AppColors.blueDark),
@@ -47,7 +47,7 @@ class ForgotPasswordPage extends StatelessWidget {
                         Text(
                           LocalizedTexts.forgotYourPasswordText.tr(),
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyText2,
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         const SizedBox(height: 36.0),
                         const ForgotPasswordForm(),
@@ -57,7 +57,7 @@ class ForgotPasswordPage extends StatelessWidget {
                           child: Text(
                             LocalizedTexts.returnToLoginScreen.tr(),
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ),
                         const SizedBox(height: 23.0),

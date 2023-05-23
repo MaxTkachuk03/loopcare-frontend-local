@@ -39,7 +39,7 @@ class CheckFailedAgePage extends StatelessWidget {
                     children: [
                       Text(
                         LocalizedTexts.ageCheckFailedText.tr(),
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                       const SizedBox(height: 26),
                       Text(LocalizedTexts.fitnessCheckFailedAdviceText.tr()),

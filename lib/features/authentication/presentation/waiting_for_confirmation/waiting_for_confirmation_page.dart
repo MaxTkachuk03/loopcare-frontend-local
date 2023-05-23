@@ -78,10 +78,12 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                         child: Text(
                           LocalizedTexts.waitingForConfirmationTitle.tr(),
                           textAlign: TextAlign.center,
-                          style:
-                              Theme.of(context).textTheme.headline4?.copyWith(
-                                    fontFamily: ThemeConstants.bitterFontFamily,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium
+                              ?.copyWith(
+                                fontFamily: ThemeConstants.bitterFontFamily,
+                              ),
                         ),
                       ),
                     ],
@@ -105,11 +107,13 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                           padding: const EdgeInsets.only(right: 15.0),
                           child: Text(
                             LocalizedTexts.confirmYourAddress.tr(),
-                            style:
-                                Theme.of(context).textTheme.headline5?.copyWith(
-                                      color: AppColors.blueDark,
-                                      fontSize: 20.0,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall
+                                ?.copyWith(
+                                  color: AppColors.blueDark,
+                                  fontSize: 20.0,
+                                ),
                           ),
                         ),
                         const SizedBox(height: 20.0),
@@ -119,7 +123,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                             LocalizedTexts.checkSpam.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2
+                                .bodyMedium
                                 ?.copyWith(),
                           ),
                         ),
@@ -137,7 +141,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                                 '${LocalizedTexts.address.tr()}: $email',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2
+                                    .bodyMedium
                                     ?.copyWith(),
                               ),
                             );

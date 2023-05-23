@@ -26,13 +26,13 @@ class DishListItem extends StatelessWidget {
             children: [
               Text(
                 dishItem.name,
-                style: Theme.of(context).textTheme.caption?.copyWith(
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
               ),
               Text(
                 '${dishItem.numberOfServings} ${LocalizedTexts.serving.translation}',
-                style: Theme.of(context).textTheme.caption?.copyWith(
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.greyLabel,
                     ),
               ),
@@ -44,9 +44,11 @@ class DishListItem extends StatelessWidget {
   }
 
   _onTap(BuildContext context, Dish item) {
-    context.router.push(DishDetailsRoute(
-      dishId: item.id,
-      canEditDish: true,
-    ));
+    context.router.push(
+      DishDetailsRoute(
+        dishId: item.id,
+        canEditDish: true,
+      ),
+    );
   }
 }

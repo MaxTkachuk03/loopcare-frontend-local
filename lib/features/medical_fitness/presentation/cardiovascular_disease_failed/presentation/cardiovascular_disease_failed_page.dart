@@ -39,12 +39,12 @@ class CardiovascularDiseaseFailedPage extends StatelessWidget {
                     children: [
                       Text(
                         LocalizedTexts.failedCardiovascularDiseaseTitle.tr(),
-                        style: Theme.of(context).textTheme.headline5,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       const SizedBox(height: 26),
                       Text(
                         LocalizedTexts.alsoSomeAdviceWhereToTurnNext.tr(),
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       const SizedBox(height: 26),
                       SmallFilledButton(

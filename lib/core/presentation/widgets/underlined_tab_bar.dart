@@ -31,10 +31,10 @@ class UnderlinedTabBar extends StatelessWidget {
           right: 8,
         ),
         labelColor: AppColors.white,
-        labelStyle: Theme.of(context).textTheme.bodyText2?.copyWith(
+        labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.w600,
             ),
-        unselectedLabelStyle: Theme.of(context).textTheme.bodyText2,
+        unselectedLabelStyle: Theme.of(context).textTheme.bodyMedium,
         unselectedLabelColor: AppColors.white,
         indicatorColor: AppColors.blueMid,
         indicatorSize: TabBarIndicatorSize.tab,

@@ -18,18 +18,18 @@ class SmallOutlinedButton extends StatelessWidget {
       child: OutlinedButton(
         onPressed: onPressed,
         style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
-          minimumSize: MaterialStateProperty.all(
-            const Size(
-              0,
-              32,
+              minimumSize: MaterialStateProperty.all(
+                const Size(
+                  0,
+                  32,
+                ),
+              ),
+              side: MaterialStateProperty.all(
+                const BorderSide(width: 1.0, color: AppColors.yellowLight),
+              ),
+              textStyle: MaterialStateProperty.all(
+                  Theme.of(context).textTheme.bodyMedium),
             ),
-          ),
-          side: MaterialStateProperty.all(
-            const BorderSide(width: 1.0, color: AppColors.yellowLight),
-          ),
-          textStyle: MaterialStateProperty.all(
-              Theme.of(context).textTheme.bodyText2),
-        ),
         child: Text(text),
       ),
     );

@@ -46,7 +46,7 @@ class Reflection extends StatelessWidget {
                 children: [
                   Text(
                     LocalizedTexts.reflection.translation,
-                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                           fontFamily: ThemeConstants.bitterFontFamily,
                         ),
                   ),
@@ -54,16 +54,16 @@ class Reflection extends StatelessWidget {
                   // TODO get text from the server
                   AutoSizeText(
                     'Looking back at past 2 weeks',
-                    style: Theme.of(context).textTheme.caption!.copyWith(
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
                     maxLines: 1,
                   ),
                   Text(
                     'Completed',
-                    style: Theme.of(context).textTheme.caption!.copyWith(
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontStyle: FontStyle.italic,
-                          color: Color(0xFF919B8C),
+                          color: const Color(0xFF919B8C),
                         ),
                   ),
                 ],

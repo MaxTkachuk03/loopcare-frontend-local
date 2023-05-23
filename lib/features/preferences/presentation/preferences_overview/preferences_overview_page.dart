@@ -57,7 +57,7 @@ class PreferencesOverviewPage extends StatelessWidget {
                   ),
                   Text(
                     LocalizedTexts.preferencesOverview.tr(),
-                    style: Theme.of(context).textTheme.headline4?.copyWith(
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                           fontFamily: ThemeConstants.bitterFontFamily,
                           color: AppColors.blueDark,
                         ),
@@ -65,14 +65,14 @@ class PreferencesOverviewPage extends StatelessWidget {
                   const SizedBox(height: 20.0),
                   Text(
                     LocalizedTexts.preferencesOverviewDescription.tr(),
-                    style: Theme.of(context).textTheme.bodyText1?.copyWith(),
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(),
                   ),
                   const SizedBox(
                     height: 28.0,
                   ),
                   Text(
                     LocalizedTexts.preferencesOverviewLeftSurveys.tr(),
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   const SizedBox(
                     height: 20.0,

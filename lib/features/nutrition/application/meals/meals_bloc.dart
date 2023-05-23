@@ -285,7 +285,13 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             final updatedList = _getUpdatedMealsList(r);
             final newState = state.isPlanningMeals
                 ? state.copyWith(plannedMeals: updatedList)
-                : state.copyWith(meals: updatedList);
+                : state.copyWith(
+                    meals: updatedList,
+                    currentNutritionItem: r.serving.list.firstWhere(
+                      (element) =>
+                          element.key == NutritionValuesTypes.calories.name,
+                    ),
+                  );
 
             emit(newState);
           },
@@ -352,7 +358,13 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             final updatedList = _getUpdatedMealsList(r);
             final newState = state.isPlanningMeals
                 ? state.copyWith(plannedMeals: updatedList)
-                : state.copyWith(meals: updatedList);
+                : state.copyWith(
+                    meals: updatedList,
+                    currentNutritionItem: r.serving.list.firstWhere(
+                      (element) =>
+                          element.key == NutritionValuesTypes.calories.name,
+                    ),
+                  );
 
             emit(newState);
           },
@@ -675,6 +687,10 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
               )
             : state.copyWith(
                 meals: meals,
+                currentNutritionItem: event.meal.serving.list.firstWhere(
+                  (element) =>
+                      element.key == NutritionValuesTypes.calories.name,
+                ),
               );
 
         emit(newState);
@@ -686,8 +702,12 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     NutritionItemChanged event,
     Emitter<MealsState> emit,
   ) {
-    state.mapOrNull(mealsInfo: (state) {
-      emit(state.copyWith(currentNutritionItem: event.item));
-    });
+    state.mapOrNull(
+      mealsInfo: (state) {
+        emit(
+          state.copyWith(currentNutritionItem: event.item),
+        );
+      },
+    );
   }
 }

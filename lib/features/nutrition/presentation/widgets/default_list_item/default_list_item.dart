@@ -38,7 +38,7 @@ class DefaultListItem extends StatelessWidget {
                     child: Text(
                       item.servingLabel,
                       maxLines: 2,
-                      style: Theme.of(context).textTheme.caption?.copyWith(
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontWeight: FontWeight.w600,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -50,7 +50,7 @@ class DefaultListItem extends StatelessWidget {
             AutoSizeText(
               '${item.calories}',
               maxLines: 1,
-              style: Theme.of(context).textTheme.caption?.copyWith(
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     fontWeight: FontWeight.w400,
                     color: AppColors.greyLabel,
                   ),

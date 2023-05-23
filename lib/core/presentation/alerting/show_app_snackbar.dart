@@ -38,7 +38,7 @@ void showAppSnackBar({
             padding: const EdgeInsets.all(24.0),
             child: Text(
               text,
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: textColor,
                     fontWeight: FontWeight.w600,
                   ),

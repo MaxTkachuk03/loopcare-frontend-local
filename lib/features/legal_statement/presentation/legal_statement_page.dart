@@ -25,7 +25,7 @@ class LegalStatementPage extends StatelessWidget {
                 children: [
                   Text(
                     LocalizedTexts.legalStatement.tr(),
-                    style: Theme.of(context).textTheme.headline3?.copyWith(
+                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
                           fontFamily: ThemeConstants.bitterFontFamily,
                           color: AppColors.blueDark,
                         ),
@@ -35,14 +35,14 @@ class LegalStatementPage extends StatelessWidget {
                   ),
                   Text(
                     LocalizedTexts.legalStatementTextOne.tr(),
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   const SizedBox(
                     height: 16.0,
                   ),
                   Text(
                     LocalizedTexts.legalStatementTextTwo.tr(),
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   const SizedBox(
                     height: 16.0,
@@ -58,7 +58,7 @@ class LegalStatementPage extends StatelessWidget {
                                 ),
                               ),
                               textStyle: MaterialStateProperty.all(
-                                  Theme.of(context).textTheme.bodyText2),
+                                  Theme.of(context).textTheme.bodyMedium),
                             ),
                     child: Text(LocalizedTexts.readLegalStatement.tr()),
                   ),

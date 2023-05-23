@@ -47,7 +47,7 @@ class SignUpWelcomePage extends StatelessWidget {
                             LocalizedTexts.signUpWelcomeTitle.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .headline4
+                                .headlineMedium
                                 ?.copyWith(
                                   fontSize: 30.0,
                                   fontFamily: ThemeConstants.bitterFontFamily,
@@ -59,12 +59,12 @@ class SignUpWelcomePage extends StatelessWidget {
                           ),
                           Text(
                             LocalizedTexts.signYouUp.tr(),
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                             textAlign: TextAlign.center,
                           ),
                           Text(
                             LocalizedTexts.needName.tr(),
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(

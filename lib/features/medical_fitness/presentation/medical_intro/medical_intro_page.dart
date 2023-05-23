@@ -27,7 +27,7 @@ class MedicalIntroPage extends StatelessWidget {
                 ),
                 Text(
                   LocalizedTexts.checkYourMedicalCondition.tr(),
-                  style: Theme.of(context).textTheme.headline4?.copyWith(
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontFamily: ThemeConstants.bitterFontFamily,
                       ),
                 ),
@@ -36,7 +36,7 @@ class MedicalIntroPage extends StatelessWidget {
                 ),
                 Text(
                   LocalizedTexts.medicalIntroTitle.tr(),
-                  style: Theme.of(context).textTheme.headline5?.copyWith(
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.w400,
                       ),
                 ),
