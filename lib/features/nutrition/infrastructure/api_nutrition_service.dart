@@ -263,17 +263,17 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, MealsResponse>> removeMeal(int mealId) {
+  Future<Either<RequestError, MealsListItem>> removeMeal(int mealId) {
     return client
         .delete('/meals/$mealId')
-        .then(parseResponse(MealsResponse.fromJson));
+        .then(parseResponse(MealsListItem.fromJson));
   }
 
   @override
-  Future<Either<RequestError, MealsResponse>> removePlannedMeal(int mealId) {
+  Future<Either<RequestError, MealsListItem>> removePlannedMeal(int mealId) {
     return client
         .delete('/planned-meals/$mealId')
-        .then(parseResponse(MealsResponse.fromJson));
+        .then(parseResponse(MealsListItem.fromJson));
   }
 
   @override

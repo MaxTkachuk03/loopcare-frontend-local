@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
@@ -20,6 +21,8 @@ import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_inst
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
 
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/plus_button_hexagon/plus_button_hexagon.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 class MealPage extends StatefulWidget {
   const MealPage({super.key});
@@ -63,6 +66,20 @@ class _MealPageState extends State<MealPage> {
     return '$mealCategory dish from meal $mealId';
   }
 
+  String get _appBarTitle {
+    final state = context.read<MealsBloc>().state;
+    final currentMealCategory = state.currentMealCategory;
+
+    if (currentMealCategory == null) return '';
+
+    final date = state.getCurrentDate.isoStringWithoutTime !=
+            DateTime.now().isoStringWithoutTime
+        ? state.getCurrentDate.shortDate
+        : 'today';
+
+    return '${currentMealCategory.capitalizeOnlyFirstLetter()}${state.isPlanningMeals ? '' : ' ${LocalizedTexts.logList.translation}'} $date';
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
@@ -70,9 +87,7 @@ class _MealPageState extends State<MealPage> {
         return Scaffold(
           appBar: BlueAppBar(
             isCustomLeading: true,
-            title: state.currentMealCategory != null
-                ? '${state.currentMealCategory} ${LocalizedTexts.logList.translation} today'
-                : '${LocalizedTexts.logList.translation} today',
+            title: _appBarTitle,
             actions: const [PlusButtonHexagon()],
           ),
           body: SafeArea(
@@ -114,31 +129,36 @@ class _MealPageState extends State<MealPage> {
                           ),
                           const SizedBox(height: 26.0),
                           MainContainer(
-                            child: Row(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                OutlinedRoundedButton(
-                                  text:
-                                      LocalizedTexts.saveToMyDishes.translation,
-                                  icon: AppIcons.dish,
-                                  onPressed: _onSaveToMyDishesHandler,
+                                Row(
+                                  children: [
+                                    OutlinedRoundedButton(
+                                      text: LocalizedTexts
+                                          .saveToMyDishes.translation,
+                                      icon: AppIcons.dish,
+                                      onPressed: _onSaveToMyDishesHandler,
+                                    ),
+                                    const SizedBox(width: 8.0),
+                                    OutlinedRoundedButton(
+                                      text:
+                                          LocalizedTexts.deleteMeal.translation,
+                                      icon: AppIcons.delete,
+                                      onPressed: () =>
+                                          _onDeleteMealPressed(context),
+                                    )
+                                  ],
                                 ),
-                                const SizedBox(width: 8.0),
-                                OutlinedRoundedButton(
-                                  text: LocalizedTexts.deleteMeal.translation,
-                                  onPressed: () {
-                                    context.read<MealsBloc>().add(
-                                          MealsEvent.deleteMeal(
-                                            context
-                                                .read<MealsBloc>()
-                                                .state
-                                                .getCurrentMealId,
-                                          ),
-                                        );
-
-                                    context.router
-                                        .popUntilRouteWithName(HomeRoute.name);
-                                  },
-                                )
+                                const SizedBox(
+                                  height: 16.0,
+                                ),
+                                if (mealsState.isPlanningMeals)
+                                  OutlinedRoundedButton(
+                                    text: LocalizedTexts
+                                        .recommendations.translation,
+                                    icon: AppIcons.recommendations,
+                                  ),
                               ],
                             ),
                           ),
@@ -174,5 +194,25 @@ class _MealPageState extends State<MealPage> {
     context.read<MealsBloc>().add(
           MealsEvent.nutritionItemChanged(item),
         );
+  }
+
+  _onDeleteMealPressed(BuildContext context) {
+    final currentCategory = context.read<MealsBloc>().state.currentMealCategory;
+
+    if (currentCategory == null) return;
+
+    ModalBottomSheet.deleteMeal(
+      context: context,
+      onDeleted: () {
+        context.read<MealsBloc>().add(
+              MealsEvent.deleteMeal(
+                context.read<MealsBloc>().state.getCurrentMealId,
+              ),
+            );
+
+        context.router.popUntilRouteWithName(HomeRoute.name);
+      },
+      mealCategory: currentCategory,
+    );
   }
 }

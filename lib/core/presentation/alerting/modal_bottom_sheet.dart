@@ -152,12 +152,15 @@ class ModalBottomSheet {
                   children: [
                     ElevatedButton(
                       onPressed: () => context.router.pop(),
-                      style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                        backgroundColor:
-                        MaterialStateProperty.all(AppColors.bgGreen),
-                        foregroundColor:
-                        MaterialStateProperty.all(AppColors.black),
-                      ),
+                      style: Theme.of(context)
+                          .elevatedButtonTheme
+                          .style
+                          ?.copyWith(
+                            backgroundColor:
+                                MaterialStateProperty.all(AppColors.bgGreen),
+                            foregroundColor:
+                                MaterialStateProperty.all(AppColors.black),
+                          ),
                       child: Text(LocalizedTexts.noCancel.translation),
                     ),
                     const SizedBox(
@@ -168,6 +171,102 @@ class ModalBottomSheet {
                       child: Text(LocalizedTexts.yesDelete.translation),
                     )
                   ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  static void deleteMeal({
+    required BuildContext context,
+    required void Function() onDeleted,
+    required String mealCategory,
+  }) {
+    showModalBottomSheet<void>(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24.0),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
+          child: SafeArea(
+            top: false,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.,
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8.0, top: 12.0),
+                    child: IconButton(
+                      onPressed: () => context.router.pop(),
+                      icon: const Icon(Icons.close, size: 30,),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            const SizedBox(height: 32.0),
+                            Text(
+                              LocalizedTexts.deleteMealModalMessage.translation,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ),
+                            const SizedBox(height: 47.0),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            OutlinedButton(
+                              onPressed: () => context.router.pop(),
+                              style: Theme.of(context)
+                                  .outlinedButtonTheme
+                                  .style
+                                  ?.copyWith(
+                                    side: MaterialStateProperty.all(
+                                      const BorderSide(
+                                        width: 1.0,
+                                        color: AppColors.blueDark,
+                                      ),
+                                    ),
+                                  ),
+                              child: Text(
+                                LocalizedTexts.noCancel.translation,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      color: AppColors.blueDark,
+                                    ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 12.0,
+                            ),
+                            ElevatedButton(
+                              onPressed: onDeleted,
+                              child: Text(
+                                  '${LocalizedTexts.remove.translation} $mealCategory'),
+                            ),
+                            const SizedBox(
+                              height: 24.0,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),

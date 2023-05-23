@@ -17,7 +17,9 @@ class AppIcons {
   static const AssetImage exclamationMark = AssetImage(
     '$iconsFilePath/exclamation_mark.png',
   );
-
+  static const AssetImage recommendations = AssetImage(
+    '$iconsFilePath/recommendations.png',
+  );
   static const AssetImage arrow = AssetImage(
     '$iconsFilePath/arrow.png',
   );
