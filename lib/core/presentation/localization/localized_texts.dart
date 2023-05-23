@@ -403,6 +403,8 @@ class LocalizedTexts {
   static const String giveNameToThisDish = 'giveNameToThisDish';
   static const String save = 'save';
   static const String dishWasSaved = 'dishWasSaved';
+  static const String foodItemWasAddedToDish = 'foodItemWasAddedToDish';
+  static const String foodItemWasDeletedFromDish = 'foodItemWasDeletedFromDish';
   static const String invalidDishNameMessage = 'invalidDishNameMessage';
   static const String invalidDishServingsAmountMessage =
       'invalidDishServingsAmountMessage';

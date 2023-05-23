@@ -242,7 +242,8 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, MealsListItem>> addPlannedMeal(AddPlannedMealBody data) {
+  Future<Either<RequestError, MealsListItem>> addPlannedMeal(
+      AddPlannedMealBody data) {
     return client
         .post('/planned-meals', data: data)
         .then(parseResponse(MealsListItem.fromJson));
@@ -256,7 +257,8 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, MealsListItem>> getPlannedMealById(int mealId) async {
+  Future<Either<RequestError, MealsListItem>> getPlannedMealById(
+      int mealId) async {
     return client
         .get('/planned-meals/$mealId')
         .then(parseResponse(MealsListItem.fromJson));

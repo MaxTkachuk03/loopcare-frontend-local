@@ -1,12 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
@@ -65,6 +67,28 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
     context.read<DishBloc>().add(DishEvent.nutritionItemChanged(item));
   }
 
+  void _selectServingOnConfirmHandler(
+    double numberOfUnits,
+    String servingId,
+    String externalFoodItemId,
+  ) {
+    context.read<DishBloc>().add(
+          DishEvent.addFoodItemToDish(
+            numberOfUnits: numberOfUnits,
+            servingId: servingId,
+            externalFoodItemId: externalFoodItemId,
+          ),
+        );
+
+    showAppSnackBar(
+      context: context,
+      background: AppColors.white,
+      text: LocalizedTexts.foodItemWasAddedToDish.translation,
+    );
+
+    context.router.popUntilRouteWithName(SearchRoute.name);
+  }
+
   void _onAddFoodItemHandler() {
     context.router.push(
       SearchRoute(
@@ -80,17 +104,15 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
               foodItemId: item.id,
               foodItemName: item.name,
               initialServingAmount: 1,
-              onConfirm: (double numberOfUnits, String servingId) {
-                context.read<DishBloc>().add(
-                      DishEvent.addFoodItemToDish(
-                        numberOfUnits: numberOfUnits,
-                        servingId: servingId,
-                        externalFoodItemId: item.id,
-                      ),
-                    );
-
-                context.router.popUntilRouteWithName(SearchRoute.name);
-              },
+              onConfirm: (
+                double numberOfUnits,
+                String servingId,
+              ) =>
+                  _selectServingOnConfirmHandler(
+                numberOfUnits,
+                servingId,
+                item.id,
+              ),
             ),
           );
         },
@@ -133,6 +155,12 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
           dishId: dishId,
           internalFoodItemId: int.parse(item.id),
         ));
+
+    showAppSnackBar(
+      context: context,
+      background: AppColors.white,
+      text: LocalizedTexts.foodItemWasDeletedFromDish.translation,
+    );
   }
 
   void _onFoodItemPressed(BuildContext context, DishFoodItem item) {
