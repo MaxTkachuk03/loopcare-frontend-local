@@ -645,13 +645,13 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     return state.maybeMap(
       mealsInfo: (state) {
         final currentDate = state.currentDate ?? DateTime.now();
+
         Map<String, List<MealsListItem>> meals =
-            Map<String, List<MealsListItem>>.from(state.mealsMap);
+            state.mealsMap.map((key, value) => MapEntry(key, [...value]));
         var selectedDayMeals =
             meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
         selectedDayMeals.removeWhere((e) => e.id == mealItem);
-        meals[currentDate.isoStringWithoutTime] = selectedDayMeals;
 
         return meals;
       },
