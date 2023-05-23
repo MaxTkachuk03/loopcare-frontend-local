@@ -132,11 +132,11 @@ abstract class NutritionService {
     int mealId,
   );
 
-  Future<Either<RequestError, MealsResponse>> removeMeal(
+  Future<Either<RequestError, MealsListItem>> removeMeal(
     int mealId,
   );
 
-  Future<Either<RequestError, MealsResponse>> removePlannedMeal(
+  Future<Either<RequestError, MealsListItem>> removePlannedMeal(
     int mealId,
   );
 
