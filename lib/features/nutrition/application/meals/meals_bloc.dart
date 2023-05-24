@@ -61,6 +61,9 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
       List<MealsListItem> dayData =
           meals[loggingDate.isoStringWithoutTime] ?? <MealsListItem>[];
+      final isAlreadyExist = dayData.contains(element);
+      if (isAlreadyExist) continue;
+
       dayData.add(element);
       meals[loggingDate.isoStringWithoutTime] = dayData;
     }
@@ -81,6 +84,9 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
       List<MealsListItem> dayData =
           meals[loggingDate.first.isoStringWithoutTime] ?? <MealsListItem>[];
+      final isAlreadyExist = dayData.contains(element);
+      if (isAlreadyExist) continue;
+
       dayData.add(element);
       meals[loggingDate.first.isoStringWithoutTime] = dayData;
     }
@@ -92,67 +98,66 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     SetCurrentDate event,
     Emitter<MealsState> emit,
   ) async {
-    emit(MealsState.mealsInfo(
-      currentDate: event.currentDate,
-      meals: {},
-      plannedMeals: {},
-    ));
-    if (event.currentDate.isBefore(DateTime.now())) {
-      final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
+    await state.mapOrNull(
+      mealsInfo: (s) async {
+        emit(s.copyWith(
+          currentDate: event.currentDate,
+        ));
 
-      emit(const MealsState.loading());
+        if (event.currentDate.isBefore(DateTime.now())) {
+          final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
+          final plannedMeals =
+              state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
 
-      final response = await nutritionService.getMeals(
-        startDate: event.currentDate.isoStringWithoutTime,
-        endDate: event.currentDate.isoStringWithoutTime,
-      );
+          emit(const MealsState.loading());
 
-      response.fold(
-        (l) => emit(MealsState.error(l)),
-        (r) => emit(
-          MealsState.mealsInfo(
-            currentDate: event.currentDate,
-            meals: _combineMealsByDate(meals, r.data),
-            selectedServing: null,
-            plannedMeals: {},
-          ),
-        ),
-      );
+          final response = await nutritionService.getMeals(
+            startDate: event.currentDate.isoStringWithoutTime,
+            endDate: event.currentDate.isoStringWithoutTime,
+          );
 
-      return;
-    }
+          response.fold(
+            (l) => emit(MealsState.error(l)),
+            (r) => emit(
+              MealsState.mealsInfo(
+                currentDate: event.currentDate,
+                meals: _combineMealsByDate(meals, r.data),
+                selectedServing: null,
+                plannedMeals: plannedMeals ?? {},
+              ),
+            ),
+          );
 
-    if (state.isPossibleToPlanMeal) {
-      final plannedMeals = state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
+          return;
+        }
 
-      emit(const MealsState.loading());
+        if (state.isPossibleToPlanMeal) {
+          final plannedMeals =
+              state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
+          final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
 
-      final response = await nutritionService.getPlannedMeals(
-        startDate: event.currentDate.isoStringWithoutTime,
-        endDate: event.currentDate.isoStringWithoutTime,
-      );
+          emit(const MealsState.loading());
 
-      response.fold(
-        (l) => emit(MealsState.error(l)),
-        (r) => emit(
-          MealsState.mealsInfo(
-            currentDate: event.currentDate,
-            meals: {},
-            selectedServing: null,
-            plannedMeals: _combinePlannedMealsByDate(plannedMeals, r.data),
-          ),
-        ),
-      );
+          final response = await nutritionService.getPlannedMeals(
+            startDate: event.currentDate.isoStringWithoutTime,
+            endDate: event.currentDate.isoStringWithoutTime,
+          );
 
-      return;
-    }
+          response.fold(
+            (l) => emit(MealsState.error(l)),
+            (r) => emit(
+              MealsState.mealsInfo(
+                currentDate: event.currentDate,
+                meals: meals ?? {},
+                selectedServing: null,
+                plannedMeals: _combinePlannedMealsByDate(plannedMeals, r.data),
+              ),
+            ),
+          );
 
-    emit(
-      MealsState.mealsInfo(
-        currentDate: event.currentDate,
-        plannedMeals: {},
-        meals: {},
-      ),
+          return;
+        }
+      },
     );
   }
 
