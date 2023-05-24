@@ -51,7 +51,9 @@ class PlanMeal extends StatelessWidget {
       builder: (BuildContext context, state) {
         final currentPlannedMeals = state.maybeMap(
             mealsInfo: (s) =>
-                s.plannedMeals[s.currentDate?.isoStringWithoutTime] ??
+                s.plannedMeals[s.currentDate?.isoStringWithoutTime]
+                    ?.where((element) => element.mealItems.isNotEmpty)
+                    .toList() ??
                 <MealsListItem>[],
             orElse: () => <MealsListItem>[]);
 
