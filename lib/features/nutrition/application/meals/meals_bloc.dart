@@ -92,6 +92,11 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     SetCurrentDate event,
     Emitter<MealsState> emit,
   ) async {
+    emit(MealsState.mealsInfo(
+      currentDate: event.currentDate,
+      meals: {},
+      plannedMeals: {},
+    ));
     if (event.currentDate.isBefore(DateTime.now())) {
       final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
 
