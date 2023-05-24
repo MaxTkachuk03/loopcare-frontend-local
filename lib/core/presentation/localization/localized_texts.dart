@@ -324,6 +324,7 @@ class LocalizedTexts {
   static const String serving = 'serving';
   static const String logList = 'logList';
   static const String deleteMeal = 'deleteMeal';
+  static const String recommendations = 'recommendations';
   static const String logListEmptyMessage = 'logListEmptyMessage';
   static const String backToDashboard = 'backToDashboard';
   static const String summary = 'summary';
@@ -358,6 +359,8 @@ class LocalizedTexts {
   static const String recentSearch = 'recentSearch';
 
   //Dashboard
+  static const String deleteMealModalMessage = 'deleteMealModalMessage';
+  static const String remove = 'remove';
   static const String goodMorning = 'goodMorning';
   static const String logYourWeight = 'logYourWeight';
   static const String logYourMeals = 'logYourMeals';
@@ -400,6 +403,8 @@ class LocalizedTexts {
   static const String giveNameToThisDish = 'giveNameToThisDish';
   static const String save = 'save';
   static const String dishWasSaved = 'dishWasSaved';
+  static const String foodItemWasAddedToDish = 'foodItemWasAddedToDish';
+  static const String foodItemWasDeletedFromDish = 'foodItemWasDeletedFromDish';
   static const String invalidDishNameMessage = 'invalidDishNameMessage';
   static const String invalidDishServingsAmountMessage =
       'invalidDishServingsAmountMessage';

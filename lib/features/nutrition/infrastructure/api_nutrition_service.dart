@@ -242,7 +242,8 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, MealsListItem>> addPlannedMeal(AddPlannedMealBody data) {
+  Future<Either<RequestError, MealsListItem>> addPlannedMeal(
+      AddPlannedMealBody data) {
     return client
         .post('/planned-meals', data: data)
         .then(parseResponse(MealsListItem.fromJson));
@@ -256,24 +257,25 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, MealsListItem>> getPlannedMealById(int mealId) async {
+  Future<Either<RequestError, MealsListItem>> getPlannedMealById(
+      int mealId) async {
     return client
         .get('/planned-meals/$mealId')
         .then(parseResponse(MealsListItem.fromJson));
   }
 
   @override
-  Future<Either<RequestError, MealsResponse>> removeMeal(int mealId) {
+  Future<Either<RequestError, MealsListItem>> removeMeal(int mealId) {
     return client
         .delete('/meals/$mealId')
-        .then(parseResponse(MealsResponse.fromJson));
+        .then(parseResponse(MealsListItem.fromJson));
   }
 
   @override
-  Future<Either<RequestError, MealsResponse>> removePlannedMeal(int mealId) {
+  Future<Either<RequestError, MealsListItem>> removePlannedMeal(int mealId) {
     return client
         .delete('/planned-meals/$mealId')
-        .then(parseResponse(MealsResponse.fromJson));
+        .then(parseResponse(MealsListItem.fromJson));
   }
 
   @override
