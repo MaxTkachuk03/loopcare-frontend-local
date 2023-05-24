@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
 import 'package:loopcare_frontend/features/diabetes/application/diabetes_bloc.dart';
+import 'package:loopcare_frontend/features/education/application/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/barcode_scanner_bloc.dart';
@@ -96,6 +97,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<EditDishBloc>(
           create: (_) => getIt<EditDishBloc>(),
+        ),
+        BlocProvider<EducationProgramBloc>(
+          create: (_) => getIt<EducationProgramBloc>(),
         ),
       ],
       child: const _App(),

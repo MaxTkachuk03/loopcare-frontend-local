@@ -16,7 +16,7 @@ abstract class EducationLesson implements _$EducationLesson {
     required String duration,
     required int pageCounter,
     required int step,
-    required DateTime completedAt,
+    required DateTime? completedAt,
   }) = _EducationLesson;
 
   factory EducationLesson.fromJson(Map<String, dynamic> json) =>

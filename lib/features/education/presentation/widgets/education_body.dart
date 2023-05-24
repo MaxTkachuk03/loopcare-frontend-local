@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/features/education/application/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/education_card_type.dart';
 import 'package:loopcare_frontend/features/education/domain/education_item.dart';
 import 'package:loopcare_frontend/features/education/presentation/widgets/education_card.dart';
@@ -56,39 +58,45 @@ class EducationBody extends StatelessWidget {
           height: 40,
         ),
         MainContainer(
-          child: ListView.builder(
-            itemCount: _cardList.length,
-            itemBuilder: (BuildContext context, index) {
-              final isLastElement = index + 1 == _cardList.length;
-              final isFirstElement = index == 0;
+          child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
+            builder: (BuildContext context, state) {
+              final lessons = state.data.lessons;
 
-              return IntrinsicHeight(
-                child: Row(
-                  children: [
-                    ProgressItem(
-                      isFirst: isFirstElement,
-                      isLast: isLastElement,
-                      type: _cardList[index].type,
-                      nextItemType:
-                          !isLastElement ? _cardList[index + 1].type : null,
-                    ),
-                    const SizedBox(
-                      width: 16.0,
-                    ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          EducationCard(
-                            item: _cardList[index],
+              return ListView.builder(
+                itemCount: lessons.length,
+                itemBuilder: (BuildContext context, index) {
+                  final isLastElement = index + 1 == _cardList.length;
+                  final isFirstElement = index == 0;
+
+                  return IntrinsicHeight(
+                    child: Row(
+                      children: [
+                        ProgressItem(
+                          isFirst: isFirstElement,
+                          isLast: isLastElement,
+                          type: _cardList[index].type,
+                          nextItemType:
+                              !isLastElement ? _cardList[index + 1].type : null,
+                        ),
+                        const SizedBox(
+                          width: 16.0,
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              EducationCard(
+                                item: _cardList[index],
+                              ),
+                              const SizedBox(
+                                height: 12.0,
+                              )
+                            ],
                           ),
-                          const SizedBox(
-                            height: 12.0,
-                          )
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  );
+                },
               );
             },
           ),
