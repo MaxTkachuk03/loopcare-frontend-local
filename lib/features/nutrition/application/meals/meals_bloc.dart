@@ -34,6 +34,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
   MealsBloc(this.nutritionService) : super(const MealsState.initial()) {
     on<FetchMeals>(_onFetchMeals);
     on<FetchMealById>(_onFetchMealById);
+    on<SetPlannedMeal>(_onSetPlannedMeal);
     on<AddMeal>(_onAddMeal);
     on<AddPlannedMeal>(_onAddPlannedMeal);
     on<UpdateFoodItemInMeal>(_onUpdateFoodItemInMeal);
@@ -157,6 +158,27 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
           return;
         }
+      },
+    );
+  }
+
+  FutureOr<void> _onSetPlannedMeal(
+    SetPlannedMeal event,
+    Emitter<MealsState> emit,
+  ) async {
+    await state.mapOrNull(
+      mealsInfo: (s) async {
+        emit(
+          s.copyWith(
+            mealActionMode: MealActionModes.mealPlanning,
+            currentMealCategory: event.meal.mealCategory,
+            currentMealId: event.meal.id,
+            currentMeal: event.meal,
+            currentNutritionItem: event.meal.serving.list.firstWhere(
+              (element) => element.key == NutritionValuesTypes.calories.name,
+            ),
+          ),
+        );
       },
     );
   }
