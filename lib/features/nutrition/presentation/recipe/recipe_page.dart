@@ -31,7 +31,7 @@ class RecipePage extends StatefulWidget {
     Key? key,
     required this.id,
     required this.name,
-    this.isMealRecipe = false,
+    this.isMealRecipe,
   }) : super(key: key);
 
   @override
@@ -319,7 +319,7 @@ class _RecipePageState extends State<RecipePage> {
     setState(() {
       _isLogRecipePressed = true;
     });
-    context.router.pushNamed(AppRoutes.meal);
+    context.router.replaceNamed(AppRoutes.meal);
   }
 
   Future<bool> _onWillPop() {
