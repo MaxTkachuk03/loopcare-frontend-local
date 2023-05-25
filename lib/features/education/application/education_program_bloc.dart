@@ -26,7 +26,13 @@ class EducationProgramBloc
     _GetLessons event,
     Emitter<EducationProgramState> emit,
   ) async {
+    EducationProgramState.loading(state.data.copyWith(
+      isLoading: true,
+      error: null,
+    ));
+
     final response = await _educationService.getLessons(event.category);
+
     response.fold(
       (l) => l,
       (r) {

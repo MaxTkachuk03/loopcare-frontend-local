@@ -13,9 +13,28 @@ class EducationPage extends StatefulWidget {
   State<EducationPage> createState() => _EducationPageState();
 }
 
-class _EducationPageState extends State<EducationPage> {
+class _EducationPageState extends State<EducationPage>
+    with TickerProviderStateMixin {
+  late TabController _tabController;
+  late int _selectedIndex;
+
+  List<Widget> categories =
+      LessonCategory.values.map((v) => Tab(text: v.label)).toList();
+
   @override
   void initState() {
+    _tabController = TabController(
+      vsync: this,
+      length: categories.length,
+    );
+
+    _tabController.addListener(() {
+      setState(() {
+        _selectedIndex = _tabController.index;
+      });
+      print("Selected Index: " + _tabController.index.toString());
+    });
+
     context.read<EducationProgramBloc>().add(
           const EducationProgramEvent.getLessons(LessonCategory.all),
         );
@@ -23,18 +42,37 @@ class _EducationPageState extends State<EducationPage> {
   }
 
   @override
+  void dispose() {
+    _tabController.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 5,
+      length: LessonCategory.values.length,
       child: SafeArea(
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return const <Widget>[
-              EducationTabBar(),
-              EducationAppBar(),
+            return [
+              EducationTabBar(
+                controller: _tabController,
+                tabs: categories,
+              ),
+              const EducationAppBar(),
             ];
           },
-          body: const EducationBody(),
+          body: TabBarView(
+            controller: _tabController,
+            children: const [
+              EducationBody(),
+              EducationBody(),
+              EducationBody(),
+              EducationBody(),
+              EducationBody(),
+            ],
+          ),
         ),
       ),
     );

@@ -65,7 +65,7 @@ class EducationBody extends StatelessWidget {
               return ListView.builder(
                 itemCount: lessons.length,
                 itemBuilder: (BuildContext context, index) {
-                  final isLastElement = index + 1 == _cardList.length;
+                  final isLastElement = index + 1 == lessons.length;
                   final isFirstElement = index == 0;
 
                   return IntrinsicHeight(
@@ -85,7 +85,7 @@ class EducationBody extends StatelessWidget {
                           child: Column(
                             children: [
                               EducationCard(
-                                item: _cardList[index],
+                                lesson: lessons[index],
                               ),
                               const SizedBox(
                                 height: 12.0,
