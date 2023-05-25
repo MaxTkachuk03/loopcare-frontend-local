@@ -26,11 +26,15 @@ import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_inst
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_amount/servings_amount.dart';
 
+enum EditDishPageMode { edit, create }
+
 class EditDishPage extends StatefulWidget {
+  final EditDishPageMode mode;
   final EditDishEvent event;
 
   const EditDishPage({
     Key? key,
+    required this.mode,
     required this.event,
   }) : super(key: key);
 
@@ -231,7 +235,7 @@ class _EditDishPageState extends State<EditDishPage> {
   }
 
   Future<bool> _onWillPop() {
-    if (!_isUserSaveChanges) {
+    if (widget.mode == EditDishPageMode.create && !_isUserSaveChanges) {
       _onDeleteDishHandler();
     }
 

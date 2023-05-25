@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/features/nutrition/application/search/dto/sear
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe/widgets/recipe_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
@@ -98,12 +99,16 @@ class _RecipePageState extends State<RecipePage> {
 
     if (recipeId == null || numberOfUnits == null) return;
 
-    context.router.push(EditDishRoute(
+    context.router.push(
+      EditDishRoute(
+        mode: EditDishPageMode.edit,
         event: EditDishEvent.createDishFromRecipe(
-      recipeId,
-      numberOfUnits,
-      _getSelectedMealCategories(mealState.currentMealCategory),
-    )));
+          recipeId,
+          numberOfUnits,
+          _getSelectedMealCategories(mealState.currentMealCategory),
+        ),
+      ),
+    );
   }
 
   List<MealCategory> _getSelectedMealCategories(String? category) {

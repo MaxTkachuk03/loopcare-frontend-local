@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/dish_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/list_filters.dart';
 
@@ -29,7 +30,7 @@ class DishesList extends StatefulWidget {
 
 class _DishesListState extends State<DishesList>
     with AutomaticKeepAliveClientMixin {
-  static const double _defaultNewDishNumberOfUnits = 10.0;
+  static const double _defaultNewDishNumberOfUnits = 1.0;
   static const String _defaultNewDishName = 'new dish';
 
   @override
@@ -133,11 +134,12 @@ class _DishesListState extends State<DishesList>
 
   _onCreateDish() {
     context.router.push(EditDishRoute(
+        mode: EditDishPageMode.create,
         event: EditDishEvent.createDish(
-      _defaultNewDishName,
-      _defaultNewDishNumberOfUnits,
-      _selectedMealCategories,
-    )));
+          _defaultNewDishName,
+          _defaultNewDishNumberOfUnits,
+          _selectedMealCategories,
+        )));
   }
 
   List<MealCategory> get _selectedMealCategories {

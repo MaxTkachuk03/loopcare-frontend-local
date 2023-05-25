@@ -21,6 +21,7 @@ import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutri
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dish_details_page/widgets/dish_list/dish_list.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_amount/servings_amount.dart';
@@ -140,7 +141,10 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
 
     if (id == null || name == null) return;
 
-    context.router.push(EditDishRoute(event: EditDishEvent.getDish(id)));
+    context.router.push(EditDishRoute(
+      event: EditDishEvent.getDish(id),
+      mode: EditDishPageMode.edit,
+    ));
   }
 
   void _onDeleteFoodItemPressed(BuildContext context, FoodItem item) {
