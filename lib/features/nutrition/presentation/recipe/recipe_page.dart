@@ -31,7 +31,7 @@ class RecipePage extends StatefulWidget {
     Key? key,
     required this.id,
     required this.name,
-    this.isMealRecipe,
+    this.isMealRecipe = false,
   }) : super(key: key);
 
   @override
