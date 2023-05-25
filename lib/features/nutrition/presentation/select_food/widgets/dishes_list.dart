@@ -58,8 +58,7 @@ class _DishesListState extends State<DishesList>
 
     return BlocListener<EditDishBloc, EditDishState>(
       listener: _updateDishesListener,
-      listenWhen: (prev, cur) =>
-          prev is DishInfo && (cur is Deleted || cur is Saved),
+      listenWhen: (prev, cur) => prev != cur,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

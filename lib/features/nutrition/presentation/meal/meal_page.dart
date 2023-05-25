@@ -52,7 +52,7 @@ class _MealPageState extends State<MealPage> {
     }
 
     context.router.push(EditDishRoute(
-      mode: EditDishPageMode.edit,
+      mode: EditDishPageMode.create,
       event: EditDishEvent.createDishFromMeal(
         mealId,
         _defaultNumberOfUnitsForDish,

@@ -101,7 +101,7 @@ class _RecipePageState extends State<RecipePage> {
 
     context.router.push(
       EditDishRoute(
-        mode: EditDishPageMode.edit,
+        mode: EditDishPageMode.create,
         event: EditDishEvent.createDishFromRecipe(
           recipeId,
           numberOfUnits,
