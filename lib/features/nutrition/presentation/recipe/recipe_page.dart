@@ -319,7 +319,7 @@ class _RecipePageState extends State<RecipePage> {
     setState(() {
       _isLogRecipePressed = true;
     });
-    context.router.pushNamed(AppRoutes.meal);
+    context.router.replaceNamed(AppRoutes.meal);
   }
 
   Future<bool> _onWillPop() {
