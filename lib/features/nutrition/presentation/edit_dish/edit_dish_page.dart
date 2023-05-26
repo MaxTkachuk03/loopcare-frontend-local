@@ -18,7 +18,6 @@ import 'package:loopcare_frontend/features/nutrition/application/search/dto/sear
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_food_item/dish_food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dish_details_page/widgets/dish_list/dish_list.dart';
@@ -232,7 +231,8 @@ class _EditDishPageState extends State<EditDishPage> {
   }
 
   _deleteDishListener(BuildContext context, state) {
-    context.router.popUntilRouteWithName(SelectFoodRoute.name);
+    //TODO commented as a fix for LOOCARE-904 - not sure it needs at all
+    // context.router..popUntilRouteWithName(SelectFoodRoute.name);
   }
 
   Future<bool> _onWillPop() {
