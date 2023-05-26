@@ -10,7 +10,8 @@ class RecipeState with _$RecipeState {
 
   const factory RecipeState.recipeInfo({
     required Recipe recipe,
-    required NutritionItem currentRecipeNutritionItem,
+    @Default(NutritionValuesTypes.calories)
+        NutritionValuesTypes currentNutritionType,
   }) = RecipeInfo;
 
   const factory RecipeState.error(RequestError fetchError) = Error;

@@ -13,7 +13,6 @@ import 'package:loopcare_frontend/features/nutrition/application/nutrition_instr
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 
 import 'dto/add_dish_to_meal_body.dart';
@@ -76,13 +75,9 @@ class DishBloc extends Bloc<DishEvent, DishState> {
       (r) {
         final Dish selectedDish = _createDish(r);
 
-        final updatedNutritionItem = selectedDish.serving.list
-            .firstWhere((e) => e.key == NutritionValuesTypes.calories.name);
-
         emit(DishState.dish(
           originalDishId: event.dishId,
           selectedDish: selectedDish,
-          currentNutritionItem: updatedNutritionItem,
         ));
       },
     );
@@ -93,7 +88,7 @@ class DishBloc extends Bloc<DishEvent, DishState> {
     Emitter<DishState> emit,
   ) async {
     state.mapOrNull(dish: (state) {
-      emit(state.copyWith(currentNutritionItem: event.item));
+      emit(state.copyWith(currentNutritionType: event.item));
     });
   }
 
@@ -116,13 +111,9 @@ class DishBloc extends Bloc<DishEvent, DishState> {
         (r) {
           final Dish selectedDish = _createDish(r);
 
-          final updatedNutritionItem = selectedDish.serving.list
-              .firstWhere((e) => e.key == state.currentNutritionItem.key);
-
           emit(
             state.copyWith(
               selectedDish: selectedDish,
-              currentNutritionItem: updatedNutritionItem,
             ),
           );
         },
@@ -145,13 +136,9 @@ class DishBloc extends Bloc<DishEvent, DishState> {
         (r) {
           final Dish selectedDish = _createDish(r);
 
-          final updatedNutritionItem = selectedDish.serving.list
-              .firstWhere((e) => e.key == state.currentNutritionItem.key);
-
           emit(
             state.copyWith(
               selectedDish: selectedDish,
-              currentNutritionItem: updatedNutritionItem,
             ),
           );
         },
@@ -200,13 +187,9 @@ class DishBloc extends Bloc<DishEvent, DishState> {
         (r) {
           final Dish selectedDish = _createDish(r);
 
-          final updatedNutritionItem = selectedDish.serving.list
-              .firstWhere((e) => e.key == state.currentNutritionItem.key);
-
           emit(
             state.copyWith(
               selectedDish: selectedDish,
-              currentNutritionItem: updatedNutritionItem,
             ),
           );
         },

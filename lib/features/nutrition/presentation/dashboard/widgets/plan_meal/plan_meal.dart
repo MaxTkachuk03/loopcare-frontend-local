@@ -152,6 +152,7 @@ class PlanMeal extends StatelessWidget {
                                 onTap: () => _onMealTap(
                                     context, currentPlannedMeals[index]),
                                 child: Ink(
+                                  color: AppColors.white,
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,

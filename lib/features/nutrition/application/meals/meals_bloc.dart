@@ -173,10 +173,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             mealActionMode: MealActionModes.mealPlanning,
             currentMealCategory: event.meal.mealCategory,
             currentMealId: event.meal.id,
-            currentMeal: event.meal,
-            currentNutritionItem: event.meal.serving.list.firstWhere(
-              (element) => element.key == NutritionValuesTypes.calories.name,
-            ),
           ),
         );
       },
@@ -187,9 +183,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     FetchMeals _,
     Emitter<MealsState> emit,
   ) async {
-    final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
-    final plannedMeals = state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
-
     emit(const MealsState.loading());
 
     final mealsResponses = await Future.wait([
@@ -206,15 +199,15 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     ]);
 
     final mealsMap = mealsResponses.first
-        .fold((l) => null, (r) => _combineMealsByDate(meals, r.data));
+        .fold((l) => null, (r) => _combineMealsByDate({}, r.data));
     if (mealsMap == null) {
       mealsResponses.first.leftMap((l) => emit(MealsState.error(l)));
 
       return;
     }
 
-    final plannedMealsMap = mealsResponses.last.fold(
-        (l) => null, (r) => _combinePlannedMealsByDate(plannedMeals, r.data));
+    final plannedMealsMap = mealsResponses.last
+        .fold((l) => null, (r) => _combinePlannedMealsByDate({}, r.data));
     if (plannedMealsMap == null) {
       mealsResponses.last.leftMap((l) {
         emit(MealsState.error(l));
@@ -248,19 +241,9 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             final newState = state.isPlanningMeals
                 ? state.copyWith(
                     plannedMeals: _getUpdatedMealsList(response),
-                    currentMeal: response,
-                    currentNutritionItem: response.serving.list.firstWhere(
-                      (element) =>
-                          element.key == NutritionValuesTypes.calories.name,
-                    ),
                   )
                 : state.copyWith(
                     meals: _getUpdatedMealsList(response),
-                    currentMeal: response,
-                    currentNutritionItem: response.serving.list.firstWhere(
-                      (element) =>
-                          element.key == NutritionValuesTypes.calories.name,
-                    ),
                   );
 
             emit(newState);
@@ -316,13 +299,11 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           (r) {
             final updatedList = _getUpdatedMealsList(r);
             final newState = state.isPlanningMeals
-                ? state.copyWith(plannedMeals: updatedList)
+                ? state.copyWith(
+                    plannedMeals: updatedList,
+                  )
                 : state.copyWith(
                     meals: updatedList,
-                    currentNutritionItem: r.serving.list.firstWhere(
-                      (element) =>
-                          element.key == NutritionValuesTypes.calories.name,
-                    ),
                   );
 
             emit(newState);
@@ -389,13 +370,11 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           (r) {
             final updatedList = _getUpdatedMealsList(r);
             final newState = state.isPlanningMeals
-                ? state.copyWith(plannedMeals: updatedList)
+                ? state.copyWith(
+                    plannedMeals: updatedList,
+                  )
                 : state.copyWith(
                     meals: updatedList,
-                    currentNutritionItem: r.serving.list.firstWhere(
-                      (element) =>
-                          element.key == NutritionValuesTypes.calories.name,
-                    ),
                   );
 
             emit(newState);
@@ -506,7 +485,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
                     )
                   : state.copyWith(
                       currentMealId: mealId,
-                      meals: updatedList,
+                      meals: updatedList
                     );
 
               emit(newState);
@@ -568,11 +547,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
                 currentMealCategory: event.mealCategory,
                 currentMealId: r.id,
                 meals: meals,
-                currentMeal: r,
-                currentNutritionItem: r.serving.list.firstWhere(
-                  (element) =>
-                      element.key == NutritionValuesTypes.calories.name,
-                ),
               ),
             );
           },
@@ -633,11 +607,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
                 currentMealCategory: event.mealCategory,
                 currentMealId: r.id,
                 plannedMeals: meals,
-                currentMeal: r,
-                currentNutritionItem: r.serving.list.firstWhere(
-                  (element) =>
-                      element.key == NutritionValuesTypes.calories.name,
-                ),
               ),
             );
           },
@@ -719,10 +688,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
               )
             : state.copyWith(
                 meals: meals,
-                currentNutritionItem: event.meal.serving.list.firstWhere(
-                  (element) =>
-                      element.key == NutritionValuesTypes.calories.name,
-                ),
               );
 
         emit(newState);
@@ -737,7 +702,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     state.mapOrNull(
       mealsInfo: (state) {
         emit(
-          state.copyWith(currentNutritionItem: event.item),
+          state.copyWith(currentNutritionType: event.item),
         );
       },
     );

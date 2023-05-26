@@ -68,11 +68,8 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
       },
       (r) {
         final Dish dish = _createDish(r);
-        final updatedNutritionItem = dish.serving.list
-            .firstWhere((e) => e.key == NutritionValuesTypes.calories.name);
 
         emit(EditDishState.dishInfo(
-          currentNutritionItem: updatedNutritionItem,
           currentDish: dish,
         ));
       },
@@ -99,11 +96,8 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
       },
       (r) {
         final Dish dish = _createDish(r);
-        final updatedNutritionItem = dish.serving.list
-            .firstWhere((e) => e.key == NutritionValuesTypes.calories.name);
 
         emit(EditDishState.dishInfo(
-          currentNutritionItem: updatedNutritionItem,
           currentDish: dish,
         ));
       },
@@ -131,11 +125,8 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
       },
       (r) {
         final Dish dish = _createDish(r);
-        final updatedNutritionItem = dish.serving.list
-            .firstWhere((e) => e.key == NutritionValuesTypes.calories.name);
 
         emit(EditDishState.dishInfo(
-          currentNutritionItem: updatedNutritionItem,
           currentDish: dish,
         ));
       },
@@ -162,11 +153,8 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
       },
       (r) {
         final Dish dish = _createDish(r);
-        final updatedNutritionItem = dish.serving.list
-            .firstWhere((e) => e.key == NutritionValuesTypes.calories.name);
 
         emit(EditDishState.dishInfo(
-          currentNutritionItem: updatedNutritionItem,
           currentDish: dish,
         ));
       },
@@ -178,7 +166,7 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
     Emitter<EditDishState> emit,
   ) async {
     state.mapOrNull(dishInfo: (state) {
-      emit(state.copyWith(currentNutritionItem: event.item));
+      emit(state.copyWith(currentNutritionType: event.item));
     });
   }
 
@@ -202,13 +190,9 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
         (r) {
           final Dish selectedDish = _createDish(r);
 
-          final updatedNutritionItem = selectedDish.serving.list
-              .firstWhere((e) => e.key == state.currentNutritionItem.key);
-
           emit(
             state.copyWith(
               currentDish: selectedDish,
-              currentNutritionItem: updatedNutritionItem,
             ),
           );
         },
@@ -231,13 +215,9 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
         (r) {
           final Dish selectedDish = _createDish(r);
 
-          final updatedNutritionItem = selectedDish.serving.list
-              .firstWhere((e) => e.key == state.currentNutritionItem.key);
-
           emit(
             state.copyWith(
               currentDish: selectedDish,
-              currentNutritionItem: updatedNutritionItem,
             ),
           );
         },
@@ -264,13 +244,9 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
         (r) {
           final Dish selectedDish = _createDish(r);
 
-          final updatedNutritionItem = selectedDish.serving.list
-              .firstWhere((e) => e.key == state.currentNutritionItem.key);
-
           emit(
             state.copyWith(
               currentDish: selectedDish,
-              currentNutritionItem: updatedNutritionItem,
             ),
           );
         },
