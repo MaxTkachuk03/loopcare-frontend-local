@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -50,13 +49,7 @@ class PlanMeal extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (BuildContext context, state) {
-        final currentPlannedMeals = state.maybeMap(
-            mealsInfo: (s) =>
-                s.plannedMeals[s.currentDate?.isoStringWithoutTime]
-                    ?.where((element) => element.mealItems.isNotEmpty)
-                    .toList() ??
-                <MealsListItem>[],
-            orElse: () => <MealsListItem>[]);
+        final currentPlannedMeals = state.todaysLoggedPlannedMeals;
 
         currentPlannedMeals.sort((a, b) => a.order.compareTo(b.order));
 

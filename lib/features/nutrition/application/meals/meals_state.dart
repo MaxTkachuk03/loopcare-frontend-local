@@ -309,4 +309,14 @@ class MealsState with _$MealsState {
       },
     );
   }
+
+  List<MealsListItem> get todaysLoggedPlannedMeals {
+    return maybeMap(
+        mealsInfo: (s) =>
+            s.plannedMeals[s.currentDate?.isoStringWithoutTime]
+                ?.where((element) => element.mealItems.isNotEmpty)
+                .toList() ??
+            <MealsListItem>[],
+        orElse: () => <MealsListItem>[]);
+  }
 }

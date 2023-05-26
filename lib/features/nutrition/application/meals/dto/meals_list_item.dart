@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 
 part 'meals_list_item.freezed.dart';
@@ -24,11 +25,11 @@ class MealsListItem with _$MealsListItem {
   }) = _MealItem;
 
   get order {
-    if (mealCategory == 'breakfast') return 1;
-    if (mealCategory == 'lunch') return 2;
-    if (mealCategory == 'dinner') return 3;
-    if (mealCategory == 'inBetweens') return 4;
-    if (mealCategory == 'drinks') return 5;
+    if (mealCategory == MealCategory.breakfast.originalValue) return 1;
+    if (mealCategory == MealCategory.lunch.originalValue) return 2;
+    if (mealCategory == MealCategory.dinner.originalValue) return 3;
+    if (mealCategory == MealCategory.inbetweens.originalValue) return 4;
+    if (mealCategory == MealCategory.drinks.originalValue) return 5;
     return 0;
   }
 
