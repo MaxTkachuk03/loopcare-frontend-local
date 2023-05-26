@@ -17,9 +17,9 @@ import 'package:loopcare_frontend/features/nutrition/application/search/dto/sear
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_food_item/dish_food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dish_details_page/widgets/dish_list/dish_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
@@ -63,7 +63,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
 
   void _onServingChanges(String _) {}
 
-  void _onNutritionFactSelect(NutritionItem item) {
+  void _onNutritionFactSelect(NutritionValuesTypes item) {
     context.read<DishBloc>().add(DishEvent.nutritionItemChanged(item));
   }
 
@@ -225,19 +225,17 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                               numberOfPortions: dishState
                                   .selectedDish.numberOfServings
                                   .toInt(),
-                              nutritionValue:
-                                  dishState.currentNutritionItem.value,
                               nutritionValuesList:
                                   dishState.selectedDish.serving.list,
-                              selectedNutritionItem:
-                                  dishState.currentNutritionItem,
+                              selectedNutritionType:
+                                  dishState.currentNutritionType,
                               onNutritionFactSelect: _onNutritionFactSelect,
                             ),
                             Expanded(
                               child: DishList(
                                 list: dishState.selectedDish.foodItems,
                                 nutritionKey:
-                                    dishState.currentNutritionItem.key,
+                                    dishState.currentNutritionType.name,
                                 onDeleteHandler: _onDeleteFoodItemPressed,
                                 onListItemTapHandler: _onFoodItemPressed,
                                 isScrollable: true,

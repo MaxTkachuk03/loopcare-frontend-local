@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutri
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/meal/widgets/meals_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
@@ -106,19 +107,11 @@ class _MealPageState extends State<MealPage> {
                                     .currentMeal?.serving.numberOfUnits
                                     .toInt() ??
                                 0,
-                            selectedNutritionItem:
-                                mealsState.currentNutritionItem ??
-                                    const NutritionItem(
-                                      key: '',
-                                      name: '',
-                                      unitLabel: '',
-                                      value: 0,
-                                    ),
+                            selectedNutritionType:
+                                mealsState.currentNutritionType,
                             nutritionValuesList:
                                 mealsState.currentMeal?.serving.list ??
                                     <NutritionItem>[],
-                            nutritionValue:
-                                mealsState.currentNutritionItem?.value ?? 0,
                             onNutritionFactSelect: _onNutritionFactSelect,
                           ),
                           const MealsList(),
@@ -189,7 +182,7 @@ class _MealPageState extends State<MealPage> {
     );
   }
 
-  void _onNutritionFactSelect(NutritionItem item) {
+  void _onNutritionFactSelect(NutritionValuesTypes item) {
     context.read<MealsBloc>().add(
           MealsEvent.nutritionItemChanged(item),
         );

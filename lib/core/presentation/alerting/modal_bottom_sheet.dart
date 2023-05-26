@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
@@ -205,7 +206,10 @@ class ModalBottomSheet {
                     padding: const EdgeInsets.only(right: 8.0, top: 12.0),
                     child: IconButton(
                       onPressed: () => context.router.pop(),
-                      icon: const Icon(Icons.close, size: 30,),
+                      icon: const Icon(
+                        Icons.close,
+                        size: 30,
+                      ),
                     ),
                   ),
                 ),
@@ -398,7 +402,7 @@ class ModalBottomSheet {
   static void nutrientFactsDialog({
     required BuildContext context,
     required List<NutritionItem> list,
-    required void Function(NutritionItem item) onSelect,
+    required void Function(NutritionValuesTypes item) onSelect,
   }) {
     showModalBottomSheet<void>(
       isScrollControlled: true,
@@ -454,7 +458,10 @@ class ModalBottomSheet {
                         return InkWell(
                           onTap: () {
                             context.router.pop();
-                            onSelect(item);
+                            final selectedNutritionType =
+                                NutritionValuesTypes.values.firstWhere(
+                                    (element) => element.name == item.key);
+                            onSelect(selectedNutritionType);
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 14.0),

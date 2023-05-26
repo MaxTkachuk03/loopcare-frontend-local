@@ -4,22 +4,21 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions_input/meal_portions_input.dart';
 
 class NutritionValuesBlock extends StatelessWidget {
   final int numberOfPortions;
-  final double nutritionValue;
-  final NutritionItem selectedNutritionItem;
+  final NutritionValuesTypes selectedNutritionType;
   final List<NutritionItem> nutritionValuesList;
-  final void Function(NutritionItem item) onNutritionFactSelect;
+  final void Function(NutritionValuesTypes item) onNutritionFactSelect;
   final TextEditingController? portionsController;
   final bool? isPortionsEditable;
 
   const NutritionValuesBlock({
     Key? key,
     required this.numberOfPortions,
-    required this.nutritionValue,
-    required this.selectedNutritionItem,
+    required this.selectedNutritionType,
     required this.nutritionValuesList,
     required this.onNutritionFactSelect,
     this.portionsController,
@@ -28,6 +27,8 @@ class NutritionValuesBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final nutritionItem = nutritionValuesList.firstWhere((element) => element.key == selectedNutritionType.name);
+
     return Container(
       decoration: const BoxDecoration(
           color: AppColors.white,
@@ -67,7 +68,7 @@ class NutritionValuesBlock extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  '${LocalizedTexts.total.translation.toUpperCase()} ${selectedNutritionItem.name.toUpperCase()}',
+                  '${LocalizedTexts.total.translation.toUpperCase()} ${selectedNutritionType.name.toUpperCase()}',
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontSize: 12.0,
                       ),
@@ -76,7 +77,7 @@ class NutritionValuesBlock extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      '$nutritionValue ${selectedNutritionItem.unitLabel}',
+                      '${nutritionItem.value} ${selectedNutritionType.unitLabel}',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontWeight: FontWeight.w600,
                           ),

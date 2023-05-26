@@ -9,7 +9,7 @@ class RecipeEvent with _$RecipeEvent {
     required int mealId,
   }) = FetchRecipeFromMeal;
 
-  const factory RecipeEvent.nutritionItemChanged(NutritionItem item) =
+  const factory RecipeEvent.nutritionItemChanged(NutritionValuesTypes item) =
       NutritionItemChanged;
 
   const factory RecipeEvent.servingChanged({

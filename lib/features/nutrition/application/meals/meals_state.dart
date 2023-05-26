@@ -12,8 +12,8 @@ class MealsState with _$MealsState {
 
   const factory MealsState.mealsInfo({
     int? currentMealId,
-    MealsListItem? currentMeal,
-    NutritionItem? currentNutritionItem,
+    @Default(NutritionValuesTypes.calories)
+        NutritionValuesTypes currentNutritionType,
     @Default(MealActionModes.mealLogging) MealActionModes mealActionMode,
     DateTime? currentDate,
     String? currentMealCategory,
@@ -170,6 +170,13 @@ class MealsState with _$MealsState {
     return mapOrNull(
       mealsInfo: (state) => state.currentMealId,
     );
+  }
+
+  MealsListItem? get currentMeal {
+    return mapOrNull(mealsInfo: (state) {
+      return state.mealsMap[state.currentDate?.isoStringWithoutTime]
+          ?.firstWhere((el) => el.id == state.currentMealId);
+    });
   }
 
   String? get mealListLength {
