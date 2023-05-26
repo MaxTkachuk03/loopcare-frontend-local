@@ -15,7 +15,6 @@ import 'package:loopcare_frontend/features/nutrition/application/nutrition_servi
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/meal_action_mode/meal_action_modes.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
@@ -122,7 +121,10 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             (r) => emit(
               MealsState.mealsInfo(
                 currentDate: event.currentDate,
-                meals: _combineMealsByDate(meals, r.data),
+                meals: {
+                  ...meals ?? {},
+                  ...{event.currentDate.isoStringWithoutTime: r.data},
+                },
                 selectedServing: null,
                 plannedMeals: plannedMeals ?? {},
               ),
@@ -151,7 +153,10 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
                 currentDate: event.currentDate,
                 meals: meals ?? {},
                 selectedServing: null,
-                plannedMeals: _combinePlannedMealsByDate(plannedMeals, r.data),
+                plannedMeals: {
+                  ...plannedMeals ?? {},
+                  ...{event.currentDate.isoStringWithoutTime: r.data},
+                },
               ),
             ),
           );
@@ -483,10 +488,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
                       currentMealId: mealId,
                       plannedMeals: updatedList,
                     )
-                  : state.copyWith(
-                      currentMealId: mealId,
-                      meals: updatedList
-                    );
+                  : state.copyWith(currentMealId: mealId, meals: updatedList);
 
               emit(newState);
             },
