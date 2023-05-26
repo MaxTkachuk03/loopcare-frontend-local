@@ -58,6 +58,8 @@ class PlanMeal extends StatelessWidget {
                 <MealsListItem>[],
             orElse: () => <MealsListItem>[]);
 
+        currentPlannedMeals.sort((a, b) => a.order.compareTo(b.order));
+
         return Container(
           padding: const EdgeInsets.only(
             top: 8.0,
@@ -161,7 +163,8 @@ class PlanMeal extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              "${state.getCurrentDate.isoStringWithoutTime} ${currentPlannedMeals[index].mealCategory}"
+                                              currentPlannedMeals[index]
+                                                  .mealCategory
                                                   .toUpperCase(),
                                               style: Theme.of(context)
                                                   .textTheme
