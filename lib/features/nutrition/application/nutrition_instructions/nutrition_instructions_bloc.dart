@@ -41,10 +41,20 @@ class NutritionInstructionsBloc
               el.category == NutritionInstructionCategory.proteinDegree.name)
           .toIList();
 
+      NutritionInstructionValue possibleMinValue = calorieDensityValues.reduce(
+          (a, b) =>
+              double.parse(a.minValue) < double.parse(b.minValue) ? a : b);
+
+      NutritionInstructionValue possibleMaxValue = calorieDensityValues.reduce(
+          (a, b) =>
+              double.parse(a.maxValue) > double.parse(b.maxValue) ? a : b);
+
       emit(
         NutritionInstructionsState.nutritionInstructions(
           calorieDensityValues: calorieDensityValues,
           proteinDegreeValues: proteinDegreeValues,
+          minCalorieDegreeValue: possibleMinValue,
+          maxCalorieDegreeValue: possibleMaxValue,
           proteinDegreeValue: 0.0,
           calorieDensityValue: 0.0,
           isDisabled: false,

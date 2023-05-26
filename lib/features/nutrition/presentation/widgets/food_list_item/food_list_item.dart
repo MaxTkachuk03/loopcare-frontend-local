@@ -4,6 +4,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 
 class FoodListItem extends StatelessWidget {
   final String nutritionKey;
@@ -21,9 +22,7 @@ class FoodListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentNutritionFact = foodItem.serving
-        .toJson()
-        .entries
+    final NutritionItem currentNutritionFact = foodItem.serving.list
         .firstWhere((element) => element.key == nutritionKey);
 
     String label;
@@ -133,7 +132,7 @@ class FoodListItem extends StatelessWidget {
                   const SizedBox(
                     width: 4.0,
                   ),
-                  Text('${currentNutritionFact.value}',
+                  Text(currentNutritionFact.value.toStringAsFixed(2),
                       style: Theme.of(context).textTheme.bodySmall),
                   const SizedBox(
                     width: 4.0,
