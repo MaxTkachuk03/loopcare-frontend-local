@@ -58,6 +58,8 @@ class PlanMeal extends StatelessWidget {
                 <MealsListItem>[],
             orElse: () => <MealsListItem>[]);
 
+        currentPlannedMeals.sort((a, b) => a.order.compareTo(b.order));
+
         return Container(
           padding: const EdgeInsets.only(
             top: 8.0,
