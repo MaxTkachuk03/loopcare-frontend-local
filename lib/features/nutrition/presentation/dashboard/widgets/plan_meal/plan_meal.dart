@@ -160,7 +160,8 @@ class PlanMeal extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              "${state.getCurrentDate.isoStringWithoutTime} ${currentPlannedMeals[index].mealCategory}"
+                                              currentPlannedMeals[index]
+                                                  .mealCategory
                                                   .toUpperCase(),
                                               style: Theme.of(context)
                                                   .textTheme
