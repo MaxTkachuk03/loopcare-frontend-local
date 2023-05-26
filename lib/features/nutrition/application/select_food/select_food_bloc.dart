@@ -74,8 +74,6 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     final favoritesFiltes =
         state.mapOrNull(selectFood: (s) => s.mealFavoritesCategories);
 
-    emit(const SelectFoodState.loading());
-
     final response = await nutritionService.getDishes([]);
 
     response.fold(
