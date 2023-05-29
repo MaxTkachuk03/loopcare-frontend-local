@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/food_list_item/food_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
@@ -24,10 +24,9 @@ class Ingredients extends StatelessWidget {
               children: [
                 NutritionValuesBlock(
                   numberOfPortions: recipeState.recipe.numberOfServings,
-                  selectedNutritionItem: recipeState.currentRecipeNutritionItem,
+                  selectedNutritionType: recipeState.currentNutritionType,
                   nutritionValuesList: recipeState.recipe.nutritionValues,
-                  nutritionValue: recipeState.currentRecipeNutritionItem.value,
-                  onNutritionFactSelect: (NutritionItem item) =>
+                  onNutritionFactSelect: (NutritionValuesTypes item) =>
                       _onNutritionFactSelect(
                     context,
                     item,
@@ -50,7 +49,7 @@ class Ingredients extends StatelessWidget {
                         foodDescription: item.foodDescription,
                         serving: item.serving,
                       ),
-                      nutritionKey: recipeState.currentRecipeNutritionItem.key,
+                      nutritionKey: recipeState.currentNutritionType.name,
                     );
                   },
                 ),
@@ -67,7 +66,7 @@ class Ingredients extends StatelessWidget {
     );
   }
 
-  void _onNutritionFactSelect(BuildContext context, NutritionItem item) {
+  void _onNutritionFactSelect(BuildContext context, NutritionValuesTypes item) {
     context.read<RecipeBloc>().add(RecipeEvent.nutritionItemChanged(item));
   }
 }

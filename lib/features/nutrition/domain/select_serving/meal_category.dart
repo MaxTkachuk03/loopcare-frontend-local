@@ -62,6 +62,23 @@ extension MealCategoryExtension on MealCategory {
     }
   }
 
+  String? get originalValue {
+    switch (this) {
+      case MealCategory.breakfast:
+        return 'breakfast';
+      case MealCategory.lunch:
+        return 'lunch';
+      case MealCategory.dinner:
+        return 'dinner';
+      case MealCategory.inbetweens:
+        return 'inbetweens & snacks';
+      case MealCategory.drinks:
+        return 'drinks';
+      default:
+        return null;
+    }
+  }
+
   String? get shortLabel {
     switch (this) {
       case MealCategory.breakfast:

@@ -36,7 +36,7 @@ class MealsList extends StatelessWidget {
                           foodDescription: item.description,
                           serving: item.serving,
                         ),
-                        nutritionKey: 'calories',
+                        nutritionKey: mealsState.currentNutritionType.name,
                         onDeletePressed: _onDeletePressed,
                         onTap: (BuildContext context) => _onTap(context, item),
                       );

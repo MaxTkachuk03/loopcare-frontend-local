@@ -18,7 +18,7 @@ import 'package:loopcare_frontend/features/nutrition/application/search/dto/sear
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_food_item/dish_food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dish_details_page/widgets/dish_list/dish_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/widgets/meal_category_chips.dart';
@@ -26,11 +26,15 @@ import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_inst
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_amount/servings_amount.dart';
 
+enum EditDishPageMode { edit, create }
+
 class EditDishPage extends StatefulWidget {
+  final EditDishPageMode mode;
   final EditDishEvent event;
 
   const EditDishPage({
     Key? key,
+    required this.mode,
     required this.event,
   }) : super(key: key);
 
@@ -72,7 +76,7 @@ class _EditDishPageState extends State<EditDishPage> {
     super.dispose();
   }
 
-  void _onNutritionFactSelect(NutritionItem item) {
+  void _onNutritionFactSelect(NutritionValuesTypes item) {
     context.read<EditDishBloc>().add(EditDishEvent.nutritionItemChanged(item));
   }
 
@@ -227,11 +231,12 @@ class _EditDishPageState extends State<EditDishPage> {
   }
 
   _deleteDishListener(BuildContext context, state) {
-    context.router.popUntilRouteWithName(SelectFoodRoute.name);
+    //TODO commented as a fix for LOOCARE-904 - not sure it needs at all
+    // context.router..popUntilRouteWithName(SelectFoodRoute.name);
   }
 
   Future<bool> _onWillPop() {
-    if (!_isUserSaveChanges) {
+    if (widget.mode == EditDishPageMode.create && !_isUserSaveChanges) {
       _onDeleteDishHandler();
     }
 
@@ -347,12 +352,10 @@ class _EditDishPageState extends State<EditDishPage> {
                                                     .currentDish
                                                     .numberOfServings
                                                     .toInt(),
-                                                nutritionValue: dishState
-                                                    .currentNutritionItem.value,
                                                 nutritionValuesList: dishState
                                                     .currentDish.serving.list,
-                                                selectedNutritionItem: dishState
-                                                    .currentNutritionItem,
+                                                selectedNutritionType: dishState
+                                                    .currentNutritionType,
                                                 onNutritionFactSelect:
                                                     _onNutritionFactSelect,
                                               ),
@@ -360,7 +363,7 @@ class _EditDishPageState extends State<EditDishPage> {
                                                 list: dishState
                                                     .currentDish.foodItems,
                                                 nutritionKey: dishState
-                                                    .currentNutritionItem.key,
+                                                    .currentNutritionType.name,
                                                 onDeleteHandler:
                                                     _onDeleteFoodItem,
                                                 onListItemTapHandler:

@@ -16,7 +16,8 @@ class EditDishState with _$EditDishState {
 
   const factory EditDishState.dishInfo({
     required Dish currentDish,
-    required NutritionItem currentNutritionItem,
+    @Default(NutritionValuesTypes.calories)
+        NutritionValuesTypes currentNutritionType,
   }) = DishInfo;
 
   String get servingAmount {
