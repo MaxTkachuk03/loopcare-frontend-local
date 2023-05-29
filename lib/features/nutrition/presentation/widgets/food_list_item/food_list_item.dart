@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/domain/calorie_density_scale_values.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -19,6 +20,15 @@ class FoodListItem extends StatelessWidget {
     this.onDeletePressed,
     this.onTap,
   }) : super(key: key);
+
+  Color get _calorieDensityColor {
+    Range item = calorieDensityScaleValues.firstWhere((e) {
+      return e.min <= foodItem.calorieDensity &&
+          foodItem.calorieDensity <= e.max;
+    }, orElse: () => calorieDensityScaleValues[0]);
+
+    return item.color;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +94,7 @@ class FoodListItem extends StatelessWidget {
                     height: 20,
                     borderRadius: 10,
                     innerWidget: Container(
-                      color: AppColors.red,
+                      color: _calorieDensityColor,
                     ),
                   ),
                   const SizedBox(
