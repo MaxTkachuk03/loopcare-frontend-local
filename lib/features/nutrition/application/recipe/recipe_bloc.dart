@@ -64,8 +64,6 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
               numberOfServings: response.numberOfServings,
               servingAmount: response.servingSize.numberOfUnits,
             ),
-            currentRecipeNutritionItem: response.servingSize.list.firstWhere(
-                (element) => element.key == NutritionValuesTypes.calories.name),
           ),
         );
       },
@@ -98,8 +96,6 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
               numberOfServings: response.numberOfServings,
               servingAmount: response.servingSize.numberOfUnits,
             ),
-            currentRecipeNutritionItem: response.servingSize.list.firstWhere(
-                (element) => element.key == NutritionValuesTypes.calories.name),
           ),
         );
       },
@@ -111,7 +107,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     Emitter<RecipeState> emit,
   ) {
     state.mapOrNull(recipeInfo: (state) {
-      emit(state.copyWith(currentRecipeNutritionItem: event.item));
+      emit(state.copyWith(currentNutritionType: event.item));
     });
   }
 

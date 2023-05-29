@@ -15,7 +15,6 @@ import 'package:loopcare_frontend/features/nutrition/application/nutrition_servi
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/meal_action_mode/meal_action_modes.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
@@ -34,6 +33,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
   MealsBloc(this.nutritionService) : super(const MealsState.initial()) {
     on<FetchMeals>(_onFetchMeals);
     on<FetchMealById>(_onFetchMealById);
+    on<SetPlannedMeal>(_onSetPlannedMeal);
     on<AddMeal>(_onAddMeal);
     on<AddPlannedMeal>(_onAddPlannedMeal);
     on<UpdateFoodItemInMeal>(_onUpdateFoodItemInMeal);
@@ -61,6 +61,9 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
       List<MealsListItem> dayData =
           meals[loggingDate.isoStringWithoutTime] ?? <MealsListItem>[];
+      final isAlreadyExist = dayData.contains(element);
+      if (isAlreadyExist) continue;
+
       dayData.add(element);
       meals[loggingDate.isoStringWithoutTime] = dayData;
     }
@@ -81,6 +84,9 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
       List<MealsListItem> dayData =
           meals[loggingDate.first.isoStringWithoutTime] ?? <MealsListItem>[];
+      final isAlreadyExist = dayData.contains(element);
+      if (isAlreadyExist) continue;
+
       dayData.add(element);
       meals[loggingDate.first.isoStringWithoutTime] = dayData;
     }
@@ -92,62 +98,89 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     SetCurrentDate event,
     Emitter<MealsState> emit,
   ) async {
-    if (event.currentDate.isBefore(DateTime.now())) {
-      final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
+    await state.mapOrNull(
+      mealsInfo: (s) async {
+        emit(s.copyWith(
+          currentDate: event.currentDate,
+        ));
 
-      emit(const MealsState.loading());
+        if (event.currentDate.isBefore(DateTime.now())) {
+          final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
+          final plannedMeals =
+              state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
 
-      final response = await nutritionService.getMeals(
-        startDate: event.currentDate.isoStringWithoutTime,
-        endDate: event.currentDate.isoStringWithoutTime,
-      );
+          emit(const MealsState.loading());
 
-      response.fold(
-        (l) => emit(MealsState.error(l)),
-        (r) => emit(
-          MealsState.mealsInfo(
-            currentDate: event.currentDate,
-            meals: _combineMealsByDate(meals, r.data),
-            selectedServing: null,
-            plannedMeals: {},
+          final response = await nutritionService.getMeals(
+            startDate: event.currentDate.isoStringWithoutTime,
+            endDate: event.currentDate.isoStringWithoutTime,
+          );
+
+          response.fold(
+            (l) => emit(MealsState.error(l)),
+            (r) => emit(
+              MealsState.mealsInfo(
+                currentDate: event.currentDate,
+                meals: {
+                  ...meals ?? {},
+                  ...{event.currentDate.isoStringWithoutTime: r.data},
+                },
+                selectedServing: null,
+                plannedMeals: plannedMeals ?? {},
+              ),
+            ),
+          );
+
+          return;
+        }
+
+        if (state.isPossibleToPlanMeal) {
+          final plannedMeals =
+              state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
+          final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
+
+          emit(const MealsState.loading());
+
+          final response = await nutritionService.getPlannedMeals(
+            startDate: event.currentDate.isoStringWithoutTime,
+            endDate: event.currentDate.isoStringWithoutTime,
+          );
+
+          response.fold(
+            (l) => emit(MealsState.error(l)),
+            (r) => emit(
+              MealsState.mealsInfo(
+                currentDate: event.currentDate,
+                meals: meals ?? {},
+                selectedServing: null,
+                plannedMeals: {
+                  ...plannedMeals ?? {},
+                  ...{event.currentDate.isoStringWithoutTime: r.data},
+                },
+              ),
+            ),
+          );
+
+          return;
+        }
+      },
+    );
+  }
+
+  FutureOr<void> _onSetPlannedMeal(
+    SetPlannedMeal event,
+    Emitter<MealsState> emit,
+  ) async {
+    await state.mapOrNull(
+      mealsInfo: (s) async {
+        emit(
+          s.copyWith(
+            mealActionMode: MealActionModes.mealPlanning,
+            currentMealCategory: event.meal.mealCategory,
+            currentMealId: event.meal.id,
           ),
-        ),
-      );
-
-      return;
-    }
-
-    if (state.isPossibleToPlanMeal) {
-      final plannedMeals = state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
-
-      emit(const MealsState.loading());
-
-      final response = await nutritionService.getPlannedMeals(
-        startDate: event.currentDate.isoStringWithoutTime,
-        endDate: event.currentDate.isoStringWithoutTime,
-      );
-
-      response.fold(
-        (l) => emit(MealsState.error(l)),
-        (r) => emit(
-          MealsState.mealsInfo(
-            currentDate: event.currentDate,
-            meals: {},
-            selectedServing: null,
-            plannedMeals: _combinePlannedMealsByDate(plannedMeals, r.data),
-          ),
-        ),
-      );
-
-      return;
-    }
-
-    emit(
-      MealsState.mealsInfo(
-        currentDate: event.currentDate,
-        plannedMeals: {},
-        meals: {},
-      ),
+        );
+      },
     );
   }
 
@@ -155,9 +188,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     FetchMeals _,
     Emitter<MealsState> emit,
   ) async {
-    final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
-    final plannedMeals = state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
-
     emit(const MealsState.loading());
 
     final mealsResponses = await Future.wait([
@@ -174,15 +204,15 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     ]);
 
     final mealsMap = mealsResponses.first
-        .fold((l) => null, (r) => _combineMealsByDate(meals, r.data));
+        .fold((l) => null, (r) => _combineMealsByDate({}, r.data));
     if (mealsMap == null) {
       mealsResponses.first.leftMap((l) => emit(MealsState.error(l)));
 
       return;
     }
 
-    final plannedMealsMap = mealsResponses.last.fold(
-        (l) => null, (r) => _combinePlannedMealsByDate(plannedMeals, r.data));
+    final plannedMealsMap = mealsResponses.last
+        .fold((l) => null, (r) => _combinePlannedMealsByDate({}, r.data));
     if (plannedMealsMap == null) {
       mealsResponses.last.leftMap((l) {
         emit(MealsState.error(l));
@@ -216,19 +246,9 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             final newState = state.isPlanningMeals
                 ? state.copyWith(
                     plannedMeals: _getUpdatedMealsList(response),
-                    currentMeal: response,
-                    currentNutritionItem: response.serving.list.firstWhere(
-                      (element) =>
-                          element.key == NutritionValuesTypes.calories.name,
-                    ),
                   )
                 : state.copyWith(
                     meals: _getUpdatedMealsList(response),
-                    currentMeal: response,
-                    currentNutritionItem: response.serving.list.firstWhere(
-                      (element) =>
-                          element.key == NutritionValuesTypes.calories.name,
-                    ),
                   );
 
             emit(newState);
@@ -284,13 +304,11 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           (r) {
             final updatedList = _getUpdatedMealsList(r);
             final newState = state.isPlanningMeals
-                ? state.copyWith(plannedMeals: updatedList)
+                ? state.copyWith(
+                    plannedMeals: updatedList,
+                  )
                 : state.copyWith(
                     meals: updatedList,
-                    currentNutritionItem: r.serving.list.firstWhere(
-                      (element) =>
-                          element.key == NutritionValuesTypes.calories.name,
-                    ),
                   );
 
             emit(newState);
@@ -357,13 +375,11 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           (r) {
             final updatedList = _getUpdatedMealsList(r);
             final newState = state.isPlanningMeals
-                ? state.copyWith(plannedMeals: updatedList)
+                ? state.copyWith(
+                    plannedMeals: updatedList,
+                  )
                 : state.copyWith(
                     meals: updatedList,
-                    currentNutritionItem: r.serving.list.firstWhere(
-                      (element) =>
-                          element.key == NutritionValuesTypes.calories.name,
-                    ),
                   );
 
             emit(newState);
@@ -472,10 +488,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
                       currentMealId: mealId,
                       plannedMeals: updatedList,
                     )
-                  : state.copyWith(
-                      currentMealId: mealId,
-                      meals: updatedList,
-                    );
+                  : state.copyWith(currentMealId: mealId, meals: updatedList);
 
               emit(newState);
             },
@@ -536,11 +549,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
                 currentMealCategory: event.mealCategory,
                 currentMealId: r.id,
                 meals: meals,
-                currentMeal: r,
-                currentNutritionItem: r.serving.list.firstWhere(
-                  (element) =>
-                      element.key == NutritionValuesTypes.calories.name,
-                ),
               ),
             );
           },
@@ -601,11 +609,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
                 currentMealCategory: event.mealCategory,
                 currentMealId: r.id,
                 plannedMeals: meals,
-                currentMeal: r,
-                currentNutritionItem: r.serving.list.firstWhere(
-                  (element) =>
-                      element.key == NutritionValuesTypes.calories.name,
-                ),
               ),
             );
           },
@@ -645,13 +648,13 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     return state.maybeMap(
       mealsInfo: (state) {
         final currentDate = state.currentDate ?? DateTime.now();
+
         Map<String, List<MealsListItem>> meals =
-            Map<String, List<MealsListItem>>.from(state.mealsMap);
+            state.mealsMap.map((key, value) => MapEntry(key, [...value]));
         var selectedDayMeals =
             meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
         selectedDayMeals.removeWhere((e) => e.id == mealItem);
-        meals[currentDate.isoStringWithoutTime] = selectedDayMeals;
 
         return meals;
       },
@@ -687,10 +690,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
               )
             : state.copyWith(
                 meals: meals,
-                currentNutritionItem: event.meal.serving.list.firstWhere(
-                  (element) =>
-                      element.key == NutritionValuesTypes.calories.name,
-                ),
               );
 
         emit(newState);
@@ -705,7 +704,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     state.mapOrNull(
       mealsInfo: (state) {
         emit(
-          state.copyWith(currentNutritionItem: event.item),
+          state.copyWith(currentNutritionType: event.item),
         );
       },
     );

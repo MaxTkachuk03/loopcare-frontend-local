@@ -7,7 +7,7 @@ class ServingFormatter extends TextInputFormatter {
       TextEditingValue oldValue, TextEditingValue newValue) {
     // Allow digits, comma, and dot
     final RegExp regExp = RegExp(RegExpUtils.digitsWithDotOrComma);
-    if (regExp.hasMatch(newValue.text)) {
+    if (regExp.hasMatch(newValue.text) || newValue.text.isEmpty) {
       return newValue;
     }
     return oldValue;

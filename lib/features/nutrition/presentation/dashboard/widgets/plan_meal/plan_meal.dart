@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -49,11 +49,9 @@ class PlanMeal extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (BuildContext context, state) {
-        final currentPlannedMeals = state.maybeMap(
-            mealsInfo: (s) =>
-                s.plannedMeals[s.currentDate?.isoStringWithoutTime] ??
-                <MealsListItem>[],
-            orElse: () => <MealsListItem>[]);
+        final currentPlannedMeals = state.todaysLoggedPlannedMeals;
+
+        currentPlannedMeals.sort((a, b) => a.order.compareTo(b.order));
 
         return Container(
           padding: const EdgeInsets.only(
@@ -142,45 +140,56 @@ class PlanMeal extends StatelessWidget {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: currentPlannedMeals.length,
                           itemBuilder: (BuildContext context, index) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                            return Material(
+                              child: InkWell(
+                                onTap: () => _onMealTap(
+                                    context, currentPlannedMeals[index]),
+                                child: Ink(
+                                  color: AppColors.white,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        "${state.getCurrentDate.isoStringWithoutTime} ${currentPlannedMeals[index].mealCategory}"
-                                            .toUpperCase(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineSmall
-                                            ?.copyWith(
-                                              fontSize: 12.0,
-                                              color: AppColors.greyLabel,
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              currentPlannedMeals[index]
+                                                  .mealCategory
+                                                  .toUpperCase(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineSmall
+                                                  ?.copyWith(
+                                                    fontSize: 12.0,
+                                                    color: AppColors.greyLabel,
+                                                  ),
                                             ),
+                                            Text(
+                                              currentPlannedMeals[index]
+                                                  .mealItems
+                                                  .map((e) => e.name)
+                                                  .join(', '),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineSmall
+                                                  ?.copyWith(fontSize: 12.0),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                      Text(
-                                        currentPlannedMeals[index]
-                                            .mealItems
-                                            .map((e) => e.name)
-                                            .join(', '),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineSmall
-                                            ?.copyWith(fontSize: 12.0),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      )
+                                      const Image(
+                                        image: AppIcons.arrow,
+                                        color: AppColors.greyLabel,
+                                      ),
                                     ],
                                   ),
                                 ),
-                                const Image(
-                                  image: AppIcons.arrow,
-                                  color: AppColors.greyLabel,
-                                ),
-                              ],
+                              ),
                             );
                           },
                           separatorBuilder: (BuildContext context, int index) {
@@ -195,5 +204,11 @@ class PlanMeal extends StatelessWidget {
         );
       },
     );
+  }
+
+  _onMealTap(BuildContext context, MealsListItem meal) {
+    context
+      ..read<MealsBloc>().add(MealsEvent.setPlannedMeal(meal))
+      ..router.pushNamed(AppRoutes.meal);
   }
 }

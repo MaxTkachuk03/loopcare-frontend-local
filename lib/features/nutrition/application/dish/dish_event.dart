@@ -4,7 +4,7 @@ part of 'dish_bloc.dart';
 class DishEvent with _$DishEvent {
   const factory DishEvent.getClonedDish(int dishId) = GetClonedDish;
 
-  const factory DishEvent.nutritionItemChanged(NutritionItem item) =
+  const factory DishEvent.nutritionItemChanged(NutritionValuesTypes item) =
       NutritionItemChanged;
 
   const factory DishEvent.updateFoodItemInDish({

@@ -9,6 +9,8 @@ class NutritionInstructionsState with _$NutritionInstructionsState {
   const factory NutritionInstructionsState.nutritionInstructions({
     required IList<NutritionInstructionValue> calorieDensityValues,
     required IList<NutritionInstructionValue> proteinDegreeValues,
+    required NutritionInstructionValue minCalorieDegreeValue,
+    required NutritionInstructionValue maxCalorieDegreeValue,
     required double proteinDegreeValue,
     required double calorieDensityValue,
     required bool isDisabled,
@@ -24,9 +26,18 @@ class NutritionInstructionsState with _$NutritionInstructionsState {
   NutritionInstructionValue? getCalorieDensityItem(double? value) {
     if (value == null) return null;
 
-    return mapOrNull(
-        nutritionInstructions: (state) => state.calorieDensityValues
-            .firstWhere(_filter(double.parse(value.toStringAsFixed(2)))));
+    return mapOrNull(nutritionInstructions: (state) {
+      if (value < double.parse(state.minCalorieDegreeValue.minValue)) {
+        return state.minCalorieDegreeValue;
+      }
+
+      if (value > double.parse(state.maxCalorieDegreeValue.maxValue)) {
+        return state.maxCalorieDegreeValue;
+      }
+
+      return state.calorieDensityValues
+          .firstWhere(_filter(double.parse(value.toStringAsFixed(2))));
+    });
   }
 
   NutritionInstructionValue? getProteinDegreeItem(double? value) {

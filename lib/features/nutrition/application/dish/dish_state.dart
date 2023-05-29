@@ -13,7 +13,8 @@ class DishState with _$DishState {
   const factory DishState.dish({
     required Dish selectedDish,
     required int originalDishId,
-    required NutritionItem currentNutritionItem,
+    @Default(NutritionValuesTypes.calories)
+        NutritionValuesTypes currentNutritionType,
   }) = _Dish;
 
   String get servingAmount {
