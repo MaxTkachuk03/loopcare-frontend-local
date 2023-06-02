@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/features/education/presentation/widgets/sliver_app_bar_delegate.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/sliver_app_bar_delegate.dart';
 
 class EducationTabBar extends StatelessWidget {
   final TabController controller;

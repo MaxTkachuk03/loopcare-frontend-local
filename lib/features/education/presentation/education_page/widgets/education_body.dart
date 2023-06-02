@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/features/education/application/education_program_bloc.dart';
+import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/education_card_type.dart';
 import 'package:loopcare_frontend/features/education/domain/education_item.dart';
-import 'package:loopcare_frontend/features/education/presentation/widgets/education_card.dart';
-import 'package:loopcare_frontend/features/education/presentation/widgets/progress_item.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_card.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/progress_item.dart';
 
 List<EducationItem> _cardList = const [
   EducationItem(
@@ -39,11 +39,6 @@ List<EducationItem> _cardList = const [
       label: 'General',
       duration: '3m 59s',
       type: EducationCardType.blocked),
-  EducationItem(
-      title: 'Expecting and defeating stalls in weight loss',
-      label: 'General',
-      duration: '3m 59s',
-      type: EducationCardType.blocked),
 ];
 
 class EducationBody extends StatelessWidget {
@@ -65,7 +60,9 @@ class EducationBody extends StatelessWidget {
               return ListView.builder(
                 itemCount: lessons.length,
                 itemBuilder: (BuildContext context, index) {
-                  final isLastElement = index + 1 == lessons.length;
+                  final isLastElement = index + 1 ==
+                      lessons.length; //FIXME: lessons or _cardList?
+                  // final isLastElement = index + 1 == _cardList.length;
                   final isFirstElement = index == 0;
 
                   return IntrinsicHeight(

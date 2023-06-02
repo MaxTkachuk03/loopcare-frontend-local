@@ -17,6 +17,7 @@ class LocalizedTexts {
   static const String imperial = 'imperial';
   static const String needHelpWithThis = 'needHelpWithThis';
   static const String next = 'next';
+  static const String finish = 'finish';
   static const String yourWeight = 'yourWeight';
   static const String introPage = 'introPage';
   static const String joinUsIn2Steps = 'joinUsIn2Steps';
@@ -394,6 +395,9 @@ class LocalizedTexts {
   static const String noMealsLoggedYet = 'noMealsLoggedYet';
   static const String noMealsPlanned = 'noMealsPlanned';
   static const String noMealsPlannedYet = 'noMealsPlannedYet';
+  static const String sampleLessonText = 'sampleLessonText';
+  static const String readText = 'readText';
+  static const String listenAudio = 'listenAudio';
 
   // Dish
   static const String createMyDish = 'createMyDish';
@@ -418,6 +422,11 @@ class LocalizedTexts {
   static const String deleteModalMessage = 'deleteModalMessage';
   static const String yesDelete = 'yesDelete';
   static const String noCancel = 'noCancel';
+
+  // Education
+  static const String lessonCompleteTitle = 'lessonCompleteTitle';
+  static const String backToToday = 'backToToday';
+  static const String completed = 'completed';
 }
 
 extension StringX on String {

@@ -5,8 +5,10 @@ class AppImages {
   static const String imagesFilePath = 'assets/images';
 
   static const AssetImage logo = AssetImage('$imagesFilePath/logo.png');
-  static const AssetImage introOne = AssetImage('$imagesFilePath/intro_one.png');
-  static const AssetImage introTwo = AssetImage('$imagesFilePath/intro_two.png');
+  static const AssetImage introOne =
+      AssetImage('$imagesFilePath/intro_one.png');
+  static const AssetImage introTwo =
+      AssetImage('$imagesFilePath/intro_two.png');
   static const AssetImage introThree =
       AssetImage('$imagesFilePath/intro_three.png');
   static const AssetImage coffee = AssetImage('$imagesFilePath/coffee.png');
@@ -53,6 +55,9 @@ class AppImages {
 
   static const AssetImage recipePlaceholder =
       AssetImage('$imagesFilePath/recipe_placeholder.png');
+
+  static const AssetImage lessonComplete =
+      AssetImage('$imagesFilePath/lesson_complete.png');
 
   static SvgPicture logoSvgBig =
       SvgPicture.asset('$imagesFilePath/logo.svg', width: 114, height: 107);

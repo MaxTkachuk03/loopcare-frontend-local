@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/education_page.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/dashboard_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/bottom_navigation/bottom_navigation.dart';

@@ -78,5 +78,13 @@ class AppRoutes {
   static const String dish = '/dish';
   static const String dishDetails = '/dish-details';
   static const String editDish = '/edit-dish';
+
+  // Education
+  static const String lesson = '/lesson/:lessonId/page/:pageIndex';
+  static const String educationAudioTextVersion =
+      '/education-audio-text_version';
+
+  static const String lessonComplete = '/lesson-complete';
+  static const String lessonError = '/lesson-error';
   AppRoutes._();
 }

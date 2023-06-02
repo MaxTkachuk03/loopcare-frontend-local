@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/features/education/application/education_program_bloc.dart';
+import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
-import 'package:loopcare_frontend/features/education/presentation/widgets/education_app_bar.dart';
-import 'package:loopcare_frontend/features/education/presentation/widgets/education_body.dart';
-import 'package:loopcare_frontend/features/education/presentation/widgets/education_tab_bar.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_app_bar.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_body.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_tab_bar.dart';
 
 class EducationPage extends StatefulWidget {
   const EducationPage({Key? key}) : super(key: key);
