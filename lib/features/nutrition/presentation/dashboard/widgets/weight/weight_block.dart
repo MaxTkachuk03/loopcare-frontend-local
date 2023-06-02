@@ -101,29 +101,30 @@ class WeightBlock extends StatelessWidget {
             ],
           ),
           BlocBuilder<DashboardWeightBloc, DashboardWeightState>(
-              builder: (BuildContext context, s) {
-            final bool isEditable = s.isEditable(date);
-            final hasLog = s.hasLogOnSelectedDate(date);
+            builder: (BuildContext context, s) {
+              final bool isEditable = s.isEditable(date);
+              final hasLog = s.hasLogOnSelectedDate(date);
 
-            return isEditable
-                ? Hexagon(
-                    width: 54,
-                    height: 54,
-                    borderRadius: 16,
-                    innerWidget: Container(
-                      color: AppColors.bgGreen,
-                      child: IconButton(
-                        icon: ImageIcon(
-                          hasLog ? AppIcons.edit : AppIcons.plus,
-                          color: AppColors.darkGreen,
-                          size: 18,
+              return isEditable
+                  ? Hexagon(
+                      width: 54,
+                      height: 54,
+                      borderRadius: 16,
+                      innerWidget: Container(
+                        color: AppColors.bgGreen,
+                        child: IconButton(
+                          icon: ImageIcon(
+                            hasLog ? AppIcons.edit : AppIcons.plus,
+                            color: AppColors.darkGreen,
+                            size: 18,
+                          ),
+                          onPressed: () => onPressHandler(context),
                         ),
-                        onPressed: () => onPressHandler(context),
                       ),
-                    ),
-                  )
-                : Container();
-          }),
+                    )
+                  : Container();
+            },
+          ),
         ],
       ),
     );

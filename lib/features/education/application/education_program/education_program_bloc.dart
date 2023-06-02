@@ -7,9 +7,7 @@ import 'package:loopcare_frontend/features/education/application/education_servi
 import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
 
 part 'education_program_bloc.freezed.dart';
-
 part 'education_program_event.dart';
-
 part 'education_program_state.dart';
 
 @singleton

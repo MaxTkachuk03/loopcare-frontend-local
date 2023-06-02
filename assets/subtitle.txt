@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00:00.430 --> 00:01:04.360
+https://static-ssl.businessinsider.com/image/5a7085a97e7a35f10c8b479f-1000/blackpanthershuri.jpg
+
+00:01:04.360 --> 00:02:07.100
+https://longreadsblog.files.wordpress.com/2018/02/black-panther.jpg?w=1680
+
+00:02:07.100 --> 00:03:10.640
+https://static2.srcdn.com/wp-content/uploads/2017/10/Black-Panther-Trailer-1.jpg?q=50&w=1000&h=500&fit=crop&dpr=1.5
+
+00:03:11.980 --> 00:03:20.190
+https://static-ssl.businessinsider.com/image/52d09b47eab8ead273b1392c-1200-924/obama-healthcaregov-affordable-care-act-obamacare.jpg?maxX=480
+
+00:03:20.530 --> 00:04:10.570
+https://static-ssl.businessinsider.com/image/5407ae486bb3f7b01d030c02-1200-1718/bi_graphics_personalitytraitjobs.png
