@@ -14,67 +14,73 @@ class EducationPage extends StatefulWidget {
 }
 
 class _EducationPageState extends State<EducationPage>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  late int _selectedIndex;
 
   List<Widget> categories =
       LessonCategory.values.map((v) => Tab(text: v.label)).toList();
 
   @override
   void initState() {
-    _tabController = TabController(
-      vsync: this,
-      length: categories.length,
-    );
+    super.initState();
 
-    _tabController.addListener(() {
-      setState(() {
-        _selectedIndex = _tabController.index;
-      });
-      print("Selected Index: " + _tabController.index.toString());
-    });
+    _tabController = TabController(
+        vsync: this,
+        length: categories.length,
+        animationDuration: Duration.zero,
+        initialIndex: 0);
+
+    _tabController.addListener(_onTabsChanged);
 
     context.read<EducationProgramBloc>().add(
           const EducationProgramEvent.getLessons(LessonCategory.all),
         );
-    super.initState();
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _tabController.removeListener(_onTabsChanged);
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: LessonCategory.values.length,
-      child: SafeArea(
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return [
-              EducationTabBar(
-                controller: _tabController,
-                tabs: categories,
-              ),
-              const EducationAppBar(),
-            ];
-          },
-          body: TabBarView(
-            controller: _tabController,
-            children: const [
-              EducationBody(),
-              EducationBody(),
-              EducationBody(),
-              EducationBody(),
-              EducationBody(),
-            ],
-          ),
-        ),
+    return SafeArea(
+      child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
+        builder: (BuildContext context, state) {
+          return NestedScrollView(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return [
+                EducationTabBar(
+                  controller: _tabController,
+                  tabs: categories,
+                ),
+                if (state.data.currentCategory == LessonCategory.all)
+                  const EducationAppBar(),
+              ];
+            },
+            body: TabBarView(
+              controller: _tabController,
+              children: const [
+                EducationBody(),
+                EducationBody(),
+                EducationBody(),
+                EducationBody(),
+                EducationBody(),
+              ],
+            ),
+          );
+        },
       ),
     );
+  }
+
+  void _onTabsChanged() {
+    context.read<EducationProgramBloc>().add(
+          EducationProgramEvent.getLessons(
+              LessonCategory.values[_tabController.index]),
+        );
   }
 }

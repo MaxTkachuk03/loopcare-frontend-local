@@ -72,7 +72,7 @@ class _LessonPageState extends State<LessonPage> {
         listener: _errorListener,
         builder: (BuildContext context, state) {
           return state.maybeMap(
-            loading: (_) => const Expanded(child: Loader()),
+            loading: (_) => const Loader(),
             contentLoaded: (s) {
               final currentPage = s.data.currentPage;
 

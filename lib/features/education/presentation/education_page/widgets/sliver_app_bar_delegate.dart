@@ -24,6 +24,7 @@ class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         children: [
           UnderlinedTabBar(
             tabs: _tabBar.tabs,
+            tabController: _tabBar.controller,
           )
         ],
       ),
