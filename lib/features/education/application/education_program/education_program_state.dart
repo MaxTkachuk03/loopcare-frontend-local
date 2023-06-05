@@ -18,6 +18,8 @@ class EducationProgramState with _$EducationProgramState {
 class EducationProgramData with _$EducationProgramData {
   const factory EducationProgramData({
     @Default([]) List<EducationLesson> lessons,
+    LessonWithCountdown? lessonWithCountdown,
+    @Default(LessonCategory.all) LessonCategory currentCategory,
     @Default(false) bool isLoading,
     RequestError? error,
   }) = _EducationProgramData;

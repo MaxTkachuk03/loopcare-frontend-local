@@ -47,6 +47,12 @@ class AppImages {
 
   static const AssetImage play = AssetImage('$imagesFilePath/play.png');
 
+  static const AssetImage arrowHexagon =
+      AssetImage('$imagesFilePath/arrow_hexagon.png');
+
+  static const AssetImage iconAttention =
+      AssetImage('$imagesFilePath/attention.png');
+
   static const AssetImage educationCardImage =
       AssetImage('$imagesFilePath/education_card_image.png');
 

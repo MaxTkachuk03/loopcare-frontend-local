@@ -17,6 +17,7 @@ abstract class EducationLesson implements _$EducationLesson {
     required int pageCounter,
     required int step,
     required int order,
+    required bool isLocked,
     required DateTime? completedAt,
   }) = _EducationLesson;
 

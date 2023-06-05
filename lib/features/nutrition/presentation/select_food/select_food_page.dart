@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/select_food/wi
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/favorites_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/selected_items_label.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/under_appbar_container.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 
 class SelectFoodPage extends StatelessWidget {
   final String mealCategory;

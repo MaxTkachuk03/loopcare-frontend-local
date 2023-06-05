@@ -390,6 +390,7 @@ class LocalizedTexts {
   static const String nutrition = 'nutrition';
   static const String mind = 'mind';
   static const String activity = 'activity';
+  static const String availableIn = 'availableIn';
 
   static const String noMealsLogged = 'noMealsLogged';
   static const String noMealsLoggedYet = 'noMealsLoggedYet';

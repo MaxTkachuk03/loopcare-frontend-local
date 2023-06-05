@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:loopcare_frontend/features/education/application/dto/education_lesson.dart';
+import 'package:loopcare_frontend/features/education/domain/education_lesson.dart';
 
 part 'get_lessons_response.g.dart';
 

@@ -2,103 +2,61 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
-import 'package:loopcare_frontend/features/education/domain/education_card_type.dart';
-import 'package:loopcare_frontend/features/education/domain/education_item.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_card.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/progress_item.dart';
-
-List<EducationItem> _cardList = const [
-  EducationItem(
-      title: 'Setting expectations for a healthier lifestyle',
-      label: 'General',
-      duration: '3m 59s',
-      type: EducationCardType.passed),
-  EducationItem(
-      title: 'Understanding weight loss',
-      label: 'General',
-      duration: '3m 59s',
-      type: EducationCardType.passed),
-  EducationItem(
-      title: 'The Yo-yo effect',
-      label: 'Assignment',
-      duration: '3m 59s',
-      type: EducationCardType.available),
-  EducationItem(
-      title: 'Write down your 3 reasons to loose weight',
-      label: 'Mind',
-      duration: '3m 59s',
-      type: EducationCardType.available),
-  EducationItem(
-      title: 'The importance of the buddy system',
-      label: 'General',
-      duration: '3m 59s',
-      type: EducationCardType.blocked),
-  EducationItem(
-      title: 'Getting realistic weight loss expectations',
-      label: 'General',
-      duration: '3m 59s',
-      type: EducationCardType.blocked),
-];
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_category_list.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_full_list.dart';
 
 class EducationBody extends StatelessWidget {
   const EducationBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          color: AppColors.orange,
-          height: 40,
-        ),
-        MainContainer(
-          child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
-            builder: (BuildContext context, state) {
-              final lessons = state.data.lessons;
+    return BlocBuilder<EducationProgramBloc, EducationProgramState>(
+      builder: (BuildContext context, state) {
+        final lessons = state.data.lessons;
 
-              return ListView.builder(
-                itemCount: lessons.length,
-                itemBuilder: (BuildContext context, index) {
-                  final isLastElement = index + 1 ==
-                      lessons.length; //FIXME: lessons or _cardList?
-                  // final isLastElement = index + 1 == _cardList.length;
-                  final isFirstElement = index == 0;
+        if (state.data.currentCategory == LessonCategory.all) {
+          return Stack(
+            children: [
+              Container(
+                color: AppColors.orange,
+                height: 40,
+              ),
+              MainContainer(
+                child: EducationFullList(
+                  lessons: lessons,
+                ),
+              )
+            ],
+          );
+        }
 
-                  return IntrinsicHeight(
-                    child: Row(
-                      children: [
-                        ProgressItem(
-                          isFirst: isFirstElement,
-                          isLast: isLastElement,
-                          type: _cardList[index].type,
-                          nextItemType:
-                              !isLastElement ? _cardList[index + 1].type : null,
-                        ),
-                        const SizedBox(
-                          width: 16.0,
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              EducationCard(
-                                lesson: lessons[index],
-                              ),
-                              const SizedBox(
-                                height: 12.0,
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
+        return MainContainer(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 34.0,
+              ),
+              Text(
+                state.data.currentCategory.label,
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      fontFamily: ThemeConstants.bitterFontFamily,
                     ),
-                  );
-                },
-              );
-            },
+              ),
+              const SizedBox(
+                height: 14.0,
+              ),
+              Expanded(
+                child: EducationCategoryList(
+                  lessons: lessons,
+                ),
+              ),
+            ],
           ),
-        )
-      ],
+        );
+      },
     );
   }
 }
