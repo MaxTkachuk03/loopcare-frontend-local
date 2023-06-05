@@ -17,6 +17,5 @@ abstract class EducationService {
     int lessonId,
   );
 
-  @override
   Future<Either<RequestError, dynamic>> downloadFile(String url);
 }

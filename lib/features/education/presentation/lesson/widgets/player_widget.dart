@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 
 class PlayerWidget extends StatefulWidget {
   final AudioPlayer player;
@@ -74,80 +75,66 @@ class _PlayerWidgetState extends State<PlayerWidget> {
     super.dispose();
   }
 
+  _onSliderChangeHandler(v) {
+    final duration = _duration;
+    if (duration == null) {
+      return;
+    }
+    final position = v * duration.inMilliseconds;
+    player.seek(Duration(milliseconds: position.round()));
+  }
+
   @override
   Widget build(BuildContext context) {
-    const color = AppColors.darkGreen;
-    return Column(
-      children: <Widget>[
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Slider(
-              onChanged: (v) {
-                final duration = _duration;
-                if (duration == null) {
-                  return;
-                }
-                final position = v * duration.inMilliseconds;
-                player.seek(Duration(milliseconds: position.round()));
-              },
-              value: (_position != null &&
-                      _duration != null &&
-                      _position!.inMilliseconds > 0 &&
-                      _position!.inMilliseconds < _duration!.inMilliseconds)
-                  ? _position!.inMilliseconds / _duration!.inMilliseconds
-                  : 0.0,
-            ),
-            Text(
-              _position != null
-                  ? _positionText
-                  : _duration != null
-                      ? _durationText
-                      : '',
-              style: const TextStyle(fontSize: 16.0),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Spacer(),
-            Visibility(
-              visible: !_isPlaying,
-              child: IconButton(
-                key: const Key('play_button'),
-                onPressed: _isPlaying ? null : _play,
-                iconSize: 30.0,
-                icon: const Icon(Icons.play_arrow),
-                color: color,
+    return MainContainer(
+      child: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Slider(
+                  onChanged: _onSliderChangeHandler,
+                  value: (_position != null &&
+                          _duration != null &&
+                          _position!.inMilliseconds > 0 &&
+                          _position!.inMilliseconds < _duration!.inMilliseconds)
+                      ? _position!.inMilliseconds / _duration!.inMilliseconds
+                      : 0.0,
+                ),
               ),
-            ),
-            Visibility(
-              visible: _isPlaying,
-              child: IconButton(
-                key: const Key('stop_button'),
-                onPressed: _isPlaying || _isPaused ? _pause : null,
-                iconSize: 30.0,
-                icon: const Icon(Icons.stop),
-                color: color,
+              Text(
+                _position != null
+                    ? _positionText
+                    : _duration != null
+                        ? _durationText
+                        : '',
+                style: const TextStyle(fontSize: 16.0),
               ),
-            ),
-            const Spacer(),
-            Align(
-              alignment: Alignment.centerRight,
-              child: IconButton(
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: IconButton(
+                  onPressed: _isPlaying ? _pause : _play,
+                  iconSize: 35.0,
+                  icon: Icon(_isPlaying ? Icons.pause : Icons.play_arrow),
+                  color: AppColors.darkGreen,
+                ),
+              ),
+              IconButton(
                 key: const Key('mute_button'),
                 onPressed: _handleMute,
                 iconSize: 30.0,
-                icon: _isMute
-                    ? const Icon(Icons.volume_up)
-                    : const Icon(Icons.volume_off),
-                color: color,
+                icon: Icon(_isMute ? Icons.volume_off : Icons.volume_up),
+                color: AppColors.darkGreen,
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 
