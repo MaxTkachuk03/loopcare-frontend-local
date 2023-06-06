@@ -52,6 +52,11 @@ class _DishesListState extends State<DishesList>
     context.read<SelectFoodBloc>().add(const SelectFoodEvent.fetchDishes());
   }
 
+  bool get _canCreateDishWithSelectedMealCategory {
+    return widget.mealCategory != MealCategory.drinks.name &&
+        widget.mealCategory != MealCategory.inbetweens.name;
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -110,13 +115,14 @@ class _DishesListState extends State<DishesList>
                                 ),
                               ),
                         const SizedBox(height: 8.0),
-                        MainContainer(
-                          child: OutlinedRoundedButton(
-                            text: LocalizedTexts.createMyDish.translation,
-                            icon: AppIcons.dish,
-                            onPressed: _onCreateDish,
-                          ),
-                        )
+                        if (_canCreateDishWithSelectedMealCategory)
+                          MainContainer(
+                            child: OutlinedRoundedButton(
+                              text: LocalizedTexts.createMyDish.translation,
+                              icon: AppIcons.dish,
+                              onPressed: _onCreateDish,
+                            ),
+                          )
                       ],
                     ),
                   );
