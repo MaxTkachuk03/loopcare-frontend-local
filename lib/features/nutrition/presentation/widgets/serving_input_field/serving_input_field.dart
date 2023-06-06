@@ -5,12 +5,14 @@ class ServingInputField extends StatefulWidget {
   final TextEditingController controller;
   final Color fillColor;
   final void Function(String) onChange;
+  final FocusNode? focusNode;
 
   const ServingInputField({
     Key? key,
     required this.controller,
     required this.fillColor,
     required this.onChange,
+    this.focusNode,
   }) : super(key: key);
 
   @override
@@ -51,6 +53,7 @@ class _ServingInputFieldState extends State<ServingInputField> {
       height: 34.0,
       child: TextField(
         controller: widget.controller,
+        focusNode: widget.focusNode,
         maxLength: 7,
         onChanged: _onValueChangeHandler,
         textAlign: TextAlign.center,

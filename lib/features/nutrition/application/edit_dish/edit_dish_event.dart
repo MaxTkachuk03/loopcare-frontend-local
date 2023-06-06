@@ -7,7 +7,7 @@ class EditDishEvent with _$EditDishEvent {
   const factory EditDishEvent.createDishFromRecipe(
     int mealRecipeId,
     double numberOfUnits,
-    List<MealCategory> mealCategories,
+    List<DishFavoritesCategory> mealCategories,
   ) = CreateDishFromRecipe;
 
   const factory EditDishEvent.createDishFromMeal(

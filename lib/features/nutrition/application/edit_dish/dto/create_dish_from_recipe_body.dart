@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/dish_favorites_category/dish_favorites_category.dart';
 
 part 'create_dish_from_recipe_body.freezed.dart';
 
@@ -12,7 +12,7 @@ abstract class CreateDishFromRecipeBody implements _$CreateDishFromRecipeBody {
   const factory CreateDishFromRecipeBody({
     required int mealRecipeId,
     required double numberOfUnits,
-    required List<MealCategory> mealCategories,
+    required List<DishFavoritesCategory> mealCategories,
   }) = _CreateDishFromRecipeBody;
 
   factory CreateDishFromRecipeBody.fromJson(Map<String, dynamic> json) =>

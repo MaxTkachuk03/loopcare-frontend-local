@@ -38,14 +38,14 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
   IList<MealCategoryFilter> _getMealFavoriteCategories(String defaultSelected) {
     return MealFavoritesCategory.values
         .map((e) => MealCategoryFilter(
-            name: e.name, selected: e.value == defaultSelected.toLowerCase()))
+            name: e.name, selected: e.value == defaultSelected))
         .toIList();
   }
 
   IList<MealCategoryFilter> _getDishFavoriteCategories(String defaultSelected) {
     return DishFavoritesCategory.values
         .map((e) => MealCategoryFilter(
-            name: e.name, selected: e.value == defaultSelected.toLowerCase()))
+            name: e.name, selected: e.value == defaultSelected))
         .toIList();
   }
 
@@ -59,8 +59,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
 
     emit(const SelectFoodState.loading());
 
-    final response =
-        await nutritionService.getFavorites([event.mealCategory.toLowerCase()]);
+    final response = await nutritionService.getFavorites([event.mealCategory]);
 
     response.fold(
       (error) {
@@ -88,8 +87,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     final favoritesFiltes =
         state.mapOrNull(selectFood: (s) => s.mealFavoritesCategories);
 
-    final response =
-        await nutritionService.getDishes([event.mealCategory.toLowerCase()]);
+    final response = await nutritionService.getDishes([event.mealCategory]);
 
     response.fold(
       (error) {

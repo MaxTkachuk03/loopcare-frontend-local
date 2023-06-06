@@ -3,10 +3,12 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class MealPortionsInput extends StatelessWidget {
   final TextEditingController? controller;
+  final FocusNode? focusNode;
 
   const MealPortionsInput({
     Key? key,
     required this.controller,
+    this.focusNode,
   }) : super(key: key);
 
   @override
@@ -16,6 +18,7 @@ class MealPortionsInput extends StatelessWidget {
       height: 34.0,
       child: TextField(
         controller: controller,
+        focusNode: focusNode,
         maxLength: 2,
         textAlign: TextAlign.center,
         decoration: const InputDecoration(

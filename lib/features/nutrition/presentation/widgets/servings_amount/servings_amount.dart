@@ -9,11 +9,13 @@ typedef OnValueChangesHandler = void Function(String val);
 class ServingsAmount extends StatelessWidget {
   final TextEditingController inputController;
   final OnValueChangesHandler onValueChangeHandler;
+  final FocusNode? focusNode;
 
   const ServingsAmount({
     Key? key,
     required this.inputController,
     required this.onValueChangeHandler,
+    this.focusNode,
   }) : super(key: key);
 
   @override
@@ -26,6 +28,7 @@ class ServingsAmount extends StatelessWidget {
       child: Row(
         children: [
           ServingInputField(
+            focusNode: focusNode,
             controller: inputController,
             fillColor: AppColors.white,
             onChange: onValueChangeHandler,

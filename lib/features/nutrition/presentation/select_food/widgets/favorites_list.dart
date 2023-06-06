@@ -31,7 +31,7 @@ class _FavoriteListState extends State<FavoriteList>
   void initState() {
     context
         .read<SelectFoodBloc>()
-        .add(SelectFoodEvent.fetchFavorites(widget.mealCategory));
+        .add(SelectFoodEvent.fetchFavorites(_defaultMealCategory));
 
     super.initState();
   }
@@ -39,7 +39,11 @@ class _FavoriteListState extends State<FavoriteList>
   Future _onRefresh() async {
     return context
         .read<SelectFoodBloc>()
-        .add(SelectFoodEvent.fetchFavorites(widget.mealCategory));
+        .add(SelectFoodEvent.fetchFavorites(_defaultMealCategory));
+  }
+
+  String get _defaultMealCategory {
+    return widget.mealCategory.toLowerCase();
   }
 
   @override

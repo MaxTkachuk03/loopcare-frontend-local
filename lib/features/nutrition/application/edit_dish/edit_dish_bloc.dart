@@ -13,7 +13,7 @@ import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/c
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/update_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/dish_favorites_category/dish_favorites_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 
