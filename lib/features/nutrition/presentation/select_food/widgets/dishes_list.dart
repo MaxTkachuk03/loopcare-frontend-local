@@ -38,18 +38,22 @@ class _DishesListState extends State<DishesList>
 
   @override
   void initState() {
-    context.read<SelectFoodBloc>().add(const SelectFoodEvent.fetchDishes());
+    context
+        .read<SelectFoodBloc>()
+        .add(SelectFoodEvent.fetchDishes(widget.mealCategory));
     super.initState();
   }
 
   Future _onRefresh() async {
     return context
         .read<SelectFoodBloc>()
-        .add(const SelectFoodEvent.fetchDishes());
+        .add(SelectFoodEvent.fetchDishes(widget.mealCategory));
   }
 
   _updateDishesListener(BuildContext context, state) {
-    context.read<SelectFoodBloc>().add(const SelectFoodEvent.fetchDishes());
+    context
+        .read<SelectFoodBloc>()
+        .add(SelectFoodEvent.fetchDishes(widget.mealCategory));
   }
 
   bool get _canCreateDishWithSelectedMealCategory {

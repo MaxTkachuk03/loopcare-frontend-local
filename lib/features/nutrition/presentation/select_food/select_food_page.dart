@@ -17,11 +17,11 @@ class SelectFoodPage extends StatelessWidget {
     required this.mealCategory,
   });
 
-  String _appBarTitle (BuildContext context) {
+  String _appBarTitle(BuildContext context) {
     final state = context.read<MealsBloc>().state;
 
     final date = state.getCurrentDate.isoStringWithoutTime !=
-        DateTime.now().isoStringWithoutTime
+            DateTime.now().isoStringWithoutTime
         ? state.getCurrentDate.shortDate
         : 'today';
 
@@ -46,7 +46,7 @@ class SelectFoodPage extends StatelessWidget {
               Flexible(
                 child: TabBarView(
                   children: [
-                    const FavoriteList(),
+                    FavoriteList(mealCategory: mealCategory),
                     DishesList(mealCategory: mealCategory),
                   ],
                 ),

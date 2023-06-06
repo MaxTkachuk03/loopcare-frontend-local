@@ -11,7 +11,12 @@ import 'package:loopcare_frontend/features/nutrition/presentation/select_food/wi
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/list_filters.dart';
 
 class FavoriteList extends StatefulWidget {
-  const FavoriteList({Key? key}) : super(key: key);
+  final String mealCategory;
+
+  const FavoriteList({
+    Key? key,
+    required this.mealCategory,
+  }) : super(key: key);
 
   @override
   State<FavoriteList> createState() => _FavoriteListState();
@@ -24,7 +29,9 @@ class _FavoriteListState extends State<FavoriteList>
 
   @override
   void initState() {
-    context.read<SelectFoodBloc>().add(const SelectFoodEvent.fetchFavorites());
+    context
+        .read<SelectFoodBloc>()
+        .add(SelectFoodEvent.fetchFavorites(widget.mealCategory));
 
     super.initState();
   }
@@ -32,7 +39,7 @@ class _FavoriteListState extends State<FavoriteList>
   Future _onRefresh() async {
     return context
         .read<SelectFoodBloc>()
-        .add(const SelectFoodEvent.fetchFavorites());
+        .add(SelectFoodEvent.fetchFavorites(widget.mealCategory));
   }
 
   @override
