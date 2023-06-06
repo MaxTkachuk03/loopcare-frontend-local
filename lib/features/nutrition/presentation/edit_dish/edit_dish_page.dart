@@ -113,6 +113,9 @@ class _EditDishPageState extends State<EditDishPage> {
   void _onServingChanges(String value) {}
 
   String? _validationError() {
+    if (_selectedMealCategories.isEmpty) {
+      return LocalizedTexts.invalidDishSelectedMealCategory.translation;
+    }
     if (_dishNameController.text.isEmpty) {
       return LocalizedTexts.invalidDishNameMessage.translation;
     }

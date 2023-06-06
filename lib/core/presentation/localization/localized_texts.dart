@@ -411,6 +411,8 @@ class LocalizedTexts {
   static const String foodItemWasAddedToDish = 'foodItemWasAddedToDish';
   static const String foodItemWasDeletedFromDish = 'foodItemWasDeletedFromDish';
   static const String invalidDishNameMessage = 'invalidDishNameMessage';
+  static const String invalidDishSelectedMealCategory =
+      'invalidDishSelectedMealCategory';
   static const String invalidDishServingsAmountMessage =
       'invalidDishServingsAmountMessage';
   static const String invalidDishPortionsAmountMessage =

@@ -329,6 +329,7 @@
   "foodItemWasDeletedFromDish": "Food item was removed from the dish",
   "invalidDishNameMessage": "Give this dish a name please",
   "invalidDishServingsAmountMessage": "Serving size can't be empty",
+  "invalidDishSelectedMealCategory": "At least one meal category should be selected",
   "invalidDishPortionsAmountMessage": "Portions can't be empty",
   "availableIn": "Available in",
   "invalidCreateDishFromMealMessage": "A dish cannot contain other dishes or recipes. Please remove dishes or recipes and try again",
