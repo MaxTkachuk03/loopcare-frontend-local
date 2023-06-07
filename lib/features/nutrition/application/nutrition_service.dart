@@ -106,6 +106,11 @@ abstract class NutritionService {
     String recipeId,
   );
 
+  Future<Either<RequestError, MealsListItem>> deleteDishFromMeal(
+    int mealId,
+    String dishId,
+  );
+
   Future<Either<RequestError, MealsResponse>> getMeals({
     String? startDate,
     String? endDate,

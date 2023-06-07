@@ -60,6 +60,12 @@ class MealsList extends StatelessWidget {
       return;
     }
 
+    if (item.foodType == 'dish') {
+      context.read<MealsBloc>().add(MealsEvent.deleteDishFromMeal(item.id));
+
+      return;
+    }
+
     if (item.foodType == 'food') {
       context.read<MealsBloc>().add(MealsEvent.deleteFoodItemFromMeal(item.id));
     }
