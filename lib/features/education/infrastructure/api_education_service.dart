@@ -45,6 +45,17 @@ class APIEducationService implements EducationService {
   }
 
   @override
+  Future<Either<RequestError, dynamic>> downloadFile(
+    String url,
+    String savePath,
+  ) async {
+    return client.downloading(
+      url,
+      savePath,
+    );
+  }
+
+  @override
   Future<Either<RequestError, CalendarLessonsResponse>> getCalendarLessons({
     String? startDate,
     String? endDate,
@@ -60,10 +71,5 @@ class APIEducationService implements EducationService {
     return client
         .get('/education/lessons/calendar', queryParameters: queryParameters)
         .then(parseResponse(CalendarLessonsResponse.fromJson));
-  }
-
-  @override
-  Future<Either<RequestError, dynamic>> downloadFile(String url) {
-    return client.get(url);
   }
 }

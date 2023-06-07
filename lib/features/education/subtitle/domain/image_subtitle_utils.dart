@@ -3,36 +3,26 @@ import 'dart:convert';
 import 'package:loopcare_frontend/features/education/subtitle/domain/image_subtitle_model.dart';
 
 List<ImageSubtitle> parseSubtitleString(String data) {
-  // switch (format) {
-  // case SubtitleFormat.webvtt:
-  return parseFromWebVTTString(data);
-  //   case SubtitleFormat.srt:
-  //     return parseFromSubRipString(data);
-  //   case SubtitleFormat.srt:
-  // return parseFromJsonString(data);
-  //   default:
-  // return [];
-  // }
+  return parseFromJsonString(data);
 }
 
 List<ImageSubtitle> parseFromJsonString(String data) {
   final List<ImageSubtitle> subtitles = <ImageSubtitle>[];
-  // final subtitleStrings = matchSubtitleStrings(data);
 
   final subtitleJson = jsonDecode(data);
 
   int subtitleNumber = 1;
 
-  subtitleJson.foreach(
+  subtitleJson.forEach(
     (element) {
-      // subtitles.add(
-      //   ImageSubtitle(
-      //     number: subtitleNumber,
-      //     start: json['start'],
-      //     end: json['end'],
-      //     src: json['src'],
-      //   ),
-      // );
+      subtitles.add(
+        ImageSubtitle(
+          number: subtitleNumber,
+          start: element['start'],
+          end: element['end'],
+          src: element['src'],
+        ),
+      );
       subtitleNumber++;
     },
   );

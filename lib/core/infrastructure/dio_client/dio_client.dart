@@ -129,4 +129,18 @@ class DioClient {
           cancelToken: cancelToken,
         ));
   }
+
+  Future<Either<RequestError, Response<dynamic>>> downloading(
+    String path,
+    String savePath, {
+    Map<String, dynamic>? queryParameters,
+    bool withInterceptor = true,
+    bool withRetryInterceptor = false,
+  }) async {
+    return process(() => dio.download(
+          path,
+          savePath,
+          queryParameters: queryParameters,
+        ));
+  }
 }

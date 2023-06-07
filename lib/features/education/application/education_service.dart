@@ -18,7 +18,10 @@ abstract class EducationService {
     int lessonId,
   );
 
-  Future<Either<RequestError, dynamic>> downloadFile(String url);
+  Future<Either<RequestError, dynamic>> downloadFile(
+    String url,
+    String savePath,
+  );
 
   Future<Either<RequestError, CalendarLessonsResponse>> getCalendarLessons({
     String? startDate,

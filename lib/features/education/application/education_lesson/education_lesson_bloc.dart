@@ -1,9 +1,10 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
+import 'package:path_provider/path_provider.dart';
 
 part 'education_lesson_event.dart';
 part 'education_lesson_state.dart';
@@ -19,47 +20,113 @@ class EducationLessonBloc
 
   EducationLessonBloc(
     this._educationService,
-  ) : super(const EducationLessonState.initial(EducationLessonData())) {
+  ) : super(
+          const EducationLessonState.initial(
+            EducationLessonData(),
+          ),
+        ) {
     on<GetLessonContent>(_onGetLessonContent);
     on<NextPage>(_onNextPage);
     on<PrevPage>(_onPrevPage);
     on<CompleteLesson>(_onCompleteLesson);
-    on<DownloadFile>(_onDownloadFile);
+    on<DownloadAudioFile>(_onDownloadAudioFile);
+    on<DownloadSubtitlesFile>(_onDownloadSubtitlesFile);
+    on<Init>(_onInit);
   }
 
-  Future<void> _onDownloadFile(
-    DownloadFile event,
+  Future<void> _onInit(
+    Init event,
     Emitter<EducationLessonState> emit,
   ) async {
-    var response = _educationService.downloadFile(event.url);
+    var tempDir = await getTemporaryDirectory();
+
+    emit(
+      EducationLessonState.contentLoaded(
+        state.data.copyWith(
+          temporaryDirectory: tempDir.path,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _onDownloadAudioFile(
+    DownloadAudioFile event,
+    Emitter<EducationLessonState> emit,
+  ) async {
+    final response = await _educationService.downloadFile(
+      event.url,
+      state.data.filePath(event.url),
+    );
+    response.fold((l) {}, (r) {
+      emit(
+        EducationLessonState.contentLoaded(
+          state.data.copyWith(
+            isLoading: false,
+            audioFilePath: state.data.filePath(event.url),
+          ),
+        ),
+      );
+    });
+  }
+
+  Future<void> _onDownloadSubtitlesFile(
+    DownloadSubtitlesFile event,
+    Emitter<EducationLessonState> emit,
+  ) async {
+    final response = await _educationService.downloadFile(
+      event.url,
+      state.data.filePath(event.url),
+    );
+    response.fold((l) {}, (r) {
+      emit(
+        EducationLessonState.contentLoaded(
+          state.data.copyWith(
+            isLoading: false,
+            subtitleFilePath: state.data.filePath(event.url),
+          ),
+        ),
+      );
+    });
   }
 
   Future<void> _onGetLessonContent(
     GetLessonContent event,
     Emitter<EducationLessonState> emit,
   ) async {
-    emit(EducationLessonState.loading(state.data.copyWith(
-      isLoading: true,
-      error: null,
-    )));
+    emit(
+      EducationLessonState.loading(
+        state.data.copyWith(
+          isLoading: true,
+          error: null,
+        ),
+      ),
+    );
 
     final response = await _educationService.getLessonContent(event.lessonId);
 
     response.fold(
       (l) {
-        emit(EducationLessonState.errorGettingLessons(state.data.copyWith(
-          error: l,
-          isLoading: false,
-        )));
+        emit(
+          EducationLessonState.errorGettingLessons(
+            state.data.copyWith(
+              error: l,
+              isLoading: false,
+            ),
+          ),
+        );
       },
-      (r) {
+      (r) async {
         r.pages.sort((a, b) => a.order.compareTo(b.order));
 
         if (r.pages.isEmpty) {
-          emit(EducationLessonState.errorGettingLessons(state.data.copyWith(
-            error: _defaultError,
-            isLoading: false,
-          )));
+          emit(
+            EducationLessonState.errorGettingLessons(
+              state.data.copyWith(
+                error: _defaultError,
+                isLoading: false,
+              ),
+            ),
+          );
 
           return;
         }

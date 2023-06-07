@@ -50,8 +50,7 @@ class _AudioBlockState extends State<AudioBlock> {
       ),
     );
 
-    audioPlayer.setSourceUrl(
-        'https://cdn.pixabay.com/audio/2020/11/10/audio_547ebbf828.mp3');
+    audioPlayer.setSourceDeviceFile(widget.url);
 
     super.initState();
   }

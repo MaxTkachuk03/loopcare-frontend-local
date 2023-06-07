@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
@@ -11,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/audio_block.dart';
 import 'package:loopcare_frontend/features/education/subtitle/domain/image_subtitle_controller.dart';
+import 'dart:io';
 
 class LessonAudioPage extends StatefulWidget {
   final void Function() onNextPressed;
@@ -37,7 +37,6 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
 
   @override
   void initState() {
-    prepareSubtitleController();
     super.initState();
   }
 
@@ -46,8 +45,9 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
     super.dispose();
   }
 
-  prepareSubtitleController() async {
-    final subtitleFile = await rootBundle.loadString('assets/subtitle.txt');
+  prepareSubtitleController(String path) async {
+    final File file = File(path);
+    final subtitleFile = await file.readAsString();
 
     _subtitleController = SubtitleController.string(subtitleFile);
   }
@@ -88,11 +88,9 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<EducationLessonBloc, EducationLessonState>(
       builder: (context, state) {
-        // context.read<EducationLessonBloc>().add(
-        //       EducationLessonEvent.downloadFile(
-        //         state.data.currentPage.content.url,
-        //       ),
-        //     );
+        if (state.data.subtitleFilePath.isNotEmpty) {
+          prepareSubtitleController(state.data.subtitleFilePath);
+        }
 
         return Scaffold(
           appBar: AppBar(
@@ -162,7 +160,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                                     horizontal: 24.0,
                                   ),
                                   child: Text(
-                                    LocalizedTexts.sampleLessonText.translation,
+                                    state.data.lessonTitle,
                                     style: Theme.of(context)
                                         .textTheme
                                         .displaySmall
@@ -181,7 +179,8 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12.0, horizontal: 24.0),
                         width: 250,
                         child: OutlinedButton(
                           onPressed: _onReadText,
@@ -189,27 +188,19 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 75.0),
-                    AudioBlock(
-                      url: state.data.currentPage.content.url,
-                      onDurationChanged: (int duration) {
-                        _setDuration(duration);
-                      },
-                      onPositionChanged: (int position) {
-                        _setPosition(position);
-                      },
-                      onPlayingChanged: (bool isPlay) {
-                        _setIsPlay(isPlay);
-                      },
-                    ),
-                    // const SizedBox(height: 7),
-                    // Visibility(
-                    //   visible: !state.data.isLastPage,
-                    //   child: ElevatedButton(
-                    //     onPressed: widget.onNextPressed,
-                    //     child: Text(LocalizedTexts.next.translation),
-                    //   ),
-                    // ),
+                    if (state.data.audioFilePath.isNotEmpty)
+                      AudioBlock(
+                        url: state.data.audioFilePath,
+                        onDurationChanged: (int duration) {
+                          _setDuration(duration);
+                        },
+                        onPositionChanged: (int position) {
+                          _setPosition(position);
+                        },
+                        onPlayingChanged: (bool isPlay) {
+                          _setIsPlay(isPlay);
+                        },
+                      ),
                     const SizedBox(height: 14),
                   ],
                 ),

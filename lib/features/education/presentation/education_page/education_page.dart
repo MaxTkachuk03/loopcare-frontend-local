@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_app_bar.dart';
@@ -35,6 +36,8 @@ class _EducationPageState extends State<EducationPage>
     context.read<EducationProgramBloc>().add(
           const EducationProgramEvent.getLessons(LessonCategory.all),
         );
+
+    context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
   }
 
   @override

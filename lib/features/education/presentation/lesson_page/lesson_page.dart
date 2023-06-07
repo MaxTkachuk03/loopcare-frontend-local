@@ -84,6 +84,30 @@ class _LessonPageState extends State<LessonPage> {
                 );
               }
               if (currentPage.type == EducationLessonPageType.audio) {
+                if (state.data.temporaryDirectory.isEmpty) {
+                  context
+                      .read<EducationLessonBloc>()
+                      .add(const EducationLessonEvent.init());
+                }
+                if (!state.data.isLoading &&
+                    state.data.currentPage.type ==
+                        EducationLessonPageType.audio &&
+                    state.data.audioFilePath.isEmpty) {
+                  context.read<EducationLessonBloc>().add(
+                        EducationLessonEvent.downloadAudioFile(
+                            state.data.currentPage.content.url),
+                      );
+                }
+                if (!state.data.isLoading &&
+                    state.data.currentPage.type ==
+                        EducationLessonPageType.audio &&
+                    state.data.currentPage.content.subtitlesImages != null &&
+                    state.data.subtitleFilePath.isEmpty) {
+                  context.read<EducationLessonBloc>().add(
+                        EducationLessonEvent.downloadSubtitlesFile(
+                            state.data.currentPage.content.subtitlesImages!),
+                      );
+                }
                 return LessonAudioPage(
                   onNextPressed: _onNextPressed,
                   onPrevPressed: _onPrevPressed,
