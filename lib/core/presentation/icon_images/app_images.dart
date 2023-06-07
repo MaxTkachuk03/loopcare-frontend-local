@@ -50,6 +50,9 @@ class AppImages {
   static const AssetImage arrowHexagon =
       AssetImage('$imagesFilePath/arrow_hexagon.png');
 
+  static const AssetImage educationDashboard =
+      AssetImage('$imagesFilePath/education_dashboard.png');
+
   static const AssetImage iconAttention =
       AssetImage('$imagesFilePath/attention.png');
 

@@ -35,10 +35,7 @@ class EducationFullList extends StatelessWidget {
                     const SizedBox(
                       height: 6.0,
                     ),
-                    EducationCard(
-                      lesson: lessons[index],
-                      isCategoryItem: false,
-                    ),
+                    EducationCard(lesson: lessons[index]),
                     const SizedBox(
                       height: 6.0,
                     )
