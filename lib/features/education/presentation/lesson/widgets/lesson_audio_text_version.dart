@@ -9,8 +9,11 @@ import 'package:loopcare_frontend/core/presentation/widgets/survey_image_clipper
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 
 class LessonAudioTextVersion extends StatelessWidget {
+  final void Function() onNextPressed;
+
   const LessonAudioTextVersion({
     Key? key,
+    required this.onNextPressed,
   }) : super(key: key);
 
   @override
