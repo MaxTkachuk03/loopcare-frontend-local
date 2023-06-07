@@ -91,6 +91,7 @@ class LessonTextPage extends StatelessWidget {
                         onPressed: onNextPressed,
                         child: const Text(LocalizedTexts.next).tr(),
                       ),
+                      const SizedBox(height: 14.0),
                     ],
                   ),
                 ),

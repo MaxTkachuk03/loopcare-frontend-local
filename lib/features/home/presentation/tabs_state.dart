@@ -13,13 +13,14 @@ class TabsState extends InheritedWidget {
   }) : super(key: key, child: child);
 
   static TabsState of(BuildContext context) {
-    final TabsState? result = context.dependOnInheritedWidgetOfExactType<TabsState>();
+    final TabsState? result =
+        context.dependOnInheritedWidgetOfExactType<TabsState>();
     assert(result != null, 'No TabsState found in context');
     return result!;
   }
 
   @override
-  bool updateShouldNotify(TabsState old) {
-    return selectedNavigationItem != old.selectedNavigationItem;
+  bool updateShouldNotify(TabsState oldWidget) {
+    return selectedNavigationItem != oldWidget.selectedNavigationItem;
   }
 }

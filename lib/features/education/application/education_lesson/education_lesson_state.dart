@@ -32,6 +32,9 @@ class EducationLessonData with _$EducationLessonData {
   const EducationLessonData._();
 
   const factory EducationLessonData({
+    @Default('') String audioFilePath,
+    @Default('') String subtitleFilePath,
+    @Default('') String temporaryDirectory,
     @Default([]) List<LessonPage> pages,
     @Default(0) int lessonId,
     @Default(null) DateTime? lessonCompletedDate,
@@ -46,6 +49,11 @@ class EducationLessonData with _$EducationLessonData {
 
   LessonPage get currentPage {
     return pages[currentPageIndex];
+  }
+
+  String filePath(String url) {
+    var urls = url.split('/');
+    return "$temporaryDirectory/${urls[urls.length - 2]}/${urls.last}";
   }
 
   bool get isLastPage => currentPageIndex == pages.length - 1;

@@ -3,12 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
-import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_countdown.dart';
 import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 
 class NextLesson extends StatelessWidget {
@@ -83,7 +80,6 @@ class NextLesson extends StatelessWidget {
           ),
         );
 
-    context.router
-        .pushNamed('/lesson/${lesson.id}/page/0');
+    context.router.pushNamed('/lesson/${lesson.id}/page/0');
   }
 }

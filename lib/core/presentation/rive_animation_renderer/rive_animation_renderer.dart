@@ -12,7 +12,7 @@ class RiveAnimationRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const RiveAnimation.asset(
-      'assets/animations/vehicles.riv',
+      'assets/animations/audio_lesson_animation.riv',
       fit: BoxFit.cover,
     );
   }

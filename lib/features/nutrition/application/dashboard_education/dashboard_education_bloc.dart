@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:bloc/bloc.dart';
-import 'package:collection/collection.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -28,8 +28,9 @@ class DashboardEducationBloc
     _GetDashboardLessons event,
     Emitter<DashboardEducationState> emit,
   ) async {
-    if (!state.isVisibleOnDashboard(event.currentDate ?? DateTime.now()))
+    if (!state.isVisibleOnDashboard(event.currentDate ?? DateTime.now())) {
       return;
+    }
 
     emit(
       DashboardEducationState.loading(state.data.copyWith(
