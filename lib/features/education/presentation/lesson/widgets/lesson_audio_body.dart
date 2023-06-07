@@ -62,7 +62,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
   _setPosition(int v) {
     setState(() {
       position = v;
-      print("$position $duration");
+
       if (position >= (duration - 200)) {
         widget.onNextPressed();
       }
