@@ -1,11 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/rive_animation_renderer/rive_animation_renderer.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/audio_block.dart';
@@ -28,6 +27,7 @@ class LessonAudioPage extends StatefulWidget {
 
 class _LessonAudioPageState extends State<LessonAudioPage> {
   late SubtitleController _subtitleController;
+  bool _subtitleControllerInitialized = false;
 
   String? imageUrl;
 
@@ -50,6 +50,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
     final subtitleFile = await file.readAsString();
 
     _subtitleController = SubtitleController.string(subtitleFile);
+    _subtitleControllerInitialized = true;
   }
 
   _setDuration(int v) {
@@ -61,11 +62,17 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
   _setPosition(int v) {
     setState(() {
       position = v;
+
+      if (position >= (duration - 200)) {
+        widget.onNextPressed();
+      }
     });
 
-    if (duration > 0) {
+    if (duration > 0 && _subtitleControllerInitialized) {
       String text = _subtitleController.textFromMilliseconds(
-          position, _subtitleController.subtitles);
+        position,
+        _subtitleController.subtitles,
+      );
       if (imageUrl != text) {
         setState(() {
           imageUrl = text;
@@ -81,7 +88,10 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
   }
 
   void _onReadText() {
-    context.router.pushNamed(AppRoutes.educationAudioTextVersion);
+    ModalBottomSheet.readTextVersion(
+      context: context,
+      onBtnPress: widget.onNextPressed,
+    );
   }
 
   @override
