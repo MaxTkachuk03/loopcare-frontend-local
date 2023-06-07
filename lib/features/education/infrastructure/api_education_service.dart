@@ -37,11 +37,13 @@ class APIEducationService implements EducationService {
   }
 
   @override
-  Future<Either<RequestError, dynamic>> completeLesson(int lessonId) {
+  Future<Either<RequestError, GetLessonContentResponse>> completeLesson(
+    int lessonId,
+  ) {
     return client.post(
       '/education/lessons/$lessonId/complete',
       data: {"completedAt": DateTime.now().toUtc().toIso8601String()},
-    ).then(parseResponse(GetLessonsResponse.fromJson));
+    ).then(parseResponse(GetLessonContentResponse.fromJson));
   }
 
   @override

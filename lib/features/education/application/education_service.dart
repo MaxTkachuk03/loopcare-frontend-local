@@ -14,7 +14,7 @@ abstract class EducationService {
     int lessonId,
   );
 
-  Future<Either<RequestError, dynamic>> completeLesson(
+  Future<Either<RequestError, GetLessonContentResponse>> completeLesson(
     int lessonId,
   );
 
