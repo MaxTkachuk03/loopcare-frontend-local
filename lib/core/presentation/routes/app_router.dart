@@ -15,7 +15,6 @@ import 'package:loopcare_frontend/features/consent_confirmation/presentation/no_
 import 'package:loopcare_frontend/features/diabetes/presentation/diabetes/diabetes_page.dart';
 import 'package:loopcare_frontend/features/diabetes/presentation/disclaimer/disclaimer_page.dart';
 import 'package:loopcare_frontend/features/diabetes/presentation/summary/summary_page.dart';
-import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_audio_text_version.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/lesson_complete_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_error_page/lesson_error_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_page/lesson_page.dart';
@@ -352,10 +351,7 @@ part 'app_routes.dart';
       path: AppRoutes.lesson,
       page: LessonPage,
     ),
-    AutoRoute(
-      path: AppRoutes.educationAudioTextVersion,
-      page: LessonAudioTextVersion,
-    ),
+
     AutoRoute(
       path: AppRoutes.lessonComplete,
       page: LessonCompletePage,
