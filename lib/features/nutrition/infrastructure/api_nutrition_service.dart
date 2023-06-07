@@ -201,6 +201,16 @@ class APINutritionService implements NutritionService {
   }
 
   @override
+  Future<Either<RequestError, MealsListItem>> deleteDishFromMeal(
+    int mealId,
+    String dishId,
+  ) {
+    return client
+        .delete('/meals/$mealId/dishes/$dishId')
+        .then(parseResponse(MealsListItem.fromJson));
+  }
+
+  @override
   Future<Either<RequestError, MealsResponse>> getMeals({
     String? startDate,
     String? endDate,
