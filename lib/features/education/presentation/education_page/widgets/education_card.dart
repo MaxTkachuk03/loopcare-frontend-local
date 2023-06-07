@@ -9,23 +9,24 @@ import 'package:loopcare_frontend/features/education/application/education_lesso
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_countdown.dart';
+import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 
 class EducationCard extends StatelessWidget {
   static const _initialLessonPageIndex = 0;
 
   final EducationLesson lesson;
-  final bool isCategoryItem;
+  final bool? isCategoryItem;
 
   const EducationCard({
     Key? key,
     required this.lesson,
-    required this.isCategoryItem,
+    this.isCategoryItem,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final isAvailable = !lesson.isCompleted && !lesson.isLocked;
-    Widget? icon = isCategoryItem
+    Widget? icon = isCategoryItem ?? false
         ? const ImageIcon(
             AppIcons.iconCheckmark,
             color: AppColors.greenMid,
@@ -46,7 +47,7 @@ class EducationCard extends StatelessWidget {
 
     return Row(
       children: [
-        if (!isCategoryItem)
+        if (!(isCategoryItem ?? false))
           ClipPath(
             clipper: _TriangleClipper(),
             child: Container(
@@ -93,7 +94,9 @@ class EducationCard extends StatelessWidget {
                           style:
                               Theme.of(context).textTheme.bodySmall?.copyWith(
                                     fontWeight: FontWeight.w600,
-                                    color: AppColors.darkGreen,
+                                    color: isAvailable
+                                        ? AppColors.orangeDark
+                                        : AppColors.darkGreen,
                                   ),
                         ),
                         const SizedBox(height: 14.0),
@@ -138,7 +141,7 @@ class EducationCard extends StatelessWidget {
                                   width: 6.0,
                                 ),
                                 Text(
-                                  _formatDuration(),
+                                  formatDuration(lesson.duration),
                                   style: Theme.of(context).textTheme.bodySmall,
                                 )
                               ],
@@ -169,13 +172,6 @@ class EducationCard extends StatelessWidget {
 
     context.router
         .pushNamed('/lesson/${lesson.id}/page/$_initialLessonPageIndex');
-  }
-
-  String _formatDuration() {
-    final seconds = lesson.duration % 60;
-    final minutes = (lesson.duration / 60).floor();
-
-    return "${minutes}m ${seconds != 0 ? '${seconds}s' : ''}";
   }
 }
 

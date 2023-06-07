@@ -338,5 +338,7 @@
   "listenAudio": "Listen to audio version",
   "lessonCompleteTitle": "Setting expectations for a healthier lifestyle",
   "backToToday": "Back to today",
-  "completed": "Completed"
+  "completed": "Completed",
+  "todo": "TODO",
+  "done": "DONE"
 }
