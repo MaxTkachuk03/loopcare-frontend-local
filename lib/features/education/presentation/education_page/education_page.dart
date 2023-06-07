@@ -47,35 +47,47 @@ class _EducationPageState extends State<EducationPage>
     super.dispose();
   }
 
+  _lessonCompleteListener(BuildContext context, EducationLessonState state) {
+    context.read<EducationProgramBloc>().add(
+          EducationProgramEvent.getLessons(
+            LessonCategory.values[_tabController.index],
+          ),
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
-        builder: (BuildContext context, state) {
-          return NestedScrollView(
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              return [
-                EducationTabBar(
-                  controller: _tabController,
-                  tabs: categories,
-                ),
-                if (state.data.currentCategory == LessonCategory.all)
-                  const EducationAppBar(),
-              ];
-            },
-            body: TabBarView(
-              controller: _tabController,
-              children: const [
-                EducationBody(),
-                EducationBody(),
-                EducationBody(),
-                EducationBody(),
-                EducationBody(),
-              ],
-            ),
-          );
-        },
+    return BlocListener<EducationLessonBloc, EducationLessonState>(
+      listenWhen: (prev, cur) => cur is LessonCompleted,
+      listener: _lessonCompleteListener,
+      child: SafeArea(
+        child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
+          builder: (BuildContext context, state) {
+            return NestedScrollView(
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
+                return [
+                  EducationTabBar(
+                    controller: _tabController,
+                    tabs: categories,
+                  ),
+                  if (state.data.currentCategory == LessonCategory.all)
+                    const EducationAppBar(),
+                ];
+              },
+              body: TabBarView(
+                controller: _tabController,
+                children: const [
+                  EducationBody(),
+                  EducationBody(),
+                  EducationBody(),
+                  EducationBody(),
+                  EducationBody(),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -83,7 +95,8 @@ class _EducationPageState extends State<EducationPage>
   void _onTabsChanged() {
     context.read<EducationProgramBloc>().add(
           EducationProgramEvent.getLessons(
-              LessonCategory.values[_tabController.index]),
+            LessonCategory.values[_tabController.index],
+          ),
         );
   }
 }

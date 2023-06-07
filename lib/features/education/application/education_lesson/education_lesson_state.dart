@@ -56,6 +56,10 @@ class EducationLessonData with _$EducationLessonData {
     return "$temporaryDirectory/${urls[urls.length - 2]}/${urls.last}";
   }
 
+  bool get isLessonCompleted {
+    return lessonCompletedDate != null;
+  }
+
   bool get isLastPage => currentPageIndex == pages.length - 1;
 
   bool get isFirstPage => currentPageIndex == 0;
