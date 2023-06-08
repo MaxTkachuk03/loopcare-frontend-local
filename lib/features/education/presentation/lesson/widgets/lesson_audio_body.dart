@@ -98,8 +98,9 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<EducationLessonBloc, EducationLessonState>(
       builder: (context, state) {
-        if (state.data.subtitleFilePath.isNotEmpty) {
-          prepareSubtitleController(state.data.subtitleFilePath);
+        if (state.data.currentPage.content.subtitleFilePath.isNotEmpty) {
+          prepareSubtitleController(
+              state.data.currentPage.content.subtitleFilePath);
         }
 
         return Scaffold(
@@ -198,9 +199,9 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                         ),
                       ),
                     ),
-                    if (state.data.audioFilePath.isNotEmpty)
+                    if (state.data.currentPage.content.audioFilePath.isNotEmpty)
                       AudioBlock(
-                        url: state.data.audioFilePath,
+                        url: state.data.currentPage.content.audioFilePath,
                         onDurationChanged: (int duration) {
                           _setDuration(duration);
                         },
