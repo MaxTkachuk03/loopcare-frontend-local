@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/app_version/app_version.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
@@ -37,9 +36,7 @@ class _DashboardPageState extends State<DashboardPage> {
   void initState() {
     _isMealBlockEditable = false;
 
-    context
-        .read<NutritionInstructionsBloc>()
-        .add(const NutritionInstructionsEvent.fetchValuesExplanation());
+    context.read<NutritionInstructionsBloc>().add(const NutritionInstructionsEvent.fetchValuesExplanation());
 
     context.read<DashboardWeightBloc>().add(
           DashboardWeightEvent.fetchWeights(
@@ -49,9 +46,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
     context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
 
-    context
-        .read<DashboardEducationBloc>()
-        .add(const DashboardEducationEvent.getDashboardLessons());
+    context.read<DashboardEducationBloc>().add(const DashboardEducationEvent.getDashboardLessons());
 
     super.initState();
   }
@@ -59,9 +54,7 @@ class _DashboardPageState extends State<DashboardPage> {
   void _onDaySelected(DateTime day) {
     setState(() {
       _selectedDay = day;
-      context
-          .read<DashboardWeightBloc>()
-          .add(DashboardWeightEvent.setDate(day));
+      context.read<DashboardWeightBloc>().add(DashboardWeightEvent.setDate(day));
       context.read<MealsBloc>().add(MealsEvent.setCurrentDate(day));
       context
           .read<DashboardEducationBloc>()
@@ -123,20 +116,16 @@ class _DashboardPageState extends State<DashboardPage> {
                       const SizedBox(height: 10.0),
                       SupportGroup(isEditable: _isMealBlockEditable),
                       const SizedBox(height: 10.0),
-                      BlocBuilder<DashboardEducationBloc,
-                          DashboardEducationState>(
+                      BlocBuilder<DashboardEducationBloc, DashboardEducationState>(
                         builder: (BuildContext context, state) {
                           return state.isVisibleOnDashboard(_selectedDay)
-                              ? Education(date: _selectedDay,)
+                              ? Education(
+                                  date: _selectedDay,
+                                )
                               : const SizedBox(height: 0.0);
                         },
                       ),
                       const SizedBox(height: 10.0),
-                      ElevatedButton(
-                        onPressed: () => _onLogOutPressed(context),
-                        child: const Text('Log out'),
-                      ),
-                      const AppVersion(),
                     ],
                   ),
                 ),
@@ -146,9 +135,5 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
       ),
     );
-  }
-
-  _onLogOutPressed(BuildContext context) {
-    context.read<AuthenticationCubit>().logout();
   }
 }

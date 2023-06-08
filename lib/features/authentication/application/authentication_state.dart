@@ -61,6 +61,5 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
-  factory AuthenticationState.fromJson(Map<String, dynamic> json) =>
-      _$AuthenticationStateFromJson(json);
+  factory AuthenticationState.fromJson(Map<String, dynamic> json) => _$AuthenticationStateFromJson(json);
 }

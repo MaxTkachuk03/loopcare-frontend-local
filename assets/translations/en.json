@@ -340,5 +340,10 @@
   "backToToday": "Back to today",
   "completed": "Completed",
   "todo": "TODO",
-  "done": "DONE"
+  "done": "DONE",
+  "profile": "profile",
+  "personalDetails": "Personal details",
+  "testResults": "Test results",
+  "preferences": "Preferences",
+  "name": "Name"
 }
