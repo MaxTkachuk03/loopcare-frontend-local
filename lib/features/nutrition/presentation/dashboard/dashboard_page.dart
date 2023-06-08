@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_version/app_version.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/diary/diary.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/explore/explore.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/education/education.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/physical_exercise/physical_exercise.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/plan_meal/plan_meal.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/reflection/reflection.dart';
@@ -19,7 +20,7 @@ import 'package:loopcare_frontend/features/nutrition/application/nutrition_instr
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/log_meal/log_meal.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/support_group/support_group.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/weight/weight_block.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -48,6 +49,10 @@ class _DashboardPageState extends State<DashboardPage> {
 
     context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
 
+    context
+        .read<DashboardEducationBloc>()
+        .add(const DashboardEducationEvent.getDashboardLessons());
+
     super.initState();
   }
 
@@ -58,6 +63,9 @@ class _DashboardPageState extends State<DashboardPage> {
           .read<DashboardWeightBloc>()
           .add(DashboardWeightEvent.setDate(day));
       context.read<MealsBloc>().add(MealsEvent.setCurrentDate(day));
+      context
+          .read<DashboardEducationBloc>()
+          .add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
     });
   }
 
@@ -115,7 +123,14 @@ class _DashboardPageState extends State<DashboardPage> {
                       const SizedBox(height: 10.0),
                       SupportGroup(isEditable: _isMealBlockEditable),
                       const SizedBox(height: 10.0),
-                      Explore(isEditable: _isMealBlockEditable),
+                      BlocBuilder<DashboardEducationBloc,
+                          DashboardEducationState>(
+                        builder: (BuildContext context, state) {
+                          return state.isVisibleOnDashboard(_selectedDay)
+                              ? Education(date: _selectedDay,)
+                              : const SizedBox(height: 0.0);
+                        },
+                      ),
                       const SizedBox(height: 10.0),
                       ElevatedButton(
                         onPressed: () => _onLogOutPressed(context),

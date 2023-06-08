@@ -1,0 +1,48 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
+import 'package:loopcare_frontend/injection.dart';
+
+class NetworkImageWithCache extends StatelessWidget {
+  final String url;
+
+  const NetworkImageWithCache({
+    Key? key,
+    required this.url,
+  }) : super(key: key);
+
+  _getAuthToken() {
+    final authManager = getIt<AuthTokenManager>();
+    return authManager.getAccessToken();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _getAuthToken(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.hasData) {
+          return CachedNetworkImage(
+            imageUrl: url,
+            imageBuilder: (context, imageProvider) => Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.fitHeight,
+                ),
+              ),
+            ),
+            httpHeaders: {
+              "Authorization": 'Bearer ${snapshot.data}',
+            },
+            placeholder: (context, url) => const Loader(),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+          );
+        }
+
+        return const SizedBox.shrink();
+      },
+    );
+  }
+}

@@ -7,7 +7,8 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/education_page.dart';
+import 'package:loopcare_frontend/features/home/presentation/tabs_state.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/dashboard_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/bottom_navigation/bottom_navigation.dart';
@@ -65,14 +66,18 @@ class _HomePageState extends State<HomePage> {
           toolbarHeight: 0.0,
           backgroundColor: _appBarColor,
         ),
-        body: IndexedStack(
-          sizing: StackFit.expand,
-          index: _selectedNavigationItem.index,
-          children: const <Widget>[
-            DashboardPage(),
-            EducationPage(),
-            AccountPage(),
-          ],
+        body: TabsState(
+          selectedNavigationItem: _selectedNavigationItem,
+          onNavigationPressed: onNavigationPressed,
+          child: IndexedStack(
+            sizing: StackFit.expand,
+            index: _selectedNavigationItem.index,
+            children: const <Widget>[
+              DashboardPage(),
+              EducationPage(),
+              AccountPage(),
+            ],
+          ),
         ),
         bottomNavigationBar:
             BlocBuilder<AuthenticationCubit, AuthenticationState>(

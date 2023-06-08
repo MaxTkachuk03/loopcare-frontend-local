@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/weight/loading_weight.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/weight_conversion_utils.dart';
 
 class WeightBlock extends StatelessWidget {
@@ -101,29 +101,30 @@ class WeightBlock extends StatelessWidget {
             ],
           ),
           BlocBuilder<DashboardWeightBloc, DashboardWeightState>(
-              builder: (BuildContext context, s) {
-            final bool isEditable = s.isEditable(date);
-            final hasLog = s.hasLogOnSelectedDate(date);
+            builder: (BuildContext context, s) {
+              final bool isEditable = s.isEditable(date);
+              final hasLog = s.hasLogOnSelectedDate(date);
 
-            return isEditable
-                ? Hexagon(
-                    width: 54,
-                    height: 54,
-                    borderRadius: 16,
-                    innerWidget: Container(
-                      color: AppColors.bgGreen,
-                      child: IconButton(
-                        icon: ImageIcon(
-                          hasLog ? AppIcons.edit : AppIcons.plus,
-                          color: AppColors.darkGreen,
-                          size: 18,
+              return isEditable
+                  ? Hexagon(
+                      width: 54,
+                      height: 54,
+                      borderRadius: 16,
+                      innerWidget: Container(
+                        color: AppColors.bgGreen,
+                        child: IconButton(
+                          icon: ImageIcon(
+                            hasLog ? AppIcons.edit : AppIcons.plus,
+                            color: AppColors.darkGreen,
+                            size: 18,
+                          ),
+                          onPressed: () => onPressHandler(context),
                         ),
-                        onPressed: () => onPressHandler(context),
                       ),
-                    ),
-                  )
-                : Container();
-          }),
+                    )
+                  : Container();
+            },
+          ),
         ],
       ),
     );

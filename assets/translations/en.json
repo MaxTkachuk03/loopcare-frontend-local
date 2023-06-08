@@ -16,6 +16,7 @@
   "imperial": "Imperial",
   "needHelpWithThis": "Need help with this?",
   "next": "Next",
+  "finish": "Finish",
   "yourWeight": "Your weight",
   "introPage": "Intro Page!",
   "joinUsIn2Steps": "Join us in 2 steps",
@@ -328,6 +329,16 @@
   "foodItemWasDeletedFromDish": "Food item was removed from the dish",
   "invalidDishNameMessage": "Give this dish a name please",
   "invalidDishServingsAmountMessage": "Serving size can't be empty",
+  "invalidDishSelectedMealCategory": "At least one meal category should be selected",
   "invalidDishPortionsAmountMessage": "Portions can't be empty",
-  "invalidCreateDishFromMealMessage": "A dish cannot contain other dishes or recipes. Please remove dishes or recipes and try again"
+  "availableIn": "Available in",
+  "invalidCreateDishFromMealMessage": "A dish cannot contain other dishes or recipes. Please remove dishes or recipes and try again",
+  "sampleLessonText": "Introduction to weightloss, bmi, obesity",
+  "readText": "Read text version",
+  "listenAudio": "Listen to audio version",
+  "lessonCompleteTitle": "Setting expectations for a healthier lifestyle",
+  "backToToday": "Back to today",
+  "completed": "Completed",
+  "todo": "TODO",
+  "done": "DONE"
 }

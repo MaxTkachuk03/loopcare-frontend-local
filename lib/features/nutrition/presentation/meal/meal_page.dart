@@ -12,18 +12,20 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/dish_favorites_category/dish_favorites_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/meal/widgets/meals_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
 
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/plus_button_hexagon/plus_button_hexagon.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 class MealPage extends StatefulWidget {
@@ -38,7 +40,13 @@ class _MealPageState extends State<MealPage> {
 
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
-    final mealCategory = state.currentMealCategory;
+
+    final mealCategory = DishFavoritesCategory.values
+            .asNameMap()
+            .containsKey(state.currentMealCategory?.toLowerCase())
+        ? state.currentMealCategory
+        : MealCategory.breakfast.originalValue;
+
     final mealId = state.getCurrentMealId;
 
     if (mealId == null || mealCategory == null) return;

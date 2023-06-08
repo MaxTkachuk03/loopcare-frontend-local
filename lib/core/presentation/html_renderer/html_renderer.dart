@@ -20,16 +20,11 @@ class HtmlRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-        child: HtmlWidget(
-          content,
-          onErrorBuilder: _onErrorBuilder,
-          onLoadingBuilder: _onLoadingBuilder,
-          renderMode: RenderMode.listView,
-        ),
-      ),
+    return HtmlWidget(
+      content,
+      onErrorBuilder: _onErrorBuilder,
+      onLoadingBuilder: _onLoadingBuilder,
+      renderMode: RenderMode.column,
     );
   }
 }

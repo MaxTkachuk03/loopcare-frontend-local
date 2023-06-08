@@ -35,6 +35,20 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     on<RemoveDish>(_onRemoveDish);
   }
 
+  IList<MealCategoryFilter> _getMealFavoriteCategories(String defaultSelected) {
+    return MealFavoritesCategory.values
+        .map((e) => MealCategoryFilter(
+            name: e.name, selected: e.value == defaultSelected))
+        .toIList();
+  }
+
+  IList<MealCategoryFilter> _getDishFavoriteCategories(String defaultSelected) {
+    return DishFavoritesCategory.values
+        .map((e) => MealCategoryFilter(
+            name: e.name, selected: e.value == defaultSelected))
+        .toIList();
+  }
+
   FutureOr<void> _onFetchFavorites(
     FetchFavorites event,
     Emitter<SelectFoodState> emit,
@@ -45,7 +59,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
 
     emit(const SelectFoodState.loading());
 
-    final response = await nutritionService.getFavorites([]);
+    final response = await nutritionService.getFavorites([event.mealCategory]);
 
     response.fold(
       (error) {
@@ -55,9 +69,8 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
         emit(SelectFoodState.selectFood(
           favorites: response.data.toIList(),
           dishes: dishes ?? <Dish>[].toIList(),
-          mealFavoritesCategories: MealFavoritesCategory.values
-              .map((e) => MealCategoryFilter(name: e.name, selected: false))
-              .toIList(),
+          mealFavoritesCategories:
+              _getMealFavoriteCategories(event.mealCategory),
           dishFavoritesCategories:
               dishesFilters ?? <MealCategoryFilter>[].toIList(),
           selectedFavoritesItems: <FoodItem>[].toIList(),
@@ -74,7 +87,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     final favoritesFiltes =
         state.mapOrNull(selectFood: (s) => s.mealFavoritesCategories);
 
-    final response = await nutritionService.getDishes([]);
+    final response = await nutritionService.getDishes([event.mealCategory]);
 
     response.fold(
       (error) {
@@ -86,9 +99,8 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
           dishes: response.data.toIList(),
           mealFavoritesCategories:
               favoritesFiltes ?? <MealCategoryFilter>[].toIList(),
-          dishFavoritesCategories: DishFavoritesCategory.values
-              .map((e) => MealCategoryFilter(name: e.name, selected: false))
-              .toIList(),
+          dishFavoritesCategories:
+              _getDishFavoriteCategories(event.mealCategory),
           selectedFavoritesItems: <FoodItem>[].toIList(),
         ));
       },

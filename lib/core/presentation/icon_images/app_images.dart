@@ -5,8 +5,10 @@ class AppImages {
   static const String imagesFilePath = 'assets/images';
 
   static const AssetImage logo = AssetImage('$imagesFilePath/logo.png');
-  static const AssetImage introOne = AssetImage('$imagesFilePath/intro_one.png');
-  static const AssetImage introTwo = AssetImage('$imagesFilePath/intro_two.png');
+  static const AssetImage introOne =
+      AssetImage('$imagesFilePath/intro_one.png');
+  static const AssetImage introTwo =
+      AssetImage('$imagesFilePath/intro_two.png');
   static const AssetImage introThree =
       AssetImage('$imagesFilePath/intro_three.png');
   static const AssetImage coffee = AssetImage('$imagesFilePath/coffee.png');
@@ -45,6 +47,15 @@ class AppImages {
 
   static const AssetImage play = AssetImage('$imagesFilePath/play.png');
 
+  static const AssetImage arrowHexagon =
+      AssetImage('$imagesFilePath/arrow_hexagon.png');
+
+  static const AssetImage educationDashboard =
+      AssetImage('$imagesFilePath/education_dashboard.png');
+
+  static const AssetImage iconAttention =
+      AssetImage('$imagesFilePath/attention.png');
+
   static const AssetImage educationCardImage =
       AssetImage('$imagesFilePath/education_card_image.png');
 
@@ -53,6 +64,9 @@ class AppImages {
 
   static const AssetImage recipePlaceholder =
       AssetImage('$imagesFilePath/recipe_placeholder.png');
+
+  static const AssetImage lessonComplete =
+      AssetImage('$imagesFilePath/lesson_complete.png');
 
   static SvgPicture logoSvgBig =
       SvgPicture.asset('$imagesFilePath/logo.svg', width: 114, height: 107);

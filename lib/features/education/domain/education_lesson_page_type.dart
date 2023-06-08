@@ -1,0 +1,4 @@
+enum EducationLessonPageType {
+  text,
+  audio,
+}

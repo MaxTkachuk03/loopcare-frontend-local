@@ -17,6 +17,7 @@ class LocalizedTexts {
   static const String imperial = 'imperial';
   static const String needHelpWithThis = 'needHelpWithThis';
   static const String next = 'next';
+  static const String finish = 'finish';
   static const String yourWeight = 'yourWeight';
   static const String introPage = 'introPage';
   static const String joinUsIn2Steps = 'joinUsIn2Steps';
@@ -382,6 +383,8 @@ class LocalizedTexts {
   static const String noWeightLogged = 'noWeightLogged';
   static const String ok = 'ok';
   static const String todaysWeight = 'todaysWeight';
+  static const String todo = 'todo';
+  static const String done = 'done';
 
   // Education
   static const String all = 'all';
@@ -389,11 +392,15 @@ class LocalizedTexts {
   static const String nutrition = 'nutrition';
   static const String mind = 'mind';
   static const String activity = 'activity';
+  static const String availableIn = 'availableIn';
 
   static const String noMealsLogged = 'noMealsLogged';
   static const String noMealsLoggedYet = 'noMealsLoggedYet';
   static const String noMealsPlanned = 'noMealsPlanned';
   static const String noMealsPlannedYet = 'noMealsPlannedYet';
+  static const String sampleLessonText = 'sampleLessonText';
+  static const String readText = 'readText';
+  static const String listenAudio = 'listenAudio';
 
   // Dish
   static const String createMyDish = 'createMyDish';
@@ -406,6 +413,8 @@ class LocalizedTexts {
   static const String foodItemWasAddedToDish = 'foodItemWasAddedToDish';
   static const String foodItemWasDeletedFromDish = 'foodItemWasDeletedFromDish';
   static const String invalidDishNameMessage = 'invalidDishNameMessage';
+  static const String invalidDishSelectedMealCategory =
+      'invalidDishSelectedMealCategory';
   static const String invalidDishServingsAmountMessage =
       'invalidDishServingsAmountMessage';
   static const String invalidDishPortionsAmountMessage =
@@ -418,6 +427,11 @@ class LocalizedTexts {
   static const String deleteModalMessage = 'deleteModalMessage';
   static const String yesDelete = 'yesDelete';
   static const String noCancel = 'noCancel';
+
+  // Education
+  static const String lessonCompleteTitle = 'lessonCompleteTitle';
+  static const String backToToday = 'backToToday';
+  static const String completed = 'completed';
 }
 
 extension StringX on String {

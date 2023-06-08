@@ -3,24 +3,26 @@ import 'package:flutter_polygon/flutter_polygon.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
-import 'package:loopcare_frontend/features/education/domain/education_card_type.dart';
+import 'package:loopcare_frontend/features/education/domain/education_lesson.dart';
 
 class ProgressItem extends StatelessWidget {
   final bool isFirst;
   final bool isLast;
-  final EducationCardType type;
-  final EducationCardType? nextItemType;
+  final bool nextIsLocked;
+  final EducationLesson lesson;
 
   const ProgressItem({
     Key? key,
+    required this.lesson,
     required this.isLast,
     required this.isFirst,
-    required this.type,
-    this.nextItemType,
+    required this.nextIsLocked,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final isAvailable = !lesson.isLocked && !lesson.isCompleted;
+
     return Column(
       children: [
         isFirst
@@ -30,12 +32,10 @@ class ProgressItem extends StatelessWidget {
             : Expanded(
                 child: Container(
                   width: 4,
-                  color: type == EducationCardType.blocked
-                      ? AppColors.yellowLight
-                      : AppColors.darkGreen,
+                  color: lesson.isLocked ? AppColors.yellowLight : AppColors.darkGreen,
                 ),
               ),
-        type == EducationCardType.passed
+        lesson.isCompleted
             ? Hexagon(
                 width: 30.0,
                 height: 30.0,
@@ -58,7 +58,7 @@ class ProgressItem extends StatelessWidget {
                     rotate: 30.0,
                     borderRadius: 10,
                     side: BorderSide(
-                        color: type == EducationCardType.available
+                        color: isAvailable
                             ? AppColors.darkGreen
                             : AppColors.yellowLight,
                         width: 3),
@@ -72,7 +72,7 @@ class ProgressItem extends StatelessWidget {
             : Expanded(
                 child: Container(
                   width: 4,
-                  color: nextItemType == EducationCardType.blocked
+                  color: nextIsLocked
                       ? AppColors.yellowLight
                       : AppColors.darkGreen,
                 ),

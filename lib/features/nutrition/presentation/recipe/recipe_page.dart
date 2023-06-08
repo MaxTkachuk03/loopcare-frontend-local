@@ -14,9 +14,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/dish_favorites_category/dish_favorites_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe/widgets/recipe_list.dart';
@@ -112,14 +111,18 @@ class _RecipePageState extends State<RecipePage> {
     );
   }
 
-  List<MealCategory> _getSelectedMealCategories(String? category) {
-    List<MealCategory> defaultMealCategories = [];
+  List<DishFavoritesCategory> _getSelectedMealCategories(String? category) {
+    List<DishFavoritesCategory> defaultMealCategories = [];
     if (category == null) return defaultMealCategories;
 
-    for (final mealCategory in MealCategory.values) {
-      if (mealCategory.name == category) {
+    for (final mealCategory in DishFavoritesCategory.values) {
+      if (mealCategory.value == category) {
         defaultMealCategories.add(mealCategory);
       }
+    }
+
+    if (defaultMealCategories.isEmpty) {
+      defaultMealCategories.add(DishFavoritesCategory.breakfast);
     }
 
     return defaultMealCategories;

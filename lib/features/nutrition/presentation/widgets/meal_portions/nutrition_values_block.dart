@@ -14,6 +14,7 @@ class NutritionValuesBlock extends StatelessWidget {
   final void Function(NutritionValuesTypes item) onNutritionFactSelect;
   final TextEditingController? portionsController;
   final bool? isPortionsEditable;
+  final FocusNode? portionsFocusNode;
 
   const NutritionValuesBlock({
     Key? key,
@@ -23,11 +24,13 @@ class NutritionValuesBlock extends StatelessWidget {
     required this.onNutritionFactSelect,
     this.portionsController,
     this.isPortionsEditable,
+    this.portionsFocusNode,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final nutritionItem = nutritionValuesList.firstWhere((element) => element.key == selectedNutritionType.name);
+    final nutritionItem = nutritionValuesList
+        .firstWhere((element) => element.key == selectedNutritionType.name);
 
     return Container(
       decoration: const BoxDecoration(
@@ -51,7 +54,10 @@ class NutritionValuesBlock extends StatelessWidget {
                     ),
               ),
               if (isPortionsEditable != null)
-                MealPortionsInput(controller: portionsController),
+                MealPortionsInput(
+                  controller: portionsController,
+                  focusNode: portionsFocusNode,
+                ),
               if (isPortionsEditable == null)
                 Text(
                   LocalizedTexts.portionMeal.translateWithNamedArgs(

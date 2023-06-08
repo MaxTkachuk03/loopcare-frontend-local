@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/select_food/wi
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/favorites_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/selected_items_label.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/under_appbar_container.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 
 class SelectFoodPage extends StatelessWidget {
   final String mealCategory;
@@ -17,11 +17,11 @@ class SelectFoodPage extends StatelessWidget {
     required this.mealCategory,
   });
 
-  String _appBarTitle (BuildContext context) {
+  String _appBarTitle(BuildContext context) {
     final state = context.read<MealsBloc>().state;
 
     final date = state.getCurrentDate.isoStringWithoutTime !=
-        DateTime.now().isoStringWithoutTime
+            DateTime.now().isoStringWithoutTime
         ? state.getCurrentDate.shortDate
         : 'today';
 
@@ -46,7 +46,7 @@ class SelectFoodPage extends StatelessWidget {
               Flexible(
                 child: TabBarView(
                   children: [
-                    const FavoriteList(),
+                    FavoriteList(mealCategory: mealCategory),
                     DishesList(mealCategory: mealCategory),
                   ],
                 ),

@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/dish_favorites_category/dish_favorites_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
@@ -38,18 +39,34 @@ class _DishesListState extends State<DishesList>
 
   @override
   void initState() {
-    context.read<SelectFoodBloc>().add(const SelectFoodEvent.fetchDishes());
+    context
+        .read<SelectFoodBloc>()
+        .add(SelectFoodEvent.fetchDishes(_defaultMealCategory));
     super.initState();
   }
 
   Future _onRefresh() async {
     return context
         .read<SelectFoodBloc>()
-        .add(const SelectFoodEvent.fetchDishes());
+        .add(SelectFoodEvent.fetchDishes(_defaultMealCategory));
   }
 
   _updateDishesListener(BuildContext context, state) {
-    context.read<SelectFoodBloc>().add(const SelectFoodEvent.fetchDishes());
+    context
+        .read<SelectFoodBloc>()
+        .add(SelectFoodEvent.fetchDishes(_defaultMealCategory));
+  }
+
+  bool get _canCreateDishWithSelectedMealCategory {
+    return DishFavoritesCategory.values
+        .asNameMap()
+        .containsKey(widget.mealCategory.toLowerCase());
+  }
+
+  String get _defaultMealCategory {
+    return _canCreateDishWithSelectedMealCategory
+        ? widget.mealCategory.toLowerCase()
+        : MealCategory.breakfast.name.toLowerCase();
   }
 
   @override
@@ -110,13 +127,14 @@ class _DishesListState extends State<DishesList>
                                 ),
                               ),
                         const SizedBox(height: 8.0),
-                        MainContainer(
-                          child: OutlinedRoundedButton(
-                            text: LocalizedTexts.createMyDish.translation,
-                            icon: AppIcons.dish,
-                            onPressed: _onCreateDish,
-                          ),
-                        )
+                        if (_canCreateDishWithSelectedMealCategory)
+                          MainContainer(
+                            child: OutlinedRoundedButton(
+                              text: LocalizedTexts.createMyDish.translation,
+                              icon: AppIcons.dish,
+                              onPressed: _onCreateDish,
+                            ),
+                          )
                       ],
                     ),
                   );
