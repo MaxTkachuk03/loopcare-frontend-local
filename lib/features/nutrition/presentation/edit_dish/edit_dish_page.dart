@@ -251,10 +251,6 @@ class _EditDishPageState extends State<EditDishPage> {
       _onDeleteDishHandler();
     }
 
-    print('----------------------------');
-    print('asdasdasd');
-    print('----------------------------');
-
     return Future.value(true);
   }
 

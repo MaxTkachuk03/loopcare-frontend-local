@@ -7,7 +7,7 @@ class EducationCountDown extends StatefulWidget {
   const EducationCountDown({Key? key, required this.seconds}) : super(key: key);
 
   @override
-  _EducationCountDownState createState() => _EducationCountDownState();
+  State<EducationCountDown> createState() => _EducationCountDownState();
 }
 
 class _EducationCountDownState extends State<EducationCountDown> {
@@ -22,7 +22,6 @@ class _EducationCountDownState extends State<EducationCountDown> {
 
     super.initState();
   }
-
 
   @override
   void dispose() {
