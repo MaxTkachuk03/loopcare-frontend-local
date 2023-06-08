@@ -8,6 +8,7 @@ class AudioBlock extends StatefulWidget {
   final void Function(int duration) onDurationChanged;
   final void Function(int position) onPositionChanged;
   final void Function(bool isPlay) onPlayingChanged;
+  final void Function() onPlayerComplete;
   final String url;
 
   const AudioBlock({
@@ -15,6 +16,7 @@ class AudioBlock extends StatefulWidget {
     required this.onDurationChanged,
     required this.onPositionChanged,
     required this.onPlayingChanged,
+    required this.onPlayerComplete,
     required this.url,
   }) : super(key: key);
 
@@ -42,10 +44,19 @@ class _AudioBlockState extends State<AudioBlock> {
         },
       ),
     );
+
     streams.add(
       audioPlayer.onPlayerStateChanged.listen(
         (v) {
           widget.onPlayingChanged(v == PlayerState.playing);
+        },
+      ),
+    );
+
+    streams.add(
+      audioPlayer.onPlayerComplete.listen(
+        (v) {
+          widget.onPlayerComplete();
         },
       ),
     );
