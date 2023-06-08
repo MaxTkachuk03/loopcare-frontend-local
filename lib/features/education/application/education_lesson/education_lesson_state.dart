@@ -32,8 +32,6 @@ class EducationLessonData with _$EducationLessonData {
   const EducationLessonData._();
 
   const factory EducationLessonData({
-    @Default('') String audioFilePath,
-    @Default('') String subtitleFilePath,
     @Default('') String temporaryDirectory,
     @Default([]) List<LessonPage> pages,
     @Default(0) int lessonId,

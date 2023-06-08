@@ -13,6 +13,8 @@ abstract class LessonContent implements _$LessonContent {
     @Default(null) String? subtitlesText,
     @Default(null) String? subtitlesImages,
     @Default(null) String? backgroundAnimation,
+    @Default('') String audioFilePath,
+    @Default('') String subtitleFilePath,
   }) = _LessonContent;
 
   factory LessonContent.fromJson(Map<String, dynamic> json) =>
