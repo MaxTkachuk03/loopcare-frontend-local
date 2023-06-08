@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
@@ -10,6 +11,8 @@ import 'package:loopcare_frontend/features/education/application/education_lesso
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/audio_block.dart';
 import 'package:loopcare_frontend/features/education/subtitle/domain/image_subtitle_controller.dart';
 import 'dart:io';
+
+import 'package:loopcare_frontend/injection.dart';
 
 class LessonAudioPage extends StatefulWidget {
   final void Function() onNextPressed;
@@ -26,10 +29,12 @@ class LessonAudioPage extends StatefulWidget {
 }
 
 class _LessonAudioPageState extends State<LessonAudioPage> {
+  AppConfig appConfig = getIt<AppConfig>();
   late SubtitleController _subtitleController;
   bool _subtitleControllerInitialized = false;
 
   String? imageUrl;
+  int lessonId = -1;
 
   int position = 0;
   int duration = 0;
@@ -62,10 +67,6 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
   _setPosition(int v) {
     setState(() {
       position = v;
-
-      if (position >= (duration - 200)) {
-        widget.onNextPressed();
-      }
     });
 
     if (duration > 0 && _subtitleControllerInitialized) {
@@ -73,12 +74,16 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
         position,
         _subtitleController.subtitles,
       );
-      if (imageUrl != text) {
+      if (text.isNotEmpty && imageUrl != text && lessonId != -1) {
         setState(() {
-          imageUrl = text;
+          imageUrl = "${appConfig.baseUrl}/education/content/$lessonId/$text";
         });
       }
     }
+  }
+
+  _setIsComplete(int v) {
+    widget.onNextPressed();
   }
 
   _setIsPlay(bool state) {
@@ -98,6 +103,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<EducationLessonBloc, EducationLessonState>(
       builder: (context, state) {
+        lessonId = state.data.lessonId;
         if (state.data.currentPage.content.subtitleFilePath.isNotEmpty) {
           prepareSubtitleController(
               state.data.currentPage.content.subtitleFilePath);
@@ -211,6 +217,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                         onPlayingChanged: (bool isPlay) {
                           _setIsPlay(isPlay);
                         },
+                        onPlayerComplete: () => _setIsComplete,
                       ),
                     const SizedBox(height: 14),
                   ],
