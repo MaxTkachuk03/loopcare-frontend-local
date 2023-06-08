@@ -34,7 +34,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
   bool _subtitleControllerInitialized = false;
 
   String? imageUrl;
-  int lessonId = -1;
+  late int lessonId;
 
   int position = 0;
   int duration = 0;
@@ -74,7 +74,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
         position,
         _subtitleController.subtitles,
       );
-      if (text.isNotEmpty && imageUrl != text && lessonId != -1) {
+      if (text.isNotEmpty && imageUrl != text) {
         setState(() {
           imageUrl = "${appConfig.baseUrl}/education/content/$lessonId/$text";
         });
@@ -82,7 +82,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
     }
   }
 
-  _setIsComplete(int v) {
+  _setIsComplete() {
     widget.onNextPressed();
   }
 
@@ -217,7 +217,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                         onPlayingChanged: (bool isPlay) {
                           _setIsPlay(isPlay);
                         },
-                        onPlayerComplete: () => _setIsComplete,
+                        onPlayerComplete: () => _setIsComplete(),
                       ),
                     const SizedBox(height: 14),
                   ],
