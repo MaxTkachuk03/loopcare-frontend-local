@@ -6,6 +6,8 @@ import 'package:loopcare_frontend/features/education/domain/lesson_category.dart
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_app_bar.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_body.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_tab_bar.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
 class EducationPage extends StatefulWidget {
   const EducationPage({Key? key}) : super(key: key);
@@ -14,22 +16,21 @@ class EducationPage extends StatefulWidget {
   State<EducationPage> createState() => _EducationPageState();
 }
 
-class _EducationPageState extends State<EducationPage>
-    with SingleTickerProviderStateMixin {
+class _EducationPageState extends State<EducationPage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
-  List<Widget> categories =
-      LessonCategory.values.map((v) => Tab(text: v.label)).toList();
+  List<Widget> categories = LessonCategory.values.map((v) => Tab(text: v.label)).toList();
 
   @override
   void initState() {
     super.initState();
 
     _tabController = TabController(
-        vsync: this,
-        length: categories.length,
-        animationDuration: Duration.zero,
-        initialIndex: 0);
+      vsync: this,
+      length: categories.length,
+      animationDuration: Duration.zero,
+      initialIndex: 0,
+    );
 
     _tabController.addListener(_onTabsChanged);
 
@@ -48,11 +49,17 @@ class _EducationPageState extends State<EducationPage>
   }
 
   _lessonCompleteListener(BuildContext context, EducationLessonState state) {
-    context.read<EducationProgramBloc>().add(
-          EducationProgramEvent.getLessons(
-            LessonCategory.values[_tabController.index],
-          ),
-        );
+    final currentDate = context.read<MealsBloc>().state.getCurrentDate;
+
+    context
+      ..read<EducationProgramBloc>().add(
+        EducationProgramEvent.getLessons(
+          LessonCategory.values[_tabController.index],
+        ),
+      )
+      ..read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(
+        currentDate: currentDate,
+      ));
   }
 
   @override
@@ -64,15 +71,13 @@ class _EducationPageState extends State<EducationPage>
         child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
           builder: (BuildContext context, state) {
             return NestedScrollView(
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
+              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                 return [
                   EducationTabBar(
                     controller: _tabController,
                     tabs: categories,
                   ),
-                  if (state.data.currentCategory == LessonCategory.all)
-                    const EducationAppBar(),
+                  if (state.data.currentCategory == LessonCategory.all) const EducationAppBar(),
                 ];
               },
               body: TabBarView(
