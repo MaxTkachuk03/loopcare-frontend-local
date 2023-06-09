@@ -22,6 +22,7 @@ class EducationProgramBloc
   EducationProgramBloc(this._educationService)
       : super(const EducationProgramState.initial(EducationProgramData())) {
     on<_GetLessons>(_onGetLessons);
+    on<_ResetLessonWithCountdown>(_onResetLessonWithCountdown);
   }
 
   Future<void> _onGetLessons(
@@ -57,6 +58,15 @@ class EducationProgramBloc
     );
   }
 
+
+  FutureOr<void> _onResetLessonWithCountdown(event, Emitter<EducationProgramState> emit) {
+    emit(EducationProgramState.educationProgram(
+      state.data.copyWith(
+        lessonWithCountdown: null,
+      ),
+    ));
+  }
+
   LessonWithCountdown? _getLessonWithCountdown(List<EducationLesson> lessons) {
     final lastStartedStep =
         lessons.lastWhereOrNull((element) => element.completedAt != null)?.step;
@@ -72,7 +82,7 @@ class EducationProgramBloc
     final currentDifference = oneDayInSeconds -
         endDate.difference(startDate ?? DateTime.now()).inSeconds;
 
-    if (currentDifference == 0) return null;
+    if (currentDifference <= 0) return null;
 
     final lessonWithCountdown = lessons
         .firstWhereOrNull((element) => element.step == lastStartedStep + 1);
