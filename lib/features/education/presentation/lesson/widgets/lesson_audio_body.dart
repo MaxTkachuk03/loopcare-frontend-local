@@ -34,6 +34,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
   bool _subtitleControllerInitialized = false;
 
   String? imageUrl;
+  String? imageUrlFromJson;
   late int lessonId;
 
   int position = 0;
@@ -74,9 +75,10 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
         position,
         _subtitleController.subtitles,
       );
-      if (text.isNotEmpty && imageUrl != text) {
+      if (text.isNotEmpty && imageUrlFromJson != text) {
         setState(() {
           imageUrl = "${appConfig.baseUrl}/education/content/$lessonId/$text";
+          imageUrlFromJson = text;
         });
       }
     }
