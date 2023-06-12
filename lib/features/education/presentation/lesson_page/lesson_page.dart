@@ -92,7 +92,7 @@ class _LessonPageState extends State<LessonPage> {
                 if (!state.data.isLoading &&
                     state.data.currentPage.type ==
                         EducationLessonPageType.audio &&
-                    state.data.audioFilePath.isEmpty) {
+                    state.data.currentPage.content.audioFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
                         EducationLessonEvent.downloadAudioFile(
                             state.data.currentPage.content.url),
@@ -102,7 +102,7 @@ class _LessonPageState extends State<LessonPage> {
                     state.data.currentPage.type ==
                         EducationLessonPageType.audio &&
                     state.data.currentPage.content.subtitlesImages != null &&
-                    state.data.subtitleFilePath.isEmpty) {
+                    state.data.currentPage.content.subtitleFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
                         EducationLessonEvent.downloadSubtitlesFile(
                             state.data.currentPage.content.subtitlesImages!),

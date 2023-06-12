@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -58,11 +59,25 @@ class EducationLessonBloc
       state.data.filePath(event.url),
     );
     response.fold((l) {}, (r) {
+      var pages = state.data.pages;
+      var localPages = pages
+          .map((e) =>
+              LessonPage(content: e.content, type: e.type, order: e.order))
+          .toList();
+
+      var index = state.data.currentPageIndex;
+
+      localPages[index] = localPages[index].copyWith(
+        content: localPages[index].content.copyWith(
+              audioFilePath: state.data.filePath(event.url),
+            ),
+      );
+
       emit(
         EducationLessonState.contentLoaded(
           state.data.copyWith(
             isLoading: false,
-            audioFilePath: state.data.filePath(event.url),
+            pages: localPages,
           ),
         ),
       );
@@ -78,11 +93,24 @@ class EducationLessonBloc
       state.data.filePath(event.url),
     );
     response.fold((l) {}, (r) {
+      var pages = state.data.pages;
+      var localPages = pages
+          .map((e) =>
+              LessonPage(content: e.content, type: e.type, order: e.order))
+          .toList();
+      var index = state.data.currentPageIndex;
+
+      localPages[index] = localPages[index].copyWith(
+        content: localPages[index].content.copyWith(
+              subtitleFilePath: state.data.filePath(event.url),
+            ),
+      );
+
       emit(
         EducationLessonState.contentLoaded(
           state.data.copyWith(
             isLoading: false,
-            subtitleFilePath: state.data.filePath(event.url),
+            pages: localPages,
           ),
         ),
       );

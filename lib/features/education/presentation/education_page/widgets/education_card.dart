@@ -57,80 +57,77 @@ class EducationCard extends StatelessWidget {
             ),
           ),
         Expanded(
-          child: GestureDetector(
-            onTap: !lesson.isLocked ? () => _onTapHandler(context) : null,
-            child: Container(
-              padding:
-                  const EdgeInsets.only(top: 8.0, bottom: 12.0, left: 20.0),
-              decoration: BoxDecoration(
-                color: lesson.isLocked ? AppColors.dirtyWhite : AppColors.white,
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                        Text(
-                          lesson.category.toUpperCase(),
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+          child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
+            builder: (BuildContext context, state) {
+              final lessonWithCountdown = state.data.lessonWithCountdown;
+              final isLessonWithCountDown =
+                  lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
+              final isLocked = lesson.isLocked || isLessonWithCountDown;
+
+              return GestureDetector(
+                onTap: isLocked ? null : () => _onTapHandler(context),
+                child: Container(
+                  padding: const EdgeInsets.only(top: 8.0, bottom: 12.0, left: 20.0),
+                  decoration: BoxDecoration(
+                    color: isLocked ? AppColors.dirtyWhite : AppColors.white,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            Text(
+                              lesson.category.toUpperCase(),
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                     fontSize: ThemeConstants.fontSize12,
-                                    fontWeight: lesson.isLocked
-                                        ? FontWeight.w400
-                                        : FontWeight.w700,
-                                    color: isAvailable
+                                    fontWeight: isLocked ? FontWeight.w400 : FontWeight.w700,
+                                    color: isAvailable && !isLessonWithCountDown
                                         ? AppColors.orangeDark
                                         : AppColors.greyLabel,
                                   ),
-                        ),
-                        const SizedBox(height: 14.0),
-                        Text(
-                          lesson.title,
-                          style:
-                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                            ),
+                            const SizedBox(height: 14.0),
+                            Text(
+                              lesson.title,
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                     fontWeight: FontWeight.w600,
-                                    color: isAvailable
+                                    color: isAvailable && !isLessonWithCountDown
                                         ? AppColors.orangeDark
                                         : AppColors.darkGreen,
                                   ),
-                        ),
-                        const SizedBox(height: 14.0),
-                        BlocBuilder<EducationProgramBloc,
-                            EducationProgramState>(
-                          builder: (BuildContext context, state) {
-                            final lessonWithCountdown =
-                                state.data.lessonWithCountdown;
-
-                            if (lessonWithCountdown != null &&
-                                lesson.id == lessonWithCountdown.lesson.id) {
-                              return Wrap(
-                                children: [
-                                  const Image(
-                                    image: AppImages.iconAttention,
-                                  ),
-                                  const SizedBox(
-                                    width: 6.0,
-                                  ),
-                                  Text(
-                                      '${LocalizedTexts.availableIn.translation}: '),
-                                  EducationCountDown(
-                                    seconds: lessonWithCountdown.timeRemaining,
-                                  ),
-                                ],
-                              );
-                            }
-
-                            return Row(
+                            ),
+                            const SizedBox(height: 14.0),
+                            // lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id
+                            //     ? Wrap(
+                            //         children: [
+                            //           const Image(
+                            //             image: AppImages.iconAttention,
+                            //           ),
+                            //           const SizedBox(
+                            //             width: 6.0,
+                            //           ),
+                            //           Text('${LocalizedTexts.availableIn.translation}: '),
+                            //           EducationCountDown(
+                            //             seconds: lessonWithCountdown.timeRemaining,
+                            //           ),
+                            //         ],
+                            //       )
+                            Row(
                               children: [
                                 if (icon != null)
                                   Row(
                                     children: [
-                                      icon,
+                                      isLessonWithCountDown
+                                          ? const ImageIcon(
+                                              AppIcons.iconLock,
+                                              color: AppColors.darkGreen,
+                                            )
+                                          : icon,
                                       const SizedBox(
                                         width: 8.0,
                                       ),
@@ -145,17 +142,17 @@ class EducationCard extends StatelessWidget {
                                   style: Theme.of(context).textTheme.bodySmall,
                                 )
                               ],
-                            );
-                          },
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(width: 10.0),
+                      const Image(image: AppImages.educationCardImage)
+                    ],
                   ),
-                  const SizedBox(width: 10.0),
-                  const Image(image: AppImages.educationCardImage)
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           ),
         ),
       ],
@@ -170,8 +167,7 @@ class EducationCard extends StatelessWidget {
           ),
         );
 
-    context.router
-        .pushNamed('/lesson/${lesson.id}/page/$_initialLessonPageIndex');
+    context.router.pushNamed('/lesson/${lesson.id}/page/$_initialLessonPageIndex');
   }
 }
 
