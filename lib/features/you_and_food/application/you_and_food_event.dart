@@ -21,4 +21,10 @@ class YouAndFoodEvent with _$YouAndFoodEvent {
   const factory YouAndFoodEvent.fetchFoodPreferences() = FetchFoodPreferences;
 
   const factory YouAndFoodEvent.saveFoodPreferences() = SaveFoodPreferences;
+
+  const factory YouAndFoodEvent.setInitialFoodPreferences({
+    required List<int> hates,
+    required List<int> allergics,
+    required List<int> dislikes,
+  }) = SetInitialFoodPreferences;
 }

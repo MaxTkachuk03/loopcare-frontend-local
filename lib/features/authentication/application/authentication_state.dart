@@ -68,5 +68,40 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
+  String get gender {
+    return maybeWhen(
+      orElse: () => '',
+      authenticated: (state) => state.gender,
+    );
+  }
+
+  double? get height {
+    return maybeMap(
+      orElse: () => 0.0,
+      authenticated: (state) => state.account.height,
+    );
+  }
+
+  List<int> get foodPrefHatesIds {
+    return maybeMap(
+      orElse: () => [],
+      authenticated: (state) => state.account.foodPreferencesHates?.map((e) => e.id).toList() ?? [],
+    );
+  }
+
+  List<int> get foodPrefAllergiesIds {
+    return maybeMap(
+      orElse: () => [],
+      authenticated: (state) => state.account.foodPreferencesAllergic?.map((e) => e.id).toList() ?? [],
+    );
+  }
+
+  List<int> get foodPrefDislikesIds {
+    return maybeMap(
+      orElse: () => [],
+      authenticated: (state) => state.account.foodPreferencesDislikes?.map((e) => e.id).toList() ?? [],
+    );
+  }
+
   factory AuthenticationState.fromJson(Map<String, dynamic> json) => _$AuthenticationStateFromJson(json);
 }

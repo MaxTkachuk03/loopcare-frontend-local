@@ -28,6 +28,7 @@ class YouAndFoodBloc extends Bloc<YouAndFoodEvent, YouAndFoodState> {
     on<SetDislike>(_onSetDislike);
     on<SaveFoodPreferences>(_onSaveFoodPreferences);
     on<FetchFoodPreferences>(_onFetchFoodPreferences);
+    on<SetInitialFoodPreferences>(_onSetInitialFoodPreferences);
   }
 
   FutureOr<void> _onFetchFoodPrefsTypes(
@@ -82,6 +83,19 @@ class YouAndFoodBloc extends Bloc<YouAndFoodEvent, YouAndFoodState> {
       (l) => null,
       (r) => emit(
         state.copyWith(foodDislikes: r.data),
+      ),
+    );
+  }
+
+  FutureOr<void> _onSetInitialFoodPreferences(
+    SetInitialFoodPreferences event,
+    Emitter<YouAndFoodState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        selectedHates: event.hates.toIList(),
+        selectedAllergic: event.allergics.toIList(),
+        selectedDislike: event.dislikes.toIList(),
       ),
     );
   }

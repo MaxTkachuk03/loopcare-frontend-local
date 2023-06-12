@@ -7,14 +7,26 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/account/presentation/widgets/account_section.dart';
-import 'package:loopcare_frontend/features/account/presentation/widgets/personal_details_section.dart';
-import 'package:loopcare_frontend/features/account/presentation/widgets/preferences_section.dart';
-import 'package:loopcare_frontend/features/account/presentation/widgets/test_results_section.dart';
+import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_section.dart';
+import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/personal_details_section.dart';
+import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/preferences_section.dart';
+import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/test_results_section.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 
-class AccountPage extends StatelessWidget {
+class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
+
+  @override
+  State<AccountPage> createState() => _AccountPageState();
+}
+
+class _AccountPageState extends State<AccountPage> {
+  @override
+  void initState() {
+    context.read<AuthenticationCubit>().getAccount();
+
+    super.initState();
+  }
 
   _onLogOutPressed(BuildContext context) {
     context.read<AuthenticationCubit>().logout();

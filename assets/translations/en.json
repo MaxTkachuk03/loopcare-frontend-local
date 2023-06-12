@@ -352,6 +352,9 @@
   "useFaceOrTouchId": "Use Face or touch ID",
   "requireLoginEachTime": "Require login each time app is used",
   "food": "Food",
-  "groupSessions": "Group Sessions"
+  "groupSessions": "Group Sessions",
+  "foodPreferences": "Food preferences",
+  "dontEatFoodMessage": "Which types of food do you NOT eat or drink for religious or personal reasons?",
+  "dislikeFoodMessage": "Do you NOT like any of the following?"
 
 }

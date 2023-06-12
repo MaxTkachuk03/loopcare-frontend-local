@@ -13,16 +13,13 @@ class TypesOfFoodChips extends StatefulWidget {
 class _TypesOfFoodChipsState extends State<TypesOfFoodChips> {
   @override
   void initState() {
-    context
-        .read<YouAndFoodBloc>()
-        .add(const YouAndFoodEvent.fetchFoodPrefsTypes());
+    context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.fetchFoodPrefsTypes());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
+    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
       final width = constraints.maxWidth / 2 - 5;
       return BlocBuilder<YouAndFoodBloc, YouAndFoodState>(
         builder: (BuildContext context, state) {

@@ -402,6 +402,9 @@ class LocalizedTexts {
   static const String food = 'food';
   static const String groupSessions = 'groupSessions';
   static const String signOut = 'signOut';
+  static const String foodPreferences = 'foodPreferences';
+  static const String dislikeFoodMessage = 'dislikeFoodMessage';
+  static const String dontEatFoodMessage = 'dontEatFoodMessage';
 }
 
 extension StringX on String {
