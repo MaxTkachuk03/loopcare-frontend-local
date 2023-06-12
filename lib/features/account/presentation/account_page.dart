@@ -4,18 +4,29 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/app_version/app_version.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/account/presentation/widgets/section_item.dart';
-import 'package:loopcare_frontend/features/account/presentation/widgets/section_title.dart';
+import 'package:loopcare_frontend/features/account/presentation/widgets/account_section.dart';
+import 'package:loopcare_frontend/features/account/presentation/widgets/personal_details_section.dart';
+import 'package:loopcare_frontend/features/account/presentation/widgets/preferences_section.dart';
+import 'package:loopcare_frontend/features/account/presentation/widgets/test_results_section.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);
 
   _onLogOutPressed(BuildContext context) {
     context.read<AuthenticationCubit>().logout();
+  }
+
+  _onDeleteAccountPressed(BuildContext context) {
+    ModalBottomSheet.deleteAccount(
+      context: context,
+      onDeleted: () {
+        context.read<AuthenticationCubit>().deleteAccount();
+      },
+    );
   }
 
   @override
@@ -32,47 +43,33 @@ class AccountPage extends StatelessWidget {
                   LocalizedTexts.profile,
                   style: Theme.of(context).textTheme.displaySmall!.copyWith(fontSize: 30.0),
                 ).tr(),
-                const SizedBox(height: 32.0),
-                const SectionTitle(title: LocalizedTexts.account),
-                const SectionTitle(title: LocalizedTexts.personalDetails),
-                BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                  builder: (BuildContext context, state) {
-                    return SectionItem(
-                        title: LocalizedTexts.name, subTitle: state.name, onPressHandler: () {});
-                  },
-                ),
-                const SizedBox(height: 20.0),
-                SectionItem(title: LocalizedTexts.height, subTitle: 'Artur', onPressHandler: () {}),
-                const SizedBox(height: 20.0),
-                SectionItem(title: LocalizedTexts.yourSex, subTitle: 'Artur', onPressHandler: () {}),
-                const SizedBox(height: 20.0),
-                const SectionTitle(title: LocalizedTexts.testResults),
-                const SectionTitle(title: LocalizedTexts.preferences),
+                const AccountSection(),
+                const PersonalDetailsSection(),
+                const TestResultsSection(),
+                const PreferencesSection(),
                 ElevatedButton(
-                  onPressed: () => _onDeleteAccountPressed(context),
-                  child: const Text('Delete My Account'),
+                  onPressed: () => _onLogOutPressed(context),
+                  style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                        backgroundColor: MaterialStateProperty.all(AppColors.darkGreen),
+                      ),
+                  child: const Text(LocalizedTexts.signOut).tr(),
                 ),
                 const SizedBox(height: 21.0),
                 ElevatedButton(
-                  onPressed: () => _onLogOutPressed(context),
-                  child: const Text('Log out'),
+                  onPressed: () => _onDeleteAccountPressed(context),
+                  style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                        backgroundColor: MaterialStateProperty.all(AppColors.red),
+                      ),
+                  child: const Text(LocalizedTexts.deleteAccount).tr(),
                 ),
                 const SizedBox(height: 32.0),
                 const AppVersion(),
+                const SizedBox(height: 32.0),
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-
-  _onDeleteAccountPressed(BuildContext context) {
-    ModalBottomSheet.deleteAccount(
-      context: context,
-      onDeleted: () {
-        context.read<AuthenticationCubit>().deleteAccount();
-      },
     );
   }
 }

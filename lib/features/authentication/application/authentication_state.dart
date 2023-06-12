@@ -61,5 +61,12 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
+  String? get email {
+    return maybeWhen(
+      orElse: () => '',
+      authenticated: (state) => state.email,
+    );
+  }
+
   factory AuthenticationState.fromJson(Map<String, dynamic> json) => _$AuthenticationStateFromJson(json);
 }

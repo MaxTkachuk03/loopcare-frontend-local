@@ -1,17 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
-class SectionItem extends StatelessWidget {
+class SectionItemToggler extends StatelessWidget {
   final String title;
-  final String? subTitle;
-  final void Function() onPressHandler;
+  final bool value;
+  final void Function(bool?) onPressHandler;
 
-  const SectionItem({
+  const SectionItemToggler({
     Key? key,
-    this.subTitle,
     required this.title,
+    required this.value,
     required this.onPressHandler,
   }) : super(key: key);
 
@@ -28,23 +28,14 @@ class SectionItem extends StatelessWidget {
                 title,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500),
               ).tr(),
-              if (subTitle != null)
-                Text(subTitle ?? '',
-                    style: const TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.greyLabel,
-                    )).tr(),
             ],
           ),
         ),
-        IconButton(
-          onPressed: onPressHandler,
-          icon: const ImageIcon(
-            AppIcons.arrow,
-            color: AppColors.greyLabel,
-          ),
-        ),
+        CupertinoSwitch(
+          value: value,
+          activeColor: AppColors.darkGreen,
+          onChanged: onPressHandler,
+        )
       ],
     );
   }

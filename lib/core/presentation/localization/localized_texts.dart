@@ -379,7 +379,7 @@ class LocalizedTexts {
   static const String invalidCreateDishFromMealMessage = 'invalidCreateDishFromMealMessage';
 
   // Account
-  static const String deleteMyAccount = 'deleteMyAccount';
+  static const String deleteAccount = 'deleteAccount';
   static const String deleteModalMessage = 'deleteModalMessage';
   static const String yesDelete = 'yesDelete';
   static const String noCancel = 'noCancel';
@@ -395,6 +395,13 @@ class LocalizedTexts {
   static const String testResults = 'testResults';
   static const String preferences = 'preferences';
   static const String name = 'name';
+  static const String username = 'username';
+  static const String changePassword = 'changePassword';
+  static const String useFaceOrTouchId = 'useFaceOrTouchId';
+  static const String requireLoginEachTime = 'requireLoginEachTime';
+  static const String food = 'food';
+  static const String groupSessions = 'groupSessions';
+  static const String signOut = 'signOut';
 }
 
 extension StringX on String {
