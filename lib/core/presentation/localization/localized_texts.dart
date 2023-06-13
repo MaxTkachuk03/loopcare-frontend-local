@@ -407,6 +407,7 @@ class LocalizedTexts {
   static const String medium = 'medium';
   static const String hard = 'hard';
   static const String whatPhysicalActivityDidYouDo = 'whatPhysicalActivityDidYouDo';
+  static const String logActivity = 'logActivity';
 
   // User profile
   static const String profile = 'profile';

@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/exercise_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/exercise_type_tab.dart';
+import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/widgets/custom_activity_tab.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/widgets/program_tab.dart';
 import 'package:loopcare_frontend/injection.dart';
 
@@ -84,9 +85,9 @@ class _SelectExercisePageState extends State<SelectExercisePage> with TickerProv
             Flexible(
               child: TabBarView(
                 controller: _tabController,
-                children: [
+                children: const [
                   ProgramTab(),
-                  Text('1'),
+                  CustomActivityTab(),
                 ],
               ),
             )

@@ -81,6 +81,7 @@ part 'app_routes.dart';
   replaceInRouteName: 'Page,Route',
   routes: [
     AutoRoute(
+      initial: true,
       path: AppRoutes.proxy,
       page: ProxyPage,
       guards: [ProxyGuard],
@@ -362,7 +363,6 @@ part 'app_routes.dart';
       page: LessonErrorPage,
     ),
     AutoRoute(
-      initial: true,
       path: AppRoutes.selectExercise,
       page: SelectExercisePage,
     ),
