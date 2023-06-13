@@ -23,17 +23,16 @@ class FoodListItem extends StatelessWidget {
 
   Color get _calorieDensityColor {
     Range item = calorieDensityScaleValues.firstWhere((e) {
-      return e.min <= foodItem.calorieDensity &&
-          foodItem.calorieDensity <= e.max;
-    }, orElse: () => calorieDensityScaleValues[0]);
+      return e.min <= foodItem.calorieDensity && foodItem.calorieDensity <= e.max;
+    }, orElse: () => calorieDensityScaleValues[calorieDensityScaleValues.length - 1]);
 
     return item.color;
   }
 
   @override
   Widget build(BuildContext context) {
-    final NutritionItem currentNutritionFact = foodItem.serving.list
-        .firstWhere((element) => element.key == nutritionKey);
+    final NutritionItem currentNutritionFact =
+        foodItem.serving.list.firstWhere((element) => element.key == nutritionKey);
 
     String label;
 
@@ -76,8 +75,7 @@ class FoodListItem extends StatelessWidget {
                             splashRadius: 20,
                             padding: EdgeInsets.zero,
                             iconSize: 22,
-                            onPressed: () =>
-                                onDeletePressed?.call(context, foodItem),
+                            onPressed: () => onDeletePressed?.call(context, foodItem),
                             icon: const Icon(
                               Icons.close,
                               color: AppColors.darkGreen,
@@ -110,18 +108,15 @@ class FoodListItem extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall
-                              ?.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  overflow: TextOverflow.ellipsis),
+                              ?.copyWith(fontWeight: FontWeight.w600, overflow: TextOverflow.ellipsis),
                         ),
                         Text(
                           label,
                           maxLines: 2,
-                          style:
-                              Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    color: AppColors.greyLabel,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                color: AppColors.greyLabel,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                         )
                       ],
                     ),
