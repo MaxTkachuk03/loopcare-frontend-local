@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_di
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_food_item_to_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/clone_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_in_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_planned_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_body.dart';
@@ -36,11 +37,9 @@ import 'package:loopcare_frontend/features/nutrition/application/select_serving/
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/update_favorite_body.dart';
 
 abstract class NutritionService {
-  Future<Either<RequestError, ValuesExplanationResponse>>
-      getValuesExplanation();
+  Future<Either<RequestError, ValuesExplanationResponse>> getValuesExplanation();
 
-  Future<Either<RequestError, FavoritesResponse>> getFavorites(
-      List<String>? mealCategories);
+  Future<Either<RequestError, FavoritesResponse>> getFavorites(List<String>? mealCategories);
 
   Future<Either<RequestError, FoodItemServingsResponse>> getFoodItemServings(
     String id,
@@ -63,8 +62,7 @@ abstract class NutritionService {
     UpdateFavoriteBody data,
   );
 
-  Future<Either<RequestError, BarcodeInformationResponse>>
-      getBarcodeInformation(
+  Future<Either<RequestError, BarcodeInformationResponse>> getBarcodeInformation(
     String barCode,
   );
 
@@ -196,6 +194,12 @@ abstract class NutritionService {
     int id,
   );
 
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> updateDishInMeal({
+    required int mealId,
+    required int dishId,
+    required UpdateDishInMealBody data,
+  });
+
   Future<Either<RequestError, UpdateDishFoodItemResponse>> createDishFromRecipe(
     CreateDishFromRecipeBody data,
   );
@@ -223,8 +227,7 @@ abstract class NutritionService {
     UpdateFoodItemInDishBody data,
   );
 
-  Future<Either<RequestError, UpdateDishFoodItemResponse>>
-      deleteFoodItemFromDish(
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> deleteFoodItemFromDish(
     int dishId,
     int internalFoodItemId,
   );
