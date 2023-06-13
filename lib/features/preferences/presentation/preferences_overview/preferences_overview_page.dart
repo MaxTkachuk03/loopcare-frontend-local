@@ -23,13 +23,11 @@ class PreferencesOverviewPage extends StatelessWidget {
     return MultiBlocListener(
       listeners: [
         BlocListener<AuthenticationCubit, AuthenticationState>(
-          listenWhen: (prev, current) =>
-              prev is Authenticated && current is Guest,
+          listenWhen: (prev, current) => prev is Authenticated && current is Guest,
           listener: _logOutListener,
         ),
         BlocListener<AuthenticationCubit, AuthenticationState>(
-          listenWhen: (prev, current) =>
-              current is Authenticated && current.isPreferencesComplete,
+          listenWhen: (prev, current) => current is Authenticated && current.isPreferencesComplete,
           listener: _preferencesComplete,
         ),
         BlocListener<YouAndFoodBloc, YouAndFoodState>(
@@ -92,7 +90,7 @@ class PreferencesOverviewPage extends StatelessWidget {
   }
 
   void _updateAccount(BuildContext context) {
-    context.read<AuthenticationCubit>().updateAccount();
+    context.read<AuthenticationCubit>().getAccount();
   }
 
   void _preferencesComplete(BuildContext context, AuthenticationState state) {

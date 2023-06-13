@@ -14,8 +14,7 @@ class AppRoutes {
   static const String pregnancy = '/pregnancy';
   static const String pregnancyFailed = '/pregnancy-failed';
   static const String cardiovascularDisease = '/cardiovascular-disease';
-  static const String cardiovascularDiseaseFailed =
-      '/cardiovascular-disease-failed';
+  static const String cardiovascularDiseaseFailed = '/cardiovascular-disease-failed';
   static const String stomachReduction = '/stomach-reduction';
   static const String stomachReductionFailed = '/stomach-reduction-failed';
   static const String medicalCheckPassed = '/medical-check-passed';
@@ -45,8 +44,7 @@ class AppRoutes {
   static const String doNotLike = '/do-not-like';
   //Self Help
   static const String selfHelpIntro = '/self-help-intro';
-  static const String selfHelpGenderPreferences =
-      '/self-help-gender-preferences';
+  static const String selfHelpGenderPreferences = '/self-help-gender-preferences';
   static const String selfHelpReady = '/self-help-ready';
   static const String householdIntro = '/household-intro';
   static const String shareMealWith = '/share-meal-with';
@@ -81,10 +79,13 @@ class AppRoutes {
 
   // Education
   static const String lesson = '/lesson/:lessonId/page/:pageIndex';
-  static const String educationAudioTextVersion =
-      '/education-audio-text_version';
+  static const String educationAudioTextVersion = '/education-audio-text_version';
 
   static const String lessonComplete = '/lesson-complete';
   static const String lessonError = '/lesson-error';
+
+  // User profile
+  static const String foodPreferences = '/food-preferences';
+  static const String editFoodPreferences = '/edit-food-preferences';
   AppRoutes._();
 }

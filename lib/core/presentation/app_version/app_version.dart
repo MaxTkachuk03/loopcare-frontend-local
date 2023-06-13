@@ -12,9 +12,9 @@ class AppVersion extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Text(
-              '${snapshot.data?.version}.${snapshot.data?.buildNumber}',
+              'Version ${snapshot.data?.version} (${snapshot.data?.buildNumber})',
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 11),
+              style: const TextStyle(fontSize: 12),
             );
           } else {
             return const Text('');
