@@ -340,5 +340,22 @@
   "backToToday": "Back to today",
   "completed": "Completed",
   "todo": "TODO",
-  "done": "DONE"
+  "done": "DONE",
+  "physicalActivity": "Physical activity",
+  "selectYourExercise": "Select your exercise",
+  "program": "program",
+  "yourOwnActivity": "Your own activity",
+  "whatWouldYouLikeToWorkOn": "What would you like to work on?",
+  "strength": "Strength",
+  "endurance": "Endurance",
+  "mobility": "Mobility",
+  "whereAreYou": "Where are you?",
+  "home": "Home",
+  "office": "Office",
+  "outdoor": "Outdoor",
+  "desiredDifficulty": "Desired difficulty?",
+  "easy": "Easy",
+  "medium": "Medium",
+  "hard": "Hard",
+  "whatPhysicalActivityDidYouDo": "What physical activity did you do?"
 }

@@ -432,6 +432,26 @@ class LocalizedTexts {
   static const String lessonCompleteTitle = 'lessonCompleteTitle';
   static const String backToToday = 'backToToday';
   static const String completed = 'completed';
+
+  // Physical exercise
+  static const String physicalActivity = 'physicalActivity';
+  static const String selectYourExercise = 'selectYourExercise';
+  static const String program = 'program';
+  static const String yourOwnActivity = 'yourOwnActivity';
+  static const String whatWouldYouLikeToWorkOn = 'whatWouldYouLikeToWorkOn';
+  static const String strength = 'strength';
+  static const String endurance = 'endurance';
+  static const String mobility = 'mobility';
+  static const String whereAreYou = 'whereAreYou';
+  static const String home = 'home';
+  static const String office = 'office';
+  static const String outdoor = 'outdoor';
+  static const String desiredDifficulty = 'desiredDifficulty';
+  static const String easy = 'easy';
+  static const String medium = 'medium';
+  static const String hard = 'hard';
+  static const String whatPhysicalActivityDidYouDo = 'whatPhysicalActivityDidYouDo';
+
 }
 
 extension StringX on String {

@@ -51,6 +51,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanne
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/select_food_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/dashboard_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/nutrition_instructions_page.dart';
+import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/select_exercise_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/biological_gender/biological_gender_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/birthday/birthday_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/check_failed_age/check_failed_age.dart';
@@ -78,7 +79,6 @@ part 'app_routes.dart';
   replaceInRouteName: 'Page,Route',
   routes: [
     AutoRoute(
-      initial: true,
       path: AppRoutes.proxy,
       page: ProxyPage,
       guards: [ProxyGuard],
@@ -351,7 +351,6 @@ part 'app_routes.dart';
       path: AppRoutes.lesson,
       page: LessonPage,
     ),
-
     AutoRoute(
       path: AppRoutes.lessonComplete,
       page: LessonCompletePage,
@@ -359,6 +358,11 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.lessonError,
       page: LessonErrorPage,
+    ),
+    AutoRoute(
+      initial: true,
+      path: AppRoutes.selectExercise,
+      page: SelectExercisePage,
     ),
   ],
 )

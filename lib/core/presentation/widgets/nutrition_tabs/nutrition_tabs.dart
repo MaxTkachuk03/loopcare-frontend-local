@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/chips_tab_bar.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/nutrition_tabs/nutrition_value_tab.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/nutrition_tabs/nutrition_value_tab_type.dart';
 
@@ -56,17 +56,9 @@ class _NutritionTabsState extends State<NutritionTabs>
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(2.0),
-          decoration: BoxDecoration(
-            color: AppColors.yellowLight,
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: TabBar(
-            controller: _tabController,
-            tabs: tabs.map((e) => Tab(text: e.text)).toList(),
-          ),
+        ChipsTabBar(
+          tabController: _tabController,
+          tabs: tabs.map((e) => Tab(text: e.text)).toList(),
         ),
         const SizedBox(height: 32.0),
         SizedBox(
