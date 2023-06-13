@@ -67,14 +67,10 @@ class EditFoodPreferencesPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.router.pop(),
         ),
-        title: Column(
-          children: [
-            Text(
-              _title,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
-            ).tr(),
-          ],
-        ),
+        title: Text(
+          _title,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
+        ).tr(),
       ),
       body: SafeArea(
         child: MainContainer(
