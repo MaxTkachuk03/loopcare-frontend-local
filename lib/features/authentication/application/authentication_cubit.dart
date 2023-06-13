@@ -57,6 +57,8 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
               email: response.email,
               country: response.country,
               isPreferencesComplete: response.isPreferencesComplete,
+              gender: response.gender,
+              bioGender: response.bioGender,
             ),
           ),
         );
@@ -64,7 +66,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     );
   }
 
-  void updateAccount() async {
+  void getAccount() async {
     await state.mapOrNull(authenticated: (state) async {
       final response = await _authenticationService.fetchAccount();
 
@@ -78,6 +80,16 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
               email: r.email,
               country: r.country,
               isPreferencesComplete: r.isPreferencesComplete,
+              gender: r.gender,
+              bioGender: r.bioGender,
+              height: r.physicalFitness.height,
+              weight: r.physicalFitness.weight,
+              bmi: r.physicalFitness.bmi,
+              birthDate: r.physicalFitness.birthDate,
+              diabetes: r.diabetes.name,
+              foodPreferencesHates: r.foodPreferences.hates,
+              foodPreferencesDislikes: r.foodPreferences.dislike,
+              foodPreferencesAllergic: r.foodPreferences.allergic,
             ),
           ));
         },
@@ -107,8 +119,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
 
   Future<void> authenticatedCheck() async {
     await state.mapOrNull(waitedForConfirmation: (state) async {
-      final response =
-          await _authenticationService.emailApproveDate(state.accountId);
+      final response = await _authenticationService.emailApproveDate(state.accountId);
 
       response.fold((l) => null, (r) {
         if (r.emailApproveDate != null) {
@@ -118,8 +129,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     });
   }
 
-  void signUp(String email,
-      RegistrationPhysicalFitnessData registrationPhysicalFitnessData) async {
+  void signUp(String email, RegistrationPhysicalFitnessData registrationPhysicalFitnessData) async {
     state.mapOrNull(
       emailAddress: (state) async {
         final data = SignUpData(
@@ -161,8 +171,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
 
   void resendEmail() async {
     state.mapOrNull(waitedForConfirmation: (state) async {
-      final response =
-          await _authenticationService.resendSignUp(state.accountId);
+      final response = await _authenticationService.resendSignUp(state.accountId);
 
       response.leftMap(
         (error) {
@@ -202,8 +211,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
       orElse: () => emit(const AuthenticationState.guest()),
       waitedForConfirmation: (state) {
         emit(
-          AuthenticationState.emailAddress(
-              name: state.name, password: state.password),
+          AuthenticationState.emailAddress(name: state.name, password: state.password),
         );
       },
       emailAddress: (state) {
@@ -234,15 +242,13 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
   void changeToEmailState(String password) {
     state.mapOrNull(
       password: (state) {
-        emit(AuthenticationState.emailAddress(
-            name: state.name, password: password));
+        emit(AuthenticationState.emailAddress(name: state.name, password: password));
       },
     );
   }
 
   @override
-  AuthenticationState? fromJson(Map<String, dynamic> json) =>
-      AuthenticationState.fromJson(json);
+  AuthenticationState? fromJson(Map<String, dynamic> json) => AuthenticationState.fromJson(json);
 
   @override
   Map<String, dynamic>? toJson(AuthenticationState state) {

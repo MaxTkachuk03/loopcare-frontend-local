@@ -61,5 +61,7 @@ class AppColors {
 
   static const Color caloriesDensityGradientEnd = Color(0xFFB6111D);
 
+  static const Color profileDivider = Color(0xFF95A98B);
+
   AppColors._();
 }
