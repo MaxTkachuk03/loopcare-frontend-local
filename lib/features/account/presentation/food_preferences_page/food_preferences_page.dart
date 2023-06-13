@@ -8,27 +8,10 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/edit_food_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/food_preferences_page/widgets/section_item.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
-class FoodPreferencesPage extends StatefulWidget {
+class FoodPreferencesPage extends StatelessWidget {
   const FoodPreferencesPage({Key? key}) : super(key: key);
-
-  @override
-  State<FoodPreferencesPage> createState() => _FoodPreferencesPageState();
-}
-
-class _FoodPreferencesPageState extends State<FoodPreferencesPage> {
-  @override
-  void initState() {
-    final authState = context.read<AuthenticationCubit>().state;
-    context.read<YouAndFoodBloc>().add(YouAndFoodEvent.setInitialFoodPreferences(
-          hates: authState.foodPrefHatesIds,
-          allergics: authState.foodPrefAllergiesIds,
-          dislikes: authState.foodPrefDislikesIds,
-        ));
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,28 +34,31 @@ class _FoodPreferencesPageState extends State<FoodPreferencesPage> {
                 ).tr(),
                 const SizedBox(height: 20.0),
                 BlocBuilder<YouAndFoodBloc, YouAndFoodState>(builder: (BuildContext context, state) {
-                  print(state);
-                  return SectionItem(
-                    title: LocalizedTexts.iDoNotEatOrDrink,
-                    subTitle: 'sd',
-                    onPressHandler: () => context.router
-                        .push(EditFoodPreferencesRoute(mode: const EditFoodPreferencesPageMode.hates())),
+                  return Column(
+                    children: [
+                      SectionItem(
+                        title: LocalizedTexts.iDoNotEatOrDrink,
+                        subTitle: state.selectedHatesNames.join(', '),
+                        onPressHandler: () => context.router
+                            .push(EditFoodPreferencesRoute(mode: const EditFoodPreferencesPageMode.hates())),
+                      ),
+                      const SizedBox(height: 10.0),
+                      SectionItem(
+                        title: LocalizedTexts.iAmAllergicTo,
+                        subTitle: state.selectedAllergicNames.join(', '),
+                        onPressHandler: () => context.router.push(
+                            EditFoodPreferencesRoute(mode: const EditFoodPreferencesPageMode.allergies())),
+                      ),
+                      const SizedBox(height: 10.0),
+                      SectionItem(
+                        title: LocalizedTexts.iDoNotLike,
+                        subTitle: state.selectedDislikesNames.join(', '),
+                        onPressHandler: () => context.router.push(
+                            EditFoodPreferencesRoute(mode: const EditFoodPreferencesPageMode.dislikes())),
+                      ),
+                    ],
                   );
                 }),
-                const SizedBox(height: 10.0),
-                SectionItem(
-                  title: LocalizedTexts.iAmAllergicTo,
-                  subTitle: 'Eggs, milk, sesame seeds, wheats, apples & Lupin',
-                  onPressHandler: () => context.router
-                      .push(EditFoodPreferencesRoute(mode: const EditFoodPreferencesPageMode.allergies())),
-                ),
-                const SizedBox(height: 10.0),
-                SectionItem(
-                  title: LocalizedTexts.iDoNotLike,
-                  subTitle: 'Olives, raisins & avocado',
-                  onPressHandler: () => context.router
-                      .push(EditFoodPreferencesRoute(mode: const EditFoodPreferencesPageMode.dislikes())),
-                ),
               ],
             ),
           ),

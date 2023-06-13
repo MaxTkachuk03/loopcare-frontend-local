@@ -355,6 +355,8 @@
   "groupSessions": "Group Sessions",
   "foodPreferences": "Food preferences",
   "dontEatFoodMessage": "Which types of food do you NOT eat or drink for religious or personal reasons?",
-  "dislikeFoodMessage": "Do you NOT like any of the following?"
+  "dislikeFoodMessage": "Do you NOT like any of the following?",
+  "dontEat": "Don't eat",
+  "dontLike": "Don't like"
 
 }

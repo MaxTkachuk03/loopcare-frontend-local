@@ -33,9 +33,9 @@ class EditFoodPreferencesPage extends StatelessWidget {
 
   get _title {
     return mode.map(
-      hates: (_) => 'Dont eat',
+      hates: (_) => LocalizedTexts.dontEat,
       allergies: (_) => LocalizedTexts.youAndFoodItemThree,
-      dislikes: (_) => 'Dont like',
+      dislikes: (_) => LocalizedTexts.dontLike,
     );
   }
 
@@ -56,6 +56,7 @@ class EditFoodPreferencesPage extends StatelessWidget {
 
   _onOkHandler(BuildContext context) {
     context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.saveFoodPreferences());
+    context.router.pop();
   }
 
   @override
@@ -105,7 +106,7 @@ class EditFoodPreferencesPage extends StatelessWidget {
                         },
                       ),
                     ),
-                    child: const Text(LocalizedTexts.ok).tr(),
+                    child: Text(LocalizedTexts.ok.toUpperCase()).tr(),
                   ),
                   const SizedBox(height: 30.0),
                 ],

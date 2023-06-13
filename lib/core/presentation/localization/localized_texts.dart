@@ -405,6 +405,8 @@ class LocalizedTexts {
   static const String foodPreferences = 'foodPreferences';
   static const String dislikeFoodMessage = 'dislikeFoodMessage';
   static const String dontEatFoodMessage = 'dontEatFoodMessage';
+  static const String dontEat = 'dontEat';
+  static const String dontLike = 'dontLike';
 }
 
 extension StringX on String {

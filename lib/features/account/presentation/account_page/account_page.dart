@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/features/account/presentation/account_page/wid
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/preferences_section.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/test_results_section.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -24,6 +25,7 @@ class _AccountPageState extends State<AccountPage> {
   @override
   void initState() {
     context.read<AuthenticationCubit>().getAccount();
+    context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.fetchFoodPreferences());
 
     super.initState();
   }

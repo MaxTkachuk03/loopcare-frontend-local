@@ -82,26 +82,5 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
-  List<int> get foodPrefHatesIds {
-    return maybeMap(
-      orElse: () => [],
-      authenticated: (state) => state.account.foodPreferencesHates?.map((e) => e.id).toList() ?? [],
-    );
-  }
-
-  List<int> get foodPrefAllergiesIds {
-    return maybeMap(
-      orElse: () => [],
-      authenticated: (state) => state.account.foodPreferencesAllergic?.map((e) => e.id).toList() ?? [],
-    );
-  }
-
-  List<int> get foodPrefDislikesIds {
-    return maybeMap(
-      orElse: () => [],
-      authenticated: (state) => state.account.foodPreferencesDislikes?.map((e) => e.id).toList() ?? [],
-    );
-  }
-
   factory AuthenticationState.fromJson(Map<String, dynamic> json) => _$AuthenticationStateFromJson(json);
 }
