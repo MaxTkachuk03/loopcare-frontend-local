@@ -61,6 +61,26 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
-  factory AuthenticationState.fromJson(Map<String, dynamic> json) =>
-      _$AuthenticationStateFromJson(json);
+  String? get email {
+    return maybeWhen(
+      orElse: () => '',
+      authenticated: (state) => state.email,
+    );
+  }
+
+  String get gender {
+    return maybeWhen(
+      orElse: () => '',
+      authenticated: (state) => state.gender,
+    );
+  }
+
+  double? get height {
+    return maybeMap(
+      orElse: () => 0.0,
+      authenticated: (state) => state.account.height,
+    );
+  }
+
+  factory AuthenticationState.fromJson(Map<String, dynamic> json) => _$AuthenticationStateFromJson(json);
 }

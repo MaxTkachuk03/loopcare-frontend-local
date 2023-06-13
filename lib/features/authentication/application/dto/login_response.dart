@@ -13,6 +13,8 @@ class LoginResponse {
   final String email;
   final String? country;
   final bool isPreferencesComplete;
+  final String gender;
+  final String bioGender;
 
   const LoginResponse({
     required this.accessToken,
@@ -22,10 +24,11 @@ class LoginResponse {
     required this.email,
     required this.country,
     required this.isPreferencesComplete,
+    required this.gender,
+    required this.bioGender,
   });
 
-  static LoginResponse fromJson(Map<String, dynamic> json) =>
-      _$LoginResponseFromJson(json);
+  static LoginResponse fromJson(Map<String, dynamic> json) => _$LoginResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$LoginResponseToJson(this);
 }

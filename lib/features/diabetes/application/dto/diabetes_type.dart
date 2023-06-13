@@ -13,6 +13,5 @@ abstract class DiabetesType implements _$DiabetesType {
     required String name,
   }) = _DiabetesType;
 
-  factory DiabetesType.fromJson(Map<String, dynamic> json) =>
-      _$DiabetesTypeFromJson(json);
+  factory DiabetesType.fromJson(Map<String, dynamic> json) => _$DiabetesTypeFromJson(json);
 }

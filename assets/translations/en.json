@@ -317,7 +317,8 @@
   "logItem": "Log item",
   "deleteDish": "Delete this dish",
   "deleteModalMessage": "Are you sure you want to delete your account? This action is not reversible",
-  "deleteMyAccount": "Delete My Account",
+  "deleteAccount": "Delete account",
+  "signOut": "Sign out",
   "yesDelete": "Yes, delete",
   "deleteMealModalMessage": "Are you sure you want to remove this meal?",
   "remove": "Remove",
@@ -340,5 +341,22 @@
   "backToToday": "Back to today",
   "completed": "Completed",
   "todo": "TODO",
-  "done": "DONE"
+  "done": "DONE",
+  "profile": "Profile",
+  "personalDetails": "Personal details",
+  "testResults": "Test results",
+  "preferences": "Preferences",
+  "name": "Name",
+  "username": "Username",
+  "changePassword": "Change password",
+  "useFaceOrTouchId": "Use Face or touch ID",
+  "requireLoginEachTime": "Require login each time app is used",
+  "food": "Food",
+  "groupSessions": "Group Sessions",
+  "foodPreferences": "Food preferences",
+  "dontEatFoodMessage": "Which types of food do you NOT eat or drink for religious or personal reasons?",
+  "dislikeFoodMessage": "Do you NOT like any of the following?",
+  "dontEat": "Don't eat",
+  "dontLike": "Don't like"
+
 }

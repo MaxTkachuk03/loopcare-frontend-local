@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/account/presentation/account_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/account_page/account_page.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/education_page.dart';
@@ -79,8 +79,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        bottomNavigationBar:
-            BlocBuilder<AuthenticationCubit, AuthenticationState>(
+        bottomNavigationBar: BlocBuilder<AuthenticationCubit, AuthenticationState>(
           builder: (BuildContext context, state) {
             return BottomNavigation(
               onItemPress: onNavigationPressed,

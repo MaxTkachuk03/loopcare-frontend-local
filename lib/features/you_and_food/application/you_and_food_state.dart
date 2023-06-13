@@ -9,9 +9,9 @@ class YouAndFoodState with _$YouAndFoodState {
       foodPeriods: <FoodPreference>[].toIList(),
       foodAllergens: <FoodPreference>[].toIList(),
       foodDislikes: <FoodPreference>[].toIList(),
-      selectedHates: <int>[].toIList(),
-      selectedAllergic: <int>[].toIList(),
-      selectedDislike: <int>[].toIList());
+      selectedHates: <FoodPreference>[].toIList(),
+      selectedAllergic: <FoodPreference>[].toIList(),
+      selectedDislike: <FoodPreference>[].toIList());
 
   const factory YouAndFoodState({
     @Default(false) bool isCompleted,
@@ -19,34 +19,38 @@ class YouAndFoodState with _$YouAndFoodState {
     required IList<FoodPreference> foodPeriods,
     required IList<FoodPreference> foodAllergens,
     required IList<FoodPreference> foodDislikes,
-    required IList<int> selectedHates,
+    required IList<FoodPreference> selectedHates,
     int? selectedPeriod,
-    required IList<int> selectedAllergic,
-    required IList<int> selectedDislike,
+    required IList<FoodPreference> selectedAllergic,
+    required IList<FoodPreference> selectedDislike,
   }) = _YouAndFoodState;
 
   IList<String> get selectedHatesNames {
-    return selectedHates.map((hate) {
-      final item = foodTypes.firstWhere((type) => type.id == hate);
-
-      return item.name;
-    }).toIList();
+    return selectedHates.map((s) => s.name).toIList();
   }
 
   IList<String> get selectedAllergicNames {
-    return selectedAllergic.map((allergic) {
-      final item = foodAllergens.firstWhere((i) => i.id == allergic);
-
-      return item.name;
-    }).toIList();
+    return selectedAllergic.map((s) => s.name).toIList();
   }
 
   IList<String> get selectedDislikesNames {
-    return selectedDislike.map((dislike) {
-      final item = foodDislikes.firstWhere((i) => i.id == dislike);
+    return selectedDislike.map((s) => s.name).toIList();
+  }
 
-      return item.name;
-    }).toIList();
+  IList<int> get selectedHatesIds {
+    return selectedHates.map((s) => s.id).toIList();
+  }
+
+  IList<int> get selectedAllergicIds {
+    return selectedAllergic.map((s) => s.id).toIList();
+  }
+
+  IList<int> get selectedDislikesIds {
+    return selectedDislike.map((s) => s.id).toIList();
+  }
+
+  get hasSelectedFoodPreferences {
+    return selectedHates.isNotEmpty || selectedAllergic.isNotEmpty || selectedDislike.isNotEmpty;
   }
 
   String? get selectedPeriodName {
