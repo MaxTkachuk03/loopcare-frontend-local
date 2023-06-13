@@ -13,8 +13,7 @@ class DishState with _$DishState {
   const factory DishState.dish({
     required Dish selectedDish,
     required int originalDishId,
-    @Default(NutritionValuesTypes.calories)
-        NutritionValuesTypes currentNutritionType,
+    @Default(NutritionValuesTypes.calories) NutritionValuesTypes currentNutritionType,
   }) = _Dish;
 
   String get servingAmount {
@@ -22,6 +21,10 @@ class DishState with _$DishState {
       dish: (s) => s.selectedDish.serving.numberOfUnits.toString(),
       orElse: () => '1',
     );
+  }
+
+  Dish? get dish {
+    return mapOrNull(dish: (s) => s.selectedDish);
   }
 
   bool get hasFoodItems {
