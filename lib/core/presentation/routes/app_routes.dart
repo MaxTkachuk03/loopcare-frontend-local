@@ -84,6 +84,9 @@ class AppRoutes {
   static const String lessonComplete = '/lesson-complete';
   static const String lessonError = '/lesson-error';
 
+  // Physical activities
+  static const String selectExercise = '/select-exercise';
+
   // User profile
   static const String foodPreferences = '/food-preferences';
   static const String editFoodPreferences = '/edit-food-preferences';
