@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/widgets/program_difficulty_question.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/widgets/program_location_question.dart';
+import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/widgets/program_place_question.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/widgets/program_type_question.dart';
 
 class ProgramTab extends StatelessWidget {
@@ -23,7 +23,7 @@ class ProgramTab extends StatelessWidget {
               SizedBox(
                 height: 24.0,
               ),
-              ProgramLocationQuestion(),
+              ProgramPlaceQuestion(),
               SizedBox(
                 height: 24.0,
               ),

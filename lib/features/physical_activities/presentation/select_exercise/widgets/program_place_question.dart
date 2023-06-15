@@ -2,10 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
-import 'package:loopcare_frontend/features/physical_activities/domain/program_location.dart';
+import 'package:loopcare_frontend/features/physical_activities/domain/program_place.dart';
 
-class ProgramLocationQuestion extends StatelessWidget {
-  const ProgramLocationQuestion({Key? key}) : super(key: key);
+class ProgramPlaceQuestion extends StatelessWidget {
+  const ProgramPlaceQuestion({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class ProgramLocationQuestion extends StatelessWidget {
           height: 8.0,
         ),
         Row(
-          children: ProgramLocation.values
+          children: ProgramPlace.values
               .map(
                 (e) => Row(
                   children: [
@@ -44,5 +44,5 @@ class ProgramLocationQuestion extends StatelessWidget {
     );
   }
 
-  void _onSelected(ProgramLocation value) {}
+  void _onSelected(ProgramPlace value) {}
 }
