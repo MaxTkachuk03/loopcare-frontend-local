@@ -1,8 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/widgets/custom_exercise_field.dart';
 
 class CustomActivityTab extends StatefulWidget {
@@ -14,6 +18,7 @@ class CustomActivityTab extends StatefulWidget {
 
 class _CustomActivityTabState extends State<CustomActivityTab> {
   bool isDisabledButton = true;
+  String activityName = '';
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +45,7 @@ class _CustomActivityTabState extends State<CustomActivityTab> {
           Column(
             children: [
               ElevatedButton(
-                onPressed: isDisabledButton ? null : _onLogActivityPressed,
+                onPressed: isDisabledButton ? null : () => _onLogActivityPressed(context),
                 style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
                   backgroundColor: MaterialStateProperty.resolveWith<Color?>(
                     (Set<MaterialState> states) {
@@ -64,11 +69,16 @@ class _CustomActivityTabState extends State<CustomActivityTab> {
     );
   }
 
-  void _onLogActivityPressed() {}
+  void _onLogActivityPressed(BuildContext context) {
+    context
+      ..read<PhysicalProgramsBloc>().add(PhysicalProgramsEvent.createCustomActivity(activityName))
+      ..router.popUntilRouteWithName(HomeRoute.name);
+  }
 
   _onFieldChanged(String value) {
     setState(() {
       isDisabledButton = value.isEmpty;
+      activityName = value;
     });
   }
 }

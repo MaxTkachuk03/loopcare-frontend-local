@@ -18,18 +18,18 @@ class APIPhysicalActivitiesService implements PhysicalActivitiesService {
   @override
   Future<Either<RequestError, PhysicalProgramResponse>> getProgram(int programId) {
     return client
-        .get('/physical-activity/programs/$programId')
+        .get('/physical-activities/programs/$programId')
         .then(parseResponse(PhysicalProgramResponse.fromJson));
   }
 
   @override
-  Future<Either<RequestError, ProgramListResponse>> getProgramsByCategory({
+  Future<Either<RequestError, ProgramListResponse>> getProgramsByPreferences({
     required String programType,
     required String programPlace,
     required String programDifficulty,
   }) {
     return client.get(
-      '/physical-activity/programs',
+      '/physical-activities/programs',
       queryParameters: {
         'type': programType,
         'place': programPlace,
@@ -49,7 +49,7 @@ class APIPhysicalActivitiesService implements PhysicalActivitiesService {
     }
 
     return client
-        .get('/physical-activity/calendar', queryParameters: queryParameters)
+        .get('/physical-activities/calendar', queryParameters: queryParameters)
         .then(parseResponse(ProgramListResponse.fromJson));
   }
 
@@ -59,14 +59,14 @@ class APIPhysicalActivitiesService implements PhysicalActivitiesService {
     required LogProgramBody data,
   }) {
     return client
-        .post('/physical-activity/programs/log', data: data)
+        .post('/physical-activities/programs/log', data: data)
         .then(parseResponse(PhysicalProgramResponse.fromJson));
   }
 
   @override
   Future<Either<RequestError, PhysicalProgramResponse>> createCustomActivity(CustomActivityBody data) {
     return client
-        .post('/physical-activity/programs/custom', data: data)
+        .post('/physical-activities/programs/custom', data: data)
         .then(parseResponse(PhysicalProgramResponse.fromJson));
   }
 }

@@ -6,11 +6,12 @@ import 'package:loopcare_frontend/features/physical_activities/application/dto/c
 import 'package:loopcare_frontend/features/physical_activities/application/dto/program_list_response.dart';
 
 abstract class PhysicalActivitiesService {
-  Future<Either<RequestError, ProgramListResponse>> getProgramsByCategory({
+  Future<Either<RequestError, ProgramListResponse>> getProgramsByPreferences({
     required String programType,
     required String programPlace,
     required String programDifficulty,
   });
+
   Future<Either<RequestError, ProgramListResponse>> getProgramsByDate({
     String? startDate,
     String? endDate,
