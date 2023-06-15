@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
-import 'package:loopcare_frontend/features/physical_activities/domain/program_type.dart';
+import 'package:loopcare_frontend/features/physical_activities/domain/program_place.dart';
 
-class ProgramTypeQuestion extends StatelessWidget {
-  const ProgramTypeQuestion({Key? key}) : super(key: key);
+class ProgramPlaceQuestion extends StatelessWidget {
+  const ProgramPlaceQuestion({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class ProgramTypeQuestion extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          LocalizedTexts.whatWouldYouLikeToWorkOn,
+          LocalizedTexts.whereAreYou,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
         ).tr(),
         const SizedBox(
@@ -24,17 +24,17 @@ class ProgramTypeQuestion extends StatelessWidget {
         BlocBuilder<PhysicalProgramsBloc, PhysicalProgramsState>(
           builder: (context, state) {
             return Row(
-              children: ProgramType.values
+              children: ProgramPlace.values
                   .map(
                     (e) => Row(
                       children: [
                         AppChoiceChip(
                           label: e.label,
-                          selected: state.programType == e,
+                          selected: state.programPlace == e,
                           value: e,
                           padding: const EdgeInsets.all(0),
                           width: 96,
-                          onSelected: (ProgramType value) => _onSelected(context, value),
+                          onSelected: (ProgramPlace value) => _onSelected(context, value),
                         ),
                         const SizedBox(
                           width: 8.0,
@@ -50,7 +50,7 @@ class ProgramTypeQuestion extends StatelessWidget {
     );
   }
 
-  void _onSelected(BuildContext context, ProgramType value) {
-    context.read<PhysicalProgramsBloc>().add(PhysicalProgramsEvent.setProgramType(value));
+  void _onSelected(BuildContext context, ProgramPlace value) {
+    context.read<PhysicalProgramsBloc>().add(PhysicalProgramsEvent.setProgramPlace(value));
   }
 }
