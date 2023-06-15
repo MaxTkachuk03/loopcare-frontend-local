@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/video_player_widget/widgets/player_controls.dart';
-import 'package:loopcare_frontend/core/presentation/video_player_widget/widgets/progress_bar.dart';
+import 'package:loopcare_frontend/features/video_player/presentation/widgets/player_controls.dart';
+import 'package:loopcare_frontend/features/video_player/presentation/widgets/progress_bar.dart';
 import 'package:video_player/video_player.dart';
 
 class PlayerOverlay extends StatelessWidget {

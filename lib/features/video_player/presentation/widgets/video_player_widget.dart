@@ -2,12 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/core/presentation/video_player_widget/widgets/player_overlay.dart';
+import 'package:loopcare_frontend/features/video_player/presentation/widgets/player_overlay.dart';
 import 'package:video_player/video_player.dart';
 
 // Video information (exercise metadata) - DONE with the mocked data
 // Navigate in play list
 // Seek to the moment in the video (skip explanation)
+// Errors handling
 // Progress bar with possible to seek to the video position video length - DONE
 // Play / pause - DONE
 // Show metadata and controls when user click on video and hide after a while - DONE

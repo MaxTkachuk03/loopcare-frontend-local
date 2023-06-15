@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/video_player_widget/video_player_widget.dart';
+import 'package:loopcare_frontend/features/video_player/presentation/widgets/video_player_widget.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wakelock/wakelock.dart';
 
@@ -50,29 +50,14 @@ class Program {
   );
 }
 
-const ex1 = Exercise(
-    'Lunges',
-    '',
-    'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8',
-    false,
-    1,
-    "1m 11s");
-const ex2 = Exercise(
-    'Elevated pushups',
-    '',
-    'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8',
-    false,
-    2,
-    "45s");
-const ex3 = Exercise(
-    'Superman',
-    '',
-    'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.mp4/.m3u8',
-    false,
-    3,
-    "1m 1s");
-const ex4 = Exercise('Hollow hold', '', 'https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8',
-    false, 4, "44s");
+const ex1 =
+    Exercise('Lunges', '', 'https://d316h49i7nayz2.cloudfront.net/Lunges/index.m3u8', false, 1, "1m 11s");
+const ex2 = Exercise('Elevated pushups', '',
+    'https://d316h49i7nayz2.cloudfront.net/ElevatedPushups/index.m3u8', false, 2, "45s");
+const ex3 =
+    Exercise('Superman', '', 'https://d316h49i7nayz2.cloudfront.net/Superman/index.m3u8', false, 3, "1m 1s");
+const ex4 = Exercise(
+    'Hollow hold', '', 'https://d316h49i7nayz2.cloudfront.net/HollowHold/index.m3u8', false, 4, "44s");
 
 const program = Program(1, 'Body weight essentials', 'strength', 'easy', 'outdoor', 900, "Lunges description",
     "full body", "none", false, [ex1, ex2, ex3, ex4], null);
@@ -117,9 +102,17 @@ class _VideoPageState extends State<VideoPage> {
   }
 
   _setupVideoPlayer(Exercise exercise) {
-    _controller = VideoPlayerController.network(exercise.video)
+    var cookies = [
+      'CloudFront-Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9kMzE2aDQ5aTduYXl6Mi5jbG91ZGZyb250Lm5ldC8qIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNjg2OTE1NDM5fX19XX0_',
+      'CloudFront-Key-Pair-Id=K36SJB3H7IKUDL',
+      'CloudFront-Signature=fZVYAkjxDg~73~J2Nw4B1pZvlwe1OdgqFCvOUp8BKvbiXzQ-sX70vRdPKc9hAsuTryJVQLaDp2g3A7fUG8hCplIqsRle2pULKzU3YFCTBY35RPN1zJ-WBsUXK2v7EApiFPIlFwQ5Fhjt8WQ7ZVtHOcmKelzyLEFL8hS2GjxGPSYcfF9oU97xcQsXEh9K7UgymIHORvqg9Tvr47vpHjnnaayUyiZiiWglkZXUsxJ19vrLF7fcHAwglvZKYJw7xs6ZSxCxdYhCx8mTsOkxeCMR~5R8j4ep~eRDVNO19R6ri0t0DoQxivR6-cq6k44NanYwzTRME0Eujm5zILNhJL~HlA__',
+    ];
+
+    _controller = VideoPlayerController.network(_program.exercises[_videoIndex].video,
+        httpHeaders: {'Cookie': cookies.join('; ')})
       ..initialize().then((_) {
-        print(_controller.value.duration);
+        print(_controller.value.hasError);
+        print(_controller.value.errorDescription);
         setState(() {});
       });
   }
@@ -144,7 +137,8 @@ class _VideoPageState extends State<VideoPage> {
   Widget build(BuildContext context) {
     return OrientationBuilder(builder: (BuildContext context, Orientation orientation) {
       final bool isPortrait = orientation == Orientation.portrait;
-
+      print(_controller.value.hasError);
+      print(_controller.value.errorDescription);
       return Scaffold(
         backgroundColor: AppColors.black,
         appBar: isPortrait
