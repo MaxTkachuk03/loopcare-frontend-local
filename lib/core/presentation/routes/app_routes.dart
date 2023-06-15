@@ -90,5 +90,8 @@ class AppRoutes {
   // User profile
   static const String foodPreferences = '/food-preferences';
   static const String editFoodPreferences = '/edit-food-preferences';
+
+  // Video
+  static const String video = '/video';
   AppRoutes._();
 }

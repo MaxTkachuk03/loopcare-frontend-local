@@ -427,6 +427,10 @@ class LocalizedTexts {
   static const String dontEatFoodMessage = 'dontEatFoodMessage';
   static const String dontEat = 'dontEat';
   static const String dontLike = 'dontLike';
+
+  // Video
+  static const String rotateDevice = 'rotateDevice';
+  static const String skipExplanation = 'skipExplanation';
 }
 
 extension StringX on String {
