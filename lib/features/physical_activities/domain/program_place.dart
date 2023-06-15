@@ -1,19 +1,19 @@
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 
-enum ProgramLocation {
+enum ProgramPlace {
   home,
   office,
   outdoor,
 }
 
-extension ProgramLocationX on ProgramLocation {
+extension ProgramPlaceX on ProgramPlace {
   String get label {
     switch (this) {
-      case ProgramLocation.home:
+      case ProgramPlace.home:
         return LocalizedTexts.home.translation;
-      case ProgramLocation.office:
+      case ProgramPlace.office:
         return LocalizedTexts.office.translation;
-      case ProgramLocation.outdoor:
+      case ProgramPlace.outdoor:
         return LocalizedTexts.outdoor.translation;
     }
   }
