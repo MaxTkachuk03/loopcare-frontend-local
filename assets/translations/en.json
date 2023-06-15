@@ -377,5 +377,7 @@
   "dontEat": "Don't eat",
   "dontLike": "Don't like",
   "rotateDevice": "Please rotate your device and use your LeanOnMe phonestand",
-  "skipExplanation": "Skip explanation"
+  "skipExplanation": "Skip explanation",
+  "repeat": "Repeat",
+  "exerciseCompleteMessage": "Great! You completed exercise {currentIndex} of {length}"
 }

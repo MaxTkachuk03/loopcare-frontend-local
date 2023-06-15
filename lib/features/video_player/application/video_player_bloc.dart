@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/aws_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/physical_activities/domain/aws_presigned_cookies.dart';
 
 part 'video_player_event.dart';
 part 'video_player_state.dart';
@@ -34,11 +35,10 @@ class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {
         emit(VideoPlayerState.error(state.data.copyWith(isLoading: false, error: l)));
       },
       (r) {
-        print(r.data);
         emit(
           VideoPlayerState.cookiesLoaded(
             state.data.copyWith(
-              awsCookies: [],
+              awsCookies: r.data,
               isLoading: false,
               error: null,
             ),

@@ -3,18 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/video_player/presentation/video_page.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/player_controls.dart';
+import 'package:loopcare_frontend/features/video_player/presentation/widgets/program_difficulty_chip.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/progress_bar.dart';
 import 'package:video_player/video_player.dart';
 
 class PlayerOverlay extends StatelessWidget {
   final VideoPlayerController controller;
   final Orientation orientation;
+  final Exercise exercise;
+  final String programType;
+  final String programDifficulty;
+  final int programLenght;
 
   const PlayerOverlay({
     Key? key,
     required this.controller,
     required this.orientation,
+    required this.exercise,
+    required this.programType,
+    required this.programDifficulty,
+    required this.programLenght,
   }) : super(key: key);
 
   bool get _isPortraiteOrientation {
@@ -42,9 +52,10 @@ class PlayerOverlay extends StatelessWidget {
                 width: 186,
                 child: ElevatedButton(
                   onPressed: _onSkipExplanation,
-                  style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                        backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
-                      ),
+                  style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.all(const Size(186, 52.0)),
+                    backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
+                  ),
                   child: const Text(LocalizedTexts.skipExplanation).tr(),
                 ),
               ),
@@ -53,9 +64,8 @@ class PlayerOverlay extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  // TODO replace with the data from the program
                   Text(
-                    '1. Knee lift exercise',
+                    '${exercise.order}. ${exercise.name}',
                     style: TextStyle(
                       color: AppColors.white,
                       fontSize: _isPortraiteOrientation ? 16.0 : 32.0,
@@ -63,14 +73,15 @@ class PlayerOverlay extends StatelessWidget {
                       fontFamily: ThemeConstants.bitterFontFamily,
                     ),
                   ),
+                  const SizedBox(width: 16.0),
+                  ProgramDifficultyChip(text: programDifficulty),
                 ],
               ),
               const SizedBox(height: 12.0),
               Row(
                 children: [
-                  // TODO replace with the data from the program
                   Text(
-                    'strength'.toUpperCase(),
+                    programType.toUpperCase(),
                     style: TextStyle(
                       color: AppColors.white,
                       fontSize: _isPortraiteOrientation ? 10.0 : 12.0,
@@ -80,8 +91,7 @@ class PlayerOverlay extends StatelessWidget {
                   const SizedBox(width: 16.0),
                   AppIcons.clockWhite,
                   const SizedBox(width: 6.0),
-                  // TODO replace with the data from the program
-                  Text('3 mins',
+                  Text(exercise.duration,
                       style: TextStyle(
                         color: AppColors.white,
                         fontSize: _isPortraiteOrientation ? 10.0 : 12.0,

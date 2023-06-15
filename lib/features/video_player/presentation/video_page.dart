@@ -1,10 +1,16 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/video_player_widget.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wakelock/wakelock.dart';
@@ -13,11 +19,11 @@ class Exercise {
   final String name;
   final String image;
   final String video;
-  final bool isCustom;
   final int order;
   final String duration;
+  final int tillNextExercise;
 
-  const Exercise(this.name, this.image, this.video, this.isCustom, this.order, this.duration);
+  const Exercise(this.name, this.image, this.video, this.order, this.duration, this.tillNextExercise);
 }
 
 class Program {
@@ -50,14 +56,13 @@ class Program {
   );
 }
 
-const ex1 =
-    Exercise('Lunges', '', 'https://d316h49i7nayz2.cloudfront.net/Lunges/index.m3u8', false, 1, "1m 11s");
-const ex2 = Exercise('Elevated pushups', '',
-    'https://d316h49i7nayz2.cloudfront.net/ElevatedPushups/index.m3u8', false, 2, "45s");
+const ex1 = Exercise('Lunges', '', 'https://d316h49i7nayz2.cloudfront.net/Lunges/index.m3u8', 1, "1m 11s", 5);
+const ex2 = Exercise(
+    'Elevated pushups', '', 'https://d316h49i7nayz2.cloudfront.net/ElevatedPushups/index.m3u8', 2, "45s", 3);
 const ex3 =
-    Exercise('Superman', '', 'https://d316h49i7nayz2.cloudfront.net/Superman/index.m3u8', false, 3, "1m 1s");
-const ex4 = Exercise(
-    'Hollow hold', '', 'https://d316h49i7nayz2.cloudfront.net/HollowHold/index.m3u8', false, 4, "44s");
+    Exercise('Superman', '', 'https://d316h49i7nayz2.cloudfront.net/Superman/index.m3u8', 3, "1m 1s", 7);
+const ex4 =
+    Exercise('Hollow hold', '', 'https://d316h49i7nayz2.cloudfront.net/HollowHold/index.m3u8', 4, "44s", 0);
 
 const program = Program(1, 'Body weight essentials', 'strength', 'easy', 'outdoor', 900, "Lunges description",
     "full body", "none", false, [ex1, ex2, ex3, ex4], null);
@@ -70,9 +75,12 @@ class VideoPage extends StatefulWidget {
 }
 
 class _VideoPageState extends State<VideoPage> {
-  Program _program = program;
+  final Program _program = program;
+
   int _videoIndex = 0;
+
   late VideoPlayerController _controller;
+  final CountDownController _countDownController = CountDownController();
 
   Future _allowLandscapeOrientation() async {
     // Remove system app bar on Android
@@ -101,106 +109,146 @@ class _VideoPageState extends State<VideoPage> {
     );
   }
 
-  _setupVideoPlayer(Exercise exercise) {
-    var cookies = [
-      'CloudFront-Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9kMzE2aDQ5aTduYXl6Mi5jbG91ZGZyb250Lm5ldC8qIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNjg2OTE1NDM5fX19XX0_',
-      'CloudFront-Key-Pair-Id=K36SJB3H7IKUDL',
-      'CloudFront-Signature=fZVYAkjxDg~73~J2Nw4B1pZvlwe1OdgqFCvOUp8BKvbiXzQ-sX70vRdPKc9hAsuTryJVQLaDp2g3A7fUG8hCplIqsRle2pULKzU3YFCTBY35RPN1zJ-WBsUXK2v7EApiFPIlFwQ5Fhjt8WQ7ZVtHOcmKelzyLEFL8hS2GjxGPSYcfF9oU97xcQsXEh9K7UgymIHORvqg9Tvr47vpHjnnaayUyiZiiWglkZXUsxJ19vrLF7fcHAwglvZKYJw7xs6ZSxCxdYhCx8mTsOkxeCMR~5R8j4ep~eRDVNO19R6ri0t0DoQxivR6-cq6k44NanYwzTRME0Eujm5zILNhJL~HlA__',
-    ];
+  _loadVideoPlayer(Exercise exercise) {
+    final headers = context.read<VideoPlayerBloc>().state.data.videoHttpHeaders;
 
-    _controller = VideoPlayerController.network(_program.exercises[_videoIndex].video,
-        httpHeaders: {'Cookie': cookies.join('; ')})
-      ..initialize().then((_) {
-        print(_controller.value.hasError);
-        print(_controller.value.errorDescription);
+    _controller = VideoPlayerController.network(exercise.video, httpHeaders: headers)
+      ..initialize().then((value) {
+        _controller.play();
         setState(() {});
       });
+  }
+
+  _onVideoEnds() {
+    // check if it was the last video in playlist
+    print('current video index $_videoIndex');
+    if (_videoIndex + 1 == _program.exercises.length) {
+      // TODO do redirect to the evaluation screen
+      return;
+    }
+
+    print('video with index  ${_videoIndex + 1} will be loaded');
+    _loadVideoPlayer(_program.exercises[_videoIndex + 1]);
+
+    setState(() {
+      _videoIndex += 1;
+    });
   }
 
   @override
   void initState() {
     _allowLandscapeOrientation();
 
-    _setupVideoPlayer(_program.exercises[_videoIndex]);
+    context.read<VideoPlayerBloc>().add(const VideoPlayerEvent.getAwsCookies());
 
     super.initState();
+  }
+
+  _onSkipExplanationHandler() {}
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<VideoPlayerBloc, VideoPlayerState>(
+      listenWhen: (prev, cur) => cur is CookiesLoaded,
+      listener: _cookiesLoadedListener,
+      builder: (BuildContext context, state) {
+        return state.maybeMap(
+          loading: (_) => const Loader(),
+          orElse: () => const SizedBox.shrink(),
+          cookiesLoaded: (s) {
+            return OrientationBuilder(builder: (BuildContext context, Orientation orientation) {
+              final bool isPortrait = orientation == Orientation.portrait;
+
+              return Scaffold(
+                backgroundColor: AppColors.black,
+                appBar: isPortrait
+                    ? AppBar(
+                        backgroundColor: AppColors.black,
+                        leading: IconButton(
+                          icon: const Icon(
+                            Icons.arrow_back,
+                            color: AppColors.white,
+                          ),
+                          onPressed: () => context.router.pop(),
+                        ))
+                    : null,
+                body: SafeArea(
+                  bottom: isPortrait,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (isPortrait)
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 38.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AppIcons.telephone,
+                                const SizedBox(height: 22.0),
+                                const Text(
+                                  LocalizedTexts.rotateDevice,
+                                  style: TextStyle(
+                                      fontSize: 18.0, fontWeight: FontWeight.w400, color: AppColors.white),
+                                  textAlign: TextAlign.center,
+                                ).tr(),
+                              ],
+                            ),
+                          ),
+                        ),
+                      Expanded(
+                        child: VideoPlayerWidget(
+                          controller: _controller,
+                          orientation: orientation,
+                          programType: _program.type,
+                          programDifficulty: _program.difficulty,
+                          programLenght: _program.exercises.length,
+                          exercise: _program.exercises[_videoIndex],
+                          onVideoEnds: _onVideoEnds,
+                          countDownController: _countDownController,
+                        ),
+                      ),
+                      if (isPortrait)
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              SizedBox(
+                                width: 186,
+                                child: ElevatedButton(
+                                  onPressed: _onSkipExplanationHandler,
+                                  style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                                        backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
+                                      ),
+                                  child: const Text(LocalizedTexts.skipExplanation).tr(),
+                                ),
+                              ),
+                              const SizedBox(height: 30.0),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              );
+            });
+          },
+        );
+      },
+    );
+  }
+
+  _cookiesLoadedListener(BuildContext context, VideoPlayerState state) {
+    _loadVideoPlayer(_program.exercises[_videoIndex]);
   }
 
   @override
   void dispose() {
     _onlyPortraitOrientation();
 
-    super.dispose();
-  }
+    _countDownController.reset();
 
-  @override
-  Widget build(BuildContext context) {
-    return OrientationBuilder(builder: (BuildContext context, Orientation orientation) {
-      final bool isPortrait = orientation == Orientation.portrait;
-      print(_controller.value.hasError);
-      print(_controller.value.errorDescription);
-      return Scaffold(
-        backgroundColor: AppColors.black,
-        appBar: isPortrait
-            ? AppBar(
-                backgroundColor: AppColors.black,
-                leading: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: AppColors.white,
-                  ),
-                  onPressed: () => context.router.pop(),
-                ))
-            : null,
-        body: SafeArea(
-          bottom: isPortrait,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              if (isPortrait)
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 38.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AppIcons.telephone,
-                        const SizedBox(height: 22.0),
-                        const Text(
-                          LocalizedTexts.rotateDevice,
-                          style:
-                              TextStyle(fontSize: 18.0, fontWeight: FontWeight.w400, color: AppColors.white),
-                          textAlign: TextAlign.center,
-                        ).tr(),
-                      ],
-                    ),
-                  ),
-                ),
-              Expanded(child: VideoPlayerWidget(controller: _controller, orientation: orientation)),
-              if (isPortrait)
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      SizedBox(
-                        width: 186,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                                backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
-                              ),
-                          child: const Text(LocalizedTexts.skipExplanation).tr(),
-                        ),
-                      ),
-                      const SizedBox(height: 30.0),
-                    ],
-                  ),
-                ),
-            ],
-          ),
-        ),
-      );
-    });
+    super.dispose();
   }
 }

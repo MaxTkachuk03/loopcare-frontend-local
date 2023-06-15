@@ -63,5 +63,7 @@ class AppColors {
 
   static const Color profileDivider = Color(0xFF95A98B);
 
+  static const Color d9d9d9 = Color(0xFFD9D9D9);
+
   AppColors._();
 }

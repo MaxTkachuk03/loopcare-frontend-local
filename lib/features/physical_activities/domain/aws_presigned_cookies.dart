@@ -9,9 +9,9 @@ abstract class AwsPresignedCookies implements _$AwsPresignedCookies {
   const AwsPresignedCookies._();
 
   const factory AwsPresignedCookies({
-    @JsonKey(name: 'CloudFront-Policy') required String cloudFrontPolicy,
-    @JsonKey(name: 'CloudFront-Key-Pair-Id') required String cloudFrontKeyPairId,
-    @JsonKey(name: 'CloudFront-Signature') required String cloudFrontSignature,
+    @Default('') @JsonKey(name: 'CloudFront-Policy') String cloudFrontPolicy,
+    @Default('') @JsonKey(name: 'CloudFront-Key-Pair-Id') String cloudFrontKeyPairId,
+    @Default('') @JsonKey(name: 'CloudFront-Signature') String cloudFrontSignature,
   }) = _AwsPresignedCookies;
 
   factory AwsPresignedCookies.fromJson(Map<String, dynamic> json) => _$AwsPresignedCookiesFromJson(json);

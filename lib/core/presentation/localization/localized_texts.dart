@@ -431,6 +431,8 @@ class LocalizedTexts {
   // Video
   static const String rotateDevice = 'rotateDevice';
   static const String skipExplanation = 'skipExplanation';
+  static const String repeat = 'repeat';
+  static const String exerciseCompleteMessage = 'exerciseCompleteMessage';
 }
 
 extension StringX on String {
