@@ -21,9 +21,11 @@ class Exercise {
   final String video;
   final int order;
   final String duration;
-  final int tillNextExercise;
+  final int delayBeforeNext;
+  final int explanationSkipTime;
 
-  const Exercise(this.name, this.image, this.video, this.order, this.duration, this.tillNextExercise);
+  const Exercise(this.name, this.image, this.video, this.order, this.duration, this.delayBeforeNext,
+      this.explanationSkipTime);
 }
 
 class Program {
@@ -56,13 +58,14 @@ class Program {
   );
 }
 
-const ex1 = Exercise('Lunges', '', 'https://d316h49i7nayz2.cloudfront.net/Lunges/index.m3u8', 1, "1m 11s", 5);
-const ex2 = Exercise(
-    'Elevated pushups', '', 'https://d316h49i7nayz2.cloudfront.net/ElevatedPushups/index.m3u8', 2, "45s", 3);
+const ex1 =
+    Exercise('Lunges', '', 'https://d316h49i7nayz2.cloudfront.net/Lunges/index.m3u8', 1, "1m 11s", 5, 10);
+const ex2 = Exercise('Elevated pushups', '',
+    'https://d316h49i7nayz2.cloudfront.net/ElevatedPushups/index.m3u8', 2, "45s", 3, 10);
 const ex3 =
-    Exercise('Superman', '', 'https://d316h49i7nayz2.cloudfront.net/Superman/index.m3u8', 3, "1m 1s", 7);
-const ex4 =
-    Exercise('Hollow hold', '', 'https://d316h49i7nayz2.cloudfront.net/HollowHold/index.m3u8', 4, "44s", 0);
+    Exercise('Superman', '', 'https://d316h49i7nayz2.cloudfront.net/Superman/index.m3u8', 3, "1m 1s", 7, 10);
+const ex4 = Exercise(
+    'Hollow hold', '', 'https://d316h49i7nayz2.cloudfront.net/HollowHold/index.m3u8', 4, "44s", 0, 10);
 
 const program = Program(1, 'Body weight essentials', 'strength', 'easy', 'outdoor', 900, "Lunges description",
     "full body", "none", false, [ex1, ex2, ex3, ex4], null);
@@ -121,13 +124,11 @@ class _VideoPageState extends State<VideoPage> {
 
   _onVideoEnds() {
     // check if it was the last video in playlist
-    print('current video index $_videoIndex');
     if (_videoIndex + 1 == _program.exercises.length) {
       // TODO do redirect to the evaluation screen
       return;
     }
 
-    print('video with index  ${_videoIndex + 1} will be loaded');
     _loadVideoPlayer(_program.exercises[_videoIndex + 1]);
 
     setState(() {
@@ -144,7 +145,13 @@ class _VideoPageState extends State<VideoPage> {
     super.initState();
   }
 
-  _onSkipExplanationHandler() {}
+  _onSkipExplanationHandler() {
+    final skipTime = _program.exercises[_videoIndex].explanationSkipTime;
+
+    if (_controller.value.position.inSeconds >= skipTime) return;
+
+    _controller.seekTo(Duration(seconds: skipTime));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -203,7 +210,7 @@ class _VideoPageState extends State<VideoPage> {
                           orientation: orientation,
                           programType: _program.type,
                           programDifficulty: _program.difficulty,
-                          programLenght: _program.exercises.length,
+                          programLength: _program.exercises.length,
                           exercise: _program.exercises[_videoIndex],
                           onVideoEnds: _onVideoEnds,
                           countDownController: _countDownController,
@@ -214,15 +221,13 @@ class _VideoPageState extends State<VideoPage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              SizedBox(
-                                width: 186,
-                                child: ElevatedButton(
-                                  onPressed: _onSkipExplanationHandler,
-                                  style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                                        backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
-                                      ),
-                                  child: const Text(LocalizedTexts.skipExplanation).tr(),
+                              ElevatedButton(
+                                onPressed: _onSkipExplanationHandler,
+                                style: ButtonStyle(
+                                  minimumSize: MaterialStateProperty.all(const Size(186, 52.0)),
+                                  backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
                                 ),
+                                child: const Text(LocalizedTexts.skipExplanation).tr(),
                               ),
                               const SizedBox(height: 30.0),
                             ],

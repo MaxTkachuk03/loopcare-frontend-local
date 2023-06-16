@@ -15,7 +15,7 @@ class PlayerOverlay extends StatelessWidget {
   final Exercise exercise;
   final String programType;
   final String programDifficulty;
-  final int programLenght;
+  final VoidCallback onSliderProgressChange;
 
   const PlayerOverlay({
     Key? key,
@@ -24,40 +24,37 @@ class PlayerOverlay extends StatelessWidget {
     required this.exercise,
     required this.programType,
     required this.programDifficulty,
-    required this.programLenght,
+    required this.onSliderProgressChange,
   }) : super(key: key);
 
-  bool get _isPortraiteOrientation {
+  bool get _isPortraitOrientation {
     return orientation == Orientation.portrait;
   }
 
   void _onSkipExplanation() {
-    // TODO timestamp to seek to in the video
-    final val = 0;
-    controller.seekTo(Duration(microseconds: (val * 1000).toInt()));
+    if (controller.value.position.inSeconds >= exercise.explanationSkipTime) return;
+
+    controller.seekTo(Duration(seconds: exercise.explanationSkipTime));
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.black45,
-      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: _isPortraiteOrientation ? 0.0 : 30.0),
+      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: _isPortraitOrientation ? 0.0 : 30.0),
       child: Column(
-        mainAxisAlignment: _isPortraiteOrientation ? MainAxisAlignment.end : MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: _isPortraitOrientation ? MainAxisAlignment.end : MainAxisAlignment.spaceBetween,
         children: [
-          if (!_isPortraiteOrientation)
+          if (!_isPortraitOrientation)
             Align(
               alignment: Alignment.topRight,
-              child: SizedBox(
-                width: 186,
-                child: ElevatedButton(
-                  onPressed: _onSkipExplanation,
-                  style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(const Size(186, 52.0)),
-                    backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
-                  ),
-                  child: const Text(LocalizedTexts.skipExplanation).tr(),
+              child: ElevatedButton(
+                onPressed: _onSkipExplanation,
+                style: ButtonStyle(
+                  minimumSize: MaterialStateProperty.all(const Size(186, 52.0)),
+                  backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
                 ),
+                child: const Text(LocalizedTexts.skipExplanation).tr(),
               ),
             ),
           Column(
@@ -68,7 +65,7 @@ class PlayerOverlay extends StatelessWidget {
                     '${exercise.order}. ${exercise.name}',
                     style: TextStyle(
                       color: AppColors.white,
-                      fontSize: _isPortraiteOrientation ? 16.0 : 32.0,
+                      fontSize: _isPortraitOrientation ? 16.0 : 32.0,
                       fontWeight: FontWeight.w600,
                       fontFamily: ThemeConstants.bitterFontFamily,
                     ),
@@ -84,7 +81,7 @@ class PlayerOverlay extends StatelessWidget {
                     programType.toUpperCase(),
                     style: TextStyle(
                       color: AppColors.white,
-                      fontSize: _isPortraiteOrientation ? 10.0 : 12.0,
+                      fontSize: _isPortraitOrientation ? 10.0 : 12.0,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -94,13 +91,13 @@ class PlayerOverlay extends StatelessWidget {
                   Text(exercise.duration,
                       style: TextStyle(
                         color: AppColors.white,
-                        fontSize: _isPortraiteOrientation ? 10.0 : 12.0,
+                        fontSize: _isPortraitOrientation ? 10.0 : 12.0,
                         fontWeight: FontWeight.w600,
                       )),
                 ],
               ),
-              if (!_isPortraiteOrientation) const SizedBox(height: 24.0),
-              ProgressBar(controller: controller),
+              if (!_isPortraitOrientation) const SizedBox(height: 24.0),
+              ProgressBar(controller: controller, onSliderProgressChange: onSliderProgressChange),
               PlayerControls(controller: controller),
             ],
           ),

@@ -17,7 +17,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
   final CountDownController countDownController;
   final String programType;
   final String programDifficulty;
-  final int programLenght;
+  final int programLength;
 
   const PlayerEndVideoOverlay({
     Key? key,
@@ -28,7 +28,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
     required this.countDownController,
     required this.programType,
     required this.programDifficulty,
-    required this.programLenght,
+    required this.programLength,
   }) : super(key: key);
 
   bool get _isPortraiteOrientation {
@@ -50,58 +50,62 @@ class PlayerEndVideoOverlay extends StatelessWidget {
       color: Colors.black45,
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: _isPortraiteOrientation ? 0.0 : 30.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                LocalizedTexts.exerciseCompleteMessage,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: AppColors.white,
-                  fontSize: _isPortraiteOrientation ? 16.0 : 32.0,
-                  fontWeight: FontWeight.w300,
-                  fontFamily: ThemeConstants.bitterFontFamily,
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  LocalizedTexts.exerciseCompleteMessage,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: AppColors.white,
+                    fontSize: _isPortraiteOrientation ? 16.0 : 32.0,
+                    fontWeight: FontWeight.w300,
+                    fontFamily: ThemeConstants.bitterFontFamily,
+                  ),
+                ).tr(namedArgs: {"currentIndex": '${exercise.order}', "length": '$programLength'}),
+                Text(
+                  exercise.name,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: AppColors.white,
+                    fontSize: _isPortraiteOrientation ? 16.0 : 32.0,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: ThemeConstants.bitterFontFamily,
+                  ),
                 ),
-              ).tr(namedArgs: {"currentIndex": '${exercise.order}', "length": '$programLenght'}),
-              Text(
-                exercise.name,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: AppColors.white,
-                  fontSize: _isPortraiteOrientation ? 16.0 : 32.0,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: ThemeConstants.bitterFontFamily,
+                const SizedBox(height: 20.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      programType.toUpperCase(),
+                      style: TextStyle(
+                        color: AppColors.white,
+                        fontSize: _isPortraiteOrientation ? 10.0 : 12.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(width: 16.0),
+                    AppIcons.clockWhite,
+                    const SizedBox(width: 6.0),
+                    Text(
+                      exercise.duration,
+                      style: TextStyle(
+                        color: AppColors.white,
+                        fontSize: _isPortraiteOrientation ? 10.0 : 12.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(width: 12.0),
+                    ProgramDifficultyChip(text: programDifficulty),
+                  ],
                 ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                programType.toUpperCase(),
-                style: TextStyle(
-                  color: AppColors.white,
-                  fontSize: _isPortraiteOrientation ? 10.0 : 12.0,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(width: 16.0),
-              AppIcons.clockWhite,
-              const SizedBox(width: 6.0),
-              Text(
-                exercise.duration,
-                style: TextStyle(
-                  color: AppColors.white,
-                  fontSize: _isPortraiteOrientation ? 10.0 : 12.0,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(width: 12.0),
-              ProgramDifficultyChip(text: programDifficulty),
-            ],
+              ],
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -136,7 +140,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
               ),
               CountDown(
                 controller: countDownController,
-                duration: exercise.tillNextExercise,
+                duration: exercise.delayBeforeNext,
                 onComplete: onVideoEnds,
               ),
             ],

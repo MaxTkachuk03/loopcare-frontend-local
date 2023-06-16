@@ -4,8 +4,13 @@ import 'package:video_player/video_player.dart';
 
 class ProgressBar extends StatelessWidget {
   final VideoPlayerController controller;
+  final VoidCallback onSliderProgressChange;
 
-  const ProgressBar({Key? key, required this.controller}) : super(key: key);
+  const ProgressBar({
+    Key? key,
+    required this.controller,
+    required this.onSliderProgressChange,
+  }) : super(key: key);
 
   String _videoDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
@@ -13,11 +18,7 @@ class ProgressBar extends StatelessWidget {
     final minutes = twoDigits(duration.inMinutes.remainder(60));
     final seconds = twoDigits(duration.inSeconds.remainder(60));
 
-    return [
-      if (duration.inHours > 0) hours,
-      minutes,
-      seconds,
-    ].join(':');
+    return [if (duration.inHours > 0) hours, minutes, seconds].join(':');
   }
 
   double _durationToDouble(Duration val) {
@@ -25,6 +26,7 @@ class ProgressBar extends StatelessWidget {
   }
 
   void _onSeekHandler(double val) {
+    onSliderProgressChange();
     controller.seekTo(Duration(microseconds: (val * 1000).toInt()));
   }
 
