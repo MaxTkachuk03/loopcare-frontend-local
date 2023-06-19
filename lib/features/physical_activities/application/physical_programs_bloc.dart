@@ -38,15 +38,24 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
     _GetProgramsByPreferences event,
     Emitter<PhysicalProgramsState> emit,
   ) async {
+    emit(PhysicalProgramsState.loading(state.data.copyWith(isLoading: true)));
+
     final response = await _physicalActivitiesService.getProgramsByPreferences(
-      programType: state.data.programType.name,
-      programPlace: state.data.programPlace.name,
-      programDifficulty: state.data.programDifficulty.name,
+      programType: ProgramType.strength.name,
+      programPlace: ProgramPlace.home.name,
+      programDifficulty: ProgramDifficulty.easy.name,
     );
 
     response.fold(
       (l) => null,
-      (r) => emit(PhysicalProgramsState.programLoaded(state.data.copyWith(programs: r.data))),
+      (r) => emit(
+        PhysicalProgramsState.programLoaded(
+          state.data.copyWith(
+            programs: r.data,
+            isLoading: false,
+          ),
+        ),
+      ),
     );
   }
 

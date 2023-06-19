@@ -376,5 +376,10 @@
   "dislikeFoodMessage": "Do you NOT like any of the following?",
   "dontEat": "Don't eat",
   "dontLike": "Don't like",
-  "activitiesForThisWeek": "activities for this week"
+  "activitiesForThisWeek": "activities for this week",
+  "chooseYourProgram": "Choose your program",
+  "recommended": "recommended",
+  "alternatives": "alternatives",
+  "equipment": "Equipment",
+  "targetMuscles": "Target muscles"
 }

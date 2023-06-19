@@ -25,7 +25,7 @@ abstract class PhysicalProgram implements _$PhysicalProgram {
     required ProgramPlace place,
     required ProgramDifficulty difficulty,
     required List<PhysicalProgramExercise> exercises,
-    required PhysicalProgramAssessment assessment,
+    required PhysicalProgramAssessment? assessment,
   }) = PhysicalProgramBasic;
 
   const factory PhysicalProgram.dashboardPlaceholder({required String name}) = DashboardPlaceholder;
