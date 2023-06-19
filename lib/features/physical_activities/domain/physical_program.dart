@@ -25,7 +25,7 @@ abstract class PhysicalProgram implements _$PhysicalProgram {
     required ProgramPlace place,
     required ProgramDifficulty difficulty,
     required List<PhysicalProgramExercise> exercises,
-    required PhysicalProgramAssessment assessment,
+    required PhysicalProgramAssessment? assessment,
   }) = _PhysicalProgram;
 
   factory PhysicalProgram.fromJson(Map<String, dynamic> json) => _$PhysicalProgramFromJson(json);

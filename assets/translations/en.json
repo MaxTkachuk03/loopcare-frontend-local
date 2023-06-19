@@ -375,5 +375,10 @@
   "dontEatFoodMessage": "Which types of food do you NOT eat or drink for religious or personal reasons?",
   "dislikeFoodMessage": "Do you NOT like any of the following?",
   "dontEat": "Don't eat",
-  "dontLike": "Don't like"
+  "dontLike": "Don't like",
+  "chooseYourProgram": "Choose your program",
+  "recommended": "recommended",
+  "alternatives": "alternatives",
+  "equipment": "Equipment",
+  "targetMuscles": "Target muscles"
 }
