@@ -107,43 +107,47 @@ class PlayerEndVideoOverlay extends StatelessWidget {
               ],
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      minimumSize: Size(100, _isPortraiteOrientation ? 32.0 : 52.0),
-                      side: const BorderSide(width: 1.0, color: AppColors.white),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: Size(100, _isPortraiteOrientation ? 32.0 : 52.0),
+                        side: const BorderSide(width: 1.0, color: AppColors.white),
+                      ),
+                      onPressed: _onRepeatHandler,
+                      child: Text(
+                        LocalizedTexts.repeat,
+                        style: TextStyle(fontSize: _isPortraiteOrientation ? 12 : 14, color: AppColors.white),
+                      ).tr(),
                     ),
-                    onPressed: _onRepeatHandler,
-                    child: Text(
-                      LocalizedTexts.repeat,
-                      style: TextStyle(fontSize: _isPortraiteOrientation ? 12 : 14, color: AppColors.white),
-                    ).tr(),
-                  ),
-                  const SizedBox(width: 20.0),
-                  ElevatedButton(
-                    onPressed: _onNextHandler,
-                    style: ButtonStyle(
-                      minimumSize:
-                          MaterialStateProperty.all(Size(100, _isPortraiteOrientation ? 32.0 : 52.0)),
-                      backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
+                    const SizedBox(width: 20.0),
+                    ElevatedButton(
+                      onPressed: _onNextHandler,
+                      style: ButtonStyle(
+                        minimumSize:
+                            MaterialStateProperty.all(Size(100, _isPortraiteOrientation ? 32.0 : 52.0)),
+                        backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
+                      ),
+                      child: Text(
+                        LocalizedTexts.next,
+                        style: TextStyle(fontSize: _isPortraiteOrientation ? 12 : 14),
+                      ).tr(),
                     ),
-                    child: Text(
-                      LocalizedTexts.next,
-                      style: TextStyle(fontSize: _isPortraiteOrientation ? 12 : 14),
-                    ).tr(),
-                  ),
-                ],
-              ),
-              CountDown(
-                controller: countDownController,
-                duration: exercise.delayBeforeNext,
-                onComplete: onVideoEnds,
-              ),
-            ],
+                  ],
+                ),
+                CountDown(
+                  controller: countDownController,
+                  duration: exercise.delayBeforeNext,
+                  onComplete: onVideoEnds,
+                  isPortraiteOrientation: _isPortraiteOrientation,
+                ),
+              ],
+            ),
           ),
         ],
       ),
