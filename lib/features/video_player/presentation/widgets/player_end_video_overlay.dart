@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/video_page.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/countdown.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/program_difficulty_chip.dart';
@@ -93,7 +94,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                     AppIcons.clockWhite,
                     const SizedBox(width: 6.0),
                     Text(
-                      exercise.duration,
+                      formatDuration(exercise.duration),
                       style: TextStyle(
                         color: AppColors.white,
                         fontSize: _isPortraiteOrientation ? 10.0 : 12.0,

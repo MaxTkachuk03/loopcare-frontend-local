@@ -41,6 +41,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   Timer? _timer;
   bool _showControls = false;
 
+  // TODO add debounce to the function in case user seek with progress bar
   void _showVideoControlsWithTimer() {
     if (_timer != null) _timer?.cancel();
 

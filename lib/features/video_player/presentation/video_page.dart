@@ -20,7 +20,7 @@ class Exercise {
   final String image;
   final String video;
   final int order;
-  final String duration;
+  final int duration;
   final int delayBeforeNext;
   final int explanationSkipTime;
 
@@ -58,14 +58,13 @@ class Program {
   );
 }
 
-const ex1 =
-    Exercise('Lunges', '', 'https://d316h49i7nayz2.cloudfront.net/Lunges/index.m3u8', 1, "1m 11s", 5, 10);
-const ex2 = Exercise('Elevated pushups', '',
-    'https://d316h49i7nayz2.cloudfront.net/ElevatedPushups/index.m3u8', 2, "45s", 3, 10);
+const ex1 = Exercise('Lunges', '', 'https://d316h49i7nayz2.cloudfront.net/Lunges/index.m3u8', 1, 61, 5, 10);
+const ex2 = Exercise(
+    'Elevated pushups', '', 'https://d316h49i7nayz2.cloudfront.net/ElevatedPushups/index.m3u8', 2, 45, 3, 10);
 const ex3 =
-    Exercise('Superman', '', 'https://d316h49i7nayz2.cloudfront.net/Superman/index.m3u8', 3, "1m 1s", 7, 10);
-const ex4 = Exercise(
-    'Hollow hold', '', 'https://d316h49i7nayz2.cloudfront.net/HollowHold/index.m3u8', 4, "44s", 0, 10);
+    Exercise('Superman', '', 'https://d316h49i7nayz2.cloudfront.net/Superman/index.m3u8', 3, 61, 7, 10);
+const ex4 =
+    Exercise('Hollow hold', '', 'https://d316h49i7nayz2.cloudfront.net/HollowHold/index.m3u8', 4, 44, 0, 10);
 
 const program = Program(1, 'Body weight essentials', 'strength', 'easy', 'outdoor', 900, "Lunges description",
     "full body", "none", false, [ex1, ex2, ex3, ex4], null);

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/video_page.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/player_controls.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/program_difficulty_chip.dart';
@@ -88,7 +89,7 @@ class PlayerOverlay extends StatelessWidget {
                   const SizedBox(width: 16.0),
                   AppIcons.clockWhite,
                   const SizedBox(width: 6.0),
-                  Text(exercise.duration,
+                  Text(formatDuration(exercise.duration),
                       style: TextStyle(
                         color: AppColors.white,
                         fontSize: _isPortraitOrientation ? 10.0 : 12.0,
