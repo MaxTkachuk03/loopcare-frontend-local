@@ -128,10 +128,27 @@ class _VideoPageState extends State<VideoPage> {
       return;
     }
 
+    if (_controller.value.isPlaying) _controller.pause();
+
     _loadVideoPlayer(_program.exercises[_videoIndex + 1]);
 
     setState(() {
       _videoIndex += 1;
+    });
+  }
+
+  _onPrevPressed() {
+    // check if it is the first video in playlist
+    if (_videoIndex == 0) {
+      return;
+    }
+
+    if (_controller.value.isPlaying) _controller.pause();
+
+    _loadVideoPlayer(_program.exercises[_videoIndex - 1]);
+
+    setState(() {
+      _videoIndex -= 1;
     });
   }
 
@@ -212,6 +229,7 @@ class _VideoPageState extends State<VideoPage> {
                           programLength: _program.exercises.length,
                           exercise: _program.exercises[_videoIndex],
                           onVideoEnds: _onVideoEnds,
+                          onPrevPressed: _onPrevPressed,
                           countDownController: _countDownController,
                         ),
                       ),

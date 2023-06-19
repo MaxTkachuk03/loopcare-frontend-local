@@ -17,6 +17,8 @@ class PlayerOverlay extends StatelessWidget {
   final String programType;
   final String programDifficulty;
   final VoidCallback onSliderProgressChange;
+  final VoidCallback onPrevPressed;
+  final VoidCallback onNextPressed;
 
   const PlayerOverlay({
     Key? key,
@@ -26,6 +28,8 @@ class PlayerOverlay extends StatelessWidget {
     required this.programType,
     required this.programDifficulty,
     required this.onSliderProgressChange,
+    required this.onPrevPressed,
+    required this.onNextPressed,
   }) : super(key: key);
 
   bool get _isPortraitOrientation {
@@ -99,7 +103,11 @@ class PlayerOverlay extends StatelessWidget {
               ),
               if (!_isPortraitOrientation) const SizedBox(height: 24.0),
               ProgressBar(controller: controller, onSliderProgressChange: onSliderProgressChange),
-              PlayerControls(controller: controller),
+              PlayerControls(
+                controller: controller,
+                onPrevPressed: onPrevPressed,
+                onNextPressed: onNextPressed,
+              ),
             ],
           ),
         ],

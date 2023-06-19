@@ -4,8 +4,15 @@ import 'package:video_player/video_player.dart';
 
 class PlayerControls extends StatelessWidget {
   final VideoPlayerController controller;
+  final VoidCallback onNextPressed;
+  final VoidCallback onPrevPressed;
 
-  const PlayerControls({Key? key, required this.controller}) : super(key: key);
+  const PlayerControls({
+    Key? key,
+    required this.controller,
+    required this.onPrevPressed,
+    required this.onNextPressed,
+  }) : super(key: key);
 
   void _muteAudio() {
     controller.setVolume(0);
@@ -29,7 +36,7 @@ class PlayerControls extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: onPrevPressed,
                 icon: const Icon(
                   Icons.skip_previous,
                   size: 35.0,
@@ -51,7 +58,7 @@ class PlayerControls extends StatelessWidget {
                     );
                   }),
               IconButton(
-                onPressed: () {},
+                onPressed: onNextPressed,
                 icon: const Icon(
                   Icons.skip_next,
                   size: 35.0,
