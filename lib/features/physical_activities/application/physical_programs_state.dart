@@ -2,19 +2,29 @@ part of 'physical_programs_bloc.dart';
 
 @freezed
 class PhysicalProgramsState with _$PhysicalProgramsState {
-  factory PhysicalProgramsState.initial() => const PhysicalProgramsState(
-        programs: [],
-        programType: ProgramType.strength,
-        programPlace: ProgramPlace.home,
-        programDifficulty: ProgramDifficulty.easy,
-      );
+  const factory PhysicalProgramsState.initial(PhysicalProgramsData data) = Initial;
 
-  const factory PhysicalProgramsState({
-    required List<PhysicalProgram> programs,
-    required ProgramType programType,
-    required ProgramPlace programPlace,
-    required ProgramDifficulty programDifficulty,
-  }) = _PhysicalProgramsState;
+  const factory PhysicalProgramsState.loading(PhysicalProgramsData data) = Loading;
+
+  const factory PhysicalProgramsState.programLoaded(PhysicalProgramsData data) = ProgramLoaded;
+
+  const factory PhysicalProgramsState.programFilterSet(PhysicalProgramsData data) = ProgramFilterSet;
+
+  const factory PhysicalProgramsState.errorLoadingPrograms(PhysicalProgramsData data) = ErrorLoadingPrograms;
 
   const PhysicalProgramsState._();
+}
+
+@freezed
+class PhysicalProgramsData with _$PhysicalProgramsData {
+  const PhysicalProgramsData._();
+
+  const factory PhysicalProgramsData({
+    @Default([]) List<PhysicalProgram> programs,
+    @Default(ProgramType.strength) ProgramType programType,
+    @Default(ProgramPlace.home) ProgramPlace programPlace,
+    @Default(ProgramDifficulty.easy) ProgramDifficulty programDifficulty,
+    @Default(false) bool isLoading,
+    RequestError? error,
+  }) = _PhysicalProgramsData;
 }

@@ -149,7 +149,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                             child: Column(
                               children: [
                                 SizedBox(
-                                  height: 350,
+                                  height: 325,
                                   child: NetworkImageWithCache(
                                     url: state.data.lessonImage,
                                   ),
@@ -201,11 +201,19 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                       alignment: Alignment.centerLeft,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 12.0, horizontal: 24.0),
+                          vertical: 12.0,
+                          horizontal: 24.0,
+                        ),
                         width: 250,
                         child: OutlinedButton(
                           onPressed: _onReadText,
-                          child: const Text(LocalizedTexts.readText).tr(),
+                          child: Center(
+                            child: AutoSizeText(
+                              LocalizedTexts.readText.translation,
+                              minFontSize: 6,
+                              maxLines: 1,
+                            ),
+                          ),
                         ),
                       ),
                     ),

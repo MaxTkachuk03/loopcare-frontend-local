@@ -30,7 +30,7 @@ class ProgramPlaceQuestion extends StatelessWidget {
                       children: [
                         AppChoiceChip(
                           label: e.label,
-                          selected: state.programPlace == e,
+                          selected: state.data.programPlace == e,
                           value: e,
                           padding: const EdgeInsets.all(0),
                           width: 96,
