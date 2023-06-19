@@ -45,7 +45,14 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
 
     response.fold(
       (l) => null,
-      (r) => emit(PhysicalProgramsState.programLoaded(state.data.copyWith(programs: r.data))),
+      (r) => emit(
+        PhysicalProgramsState.programLoaded(
+          state.data.copyWith(
+            programs: r.data,
+            isLoading: false,
+          ),
+        ),
+      ),
     );
   }
 

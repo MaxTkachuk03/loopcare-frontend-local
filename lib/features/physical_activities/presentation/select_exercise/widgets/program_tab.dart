@@ -15,41 +15,37 @@ class ProgramTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<PhysicalProgramsBloc, PhysicalProgramsState>(
-      listenWhen: _programsListenWhen,
-      listener: _programsListener,
-      child: ScrollableContainer(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                ProgramTypeQuestion(),
-                SizedBox(
-                  height: 24.0,
-                ),
-                ProgramPlaceQuestion(),
-                SizedBox(
-                  height: 24.0,
-                ),
-                ProgramDifficultyQuestion()
-              ],
-            ),
-            Column(
-              children: [
-                ElevatedButton(
-                  onPressed: () => _onNextPressed(context),
-                  child: const Text(LocalizedTexts.next).tr(),
-                ),
-                const SizedBox(
-                  height: 54.0,
-                ),
-              ],
-            ),
-          ],
-        ),
+    return ScrollableContainer(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              ProgramTypeQuestion(),
+              SizedBox(
+                height: 24.0,
+              ),
+              ProgramPlaceQuestion(),
+              SizedBox(
+                height: 24.0,
+              ),
+              ProgramDifficultyQuestion()
+            ],
+          ),
+          Column(
+            children: [
+              ElevatedButton(
+                onPressed: () => _onNextPressed(context),
+                child: const Text(LocalizedTexts.next).tr(),
+              ),
+              const SizedBox(
+                height: 54.0,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -58,15 +54,5 @@ class ProgramTab extends StatelessWidget {
     context
       ..read<PhysicalProgramsBloc>().add(const PhysicalProgramsEvent.getProgramsByPreferences())
       ..router.pushNamed(AppRoutes.chooseProgram);
-  }
-
-  bool _programsListenWhen(PhysicalProgramsState previous, PhysicalProgramsState current) {
-    print('_programsListenWhen $previous $current');
-    return previous is Loading && current is ProgramLoaded;
-  }
-
-  void _programsListener(BuildContext context, PhysicalProgramsState state) {
-    print('_programsListenWhen');
-    // context.router.pushNamed(AppRoutes.chooseProgram);
   }
 }

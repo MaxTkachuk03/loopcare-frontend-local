@@ -18,22 +18,18 @@ class _ProgramCarouselState extends State<ProgramCarousel> {
   int currentPage = 0;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Expanded(
           child: PageView.builder(
+            padEnds: false,
             itemCount: widget.programs.length,
-            // controller: PageController(viewportFraction: 0.7),
+            controller: PageController(viewportFraction: .9),
             onPageChanged: _onPageChanged,
-            itemBuilder: (_, index) {
-              return Transform.translate(
-                offset: Offset(-10, 0),
+            itemBuilder: (BuildContext context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(right: 16),
                 child: ProgramCard(
                   program: widget.programs[index],
                   size: const ProgramCardSize.small(),
@@ -65,7 +61,6 @@ class _ProgramCarouselState extends State<ProgramCarousel> {
   }
 
   _onPageChanged(int index) {
-    print(index);
     setState(() {
       currentPage = index;
     });
