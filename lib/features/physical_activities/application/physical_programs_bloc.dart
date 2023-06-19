@@ -38,9 +38,9 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
     emit(PhysicalProgramsState.loading(state.data.copyWith(isLoading: true)));
 
     final response = await _physicalActivitiesService.getProgramsByPreferences(
-      programType: state.data.programType.name,
-      programPlace: state.data.programPlace.name,
-      programDifficulty: state.data.programDifficulty.name,
+      programType: ProgramType.strength.name,
+      programPlace: ProgramPlace.home.name,
+      programDifficulty: ProgramDifficulty.easy.name,
     );
 
     response.fold(
