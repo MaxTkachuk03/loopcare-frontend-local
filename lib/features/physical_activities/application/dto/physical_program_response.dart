@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_assessment.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
 
@@ -35,7 +34,7 @@ class PhysicalProgramResponse {
     required this.difficulty,
     required this.exercises,
     required this.assessment,
-});
+  });
 
   static PhysicalProgramResponse fromJson(Map<String, dynamic> json) =>
       _$PhysicalProgramResponseFromJson(json);

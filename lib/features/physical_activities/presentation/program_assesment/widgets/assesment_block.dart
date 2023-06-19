@@ -13,16 +13,7 @@ class AssesmentBlock extends StatefulWidget {
 }
 
 class _AssesmentBlockState extends State<AssesmentBlock> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
+  int? selectedIndex;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,11 +38,17 @@ class _AssesmentBlockState extends State<AssesmentBlock> {
             height: 65,
             child: Center(
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
                   10,
-                  (index) => index == 3
+                  (index) => index == selectedIndex
                       ? SelectedCell(index: index + 1)
-                      : RegularCell(index: index + 1),
+                      : RegularCell(
+                          index: index + 1,
+                          onPress: (int tabIndex) {
+                            _onCellTap(tabIndex - 1);
+                          },
+                        ),
                 ),
               ),
             ),
@@ -78,5 +75,11 @@ class _AssesmentBlockState extends State<AssesmentBlock> {
         ],
       ),
     );
+  }
+
+  void _onCellTap(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
   }
 }

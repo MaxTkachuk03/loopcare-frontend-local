@@ -3,29 +3,34 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class RegularCell extends StatelessWidget {
   final int index;
+  final void Function(int tabIndex) onPress;
 
   const RegularCell({
     Key? key,
     required this.index,
+    required this.onPress,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 56,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10.0,
-      ),
-      decoration: BoxDecoration(
-        color: AppColors.bgGreen,
-        border: _getBorders(index),
-      ),
-      child: Center(
-        child: Text(
-          '$index',
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
+    return GestureDetector(
+      onTap: () => onPress(index),
+      child: Container(
+        height: 56,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10.0,
+        ),
+        decoration: BoxDecoration(
+          color: AppColors.bgGreen,
+          border: _getBorders(index),
+        ),
+        child: Center(
+          child: Text(
+            '$index',
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
         ),
       ),
     );
