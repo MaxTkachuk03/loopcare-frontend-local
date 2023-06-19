@@ -40,14 +40,19 @@ class LocalizedTexts {
   static const String continueBtn = 'continueBtn';
   static const String checkYourMedicalCondition = 'checkYourMedicalCondition';
   static const String medicalIntroTitle = 'medicalIntroTitle';
-  static const String medicalIntroInstructionFirst = 'medicalIntroInstructionFirst';
-  static const String medicalIntroInstructionSecond = 'medicalIntroInstructionSecond';
-  static const String medicalIntroInstructionThird = 'medicalIntroInstructionThird';
+  static const String medicalIntroInstructionFirst =
+      'medicalIntroInstructionFirst';
+  static const String medicalIntroInstructionSecond =
+      'medicalIntroInstructionSecond';
+  static const String medicalIntroInstructionThird =
+      'medicalIntroInstructionThird';
 
   static const String yourBodyMassIndex = 'yourBodyMassIndex';
   static const String ageCheckFailedText = 'ageCheckFailedText';
-  static const String fitnessCheckFailedInformationsText = 'fitnessCheckFailedInformationsText';
-  static const String fitnessCheckFailedAdviceText = 'fitnessCheckFailedAdviceText';
+  static const String fitnessCheckFailedInformationsText =
+      'fitnessCheckFailedInformationsText';
+  static const String fitnessCheckFailedAdviceText =
+      'fitnessCheckFailedAdviceText';
   static const String areYouPregnant = 'areYouPregnant';
   static const String yes = 'yes';
   static const String no = 'no';
@@ -89,15 +94,18 @@ class LocalizedTexts {
   static const String emailAlreadyTaken = 'emailAlreadyTaken';
 
   //Waiting for confirmation page
-  static const String waitingForConfirmationTitle = 'waitingForConfirmationTitle';
+  static const String waitingForConfirmationTitle =
+      'waitingForConfirmationTitle';
   static const String resendConfirmationMessage = 'resendConfirmationMessage';
   static const String confirmYourAddress = 'confirmYourAddress';
   static const String checkSpam = 'checkSpam';
   static const String address = 'address';
   static const String resend = 'resend';
   static const String changeAddress = 'changeAddress';
-  static const String emailConfirmedBottomSheetTitle = 'emailConfirmedBottomSheetTitle';
-  static const String emailConfirmedBottomSheetContent = 'emailConfirmedBottomSheetContent';
+  static const String emailConfirmedBottomSheetTitle =
+      'emailConfirmedBottomSheetTitle';
+  static const String emailConfirmedBottomSheetContent =
+      'emailConfirmedBottomSheetContent';
 
   //Sign up welcome page
   static const String signUpWelcomeTitle = 'signUpWelcomeTitle';
@@ -105,14 +113,17 @@ class LocalizedTexts {
   static const String needName = 'needName';
 
   // Validation
-  static const String pleaseEnterYourEmailAddress = 'pleaseEnterYourEmailAddress';
-  static const String pleaseEnterValidEmailAddress = 'pleaseEnterValidEmailAddress';
+  static const String pleaseEnterYourEmailAddress =
+      'pleaseEnterYourEmailAddress';
+  static const String pleaseEnterValidEmailAddress =
+      'pleaseEnterValidEmailAddress';
   static const String pleaseEnterYourName = 'pleaseEnterYourName';
   static const String enterYourHeight = 'enterYourHeight';
   static const String heightSmall = 'heightSmall';
   static const String heightLarge = 'heightLarge';
   static const String changeYourHeight = 'changeYourHeight';
-  static const String emailOrPasswordAreIncorrect = 'emailOrPasswordAreIncorrect';
+  static const String emailOrPasswordAreIncorrect =
+      'emailOrPasswordAreIncorrect';
   static const String forgotEmailSuccessMessage = 'forgotEmailSuccessMessage';
 
   // Password page
@@ -122,34 +133,47 @@ class LocalizedTexts {
 
   // Medical fitness
   static const String failedPregnancyTitle = 'failedPregnancyTitle';
-  static const String alsoSomeAdviceWhereToTurnNext = 'alsoSomeAdviceWhereToTurnNext';
-  static const String cardiovascularDiseaseQuestion = 'cardiovascularDiseaseQuestion';
+  static const String alsoSomeAdviceWhereToTurnNext =
+      'alsoSomeAdviceWhereToTurnNext';
+  static const String cardiovascularDiseaseQuestion =
+      'cardiovascularDiseaseQuestion';
   static const String stomachReductionQuestion = 'stomachReductionQuestion';
-  static const String failedStomachReductionTitle = 'failedStomachReductionTitle';
+  static const String failedStomachReductionTitle =
+      'failedStomachReductionTitle';
   static const String medicalCheckPassedTitle = 'medicalCheckPassedTitle';
-  static const String medicalCheckPassedDescription = 'medicalCheckPassedDescription';
+  static const String medicalCheckPassedDescription =
+      'medicalCheckPassedDescription';
   static const String painInChestQuestion = 'painInChestQuestion';
-  static const String treatmentByTheDoctorQuestion = 'treatmentByTheDoctorQuestion';
+  static const String treatmentByTheDoctorQuestion =
+      'treatmentByTheDoctorQuestion';
   static const String failedPainInChestTitle = 'failedPainInChestTitle';
-  static const String failedTreatmentByDoctorTitle = 'failedTreatmentByDoctorTitle';
+  static const String failedTreatmentByDoctorTitle =
+      'failedTreatmentByDoctorTitle';
   static const String noCardiovascularDiseaseBut = 'noCardiovascularDiseaseBut';
-  static const String failedCardiovascularDiseaseTitle = 'failedCardiovascularDiseaseTitle';
+  static const String failedCardiovascularDiseaseTitle =
+      'failedCardiovascularDiseaseTitle';
 
   // Consent confirmation
   static const String consentConfirmationTitle = 'consentConfirmationTitle';
-  static const String consentConfirmationQuestion = 'consentConfirmationQuestion';
+  static const String consentConfirmationQuestion =
+      'consentConfirmationQuestion';
   static const String iStillHaveToAskConsent = 'iStillHaveToAskConsent';
   static const String yesIHaveConsent = 'yesIHaveConsent';
   static const String noIWasNotGratedConsent = 'noIWasNotGratedConsent';
   static const String medicalFitness = 'medicalFitness';
   static const String offCourseNoProblem = 'offCourseNoProblem';
   static const String asSoonAsYouReceiveAnswer = 'asSoonAsYouReceiveAnswer';
-  static const String youCanDownloadTheInstruction = 'youCanDownloadTheInstruction';
+  static const String youCanDownloadTheInstruction =
+      'youCanDownloadTheInstruction';
   static const String consentConfirmationFailed = 'consentConfirmationFailed';
-  static const String consentConfirmationMoreInfoTitle = 'consentConfirmationMoreInfoTitle';
-  static const String consentConfirmationMoreInfoTextOne = 'consentConfirmationMoreInfoTextOne';
-  static const String consentConfirmationMoreInfoTextTwo = 'consentConfirmationMoreInfoTextTwo';
-  static const String downloadInstructionWhatToAsk = 'downloadInstructionWhatToAsk';
+  static const String consentConfirmationMoreInfoTitle =
+      'consentConfirmationMoreInfoTitle';
+  static const String consentConfirmationMoreInfoTextOne =
+      'consentConfirmationMoreInfoTextOne';
+  static const String consentConfirmationMoreInfoTextTwo =
+      'consentConfirmationMoreInfoTextTwo';
+  static const String downloadInstructionWhatToAsk =
+      'downloadInstructionWhatToAsk';
   static const String close = 'close';
 
   // Legal Statement
@@ -157,17 +181,24 @@ class LocalizedTexts {
   static const String legalStatementTextOne = 'legalStatementTextOne';
   static const String legalStatementTextTwo = 'legalStatementTextTwo';
   static const String readLegalStatement = 'readLegalStatement';
-  static const String legalStatementCheckboxTitle = 'legalStatementCheckboxTitle';
-  static const String legalStatementCheckboxItemOne = 'legalStatementCheckboxItemOne';
-  static const String legalStatementCheckboxItemTwo = 'legalStatementCheckboxItemTwo';
+  static const String legalStatementCheckboxTitle =
+      'legalStatementCheckboxTitle';
+  static const String legalStatementCheckboxItemOne =
+      'legalStatementCheckboxItemOne';
+  static const String legalStatementCheckboxItemTwo =
+      'legalStatementCheckboxItemTwo';
   static const String confirm = 'confirm';
 
   // Preferences overview
   static const String preferencesOverview = 'preferencesOverview';
-  static const String preferencesOverviewDescription = 'preferencesOverviewDescription';
-  static const String preferencesOverviewLeftSurveys = 'preferencesOverviewLeftSurveys';
-  static const String surveyFinishedBottomSheetTitle = 'surveyFinishedBottomSheetTitle';
-  static const String surveyFinishedBottomSheetMain = 'surveyFinishedBottomSheetMain';
+  static const String preferencesOverviewDescription =
+      'preferencesOverviewDescription';
+  static const String preferencesOverviewLeftSurveys =
+      'preferencesOverviewLeftSurveys';
+  static const String surveyFinishedBottomSheetTitle =
+      'surveyFinishedBottomSheetTitle';
+  static const String surveyFinishedBottomSheetMain =
+      'surveyFinishedBottomSheetMain';
 
   // Food and You
   static const String survey = 'survey';
@@ -203,10 +234,14 @@ class LocalizedTexts {
   static const String selfHelpItemOne = 'selfHelpItemOne';
   static const String selfHelpItemTwo = 'selfHelpItemTwo';
   static const String selfHelpTitle = 'selfHelpTitle';
-  static const String selfHelpGenderPreferencesPage1Header = 'selfHelpGenderPreferencesPage1Header';
-  static const String selfHelpGenderPreferencesYesFemale = 'selfHelpGenderPreferencesYesFemale';
-  static const String selfHelpGenderPreferencesYesMale = 'selfHelpGenderPreferencesYesMale';
-  static const String selfHelpGenderPreferencesNo = 'selfHelpGenderPreferencesNo';
+  static const String selfHelpGenderPreferencesPage1Header =
+      'selfHelpGenderPreferencesPage1Header';
+  static const String selfHelpGenderPreferencesYesFemale =
+      'selfHelpGenderPreferencesYesFemale';
+  static const String selfHelpGenderPreferencesYesMale =
+      'selfHelpGenderPreferencesYesMale';
+  static const String selfHelpGenderPreferencesNo =
+      'selfHelpGenderPreferencesNo';
   static const String selfHelpGenderPreferences = 'selfHelpGenderPreferences';
 
   static const String currentStep = 'currentStep';
@@ -234,9 +269,12 @@ class LocalizedTexts {
   static const String typeOne = 'typeOne';
   static const String typeTwo = 'typeTwo';
   static const String diabetesDisclaimerTitle = 'diabetesDisclaimerTitle';
-  static const String diabetesDisclaimerParagraphOne = 'diabetesDisclaimerParagraphOne';
-  static const String diabetesDisclaimerParagraphTwo = 'diabetesDisclaimerParagraphTwo';
-  static const String diabetesDisclaimerParagraphThree = 'diabetesDisclaimerParagraphThree';
+  static const String diabetesDisclaimerParagraphOne =
+      'diabetesDisclaimerParagraphOne';
+  static const String diabetesDisclaimerParagraphTwo =
+      'diabetesDisclaimerParagraphTwo';
+  static const String diabetesDisclaimerParagraphThree =
+      'diabetesDisclaimerParagraphThree';
 
   //Nutrition
   static const String nutritionValues = 'nutritionValues';
@@ -244,8 +282,10 @@ class LocalizedTexts {
   static const String proteinDegree = 'proteinDegree';
   static const String whatIsCalorieDensity = 'whatIsCalorieDensity';
   static const String whatIsProtein = 'whatIsProtein';
-  static const String calorieDensityExplanationTwo = 'calorieDensityExplanationTwo';
-  static const String calorieDensityExplanationOne = 'calorieDensityExplanationOne';
+  static const String calorieDensityExplanationTwo =
+      'calorieDensityExplanationTwo';
+  static const String calorieDensityExplanationOne =
+      'calorieDensityExplanationOne';
   static const String myFavorites = 'myFavorites';
   static const String my = 'my';
   static const String myDishes = 'myDishes';
@@ -373,10 +413,14 @@ class LocalizedTexts {
   static const String foodItemWasAddedToDish = 'foodItemWasAddedToDish';
   static const String foodItemWasDeletedFromDish = 'foodItemWasDeletedFromDish';
   static const String invalidDishNameMessage = 'invalidDishNameMessage';
-  static const String invalidDishSelectedMealCategory = 'invalidDishSelectedMealCategory';
-  static const String invalidDishServingsAmountMessage = 'invalidDishServingsAmountMessage';
-  static const String invalidDishPortionsAmountMessage = 'invalidDishPortionsAmountMessage';
-  static const String invalidCreateDishFromMealMessage = 'invalidCreateDishFromMealMessage';
+  static const String invalidDishSelectedMealCategory =
+      'invalidDishSelectedMealCategory';
+  static const String invalidDishServingsAmountMessage =
+      'invalidDishServingsAmountMessage';
+  static const String invalidDishPortionsAmountMessage =
+      'invalidDishPortionsAmountMessage';
+  static const String invalidCreateDishFromMealMessage =
+      'invalidCreateDishFromMealMessage';
 
   // Account
   static const String deleteAccount = 'deleteAccount';
@@ -406,8 +450,13 @@ class LocalizedTexts {
   static const String easy = 'easy';
   static const String medium = 'medium';
   static const String hard = 'hard';
-  static const String whatPhysicalActivityDidYouDo = 'whatPhysicalActivityDidYouDo';
+  static const String whatPhysicalActivityDidYouDo =
+      'whatPhysicalActivityDidYouDo';
   static const String logActivity = 'logActivity';
+  static const String howHard = 'howHard';
+
+  static const String veryEasy = 'veryEasy';
+  static const String veryHard = 'veryHard';
 
   // User profile
   static const String profile = 'profile';
@@ -432,5 +481,6 @@ class LocalizedTexts {
 extension StringX on String {
   String get translation => this.tr();
 
-  String translateWithNamedArgs(Map<String, String> namedArgs) => this.tr(namedArgs: namedArgs);
+  String translateWithNamedArgs(Map<String, String> namedArgs) =>
+      this.tr(namedArgs: namedArgs);
 }

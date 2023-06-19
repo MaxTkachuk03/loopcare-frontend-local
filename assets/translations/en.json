@@ -375,5 +375,8 @@
   "dontEatFoodMessage": "Which types of food do you NOT eat or drink for religious or personal reasons?",
   "dislikeFoodMessage": "Do you NOT like any of the following?",
   "dontEat": "Don't eat",
-  "dontLike": "Don't like"
+  "dontLike": "Don't like",
+  "howHard": "How hard was the exercise program for you?",
+  "veryEasy": "very easy",
+  "veryHard": "very hard"
 }
