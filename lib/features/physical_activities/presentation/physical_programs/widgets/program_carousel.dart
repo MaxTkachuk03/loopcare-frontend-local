@@ -32,19 +32,26 @@ class _ProgramCarouselState extends State<ProgramCarousel> {
             // controller: PageController(viewportFraction: 0.7),
             onPageChanged: _onPageChanged,
             itemBuilder: (_, index) {
-              return ProgramCard(
-                program: widget.programs[index],
+              return Transform.translate(
+                offset: Offset(-10, 0),
+                child: ProgramCard(
+                  program: widget.programs[index],
+                  size: const ProgramCardSize.small(),
+                ),
               );
             },
           ),
+        ),
+        const SizedBox(
+          height: 16.0,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: widget.programs
               .mapIndexed(
                 (index, el) => Hexagon(
-                  width: 80,
-                  height: 80,
+                  width: 16,
+                  height: 16,
                   borderRadius: 4.0,
                   innerWidget: Container(
                     color: currentPage == index ? AppColors.blueMid : AppColors.yellowLight,

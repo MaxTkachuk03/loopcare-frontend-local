@@ -1,8 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/orange_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/widgets/program_carousel.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/widgets/program_card.dart';
@@ -13,33 +16,65 @@ class PhysicalProgramsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const OrangeAppBar(title: 'ds'),
-      body: MainContainer(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(
-              height: 32.0,
+    return BlocBuilder<PhysicalProgramsBloc, PhysicalProgramsState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: OrangeAppBar(title: state.data.programType.name),
+          body: SafeArea(
+            child: ScrollableContainer(
+              child: MainContainer(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(
+                      height: 32.0,
+                    ),
+                    const Text(
+                      LocalizedTexts.chooseYourProgram,
+                      style: TextStyle(
+                        fontSize: ThemeConstants.fontSize30,
+                        fontFamily: ThemeConstants.bitterFontFamily,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ).tr(),
+                    if (state.data.programs.isNotEmpty)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 24.0,
+                          ),
+                          Text(LocalizedTexts.recommended.toUpperCase()).tr(),
+                          const SizedBox(
+                            height: 16.0,
+                          ),
+                          ProgramCard(
+                            program: state.data.programs.first,
+                            size: const ProgramCardSize.large(),
+                          ),
+                          const SizedBox(
+                            height: 16.0,
+                          ),
+                          Text(LocalizedTexts.alternatives.toUpperCase()).tr(),
+                          const SizedBox(
+                            height: 16.0,
+                          ),
+                          SizedBox(
+                            height: 220,
+                            child: ProgramCarousel(
+                              programs: state.data.programs,
+                            ),
+                          ),
+                        ],
+                      ),
+                  ],
+                ),
+              ),
             ),
-            const Text(
-              LocalizedTexts.chooseYourProgram,
-              style: TextStyle(
-                fontSize: ThemeConstants.fontSize30,
-                fontFamily: ThemeConstants.bitterFontFamily,
-                fontWeight: FontWeight.w700,
-              ),
-            ).tr(),
-            SizedBox(
-              height: 300,
-              child: ProgramCarousel(
-                programs: [],
-              ),
-            )
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
