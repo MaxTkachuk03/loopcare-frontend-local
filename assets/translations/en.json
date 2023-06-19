@@ -380,5 +380,8 @@
   "recommended": "recommended",
   "alternatives": "alternatives",
   "equipment": "Equipment",
-  "targetMuscles": "Target muscles"
+  "targetMuscles": "Target muscles",
+  "exercise": "exercise",
+  "exercises": "exercises",
+  "programNote": "Each exercise will be explained before it starts."
 }

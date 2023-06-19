@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
+import 'package:loopcare_frontend/features/physical_activities/presentation/widgets/difficulty_label.dart';
 
 part 'program_card.freezed.dart';
 
@@ -71,30 +72,16 @@ class ProgramCard extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontFamily: ThemeConstants.bitterFontFamily,
-                      ),
+                            fontFamily: ThemeConstants.bitterFontFamily,
+                          ),
                     ),
                     const SizedBox(
                       height: 8.0,
                     ),
                     Row(
                       children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
-                          decoration: const BoxDecoration(
-                            color: AppColors.darkGreen,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(3.0),
-                            ),
-                          ),
-                          child: Text(
-                            program.difficulty.name.toUpperCase(),
-                            style: const TextStyle(
-                              fontSize: ThemeConstants.fontSize10,
-                              color: AppColors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
+                        DifficultyLabel(
+                          text: program.difficulty.name,
                         ),
                         const SizedBox(
                           width: 16.0,
@@ -130,15 +117,15 @@ class ProgramCard extends StatelessWidget {
                       height: 8.0,
                     ),
                     Text(
-                      '${LocalizedTexts.equipment}: ${program.equipment}',
+                      '${LocalizedTexts.equipment.translation}: ${program.equipment}',
                       maxLines: 1,
                       style: Theme.of(context).textTheme.bodySmall,
-                    ).tr(),
+                    ),
                     Text(
-                      '${LocalizedTexts.targetMuscles}: ${program.targetMuscles}',
+                      '${LocalizedTexts.targetMuscles.translation}: ${program.targetMuscles}',
                       maxLines: 1,
                       style: Theme.of(context).textTheme.bodySmall,
-                    ).tr(),
+                    ),
                   ],
                 ),
               )
