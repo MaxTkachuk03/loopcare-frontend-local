@@ -30,7 +30,7 @@ class ProgramTypeQuestion extends StatelessWidget {
                       children: [
                         AppChoiceChip(
                           label: e.label,
-                          selected: state.programType == e,
+                          selected: state.data.programType == e,
                           value: e,
                           padding: const EdgeInsets.all(0),
                           width: 96,

@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/dto/custom_activity_body.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_service.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
@@ -21,7 +22,8 @@ part 'physical_programs_state.dart';
 class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsState> {
   final PhysicalActivitiesService _physicalActivitiesService;
 
-  PhysicalProgramsBloc(this._physicalActivitiesService) : super(PhysicalProgramsState.initial()) {
+  PhysicalProgramsBloc(this._physicalActivitiesService)
+      : super(const PhysicalProgramsState.initial(PhysicalProgramsData())) {
     on<_GetProgramsByPreferences>(_onGetProgramsByPreferences);
     on<_CreateCustomActivity>(_onCreateCustomActivity);
     on<_SetProgramType>(_onSetProgramType);
@@ -34,14 +36,14 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
     Emitter<PhysicalProgramsState> emit,
   ) async {
     final response = await _physicalActivitiesService.getProgramsByPreferences(
-      programType: state.programType.name,
-      programPlace: state.programPlace.name,
-      programDifficulty: state.programDifficulty.name,
+      programType: state.data.programType.name,
+      programPlace: state.data.programPlace.name,
+      programDifficulty: state.data.programDifficulty.name,
     );
 
     response.fold(
       (l) => null,
-      (r) => emit(state.copyWith(programs: r.data)),
+      (r) => emit(PhysicalProgramsState.programLoaded(state.data.copyWith(programs: r.data))),
     );
   }
 
@@ -55,14 +57,15 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
   }
 
   FutureOr<void> _onSetProgramType(_SetProgramType event, Emitter<PhysicalProgramsState> emit) {
-    emit(state.copyWith(programType: event.programType));
+    emit(PhysicalProgramsState.programFilterSet(state.data.copyWith(programType: event.programType)));
   }
 
   FutureOr<void> _onSetProgramPlace(_SetProgramPlace event, Emitter<PhysicalProgramsState> emit) {
-    emit(state.copyWith(programPlace: event.programPlace));
+    emit(PhysicalProgramsState.programFilterSet(state.data.copyWith(programPlace: event.programPlace)));
   }
 
   FutureOr<void> _onSetProgramDifficulty(_SetProgramDifficulty event, Emitter<PhysicalProgramsState> emit) {
-    emit(state.copyWith(programDifficulty: event.programDifficulty));
+    emit(PhysicalProgramsState.programFilterSet(
+        state.data.copyWith(programDifficulty: event.programDifficulty)));
   }
 }
