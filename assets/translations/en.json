@@ -375,9 +375,14 @@
   "dontEatFoodMessage": "Which types of food do you NOT eat or drink for religious or personal reasons?",
   "dislikeFoodMessage": "Do you NOT like any of the following?",
   "dontEat": "Don't eat",
-  "dontLike": "Don't like",
   "rotateDevice": "Please rotate your device and use your LeanOnMe phonestand",
   "skipExplanation": "Skip explanation",
   "repeat": "Repeat",
-  "exerciseCompleteMessage": "Great! You completed exercise {currentIndex} of {length}"
+  "exerciseCompleteMessage": "Great! You completed exercise {currentIndex} of {length}",
+  "dontLike": "Don't like",
+  "chooseYourProgram": "Choose your program",
+  "recommended": "recommended",
+  "alternatives": "alternatives",
+  "equipment": "Equipment",
+  "targetMuscles": "Target muscles"
 }

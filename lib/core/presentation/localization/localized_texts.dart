@@ -408,6 +408,11 @@ class LocalizedTexts {
   static const String hard = 'hard';
   static const String whatPhysicalActivityDidYouDo = 'whatPhysicalActivityDidYouDo';
   static const String logActivity = 'logActivity';
+  static const String chooseYourProgram = 'chooseYourProgram';
+  static const String recommended = 'recommended';
+  static const String alternatives = 'alternatives';
+  static const String equipment = 'equipment';
+  static const String targetMuscles = 'targetMuscles';
 
   // User profile
   static const String profile = 'profile';
