@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/features/nutrition/application/dashboard_educa
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/diary/diary.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/education/education.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/physical_exercise/physical_exercise.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/physical_activities/physical_activities.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/plan_meal/plan_meal.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/reflection/reflection.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/slider_calendar/slider_calendar.dart';
@@ -20,6 +20,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widg
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/support_group/support_group.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/weight/weight_block.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -47,6 +48,8 @@ class _DashboardPageState extends State<DashboardPage> {
     context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
 
     context.read<DashboardEducationBloc>().add(const DashboardEducationEvent.getDashboardLessons());
+
+    context.read<PhysicalProgramsBloc>().add(const PhysicalProgramsEvent.getWeeklyPhysicalActivities());
 
     super.initState();
   }
@@ -112,7 +115,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       const SizedBox(height: 16.0),
                       Reflection(isEditable: _isMealBlockEditable),
                       const SizedBox(height: 10.0),
-                      PhysicalExercise(isEditable: _isMealBlockEditable),
+                      PhysicalActivities(selectedDay: _selectedDay),
                       const SizedBox(height: 10.0),
                       SupportGroup(isEditable: _isMealBlockEditable),
                       const SizedBox(height: 10.0),

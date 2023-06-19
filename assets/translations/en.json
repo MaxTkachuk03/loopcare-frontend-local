@@ -279,7 +279,7 @@
   "selectAMeal": "Select a meal",
   "today": "Today",
   "activities": "Activities",
-  "physicalExercise": "Physical exercise",
+  "physicalActivities": "Physical activities",
   "supportGroup": "Support group",
   "explore": "Explore",
   "overview": "Overview",
@@ -375,5 +375,6 @@
   "dontEatFoodMessage": "Which types of food do you NOT eat or drink for religious or personal reasons?",
   "dislikeFoodMessage": "Do you NOT like any of the following?",
   "dontEat": "Don't eat",
-  "dontLike": "Don't like"
+  "dontLike": "Don't like",
+  "activitiesForThisWeek": "activities for this week"
 }

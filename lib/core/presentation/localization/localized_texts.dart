@@ -331,7 +331,7 @@ class LocalizedTexts {
   static const String activities = 'activities';
   static const String selectAMeal = 'selectAMeal';
   static const String today = 'today';
-  static const String physicalExercise = 'physicalExercise';
+  static const String physicalActivities = 'physicalActivities';
   static const String supportGroup = 'supportGroup';
   static const String explore = 'explore';
   static const String overview = 'overview';
@@ -408,6 +408,7 @@ class LocalizedTexts {
   static const String hard = 'hard';
   static const String whatPhysicalActivityDidYouDo = 'whatPhysicalActivityDidYouDo';
   static const String logActivity = 'logActivity';
+  static const String activitiesForThisWeek = 'activitiesForThisWeek';
 
   // User profile
   static const String profile = 'profile';
