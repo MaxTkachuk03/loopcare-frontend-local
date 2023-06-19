@@ -46,10 +46,12 @@ class ProgressBar extends StatelessWidget {
                       child: Slider(
                         activeColor: AppColors.blueMid,
                         inactiveColor: AppColors.greyMid,
+                        secondaryActiveColor: AppColors.ballBlue,
                         onChanged: _onSeekHandler,
                         min: 0,
                         max: _durationToDouble(value.duration),
                         value: _durationToDouble(value.position),
+                        secondaryTrackValue: _durationToDouble(value.buffered[0].end),
                       ),
                     ),
                     Text(
