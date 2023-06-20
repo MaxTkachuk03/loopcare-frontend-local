@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -6,7 +5,14 @@ import 'package:loopcare_frontend/features/physical_activities/presentation/prog
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/widgets/selected_cell.dart';
 
 class AssesmentBlock extends StatefulWidget {
-  const AssesmentBlock({Key? key}) : super(key: key);
+  final int? score;
+  final void Function(int score) onScoreChange;
+
+  const AssesmentBlock({
+    Key? key,
+    required this.score,
+    required this.onScoreChange,
+  }) : super(key: key);
 
   @override
   State<AssesmentBlock> createState() => _AssesmentBlockState();
@@ -28,7 +34,7 @@ class _AssesmentBlockState extends State<AssesmentBlock> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            LocalizedTexts.howHard.tr(),
+            LocalizedTexts.howHard.translation,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
@@ -58,13 +64,13 @@ class _AssesmentBlockState extends State<AssesmentBlock> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                LocalizedTexts.veryEasy.tr(),
+                LocalizedTexts.veryEasy.translation,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.greyMid,
                     ),
               ),
               Text(
-                LocalizedTexts.veryHard.tr(),
+                LocalizedTexts.veryHard.translation,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.greyMid,
                     ),
@@ -80,6 +86,7 @@ class _AssesmentBlockState extends State<AssesmentBlock> {
   void _onCellTap(int index) {
     setState(() {
       selectedIndex = index;
+      widget.onScoreChange(index);
     });
   }
 }

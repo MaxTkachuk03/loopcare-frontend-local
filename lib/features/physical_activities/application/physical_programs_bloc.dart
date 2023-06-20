@@ -7,6 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/dto/custom_activity_body.dart';
+import 'package:loopcare_frontend/features/physical_activities/application/dto/log_program_body.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_service.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/program_difficulty.dart';
@@ -21,7 +22,8 @@ part 'physical_programs_event.dart';
 part 'physical_programs_state.dart';
 
 @singleton
-class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsState> {
+class PhysicalProgramsBloc
+    extends Bloc<PhysicalProgramsEvent, PhysicalProgramsState> {
   final PhysicalActivitiesService _physicalActivitiesService;
 
   PhysicalProgramsBloc(this._physicalActivitiesService)
@@ -32,6 +34,7 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
     on<_SetProgramPlace>(_onSetProgramPlace);
     on<_SetProgramDifficulty>(_onSetProgramDifficulty);
     on<_GetWeeklyPhysicalActivities>(_onGetWeeklyPhysicalActivities);
+    on<_LogAssesment>(_onLogAssesment);
   }
 
   FutureOr<void> _onGetProgramsByPreferences(
@@ -63,38 +66,54 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
     _CreateCustomActivity event,
     Emitter<PhysicalProgramsState> emit,
   ) async {
-    emit(PhysicalProgramsState.loading(state.data.copyWith(isLoading: true, error: null)));
+    emit(PhysicalProgramsState.loading(
+        state.data.copyWith(isLoading: true, error: null)));
 
     final response = await _physicalActivitiesService.createCustomActivity(
       CustomActivityBody(name: event.name),
     );
 
     response.fold(
-      (l) =>
-          emit(PhysicalProgramsState.calendarProgramsError(state.data.copyWith(isLoading: false, error: l))),
-      (r) =>
-          emit(PhysicalProgramsState.customProgramLogged(state.data.copyWith(isLoading: false, error: null))),
+      (l) => emit(PhysicalProgramsState.calendarProgramsError(
+          state.data.copyWith(isLoading: false, error: l))),
+      (r) => emit(PhysicalProgramsState.customProgramLogged(
+          state.data.copyWith(isLoading: false, error: null))),
     );
   }
 
-  FutureOr<void> _onSetProgramType(_SetProgramType event, Emitter<PhysicalProgramsState> emit) {
-    emit(PhysicalProgramsState.programFilterSet(state.data.copyWith(programType: event.programType)));
+  FutureOr<void> _onSetProgramType(
+      _SetProgramType event, Emitter<PhysicalProgramsState> emit) {
+    emit(
+      PhysicalProgramsState.programFilterSet(
+        state.data.copyWith(programType: event.programType),
+      ),
+    );
   }
 
-  FutureOr<void> _onSetProgramPlace(_SetProgramPlace event, Emitter<PhysicalProgramsState> emit) {
-    emit(PhysicalProgramsState.programFilterSet(state.data.copyWith(programPlace: event.programPlace)));
+  FutureOr<void> _onSetProgramPlace(
+      _SetProgramPlace event, Emitter<PhysicalProgramsState> emit) {
+    emit(
+      PhysicalProgramsState.programFilterSet(
+        state.data.copyWith(programPlace: event.programPlace),
+      ),
+    );
   }
 
-  FutureOr<void> _onSetProgramDifficulty(_SetProgramDifficulty event, Emitter<PhysicalProgramsState> emit) {
-    emit(PhysicalProgramsState.programFilterSet(
-        state.data.copyWith(programDifficulty: event.programDifficulty)));
+  FutureOr<void> _onSetProgramDifficulty(
+      _SetProgramDifficulty event, Emitter<PhysicalProgramsState> emit) {
+    emit(
+      PhysicalProgramsState.programFilterSet(
+        state.data.copyWith(programDifficulty: event.programDifficulty),
+      ),
+    );
   }
 
   FutureOr<void> _onGetWeeklyPhysicalActivities(
     _GetWeeklyPhysicalActivities event,
     Emitter<PhysicalProgramsState> emit,
   ) async {
-    emit(PhysicalProgramsState.loading(state.data.copyWith(isLoading: true, error: null)));
+    emit(PhysicalProgramsState.loading(
+        state.data.copyWith(isLoading: true, error: null)));
 
     final DateTime today = DateTime.now();
 
@@ -114,5 +133,32 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
                 state.data.copyWith(weeklyActivities: r.data, isLoading: false),
               ),
             ));
+  }
+
+  Future<FutureOr<void>> _onLogAssesment(
+    _LogAssesment event,
+    Emitter<PhysicalProgramsState> emit,
+  ) async {
+    emit(PhysicalProgramsState.loading(state.data.copyWith(isLoading: true)));
+
+    final response = await _physicalActivitiesService.logProgram(
+      programId: state.data.currentProgram?.id ?? 0,
+      data: LogProgramBody(
+        like: event.like,
+        physicalProgramId: state.data.currentProgram?.id ?? 0,
+        score: event.score,
+      ),
+    );
+
+    response.fold(
+      (l) => null,
+      (r) => emit(
+        PhysicalProgramsState.programLoaded(
+          state.data.copyWith(
+            isLoading: false,
+          ),
+        ),
+      ),
+    );
   }
 }

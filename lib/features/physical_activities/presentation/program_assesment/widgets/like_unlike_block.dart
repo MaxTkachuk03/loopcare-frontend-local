@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class LikeUnlikeBlock extends StatefulWidget {
-  const LikeUnlikeBlock({Key? key}) : super(key: key);
+  final bool? like;
+  final void Function(bool like) onLikeChange;
+
+  const LikeUnlikeBlock({
+    Key? key,
+    required this.like,
+    required this.onLikeChange,
+  }) : super(key: key);
 
   @override
   State<LikeUnlikeBlock> createState() => _LikeUnlikeBlockState();
@@ -42,7 +50,7 @@ class _LikeUnlikeBlockState extends State<LikeUnlikeBlock> {
                       ),
                     ),
                     Text(
-                      'Not really',
+                      LocalizedTexts.notReally.translation,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontWeight: (selectedThumb == -1)
                                 ? FontWeight.w700
@@ -70,7 +78,7 @@ class _LikeUnlikeBlockState extends State<LikeUnlikeBlock> {
                       ),
                     ),
                     Text(
-                      'Yes!',
+                      LocalizedTexts.yesYes.translation,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontWeight: (selectedThumb == 1)
                                 ? FontWeight.w700
@@ -90,6 +98,7 @@ class _LikeUnlikeBlockState extends State<LikeUnlikeBlock> {
   void _onThumbsTap(int like) {
     setState(() {
       selectedThumb = like;
+      widget.onLikeChange(like == 1);
     });
   }
 }

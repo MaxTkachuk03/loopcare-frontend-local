@@ -17,10 +17,16 @@ abstract class PhysicalActivitiesService {
     String? endDate,
   });
 
-  Future<Either<RequestError, PhysicalProgramResponse>> getProgram(int programId);
+  Future<Either<RequestError, PhysicalProgramResponse>> getProgram(
+    int programId,
+  );
 
-  Future<Either<RequestError, PhysicalProgramResponse>> logProgram(
-      {required int programId, required LogProgramBody data});
+  Future<Either<RequestError, PhysicalProgramResponse>> logProgram({
+    required int programId,
+    required LogProgramBody data,
+  });
 
-  Future<Either<RequestError, PhysicalProgramResponse>> createCustomActivity(CustomActivityBody data);
+  Future<Either<RequestError, PhysicalProgramResponse>> createCustomActivity(
+    CustomActivityBody data,
+  );
 }

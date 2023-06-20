@@ -388,5 +388,9 @@
   "recommended": "recommended",
   "alternatives": "alternatives",
   "equipment": "Equipment",
-  "targetMuscles": "Target muscles"
+  "targetMuscles": "Target muscles",
+  "didYouLikeThisProgram": "Did you like this exercise program?",
+  "backToTodayNotLogged": "Back to today (not logged)",
+  "notReally": "Not really",
+  "yesYes": "Yes!"
 }

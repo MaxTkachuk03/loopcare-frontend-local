@@ -462,6 +462,10 @@ class LocalizedTexts {
   static const String alternatives = 'alternatives';
   static const String equipment = 'equipment';
   static const String targetMuscles = 'targetMuscles';
+  static const String didYouLikeThisProgram = 'didYouLikeThisProgram';
+  static const String backToTodayNotLogged = 'backToTodayNotLogged';
+  static const String notReally = 'notReally';
+  static const String yesYes = 'yesYes';
 
   // User profile
   static const String profile = 'profile';
