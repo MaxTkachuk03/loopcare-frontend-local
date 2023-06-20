@@ -112,6 +112,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Row(
                   children: [
@@ -141,11 +142,28 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                     ),
                   ],
                 ),
-                CountDown(
-                  controller: countDownController,
-                  duration: exercise.delayBeforeNext,
-                  onComplete: onVideoEnds,
-                  isPortraiteOrientation: _isPortraiteOrientation,
+                Column(
+                  children: [
+                    SizedBox(
+                      width: 130,
+                      child: Text(
+                        LocalizedTexts.breakBetweenExercises.tr().toUpperCase(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: _isPortraiteOrientation ? 10.0 : 12.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20.0),
+                    CountDown(
+                      controller: countDownController,
+                      duration: exercise.delayBeforeNext,
+                      onComplete: onVideoEnds,
+                      isPortraiteOrientation: _isPortraiteOrientation,
+                    ),
+                  ],
                 ),
               ],
             ),

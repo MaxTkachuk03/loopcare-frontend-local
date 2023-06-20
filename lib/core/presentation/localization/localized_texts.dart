@@ -442,6 +442,7 @@ class LocalizedTexts {
   static const String skipExplanation = 'skipExplanation';
   static const String repeat = 'repeat';
   static const String exerciseCompleteMessage = 'exerciseCompleteMessage';
+  static const String breakBetweenExercises = 'breakBetweenExercises';
 }
 
 extension StringX on String {

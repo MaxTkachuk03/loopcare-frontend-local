@@ -11,7 +11,7 @@ class ProgramCarousel extends StatefulWidget {
   const ProgramCarousel({Key? key, required this.programs}) : super(key: key);
 
   @override
-  _ProgramCarouselState createState() => _ProgramCarouselState();
+  State<ProgramCarousel> createState() => _ProgramCarouselState();
 }
 
 class _ProgramCarouselState extends State<ProgramCarousel> {
