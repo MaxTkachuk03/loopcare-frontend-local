@@ -53,6 +53,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanne
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/select_food_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/dashboard_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/nutrition_instructions_page.dart';
+import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/program_assesment_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/physical_programs_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_details/program_details_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/select_exercise_page.dart';
@@ -368,6 +369,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.selectExercise,
       page: SelectExercisePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.programAssesment,
+      page: ProgramAssesmentPage,
     ),
     AutoRoute(
       path: AppRoutes.chooseProgram,

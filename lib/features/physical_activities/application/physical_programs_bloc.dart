@@ -7,6 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/dto/custom_activity_body.dart';
+import 'package:loopcare_frontend/features/physical_activities/application/dto/log_program_body.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_service.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/program_difficulty.dart';
@@ -33,6 +34,7 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
     on<_SetProgramPlace>(_onSetProgramPlace);
     on<_SetProgramDifficulty>(_onSetProgramDifficulty);
     on<_GetWeeklyPhysicalActivities>(_onGetWeeklyPhysicalActivities);
+    on<_LogAssesment>(_onLogAssesment);
   }
 
   FutureOr<void> _onGetProgramsByPreferences(
@@ -79,16 +81,27 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
   }
 
   FutureOr<void> _onSetProgramType(_SetProgramType event, Emitter<PhysicalProgramsState> emit) {
-    emit(PhysicalProgramsState.programFilterSet(state.data.copyWith(programType: event.programType)));
+    emit(
+      PhysicalProgramsState.programFilterSet(
+        state.data.copyWith(programType: event.programType),
+      ),
+    );
   }
 
   FutureOr<void> _onSetProgramPlace(_SetProgramPlace event, Emitter<PhysicalProgramsState> emit) {
-    emit(PhysicalProgramsState.programFilterSet(state.data.copyWith(programPlace: event.programPlace)));
+    emit(
+      PhysicalProgramsState.programFilterSet(
+        state.data.copyWith(programPlace: event.programPlace),
+      ),
+    );
   }
 
   FutureOr<void> _onSetProgramDifficulty(_SetProgramDifficulty event, Emitter<PhysicalProgramsState> emit) {
-    emit(PhysicalProgramsState.programFilterSet(
-        state.data.copyWith(programDifficulty: event.programDifficulty)));
+    emit(
+      PhysicalProgramsState.programFilterSet(
+        state.data.copyWith(programDifficulty: event.programDifficulty),
+      ),
+    );
   }
 
   FutureOr<void> _onGetWeeklyPhysicalActivities(
@@ -105,19 +118,53 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
     );
 
     response.fold(
-        (l) => emit(
-              PhysicalProgramsState.calendarProgramsError(
-                state.data.copyWith(error: l, isLoading: false),
-              ),
-            ),
-        (r) => emit(
-              PhysicalProgramsState.calendarProgramsLoaded(
-                state.data.copyWith(weeklyActivities: r.data, isLoading: false),
-              ),
-            ));
+      (l) => emit(
+        PhysicalProgramsState.calendarProgramsError(
+          state.data.copyWith(error: l, isLoading: false),
+        ),
+      ),
+      (r) => emit(
+        PhysicalProgramsState.calendarProgramsLoaded(
+          state.data.copyWith(weeklyActivities: r.data, isLoading: false),
+        ),
+      ),
+    );
   }
 
-  FutureOr<void> _onSetCurrentProgram(_SetCurrentProgram event, Emitter<PhysicalProgramsState> emit) {
+  Future<FutureOr<void>> _onLogAssesment(
+    _LogAssesment event,
+    Emitter<PhysicalProgramsState> emit,
+  ) async {
+    emit(PhysicalProgramsState.loading(state.data.copyWith(isLoading: true)));
+
+    var programId = state.data.currentProgram?.id;
+    if (programId != null) {
+      final response = await _physicalActivitiesService.logProgram(
+        programId: programId,
+        data: LogProgramBody(
+          like: event.like,
+          physicalProgramId: programId,
+          score: event.score,
+        ),
+      );
+
+      response.fold(
+        (l) => null,
+        (r) => emit(
+          PhysicalProgramsState.programLoaded(
+            state.data.copyWith(
+              isLoading: false,
+            ),
+          ),
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _onSetCurrentProgram(
+    _SetCurrentProgram event,
+    Emitter<PhysicalProgramsState> emit,
+  ) {
     emit(
       PhysicalProgramsState.calendarProgramsLoaded(
         state.data.copyWith(

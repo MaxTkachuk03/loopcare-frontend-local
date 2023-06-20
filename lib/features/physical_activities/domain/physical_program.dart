@@ -28,8 +28,7 @@ abstract class PhysicalProgram implements _$PhysicalProgram {
     required PhysicalProgramAssessment? assessment,
   }) = PhysicalProgramBasic;
 
-  List<PhysicalProgramExercise> get exercises =>
-      map(basic: (s) => s.exercises, dashboardPlaceholder: (_) => []);
+  List<PhysicalProgramExercise> get exercises => map(basic: (s) => s.exercises, dashboardPlaceholder: (_) => []);
 
   String get typeName => map(basic: (s) => s.type.name, dashboardPlaceholder: (_) => '');
 
@@ -42,6 +41,12 @@ abstract class PhysicalProgram implements _$PhysicalProgram {
   String get targetMuscles => map(basic: (s) => s.targetMuscles, dashboardPlaceholder: (_) => '');
 
   int get duration => map(basic: (s) => s.duration, dashboardPlaceholder: (_) => 0);
+
+  String get programDescription => map(basic: (s) => s.programDescription, dashboardPlaceholder: (_) => '');
+
+  PhysicalProgramAssessment? get assessment => map(basic: (s) => s.assessment, dashboardPlaceholder: (_) => null);
+
+  int get id => map(basic: (s) => s.id, dashboardPlaceholder: (_) => 0);
 
   const factory PhysicalProgram.dashboardPlaceholder({required String name}) = DashboardPlaceholder;
 
