@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
@@ -72,7 +73,7 @@ class _VideoPageState extends State<VideoPage> {
   _onVideoEnds() {
     // check if it was the last video in playlist
     if (_videoIndex + 1 == widget.program.exercises.length) {
-      // TODO do redirect to the evaluation screen
+      context.router.pushNamed(AppRoutes.programAssesment);
       return;
     }
 
