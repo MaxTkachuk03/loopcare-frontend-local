@@ -7,11 +7,11 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/logged_list.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_block/calorie_nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/log_meal/logged_list.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/log_meal/nutrition_block/calorie_nutrition_block.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 class LogMeal extends StatelessWidget {
@@ -58,8 +58,7 @@ class LogMeal extends StatelessWidget {
           Radius.circular(8),
         ),
       ),
-      child: BlocBuilder<MealsBloc, MealsState>(
-          builder: (BuildContext context, mealsState) {
+      child: BlocBuilder<MealsBloc, MealsState>(builder: (BuildContext context, mealsState) {
         return Column(
           children: [
             Row(
@@ -77,10 +76,7 @@ class LogMeal extends StatelessWidget {
                       children: [
                         Text(
                           LocalizedTexts.logYourMeals.translation,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.copyWith(
+                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                                 fontFamily: ThemeConstants.bitterFontFamily,
                                 color: mealsState.isEnableOnDashboard
                                     ? AppColors.darkGreen
@@ -92,12 +88,11 @@ class LogMeal extends StatelessWidget {
                             mealsState.isEnableOnDashboard
                                 ? LocalizedTexts.noMealsLoggedYet.translation
                                 : LocalizedTexts.noMealsLogged.translation,
-                            style:
-                                Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: mealsState.isEnableOnDashboard
-                                          ? AppColors.darkGreen
-                                          : AppColors.greyLabel,
-                                    ),
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  color: mealsState.isEnableOnDashboard
+                                      ? AppColors.darkGreen
+                                      : AppColors.greyLabel,
+                                ),
                           ),
                       ],
                     ),
@@ -112,9 +107,7 @@ class LogMeal extends StatelessWidget {
                           color: AppColors.bgGreen,
                           child: IconButton(
                             icon: ImageIcon(
-                              mealsState.filledCategories.isNotEmpty
-                                  ? AppIcons.edit
-                                  : AppIcons.plus,
+                              mealsState.filledCategories.isNotEmpty ? AppIcons.edit : AppIcons.plus,
                               color: AppColors.darkGreen,
                               size: 18,
                             ),
@@ -138,16 +131,11 @@ class LogMeal extends StatelessWidget {
                             child: Column(
                               children: [
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      LocalizedTexts.logged.translation
-                                          .toUpperCase(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall
-                                          ?.copyWith(
+                                      LocalizedTexts.logged.translation.toUpperCase(),
+                                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                             fontSize: ThemeConstants.fontSize12,
                                             fontWeight: FontWeight.w600,
                                             color: AppColors.greyLabel,
@@ -166,14 +154,9 @@ class LogMeal extends StatelessWidget {
                                 const SizedBox(height: 5),
                                 LoggedList(
                                   categoryList: MealCategory.values
-                                      .map((e) =>
-                                          e.shortLabel
-                                              ?.capitalizeOnlyFirstLetter() ??
-                                          '')
+                                      .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
                                       .toList(),
-                                  categoryListRaw: MealCategory.values
-                                      .map((e) => e.label ?? '')
-                                      .toList(),
+                                  categoryListRaw: MealCategory.values.map((e) => e.label ?? '').toList(),
                                   filledList: mealsState.filledCategories,
                                 ),
                               ],
@@ -181,10 +164,8 @@ class LogMeal extends StatelessWidget {
                           ),
                           const SizedBox(width: 40),
                           CalorieNutritionBlock(
-                            proteinDegree:
-                                mealsState.selectedDayMealProteinDegreeSum,
-                            calorieDensity:
-                                mealsState.selectedDayMealCalorieDensitySum,
+                            proteinDegree: mealsState.selectedDayMealProteinDegreeSum,
+                            calorieDensity: mealsState.selectedDayMealCalorieDensitySum,
                           ),
                         ],
                       ),

@@ -6,8 +6,8 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/weight/loading_weight.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/weight/loading_weight.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/weight_conversion_utils.dart';
 
@@ -47,8 +47,7 @@ class WeightBlock extends StatelessWidget {
                 builder: (BuildContext context, state) {
                   return state.maybeMap(
                     weights: (s) {
-                      final weightValue =
-                          s.getSelectedDayWeight(date.isoStringWithoutTime);
+                      final weightValue = s.getSelectedDayWeight(date.isoStringWithoutTime);
                       final bool isEditable = s.isEditable(date);
                       final hasLog = weightValue != null;
 
@@ -71,23 +70,16 @@ class WeightBlock extends StatelessWidget {
                         children: [
                           Text(
                             text,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall!
-                                .copyWith(
+                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                   fontFamily: ThemeConstants.bitterFontFamily,
-                                  color: isEditable
-                                      ? AppColors.darkGreen
-                                      : AppColors.greyLabel,
+                                  color: isEditable ? AppColors.darkGreen : AppColors.greyLabel,
                                 ),
                           ),
                           if (showSubText)
                             Text(
                               LocalizedTexts.preferableInTheMorning.translation,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(color: AppColors.greyLabel),
+                              style:
+                                  Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.greyLabel),
                             )
                         ],
                       );

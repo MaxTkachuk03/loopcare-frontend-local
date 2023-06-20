@@ -6,11 +6,11 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart'
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/widgets/completed_lesson.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/widgets/next_lesson.dart';
 import 'package:loopcare_frontend/features/home/presentation/tabs_state.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/education/widgets/completed_lesson.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/education/widgets/next_lesson.dart';
 
 class Education extends StatelessWidget {
   final DateTime date;
@@ -31,8 +31,7 @@ class Education extends StatelessWidget {
     return BlocBuilder<DashboardEducationBloc, DashboardEducationState>(
         builder: (BuildContext context, state) {
       final nextLesson = state.data.nextLesson;
-      final completedLessons =
-          state.data.completedLessons[date.isoStringWithoutTime];
+      final completedLessons = state.data.completedLessons[date.isoStringWithoutTime];
 
       return Container(
         padding: const EdgeInsets.only(
@@ -65,13 +64,10 @@ class Education extends StatelessWidget {
                       const SizedBox(width: 24.0),
                       Text(
                         LocalizedTexts.education.translation,
-                        style:
-                            Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                  fontFamily: ThemeConstants.bitterFontFamily,
-                                  color: state.data.isLoading
-                                      ? AppColors.greyLabel
-                                      : AppColors.darkGreen,
-                                ),
+                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                              fontFamily: ThemeConstants.bitterFontFamily,
+                              color: state.data.isLoading ? AppColors.greyLabel : AppColors.darkGreen,
+                            ),
                       ),
                     ],
                   ),

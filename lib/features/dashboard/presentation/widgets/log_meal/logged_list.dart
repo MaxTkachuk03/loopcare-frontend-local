@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/log_meal/logged_list_item.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/logged_list_item.dart';
 
 class LoggedList extends StatelessWidget {
   final List<String> categoryList;

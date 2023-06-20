@@ -5,17 +5,17 @@ part 'physical_program_exercise.freezed.dart';
 part 'physical_program_exercise.g.dart';
 
 @freezed
-abstract class PhysicalProgramExercise implements _$PhysicalProgramExercise {
+class PhysicalProgramExercise with _$PhysicalProgramExercise {
   const PhysicalProgramExercise._();
 
   const factory PhysicalProgramExercise({
-    required String name,
-    required String? image,
-    required String? video,
-    required int order,
-    required int duration,
-    required int delayBeforeNext,
-    required int explanationSkipTime,
+    @Default('') String name,
+    @Default('') String? image,
+    @Default('') String? video,
+    @Default(0) int order,
+    @Default(0) int duration,
+    @Default(0) int delayBeforeNext,
+    @Default(0) int explanationSkipTime,
   }) = _PhysicalProgramExercise;
 
   factory PhysicalProgramExercise.fromJson(Map<String, dynamic> json) =>
