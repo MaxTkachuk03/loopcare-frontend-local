@@ -24,8 +24,7 @@ class IntroGuard extends AutoRouteGuard {
       NavigationResolver resolver, StackRouter router) async {
     if (authenticationCubit.state.isAuthenticated) {
       final route = authenticationCubit.state.isPreferencesComplete
-          // ? AppRoutes.home
-          ? AppRoutes.programAssesment
+          ? AppRoutes.home
           : AppRoutes.preferencesOverview;
 
       router.replaceNamed(route);
