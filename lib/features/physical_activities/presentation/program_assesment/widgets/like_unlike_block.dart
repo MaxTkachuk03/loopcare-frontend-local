@@ -20,6 +20,15 @@ class _LikeUnlikeBlockState extends State<LikeUnlikeBlock> {
   int selectedThumb = 0;
 
   @override
+  void initState() {
+    super.initState();
+    final wLike = widget.like;
+    if (wLike != null) {
+      selectedThumb = wLike ? 1 : -1;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(

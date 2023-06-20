@@ -19,7 +19,17 @@ class AssesmentBlock extends StatefulWidget {
 }
 
 class _AssesmentBlockState extends State<AssesmentBlock> {
-  int? selectedIndex;
+  int? selectedScore;
+
+  @override
+  void initState() {
+    super.initState();
+    final wScore = widget.score;
+    if (wScore != null) {
+      selectedScore = wScore - 1;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,7 +57,7 @@ class _AssesmentBlockState extends State<AssesmentBlock> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
                   10,
-                  (index) => index == selectedIndex
+                  (index) => index == selectedScore
                       ? SelectedCell(index: index + 1)
                       : RegularCell(
                           index: index + 1,
@@ -85,7 +95,7 @@ class _AssesmentBlockState extends State<AssesmentBlock> {
 
   void _onCellTap(int index) {
     setState(() {
-      selectedIndex = index;
+      selectedScore = index;
       widget.onScoreChange(index);
     });
   }

@@ -136,12 +136,7 @@ class _ProgramAssesmentPageState extends State<ProgramAssesmentPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   child: ElevatedButton(
-                    onPressed: () => context.read<PhysicalProgramsBloc>().add(
-                          PhysicalProgramsEvent.logAssesment(
-                            assesmentScore,
-                            assesmentLike,
-                          ),
-                        ),
+                    onPressed: () => logAssesment(),
                     style: Theme.of(context)
                         .elevatedButtonTheme
                         .style
@@ -165,6 +160,16 @@ class _ProgramAssesmentPageState extends State<ProgramAssesmentPage> {
         );
       },
     );
+  }
+
+  void logAssesment() {
+    context.read<PhysicalProgramsBloc>().add(
+          PhysicalProgramsEvent.logAssesment(
+            assesmentScore,
+            assesmentLike,
+          ),
+        );
+    context.router.pop();
   }
 
   void onScoreChange(int score) {
