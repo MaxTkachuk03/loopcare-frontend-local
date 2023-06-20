@@ -385,12 +385,16 @@
   "exerciseCompleteMessage": "Great! You completed exercise {currentIndex} of {length}",
   "activitiesForThisWeek": "activities for this week",
   "chooseYourProgram": "Choose your program",
-  "recommended": "recommended",
-  "alternatives": "alternatives",
-  "equipment": "Equipment",
-  "targetMuscles": "Target muscles",
+
   "didYouLikeThisProgram": "Did you like this exercise program?",
   "backToTodayNotLogged": "Back to today (not logged)",
   "notReally": "Not really",
-  "yesYes": "Yes!"
+  "yesYes": "Yes!",
+  "recommended": "RECOMMENDED",
+  "alternatives": "ALTERNATIVES",
+  "equipment": "Equipment: {equipment}",
+  "targetMuscles": "Target muscles: {targetMuscles}",
+  "exercise": "{length} exercise",
+  "exercises": "{length} exercises",
+  "programNote": "Each exercise will be explained before it starts."
 }

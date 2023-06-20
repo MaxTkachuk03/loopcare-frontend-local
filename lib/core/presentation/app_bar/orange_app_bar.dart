@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
@@ -27,7 +26,7 @@ class OrangeAppBar extends StatelessWidget implements PreferredSizeWidget {
                     fontWeight: FontWeight.w600,
                     color: AppColors.white,
                   ),
-            ).tr()
+            )
           : null,
       leading: const BackButtonHexagon(),
       automaticallyImplyLeading: false,

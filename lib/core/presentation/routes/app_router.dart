@@ -55,6 +55,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/dash
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/nutrition_instructions_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/program_assesment_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/physical_programs_page.dart';
+import 'package:loopcare_frontend/features/physical_activities/presentation/program_details/program_details_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/select_exercise_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/biological_gender/biological_gender_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/birthday/birthday_page.dart';
@@ -376,6 +377,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.chooseProgram,
       page: PhysicalProgramsPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.programDetails,
+      page: ProgramDetailsPage,
     ),
     // User profile
     AutoRoute(

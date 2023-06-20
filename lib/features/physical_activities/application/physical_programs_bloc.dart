@@ -31,6 +31,7 @@ class PhysicalProgramsBloc
     on<_GetProgramsByPreferences>(_onGetProgramsByPreferences);
     on<_CreateCustomActivity>(_onCreateCustomActivity);
     on<_SetProgramType>(_onSetProgramType);
+    on<_SetCurrentProgram>(_onSetCurrentProgram);
     on<_SetProgramPlace>(_onSetProgramPlace);
     on<_SetProgramDifficulty>(_onSetProgramDifficulty);
     on<_GetWeeklyPhysicalActivities>(_onGetWeeklyPhysicalActivities);
@@ -45,7 +46,7 @@ class PhysicalProgramsBloc
 
     final response = await _physicalActivitiesService.getProgramsByPreferences(
       programType: ProgramType.strength.name,
-      programPlace: ProgramPlace.home.name,
+      programPlace: ProgramPlace.outdoor.name,
       programDifficulty: ProgramDifficulty.easy.name,
     );
 
@@ -123,16 +124,17 @@ class PhysicalProgramsBloc
     );
 
     response.fold(
-        (l) => emit(
-              PhysicalProgramsState.calendarProgramsError(
-                state.data.copyWith(error: l, isLoading: false),
-              ),
-            ),
-        (r) => emit(
-              PhysicalProgramsState.calendarProgramsLoaded(
-                state.data.copyWith(weeklyActivities: r.data, isLoading: false),
-              ),
-            ));
+      (l) => emit(
+        PhysicalProgramsState.calendarProgramsError(
+          state.data.copyWith(error: l, isLoading: false),
+        ),
+      ),
+      (r) => emit(
+        PhysicalProgramsState.calendarProgramsLoaded(
+          state.data.copyWith(weeklyActivities: r.data, isLoading: false),
+        ),
+      ),
+    );
   }
 
   Future<FutureOr<void>> _onLogAssesment(
@@ -157,6 +159,19 @@ class PhysicalProgramsBloc
           state.data.copyWith(
             isLoading: false,
           ),
+        ),
+      ),
+    );
+  }
+
+  FutureOr<void> _onSetCurrentProgram(
+    _SetCurrentProgram event,
+    Emitter<PhysicalProgramsState> emit,
+  ) {
+    emit(
+      PhysicalProgramsState.programLoaded(
+        state.data.copyWith(
+          currentProgram: event.program,
         ),
       ),
     );

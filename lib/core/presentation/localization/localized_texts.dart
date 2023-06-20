@@ -466,6 +466,9 @@ class LocalizedTexts {
   static const String backToTodayNotLogged = 'backToTodayNotLogged';
   static const String notReally = 'notReally';
   static const String yesYes = 'yesYes';
+  static const String exercise = 'exercise';
+  static const String exercises = 'exercises';
+  static const String programNote = 'programNote';
 
   // User profile
   static const String profile = 'profile';
