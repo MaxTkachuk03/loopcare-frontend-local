@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/physical_activities/widgets/WeeklyActivitiesList.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/physical_activities/widgets/weekly_activities_list.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 
 class PhysicalActivities extends StatelessWidget {

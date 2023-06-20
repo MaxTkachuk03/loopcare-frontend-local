@@ -172,8 +172,8 @@ class _VideoPageState extends State<VideoPage> {
                         child: VideoPlayerWidget(
                           controller: _controller,
                           orientation: orientation,
-                          programType: widget.program.type.name,
-                          programDifficulty: widget.program.difficulty.name,
+                          programType: widget.program.typeName,
+                          programDifficulty: widget.program.difficultyName,
                           programLength: widget.program.exercises.length,
                           exercise: widget.program.exercises[_videoIndex],
                           onVideoEnds: _onVideoEnds,

@@ -71,8 +71,8 @@ class ProgramCard extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontFamily: ThemeConstants.bitterFontFamily,
-                      ),
+                            fontFamily: ThemeConstants.bitterFontFamily,
+                          ),
                     ),
                     const SizedBox(
                       height: 8.0,
@@ -88,7 +88,7 @@ class ProgramCard extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            program.difficulty.name.toUpperCase(),
+                            program.difficultyName.toUpperCase(),
                             style: const TextStyle(
                               fontSize: ThemeConstants.fontSize10,
                               color: AppColors.white,
@@ -113,14 +113,14 @@ class ProgramCard extends StatelessWidget {
                       height: 8.0,
                     ),
                     Text(
-                      program.place.name.toUpperCase(),
+                      program.placeName.toUpperCase(),
                       style: const TextStyle(
                         fontSize: ThemeConstants.fontSize12,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     Text(
-                      program.type.name.toUpperCase(),
+                      program.typeName.toUpperCase(),
                       style: const TextStyle(
                         fontSize: ThemeConstants.fontSize12,
                         fontWeight: FontWeight.w600,

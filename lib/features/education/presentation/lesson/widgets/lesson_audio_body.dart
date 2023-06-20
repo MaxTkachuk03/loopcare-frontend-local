@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
@@ -108,8 +107,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
       builder: (context, state) {
         lessonId = state.data.lessonId;
         if (state.data.currentPage.content.subtitleFilePath.isNotEmpty) {
-          prepareSubtitleController(
-              state.data.currentPage.content.subtitleFilePath);
+          prepareSubtitleController(state.data.currentPage.content.subtitleFilePath);
         }
 
         return Scaffold(
@@ -162,12 +160,8 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                                   child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      LocalizedTexts.general.translation
-                                          .toUpperCase(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall
-                                          ?.copyWith(
+                                      LocalizedTexts.general.translation.toUpperCase(),
+                                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                                             fontSize: ThemeConstants.fontSize12,
                                             color: AppColors.orangeDark,
                                           ),
@@ -182,12 +176,8 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                                   child: AutoSizeText(
                                     state.data.lessonTitle,
                                     maxLines: 2,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall
-                                        ?.copyWith(
-                                          fontFamily:
-                                              ThemeConstants.bitterFontFamily,
+                                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                                          fontFamily: ThemeConstants.bitterFontFamily,
                                         ),
                                   ),
                                 ),
