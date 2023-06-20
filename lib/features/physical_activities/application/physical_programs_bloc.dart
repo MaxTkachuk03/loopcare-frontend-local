@@ -143,25 +143,28 @@ class PhysicalProgramsBloc
   ) async {
     emit(PhysicalProgramsState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _physicalActivitiesService.logProgram(
-      programId: state.data.currentProgram?.id ?? 0,
-      data: LogProgramBody(
-        like: event.like,
-        physicalProgramId: state.data.currentProgram?.id ?? 0,
-        score: event.score,
-      ),
-    );
+    var programId = state.data.currentProgram?.id;
+    if (programId != null) {
+      final response = await _physicalActivitiesService.logProgram(
+        programId: programId,
+        data: LogProgramBody(
+          like: event.like,
+          physicalProgramId: state.data.currentProgram?.id ?? 0,
+          score: event.score,
+        ),
+      );
 
-    response.fold(
-      (l) => null,
-      (r) => emit(
-        PhysicalProgramsState.programLoaded(
-          state.data.copyWith(
-            isLoading: false,
+      response.fold(
+        (l) => null,
+        (r) => emit(
+          PhysicalProgramsState.programLoaded(
+            state.data.copyWith(
+              isLoading: false,
+            ),
           ),
         ),
-      ),
-    );
+      );
+    }
   }
 
   FutureOr<void> _onSetCurrentProgram(
