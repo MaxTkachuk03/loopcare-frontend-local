@@ -414,6 +414,9 @@ class LocalizedTexts {
   static const String alternatives = 'alternatives';
   static const String equipment = 'equipment';
   static const String targetMuscles = 'targetMuscles';
+  static const String exercise = 'exercise';
+  static const String exercises = 'exercises';
+  static const String programNote = 'programNote';
 
   // User profile
   static const String profile = 'profile';

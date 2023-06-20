@@ -6,10 +6,12 @@ import 'package:loopcare_frontend/injection.dart';
 
 class NetworkImageWithCache extends StatelessWidget {
   final String url;
+  final BoxFit? imageBoxFit;
 
   const NetworkImageWithCache({
     Key? key,
     required this.url,
+    this.imageBoxFit,
   }) : super(key: key);
 
   _getAuthToken() {
@@ -34,7 +36,7 @@ class NetworkImageWithCache extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: imageProvider,
-                  fit: BoxFit.fitHeight,
+                  fit: imageBoxFit ?? BoxFit.fitHeight,
                 ),
               ),
             ),

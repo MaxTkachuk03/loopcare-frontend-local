@@ -35,6 +35,8 @@ class AppImages {
   static const AssetImage calorieDensityFoodB =
       AssetImage('$imagesFilePath/calorie_dencity_food_b.png');
 
+  static const AssetImage clock = AssetImage('$imagesFilePath/clock.png');
+
   static const AssetImage questionMark =
       AssetImage('$imagesFilePath/question.png');
 

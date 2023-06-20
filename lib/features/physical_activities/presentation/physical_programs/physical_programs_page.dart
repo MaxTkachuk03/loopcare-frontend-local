@@ -58,7 +58,7 @@ class PhysicalProgramsPage extends StatelessWidget {
                               const SizedBox(
                                 height: 24.0,
                               ),
-                              Text(LocalizedTexts.recommended.toUpperCase()).tr(),
+                              const Text(LocalizedTexts.recommended).tr(),
                               const SizedBox(
                                 height: 16.0,
                               ),
@@ -69,7 +69,7 @@ class PhysicalProgramsPage extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              Text(LocalizedTexts.alternatives.toUpperCase()).tr(),
+                              const Text(LocalizedTexts.alternatives).tr(),
                               const SizedBox(
                                 height: 16.0,
                               ),
@@ -84,7 +84,7 @@ class PhysicalProgramsPage extends StatelessWidget {
                       child: SizedBox(
                         height: 220,
                         child: ProgramCarousel(
-                          programs: state.data.programs,
+                          programs: state.data.programs.skip(1).toList(),
                         ),
                       ),
                     ),
