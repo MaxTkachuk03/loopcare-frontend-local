@@ -22,8 +22,7 @@ part 'physical_programs_event.dart';
 part 'physical_programs_state.dart';
 
 @singleton
-class PhysicalProgramsBloc
-    extends Bloc<PhysicalProgramsEvent, PhysicalProgramsState> {
+class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsState> {
   final PhysicalActivitiesService _physicalActivitiesService;
 
   PhysicalProgramsBloc(this._physicalActivitiesService)
@@ -67,23 +66,19 @@ class PhysicalProgramsBloc
     _CreateCustomActivity event,
     Emitter<PhysicalProgramsState> emit,
   ) async {
-    emit(PhysicalProgramsState.loading(
-        state.data.copyWith(isLoading: true, error: null)));
+    emit(PhysicalProgramsState.loading(state.data.copyWith(isLoading: true, error: null)));
 
     final response = await _physicalActivitiesService.createCustomActivity(
       CustomActivityBody(name: event.name),
     );
 
     response.fold(
-      (l) => emit(PhysicalProgramsState.calendarProgramsError(
-          state.data.copyWith(isLoading: false, error: l))),
-      (r) => emit(PhysicalProgramsState.customProgramLogged(
-          state.data.copyWith(isLoading: false, error: null))),
+      (l) => emit(PhysicalProgramsState.calendarProgramsError(state.data.copyWith(isLoading: false, error: l))),
+      (r) => emit(PhysicalProgramsState.customProgramLogged(state.data.copyWith(isLoading: false, error: null))),
     );
   }
 
-  FutureOr<void> _onSetProgramType(
-      _SetProgramType event, Emitter<PhysicalProgramsState> emit) {
+  FutureOr<void> _onSetProgramType(_SetProgramType event, Emitter<PhysicalProgramsState> emit) {
     emit(
       PhysicalProgramsState.programFilterSet(
         state.data.copyWith(programType: event.programType),
@@ -91,8 +86,7 @@ class PhysicalProgramsBloc
     );
   }
 
-  FutureOr<void> _onSetProgramPlace(
-      _SetProgramPlace event, Emitter<PhysicalProgramsState> emit) {
+  FutureOr<void> _onSetProgramPlace(_SetProgramPlace event, Emitter<PhysicalProgramsState> emit) {
     emit(
       PhysicalProgramsState.programFilterSet(
         state.data.copyWith(programPlace: event.programPlace),
@@ -100,8 +94,7 @@ class PhysicalProgramsBloc
     );
   }
 
-  FutureOr<void> _onSetProgramDifficulty(
-      _SetProgramDifficulty event, Emitter<PhysicalProgramsState> emit) {
+  FutureOr<void> _onSetProgramDifficulty(_SetProgramDifficulty event, Emitter<PhysicalProgramsState> emit) {
     emit(
       PhysicalProgramsState.programFilterSet(
         state.data.copyWith(programDifficulty: event.programDifficulty),
@@ -113,8 +106,7 @@ class PhysicalProgramsBloc
     _GetWeeklyPhysicalActivities event,
     Emitter<PhysicalProgramsState> emit,
   ) async {
-    emit(PhysicalProgramsState.loading(
-        state.data.copyWith(isLoading: true, error: null)));
+    emit(PhysicalProgramsState.loading(state.data.copyWith(isLoading: true, error: null)));
 
     final DateTime today = DateTime.now();
 

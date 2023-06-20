@@ -28,38 +28,27 @@ abstract class PhysicalProgram implements _$PhysicalProgram {
     required PhysicalProgramAssessment? assessment,
   }) = PhysicalProgramBasic;
 
-  List<PhysicalProgramExercise> get exercises =>
-      map(basic: (s) => s.exercises, dashboardPlaceholder: (_) => []);
+  List<PhysicalProgramExercise> get exercises => map(basic: (s) => s.exercises, dashboardPlaceholder: (_) => []);
 
-  String get typeName =>
-      map(basic: (s) => s.type.name, dashboardPlaceholder: (_) => '');
+  String get typeName => map(basic: (s) => s.type.name, dashboardPlaceholder: (_) => '');
 
-  String get difficultyName =>
-      map(basic: (s) => s.difficulty.name, dashboardPlaceholder: (_) => '');
+  String get difficultyName => map(basic: (s) => s.difficulty.name, dashboardPlaceholder: (_) => '');
 
-  String get placeName =>
-      map(basic: (s) => s.place.name, dashboardPlaceholder: (_) => '');
+  String get placeName => map(basic: (s) => s.place.name, dashboardPlaceholder: (_) => '');
 
-  String get equipment =>
-      map(basic: (s) => s.equipment, dashboardPlaceholder: (_) => '');
+  String get equipment => map(basic: (s) => s.equipment, dashboardPlaceholder: (_) => '');
 
-  String get targetMuscles =>
-      map(basic: (s) => s.targetMuscles, dashboardPlaceholder: (_) => '');
+  String get targetMuscles => map(basic: (s) => s.targetMuscles, dashboardPlaceholder: (_) => '');
 
-  int get duration =>
-      map(basic: (s) => s.duration, dashboardPlaceholder: (_) => 0);
+  int get duration => map(basic: (s) => s.duration, dashboardPlaceholder: (_) => 0);
 
-  String get programDescription =>
-      map(basic: (s) => s.programDescription, dashboardPlaceholder: (_) => '');
+  String get programDescription => map(basic: (s) => s.programDescription, dashboardPlaceholder: (_) => '');
 
-  PhysicalProgramAssessment? get assessment =>
-      map(basic: (s) => s.assessment, dashboardPlaceholder: (_) => null);
+  PhysicalProgramAssessment? get assessment => map(basic: (s) => s.assessment, dashboardPlaceholder: (_) => null);
 
   int get id => map(basic: (s) => s.id, dashboardPlaceholder: (_) => 0);
 
-  const factory PhysicalProgram.dashboardPlaceholder({required String name}) =
-      DashboardPlaceholder;
+  const factory PhysicalProgram.dashboardPlaceholder({required String name}) = DashboardPlaceholder;
 
-  factory PhysicalProgram.fromJson(Map<String, dynamic> json) =>
-      _$PhysicalProgramFromJson(json);
+  factory PhysicalProgram.fromJson(Map<String, dynamic> json) => _$PhysicalProgramFromJson(json);
 }

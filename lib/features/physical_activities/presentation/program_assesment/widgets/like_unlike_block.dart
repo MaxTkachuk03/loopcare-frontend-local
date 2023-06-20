@@ -52,18 +52,14 @@ class _LikeUnlikeBlockState extends State<LikeUnlikeBlock> {
                       onPressed: () => _onThumbsTap(-1),
                       icon: Icon(
                         Icons.thumb_down_rounded,
-                        color: (selectedThumb == -1)
-                            ? AppColors.blueMid
-                            : AppColors.yellowLight,
+                        color: (selectedThumb == -1) ? AppColors.blueMid : AppColors.yellowLight,
                         size: 34,
                       ),
                     ),
                     Text(
                       LocalizedTexts.notReally.translation,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontWeight: (selectedThumb == -1)
-                                ? FontWeight.w700
-                                : FontWeight.w400,
+                            fontWeight: (selectedThumb == -1) ? FontWeight.w700 : FontWeight.w400,
                           ),
                     ),
                   ],
@@ -80,18 +76,14 @@ class _LikeUnlikeBlockState extends State<LikeUnlikeBlock> {
                       onPressed: () => _onThumbsTap(1),
                       icon: Icon(
                         Icons.thumb_up_rounded,
-                        color: (selectedThumb == 1)
-                            ? AppColors.blueMid
-                            : AppColors.yellowLight,
+                        color: (selectedThumb == 1) ? AppColors.blueMid : AppColors.yellowLight,
                         size: 34,
                       ),
                     ),
                     Text(
                       LocalizedTexts.yesYes.translation,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontWeight: (selectedThumb == 1)
-                                ? FontWeight.w700
-                                : FontWeight.w400,
+                            fontWeight: (selectedThumb == 1) ? FontWeight.w700 : FontWeight.w400,
                           ),
                     ),
                   ],

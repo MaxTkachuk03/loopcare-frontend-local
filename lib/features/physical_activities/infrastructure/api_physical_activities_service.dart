@@ -16,8 +16,7 @@ class APIPhysicalActivitiesService implements PhysicalActivitiesService {
   APIPhysicalActivitiesService(this.client);
 
   @override
-  Future<Either<RequestError, PhysicalProgramResponse>> getProgram(
-      int programId) {
+  Future<Either<RequestError, PhysicalProgramResponse>> getProgram(int programId) {
     return client
         .get('/physical-activities/programs/$programId')
         .then(parseResponse(PhysicalProgramResponse.fromJson));
@@ -40,8 +39,7 @@ class APIPhysicalActivitiesService implements PhysicalActivitiesService {
   }
 
   @override
-  Future<Either<RequestError, ProgramListResponse>> getProgramsByDate(
-      {String? startDate, String? endDate}) {
+  Future<Either<RequestError, ProgramListResponse>> getProgramsByDate({String? startDate, String? endDate}) {
     final queryParameters = <String, dynamic>{};
     if (startDate != null && endDate != null) {
       queryParameters.addAll({
@@ -66,8 +64,7 @@ class APIPhysicalActivitiesService implements PhysicalActivitiesService {
   }
 
   @override
-  Future<Either<RequestError, PhysicalProgramResponse>> createCustomActivity(
-      CustomActivityBody data) {
+  Future<Either<RequestError, PhysicalProgramResponse>> createCustomActivity(CustomActivityBody data) {
     return client
         .post('/physical-activities/programs/custom', data: data)
         .then(parseResponse(PhysicalProgramResponse.fromJson));
