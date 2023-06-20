@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
-import 'package:loopcare_frontend/features/video_player/presentation/video_page.dart';
+import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/player_controls.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/program_difficulty_chip.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/progress_bar.dart';
@@ -13,7 +13,7 @@ import 'package:video_player/video_player.dart';
 class PlayerOverlay extends StatelessWidget {
   final VideoPlayerController controller;
   final Orientation orientation;
-  final Exercise exercise;
+  final PhysicalProgramExercise exercise;
   final String programType;
   final String programDifficulty;
   final VoidCallback onSliderProgressChange;

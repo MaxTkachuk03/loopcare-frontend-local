@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/features/video_player/presentation/video_page.dart';
+import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/player_end_video_overlay.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/player_overlay.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/video_block.dart';
@@ -11,7 +11,7 @@ import 'package:video_player/video_player.dart';
 class VideoPlayerWidget extends StatefulWidget {
   final VideoPlayerController controller;
   final Orientation orientation;
-  final Exercise exercise;
+  final PhysicalProgramExercise exercise;
   final VoidCallback onVideoEnds;
   final VoidCallback onPrevPressed;
   final CountDownController countDownController;
