@@ -11,12 +11,10 @@ part 'education_lesson_state.dart';
 part 'education_lesson_bloc.freezed.dart';
 
 @singleton
-class EducationLessonBloc
-    extends Bloc<EducationLessonEvent, EducationLessonState> {
+class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonState> {
   final EducationService _educationService;
 
-  static const _defaultError =
-      RequestError.unhandledError('Something went wrong, please try again');
+  static const _defaultError = RequestError.unhandledError('Something went wrong, please try again');
 
   EducationLessonBloc(
     this._educationService,
@@ -59,10 +57,8 @@ class EducationLessonBloc
     );
     response.fold((l) {}, (r) {
       var pages = state.data.pages;
-      var localPages = pages
-          .map((e) =>
-              LessonPage(content: e.content, type: e.type, order: e.order))
-          .toList();
+      var localPages =
+          pages.map((e) => LessonPage(content: e.content, type: e.type, order: e.order)).toList();
 
       var index = state.data.currentPageIndex;
 
@@ -93,10 +89,8 @@ class EducationLessonBloc
     );
     response.fold((l) {}, (r) {
       var pages = state.data.pages;
-      var localPages = pages
-          .map((e) =>
-              LessonPage(content: e.content, type: e.type, order: e.order))
-          .toList();
+      var localPages =
+          pages.map((e) => LessonPage(content: e.content, type: e.type, order: e.order)).toList();
       var index = state.data.currentPageIndex;
 
       localPages[index] = localPages[index].copyWith(
@@ -184,8 +178,8 @@ class EducationLessonBloc
   ) async {
     if (state.data.isLastPage) return;
 
-    emit(EducationLessonState.contentLoaded(state.data
-        .copyWith(currentPageIndex: state.data.currentPageIndex + 1)));
+    emit(EducationLessonState.contentLoaded(
+        state.data.copyWith(currentPageIndex: state.data.currentPageIndex + 1)));
   }
 
   Future<void> _onPrevPage(
@@ -194,8 +188,8 @@ class EducationLessonBloc
   ) async {
     if (state.data.currentPageIndex == 0) return;
 
-    emit(EducationLessonState.contentLoaded(state.data
-        .copyWith(currentPageIndex: state.data.currentPageIndex - 1)));
+    emit(EducationLessonState.contentLoaded(
+        state.data.copyWith(currentPageIndex: state.data.currentPageIndex - 1)));
   }
 
   Future<void> _onCompleteLesson(
@@ -207,8 +201,7 @@ class EducationLessonBloc
       error: null,
     )));
 
-    final response =
-        await _educationService.completeLesson(state.data.lessonId);
+    final response = await _educationService.completeLesson(state.data.lessonId);
 
     response.fold(
       (l) {

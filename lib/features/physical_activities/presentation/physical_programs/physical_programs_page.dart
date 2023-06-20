@@ -10,7 +10,6 @@ import 'package:loopcare_frontend/features/physical_activities/application/physi
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/widgets/program_carousel.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/widgets/program_card.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class PhysicalProgramsPage extends StatelessWidget {
   const PhysicalProgramsPage({Key? key}) : super(key: key);
