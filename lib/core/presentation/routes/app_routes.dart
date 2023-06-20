@@ -89,10 +89,14 @@ class AppRoutes {
 
   // Physical activities
   static const String selectExercise = '/select-exercise';
+  static const String chooseProgram = '/choose-program';
   static const String programAssesment = '/program-assesment';
 
   // User profile
   static const String foodPreferences = '/food-preferences';
   static const String editFoodPreferences = '/edit-food-preferences';
+
+  // Video
+  static const String video = '/video';
   AppRoutes._();
 }

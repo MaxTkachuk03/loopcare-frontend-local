@@ -378,5 +378,14 @@
   "dontLike": "Don't like",
   "howHard": "How hard was the exercise program for you?",
   "veryEasy": "very easy",
-  "veryHard": "very hard"
+  "veryHard": "very hard",
+  "rotateDevice": "Please rotate your device and use your LeanOnMe phonestand",
+  "skipExplanation": "Skip explanation",
+  "repeat": "Repeat",
+  "exerciseCompleteMessage": "Great! You completed exercise {currentIndex} of {length}",
+  "chooseYourProgram": "Choose your program",
+  "recommended": "recommended",
+  "alternatives": "alternatives",
+  "equipment": "Equipment",
+  "targetMuscles": "Target muscles"
 }
