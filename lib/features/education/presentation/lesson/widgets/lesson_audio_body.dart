@@ -80,6 +80,11 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
           imageUrl = "${appConfig.baseUrl}/education/content/$lessonId/$text";
           imageUrlFromJson = text;
         });
+      } else if (text.isEmpty) {
+        setState(() {
+          imageUrl = null;
+          imageUrlFromJson = text;
+        });
       }
     }
   }
@@ -137,7 +142,10 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                             child: SizedBox(
                               height: 600,
                               child: imageUrl != null && imageUrl != ''
-                                  ? NetworkImageWithCache(url: imageUrl!)
+                                  ? NetworkImageWithCache(
+                                      url: imageUrl!,
+                                      imageBoxFit: BoxFit.contain,
+                                    )
                                   : null,
                             ),
                           ),
