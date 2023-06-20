@@ -29,6 +29,7 @@ class PhysicalProgramsData with _$PhysicalProgramsData {
 
   const factory PhysicalProgramsData({
     @Default([]) List<PhysicalProgram> programs,
+    PhysicalProgram? currentProgram,
     @Default([]) List<PhysicalProgram> weeklyActivities,
     @Default(ProgramType.strength) ProgramType programType,
     @Default(ProgramPlace.home) ProgramPlace programPlace,

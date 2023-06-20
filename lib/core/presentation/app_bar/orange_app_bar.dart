@@ -27,7 +27,7 @@ class OrangeAppBar extends StatelessWidget implements PreferredSizeWidget {
                     fontWeight: FontWeight.w600,
                     color: AppColors.white,
                   ),
-            ).tr()
+            )
           : null,
       leading: const BackButtonHexagon(),
       automaticallyImplyLeading: false,

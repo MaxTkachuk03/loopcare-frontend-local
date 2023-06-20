@@ -10,7 +10,6 @@ import 'package:loopcare_frontend/features/physical_activities/application/physi
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/widgets/program_carousel.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/widgets/program_card.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class PhysicalProgramsPage extends StatelessWidget {
   const PhysicalProgramsPage({Key? key}) : super(key: key);
@@ -59,7 +58,7 @@ class PhysicalProgramsPage extends StatelessWidget {
                               const SizedBox(
                                 height: 24.0,
                               ),
-                              Text(LocalizedTexts.recommended.toUpperCase()).tr(),
+                              const Text(LocalizedTexts.recommended).tr(),
                               const SizedBox(
                                 height: 16.0,
                               ),
@@ -70,7 +69,7 @@ class PhysicalProgramsPage extends StatelessWidget {
                               const SizedBox(
                                 height: 16.0,
                               ),
-                              Text(LocalizedTexts.alternatives.toUpperCase()).tr(),
+                              const Text(LocalizedTexts.alternatives).tr(),
                               const SizedBox(
                                 height: 16.0,
                               ),
@@ -85,7 +84,7 @@ class PhysicalProgramsPage extends StatelessWidget {
                       child: SizedBox(
                         height: 220,
                         child: ProgramCarousel(
-                          programs: state.data.programs,
+                          programs: state.data.programs.skip(1).toList(),
                         ),
                       ),
                     ),

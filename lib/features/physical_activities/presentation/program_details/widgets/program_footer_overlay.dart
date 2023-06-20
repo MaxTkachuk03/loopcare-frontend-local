@@ -1,8 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 
 class ProgramFooterOverlay extends StatelessWidget {
   const ProgramFooterOverlay({Key? key}) : super(key: key);
@@ -35,7 +39,7 @@ class ProgramFooterOverlay extends StatelessWidget {
                 height: 12.0,
               ),
               ElevatedButton(
-                onPressed: _onGetStarted,
+                onPressed: () => _onGetStarted(context),
                 style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
                       backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
                     ),
@@ -48,5 +52,10 @@ class ProgramFooterOverlay extends StatelessWidget {
     );
   }
 
-  void _onGetStarted() {}
+  void _onGetStarted(BuildContext context) {
+    final program = context.read<PhysicalProgramsBloc>().state.data.currentProgram;
+    if (program == null) return;
+
+    context.router.push(VideoRoute(program: program));
+  }
 }

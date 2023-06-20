@@ -29,6 +29,7 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
     on<_GetProgramsByPreferences>(_onGetProgramsByPreferences);
     on<_CreateCustomActivity>(_onCreateCustomActivity);
     on<_SetProgramType>(_onSetProgramType);
+    on<_SetCurrentProgram>(_onSetCurrentProgram);
     on<_SetProgramPlace>(_onSetProgramPlace);
     on<_SetProgramDifficulty>(_onSetProgramDifficulty);
     on<_GetWeeklyPhysicalActivities>(_onGetWeeklyPhysicalActivities);
@@ -42,7 +43,7 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
 
     final response = await _physicalActivitiesService.getProgramsByPreferences(
       programType: ProgramType.strength.name,
-      programPlace: ProgramPlace.home.name,
+      programPlace: ProgramPlace.outdoor.name,
       programDifficulty: ProgramDifficulty.easy.name,
     );
 
@@ -114,5 +115,15 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
                 state.data.copyWith(weeklyActivities: r.data, isLoading: false),
               ),
             ));
+  }
+
+  FutureOr<void> _onSetCurrentProgram(_SetCurrentProgram event, Emitter<PhysicalProgramsState> emit) {
+    emit(
+      PhysicalProgramsState.programLoaded(
+        state.data.copyWith(
+          currentProgram: event.program,
+        ),
+      ),
+    );
   }
 }

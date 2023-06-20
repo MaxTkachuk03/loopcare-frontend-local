@@ -54,7 +54,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/select_food/se
 import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/dashboard_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/nutrition_instructions_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/physical_programs_page.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/program_details/program_details.dart';
+import 'package:loopcare_frontend/features/physical_activities/presentation/program_details/program_details_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/select_exercise_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/biological_gender/biological_gender_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/birthday/birthday_page.dart';
@@ -84,6 +84,7 @@ part 'app_routes.dart';
   replaceInRouteName: 'Page,Route',
   routes: [
     AutoRoute(
+      initial: true,
       path: AppRoutes.proxy,
       page: ProxyPage,
       guards: [ProxyGuard],
@@ -365,7 +366,6 @@ part 'app_routes.dart';
       page: LessonErrorPage,
     ),
     AutoRoute(
-      initial: true,
       path: AppRoutes.selectExercise,
       page: SelectExercisePage,
     ),
@@ -375,7 +375,7 @@ part 'app_routes.dart';
     ),
     AutoRoute(
       path: AppRoutes.programDetails,
-      page: ProgramDetails,
+      page: ProgramDetailsPage,
     ),
     // User profile
     AutoRoute(
