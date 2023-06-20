@@ -73,8 +73,10 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
     );
 
     response.fold(
-      (l) => emit(PhysicalProgramsState.calendarProgramsError(state.data.copyWith(isLoading: false, error: l))),
-      (r) => emit(PhysicalProgramsState.customProgramLogged(state.data.copyWith(isLoading: false, error: null))),
+      (l) =>
+          emit(PhysicalProgramsState.calendarProgramsError(state.data.copyWith(isLoading: false, error: l))),
+      (r) =>
+          emit(PhysicalProgramsState.customProgramLogged(state.data.copyWith(isLoading: false, error: null))),
     );
   }
 
@@ -141,7 +143,7 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
         programId: programId,
         data: LogProgramBody(
           like: event.like,
-          physicalProgramId: state.data.currentProgram?.id ?? 0,
+          physicalProgramId: programId,
           score: event.score,
         ),
       );
