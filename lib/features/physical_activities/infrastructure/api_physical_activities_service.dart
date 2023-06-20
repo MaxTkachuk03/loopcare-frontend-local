@@ -32,7 +32,7 @@ class APIPhysicalActivitiesService implements PhysicalActivitiesService {
       '/physical-activities/programs',
       queryParameters: {
         'type': programType,
-        'place': programPlace,
+        'location': programPlace,
         'difficulty': programDifficulty,
       },
     ).then(parseResponse(ProgramListResponse.fromJson));
