@@ -8,28 +8,44 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/physical_activities/widgets/weekly_activities_list.dart';
+import 'package:loopcare_frontend/features/dashboard/application/physical_activities_bloc.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/weekly_activities_list.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 
-class PhysicalActivities extends StatelessWidget {
+class PhysicalActivities extends StatefulWidget {
   final DateTime selectedDay;
 
   const PhysicalActivities({Key? key, required this.selectedDay}) : super(key: key);
+
+  @override
+  State<PhysicalActivities> createState() => _PhysicalActivitiesState();
+}
+
+class _PhysicalActivitiesState extends State<PhysicalActivities> {
+  @override
+  void initState() {
+    context.read<PhysicalActivitiesBloc>().add(const PhysicalActivitiesEvent.getWeeklyPhysicalActivities());
+
+    super.initState();
+  }
 
   void onPressHandler(BuildContext context) {
     context.router.pushNamed(AppRoutes.selectExercise);
   }
 
-  get _isActive => selectedDay.midnightTime == DateTime.now().midnightTime;
+  get _isActive => widget.selectedDay.midnightTime == DateTime.now().midnightTime;
 
   void _programLogged(BuildContext context, PhysicalProgramsState state) {
-    context.read<PhysicalProgramsBloc>().add(const PhysicalProgramsEvent.getWeeklyPhysicalActivities());
+    context.read<PhysicalActivitiesBloc>().add(const PhysicalActivitiesEvent.getWeeklyPhysicalActivities());
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<PhysicalProgramsBloc, PhysicalProgramsState>(
-      listenWhen: (prev, cur) => cur is CustomProgramLogged,
+      listenWhen: (prev, cur) {
+        print(cur);
+        return cur is ProgramUpdated;
+      },
       listener: _programLogged,
       child: Container(
         padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
@@ -67,11 +83,12 @@ class PhysicalActivities extends StatelessWidget {
             const SizedBox(height: 8.0),
             const Divider(color: AppColors.yellowLight),
             const SizedBox(height: 6.0),
-            BlocBuilder<PhysicalProgramsBloc, PhysicalProgramsState>(builder: (BuildContext context, state) {
+            BlocBuilder<PhysicalActivitiesBloc, PhysicalActivitiesState>(
+                builder: (BuildContext context, state) {
               return state.maybeMap(
                   loading: (_) => const Loader(),
                   orElse: () => const SizedBox.shrink(),
-                  calendarProgramsLoaded: (s) {
+                  activitiesLoaded: (s) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [

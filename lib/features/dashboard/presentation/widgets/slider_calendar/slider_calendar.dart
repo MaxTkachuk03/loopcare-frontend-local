@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/slider_calendar/calendar_day.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/slider_calendar/calendar_day.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_utils.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 

@@ -10,45 +10,45 @@ part 'physical_program.freezed.dart';
 part 'physical_program.g.dart';
 
 @freezed
-abstract class PhysicalProgram implements _$PhysicalProgram {
+class PhysicalProgram with _$PhysicalProgram {
   const PhysicalProgram._();
 
   const factory PhysicalProgram.basic({
     required int id,
     required String name,
-    required int duration,
-    required String programDescription,
-    required String targetMuscles,
-    required String equipment,
-    required bool isCustom,
-    required ProgramType type,
-    required ProgramPlace place,
-    required ProgramDifficulty difficulty,
+    @Default(0) int duration,
+    @Default('') String programDescription,
+    @Default('') String targetMuscles,
+    @Default('') String equipment,
+    @Default(false) bool isCustom,
+    @Default(ProgramType.strength) ProgramType type,
+    @Default(ProgramPlace.outdoor) ProgramPlace place,
+    @Default(ProgramDifficulty.easy) ProgramDifficulty difficulty,
     required List<PhysicalProgramExercise> exercises,
     required PhysicalProgramAssessment? assessment,
   }) = PhysicalProgramBasic;
 
-  List<PhysicalProgramExercise> get exercises => map(basic: (s) => s.exercises, dashboardPlaceholder: (_) => []);
+  const factory PhysicalProgram.placeholder({required String name}) = PhysicalProgramPlaceholder;
 
-  String get typeName => map(basic: (s) => s.type.name, dashboardPlaceholder: (_) => '');
+  List<PhysicalProgramExercise> get exercises => map(basic: (s) => s.exercises, placeholder: (_) => []);
 
-  String get difficultyName => map(basic: (s) => s.difficulty.name, dashboardPlaceholder: (_) => '');
+  String get typeName => map(basic: (s) => s.type.name, placeholder: (_) => '');
 
-  String get placeName => map(basic: (s) => s.place.name, dashboardPlaceholder: (_) => '');
+  String get difficultyName => map(basic: (s) => s.difficulty.name, placeholder: (_) => '');
 
-  String get equipment => map(basic: (s) => s.equipment, dashboardPlaceholder: (_) => '');
+  String get placeName => map(basic: (s) => s.place.name, placeholder: (_) => '');
 
-  String get targetMuscles => map(basic: (s) => s.targetMuscles, dashboardPlaceholder: (_) => '');
+  String get equipment => map(basic: (s) => s.equipment, placeholder: (_) => '');
 
-  int get duration => map(basic: (s) => s.duration, dashboardPlaceholder: (_) => 0);
+  String get targetMuscles => map(basic: (s) => s.targetMuscles, placeholder: (_) => '');
 
-  String get programDescription => map(basic: (s) => s.programDescription, dashboardPlaceholder: (_) => '');
+  int get duration => map(basic: (s) => s.duration, placeholder: (_) => 0);
 
-  PhysicalProgramAssessment? get assessment => map(basic: (s) => s.assessment, dashboardPlaceholder: (_) => null);
+  String get programDescription => map(basic: (s) => s.programDescription, placeholder: (_) => '');
 
-  int get id => map(basic: (s) => s.id, dashboardPlaceholder: (_) => 0);
+  PhysicalProgramAssessment? get assessment => map(basic: (s) => s.assessment, placeholder: (_) => null);
 
-  const factory PhysicalProgram.dashboardPlaceholder({required String name}) = DashboardPlaceholder;
+  int get id => map(basic: (s) => s.id, placeholder: (_) => 0);
 
   factory PhysicalProgram.fromJson(Map<String, dynamic> json) => _$PhysicalProgramFromJson(json);
 }

@@ -10,14 +10,14 @@ part 'physical_program_response.g.dart';
 class PhysicalProgramResponse {
   final int id;
   final String name;
-  final int duration;
-  final String programDescription;
-  final String targetMuscles;
-  final String equipment;
+  final int? duration;
+  final String? programDescription;
+  final String? targetMuscles;
+  final String? equipment;
   final bool isCustom;
-  final String type;
-  final String place;
-  final String difficulty;
+  final String? type;
+  final String? place;
+  final String? difficulty;
   final List<PhysicalProgramExercise> exercises;
   final PhysicalProgramAssessment assessment;
 

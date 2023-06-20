@@ -17,7 +17,7 @@ class PhysicalActivitiesListItem extends StatelessWidget {
           AppIcons.checkmark,
           color: item.map(
             basic: (_) => AppColors.greenMid,
-            dashboardPlaceholder: (_) => AppColors.greyMid,
+            placeholder: (_) => AppColors.greyMid,
           ),
         ),
         const SizedBox(width: 14.0),
@@ -28,7 +28,7 @@ class PhysicalActivitiesListItem extends StatelessWidget {
               fontWeight: FontWeight.w600,
               color: item.map(
                 basic: (_) => AppColors.darkGreen,
-                dashboardPlaceholder: (_) => AppColors.greyMid,
+                placeholder: (_) => AppColors.greyMid,
               )),
         ),
       ],

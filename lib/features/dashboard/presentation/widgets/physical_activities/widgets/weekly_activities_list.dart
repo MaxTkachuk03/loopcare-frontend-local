@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/dashboard/widgets/physical_activities/widgets/physical_activities_list_item.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/physical_activities_list_item.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 
 class WeeklyActivitiesList extends StatelessWidget {

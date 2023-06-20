@@ -2,11 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
@@ -36,9 +36,7 @@ class PlanMeal extends StatelessWidget {
           )
           .toList(),
       onSelect: (NameLabel item) {
-        context
-            .read<MealsBloc>()
-            .add(MealsEvent.addPlannedMeal(item.name.toLowerCase()));
+        context.read<MealsBloc>().add(MealsEvent.addPlannedMeal(item.name.toLowerCase()));
 
         context.router.push(SelectFoodRoute(mealCategory: item.name));
       },
@@ -83,14 +81,10 @@ class PlanMeal extends StatelessWidget {
                         children: [
                           Text(
                             LocalizedTexts.planYourMeals.translation,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.copyWith(
+                            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                                   fontFamily: ThemeConstants.bitterFontFamily,
-                                  color: state.isPossibleToPlanMeal
-                                      ? AppColors.darkGreen
-                                      : AppColors.greyLabel,
+                                  color:
+                                      state.isPossibleToPlanMeal ? AppColors.darkGreen : AppColors.greyLabel,
                                 ),
                           ),
                           if (currentPlannedMeals.isEmpty)
@@ -98,10 +92,7 @@ class PlanMeal extends StatelessWidget {
                               state.isPossibleToPlanMeal
                                   ? LocalizedTexts.noMealsPlannedYet.translation
                                   : LocalizedTexts.noMealsPlanned.translation,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                     color: state.isPossibleToPlanMeal
                                         ? AppColors.darkGreen
                                         : AppColors.greyLabel,
@@ -142,27 +133,19 @@ class PlanMeal extends StatelessWidget {
                           itemBuilder: (BuildContext context, index) {
                             return Material(
                               child: InkWell(
-                                onTap: () => _onMealTap(
-                                    context, currentPlannedMeals[index]),
+                                onTap: () => _onMealTap(context, currentPlannedMeals[index]),
                                 child: Ink(
                                   color: AppColors.white,
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Expanded(
                                         child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              currentPlannedMeals[index]
-                                                  .mealCategory
-                                                  .toUpperCase(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headlineSmall
-                                                  ?.copyWith(
+                                              currentPlannedMeals[index].mealCategory.toUpperCase(),
+                                              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                                                     fontSize: 12.0,
                                                     color: AppColors.greyLabel,
                                                   ),

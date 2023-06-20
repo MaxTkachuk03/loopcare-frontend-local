@@ -12,13 +12,7 @@ class PhysicalProgramsState with _$PhysicalProgramsState {
 
   const factory PhysicalProgramsState.errorLoadingPrograms(PhysicalProgramsData data) = ErrorLoadingPrograms;
 
-  const factory PhysicalProgramsState.customProgramLogged(PhysicalProgramsData data) = CustomProgramLogged;
-
-  const factory PhysicalProgramsState.calendarProgramsLoaded(PhysicalProgramsData data) =
-      CalendarProgramsLoaded;
-
-  const factory PhysicalProgramsState.calendarProgramsError(PhysicalProgramsData data) =
-      CalendarProgramsError;
+  const factory PhysicalProgramsState.programUpdated(PhysicalProgramsData data) = ProgramUpdated;
 
   const PhysicalProgramsState._();
 }
@@ -30,28 +24,10 @@ class PhysicalProgramsData with _$PhysicalProgramsData {
   const factory PhysicalProgramsData({
     @Default([]) List<PhysicalProgram> programs,
     PhysicalProgram? currentProgram,
-    @Default([]) List<PhysicalProgram> weeklyActivities,
     @Default(ProgramType.strength) ProgramType programType,
     @Default(ProgramPlace.home) ProgramPlace programPlace,
     @Default(ProgramDifficulty.easy) ProgramDifficulty programDifficulty,
     @Default(false) bool isLoading,
     RequestError? error,
   }) = _PhysicalProgramsData;
-
-  int get amountWeeklyFinishedActivities {
-    return weeklyActivities.length;
-  }
-
-  List<PhysicalProgram> get activities {
-    // Adding placeholder activities if there are less than 3 already logged
-    final activities = [...weeklyActivities];
-
-    if (weeklyActivities.length < 3) {
-      for (var i = weeklyActivities.length; i < 3; i++) {
-        activities.add(PhysicalProgram.dashboardPlaceholder(name: 'To do:  Activity $i'));
-      }
-    }
-
-    return activities;
-  }
 }
