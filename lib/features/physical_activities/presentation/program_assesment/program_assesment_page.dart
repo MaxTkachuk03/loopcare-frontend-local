@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/orange_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
@@ -122,7 +123,8 @@ class _ProgramAssesmentPageState extends State<ProgramAssesmentPage> {
                                 ),
                               ),
                             ),
-                    onPressed: () => context.router.pop(),
+                    onPressed: () =>
+                        context.router.popUntilRouteWithName(HomeRoute.name),
                     child: Text(
                       LocalizedTexts.backToTodayNotLogged.translation,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -169,7 +171,7 @@ class _ProgramAssesmentPageState extends State<ProgramAssesmentPage> {
             assesmentLike,
           ),
         );
-    context.router.pop();
+    context.router.popUntilRouteWithName(HomeRoute.name);
   }
 
   void onScoreChange(int score) {
