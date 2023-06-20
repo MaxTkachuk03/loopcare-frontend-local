@@ -119,7 +119,7 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
 
   FutureOr<void> _onSetCurrentProgram(_SetCurrentProgram event, Emitter<PhysicalProgramsState> emit) {
     emit(
-      PhysicalProgramsState.programLoaded(
+      PhysicalProgramsState.calendarProgramsLoaded(
         state.data.copyWith(
           currentProgram: event.program,
         ),
