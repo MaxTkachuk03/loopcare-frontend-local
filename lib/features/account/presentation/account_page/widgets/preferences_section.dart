@@ -18,7 +18,7 @@ class PreferencesSection extends StatelessWidget {
       children: [
         const SectionTitle(title: LocalizedTexts.preferences),
         SectionItem(title: LocalizedTexts.food, onPressHandler: () => _onFoodHandler(context)),
-        SectionItem(title: LocalizedTexts.physicalExercise, onPressHandler: () {}),
+        SectionItem(title: LocalizedTexts.physicalActivities, onPressHandler: () {}),
         SectionItem(title: LocalizedTexts.groupSessions, onPressHandler: () {}),
         SectionItem(title: LocalizedTexts.diabetes, onPressHandler: () {}),
         const SizedBox(height: 32.0),

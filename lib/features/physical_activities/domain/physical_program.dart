@@ -13,7 +13,7 @@ part 'physical_program.g.dart';
 abstract class PhysicalProgram implements _$PhysicalProgram {
   const PhysicalProgram._();
 
-  const factory PhysicalProgram({
+  const factory PhysicalProgram.basic({
     required int id,
     required String name,
     required int duration,
@@ -26,7 +26,9 @@ abstract class PhysicalProgram implements _$PhysicalProgram {
     required ProgramDifficulty difficulty,
     required List<PhysicalProgramExercise> exercises,
     required PhysicalProgramAssessment? assessment,
-  }) = _PhysicalProgram;
+  }) = PhysicalProgramBasic;
+
+  const factory PhysicalProgram.dashboardPlaceholder({required String name}) = DashboardPlaceholder;
 
   factory PhysicalProgram.fromJson(Map<String, dynamic> json) => _$PhysicalProgramFromJson(json);
 }
