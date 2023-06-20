@@ -14,5 +14,6 @@ abstract class PhysicalProgramAssessment implements _$PhysicalProgramAssessment 
     required DateTime completedAt,
   }) = _PhysicalProgramAssessment;
 
-  factory PhysicalProgramAssessment.fromJson(Map<String, dynamic> json) => _$PhysicalProgramAssessmentFromJson(json);
+  factory PhysicalProgramAssessment.fromJson(Map<String, dynamic> json) =>
+      _$PhysicalProgramAssessmentFromJson(json);
 }

@@ -14,8 +14,10 @@ abstract class PhysicalProgramExercise implements _$PhysicalProgramExercise {
     required String? video,
     required int order,
     required int duration,
-    required DateTime visitation,
+    required int delayBeforeNext,
+    required int explanationSkipTime,
   }) = _PhysicalProgramExercise;
 
-  factory PhysicalProgramExercise.fromJson(Map<String, dynamic> json) => _$PhysicalProgramExerciseFromJson(json);
+  factory PhysicalProgramExercise.fromJson(Map<String, dynamic> json) =>
+      _$PhysicalProgramExerciseFromJson(json);
 }

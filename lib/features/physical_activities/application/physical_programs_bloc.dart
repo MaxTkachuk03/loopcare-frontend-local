@@ -5,12 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/dto/custom_activity_body.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_service.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/program_difficulty.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/program_place.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/program_type.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/date_helpers.dart';
 
 part 'physical_programs_bloc.freezed.dart';
 
@@ -29,6 +31,7 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
     on<_SetProgramType>(_onSetProgramType);
     on<_SetProgramPlace>(_onSetProgramPlace);
     on<_SetProgramDifficulty>(_onSetProgramDifficulty);
+    on<_GetWeeklyPhysicalActivities>(_onGetWeeklyPhysicalActivities);
   }
 
   FutureOr<void> _onGetProgramsByPreferences(
@@ -60,8 +63,17 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
     _CreateCustomActivity event,
     Emitter<PhysicalProgramsState> emit,
   ) async {
-    await _physicalActivitiesService.createCustomActivity(
+    emit(PhysicalProgramsState.loading(state.data.copyWith(isLoading: true, error: null)));
+
+    final response = await _physicalActivitiesService.createCustomActivity(
       CustomActivityBody(name: event.name),
+    );
+
+    response.fold(
+      (l) =>
+          emit(PhysicalProgramsState.calendarProgramsError(state.data.copyWith(isLoading: false, error: l))),
+      (r) =>
+          emit(PhysicalProgramsState.customProgramLogged(state.data.copyWith(isLoading: false, error: null))),
     );
   }
 
@@ -76,5 +88,31 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
   FutureOr<void> _onSetProgramDifficulty(_SetProgramDifficulty event, Emitter<PhysicalProgramsState> emit) {
     emit(PhysicalProgramsState.programFilterSet(
         state.data.copyWith(programDifficulty: event.programDifficulty)));
+  }
+
+  FutureOr<void> _onGetWeeklyPhysicalActivities(
+    _GetWeeklyPhysicalActivities event,
+    Emitter<PhysicalProgramsState> emit,
+  ) async {
+    emit(PhysicalProgramsState.loading(state.data.copyWith(isLoading: true, error: null)));
+
+    final DateTime today = DateTime.now();
+
+    final response = await _physicalActivitiesService.getProgramsByDate(
+      startDate: DateHelpers.findFirstDateOfTheWeek(today).isoStringWithoutTime,
+      endDate: DateHelpers.findLastDateOfTheWeek(today).isoStringWithoutTime,
+    );
+
+    response.fold(
+        (l) => emit(
+              PhysicalProgramsState.calendarProgramsError(
+                state.data.copyWith(error: l, isLoading: false),
+              ),
+            ),
+        (r) => emit(
+              PhysicalProgramsState.calendarProgramsLoaded(
+                state.data.copyWith(weeklyActivities: r.data, isLoading: false),
+              ),
+            ));
   }
 }

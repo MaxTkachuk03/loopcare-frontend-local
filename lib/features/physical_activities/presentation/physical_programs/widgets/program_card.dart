@@ -117,15 +117,15 @@ class ProgramCard extends StatelessWidget {
                       height: 8.0,
                     ),
                     Text(
-                      '${LocalizedTexts.equipment.translation}: ${program.equipment}',
+                      '${LocalizedTexts.equipment}: ${program.equipment}',
                       maxLines: 1,
                       style: Theme.of(context).textTheme.bodySmall,
-                    ),
+                    ).tr(),
                     Text(
-                      '${LocalizedTexts.targetMuscles.translation}: ${program.targetMuscles}',
+                      '${LocalizedTexts.targetMuscles}: ${program.targetMuscles}',
                       maxLines: 1,
                       style: Theme.of(context).textTheme.bodySmall,
-                    ),
+                    ).tr(),
                   ],
                 ),
               )

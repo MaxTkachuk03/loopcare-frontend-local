@@ -331,7 +331,7 @@ class LocalizedTexts {
   static const String activities = 'activities';
   static const String selectAMeal = 'selectAMeal';
   static const String today = 'today';
-  static const String physicalExercise = 'physicalExercise';
+  static const String physicalActivities = 'physicalActivities';
   static const String supportGroup = 'supportGroup';
   static const String explore = 'explore';
   static const String overview = 'overview';
@@ -408,6 +408,7 @@ class LocalizedTexts {
   static const String hard = 'hard';
   static const String whatPhysicalActivityDidYouDo = 'whatPhysicalActivityDidYouDo';
   static const String logActivity = 'logActivity';
+  static const String activitiesForThisWeek = 'activitiesForThisWeek';
   static const String chooseYourProgram = 'chooseYourProgram';
   static const String recommended = 'recommended';
   static const String alternatives = 'alternatives';
@@ -435,6 +436,12 @@ class LocalizedTexts {
   static const String dontEatFoodMessage = 'dontEatFoodMessage';
   static const String dontEat = 'dontEat';
   static const String dontLike = 'dontLike';
+
+  // Video
+  static const String rotateDevice = 'rotateDevice';
+  static const String skipExplanation = 'skipExplanation';
+  static const String repeat = 'repeat';
+  static const String exerciseCompleteMessage = 'exerciseCompleteMessage';
 }
 
 extension StringX on String {

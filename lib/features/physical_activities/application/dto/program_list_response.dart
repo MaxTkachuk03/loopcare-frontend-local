@@ -7,14 +7,13 @@ part 'program_list_response.g.dart';
 @immutable
 @JsonSerializable()
 class ProgramListResponse {
-  final List<PhysicalProgram> data;
+  final List<PhysicalProgramBasic> data;
 
   const ProgramListResponse({
     required this.data,
   });
 
-  static ProgramListResponse fromJson(Map<String, dynamic> json) =>
-      _$ProgramListResponseFromJson(json);
+  static ProgramListResponse fromJson(Map<String, dynamic> json) => _$ProgramListResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProgramListResponseToJson(this);
 }
