@@ -42,7 +42,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     FetchRecipe event,
     Emitter<RecipeState> emit,
   ) async {
-    emit(const RecipeState.loading());
+    emit(const RecipeState.loadingRecipe());
 
     final response = await nutritionService.getRecipe(event.id);
 
@@ -73,7 +73,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     FetchRecipeFromMeal event,
     Emitter<RecipeState> emit,
   ) async {
-    emit(const RecipeState.loading());
+    emit(const RecipeState.loadingRecipe());
 
     final response =
         await nutritionService.getRecipeInMeal(event.mealId, event.recipeId);

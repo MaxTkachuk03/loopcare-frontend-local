@@ -6,7 +6,7 @@ class RecipeState with _$RecipeState {
 
   const factory RecipeState.initial() = Initial;
 
-  const factory RecipeState.loading() = Loading;
+  const factory RecipeState.loadingRecipe() = LoadingRecipe;
 
   const factory RecipeState.recipeInfo({
     required Recipe recipe,
