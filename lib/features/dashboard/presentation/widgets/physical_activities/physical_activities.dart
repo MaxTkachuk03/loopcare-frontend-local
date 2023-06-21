@@ -42,10 +42,7 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<PhysicalProgramsBloc, PhysicalProgramsState>(
-      listenWhen: (prev, cur) {
-        print(cur);
-        return cur is ProgramUpdated;
-      },
+      listenWhen: (prev, cur) => cur is ProgramUpdated,
       listener: _programLogged,
       child: Container(
         padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),

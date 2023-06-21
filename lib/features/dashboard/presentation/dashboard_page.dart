@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/features/dashboard/application/physical_activities_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/diary/diary.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/education.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/log_meal.dart';
@@ -21,7 +20,6 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
-import 'package:loopcare_frontend/injection.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -112,10 +110,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       const SizedBox(height: 16.0),
                       Reflection(isEditable: _isMealBlockEditable),
                       const SizedBox(height: 10.0),
-                      BlocProvider<PhysicalActivitiesBloc>(
-                        create: (_) => getIt<PhysicalActivitiesBloc>(),
-                        child: PhysicalActivities(selectedDay: _selectedDay),
-                      ),
+                      PhysicalActivities(selectedDay: _selectedDay),
                       const SizedBox(height: 10.0),
                       SupportGroup(isEditable: _isMealBlockEditable),
                       const SizedBox(height: 10.0),
