@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/registration_restoring.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
@@ -45,8 +46,11 @@ class IntroGuard extends AutoRouteGuard {
           .currentStep.stepRoutes[onboardingState.currentQuestionIndex];
       final routeIndex = routes.indexOf(currentRoute);
 
-      router.replaceAll(
-        routes.take(routeIndex + 1).toList(),
+      List<PageRouteInfo<dynamic>> needRoutes = [];
+      needRoutes.add(const PreferencesOverviewRoute());
+      needRoutes.addAll(routes.take(routeIndex + 1).toList());
+      router.pushAll(
+        needRoutes,
       );
 
       return;
