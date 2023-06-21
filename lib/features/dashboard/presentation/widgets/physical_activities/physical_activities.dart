@@ -90,7 +90,7 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text(
-                          '3 ${LocalizedTexts.activitiesForThisWeek.toUpperCase()}',
+                          '3 ${LocalizedTexts.activitiesForThisWeek.translation.toUpperCase()}',
                           style: const TextStyle(
                             fontSize: 12.0,
                             fontWeight: FontWeight.w600,

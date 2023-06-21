@@ -37,7 +37,7 @@ class VideoPlayerWidget extends StatefulWidget {
 }
 
 class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
-  static const Duration _timerDuration = Duration(seconds: 3);
+  static const Duration _timerDuration = Duration(seconds: 5);
   static const Duration _animationDuration = Duration(milliseconds: 350);
 
   Timer? _timer;
