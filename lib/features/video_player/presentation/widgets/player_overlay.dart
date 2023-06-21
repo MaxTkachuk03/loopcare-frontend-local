@@ -51,16 +51,26 @@ class PlayerOverlay extends StatelessWidget {
         mainAxisAlignment: _isPortraitOrientation ? MainAxisAlignment.end : MainAxisAlignment.spaceBetween,
         children: [
           if (!_isPortraitOrientation)
-            Align(
-              alignment: Alignment.topRight,
-              child: ElevatedButton(
-                onPressed: _onSkipExplanation,
-                style: ButtonStyle(
-                  minimumSize: MaterialStateProperty.all(const Size(186, 52.0)),
-                  backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
-                ),
-                child: const Text(LocalizedTexts.skipExplanation).tr(),
-              ),
+            ValueListenableBuilder(
+              valueListenable: controller,
+              builder: (BuildContext context, VideoPlayerValue value, child) {
+                final bool isVisible = value.position.inSeconds < exercise.explanationSkipTime;
+
+                return Visibility(
+                  visible: isVisible,
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: ElevatedButton(
+                      onPressed: _onSkipExplanation,
+                      style: ButtonStyle(
+                        minimumSize: MaterialStateProperty.all(const Size(186, 52.0)),
+                        backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
+                      ),
+                      child: const Text(LocalizedTexts.skipExplanation).tr(),
+                    ),
+                  ),
+                );
+              },
             ),
           Column(
             children: [

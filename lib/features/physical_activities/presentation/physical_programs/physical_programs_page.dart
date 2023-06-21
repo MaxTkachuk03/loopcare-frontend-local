@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
+import 'package:loopcare_frontend/features/physical_activities/domain/program_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/widgets/program_carousel.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/widgets/program_card.dart';
@@ -20,7 +21,7 @@ class PhysicalProgramsPage extends StatelessWidget {
       builder: (context, state) {
         if (state.data.isLoading) {
           return Scaffold(
-            appBar: OrangeAppBar(title: state.data.programType.name),
+            appBar: OrangeAppBar(title: state.data.programType.label),
             body: const SafeArea(
               child: Loader(),
             ),
@@ -28,7 +29,7 @@ class PhysicalProgramsPage extends StatelessWidget {
         }
 
         return Scaffold(
-          appBar: OrangeAppBar(title: state.data.programType.name),
+          appBar: OrangeAppBar(title: state.data.programType.label),
           body: SafeArea(
             child: ScrollableContainer(
               child: Column(

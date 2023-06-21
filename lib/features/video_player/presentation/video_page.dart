@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
@@ -30,7 +30,7 @@ class VideoPage extends StatefulWidget {
 class _VideoPageState extends State<VideoPage> {
   int _videoIndex = 0;
 
-  late VideoPlayerController _controller;
+  late VideoPlayerController _videoPlayerController;
   final CountDownController _countDownController = CountDownController();
 
   Future _allowLandscapeOrientation() async {
@@ -63,21 +63,22 @@ class _VideoPageState extends State<VideoPage> {
   _loadVideoPlayer(PhysicalProgramExercise exercise) {
     final headers = context.read<VideoPlayerBloc>().state.data.videoHttpHeaders;
 
-    _controller = VideoPlayerController.network(exercise.video ?? '', httpHeaders: headers)
+    _videoPlayerController = VideoPlayerController.network(exercise.video ?? '', httpHeaders: headers)
       ..initialize().then((value) {
-        _controller.play();
+        _videoPlayerController.play();
         setState(() {});
       });
   }
 
   _onVideoEnds() {
+    if (_videoPlayerController.value.isPlaying) _videoPlayerController.pause();
     // check if it was the last video in playlist
     if (_videoIndex + 1 == widget.program.exercises.length) {
-      context.router.pushNamed(AppRoutes.programAssesment);
+      _onlyPortraitOrientation();
+
+      context.router.push(ProgramAssesmentRoute(onDisposeCb: _allowLandscapeOrientation));
       return;
     }
-
-    if (_controller.value.isPlaying) _controller.pause();
 
     _loadVideoPlayer(widget.program.exercises[_videoIndex + 1]);
 
@@ -92,7 +93,7 @@ class _VideoPageState extends State<VideoPage> {
       return;
     }
 
-    if (_controller.value.isPlaying) _controller.pause();
+    if (_videoPlayerController.value.isPlaying) _videoPlayerController.pause();
 
     _loadVideoPlayer(widget.program.exercises[_videoIndex - 1]);
 
@@ -113,9 +114,15 @@ class _VideoPageState extends State<VideoPage> {
   _onSkipExplanationHandler() {
     final skipTime = widget.program.exercises[_videoIndex].explanationSkipTime;
 
-    if (_controller.value.position.inSeconds >= skipTime) return;
+    if (_videoPlayerController.value.position.inSeconds >= skipTime) return;
 
-    _controller.seekTo(Duration(seconds: skipTime));
+    _videoPlayerController.seekTo(Duration(seconds: skipTime));
+  }
+
+  void _onBackPressedHandler() {
+    if (_videoPlayerController.value.isPlaying) _videoPlayerController.pause();
+
+    context.router.pop();
   }
 
   @override
@@ -141,7 +148,7 @@ class _VideoPageState extends State<VideoPage> {
                             Icons.arrow_back,
                             color: AppColors.white,
                           ),
-                          onPressed: () => context.router.pop(),
+                          onPressed: _onBackPressedHandler,
                         ))
                     : null,
                 body: SafeArea(
@@ -171,7 +178,7 @@ class _VideoPageState extends State<VideoPage> {
                         ),
                       Expanded(
                         child: VideoPlayerWidget(
-                          controller: _controller,
+                          controller: _videoPlayerController,
                           orientation: orientation,
                           programType: widget.program.typeName,
                           programDifficulty: widget.program.difficultyName,
@@ -183,21 +190,32 @@ class _VideoPageState extends State<VideoPage> {
                         ),
                       ),
                       if (isPortrait)
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              ElevatedButton(
-                                onPressed: _onSkipExplanationHandler,
-                                style: ButtonStyle(
-                                  minimumSize: MaterialStateProperty.all(const Size(186, 52.0)),
-                                  backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
-                                ),
-                                child: const Text(LocalizedTexts.skipExplanation).tr(),
+                        ValueListenableBuilder(
+                          valueListenable: _videoPlayerController,
+                          builder: (BuildContext context, VideoPlayerValue value, child) {
+                            final bool isVisible = value.position.inSeconds <
+                                widget.program.exercises[_videoIndex].explanationSkipTime;
+
+                            return Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Visibility(
+                                    visible: isVisible,
+                                    child: ElevatedButton(
+                                      onPressed: _onSkipExplanationHandler,
+                                      style: ButtonStyle(
+                                        minimumSize: MaterialStateProperty.all(const Size(186, 52.0)),
+                                        backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
+                                      ),
+                                      child: const Text(LocalizedTexts.skipExplanation).tr(),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 30.0),
+                                ],
                               ),
-                              const SizedBox(height: 30.0),
-                            ],
-                          ),
+                            );
+                          },
                         ),
                     ],
                   ),
@@ -219,6 +237,8 @@ class _VideoPageState extends State<VideoPage> {
     _onlyPortraitOrientation();
 
     _countDownController.reset();
+
+    _videoPlayerController.dispose();
 
     super.dispose();
   }

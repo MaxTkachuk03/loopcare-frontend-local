@@ -56,7 +56,7 @@ class _SelectExercisePageState extends State<SelectExercisePage> with TickerProv
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const OrangeAppBar(title: LocalizedTexts.physicalActivity),
+      appBar: OrangeAppBar(title: LocalizedTexts.physicalActivity.translation),
       body: SafeArea(
         child: MainContainer(
           child: Column(

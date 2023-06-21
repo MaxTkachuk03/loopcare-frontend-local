@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/orange_app_bar.dart';
@@ -10,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
+import 'package:loopcare_frontend/features/physical_activities/domain/program_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/widgets/assesment_block.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/widgets/like_unlike_block.dart';
 import 'package:loopcare_frontend/injection.dart';
@@ -17,7 +19,9 @@ import 'package:loopcare_frontend/injection.dart';
 AppConfig appConfig = getIt<AppConfig>();
 
 class ProgramAssesmentPage extends StatefulWidget {
-  const ProgramAssesmentPage({Key? key}) : super(key: key);
+  final VoidCallback onDisposeCb;
+
+  const ProgramAssesmentPage({Key? key, required this.onDisposeCb}) : super(key: key);
 
   @override
   State<ProgramAssesmentPage> createState() => _ProgramAssesmentPageState();
@@ -33,7 +37,7 @@ class _ProgramAssesmentPageState extends State<ProgramAssesmentPage> {
       builder: (context, state) {
         if (state.data.isLoading) {
           return Scaffold(
-            appBar: OrangeAppBar(title: state.data.programType.name),
+            appBar: OrangeAppBar(title: state.data.programType.label),
             body: const SafeArea(
               child: Loader(),
             ),
@@ -114,17 +118,12 @@ class _ProgramAssesmentPageState extends State<ProgramAssesmentPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   child: OutlinedButton(
-                    style:
-                        Theme.of(context).outlinedButtonTheme.style?.copyWith(
-                              side: MaterialStateProperty.all(
-                                const BorderSide(
-                                  width: 1.0,
-                                  color: AppColors.blueDark,
-                                ),
-                              ),
-                            ),
-                    onPressed: () =>
-                        context.router.popUntilRouteWithName(HomeRoute.name),
+                    style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
+                          side: MaterialStateProperty.all(
+                            const BorderSide(width: 1.0, color: AppColors.blueDark),
+                          ),
+                        ),
+                    onPressed: () => context.router.popUntilRouteWithName(HomeRoute.name),
                     child: Text(
                       LocalizedTexts.backToTodayNotLogged.translation,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -139,12 +138,8 @@ class _ProgramAssesmentPageState extends State<ProgramAssesmentPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   child: ElevatedButton(
                     onPressed: () => logAssesment(),
-                    style: Theme.of(context)
-                        .elevatedButtonTheme
-                        .style
-                        ?.copyWith(
-                          backgroundColor:
-                              MaterialStateProperty.all(AppColors.orangeDark),
+                    style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                          backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
                         ),
                     child: Text(
                       LocalizedTexts.logActivity.translation,
@@ -162,6 +157,13 @@ class _ProgramAssesmentPageState extends State<ProgramAssesmentPage> {
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    widget.onDisposeCb();
+
+    super.dispose();
   }
 
   void logAssesment() {
