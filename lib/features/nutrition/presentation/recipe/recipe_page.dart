@@ -138,7 +138,7 @@ class _RecipePageState extends State<RecipePage> {
         listeners: [
           BlocListener<RecipeBloc, RecipeState>(
             listener: _recipeListener,
-            listenWhen: (previous, current) => current is RecipeInfo,
+            listenWhen: (previous, current) => previous is LoadingRecipe && current is RecipeInfo,
           ),
           BlocListener<RecipeBloc, RecipeState>(
             listenWhen: _whenRecipeUpdated,
@@ -160,7 +160,7 @@ class _RecipePageState extends State<RecipePage> {
               child: BlocBuilder<RecipeBloc, RecipeState>(
                 builder: (BuildContext context, state) {
                   return state.maybeMap(
-                    loading: (_) => const Loader(),
+                    loadingRecipe: (_) => const Loader(),
                     recipeInfo: (recipeState) {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
