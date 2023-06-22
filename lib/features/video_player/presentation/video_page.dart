@@ -63,10 +63,12 @@ class _VideoPageState extends State<VideoPage> {
   void _initController(PhysicalProgramExercise exercise) async {
     final headers = context.read<VideoPlayerBloc>().state.data.videoHttpHeaders;
 
-    _videoPlayerController = VideoPlayerController.network(exercise.video ?? '', httpHeaders: headers);
-    await _videoPlayerController?.initialize();
-    _videoPlayerController?.play();
-    setState(() {});
+    _videoPlayerController = VideoPlayerController.network(exercise.video ?? '', httpHeaders: headers)
+      ..initialize().then((value) {
+        _videoPlayerController?.play();
+      }).whenComplete(() {
+        setState(() {});
+      });
   }
 
   _loadVideoPlayer(PhysicalProgramExercise exercise) {

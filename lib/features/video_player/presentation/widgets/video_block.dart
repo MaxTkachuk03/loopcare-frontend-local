@@ -13,20 +13,15 @@ class VideoBlock extends StatelessWidget {
   const VideoBlock({Key? key, required this.orientation, required this.controller}) : super(key: key);
 
   double get _videoWidth {
-    final c = controller;
-    if (c == null) return 0;
+    final width = controller?.value.size.width;
 
-    final width = c.value.size.width;
-
-    return width != 0 ? width : _defaultVideoWidth;
+    return width != 0 && width != null ? width : _defaultVideoWidth;
   }
 
   double get _videoHeight {
-    final c = controller;
-    if (c == null) return 0;
-    final height = c.value.size.height;
+    final height = controller?.value.size.height;
 
-    return height != 0 ? height : _defaultVideoHeight;
+    return height != 0 && height != null ? height : _defaultVideoHeight;
   }
 
   @override
