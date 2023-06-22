@@ -4,11 +4,13 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 class ChipsTabBar extends StatelessWidget {
   final List<Widget> tabs;
   final TabController? tabController;
+  final VoidCallback? onTap;
 
   const ChipsTabBar({
     Key? key,
     required this.tabs,
     this.tabController,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -22,6 +24,7 @@ class ChipsTabBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: TabBar(
+        onTap: (_) => onTap?.call(),
         controller: tabController,
         tabs: tabs,
       ),
