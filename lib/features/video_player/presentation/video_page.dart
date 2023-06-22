@@ -30,7 +30,7 @@ class VideoPage extends StatefulWidget {
 class _VideoPageState extends State<VideoPage> {
   int _videoIndex = 0;
 
-  late VideoPlayerController _videoPlayerController;
+  VideoPlayerController? _videoPlayerController;
   final CountDownController _countDownController = CountDownController();
 
   Future _allowLandscapeOrientation() async {
@@ -60,22 +60,37 @@ class _VideoPageState extends State<VideoPage> {
     );
   }
 
-  _loadVideoPlayer(PhysicalProgramExercise exercise) {
+  void _initController(PhysicalProgramExercise exercise) async {
     final headers = context.read<VideoPlayerBloc>().state.data.videoHttpHeaders;
 
-    _videoPlayerController = VideoPlayerController.network(exercise.video ?? '', httpHeaders: headers)
-      ..initialize().then((value) {
-        _videoPlayerController.play();
-        setState(() {});
+    _videoPlayerController = VideoPlayerController.network(exercise.video ?? '', httpHeaders: headers);
+    await _videoPlayerController?.initialize();
+    _videoPlayerController?.play();
+    setState(() {});
+  }
+
+  _loadVideoPlayer(PhysicalProgramExercise exercise) {
+    if (_videoPlayerController == null) {
+      _initController(exercise);
+    } else {
+      final oldController = _videoPlayerController;
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        await oldController?.dispose();
+
+        _initController(exercise);
       });
+
+      setState(() {
+        _videoPlayerController = null;
+      });
+    }
   }
 
   _onVideoEnds() {
-    if (_videoPlayerController.value.isPlaying) _videoPlayerController.pause();
     // check if it was the last video in playlist
     if (_videoIndex + 1 == widget.program.exercises.length) {
       _onlyPortraitOrientation();
-
+      _videoPlayerController?.pause();
       context.router.push(ProgramAssessmentRoute(onDisposeCb: _allowLandscapeOrientation));
       return;
     }
@@ -89,11 +104,7 @@ class _VideoPageState extends State<VideoPage> {
 
   _onPrevPressed() {
     // check if it is the first video in playlist
-    if (_videoIndex == 0) {
-      return;
-    }
-
-    if (_videoPlayerController.value.isPlaying) _videoPlayerController.pause();
+    if (_videoIndex == 0) return;
 
     _loadVideoPlayer(widget.program.exercises[_videoIndex - 1]);
 
@@ -112,21 +123,20 @@ class _VideoPageState extends State<VideoPage> {
   }
 
   _onSkipExplanationHandler() {
+    final controller = _videoPlayerController;
+
+    if (controller == null) return;
+
     final skipTime = widget.program.exercises[_videoIndex].explanationSkipTime;
 
-    if (_videoPlayerController.value.position.inSeconds >= skipTime) return;
+    if (controller.value.position.inSeconds >= skipTime) return;
 
-    _videoPlayerController.seekTo(Duration(seconds: skipTime));
-  }
-
-  void _onBackPressedHandler() {
-    if (_videoPlayerController.value.isPlaying) _videoPlayerController.pause();
-
-    context.router.pop();
+    _videoPlayerController?.seekTo(Duration(seconds: skipTime));
   }
 
   @override
   Widget build(BuildContext context) {
+    final controller = _videoPlayerController;
     return BlocConsumer<VideoPlayerBloc, VideoPlayerState>(
       listenWhen: (prev, cur) => cur is CookiesLoaded,
       listener: _cookiesLoadedListener,
@@ -148,7 +158,7 @@ class _VideoPageState extends State<VideoPage> {
                             Icons.arrow_back,
                             color: AppColors.white,
                           ),
-                          onPressed: _onBackPressedHandler,
+                          onPressed: context.router.pop,
                         ))
                     : null,
                 body: SafeArea(
@@ -178,7 +188,7 @@ class _VideoPageState extends State<VideoPage> {
                         ),
                       Expanded(
                         child: VideoPlayerWidget(
-                          controller: _videoPlayerController,
+                          controller: controller,
                           orientation: orientation,
                           programType: widget.program.typeName,
                           programDifficulty: widget.program.difficultyName,
@@ -190,32 +200,35 @@ class _VideoPageState extends State<VideoPage> {
                         ),
                       ),
                       if (isPortrait)
-                        ValueListenableBuilder(
-                          valueListenable: _videoPlayerController,
-                          builder: (BuildContext context, VideoPlayerValue value, child) {
-                            final bool isVisible = value.position.inSeconds <
-                                widget.program.exercises[_videoIndex].explanationSkipTime;
+                        Expanded(
+                          child: controller != null
+                              ? ValueListenableBuilder(
+                                  valueListenable: controller,
+                                  builder: (BuildContext context, VideoPlayerValue value, child) {
+                                    final bool isVisible = value.position.inSeconds <
+                                        widget.program.exercises[_videoIndex].explanationSkipTime;
 
-                            return Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Visibility(
-                                    visible: isVisible,
-                                    child: ElevatedButton(
-                                      onPressed: _onSkipExplanationHandler,
-                                      style: ButtonStyle(
-                                        minimumSize: MaterialStateProperty.all(const Size(186, 52.0)),
-                                        backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
-                                      ),
-                                      child: const Text(LocalizedTexts.skipExplanation).tr(),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 30.0),
-                                ],
-                              ),
-                            );
-                          },
+                                    return Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Visibility(
+                                          visible: isVisible,
+                                          child: ElevatedButton(
+                                            onPressed: _onSkipExplanationHandler,
+                                            style: ButtonStyle(
+                                              minimumSize: MaterialStateProperty.all(const Size(186, 52.0)),
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(AppColors.orangeDark),
+                                            ),
+                                            child: const Text(LocalizedTexts.skipExplanation).tr(),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 30.0),
+                                      ],
+                                    );
+                                  },
+                                )
+                              : const SizedBox.shrink(),
                         ),
                     ],
                   ),
@@ -232,13 +245,23 @@ class _VideoPageState extends State<VideoPage> {
     _loadVideoPlayer(widget.program.exercises[_videoIndex]);
   }
 
+  _disposeVideoController() {
+    final controller = _videoPlayerController;
+
+    if (controller == null) return;
+
+    if (controller.value.isPlaying) _videoPlayerController?.pause();
+
+    controller.dispose();
+  }
+
   @override
   void dispose() {
     _onlyPortraitOrientation();
 
     _countDownController.reset();
 
-    _videoPlayerController.dispose();
+    _disposeVideoController();
 
     super.dispose();
   }

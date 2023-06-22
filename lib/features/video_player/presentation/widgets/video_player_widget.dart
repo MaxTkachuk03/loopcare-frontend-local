@@ -9,7 +9,7 @@ import 'package:loopcare_frontend/features/video_player/presentation/widgets/vid
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
-  final VideoPlayerController controller;
+  final VideoPlayerController? controller;
   final Orientation orientation;
   final PhysicalProgramExercise exercise;
   final VoidCallback onVideoEnds;
@@ -75,40 +75,41 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
         fit: StackFit.expand,
         children: [
           VideoBlock(controller: widget.controller, orientation: widget.orientation),
-          ValueListenableBuilder(
-              valueListenable: widget.controller,
-              builder: (BuildContext context, VideoPlayerValue value, child) {
-                final videoFinished = value.isInitialized && value.position == value.duration;
+          if (widget.controller != null)
+            ValueListenableBuilder(
+                valueListenable: widget.controller!,
+                builder: (BuildContext context, VideoPlayerValue value, child) {
+                  final videoFinished = value.isInitialized && value.position == value.duration;
 
-                return videoFinished
-                    ? PlayerEndVideoOverlay(
-                        controller: widget.controller,
-                        orientation: widget.orientation,
-                        exercise: widget.exercise,
-                        onVideoEnds: widget.onVideoEnds,
-                        countDownController: widget.countDownController,
-                        programType: widget.programType,
-                        programDifficulty: widget.programDifficulty,
-                        programLength: widget.programLength,
-                      )
-                    : AnimatedOpacity(
-                        duration: _animationDuration,
-                        opacity: _showControls ? 1 : 0,
-                        child: Visibility(
-                          visible: _showControls,
-                          child: PlayerOverlay(
-                            controller: widget.controller,
-                            orientation: widget.orientation,
-                            exercise: widget.exercise,
-                            onPrevPressed: widget.onPrevPressed,
-                            onNextPressed: widget.onVideoEnds,
-                            programType: widget.programType,
-                            programDifficulty: widget.programDifficulty,
-                            onSliderProgressChange: _showVideoControlsWithTimer,
+                  return videoFinished
+                      ? PlayerEndVideoOverlay(
+                          controller: widget.controller!,
+                          orientation: widget.orientation,
+                          exercise: widget.exercise,
+                          onVideoEnds: widget.onVideoEnds,
+                          countDownController: widget.countDownController,
+                          programType: widget.programType,
+                          programDifficulty: widget.programDifficulty,
+                          programLength: widget.programLength,
+                        )
+                      : AnimatedOpacity(
+                          duration: _animationDuration,
+                          opacity: _showControls ? 1 : 0,
+                          child: Visibility(
+                            visible: _showControls,
+                            child: PlayerOverlay(
+                              controller: widget.controller!,
+                              orientation: widget.orientation,
+                              exercise: widget.exercise,
+                              onPrevPressed: widget.onPrevPressed,
+                              onNextPressed: widget.onVideoEnds,
+                              programType: widget.programType,
+                              programDifficulty: widget.programDifficulty,
+                              onSliderProgressChange: _showVideoControlsWithTimer,
+                            ),
                           ),
-                        ),
-                      );
-              }),
+                        );
+                }),
         ],
       ),
     );
