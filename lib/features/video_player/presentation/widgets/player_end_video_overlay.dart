@@ -41,7 +41,6 @@ class PlayerEndVideoOverlay extends StatelessWidget {
   }
 
   void _onNextHandler() {
-    countDownController.reset();
     onVideoEnds();
   }
 
