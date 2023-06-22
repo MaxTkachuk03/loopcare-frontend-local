@@ -55,43 +55,47 @@ class _SelectExercisePageState extends State<SelectExercisePage> with TickerProv
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: OrangeAppBar(title: LocalizedTexts.physicalActivity.translation),
-      body: SafeArea(
-        child: MainContainer(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(
-                height: 32.0,
-              ),
-              const Text(
-                LocalizedTexts.selectYourExercise,
-                style: TextStyle(
-                  fontSize: ThemeConstants.fontSize30,
-                  fontFamily: ThemeConstants.bitterFontFamily,
-                  fontWeight: FontWeight.w700,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: Scaffold(
+        appBar: OrangeAppBar(title: LocalizedTexts.physicalActivity.translation),
+        body: SafeArea(
+          child: MainContainer(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(
+                  height: 32.0,
                 ),
-              ).tr(),
-              const SizedBox(
-                height: 16.0,
-              ),
-              ChipsTabBar(
-                tabController: _tabController,
-                tabs: tabs.map((e) => Tab(text: e.text)).toList(),
-              ),
-              const SizedBox(height: 32.0),
-              Flexible(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: const [
-                    ProgramTab(),
-                    CustomActivityTab(),
-                  ],
+                const Text(
+                  LocalizedTexts.selectYourExercise,
+                  style: TextStyle(
+                    fontSize: ThemeConstants.fontSize30,
+                    fontFamily: ThemeConstants.bitterFontFamily,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ).tr(),
+                const SizedBox(
+                  height: 16.0,
                 ),
-              )
-            ],
+                ChipsTabBar(
+                  onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+                  tabController: _tabController,
+                  tabs: tabs.map((e) => Tab(text: e.text)).toList(),
+                ),
+                const SizedBox(height: 32.0),
+                Flexible(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: const [
+                      ProgramTab(),
+                      CustomActivityTab(),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

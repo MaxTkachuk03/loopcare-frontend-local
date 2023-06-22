@@ -16,9 +16,12 @@ class CustomActivityTab extends StatefulWidget {
   State<CustomActivityTab> createState() => _CustomActivityTabState();
 }
 
-class _CustomActivityTabState extends State<CustomActivityTab> {
+class _CustomActivityTabState extends State<CustomActivityTab> with AutomaticKeepAliveClientMixin {
   bool isDisabledButton = true;
   String activityName = '';
+
+  @override
+  bool wantKeepAlive = true;
 
   @override
   Widget build(BuildContext context) {
