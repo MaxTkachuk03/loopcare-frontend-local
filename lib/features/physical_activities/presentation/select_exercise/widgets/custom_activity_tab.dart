@@ -44,6 +44,9 @@ class _CustomActivityTabState extends State<CustomActivityTab> {
           ),
           Column(
             children: [
+              const SizedBox(
+                height: 24.0,
+              ),
               ElevatedButton(
                 onPressed: isDisabledButton ? null : () => _onLogActivityPressed(context),
                 style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
