@@ -31,7 +31,7 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
     on<_SetCurrentProgram>(_onSetCurrentProgram);
     on<_SetProgramPlace>(_onSetProgramPlace);
     on<_SetProgramDifficulty>(_onSetProgramDifficulty);
-    on<_LogAssesment>(_onLogAssesment);
+    on<_LogAssessment>(_onLogAssessment);
   }
 
   FutureOr<void> _onGetProgramsByPreferences(
@@ -100,8 +100,8 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
     );
   }
 
-  Future<FutureOr<void>> _onLogAssesment(
-    _LogAssesment event,
+  Future<FutureOr<void>> _onLogAssessment(
+    _LogAssessment event,
     Emitter<PhysicalProgramsState> emit,
   ) async {
     emit(PhysicalProgramsState.loading(state.data.copyWith(isLoading: true)));
@@ -118,7 +118,10 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
       );
 
       response.fold(
-        (l) => emit(PhysicalProgramsState.errorLoadingPrograms(state.data.copyWith(isLoading: false))),
+        (error) => emit(PhysicalProgramsState.errorLoadingPrograms(state.data.copyWith(
+          isLoading: false,
+          error: error,
+        ))),
         (r) => emit(PhysicalProgramsState.programUpdated(state.data.copyWith(isLoading: false))),
       );
     }

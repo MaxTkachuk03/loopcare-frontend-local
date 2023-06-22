@@ -26,7 +26,7 @@ class _AssesmentBlockState extends State<AssesmentBlock> {
     super.initState();
     final wScore = widget.score;
     if (wScore != null) {
-      selectedScore = wScore - 1;
+      selectedScore = wScore;
     }
   }
 
@@ -57,13 +57,11 @@ class _AssesmentBlockState extends State<AssesmentBlock> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
                   10,
-                  (index) => index == selectedScore
+                  (index) => index + 1 == selectedScore
                       ? SelectedCell(index: index + 1)
                       : RegularCell(
                           index: index + 1,
-                          onPress: (int tabIndex) {
-                            _onCellTap(tabIndex - 1);
-                          },
+                          onPress: _onCellTap,
                         ),
                 ),
               ),

@@ -18,6 +18,8 @@ class RequestError with _$RequestError {
 
   const factory RequestError.notFound(DioError error) = _NotFound;
 
+  const factory RequestError.conflict(DioError error) = _Conflict;
+
   const factory RequestError.timeout(DioError error) = _Timeout;
 
   const factory RequestError.serverError(DioError error) = _InternalServerError;
