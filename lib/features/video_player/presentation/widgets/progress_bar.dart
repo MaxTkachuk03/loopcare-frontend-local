@@ -38,6 +38,8 @@ class ProgressBar extends StatelessWidget {
         ValueListenableBuilder(
             valueListenable: controller,
             builder: (BuildContext context, VideoPlayerValue value, child) {
+              if (!value.isInitialized) return const SizedBox.shrink();
+
               return Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

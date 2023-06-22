@@ -8,44 +8,53 @@ class VideoBlock extends StatelessWidget {
   static const double _defaultVideoHeight = 720.0;
 
   final Orientation orientation;
-  final VideoPlayerController controller;
+  final VideoPlayerController? controller;
 
   const VideoBlock({Key? key, required this.orientation, required this.controller}) : super(key: key);
 
   double get _videoWidth {
-    final width = controller.value.size.width;
+    final c = controller;
+    if (c == null) return 0;
+
+    final width = c.value.size.width;
 
     return width != 0 ? width : _defaultVideoWidth;
   }
 
   double get _videoHeight {
-    final height = controller.value.size.height;
+    final c = controller;
+    if (c == null) return 0;
+    final height = c.value.size.height;
 
     return height != 0 ? height : _defaultVideoHeight;
   }
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-        valueListenable: controller,
-        builder: (BuildContext context, VideoPlayerValue value, child) {
-          if (value.hasError) {
-            return VideoError(width: _videoWidth, height: _videoHeight, errorMessage: value.errorDescription);
-          }
+    return controller != null
+        ? ValueListenableBuilder(
+            valueListenable: controller!,
+            builder: (BuildContext context, VideoPlayerValue value, child) {
+              if (value.hasError) {
+                return VideoError(
+                    width: _videoWidth, height: _videoHeight, errorMessage: value.errorDescription);
+              }
 
-          if (!value.isInitialized) return const Center(child: Loader());
+              if (!value.isInitialized) return const Center(child: Loader());
 
-          return FittedBox(
-            fit: orientation == Orientation.portrait ? BoxFit.cover : BoxFit.fill,
-            child: SizedBox(
-              width: _videoWidth,
-              height: _videoHeight,
-              child: AspectRatio(
-                aspectRatio: value.aspectRatio,
-                child: VideoPlayer(controller),
-              ),
-            ),
-          );
-        });
+              return FittedBox(
+                fit: orientation == Orientation.portrait ? BoxFit.cover : BoxFit.fill,
+                child: SizedBox(
+                  width: _videoWidth,
+                  height: _videoHeight,
+                  child: AspectRatio(
+                    aspectRatio: value.aspectRatio,
+                    child: VideoPlayer(controller!),
+                  ),
+                ),
+              );
+            },
+          )
+        : const Center(child: Loader());
   }
 }
