@@ -195,7 +195,7 @@ class _VideoPageState extends State<VideoPage> {
                           programLength: widget.program.exercises.length,
                           exercise: widget.program.exercises[_videoIndex],
                           onVideoEnds: _onVideoEnds,
-                          onPrevPressed: _onPrevPressed,
+                          onPrevPressed: _videoIndex == 0 ? null : _onPrevPressed,
                           countDownController: _countDownController,
                         ),
                       ),

@@ -17,7 +17,7 @@ class PlayerOverlay extends StatelessWidget {
   final String programType;
   final String programDifficulty;
   final VoidCallback onSliderProgressChange;
-  final VoidCallback onPrevPressed;
+  final VoidCallback? onPrevPressed;
   final VoidCallback onNextPressed;
 
   const PlayerOverlay({
@@ -28,7 +28,7 @@ class PlayerOverlay extends StatelessWidget {
     required this.programType,
     required this.programDifficulty,
     required this.onSliderProgressChange,
-    required this.onPrevPressed,
+    this.onPrevPressed,
     required this.onNextPressed,
   }) : super(key: key);
 

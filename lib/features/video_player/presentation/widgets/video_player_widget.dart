@@ -13,7 +13,7 @@ class VideoPlayerWidget extends StatefulWidget {
   final Orientation orientation;
   final PhysicalProgramExercise exercise;
   final VoidCallback onVideoEnds;
-  final VoidCallback onPrevPressed;
+  final VoidCallback? onPrevPressed;
   final CountDownController countDownController;
   final String programType;
   final String programDifficulty;
@@ -29,7 +29,7 @@ class VideoPlayerWidget extends StatefulWidget {
     required this.programType,
     required this.programDifficulty,
     required this.programLength,
-    required this.onPrevPressed,
+    this.onPrevPressed,
   });
 
   @override

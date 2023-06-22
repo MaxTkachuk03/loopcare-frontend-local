@@ -5,12 +5,12 @@ import 'package:video_player/video_player.dart';
 class PlayerControls extends StatelessWidget {
   final VideoPlayerController controller;
   final VoidCallback onNextPressed;
-  final VoidCallback onPrevPressed;
+  final VoidCallback? onPrevPressed;
 
   const PlayerControls({
     Key? key,
     required this.controller,
-    required this.onPrevPressed,
+    this.onPrevPressed,
     required this.onNextPressed,
   }) : super(key: key);
 
@@ -37,10 +37,11 @@ class PlayerControls extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: onPrevPressed,
+                disabledColor: AppColors.greyLabel,
+                color: AppColors.white,
                 icon: const Icon(
                   Icons.skip_previous,
                   size: 35.0,
-                  color: AppColors.white,
                 ),
               ),
               ValueListenableBuilder(
@@ -59,10 +60,10 @@ class PlayerControls extends StatelessWidget {
                   }),
               IconButton(
                 onPressed: onNextPressed,
+                color: AppColors.white,
                 icon: const Icon(
                   Icons.skip_next,
                   size: 35.0,
-                  color: AppColors.white,
                 ),
               ),
             ],
