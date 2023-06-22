@@ -76,7 +76,7 @@ class _VideoPageState extends State<VideoPage> {
     if (_videoIndex + 1 == widget.program.exercises.length) {
       _onlyPortraitOrientation();
 
-      context.router.push(ProgramAssesmentRoute(onDisposeCb: _allowLandscapeOrientation));
+      context.router.push(ProgramAssessmentRoute(onDisposeCb: _allowLandscapeOrientation));
       return;
     }
 

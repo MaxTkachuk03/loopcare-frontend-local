@@ -48,6 +48,8 @@ RequestError _handleResponseError(DioError error) {
       return RequestError.forbidden(error);
     case HttpStatus.notFound:
       return RequestError.notFound(error);
+    case HttpStatus.conflict:
+      return RequestError.conflict(error);
     case HttpStatus.internalServerError:
     case HttpStatus.badGateway:
     case HttpStatus.serviceUnavailable:

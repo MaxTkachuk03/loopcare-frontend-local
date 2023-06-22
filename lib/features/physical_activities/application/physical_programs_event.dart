@@ -15,8 +15,8 @@ class PhysicalProgramsEvent with _$PhysicalProgramsEvent {
   const factory PhysicalProgramsEvent.setProgramDifficulty(ProgramDifficulty programDifficulty) =
       _SetProgramDifficulty;
 
-  const factory PhysicalProgramsEvent.logAssesment(
+  const factory PhysicalProgramsEvent.logAssessment(
     int score,
     bool like,
-  ) = _LogAssesment;
+  ) = _LogAssessment;
 }

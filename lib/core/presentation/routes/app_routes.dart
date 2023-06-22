@@ -90,7 +90,7 @@ class AppRoutes {
   // Physical activities
   static const String selectExercise = '/select-exercise';
   static const String chooseProgram = '/choose-program';
-  static const String programAssesment = '/program-assesment';
+  static const String programAssessment = '/program-assessment';
   static const String programDetails = '/program-details';
 
   // User profile
