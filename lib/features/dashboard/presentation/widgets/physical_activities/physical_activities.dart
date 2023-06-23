@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.d
 import 'package:loopcare_frontend/features/dashboard/application/physical_activities_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/weekly_activities_list.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/date_helpers.dart';
 
 class PhysicalActivities extends StatefulWidget {
   final DateTime selectedDay;
@@ -24,9 +25,28 @@ class PhysicalActivities extends StatefulWidget {
 class _PhysicalActivitiesState extends State<PhysicalActivities> {
   @override
   void initState() {
-    context.read<PhysicalActivitiesBloc>().add(const PhysicalActivitiesEvent.getWeeklyPhysicalActivities());
+    context
+        .read<PhysicalActivitiesBloc>()
+        .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
 
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant PhysicalActivities oldWidget) {
+    if (oldWidget.selectedDay.isoStringWithoutTime == widget.selectedDay.isoStringWithoutTime) return;
+
+    final DateTime today = DateTime.now();
+    final firstDayOfTheWeek = DateHelpers.findFirstDateOfTheWeek(today);
+    final lastDayOfTheWeek = DateHelpers.findLastDateOfTheWeek(today);
+
+    if (widget.selectedDay.isBefore(firstDayOfTheWeek) || widget.selectedDay.isAfter(lastDayOfTheWeek)) {
+      context
+          .read<PhysicalActivitiesBloc>()
+          .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
+    }
+
+    super.didUpdateWidget(oldWidget);
   }
 
   void onPressHandler(BuildContext context) {
@@ -36,7 +56,9 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
   get _isActive => widget.selectedDay.midnightTime == DateTime.now().midnightTime;
 
   void _programLogged(BuildContext context, PhysicalProgramsState state) {
-    context.read<PhysicalActivitiesBloc>().add(const PhysicalActivitiesEvent.getWeeklyPhysicalActivities());
+    context
+        .read<PhysicalActivitiesBloc>()
+        .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
   }
 
   @override

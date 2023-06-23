@@ -28,11 +28,9 @@ class PhysicalActivitiesBloc extends Bloc<PhysicalActivitiesEvent, PhysicalActiv
   ) async {
     emit(PhysicalActivitiesState.loading(state.data.copyWith(isLoading: true, error: null)));
 
-    final DateTime today = DateTime.now();
-
     final response = await _physicalActivitiesService.getProgramsByDate(
-      startDate: DateHelpers.findFirstDateOfTheWeek(today).isoStringWithoutTime,
-      endDate: DateHelpers.findLastDateOfTheWeek(today).isoStringWithoutTime,
+      startDate: DateHelpers.findFirstDateOfTheWeek(event.selectedDay).isoStringWithoutTime,
+      endDate: DateHelpers.findLastDateOfTheWeek(event.selectedDay).isoStringWithoutTime,
     );
 
     response.fold(
