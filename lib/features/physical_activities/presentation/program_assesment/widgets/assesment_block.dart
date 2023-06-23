@@ -5,12 +5,10 @@ import 'package:loopcare_frontend/features/physical_activities/presentation/prog
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/widgets/selected_cell.dart';
 
 class AssesmentBlock extends StatefulWidget {
-  final int? score;
   final void Function(int score) onScoreChange;
 
   const AssesmentBlock({
     Key? key,
-    required this.score,
     required this.onScoreChange,
   }) : super(key: key);
 
@@ -20,15 +18,6 @@ class AssesmentBlock extends StatefulWidget {
 
 class _AssesmentBlockState extends State<AssesmentBlock> {
   int? selectedScore;
-
-  @override
-  void initState() {
-    super.initState();
-    final wScore = widget.score;
-    if (wScore != null) {
-      selectedScore = wScore;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

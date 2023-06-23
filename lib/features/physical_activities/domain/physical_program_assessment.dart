@@ -9,8 +9,8 @@ abstract class PhysicalProgramAssessment implements _$PhysicalProgramAssessment 
   const PhysicalProgramAssessment._();
 
   const factory PhysicalProgramAssessment({
-    required int score,
-    required bool like,
+    required int? score,
+    required bool? like,
     required DateTime completedAt,
   }) = _PhysicalProgramAssessment;
 
