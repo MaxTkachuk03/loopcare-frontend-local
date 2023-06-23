@@ -33,21 +33,6 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
   bool? assessmentLike;
 
   @override
-  void initState() {
-    final currentProgramAssessment =
-        context.read<PhysicalProgramsBloc>().state.data.currentProgram?.assessment;
-
-    if (currentProgramAssessment != null) {
-      setState(() {
-        assessmentLike = currentProgramAssessment.like;
-        assessmentScore = currentProgramAssessment.score;
-      });
-    }
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
@@ -125,7 +110,6 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
                   ),
                   const SizedBox(height: 7),
                   AssesmentBlock(
-                    score: state.data.currentProgram?.assessment?.score,
                     onScoreChange: onScoreChange,
                   ),
                   const SizedBox(height: 45),
@@ -139,7 +123,6 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
                   ),
                   const SizedBox(height: 12),
                   LikeUnlikeBlock(
-                    like: state.data.currentProgram?.assessment?.like,
                     onLikeChange: (bool like) {
                       onLikeChange(like);
                     },

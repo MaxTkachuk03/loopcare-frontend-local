@@ -3,12 +3,10 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class LikeUnlikeBlock extends StatefulWidget {
-  final bool? like;
   final void Function(bool like) onLikeChange;
 
   const LikeUnlikeBlock({
     Key? key,
-    required this.like,
     required this.onLikeChange,
   }) : super(key: key);
 
@@ -18,15 +16,6 @@ class LikeUnlikeBlock extends StatefulWidget {
 
 class _LikeUnlikeBlockState extends State<LikeUnlikeBlock> {
   int selectedThumb = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    final wLike = widget.like;
-    if (wLike != null) {
-      selectedThumb = wLike ? 1 : -1;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
