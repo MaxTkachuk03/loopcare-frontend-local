@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
@@ -44,6 +44,8 @@ class ProgramCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final image = program.image;
+
     return InkWell(
       onTap: () => _onTap(context),
       child: SizedBox(
@@ -55,16 +57,14 @@ class ProgramCard extends StatelessWidget {
             color: AppColors.white,
             child: Row(
               children: [
-                Container(
-                  width: _imageWidth,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AppImages.testProgram,
-                      alignment: Alignment.centerLeft,
-                      fit: BoxFit.fitHeight,
+                if (image != null)
+                  SizedBox(
+                    width: _imageWidth,
+                    child: NetworkImageWithCache(
+                      url: image,
+                      imageBoxFit: BoxFit.fitHeight,
                     ),
                   ),
-                ),
                 const SizedBox(
                   width: 24.0,
                 ),

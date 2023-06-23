@@ -14,8 +14,6 @@ class AppImages {
   static const AssetImage coffee = AssetImage('$imagesFilePath/coffee.png');
   static const AssetImage signUpWelcome =
       AssetImage('$imagesFilePath/sign_up_welcome.png');
-  static const AssetImage testProgram =
-      AssetImage('$imagesFilePath/Visual.png');
 
   static const AssetImage preferencesDiabetes =
       AssetImage('$imagesFilePath/diabetes.png');

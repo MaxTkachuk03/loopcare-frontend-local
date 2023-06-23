@@ -21,6 +21,7 @@ class PhysicalProgram with _$PhysicalProgram {
     @Default('') String targetMuscles,
     @Default('') String equipment,
     @Default(false) bool isCustom,
+    String? image,
     @Default(ProgramType.strength) ProgramType type,
     @Default(ProgramPlace.outdoor) ProgramPlace place,
     @Default(ProgramDifficulty.easy) ProgramDifficulty difficulty,
@@ -39,6 +40,8 @@ class PhysicalProgram with _$PhysicalProgram {
   String get placeName => map(basic: (s) => s.place.name, placeholder: (_) => '');
 
   String get equipment => map(basic: (s) => s.equipment, placeholder: (_) => '');
+
+  String? get image => map(basic: (s) => s.image, placeholder: (_) => null);
 
   String get targetMuscles => map(basic: (s) => s.targetMuscles, placeholder: (_) => '');
 
