@@ -22,11 +22,11 @@ class RecipeDetailsPage extends StatefulWidget {
 class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
   @override
   void initState() {
-    final recipeId = context.read<RecipeBloc>().state.recipeId;
+    final recipeId = context.read<RecipeBloc>().state.externalRecipeId;
 
     if (recipeId != null) {
       context.read<RecipeDetailsBloc>().add(
-            RecipeDetailsEvent.fetchOriginRecipe(recipeId),
+            RecipeDetailsEvent.fetchOriginRecipe(int.parse(recipeId)),
           );
     }
     super.initState();
