@@ -33,6 +33,8 @@ class _VideoPageState extends State<VideoPage> {
   VideoPlayerController? _videoPlayerController;
   final CountDownController _countDownController = CountDownController();
 
+  bool get _isLastExercise => _videoIndex + 1 == widget.program.exercises.length;
+
   Future _allowLandscapeOrientation() async {
     // Remove system app bar on Android
     await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
@@ -90,7 +92,7 @@ class _VideoPageState extends State<VideoPage> {
 
   _onVideoEnds() {
     // check if it was the last video in playlist
-    if (_videoIndex + 1 == widget.program.exercises.length) {
+    if (_isLastExercise) {
       _onlyPortraitOrientation();
       _videoPlayerController?.pause();
       context.router.push(ProgramAssessmentRoute(onDisposeCb: _allowLandscapeOrientation));
@@ -192,6 +194,7 @@ class _VideoPageState extends State<VideoPage> {
                         child: VideoPlayerWidget(
                           controller: controller,
                           orientation: orientation,
+                          isLastVideo: _isLastExercise,
                           programType: widget.program.typeName,
                           programDifficulty: widget.program.difficultyName,
                           programLength: widget.program.exercises.length,

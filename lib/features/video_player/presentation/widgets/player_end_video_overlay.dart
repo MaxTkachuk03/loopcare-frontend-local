@@ -17,6 +17,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
   final VoidCallback onVideoEnds;
   final CountDownController countDownController;
   final String programType;
+  final bool isLastVideo;
   final String programDifficulty;
   final int programLength;
 
@@ -30,6 +31,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
     required this.programType,
     required this.programDifficulty,
     required this.programLength,
+    required this.isLastVideo,
   }) : super(key: key);
 
   bool get _isPortraitOrientation {
@@ -142,28 +144,31 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                     ),
                   ],
                 ),
-                Column(
-                  children: [
-                    SizedBox(
-                      width: 130,
-                      child: Text(
-                        LocalizedTexts.breakBetweenExercises.tr().toUpperCase(),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: _isPortraitOrientation ? 10.0 : 12.0,
-                          fontWeight: FontWeight.w600,
+                Opacity(
+                  opacity: isLastVideo ? 0 : 1,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: 130,
+                        child: Text(
+                          LocalizedTexts.breakBetweenExercises.tr().toUpperCase(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: _isPortraitOrientation ? 10.0 : 12.0,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 20.0),
-                    CountDown(
-                      controller: countDownController,
-                      duration: exercise.delayBeforeNext,
-                      onComplete: onVideoEnds,
-                      isPortraiteOrientation: _isPortraitOrientation,
-                    ),
-                  ],
+                      const SizedBox(height: 20.0),
+                      CountDown(
+                        controller: countDownController,
+                        duration: exercise.delayBeforeNext,
+                        onComplete: onVideoEnds,
+                        isPortraiteOrientation: _isPortraitOrientation,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

@@ -15,6 +15,7 @@ class VideoPlayerWidget extends StatefulWidget {
   final VoidCallback onVideoEnds;
   final VoidCallback? onPrevPressed;
   final CountDownController countDownController;
+  final bool isLastVideo;
   final String programType;
   final String programDifficulty;
   final int programLength;
@@ -29,6 +30,7 @@ class VideoPlayerWidget extends StatefulWidget {
     required this.programType,
     required this.programDifficulty,
     required this.programLength,
+    required this.isLastVideo,
     this.onPrevPressed,
   });
 
@@ -87,6 +89,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
                           orientation: widget.orientation,
                           exercise: widget.exercise,
                           onVideoEnds: widget.onVideoEnds,
+                          isLastVideo: widget.isLastVideo,
                           countDownController: widget.countDownController,
                           programType: widget.programType,
                           programDifficulty: widget.programDifficulty,
