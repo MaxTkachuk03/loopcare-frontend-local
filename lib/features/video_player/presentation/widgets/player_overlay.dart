@@ -20,6 +20,9 @@ class PlayerOverlay extends StatelessWidget {
   final VoidCallback? onPrevPressed;
   final VoidCallback onNextPressed;
 
+  static const double _defaultVideoWidth = 1280.0;
+  static const double _defaultVideoHeight = 720.0;
+
   const PlayerOverlay({
     Key? key,
     required this.controller,
@@ -42,11 +45,26 @@ class PlayerOverlay extends StatelessWidget {
     controller.seekTo(Duration(seconds: exercise.explanationSkipTime));
   }
 
+  double get _videoWidth {
+    final width = controller.value.size.width;
+
+    return width != 0 ? width : _defaultVideoWidth;
+  }
+
+  double get _videoHeight {
+    final height = controller.value.size.height;
+
+    return height != 0 ? height : _defaultVideoHeight;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: _videoWidth,
+      height: _videoHeight,
       color: Colors.black45,
-      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: _isPortraitOrientation ? 0.0 : 30.0),
+      padding: EdgeInsets.symmetric(
+          horizontal: _isPortraitOrientation ? 20.0 : 40.0, vertical: _isPortraitOrientation ? 10.0 : 30.0),
       child: Column(
         mainAxisAlignment: _isPortraitOrientation ? MainAxisAlignment.end : MainAxisAlignment.spaceBetween,
         children: [

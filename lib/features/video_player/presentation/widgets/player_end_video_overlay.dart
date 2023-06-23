@@ -32,7 +32,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
     required this.programLength,
   }) : super(key: key);
 
-  bool get _isPortraiteOrientation {
+  bool get _isPortraitOrientation {
     return orientation == Orientation.portrait;
   }
 
@@ -47,8 +47,9 @@ class PlayerEndVideoOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: controller.value.size.width,
+      height: controller.value.size.height,
       color: Colors.black45,
-      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: _isPortraiteOrientation ? 0.0 : 30.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -62,7 +63,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: AppColors.white,
-                    fontSize: _isPortraiteOrientation ? 16.0 : 32.0,
+                    fontSize: _isPortraitOrientation ? 16.0 : 32.0,
                     fontWeight: FontWeight.w300,
                     fontFamily: ThemeConstants.bitterFontFamily,
                   ),
@@ -72,7 +73,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: AppColors.white,
-                    fontSize: _isPortraiteOrientation ? 16.0 : 32.0,
+                    fontSize: _isPortraitOrientation ? 16.0 : 32.0,
                     fontWeight: FontWeight.w600,
                     fontFamily: ThemeConstants.bitterFontFamily,
                   ),
@@ -85,7 +86,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                       programType.toUpperCase(),
                       style: TextStyle(
                         color: AppColors.white,
-                        fontSize: _isPortraiteOrientation ? 10.0 : 12.0,
+                        fontSize: _isPortraitOrientation ? 10.0 : 12.0,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -96,7 +97,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                       formatDuration(exercise.duration),
                       style: TextStyle(
                         color: AppColors.white,
-                        fontSize: _isPortraiteOrientation ? 10.0 : 12.0,
+                        fontSize: _isPortraitOrientation ? 10.0 : 12.0,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -108,7 +109,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 10.0),
+            padding: const EdgeInsets.only(bottom: 10.0, right: 20.0, left: 20.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -117,13 +118,13 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                   children: [
                     OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                        minimumSize: Size(100, _isPortraiteOrientation ? 32.0 : 52.0),
+                        minimumSize: Size(100, _isPortraitOrientation ? 32.0 : 52.0),
                         side: const BorderSide(width: 1.0, color: AppColors.white),
                       ),
                       onPressed: _onRepeatHandler,
                       child: Text(
                         LocalizedTexts.repeat,
-                        style: TextStyle(fontSize: _isPortraiteOrientation ? 12 : 14, color: AppColors.white),
+                        style: TextStyle(fontSize: _isPortraitOrientation ? 12 : 14, color: AppColors.white),
                       ).tr(),
                     ),
                     const SizedBox(width: 20.0),
@@ -131,12 +132,12 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                       onPressed: _onNextHandler,
                       style: ButtonStyle(
                         minimumSize:
-                            MaterialStateProperty.all(Size(100, _isPortraiteOrientation ? 32.0 : 52.0)),
+                            MaterialStateProperty.all(Size(100, _isPortraitOrientation ? 32.0 : 52.0)),
                         backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
                       ),
                       child: Text(
                         LocalizedTexts.next,
-                        style: TextStyle(fontSize: _isPortraiteOrientation ? 12 : 14),
+                        style: TextStyle(fontSize: _isPortraitOrientation ? 12 : 14),
                       ).tr(),
                     ),
                   ],
@@ -150,7 +151,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: AppColors.white,
-                          fontSize: _isPortraiteOrientation ? 10.0 : 12.0,
+                          fontSize: _isPortraitOrientation ? 10.0 : 12.0,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -160,7 +161,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                       controller: countDownController,
                       duration: exercise.delayBeforeNext,
                       onComplete: onVideoEnds,
-                      isPortraiteOrientation: _isPortraiteOrientation,
+                      isPortraiteOrientation: _isPortraitOrientation,
                     ),
                   ],
                 ),

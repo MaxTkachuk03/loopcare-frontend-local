@@ -38,7 +38,7 @@ class VideoBlock extends StatelessWidget {
               if (!value.isInitialized) return const Center(child: Loader());
 
               return FittedBox(
-                fit: orientation == Orientation.portrait ? BoxFit.cover : BoxFit.fill,
+                fit: orientation == Orientation.portrait ? BoxFit.fitWidth : BoxFit.fitHeight,
                 child: SizedBox(
                   width: _videoWidth,
                   height: _videoHeight,
