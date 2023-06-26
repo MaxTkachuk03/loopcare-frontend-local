@@ -41,11 +41,10 @@ class _MealPageState extends State<MealPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory = DishFavoritesCategory.values
-            .asNameMap()
-            .containsKey(state.currentMealCategory?.toLowerCase())
-        ? state.currentMealCategory
-        : MealCategory.breakfast.originalValue;
+    final mealCategory =
+        DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
+            ? state.currentMealCategory
+            : MealCategory.breakfast.originalValue;
 
     final mealId = state.getCurrentMealId;
 
@@ -84,8 +83,7 @@ class _MealPageState extends State<MealPage> {
 
     if (currentMealCategory == null) return '';
 
-    final date = state.getCurrentDate.isoStringWithoutTime !=
-            DateTime.now().isoStringWithoutTime
+    final date = state.getCurrentDate.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
         ? state.getCurrentDate.shortDate
         : 'today';
 
@@ -114,15 +112,9 @@ class _MealPageState extends State<MealPage> {
                       Column(
                         children: [
                           NutritionValuesBlock(
-                            numberOfPortions: mealsState
-                                    .currentMeal?.serving.numberOfUnits
-                                    .toInt() ??
-                                0,
-                            selectedNutritionType:
-                                mealsState.currentNutritionType,
-                            nutritionValuesList:
-                                mealsState.currentMeal?.serving.list ??
-                                    <NutritionItem>[],
+                            numberOfPortions: mealsState.currentMeal?.serving.numberOfUnits.toInt() ?? 0,
+                            selectedNutritionType: mealsState.currentNutritionType,
+                            nutritionValuesList: mealsState.currentMeal?.serving.list ?? <NutritionItem>[],
                             onNutritionFactSelect: _onNutritionFactSelect,
                           ),
                           const MealsList(),
@@ -138,18 +130,15 @@ class _MealPageState extends State<MealPage> {
                                 Row(
                                   children: [
                                     OutlinedRoundedButton(
-                                      text: LocalizedTexts
-                                          .saveToMyDishes.translation,
+                                      text: LocalizedTexts.saveToMyDishes.translation,
                                       icon: AppIcons.dish,
                                       onPressed: _onSaveToMyDishesHandler,
                                     ),
                                     const SizedBox(width: 8.0),
                                     OutlinedRoundedButton(
-                                      text:
-                                          LocalizedTexts.deleteMeal.translation,
+                                      text: LocalizedTexts.deleteMeal.translation,
                                       icon: AppIcons.delete,
-                                      onPressed: () =>
-                                          _onDeleteMealPressed(context),
+                                      onPressed: () => _onDeleteMealPressed(context),
                                     )
                                   ],
                                 ),
@@ -158,8 +147,7 @@ class _MealPageState extends State<MealPage> {
                                 ),
                                 if (mealsState.isPlanningMeals)
                                   OutlinedRoundedButton(
-                                    text: LocalizedTexts
-                                        .recommendations.translation,
+                                    text: LocalizedTexts.recommendations.translation,
                                     icon: AppIcons.recommendations,
                                   ),
                               ],
@@ -172,10 +160,8 @@ class _MealPageState extends State<MealPage> {
                           const SizedBox(height: 26.0),
                           MainContainer(
                             child: ElevatedButton(
-                              onPressed: () => context.router
-                                  .popUntilRouteWithName(HomeRoute.name),
-                              child: Text(
-                                  LocalizedTexts.backToDashboard.translation),
+                              onPressed: () => context.router.popUntilRouteWithName(HomeRoute.name),
+                              child: Text(LocalizedTexts.backToDashboard.translation),
                             ),
                           ),
                           const SizedBox(height: 20.0)

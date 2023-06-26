@@ -45,17 +45,11 @@ class EditDishPage extends StatefulWidget {
 class _EditDishPageState extends State<EditDishPage> {
   bool _isUserSaveChanges = false;
 
-  final _chips = [
-    MealCategory.breakfast,
-    MealCategory.lunch,
-    MealCategory.dinner,
-  ];
+  final _chips = [MealCategory.breakfast, MealCategory.lunch, MealCategory.dinner];
   List<MealCategory> _selectedMealCategories = [];
   late final TextEditingController _servingController = TextEditingController();
-  late final TextEditingController _portionsController =
-      TextEditingController();
-  late final TextEditingController _dishNameController =
-      TextEditingController();
+  late final TextEditingController _portionsController = TextEditingController();
+  late final TextEditingController _dishNameController = TextEditingController();
 
   final FocusNode _servingFocusNode = FocusNode();
   final FocusNode _portionsFocusNode = FocusNode();
@@ -149,8 +143,7 @@ class _EditDishPageState extends State<EditDishPage> {
     state.add(EditDishEvent.updateDish(
       name: _dishNameController.text,
       numberOfUnits: double.parse(_portionsController.text),
-      numberOfServings: double.parse(
-          _servingController.text.replaceCommaWithDot.deleteDotAtTheEnd),
+      numberOfServings: double.parse(_servingController.text.replaceCommaWithDot.deleteDotAtTheEnd),
       mealCategories: _selectedMealCategories,
     ));
 
@@ -176,10 +169,7 @@ class _EditDishPageState extends State<EditDishPage> {
   }
 
   void _onDeleteFoodItem(BuildContext context, FoodItem item) {
-    final dishId = context
-        .read<EditDishBloc>()
-        .state
-        .mapOrNull(dishInfo: (s) => s.currentDish.id);
+    final dishId = context.read<EditDishBloc>().state.mapOrNull(dishInfo: (s) => s.currentDish.id);
 
     if (dishId == null) return;
 
@@ -201,10 +191,7 @@ class _EditDishPageState extends State<EditDishPage> {
         initialServingAmount: item.serving.numberOfUnits,
         foodItemName: item.foodName,
         onConfirm: (double numberOfUnits, String servingId) {
-          final dishId = context
-              .read<EditDishBloc>()
-              .state
-              .mapOrNull(dishInfo: (s) => s.currentDish.id);
+          final dishId = context.read<EditDishBloc>().state.mapOrNull(dishInfo: (s) => s.currentDish.id);
 
           if (dishId == null) return;
 
@@ -243,8 +230,7 @@ class _EditDishPageState extends State<EditDishPage> {
   }
 
   _deleteDishListener(BuildContext context, state) {
-    //TODO commented as a fix for LOOCARE-904 - not sure it needs at all
-    // context.router..popUntilRouteWithName(SelectFoodRoute.name);
+    context.router.popUntilRouteWithName(SelectFoodRoute.name);
   }
 
   Future<bool> _onWillPop() {
@@ -269,13 +255,11 @@ class _EditDishPageState extends State<EditDishPage> {
         listeners: [
           BlocListener<EditDishBloc, EditDishState>(
             listener: _dishLoadedlistener,
-            listenWhen: (previous, current) =>
-                previous is Loading && current is DishInfo,
+            listenWhen: (previous, current) => previous is Loading && current is DishInfo,
           ),
           BlocListener<EditDishBloc, EditDishState>(
             listener: _deleteDishListener,
-            listenWhen: (previous, current) =>
-                previous is DishInfo && current is Deleted,
+            listenWhen: (previous, current) => previous is DishInfo && current is Deleted,
           )
         ],
         child: GestureDetector(
@@ -292,9 +276,7 @@ class _EditDishPageState extends State<EditDishPage> {
                     builder: (context, state) {
                       return Container(
                         padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                        color: state.isPlanningMeals
-                            ? AppColors.darkGreen
-                            : AppColors.blueAppBar,
+                        color: state.isPlanningMeals ? AppColors.darkGreen : AppColors.blueAppBar,
                         child: BlocBuilder<EditDishBloc, EditDishState>(
                           builder: (BuildContext context, state) {
                             return state.maybeMap(
@@ -316,19 +298,13 @@ class _EditDishPageState extends State<EditDishPage> {
                     builder: (context, state) {
                       return Container(
                         padding: const EdgeInsets.all(24.0),
-                        color: state.isPlanningMeals
-                            ? AppColors.darkGreen
-                            : AppColors.blueAppBar,
+                        color: state.isPlanningMeals ? AppColors.darkGreen : AppColors.blueAppBar,
                         child: TextField(
                           focusNode: _dishNameFocusNode,
                           controller: _dishNameController,
                           decoration: InputDecoration(
-                            hintText:
-                                LocalizedTexts.giveNameToThisDish.translation,
-                            hintStyle: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
+                            hintText: LocalizedTexts.giveNameToThisDish.translation,
+                            hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                   color: AppColors.greyLabel,
                                 ),
                             contentPadding: const EdgeInsets.symmetric(
@@ -345,15 +321,12 @@ class _EditDishPageState extends State<EditDishPage> {
                       return state.maybeMap(
                           loading: (_) => const Expanded(child: Loader()),
                           dishInfo: (dishState) {
-                            _servingController.text =
-                                dishState.numberOfServings;
-                            _portionsController.text =
-                                dishState.numberOfPortions;
+                            _servingController.text = dishState.numberOfServings;
+                            _portionsController.text = dishState.numberOfPortions;
 
                             return Expanded(
                               child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Column(
@@ -364,48 +337,29 @@ class _EditDishPageState extends State<EditDishPage> {
                                               children: [
                                                 ServingsAmount(
                                                   focusNode: _servingFocusNode,
-                                                  inputController:
-                                                      _servingController,
-                                                  onValueChangeHandler:
-                                                      _onServingChanges,
+                                                  inputController: _servingController,
+                                                  onValueChangeHandler: _onServingChanges,
                                                 ),
                                                 NutritionValuesBlock(
-                                                  portionsFocusNode:
-                                                      _portionsFocusNode,
-                                                  portionsController:
-                                                      _portionsController,
+                                                  portionsFocusNode: _portionsFocusNode,
+                                                  portionsController: _portionsController,
                                                   isPortionsEditable: true,
-                                                  numberOfPortions: dishState
-                                                      .currentDish
-                                                      .numberOfServings
-                                                      .toInt(),
-                                                  nutritionValuesList: dishState
-                                                      .currentDish.serving.list,
-                                                  selectedNutritionType:
-                                                      dishState
-                                                          .currentNutritionType,
-                                                  onNutritionFactSelect:
-                                                      _onNutritionFactSelect,
+                                                  numberOfPortions:
+                                                      dishState.currentDish.numberOfServings.toInt(),
+                                                  nutritionValuesList: dishState.currentDish.serving.list,
+                                                  selectedNutritionType: dishState.currentNutritionType,
+                                                  onNutritionFactSelect: _onNutritionFactSelect,
                                                 ),
                                                 DishList(
-                                                  list: dishState
-                                                      .currentDish.foodItems,
-                                                  nutritionKey: dishState
-                                                      .currentNutritionType
-                                                      .name,
-                                                  onDeleteHandler:
-                                                      _onDeleteFoodItem,
-                                                  onListItemTapHandler:
-                                                      _onTapFoodItem,
+                                                  list: dishState.currentDish.foodItems,
+                                                  nutritionKey: dishState.currentNutritionType.name,
+                                                  onDeleteHandler: _onDeleteFoodItem,
+                                                  onListItemTapHandler: _onTapFoodItem,
                                                   isScrollable: false,
                                                 ),
                                                 NutritionBlock(
-                                                  calorieDensity: dishState
-                                                      .currentDish
-                                                      .calorieDensity,
-                                                  proteinDegree: dishState
-                                                      .currentDish
-                                                      .proteinDegree,
+                                                  calorieDensity: dishState.currentDish.calorieDensity,
+                                                  proteinDegree: dishState.currentDish.proteinDegree,
                                                 ),
                                               ],
                                             ),
@@ -417,26 +371,23 @@ class _EditDishPageState extends State<EditDishPage> {
                                   const SizedBox(height: 20.0),
                                   MainContainer(
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Row(
                                           children: [
                                             OutlinedRoundedButton(
-                                              text: LocalizedTexts
-                                                  .addFoodItem.translation,
+                                              text: LocalizedTexts.addFoodItem.translation,
                                               icon: AppIcons.plus,
                                               onPressed: _onAddFoodItemHandler,
                                             ),
                                             const SizedBox(width: 16.0),
-                                            OutlinedRoundedButton(
-                                              text: LocalizedTexts
-                                                  .deleteDish.translation,
-                                              icon: AppIcons.delete,
-                                              onPressed: _onDeleteDishHandler,
-                                            ),
+                                            if (widget.mode == EditDishPageMode.edit)
+                                              OutlinedRoundedButton(
+                                                text: LocalizedTexts.deleteDish.translation,
+                                                icon: AppIcons.delete,
+                                                onPressed: _onDeleteDishHandler,
+                                              ),
                                           ],
                                         ),
                                       ],
@@ -446,25 +397,19 @@ class _EditDishPageState extends State<EditDishPage> {
                                   MainContainer(
                                     child: Column(
                                       children: [
-                                        BlocBuilder<EditDishBloc,
-                                            EditDishState>(
-                                          builder:
-                                              (BuildContext context, state) {
+                                        BlocBuilder<EditDishBloc, EditDishState>(
+                                          builder: (BuildContext context, state) {
                                             return state.maybeMap(
                                                 dishInfo: (dishState) {
                                                   return ElevatedButton(
                                                     onPressed:
-                                                        dishState.hasFoodItems
-                                                            ? _onSaveDishHandler
-                                                            : null,
+                                                        dishState.hasFoodItems ? _onSaveDishHandler : null,
                                                     child: Text(
-                                                      LocalizedTexts
-                                                          .save.translation,
+                                                      LocalizedTexts.save.translation,
                                                     ),
                                                   );
                                                 },
-                                                orElse: () =>
-                                                    const SizedBox.shrink());
+                                                orElse: () => const SizedBox.shrink());
                                           },
                                         ),
                                         const SizedBox(height: 30.0),

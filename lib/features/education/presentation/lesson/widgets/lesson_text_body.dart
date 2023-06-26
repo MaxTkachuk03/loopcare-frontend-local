@@ -34,70 +34,65 @@ class LessonTextPage extends StatelessWidget {
         backgroundColor: AppColors.white,
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            BlocBuilder<EducationLessonBloc, EducationLessonState>(
-                builder: (BuildContext context, state) {
-              final lesson = state.data;
+        child: ScrollableContainer(
+          child: Column(
+            children: [
+              BlocBuilder<EducationLessonBloc, EducationLessonState>(builder: (BuildContext context, state) {
+                final lesson = state.data;
 
-              return Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  ClipPath(
-                    clipper: SurveyImageClipper(),
-                    child: Container(
-                      height: 120,
-                      width: double.infinity,
-                      color: AppColors.white,
+                return Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    ClipPath(
+                      clipper: SurveyImageClipper(),
+                      child: Container(
+                        height: 120,
+                        width: double.infinity,
+                        color: AppColors.white,
+                      ),
                     ),
-                  ),
-                  Positioned(
-                    bottom: -90,
-                    left: 1,
-                    right: 1,
-                    child: SizedBox(
-                      height: 180,
-                      child: NetworkImageWithCache(url: lesson.lessonImage),
+                    Positioned(
+                      bottom: -90,
+                      left: 1,
+                      right: 1,
+                      child: SizedBox(
+                        height: 180,
+                        child: NetworkImageWithCache(url: lesson.lessonImage),
+                      ),
                     ),
-                  ),
-                ],
-              );
-            }),
-            const SizedBox(height: 60.0),
-            Expanded(
-              child: ScrollableContainer(
-                child: MainContainer(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const SizedBox(height: 20.0),
-                      BlocBuilder<EducationLessonBloc, EducationLessonState>(
-                        builder: (context, state) {
-                          final lesson = state.data;
+                  ],
+                );
+              }),
+              const SizedBox(height: 60.0),
+              MainContainer(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const SizedBox(height: 20.0),
+                    BlocBuilder<EducationLessonBloc, EducationLessonState>(
+                      builder: (context, state) {
+                        final lesson = state.data;
 
-                          return Text(
-                            lesson.lessonCategory.toUpperCase(),
-                            style: const TextStyle(
-                                color: AppColors.orangeDark,
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w600),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 24.0),
-                      HtmlRenderer(content: content.html),
-                      const SizedBox(height: 40.0),
-                      ElevatedButton(
-                        onPressed: onNextPressed,
-                        child: const Text(LocalizedTexts.next).tr(),
-                      ),
-                      const SizedBox(height: 14.0),
-                    ],
-                  ),
+                        return Text(
+                          lesson.lessonCategory.toUpperCase(),
+                          style: const TextStyle(
+                              color: AppColors.orangeDark, fontSize: 12.0, fontWeight: FontWeight.w600),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 24.0),
+                    HtmlRenderer(content: content.html),
+                    const SizedBox(height: 40.0),
+                    ElevatedButton(
+                      onPressed: onNextPressed,
+                      child: const Text(LocalizedTexts.next).tr(),
+                    ),
+                    const SizedBox(height: 14.0),
+                  ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

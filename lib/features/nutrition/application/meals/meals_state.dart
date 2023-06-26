@@ -12,8 +12,7 @@ class MealsState with _$MealsState {
 
   const factory MealsState.mealsInfo({
     int? currentMealId,
-    @Default(NutritionValuesTypes.calories)
-        NutritionValuesTypes currentNutritionType,
+    @Default(NutritionValuesTypes.calories) NutritionValuesTypes currentNutritionType,
     @Default(MealActionModes.mealLogging) MealActionModes mealActionMode,
     DateTime? currentDate,
     String? currentMealCategory,
@@ -47,10 +46,7 @@ class MealsState with _$MealsState {
 
   bool get isEnableOnDashboard {
     return maybeMap(
-      mealsInfo: (s) =>
-          s.currentDate
-              ?.isAfter(DateTime.now().subtract(const Duration(days: 8))) ??
-          false,
+      mealsInfo: (s) => s.currentDate?.isAfter(DateTime.now().subtract(const Duration(days: 8))) ?? false,
       orElse: () => false,
     );
   }
@@ -79,8 +75,7 @@ class MealsState with _$MealsState {
       double caloriesSum = 0;
       double amountSum = 0;
 
-      final selectedDayMeals =
-          state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+      final selectedDayMeals = state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
       for (var meal in selectedDayMeals) {
         if (meal.loggingDate?.isSameDate(currentDate) ?? false) {
@@ -105,8 +100,7 @@ class MealsState with _$MealsState {
         double caloriesSum = 0;
         double proteinSum = 0;
 
-        final selectedDayMeals =
-            state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+        final selectedDayMeals = state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
         for (var meal in selectedDayMeals) {
           if (meal.loggingDate?.isSameDate(currentDate) ?? false) {
@@ -128,8 +122,7 @@ class MealsState with _$MealsState {
         if (state.meals.isEmpty || currentDate == null) {
           return <String>[];
         }
-        final selectedDayMeals =
-            state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+        final selectedDayMeals = state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
         return selectedDayMeals
             .where((item) => item.mealItems.isNotEmpty)
@@ -150,9 +143,7 @@ class MealsState with _$MealsState {
         if (state.plannedMeals.isEmpty || currentDate == null) {
           return <String>[];
         }
-        final selectedDayMeals =
-            state.plannedMeals[currentDate.isoStringWithoutTime] ??
-                <MealsListItem>[];
+        final selectedDayMeals = state.plannedMeals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
         return selectedDayMeals
             .where((item) => item.mealItems.isNotEmpty)
@@ -181,16 +172,14 @@ class MealsState with _$MealsState {
 
   String? get mealListLength {
     return mapOrNull(
-      mealsInfo: (state) => state.isPlanningMeals
-          ? state.plannedMeals.length.toString()
-          : mealsMap.length.toString(),
+      mealsInfo: (state) =>
+          state.isPlanningMeals ? state.plannedMeals.length.toString() : mealsMap.length.toString(),
     );
   }
 
   String? get currentMealCategory {
     return mapOrNull(
-      mealsInfo: (state) =>
-          state.currentMealCategory?.capitalizeOnlyFirstLetter(),
+      mealsInfo: (state) => state.currentMealCategory?.capitalizeOnlyFirstLetter(),
     );
   }
 
@@ -205,13 +194,10 @@ class MealsState with _$MealsState {
     return mapOrNull(
       mealsInfo: (state) {
         final currentDate = state.currentDate;
-        if (mealsMap.isEmpty ||
-            state.currentMealCategory == null ||
-            currentDate == null) {
+        if (mealsMap.isEmpty || state.currentMealCategory == null || currentDate == null) {
           return null;
         }
-        final selectedDayMeals =
-            mealsMap[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+        final selectedDayMeals = mealsMap[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
         return selectedDayMeals
             .firstWhere(
@@ -226,13 +212,10 @@ class MealsState with _$MealsState {
     return maybeMap(
       mealsInfo: (state) {
         final currentDate = state.currentDate;
-        if (mealsMap.isEmpty ||
-            state.currentMealId == null ||
-            currentDate == null) {
+        if (mealsMap.isEmpty || state.currentMealId == null || currentDate == null) {
           return <MealItem>[];
         }
-        final selectedDayMeals =
-            mealsMap[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+        final selectedDayMeals = mealsMap[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
         final MealsListItem? currentMeal = selectedDayMeals.firstWhereOrNull(
           (item) => item.id == state.currentMealId,
@@ -253,13 +236,12 @@ class MealsState with _$MealsState {
           return false;
         }
 
-        final MealsListItem? currentMeal = state.meals[state.currentDate]
+        final MealsListItem? currentMeal = state.meals[state.currentDate?.isoStringWithoutTime]
             ?.firstWhereOrNull((item) => item.id == state.currentMealId);
 
         if (currentMeal == null) return false;
 
-        return currentMeal.mealItems
-            .any((e) => e.type == 'recipe' || e.type == 'dish');
+        return currentMeal.mealItems.any((e) => e.type == 'recipe' || e.type == 'dish');
       },
       orElse: () => false,
     );
@@ -269,16 +251,13 @@ class MealsState with _$MealsState {
     return mapOrNull(
       mealsInfo: (state) {
         final currentDate = state.currentDate;
-        if (mealsMap.isEmpty ||
-            state.currentMealId == null ||
-            currentDate == null) {
+        if (mealsMap.isEmpty || state.currentMealId == null || currentDate == null) {
           return null;
         }
-        final selectedDayMeals =
-            mealsMap[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+        final selectedDayMeals = mealsMap[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
-        final MealsListItem? currentMeal = selectedDayMeals
-            .firstWhereOrNull((item) => item.id == state.currentMealId);
+        final MealsListItem? currentMeal =
+            selectedDayMeals.firstWhereOrNull((item) => item.id == state.currentMealId);
 
         if (currentMeal == null) return null;
 
@@ -291,17 +270,14 @@ class MealsState with _$MealsState {
     return mapOrNull(
       mealsInfo: (state) {
         final currentDate = state.currentDate;
-        if (mealsMap.isEmpty ||
-            state.currentMealId == null ||
-            currentDate == null) {
+        if (mealsMap.isEmpty || state.currentMealId == null || currentDate == null) {
           return null;
         }
 
-        final selectedDayMeals =
-            mealsMap[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+        final selectedDayMeals = mealsMap[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
-        final MealsListItem? currentMeal = selectedDayMeals
-            .firstWhereOrNull((item) => item.id == state.currentMealId);
+        final MealsListItem? currentMeal =
+            selectedDayMeals.firstWhereOrNull((item) => item.id == state.currentMealId);
 
         if (currentMeal == null) return null;
 
