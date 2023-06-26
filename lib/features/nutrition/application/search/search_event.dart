@@ -10,6 +10,7 @@ class SearchEvent with _$SearchEvent {
     String query, {
     String? filteredMode,
     String? mode,
+    int? page,
     int? limit,
   }) = Search;
 }

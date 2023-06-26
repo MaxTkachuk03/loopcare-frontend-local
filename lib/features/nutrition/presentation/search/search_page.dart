@@ -39,17 +39,15 @@ class _SearchPageState extends State<SearchPage> {
         selectedRecentSearchItem: selectedRecentSearchItem ?? '',
       ),
       body: SafeArea(
-        child: ScrollableContainer(
-          child: SearchResultList(
-            onItemTap: widget.onItemTap,
-            onRecentSearchItemTap: (item) {
-              setState(
-                () {
-                  selectedRecentSearchItem = item;
-                },
-              );
-            },
-          ),
+        child: SearchResultList(
+          onItemTap: widget.onItemTap,
+          onRecentSearchItemTap: (item) {
+            setState(
+              () {
+                selectedRecentSearchItem = item;
+              },
+            );
+          },
         ),
       ),
     );
