@@ -16,8 +16,37 @@ class SearchState with _$SearchState {
 
   const factory SearchState.searchResult({
     required IList<SearchItem> items,
+    required SearchParameters searchParameters,
   }) = _SearchResult;
 
-  factory SearchState.fromJson(Map<String, dynamic> json) =>
-      _$SearchStateFromJson(json);
+  factory SearchState.fromJson(Map<String, dynamic> json) => _$SearchStateFromJson(json);
+}
+
+@immutable
+@JsonSerializable()
+class SearchParameters {
+  String? query;
+  String? filteredMode;
+  String? mode;
+  int? page;
+  int? limit;
+  bool? isLastPage;
+
+  SearchParameters(
+    this.query, {
+    this.filteredMode,
+    this.mode,
+    this.page,
+    this.limit,
+    this.isLastPage,
+  });
+
+  SearchParameters.fromJson(Map<String, dynamic> json) {
+    query = json['query'];
+    filteredMode = json['filteredMode'];
+    mode = json['mode'];
+    page = json['page'];
+    limit = json['limit'];
+    isLastPage = json['isLastPage'];
+  }
 }

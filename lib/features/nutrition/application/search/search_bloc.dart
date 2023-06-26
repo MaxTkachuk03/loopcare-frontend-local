@@ -88,8 +88,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   ) async {
     if (event.query.length < 3) return;
 
-    emit(const SearchState.loading());
+    final isLast = state.mapOrNull(searchResult: (s) => s.searchParameters.isLastPage) ?? false;
+    if (isLast) return;
 
+    final oldItems = state.mapOrNull(searchResult: (s) => s.items.toList());
+
+    var limit = event.limit ?? 10;
     var eventMode = event.mode;
     var eventFilteredMode = event.filteredMode;
     var searchMode = <String>[];
@@ -107,7 +111,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     final response = await nutritionService.search(
       event.query,
       mode: searchMode,
-      limit: event.limit,
+      limit: limit,
+      page: event.page,
     );
 
     response.fold(
@@ -119,9 +124,17 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         );
       },
       (response) {
+        final newItems = oldItems != null ? [...oldItems, ...response.data] : response.data;
+
         emit(
           SearchState.searchResult(
-            items: response.data.toIList(),
+            items: newItems.toIList(),
+            searchParameters: SearchParameters(event.query,
+                filteredMode: event.filteredMode,
+                mode: event.mode,
+                limit: limit,
+                page: event.page,
+                isLastPage: response.data.length != limit),
           ),
         );
       },

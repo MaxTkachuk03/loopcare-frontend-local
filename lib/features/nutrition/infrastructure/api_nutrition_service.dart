@@ -311,6 +311,7 @@ class APINutritionService implements NutritionService {
   Future<Either<RequestError, SearchResponse>> search(
     String query, {
     List<String>? mode,
+    int? page,
     int? limit,
   }) {
     return client.get(
@@ -319,8 +320,7 @@ class APINutritionService implements NutritionService {
         'query': query,
         if (mode != null && mode.isNotEmpty) 'modes': mode,
         if (limit != null) 'limit': limit,
-        // TODO: Remove after pagination will be implemented on backend
-        if (limit == null) 'limit': 20,
+        if (page != null) 'page': page,
       },
     ).then(parseResponse(SearchResponse.fromJson));
   }
