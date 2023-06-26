@@ -7,11 +7,13 @@ import 'package:loopcare_frontend/injection.dart';
 class NetworkImageWithCache extends StatelessWidget {
   final String url;
   final BoxFit? imageBoxFit;
+  final bool withPlaceholder;
 
   const NetworkImageWithCache({
     Key? key,
     required this.url,
     this.imageBoxFit,
+    this.withPlaceholder = true,
   }) : super(key: key);
 
   _getAuthToken() {
@@ -43,7 +45,10 @@ class NetworkImageWithCache extends StatelessWidget {
             httpHeaders: {
               "Authorization": 'Bearer ${snapshot.data}',
             },
-            placeholder: (context, url) => const Loader(),
+            placeholder: (context, url) {
+              if (withPlaceholder) return const Loader();
+              return const SizedBox.shrink();
+            },
             errorWidget: (context, url, error) {
               _deleteImageFromCache(url);
               return const Icon(Icons.error);

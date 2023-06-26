@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
@@ -117,6 +118,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
 
         return Scaffold(
           appBar: AppBar(
+            systemOverlayStyle: SystemUiOverlayStyle.dark,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: widget.onPrevPressed,
@@ -143,6 +145,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                               height: 600,
                               child: imageUrl != null && imageUrl != ''
                                   ? NetworkImageWithCache(
+                                      withPlaceholder: false,
                                       url: imageUrl!,
                                       imageBoxFit: BoxFit.contain,
                                     )
@@ -160,7 +163,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                                     url: state.data.lessonImage,
                                   ),
                                 ),
-                                const SizedBox(height: 30),
+                                const SizedBox(height: 14),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 24.0,
@@ -181,38 +184,41 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 24.0,
                                   ),
-                                  child: AutoSizeText(
-                                    state.data.lessonTitle,
-                                    maxLines: 2,
-                                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                                          fontFamily: ThemeConstants.bitterFontFamily,
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: AutoSizeText(
+                                      state.data.lessonTitle,
+                                      maxLines: 2,
+                                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                                            fontFamily: ThemeConstants.bitterFontFamily,
+                                          ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 14),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 24.0,
+                                    ),
+                                    width: 250,
+                                    child: OutlinedButton(
+                                      onPressed: _onReadText,
+                                      child: Center(
+                                        child: AutoSizeText(
+                                          LocalizedTexts.readText.translation,
+                                          minFontSize: 6,
+                                          maxLines: 1,
                                         ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
                         ],
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12.0,
-                          horizontal: 24.0,
-                        ),
-                        width: 250,
-                        child: OutlinedButton(
-                          onPressed: _onReadText,
-                          child: Center(
-                            child: AutoSizeText(
-                              LocalizedTexts.readText.translation,
-                              minFontSize: 6,
-                              maxLines: 1,
-                            ),
-                          ),
-                        ),
                       ),
                     ),
                     if (state.data.currentPage.content.audioFilePath.isNotEmpty)
