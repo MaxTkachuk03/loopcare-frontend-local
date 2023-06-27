@@ -13,6 +13,7 @@ class MedicalFitnessState with _$MedicalFitnessState {
     @Default(false) bool isCompletedSuccessfully,
     YesNoAnswer? pregnancy,
     CardiovascularDiseaseAnswers? cardiovascularDisease,
+    WeightLossMedicationAnswer? weightLossMedication,
     YesNoAnswer? painInChest,
     YesNoAnswer? treatmentByTheDoctor,
     YesNoAnswer? stomachReductionDisease,

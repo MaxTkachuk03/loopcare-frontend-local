@@ -7,6 +7,7 @@ List<String> medicalFitnessQuestions = [
   'stomachReduction',
   'painInChest',
   'treatmentByTheDoctor',
+  'weightLossMedication',
   'result'
 ];
 bool _isQuestion(String question) {
@@ -65,6 +66,8 @@ PageRouteInfo getQuestionRoute(String question) {
       return const PainInChestRoute();
     case 'treatmentByTheDoctor':
       return const TreatmentByDoctorRoute();
+    case 'weightLossMedication':
+      return const WeightLossMedicationRoute();
     case 'result':
       return const MedicalCheckPassedRoute();
   }

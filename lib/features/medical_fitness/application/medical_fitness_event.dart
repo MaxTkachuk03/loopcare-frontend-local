@@ -16,19 +16,19 @@ class MedicalFitnessEvent with _$MedicalFitnessEvent {
     CardiovascularDiseaseAnswers value,
   ) = CardiovascularDiseaseChanged;
 
-  const factory MedicalFitnessEvent.stomachReductionChanged(YesNoAnswer value) =
-      StomachReductionChanged;
+  const factory MedicalFitnessEvent.stomachReductionChanged(YesNoAnswer value) = StomachReductionChanged;
 
-  const factory MedicalFitnessEvent.painInChestChanged(YesNoAnswer value) =
-      PainInChestChanged;
+  const factory MedicalFitnessEvent.painInChestChanged(YesNoAnswer value) = PainInChestChanged;
 
   const factory MedicalFitnessEvent.treatmentByTheDoctorChanged(
     YesNoAnswer value,
   ) = TreatmentByTheDoctorChanged;
 
-  const factory MedicalFitnessEvent.handleSexType(SexType sexType) =
-      HandleSexType;
+  const factory MedicalFitnessEvent.weightLossMedicationChanged(
+    WeightLossMedicationAnswer value,
+  ) = WeightLossMedicationChanged;
 
-  const factory MedicalFitnessEvent.handleBirthday(DateTime birthday) =
-      HandleBirthday;
+  const factory MedicalFitnessEvent.handleSexType(SexType sexType) = HandleSexType;
+
+  const factory MedicalFitnessEvent.handleBirthday(DateTime birthday) = HandleBirthday;
 }
