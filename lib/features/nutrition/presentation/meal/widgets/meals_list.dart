@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_food_item_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
@@ -97,6 +98,7 @@ class MealsList extends StatelessWidget {
 
     final servingId = item.serving.servingId;
     final externalId = item.externalId;
+    final internalId = item.id;
 
     if (servingId == null || externalId == null) return;
 
@@ -106,7 +108,22 @@ class MealsList extends StatelessWidget {
         initialServingId: servingId,
         initialServingAmount: item.serving.numberOfUnits,
         foodItemName: item.name,
-        onConfirm: (_, __) {},
+        onConfirm: (double numberOfUnits, String servingId) {
+          final mealId = context.read<MealsBloc>().state.mapOrNull(mealsInfo: (s) => s.currentMealId);
+
+          if (mealId == null) return;
+
+          context.read<MealsBloc>().add(
+                MealsEvent.updateFoodItemInMeal(
+                  mealId,
+                  internalId,
+                  AddFoodItemToMealBody(
+                    servingId: servingId,
+                    numberOfUnits: numberOfUnits,
+                  ),
+                ),
+              );
+        },
       ),
     );
   }
