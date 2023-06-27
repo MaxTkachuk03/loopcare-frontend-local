@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/medical_fitness/domain/cardiovascular_disease_answers.dart';
+import 'package:loopcare_frontend/features/medical_fitness/domain/weight_loss_medication_answers.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_helpers.dart';
@@ -24,15 +25,13 @@ part 'medical_fitness_state.dart';
 part 'medical_fitness_questions.dart';
 
 @singleton
-class MedicalFitnessBloc
-    extends HydratedBloc<MedicalFitnessEvent, MedicalFitnessState> {
+class MedicalFitnessBloc extends HydratedBloc<MedicalFitnessEvent, MedicalFitnessState> {
   final OnboardingBloc onboardingBloc;
   final AuthenticationCubit _authenticationCubit;
 
   late final StreamSubscription _authBlocStreamSubscription;
 
-  MedicalFitnessBloc(this.onboardingBloc, this._authenticationCubit)
-      : super(MedicalFitnessState.initial()) {
+  MedicalFitnessBloc(this.onboardingBloc, this._authenticationCubit) : super(MedicalFitnessState.initial()) {
     on<NextQuestion>(_onNextQuestion);
     on<PreviousQuestion>(_onPreviousQuestion);
     on<PregnancyChanged>(_onPregnancyChanged);
@@ -43,9 +42,9 @@ class MedicalFitnessBloc
     on<ResetData>(_onResetData);
     on<HandleSexType>(_onHandleSexType);
     on<HandleBirthday>(_onHandleBirthday);
+    on<WeightLossMedicationChanged>(_onWeightLossMedicationChanged);
 
-    _authBlocStreamSubscription =
-        _authenticationCubit.stream.distinct().listen((s) {
+    _authBlocStreamSubscription = _authenticationCubit.stream.distinct().listen((s) {
       s.mapOrNull(
         authenticated: (_) {
           add(const MedicalFitnessEvent.resetData());
@@ -65,8 +64,7 @@ class MedicalFitnessBloc
 
   void _onRemovePregnancyQuestion() {
     if (medicalFitnessQuestions.contains('pregnancy')) {
-      medicalFitnessQuestions
-          .removeAt(medicalFitnessQuestions.indexOf('pregnancy'));
+      medicalFitnessQuestions.removeAt(medicalFitnessQuestions.indexOf('pregnancy'));
     }
   }
 
@@ -223,9 +221,19 @@ class MedicalFitnessBloc
     );
   }
 
+  FutureOr<void> _onWeightLossMedicationChanged(
+    WeightLossMedicationChanged event,
+    Emitter<MedicalFitnessState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        weightLossMedication: event.value,
+      ),
+    );
+  }
+
   @override
-  MedicalFitnessState? fromJson(Map<String, dynamic> json) =>
-      MedicalFitnessState.fromJson(json);
+  MedicalFitnessState? fromJson(Map<String, dynamic> json) => MedicalFitnessState.fromJson(json);
 
   @override
   Map<String, dynamic>? toJson(MedicalFitnessState state) {

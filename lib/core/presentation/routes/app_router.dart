@@ -33,6 +33,8 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/cardiova
 import 'package:loopcare_frontend/features/medical_fitness/presentation/consent_needed/consent_needed_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/medical_check_passed/presentation/medical_check_passed_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/medical_intro/medical_intro_page.dart';
+import 'package:loopcare_frontend/features/medical_fitness/presentation/medication_future_period/medication_future_period_page.dart';
+import 'package:loopcare_frontend/features/medical_fitness/presentation/medication_past_period/medication_past_period_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/pain_in_chest/presentation/pain_in_chest_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/pain_in_chest_failled/presentation/pain_in_chest_failled_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/pregnancy_failed/presentation/pregnancy_failed.dart';
@@ -41,6 +43,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/stomach_
 import 'package:loopcare_frontend/features/medical_fitness/presentation/stomach_reduction_failed/presentation/stomach_reduction_failed_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor/presentation/treatment_by_doctor_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor_failled/presentation/treatment_by_doctor_failled_page.dart';
+import 'package:loopcare_frontend/features/medical_fitness/presentation/weight_loss_medication/weight_loss_medication_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/search_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
@@ -165,6 +168,18 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.treatmentByDoctorFailed,
       page: TreatmentByDoctorFailedPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.weightLossMedication,
+      page: WeightLossMedicationPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.medicationPastPeriod,
+      page: MedicationPastPeriodPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.medicationFuturePeriod,
+      page: MedicationFuturePeriodPage,
     ),
     AutoRoute(
       path: AppRoutes.physicalCheckResult,

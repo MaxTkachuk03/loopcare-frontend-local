@@ -23,6 +23,9 @@ class AppRoutes {
   static const String painInChestFailed = '/pain-in-chest-failed';
   static const String treatmentByDoctor = '/treatment-by-doctor';
   static const String treatmentByDoctorFailed = '/treatment-by-doctor-failed';
+  static const String weightLossMedication = '/weight-loss-medication';
+  static const String medicationPastPeriod = '/medication-past-period';
+  static const String medicationFuturePeriod = '/medication-future-period';
   static const String physicalCheckResult = '/physical-check-result';
   static const String consentNeeded = '/consent-needed';
   static const String forgotPassword = '/forgot-password';
