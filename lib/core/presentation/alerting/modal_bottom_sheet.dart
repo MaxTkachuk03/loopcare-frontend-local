@@ -11,9 +11,8 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/oval_bottom_border_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/survey_image_clipper.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
@@ -49,10 +48,7 @@ class ModalBottomSheet {
               const SizedBox(height: 24.0),
               Text(
                 LocalizedTexts.emailConfirmedBottomSheetTitle.tr(),
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(fontWeight: FontWeight.w900),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w900),
               ),
               const SizedBox(height: 20.0),
               Text(
@@ -65,8 +61,7 @@ class ModalBottomSheet {
                   context.router.pop();
                 },
                 style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                      backgroundColor:
-                          MaterialStateProperty.all(AppColors.orangeDark),
+                      backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
                     ),
                 child: Text(
                   LocalizedTexts.continueBtn.tr(),
@@ -104,20 +99,15 @@ class ModalBottomSheet {
                 padding: const EdgeInsets.symmetric(horizontal: 22.0),
                 child: Text(
                   message,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(color: AppColors.orangeDark),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.orangeDark),
                 ),
               ),
               const SizedBox(height: 27.0),
               ElevatedButton(
                 onPressed: onBtnPress,
                 style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                      backgroundColor:
-                          MaterialStateProperty.all(AppColors.bgGreen),
-                      foregroundColor:
-                          MaterialStateProperty.all(AppColors.black),
+                      backgroundColor: MaterialStateProperty.all(AppColors.bgGreen),
+                      foregroundColor: MaterialStateProperty.all(AppColors.black),
                     ),
                 child: Text(btnText),
               ),
@@ -160,14 +150,9 @@ class ModalBottomSheet {
                   children: [
                     ElevatedButton(
                       onPressed: () => context.router.pop(),
-                      style: Theme.of(context)
-                          .elevatedButtonTheme
-                          .style
-                          ?.copyWith(
-                            backgroundColor:
-                                MaterialStateProperty.all(AppColors.bgGreen),
-                            foregroundColor:
-                                MaterialStateProperty.all(AppColors.black),
+                      style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                            backgroundColor: MaterialStateProperty.all(AppColors.bgGreen),
+                            foregroundColor: MaterialStateProperty.all(AppColors.black),
                           ),
                       child: Text(LocalizedTexts.noCancel.translation),
                     ),
@@ -241,10 +226,7 @@ class ModalBottomSheet {
                           children: [
                             OutlinedButton(
                               onPressed: () => context.router.pop(),
-                              style: Theme.of(context)
-                                  .outlinedButtonTheme
-                                  .style
-                                  ?.copyWith(
+                              style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
                                     side: MaterialStateProperty.all(
                                       const BorderSide(
                                         width: 1.0,
@@ -254,10 +236,7 @@ class ModalBottomSheet {
                                   ),
                               child: Text(
                                 LocalizedTexts.noCancel.translation,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                       color: AppColors.blueDark,
                                     ),
                               ),
@@ -267,8 +246,7 @@ class ModalBottomSheet {
                             ),
                             ElevatedButton(
                               onPressed: onDeleted,
-                              child: Text(
-                                  '${LocalizedTexts.remove.translation} $mealCategory'),
+                              child: Text('${LocalizedTexts.remove.translation} $mealCategory'),
                             ),
                             const SizedBox(
                               height: 24.0,
@@ -338,25 +316,22 @@ class ModalBottomSheet {
                       children: [
                         Text(
                           LocalizedTexts.consentConfirmationMoreInfoTitle.tr(),
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                fontWeight: FontWeight.w700,
+                              ),
                         ),
                         const SizedBox(
                           height: 30.0,
                         ),
                         Text(
-                          LocalizedTexts.consentConfirmationMoreInfoTextOne
-                              .tr(),
+                          LocalizedTexts.consentConfirmationMoreInfoTextOne.tr(),
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         const SizedBox(
                           height: 30.0,
                         ),
                         Text(
-                          LocalizedTexts.consentConfirmationMoreInfoTextTwo
-                              .tr(),
+                          LocalizedTexts.consentConfirmationMoreInfoTextTwo.tr(),
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         const SizedBox(
@@ -364,10 +339,9 @@ class ModalBottomSheet {
                         ),
                         Text(
                           LocalizedTexts.downloadInstructionWhatToAsk.tr(),
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    decoration: TextDecoration.underline,
-                                  ),
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                decoration: TextDecoration.underline,
+                              ),
                         ),
                       ],
                     ),
@@ -466,8 +440,7 @@ class ModalBottomSheet {
                           onTap: () {
                             context.router.pop();
                             final selectedNutritionType =
-                                NutritionValuesTypes.values.firstWhere(
-                                    (element) => element.name == item.key);
+                                NutritionValuesTypes.values.firstWhere((element) => element.name == item.key);
                             onSelect(selectedNutritionType);
                           },
                           child: Container(
@@ -509,8 +482,7 @@ class ModalBottomSheet {
         List<MealCategoryFilter> updatedList = [...list];
 
         return StatefulBuilder(
-          builder:
-              (BuildContext context, void Function(void Function()) setState) {
+          builder: (BuildContext context, void Function(void Function()) setState) {
             return Wrap(
               children: [
                 Align(
@@ -547,10 +519,7 @@ class ModalBottomSheet {
                             ),
                             Text(
                               subtitle,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                     fontStyle: FontStyle.italic,
                                   ),
                             ),
@@ -567,8 +536,7 @@ class ModalBottomSheet {
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           decoration: const BoxDecoration(
                             border: Border(
-                              bottom: BorderSide(
-                                  width: 2, color: AppColors.bgGreen),
+                              bottom: BorderSide(width: 2, color: AppColors.bgGreen),
                             ),
                           ),
                           child: Row(
@@ -582,17 +550,14 @@ class ModalBottomSheet {
                                     final index = updatedList.indexOf(item);
 
                                     setState(() {
-                                      updatedList[index] = item.copyWith(
-                                          selected: value ?? false);
+                                      updatedList[index] = item.copyWith(selected: value ?? false);
                                     });
                                   },
                                   value: item.selected,
                                 ),
                               ),
                               const SizedBox(width: 16.0),
-                              Expanded(
-                                  child: Text(
-                                      item.name.capitalizeOnlyFirstLetter()))
+                              Expanded(child: Text(item.name.capitalizeOnlyFirstLetter()))
                             ],
                           ),
                         ),
@@ -672,18 +637,16 @@ class ModalBottomSheet {
                         ),
                         Text(
                           subtitle,
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontStyle: FontStyle.italic,
-                                  ),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                fontStyle: FontStyle.italic,
+                              ),
                         ),
                       ],
                     ),
                   const SizedBox(
                     height: 24.0,
                   ),
-                  const Divider(
-                      height: 2, thickness: 2, color: AppColors.bgGreen),
+                  const Divider(height: 2, thickness: 2, color: AppColors.bgGreen),
                   listWidget,
                   const SizedBox(
                     height: 26.0,
@@ -734,10 +697,7 @@ class ModalBottomSheet {
                   children: [
                     Text(
                       LocalizedTexts.surveyFinishedBottomSheetTitle.tr(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall
-                          ?.copyWith(color: AppColors.blueDark),
+                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: AppColors.blueDark),
                     ),
                     const SizedBox(height: 8.0),
                     Text(
@@ -826,8 +786,7 @@ class ModalBottomSheet {
                       itemCount: list.length,
                       itemBuilder: (BuildContext context, int index) {
                         final item = list[index];
-                        final isFilled =
-                            filledList.contains(item.label.toLowerCase());
+                        final isFilled = filledList.contains(item.label.toLowerCase());
 
                         return InkWell(
                           onTap: () {
@@ -847,26 +806,16 @@ class ModalBottomSheet {
                             child: Row(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
+                                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
                                   child: ImageIcon(
-                                    isFilled
-                                        ? AppIcons.iconCheckmark
-                                        : item.icon,
-                                    color: isFilled
-                                        ? AppColors.blueDark
-                                        : AppColors.darkGreen,
+                                    isFilled ? AppIcons.iconCheckmark : item.icon,
+                                    color: isFilled ? AppColors.blueDark : AppColors.darkGreen,
                                   ),
                                 ),
                                 Text(
                                   item.name,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium
-                                      ?.copyWith(
-                                        color: isFilled
-                                            ? AppColors.greyLabel
-                                            : AppColors.darkGreen,
+                                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                        color: isFilled ? AppColors.greyLabel : AppColors.darkGreen,
                                       ),
                                 ),
                               ],
@@ -901,71 +850,70 @@ class ModalBottomSheet {
             return Scaffold(
               appBar: AppBar(backgroundColor: AppColors.white),
               body: SafeArea(
-                child: Column(
-                  children: [
-                    Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        ClipPath(
-                          clipper: SurveyImageClipper(),
-                          child: Container(
-                            height: 120,
-                            width: double.infinity,
-                            color: AppColors.white,
+                child: ScrollableContainer(
+                  child: Column(
+                    children: [
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          ClipPath(
+                            clipper: OvalBottomBorderClipper(),
+                            child: Container(
+                              height: 90,
+                              width: double.infinity,
+                              color: AppColors.white,
+                            ),
                           ),
-                        ),
-                        Positioned(
-                          left: 1,
-                          right: 1,
-                          child: SizedBox(
-                            height: 140,
-                            child: NetworkImageWithCache(
-                                url: state.data.lessonImage),
+                          Positioned(
+                            bottom: -95,
+                            left: 1,
+                            right: 1,
+                            child: SizedBox(
+                              width: 234,
+                              height: 182,
+                              child: NetworkImageWithCache(url: state.data.lessonImage),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30.0),
-                    Expanded(
-                      child: ScrollableContainer(
-                        child: MainContainer(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              const SizedBox(height: 20.0),
-                              Text(
-                                state.data.lessonCategory.toUpperCase(),
-                                style: const TextStyle(
-                                    color: AppColors.orangeDark,
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              const SizedBox(height: 14),
-                              Text(
-                                state.data.lessonTitle,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displaySmall
-                                    ?.copyWith(
-                                      fontFamily:
-                                          ThemeConstants.bitterFontFamily,
-                                    ),
-                              ),
-                              const SizedBox(height: 24.0),
-                              HtmlRenderer(
-                                  content: state.data.currentPage.content.html),
-                              const SizedBox(height: 24.0),
-                              ElevatedButton(
-                                onPressed: onBtnPress,
-                                child: Text(LocalizedTexts.finish.translation),
-                              ),
-                              const SizedBox(height: 40.0),
-                            ],
-                          ),
-                        ),
+                        ],
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 60.0),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const SizedBox(height: 20.0),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                            child: Text(
+                              state.data.lessonCategory.toUpperCase(),
+                              style: const TextStyle(
+                                  color: AppColors.orangeDark, fontSize: 12.0, fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                          const SizedBox(height: 14),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                            child: Text(
+                              state.data.lessonTitle,
+                              style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                                    fontFamily: ThemeConstants.bitterFontFamily,
+                                  ),
+                            ),
+                          ),
+                          const SizedBox(height: 24.0),
+                          HtmlRenderer(content: state.data.currentPage.content.html),
+                          const SizedBox(height: 24.0),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                            child: ElevatedButton(
+                              onPressed: onBtnPress,
+                              child: Text(LocalizedTexts.finish.translation),
+                            ),
+                          ),
+                          const SizedBox(height: 40.0),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
