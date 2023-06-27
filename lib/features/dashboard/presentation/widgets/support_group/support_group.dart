@@ -30,8 +30,7 @@ class SupportGroup extends StatelessWidget {
             top: 0,
             right: 0,
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
               decoration: const BoxDecoration(
                 color: AppColors.blueAppBar,
                 borderRadius: BorderRadius.only(
@@ -40,7 +39,7 @@ class SupportGroup extends StatelessWidget {
                 ),
               ),
               child: Text(
-                'comming up'.toUpperCase(),
+                'coming up'.toUpperCase(),
                 style: const TextStyle(
                   fontSize: 10.0,
                   fontWeight: FontWeight.w700,
@@ -73,10 +72,7 @@ class SupportGroup extends StatelessWidget {
                           children: [
                             Text(
                               LocalizedTexts.supportGroup.translation,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall!
-                                  .copyWith(
+                              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                     fontFamily: ThemeConstants.bitterFontFamily,
                                   ),
                             ),
@@ -84,10 +80,7 @@ class SupportGroup extends StatelessWidget {
                             // TODO get text from the server
                             Text(
                               'Eating Behaviour & Stressful Situations',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
+                              style: Theme.of(context).textTheme.bodySmall!.copyWith(
                                     fontWeight: FontWeight.w600,
                                   ),
                               maxLines: 2,
@@ -95,10 +88,7 @@ class SupportGroup extends StatelessWidget {
                             ),
                             Text(
                               'Thursday from 21:00 to 22:00',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
+                              style: Theme.of(context).textTheme.bodySmall!.copyWith(
                                     fontStyle: FontStyle.italic,
                                     color: const Color(0xFF919B8C),
                                   ),
