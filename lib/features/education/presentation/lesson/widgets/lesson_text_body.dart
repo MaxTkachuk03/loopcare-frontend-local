@@ -5,9 +5,8 @@ import 'package:loopcare_frontend/core/presentation/html_renderer/html_renderer.
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/oval_bottom_border_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/survey_image_clipper.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_content.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 
@@ -44,19 +43,20 @@ class LessonTextPage extends StatelessWidget {
                   clipBehavior: Clip.none,
                   children: [
                     ClipPath(
-                      clipper: SurveyImageClipper(),
+                      clipper: OvalBottomBorderClipper(),
                       child: Container(
-                        height: 120,
+                        height: 90,
                         width: double.infinity,
                         color: AppColors.white,
                       ),
                     ),
                     Positioned(
-                      bottom: -90,
+                      bottom: -95,
                       left: 1,
                       right: 1,
                       child: SizedBox(
-                        height: 180,
+                        width: 234,
+                        height: 182,
                         child: NetworkImageWithCache(url: lesson.lessonImage),
                       ),
                     ),
@@ -64,32 +64,36 @@ class LessonTextPage extends StatelessWidget {
                 );
               }),
               const SizedBox(height: 60.0),
-              MainContainer(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const SizedBox(height: 20.0),
-                    BlocBuilder<EducationLessonBloc, EducationLessonState>(
-                      builder: (context, state) {
-                        final lesson = state.data;
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 20.0),
+                  BlocBuilder<EducationLessonBloc, EducationLessonState>(
+                    builder: (context, state) {
+                      final lesson = state.data;
 
-                        return Text(
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        child: Text(
                           lesson.lessonCategory.toUpperCase(),
                           style: const TextStyle(
                               color: AppColors.orangeDark, fontSize: 12.0, fontWeight: FontWeight.w600),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 24.0),
-                    HtmlRenderer(content: content.html),
-                    const SizedBox(height: 40.0),
-                    ElevatedButton(
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 24.0),
+                  HtmlRenderer(content: content.html),
+                  const SizedBox(height: 40.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    child: ElevatedButton(
                       onPressed: onNextPressed,
                       child: const Text(LocalizedTexts.next).tr(),
                     ),
-                    const SizedBox(height: 14.0),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 14.0),
+                ],
               ),
             ],
           ),
