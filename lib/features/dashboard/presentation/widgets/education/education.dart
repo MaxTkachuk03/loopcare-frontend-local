@@ -80,8 +80,6 @@ class Education extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8.0),
-            const Divider(color: AppColors.yellowLight),
-            const SizedBox(height: 6.0),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -89,6 +87,8 @@ class Education extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const Divider(color: AppColors.yellowLight),
+                      const SizedBox(height: 6.0),
                       Text(
                         LocalizedTexts.todo,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
