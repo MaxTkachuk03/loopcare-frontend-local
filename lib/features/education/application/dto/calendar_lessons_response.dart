@@ -8,7 +8,7 @@ part 'calendar_lessons_response.g.dart';
 @JsonSerializable()
 class CalendarLessonsResponse {
   final List<EducationLesson> lessons;
-  final EducationLesson nextLesson;
+  final EducationLesson? nextLesson;
 
   const CalendarLessonsResponse(
     this.lessons,
