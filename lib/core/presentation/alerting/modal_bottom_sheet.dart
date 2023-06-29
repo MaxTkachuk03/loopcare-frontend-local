@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_classes_with_only_static_members
-
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +20,8 @@ import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.d
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 class ModalBottomSheet {
+  ModalBottomSheet._();
+
   static void emailConfirmed({
     required BuildContext context,
     required void Function() onContinuePressed,
