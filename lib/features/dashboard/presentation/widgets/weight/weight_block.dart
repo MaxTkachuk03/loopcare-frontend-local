@@ -26,15 +26,10 @@ class WeightBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 8.0,
-      ),
+      padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
       decoration: const BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.all(
-          Radius.circular(8),
-        ),
+        borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -99,8 +94,8 @@ class WeightBlock extends StatelessWidget {
 
               return isEditable
                   ? Hexagon(
-                      width: 54,
-                      height: 54,
+                      width: 42,
+                      height: 42,
                       borderRadius: 16,
                       innerWidget: Container(
                         color: AppColors.bgGreen,
@@ -108,7 +103,7 @@ class WeightBlock extends StatelessWidget {
                           icon: ImageIcon(
                             hasLog ? AppIcons.edit : AppIcons.plus,
                             color: AppColors.darkGreen,
-                            size: 18,
+                            size: 12,
                           ),
                           onPressed: () => onPressHandler(context),
                         ),

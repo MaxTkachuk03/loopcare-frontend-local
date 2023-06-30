@@ -74,7 +74,7 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                 children: [
                   Row(
                     children: [
-                      const SizedBox(width: 55.0, child: Image(image: AppIcons.physicalExercise)),
+                      const Image(image: AppIcons.physicalExercise),
                       const SizedBox(width: 24.0),
                       Text(
                         LocalizedTexts.physicalActivities,

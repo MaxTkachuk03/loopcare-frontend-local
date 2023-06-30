@@ -34,17 +34,10 @@ class Education extends StatelessWidget {
       final completedLessons = state.data.completedLessons[date.isoStringWithoutTime];
 
       return Container(
-        padding: const EdgeInsets.only(
-          top: 8.0,
-          bottom: 16.0,
-          right: 16.0,
-          left: 16.0,
-        ),
+        padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
         decoration: const BoxDecoration(
           color: AppColors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(8),
-          ),
+          borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
         child: Column(
           children: [
@@ -55,12 +48,7 @@ class Education extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const SizedBox(
-                        width: 55.0,
-                        child: Image(
-                          image: AppImages.educationDashboard,
-                        ),
-                      ),
+                      const Image(image: AppImages.educationDashboard),
                       const SizedBox(width: 24.0),
                       Text(
                         LocalizedTexts.education.translation,

@@ -49,12 +49,7 @@ class SupportGroup extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(
-              top: 8.0,
-              bottom: 16.0,
-              right: 16.0,
-              left: 16.0,
-            ),
+            padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -62,9 +57,7 @@ class SupportGroup extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Image(
-                        image: AppIcons.supportGroup,
-                      ),
+                      const Image(image: AppIcons.supportGroup),
                       const SizedBox(width: 24.0),
                       Flexible(
                         child: Column(

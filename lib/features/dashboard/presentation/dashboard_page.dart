@@ -63,17 +63,18 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AppImages.dashboardBg,
-            fit: BoxFit.contain,
-          ),
-        ),
-        child: Column(
-          children: [
-            SliderCalendar(onSelectDay: _onDaySelected),
-            Expanded(
+      child: Column(
+        children: [
+          SliderCalendar(onSelectDay: _onDaySelected),
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  alignment: Alignment.bottomRight,
+                  scale: 1.03,
+                  image: AppImages.dashboardBg,
+                ),
+              ),
               child: ScrollableContainer(
                 child: MainContainer(
                   child: Column(
@@ -128,9 +129,9 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

@@ -19,17 +19,10 @@ class Reflection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(
-        top: 8.0,
-        bottom: 16.0,
-        right: 16.0,
-        left: 16.0,
-      ),
+      padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
       decoration: const BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.all(
-          Radius.circular(8),
-        ),
+        borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,9 +30,7 @@ class Reflection extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Image(
-                image: AppIcons.dashbordReflectionDone,
-              ),
+              const Image(image: AppIcons.dashbordReflection),
               const SizedBox(width: 24.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

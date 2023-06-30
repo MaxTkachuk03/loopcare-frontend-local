@@ -52,17 +52,10 @@ class PlanMeal extends StatelessWidget {
         currentPlannedMeals.sort((a, b) => a.order.compareTo(b.order));
 
         return Container(
-          padding: const EdgeInsets.only(
-            top: 8.0,
-            bottom: 24.0,
-            right: 16.0,
-            left: 16.0,
-          ),
+          padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
           decoration: const BoxDecoration(
             color: AppColors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(8),
-            ),
+            borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
           child: Column(
             children: [
@@ -71,9 +64,7 @@ class PlanMeal extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Image(
-                        image: AppIcons.dashbordPlanMeals,
-                      ),
+                      const Image(image: AppIcons.dashbordPlanMeals),
                       const SizedBox(width: 24.0),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,8 +95,8 @@ class PlanMeal extends StatelessWidget {
                   ),
                   if (state.isPossibleToPlanMeal)
                     Hexagon(
-                      width: 54,
-                      height: 54,
+                      width: 42,
+                      height: 42,
                       borderRadius: 16,
                       innerWidget: Container(
                         color: AppColors.bgGreen,
@@ -113,7 +104,7 @@ class PlanMeal extends StatelessWidget {
                           icon: ImageIcon(
                             isEditable ? AppIcons.edit : AppIcons.plus,
                             color: AppColors.darkGreen,
-                            size: 18,
+                            size: 12,
                           ),
                           onPressed: () => onPressHandler(context),
                         ),
