@@ -264,8 +264,6 @@ class _VideoPageState extends State<VideoPage> {
   void dispose() {
     _onlyPortraitOrientation();
 
-    _countDownController.reset();
-
     _disposeVideoController();
 
     super.dispose();
