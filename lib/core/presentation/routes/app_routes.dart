@@ -102,5 +102,10 @@ class AppRoutes {
 
   // Video
   static const String video = '/video';
+
+  // Reflection
+  static const String reflection = '/reflection';
+  static const String reflectionNutritionDetails = '/reflection-nutrition-details';
+
   AppRoutes._();
 }

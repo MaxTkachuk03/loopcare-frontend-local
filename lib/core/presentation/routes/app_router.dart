@@ -70,6 +70,8 @@ import 'package:loopcare_frontend/features/authentication/presentation/welcome/s
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/preferences_overview_page.dart';
 import 'package:loopcare_frontend/features/proxy/proxy_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_serving_page/select_serving_page.dart';
+import 'package:loopcare_frontend/features/reflection/presentation/nutrition_details_page.dart';
+import 'package:loopcare_frontend/features/reflection/presentation/reflection_page.dart';
 import 'package:loopcare_frontend/features/self_help/presentation/gender_preferences/self_help_gender_preferences_page.dart';
 import 'package:loopcare_frontend/features/self_help/presentation/intro/self_help_intro_page.dart';
 import 'package:loopcare_frontend/features/self_help/presentation/ready/self_help_ready_page.dart';
@@ -409,6 +411,14 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.video,
       page: VideoPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.reflection,
+      page: ReflectionPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.reflectionNutritionDetails,
+      page: NutritionDetailsPage,
     ),
   ],
 )
