@@ -18,6 +18,24 @@ class AppImages {
   static const AssetImage preferencesDiabetes =
       AssetImage('$imagesFilePath/diabetes.png');
 
+  static const AssetImage reflectionActivities =
+      AssetImage('$imagesFilePath/reflection_activities.png');
+
+  static const AssetImage reflectionMind =
+      AssetImage('$imagesFilePath/reflection_mind.png');
+
+  static const AssetImage reflectionNutrition =
+      AssetImage('$imagesFilePath/reflection_nutrition.png');
+
+  static const AssetImage nutritionTable =
+      AssetImage('$imagesFilePath/nutrition_table.png');
+
+  static const AssetImage reflectionWeight =
+      AssetImage('$imagesFilePath/reflection_weight.png');
+
+  static const AssetImage reflectionActivitiesTable =
+      AssetImage('$imagesFilePath/reflection_activities_table.png');
+
   static const AssetImage editButton =
       AssetImage('$imagesFilePath/edit_button.png');
 

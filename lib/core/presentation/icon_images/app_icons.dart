@@ -44,7 +44,9 @@ class AppIcons {
   static const AssetImage edit = AssetImage(
     '$iconsFilePath/edit.png',
   );
-
+  static const AssetImage arrowDown = AssetImage(
+    '$iconsFilePath/arrow_down.png',
+  );
   static const AssetImage starFilled = AssetImage(
     '$iconsFilePath/icon_star_filled.png',
   );
@@ -98,6 +100,8 @@ class AppIcons {
   static const AssetImage snack = AssetImage('$iconsFilePath/icon_snack.png');
 
   static SvgPicture person = SvgPicture.asset('$iconsFilePath/person.svg');
+
+  static SvgPicture introReflection = SvgPicture.asset('$iconsFilePath/intro_reflection.svg');
 
   static const AssetImage delete = AssetImage('$iconsFilePath/delete.png');
 

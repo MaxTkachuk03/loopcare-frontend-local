@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scoring_scale.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/widgets/regular_cell.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/widgets/selected_cell.dart';
 
@@ -39,22 +40,9 @@ class _AssesmentBlockState extends State<AssesmentBlock> {
                 ),
           ),
           const SizedBox(height: 20.0),
-          SizedBox(
-            height: 65,
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  10,
-                  (index) => index + 1 == selectedScore
-                      ? SelectedCell(index: index + 1)
-                      : RegularCell(
-                          index: index + 1,
-                          onPress: _onCellTap,
-                        ),
-                ),
-              ),
-            ),
+          ScoringScale(
+            selectedScore: selectedScore,
+            onScoreTap: _onCellTap,
           ),
           const SizedBox(height: 14.0),
           Row(
