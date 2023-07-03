@@ -155,8 +155,7 @@ class _HeightPageState extends State<HeightPage> {
     setState(() {
       heightFT = int.parse(value);
 
-      heightInCm =
-          HeightConversionUtils.convertFeetAndInchesToCM(heightFT, heightIN);
+      heightInCm = HeightConversionUtils.convertFeetAndInchesToCM(heightFT, heightIN);
     });
   }
 
@@ -165,8 +164,7 @@ class _HeightPageState extends State<HeightPage> {
     setState(() {
       heightIN = int.parse(value);
 
-      heightInCm =
-          HeightConversionUtils.convertFeetAndInchesToCM(heightFT, heightIN);
+      heightInCm = HeightConversionUtils.convertFeetAndInchesToCM(heightFT, heightIN);
     });
   }
 
@@ -175,6 +173,10 @@ class _HeightPageState extends State<HeightPage> {
   String getHeight() => heightInCm.toString();
 
   void _onTabChanged(MeasurementSystemType unitType) {
+    setState(() {
+      activeMeasurementType = unitType;
+    });
+
     if (unitType == MeasurementSystemType.metric) {
       cmFieldFocusNode.requestFocus();
       if (heightInCm == null) return;
@@ -182,15 +184,9 @@ class _HeightPageState extends State<HeightPage> {
     } else {
       ftFieldFocusNode.requestFocus();
       if (heightInCm == null) return;
-      ftController.text =
-          '${HeightConversionUtils.convertCMtoFT(heightInCm ?? 0)}';
-      inController.text =
-          '${HeightConversionUtils.convertCMtoFtIn(heightInCm ?? 0)}';
+      ftController.text = '${HeightConversionUtils.convertCMtoFT(heightInCm ?? 0)}';
+      inController.text = '${HeightConversionUtils.convertCMtoFtIn(heightInCm ?? 0)}';
     }
-
-    setState(() {
-      activeMeasurementType = unitType;
-    });
   }
 }
 
