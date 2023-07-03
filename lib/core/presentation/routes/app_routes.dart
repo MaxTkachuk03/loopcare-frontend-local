@@ -107,5 +107,8 @@ class AppRoutes {
   static const String reflection = '/reflection';
   static const String reflectionNutritionDetails = '/reflection-nutrition-details';
 
+  // Video session
+  static const String videoSession = '/video-session';
+
   AppRoutes._();
 }
