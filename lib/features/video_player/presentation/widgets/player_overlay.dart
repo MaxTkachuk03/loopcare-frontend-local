@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
@@ -10,13 +12,12 @@ import 'package:loopcare_frontend/features/video_player/presentation/widgets/pro
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/progress_bar.dart';
 import 'package:video_player/video_player.dart';
 
-class PlayerOverlay extends StatelessWidget {
+class PlayerOverlay extends StatefulWidget {
   final VideoPlayerController controller;
   final Orientation orientation;
   final PhysicalProgramExercise exercise;
   final String programType;
   final String programDifficulty;
-  final VoidCallback onSliderProgressChange;
   final VoidCallback? onPrevPressed;
   final VoidCallback onNextPressed;
 
@@ -30,116 +31,194 @@ class PlayerOverlay extends StatelessWidget {
     required this.exercise,
     required this.programType,
     required this.programDifficulty,
-    required this.onSliderProgressChange,
-    this.onPrevPressed,
     required this.onNextPressed,
+    this.onPrevPressed,
   }) : super(key: key);
 
-  bool get _isPortraitOrientation {
-    return orientation == Orientation.portrait;
+  @override
+  State<PlayerOverlay> createState() => _PlayerOverlayState();
+}
+
+class _PlayerOverlayState extends State<PlayerOverlay> {
+  static const Duration _timerDuration = Duration(seconds: 5);
+  static const Duration _animationDuration = Duration(milliseconds: 350);
+
+  Timer? _timer;
+  bool _showControls = false;
+
+  void _setTimer() {
+    _timer = Timer.periodic(_timerDuration, (timer) {
+      setState(() {
+        _showControls = false;
+      });
+
+      timer.cancel();
+    });
+
+    setState(() {
+      _showControls = true;
+    });
+  }
+
+  void _onSlideChangeHandler() {
+    if (_timer != null) _timer?.cancel();
+
+    _setTimer();
+  }
+
+  void _showVideoControlsWithTimer() {
+    if (_timer != null) _timer?.cancel();
+
+    if (_showControls) {
+      setState(() {
+        _showControls = false;
+      });
+      return;
+    }
+
+    _setTimer();
   }
 
   void _onSkipExplanation() {
-    if (controller.value.position.inSeconds >= exercise.explanationSkipTime) return;
+    if (widget.controller.value.position.inSeconds >= widget.exercise.explanationSkipTime) return;
 
-    controller.seekTo(Duration(seconds: exercise.explanationSkipTime));
+    widget.controller.seekTo(Duration(seconds: widget.exercise.explanationSkipTime));
+  }
+
+  bool get _isPortraitOrientation {
+    return widget.orientation == Orientation.portrait;
   }
 
   double get _videoWidth {
-    final width = controller.value.size.width;
+    final width = widget.controller.value.size.width;
 
-    return width != 0 ? width : _defaultVideoWidth;
+    return width != 0 ? width : PlayerOverlay._defaultVideoWidth;
   }
 
   double get _videoHeight {
-    final height = controller.value.size.height;
+    final height = widget.controller.value.size.height;
 
-    return height != 0 ? height : _defaultVideoHeight;
+    return height != 0 ? height : PlayerOverlay._defaultVideoHeight;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: _videoWidth,
-      height: _videoHeight,
-      color: Colors.black45,
-      padding: EdgeInsets.symmetric(
-          horizontal: _isPortraitOrientation ? 20.0 : 40.0, vertical: _isPortraitOrientation ? 10.0 : 30.0),
-      child: Column(
-        mainAxisAlignment: _isPortraitOrientation ? MainAxisAlignment.end : MainAxisAlignment.spaceBetween,
-        children: [
-          if (!_isPortraitOrientation)
-            ValueListenableBuilder(
-              valueListenable: controller,
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: _showVideoControlsWithTimer,
+          child: Container(
+            width: _videoWidth,
+            height: _videoHeight,
+            color: Colors.transparent,
+            child: null,
+          ),
+        ),
+        GestureDetector(
+          onTap: _showVideoControlsWithTimer,
+          child: AnimatedOpacity(
+            duration: _animationDuration,
+            opacity: _showControls ? 1 : 0,
+            child: Visibility(
+              visible: _showControls,
+              child: Container(
+                width: _videoWidth,
+                height: _videoHeight,
+                color: Colors.black45,
+                padding: EdgeInsets.symmetric(
+                    horizontal: _isPortraitOrientation ? 20.0 : 40.0,
+                    vertical: _isPortraitOrientation ? 10.0 : 30.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              '${widget.exercise.order}. ${widget.exercise.name}',
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontSize: _isPortraitOrientation ? 16.0 : 32.0,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: ThemeConstants.bitterFontFamily,
+                              ),
+                            ),
+                            const SizedBox(width: 16.0),
+                            ProgramDifficultyChip(text: widget.programDifficulty),
+                          ],
+                        ),
+                        const SizedBox(height: 12.0),
+                        Row(
+                          children: [
+                            Text(
+                              widget.programType.toUpperCase(),
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontSize: _isPortraitOrientation ? 10.0 : 12.0,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(width: 16.0),
+                            AppIcons.clockWhite,
+                            const SizedBox(width: 6.0),
+                            Text(formatDuration(widget.exercise.duration),
+                                style: TextStyle(
+                                  color: AppColors.white,
+                                  fontSize: _isPortraitOrientation ? 10.0 : 12.0,
+                                  fontWeight: FontWeight.w600,
+                                )),
+                          ],
+                        ),
+                        if (!_isPortraitOrientation) const SizedBox(height: 24.0),
+                        ProgressBar(
+                          controller: widget.controller,
+                          onSliderProgressChange: _onSlideChangeHandler,
+                        ),
+                        PlayerControls(
+                          controller: widget.controller,
+                          onPrevPressed: widget.onPrevPressed,
+                          onNextPressed: widget.onNextPressed,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        if (!_isPortraitOrientation)
+          Positioned(
+            top: 30,
+            right: 40,
+            child: ValueListenableBuilder(
+              valueListenable: widget.controller,
               builder: (BuildContext context, VideoPlayerValue value, child) {
-                final bool isVisible = value.position.inSeconds < exercise.explanationSkipTime;
+                final bool isVisible = value.position.inSeconds < widget.exercise.explanationSkipTime;
 
                 return Visibility(
                   visible: isVisible,
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: ElevatedButton(
-                      onPressed: _onSkipExplanation,
-                      style: ButtonStyle(
-                        minimumSize: MaterialStateProperty.all(const Size(186, 52.0)),
-                        backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
-                      ),
-                      child: const Text(LocalizedTexts.skipExplanation).tr(),
+                  child: ElevatedButton(
+                    onPressed: _onSkipExplanation,
+                    style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all(const Size(186, 52.0)),
+                      backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
                     ),
+                    child: const Text(LocalizedTexts.skipExplanation).tr(),
                   ),
                 );
               },
             ),
-          Column(
-            children: [
-              Row(
-                children: [
-                  Text(
-                    '${exercise.order}. ${exercise.name}',
-                    style: TextStyle(
-                      color: AppColors.white,
-                      fontSize: _isPortraitOrientation ? 16.0 : 32.0,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: ThemeConstants.bitterFontFamily,
-                    ),
-                  ),
-                  const SizedBox(width: 16.0),
-                  ProgramDifficultyChip(text: programDifficulty),
-                ],
-              ),
-              const SizedBox(height: 12.0),
-              Row(
-                children: [
-                  Text(
-                    programType.toUpperCase(),
-                    style: TextStyle(
-                      color: AppColors.white,
-                      fontSize: _isPortraitOrientation ? 10.0 : 12.0,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(width: 16.0),
-                  AppIcons.clockWhite,
-                  const SizedBox(width: 6.0),
-                  Text(formatDuration(exercise.duration),
-                      style: TextStyle(
-                        color: AppColors.white,
-                        fontSize: _isPortraitOrientation ? 10.0 : 12.0,
-                        fontWeight: FontWeight.w600,
-                      )),
-                ],
-              ),
-              if (!_isPortraitOrientation) const SizedBox(height: 24.0),
-              ProgressBar(controller: controller, onSliderProgressChange: onSliderProgressChange),
-              PlayerControls(
-                controller: controller,
-                onPrevPressed: onPrevPressed,
-                onNextPressed: onNextPressed,
-              ),
-            ],
           ),
-        ],
-      ),
+      ],
     );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+
+    super.dispose();
   }
 }
