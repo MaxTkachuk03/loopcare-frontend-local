@@ -38,9 +38,7 @@ class _WeightPageState extends State<WeightPage> {
 
     kgController = TextEditingController(text: weightInKg ?? '');
     lbsController = TextEditingController(
-        text: weightInKg != null
-            ? '${WeightConversionUtils.convertKgToLbs(double.parse(weightInKg))}'
-            : '');
+        text: weightInKg != null ? '${WeightConversionUtils.convertKgToLbs(double.parse(weightInKg))}' : '');
 
     kgFieldFocusNode = FocusNode();
     lbsFieldFocusNode = FocusNode();
@@ -122,6 +120,10 @@ class _WeightPageState extends State<WeightPage> {
   void _onHelpTap() {}
 
   _onTabChanged(MeasurementSystemType unitType) {
+    setState(() {
+      activeMeasurementType = unitType;
+    });
+
     if (unitType == MeasurementSystemType.metric) {
       kgController.text = getMetricWeight();
       kgFieldFocusNode.requestFocus();
@@ -129,13 +131,8 @@ class _WeightPageState extends State<WeightPage> {
       final kgText = kgController.text;
       if (kgText == '') return;
       lbsFieldFocusNode.requestFocus();
-      lbsController.text =
-          '${WeightConversionUtils.convertKgToLbs(double.parse(kgText))}';
+      lbsController.text = '${WeightConversionUtils.convertKgToLbs(double.parse(kgText))}';
     }
-
-    setState(() {
-      activeMeasurementType = unitType;
-    });
   }
 
   String getWeight() {
