@@ -69,6 +69,8 @@ class AppIcons {
 
   static const AssetImage dashbordExplore = AssetImage('$iconsFilePath/dashboard_explore.png');
 
+  static const AssetImage phone = AssetImage('$iconsFilePath/phone.png');
+
   static const AssetImage dashbordReflection = AssetImage('$iconsFilePath/dashboard_reflection.png');
 
   static const AssetImage dashbordReflectionDone = AssetImage('$iconsFilePath/dashboard_reflection_done.png');
@@ -100,6 +102,12 @@ class AppIcons {
   static const AssetImage snack = AssetImage('$iconsFilePath/icon_snack.png');
 
   static SvgPicture person = SvgPicture.asset('$iconsFilePath/person.svg');
+
+  static SvgPicture cameraOff = SvgPicture.asset('$iconsFilePath/camera_off.svg');
+
+  static SvgPicture microphone = SvgPicture.asset('$iconsFilePath/microphone.svg');
+
+  static SvgPicture settings = SvgPicture.asset('$iconsFilePath/settings.svg');
 
   static SvgPicture introReflection = SvgPicture.asset('$iconsFilePath/intro_reflection.svg');
 

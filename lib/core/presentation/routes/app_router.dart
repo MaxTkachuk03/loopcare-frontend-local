@@ -76,6 +76,7 @@ import 'package:loopcare_frontend/features/self_help/presentation/gender_prefere
 import 'package:loopcare_frontend/features/self_help/presentation/intro/self_help_intro_page.dart';
 import 'package:loopcare_frontend/features/self_help/presentation/ready/self_help_ready_page.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/video_page.dart';
+import 'package:loopcare_frontend/features/video_session/presentation/video_session_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/allergic/allergic_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/do_not_like/do_not_like_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/meat_preferences/meat_preferences_page.dart';
@@ -419,6 +420,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.reflectionNutritionDetails,
       page: NutritionDetailsPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.videoSession,
+      page: VideoSessionPage,
     ),
   ],
 )

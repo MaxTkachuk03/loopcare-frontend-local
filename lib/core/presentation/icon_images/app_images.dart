@@ -27,6 +27,9 @@ class AppImages {
   static const AssetImage reflectionNutrition =
       AssetImage('$imagesFilePath/reflection_nutrition.png');
 
+  static const AssetImage videoSession =
+      AssetImage('$imagesFilePath/video_session.png');
+
   static const AssetImage nutritionTable =
       AssetImage('$imagesFilePath/nutrition_table.png');
 
