@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
@@ -14,6 +15,9 @@ class EducationBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<EducationProgramBloc, EducationProgramState>(
       builder: (BuildContext context, state) {
+
+        if (state.data.isLoading) return const Loader();
+
         final lessons = state.data.lessons;
 
         if (state.data.currentCategory == LessonCategory.all) {
