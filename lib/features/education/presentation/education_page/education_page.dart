@@ -70,7 +70,29 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
       child: SafeArea(
         child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
           builder: (BuildContext context, state) {
+            // return CustomScrollView(
+            //     slivers: [
+            //       EducationTabBar(
+            //         controller: _tabController,
+            //         tabs: categories,
+            //       ),
+            //       if (state.data.currentCategory == LessonCategory.all) const EducationAppBar(),
+            //       SliverFillRemaining(
+            //         child: TabBarView(
+            //           controller: _tabController,
+            //           children: const [
+            //             EducationBody(),
+            //             EducationBody(),
+            //             EducationBody(),
+            //             EducationBody(),
+            //             EducationBody(),
+            //           ],
+            //         ),
+            //       )
+            //     ]
+            // );
             return NestedScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
               headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                 return [
                   EducationTabBar(
