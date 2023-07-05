@@ -16,6 +16,7 @@ class SelectServingPage extends StatefulWidget {
   final String? initialServingId;
   final String foodItemName;
   final double initialServingAmount;
+  final double? initialCaloriesValue;
   final void Function(double numberOfUnits, String servingId) onConfirm;
 
   const SelectServingPage({
@@ -25,6 +26,7 @@ class SelectServingPage extends StatefulWidget {
     required this.initialServingAmount,
     required this.onConfirm,
     this.initialServingId,
+    this.initialCaloriesValue,
   }) : super(key: key);
 
   @override
@@ -36,9 +38,10 @@ class _SelectServingPageState extends State<SelectServingPage> {
   void initState() {
     context.read<FoodItemServingsBloc>().add(
           FoodItemServingsEvent.fetchFoodItemServings(
-            widget.foodItemId,
-            widget.initialServingId,
-            widget.initialServingAmount,
+            foodItemId: widget.foodItemId,
+            selectedServingId: widget.initialServingId,
+            initialServingAmount: widget.initialServingAmount,
+            initialCaloriesValue: widget.initialCaloriesValue,
           ),
         );
 
@@ -70,10 +73,7 @@ class _SelectServingPageState extends State<SelectServingPage> {
                         child: Text(
                           widget.foodItemName,
                           maxLines: 2,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.copyWith(color: Colors.white),
+                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
                         ),
                       ),
                       const SizedBox(width: 21.0),
@@ -90,9 +90,7 @@ class _SelectServingPageState extends State<SelectServingPage> {
                             }
 
                             return FavouriteBtn(
-                              isActive: foodItemServingsState
-                                      .selectedServing?.isSelectedFavorite ??
-                                  false,
+                              isActive: foodItemServingsState.selectedServing?.isSelectedFavorite ?? false,
                               onPress: _onFavouritePressed,
                             );
                           },
@@ -113,8 +111,7 @@ class _SelectServingPageState extends State<SelectServingPage> {
             child: ServingList(),
           ),
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
             child: ElevatedButton(
               onPressed: () => _onConfirmPressed(context),
               child: Text(
@@ -150,8 +147,7 @@ class _SelectServingPageState extends State<SelectServingPage> {
 
     final isFavorite = state.selectedServingItem?.isSelectedFavorite ?? false;
 
-    final snackBarText =
-        _getSnackBarText(isFavorite, state.hasSelectedMealCategoryFilters);
+    final snackBarText = _getSnackBarText(isFavorite, state.hasSelectedMealCategoryFilters);
 
     showAppSnackBar(
       context: context,
@@ -175,15 +171,11 @@ class _SelectServingPageState extends State<SelectServingPage> {
   }
 
   _addToFavorite() {
-    context
-        .read<FoodItemServingsBloc>()
-        .add(FoodItemServingsEvent.addToFavorites(widget.foodItemId));
+    context.read<FoodItemServingsBloc>().add(FoodItemServingsEvent.addToFavorites(widget.foodItemId));
   }
 
   _updateFavourite() {
-    context
-        .read<FoodItemServingsBloc>()
-        .add(FoodItemServingsEvent.updateFavorite(widget.foodItemId));
+    context.read<FoodItemServingsBloc>().add(FoodItemServingsEvent.updateFavorite(widget.foodItemId));
   }
 
   _onAddAsFavouriteConfirmedPressed() {
@@ -196,9 +188,7 @@ class _SelectServingPageState extends State<SelectServingPage> {
     }
 
     if (isFavorite) {
-      state.hasSelectedMealCategoryFilters
-          ? _updateFavourite()
-          : _removeFromFavorite();
+      state.hasSelectedMealCategoryFilters ? _updateFavourite() : _removeFromFavorite();
     } else {
       _addToFavorite();
     }
@@ -213,9 +203,7 @@ class _SelectServingPageState extends State<SelectServingPage> {
     bool value,
     String name,
   ) {
-    context
-        .read<FoodItemServingsBloc>()
-        .add(FoodItemServingsEvent.updateMealCategoryFilter(value, name));
+    context.read<FoodItemServingsBloc>().add(FoodItemServingsEvent.updateMealCategoryFilter(value, name));
   }
 
   void _onFavouritePressed() {
@@ -225,12 +213,9 @@ class _SelectServingPageState extends State<SelectServingPage> {
         ? LocalizedTexts.removeFromFavorites.translation
         : LocalizedTexts.addAsFavourite.translation;
 
-    final subTitle =
-        '${widget.foodItemName} serving: ${state.selectedServingItem?.servingLabel}';
+    final subTitle = '${widget.foodItemName} serving: ${state.selectedServingItem?.servingLabel}';
 
-    context
-        .read<FoodItemServingsBloc>()
-        .add(FoodItemServingsEvent.setMealCategoryFilters(
+    context.read<FoodItemServingsBloc>().add(FoodItemServingsEvent.setMealCategoryFilters(
           state.filtersForSelectedServing,
         ));
 

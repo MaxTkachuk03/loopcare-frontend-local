@@ -2,11 +2,12 @@ part of 'food_item_servings_bloc.dart';
 
 @freezed
 class FoodItemServingsEvent with _$FoodItemServingsEvent {
-  const factory FoodItemServingsEvent.fetchFoodItemServings(
-    String foodItemId,
+  const factory FoodItemServingsEvent.fetchFoodItemServings({
+    required String foodItemId,
     String? selectedServingId,
-    double initialServingAmount,
-  ) = FetchFoodItemServings;
+    required double initialServingAmount,
+    double? initialCaloriesValue,
+  }) = FetchFoodItemServings;
 
   const factory FoodItemServingsEvent.setSelectedFoodItemServing(
     ServingSize item,
