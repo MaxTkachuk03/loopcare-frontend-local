@@ -31,8 +31,7 @@ class OnboardingBloc extends HydratedBloc<OnboardingEvent, OnboardingState> {
     on<CurrentStepChanged>(_onCurrentStepChanged);
     on<ResetData>(_onResetData);
 
-    _authBlocStreamSubscription =
-        _authenticationCubit.stream.distinct().listen((s) {
+    _authBlocStreamSubscription = _authenticationCubit.stream.distinct().listen((s) {
       s.mapOrNull(
         authenticated: (_) {
           add(const OnboardingEvent.resetData());
@@ -57,16 +56,17 @@ class OnboardingBloc extends HydratedBloc<OnboardingEvent, OnboardingState> {
   }
 
   FutureOr<void> _onNextStep(NextStep event, Emitter<OnboardingState> emit) {
-    final isLastStep =
-        state.currentStep.index == OnboardingSteps.values.length - 1;
+    final isLastStep = state.currentStep.index == OnboardingSteps.values.length - 1;
     if (isLastStep) {
       emit(state.copyWith(isCompleted: true));
     } else {
-      emit(state.copyWith(
-        currentStep: state.currentStep.getNextStep(),
-        currentQuestionIndex: 0,
-        currentStepProgress: 0,
-      ));
+      emit(
+        state.copyWith(
+          currentStep: state.currentStep.getNextStep(),
+          currentQuestionIndex: 0,
+          currentStepProgress: 0,
+        ),
+      );
     }
   }
 
@@ -79,8 +79,7 @@ class OnboardingBloc extends HydratedBloc<OnboardingEvent, OnboardingState> {
       emit(state.copyWith(
           currentStep: state.currentStep.getPreviousStep(),
           currentStepProgress: 100,
-          currentQuestionIndex:
-              state.currentStep.getPreviousStep().stepRoutes.length - 1));
+          currentQuestionIndex: state.currentStep.getPreviousStep().stepRoutes.length - 1));
     }
   }
 
@@ -95,8 +94,7 @@ class OnboardingBloc extends HydratedBloc<OnboardingEvent, OnboardingState> {
   }
 
   @override
-  OnboardingState? fromJson(Map<String, dynamic> json) =>
-      OnboardingState.fromJson(json);
+  OnboardingState? fromJson(Map<String, dynamic> json) => OnboardingState.fromJson(json);
 
   @override
   Map<String, dynamic>? toJson(OnboardingState state) {

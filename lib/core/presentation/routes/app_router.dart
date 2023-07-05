@@ -26,6 +26,7 @@ import 'package:loopcare_frontend/features/household_and_habits/presentation/hou
 import 'package:loopcare_frontend/features/household_and_habits/presentation/share_meal_with/share_meal_with_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/where_do_you_eat/where_do_you_eat_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
+import 'package:loopcare_frontend/features/intro/presentation/pre_intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
 import 'package:loopcare_frontend/features/legal_statement/presentation/legal_statement_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/cardiovascular_disease/presentation/cardiovascular_disease_page.dart';
@@ -96,9 +97,13 @@ part 'app_routes.dart';
       guards: [ProxyGuard],
     ),
     AutoRoute(
+      path: AppRoutes.preIntro,
+      page: PreIntroPage,
+      guards: [IntroGuard],
+    ),
+    AutoRoute(
       path: AppRoutes.intro,
       page: IntroPage,
-      guards: [IntroGuard],
     ),
     AutoRoute(
       path: AppRoutes.joinUs,
