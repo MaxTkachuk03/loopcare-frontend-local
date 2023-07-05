@@ -44,7 +44,8 @@ class _BirthdayFieldState extends State<BirthdayField> {
                 height: 100,
                 child: AutoSizeText(
                   maxLines: 1,
-                  DateFormat.yMMMMd(Intl.getCurrentLocale()).format(value),
+                  // TODO DateFormat.yMMMMd(Intl.getCurrentLocale()).format(value), - return when localization translations will be finished
+                  DateFormat.yMMMMd('en_EN').format(value),
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontFamily: ThemeConstants.bitterFontFamily,
                         fontSize: ThemeConstants.fontSize38,
@@ -55,8 +56,7 @@ class _BirthdayFieldState extends State<BirthdayField> {
               ElevatedButton(
                 onPressed: () => _onNextPressed(context),
                 style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                      backgroundColor:
-                          MaterialStateProperty.all(AppColors.orangeDark),
+                      backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
                     ),
                 child: Text(
                   LocalizedTexts.next.tr(),
