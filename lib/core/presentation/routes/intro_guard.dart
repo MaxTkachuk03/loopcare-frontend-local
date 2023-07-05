@@ -44,7 +44,10 @@ class IntroGuard extends AutoRouteGuard {
       final routeIndex = routes.indexOf(currentRoute);
 
       List<PageRouteInfo<dynamic>> needRoutes = [];
-      needRoutes.add(const PreferencesOverviewRoute());
+
+      needRoutes.add(const IntroRoute());
+      needRoutes.add(const JoinUsRoute());
+
       needRoutes.addAll(routes.take(routeIndex + 1).toList());
       router.pushAll(
         needRoutes,

@@ -16,6 +16,5 @@ class OnboardingState with _$OnboardingState {
 
   const OnboardingState._();
 
-  factory OnboardingState.fromJson(Map<String, dynamic> json) =>
-      _$OnboardingStateFromJson(json);
+  factory OnboardingState.fromJson(Map<String, dynamic> json) => _$OnboardingStateFromJson(json);
 }
