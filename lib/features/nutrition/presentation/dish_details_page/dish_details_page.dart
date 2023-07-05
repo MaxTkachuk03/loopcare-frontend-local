@@ -190,6 +190,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
         foodItemId: item.externalId,
         initialServingId: servingId,
         initialServingAmount: item.serving.numberOfUnits,
+        initialCaloriesValue: item.serving.calories,
         foodItemName: item.foodName,
         onConfirm: (double numberOfUnits, String servingId) {
           final dishId = context.read<DishBloc>().state.mapOrNull(dish: (s) => s.selectedDish.id);

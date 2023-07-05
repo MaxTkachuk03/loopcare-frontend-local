@@ -189,6 +189,7 @@ class _EditDishPageState extends State<EditDishPage> {
         foodItemId: item.externalId,
         initialServingId: servingId,
         initialServingAmount: item.serving.numberOfUnits,
+        initialCaloriesValue: item.serving.calories,
         foodItemName: item.foodName,
         onConfirm: (double numberOfUnits, String servingId) {
           final dishId = context.read<EditDishBloc>().state.mapOrNull(dishInfo: (s) => s.currentDish.id);

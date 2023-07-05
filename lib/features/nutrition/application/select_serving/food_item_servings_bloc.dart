@@ -19,12 +19,10 @@ part 'food_item_servings_state.dart';
 part 'food_item_servings_bloc.freezed.dart';
 
 @singleton
-class FoodItemServingsBloc
-    extends Bloc<FoodItemServingsEvent, FoodItemServingsState> {
+class FoodItemServingsBloc extends Bloc<FoodItemServingsEvent, FoodItemServingsState> {
   final NutritionService nutritionService;
 
-  FoodItemServingsBloc(this.nutritionService)
-      : super(const FoodItemServingsState.initial()) {
+  FoodItemServingsBloc(this.nutritionService) : super(const FoodItemServingsState.initial()) {
     on<FetchFoodItemServings>(_onFetchFoodItemServings);
     on<SetSelectedFoodItemServing>(_onSetSelectedFoodItemServing);
     on<AddToFavorites>(_onAddToFavorites);
@@ -44,10 +42,7 @@ class FoodItemServingsBloc
   IList<ServingSize> _getUpdatedServingsList(ServingSize serving) {
     return state.maybeMap(
       foodItemServings: (state) {
-        return state.servings
-            .toList()
-            .map((e) => e.servingId == serving.servingId ? serving : e)
-            .toIList();
+        return state.servings.toList().map((e) => e.servingId == serving.servingId ? serving : e).toIList();
       },
       orElse: () => <ServingSize>[].toIList(),
     );
@@ -59,9 +54,7 @@ class FoodItemServingsBloc
     return state.maybeMap(
       foodItemServings: (state) {
         return state.mealCategoryFilters.map((f) {
-          return f.name == filter.name
-              ? MealCategoryFilter(name: f.name, selected: filter.value)
-              : f;
+          return f.name == filter.name ? MealCategoryFilter(name: f.name, selected: filter.value) : f;
         }).toList();
       },
       orElse: () => <MealCategoryFilter>[],
@@ -74,8 +67,7 @@ class FoodItemServingsBloc
   ) async {
     emit(const FoodItemServingsState.loading());
 
-    final response =
-        await nutritionService.getFoodItemServings(event.foodItemId);
+    final response = await nutritionService.getFoodItemServings(event.foodItemId);
 
     response.fold(
       (l) => null,
@@ -94,15 +86,18 @@ class FoodItemServingsBloc
 
         final selectedServing = event.selectedServingId == null
             ? servingList[0]
-            : servingList
-                .firstWhere((e) => e.servingId == event.selectedServingId);
+            : servingList.firstWhere((e) => e.servingId == event.selectedServingId);
+
+        final initialCaloriesValue = event.initialCaloriesValue;
 
         emit(
           FoodItemServingsState.foodItemServings(
             servings: servingList,
             mealCategoryFilters: _initializeMealCategoryFilters(),
             selectedServingAmount: selectedServing.numberOfUnits.toString(),
-            selectedServing: selectedServing,
+            selectedServing: initialCaloriesValue != null
+                ? selectedServing.copyWith(calories: initialCaloriesValue)
+                : selectedServing,
           ),
         );
       },
@@ -138,8 +133,7 @@ class FoodItemServingsBloc
         mealCategories: state.selectedMealCategoriesNames,
       );
 
-      final response =
-          await nutritionService.addToFavorites(event.foodItemId, id, data);
+      final response = await nutritionService.addToFavorites(event.foodItemId, id, data);
 
       response.fold((l) => null, (r) {
         final updatedList = _getUpdatedServingsList(r.serving);
@@ -147,8 +141,7 @@ class FoodItemServingsBloc
         emit(
           state.copyWith(
             servings: updatedList.toIList(),
-            selectedServing: updatedList
-                .firstWhere((e) => e.servingId == r.serving.servingId),
+            selectedServing: updatedList.firstWhere((e) => e.servingId == r.serving.servingId),
           ),
         );
       });
@@ -170,8 +163,7 @@ class FoodItemServingsBloc
         emit(
           state.copyWith(
             servings: updatedList,
-            selectedServing: updatedList
-                .firstWhere((e) => e.servingId == r.serving.servingId),
+            selectedServing: updatedList.firstWhere((e) => e.servingId == r.serving.servingId),
           ),
         );
       });
@@ -205,8 +197,7 @@ class FoodItemServingsBloc
         emit(
           state.copyWith(
             servings: updatedList,
-            selectedServing: updatedList
-                .firstWhere((e) => e.servingId == r.serving.servingId),
+            selectedServing: updatedList.firstWhere((e) => e.servingId == r.serving.servingId),
           ),
         );
       });
