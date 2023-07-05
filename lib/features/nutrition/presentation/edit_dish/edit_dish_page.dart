@@ -142,8 +142,8 @@ class _EditDishPageState extends State<EditDishPage> {
 
     state.add(EditDishEvent.updateDish(
       name: _dishNameController.text,
-      numberOfUnits: double.parse(_portionsController.text),
-      numberOfServings: double.parse(_servingController.text.replaceCommaWithDot.deleteDotAtTheEnd),
+      numberOfUnits: double.parse(_servingController.text.replaceCommaWithDot.deleteDotAtTheEnd),
+      numberOfServings: double.parse(_portionsController.text),
       mealCategories: _selectedMealCategories,
     ));
 
