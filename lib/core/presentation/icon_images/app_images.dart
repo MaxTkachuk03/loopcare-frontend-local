@@ -79,9 +79,6 @@ class AppImages {
   static const AssetImage iconAttention =
       AssetImage('$imagesFilePath/attention.png');
 
-  static const AssetImage educationCardImage =
-      AssetImage('$imagesFilePath/education_card_image.png');
-
   static const AssetImage educationVideoPreview =
       AssetImage('$imagesFilePath/education_video_preview.png');
 
