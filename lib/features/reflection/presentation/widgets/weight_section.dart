@@ -104,7 +104,7 @@ class WeightSection extends StatelessWidget {
             height: 8.0,
           ),
           Text(
-            'Every small training session you do proves your determination and brings you one step closer to your new healthier you. Embrace the process and learn to enjoy it.',
+            'You may think 4 lbs lost is not a big deal but it’s a great monthly average. This is how you create sustainable weight loss - remember slow and steady wins the race.',
             style: Theme.of(context).textTheme.bodySmall,
           ),
           const SizedBox(
