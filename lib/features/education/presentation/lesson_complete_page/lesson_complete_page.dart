@@ -11,6 +11,8 @@ import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/home/application/home_bottom_navigation_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
 
 class LessonCompletePage extends StatefulWidget {
   const LessonCompletePage({Key? key}) : super(key: key);
@@ -33,6 +35,10 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
   _onPressHandler(BuildContext context) {
     context.router.popUntilRouteWithName(HomeRoute.name);
+
+    context
+        .read<HomeBottomNavigationBloc>()
+        .add(const HomeBottomNavigationEvent.tabChanged(DashboardNavbarItems.today));
   }
 
   _onErrorListener(BuildContext context, EducationLessonState state) {

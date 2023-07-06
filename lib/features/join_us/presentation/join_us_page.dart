@@ -37,10 +37,7 @@ class JoinUsPage extends StatelessWidget {
                           ),
                           Text(
                             LocalizedTexts.joinUsIn2Steps.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium
-                                ?.copyWith(
+                            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                   fontFamily: ThemeConstants.bitterFontFamily,
                                 ),
                             textAlign: TextAlign.center,
@@ -84,8 +81,7 @@ class JoinUsPage extends StatelessWidget {
                               const SizedBox(
                                 width: 18.0,
                               ),
-                              Flexible(
-                                  child: Text(LocalizedTexts.joinUsNote.tr())),
+                              Flexible(child: Text(LocalizedTexts.joinUsNote.tr())),
                             ],
                           ),
                         ],
@@ -93,17 +89,11 @@ class JoinUsPage extends StatelessWidget {
                       Column(
                         children: [
                           ElevatedButton(
-                            onPressed: () =>
-                                _onStepFitnessCheckPressed(context),
-                            style: Theme.of(context)
-                                .elevatedButtonTheme
-                                .style
-                                ?.copyWith(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      AppColors.orangeDark),
+                            onPressed: () => _onStepFitnessCheckPressed(context),
+                            style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                                  backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
                                 ),
-                            child:
-                                Text(LocalizedTexts.stepOneFitnessCheck.tr()),
+                            child: Text(LocalizedTexts.stepOneFitnessCheck.tr()),
                           ),
                           const SizedBox(
                             height: 16.0,
@@ -123,7 +113,7 @@ class JoinUsPage extends StatelessWidget {
 
   void _onStepFitnessCheckPressed(BuildContext context) {
     context.read<OnboardingBloc>().add(const OnboardingEvent.started());
-    context.router.replaceAll(const [
+    context.router.pushAll(const [
       HeightRoute(),
     ]);
   }

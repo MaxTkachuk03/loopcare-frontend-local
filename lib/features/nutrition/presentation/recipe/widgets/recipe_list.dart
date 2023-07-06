@@ -82,6 +82,7 @@ class RecipeList extends StatelessWidget {
         foodItemId: item.externalId,
         initialServingId: servingId,
         initialServingAmount: item.serving.numberOfUnits,
+        initialCaloriesValue: item.serving.calories,
         foodItemName: item.foodName,
         onConfirm: (double numberOfUnits, String servingId) {
           final mealState = context.read<MealsBloc>().state;
