@@ -46,26 +46,26 @@ class CalendarDay extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              DateFormat('E').format(day),
+              DateFormat.E('en_EN').format(day),
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     color: isSelected ? AppColors.darkGreen : AppColors.white,
-                    decoration: isSelected
-                        ? TextDecoration.underline
-                        : TextDecoration.none,
+                    decoration: isSelected ? TextDecoration.underline : TextDecoration.none,
                     fontWeight: FontWeight.w600,
                   ),
             ),
             Text(
               DateFormat('d').format(day),
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  color: isSelected ? AppColors.darkGreen : AppColors.white,
-                  fontSize: 12.0),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium!
+                  .copyWith(color: isSelected ? AppColors.darkGreen : AppColors.white, fontSize: 12.0),
             ),
             Text(
               DateFormat('MMM').format(day),
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  color: isSelected ? AppColors.darkGreen : AppColors.white,
-                  fontSize: 12.0),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium!
+                  .copyWith(color: isSelected ? AppColors.darkGreen : AppColors.white, fontSize: 12.0),
             ),
           ],
         ),
