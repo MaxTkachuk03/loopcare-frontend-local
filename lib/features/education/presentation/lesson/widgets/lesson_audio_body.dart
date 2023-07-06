@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/core/presentation/rive_animation_renderer/rive
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/audio_block.dart';
-import 'package:loopcare_frontend/features/education/subtitle/domain/image_subtitle_controller.dart';
+import 'package:loopcare_frontend/features/education/domain/subtitle/image_subtitle_controller.dart';
 import 'dart:io';
 
 import 'package:loopcare_frontend/injection.dart';

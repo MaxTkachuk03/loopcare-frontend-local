@@ -1,5 +1,5 @@
-import 'package:loopcare_frontend/features/education/subtitle/domain/image_subtitle_model.dart';
-import 'package:loopcare_frontend/features/education/subtitle/domain/image_subtitle_utils.dart';
+import 'package:loopcare_frontend/features/education/domain/subtitle/image_subtitle_model.dart';
+import 'package:loopcare_frontend/features/education/domain/subtitle/image_subtitle_utils.dart';
 
 class SubtitleController {
   final String fileContents;

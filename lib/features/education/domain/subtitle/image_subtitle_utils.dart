@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:loopcare_frontend/features/education/subtitle/domain/image_subtitle_model.dart';
+import 'package:loopcare_frontend/features/education/domain/subtitle/image_subtitle_model.dart';
 
 List<ImageSubtitle> parseSubtitleString(String data) {
   return parseFromJsonString(data);

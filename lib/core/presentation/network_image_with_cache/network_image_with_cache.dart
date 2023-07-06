@@ -7,12 +7,14 @@ import 'package:loopcare_frontend/injection.dart';
 class NetworkImageWithCache extends StatelessWidget {
   final String url;
   final BoxFit? imageBoxFit;
+  final Alignment? alignment;
   final bool withPlaceholder;
 
   const NetworkImageWithCache({
     Key? key,
     required this.url,
     this.imageBoxFit,
+    this.alignment,
     this.withPlaceholder = true,
   }) : super(key: key);
 
@@ -39,6 +41,7 @@ class NetworkImageWithCache extends StatelessWidget {
                 image: DecorationImage(
                   image: imageProvider,
                   fit: imageBoxFit ?? BoxFit.fitHeight,
+                  alignment: alignment ?? Alignment.center,
                 ),
               ),
             ),
