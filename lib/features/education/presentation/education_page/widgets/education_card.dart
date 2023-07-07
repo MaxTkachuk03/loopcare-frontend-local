@@ -145,15 +145,12 @@ class EducationCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Transform.translate(
-                        offset: const Offset(30, 0),
+                      SizedBox(
+                        width: 104.0,
+                        height: 98.0,
                         child: SizedBox(
                           width: 144.0,
-                          height: 98.0,
-                          child: NetworkImageWithCache(
-                            url: lesson.image,
-                            imageBoxFit: BoxFit.contain,
-                          ),
+                          child: NetworkImageWithCache(url: lesson.image, alignment: Alignment.centerLeft),
                         ),
                       ),
                     ],
