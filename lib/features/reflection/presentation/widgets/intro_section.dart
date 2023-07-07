@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class IntroSection extends StatelessWidget {
@@ -11,7 +12,7 @@ class IntroSection extends StatelessWidget {
       padding: const EdgeInsets.only(left: 24.0, right: 24.0, bottom: 42.0, top: 70.0),
       width: double.infinity,
       decoration: const BoxDecoration(
-        color: AppColors.blueLight,
+        image: DecorationImage(image: AppImages.reflectionGradient, fit: BoxFit.cover),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
