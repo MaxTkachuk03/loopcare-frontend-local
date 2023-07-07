@@ -54,14 +54,14 @@ class CalendarDay extends StatelessWidget {
                   ),
             ),
             Text(
-              DateFormat('d').format(day),
+              DateFormat.d('en_EN').format(day),
               style: Theme.of(context)
                   .textTheme
                   .titleMedium!
                   .copyWith(color: isSelected ? AppColors.darkGreen : AppColors.white, fontSize: 12.0),
             ),
             Text(
-              DateFormat('MMM').format(day),
+              DateFormat.MMM('en_EN').format(day),
               style: Theme.of(context)
                   .textTheme
                   .titleMedium!

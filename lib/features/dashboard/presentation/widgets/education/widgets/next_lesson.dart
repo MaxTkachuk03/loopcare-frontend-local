@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
+import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
@@ -79,8 +80,14 @@ class NextLesson extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: 10.0),
-              const Image(image: AppImages.educationCardImage)
+              SizedBox(
+                width: 114.0,
+                height: 98.0,
+                child: SizedBox(
+                  width: 144.0,
+                  child: NetworkImageWithCache(url: lesson.image, alignment: Alignment.centerLeft),
+                ),
+              ),
             ],
           ),
         );
