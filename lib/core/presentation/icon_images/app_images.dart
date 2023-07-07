@@ -88,6 +88,9 @@ class AppImages {
   static const AssetImage lessonComplete =
       AssetImage('$imagesFilePath/lesson_complete.png');
 
+  static const AssetImage reflectionGradient =
+      AssetImage('$imagesFilePath/reflection_gradient.png');
+
   static SvgPicture logoSvgBig =
       SvgPicture.asset('$imagesFilePath/logo.svg', width: 114, height: 107);
 
