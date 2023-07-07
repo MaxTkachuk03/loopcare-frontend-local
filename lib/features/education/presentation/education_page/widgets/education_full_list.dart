@@ -21,7 +21,8 @@ class _EducationFullListState extends State<EducationFullList> with WidgetsBindi
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       print('addPostFrameCallback ${_controller.position}');
-      _controller.jumpTo(200);
+      // _controller.
+
     });
   }
 
@@ -35,7 +36,6 @@ class _EducationFullListState extends State<EducationFullList> with WidgetsBindi
   Widget build(BuildContext context) {
     return CustomScrollView(
       controller: _controller,
-      physics: NeverScrollableScrollPhysics(),
       slivers: [
         SliverList(
           delegate: SliverChildBuilderDelegate(

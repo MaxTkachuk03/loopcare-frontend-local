@@ -27,9 +27,11 @@ class EducationBody extends StatelessWidget {
                 color: AppColors.orange,
                 height: 40,
               ),
-              MainContainer(
-                child: EducationFullList(
-                  lessons: lessons,
+              Positioned.fill(
+                child: MainContainer(
+                  child: EducationFullList(
+                    lessons: lessons,
+                  ),
                 ),
               )
             ],
