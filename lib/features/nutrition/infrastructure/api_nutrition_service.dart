@@ -373,7 +373,7 @@ class APINutritionService implements NutritionService {
   Future<Either<RequestError, UpdateDishFoodItemResponse>> createDishFromMeal(
     CreateDishFromMealBody data,
   ) {
-    return client.post('/dishes/meals', data: data).then(parseResponse(UpdateDishFoodItemResponse.fromJson));
+    return client.post('/meals/dishes', data: data).then(parseResponse(UpdateDishFoodItemResponse.fromJson));
   }
 
   @override
