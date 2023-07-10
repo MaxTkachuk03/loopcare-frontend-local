@@ -92,13 +92,15 @@ class _PlayerOverlayState extends State<PlayerOverlay> {
   double get _videoWidth {
     final width = widget.controller.value.size.width;
 
-    return width != 0 ? width : PlayerOverlay._defaultVideoWidth;
+    return width == 0 || width < PlayerOverlay._defaultVideoWidth ? PlayerOverlay._defaultVideoWidth : width;
   }
 
   double get _videoHeight {
     final height = widget.controller.value.size.height;
 
-    return height != 0 ? height : PlayerOverlay._defaultVideoHeight;
+    return height != 0 || height < PlayerOverlay._defaultVideoHeight
+        ? PlayerOverlay._defaultVideoHeight
+        : height;
   }
 
   @override
