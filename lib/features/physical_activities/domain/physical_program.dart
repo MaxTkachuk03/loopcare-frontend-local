@@ -31,27 +31,32 @@ class PhysicalProgram with _$PhysicalProgram {
 
   const factory PhysicalProgram.placeholder({required String name}) = PhysicalProgramPlaceholder;
 
-  List<PhysicalProgramExercise> get exercises => map(basic: (s) => s.exercises, placeholder: (_) => []);
+  const factory PhysicalProgram.programInProgress(
+      {required int id, required String name, required String startDate}) = PhysicalProgramInProgress;
 
-  String get typeName => map(basic: (s) => s.type.name, placeholder: (_) => '');
+  int get id => maybeMap(basic: (s) => s.id, orElse: () => 0);
 
-  String get difficultyName => map(basic: (s) => s.difficulty.name, placeholder: (_) => '');
+  int get duration => maybeMap(basic: (s) => s.duration, orElse: () => 0);
 
-  String get placeName => map(basic: (s) => s.place.name, placeholder: (_) => '');
+  String get typeName => maybeMap(basic: (s) => s.type.name, orElse: () => '');
 
-  String get equipment => map(basic: (s) => s.equipment, placeholder: (_) => '');
+  String get difficultyName => maybeMap(basic: (s) => s.difficulty.name, orElse: () => '');
 
-  String? get image => map(basic: (s) => s.image, placeholder: (_) => null);
+  String get placeName => maybeMap(basic: (s) => s.place.name, orElse: () => '');
 
-  String get targetMuscles => map(basic: (s) => s.targetMuscles, placeholder: (_) => '');
+  String get equipment => maybeMap(basic: (s) => s.equipment, orElse: () => '');
 
-  int get duration => map(basic: (s) => s.duration, placeholder: (_) => 0);
+  String? get image => maybeMap(basic: (s) => s.image, orElse: () => null);
 
-  String get programDescription => map(basic: (s) => s.programDescription, placeholder: (_) => '');
+  String get targetMuscles => maybeMap(basic: (s) => s.targetMuscles, orElse: () => '');
 
-  PhysicalProgramAssessment? get assessment => map(basic: (s) => s.assessment, placeholder: (_) => null);
+  String get programDescription => maybeMap(basic: (s) => s.programDescription, orElse: () => '');
 
-  int get id => map(basic: (s) => s.id, placeholder: (_) => 0);
+  String get startDate => maybeMap(basic: (s) => s.startDate, orElse: () => '');
+
+  PhysicalProgramAssessment? get assessment => maybeMap(basic: (s) => s.assessment, orElse: () => null);
+
+  List<PhysicalProgramExercise> get exercises => maybeMap(basic: (s) => s.exercises, orElse: () => []);
 
   factory PhysicalProgram.fromJson(Map<String, dynamic> json) => _$PhysicalProgramFromJson(json);
 }
