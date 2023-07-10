@@ -410,5 +410,6 @@
   "exercises": "{length} exercises",
   "programNote": "Each exercise will be explained before it starts.",
   "breakBetweenExercises": "short break before next exercise",
-  "physicalProgramAlreadyLogged": "Physical program already logged"
+  "physicalProgramAlreadyLogged": "Physical program already logged",
+  "inProgress": "in progress"
 }
