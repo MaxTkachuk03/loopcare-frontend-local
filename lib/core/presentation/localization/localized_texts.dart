@@ -438,6 +438,7 @@ class LocalizedTexts {
   static const String exercises = 'exercises';
   static const String programNote = 'programNote';
   static const String physicalProgramAlreadyLogged = 'physicalProgramAlreadyLogged';
+  static const String inProgress = 'inProgress';
 
   // User profile
   static const String profile = 'profile';

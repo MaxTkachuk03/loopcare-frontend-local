@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/features/dashboard/application/programs_in_progress_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/application/physical_activities_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/weekly_activities_list.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
@@ -24,9 +25,7 @@ class PhysicalActivities extends StatefulWidget {
 class _PhysicalActivitiesState extends State<PhysicalActivities> {
   @override
   void initState() {
-    context
-        .read<PhysicalActivitiesBloc>()
-        .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
+    _updateData();
 
     super.initState();
   }
@@ -35,11 +34,17 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
   void didUpdateWidget(covariant PhysicalActivities oldWidget) {
     if (oldWidget.selectedDay.isoStringWithoutTime == widget.selectedDay.isoStringWithoutTime) return;
 
+    _updateData();
+
+    super.didUpdateWidget(oldWidget);
+  }
+
+  void _updateData() {
     context
         .read<PhysicalActivitiesBloc>()
         .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
 
-    super.didUpdateWidget(oldWidget);
+    context.read<ProgramsInProgressBloc>().add(const ProgramsInProgressEvent.removeExpiredPrograms());
   }
 
   void onPressHandler(BuildContext context) {
@@ -85,38 +90,40 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                       ).tr(),
                     ],
                   ),
-                  const ImageIcon(
-                    AppIcons.arrow,
-                    color: AppColors.greyLabel,
-                  ),
+                  const ImageIcon(AppIcons.arrow, color: AppColors.greyLabel),
                 ],
               ),
             ),
             const SizedBox(height: 8.0),
             const Divider(color: AppColors.yellowLight),
             const SizedBox(height: 6.0),
-            BlocBuilder<PhysicalActivitiesBloc, PhysicalActivitiesState>(
+            BlocBuilder<ProgramsInProgressBloc, ProgramsInProgressState>(
                 builder: (BuildContext context, state) {
-              return state.maybeMap(
-                  loading: (_) => const Loader(),
-                  orElse: () => const SizedBox.shrink(),
-                  activitiesLoaded: (s) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          '3 ${LocalizedTexts.activitiesForThisWeek.translation.toUpperCase()}',
-                          style: const TextStyle(
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.greyLabel,
+              final activePrograms = state.programsList;
+
+              return BlocBuilder<PhysicalActivitiesBloc, PhysicalActivitiesState>(
+                  builder: (BuildContext context, state) {
+                return state.maybeMap(
+                    loading: (_) => const Loader(),
+                    orElse: () => const SizedBox.shrink(),
+                    activitiesLoaded: (s) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            '3 ${LocalizedTexts.activitiesForThisWeek.translation.toUpperCase()}',
+                            style: const TextStyle(
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.greyLabel,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 16.0),
-                        WeeklyActivitiesList(data: s.data.activities),
-                      ],
-                    );
-                  });
+                          const SizedBox(height: 16.0),
+                          WeeklyActivitiesList(data: [...activePrograms, ...s.data.activities]),
+                        ],
+                      );
+                    });
+              });
             }),
           ],
         ),

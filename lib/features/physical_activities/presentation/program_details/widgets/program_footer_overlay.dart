@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/features/dashboard/application/programs_in_progress_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 
 class ProgramFooterOverlay extends StatelessWidget {
@@ -54,7 +55,10 @@ class ProgramFooterOverlay extends StatelessWidget {
 
   void _onGetStarted(BuildContext context) {
     final program = context.read<PhysicalProgramsBloc>().state.data.currentProgram;
+
     if (program == null) return;
+
+    context.read<ProgramsInProgressBloc>().add(ProgramsInProgressEvent.setProgram(program));
 
     context.router.push(VideoRoute(program: program));
   }

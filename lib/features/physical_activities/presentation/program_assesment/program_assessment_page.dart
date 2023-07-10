@@ -4,19 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/dto/error_response.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/dashboard/application/programs_in_progress_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/widgets/assesment_block.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/widgets/like_unlike_block.dart';
-import 'package:loopcare_frontend/injection.dart';
 
-AppConfig appConfig = getIt<AppConfig>();
 const physicalProgramAlreadyLogged = 'physical_program_already_logged';
 
 class ProgramAssessmentPage extends StatefulWidget {
@@ -42,8 +40,7 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
         ),
         BlocListener<PhysicalProgramsBloc, PhysicalProgramsState>(
             listener: _physicalProgramLoggedListener,
-            listenWhen: (prev, cur) => prev is Loading && cur is ProgramUpdated
-        ),
+            listenWhen: (prev, cur) => prev is Loading && cur is ProgramUpdated),
       ],
       child: BlocBuilder<PhysicalProgramsBloc, PhysicalProgramsState>(
         builder: (context, state) {
@@ -241,6 +238,12 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
   }
 
   void _physicalProgramLoggedListener(BuildContext context, PhysicalProgramsState state) {
+    final program = state.data.currentProgram;
+
+    if (program != null) {
+      context.read<ProgramsInProgressBloc>().add(ProgramsInProgressEvent.removeProgram(program.id));
+    }
+
     context.router.popUntilRouteWithName(HomeRoute.name);
   }
 }
