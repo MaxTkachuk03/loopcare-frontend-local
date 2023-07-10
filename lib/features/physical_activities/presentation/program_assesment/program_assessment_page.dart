@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/dto/error_response.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
@@ -29,6 +28,7 @@ class ProgramAssessmentPage extends StatefulWidget {
 class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
   int? assessmentScore;
   bool? assessmentLike;
+  bool _needToCallDisposeCb = true;
 
   @override
   Widget build(BuildContext context) {
@@ -181,7 +181,9 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
 
   @override
   void dispose() {
-    widget.onDisposeCb();
+    if (_needToCallDisposeCb) {
+      widget.onDisposeCb();
+    }
 
     super.dispose();
   }
@@ -238,6 +240,10 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
   }
 
   void _physicalProgramLoggedListener(BuildContext context, PhysicalProgramsState state) {
+    setState(() {
+      _needToCallDisposeCb = false;
+    });
+
     final program = state.data.currentProgram;
 
     if (program != null) {
