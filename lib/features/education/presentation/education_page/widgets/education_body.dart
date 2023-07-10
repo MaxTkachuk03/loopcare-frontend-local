@@ -20,10 +20,6 @@ class EducationBody extends StatelessWidget {
 
         final lessons = state.data.lessons;
 
-        return EducationFullList(
-          lessons: lessons,
-        );
-
         if (state.data.currentCategory == LessonCategory.all) {
           return Stack(
             children: [

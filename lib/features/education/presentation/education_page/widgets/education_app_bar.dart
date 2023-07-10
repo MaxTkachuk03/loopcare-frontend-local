@@ -3,12 +3,15 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart'
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class EducationAppBar extends StatelessWidget {
-  const EducationAppBar({Key? key}) : super(key: key);
+  final Key containerKey;
+
+  const EducationAppBar({Key? key, required this.containerKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Container(
+        key: containerKey,
         color: AppColors.orange,
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 36),
         child: Column(

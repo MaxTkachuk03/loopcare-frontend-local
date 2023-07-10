@@ -18,12 +18,16 @@ class EducationPage extends StatefulWidget {
 
 class _EducationPageState extends State<EducationPage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  final ScrollController _scrollController = ScrollController();
+  final GlobalKey _introContainerKey = GlobalKey();
 
   List<Widget> categories = LessonCategory.values.map((v) => Tab(text: v.label)).toList();
 
   @override
   void initState() {
     super.initState();
+
+    _jumpToLessonsList();
 
     _tabController = TabController(
       vsync: this,
@@ -39,6 +43,19 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
         );
 
     context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
+  }
+
+  void _jumpToLessonsList() {
+    final dataState = context.read<EducationProgramBloc>().state.data;
+    final activeLessonIndex = dataState.activeLessonIndex;
+    final lessonWithCountdown = dataState.lessonWithCountdown;
+
+    if (lessonWithCountdown == null && activeLessonIndex != 0) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final renderBox = _introContainerKey.currentContext?.size;
+        _scrollController.jumpTo(renderBox?.height ?? 0);
+      });
+    }
   }
 
   @override
@@ -64,35 +81,36 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    return EducationBody();
-
     return BlocListener<EducationLessonBloc, EducationLessonState>(
       listenWhen: (prev, cur) => cur is LessonCompleted,
       listener: _lessonCompleteListener,
       child: SafeArea(
         child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
           builder: (BuildContext context, state) {
-            return NestedScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-                return [
-                  EducationTabBar(
-                    controller: _tabController,
-                    tabs: categories,
+            return CustomScrollView(
+              controller: _scrollController,
+              slivers: [
+                EducationTabBar(
+                  controller: _tabController,
+                  tabs: categories,
+                ),
+                if (state.data.currentCategory == LessonCategory.all)
+                  EducationAppBar(
+                    containerKey: _introContainerKey,
                   ),
-                  if (state.data.currentCategory == LessonCategory.all) const EducationAppBar(),
-                ];
-              },
-              body: TabBarView(
-                controller: _tabController,
-                children: const [
-                  EducationBody(),
-                  EducationBody(),
-                  EducationBody(),
-                  EducationBody(),
-                  EducationBody(),
-                ],
-              ),
+                SliverFillRemaining(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: const [
+                      EducationBody(),
+                      EducationBody(),
+                      EducationBody(),
+                      EducationBody(),
+                      EducationBody(),
+                    ],
+                  ),
+                )
+              ],
             );
           },
         ),
