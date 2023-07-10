@@ -64,55 +64,36 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
+    return EducationBody();
+
     return BlocListener<EducationLessonBloc, EducationLessonState>(
       listenWhen: (prev, cur) => cur is LessonCompleted,
       listener: _lessonCompleteListener,
       child: SafeArea(
         child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
           builder: (BuildContext context, state) {
-            return CustomScrollView(slivers: [
-              EducationTabBar(
+            return NestedScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                return [
+                  EducationTabBar(
+                    controller: _tabController,
+                    tabs: categories,
+                  ),
+                  if (state.data.currentCategory == LessonCategory.all) const EducationAppBar(),
+                ];
+              },
+              body: TabBarView(
                 controller: _tabController,
-                tabs: categories,
+                children: const [
+                  EducationBody(),
+                  EducationBody(),
+                  EducationBody(),
+                  EducationBody(),
+                  EducationBody(),
+                ],
               ),
-              if (state.data.currentCategory == LessonCategory.all) const EducationAppBar(),
-              SliverFillRemaining(
-                child: EducationBody(),
-                // child: TabBarView(
-                //   controller: _tabController,
-                //   children: const [
-                //     EducationBody(),
-                //     EducationBody(),
-                //     EducationBody(),
-                //     EducationBody(),
-                //     EducationBody(),
-                //   ],
-                // ),
-              )
-            ]);
-            // return NestedScrollView(
-            //   physics: const AlwaysScrollableScrollPhysics(),
-            //   headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            //     return [
-            //       // EducationTabBar(
-            //       //   controller: _tabController,
-            //       //   tabs: categories,
-            //       // ),
-            //       if (state.data.currentCategory == LessonCategory.all) const EducationAppBar(),
-            //     ];
-            //   },
-            //   body: EducationBody(),
-            //   // body: TabBarView(
-            //   //   controller: _tabController,
-            //   //   children: const [
-            //   //     EducationBody(),
-            //   //     EducationBody(),
-            //   //     EducationBody(),
-            //   //     EducationBody(),
-            //   //     EducationBody(),
-            //   //   ],
-            //   // ),
-            // );
+            );
           },
         ),
       ),
