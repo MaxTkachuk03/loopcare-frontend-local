@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
@@ -78,24 +79,40 @@ class _SelectServingPageState extends State<SelectServingPage> {
                       ),
                       const SizedBox(width: 21.0),
                       BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(
-                          builder: (BuildContext context, state) {
-                        return state.maybeMap(
-                          orElse: () => const SizedBox(
-                            height: 48.0,
-                            width: 32.0,
-                          ),
-                          foodItemServings: (foodItemServingsState) {
-                            if (foodItemServingsState.selectedServing == null) {
-                              return const SizedBox.shrink();
-                            }
+                        builder: (BuildContext context, state) {
+                          return state.maybeMap(
+                            orElse: () => const SizedBox(
+                              height: 48.0,
+                              width: 32.0,
+                            ),
+                            error: (errorState) {
+                              final error = errorState.fetchError;
 
-                            return FavouriteBtn(
-                              isActive: foodItemServingsState.selectedServing?.isSelectedFavorite ?? false,
-                              onPress: _onFavouritePressed,
-                            );
-                          },
-                        );
-                      }),
+                              return ErrorScreen(
+                                error: error,
+                                onButtonPressed: () => context.read<FoodItemServingsBloc>().add(
+                                      FoodItemServingsEvent.fetchFoodItemServings(
+                                        foodItemId: widget.foodItemId,
+                                        selectedServingId: widget.initialServingId,
+                                        initialServingAmount: widget.initialServingAmount,
+                                        initialCaloriesValue: widget.initialCaloriesValue,
+                                      ),
+                                    ),
+                              );
+                            },
+                            foodItemServings: (foodItemServingsState) {
+                              if (foodItemServingsState.selectedServing == null) {
+                                return const SizedBox.shrink();
+                              }
+
+                              return FavouriteBtn(
+                                isActive: foodItemServingsState.selectedServing?.isSelectedFavorite ?? false,
+                                onPress: _onFavouritePressed,
+                              );
+                            },
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ),

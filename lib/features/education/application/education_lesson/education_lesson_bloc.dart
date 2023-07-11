@@ -127,14 +127,7 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
 
     response.fold(
       (l) {
-        emit(
-          EducationLessonState.errorGettingLessons(
-            state.data.copyWith(
-              error: l,
-              isLoading: false,
-            ),
-          ),
-        );
+        emit(EducationLessonState.errorGettingLessons(state.data.copyWith(error: l, isLoading: false)));
       },
       (r) async {
         r.pages.sort((a, b) => a.order.compareTo(b.order));

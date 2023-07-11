@@ -12,8 +12,12 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/auth_token_inte
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<Either<RequestError, T>> process<T>(Future<T> Function() request) =>
-    Task(request).attempt().map((e) => e.leftMap(parseRequestError)).run();
+Future<Either<RequestError, T>> process<T>(Future<T> Function() request) => Task(request)
+    .attempt()
+    .map(
+      (e) => e.leftMap(parseRequestError),
+    )
+    .run();
 
 @lazySingleton
 class DioClient {
@@ -43,15 +47,13 @@ class DioClient {
   HttpClientAdapter _createAdapter() => DefaultHttpClientAdapter()
     ..onHttpClientCreate = (client) => client
       ..findProxy = _findProxy
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
+      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
 
   String _findProxy(Uri url) {
     final ip = sharedPreferences.getString('_ip');
     final port = sharedPreferences.getString('_port');
 
-    bool hasProxy =
-        ip != null && ip.isNotEmpty && port != null && port.isNotEmpty;
+    bool hasProxy = ip != null && ip.isNotEmpty && port != null && port.isNotEmpty;
 
     return hasProxy ? 'PROXY $ip:$port' : 'DIRECT';
   }

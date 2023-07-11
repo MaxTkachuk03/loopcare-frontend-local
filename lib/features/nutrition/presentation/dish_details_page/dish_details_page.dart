@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -76,9 +77,9 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
     if (mealId == null || val.isEmpty) return;
 
     context.read<DishBloc>().add(DishEvent.servingChanged(
-      mealId: mealId,
-      servingAmount: int.parse(val),
-    ));
+          mealId: mealId,
+          servingAmount: int.parse(val),
+        ));
   }
 
   void _onNutritionFactSelect(NutritionValuesTypes item) {
@@ -228,6 +229,22 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
             builder: (BuildContext context, state) {
               return state.maybeMap(
                   loading: (_) => const Loader(),
+                  error: (errorState) {
+                    final error = errorState.fetchError;
+
+                    return ErrorScreen(
+                      error: error,
+                      onButtonPressed: () {
+                        final dishBloc = context.read<DishBloc>();
+
+                        if (widget.isMealDish ?? false) {
+                          dishBloc.add(DishEvent.getDishById(widget.dishId));
+                        } else {
+                          dishBloc.add(DishEvent.getClonedDish(widget.dishId));
+                        }
+                      },
+                    );
+                  },
                   dish: (dishState) {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -291,18 +308,20 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                           MainContainer(
                             child: Column(
                               children: [
-                                BlocBuilder<DishBloc, DishState>(builder: (BuildContext context, state) {
-                                  return state.maybeMap(
-                                      dish: (dishState) {
-                                        return ElevatedButton(
-                                          onPressed: dishState.hasFoodItems ? _onLogDishHandler : null,
-                                          child: Text(
-                                            LocalizedTexts.logItem.translation,
-                                          ),
-                                        );
-                                      },
-                                      orElse: () => const SizedBox.shrink());
-                                }),
+                                BlocBuilder<DishBloc, DishState>(
+                                  builder: (BuildContext context, state) {
+                                    return state.maybeMap(
+                                        dish: (dishState) {
+                                          return ElevatedButton(
+                                            onPressed: dishState.hasFoodItems ? _onLogDishHandler : null,
+                                            child: Text(
+                                              LocalizedTexts.logItem.translation,
+                                            ),
+                                          );
+                                        },
+                                        orElse: () => const SizedBox.shrink());
+                                  },
+                                ),
                                 const SizedBox(height: 30.0),
                               ],
                             ),

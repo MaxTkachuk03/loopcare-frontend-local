@@ -28,10 +28,8 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     on<NutritionItemChanged>(_onNutritionItemChanged);
     on<ServingChanged>(
       _onServingChanged,
-      transformer: (events, mapper) => events
-          .distinct()
-          .debounceTime(const Duration(milliseconds: 300))
-          .switchMap(mapper),
+      transformer: (events, mapper) =>
+          events.distinct().debounceTime(const Duration(milliseconds: 300)).switchMap(mapper),
     );
     on<AddFoodItemToRecipe>(_onAddFoodItemToRecipe);
     on<RemoveFoodItemToRecipe>(_onRemoveFoodItemToRecipe);
@@ -47,9 +45,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     final response = await nutritionService.getRecipe(event.id);
 
     response.fold(
-      (error) {
-        emit(RecipeState.error(error));
-      },
+      (error) => emit(RecipeState.error(error)),
       (response) {
         emit(
           RecipeState.recipeInfo(
@@ -75,13 +71,10 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   ) async {
     emit(const RecipeState.loadingRecipe());
 
-    final response =
-        await nutritionService.getRecipeInMeal(event.mealId, event.recipeId);
+    final response = await nutritionService.getRecipeInMeal(event.mealId, event.recipeId);
 
     response.fold(
-      (error) {
-        emit(RecipeState.error(error));
-      },
+      (error) => emit(RecipeState.error(error)),
       (response) {
         emit(
           RecipeState.recipeInfo(
@@ -122,7 +115,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       );
 
       response.fold(
-        (l) => null,
+        (l) => emit(RecipeState.error(l)),
         (r) => emit(state.copyWith(
           recipe: Recipe(
             id: r.id,
@@ -155,7 +148,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       );
 
       response.fold(
-        (l) => null,
+        (l) => emit(RecipeState.error(l)),
         (r) {
           emit(
             state.copyWith(
@@ -189,7 +182,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
         );
 
         response.fold(
-          (l) => null,
+          (l) => emit(RecipeState.error(l)),
           (r) {
             emit(
               state.copyWith(
@@ -227,7 +220,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       );
 
       response.fold(
-        (l) => null,
+        (l) => emit(RecipeState.error(l)),
         (r) {
           emit(
             state.copyWith(

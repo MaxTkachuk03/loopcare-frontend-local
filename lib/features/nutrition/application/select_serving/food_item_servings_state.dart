@@ -15,6 +15,7 @@ class FoodItemServingsState with _$FoodItemServingsState {
     required List<MealCategoryFilter> mealCategoryFilters,
   }) = FoodItemServings;
 
+//TODO: old state style
   const factory FoodItemServingsState.error(RequestError fetchError) = Error;
 
   ServingSize? get selectedServingItem {
@@ -57,10 +58,7 @@ class FoodItemServingsState with _$FoodItemServingsState {
   List<String> get selectedMealCategoriesNames {
     return maybeMap(
       foodItemServings: (state) {
-        return state.mealCategoryFilters
-            .where((e) => e.selected)
-            .map((e) => e.name)
-            .toList();
+        return state.mealCategoryFilters.where((e) => e.selected).map((e) => e.name).toList();
       },
       orElse: () => <String>[],
     );
@@ -70,14 +68,12 @@ class FoodItemServingsState with _$FoodItemServingsState {
     return maybeMap(
       foodItemServings: (state) {
         return state.mealCategoryFilters.map((f) {
-          final selectedFiltersValues =
-              state.selectedServing?.favoriteMealCategories;
+          final selectedFiltersValues = state.selectedServing?.favoriteMealCategories;
 
           return MealCategoryFilter(
             name: f.name.toLowerCase(),
-            selected: selectedFiltersValues == null
-                ? false
-                : selectedFiltersValues.contains(f.name.toLowerCase()),
+            selected:
+                selectedFiltersValues == null ? false : selectedFiltersValues.contains(f.name.toLowerCase()),
           );
         }).toList();
       },

@@ -7,6 +7,7 @@ class DiabetesState with _$DiabetesState {
         selectedType: null,
       );
 
+//TODO: old state style
   const factory DiabetesState({
     @Default(false) bool isCompleted,
     DiabetesType? selectedType,

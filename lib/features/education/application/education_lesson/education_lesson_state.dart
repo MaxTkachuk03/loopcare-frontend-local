@@ -2,29 +2,21 @@ part of 'education_lesson_bloc.dart';
 
 @freezed
 class EducationLessonState with _$EducationLessonState {
-  const factory EducationLessonState.initial(EducationLessonData data) =
-      Initial;
+  const factory EducationLessonState.initial(EducationLessonData data) = Initial;
 
-  const factory EducationLessonState.loading(EducationLessonData data) =
-      Loading;
+  const factory EducationLessonState.loading(EducationLessonData data) = Loading;
 
-  const factory EducationLessonState.contentLoaded(EducationLessonData data) =
-      ContentLoaded;
+  const factory EducationLessonState.contentLoaded(EducationLessonData data) = ContentLoaded;
 
-  const factory EducationLessonState.audioContent(EducationLessonData data) =
-      AudioContent;
+  const factory EducationLessonState.audioContent(EducationLessonData data) = AudioContent;
 
-  const factory EducationLessonState.textContent(EducationLessonData data) =
-      TextContent;
+  const factory EducationLessonState.textContent(EducationLessonData data) = TextContent;
 
-  const factory EducationLessonState.lessonCompleted(EducationLessonData data) =
-      LessonCompleted;
+  const factory EducationLessonState.lessonCompleted(EducationLessonData data) = LessonCompleted;
 
-  const factory EducationLessonState.errorCompleteLesson(
-      EducationLessonData data) = ErrorCompleteLesson;
+  const factory EducationLessonState.errorCompleteLesson(EducationLessonData data) = ErrorCompleteLesson;
 
-  const factory EducationLessonState.errorGettingLessons(
-      EducationLessonData data) = ErrorGettingLessons;
+  const factory EducationLessonState.errorGettingLessons(EducationLessonData data) = ErrorGettingLessons;
 }
 
 @freezed

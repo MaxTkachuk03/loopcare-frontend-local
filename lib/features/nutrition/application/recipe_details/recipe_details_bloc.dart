@@ -18,8 +18,7 @@ part 'recipe_details_bloc.freezed.dart';
 class RecipeDetailsBloc extends Bloc<RecipeDetailsEvent, RecipeDetailsState> {
   final NutritionService nutritionService;
 
-  RecipeDetailsBloc(this.nutritionService)
-      : super(const RecipeDetailsState.initial()) {
+  RecipeDetailsBloc(this.nutritionService) : super(const RecipeDetailsState.initial()) {
     on<FetchOriginRecipe>(_onFetchOriginRecipe);
     on<NutritionItemChanged>(_onNutritionItemChanged);
   }
@@ -33,9 +32,7 @@ class RecipeDetailsBloc extends Bloc<RecipeDetailsEvent, RecipeDetailsState> {
     final response = await nutritionService.getRecipe(event.id);
 
     response.fold(
-      (error) {
-        emit(RecipeDetailsState.error(error));
-      },
+      (error) => emit(RecipeDetailsState.error(error)),
       (response) {
         emit(
           RecipeDetailsState.recipeInfo(
@@ -54,8 +51,8 @@ class RecipeDetailsBloc extends Bloc<RecipeDetailsEvent, RecipeDetailsState> {
               image: response.image,
               directions: response.directions,
             ),
-            currentRecipeNutritionItem: response.servingSize.list.firstWhere(
-                (element) => element.key == NutritionValuesTypes.calories.name),
+            currentRecipeNutritionItem: response.servingSize.list
+                .firstWhere((element) => element.key == NutritionValuesTypes.calories.name),
           ),
         );
       },

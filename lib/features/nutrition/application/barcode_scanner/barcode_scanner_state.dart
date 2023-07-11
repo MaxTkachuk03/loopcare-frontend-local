@@ -12,7 +12,6 @@ class BarcodeScannerState with _$BarcodeScannerState {
     FoodItemBarCode? foodItem,
     RequestError? barcodeError,
   }) = _Success;
-
-  const factory BarcodeScannerState.error({required RequestError error}) =
-      _Error;
+//TODO: old state style
+  const factory BarcodeScannerState.error({required RequestError error}) = _Error;
 }

@@ -465,6 +465,13 @@ class LocalizedTexts {
   static const String repeat = 'repeat';
   static const String exerciseCompleteMessage = 'exerciseCompleteMessage';
   static const String breakBetweenExercises = 'breakBetweenExercises';
+
+  // Error Screen
+  static const String retry = 'retry';
+  static const String noConnectionTitle = 'noConnectionTitle';
+  static const String noConnectionText = 'noConnectionText';
+  static const String oeps = 'oeps';
+  static const String somethingWentWrong = 'somethingWentWrong';
 }
 
 extension StringX on String {

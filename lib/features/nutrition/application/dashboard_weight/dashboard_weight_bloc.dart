@@ -17,12 +17,10 @@ part 'dashboard_weight_state.dart';
 part 'dashboard_weight_bloc.freezed.dart';
 
 @singleton
-class DashboardWeightBloc
-    extends Bloc<DashboardWeightEvent, DashboardWeightState> {
+class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightState> {
   final NutritionService nutritionService;
 
-  DashboardWeightBloc(this.nutritionService)
-      : super(const DashboardWeightState.initial()) {
+  DashboardWeightBloc(this.nutritionService) : super(const DashboardWeightState.initial()) {
     on<FetchWeights>(_onFetchWeights);
     on<SetDate>(_onSetDate);
     on<LogWeight>(_onLogWeight);
@@ -54,19 +52,15 @@ class DashboardWeightBloc
     );
 
     response.fold(
-      (error) {
-        emit(DashboardWeightState.error(error));
-      },
-      (response) {
-        emit(
-          DashboardWeightState.weights(
-            weights: _combineWeightsByDate(
-              null,
-              response.data,
-            ),
+      (error) => emit(DashboardWeightState.error(error)),
+      (response) => emit(
+        DashboardWeightState.weights(
+          weights: _combineWeightsByDate(
+            null,
+            response.data,
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
@@ -80,8 +74,7 @@ class DashboardWeightBloc
 
     final isoStringDate = event.date.isoStringWithoutTime;
 
-    final bool isAlreadyLoaded =
-        weights.containsKey(isoStringDate.split('T')[0]);
+    final bool isAlreadyLoaded = weights.containsKey(isoStringDate.split('T')[0]);
 
     if (isAlreadyLoaded) return;
 
@@ -93,19 +86,15 @@ class DashboardWeightBloc
     );
 
     response.fold(
-      (error) {
-        emit(DashboardWeightState.error(error));
-      },
-      (response) {
-        emit(
-          DashboardWeightState.weights(
-            weights: _combineWeightsByDate(
-              weights,
-              response.data,
-            ),
+      (error) => emit(DashboardWeightState.error(error)),
+      (response) => emit(
+        DashboardWeightState.weights(
+          weights: _combineWeightsByDate(
+            weights,
+            response.data,
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
@@ -125,9 +114,7 @@ class DashboardWeightBloc
     final response = await nutritionService.logWeight(data);
 
     response.fold(
-      (error) {
-        emit(DashboardWeightState.error(error));
-      },
+      (error) => emit(DashboardWeightState.error(error)),
       (response) {
         weights[response.data.date] = response.data;
 

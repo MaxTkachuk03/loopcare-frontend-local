@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -321,6 +322,18 @@ class _EditDishPageState extends State<EditDishPage> {
                     builder: (BuildContext context, state) {
                       return state.maybeMap(
                           loading: (_) => const Expanded(child: Loader()),
+                          error: (errorState) {
+                            final error = errorState.fetchError;
+
+                            return ErrorScreen(
+                              error: error,
+                              onButtonPressed: () {
+//TODO: Need to check
+                                final editDishBloc = context.read<EditDishBloc>();
+                                editDishBloc.add(widget.event);
+                              },
+                            );
+                          },
                           dishInfo: (dishState) {
                             _servingController.text = dishState.numberOfServings;
                             _portionsController.text = dishState.numberOfPortions;

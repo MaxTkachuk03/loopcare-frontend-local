@@ -10,10 +10,10 @@ class RecipeState with _$RecipeState {
 
   const factory RecipeState.recipeInfo({
     required Recipe recipe,
-    @Default(NutritionValuesTypes.calories)
-        NutritionValuesTypes currentNutritionType,
+    @Default(NutritionValuesTypes.calories) NutritionValuesTypes currentNutritionType,
   }) = RecipeInfo;
 
+//TODO: old state style
   const factory RecipeState.error(RequestError fetchError) = Error;
 
   String get servingAmount {
@@ -25,9 +25,7 @@ class RecipeState with _$RecipeState {
 
   int? get recipeId => mapOrNull(recipeInfo: (s) => s.recipe.id);
 
-  String? get externalRecipeId =>
-      mapOrNull(recipeInfo: (s) => s.recipe.externalId);
+  String? get externalRecipeId => mapOrNull(recipeInfo: (s) => s.recipe.externalId);
 
-  double? get numberOfUnits =>
-      mapOrNull(recipeInfo: (s) => s.recipe.servingAmount);
+  double? get numberOfUnits => mapOrNull(recipeInfo: (s) => s.recipe.servingAmount);
 }

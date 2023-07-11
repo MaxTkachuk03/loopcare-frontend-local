@@ -411,5 +411,10 @@
   "programNote": "Each exercise will be explained before it starts.",
   "breakBetweenExercises": "short break before next exercise",
   "physicalProgramAlreadyLogged": "Physical program already logged",
+  "noConnectionTitle": "No connection",
+  "noConnectionText": "Your internet connection was interrupted. \nRestore the connection and try again",
+  "oeps": "Oeps!",
+  "somethingWentWrong": "Something went wrong \nPlease try again later",
+  "retry": "Retry",
   "inProgress": "in progress"
 }

@@ -10,7 +10,7 @@ class PhysicalProgramsState with _$PhysicalProgramsState {
 
   const factory PhysicalProgramsState.programFilterSet(PhysicalProgramsData data) = ProgramFilterSet;
 
-  const factory PhysicalProgramsState.errorLoadingPrograms(PhysicalProgramsData data) = ErrorLoadingPrograms;
+  const factory PhysicalProgramsState.error(PhysicalProgramsData data) = Error;
 
   const factory PhysicalProgramsState.programUpdated(PhysicalProgramsData data) = ProgramUpdated;
 

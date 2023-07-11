@@ -45,17 +45,24 @@ class _EducationCountDownState extends State<EducationCountDown> {
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(const Duration(minutes: 1), (timer) {
-      setState(() {
-        final newRemainingTime = _remainingTimeInSeconds - 60;
+    _timer = Timer.periodic(
+      const Duration(minutes: 1),
+      (timer) {
+        setState(
+          () {
+            final newRemainingTime = _remainingTimeInSeconds - 60;
 
-        if (newRemainingTime > 0) {
-          _remainingTimeInSeconds -= 60;
-        } else {
-          context.read<EducationProgramBloc>().add(const EducationProgramEvent.resetLessonWithCountdown());
-          _timer?.cancel();
-        }
-      });
-    });
+            if (newRemainingTime > 0) {
+              _remainingTimeInSeconds -= 60;
+            } else {
+              context
+                  .read<EducationProgramBloc>()
+                  .add(const EducationProgramEvent.resetLessonWithCountdown());
+              _timer?.cancel();
+            }
+          },
+        );
+      },
+    );
   }
 }

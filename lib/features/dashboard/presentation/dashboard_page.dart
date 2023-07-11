@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/diary/diary.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/education.dart';
@@ -117,11 +119,25 @@ class _DashboardPageState extends State<DashboardPage> {
                       const SizedBox(height: 10.0),
                       BlocBuilder<DashboardEducationBloc, DashboardEducationState>(
                         builder: (BuildContext context, state) {
-                          return state.isVisibleOnDashboard(_selectedDay)
-                              ? Education(
-                                  date: _selectedDay,
-                                )
-                              : const SizedBox(height: 0.0);
+                          return state.maybeMap(
+                            error: (errorState) {
+                              final error = errorState.data.error;
+
+                              return ErrorScreen(
+                                smallVersion: true,
+                                error: error,
+                                onButtonPressed: () => context
+                                    .read<DashboardEducationBloc>()
+                                    .add(const DashboardEducationEvent.getDashboardLessons()),
+                              );
+                            },
+                            loading: (_) => const Loader(),
+                            orElse: () => state.isVisibleOnDashboard(_selectedDay)
+                                ? Education(
+                                    date: _selectedDay,
+                                  )
+                                : const SizedBox(height: 0.0),
+                          );
                         },
                       ),
                       const SizedBox(height: 10.0),

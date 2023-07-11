@@ -4,7 +4,10 @@ part of 'nutrition_instructions_bloc.dart';
 class NutritionInstructionsState with _$NutritionInstructionsState {
   const NutritionInstructionsState._();
 
+//TODO: old state style
   const factory NutritionInstructionsState.initial() = _Initial;
+
+  const factory NutritionInstructionsState.error(RequestError fetchError) = _Error;
 
   const factory NutritionInstructionsState.nutritionInstructions({
     required IList<NutritionInstructionValue> calorieDensityValues,
@@ -35,16 +38,13 @@ class NutritionInstructionsState with _$NutritionInstructionsState {
         return state.maxCalorieDegreeValue;
       }
 
-      return state.calorieDensityValues
-          .firstWhere(_filter(double.parse(value.toStringAsFixed(2))));
+      return state.calorieDensityValues.firstWhere(_filter(double.parse(value.toStringAsFixed(2))));
     });
   }
 
   NutritionInstructionValue? getProteinDegreeItem(double? value) {
     if (value == null) return null;
 
-    return mapOrNull(
-        nutritionInstructions: (state) =>
-            state.proteinDegreeValues.firstWhere(_filter(value)));
+    return mapOrNull(nutritionInstructions: (state) => state.proteinDegreeValues.firstWhere(_filter(value)));
   }
 }
