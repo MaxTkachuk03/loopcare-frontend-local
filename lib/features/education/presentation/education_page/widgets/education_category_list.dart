@@ -38,12 +38,6 @@ class _EducationCategoryListState extends State<EducationCategoryList> with Widg
   }
 
   @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return ScrollablePositionedList.builder(
       itemScrollController: _controller,

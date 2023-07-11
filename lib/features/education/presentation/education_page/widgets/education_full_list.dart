@@ -32,15 +32,9 @@ class _EducationFullListState extends State<EducationFullList> with WidgetsBindi
 
     if (lessonWithCountdown == null && activeLessonIndex > 0) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _controller.jumpTo(index: 10);
+        _controller.jumpTo(index: activeLessonIndex);
       });
     }
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
   }
 
   @override

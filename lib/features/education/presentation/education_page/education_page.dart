@@ -6,8 +6,10 @@ import 'package:loopcare_frontend/features/education/domain/lesson_category.dart
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_app_bar.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_body.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_tab_bar.dart';
+import 'package:loopcare_frontend/features/home/application/home_bottom_navigation_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
 
 class EducationPage extends StatefulWidget {
   const EducationPage({Key? key}) : super(key: key);
@@ -26,8 +28,6 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
   @override
   void initState() {
     super.initState();
-
-    _jumpToLessonsList();
 
     _tabController = TabController(
       vsync: this,
@@ -50,10 +50,10 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
     final activeLessonIndex = dataState.activeLessonIndex;
     final lessonWithCountdown = dataState.lessonWithCountdown;
 
-    if (lessonWithCountdown == null && activeLessonIndex != 0) {
+    if (lessonWithCountdown == null && activeLessonIndex > 0) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        final renderBox = _introContainerKey.currentContext?.size;
-        _scrollController.jumpTo(renderBox?.height ?? 0);
+        final size = _introContainerKey.currentContext?.size;
+        _scrollController.jumpTo(size?.height ?? 0);
       });
     }
   }
@@ -81,9 +81,17 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<EducationLessonBloc, EducationLessonState>(
-      listenWhen: (prev, cur) => cur is LessonCompleted,
-      listener: _lessonCompleteListener,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<EducationLessonBloc, EducationLessonState>(
+          listenWhen: (prev, cur) => cur is LessonCompleted,
+          listener: _lessonCompleteListener,
+        ),
+        BlocListener<HomeBottomNavigationBloc, HomeBottomNavigationState>(
+          listenWhen: (prev, cur) => cur.activeTab == DashboardNavbarItems.education,
+          listener: _tabsListener,
+        ),
+      ],
       child: SafeArea(
         child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
           builder: (BuildContext context, state) {
@@ -119,10 +127,18 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
   }
 
   void _onTabsChanged() {
-    context.read<EducationProgramBloc>().add(
-          EducationProgramEvent.getLessons(
-            LessonCategory.values[_tabController.index],
-          ),
-        );
+    final currentTab = LessonCategory.values[_tabController.index];
+
+    if (currentTab == LessonCategory.all) {
+      _jumpToLessonsList();
+    } else {
+      _scrollController.jumpTo(0);
+    }
+
+    context.read<EducationProgramBloc>().add(EducationProgramEvent.getLessons(currentTab));
+  }
+
+  void _tabsListener(BuildContext context, HomeBottomNavigationState state) {
+    _jumpToLessonsList();
   }
 }
