@@ -159,8 +159,11 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                               children: [
                                 SizedBox(
                                   height: 325,
-                                  child: NetworkImageWithCache(
-                                    url: state.data.lessonImage,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                                    child: NetworkImageWithCache(
+                                      url: state.data.lessonImage,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(height: 14),
