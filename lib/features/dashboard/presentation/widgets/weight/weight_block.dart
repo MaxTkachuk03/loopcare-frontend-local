@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -80,7 +81,16 @@ class WeightBlock extends StatelessWidget {
                       );
                     },
                     loading: (_) => const LoadingWeight(),
-                    error: (_) => const Text("Error loading"),
+                    error: (errorState) {
+                      final error = errorState.error;
+
+                      return ErrorScreen(
+                        smallVersion: true,
+                        error: error,
+                        onButtonPressed: () =>
+                            context.read<DashboardWeightBloc>().add(DashboardWeightEvent.fetchWeights(date)),
+                      );
+                    },
                     orElse: () => const SizedBox(),
                   );
                 },
@@ -89,27 +99,32 @@ class WeightBlock extends StatelessWidget {
           ),
           BlocBuilder<DashboardWeightBloc, DashboardWeightState>(
             builder: (BuildContext context, s) {
-              final bool isEditable = s.isEditable(date);
-              final hasLog = s.hasLogOnSelectedDate(date);
+              return s.maybeMap(
+                orElse: () {
+                  final bool isEditable = s.isEditable(date);
+                  final hasLog = s.hasLogOnSelectedDate(date);
 
-              return isEditable
-                  ? Hexagon(
-                      width: 42,
-                      height: 42,
-                      borderRadius: 16,
-                      innerWidget: Container(
-                        color: AppColors.bgGreen,
-                        child: IconButton(
-                          icon: ImageIcon(
-                            hasLog ? AppIcons.edit : AppIcons.plus,
-                            color: AppColors.darkGreen,
-                            size: 12,
+                  return isEditable
+                      ? Hexagon(
+                          width: 42,
+                          height: 42,
+                          borderRadius: 16,
+                          innerWidget: Container(
+                            color: AppColors.bgGreen,
+                            child: IconButton(
+                              icon: ImageIcon(
+                                hasLog ? AppIcons.edit : AppIcons.plus,
+                                color: AppColors.darkGreen,
+                                size: 12,
+                              ),
+                              onPressed: () => onPressHandler(context),
+                            ),
                           ),
-                          onPressed: () => onPressHandler(context),
-                        ),
-                      ),
-                    )
-                  : Container();
+                        )
+                      : Container();
+                },
+                error: (value) => const SizedBox(),
+              );
             },
           ),
         ],

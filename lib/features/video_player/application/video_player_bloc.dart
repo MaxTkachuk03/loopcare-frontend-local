@@ -31,9 +31,7 @@ class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {
     final response = await _awsService.getAwsPresignedCookies();
 
     response.fold(
-      (l) {
-        emit(VideoPlayerState.error(state.data.copyWith(isLoading: false, error: l)));
-      },
+      (l) => emit(VideoPlayerState.error(state.data.copyWith(isLoading: false, error: l))),
       (r) {
         emit(
           VideoPlayerState.cookiesLoaded(

@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
@@ -14,47 +18,67 @@ class EducationBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<EducationProgramBloc, EducationProgramState>(
       builder: (BuildContext context, state) {
-        final lessons = state.data.lessons;
+        return state.map(
+          error: (errorState) {
+            final error = errorState.data.error;
 
-        if (state.data.currentCategory == LessonCategory.all) {
-          return Stack(
-            children: [
-              Container(
-                color: AppColors.orange,
-                height: 40,
-              ),
-              MainContainer(
-                child: EducationFullList(
-                  lessons: lessons,
-                ),
-              )
-            ],
-          );
-        }
+            return ErrorScreen(
+              error: error,
+              onButtonPressed: () => context
+                  .read<EducationProgramBloc>()
+                  .add(EducationProgramEvent.getLessons(state.data.currentCategory)),
+            );
+          },
+          educationProgram: (educationState) {
+            final lessons = state.data.lessons;
 
-        return MainContainer(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 34.0,
-              ),
-              Text(
-                state.data.currentCategory.label,
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontFamily: ThemeConstants.bitterFontFamily,
+            if (state.data.currentCategory == LessonCategory.all) {
+              return Stack(
+                children: [
+                  Container(
+                    color: AppColors.orange,
+                    height: 40,
+                  ),
+                  MainContainer(
+                    child: EducationFullList(
+                      lessons: lessons,
                     ),
+                  )
+                ],
+              );
+            }
+
+            return MainContainer(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 34.0,
+                  ),
+                  Text(
+                    state.data.currentCategory.label,
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          fontFamily: ThemeConstants.bitterFontFamily,
+                        ),
+                  ),
+                  const SizedBox(
+                    height: 14.0,
+                  ),
+                  Expanded(
+                    child: EducationCategoryList(
+                      lessons: lessons,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(
-                height: 14.0,
-              ),
-              Expanded(
-                child: EducationCategoryList(
-                  lessons: lessons,
-                ),
-              ),
-            ],
-          ),
+            );
+          },
+          initial: (_) {
+            return const Loader();
+          },
+          loading: (_) {
+            return const Loader();
+          },
         );
       },
     );

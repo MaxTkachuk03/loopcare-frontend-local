@@ -13,5 +13,6 @@ class RecipeDetailsState with _$RecipeDetailsState {
     required NutritionItem currentRecipeNutritionItem,
   }) = RecipeInfo;
 
+//TODO: old state style
   const factory RecipeDetailsState.error(RequestError fetchError) = Error;
 }

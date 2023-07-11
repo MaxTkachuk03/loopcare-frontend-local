@@ -8,6 +8,7 @@ class DishState with _$DishState {
 
   const factory DishState.loading() = _Loading;
 
+//TODO: old state style
   const factory DishState.error(RequestError fetchError) = _Error;
 
   const factory DishState.dish({

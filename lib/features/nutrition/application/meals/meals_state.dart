@@ -8,6 +8,7 @@ class MealsState with _$MealsState {
 
   const factory MealsState.loading() = _Loading;
 
+//TODO: old state style
   const factory MealsState.error(RequestError fetchError) = _Error;
 
   const factory MealsState.mealsInfo({

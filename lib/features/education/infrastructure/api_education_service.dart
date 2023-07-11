@@ -19,8 +19,7 @@ class APIEducationService implements EducationService {
   Future<Either<RequestError, GetLessonsResponse>> getLessons(
     LessonCategory category,
   ) async {
-    final params =
-        category == LessonCategory.all ? null : {'category': category.name};
+    final params = category == LessonCategory.all ? null : {'category': category.name};
 
     return client
         .get('/education/lessons', queryParameters: params)
@@ -31,9 +30,7 @@ class APIEducationService implements EducationService {
   Future<Either<RequestError, GetLessonContentResponse>> getLessonContent(
     int lessonId,
   ) async {
-    return client
-        .get('/education/lessons/$lessonId')
-        .then(parseResponse(GetLessonContentResponse.fromJson));
+    return client.get('/education/lessons/$lessonId').then(parseResponse(GetLessonContentResponse.fromJson));
   }
 
   @override

@@ -8,7 +8,8 @@ class DashboardWeightState with _$DashboardWeightState {
 
   const factory DashboardWeightState.loading() = _Loading;
 
-  const factory DashboardWeightState.error(RequestError fetchError) = _Error;
+//TODO: old state style
+  const factory DashboardWeightState.error(RequestError error) = _Error;
 
   const factory DashboardWeightState.weights({
     required Map<String, DashboardWeightItem> weights,
@@ -19,9 +20,7 @@ class DashboardWeightState with _$DashboardWeightState {
   }
 
   bool hasLogOnSelectedDate(DateTime date) {
-    return mapOrNull(
-            weights: (s) => s.weights.containsKey(date.isoStringWithoutTime)) ??
-        false;
+    return mapOrNull(weights: (s) => s.weights.containsKey(date.isoStringWithoutTime)) ?? false;
   }
 
   isToday(DateTime date) {

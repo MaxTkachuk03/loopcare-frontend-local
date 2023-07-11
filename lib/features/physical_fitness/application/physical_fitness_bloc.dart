@@ -29,8 +29,7 @@ part 'physical_fitness_state.dart';
 part 'physical_fitness_questions.dart';
 
 @singleton
-class PhysicalFitnessBloc
-    extends HydratedBloc<PhysicalFitnessEvent, PhysicalFitnessState> {
+class PhysicalFitnessBloc extends HydratedBloc<PhysicalFitnessEvent, PhysicalFitnessState> {
   final OnboardingBloc onboardingBloc;
   final AuthenticationCubit _authenticationCubit;
   final PhysicalService physicalService;
@@ -52,8 +51,7 @@ class PhysicalFitnessBloc
     on<ResetData>(_onResetData);
     on<SavePhysicalData>(_onSavePhysicalData);
 
-    _authBlocStreamSubscription =
-        _authenticationCubit.stream.distinct().listen((s) {
+    _authBlocStreamSubscription = _authenticationCubit.stream.distinct().listen((s) {
       s.mapOrNull(
         authenticated: (_) {
           add(const PhysicalFitnessEvent.resetData());
@@ -90,12 +88,8 @@ class PhysicalFitnessBloc
     final response = await physicalService.savePhysicalSurvey(data);
 
     response.fold(
-      (l) => emit(
-        state.copyWith(isCompletedSuccessfully: false),
-      ),
-      (r) => emit(
-        state.copyWith(isCompletedSuccessfully: true),
-      ),
+      (l) => emit(state.copyWith(isCompletedSuccessfully: false)),
+      (r) => emit(state.copyWith(isCompletedSuccessfully: true)),
     );
   }
 
@@ -109,8 +103,7 @@ class PhysicalFitnessBloc
     final isCompleted = nextQuestion == PhysicalFitnessQuestions.result;
 
     if (isCompleted) {
-      final bool isValidBmi =
-          BmiValidator.isUserAllowToProceed(state.age!, state.bmi!);
+      final bool isValidBmi = BmiValidator.isUserAllowToProceed(state.age!, state.bmi!);
 
       emit(
         state.copyWith(
@@ -218,8 +211,7 @@ class PhysicalFitnessBloc
   }
 
   @override
-  PhysicalFitnessState? fromJson(Map<String, dynamic> json) =>
-      PhysicalFitnessState.fromJson(json);
+  PhysicalFitnessState? fromJson(Map<String, dynamic> json) => PhysicalFitnessState.fromJson(json);
 
   @override
   Map<String, dynamic>? toJson(PhysicalFitnessState state) {

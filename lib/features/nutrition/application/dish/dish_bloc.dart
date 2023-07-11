@@ -79,9 +79,7 @@ class DishBloc extends Bloc<DishEvent, DishState> {
     );
 
     response.fold(
-      (e) {
-        emit(DishState.error(e));
-      },
+      (l) => emit(DishState.error(l)),
       (r) {
         final Dish selectedDish = _createDish(r);
 
@@ -102,9 +100,7 @@ class DishBloc extends Bloc<DishEvent, DishState> {
     final response = await nutritionService.getDishById(event.dishId);
 
     response.fold(
-      (e) {
-        emit(DishState.error(e));
-      },
+      (l) => emit(DishState.error(l)),
       (r) {
         final Dish selectedDish = _createDish(r);
 
@@ -129,29 +125,31 @@ class DishBloc extends Bloc<DishEvent, DishState> {
     UpdateFoodItemInDish event,
     Emitter<DishState> emit,
   ) async {
-    await state.mapOrNull(dish: (state) async {
-      final response = await nutritionService.updateFoodItemInDish(
-        event.dishId,
-        event.internalFoodItemId,
-        UpdateFoodItemInDishBody(
-          numberOfUnits: event.numberOfUnits,
-          servingId: event.servingId,
-        ),
-      );
+    await state.mapOrNull(
+      dish: (state) async {
+        final response = await nutritionService.updateFoodItemInDish(
+          event.dishId,
+          event.internalFoodItemId,
+          UpdateFoodItemInDishBody(
+            numberOfUnits: event.numberOfUnits,
+            servingId: event.servingId,
+          ),
+        );
 
-      response.fold(
-        (l) => null,
-        (r) {
-          final Dish selectedDish = _createDish(r);
+        response.fold(
+          (l) => emit(DishState.error(l)),
+          (r) {
+            final Dish selectedDish = _createDish(r);
 
-          emit(
-            state.copyWith(
-              selectedDish: selectedDish,
-            ),
-          );
-        },
-      );
-    });
+            emit(
+              state.copyWith(
+                selectedDish: selectedDish,
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   FutureOr<void> _onDeleteFoodItemFromDish(
@@ -165,7 +163,7 @@ class DishBloc extends Bloc<DishEvent, DishState> {
       );
 
       response.fold(
-        (l) => null,
+        (l) => emit(DishState.error(l)),
         (r) {
           final Dish selectedDish = _createDish(r);
 
@@ -192,7 +190,7 @@ class DishBloc extends Bloc<DishEvent, DishState> {
       final response = await nutritionService.addDishToMeal(event.mealId, data);
 
       response.fold(
-        (l) => null,
+        (l) => emit(DishState.error(l)),
         (r) {
           mealsBloc.add(MealsEvent.addDishToMeal(r));
         },
@@ -216,7 +214,7 @@ class DishBloc extends Bloc<DishEvent, DishState> {
       final response = await nutritionService.addFoodItemToDish(dishId, data);
 
       response.fold(
-        (l) => null,
+        (l) => emit(DishState.error(l)),
         (r) {
           final Dish selectedDish = _createDish(r);
 
@@ -240,7 +238,7 @@ class DishBloc extends Bloc<DishEvent, DishState> {
         );
 
         response.fold(
-          (l) => null,
+          (l) => emit(DishState.error(l)),
           (r) {
             final Dish selectedDish = _createDish(r);
 

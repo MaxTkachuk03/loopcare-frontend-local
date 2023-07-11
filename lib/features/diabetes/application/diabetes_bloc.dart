@@ -51,12 +51,8 @@ class DiabetesBloc extends Bloc<DiabetesEvent, DiabetesState> {
     final response = await diabetesService.saveDiabetesType(data);
 
     response.fold(
-      (l) => emit(
-        state.copyWith(isCompleted: false),
-      ),
-      (r) => emit(
-        state.copyWith(isCompleted: true),
-      ),
+      (l) => emit(state.copyWith(isCompleted: false)),
+      (r) => emit(state.copyWith(isCompleted: true)),
     );
   }
 
@@ -67,15 +63,8 @@ class DiabetesBloc extends Bloc<DiabetesEvent, DiabetesState> {
     final response = await diabetesService.getAccountDiabetesType();
 
     response.fold(
-      (l) => emit(
-        state.copyWith(isCompleted: false),
-      ),
-      (r) => emit(
-        state.copyWith(
-          selectedType: DiabetesType(id: r.id, name: r.name),
-          isCompleted: true,
-        ),
-      ),
+      (l) => emit(state.copyWith(isCompleted: false)),
+      (r) => emit(state.copyWith(isCompleted: true, selectedType: DiabetesType(id: r.id, name: r.name))),
     );
   }
 

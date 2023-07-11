@@ -11,13 +11,12 @@ class EditDishState with _$EditDishState {
   const factory EditDishState.deleted() = Deleted;
 
   const factory EditDishState.saved() = Saved;
-
+//TODO: old state style
   const factory EditDishState.error(RequestError fetchError) = Error;
 
   const factory EditDishState.dishInfo({
     required Dish currentDish,
-    @Default(NutritionValuesTypes.calories)
-        NutritionValuesTypes currentNutritionType,
+    @Default(NutritionValuesTypes.calories) NutritionValuesTypes currentNutritionType,
   }) = DishInfo;
 
   String get servingAmount {

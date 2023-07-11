@@ -15,8 +15,7 @@ part 'education_program_event.dart';
 part 'education_program_state.dart';
 
 @singleton
-class EducationProgramBloc
-    extends Bloc<EducationProgramEvent, EducationProgramState> {
+class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramState> {
   final EducationService _educationService;
 
   EducationProgramBloc(this._educationService)
@@ -40,7 +39,7 @@ class EducationProgramBloc
     final response = await _educationService.getLessons(event.category);
 
     response.fold(
-      (l) => l,
+      (l) => emit(EducationProgramState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
         final lessonWithCountdown = event.category == LessonCategory.all
             ? _getLessonWithCountdown(r.lessons)
@@ -58,7 +57,6 @@ class EducationProgramBloc
     );
   }
 
-
   FutureOr<void> _onResetLessonWithCountdown(event, Emitter<EducationProgramState> emit) {
     emit(EducationProgramState.educationProgram(
       state.data.copyWith(
@@ -68,24 +66,19 @@ class EducationProgramBloc
   }
 
   LessonWithCountdown? _getLessonWithCountdown(List<EducationLesson> lessons) {
-    final lastStartedStep =
-        lessons.lastWhereOrNull((element) => element.completedAt != null)?.step;
+    final lastStartedStep = lessons.lastWhereOrNull((element) => element.completedAt != null)?.step;
 
     if (lastStartedStep == null) return null;
 
-    final startDate = lessons
-        .firstWhereOrNull((element) => element.step == lastStartedStep)
-        ?.completedAt;
+    final startDate = lessons.firstWhereOrNull((element) => element.step == lastStartedStep)?.completedAt;
 
     final endDate = DateTime.now();
     const oneDayInSeconds = 86400;
-    final currentDifference = oneDayInSeconds -
-        endDate.difference(startDate ?? DateTime.now()).inSeconds;
+    final currentDifference = oneDayInSeconds - endDate.difference(startDate ?? DateTime.now()).inSeconds;
 
     if (currentDifference <= 0) return null;
 
-    final lessonWithCountdown = lessons
-        .firstWhereOrNull((element) => element.step == lastStartedStep + 1);
+    final lessonWithCountdown = lessons.firstWhereOrNull((element) => element.step == lastStartedStep + 1);
 
     if (lessonWithCountdown == null) return null;
 

@@ -4,6 +4,8 @@ part of 'you_and_food_bloc.dart';
 class YouAndFoodState with _$YouAndFoodState {
   const YouAndFoodState._();
 
+  //TODO: old state style need update
+
   factory YouAndFoodState.initial() => YouAndFoodState(
       foodTypes: <FoodPreference>[].toIList(),
       foodPeriods: <FoodPreference>[].toIList(),

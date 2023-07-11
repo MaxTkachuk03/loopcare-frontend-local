@@ -15,8 +15,7 @@ part 'dashboard_education_event.dart';
 part 'dashboard_education_state.dart';
 
 @singleton
-class DashboardEducationBloc
-    extends Bloc<DashboardEducationEvent, DashboardEducationState> {
+class DashboardEducationBloc extends Bloc<DashboardEducationEvent, DashboardEducationState> {
   final EducationService _educationService;
 
   DashboardEducationBloc(this._educationService)
@@ -39,8 +38,7 @@ class DashboardEducationBloc
       )),
     );
 
-    final currentDate = event.currentDate?.isoStringWithoutTime ??
-        DateTime.now().isoStringWithoutTime;
+    final currentDate = event.currentDate?.isoStringWithoutTime ?? DateTime.now().isoStringWithoutTime;
 
     final response = await _educationService.getCalendarLessons(
       startDate: currentDate,
@@ -48,13 +46,7 @@ class DashboardEducationBloc
     );
 
     response.fold(
-      (l) => emit(
-        DashboardEducationState.error(
-          state.data.copyWith(
-            error: l,
-          ),
-        ),
-      ),
+      (l) => emit(DashboardEducationState.error(state.data.copyWith(error: l))),
       (r) {
         emit(
           DashboardEducationState.educationProgram(

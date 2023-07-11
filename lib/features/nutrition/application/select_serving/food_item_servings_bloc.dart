@@ -70,7 +70,7 @@ class FoodItemServingsBloc extends Bloc<FoodItemServingsEvent, FoodItemServingsS
     final response = await nutritionService.getFoodItemServings(event.foodItemId);
 
     response.fold(
-      (l) => null,
+      (l) => emit(FoodItemServingsState.error(l)),
       (r) {
         IList<ServingSize> servingList;
         // TODO how to refactor this code
@@ -122,86 +122,101 @@ class FoodItemServingsBloc extends Bloc<FoodItemServingsEvent, FoodItemServingsS
     AddToFavorites event,
     Emitter<FoodItemServingsState> emit,
   ) async {
-    await state.mapOrNull(foodItemServings: (state) async {
-      final id = state.selectedServing?.servingId;
-      final numberOfUnits = state.selectedServing?.numberOfUnits;
+    await state.mapOrNull(
+      foodItemServings: (state) async {
+        final id = state.selectedServing?.servingId;
+        final numberOfUnits = state.selectedServing?.numberOfUnits;
 
-      if (id == null) return;
+        if (id == null) return;
 
-      final data = AddToFavoritesBody(
-        numberOfUnits: numberOfUnits,
-        mealCategories: state.selectedMealCategoriesNames,
-      );
-
-      final response = await nutritionService.addToFavorites(event.foodItemId, id, data);
-
-      response.fold((l) => null, (r) {
-        final updatedList = _getUpdatedServingsList(r.serving);
-
-        emit(
-          state.copyWith(
-            servings: updatedList.toIList(),
-            selectedServing: updatedList.firstWhere((e) => e.servingId == r.serving.servingId),
-          ),
+        final data = AddToFavoritesBody(
+          numberOfUnits: numberOfUnits,
+          mealCategories: state.selectedMealCategoriesNames,
         );
-      });
-    });
+
+        final response = await nutritionService.addToFavorites(event.foodItemId, id, data);
+
+        response.fold(
+          (l) => emit(FoodItemServingsState.error(l)),
+          (r) {
+            final updatedList = _getUpdatedServingsList(r.serving);
+
+            emit(
+              state.copyWith(
+                servings: updatedList.toIList(),
+                selectedServing: updatedList.firstWhere((e) => e.servingId == r.serving.servingId),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   FutureOr<void> _onRemoveFromFavorites(
     RemoveFromFavorites event,
     Emitter<FoodItemServingsState> emit,
   ) async {
-    await state.mapOrNull(foodItemServings: (state) async {
-      final response = await nutritionService.removeFromFavorites(
-        event.foodItemId,
-        event.servingId,
-      );
-
-      response.fold((l) => null, (r) {
-        final updatedList = _getUpdatedServingsList(r.serving);
-        emit(
-          state.copyWith(
-            servings: updatedList,
-            selectedServing: updatedList.firstWhere((e) => e.servingId == r.serving.servingId),
-          ),
+    await state.mapOrNull(
+      foodItemServings: (state) async {
+        final response = await nutritionService.removeFromFavorites(
+          event.foodItemId,
+          event.servingId,
         );
-      });
-    });
+
+        response.fold(
+          (l) => emit(FoodItemServingsState.error(l)),
+          (r) {
+            final updatedList = _getUpdatedServingsList(r.serving);
+            emit(
+              state.copyWith(
+                servings: updatedList,
+                selectedServing: updatedList.firstWhere((e) => e.servingId == r.serving.servingId),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   FutureOr<void> _onUpdateFavorite(
     UpdateFavorite event,
     Emitter<FoodItemServingsState> emit,
   ) async {
-    await state.mapOrNull(foodItemServings: (state) async {
-      final id = state.selectedServing?.servingId;
-      final numberOfUnits = state.selectedServing?.numberOfUnits;
+    await state.mapOrNull(
+      foodItemServings: (state) async {
+        final id = state.selectedServing?.servingId;
+        final numberOfUnits = state.selectedServing?.numberOfUnits;
 
-      if (id == null) return;
+        if (id == null) return;
 
-      final data = UpdateFavoriteBody(
-        mealCategories: state.selectedMealCategoriesNames,
-        numberOfUnits: numberOfUnits,
-      );
-
-      final response = await nutritionService.updateFavorites(
-        event.foodItemId,
-        id,
-        data,
-      );
-
-      response.fold((l) => null, (r) {
-        final updatedList = _getUpdatedServingsList(r.serving);
-
-        emit(
-          state.copyWith(
-            servings: updatedList,
-            selectedServing: updatedList.firstWhere((e) => e.servingId == r.serving.servingId),
-          ),
+        final data = UpdateFavoriteBody(
+          mealCategories: state.selectedMealCategoriesNames,
+          numberOfUnits: numberOfUnits,
         );
-      });
-    });
+
+        final response = await nutritionService.updateFavorites(
+          event.foodItemId,
+          id,
+          data,
+        );
+
+        response.fold(
+          (l) => emit(FoodItemServingsState.error(l)),
+          (r) {
+            final updatedList = _getUpdatedServingsList(r.serving);
+
+            emit(
+              state.copyWith(
+                servings: updatedList,
+                selectedServing: updatedList.firstWhere((e) => e.servingId == r.serving.servingId),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   void _onSetSelectedServingAmount(

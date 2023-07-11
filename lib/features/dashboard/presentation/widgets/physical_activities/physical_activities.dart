@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -98,33 +99,47 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
             const Divider(color: AppColors.yellowLight),
             const SizedBox(height: 6.0),
             BlocBuilder<ProgramsInProgressBloc, ProgramsInProgressState>(
-                builder: (BuildContext context, state) {
-              final activePrograms = state.programsList;
+              builder: (BuildContext context, state) {
+                final activePrograms = state.programsList;
 
-              return BlocBuilder<PhysicalActivitiesBloc, PhysicalActivitiesState>(
+                return BlocBuilder<PhysicalActivitiesBloc, PhysicalActivitiesState>(
                   builder: (BuildContext context, state) {
-                return state.maybeMap(
-                    loading: (_) => const Loader(),
-                    orElse: () => const SizedBox.shrink(),
-                    activitiesLoaded: (s) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(
-                            '3 ${LocalizedTexts.activitiesForThisWeek.translation.toUpperCase()}',
-                            style: const TextStyle(
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.greyLabel,
+                    return state.maybeMap(
+                      error: (errorState) {
+                        final error = errorState.data.error;
+
+                        return ErrorScreen(
+                          smallVersion: true,
+                          error: error,
+                          onButtonPressed: () => context
+                              .read<PhysicalActivitiesBloc>()
+                              .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay)),
+                        );
+                      },
+                      loading: (_) => const Loader(),
+                      orElse: () => const SizedBox.shrink(),
+                      activitiesLoaded: (s) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              '3 ${LocalizedTexts.activitiesForThisWeek.translation.toUpperCase()}',
+                              style: const TextStyle(
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.greyLabel,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 16.0),
-                          WeeklyActivitiesList(data: [...activePrograms, ...s.data.activities]),
-                        ],
-                      );
-                    });
-              });
-            }),
+                            const SizedBox(height: 16.0),
+                            WeeklyActivitiesList(data: [...activePrograms, ...s.data.activities]),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+            ),
           ],
         ),
       ),

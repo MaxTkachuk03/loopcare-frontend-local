@@ -233,7 +233,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             : await nutritionService.getMealById(event.id);
 
         response.fold(
-          (error) => null,
+          (l) => emit(MealsState.error(l)),
           (response) {
             final newState = state.isPlanningMeals
                 ? state.copyWith(
@@ -268,13 +268,16 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           data: data,
         );
 
-        response.fold((l) => null, (r) {
-          final updatedList = _getUpdatedMealsList(r);
-          final newState = state.isPlanningMeals
-              ? state.copyWith(plannedMeals: updatedList)
-              : state.copyWith(meals: updatedList);
-          emit(newState);
-        });
+        response.fold(
+          (l) => emit(MealsState.error(l)),
+          (r) {
+            final updatedList = _getUpdatedMealsList(r);
+            final newState = state.isPlanningMeals
+                ? state.copyWith(plannedMeals: updatedList)
+                : state.copyWith(meals: updatedList);
+            emit(newState);
+          },
+        );
       },
     );
   }
@@ -292,16 +295,12 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         );
 
         response.fold(
-          (l) => null,
+          (l) => emit(MealsState.error(l)),
           (r) {
             final updatedList = _getUpdatedMealsList(r);
             final newState = state.isPlanningMeals
-                ? state.copyWith(
-                    plannedMeals: updatedList,
-                  )
-                : state.copyWith(
-                    meals: updatedList,
-                  );
+                ? state.copyWith(plannedMeals: updatedList)
+                : state.copyWith(meals: updatedList);
 
             emit(newState);
           },
@@ -327,7 +326,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         );
 
         response.fold(
-          (l) => null,
+          (l) => emit(MealsState.error(l)),
           (r) {
             final updatedList = _getUpdatedMealsList(r);
             final newState = state.isPlanningMeals
@@ -357,16 +356,12 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         );
 
         response.fold(
-          (l) => null,
+          (l) => emit(MealsState.error(l)),
           (r) {
             final updatedList = _getUpdatedMealsList(r);
             final newState = state.isPlanningMeals
-                ? state.copyWith(
-                    plannedMeals: updatedList,
-                  )
-                : state.copyWith(
-                    meals: updatedList,
-                  );
+                ? state.copyWith(plannedMeals: updatedList)
+                : state.copyWith(meals: updatedList);
 
             emit(newState);
           },
@@ -391,7 +386,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         );
 
         response.fold(
-          (l) => null,
+          (l) => emit(MealsState.error(l)),
           (r) {
             final updatedList = _getUpdatedMealsList(r);
             final newState = state.isPlanningMeals
@@ -421,7 +416,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         );
 
         response.fold(
-          (l) => null,
+          (l) => emit(MealsState.error(l)),
           (r) {
             final updatedList = _getUpdatedMealsList(r);
             final newState = state.isPlanningMeals
@@ -451,16 +446,12 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
               : await nutritionService.removeMeal(mealId);
 
           response.fold(
-            (l) => null,
+            (l) => emit(MealsState.error(l)),
             (r) {
               final updatedList = _deleteMealFromList(mealId);
               final newState = state.isPlanningMeals
-                  ? state.copyWith(
-                      plannedMeals: updatedList,
-                    )
-                  : state.copyWith(
-                      meals: updatedList,
-                    );
+                  ? state.copyWith(plannedMeals: updatedList)
+                  : state.copyWith(meals: updatedList);
 
               emit(newState);
             },
@@ -496,14 +487,11 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           );
 
           response.fold(
-            (l) => null,
+            (l) => emit(MealsState.error(l)),
             (r) {
               final updatedList = _getUpdatedMealsList(r);
               final newState = state.isPlanningMeals
-                  ? state.copyWith(
-                      currentMealId: mealId,
-                      plannedMeals: updatedList,
-                    )
+                  ? state.copyWith(currentMealId: mealId, plannedMeals: updatedList)
                   : state.copyWith(currentMealId: mealId, meals: updatedList);
 
               emit(newState);
@@ -534,7 +522,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         );
 
         response.fold(
-          (l) => null,
+          (l) => emit(MealsState.error(l)),
           (r) {
             var updatedList = <MealsListItem>[];
             final loggingDate = r.loggingDate;
@@ -590,7 +578,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         final response = await nutritionService.addPlannedMeal(data);
 
         response.fold(
-          (l) => null,
+          (l) => emit(MealsState.error(l)),
           (r) {
             var updatedList = <MealsListItem>[];
             final planningDates = r.planningDates;

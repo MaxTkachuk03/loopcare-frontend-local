@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -24,8 +25,7 @@ part 'self_help_questions.dart';
 class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
   final AccountPreferGenderService accountPreferGenderService;
 
-  SelfHelpBloc(this.accountPreferGenderService)
-      : super(SelfHelpState.initial()) {
+  SelfHelpBloc(this.accountPreferGenderService) : super(SelfHelpState.initial()) {
     on<SetAccountPreferGender>(_onSetPreferGender);
     on<GetAccountPreferGender>(_onGetPreferGender);
     on<SaveAccountPreferGender>(_onSavePreferGender);
@@ -41,9 +41,7 @@ class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
     response.fold(
       (l) => null,
       (r) => emit(
-        state.copyWith(
-          preferedGenderTypes: r.data.toIList(),
-        ),
+        state.copyWith(preferedGenderTypes: r.data.toIList()),
       ),
     );
   }
@@ -61,12 +59,8 @@ class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
     final response = await accountPreferGenderService.savePreferGender(data);
 
     response.fold(
-      (l) => emit(
-        state.copyWith(isCompleted: false),
-      ),
-      (r) => emit(
-        state.copyWith(isCompleted: true),
-      ),
+      (l) => emit(state.copyWith(isCompleted: false)),
+      (r) => emit(state.copyWith(isCompleted: true)),
     );
   }
 
@@ -85,13 +79,10 @@ class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
     GetAccountPreferGender event,
     Emitter<SelfHelpState> emit,
   ) async {
-    final response =
-        await accountPreferGenderService.getAccountPreferGenderType();
+    final response = await accountPreferGenderService.getAccountPreferGenderType();
 
     response.fold(
-      (l) => emit(
-        state.copyWith(isCompleted: false),
-      ),
+      (l) => emit(state.copyWith(isCompleted: false)),
       (r) => emit(
         state.copyWith(
           selectedType: PreferGender(id: r.id, name: r.name),
@@ -102,8 +93,7 @@ class SelfHelpBloc extends HydratedBloc<SelfHelpEvent, SelfHelpState> {
   }
 
   @override
-  SelfHelpState? fromJson(Map<String, dynamic> json) =>
-      SelfHelpState.fromJson(json);
+  SelfHelpState? fromJson(Map<String, dynamic> json) => SelfHelpState.fromJson(json);
 
   @override
   Map<String, dynamic>? toJson(SelfHelpState state) {
