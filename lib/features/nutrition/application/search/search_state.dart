@@ -10,6 +10,7 @@ class SearchState with _$SearchState {
 
   const factory SearchState.loading() = _Loading;
 
+//TODO: old state style
   const factory SearchState.error({
     @JsonKey(ignore: true) RequestError? fetchError,
   }) = _Error;

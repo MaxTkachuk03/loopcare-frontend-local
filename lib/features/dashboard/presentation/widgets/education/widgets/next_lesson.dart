@@ -34,9 +34,7 @@ class NextLesson extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      height: 10.0,
-                    ),
+                    const SizedBox(height: 10.0),
                     Text(
                       lesson.category.toUpperCase(),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -51,8 +49,7 @@ class NextLesson extends StatelessWidget {
                       lesson.title,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontWeight: FontWeight.w600,
-                            color:
-                                isLessonWithCountDown ? AppColors.darkGreen : AppColors.orangeDarkWithBlack,
+                            color: AppColors.darkGreen,
                           ),
                     ),
                     const SizedBox(height: 6.0),
@@ -64,13 +61,9 @@ class NextLesson extends StatelessWidget {
                                 color: AppColors.darkGreen,
                               )
                             : const Image(image: AppImages.arrowHexagon),
-                        const SizedBox(
-                          width: 12.0,
-                        ),
+                        const SizedBox(width: 12.0),
                         AppIcons.clock,
-                        const SizedBox(
-                          width: 6.0,
-                        ),
+                        const SizedBox(width: 6.0),
                         Text(
                           formatDuration(lesson.duration),
                           style: Theme.of(context).textTheme.bodySmall,

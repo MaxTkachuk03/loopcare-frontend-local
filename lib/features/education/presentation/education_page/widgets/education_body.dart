@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -23,52 +26,71 @@ class _EducationBodyState extends State<EducationBody> with AutomaticKeepAliveCl
   Widget build(BuildContext context) {
     return BlocBuilder<EducationProgramBloc, EducationProgramState>(
       builder: (BuildContext context, state) {
+        return state.map(
+          error: (errorState) {
+            if (state.data.isLoading) return const Loader();
 
-        if (state.data.isLoading) return const Loader();
+            final error = errorState.data.error;
 
-        final lessons = state.data.lessons;
+            return ErrorScreen(
+              error: error,
+              onButtonPressed: () => context
+                  .read<EducationProgramBloc>()
+                  .add(EducationProgramEvent.getLessons(state.data.currentCategory)),
+            );
+          },
+          educationProgram: (educationState) {
+            final lessons = state.data.lessons;
 
-        if (state.data.currentCategory == LessonCategory.all) {
-          return Stack(
-            children: [
-              Container(
-                color: AppColors.orange,
-                height: 40,
-              ),
-              Positioned.fill(
-                child: MainContainer(
-                  child: EducationFullList(
-                    lessons: lessons,
+            if (state.data.currentCategory == LessonCategory.all) {
+              return Stack(
+                children: [
+                  Container(
+                    color: AppColors.orange,
+                    height: 40,
                   ),
-                ),
-              )
-            ],
-          );
-        }
-
-        return MainContainer(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 34.0,
-              ),
-              Text(
-                state.data.currentCategory.label,
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontFamily: ThemeConstants.bitterFontFamily,
+                  Positioned.fill(
+                    child: MainContainer(
+                      child: EducationFullList(
+                        lessons: lessons,
+                      ),
                     ),
+                  )
+                ],
+              );
+            }
+
+            return MainContainer(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 34.0,
+                  ),
+                  Text(
+                    state.data.currentCategory.label,
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          fontFamily: ThemeConstants.bitterFontFamily,
+                        ),
+                  ),
+                  const SizedBox(
+                    height: 14.0,
+                  ),
+                  Expanded(
+                    child: EducationCategoryList(
+                      lessons: lessons,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(
-                height: 14.0,
-              ),
-              Expanded(
-                child: EducationCategoryList(
-                  lessons: lessons,
-                ),
-              ),
-            ],
-          ),
+            );
+          },
+          initial: (_) {
+            return const Loader();
+          },
+          loading: (_) {
+            return const Loader();
+          },
         );
       },
     );

@@ -74,9 +74,11 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
           LessonCategory.values[_tabController.index],
         ),
       )
-      ..read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(
-        currentDate: currentDate,
-      ));
+      ..read<DashboardEducationBloc>().add(
+        DashboardEducationEvent.getDashboardLessons(
+          currentDate: currentDate,
+        ),
+      );
   }
 
   @override

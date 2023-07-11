@@ -16,6 +16,7 @@ class SelectFoodState with _$SelectFoodState {
     required IList<MealCategoryFilter> dishFavoritesCategories,
   }) = _SelectFood;
 
+//TODO: old state style
   const factory SelectFoodState.error(RequestError fetchError) = _Error;
 
   List<FoodItem> get selectedFavoritesItemsList {
@@ -33,17 +34,13 @@ class SelectFoodState with _$SelectFoodState {
   }
 
   List<MealCategoryFilter> get selectedMealCategories {
-    return mapOrNull(
-                selectFood: (state) =>
-                    state.mealFavoritesCategories.where((e) => e.selected))
+    return mapOrNull(selectFood: (state) => state.mealFavoritesCategories.where((e) => e.selected))
             ?.toList() ??
         [];
   }
 
   List<MealCategoryFilter> get selectedDishCategories {
-    return mapOrNull(
-                selectFood: (state) =>
-                    state.dishFavoritesCategories.where((e) => e.selected))
+    return mapOrNull(selectFood: (state) => state.dishFavoritesCategories.where((e) => e.selected))
             ?.toList() ??
         [];
   }
@@ -52,8 +49,7 @@ class SelectFoodState with _$SelectFoodState {
     return mapOrNull(
             selectFood: (state) =>
                 state.mealFavoritesCategories
-                    .where((e) =>
-                        e.selected && e.name != MealFavoritesCategory.all.name)
+                    .where((e) => e.selected && e.name != MealFavoritesCategory.all.name)
                     .length ==
                 1) ??
         false;
@@ -61,9 +57,7 @@ class SelectFoodState with _$SelectFoodState {
 
   bool get hasOneSelectedDishCategory {
     return mapOrNull(
-            selectFood: (state) =>
-                state.dishFavoritesCategories.where((e) => e.selected).length ==
-                1) ??
+            selectFood: (state) => state.dishFavoritesCategories.where((e) => e.selected).length == 1) ??
         false;
   }
 }

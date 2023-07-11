@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -104,6 +105,20 @@ class _MealPageState extends State<MealPage> {
             child: ScrollableContainer(
               child: state.maybeMap(
                 loading: (_) => const Loader(),
+                error: (errorState) {
+                  final error = errorState.fetchError;
+
+                  return ErrorScreen(
+                    error: error,
+                    //TODO: need to check
+                    onButtonPressed: () {
+                      final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+                      if (mealId != null) {
+                        context.read<MealsBloc>().add(MealsEvent.fetchMealById(mealId));
+                      }
+                    },
+                  );
+                },
                 mealsInfo: (mealsState) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

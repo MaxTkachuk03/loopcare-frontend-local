@@ -116,13 +116,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     );
 
     response.fold(
-      (error) {
-        emit(
-          SearchState.error(
-            fetchError: error,
-          ),
-        );
-      },
+      (error) => emit(SearchState.error(fetchError: error)),
       (response) {
         final newItems = oldItems != null ? [...oldItems, ...response.data] : response.data;
 

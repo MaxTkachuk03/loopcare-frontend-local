@@ -36,7 +36,7 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
       listeners: [
         BlocListener<PhysicalProgramsBloc, PhysicalProgramsState>(
           listener: _physicalProgramErrorListener,
-          listenWhen: (prev, cur) => prev is Loading && cur is ErrorLoadingPrograms,
+          listenWhen: (prev, cur) => prev is Loading && cur is Error,
         ),
         BlocListener<PhysicalProgramsBloc, PhysicalProgramsState>(
             listener: _physicalProgramLoggedListener,

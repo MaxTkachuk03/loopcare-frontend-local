@@ -5,17 +5,20 @@ class OutlinedRoundedButton extends StatelessWidget {
   final String text;
   final AssetImage? icon;
   final VoidCallback? onPressed;
+  final double? radius;
+  final double? textPadding;
 
   const OutlinedRoundedButton({
     Key? key,
     required this.text,
     this.icon,
     this.onPressed,
+    this.radius,
+    this.textPadding,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     if (onPressed == null) {
       return ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
@@ -28,8 +31,8 @@ class OutlinedRoundedButton extends StatelessWidget {
             ),
           ),
           textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
+                fontWeight: FontWeight.w600,
+              ),
         ),
         onPressed: onPressed,
         icon: ImageIcon(icon),
@@ -38,9 +41,9 @@ class OutlinedRoundedButton extends StatelessWidget {
     }
 
     final styles = OutlinedButton.styleFrom(
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(5.0),
+          Radius.circular(radius ?? 5.0),
         ),
       ),
       side: const BorderSide(width: 1.0, color: AppColors.darkGreen),
@@ -55,7 +58,10 @@ class OutlinedRoundedButton extends StatelessWidget {
       return OutlinedButton(
         style: styles,
         onPressed: onPressed,
-        child: Text(text),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: textPadding ?? 0),
+          child: Text(text),
+        ),
       );
     }
 

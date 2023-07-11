@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -48,8 +49,7 @@ class _RecipePageState extends State<RecipePage> {
   void initState() {
     final recipeBloc = context.read<RecipeBloc>();
 
-    _servingController =
-        TextEditingController(text: recipeBloc.state.servingAmount);
+    _servingController = TextEditingController(text: recipeBloc.state.servingAmount);
 
     if (widget.isMealRecipe ?? false) {
       final mealId = context.read<MealsBloc>().state.getCurrentMealId;
@@ -81,9 +81,8 @@ class _RecipePageState extends State<RecipePage> {
 
     final recipeId = !isMealRecipe
         ? mealState.currentFoodItems
-            .firstWhere((element) =>
-                element.type == 'recipe' &&
-                element.externalId == recipeState.externalRecipeId)
+            .firstWhere(
+                (element) => element.type == 'recipe' && element.externalId == recipeState.externalRecipeId)
             .id
         : recipeState.recipeId;
 
@@ -161,6 +160,16 @@ class _RecipePageState extends State<RecipePage> {
                 builder: (BuildContext context, state) {
                   return state.maybeMap(
                     loadingRecipe: (_) => const Loader(),
+                    error: (errorState) {
+                      final error = errorState.fetchError;
+
+                      return ErrorScreen(
+                        error: error,
+                        //TODO: need to check
+                        onButtonPressed: () =>
+                            context.read<RecipeBloc>().add(RecipeEvent.fetchRecipe(_currentRecipeId)),
+                      );
+                    },
                     recipeInfo: (recipeState) {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -174,23 +183,17 @@ class _RecipePageState extends State<RecipePage> {
                                 onValueChangeHandler: _onValueChangeHandler,
                               ),
                               NutritionValuesBlock(
-                                  numberOfPortions:
-                                      recipeState.recipe.numberOfServings,
-                                  selectedNutritionType:
-                                      recipeState.currentNutritionType,
-                                  nutritionValuesList:
-                                      recipeState.recipe.nutritionValues,
-                                  onNutritionFactSelect:
-                                      _onNutritionFactSelect),
+                                  numberOfPortions: recipeState.recipe.numberOfServings,
+                                  selectedNutritionType: recipeState.currentNutritionType,
+                                  nutritionValuesList: recipeState.recipe.nutritionValues,
+                                  onNutritionFactSelect: _onNutritionFactSelect),
                               RecipeList(
-                                  nutritionKey:
-                                      recipeState.currentNutritionType.name,
+                                  nutritionKey: recipeState.currentNutritionType.name,
                                   list: recipeState.recipe.ingredients,
                                   isMealRecipe: widget.isMealRecipe ?? false),
                               NutritionBlock(
                                 proteinDegree: recipeState.recipe.proteinDegree,
-                                calorieDensity:
-                                    recipeState.recipe.calorieDensity,
+                                calorieDensity: recipeState.recipe.calorieDensity,
                               ),
                               const SizedBox(
                                 height: 26.0,
@@ -200,18 +203,15 @@ class _RecipePageState extends State<RecipePage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         OutlinedRoundedButton(
-                                          text: LocalizedTexts
-                                              .addFoodItem.translation,
+                                          text: LocalizedTexts.addFoodItem.translation,
                                           icon: AppIcons.plus,
                                           onPressed: _addFoodItemPressed,
                                         ),
                                         OutlinedRoundedButton(
-                                          text: LocalizedTexts
-                                              .saveToMyDishes.translation,
+                                          text: LocalizedTexts.saveToMyDishes.translation,
                                           icon: AppIcons.dish,
                                           onPressed: _onSaveToMyDishesHandler,
                                         )
@@ -221,8 +221,7 @@ class _RecipePageState extends State<RecipePage> {
                                       height: 16.0,
                                     ),
                                     OutlinedRoundedButton(
-                                      text:
-                                          LocalizedTexts.viewRecipe.translation,
+                                      text: LocalizedTexts.viewRecipe.translation,
                                       icon: AppIcons.chef,
                                       onPressed: _onViewRecipePressed,
                                     ),
@@ -309,9 +308,7 @@ class _RecipePageState extends State<RecipePage> {
     RecipeState previous,
     RecipeState current,
   ) {
-    return previous is RecipeInfo &&
-        current is RecipeInfo &&
-        current.recipe != previous.recipe;
+    return previous is RecipeInfo && current is RecipeInfo && current.recipe != previous.recipe;
   }
 
   void _onNutritionFactSelect(NutritionValuesTypes item) {
@@ -333,9 +330,7 @@ class _RecipePageState extends State<RecipePage> {
     final isMealRecipe = widget.isMealRecipe ?? false;
 
     if (!isMealRecipe && !_isLogRecipePressed && internalRecipeId != null) {
-      context
-          .read<MealsBloc>()
-          .add(MealsEvent.deleteRecipeFromMeal(internalRecipeId.toString()));
+      context.read<MealsBloc>().add(MealsEvent.deleteRecipeFromMeal(internalRecipeId.toString()));
     }
 
     return Future.value(true);
@@ -354,8 +349,7 @@ class _RecipePageState extends State<RecipePage> {
           final recipeId = !isMealRecipe
               ? mealState.currentFoodItems
                   .firstWhere((element) =>
-                      element.type == 'recipe' &&
-                      element.externalId == recipeState.externalRecipeId)
+                      element.type == 'recipe' && element.externalId == recipeState.externalRecipeId)
                   .id
               : recipeState.recipeId;
 
@@ -388,10 +382,8 @@ class _RecipePageState extends State<RecipePage> {
     final externalRecipeId = context.read<RecipeBloc>().state.externalRecipeId;
     final prevFoodItems = previous.currentFoodItems;
     final curFoodItems = current.currentFoodItems;
-    final newRecipeId =
-        curFoodItems.firstWhere((element) => !prevFoodItems.contains(element));
-    if (newRecipeId.type == 'recipe' &&
-        newRecipeId.externalId == externalRecipeId) {
+    final newRecipeId = curFoodItems.firstWhere((element) => !prevFoodItems.contains(element));
+    if (newRecipeId.type == 'recipe' && newRecipeId.externalId == externalRecipeId) {
       setState(() {
         internalRecipeId = newRecipeId.id;
       });
