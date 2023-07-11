@@ -11,7 +11,9 @@ import 'package:loopcare_frontend/features/education/domain/lesson_category.dart
 import 'package:loopcare_frontend/features/education/domain/lesson_with_countdown.dart';
 
 part 'education_program_bloc.freezed.dart';
+
 part 'education_program_event.dart';
+
 part 'education_program_state.dart';
 
 @singleton
@@ -39,7 +41,12 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
     final response = await _educationService.getLessons(event.category);
 
     response.fold(
-      (l) => emit(EducationProgramState.error(state.data.copyWith(error: l, isLoading: false))),
+      (l) => emit(EducationProgramState.error(
+        state.data.copyWith(
+          isLoading: false,
+          error: l,
+        ),
+      )),
       (r) {
         final lessonWithCountdown = event.category == LessonCategory.all
             ? _getLessonWithCountdown(r.lessons)
@@ -48,6 +55,7 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
           EducationProgramState.educationProgram(
             state.data.copyWith(
               currentCategory: event.category,
+              isLoading: false,
               lessons: r.lessons,
               lessonWithCountdown: lessonWithCountdown,
             ),

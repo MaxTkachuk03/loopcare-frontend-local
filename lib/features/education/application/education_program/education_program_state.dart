@@ -16,6 +16,8 @@ class EducationProgramState with _$EducationProgramState {
 
 @freezed
 class EducationProgramData with _$EducationProgramData {
+  const EducationProgramData._();
+
   const factory EducationProgramData({
     @Default([]) List<EducationLesson> lessons,
     LessonWithCountdown? lessonWithCountdown,
@@ -23,4 +25,8 @@ class EducationProgramData with _$EducationProgramData {
     @Default(false) bool isLoading,
     RequestError? error,
   }) = _EducationProgramData;
+
+   int get activeLessonIndex {
+    return lessons.indexWhere((element) => !element.isCompleted && !element.isLocked);
+  }
 }

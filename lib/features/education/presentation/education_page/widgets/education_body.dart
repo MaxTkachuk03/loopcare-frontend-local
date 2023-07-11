@@ -11,8 +11,16 @@ import 'package:loopcare_frontend/features/education/application/education_progr
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_category_list.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_full_list.dart';
 
-class EducationBody extends StatelessWidget {
+class EducationBody extends StatefulWidget {
   const EducationBody({Key? key}) : super(key: key);
+
+  @override
+  State<EducationBody> createState() => _EducationBodyState();
+}
+
+class _EducationBodyState extends State<EducationBody> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +28,8 @@ class EducationBody extends StatelessWidget {
       builder: (BuildContext context, state) {
         return state.map(
           error: (errorState) {
+            if (state.data.isLoading) return const Loader();
+
             final error = errorState.data.error;
 
             return ErrorScreen(
@@ -39,9 +49,11 @@ class EducationBody extends StatelessWidget {
                     color: AppColors.orange,
                     height: 40,
                   ),
-                  MainContainer(
-                    child: EducationFullList(
-                      lessons: lessons,
+                  Positioned.fill(
+                    child: MainContainer(
+                      child: EducationFullList(
+                        lessons: lessons,
+                      ),
                     ),
                   )
                 ],
