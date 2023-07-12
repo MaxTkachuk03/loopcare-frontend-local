@@ -109,6 +109,9 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
   }
 
   void _onAddFoodItemHandler() {
+    FocusScope.of(context).unfocus();
+    TextEditingController().clear();
+
     context.router.push(
       SearchRoute(
         mode: SearchMode.food,
