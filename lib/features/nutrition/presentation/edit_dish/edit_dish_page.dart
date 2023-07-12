@@ -84,6 +84,9 @@ class _EditDishPageState extends State<EditDishPage> {
   }
 
   void _onAddFoodItemHandler() {
+    FocusScope.of(context).unfocus();
+    TextEditingController().clear();
+
     context.router.push(
       SearchRoute(
         mode: SearchMode.food,
