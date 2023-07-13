@@ -1,27 +1,75 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:collection/collection.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/log_planned_meals/widgets/planned_meal_card.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/log_planned_meals/widgets/planned_meal_carousel.dart';
 
-class LogPlannedMeals extends StatelessWidget {
-  const LogPlannedMeals({Key? key}) : super(key: key);
+class LogPlannedMealsPage extends StatelessWidget {
+  final NameLabel selectedMealCategory;
+
+  const LogPlannedMealsPage({Key? key, required this.selectedMealCategory}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BlueAppBar(isCustomLeading: false),
+      appBar: BlueAppBar(
+        isCustomLeading: false,
+        // title: ,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              onPressed: () => context.router.pop(),
+              icon: const Icon(
+                Icons.close,
+                color: AppColors.white,
+                size: 28.0,
+              ),
+            ),
+          )
+        ],
+      ),
       body: SafeArea(
         child: Column(
           children: [
             const SizedBox(
               height: 28.0,
             ),
-            Expanded(child: PlannedMealCarousel()),
+            Expanded(
+              child: PlannedMealCarousel(
+                selectedMealCategory: selectedMealCategory,
+              ),
+            ),
+            const SizedBox(
+              height: 30.0,
+            ),
+            MainContainer(
+              child: OutlinedButton(
+                onPressed: () => _onSkipPressed(context),
+                child: const Text(LocalizedTexts.skip).tr(),
+              ),
+            ),
+            const SizedBox(
+              height: 28.0,
+            ),
           ],
         ),
       ),
     );
+  }
+
+  _onSkipPressed(BuildContext context) {
+    context.read<MealsBloc>().add(
+          MealsEvent.addMeal(selectedMealCategory.name.toLowerCase()),
+        );
+
+    context.router.push(SelectFoodRoute(mealCategory: selectedMealCategory.name));
   }
 }

@@ -270,6 +270,16 @@ class APINutritionService implements NutritionService {
   }
 
   @override
+  Future<Either<RequestError, MealsListItem>> logPlannedMeal(int plannedMealId) {
+    return client.post(
+      '/planned-meals/log',
+      data: {
+        'plannedMealId': plannedMealId
+      },
+    ).then(parseResponse(MealsListItem.fromJson));
+  }
+
+  @override
   Future<Either<RequestError, MealsListItem>> addFoodItemToMeal(
     int mealId,
     String foodItemId,

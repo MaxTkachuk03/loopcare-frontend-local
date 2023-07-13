@@ -22,6 +22,11 @@ class MealsState with _$MealsState {
     ServingSize? selectedServing,
   }) = _MealsInfo;
 
+  List<MealsListItem> get plannedMealsForCurrentDate {
+    return maybeMap(
+        mealsInfo: (s) => s.plannedMeals[getCurrentDate.isoStringWithoutTime] ?? [], orElse: () => []);
+  }
+
   bool get isPlanningMeals {
     return maybeMap(
       mealsInfo: (s) {

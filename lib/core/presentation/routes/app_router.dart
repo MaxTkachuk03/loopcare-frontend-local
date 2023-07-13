@@ -354,7 +354,7 @@ part 'app_routes.dart';
     ),
     AutoRoute(
       path: AppRoutes.logPlannedMeals,
-      page: LogPlannedMeals,
+      page: LogPlannedMealsPage,
     ),
     AutoRoute(
       path: AppRoutes.logWeight,

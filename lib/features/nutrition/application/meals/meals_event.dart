@@ -8,6 +8,8 @@ class MealsEvent with _$MealsEvent {
 
   const factory MealsEvent.setPlannedMeal(MealsListItem meal) = SetPlannedMeal;
 
+  const factory MealsEvent.logPlannedMeal(int plannedMealId) = LogPlannedMeal;
+
   const factory MealsEvent.addMeal(
     String mealCategory,
   ) = AddMeal;
