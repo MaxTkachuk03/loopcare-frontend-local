@@ -68,6 +68,7 @@ class AppRoutes {
   static const String selectFood = '/select-food';
   static const String selectServing = '/select-serving';
   static const String search = '/search';
+  static const String logPlannedMeals = '/log-planned-meals';
 
   static const String recipe = '/recipe';
   static const String recipeDetails = '/recipe-details';

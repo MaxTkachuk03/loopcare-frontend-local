@@ -309,6 +309,7 @@ class LocalizedTexts {
   static const String preparation = 'preparation';
   static const String portions = 'portions';
   static const String howToPrepare = 'howToPrepare';
+  static const String logAs = 'logAs';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';

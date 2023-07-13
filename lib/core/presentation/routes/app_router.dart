@@ -46,6 +46,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/treatmen
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor_failled/presentation/treatment_by_doctor_failled_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/weight_loss_medication/weight_loss_medication_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/log_planned_meals/log_planned_meals_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/search_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dish_details_page/dish_details_page.dart';
@@ -350,6 +351,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.meal,
       page: MealPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.logPlannedMeals,
+      page: LogPlannedMeals,
     ),
     AutoRoute(
       path: AppRoutes.logWeight,
