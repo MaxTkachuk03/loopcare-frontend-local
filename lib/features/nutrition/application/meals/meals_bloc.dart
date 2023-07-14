@@ -127,11 +127,9 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
               ),
             ),
           );
-
-          return;
         }
 
-        if (state.isPossibleToPlanMeal) {
+        if (state.isNeededToFetchMeal) {
           final plannedMeals = state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
           final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
 
@@ -156,8 +154,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
               ),
             ),
           );
-
-          return;
         }
       },
     );
@@ -716,7 +712,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
                 currentMealCategory: r.mealCategory,
                 currentMealId: r.id,
                 meals: _getUpdatedMealsList(r),
-                // meals: meals,
               ),
             );
           },

@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
@@ -21,7 +22,8 @@ class LogPlannedMealsPage extends StatelessWidget {
     return Scaffold(
       appBar: BlueAppBar(
         isCustomLeading: false,
-        // title: ,
+        title: _appBarTitle(context),
+        subtitle: _appBarSubtitle(context),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -63,6 +65,25 @@ class LogPlannedMealsPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _appBarTitle(BuildContext context) {
+    final state = context.read<MealsBloc>().state;
+
+    final date = state.getCurrentDate.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
+        ? state.getCurrentDate.shortDate
+        : "Today's";
+
+    return '$date ${LocalizedTexts.plannedMeals.translation}';
+  }
+
+  String? _appBarSubtitle(BuildContext context) {
+    final state = context.read<MealsBloc>().state;
+
+    return state.getCurrentDate.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
+        ? null
+        : state.getCurrentDate.shortDate;
+    ;
   }
 
   _onSkipPressed(BuildContext context) {

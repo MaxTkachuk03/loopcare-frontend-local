@@ -70,6 +70,16 @@ class MealsState with _$MealsState {
     );
   }
 
+  bool get isNeededToFetchMeal {
+    return maybeMap(
+      mealsInfo: (s) {
+
+        return isPossibleToPlanMeal || isEnableOnDashboard;
+      },
+      orElse: () => false,
+    );
+  }
+
   double? get selectedDayMealCalorieDensitySum {
     return mapOrNull(mealsInfo: (state) {
       final currentDate = state.currentDate;

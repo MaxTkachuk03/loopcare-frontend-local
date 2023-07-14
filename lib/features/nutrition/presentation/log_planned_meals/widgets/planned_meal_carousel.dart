@@ -30,7 +30,7 @@ class _PlannedMealCarouselState extends State<PlannedMealCarousel> {
     setState(() {
       currentPage = initialPage;
     });
-    _pageController = PageController(initialPage: currentPage, viewportFraction: .9);
+    _pageController = PageController(initialPage: currentPage, viewportFraction: .85);
 
     super.initState();
   }

@@ -418,5 +418,6 @@
   "retry": "Retry",
   "inProgress": "in progress",
   "logAs": "Log as {mealCategory}",
-  "skip": "Skip"
+  "skip": "Skip",
+  "plannedMeals": "planned meals"
 }
