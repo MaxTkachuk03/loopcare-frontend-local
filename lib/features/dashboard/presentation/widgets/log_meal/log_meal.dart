@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
@@ -6,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/logged_list.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_block/calorie_nutrition_block.dart';
@@ -32,7 +34,18 @@ class LogMeal extends StatelessWidget {
           )
           .toList(),
       onSelect: (NameLabel item) {
-        context.read<MealsBloc>().add(
+        final mealsBloc = context.read<MealsBloc>();
+        final plannedMeals = mealsBloc.state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
+        final plannedMealsForCurrentDate = plannedMeals?[mealsBloc.state.getCurrentDate.isoStringWithoutTime]
+            ?.firstWhereOrNull((element) => element.mealCategory == item.label);
+
+        if (plannedMealsForCurrentDate != null) {
+          context.router.push(LogPlannedMealsRoute(selectedMealCategory: item));
+
+          return;
+        }
+
+        mealsBloc.add(
               MealsEvent.addMeal(
                 item.name.toLowerCase(),
               ),

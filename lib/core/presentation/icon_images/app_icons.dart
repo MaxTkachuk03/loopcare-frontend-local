@@ -59,6 +59,9 @@ class AppIcons {
   static const AssetImage cook = AssetImage(
     '$iconsFilePath/icon_cook.png',
   );
+  static const AssetImage cutlery = AssetImage(
+    '$iconsFilePath/cutlery.png',
+  );
 
   // Dashboard
   static const AssetImage dashboardWeight = AssetImage('$iconsFilePath/dashboard_weight.png');

@@ -416,5 +416,8 @@
   "oeps": "Oeps!",
   "somethingWentWrong": "Something went wrong \nPlease try again later",
   "retry": "Retry",
-  "inProgress": "in progress"
+  "inProgress": "in progress",
+  "logAs": "Log as {mealCategory}",
+  "skip": "Skip",
+  "plannedMeals": "planned meals"
 }

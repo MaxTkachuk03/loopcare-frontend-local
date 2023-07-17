@@ -127,6 +127,8 @@ abstract class NutritionService {
     AddPlannedMealBody data,
   );
 
+  Future<Either<RequestError, MealsListItem>> logPlannedMeal(int plannedMealId);
+
   Future<Either<RequestError, MealsListItem>> getMealById(
     int mealId,
   );
