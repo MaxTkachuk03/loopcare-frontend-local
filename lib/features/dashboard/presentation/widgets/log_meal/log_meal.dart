@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
@@ -46,10 +47,10 @@ class LogMeal extends StatelessWidget {
         }
 
         mealsBloc.add(
-              MealsEvent.addMeal(
-                item.name.toLowerCase(),
-              ),
-            );
+          MealsEvent.addMeal(
+            item.name.toLowerCase(),
+          ),
+        );
 
         context.router.push(SelectFoodRoute(mealCategory: item.name));
       },
@@ -64,121 +65,130 @@ class LogMeal extends StatelessWidget {
         color: AppColors.white,
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
-      child: BlocBuilder<MealsBloc, MealsState>(builder: (BuildContext context, mealsState) {
-        return Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    const Image(image: AppIcons.dashbordLogMeals),
-                    const SizedBox(width: 24.0),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          LocalizedTexts.logYourMeals.translation,
-                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                fontFamily: ThemeConstants.bitterFontFamily,
-                                color: mealsState.isEnableOnDashboard
-                                    ? AppColors.darkGreen
-                                    : AppColors.greyLabel,
-                              ),
-                        ),
-                        if (mealsState.filledCategories.isEmpty)
+      child: BlocBuilder<MealsBloc, MealsState>(
+        builder: (BuildContext context, mealsState) {
+          return Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      const Image(image: AppIcons.dashbordLogMeals),
+                      const SizedBox(width: 24.0),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
                           Text(
-                            mealsState.isEnableOnDashboard
-                                ? LocalizedTexts.noMealsLoggedYet.translation
-                                : LocalizedTexts.noMealsLogged.translation,
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            LocalizedTexts.logYourMeals.translation,
+                            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  fontFamily: ThemeConstants.bitterFontFamily,
                                   color: mealsState.isEnableOnDashboard
                                       ? AppColors.darkGreen
                                       : AppColors.greyLabel,
                                 ),
                           ),
-                      ],
-                    ),
-                  ],
-                ),
-                mealsState.isEnableOnDashboard
-                    ? Hexagon(
-                        width: 42,
-                        height: 42,
-                        borderRadius: 16,
-                        innerWidget: Container(
-                          color: AppColors.bgGreen,
-                          child: IconButton(
-                            icon: ImageIcon(
-                              mealsState.filledCategories.isNotEmpty ? AppIcons.edit : AppIcons.plus,
-                              color: AppColors.darkGreen,
-                              size: 12,
+                          if (mealsState.filledCategories.isEmpty)
+                            Text(
+                              mealsState.isEnableOnDashboard
+                                  ? LocalizedTexts.noMealsLoggedYet.translation
+                                  : LocalizedTexts.noMealsLogged.translation,
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: mealsState.isEnableOnDashboard
+                                        ? AppColors.darkGreen
+                                        : AppColors.greyLabel,
+                                  ),
                             ),
-                            onPressed: () => onPressHandler(context),
-                          ),
-                        ),
-                      )
-                    : const SizedBox(),
-              ],
-            ),
-            mealsState.filledCategories.isNotEmpty
-                ? Column(
-                    children: [
-                      const SizedBox(height: 8.0),
-                      const Divider(color: AppColors.yellowLight),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      LocalizedTexts.logged.translation.toUpperCase(),
-                                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                            fontSize: ThemeConstants.fontSize12,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.greyLabel,
-                                          ),
-                                    ),
-                                    const SizedBox(
-                                      width: 4.0,
-                                    ),
-                                    const ImageIcon(
-                                      AppIcons.arrow,
-                                      color: AppColors.greyLabel,
-                                      size: 10,
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 5),
-                                LoggedList(
-                                  categoryList: MealCategory.values
-                                      .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
-                                      .toList(),
-                                  categoryListRaw: MealCategory.values.map((e) => e.label ?? '').toList(),
-                                  filledList: mealsState.filledCategories,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 40),
-                          CalorieNutritionBlock(
-                            proteinDegree: mealsState.selectedDayMealProteinDegreeSum,
-                            calorieDensity: mealsState.selectedDayMealCalorieDensitySum,
-                          ),
                         ],
                       ),
                     ],
-                  )
-                : const SizedBox(),
-          ],
-        );
-      }),
+                  ),
+                  mealsState.isEnableOnDashboard
+                      ? Hexagon(
+                          width: 42,
+                          height: 42,
+                          borderRadius: 16,
+                          innerWidget: Container(
+                            color: AppColors.bgGreen,
+                            child: IconButton(
+                              icon: ImageIcon(
+                                mealsState.filledCategories.isNotEmpty ? AppIcons.edit : AppIcons.plus,
+                                color: AppColors.darkGreen,
+                                size: 12,
+                              ),
+                              onPressed: () => onPressHandler(context),
+                            ),
+                          ),
+                        )
+                      : const SizedBox(),
+                ],
+              ),
+              mealsState.filledCategories.isNotEmpty
+                  ? Column(
+                      children: [
+                        const SizedBox(height: 8.0),
+                        const Divider(color: AppColors.yellowLight),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () => _onIntakePressed(context),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          LocalizedTexts.logged.translation.toUpperCase(),
+                                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                                fontSize: ThemeConstants.fontSize12,
+                                                fontWeight: FontWeight.w600,
+                                                color: AppColors.greyLabel,
+                                              ),
+                                        ),
+                                        const SizedBox(
+                                          width: 4.0,
+                                        ),
+                                        const ImageIcon(
+                                          AppIcons.arrow,
+                                          color: AppColors.greyLabel,
+                                          size: 10,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  LoggedList(
+                                    categoryList: MealCategory.values
+                                        .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
+                                        .toList(),
+                                    categoryListRaw: MealCategory.values.map((e) => e.label ?? '').toList(),
+                                    filledList: mealsState.filledCategories,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 40),
+                            CalorieNutritionBlock(
+                              proteinDegree: mealsState.selectedDayMealProteinDegreeSum,
+                              calorieDensity: mealsState.selectedDayMealCalorieDensitySum,
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  : const SizedBox(),
+            ],
+          );
+        },
+      ),
     );
+  }
+
+  _onIntakePressed(BuildContext context) {
+    context.router.pushNamed(AppRoutes.dailyIntake);
   }
 }

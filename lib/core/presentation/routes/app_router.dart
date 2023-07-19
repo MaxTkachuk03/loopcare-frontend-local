@@ -45,6 +45,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/stomach_
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor/presentation/treatment_by_doctor_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor_failled/presentation/treatment_by_doctor_failled_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/weight_loss_medication/weight_loss_medication_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/daily_intake/daily_intake_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/log_planned_meals/log_planned_meals_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/search_page.dart';
@@ -396,6 +397,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.selectExercise,
       page: SelectExercisePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.dailyIntake,
+      page: DailyIntakePage,
     ),
     AutoRoute(
       path: AppRoutes.programAssessment,

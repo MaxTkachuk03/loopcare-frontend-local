@@ -73,7 +73,6 @@ class MealsState with _$MealsState {
   bool get isNeededToFetchMeal {
     return maybeMap(
       mealsInfo: (s) {
-
         return isPossibleToPlanMeal || isEnableOnDashboard;
       },
       orElse: () => false,
@@ -300,6 +299,19 @@ class MealsState with _$MealsState {
         return currentMeal.calorieDensity;
       },
     );
+  }
+
+  double calorieDensitySum(List<MealItem> selectedDayMeals) {
+    double caloriesSum = 0;
+    double amountSum = 0;
+
+    for (var meal in selectedDayMeals) {
+      caloriesSum += meal.serving.calories;
+      amountSum += meal.serving.metricServingAmount ?? 1;
+    }
+
+    final result = caloriesSum / amountSum;
+    return result.isNaN || result.isInfinite ? 0.0 : result;
   }
 
   List<MealsListItem> get todaysLoggedPlannedMeals {

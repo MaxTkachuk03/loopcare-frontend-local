@@ -48,6 +48,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     on<AddDishToMeal>(_onAddDishToMeal);
     on<NutritionItemChanged>(_onNutritionItemChanged);
     on<LogPlannedMeal>(_onLogPlannedMeal);
+    on<SetMealId>(_onSetMealId);
   }
 
   Map<String, List<MealsListItem>> _combineMealsByDate(
@@ -170,6 +171,23 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             mealActionMode: MealActionModes.mealPlanning,
             currentMealCategory: event.meal.mealCategory,
             currentMealId: event.meal.id,
+          ),
+        );
+      },
+    );
+  }
+
+  FutureOr<void> _onSetMealId(
+    SetMealId event,
+    Emitter<MealsState> emit,
+  ) async {
+    await state.mapOrNull(
+      mealsInfo: (s) async {
+        emit(
+          s.copyWith(
+            currentMealId: event.id,
+            mealActionMode: MealActionModes.mealLogging,
+            currentMealCategory: event.mealCategory,
           ),
         );
       },

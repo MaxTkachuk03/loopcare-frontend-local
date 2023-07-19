@@ -3,6 +3,7 @@ import 'package:loopcare_frontend/core/domain/calorie_density_scale_values.dart'
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/calorie_density_color.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
@@ -91,9 +92,7 @@ class FoodListItem extends StatelessWidget {
                     width: 20,
                     height: 20,
                     borderRadius: 10,
-                    innerWidget: Container(
-                      color: _calorieDensityColor,
-                    ),
+                    innerWidget: Container(color: getCalorieDensityColor(foodItem.calorieDensity)),
                   ),
                   const SizedBox(
                     width: 6.0,

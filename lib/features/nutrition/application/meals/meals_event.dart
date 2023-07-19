@@ -6,6 +6,8 @@ class MealsEvent with _$MealsEvent {
 
   const factory MealsEvent.fetchMealById(int id) = FetchMealById;
 
+  const factory MealsEvent.setMealId(int id, String mealCategory) = SetMealId;
+
   const factory MealsEvent.setPlannedMeal(MealsListItem meal) = SetPlannedMeal;
 
   const factory MealsEvent.logPlannedMeal(int plannedMealId) = LogPlannedMeal;
@@ -53,8 +55,7 @@ class MealsEvent with _$MealsEvent {
     String dishId,
   ) = DeleteDishFromMeal;
 
-  const factory MealsEvent.createFromFavorites(List<FoodItem> foodItemList) =
-      CreateFromFavorites;
+  const factory MealsEvent.createFromFavorites(List<FoodItem> foodItemList) = CreateFromFavorites;
 
   const factory MealsEvent.setCurrentDate(
     DateTime currentDate,
@@ -64,6 +65,5 @@ class MealsEvent with _$MealsEvent {
     MealsListItem meal,
   ) = AddDishToMeal;
 
-  const factory MealsEvent.nutritionItemChanged(NutritionValuesTypes item) =
-      NutritionItemChanged;
+  const factory MealsEvent.nutritionItemChanged(NutritionValuesTypes item) = NutritionItemChanged;
 }

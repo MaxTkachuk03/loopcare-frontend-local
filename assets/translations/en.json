@@ -419,5 +419,6 @@
   "inProgress": "in progress",
   "logAs": "Log as {mealCategory}",
   "skip": "Skip",
-  "plannedMeals": "planned meals"
+  "plannedMeals": "planned meals",
+  "loggedMeals": "logged meals"
 }
