@@ -32,10 +32,12 @@ class DashboardEducationBloc extends Bloc<DashboardEducationEvent, DashboardEduc
     }
 
     emit(
-      DashboardEducationState.loading(state.data.copyWith(
-        isLoading: true,
-        error: null,
-      )),
+      DashboardEducationState.loading(
+        state.data.copyWith(
+          isLoading: true,
+          error: null,
+        ),
+      ),
     );
 
     final currentDate = event.currentDate?.isoStringWithoutTime ?? DateTime.now().isoStringWithoutTime;

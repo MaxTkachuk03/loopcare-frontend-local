@@ -51,11 +51,11 @@ class _SearchResultListState extends State<SearchResultList> {
       searchState.mapOrNull(
         searchResult: (state) {
           searchBloc.add(
-            SearchEvent.search(
-              state.searchParameters.query ?? '',
-              mode: state.searchParameters.mode,
-              filteredMode: state.searchParameters.filteredMode,
-              page: (state.searchParameters.page ?? 1) + 1,
+            SearchEvent.paginatedSearch(
+              state.data.searchParameters.query ?? '',
+              mode: state.data.searchParameters.mode,
+              filteredMode: state.data.searchParameters.filteredMode,
+              page: (state.data.searchParameters.page ?? 1) + 1,
             ),
           );
         },
@@ -65,63 +65,71 @@ class _SearchResultListState extends State<SearchResultList> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SearchBloc, SearchState>(builder: (BuildContext context, state) {
-      return state.maybeMap(
-        searchResult: (itemsState) {
-          return itemsState.items.isEmpty
-              ? const SearchEmptyResult()
-              : ListView.builder(
-                  controller: _scrollController,
-                  itemCount: itemsState.items.length,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    final item = itemsState.items[index];
+    return BlocBuilder<SearchBloc, SearchState>(
+      builder: (BuildContext context, state) {
+        return state.maybeMap(
+          searchResult: (itemsState) {
+            return itemsState.data.items.isEmpty
+                ? const SearchEmptyResult()
+                : ListView.builder(
+                    controller: _scrollController,
+                    itemCount: itemsState.data.items.length + 1,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (index == itemsState.data.items.length) {
+                        if (itemsState.data.loadingMore) {
+                          return const Loader();
+                        }
 
-                    return SearchResultListItem(
-                      item: item,
-                      onTap: widget.onItemTap,
-                    );
-                  },
-                );
-        },
-        initial: (initialState) {
-          var recentSearchList = initialState.recentSearch;
-          recentSearchList ??= <String>[];
-          if (recentSearchList.isNotEmpty) {
-            return ListView.builder(
-              itemCount: recentSearchList.isEmpty ? 1 : recentSearchList.length + 1,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                if (index == 0) {
-                  // return the header
-                  return SearchListTitleItem(
-                    text: LocalizedTexts.recentSearch.translation,
+                        return const SizedBox.shrink();
+                      }
+                      final item = itemsState.data.items[index];
+
+                      return SearchResultListItem(
+                        item: item,
+                        onTap: widget.onItemTap,
+                      );
+                    },
                   );
-                }
-                index -= 1;
+          },
+          initial: (initialState) {
+            var recentSearchList = initialState.data.recentSearch ?? <String>[];
 
-                final item = recentSearchList![index];
+            if (recentSearchList.isNotEmpty) {
+              return ListView.builder(
+                itemCount: recentSearchList.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  if (index == 0) {
+                    // return the header
+                    return SearchListTitleItem(
+                      text: LocalizedTexts.recentSearch.translation,
+                    );
+                  }
 
-                return SearchResultListItem(
-                  item: SearchItem(
-                    id: index.toString(),
-                    name: item,
-                    type: SearchItemTypes.recent,
-                  ),
-                  onTap: (SearchItem item) {
-                    widget.onRecentSearchItemTap(item.name);
-                  },
-                );
-              },
-            );
-          } else {
-            return const SizedBox.shrink();
-          }
-        },
-        loading: (_) => const SizedBox(height: 240, child: Loader()),
-        orElse: () => const SizedBox.shrink(),
-      );
-    });
+                  final item = recentSearchList[index];
+
+                  return SearchResultListItem(
+                    item: SearchItem(
+                      id: index.toString(),
+                      name: item,
+                      type: SearchItemTypes.recent,
+                    ),
+                    onTap: (SearchItem item) {
+                      widget.onRecentSearchItemTap(item.name);
+                    },
+                  );
+                },
+              );
+            } else {
+              return const SizedBox.shrink();
+            }
+          },
+          loading: (_) => const SizedBox(height: 240, child: Loader()),
+          orElse: () => const SizedBox.shrink(),
+        );
+      },
+    );
   }
 }
