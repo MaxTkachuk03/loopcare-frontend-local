@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -125,6 +126,16 @@ class _SearchResultListState extends State<SearchResultList> {
             } else {
               return const SizedBox.shrink();
             }
+          },
+          error: (errorState) {
+            final error = errorState.data.error;
+
+            return Center(
+              child: ErrorScreen(
+                smallVersion: true,
+                error: error,
+              ),
+            );
           },
           loading: (_) => const SizedBox(height: 240, child: Loader()),
           orElse: () => const SizedBox.shrink(),
