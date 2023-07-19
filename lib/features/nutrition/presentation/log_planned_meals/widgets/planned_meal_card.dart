@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/widgets/grouped_meal_list/grouped_meal_list.dart';
 
 class PlannedMealCard extends StatelessWidget {
   final Map<String, List<MealItem>> mealItem;
@@ -21,17 +22,6 @@ class PlannedMealCard extends StatelessWidget {
     required this.plannedMealId,
     required this.mealCategory,
   }) : super(key: key);
-
-  AssetImage _getIcon(String type) {
-    if (type == 'recipe') {
-      return AppIcons.cook;
-    }
-    if (type == 'dish') {
-      return AppIcons.pan;
-    }
-
-    return AppIcons.cutlery;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,43 +52,8 @@ class PlannedMealCard extends StatelessWidget {
             const SizedBox(
               height: 20.0,
             ),
-            Expanded(
-              child: ListView.separated(
-                itemCount: mealItem.length,
-                itemBuilder: (BuildContext context, index) {
-                  String type = mealItem.keys.elementAt(index);
-                  final item = mealItem[type] ?? [];
-
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image(
-                        image: _getIcon(type),
-                      ),
-                      const SizedBox(
-                        width: 12.0,
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: item
-                              .map((e) => Text(
-                                    e.name,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                  ))
-                              .toList(),
-                        ),
-                      )
-                    ],
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return const SizedBox(
-                    height: 20.0,
-                  );
-                },
-              ),
+            GroupedMealList(
+              mealItems: mealItem.values.first,
             ),
             const Divider(
               color: AppColors.bgGreen,

@@ -18,12 +18,14 @@ class LoggedList extends StatelessWidget {
     return categoryList.isEmpty
         ? const SizedBox()
         : Column(
-            children: categoryList.map((category) {
-              return LoggedListItem(
-                label: category,
-                isFilled: filledList.contains(category.toLowerCase()),
-              );
-            }).toList(),
+            children: categoryList.map(
+              (category) {
+                return LoggedListItem(
+                  label: category,
+                  isFilled: filledList.contains(category.toLowerCase()),
+                );
+              },
+            ).toList(),
           );
   }
 }

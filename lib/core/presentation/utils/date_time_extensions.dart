@@ -16,4 +16,8 @@ extension DateTimeExtension on DateTime {
   String get shortDate {
     return DateFormat('d MMMM').format(this);
   }
+
+  String get fullDate {
+    return DateFormat('E d MMM').format(this);
+  }
 }

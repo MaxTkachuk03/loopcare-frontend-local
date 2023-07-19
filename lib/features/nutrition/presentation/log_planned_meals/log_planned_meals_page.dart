@@ -83,7 +83,6 @@ class LogPlannedMealsPage extends StatelessWidget {
     return state.getCurrentDate.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
         ? null
         : state.getCurrentDate.shortDate;
-    ;
   }
 
   _onSkipPressed(BuildContext context) {
