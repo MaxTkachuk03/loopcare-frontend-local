@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -22,24 +23,19 @@ class FavoriteList extends StatefulWidget {
   State<FavoriteList> createState() => _FavoriteListState();
 }
 
-class _FavoriteListState extends State<FavoriteList>
-    with AutomaticKeepAliveClientMixin {
+class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClientMixin {
   @override
   bool wantKeepAlive = true;
 
   @override
   void initState() {
-    context
-        .read<SelectFoodBloc>()
-        .add(SelectFoodEvent.fetchFavorites(_defaultMealCategory));
+    context.read<SelectFoodBloc>().add(SelectFoodEvent.fetchFavorites(_defaultMealCategory));
 
     super.initState();
   }
 
   Future _onRefresh() async {
-    return context
-        .read<SelectFoodBloc>()
-        .add(SelectFoodEvent.fetchFavorites(_defaultMealCategory));
+    return context.read<SelectFoodBloc>().add(SelectFoodEvent.fetchFavorites(_defaultMealCategory));
   }
 
   String get _defaultMealCategory {
@@ -56,6 +52,19 @@ class _FavoriteListState extends State<FavoriteList>
         BlocBuilder<SelectFoodBloc, SelectFoodState>(
           builder: (BuildContext context, state) {
             return state.maybeMap(
+              error: (errorState) {
+                final error = errorState.fetchError;
+
+                return Center(
+                  child: ErrorScreen(
+                    smallVersion: false,
+                    error: error,
+                    onButtonPressed: () => context
+                        .read<SelectFoodBloc>()
+                        .add(SelectFoodEvent.fetchFavorites(_defaultMealCategory)),
+                  ),
+                );
+              },
               selectFood: (selectFoodState) {
                 final String title = selectFoodState.hasOneSelectedMealCategory
                     ? '${LocalizedTexts.my.translation} ${selectFoodState.selectedMealCategories[0].name}'
@@ -67,8 +76,7 @@ class _FavoriteListState extends State<FavoriteList>
                     children: [
                       ListFilters(
                         title: title,
-                        mealsList:
-                            selectFoodState.mealFavoritesCategories.toList(),
+                        mealsList: selectFoodState.mealFavoritesCategories.toList(),
                         onConfirmed: (list) => _onConfirmed(context, list),
                       ),
                       selectFoodState.favorites.isEmpty
@@ -82,15 +90,12 @@ class _FavoriteListState extends State<FavoriteList>
                                 onRefresh: _onRefresh,
                                 child: ListView.separated(
                                   itemCount: selectFoodState.favorites.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
+                                  itemBuilder: (BuildContext context, int index) {
                                     return FavoriteListItem(
-                                      foodItem:
-                                          selectFoodState.favorites[index],
+                                      foodItem: selectFoodState.favorites[index],
                                     );
                                   },
-                                  separatorBuilder:
-                                      (BuildContext context, int _) {
+                                  separatorBuilder: (BuildContext context, int _) {
                                     return const Divider(
                                       height: 1,
                                       color: Colors.transparent,
@@ -99,9 +104,7 @@ class _FavoriteListState extends State<FavoriteList>
                                 ),
                               ),
                             ),
-                      state.selectedFavoritesItemsLength > 0
-                          ? const FooterOverlay()
-                          : const SizedBox.shrink()
+                      state.selectedFavoritesItemsLength > 0 ? const FooterOverlay() : const SizedBox.shrink()
                     ],
                   ),
                 );
@@ -115,10 +118,7 @@ class _FavoriteListState extends State<FavoriteList>
     );
   }
 
-  _onConfirmed(
-      BuildContext context, List<MealCategoryFilter> updatedFiltersList) {
-    context
-        .read<SelectFoodBloc>()
-        .add(SelectFoodEvent.filterFavorites(updatedFiltersList.toIList()));
+  _onConfirmed(BuildContext context, List<MealCategoryFilter> updatedFiltersList) {
+    context.read<SelectFoodBloc>().add(SelectFoodEvent.filterFavorites(updatedFiltersList.toIList()));
   }
 }

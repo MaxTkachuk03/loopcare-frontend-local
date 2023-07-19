@@ -23,12 +23,9 @@ class SelectedItemsLabel extends StatelessWidget {
                 },
                 child: Ink(
                   height: 40.0,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0, vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
                   decoration: BoxDecoration(
-                    color: state.isPlanningMeals
-                        ? AppColors.blueMid
-                        : AppColors.darkGreen,
+                    color: state.isPlanningMeals ? AppColors.blueMid : AppColors.darkGreen,
                     borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                   ),
                   child: Row(
@@ -48,26 +45,24 @@ class SelectedItemsLabel extends StatelessWidget {
                           color: AppColors.white,
                         ),
                         child: BlocBuilder<MealsBloc, MealsState>(
-                            builder: (BuildContext context, state) {
-                          return Text(
-                            '${state.currentFoodItems.length}',
-                            textAlign: TextAlign.center,
-                            style:
-                                Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: AppColors.darkGreen,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                          );
-                        }),
+                          builder: (BuildContext context, state) {
+                            return Text(
+                              '${state.currentFoodItems.length}',
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: AppColors.darkGreen,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            );
+                          },
+                        ),
                       )
                     ],
                   ),
                 ),
               ),
             ),
-            const SizedBox(
-              width: 24.0,
-            ),
+            const SizedBox(width: 24.0),
           ],
         );
       },
