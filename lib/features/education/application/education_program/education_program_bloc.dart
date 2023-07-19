@@ -31,22 +31,26 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
     Emitter<EducationProgramState> emit,
   ) async {
     emit(
-      EducationProgramState.loading(state.data.copyWith(
-        currentCategory: event.category,
-        isLoading: true,
-        error: null,
-      )),
+      EducationProgramState.loading(
+        state.data.copyWith(
+          currentCategory: event.category,
+          isLoading: true,
+          error: null,
+        ),
+      ),
     );
 
     final response = await _educationService.getLessons(event.category);
 
     response.fold(
-      (l) => emit(EducationProgramState.error(
-        state.data.copyWith(
-          isLoading: false,
-          error: l,
+      (l) => emit(
+        EducationProgramState.error(
+          state.data.copyWith(
+            isLoading: false,
+            error: l,
+          ),
         ),
-      )),
+      ),
       (r) {
         final lessonWithCountdown = event.category == LessonCategory.all
             ? _getLessonWithCountdown(r.lessons)
@@ -66,11 +70,13 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
   }
 
   FutureOr<void> _onResetLessonWithCountdown(event, Emitter<EducationProgramState> emit) {
-    emit(EducationProgramState.educationProgram(
-      state.data.copyWith(
-        lessonWithCountdown: null,
+    emit(
+      EducationProgramState.educationProgram(
+        state.data.copyWith(
+          lessonWithCountdown: null,
+        ),
       ),
-    ));
+    );
   }
 
   LessonWithCountdown? _getLessonWithCountdown(List<EducationLesson> lessons) {

@@ -22,10 +22,12 @@ class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {
     Emitter<VideoPlayerState> emit,
   ) async {
     emit(
-      VideoPlayerState.loading(state.data.copyWith(
-        isLoading: true,
-        error: null,
-      )),
+      VideoPlayerState.loading(
+        state.data.copyWith(
+          isLoading: true,
+          error: null,
+        ),
+      ),
     );
 
     final response = await _awsService.getAwsPresignedCookies();

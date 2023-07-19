@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:fast_immutable_collections/fast_immutable_collections.dart';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -9,6 +9,9 @@ import 'package:loopcare_frontend/features/nutrition/application/search/dto/sear
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dartz/dartz.dart' as dartz;
+
+import 'dto/search_response.dart';
 
 part 'search_event.dart';
 
@@ -23,9 +26,17 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final NutritionService nutritionService;
   static const maxRecentSearchListSize = 10;
 
-  SearchBloc(this.nutritionService) : super(const SearchState.initial()) {
+  SearchBloc(this.nutritionService) : super(const SearchState.initial(SearchData())) {
     on<Search>(
       _onSearch,
+      transformer: (events, mapper) => events
+          .map((q) => q.copyWith(query: q.query.trim()))
+          .distinct()
+          .debounceTime(const Duration(milliseconds: 300))
+          .switchMap(mapper),
+    );
+    on<PaginatedSearch>(
+      _onPaginatedSearch,
       transformer: (events, mapper) => events
           .map((q) => q.copyWith(query: q.query.trim()))
           .distinct()
@@ -46,7 +57,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Future<void> _addRecentSearch(String query) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    var list = await _getRecentSearch();
+    var list = await _getRecentSearch(false);
 
     if (!list.contains(query)) {
       if (list.length > maxRecentSearchListSize - 1) {
@@ -58,12 +69,15 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     prefs.setStringList('recent_search', list);
   }
 
-  Future<List<String>> _getRecentSearch() async {
+  Future<List<String>> _getRecentSearch(bool needHeader) async {
     var list = <String>[];
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     List<String>? savedList = prefs.getStringList('recent_search');
     if (savedList != null) {
+      if (needHeader) {
+        list.add('header');
+      }
       list.addAll(savedList);
     }
 
@@ -74,11 +88,35 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     ResetData event,
     Emitter<SearchState> emit,
   ) async {
-    var list = await _getRecentSearch();
+    var list = await _getRecentSearch(true);
     emit(
       SearchState.initial(
-        recentSearch: list,
+        state.data.copyWith(
+          recentSearch: list,
+        ),
       ),
+    );
+  }
+
+  Future<dartz.Either<RequestError, SearchResponse>> searchRequst(
+      String query, String? filteredMode, String? mode, int? page, int? limit) async {
+    var eventLimit = limit ?? 10;
+    var searchMode = <String>[];
+
+    if (mode != null && mode.isNotEmpty && mode != 'all') {
+      searchMode = <String>[mode];
+    }
+    if (filteredMode != null) {
+      searchMode = [
+        filteredMode,
+        SearchMode.favorite.searchModeValue,
+      ];
+    }
+    return await nutritionService.search(
+      query,
+      mode: searchMode,
+      limit: eventLimit,
+      page: page,
     );
   }
 
@@ -86,49 +124,91 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     Search event,
     Emitter<SearchState> emit,
   ) async {
-    if (event.query.length < 3) return;
-
-    final isLast = state.mapOrNull(searchResult: (s) => s.searchParameters.isLastPage) ?? false;
-    if (isLast) return;
-
-    final oldItems = state.mapOrNull(searchResult: (s) => s.items.toList());
-
-    var limit = event.limit ?? 10;
-    var eventMode = event.mode;
-    var eventFilteredMode = event.filteredMode;
-    var searchMode = <String>[];
-
-    if (eventMode != null && eventMode.isNotEmpty && eventMode != 'all') {
-      searchMode = <String>[eventMode];
-    }
-    if (eventFilteredMode != null) {
-      searchMode = [
-        eventFilteredMode,
-        SearchMode.favorite.searchModeValue,
-      ];
+    if (event.query.length < 3) {
+      emit(
+        SearchState.searchResult(
+          state.data.copyWith(
+            searchParameters: state.data.searchParameters.copyWith(
+              isLastPage: false,
+            ),
+          ),
+        ),
+      );
+      return;
     }
 
-    final response = await nutritionService.search(
+    final isLast = state.data.searchParameters.isLastPage ?? false;
+    final prevMode = state.data.searchParameters.mode ?? '';
+    if (isLast && prevMode == event.mode) return;
+
+    final response = await searchRequst(
       event.query,
-      mode: searchMode,
-      limit: limit,
-      page: event.page,
+      event.filteredMode,
+      event.mode,
+      event.page,
+      event.limit,
     );
 
     response.fold(
-      (error) => emit(SearchState.error(fetchError: error)),
+      (error) => emit(SearchState.error(state.data.copyWith(error: error))),
       (response) {
-        final newItems = oldItems != null ? [...oldItems, ...response.data] : response.data;
-
         emit(
           SearchState.searchResult(
-            items: newItems.toIList(),
-            searchParameters: SearchParameters(event.query,
+            state.data.copyWith(
+              items: response.data,
+              searchParameters: SearchParameters(
+                query: event.query,
                 filteredMode: event.filteredMode,
                 mode: event.mode,
-                limit: limit,
+                limit: event.limit,
                 page: event.page,
-                isLastPage: response.data.length != limit),
+                isLastPage: response.data.length != (event.limit ?? 10),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  FutureOr<void> _onPaginatedSearch(
+    PaginatedSearch event,
+    Emitter<SearchState> emit,
+  ) async {
+    if (event.query.length < 3) return;
+
+    if (state.data.searchParameters.isLastPage ?? false) return;
+
+    final oldItems = state.data.items;
+
+    emit(SearchState.searchResult(state.data.copyWith(loadingMore: true)));
+
+    final response = await searchRequst(
+      event.query,
+      event.filteredMode,
+      event.mode,
+      event.page,
+      event.limit,
+    );
+
+    response.fold(
+      (error) => emit(SearchState.error(state.data.copyWith(error: error))),
+      (response) {
+        final newItems = [...oldItems, ...response.data];
+        emit(
+          SearchState.searchResult(
+            state.data.copyWith(
+              loadingMore: false,
+              items: newItems,
+              searchParameters: SearchParameters(
+                query: event.query,
+                filteredMode: event.filteredMode,
+                mode: event.mode,
+                limit: event.limit,
+                page: event.page,
+                isLastPage: response.data.length != (event.limit ?? 10),
+              ),
+            ),
           ),
         );
       },

@@ -13,4 +13,12 @@ class SearchEvent with _$SearchEvent {
     int? page,
     int? limit,
   }) = Search;
+
+  const factory SearchEvent.paginatedSearch(
+    String query, {
+    String? filteredMode,
+    String? mode,
+    int? page,
+    int? limit,
+  }) = PaginatedSearch;
 }

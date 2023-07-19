@@ -2,52 +2,40 @@ part of 'search_bloc.dart';
 
 @freezed
 class SearchState with _$SearchState {
-  const SearchState._();
+  const factory SearchState.initial(SearchData data) = _Initial;
 
-  const factory SearchState.initial({
-    @Default(<String>[]) List<String>? recentSearch,
-  }) = _Initial;
+  const factory SearchState.loading(SearchData data) = _Loading;
 
-  const factory SearchState.loading() = _Loading;
+  const factory SearchState.error(SearchData data) = _Error;
 
-//TODO: old state style
-  const factory SearchState.error({
-    @JsonKey(ignore: true) RequestError? fetchError,
-  }) = _Error;
-
-  const factory SearchState.searchResult({
-    required IList<SearchItem> items,
-    required SearchParameters searchParameters,
-  }) = _SearchResult;
-
-  factory SearchState.fromJson(Map<String, dynamic> json) => _$SearchStateFromJson(json);
+  const factory SearchState.searchResult(SearchData data) = _SearchResult;
 }
 
-@immutable
-@JsonSerializable()
-class SearchParameters {
-  String? query;
-  String? filteredMode;
-  String? mode;
-  int? page;
-  int? limit;
-  bool? isLastPage;
+@freezed
+class SearchData with _$SearchData {
+  const SearchData._();
 
-  SearchParameters(
-    this.query, {
-    this.filteredMode,
-    this.mode,
-    this.page,
-    this.limit,
-    this.isLastPage,
-  });
+  const factory SearchData({
+    @Default(<String>[]) List<String>? recentSearch,
+    @Default(<SearchItem>[]) List<SearchItem> items,
+    @Default(SearchParameters()) SearchParameters searchParameters,
+    @Default(false) bool loadingMore,
+    RequestError? error,
+  }) = _SearchData;
+}
 
-  SearchParameters.fromJson(Map<String, dynamic> json) {
-    query = json['query'];
-    filteredMode = json['filteredMode'];
-    mode = json['mode'];
-    page = json['page'];
-    limit = json['limit'];
-    isLastPage = json['isLastPage'];
-  }
+@freezed
+abstract class SearchParameters implements _$SearchParameters {
+  const SearchParameters._();
+
+  const factory SearchParameters({
+    @Default('') String? query,
+    @Default('') String? filteredMode,
+    @Default('') String? mode,
+    @Default(null) int? page,
+    @Default(null) int? limit,
+    @Default(false) bool? isLastPage,
+  }) = _SearchParameters;
+
+  factory SearchParameters.fromJson(Map<String, dynamic> json) => _$SearchParametersFromJson(json);
 }
