@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -29,8 +30,7 @@ class DishesList extends StatefulWidget {
   State<DishesList> createState() => _DishesListState();
 }
 
-class _DishesListState extends State<DishesList>
-    with AutomaticKeepAliveClientMixin {
+class _DishesListState extends State<DishesList> with AutomaticKeepAliveClientMixin {
   static const double _defaultNewDishNumberOfUnits = 1.0;
   static const String _defaultNewDishName = 'new dish';
 
@@ -39,28 +39,20 @@ class _DishesListState extends State<DishesList>
 
   @override
   void initState() {
-    context
-        .read<SelectFoodBloc>()
-        .add(SelectFoodEvent.fetchDishes(_defaultMealCategory));
+    context.read<SelectFoodBloc>().add(SelectFoodEvent.fetchDishes(_defaultMealCategory));
     super.initState();
   }
 
   Future _onRefresh() async {
-    return context
-        .read<SelectFoodBloc>()
-        .add(SelectFoodEvent.fetchDishes(_defaultMealCategory));
+    return context.read<SelectFoodBloc>().add(SelectFoodEvent.fetchDishes(_defaultMealCategory));
   }
 
   _updateDishesListener(BuildContext context, state) {
-    context
-        .read<SelectFoodBloc>()
-        .add(SelectFoodEvent.fetchDishes(_defaultMealCategory));
+    context.read<SelectFoodBloc>().add(SelectFoodEvent.fetchDishes(_defaultMealCategory));
   }
 
   bool get _canCreateDishWithSelectedMealCategory {
-    return DishFavoritesCategory.values
-        .asNameMap()
-        .containsKey(widget.mealCategory.toLowerCase());
+    return DishFavoritesCategory.values.asNameMap().containsKey(widget.mealCategory.toLowerCase());
   }
 
   String get _defaultMealCategory {
@@ -82,9 +74,21 @@ class _DishesListState extends State<DishesList>
           BlocBuilder<SelectFoodBloc, SelectFoodState>(
             builder: (BuildContext context, state) {
               return state.maybeMap(
+                error: (errorState) {
+                  final error = errorState.fetchError;
+
+                  return Center(
+                    child: ErrorScreen(
+                      smallVersion: false,
+                      error: error,
+                      onButtonPressed: () => context
+                          .read<SelectFoodBloc>()
+                          .add(SelectFoodEvent.fetchFavorites(_defaultMealCategory)),
+                    ),
+                  );
+                },
                 selectFood: (selectFoodState) {
-                  final String title = selectFoodState
-                          .hasOneSelectedDishCategory
+                  final String title = selectFoodState.hasOneSelectedDishCategory
                       ? '${LocalizedTexts.my.translation} ${selectFoodState.selectedDishCategories[0].name}'
                       : LocalizedTexts.myDishes.translation;
 
@@ -95,8 +99,7 @@ class _DishesListState extends State<DishesList>
                       children: [
                         ListFilters(
                           title: title,
-                          mealsList:
-                              selectFoodState.dishFavoritesCategories.toList(),
+                          mealsList: selectFoodState.dishFavoritesCategories.toList(),
                           onConfirmed: (list) => _onConfirmed(context, list),
                         ),
                         selectFoodState.dishes.isEmpty
@@ -110,14 +113,12 @@ class _DishesListState extends State<DishesList>
                                   onRefresh: _onRefresh,
                                   child: ListView.separated(
                                     itemCount: selectFoodState.dishes.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
+                                    itemBuilder: (BuildContext context, int index) {
                                       return DishListItem(
                                         dishItem: selectFoodState.dishes[index],
                                       );
                                     },
-                                    separatorBuilder:
-                                        (BuildContext context, int index) {
+                                    separatorBuilder: (BuildContext context, int index) {
                                       return const Divider(
                                         height: 1,
                                         color: Colors.transparent,
@@ -171,10 +172,7 @@ class _DishesListState extends State<DishesList>
     return defaultMealCategories;
   }
 
-  _onConfirmed(
-      BuildContext context, List<MealCategoryFilter> updatedFiltersList) {
-    context
-        .read<SelectFoodBloc>()
-        .add(SelectFoodEvent.filterDishes(updatedFiltersList.toIList()));
+  _onConfirmed(BuildContext context, List<MealCategoryFilter> updatedFiltersList) {
+    context.read<SelectFoodBloc>().add(SelectFoodEvent.filterDishes(updatedFiltersList.toIList()));
   }
 }

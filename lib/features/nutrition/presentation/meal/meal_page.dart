@@ -60,15 +60,17 @@ class _MealPageState extends State<MealPage> {
       return;
     }
 
-    context.router.push(EditDishRoute(
-      mode: EditDishPageMode.create,
-      event: EditDishEvent.createDishFromMeal(
-        mealId,
-        _defaultNumberOfUnitsForDish,
-        mealCategory,
-        _genericDishName,
+    context.router.push(
+      EditDishRoute(
+        mode: EditDishPageMode.create,
+        event: EditDishEvent.createDishFromMeal(
+          mealId,
+          _defaultNumberOfUnitsForDish,
+          mealCategory,
+          _genericDishName,
+        ),
       ),
-    ));
+    );
   }
 
   String get _genericDishName {
