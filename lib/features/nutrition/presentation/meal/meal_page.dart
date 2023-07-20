@@ -122,6 +122,7 @@ class _MealPageState extends State<MealPage> {
                   );
                 },
                 mealsInfo: (mealsState) {
+                  print('mealsState.currentMeal ${mealsState.currentMeal}');
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

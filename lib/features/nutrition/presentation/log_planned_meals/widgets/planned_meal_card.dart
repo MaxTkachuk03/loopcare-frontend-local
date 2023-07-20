@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -27,7 +26,11 @@ class PlannedMealCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<MealsBloc, MealsState>(
       listener: _logPlannedMealListener,
-      listenWhen: (prev, cur) => prev.mealsMap != cur.mealsMap,
+      listenWhen: (prev, cur) {
+        print('prev.mealsMap ${prev.mealsMap.length}  ${prev.mealsMap} ');
+        print('cur.mealsMap ${cur.mealsMap.length} ${cur.mealsMap}');
+        return !identical(prev.mealsMap, cur.mealsMap);
+      },
       child: Container(
         padding: const EdgeInsets.only(top: 20.0, left: 24.0, right: 24.0, bottom: 34.0),
         decoration: BoxDecoration(
@@ -52,8 +55,10 @@ class PlannedMealCard extends StatelessWidget {
             const SizedBox(
               height: 20.0,
             ),
-            GroupedMealList(
-              mealItems: mealItem.values.first,
+            Expanded(
+              child: GroupedMealList(
+                mealItems: mealItem.values.first,
+              ),
             ),
             const Divider(
               color: AppColors.bgGreen,
@@ -86,6 +91,7 @@ class PlannedMealCard extends StatelessWidget {
   }
 
   void _logPlannedMealListener(BuildContext context, MealsState state) {
+    print('_logPlannedMealListener ${state.mealsMap} ${state.getCurrentMealId} ${state.currentMealCategory}');
     context.router.pushNamed(AppRoutes.meal);
   }
 }

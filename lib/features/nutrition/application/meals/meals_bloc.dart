@@ -724,12 +724,33 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         response.fold(
           (l) => null,
           (r) {
+            var updatedList = <MealsListItem>[];
+            final loggingDate = r.loggingDate;
+
+            if (loggingDate == null) return;
+
+            Map<String, List<MealsListItem>> meals = Map<String, List<MealsListItem>>.from(state.meals);
+            var selectedDayMeals = meals[loggingDate.isoStringWithoutTime] ?? <MealsListItem>[];
+
+            if (selectedDayMeals.isEmpty) {
+              updatedList = (selectedDayMeals.toList()..add(r)).toList();
+            } else {
+              if (!selectedDayMeals.any((item) => item.id == r.id)) {
+                updatedList = (selectedDayMeals.toList()..add(r)).toList();
+              } else {
+                updatedList = selectedDayMeals;
+              }
+            }
+
+            meals[loggingDate.isoStringWithoutTime] = updatedList;
+
+
             emit(
               state.copyWith(
                 mealActionMode: MealActionModes.mealLogging,
                 currentMealCategory: r.mealCategory,
                 currentMealId: r.id,
-                meals: _getUpdatedMealsList(r),
+                meals: meals,
               ),
             );
           },
