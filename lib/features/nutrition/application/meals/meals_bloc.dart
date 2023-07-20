@@ -719,31 +719,32 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
   FutureOr<void> _onLogPlannedMeal(LogPlannedMeal event, Emitter<MealsState> emit) async {
     await state.mapOrNull(
       mealsInfo: (state) async {
+        emit(
+          state.copyWith(
+            isLoading: true,
+            mealActionMode: MealActionModes.mealLogging,
+            currentMealCategory: event.mealCategory,
+          ),
+        );
         final response = await nutritionService.logPlannedMeal(event.plannedMealId);
 
         response.fold(
-          (l) => null,
+          (l) => emit(state.copyWith(isLoading: false)),
           (r) {
-            var updatedList = <MealsListItem>[];
             final loggingDate = r.loggingDate;
 
             if (loggingDate == null) return;
 
             Map<String, List<MealsListItem>> meals = Map<String, List<MealsListItem>>.from(state.meals);
             var selectedDayMeals = meals[loggingDate.isoStringWithoutTime] ?? <MealsListItem>[];
-
-            if (selectedDayMeals.isEmpty) {
-              updatedList = (selectedDayMeals.toList()..add(r)).toList();
+            final currentCategoryMeal =
+                selectedDayMeals.firstWhereOrNull((element) => element.mealCategory == r.mealCategory);
+            if (currentCategoryMeal == null) {
+              meals[loggingDate.isoStringWithoutTime] = (selectedDayMeals.toList()..add(r)).toList();
             } else {
-              if (!selectedDayMeals.any((item) => item.id == r.id)) {
-                updatedList = (selectedDayMeals.toList()..add(r)).toList();
-              } else {
-                updatedList = selectedDayMeals;
-              }
+              meals[loggingDate.isoStringWithoutTime] =
+                  selectedDayMeals.map((e) => e.mealCategory == r.mealCategory ? r : e).toList();
             }
-
-            meals[loggingDate.isoStringWithoutTime] = updatedList;
-
 
             emit(
               state.copyWith(
@@ -751,6 +752,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
                 currentMealCategory: r.mealCategory,
                 currentMealId: r.id,
                 meals: meals,
+                isLoading: false,
               ),
             );
           },

@@ -24,74 +24,63 @@ class PlannedMealCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<MealsBloc, MealsState>(
-      listener: _logPlannedMealListener,
-      listenWhen: (prev, cur) {
-        print('prev.mealsMap ${prev.mealsMap.length}  ${prev.mealsMap} ');
-        print('cur.mealsMap ${cur.mealsMap.length} ${cur.mealsMap}');
-        return !identical(prev.mealsMap, cur.mealsMap);
-      },
-      child: Container(
-        padding: const EdgeInsets.only(top: 20.0, left: 24.0, right: 24.0, bottom: 34.0),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              mealCategory.capitalize(),
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.blueAppBar),
+    return Container(
+      padding: const EdgeInsets.only(top: 20.0, left: 24.0, right: 24.0, bottom: 34.0),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            mealCategory.capitalize(),
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.blueAppBar),
+          ),
+          const SizedBox(
+            height: 18.0,
+          ),
+          const Divider(
+            color: AppColors.bgGreen,
+            thickness: 2.0,
+            height: 2.0,
+          ),
+          const SizedBox(
+            height: 20.0,
+          ),
+          Expanded(
+            child: GroupedMealList(
+              mealItems: mealItem.values.first,
             ),
-            const SizedBox(
-              height: 18.0,
+          ),
+          const Divider(
+            color: AppColors.bgGreen,
+            thickness: 2.0,
+            height: 2.0,
+          ),
+          const SizedBox(
+            height: 30.0,
+          ),
+          ElevatedButton(
+            onPressed: () => _onLogMealPressed(context),
+            style: Theme.of(context)
+                .elevatedButtonTheme
+                .style
+                ?.copyWith(minimumSize: MaterialStateProperty.all(const Size(146, 40))),
+            child: const Text(LocalizedTexts.logAs).tr(
+              namedArgs: {
+                'mealCategory': mealCategory,
+              },
             ),
-            const Divider(
-              color: AppColors.bgGreen,
-              thickness: 2.0,
-              height: 2.0,
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            Expanded(
-              child: GroupedMealList(
-                mealItems: mealItem.values.first,
-              ),
-            ),
-            const Divider(
-              color: AppColors.bgGreen,
-              thickness: 2.0,
-              height: 2.0,
-            ),
-            const SizedBox(
-              height: 30.0,
-            ),
-            ElevatedButton(
-              onPressed: () => _onLogMealPressed(context),
-              style: Theme.of(context)
-                  .elevatedButtonTheme
-                  .style
-                  ?.copyWith(minimumSize: MaterialStateProperty.all(const Size(146, 40))),
-              child: const Text(LocalizedTexts.logAs).tr(
-                namedArgs: {
-                  'mealCategory': mealCategory,
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
   void _onLogMealPressed(BuildContext context) {
-    context.read<MealsBloc>().add(MealsEvent.logPlannedMeal(plannedMealId));
-  }
-
-  void _logPlannedMealListener(BuildContext context, MealsState state) {
-    print('_logPlannedMealListener ${state.mealsMap} ${state.getCurrentMealId} ${state.currentMealCategory}');
-    context.router.pushNamed(AppRoutes.meal);
+    context
+      ..read<MealsBloc>().add(MealsEvent.logPlannedMeal(plannedMealId, mealCategory))
+      ..router.pushNamed(AppRoutes.meal);
   }
 }
