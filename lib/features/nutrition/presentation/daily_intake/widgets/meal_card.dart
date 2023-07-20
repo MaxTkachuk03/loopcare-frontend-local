@@ -11,10 +11,10 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/meals_blo
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/grouped_meal_list/grouped_meal_list.dart';
 
 class MealCard extends StatelessWidget {
-  final int mealId;
+  final int? mealId;
   final String title;
-  final double calorieDensity;
-  final List<MealItem> mealItems;
+  final double? calorieDensity;
+  final List<MealItem>? mealItems;
 
   const MealCard({
     super.key,
@@ -26,52 +26,66 @@ class MealCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mealId = this.mealId;
+    final mealItems = this.mealItems;
+    final calorieDensity = this.calorieDensity;
+
     return Container(
       color: AppColors.white,
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 22.0),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Hexagon(
-                    width: 20,
-                    height: 20,
-                    borderRadius: 10,
-                    innerWidget: Container(
-                      color: getCalorieDensityColor(calorieDensity),
+          InkWell(
+            onTap: mealId != null
+                ? () {
+                    context.read<MealsBloc>().add(
+                          MealsEvent.setMealId(mealId, title),
+                        );
+                    context.router.pushNamed(AppRoutes.meal);
+                  }
+                : null,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Hexagon(
+                      width: 20,
+                      height: 20,
+                      borderRadius: 10,
+                      innerWidget: Container(
+                        color: calorieDensity != null
+                            ? getCalorieDensityColor(calorieDensity)
+                            : AppColors.greyMid,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 10.0),
-                  Text(
-                    title.toUpperCase(),
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: AppColors.greyLabel,
-                          fontWeight: FontWeight.w600,
-                        ),
-                  ),
-                ],
-              ),
-              InkWell(
-                onTap: () {
-                  context.read<MealsBloc>().add(
-                        MealsEvent.setMealId(mealId, title),
-                      );
-                  context.router.pushNamed(AppRoutes.meal);
-                },
-                child: const ImageIcon(
+                    const SizedBox(width: 10.0),
+                    Text(
+                      title.toUpperCase(),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: AppColors.greyLabel,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                  ],
+                ),
+                const ImageIcon(
                   AppIcons.arrow,
                   color: AppColors.greyLabel,
+                )
+              ],
+            ),
+          ),
+          if (mealItems != null)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 8.0),
+                GroupedMealList(
+                  mealItems: mealItems,
                 ),
-              )
-            ],
-          ),
-          const SizedBox(height: 8.0),
-          GroupedMealList(
-            mealItems: mealItems,
-          ),
+              ],
+            )
         ],
       ),
     );
