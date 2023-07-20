@@ -719,17 +719,40 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
   FutureOr<void> _onLogPlannedMeal(LogPlannedMeal event, Emitter<MealsState> emit) async {
     await state.mapOrNull(
       mealsInfo: (state) async {
+        emit(
+          state.copyWith(
+            isLoading: true,
+            mealActionMode: MealActionModes.mealLogging,
+            currentMealCategory: event.mealCategory,
+          ),
+        );
         final response = await nutritionService.logPlannedMeal(event.plannedMealId);
 
         response.fold(
-          (l) => null,
+          (l) => emit(state.copyWith(isLoading: false)),
           (r) {
+            final loggingDate = r.loggingDate;
+
+            if (loggingDate == null) return;
+
+            Map<String, List<MealsListItem>> meals = Map<String, List<MealsListItem>>.from(state.meals);
+            var selectedDayMeals = meals[loggingDate.isoStringWithoutTime] ?? <MealsListItem>[];
+            final currentCategoryMeal =
+                selectedDayMeals.firstWhereOrNull((element) => element.mealCategory == r.mealCategory);
+            if (currentCategoryMeal == null) {
+              meals[loggingDate.isoStringWithoutTime] = (selectedDayMeals.toList()..add(r)).toList();
+            } else {
+              meals[loggingDate.isoStringWithoutTime] =
+                  selectedDayMeals.map((e) => e.mealCategory == r.mealCategory ? r : e).toList();
+            }
+
             emit(
               state.copyWith(
                 mealActionMode: MealActionModes.mealLogging,
                 currentMealCategory: r.mealCategory,
                 currentMealId: r.id,
-                meals: _getUpdatedMealsList(r),
+                meals: meals,
+                isLoading: false,
               ),
             );
           },

@@ -15,6 +15,7 @@ class MealsState with _$MealsState {
     int? currentMealId,
     @Default(NutritionValuesTypes.calories) NutritionValuesTypes currentNutritionType,
     @Default(MealActionModes.mealLogging) MealActionModes mealActionMode,
+    @Default(false) bool isLoading,
     DateTime? currentDate,
     String? currentMealCategory,
     required Map<String, List<MealsListItem>> meals,

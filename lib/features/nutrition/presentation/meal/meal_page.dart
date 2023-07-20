@@ -122,6 +122,10 @@ class _MealPageState extends State<MealPage> {
                   );
                 },
                 mealsInfo: (mealsState) {
+                  if (mealsState.isLoading) {
+                    return const Loader();
+                  }
+
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
