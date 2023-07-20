@@ -33,35 +33,36 @@ class WeightBlock extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            children: [
-              const Image(image: AppIcons.dashboardWeight),
-              const SizedBox(width: 24.0),
-              BlocBuilder<DashboardWeightBloc, DashboardWeightState>(
-                builder: (BuildContext context, state) {
-                  return state.maybeMap(
-                    weights: (s) {
-                      final weightValue = s.getSelectedDayWeight(date.isoStringWithoutTime);
-                      final bool isEditable = s.isEditable(date);
-                      final hasLog = weightValue != null;
+          BlocBuilder<DashboardWeightBloc, DashboardWeightState>(
+            builder: (BuildContext context, state) {
+              return state.maybeMap(
+                weights: (s) {
+                  final weightValue = s.getSelectedDayWeight(date.isoStringWithoutTime);
+                  final bool isEditable = s.isEditable(date);
+                  final hasLog = weightValue != null;
 
-                      final inputWeightValue = s.isMetricSystem
-                          ? weightValue
-                          : WeightConversionUtils.convertKgToLbs(
-                              weightValue ?? 0.0,
-                            );
+                  final inputWeightValue = s.isMetricSystem
+                      ? weightValue
+                      : WeightConversionUtils.convertKgToLbs(
+                          weightValue ?? 0.0,
+                        );
 
-                      final text = hasLog
-                          ? "${LocalizedTexts.weight.translation} : $inputWeightValue ${s.userWeightUnits}"
-                          : isEditable
-                              ? LocalizedTexts.logYourWeight.translation
-                              : LocalizedTexts.noWeightLogged.translation;
+                  final text = hasLog
+                      ? "${LocalizedTexts.weight.translation} : $inputWeightValue ${s.userWeightUnits}"
+                      : isEditable
+                          ? LocalizedTexts.logYourWeight.translation
+                          : LocalizedTexts.noWeightLogged.translation;
 
-                      final showSubText = !hasLog && isEditable;
+                  final showSubText = !hasLog && isEditable;
 
-                      return Column(
+                  return Row(
+                    children: [
+                      const Image(image: AppIcons.dashboardWeight),
+                      const SizedBox(width: 24.0),
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
@@ -78,24 +79,27 @@ class WeightBlock extends StatelessWidget {
                                   Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.greyLabel),
                             )
                         ],
-                      );
-                    },
-                    loading: (_) => const LoadingWeight(),
-                    error: (errorState) {
-                      final error = errorState.error;
-
-                      return ErrorScreen(
-                        smallVersion: true,
-                        error: error,
-                        onButtonPressed: () =>
-                            context.read<DashboardWeightBloc>().add(DashboardWeightEvent.fetchWeights(date)),
-                      );
-                    },
-                    orElse: () => const SizedBox(),
+                      ),
+                    ],
                   );
                 },
-              ),
-            ],
+                loading: (_) => const LoadingWeight(),
+                error: (errorState) {
+                  final error = errorState.error;
+
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ErrorScreen(
+                      smallVersion: true,
+                      error: error,
+                      onButtonPressed: () =>
+                          context.read<DashboardWeightBloc>().add(DashboardWeightEvent.fetchWeights(date)),
+                    ),
+                  );
+                },
+                orElse: () => const SizedBox(),
+              );
+            },
           ),
           BlocBuilder<DashboardWeightBloc, DashboardWeightState>(
             builder: (BuildContext context, s) {
