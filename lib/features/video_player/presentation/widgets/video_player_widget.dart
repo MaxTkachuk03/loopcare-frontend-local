@@ -17,6 +17,8 @@ class VideoPlayerWidget extends StatelessWidget {
   final String programType;
   final String programDifficulty;
   final int programLength;
+  final int duration;
+  final Function(Duration value) onDurationChange;
 
   const VideoPlayerWidget({
     super.key,
@@ -30,6 +32,8 @@ class VideoPlayerWidget extends StatelessWidget {
     required this.programLength,
     required this.isLastVideo,
     this.onPrevPressed,
+    required this.duration,
+    required this.onDurationChange,
   });
 
   @override
@@ -55,6 +59,8 @@ class VideoPlayerWidget extends StatelessWidget {
                       programType: programType,
                       programDifficulty: programDifficulty,
                       programLength: programLength,
+                      duration: duration,
+                      onDurationChange: onDurationChange,
                     )
                   : PlayerOverlay(
                       controller: controller!,

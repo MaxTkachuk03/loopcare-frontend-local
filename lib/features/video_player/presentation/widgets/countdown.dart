@@ -7,6 +7,7 @@ class CountDown extends StatelessWidget {
   final int duration;
   final VoidCallback onComplete;
   final bool isPortraiteOrientation;
+  final Function(Duration value) onDurationChange;
 
   const CountDown({
     Key? key,
@@ -14,9 +15,11 @@ class CountDown extends StatelessWidget {
     required this.duration,
     required this.onComplete,
     required this.isPortraiteOrientation,
+    required this.onDurationChange,
   }) : super(key: key);
 
   _onTimeFormatterHandler(defaultFormatterFunction, duration) {
+    onDurationChange(duration);
     if (duration.inSeconds == 0) {
       return "0";
     } else {
