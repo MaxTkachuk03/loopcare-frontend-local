@@ -273,9 +273,7 @@ class APINutritionService implements NutritionService {
   Future<Either<RequestError, MealsListItem>> logPlannedMeal(int plannedMealId) {
     return client.post(
       '/planned-meals/log',
-      data: {
-        'plannedMealId': plannedMealId
-      },
+      data: {'plannedMealId': plannedMealId},
     ).then(parseResponse(MealsListItem.fromJson));
   }
 
@@ -329,7 +327,7 @@ class APINutritionService implements NutritionService {
       queryParameters: {
         'query': query,
         if (mode != null && mode.isNotEmpty) 'modes': mode,
-        if (limit != null) 'limit': limit,
+        if (limit != null) 'pageSize': limit,
         if (page != null) 'page': page,
       },
     ).then(parseResponse(SearchResponse.fromJson));

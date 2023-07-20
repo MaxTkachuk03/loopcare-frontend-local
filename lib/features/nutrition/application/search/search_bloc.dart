@@ -25,6 +25,7 @@ part 'search_bloc.g.dart';
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final NutritionService nutritionService;
   static const maxRecentSearchListSize = 10;
+  static const searchLimit = 20;
 
   SearchBloc(this.nutritionService) : super(const SearchState.initial(SearchData())) {
     on<Search>(
@@ -100,7 +101,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   Future<dartz.Either<RequestError, SearchResponse>> searchRequst(
       String query, String? filteredMode, String? mode, int? page, int? limit) async {
-    var eventLimit = limit ?? 10;
+    var eventLimit = limit ?? searchLimit;
     var searchMode = <String>[];
 
     if (mode != null && mode.isNotEmpty && mode != 'all') {
@@ -162,7 +163,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                 mode: event.mode,
                 limit: event.limit,
                 page: event.page,
-                isLastPage: response.data.length != (event.limit ?? 10),
+                isLastPage: response.data.length != (event.limit ?? searchLimit),
               ),
             ),
           ),
@@ -206,7 +207,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                 mode: event.mode,
                 limit: event.limit,
                 page: event.page,
-                isLastPage: response.data.length != (event.limit ?? 10),
+                isLastPage: response.data.length != (event.limit ?? searchLimit),
               ),
             ),
           ),
