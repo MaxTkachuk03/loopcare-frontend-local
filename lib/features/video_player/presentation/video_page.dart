@@ -27,13 +27,16 @@ class VideoPage extends StatefulWidget {
   State<VideoPage> createState() => _VideoPageState();
 }
 
-class _VideoPageState extends State<VideoPage> {
+class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
   int _videoIndex = 0;
 
   VideoPlayerController? _videoPlayerController;
   final CountDownController _countDownController = CountDownController();
+  int _duration = 0;
 
   bool get _isLastExercise => _videoIndex + 1 == widget.program.exercises.length;
+
+  Orientation? _currentOrientation;
 
   Future _allowLandscapeOrientation() async {
     // Remove system app bar on Android
@@ -117,11 +120,21 @@ class _VideoPageState extends State<VideoPage> {
     });
   }
 
+  _setDuration() {
+    _duration = widget.program.exercises[_videoIndex].delayBeforeNext;
+  }
+
+  _updateDuration(Duration value) {
+    _duration = value.inSeconds;
+  }
+
   @override
   void initState() {
     _allowLandscapeOrientation();
 
     context.read<VideoPlayerBloc>().add(const VideoPlayerEvent.getAwsCookies());
+
+    WidgetsBinding.instance.addObserver(this);
 
     super.initState();
   }
@@ -136,6 +149,16 @@ class _VideoPageState extends State<VideoPage> {
     if (controller.value.position.inSeconds >= skipTime) return;
 
     _videoPlayerController?.seekTo(Duration(seconds: skipTime));
+  }
+
+  @override
+  void didChangeMetrics() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (_currentOrientation != MediaQuery.of(context).orientation) {
+        _currentOrientation = MediaQuery.of(context).orientation;
+        _setDuration();
+      }
+    });
   }
 
   @override
@@ -199,6 +222,8 @@ class _VideoPageState extends State<VideoPage> {
                           programDifficulty: widget.program.difficultyName,
                           programLength: widget.program.exercises.length,
                           exercise: widget.program.exercises[_videoIndex],
+                          duration: _duration,
+                          onDurationChange: _updateDuration,
                           onVideoEnds: _onVideoEnds,
                           onPrevPressed: _videoIndex == 0 ? null : _onPrevPressed,
                           countDownController: _countDownController,
@@ -265,6 +290,8 @@ class _VideoPageState extends State<VideoPage> {
     _onlyPortraitOrientation();
 
     _disposeVideoController();
+
+    WidgetsBinding.instance.removeObserver(this);
 
     super.dispose();
   }

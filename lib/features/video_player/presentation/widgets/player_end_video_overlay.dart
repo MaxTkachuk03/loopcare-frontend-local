@@ -20,6 +20,8 @@ class PlayerEndVideoOverlay extends StatelessWidget {
   final bool isLastVideo;
   final String programDifficulty;
   final int programLength;
+  final int duration;
+  final Function(Duration value) onDurationChange;
 
   const PlayerEndVideoOverlay({
     Key? key,
@@ -32,6 +34,8 @@ class PlayerEndVideoOverlay extends StatelessWidget {
     required this.programDifficulty,
     required this.programLength,
     required this.isLastVideo,
+    required this.duration,
+    required this.onDurationChange,
   }) : super(key: key);
 
   bool get _isPortraitOrientation {
@@ -163,7 +167,8 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                       const SizedBox(height: 20.0),
                       CountDown(
                         controller: countDownController,
-                        duration: exercise.delayBeforeNext,
+                        duration: duration,
+                        onDurationChange: onDurationChange,
                         onComplete: onVideoEnds,
                         isPortraiteOrientation: _isPortraitOrientation,
                       ),
