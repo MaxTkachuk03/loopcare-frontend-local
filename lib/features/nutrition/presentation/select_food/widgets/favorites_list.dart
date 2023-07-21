@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/empty_list_widget.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/favorite_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/footer_overlay.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/list_filters.dart';
@@ -80,10 +81,9 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
                         onConfirmed: (list) => _onConfirmed(context, list),
                       ),
                       selectFoodState.favorites.isEmpty
-                          ? MainContainer(
-                              child: Text(
-                                LocalizedTexts.emptyList.translation,
-                              ),
+                          ? EmptyListWidget(
+                              type: EmptyListType.myFavorites,
+                              typeText: title,
                             )
                           : Expanded(
                               child: RefreshIndicator(

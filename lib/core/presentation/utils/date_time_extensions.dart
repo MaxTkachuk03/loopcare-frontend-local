@@ -18,6 +18,6 @@ extension DateTimeExtension on DateTime {
   }
 
   String get fullDate {
-    return DateFormat('E d MMM').format(this);
+    return DateFormat('EEEE d MMM').format(this);
   }
 }

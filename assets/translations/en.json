@@ -420,5 +420,10 @@
   "logAs": "Log as {mealCategory}",
   "skip": "Skip",
   "plannedMeals": "planned meals",
-  "loggedMeals": "logged meals"
+  "loggedMeals": "logged meals",
+  "youHaveNo": "You have no {text} yet",
+  "favoritesExplain": "Favorites help you quickly log your most used food items in a sec",
+  "favoritesList": "1. Search a food item \n2. View it details \n3. Tap the star on the right side to bookmark it as your favorite",
+  "dishesExplain": "My dishes help you quickly log your most eaten meals in a sec",
+  "dishesList": "1. Log the desired food items \n2. Create a My dish directly from your log summary"
 }

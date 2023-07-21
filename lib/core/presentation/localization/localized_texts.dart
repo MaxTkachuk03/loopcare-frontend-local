@@ -476,6 +476,13 @@ class LocalizedTexts {
   static const String noConnectionText = 'noConnectionText';
   static const String oeps = 'oeps';
   static const String somethingWentWrong = 'somethingWentWrong';
+
+  //Empty screen
+  static const String youHaveNo = 'youHaveNo';
+  static const String favoritesExplain = 'favoritesExplain';
+  static const String favoritesList = 'favoritesList';
+  static const String dishesExplain = 'dishesExplain';
+  static const String dishesList = 'dishesList';
 }
 
 extension StringX on String {

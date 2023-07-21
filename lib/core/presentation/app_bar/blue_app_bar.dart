@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_b
 class BlueAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String? title;
   final String? subtitle;
+  final bool? italicSubtitle;
   final Widget? leading;
   final bool? isCustomLeading;
   final PreferredSizeWidget? bottom;
@@ -18,6 +19,7 @@ class BlueAppBar extends StatefulWidget implements PreferredSizeWidget {
     Key? key,
     this.title,
     this.subtitle,
+    this.italicSubtitle,
     this.leading,
     this.isCustomLeading,
     this.bottom,
@@ -41,18 +43,15 @@ class _BlueAppBarState extends State<BlueAppBar> {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (BuildContext context, state) {
         return AppBar(
-          backgroundColor: state.isPlanningMeals
-              ? AppColors.darkGreen
-              : AppColors.blueAppBar,
+          backgroundColor: state.isPlanningMeals ? AppColors.darkGreen : AppColors.blueAppBar,
           title: (title != null)
               ? _Title(
                   title: title,
                   subtitle: widget.subtitle,
+                  italicSubtitle: widget.italicSubtitle,
                 )
               : null,
-          leading: widget.isCustomLeading ?? false
-              ? const BackButtonHexagon()
-              : widget.leading,
+          leading: widget.isCustomLeading ?? false ? const BackButtonHexagon() : widget.leading,
           bottom: widget.bottom,
           automaticallyImplyLeading: false,
           actions: widget.actions,
@@ -65,11 +64,13 @@ class _BlueAppBarState extends State<BlueAppBar> {
 class _Title extends StatelessWidget {
   final String title;
   final String? subtitle;
+  final bool? italicSubtitle;
 
   const _Title({
     Key? key,
     required this.title,
     this.subtitle,
+    this.italicSubtitle,
   }) : super(key: key);
 
   @override
@@ -93,7 +94,7 @@ class _Title extends StatelessWidget {
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: AppColors.white,
-                  fontStyle: FontStyle.italic,
+                  fontStyle: italicSubtitle ?? true ? FontStyle.italic : FontStyle.normal,
                 ),
           ),
       ],
