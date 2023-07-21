@@ -24,6 +24,7 @@ class DailyIntakePage extends StatelessWidget {
               appBar: BlueAppBar(
                 isCustomLeading: true,
                 title: state.getCurrentDate.fullDate,
+                italicSubtitle: false,
                 subtitle: state.isPlanningMeals
                     ? LocalizedTexts.plannedMeals.translation.capitalizeOnlyFirstLetter()
                     : LocalizedTexts.loggedMeals.translation.capitalizeOnlyFirstLetter(),

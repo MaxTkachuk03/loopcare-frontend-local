@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/dish_list_item.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/empty_list_widget.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/list_filters.dart';
 
 class DishesList extends StatefulWidget {
@@ -103,10 +104,9 @@ class _DishesListState extends State<DishesList> with AutomaticKeepAliveClientMi
                           onConfirmed: (list) => _onConfirmed(context, list),
                         ),
                         selectFoodState.dishes.isEmpty
-                            ? MainContainer(
-                                child: Text(
-                                  LocalizedTexts.emptyList.translation,
-                                ),
+                            ? EmptyListWidget(
+                                type: EmptyListType.myDishes,
+                                typeText: title,
                               )
                             : Expanded(
                                 child: RefreshIndicator(
