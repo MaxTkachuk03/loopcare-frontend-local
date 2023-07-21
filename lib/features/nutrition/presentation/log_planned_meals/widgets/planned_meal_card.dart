@@ -50,7 +50,7 @@ class PlannedMealCard extends StatelessWidget {
           ),
           Expanded(
             child: GroupedMealList(
-              mealItems: mealItem.values.first,
+              mealItems: mealItem.values.expand((x) => x).toList(),
             ),
           ),
           const Divider(
