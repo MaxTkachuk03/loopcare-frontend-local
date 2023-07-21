@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_f
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_many_food_items_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_planned_meal_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/dto/log_planned_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
@@ -726,10 +727,17 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             currentMealCategory: event.mealCategory,
           ),
         );
-        final response = await nutritionService.logPlannedMeal(event.plannedMealId);
+
+        final currentDate = state.currentDate;
+
+        final response = await nutritionService.logPlannedMeal(LogPlannedMealBody(
+          plannedMealId: event.plannedMealId,
+          loggingDate:
+              currentDate != null ? currentDate.isoStringWithoutTime : DateTime.now().isoStringWithoutTime,
+        ));
 
         response.fold(
-          (l) => emit(state.copyWith(isLoading: false)),
+          (l) => emit(state.copyWith(isLoading: false, error: l)),
           (r) {
             final loggingDate = r.loggingDate;
 

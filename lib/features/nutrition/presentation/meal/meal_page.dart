@@ -126,6 +126,17 @@ class _MealPageState extends State<MealPage> {
                     return const Loader();
                   }
 
+                  final error = mealsState.error;
+
+                  if (error != null) {
+                    return SizedBox(
+                      width: double.infinity,
+                      child: MainContainer(
+                        child: ErrorScreen(error: error),
+                      ),
+                    );
+                  }
+
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
