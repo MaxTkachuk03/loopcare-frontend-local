@@ -10,12 +10,10 @@ import 'package:loopcare_frontend/features/nutrition/application/search/search_b
 
 class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
   final SearchMode? mode;
-  final String? selectedRecentSearchItem;
 
   const SearchAppBar({
     Key? key,
     this.mode,
-    this.selectedRecentSearchItem,
   }) : super(key: key);
 
   @override
@@ -25,8 +23,7 @@ class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height * 2);
 }
 
-class _SearchAppBarState extends State<SearchAppBar>
-    with TickerProviderStateMixin {
+class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMixin {
   String searchText = '';
   String? searchMode = '';
   final TextEditingController _searchTextController = TextEditingController();
@@ -40,10 +37,8 @@ class _SearchAppBarState extends State<SearchAppBar>
     if (mode != null) {
       tabs = <String>[mode.label];
     } else {
-      tabs = SearchMode.values
-          .where((e) => e.label != SearchMode.favorite.label)
-          .map((e) => e.label)
-          .toList();
+      tabs =
+          SearchMode.values.where((e) => e.label != SearchMode.favorite.label).map((e) => e.label).toList();
     }
 
     _tabController = TabController(
@@ -52,7 +47,6 @@ class _SearchAppBarState extends State<SearchAppBar>
     );
 
     _tabController.addListener(_tabsChangeListener);
-    _searchTextController.addListener(_onTextChange);
   }
 
   @override
@@ -66,10 +60,6 @@ class _SearchAppBarState extends State<SearchAppBar>
 
   @override
   Widget build(BuildContext context) {
-    String? selectedRecentSearchItem = widget.selectedRecentSearchItem;
-    if (selectedRecentSearchItem != null) {
-      _searchTextController.text = selectedRecentSearchItem;
-    }
     return DefaultTabController(
       length: tabs.length,
       child: BlueAppBar(
@@ -77,12 +67,19 @@ class _SearchAppBarState extends State<SearchAppBar>
           Expanded(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(25, 8, 0, 8),
-              child: Field(
-                autofocus: true,
-                contentPadding: const EdgeInsets.only(left: 12),
-                hintText: LocalizedTexts.searchHint.translation,
-                controller: _searchTextController,
-                isClearField: true,
+              child: BlocListener<SearchBloc, SearchState>(
+                listenWhen: (prev, cur) =>
+                    prev.data.searchParameters.query != cur.data.searchParameters.query,
+                listener: _searchQueryListene,
+                child: Field(
+                  autofocus: true,
+                  contentPadding: const EdgeInsets.only(left: 12),
+                  hintText: LocalizedTexts.searchHint.translation,
+                  controller: _searchTextController,
+                  isClearField: true,
+                  onCleared: _onCleared,
+                  onChanged: _onTextChange,
+                ),
               ),
             ),
           ),
@@ -125,8 +122,7 @@ class _SearchAppBarState extends State<SearchAppBar>
 
   void _tabsChangeListener() {
     if (_tabController.indexIsChanging) {
-      String? selectedMode =
-          SearchMode.values.toList()[_tabController.index].searchModeValue;
+      String? selectedMode = SearchMode.values.toList()[_tabController.index].searchModeValue;
       searchMode = selectedMode;
 
       context.read<SearchBloc>().add(
@@ -139,19 +135,32 @@ class _SearchAppBarState extends State<SearchAppBar>
     }
   }
 
-  void _onTextChange() {
-    searchText = _searchTextController.text;
+  void _onTextChange(String value) {
+    setState(() {
+      searchText = value;
+    });
 
-    if (searchText.isEmpty) {
+    if (value.isEmpty) {
       context.read<SearchBloc>().add(const SearchEvent.resetData());
+
+      return;
     }
 
     context.read<SearchBloc>().add(
           SearchEvent.search(
-            searchText,
+            value,
             mode: searchMode,
             filteredMode: widget.mode?.searchModeValue,
           ),
         );
+  }
+
+  void _onCleared() {
+    context.read<SearchBloc>().add(const SearchEvent.resetData());
+  }
+
+  void _searchQueryListene(BuildContext context, SearchState state) {
+    _searchTextController.text = state.data.searchParameters.query ?? '';
+    _searchTextController.selection = TextSelection.collapsed(offset: _searchTextController.text.length);
   }
 }

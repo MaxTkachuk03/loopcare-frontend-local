@@ -26,11 +26,10 @@ class SearchResultList extends StatefulWidget {
 }
 
 class _SearchResultListState extends State<SearchResultList> {
-  late ScrollController _scrollController;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
-    _scrollController = ScrollController();
     _scrollController.addListener(_onScrollChangeListener);
 
     super.initState();
@@ -70,6 +69,10 @@ class _SearchResultListState extends State<SearchResultList> {
       builder: (BuildContext context, state) {
         return state.maybeMap(
           searchResult: (itemsState) {
+            if (itemsState.data.isLoading) {
+              return const Loader();
+            }
+
             return itemsState.data.items.isEmpty
                 ? const SearchEmptyResult()
                 : ListView.builder(

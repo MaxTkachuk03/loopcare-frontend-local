@@ -15,6 +15,7 @@ class Field extends StatefulWidget {
   final String? errorText;
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onChanged;
+  final VoidCallback? onCleared;
   final EdgeInsetsGeometry? contentPadding;
   final bool? autofocus;
 
@@ -28,6 +29,7 @@ class Field extends StatefulWidget {
     this.maxLength,
     this.errorText,
     this.isToggleEye,
+    this.onCleared,
     this.isClearField,
     this.validator,
     this.onChanged,
@@ -97,5 +99,7 @@ class _FieldState extends State<Field> {
     setState(() {
       widget.controller?.clear();
     });
+
+    widget.onCleared?.call();
   }
 }
