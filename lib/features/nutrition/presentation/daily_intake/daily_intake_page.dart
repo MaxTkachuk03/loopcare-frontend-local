@@ -44,13 +44,13 @@ class DailyIntakePage extends StatelessWidget {
                               (element) => element.mealCategory == MealCategory.values[index].label);
 
                           final mealItems = mealForCurrentCategory?.mealItems;
+                          final isEnabled = mealItems != null && mealItems.isNotEmpty;
 
                           return MealCard(
-                            mealId: mealForCurrentCategory?.id,
+                            mealId: isEnabled ? mealForCurrentCategory?.id : null,
                             title: category,
-                            mealItems: mealItems,
-                            calorieDensity:
-                                mealItems != null ? mealsState.calorieDensitySum(mealItems) : null,
+                            mealItems: isEnabled ? mealItems : null,
+                            calorieDensity: isEnabled ? mealsState.calorieDensitySum(mealItems) : null,
                           );
                         },
                         separatorBuilder: (BuildContext context, int index) {
