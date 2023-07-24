@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -38,11 +38,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     );
     on<PaginatedSearch>(
       _onPaginatedSearch,
-      transformer: (events, mapper) => events
-          .map((q) => q.copyWith(query: q.query.trim()))
-          .distinct()
-          .debounceTime(const Duration(milliseconds: 300))
-          .switchMap(mapper),
+      transformer: droppable(),
     );
     on<ResetData>(_onResetData);
     on<AddSearchResult>(_onAddSearchResult);
@@ -85,20 +81,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     return list;
   }
 
-  Future<FutureOr<void>> _onResetData(
-    ResetData event,
-    Emitter<SearchState> emit,
-  ) async {
-    var list = await _getRecentSearch(true);
-    emit(
-      SearchState.initial(
-        state.data.copyWith(
-          recentSearch: list,
-        ),
-      ),
-    );
-  }
-
   Future<dartz.Either<RequestError, SearchResponse>> searchRequst(
       String query, String? filteredMode, String? mode, int? page, int? limit) async {
     var eventLimit = limit ?? searchLimit;
@@ -125,22 +107,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     Search event,
     Emitter<SearchState> emit,
   ) async {
-    if (event.query.length < 3) {
-      emit(
-        SearchState.searchResult(
-          state.data.copyWith(
-            searchParameters: state.data.searchParameters.copyWith(
-              isLastPage: false,
-            ),
-          ),
-        ),
-      );
-      return;
-    }
+    if (event.query.length < 3) return;
 
-    final isLast = state.data.searchParameters.isLastPage ?? false;
-    final prevMode = state.data.searchParameters.mode ?? '';
-    if (isLast && prevMode == event.mode) return;
+    emit(SearchState.loading(state.data.copyWith(isLoading: true)));
 
     final response = await searchRequst(
       event.query,
@@ -151,11 +120,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     );
 
     response.fold(
-      (error) => emit(SearchState.error(state.data.copyWith(error: error))),
+      (error) => emit(SearchState.error(state.data.copyWith(error: error, isLoading: false))),
       (response) {
         emit(
           SearchState.searchResult(
             state.data.copyWith(
+              isLoading: false,
               items: response.data,
               searchParameters: SearchParameters(
                 query: event.query,
@@ -213,6 +183,17 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           ),
         );
       },
+    );
+  }
+
+  FutureOr<void> _onResetData(ResetData event, Emitter<SearchState> emit) async {
+    final list = await _getRecentSearch(true);
+    emit(
+      SearchState.initial(
+        state.data.copyWith(
+          recentSearch: list,
+        ),
+      ),
     );
   }
 }

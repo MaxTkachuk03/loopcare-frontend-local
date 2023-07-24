@@ -20,6 +20,7 @@ class SearchData with _$SearchData {
     @Default(<SearchItem>[]) List<SearchItem> items,
     @Default(SearchParameters()) SearchParameters searchParameters,
     @Default(false) bool loadingMore,
+    @Default(false) bool isLoading,
     RequestError? error,
   }) = _SearchData;
 }
