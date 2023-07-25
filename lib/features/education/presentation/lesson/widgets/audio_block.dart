@@ -72,6 +72,7 @@ class _AudioBlockState extends State<AudioBlock> {
       s.cancel();
     }
     audioPlayer.stop();
+    audioPlayer.dispose();
     super.dispose();
   }
 
