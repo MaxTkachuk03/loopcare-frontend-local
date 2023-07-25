@@ -7,10 +7,10 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/favorites_item/favorites_item.dart';
 
 class FavoriteListItem extends StatelessWidget {
-  final FoodItem foodItem;
+  final FavoritesItem foodItem;
 
   const FavoriteListItem({
     Key? key,
@@ -90,7 +90,7 @@ class FavoriteListItem extends StatelessWidget {
     );
   }
 
-  void _onChanged(bool? value, FoodItem foodItem, BuildContext context) {
+  void _onChanged(bool? value, FavoritesItem foodItem, BuildContext context) {
     final val = value ?? false;
     final bloc = context.read<SelectFoodBloc>();
 

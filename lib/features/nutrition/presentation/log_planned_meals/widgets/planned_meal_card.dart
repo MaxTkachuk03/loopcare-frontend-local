@@ -8,10 +8,11 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/meal_item_type/meal_item_type.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/grouped_meal_list/grouped_meal_list.dart';
 
 class PlannedMealCard extends StatelessWidget {
-  final Map<String, List<MealItem>> mealItem;
+  final Map<MealItemType, List<MealItem>> mealItem;
   final int plannedMealId;
   final String mealCategory;
 

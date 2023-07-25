@@ -55,7 +55,7 @@ class MealsEvent with _$MealsEvent {
     String dishId,
   ) = DeleteDishFromMeal;
 
-  const factory MealsEvent.createFromFavorites(List<FoodItem> foodItemList) = CreateFromFavorites;
+  const factory MealsEvent.createFromFavorites(List<FavoritesItem> foodItemList) = CreateFromFavorites;
 
   const factory MealsEvent.setCurrentDate(
     DateTime currentDate,

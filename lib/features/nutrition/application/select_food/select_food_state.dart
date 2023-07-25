@@ -9,9 +9,9 @@ class SelectFoodState with _$SelectFoodState {
   const factory SelectFoodState.loading() = _Loading;
 
   const factory SelectFoodState.selectFood({
-    required IList<FoodItem> favorites,
+    required IList<FavoritesItem> favorites,
     required IList<Dish> dishes,
-    required IList<FoodItem> selectedFavoritesItems,
+    required IList<FavoritesItem> selectedFavoritesItems,
     required IList<MealCategoryFilter> mealFavoritesCategories,
     required IList<MealCategoryFilter> dishFavoritesCategories,
   }) = _SelectFood;
@@ -19,11 +19,11 @@ class SelectFoodState with _$SelectFoodState {
 //TODO: old state style
   const factory SelectFoodState.error(RequestError fetchError) = _Error;
 
-  List<FoodItem> get selectedFavoritesItemsList {
+  List<FavoritesItem> get selectedFavoritesItemsList {
     return mapOrNull(
           selectFood: (state) => state.selectedFavoritesItems.toList(),
         ) ??
-        <FoodItem>[];
+        <FavoritesItem>[];
   }
 
   int get selectedFavoritesItemsLength {

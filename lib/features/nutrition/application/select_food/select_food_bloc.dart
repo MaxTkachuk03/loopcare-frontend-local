@@ -9,7 +9,7 @@ import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_favorites_category/dish_favorites_category.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/favorites_item/favorites_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/meal_favorites_category/meal_favorites_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 
@@ -65,7 +65,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
           dishes: dishes ?? <Dish>[].toIList(),
           mealFavoritesCategories: _getMealFavoriteCategories(event.mealCategory),
           dishFavoritesCategories: dishesFilters ?? <MealCategoryFilter>[].toIList(),
-          selectedFavoritesItems: <FoodItem>[].toIList(),
+          selectedFavoritesItems: <FavoritesItem>[].toIList(),
         ),
       ),
     );
@@ -84,11 +84,11 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
       (error) => emit(SelectFoodState.error(error)),
       (response) => emit(
         SelectFoodState.selectFood(
-          favorites: favorites ?? <FoodItem>[].toIList(),
+          favorites: favorites ?? <FavoritesItem>[].toIList(),
           dishes: response.data.toIList(),
           mealFavoritesCategories: favoritesFiltes ?? <MealCategoryFilter>[].toIList(),
           dishFavoritesCategories: _getDishFavoriteCategories(event.mealCategory),
-          selectedFavoritesItems: <FoodItem>[].toIList(),
+          selectedFavoritesItems: <FavoritesItem>[].toIList(),
         ),
       ),
     );
@@ -173,7 +173,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     Emitter<SelectFoodState> emit,
   ) {
     state.mapOrNull(selectFood: (state) {
-      emit(state.copyWith(selectedFavoritesItems: <FoodItem>[].toIList()));
+      emit(state.copyWith(selectedFavoritesItems: <FavoritesItem>[].toIList()));
     });
   }
 

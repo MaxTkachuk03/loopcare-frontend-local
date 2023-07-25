@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_but
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_favorites_category/dish_favorites_category.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/meal_item_type/meal_item_type.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
@@ -82,7 +83,7 @@ class _RecipePageState extends State<RecipePage> {
     final recipeId = !isMealRecipe
         ? mealState.currentFoodItems
             .firstWhere(
-                (element) => element.type == 'recipe' && element.externalId == recipeState.externalRecipeId)
+                (element) => element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
             .id
         : recipeState.recipeId;
 
@@ -349,7 +350,7 @@ class _RecipePageState extends State<RecipePage> {
           final recipeId = !isMealRecipe
               ? mealState.currentFoodItems
                   .firstWhere((element) =>
-                      element.type == 'recipe' && element.externalId == recipeState.externalRecipeId)
+                      element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
                   .id
               : recipeState.recipeId;
 
@@ -383,7 +384,7 @@ class _RecipePageState extends State<RecipePage> {
     final prevFoodItems = previous.currentFoodItems;
     final curFoodItems = current.currentFoodItems;
     final newRecipeId = curFoodItems.firstWhere((element) => !prevFoodItems.contains(element));
-    if (newRecipeId.type == 'recipe' && newRecipeId.externalId == externalRecipeId) {
+    if (newRecipeId.type == MealItemType.recipe && newRecipeId.externalId == externalRecipeId) {
       setState(() {
         internalRecipeId = newRecipeId.id;
       });

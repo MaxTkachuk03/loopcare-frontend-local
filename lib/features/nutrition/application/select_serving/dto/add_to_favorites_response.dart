@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/meal_item_type/meal_item_type.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 
 part 'add_to_favorites_response.g.dart';
@@ -7,7 +8,7 @@ part 'add_to_favorites_response.g.dart';
 @immutable
 @JsonSerializable()
 class AddToFavoritesResponse {
-  final String brandName;
+  final String? brandName;
   final String? foodDescription;
   final String id;
   final String foodName;

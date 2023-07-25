@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/favorites_item/favorites_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
 
 class FooterOverlay extends StatelessWidget {
@@ -79,7 +80,7 @@ class FooterOverlay extends StatelessWidget {
         .add(const SelectFoodEvent.itemsDeselectAll());
   }
 
-  void _onAdd(BuildContext context, List<FoodItem> foodItemList) {
+  void _onAdd(BuildContext context, List<FavoritesItem> foodItemList) {
     context.read<MealsBloc>().add(
           MealsEvent.createFromFavorites(foodItemList),
         );

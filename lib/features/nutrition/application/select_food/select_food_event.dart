@@ -15,9 +15,9 @@ class SelectFoodEvent with _$SelectFoodEvent {
     IList<MealCategoryFilter> filtersList,
   ) = FilterDishes;
 
-  const factory SelectFoodEvent.itemAdded(FoodItem foodItem) = ItemAdded;
+  const factory SelectFoodEvent.itemAdded(FavoritesItem foodItem) = ItemAdded;
 
-  const factory SelectFoodEvent.itemDeleted(FoodItem foodItem) = ItemDeleted;
+  const factory SelectFoodEvent.itemDeleted(FavoritesItem foodItem) = ItemDeleted;
 
   const factory SelectFoodEvent.itemsDeselectAll() = ItemsDeselectAll;
 

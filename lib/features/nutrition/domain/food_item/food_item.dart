@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/meal_item_type/meal_item_type.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/weight_conversion_utils.dart';
 
@@ -13,8 +14,8 @@ abstract class FoodItem implements _$FoodItem {
   const factory FoodItem({
     required String id,
     required String foodName,
-    required String foodType,
-    required String brandName,
+    required MealItemType foodType,
+    required String? brandName,
     required String? foodDescription,
     required ServingSize serving,
   }) = _FoodItem;

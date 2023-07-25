@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_f
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/meal_item_type/meal_item_type.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/meal/widgets/empty_meal.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/food_list_item/food_list_item.dart';
 
@@ -55,25 +56,25 @@ class MealsList extends StatelessWidget {
     BuildContext context,
     FoodItem item,
   ) {
-    if (item.foodType == 'recipe') {
+    if (item.foodType == MealItemType.recipe) {
       context.read<MealsBloc>().add(MealsEvent.deleteRecipeFromMeal(item.id));
 
       return;
     }
 
-    if (item.foodType == 'dish') {
+    if (item.foodType == MealItemType.dish) {
       context.read<MealsBloc>().add(MealsEvent.deleteDishFromMeal(item.id));
 
       return;
     }
 
-    if (item.foodType == 'food') {
+    if (item.foodType == MealItemType.food) {
       context.read<MealsBloc>().add(MealsEvent.deleteFoodItemFromMeal(item.id));
     }
   }
 
   void _onTap(BuildContext context, MealItem item) {
-    if (item.type == 'recipe') {
+    if (item.type == MealItemType.recipe) {
       context.router.push(
         RecipeRoute(
           id: item.id,
@@ -84,7 +85,7 @@ class MealsList extends StatelessWidget {
 
       return;
     }
-    if (item.type == 'dish') {
+    if (item.type == MealItemType.dish) {
       context.router.push(
         DishDetailsRoute(
           dishId: item.id,
