@@ -55,6 +55,7 @@ class _UnitTabsState extends State<UnitTabs>
   @override
   void dispose() {
     _tabController.removeListener(_onTabChanged);
+    _tabController.dispose();
 
     super.dispose();
   }

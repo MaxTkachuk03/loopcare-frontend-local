@@ -61,6 +61,7 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
   @override
   void dispose() {
     _tabController.removeListener(_onTabsChanged);
+    _tabController.dispose();
 
     super.dispose();
   }
