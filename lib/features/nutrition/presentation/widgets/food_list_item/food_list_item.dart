@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/domain/calorie_density_scale_values.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/calorie_density_color.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/meal_item_type/meal_item_type.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 
 class FoodListItem extends StatelessWidget {
@@ -22,14 +22,6 @@ class FoodListItem extends StatelessWidget {
     this.onTap,
   }) : super(key: key);
 
-  Color get _calorieDensityColor {
-    Range item = calorieDensityScaleValues.firstWhere((e) {
-      return e.min <= foodItem.calorieDensity && foodItem.calorieDensity <= e.max;
-    }, orElse: () => calorieDensityScaleValues[calorieDensityScaleValues.length - 1]);
-
-    return item.color;
-  }
-
   @override
   Widget build(BuildContext context) {
     final NutritionItem currentNutritionFact =
@@ -37,12 +29,12 @@ class FoodListItem extends StatelessWidget {
 
     String label;
 
-    if (foodItem.foodType == 'recipe') {
+    if (foodItem.foodType == MealItemType.recipe) {
       label = LocalizedTexts.recipe.translation;
-    } else if (foodItem.foodType == 'dish') {
+    } else if (foodItem.foodType == MealItemType.dish) {
       label = LocalizedTexts.myDish.translation;
     } else {
-      label = foodItem.brandName;
+      label = foodItem.brandName ?? '';
     }
 
     return Material(

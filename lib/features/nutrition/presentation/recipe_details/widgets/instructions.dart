@@ -30,32 +30,32 @@ class Instructions extends StatelessWidget {
                   const SizedBox(
                     height: 16.0,
                   ),
-                  ListView.builder(
-                    itemCount: s.recipe.directions.length,
-                    padding: const EdgeInsets.all(0),
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      final item = s.recipe.directions[index];
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: s.recipe.directions.length,
+                      padding: const EdgeInsets.all(0),
+                      itemBuilder: (BuildContext context, int index) {
+                        final item = s.recipe.directions[index];
 
-                      return Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('${item.number}.'),
-                              const SizedBox(
-                                width: 4.0,
-                              ),
-                              Expanded(child: Text(item.description))
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 16.0,
-                          ),
-                        ],
-                      );
-                    },
+                        return Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('${item.number}.'),
+                                const SizedBox(
+                                  width: 4.0,
+                                ),
+                                Expanded(child: Text(item.description))
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 16.0,
+                            ),
+                          ],
+                        );
+                      },
+                    ),
                   )
                 ],
               ),

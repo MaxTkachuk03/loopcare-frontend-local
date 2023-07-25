@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/meal_item_type/meal_item_type.dart';
 
 class GroupedMealList extends StatelessWidget {
   final List<MealItem> mealItems;
@@ -17,9 +19,9 @@ class GroupedMealList extends StatelessWidget {
       itemCount: mealItems.length,
       itemBuilder: (BuildContext context, index) {
         final item = mealItems[index];
-        String type = item.type;
-        String prevType = '';
-        if (index > 0) prevType = mealItems[index - 1].type;
+        final type = item.type;
+        final prevType = index > 0 ? mealItems[index - 1].type : null;
+        final recipeNotation = type == MealItemType.recipe ? ' (${LocalizedTexts.recipe.translation})' : '';
 
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +39,7 @@ class GroupedMealList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    item.name,
+                    '${item.name}$recipeNotation',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   )
@@ -53,11 +55,11 @@ class GroupedMealList extends StatelessWidget {
     );
   }
 
-  AssetImage _getIcon(String type) {
-    if (type == 'recipe') {
+  AssetImage _getIcon(MealItemType type) {
+    if (type == MealItemType.recipe) {
       return AppIcons.cook;
     }
-    if (type == 'dish') {
+    if (type == MealItemType.dish) {
       return AppIcons.pan;
     }
 

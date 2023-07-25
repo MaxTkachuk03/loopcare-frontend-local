@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_food_item/dish_food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/meal_item_type/meal_item_type.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/food_list_item/food_list_item.dart';
 
 class DishList extends StatelessWidget {
@@ -32,7 +33,7 @@ class DishList extends StatelessWidget {
           foodItem: FoodItem(
             id: item.id.toString(),
             foodName: item.foodName,
-            foodType: item.brandName,
+            foodType: MealItemType.food,
             brandName: item.brandName,
             foodDescription: null,
             serving: item.serving,
