@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/allergic/widgets/allergic_chips.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/do_not_like/widgets/do_not_like_chips.dart';
@@ -46,14 +47,6 @@ class EditFoodPreferencesPage extends StatelessWidget {
         dislikes: (_) => const DoYouLikeChips());
   }
 
-  get _question {
-    return mode.map(
-      hates: (_) => LocalizedTexts.dontEatFoodMessage,
-      allergies: (_) => LocalizedTexts.allergicQuestion,
-      dislikes: (_) => LocalizedTexts.dislikeFoodMessage,
-    );
-  }
-
   _onOkHandler(BuildContext context) {
     context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.saveFoodPreferences());
     context.router.pop();
@@ -63,13 +56,14 @@ class EditFoodPreferencesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.router.pop(),
-        ),
+        backgroundColor: AppColors.blueAppBar,
+        leading: const BackButtonHexagon(),
         title: Text(
           _title,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontWeight: FontWeight.w700,
+                color: AppColors.white,
+              ),
         ).tr(),
       ),
       body: SafeArea(
@@ -77,14 +71,7 @@ class EditFoodPreferencesPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 24.0),
-              Text(
-                _question,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-              ).tr(),
-              const SizedBox(height: 26.0),
+              const SizedBox(height: 32.0),
               Expanded(child: ScrollableContainer(child: content)),
               Column(
                 children: [
@@ -102,7 +89,7 @@ class EditFoodPreferencesPage extends StatelessWidget {
                         },
                       ),
                     ),
-                    child: Text(LocalizedTexts.ok.toUpperCase()).tr(),
+                    child: const Text(LocalizedTexts.confirm).tr(),
                   ),
                   const SizedBox(height: 30.0),
                 ],
