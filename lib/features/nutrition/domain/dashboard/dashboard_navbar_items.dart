@@ -27,7 +27,7 @@ extension DashboardNavbarItemsX on DashboardNavbarItems {
       case DashboardNavbarItems.education:
         return AppColors.orange;
       case DashboardNavbarItems.account:
-        return AppColors.bgGreen;
+        return AppColors.blueDark;
     }
   }
 }
