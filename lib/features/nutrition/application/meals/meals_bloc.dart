@@ -15,7 +15,6 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/favorites_item/favorites_item.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/meal_action_mode/meal_action_modes.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
@@ -567,6 +566,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
                 currentMealCategory: event.mealCategory,
                 currentMealId: r.id,
                 meals: meals,
+                error: null,
               ),
             );
           },
@@ -624,6 +624,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
                 currentMealCategory: event.mealCategory,
                 currentMealId: r.id,
                 plannedMeals: meals,
+                error: null,
               ),
             );
           },
