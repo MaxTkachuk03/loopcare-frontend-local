@@ -446,6 +446,9 @@ class LocalizedTexts {
 
   // User profile
   static const String profile = 'profile';
+  static const String yourProfile = 'yourProfile';
+  static const String inCaseOfEmergency = 'inCaseOfEmergency';
+  static const String reportAbuse = 'reportAbuse';
   static const String personalDetails = 'personalDetails';
   static const String testResults = 'testResults';
   static const String preferences = 'preferences';

@@ -141,5 +141,7 @@ class AppIcons {
 
   static SvgPicture telephone = SvgPicture.asset('$iconsFilePath/telephone.svg');
 
+  static SvgPicture sos = SvgPicture.asset('$iconsFilePath/sos.svg');
+
   AppIcons._();
 }

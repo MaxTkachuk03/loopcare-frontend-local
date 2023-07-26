@@ -1,6 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item_toggler.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
@@ -30,33 +34,73 @@ class _AccountSectionState extends State<AccountSection> {
     });
   }
 
+  _onLogOutPressed() {
+    context.read<AuthenticationCubit>().logout();
+  }
+
+  _onDeleteAccountPressed() {
+    ModalBottomSheet.deleteAccount(
+      context: context,
+      onDeleted: () {
+        context.read<AuthenticationCubit>().deleteAccount();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 32.0),
-        const SectionTitle(title: LocalizedTexts.account),
-        BlocBuilder<AuthenticationCubit, AuthenticationState>(
-          builder: (BuildContext context, state) {
-            return SectionItem(title: LocalizedTexts.username, subTitle: state.email, onPressHandler: () {});
-          },
-        ),
-        const SizedBox(height: 10.0),
-        SectionItem(title: LocalizedTexts.changePassword, onPressHandler: () {}),
-        const SizedBox(height: 10.0),
-        SectionItemToggler(
-          title: LocalizedTexts.useFaceOrTouchId,
-          value: _useFaceId,
-          onPressHandler: _onUseFaceIdToggle,
-        ),
-        const SizedBox(height: 10.0),
-        SectionItemToggler(
-          title: LocalizedTexts.requireLoginEachTime,
-          value: _requireLogin,
-          onPressHandler: _onRequireLogin,
-        ),
-        const SizedBox(height: 32.0),
-      ],
+    return AccountContainer(
+      child: Column(
+        children: [
+          const SizedBox(height: 32.0),
+          const SectionTitle(title: LocalizedTexts.account),
+          BlocBuilder<AuthenticationCubit, AuthenticationState>(
+            builder: (BuildContext context, state) {
+              return SectionItem(
+                  title: LocalizedTexts.username, subTitle: state.email, onPressHandler: () {});
+            },
+          ),
+          const SizedBox(height: 16.0),
+          const Divider(height: 1.0, color: AppColors.yellowLight),
+          const SizedBox(height: 16.0),
+          SectionItem(title: LocalizedTexts.changePassword, onPressHandler: () {}),
+          const SizedBox(height: 16.0),
+          const Divider(height: 1.0, color: AppColors.yellowLight),
+          const SizedBox(height: 16.0),
+          SectionItemToggler(
+            title: LocalizedTexts.useFaceOrTouchId,
+            value: _useFaceId,
+            onPressHandler: _onUseFaceIdToggle,
+          ),
+          const SizedBox(height: 16.0),
+          const Divider(height: 1.0, color: AppColors.yellowLight),
+          const SizedBox(height: 16.0),
+          SectionItemToggler(
+            title: LocalizedTexts.requireLoginEachTime,
+            value: _requireLogin,
+            onPressHandler: _onRequireLogin,
+          ),
+          const SizedBox(height: 16.0),
+          const Divider(height: 1.0, color: AppColors.yellowLight),
+          const SizedBox(height: 16.0),
+          ElevatedButton(
+            onPressed: _onLogOutPressed,
+            style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                  backgroundColor: MaterialStateProperty.all(AppColors.blueDark),
+                ),
+            child: const Text(LocalizedTexts.signOut).tr(),
+          ),
+          const SizedBox(height: 16.0),
+          TextButton(
+            onPressed: _onDeleteAccountPressed,
+            style: TextButton.styleFrom(
+              foregroundColor: AppColors.red,
+              textStyle: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
+            ),
+            child: const Text(LocalizedTexts.deleteAccount).tr(),
+          ),
+        ],
+      ),
     );
   }
 }

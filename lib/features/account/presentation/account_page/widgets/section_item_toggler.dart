@@ -33,7 +33,7 @@ class SectionItemToggler extends StatelessWidget {
         ),
         CupertinoSwitch(
           value: value,
-          activeColor: AppColors.darkGreen,
+          activeColor: AppColors.blueDark,
           onChanged: onPressHandler,
         )
       ],

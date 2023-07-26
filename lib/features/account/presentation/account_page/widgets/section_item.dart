@@ -26,7 +26,7 @@ class SectionItem extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500),
+                style: Theme.of(context).textTheme.bodyMedium,
               ).tr(),
               if (subTitle != null)
                 Text(subTitle ?? '',
