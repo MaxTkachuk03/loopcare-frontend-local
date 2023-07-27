@@ -20,6 +20,7 @@ import 'package:loopcare_frontend/features/diabetes/presentation/summary/summary
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/lesson_complete_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_error_page/lesson_error_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_page/lesson_page.dart';
+import 'package:loopcare_frontend/features/group_preferences/presentation/group_preferences_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/cooking/cooking_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/healthier_food/healthier_food_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/household_and_habits_intro/household_and_habits_intro_page.dart';
@@ -439,6 +440,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.videoSession,
       page: VideoSessionPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.groupPreferences,
+      page: GroupPreferencesPage,
     ),
   ],
 )

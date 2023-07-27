@@ -486,6 +486,26 @@ class LocalizedTexts {
   static const String favoritesList = 'favoritesList';
   static const String dishesExplain = 'dishesExplain';
   static const String dishesList = 'dishesList';
+
+  // Group preferences
+  static const String groupPreferences = 'groupPreferences';
+  static const String wouldYouLikeToJoinSupportGroup = 'wouldYouLikeToJoinSupportGroup';
+  static const String weAreLookingForAMatch = 'weAreLookingForAMatch';
+  static const String weAreLookingForAGroupSince = 'weAreLookingForAGroupSince';
+  static const String genderPreference = 'genderPreference';
+  static const String timezone = 'timezone';
+  static const String yourNickname = 'yourNickname';
+  static const String partOfGroup = 'partOfGroup';
+  static const String iNoLongerWantToJoin = 'iNoLongerWantToJoin';
+  static const String update = 'update';
+  static const String weHaveNotYetFound = 'weHaveNotYetFound';
+  static const String toSpeedUpTheProcess = 'toSpeedUpTheProcess';
+  static const String goodNews = 'goodNews';
+  static const String youHaveBeenAddedToGroup = 'youHaveBeenAddedToGroup';
+  static const String readTheGroupRules = 'readTheGroupRules';
+  static const String leaveGroup = 'leaveGroup';
+  static const String notYet = 'notYet';
+
 }
 
 extension StringX on String {

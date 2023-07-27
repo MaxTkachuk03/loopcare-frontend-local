@@ -1,0 +1,54 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+
+class PartOfGroup extends StatelessWidget {
+  const PartOfGroup({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    // Allocated to group form
+    // return Column(
+    //   crossAxisAlignment: CrossAxisAlignment.start,
+    //   children: [
+    //     const Text(LocalizedTexts.partOfGroup).tr(),
+    //     Text(
+    //       LocalizedTexts.yes.capitalize(),
+    //       style: Theme.of(context).textTheme.headlineSmall,
+    //     ).tr(),
+    //     const SizedBox(
+    //       height: 16.0,
+    //     ),
+    //     SizedBox(
+    //       height: 26,
+    //       child: TextButton(
+    //         onPressed: () {},
+    //         style: TextButton.styleFrom(
+    //           padding: const EdgeInsets.all(0),
+    //           foregroundColor: AppColors.blueDark,
+    //           textStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+    //         ),
+    //         child: const Text(LocalizedTexts.readTheGroupRules).tr(),
+    //       ),
+    //     ),
+    //   ],
+    // );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(LocalizedTexts.partOfGroup).tr(),
+        Text(
+          LocalizedTexts.notYet,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: AppColors.greyLabel,
+                fontWeight: FontWeight.w600,
+              ),
+        ).tr()
+      ],
+    );
+  }
+}
