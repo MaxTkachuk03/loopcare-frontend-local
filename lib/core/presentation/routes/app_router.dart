@@ -4,6 +4,9 @@ import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/account_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/edit_food_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/food_preferences_page/food_preferences_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/gender_preferences_page/gender_preferences_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/join_group_preferences_page/join_group_preferences_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/nickname_preferences_page/nickname_preferences_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/email_address/email_address_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/forgot_password/forgot_password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/login/login_page.dart';
@@ -423,6 +426,18 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.editFoodPreferences,
       page: EditFoodPreferencesPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.joinGroupPreferences,
+      page: JoinGroupPreferencesPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.genderPreferences,
+      page: GenderPreferencesPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.nicknamePreferences,
+      page: NicknamePreferencesPage,
     ),
     // Video
     AutoRoute(
