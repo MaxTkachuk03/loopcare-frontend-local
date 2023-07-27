@@ -110,5 +110,8 @@ class AppRoutes {
   // Video session
   static const String videoSession = '/video-session';
 
+  // group preferences
+  static const String groupPreferences = '/group-preferences';
+
   AppRoutes._();
 }
