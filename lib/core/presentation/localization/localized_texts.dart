@@ -465,6 +465,10 @@ class LocalizedTexts {
   static const String dontEatFoodMessage = 'dontEatFoodMessage';
   static const String dontEat = 'dontEat';
   static const String dontLike = 'dontLike';
+  static const String noPreference = 'noPreference';
+  static const String femaleOnly = 'femaleOnly';
+  static const String maleOnly = 'maleOnly';
+  static const String mixed = 'mixed';
 
   // Video
   static const String rotateDevice = 'rotateDevice';
@@ -505,7 +509,9 @@ class LocalizedTexts {
   static const String readTheGroupRules = 'readTheGroupRules';
   static const String leaveGroup = 'leaveGroup';
   static const String notYet = 'notYet';
-
+  static const String genderPreferencesQuestion = 'genderPreferencesQuestion';
+  static const String nicknamePreferencesQuestion = 'nicknamePreferencesQuestion';
+  static const String nicknamePlaceholder = 'nicknamePlaceholder';
 }
 
 extension StringX on String {

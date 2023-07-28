@@ -99,6 +99,9 @@ class AppRoutes {
   // User profile
   static const String foodPreferences = '/food-preferences';
   static const String editFoodPreferences = '/edit-food-preferences';
+  static const String joinGroupPreferences = '/join-group-preferences';
+  static const String genderPreferences = '/gender-preferences';
+  static const String nicknamePreferences = '/nickname-preferences';
 
   // Video
   static const String video = '/video';
