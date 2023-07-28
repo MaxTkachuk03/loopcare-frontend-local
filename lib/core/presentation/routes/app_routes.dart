@@ -115,6 +115,7 @@ class AppRoutes {
 
   // group preferences
   static const String groupPreferences = '/group-preferences';
+  static const String timezone = '/timezone_preferences_page';
   static const String groupRulesOne = '/group-rules-one';
   static const String groupRulesTwo = '/group-rules-two';
   static const String groupRulesThree = '/group-rules-three';

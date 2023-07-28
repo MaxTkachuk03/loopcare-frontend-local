@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
-class NutritionField extends StatelessWidget {
+class SearchField extends StatelessWidget {
   final bool readOnly;
   final String hintText;
   final EdgeInsetsGeometry? contentPadding;
   final Widget? prefixIcon;
+  final void Function(String value)? onChanged;
 
-  const NutritionField({
+  const SearchField({
     Key? key,
     this.readOnly = false,
     required this.hintText,
     this.contentPadding,
     this.prefixIcon,
+    this.onChanged,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       readOnly: readOnly,
+      onChanged: onChanged,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(

@@ -6,12 +6,12 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/search_field.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_food_item_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/nutrition_field/nutrition_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/underlined_tab_bar.dart';
 
 class UnderAppBarContainer extends StatelessWidget {
@@ -34,7 +34,7 @@ class UnderAppBarContainer extends StatelessWidget {
                 child: InkWell(
                   onTap: () => _onSearchTap(context),
                   child: IgnorePointer(
-                    child: NutritionField(
+                    child: SearchField(
                       readOnly: true,
                       hintText: LocalizedTexts.searchHint.translation,
                       contentPadding: const EdgeInsets.symmetric(

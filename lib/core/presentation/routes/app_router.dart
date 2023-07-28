@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/features/account/presentation/group_rules_page
 import 'package:loopcare_frontend/features/account/presentation/gender_preferences_page/gender_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/join_group_preferences_page/join_group_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/nickname_preferences_page/nickname_preferences_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/timezone_preferences_page/timezone_preferences_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/email_address/email_address_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/forgot_password/forgot_password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/login/login_page.dart';
@@ -465,6 +466,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.groupPreferences,
       page: GroupPreferencesPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.timezone,
+      page: TimezonePreferencesPage,
     ),
     AutoRoute(
       path: AppRoutes.groupRulesOne,

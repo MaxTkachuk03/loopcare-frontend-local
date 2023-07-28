@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:timezone/timezone.dart' as tz;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -23,6 +23,9 @@ Future<void> main() async {
   );
 
   await EasyLocalization.ensureInitialized();
+
+  final byteData = await rootBundle.load('assets/timezones/latest.tzf');
+  tz.initializeDatabase(byteData.buffer.asUint8List());
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
