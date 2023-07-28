@@ -10,8 +10,12 @@ import 'package:loopcare_frontend/features/account/presentation/account_page/wid
 class PreferencesSection extends StatelessWidget {
   const PreferencesSection({Key? key}) : super(key: key);
 
-  _onFoodHandler(BuildContext context) {
+  void _onFoodHandler(BuildContext context) {
     context.router.pushNamed(AppRoutes.foodPreferences);
+  }
+
+  void _onGroupSessionsHandler(BuildContext context) {
+    context.router.pushNamed(AppRoutes.groupPreferences);
   }
 
   @override
@@ -28,7 +32,8 @@ class PreferencesSection extends StatelessWidget {
           const SizedBox(height: 16.0),
           const Divider(height: 1.0, color: AppColors.yellowLight),
           const SizedBox(height: 16.0),
-          SectionItem(title: LocalizedTexts.groupSessions, onPressHandler: () {}),
+          SectionItem(
+              title: LocalizedTexts.groupSessions, onPressHandler: () => _onGroupSessionsHandler(context)),
           const SizedBox(height: 16.0),
           const Divider(height: 1.0, color: AppColors.yellowLight),
           const SizedBox(height: 16.0),
