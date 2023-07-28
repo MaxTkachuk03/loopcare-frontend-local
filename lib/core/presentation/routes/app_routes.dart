@@ -115,6 +115,12 @@ class AppRoutes {
 
   // group preferences
   static const String groupPreferences = '/group-preferences';
+  static const String groupRulesOne = '/group-rules-one';
+  static const String groupRulesTwo = '/group-rules-two';
+  static const String groupRulesThree = '/group-rules-three';
+  static const String groupRulesFour = '/group-rules-four';
+  static const String groupRulesFive = '/group-rules-five';
+  static const String groupRulesSix = '/group-rules-six';
 
   AppRoutes._();
 }

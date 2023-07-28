@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 class BulletListItem extends StatelessWidget {
   final Widget text;
   final double bulletSize;
+  final String? bulletSign;
 
-  const BulletListItem({Key? key, required this.text, required this.bulletSize})
+  const BulletListItem({Key? key, required this.text, required this.bulletSize, this.bulletSign})
       : super(key: key);
+
+  String get _bulletSign => bulletSign == null ? "\u2022" : bulletSign!;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +16,7 @@ class BulletListItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "\u2022",
+          _bulletSign,
           style: TextStyle(
             fontSize: bulletSize,
           ),
