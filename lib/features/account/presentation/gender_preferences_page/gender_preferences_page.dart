@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
+import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
 
 class GenderPreferencesPage extends StatefulWidget {
   const GenderPreferencesPage({Key? key}) : super(key: key);
@@ -69,9 +70,10 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
                       children: GenderPreferences.values.map(
                         (GenderPreferences value) {
                           final String gender = context.read<AuthenticationCubit>().state.gender;
-                          final shouldRemoveMale = gender == 'male' && value == GenderPreferences.maleOnly;
+                          final shouldRemoveMale =
+                              gender == SexType.male.name && value == GenderPreferences.maleOnly;
                           final shouldRemoveFemale =
-                              gender == 'female' && value == GenderPreferences.femaleOnly;
+                              gender == SexType.female.name && value == GenderPreferences.femaleOnly;
 
                           if (shouldRemoveMale || shouldRemoveFemale) return const SizedBox.shrink();
 
