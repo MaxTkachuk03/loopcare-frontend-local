@@ -498,7 +498,7 @@ class LocalizedTexts {
   static const String weAreLookingForAMatch = 'weAreLookingForAMatch';
   static const String weAreLookingForAGroupSince = 'weAreLookingForAGroupSince';
   static const String genderPreference = 'genderPreference';
-  static const String timezone = 'timezone';
+  static const String timezone = 'timezone_preferences_page';
   static const String yourNickname = 'yourNickname';
   static const String partOfGroup = 'partOfGroup';
   static const String iNoLongerWantToJoin = 'iNoLongerWantToJoin';
@@ -510,6 +510,8 @@ class LocalizedTexts {
   static const String readTheGroupRules = 'readTheGroupRules';
   static const String leaveGroup = 'leaveGroup';
   static const String notYet = 'notYet';
+  static const String whatIsYourTimezone = 'whatIsYourTimezone';
+  static const String searchTimezone = 'searchTimezone';
   static const String genderPreferencesQuestion = 'genderPreferencesQuestion';
   static const String nicknamePreferencesQuestion = 'nicknamePreferencesQuestion';
   static const String nicknamePlaceholder = 'nicknamePlaceholder';
