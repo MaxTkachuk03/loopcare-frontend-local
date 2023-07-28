@@ -1,11 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/divider_light.dart';
-import 'package:loopcare_frontend/features/group_preferences/presentation/widgets/part_of_group.dart';
-import 'package:loopcare_frontend/features/group_preferences/presentation/widgets/tapped_item.dart';
-import 'package:loopcare_frontend/features/group_preferences/presentation/widgets/white_box.dart';
+import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
+import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/part_of_group.dart';
+import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/tapped_item.dart';
+import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/white_box.dart';
 
 class GroupPreferencesForm extends StatelessWidget {
   const GroupPreferencesForm({Key? key}) : super(key: key);
@@ -63,7 +66,7 @@ class GroupPreferencesForm extends StatelessWidget {
           TappedItem(
             title: LocalizedTexts.genderPreference,
             subTitle: 'Mixed',
-            onPressHandler: () {},
+            onPressHandler: () => _onGenderPreferencesTap(context),
           ),
           const SizedBox(
             height: 16.0,
@@ -75,7 +78,7 @@ class GroupPreferencesForm extends StatelessWidget {
           TappedItem(
             title: LocalizedTexts.timezone,
             subTitle: 'Los Angeles, California, USA (GMT -7:00)',
-            onPressHandler: () {},
+            onPressHandler: () => _onTimezoneTap(context),
           ),
           const SizedBox(
             height: 16.0,
@@ -87,7 +90,7 @@ class GroupPreferencesForm extends StatelessWidget {
           TappedItem(
             title: LocalizedTexts.yourNickname,
             subTitle: 'Catlover',
-            onPressHandler: () {},
+            onPressHandler: () => _onNicknamePreferencesTap(context),
           ),
           const SizedBox(
             height: 16.0,
@@ -122,5 +125,17 @@ class GroupPreferencesForm extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _onGenderPreferencesTap(BuildContext context) {
+    context.router.push(GenderPreferencesRoute(groupPrefsMode: GroupPrefsMode.single));
+  }
+
+  void _onTimezoneTap(BuildContext context) {
+    context.router.push(TimezonePreferencesRoute(groupPrefsMode: GroupPrefsMode.single));
+  }
+
+  void _onNicknamePreferencesTap(BuildContext context) {
+    context.router.push(NicknamePreferencesRoute(groupPrefsMode: GroupPrefsMode.single));
   }
 }

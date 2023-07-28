@@ -4,6 +4,7 @@ import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/account_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/edit_food_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/food_preferences_page/food_preferences_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/group_preferences/group_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_five_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_four_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_one_page.dart';
@@ -30,7 +31,6 @@ import 'package:loopcare_frontend/features/diabetes/presentation/summary/summary
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/lesson_complete_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_error_page/lesson_error_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_page/lesson_page.dart';
-import 'package:loopcare_frontend/features/group_preferences/presentation/group_preferences_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/cooking/cooking_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/healthier_food/healthier_food_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/household_and_habits_intro/household_and_habits_intro_page.dart';

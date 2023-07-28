@@ -1,0 +1,1 @@
+enum GroupPrefsMode { flow, single }

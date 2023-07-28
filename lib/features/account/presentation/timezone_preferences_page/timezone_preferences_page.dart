@@ -1,9 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/orange_button.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:timezone/timezone.dart';
@@ -14,7 +17,9 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/search_field.dart';
 
 class TimezonePreferencesPage extends StatefulWidget {
-  const TimezonePreferencesPage({Key? key}) : super(key: key);
+  final GroupPrefsMode groupPrefsMode;
+
+  const TimezonePreferencesPage({Key? key, required this.groupPrefsMode}) : super(key: key);
 
   @override
   State<TimezonePreferencesPage> createState() => _TimezonePreferencesPageState();
@@ -120,8 +125,13 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
   }
 
   void _onNextPressedHandler() {
-    // TODO save data to the server and make routing depends on page mode
     context.read<GroupPreferencesBloc>().add(GroupPreferencesEvent.setTimezone(_selectedLocation!));
+
+    if (widget.groupPrefsMode == GroupPrefsMode.flow) {
+      context.router.push(NicknamePreferencesRoute(groupPrefsMode: GroupPrefsMode.flow));
+    } else {
+      context.router.pop();
+    }
   }
 
   void _onSearch(String value) {
