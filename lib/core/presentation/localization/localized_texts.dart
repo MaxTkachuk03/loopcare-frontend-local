@@ -493,6 +493,7 @@ class LocalizedTexts {
 
   // Group preferences
   static const String groupPreferences = 'groupPreferences';
+  static const String groupRules = 'groupRules';
   static const String wouldYouLikeToJoinSupportGroup = 'wouldYouLikeToJoinSupportGroup';
   static const String weAreLookingForAMatch = 'weAreLookingForAMatch';
   static const String weAreLookingForAGroupSince = 'weAreLookingForAGroupSince';
@@ -512,6 +513,39 @@ class LocalizedTexts {
   static const String genderPreferencesQuestion = 'genderPreferencesQuestion';
   static const String nicknamePreferencesQuestion = 'nicknamePreferencesQuestion';
   static const String nicknamePlaceholder = 'nicknamePlaceholder';
+
+  // Group rules
+  static const String groupRulesOneTitle = "groupRulesOneTitle";
+  static const String groupRulesAttencion = "groupRulesAttencion";
+  static const String groupRulesOneParagraphOne = "groupRulesOneParagraphOne";
+  static const String groupRulesOneParagraphTwo = "groupRulesOneParagraphTwo";
+  static const String continueToTheRules = "continueToTheRules";
+  static const String yesIAgree = "yesIAgree";
+
+  static const String supportGroupPreferences = "supportGroupPreferences";
+  static const String groupRulesTwoParagraphOne = "groupRulesTwoParagraphOne";
+  static const String groupRulesTwoParagraphTwo = "groupRulesTwoParagraphTwo";
+  static const String groupRulesTwoParagraphThree = "groupRulesTwoParagraphThree";
+
+  static const String groupRulesThreeParagraphOne = "groupRulesThreeParagraphOne";
+  static const String groupRulesThreeParagraphTwo = "groupRulesThreeParagraphTwo";
+  static const String groupRulesThreeParagraphThree = "groupRulesThreeParagraphThree";
+
+  static const String groupRulesFourParagraphOnePartOne = "groupRulesFourParagraphOnePartOne";
+  static const String groupRulesFourParagraphOnePartTwo = "groupRulesFourParagraphOnePartTwo";
+  static const String groupRulesFourParagraphOnePartThree = "groupRulesFourParagraphOnePartThree";
+  static const String groupRulesFourParagraphOneItalicOne = "groupRulesFourParagraphOneItalicOne";
+  static const String groupRulesFourParagraphOneItalicTwo = "groupRulesFourParagraphOneItalicTwo";
+  static const String groupRulesFourParagraphOneItalicThree = "groupRulesFourParagraphOneItalicThree";
+  static const String groupRulesFourParagraphTwo = "groupRulesFourParagraphTwo";
+
+  static const String groupRulesFiveParagraphOne = "groupRulesFiveParagraphOne";
+  static const String groupRulesFiveParagraphTwo = "groupRulesFiveParagraphTwo";
+
+  static const String groupRulesSixParagraphOne = "groupRulesSixParagraphOne";
+  static const String groupRulesSixParagraphTwo = "groupRulesSixParagraphTwo";
+  static const String groupRulesSixParagraphThree = "groupRulesSixParagraphThree";
+  static const String groupRulesSixParagraphFour = "groupRulesSixParagraphFour";
 }
 
 extension StringX on String {

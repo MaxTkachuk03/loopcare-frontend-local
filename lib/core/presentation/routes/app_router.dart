@@ -4,6 +4,12 @@ import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/account_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/edit_food_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/food_preferences_page/food_preferences_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_five_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_four_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_one_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_six_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_three_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_two_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/gender_preferences_page/gender_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/join_group_preferences_page/join_group_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/nickname_preferences_page/nickname_preferences_page.dart';
@@ -459,6 +465,30 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.groupPreferences,
       page: GroupPreferencesPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.groupRulesOne,
+      page: GroupRulesOnePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.groupRulesTwo,
+      page: GroupRulesTwoPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.groupRulesThree,
+      page: GroupRulesThreePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.groupRulesFour,
+      page: GroupRulesFourPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.groupRulesFive,
+      page: GroupRulesFivePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.groupRulesSix,
+      page: GroupRulesSixPage,
     ),
   ],
 )
