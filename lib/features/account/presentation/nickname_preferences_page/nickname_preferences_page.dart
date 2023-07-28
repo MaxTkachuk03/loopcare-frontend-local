@@ -1,16 +1,21 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/orange_button.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
 class NicknamePreferencesPage extends StatefulWidget {
-  const NicknamePreferencesPage({Key? key}) : super(key: key);
+  final GroupPrefsMode groupPrefsMode;
+
+  const NicknamePreferencesPage({Key? key, required this.groupPrefsMode}) : super(key: key);
 
   @override
   State<NicknamePreferencesPage> createState() => _NicknamePreferencesPageState();
@@ -20,8 +25,13 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
   final TextEditingController _nicknameController = TextEditingController();
 
   void _onNextPressedHandler() {
-    // TODO save data to the server and make routing depends on page mode
     context.read<GroupPreferencesBloc>().add(GroupPreferencesEvent.setNickname(_nicknameController.text));
+
+    if (widget.groupPrefsMode == GroupPrefsMode.flow) {
+      context.router.pushNamed(AppRoutes.groupRulesOne);
+    } else {
+      context.router.pop();
+    }
   }
 
   void _onNicknameChangeHandler(_) {

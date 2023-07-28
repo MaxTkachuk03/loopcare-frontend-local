@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/group_preferences/presentation/widgets/group_preferences_form.dart';
-import 'package:loopcare_frontend/features/group_preferences/presentation/widgets/outlined_box.dart';
+import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/group_preferences_form.dart';
+import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/outlined_box.dart';
 
 class AllocatedToGroup extends StatelessWidget {
   const AllocatedToGroup({Key? key}) : super(key: key);

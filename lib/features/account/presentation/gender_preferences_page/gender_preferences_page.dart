@@ -1,20 +1,25 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/orange_button.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
 
 class GenderPreferencesPage extends StatefulWidget {
-  const GenderPreferencesPage({Key? key}) : super(key: key);
+  final GroupPrefsMode groupPrefsMode;
+
+  const GenderPreferencesPage({Key? key, required this.groupPrefsMode}) : super(key: key);
 
   @override
   State<GenderPreferencesPage> createState() => _GenderPreferencesPageState();
@@ -30,8 +35,13 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
   }
 
   void _onNextPressedHandler() {
-    // TODO save data to the server and make routing depends on page mode
     context.read<GroupPreferencesBloc>().add(GroupPreferencesEvent.setGenderPreferences(_selectedValue!));
+
+    if (widget.groupPrefsMode == GroupPrefsMode.flow) {
+      context.router.push(TimezonePreferencesRoute(groupPrefsMode: GroupPrefsMode.flow));
+    } else {
+      context.router.pop();
+    }
   }
 
   @override
@@ -84,6 +94,7 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
                                 selected: value == _selectedValue,
                                 value: value,
                                 onSelected: _onSelected,
+                                textAlign: TextAlign.left,
                               ),
                               const SizedBox(height: 8.0),
                             ],
