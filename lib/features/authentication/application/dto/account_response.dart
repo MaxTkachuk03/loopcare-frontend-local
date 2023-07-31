@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:loopcare_frontend/core/domain/food_preferences/food_preferences.dart';
+import 'package:loopcare_frontend/core/domain/grouping_preferences.dart';
 import 'package:loopcare_frontend/core/domain/physical_fitness/physical_fitness.dart';
+import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/diabetes/application/dto/diabetes_type.dart';
 
 part 'account_response.g.dart';
@@ -18,11 +20,14 @@ class AccountResponse {
   final String measurementSystem;
   final bool isConsentApproved;
   final bool isLegalApproved;
+  final UserGroupingState groupingState;
+  final DateTime? groupingStartedAt;
   final String gender;
   final String bioGender;
   final PhysicalFitness physicalFitness;
   final DiabetesType diabetes;
   final FoodPreferences foodPreferences;
+  final GroupingPreferences? groupingPreferences;
 
   const AccountResponse({
     required this.id,
@@ -36,9 +41,12 @@ class AccountResponse {
     required this.isLegalApproved,
     required this.gender,
     required this.bioGender,
+    required this.groupingState,
+    required this.groupingStartedAt,
     required this.physicalFitness,
     required this.diabetes,
     required this.foodPreferences,
+    required this.groupingPreferences,
   });
 
   factory AccountResponse.fromJson(Map<String, dynamic> json) => _$AccountResponseFromJson(json);
