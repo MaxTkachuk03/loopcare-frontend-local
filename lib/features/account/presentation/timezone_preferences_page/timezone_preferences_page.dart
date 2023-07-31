@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -32,8 +33,30 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
 
   @override
   void initState() {
+    // TODO set initial timezone as per data from the bloc
     locations = timeZoneDatabase.locations.values.map((e) => e.name.split('/').join(', ')).toList();
     super.initState();
+  }
+
+  void _onErrorHandler(GroupPreferencesState state) {
+    context.showErrorBar(
+        content: Text(state.data.error?.error.toString() ?? ''), position: FlashPosition.top);
+  }
+
+  void _onUpdateHandler(GroupPreferencesState state) {
+    if (widget.groupPrefsMode == GroupPrefsMode.flow) {
+      context.router.push(NicknamePreferencesRoute(groupPrefsMode: GroupPrefsMode.flow));
+    } else {
+      context.router.pop();
+    }
+  }
+
+  void _onChangeListener(BuildContext context, GroupPreferencesState state) {
+    state.maybeMap(
+      orElse: () => {},
+      error: _onErrorHandler,
+      updated: _onUpdateHandler,
+    );
   }
 
   @override
@@ -47,29 +70,30 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(
-              height: 28.0,
-            ),
-            MainContainer(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    LocalizedTexts.whatIsYourTimezone,
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ).tr(),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  SearchField(
-                      hintText: LocalizedTexts.searchTimezone.translation,
-                      contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16.0),
-                      prefixIcon: const Icon(
-                        Icons.search,
-                        color: AppColors.greyLabel,
-                      ),
-                      onChanged: _onSearch),
-                ],
+            const SizedBox(height: 28.0),
+            BlocListener<GroupPreferencesBloc, GroupPreferencesState>(
+              listener: _onChangeListener,
+              child: MainContainer(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      LocalizedTexts.whatIsYourTimezone,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ).tr(),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    SearchField(
+                        hintText: LocalizedTexts.searchTimezone.translation,
+                        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16.0),
+                        prefixIcon: const Icon(
+                          Icons.search,
+                          color: AppColors.greyLabel,
+                        ),
+                        onChanged: _onSearch),
+                  ],
+                ),
               ),
             ),
             const SizedBox(
@@ -126,12 +150,6 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
 
   void _onNextPressedHandler() {
     context.read<GroupPreferencesBloc>().add(GroupPreferencesEvent.setTimezone(_selectedLocation!));
-
-    if (widget.groupPrefsMode == GroupPrefsMode.flow) {
-      context.router.push(NicknamePreferencesRoute(groupPrefsMode: GroupPrefsMode.flow));
-    } else {
-      context.router.pop();
-    }
   }
 
   void _onSearch(String value) {

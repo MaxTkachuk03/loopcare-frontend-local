@@ -2,16 +2,19 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 
 class GroupRulesThreePage extends StatelessWidget {
-  const GroupRulesThreePage({Key? key}) : super(key: key);
+  final GroupPrefsMode groupPrefsMode;
+
+  const GroupRulesThreePage({Key? key, required this.groupPrefsMode}) : super(key: key);
 
   void _onIAgreePressHandler(BuildContext context) {
-    context.router.pushNamed(AppRoutes.groupRulesFour);
+    context.router.push(GroupRulesFourRoute(groupPrefsMode: groupPrefsMode));
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -9,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/orange_button.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
@@ -24,6 +26,13 @@ class JoinGroupPreferencesPage extends StatefulWidget {
 class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
   YesNoAnswer? _selectedValue;
 
+  @override
+  void initState() {
+    _selectedValue = context.read<GroupPreferencesBloc>().state.data.wouldLikeJoinGroup;
+
+    super.initState();
+  }
+
   void _onSelected(YesNoAnswer value) {
     setState(() {
       _selectedValue = value;
@@ -31,11 +40,13 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
   }
 
   void _onNextPressedHandler() {
-    if (widget.groupPrefsMode == GroupPrefsMode.flow) {
+    if (widget.groupPrefsMode == GroupPrefsMode.flow && _selectedValue == YesNoAnswer.yes) {
       context.router.push(GenderPreferencesRoute(groupPrefsMode: GroupPrefsMode.flow));
     } else {
       context.router.pop();
     }
+
+    context.read<GroupPreferencesBloc>().add(GroupPreferencesEvent.setWouldLikeJoinGroup(_selectedValue!));
   }
 
   @override

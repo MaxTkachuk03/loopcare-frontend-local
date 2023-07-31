@@ -5,10 +5,8 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/group_preferences_form.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/outlined_box.dart';
 
-const date = 'Friday 8th July 2023 at 4:33PM.';
-
-class WaitingForBeingAssigned extends StatelessWidget {
-  const WaitingForBeingAssigned({Key? key}) : super(key: key);
+class Grouped extends StatelessWidget {
+  const Grouped({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,20 +17,10 @@ class WaitingForBeingAssigned extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                LocalizedTexts.weAreLookingForAMatch,
+                LocalizedTexts.goodNews,
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: AppColors.blueDark),
               ).tr(),
-              RichText(
-                text: TextSpan(
-                  text: '${LocalizedTexts.weAreLookingForAGroupSince.translation}\n',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: date,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
-                  ],
-                ),
-              )
+              const Text(LocalizedTexts.youHaveBeenAddedToGroup).tr(),
             ],
           ),
         ),
