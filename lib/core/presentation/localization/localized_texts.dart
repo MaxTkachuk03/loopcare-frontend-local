@@ -498,7 +498,7 @@ class LocalizedTexts {
   static const String weAreLookingForAMatch = 'weAreLookingForAMatch';
   static const String weAreLookingForAGroupSince = 'weAreLookingForAGroupSince';
   static const String genderPreference = 'genderPreference';
-  static const String timezone = 'timezone_preferences_page';
+  static const String timezone = 'timezone';
   static const String yourNickname = 'yourNickname';
   static const String partOfGroup = 'partOfGroup';
   static const String iNoLongerWantToJoin = 'iNoLongerWantToJoin';
