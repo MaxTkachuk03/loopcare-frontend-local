@@ -7,11 +7,11 @@ part 'group_preferences_response.g.dart';
 @immutable
 @JsonSerializable()
 class GroupPreferencesResponse {
-  final GenderPreferences genderPreference;
+  final GenderPreferences? genderPreference;
   final String bmiRange;
   final String ageRange;
-  final String timezone;
-  final String nickname;
+  final String? timezone;
+  final String? nickname;
 
   const GroupPreferencesResponse(
     this.genderPreference,

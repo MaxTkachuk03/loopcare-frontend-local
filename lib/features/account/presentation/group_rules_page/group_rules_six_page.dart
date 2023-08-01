@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -15,7 +15,7 @@ class GroupRulesSixPage extends StatelessWidget {
 
   void _onIAgreePressHandler(BuildContext context) {
     if (groupPrefsMode == GroupPrefsMode.flow) {
-      context.router.popUntilRouteWithName(AppRoutes.home);
+      context.router.popUntilRouteWithName(GroupPreferencesRoute.name);
     } else {
       // TODO redirect to the lesson complete screen
     }

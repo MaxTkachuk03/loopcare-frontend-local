@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/group_preferences_form.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/outlined_box.dart';
-
-const date = 'Friday 8th July 2023 at 4:33PM.';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 
 class CanNotFindGroup extends StatelessWidget {
   const CanNotFindGroup({Key? key}) : super(key: key);
@@ -22,20 +24,35 @@ class CanNotFindGroup extends StatelessWidget {
                 LocalizedTexts.update,
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: AppColors.blueDark),
               ).tr(),
-              RichText(
-                text: TextSpan(
-                  text: '${LocalizedTexts.weHaveNotYetFound.translation}\n',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: date,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
-                    TextSpan(
-                        text: '\n\n${LocalizedTexts.toSpeedUpTheProcess.translation}',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
-                  ],
-                ),
-              )
+              BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                builder: (BuildContext context, state) {
+                  final groupingStartedAt = state.groupingStartedAt;
+
+                  if (groupingStartedAt == null) return const SizedBox.shrink();
+
+                  return RichText(
+                    text: TextSpan(
+                      text: '${LocalizedTexts.weHaveNotYetFound.translation}\n',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      children: <TextSpan>[
+                        TextSpan(
+                            text:
+                                '${groupingStartedAt.fullDateWithYear} ${LocalizedTexts.at.translation} ${groupingStartedAt.timeHoursMinutes}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(fontWeight: FontWeight.w600)),
+                        TextSpan(
+                            text: '\n\n${LocalizedTexts.toSpeedUpTheProcess.translation}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(fontWeight: FontWeight.w600)),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),

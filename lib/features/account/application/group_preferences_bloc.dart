@@ -10,7 +10,9 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
 
 part 'group_preferences_event.dart';
+
 part 'group_preferences_state.dart';
+
 part 'group_preferences_bloc.freezed.dart';
 
 @singleton
@@ -54,7 +56,7 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
     response.fold(
       (l) => emit(GroupPreferencesState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(GroupPreferencesState.updated(state.data.copyWith(
-        genderPreferences: r.genderPreference,
+        genderPreferences: r.genderPreference ?? state.data.genderPreferences,
         isLoading: false,
         error: null,
       ))),
@@ -85,7 +87,7 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
     response.fold(
       (l) => emit(GroupPreferencesState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(GroupPreferencesState.updated(state.data.copyWith(
-        timezone: r.timezone,
+        timezone: r.timezone ?? state.data.timezone,
         isLoading: false,
         error: null,
       ))),
@@ -105,7 +107,7 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
     response.fold(
       (l) => emit(GroupPreferencesState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(GroupPreferencesState.updated(state.data.copyWith(
-        nickname: r.nickname,
+        nickname: r.nickname ?? state.data.nickname,
         isLoading: false,
         error: null,
       ))),

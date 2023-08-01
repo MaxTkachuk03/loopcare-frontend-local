@@ -16,36 +16,43 @@ class NotGrouped extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WhiteBox(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          InkWell(
-            onTap: () => _onPressed(context),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(child: const Text(LocalizedTexts.wouldYouLikeToJoinSupportGroup).tr()),
-                const ImageIcon(
-                  AppIcons.arrow,
-                  color: AppColors.greyLabel,
-                )
-              ],
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        WhiteBox(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: () => _onPressed(context),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(child: const Text(LocalizedTexts.wouldYouLikeToJoinSupportGroup).tr()),
+                    const ImageIcon(
+                      AppIcons.arrow,
+                      color: AppColors.greyLabel,
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(height: 4.0),
+              BlocBuilder<GroupPreferencesBloc, GroupPreferencesState>(
+                  builder: (BuildContext context, state) {
+                return state.maybeWhen(
+                  orElse: () => const SizedBox.shrink(),
+                  updated: (s) {
+                    return Text(
+                      s.wouldLikeJoinGroup.name.capitalize(),
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ).tr();
+                  },
+                );
+              }),
+            ],
           ),
-          const SizedBox(height: 4.0),
-          BlocBuilder<GroupPreferencesBloc, GroupPreferencesState>(builder: (BuildContext context, state) {
-            return state.maybeWhen(
-                orElse: () => const SizedBox.shrink(),
-                updated: (s) {
-                  return Text(
-                    s.wouldLikeJoinGroup.name.capitalize(),
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ).tr();
-                });
-          }),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
