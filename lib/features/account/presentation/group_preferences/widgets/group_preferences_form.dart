@@ -8,9 +8,12 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/divider_light.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
+import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/part_of_group.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/tapped_item.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/white_box.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
 
 class GroupPreferencesForm extends StatelessWidget {
@@ -19,60 +22,107 @@ class GroupPreferencesForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WhiteBox(
-      child: BlocBuilder<GroupPreferencesBloc, GroupPreferencesState>(
-        builder: (context, state) {
-          return state.maybeMap(
-              orElse: () => const SizedBox.shrink(),
-              updated: (s) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TappedItem(
-                      title: LocalizedTexts.genderPreference,
-                      subTitle: s.data.genderPreferences.label,
-                      onPressHandler: () => _onGenderPreferencesTap(context),
-                    ),
-                    const SizedBox(height: 16.0),
-                    const DividerLight(),
-                    const SizedBox(height: 16.0),
-                    TappedItem(
-                      title: LocalizedTexts.timezone,
-                      subTitle: s.data.timezone,
-                      onPressHandler: () => _onTimezoneTap(context),
-                    ),
-                    const SizedBox(height: 16.0),
-                    const DividerLight(),
-                    const SizedBox(height: 16.0),
-                    TappedItem(
-                      title: LocalizedTexts.yourNickname,
-                      subTitle: s.data.nickname,
-                      onPressHandler: () => _onNicknamePreferencesTap(context),
-                    ),
-                    const SizedBox(height: 16.0),
-                    const DividerLight(),
-                    const SizedBox(height: 16.0),
-                    const PartOfGroup(),
-                    const SizedBox(height: 16.0),
-                    const DividerLight(),
-                    const SizedBox(height: 16.0),
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(5.0),
+      child: BlocBuilder<AuthenticationCubit, AuthenticationState>(
+        builder: (context, accountState) {
+          if (accountState.groupingState == null) return const SizedBox.shrink();
+
+          return BlocBuilder<GroupPreferencesBloc, GroupPreferencesState>(
+            builder: (context, state) {
+              return state.maybeMap(
+                  orElse: () => const SizedBox.shrink(),
+                  updated: (s) {
+                    if (accountState.groupingState == UserGroupingState.grouped) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const PartOfGroup(),
+                          const SizedBox(height: 16.0),
+                          const DividerLight(),
+                          const SizedBox(height: 16.0),
+                          TappedItem(
+                            title: LocalizedTexts.yourNickname,
+                            subTitle: s.data.nickname,
+                            onPressHandler: () => _onNicknamePreferencesTap(context),
                           ),
+                          const SizedBox(height: 16.0),
+                          const DividerLight(),
+                          const SizedBox(height: 16.0),
+                          OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5.0),
+                                ),
+                              ),
+                              side: const BorderSide(width: 1.0, color: AppColors.greyLabel),
+                              minimumSize: const Size(0, 38.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0.0),
+                              textStyle: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .bodyMedium,
+                            ),
+                            onPressed: () {},
+                            child: const Text(LocalizedTexts.leaveGroup).tr(),
+                          )
+                        ],
+                      );
+                    }
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TappedItem(
+                          title: LocalizedTexts.genderPreference,
+                          subTitle: s.data.genderPreferences.label,
+                          onPressHandler: () => _onGenderPreferencesTap(context),
                         ),
-                        side: const BorderSide(width: 1.0, color: AppColors.greyLabel),
-                        minimumSize: const Size(0, 38.0),
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0.0),
-                        textStyle: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      onPressed: () {},
-                      child: const Text(LocalizedTexts.iNoLongerWantToJoin).tr(),
-                    )
-                  ],
-                );
-              });
+                        const SizedBox(height: 16.0),
+                        const DividerLight(),
+                        const SizedBox(height: 16.0),
+                        TappedItem(
+                          title: LocalizedTexts.timezone,
+                          subTitle: s.data.timezone,
+                          onPressHandler: () => _onTimezoneTap(context),
+                        ),
+                        const SizedBox(height: 16.0),
+                        const DividerLight(),
+                        const SizedBox(height: 16.0),
+                        TappedItem(
+                          title: LocalizedTexts.yourNickname,
+                          subTitle: s.data.nickname,
+                          onPressHandler: () => _onNicknamePreferencesTap(context),
+                        ),
+                        const SizedBox(height: 16.0),
+                        const DividerLight(),
+                        const SizedBox(height: 16.0),
+                        const PartOfGroup(),
+                        const SizedBox(height: 16.0),
+                        const DividerLight(),
+                        const SizedBox(height: 16.0),
+                        OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5.0),
+                              ),
+                            ),
+                            side: const BorderSide(width: 1.0, color: AppColors.greyLabel),
+                            minimumSize: const Size(0, 38.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0.0),
+                            textStyle: Theme
+                                .of(context)
+                                .textTheme
+                                .bodyMedium,
+                          ),
+                          onPressed: () {},
+                          child: const Text(LocalizedTexts.iNoLongerWantToJoin).tr(),
+                        )
+                      ],
+                    );
+                  });
+            },
+          );
         },
       ),
     );

@@ -515,6 +515,7 @@ class LocalizedTexts {
   static const String genderPreferencesQuestion = 'genderPreferencesQuestion';
   static const String nicknamePreferencesQuestion = 'nicknamePreferencesQuestion';
   static const String nicknamePlaceholder = 'nicknamePlaceholder';
+  static const String at = 'at';
 
   // Group rules
   static const String groupRulesOneTitle = "groupRulesOneTitle";

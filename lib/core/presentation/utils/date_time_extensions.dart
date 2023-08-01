@@ -20,4 +20,12 @@ extension DateTimeExtension on DateTime {
   String get fullDate {
     return DateFormat('EEEE d MMM').format(this);
   }
+
+  String get fullDateWithYear {
+    return DateFormat('EEEE d MMMM y').format(this);
+  }
+
+  String get timeHoursMinutes {
+    return DateFormat('HH:mma').format(this);
+  }
 }

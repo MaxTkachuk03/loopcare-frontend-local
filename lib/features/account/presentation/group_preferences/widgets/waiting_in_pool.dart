@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/group_preferences_form.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/outlined_box.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
@@ -24,14 +25,17 @@ class WaitingInPool extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: AppColors.blueDark),
               ).tr(),
               BlocBuilder<AuthenticationCubit, AuthenticationState>(builder: (BuildContext context, state) {
+                final groupingStartedAt = state.groupingStartedAt;
+
+                if (groupingStartedAt == null) return const SizedBox.shrink();
+
                 return RichText(
                   text: TextSpan(
                     text: '${LocalizedTexts.weAreLookingForAGroupSince.translation}\n',
                     style: Theme.of(context).textTheme.bodyMedium,
                     children: <TextSpan>[
                       TextSpan(
-                          text: DateFormat.yMMMMEEEEd('en_EN')
-                              .format(DateTime.parse(state.groupingStartedAt.toString())),
+                          text: '${groupingStartedAt.fullDateWithYear} ${LocalizedTexts.at.translation} ${groupingStartedAt.timeHoursMinutes}',
                           style:
                               Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
                     ],
