@@ -14,18 +14,18 @@ extension DateTimeExtension on DateTime {
   }
 
   String get shortDate {
-    return DateFormat('d MMMM').format(this);
+    return DateFormat('d MMMM', 'en_EN').format(this);
   }
 
   String get fullDate {
-    return DateFormat('EEEE d MMM').format(this);
+    return DateFormat('EEEE d MMM', 'en_EN').format(this);
   }
 
   String get fullDateWithYear {
-    return DateFormat('EEEE d MMMM y').format(this);
+    return DateFormat('EEEE d MMMM y', 'en_EN').format(this);
   }
 
   String get timeHoursMinutes {
-    return DateFormat('HH:mma').format(this);
+    return DateFormat('HH:mma', 'en_EN').format(this);
   }
 }

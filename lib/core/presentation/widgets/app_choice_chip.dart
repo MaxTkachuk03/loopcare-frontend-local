@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
@@ -27,7 +28,7 @@ class AppChoiceChip<T> extends StatelessWidget {
       padding: padding ?? const EdgeInsets.symmetric(horizontal: 30.0),
       label: SizedBox(
         width: width ?? double.infinity,
-        child: Text(
+        child: AutoSizeText(
           label,
           textAlign: textAlign ?? TextAlign.center,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(

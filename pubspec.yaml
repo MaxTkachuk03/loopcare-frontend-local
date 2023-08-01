@@ -48,7 +48,8 @@ dependencies:
   wakelock: ^0.6.2
   circular_countdown_timer: ^0.2.3
   bloc_concurrency: ^0.2.2
-  timezone: ^0.9.2
+  timezone:
+    path: ./local_plugins/timezone
 
 dev_dependencies:
   build_runner: ^2.3.2
@@ -69,7 +70,7 @@ flutter:
     - assets/
     - assets/icons/
     - assets/animations/
-    - assets/timezones/latest.tzf
+    - local_plugins/timezone/lib/data/latest.tzf
     - assets/images/
     - assets/translations/
     - .env.dev
