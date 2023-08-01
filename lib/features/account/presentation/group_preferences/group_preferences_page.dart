@@ -53,6 +53,8 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
                 if (state.groupingState == null) return const SizedBox.shrink();
 
                 if (state.groupingState == UserGroupingState.notGrouped) return const NotGrouped();
+                if (state.groupingState == UserGroupingState.refused) return const NotGrouped();
+                if (state.groupingState == UserGroupingState.left) return const NotGrouped();
                 if (state.groupingState == UserGroupingState.waitingInPool) return const WaitingInPool();
                 if (state.groupingState == UserGroupingState.grouped) return const Grouped();
                 if (state.groupingState == UserGroupingState.longWaitingInPool) {
