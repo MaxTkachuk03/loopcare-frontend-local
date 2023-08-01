@@ -33,8 +33,22 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
 
   @override
   void initState() {
-    // TODO set initial timezone as per data from the bloc
-    locations = timeZoneDatabase.locations.values.map((e) => e.name.split('/').join(', ')).toList();
+    locations = timeZoneDatabase.locations.values
+        .map((e) =>
+            '${e.name.split('/').join(', ')} (${timeZoneDatabase.locations.values.first.zones.last.abbreviation} ${Duration(milliseconds: e.zones.last.offset).inHours}:00)')
+        .toList();
+
+    final index = locations.indexWhere((item) =>
+        item.toLowerCase().contains(context.read<GroupPreferencesBloc>().state.data.timezone.toLowerCase()));
+
+    if (!index.isNegative) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _itemScrollController.scrollTo(index: index, duration: const Duration(milliseconds: 300));
+      });
+
+      _selectedLocation = locations[index];
+    }
+
     super.initState();
   }
 
@@ -118,9 +132,7 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {
-                  return const SizedBox(
-                    height: 8.0,
-                  );
+                  return const SizedBox(height: 8.0);
                 },
               ),
             ),
