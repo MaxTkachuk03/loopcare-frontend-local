@@ -52,7 +52,6 @@ class _AccountSectionState extends State<AccountSection> {
     return AccountContainer(
       child: Column(
         children: [
-          const SizedBox(height: 32.0),
           const SectionTitle(title: LocalizedTexts.account),
           BlocBuilder<AuthenticationCubit, AuthenticationState>(
             builder: (BuildContext context, state) {

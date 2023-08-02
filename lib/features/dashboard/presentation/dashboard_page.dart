@@ -62,6 +62,16 @@ class _DashboardPageState extends State<DashboardPage> {
     });
   }
 
+  Future<void> _onRefresh() async {
+    context
+        .read<DashboardEducationBloc>()
+        .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
+
+    context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
+
+    context.read<AuthenticationCubit>().getAccount();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -77,71 +87,74 @@ class _DashboardPageState extends State<DashboardPage> {
                   image: AppImages.dashboardBg,
                 ),
               ),
-              child: ScrollableContainer(
-                child: MainContainer(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const SizedBox(height: 28),
-                      BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                        builder: (BuildContext context, state) {
-                          return Text(
-                            '${LocalizedTexts.goodMorning.translation} ${state.name}',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 16.0),
-                      WeightBlock(date: _selectedDay),
-                      const SizedBox(height: 10.0),
-                      BlocBuilder<MealsBloc, MealsState>(
-                        builder: (BuildContext context, state) {
-                          return state.isNeedToHideOnDashboard
-                              ? const SizedBox(height: 0.0)
-                              : const LogMeal();
-                        },
-                      ),
-                      const SizedBox(height: 10.0),
-                      PlanMeal(isEditable: _isMealBlockEditable),
-                      const SizedBox(height: 10.0),
-                      Diary(isEditable: _isMealBlockEditable),
-                      const SizedBox(height: 16.0),
-                      Text(
-                        LocalizedTexts.activities.translation,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      const SizedBox(height: 16.0),
-                      Reflection(isEditable: _isMealBlockEditable),
-                      const SizedBox(height: 10.0),
-                      PhysicalActivities(selectedDay: _selectedDay),
-                      const SizedBox(height: 10.0),
-                      SupportGroup(isEditable: _isMealBlockEditable),
-                      const SizedBox(height: 10.0),
-                      BlocBuilder<DashboardEducationBloc, DashboardEducationState>(
-                        builder: (BuildContext context, state) {
-                          return state.maybeMap(
-                            error: (errorState) {
-                              final error = errorState.data.error;
+              child: RefreshIndicator(
+                onRefresh: _onRefresh,
+                child: ScrollableContainer(
+                  child: MainContainer(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const SizedBox(height: 28),
+                        BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                          builder: (BuildContext context, state) {
+                            return Text(
+                              '${LocalizedTexts.goodMorning.translation} ${state.name}',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 16.0),
+                        WeightBlock(date: _selectedDay),
+                        const SizedBox(height: 10.0),
+                        BlocBuilder<MealsBloc, MealsState>(
+                          builder: (BuildContext context, state) {
+                            return state.isNeedToHideOnDashboard
+                                ? const SizedBox(height: 0.0)
+                                : const LogMeal();
+                          },
+                        ),
+                        const SizedBox(height: 10.0),
+                        PlanMeal(isEditable: _isMealBlockEditable),
+                        const SizedBox(height: 10.0),
+                        Diary(isEditable: _isMealBlockEditable),
+                        const SizedBox(height: 16.0),
+                        Text(
+                          LocalizedTexts.activities.translation,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const SizedBox(height: 16.0),
+                        Reflection(isEditable: _isMealBlockEditable),
+                        const SizedBox(height: 10.0),
+                        PhysicalActivities(selectedDay: _selectedDay),
+                        const SizedBox(height: 10.0),
+                        SupportGroup(isEditable: _isMealBlockEditable),
+                        const SizedBox(height: 10.0),
+                        BlocBuilder<DashboardEducationBloc, DashboardEducationState>(
+                          builder: (BuildContext context, state) {
+                            return state.maybeMap(
+                              error: (errorState) {
+                                final error = errorState.data.error;
 
-                              return ErrorScreen(
-                                smallVersion: true,
-                                error: error,
-                                onButtonPressed: () => context
-                                    .read<DashboardEducationBloc>()
-                                    .add(const DashboardEducationEvent.getDashboardLessons()),
-                              );
-                            },
-                            loading: (_) => const Loader(),
-                            orElse: () => state.isVisibleOnDashboard(_selectedDay)
-                                ? Education(
-                                    date: _selectedDay,
-                                  )
-                                : const SizedBox(height: 0.0),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 10.0),
-                    ],
+                                return ErrorScreen(
+                                  smallVersion: true,
+                                  error: error,
+                                  onButtonPressed: () => context
+                                      .read<DashboardEducationBloc>()
+                                      .add(const DashboardEducationEvent.getDashboardLessons()),
+                                );
+                              },
+                              loading: (_) => const Loader(),
+                              orElse: () => state.isVisibleOnDashboard(_selectedDay)
+                                  ? Education(
+                                      date: _selectedDay,
+                                    )
+                                  : const SizedBox(height: 0.0),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 10.0),
+                      ],
+                    ),
                   ),
                 ),
               ),
