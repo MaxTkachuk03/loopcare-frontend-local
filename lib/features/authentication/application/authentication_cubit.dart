@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
+import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/forgot_password_data.dart';
@@ -64,6 +65,12 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
         );
       },
     );
+  }
+
+  void changeAccountGroupStatus(UserGroupingState groupingState) {
+    state.mapOrNull(authenticated: (s) {
+      emit(s.copyWith(account: s.account.copyWith(groupingState: groupingState)));
+    });
   }
 
   void getAccount() async {

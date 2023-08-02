@@ -16,4 +16,8 @@ class GroupPreferencesEvent with _$GroupPreferencesEvent {
   const factory GroupPreferencesEvent.setTimezone(String timezone) = SetTimezone;
 
   const factory GroupPreferencesEvent.setNickname(String nickname) = SetNickname;
+
+  const factory GroupPreferencesEvent.leaveGroup() = LeaveGroup;
+
+  const factory GroupPreferencesEvent.cancelGrouping() = CancelGrouping;
 }
