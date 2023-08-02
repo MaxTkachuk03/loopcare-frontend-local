@@ -1,9 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/lessons_uncompleted.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/looking_for_group.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/not_grouped.dart';
 
 class SupportGroup extends StatelessWidget {
   final bool isEditable;
@@ -14,52 +22,31 @@ class SupportGroup extends StatelessWidget {
   }) : super(key: key);
 
   void onPressHandler(BuildContext context) {
-    context.router.pushNamed(AppRoutes.videoSession);
+    context.router.pushNamed(AppRoutes.groupPreferences);
   }
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => onPressHandler(context),
-      child: Container(
-        decoration: const BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(8),
-          ),
+    return Container(
+      decoration: const BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(8),
         ),
-        child: Stack(
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Positioned(
-              top: 0,
-              right: 0,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-                decoration: const BoxDecoration(
-                  color: AppColors.blueAppBar,
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(8),
-                    bottomLeft: Radius.circular(8),
-                  ),
-                ),
-                child: Text(
-                  'coming up'.toUpperCase(),
-                  style: const TextStyle(
-                    fontSize: 10.0,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.white,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
+            InkWell(
+              onTap: () => onPressHandler(context),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Image(image: AppIcons.supportGroup),
                         const SizedBox(width: 24.0),
@@ -71,23 +58,6 @@ class SupportGroup extends StatelessWidget {
                                 LocalizedTexts.supportGroup.translation,
                                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                       fontFamily: ThemeConstants.bitterFontFamily,
-                                    ),
-                              ),
-                              const SizedBox(height: 3.0),
-                              // TODO get text from the server
-                              Text(
-                                'Eating Behaviour & Stressful Situations',
-                                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Text(
-                                'Thursday from 21:00 to 22:00',
-                                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontStyle: FontStyle.italic,
-                                      color: const Color(0xFF919B8C),
                                     ),
                               ),
                             ],
@@ -103,6 +73,26 @@ class SupportGroup extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 8.0),
+            const Divider(color: AppColors.yellowLight),
+            BlocBuilder<AuthenticationCubit, AuthenticationState>(
+              builder: (context, state) {
+                switch (state.groupingState) {
+                  case UserGroupingState.notGrouped:
+                    return const LessonsUncompleted();
+                  case UserGroupingState.refused:
+                  case UserGroupingState.left:
+                    return const NotGrouped();
+                  case UserGroupingState.waitingInPool:
+                  case UserGroupingState.longWaitingInPool:
+                    return const LookingForGroup();
+                  case UserGroupingState.grouped:
+                    return const Grouped();
+                  default:
+                    return const SizedBox.shrink();
+                }
+              },
+            )
           ],
         ),
       ),

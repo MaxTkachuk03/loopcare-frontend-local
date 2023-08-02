@@ -35,7 +35,7 @@ class WaitingInPool extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium,
                     children: <TextSpan>[
                       TextSpan(
-                          text: '${groupingStartedAt.fullDateWithYear} ${LocalizedTexts.at.translation} ${groupingStartedAt.timeHoursMinutes}',
+                          text: '${groupingStartedAt.fullDateWithYear} ${LocalizedTexts.at.translation} ${groupingStartedAt.timeHoursMinutes}.',
                           style:
                               Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
                     ],
