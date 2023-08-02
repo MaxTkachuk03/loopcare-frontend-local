@@ -7,12 +7,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class Reflection extends StatelessWidget {
-  final bool isEditable;
-
-  const Reflection({
-    Key? key,
-    required this.isEditable,
-  }) : super(key: key);
+  const Reflection({Key? key}) : super(key: key);
 
   void onPressHandler(BuildContext context) {
     context.router.pushNamed(AppRoutes.reflection);
@@ -42,24 +37,24 @@ class Reflection extends StatelessWidget {
                     Text(
                       LocalizedTexts.reflection.translation,
                       style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                        fontFamily: ThemeConstants.bitterFontFamily,
-                      ),
+                            fontFamily: ThemeConstants.bitterFontFamily,
+                          ),
                     ),
                     const SizedBox(height: 3.0),
                     // TODO get text from the server
                     AutoSizeText(
                       'Looking back at past 2 weeks',
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                            fontWeight: FontWeight.w600,
+                          ),
                       maxLines: 1,
                     ),
                     Text(
                       'Completed',
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontStyle: FontStyle.italic,
-                        color: const Color(0xFF919B8C),
-                      ),
+                            fontStyle: FontStyle.italic,
+                            color: const Color(0xFF919B8C),
+                          ),
                     ),
                   ],
                 ),

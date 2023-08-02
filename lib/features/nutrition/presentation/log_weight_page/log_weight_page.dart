@@ -1,10 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/orange_button.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/get_measurement_system.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
@@ -30,13 +31,11 @@ class _LogWeightPageState extends State<LogWeightPage> {
   late TextEditingController lbsController;
   late FocusNode fieldFocusNode;
 
-  final bool _isMetricSystem =
-      getMeasurementSystem() == MeasurementSystemType.metric;
+  final bool _isMetricSystem = getMeasurementSystem() == MeasurementSystemType.metric;
 
   @override
   void initState() {
-    weightFieldController =
-        TextEditingController(text: _getInputInitialValue());
+    weightFieldController = TextEditingController(text: _getInputInitialValue());
 
     fieldFocusNode = FocusNode();
     super.initState();
@@ -45,15 +44,13 @@ class _LogWeightPageState extends State<LogWeightPage> {
   String _getInputInitialValue() {
     final state = context.read<DashboardWeightBloc>().state;
 
-    double? selectedDayWeightValue =
-        state.getSelectedDayWeight(widget.selectedDay.isoStringWithoutTime);
+    double? selectedDayWeightValue = state.getSelectedDayWeight(widget.selectedDay.isoStringWithoutTime);
 
     if (selectedDayWeightValue == null) return '';
 
     String inputValue = _isMetricSystem
         ? selectedDayWeightValue.toString()
-        : WeightConversionUtils.convertKgToLbs(selectedDayWeightValue)
-            .toString();
+        : WeightConversionUtils.convertKgToLbs(selectedDayWeightValue).toString();
 
     return inputValue;
   }
@@ -66,7 +63,7 @@ class _LogWeightPageState extends State<LogWeightPage> {
     super.dispose();
   }
 
-  _onOkPressed(BuildContext context) {
+  _onOkPressed() {
     String weight = weightFieldController.text;
 
     if (weight.isEmpty) return;
@@ -74,15 +71,20 @@ class _LogWeightPageState extends State<LogWeightPage> {
     String formattedWeight = weight.replaceAll(',', '.');
 
     if (!_isMetricSystem) {
-      formattedWeight =
-          WeightConversionUtils.convertLbsToKg(double.parse(formattedWeight))
-              .toString();
+      formattedWeight = WeightConversionUtils.convertLbsToKg(double.parse(formattedWeight)).toString();
     }
 
-    context.read<DashboardWeightBloc>().add(DashboardWeightEvent.logWeight(
-        widget.selectedDay, double.parse(formattedWeight)));
+    context
+        .read<DashboardWeightBloc>()
+        .add(DashboardWeightEvent.logWeight(widget.selectedDay, double.parse(formattedWeight)));
 
     context.router.pop();
+  }
+
+  bool get _isToday => widget.selectedDay.midnightTime == DateTime.now().midnightTime;
+
+  void _onWeightChangeHandler(_) {
+    setState(() {});
   }
 
   @override
@@ -90,7 +92,7 @@ class _LogWeightPageState extends State<LogWeightPage> {
     return Scaffold(
       appBar: BlueAppBar(
         isCustomLeading: true,
-        title: LocalizedTexts.todaysWeight.translation,
+        title: _isToday ? LocalizedTexts.todaysWeight.translation : LocalizedTexts.yourWeight.translation,
       ),
       body: SafeArea(
         child: ScrollableContainer(
@@ -108,11 +110,19 @@ class _LogWeightPageState extends State<LogWeightPage> {
                             fontWeight: FontWeight.w600,
                           ),
                     ),
+                    if (!_isToday)
+                      Text(
+                        '${LocalizedTexts.on.tr()} ${widget.selectedDay.dayWithMonth} ${LocalizedTexts.was.tr()}',
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
                   ],
                 ),
                 BlocBuilder<DashboardWeightBloc, DashboardWeightState>(
                     builder: (BuildContext context, state) {
                   return UnitField(
+                    onChanged: _onWeightChangeHandler,
                     unit: state.userWeightUnits,
                     controller: weightFieldController,
                     focusNode: fieldFocusNode,
@@ -123,15 +133,8 @@ class _LogWeightPageState extends State<LogWeightPage> {
                 }),
                 Column(
                   children: [
-                    ElevatedButton(
-                      onPressed: () => _onOkPressed(context),
-                      style: Theme.of(context)
-                          .elevatedButtonTheme
-                          .style
-                          ?.copyWith(
-                            backgroundColor:
-                                MaterialStateProperty.all(AppColors.orangeDark),
-                          ),
+                    OrangeButton(
+                      onPressedHandler: weightFieldController.text.isEmpty ? null : _onOkPressed,
                       child: Text(LocalizedTexts.ok.translation.toUpperCase()),
                     ),
                     const SizedBox(height: 30.0),

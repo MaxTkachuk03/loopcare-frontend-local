@@ -362,6 +362,8 @@ class LocalizedTexts {
   static const String todaysWeight = 'todaysWeight';
   static const String todo = 'todo';
   static const String done = 'done';
+  static const String on = 'on';
+  static const String was = 'was';
 
   // Education
   static const String all = 'all';

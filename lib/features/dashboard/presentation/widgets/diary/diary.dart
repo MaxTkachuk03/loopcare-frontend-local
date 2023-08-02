@@ -4,12 +4,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class Diary extends StatelessWidget {
-  final bool isEditable;
-
-  const Diary({
-    Key? key,
-    required this.isEditable,
-  }) : super(key: key);
+  const Diary({Key? key}) : super(key: key);
 
   void onPressHandler(BuildContext context) {
     // TODO do logic depends on editable weight block state
