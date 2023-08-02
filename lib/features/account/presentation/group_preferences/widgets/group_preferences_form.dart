@@ -57,12 +57,9 @@ class GroupPreferencesForm extends StatelessWidget {
                               side: const BorderSide(width: 1.0, color: AppColors.greyLabel),
                               minimumSize: const Size(0, 38.0),
                               padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0.0),
-                              textStyle: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .bodyMedium,
+                              textStyle: Theme.of(context).textTheme.bodyMedium,
                             ),
-                            onPressed: () {},
+                            onPressed: () => _onLeaveGroupPressed(context),
                             child: const Text(LocalizedTexts.leaveGroup).tr(),
                           )
                         ],
@@ -110,12 +107,9 @@ class GroupPreferencesForm extends StatelessWidget {
                             side: const BorderSide(width: 1.0, color: AppColors.greyLabel),
                             minimumSize: const Size(0, 38.0),
                             padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0.0),
-                            textStyle: Theme
-                                .of(context)
-                                .textTheme
-                                .bodyMedium,
+                            textStyle: Theme.of(context).textTheme.bodyMedium,
                           ),
-                          onPressed: () {},
+                          onPressed: () => _onCancelProcessingPressed(context),
                           child: const Text(LocalizedTexts.iNoLongerWantToJoin).tr(),
                         )
                       ],
@@ -138,5 +132,13 @@ class GroupPreferencesForm extends StatelessWidget {
 
   void _onNicknamePreferencesTap(BuildContext context) {
     context.router.push(NicknamePreferencesRoute(groupPrefsMode: GroupPrefsMode.single));
+  }
+
+  _onLeaveGroupPressed(BuildContext context) {
+    context.read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.leaveGroup());
+  }
+
+  _onCancelProcessingPressed(BuildContext context) {
+    context.read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.cancelGrouping());
   }
 }
