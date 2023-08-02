@@ -37,7 +37,7 @@ class CanNotFindGroup extends StatelessWidget {
                       children: <TextSpan>[
                         TextSpan(
                             text:
-                                '${groupingStartedAt.fullDateWithYear} ${LocalizedTexts.at.translation} ${groupingStartedAt.timeHoursMinutes}',
+                                '${groupingStartedAt.fullDateWithYear} ${LocalizedTexts.at.translation} ${groupingStartedAt.timeHoursMinutes}.',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium

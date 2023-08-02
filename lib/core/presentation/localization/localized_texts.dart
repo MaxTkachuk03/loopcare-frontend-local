@@ -518,6 +518,13 @@ class LocalizedTexts {
   static const String nicknamePreferencesQuestion = 'nicknamePreferencesQuestion';
   static const String nicknamePlaceholder = 'nicknamePlaceholder';
   static const String at = 'at';
+  static const String joinAGroup = 'joinAGroup';
+  static const String unavailableGroupPrefsLabel = 'unavailableGroupPrefsLabel';
+  static const String weWillNotifyYouAboutGroup = 'weWillNotifyYouAboutGroup';
+  static const String moreInformationInPreferences = 'moreInformationInPreferences';
+  static const String lookingAtEatingBehavior = 'lookingAtEatingBehavior';
+  static const String bookYourSeatNow = 'bookYourSeatNow';
+  static const String comingUpThisWeek = 'comingUpThisWeek';
 
   // Group rules
   static const String groupRulesOneTitle = "groupRulesOneTitle";
