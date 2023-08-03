@@ -30,16 +30,20 @@ class _SliderCalendarState extends State<SliderCalendar> {
     _selectedDay = DateTime.now();
 
     _days = getDaysInBeteween(
-      DateTime.now().subtract(const Duration(days: 100 * 365)),
-      DateTime.now().add(const Duration(days: 14)),
+      DateUtils.dateOnly(DateTime.now().subtract(const Duration(days: 2 * 365))),
+      DateUtils.dateOnly(DateTime.now().add(const Duration(days: 14))),
     );
   }
 
   void _scrollToIndex() {
-    var scrollIndex = _days.indexOf(DateUtils.dateOnly(_selectedDay)) - 2;
-    if (scrollIndex < 0) scrollIndex = 0;
+    final int scrollIndex = _days.lastIndexWhere((e) => e.toString() == _selectedDay.midnightTime.toString());
+
+    final int indexWithOffset = scrollIndex - 2;
+
+    if (scrollIndex < 0) return;
+
     _itemScrollController.scrollTo(
-      index: scrollIndex,
+      index: indexWithOffset > 0 ? indexWithOffset : scrollIndex,
       alignment: 0.07,
       duration: const Duration(milliseconds: 100),
     );
