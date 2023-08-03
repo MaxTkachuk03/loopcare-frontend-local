@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
@@ -21,15 +22,14 @@ class GroupRulesFivePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: context.router.pop,
         ),
         title: Text(
           LocalizedTexts.supportGroupPreferences,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
+          style: Theme.of(context).textTheme.titleMedium,
         ).tr(),
       ),
       body: SafeArea(
@@ -48,13 +48,16 @@ class GroupRulesFivePage extends StatelessWidget {
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                     ).tr(),
                     const SizedBox(height: 32.0),
-                    BulletListItem(
-                      text: const Text(
-                        LocalizedTexts.groupRulesFiveParagraphOne,
-                        style: TextStyle(fontSize: 21, fontWeight: FontWeight.w400),
-                      ).tr(),
-                      bulletSign: '9.',
-                      bulletSize: 21.0,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 11.0),
+                      child: BulletListItem(
+                        text: const Text(
+                          LocalizedTexts.groupRulesFiveParagraphOne,
+                          style: TextStyle(fontSize: 21, fontWeight: FontWeight.w400),
+                        ).tr(),
+                        bulletSign: '9.',
+                        bulletSize: 21.0,
+                      ),
                     ),
                     const SizedBox(height: 32.0),
                     BulletListItem(
@@ -68,6 +71,7 @@ class GroupRulesFivePage extends StatelessWidget {
                     const SizedBox(height: 32.0),
                   ],
                 ),
+                const SizedBox(height: 30.0),
                 Column(
                   children: [
                     OutlinedButton(

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -24,10 +25,10 @@ class GroupRulesOnePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.blueAppBar,
         leading: const BackButtonHexagon(),
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
         title: Text(
           LocalizedTexts.groupRules,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                fontWeight: FontWeight.w700,
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 color: AppColors.white,
               ),
         ).tr(),
@@ -68,6 +69,7 @@ class GroupRulesOnePage extends StatelessWidget {
                     ).tr(),
                   ],
                 ),
+                const SizedBox(height: 30.0),
                 Column(
                   children: [
                     OutlinedButton(
