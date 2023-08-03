@@ -31,6 +31,8 @@ class GroupPreferencesForm extends StatelessWidget {
               return state.maybeMap(
                   orElse: () => const SizedBox.shrink(),
                   updated: (s) {
+                    final preferences = s.data.genderPreferences;
+
                     if (accountState.groupingState == UserGroupingState.grouped) {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +73,7 @@ class GroupPreferencesForm extends StatelessWidget {
                       children: [
                         TappedItem(
                           title: LocalizedTexts.genderPreference,
-                          subTitle: s.data.genderPreferences.label,
+                          subTitle: preferences != null ? preferences.label : '',
                           onPressHandler: () => _onGenderPreferencesTap(context),
                         ),
                         const SizedBox(height: 16.0),

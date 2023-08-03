@@ -19,7 +19,7 @@ class GroupPreferencesData with _$GroupPreferencesData {
     @Default(YesNoAnswer.no) YesNoAnswer wouldLikeJoinGroup,
     @Default('') String nickname,
     @Default('') String timezone,
-    @Default(GenderPreferences.noPreference) GenderPreferences genderPreferences,
+    @Default(null) GenderPreferences? genderPreferences,
     @Default(false) bool isLoading,
     RequestError? error,
   }) = _GroupPreferencesData;

@@ -29,12 +29,15 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
   @override
   void initState() {
     final authState = context.read<AuthenticationCubit>().state;
+    final timezone = context.read<GroupPreferencesBloc>().state.data.timezone;
+    final nickname = context.read<GroupPreferencesBloc>().state.data.nickname;
+    final genderPreferences = context.read<GroupPreferencesBloc>().state.data.genderPreferences;
 
     context.read<GroupPreferencesBloc>().add(GroupPreferencesEvent.setInitialData(
           value: authState.groupingState == UserGroupingState.notGrouped ? YesNoAnswer.no : YesNoAnswer.no,
-          gender: authState.genderPreferences ?? GenderPreferences.noPreference,
-          nickname: authState.nickname ?? '',
-          timezone: authState.timezone ?? '',
+          gender: genderPreferences ?? authState.genderPreferences ?? GenderPreferences.noPreference,
+          nickname: nickname.isNotEmpty ? nickname : authState.nickname ?? '',
+          timezone: timezone.isNotEmpty ? timezone : authState.timezone ?? '',
         ));
 
     super.initState();
