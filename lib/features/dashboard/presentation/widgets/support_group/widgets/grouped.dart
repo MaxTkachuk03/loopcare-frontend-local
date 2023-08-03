@@ -13,12 +13,12 @@ class Grouped extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          LocalizedTexts.comingUpThisWeek.toUpperCase(),
+          LocalizedTexts.comingUpThisWeek.tr().toUpperCase(),
           style: const TextStyle(
             fontSize: ThemeConstants.fontSize12,
             color: AppColors.greyLabel,
           ),
-        ).tr(),
+        ),
         const SizedBox(
           height: 16.0,
         ),
@@ -45,9 +45,9 @@ class Grouped extends StatelessWidget {
                 Text(
                   LocalizedTexts.bookYourSeatNow,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: AppColors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
+                        color: AppColors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
                 ).tr(),
                 const ImageIcon(
                   AppIcons.arrow,
@@ -61,7 +61,5 @@ class Grouped extends StatelessWidget {
     );
   }
 
-  _onBookSeatPressed(BuildContext context) {
-
-  }
+  _onBookSeatPressed(BuildContext context) {}
 }
