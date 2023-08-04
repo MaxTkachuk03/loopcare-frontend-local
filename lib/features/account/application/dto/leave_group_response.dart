@@ -8,15 +8,14 @@ part 'leave_group_response.g.dart';
 @JsonSerializable()
 class LeaveGroupResponse {
   final UserGroupingState groupingState;
-  final String groupingStartedAt;
+  final String? groupingStartedAt;
 
   const LeaveGroupResponse(
-      this.groupingState,
-      this.groupingStartedAt,
-      );
+    this.groupingState,
+    this.groupingStartedAt,
+  );
 
-  static LeaveGroupResponse fromJson(Map<String, dynamic> json) =>
-      _$LeaveGroupResponseFromJson(json);
+  static LeaveGroupResponse fromJson(Map<String, dynamic> json) => _$LeaveGroupResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$LeaveGroupResponseToJson(this);
 }
