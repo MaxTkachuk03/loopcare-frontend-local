@@ -35,7 +35,7 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
   void initState() {
     locations = timeZoneDatabase.locations.values
         .map((e) =>
-            '${e.name.split('/').join(', ')} (${timeZoneDatabase.locations.values.first.zones.last.abbreviation} ${Duration(milliseconds: e.zones.last.offset).inHours}:00)')
+            '${e.name.split('/').join(', ')} (${e.zones.last.abbreviation} ${Duration(milliseconds: e.currentTimeZone.offset).inHours}:00)')
         .toList();
 
     final index = locations.indexWhere((item) =>
