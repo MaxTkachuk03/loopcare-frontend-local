@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:collection/collection.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
@@ -33,21 +34,29 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
 
   @override
   void initState() {
-    locations = timeZoneDatabase.locations.values
+    final sortedLocations = timeZoneDatabase.locations.values
+        .sorted((a, b) => a.currentTimeZone.offset.compareTo(b.currentTimeZone.offset));
+
+    locations = sortedLocations
         .map((e) =>
             '${e.name.split('/').join(', ')} (${e.zones.last.abbreviation} ${Duration(milliseconds: e.currentTimeZone.offset).inHours}:00)')
         .toList();
 
-    final index = locations.indexWhere((item) =>
+    final selectedLocationIndex = locations.indexWhere((item) =>
         item.toLowerCase().contains(context.read<GroupPreferencesBloc>().state.data.timezone.toLowerCase()));
 
-    if (!index.isNegative) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _itemScrollController.scrollTo(index: index, duration: const Duration(milliseconds: 300));
-      });
+    final index = selectedLocationIndex.isNegative
+        ? sortedLocations.indexWhere((e) {
+            return e.currentTimeZone.abbreviation == DateTime.now().timeZoneName &&
+                e.currentTimeZone.offset == DateTime.now().timeZoneOffset.inMilliseconds;
+          })
+        : selectedLocationIndex;
 
-      _selectedLocation = locations[index];
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _itemScrollController.scrollTo(index: index, duration: const Duration(milliseconds: 300));
+    });
+
+    _selectedLocation = locations[index];
 
     super.initState();
   }
