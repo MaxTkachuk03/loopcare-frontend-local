@@ -79,7 +79,7 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
                     if (state.groupingState == UserGroupingState.left) return const NotGrouped();
                     if (state.groupingState == UserGroupingState.waitingInPool) return const WaitingInPool();
                     if (state.groupingState == UserGroupingState.grouped) return const Grouped();
-                    if (state.groupingState == UserGroupingState.longWaitingInPool) {
+                    if (state.groupingState == UserGroupingState.loopedOnGenderPreferences) {
                       return const CanNotFindGroup();
                     }
 

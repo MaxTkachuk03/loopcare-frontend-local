@@ -83,6 +83,7 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
       ),
       body: SafeArea(
         child: BlocListener<GroupPreferencesBloc, GroupPreferencesState>(
+          listenWhen: (prev, cur) => context.router.current.name == GenderPreferencesRoute.name,
           listener: _onChangeListener,
           child: MainContainer(
             child: ScrollableContainer(

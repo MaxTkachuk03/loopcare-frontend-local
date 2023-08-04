@@ -1,7 +1,7 @@
 enum UserGroupingState {
   notGrouped,
   waitingInPool,
-  longWaitingInPool,
+  loopedOnGenderPreferences,
   refused,
   grouped,
   left,

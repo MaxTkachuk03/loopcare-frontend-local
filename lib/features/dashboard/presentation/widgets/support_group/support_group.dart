@@ -84,7 +84,7 @@ class SupportGroup extends StatelessWidget {
                   case UserGroupingState.left:
                     return const NotGrouped();
                   case UserGroupingState.waitingInPool:
-                  case UserGroupingState.longWaitingInPool:
+                  case UserGroupingState.loopedOnGenderPreferences:
                     return const LookingForGroup();
                   case UserGroupingState.grouped:
                     return const Grouped();

@@ -30,18 +30,18 @@ class LookingForGroup extends StatelessWidget {
             final groupingStartedAt = state.groupingStartedAt;
 
             if (groupingStartedAt == null) return const SizedBox.shrink();
-
-            return RichText(
-              text: TextSpan(
-                text: LocalizedTexts.weAreLookingForAGroupSince.translation,
-                style: Theme.of(context).textTheme.bodySmall,
-                children: <TextSpan>[
-                  TextSpan(
-                      text:
-                          ' ${groupingStartedAt.fullDateWithYear} ${LocalizedTexts.at.translation} ${groupingStartedAt.timeHoursMinutes}.',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic)),
-                ],
-              ),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  LocalizedTexts.weAreLookingForAGroupSince.translation,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                Text(
+                  '${groupingStartedAt.fullDateWithYear} ${LocalizedTexts.at.translation} ${groupingStartedAt.timeHoursMinutes}.',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
+                ),
+              ],
             );
           },
         ),

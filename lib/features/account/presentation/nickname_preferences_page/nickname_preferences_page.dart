@@ -77,6 +77,7 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
       ),
       body: SafeArea(
         child: BlocListener<GroupPreferencesBloc, GroupPreferencesState>(
+          listenWhen: (prev, cur) => context.router.current.name == NicknamePreferencesRoute.name,
           listener: _onChangeListener,
           child: MainContainer(
             child: ScrollableContainer(

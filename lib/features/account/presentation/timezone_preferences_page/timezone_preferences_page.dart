@@ -86,6 +86,7 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
           children: [
             const SizedBox(height: 28.0),
             BlocListener<GroupPreferencesBloc, GroupPreferencesState>(
+              listenWhen: (prev, cur) => context.router.current.name == TimezonePreferencesRoute.name,
               listener: _onChangeListener,
               child: MainContainer(
                 child: Column(
