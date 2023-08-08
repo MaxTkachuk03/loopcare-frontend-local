@@ -48,16 +48,13 @@ abstract class ServingSize implements _$ServingSize {
     return toJson()
         .entries
         .map((entry) {
-          final nutritionValueType = NutritionValuesTypes.values
-              .firstWhereOrNull((element) => element.name == entry.key);
+          final nutritionValueType =
+              NutritionValuesTypes.values.firstWhereOrNull((element) => element.name == entry.key);
 
           if (nutritionValueType == null) return null;
 
           return NutritionItem(
-            name: entry.key
-                .split(beforeCapitalLetter)
-                .join(' ')
-                .capitalizeOnlyFirstLetter(),
+            name: entry.key.split(beforeCapitalLetter).join(' ').capitalizeOnlyFirstLetter(),
             key: entry.key,
             value: entry.value,
             unitLabel: nutritionValueType.unitLabel,
@@ -68,13 +65,13 @@ abstract class ServingSize implements _$ServingSize {
   }
 
   String get servingLabel {
-    return '$measurementDescription ($metricServingAmount $metricServingUnit)';
+    var metricServingUnitLabel = metricServingUnit ?? '';
+    return '$measurementDescription ($metricServingAmount $metricServingUnitLabel)';
   }
 
   String get servingSizeLabel {
     return '${numberOfUnits.removeDecimalZeroFormat()} ${measurementDescription ?? 'serving'}';
   }
 
-  factory ServingSize.fromJson(Map<String, dynamic> json) =>
-      _$ServingSizeFromJson(json);
+  factory ServingSize.fromJson(Map<String, dynamic> json) => _$ServingSizeFromJson(json);
 }
