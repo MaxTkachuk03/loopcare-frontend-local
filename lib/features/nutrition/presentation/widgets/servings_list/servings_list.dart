@@ -16,10 +16,8 @@ class _ServingListState extends State<ServingList> {
   final TextEditingController _amountFieldController = TextEditingController();
 
   void _onListItemPressedHandler(ServingSize item) {
-    _amountFieldController.text = item.numberOfUnits.round().toString();
-    context
-        .read<FoodItemServingsBloc>()
-        .add(FoodItemServingsEvent.setSelectedFoodItemServing(item));
+    _amountFieldController.text = item.numberOfUnits.toString();
+    context.read<FoodItemServingsBloc>().add(FoodItemServingsEvent.setSelectedFoodItemServing(item));
   }
 
   @override
@@ -43,11 +41,9 @@ class _ServingListState extends State<ServingList> {
                 return ListView.builder(
                   itemCount: foodItemServingsState.servingsIList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final ServingSize listItem =
-                        foodItemServingsState.servingsIList[index];
+                    final ServingSize listItem = foodItemServingsState.servingsIList[index];
                     final isSelected =
-                        foodItemServingsState.selectedServingItem?.servingId ==
-                            listItem.servingId;
+                        foodItemServingsState.selectedServingItem?.servingId == listItem.servingId;
 
                     return ServingListItem(
                       item: listItem,
@@ -64,19 +60,12 @@ class _ServingListState extends State<ServingList> {
   }
 
   void _foodServingListener(BuildContext context, FoodItemServingsState state) {
-    final initialValue = context
-            .read<FoodItemServingsBloc>()
-            .state
-            .selectedServingItem
-            ?.numberOfUnits
-            .round() ??
-        '1';
+    final initialValue = context.read<FoodItemServingsBloc>().state.selectedServingItem?.numberOfUnits ?? '1';
 
     _amountFieldController.text = '$initialValue';
   }
 
-  bool _foodServingListenWhen(
-      FoodItemServingsState previous, FoodItemServingsState current) {
+  bool _foodServingListenWhen(FoodItemServingsState previous, FoodItemServingsState current) {
     return previous is Loading && current is FoodItemServings;
   }
 }
