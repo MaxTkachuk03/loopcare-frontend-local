@@ -786,7 +786,7 @@ class ModalBottomSheet {
                       itemCount: list.length,
                       itemBuilder: (BuildContext context, int index) {
                         final item = list[index];
-                        final isFilled = filledList.contains(item.label.toLowerCase());
+                        final isFilled = filledList.contains(item.shortValue.toLowerCase());
 
                         return InkWell(
                           onTap: () {

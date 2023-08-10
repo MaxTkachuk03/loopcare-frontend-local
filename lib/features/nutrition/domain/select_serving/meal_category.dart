@@ -62,6 +62,23 @@ extension MealCategoryExtension on MealCategory {
     }
   }
 
+  String? get shortLabel {
+    switch (this) {
+      case MealCategory.breakfast:
+        return LocalizedTexts.breakfast.translation.toLowerCase();
+      case MealCategory.lunch:
+        return LocalizedTexts.lunch.translation.toLowerCase();
+      case MealCategory.dinner:
+        return LocalizedTexts.dinner.translation.toLowerCase();
+      case MealCategory.inbetweens:
+        return LocalizedTexts.inbetweensShort.translation.toLowerCase();
+      case MealCategory.drinks:
+        return LocalizedTexts.drinks.translation.toLowerCase();
+      default:
+        return null;
+    }
+  }
+
   String? get originalValue {
     switch (this) {
       case MealCategory.breakfast:
@@ -79,20 +96,20 @@ extension MealCategoryExtension on MealCategory {
     }
   }
 
-  String? get shortLabel {
+  String get shortValue {
     switch (this) {
       case MealCategory.breakfast:
-        return LocalizedTexts.breakfast.translation.toLowerCase();
+        return 'breakfast';
       case MealCategory.lunch:
-        return LocalizedTexts.lunch.translation.toLowerCase();
+        return 'lunch';
       case MealCategory.dinner:
-        return LocalizedTexts.dinner.translation.toLowerCase();
+        return 'dinner';
       case MealCategory.inbetweens:
-        return LocalizedTexts.inbetweensShort.translation.toLowerCase();
+        return 'inbetweens';
       case MealCategory.drinks:
-        return LocalizedTexts.drinks.translation.toLowerCase();
+        return 'drinks';
       default:
-        return null;
+        return '';
     }
   }
 }

@@ -31,6 +31,7 @@ class LogMeal extends StatelessWidget {
             (e) => NameLabel(
               name: e.name,
               label: e.label ?? '',
+              shortValue: e.shortValue,
               icon: e.icon,
             ),
           )

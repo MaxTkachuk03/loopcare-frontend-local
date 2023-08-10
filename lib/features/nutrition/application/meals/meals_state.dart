@@ -144,13 +144,19 @@ class MealsState with _$MealsState {
         return selectedDayMeals
             .where((item) => item.mealItems.isNotEmpty)
             .toList()
-            .map((e) => e.mealCategory)
+            .map((e) => categoryShortVersion(e.mealCategory))
             .toList()
             .toSet()
             .toList();
       },
       orElse: () => <String>[],
     );
+  }
+
+  String categoryShortVersion(String category) {
+    return category.toLowerCase() == MealCategory.inbetweens.originalValue
+        ? MealCategory.inbetweens.shortValue
+        : category;
   }
 
   List<String> get filledPlannedMealCategories {
