@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
@@ -65,8 +66,7 @@ class Summary extends StatelessWidget {
                           SummaryItem(
                             label: LocalizedTexts.portions.translation,
                             icon: AppIcons.person,
-                            quantity: s.recipe.servingAmount
-                                .removeDecimalZeroFormat(),
+                            quantity: s.recipe.servingAmount.removeDecimalZeroFormat(),
                           ),
                         ],
                       ),
@@ -80,13 +80,18 @@ class Summary extends StatelessWidget {
                 const SizedBox(
                   height: 30.0,
                 ),
-                MainContainer(
-                  child: OutlinedRoundedButton(
-                    text: LocalizedTexts.addFoodItem.translation,
-                    icon: AppIcons.dish,
-                    onPressed: () {},
-                  ),
-                ),
+                Column(
+                  children: [
+                    const SizedBox(height: 26.0),
+                    MainContainer(
+                      child: ElevatedButton(
+                        onPressed: () => context.router.pop(),
+                        child: Text(LocalizedTexts.skip.translation),
+                      ),
+                    ),
+                    const SizedBox(height: 20.0)
+                  ],
+                )
               ],
             );
           },
