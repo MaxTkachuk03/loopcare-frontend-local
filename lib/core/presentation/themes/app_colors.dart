@@ -65,5 +65,8 @@ class AppColors {
 
   static const Color d9d9d9 = Color(0xFFD9D9D9);
 
+  static const Color gridTitleGradientStart = Color(0xFF090A0A);
+  static const Color gridTitleGradientEnd = Color(0x1D090A0A);
+
   AppColors._();
 }

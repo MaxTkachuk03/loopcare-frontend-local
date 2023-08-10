@@ -9,9 +9,9 @@ class SearchItem with _$SearchItem {
   const factory SearchItem({
     required String id,
     required String name,
+    String? image,
     required SearchItemTypes type,
   }) = _SearchItem;
 
-  factory SearchItem.fromJson(Map<String, dynamic> json) =>
-      _$SearchItemFromJson(json);
+  factory SearchItem.fromJson(Map<String, dynamic> json) => _$SearchItemFromJson(json);
 }

@@ -143,5 +143,9 @@ class AppIcons {
 
   static SvgPicture sos = SvgPicture.asset('$iconsFilePath/sos.svg');
 
+  static const AssetImage listLayout = AssetImage('$iconsFilePath/icon_list.png');
+
+  static const AssetImage detailsLayout = AssetImage('$iconsFilePath/icon_detail.png');
+
   AppIcons._();
 }
