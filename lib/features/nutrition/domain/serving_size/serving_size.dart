@@ -65,8 +65,9 @@ abstract class ServingSize implements _$ServingSize {
   }
 
   String get servingLabel {
-    var metricServingUnitLabel = metricServingUnit ?? '';
-    return '$measurementDescription ($metricServingAmount $metricServingUnitLabel)';
+    var metricServingUnitLabel = metricServingUnit != null ? ' $metricServingUnit' : '';
+
+    return '$measurementDescription ($metricServingAmount$metricServingUnitLabel)';
   }
 
   String get servingSizeLabel {
