@@ -38,7 +38,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
     context
         .read<HomeBottomNavigationBloc>()
-        .add(const HomeBottomNavigationEvent.tabChanged(DashboardNavbarItems.today));
+        .add(const HomeBottomNavigationEvent.tabChanged(DashboardNavbarItems.education));
   }
 
   _onErrorListener(BuildContext context, EducationLessonState state) {
@@ -107,9 +107,9 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                   ),
                   Column(
                     children: [
-                      OutlinedButton(
+                      ElevatedButton(
                         onPressed: () => _onPressHandler(context),
-                        child: const Text(LocalizedTexts.backToToday).tr(),
+                        child: Text(LocalizedTexts.backToEducation.tr()),
                       ),
                       const SizedBox(height: 30.0),
                     ],

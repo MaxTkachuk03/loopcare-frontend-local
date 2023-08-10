@@ -906,7 +906,7 @@ class ModalBottomSheet {
                             padding: const EdgeInsets.symmetric(horizontal: 24.0),
                             child: ElevatedButton(
                               onPressed: onBtnPress,
-                              child: Text(LocalizedTexts.finish.translation),
+                              child: Text(LocalizedTexts.next.translation),
                             ),
                           ),
                           const SizedBox(height: 40.0),

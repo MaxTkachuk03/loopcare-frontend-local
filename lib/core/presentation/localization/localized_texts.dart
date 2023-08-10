@@ -406,6 +406,7 @@ class LocalizedTexts {
   // Education
   static const String lessonCompleteTitle = 'lessonCompleteTitle';
   static const String backToToday = 'backToToday';
+  static const String backToEducation = 'backToEducation';
   static const String completed = 'completed';
 
   // Physical exercise
