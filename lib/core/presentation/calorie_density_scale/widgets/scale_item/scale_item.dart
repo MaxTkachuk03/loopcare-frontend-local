@@ -27,28 +27,48 @@ class ScaleItem extends StatelessWidget {
     );
   }
 
-  bool _isDensityInRange() {
+  Widget _horizontalCell(bool isDensityInRange) {
+    return Column(
+      children: [
+        Container(color: Colors.transparent, height: 5),
+        Expanded(
+          child: Container(
+            color: isDensityInRange ? Colors.transparent : AppColors.yellowLight,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _verticalCell(bool isDensityInRange) {
+    return Container(
+      color: isDensityInRange ? Colors.transparent : AppColors.yellowLight,
+    );
+  }
+
+  bool _isDensityInRange(bool useHorizontalLayout) {
     final density = this.density;
 
     if (density == null) return false;
-
-    return (range.min <= density && density <= range.max) ||
-        density >= range.max;
+    if (useHorizontalLayout) {
+      return (range.min <= density && density <= range.max);
+    } else {
+      return (range.min <= density && density <= range.max) || density >= range.max;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: Stack(
-      alignment:
-          useHorizontalLayout ? Alignment.centerRight : Alignment.topCenter,
-      children: [
-        Container(
-          color:
-              _isDensityInRange() ? Colors.transparent : AppColors.yellowLight,
-        ),
-        _renderSeparator(),
-      ],
-    ));
+      child: Stack(
+        alignment: useHorizontalLayout ? Alignment.centerRight : Alignment.topCenter,
+        children: [
+          useHorizontalLayout
+              ? _horizontalCell(_isDensityInRange(useHorizontalLayout))
+              : _verticalCell(_isDensityInRange(useHorizontalLayout)),
+          _renderSeparator(),
+        ],
+      ),
+    );
   }
 }

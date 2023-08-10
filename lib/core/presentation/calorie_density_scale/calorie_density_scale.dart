@@ -8,8 +8,7 @@ class CalorieDensityScale extends StatelessWidget {
   final double? density;
   final CalorieDensityScaleLayout layout;
   final double? separatorSize;
-  final Color
-      separatorColor; // should be the same color as components bg to make it transparent
+  final Color separatorColor; // should be the same color as components bg to make it transparent
   final bool _useHorizontal;
 
   const CalorieDensityScale({
@@ -18,19 +17,20 @@ class CalorieDensityScale extends StatelessWidget {
     required this.layout,
     required this.separatorColor,
     this.separatorSize = 3,
-  })  : _useHorizontal =
-            layout == CalorieDensityScaleLayout.horizontal ? true : false,
+  })  : _useHorizontal = layout == CalorieDensityScaleLayout.horizontal ? true : false,
         super(key: key);
 
   List<Widget> _renderListItems() {
     return calorieDensityScaleValues
-        .map((range) => ScaleItem(
-              range: range,
-              density: density,
-              useHorizontalLayout: _useHorizontal,
-              separatorColor: separatorColor,
-              separatorSize: separatorSize,
-            ))
+        .map(
+          (range) => ScaleItem(
+            range: range,
+            density: density,
+            useHorizontalLayout: _useHorizontal,
+            separatorColor: separatorColor,
+            separatorSize: separatorSize,
+          ),
+        )
         .toList();
   }
 
