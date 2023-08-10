@@ -7,6 +7,7 @@ class OutlinedRoundedButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final double? radius;
   final double? textPadding;
+  final BorderRadius? borderRadius;
 
   const OutlinedRoundedButton({
     Key? key,
@@ -15,6 +16,7 @@ class OutlinedRoundedButton extends StatelessWidget {
     this.onPressed,
     this.radius,
     this.textPadding,
+    this.borderRadius,
   }) : super(key: key);
 
   @override
@@ -25,10 +27,11 @@ class OutlinedRoundedButton extends StatelessWidget {
           minimumSize: const Size(0, 38.0),
           disabledForegroundColor: AppColors.darkGreen.withOpacity(0.4),
           disabledBackgroundColor: AppColors.darkGreen.withOpacity(0.1),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(5.0),
-            ),
+          shape: RoundedRectangleBorder(
+            borderRadius: borderRadius ??
+                const BorderRadius.all(
+                  Radius.circular(5.0),
+                ),
           ),
           textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
                 fontWeight: FontWeight.w600,

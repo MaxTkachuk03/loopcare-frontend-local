@@ -21,6 +21,8 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  String? currentTab = '';
+
   @override
   void initState() {
     super.initState();
@@ -33,9 +35,11 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       appBar: SearchAppBar(
         mode: widget.mode,
+        onTabChanged: (value) => _onTabChanged(value),
       ),
       body: SafeArea(
         child: SearchResultList(
+          selectedTab: currentTab,
           onItemTap: widget.onItemTap,
           onRecentSearchItemTap: (item) {
             context.read<SearchBloc>().add(SearchEvent.search(item));
@@ -43,5 +47,11 @@ class _SearchPageState extends State<SearchPage> {
         ),
       ),
     );
+  }
+
+  _onTabChanged(String? value) {
+    setState(() {
+      currentTab = value;
+    });
   }
 }

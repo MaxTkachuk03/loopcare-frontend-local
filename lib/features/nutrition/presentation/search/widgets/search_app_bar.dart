@@ -10,10 +10,12 @@ import 'package:loopcare_frontend/features/nutrition/application/search/search_b
 
 class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
   final SearchMode? mode;
+  final void Function(String? tabName)? onTabChanged;
 
   const SearchAppBar({
     Key? key,
     this.mode,
+    this.onTabChanged,
   }) : super(key: key);
 
   @override
@@ -122,8 +124,11 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
 
   void _tabsChangeListener() {
     if (_tabController.indexIsChanging) {
+      context.read<SearchBloc>().add(const SearchEvent.resetData());
+
       String? selectedMode = SearchMode.values.toList()[_tabController.index].searchModeValue;
       searchMode = selectedMode;
+      widget.onTabChanged?.call(searchMode);
 
       context.read<SearchBloc>().add(
             SearchEvent.search(
