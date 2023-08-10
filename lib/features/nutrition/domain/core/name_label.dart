@@ -14,9 +14,9 @@ abstract class NameLabel implements _$NameLabel {
   const factory NameLabel({
     required String name,
     required String label,
+    required String shortValue,
     @JsonKey(ignore: true) AssetImage? icon,
   }) = _NameLabel;
 
-  factory NameLabel.fromJson(Map<String, dynamic> json) =>
-      _$NameLabelFromJson(json);
+  factory NameLabel.fromJson(Map<String, dynamic> json) => _$NameLabelFromJson(json);
 }

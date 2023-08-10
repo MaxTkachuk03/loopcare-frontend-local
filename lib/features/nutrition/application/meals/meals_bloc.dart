@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_
 import 'package:loopcare_frontend/features/nutrition/domain/favorites_item/favorites_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/meal_action_mode/meal_action_modes.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
