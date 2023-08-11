@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/get_dashboard_weights_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_body.dart';
@@ -179,6 +180,7 @@ abstract class NutritionService {
     List<String>? mode,
     int? page,
     int? limit,
+    CancelToken? cancelRequestToken,
   });
 
   Future<Either<RequestError, GetDashboardWeightsResponse>> getDashboardWeights(
