@@ -12,6 +12,10 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/auth_token_inte
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+enum DioRequestCancellationReason {
+  seachManualCancel,
+}
+
 Future<Either<RequestError, T>> process<T>(Future<T> Function() request) => Task(request)
     .attempt()
     .map(
@@ -56,6 +60,12 @@ class DioClient {
     bool hasProxy = ip != null && ip.isNotEmpty && port != null && port.isNotEmpty;
 
     return hasProxy ? 'PROXY $ip:$port' : 'DIRECT';
+  }
+
+  void cancelRequests({CancelToken? cancelToken}) {
+    if (cancelToken != null) {
+      cancelToken.cancel();
+    }
   }
 
   Future<Either<RequestError, Response<dynamic>>> get(

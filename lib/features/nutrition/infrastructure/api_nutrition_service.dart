@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
@@ -319,14 +320,11 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, SearchResponse>> search(
-    String query, {
-    List<String>? mode,
-    int? page,
-    int? limit,
-  }) {
+  Future<Either<RequestError, SearchResponse>> search(String query,
+      {List<String>? mode, int? page, int? limit, CancelToken? cancelRequestToken}) {
     return client.get(
       '/nutrition/search',
+      cancelToken: cancelRequestToken,
       queryParameters: {
         'query': query,
         if (mode != null && mode.isNotEmpty) 'modes': mode,

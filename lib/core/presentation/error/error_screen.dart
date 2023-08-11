@@ -25,9 +25,12 @@ class ErrorScreen extends StatelessWidget {
       ErrorTypes errorType;
 
       errorType = error!.maybeWhen(
+        requestCancelled: (error) => ErrorTypes.requestCancelled,
         orElse: () => ErrorTypes.somethingWentWrong,
         socketException: (_) => ErrorTypes.noInternetConnection,
       );
+
+      if (errorType.isRequestCancelledType) return const SizedBox(height: 0.0);
 
       return Padding(
         padding: const EdgeInsets.only(top: 24.0),
@@ -83,8 +86,11 @@ class ErrorScreen extends StatelessWidget {
 enum ErrorTypes {
   somethingWentWrong,
   noInternetConnection,
+  requestCancelled,
 }
 
 extension on ErrorTypes {
   bool get isSomethingWentWrongType => this == ErrorTypes.somethingWentWrong;
+
+  bool get isRequestCancelledType => this == ErrorTypes.requestCancelled;
 }
