@@ -29,6 +29,7 @@ class CalorieDensityScale extends StatelessWidget {
             useHorizontalLayout: _useHorizontal,
             separatorColor: separatorColor,
             separatorSize: separatorSize,
+            isLastElement: calorieDensityScaleValues.last == range,
           ),
         )
         .toList();

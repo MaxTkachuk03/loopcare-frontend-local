@@ -222,13 +222,16 @@ class _SearchResultListState extends State<SearchResultList> {
                     );
                   }
 
-                  final item = recentSearchList[index];
+                  final item = recentSearchList[index].split('*-*');
+                  final itemName = item[0];
+                  final itemType = SearchItemTypes.values
+                      .firstWhere((e) => e.toString() == item[1], orElse: () => SearchItemTypes.recent);
 
                   return SearchResultListItem(
                     item: SearchItem(
                       id: index.toString(),
-                      name: item,
-                      type: SearchItemTypes.recent,
+                      name: itemName,
+                      type: itemType,
                     ),
                     onTap: (SearchItem item) {
                       widget.onRecentSearchItemTap(item.name);

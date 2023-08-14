@@ -22,9 +22,7 @@ class UnderAppBarContainer extends StatelessWidget {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (BuildContext context, state) {
         return Container(
-          color: state.isPlanningMeals
-              ? AppColors.darkGreen
-              : AppColors.blueAppBar,
+          color: state.isPlanningMeals ? AppColors.darkGreen : AppColors.blueAppBar,
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             children: [
@@ -37,8 +35,7 @@ class UnderAppBarContainer extends StatelessWidget {
                     child: SearchField(
                       readOnly: true,
                       hintText: LocalizedTexts.searchHint.translation,
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 0, horizontal: 16.0),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16.0),
                       prefixIcon: const Icon(
                         Icons.search,
                         color: AppColors.greyLabel,
@@ -96,7 +93,7 @@ class UnderAppBarContainer extends StatelessWidget {
           if (mealId == null) return;
 
           context.read<SearchBloc>().add(
-                SearchEvent.addSearchResult(item.name),
+                SearchEvent.addSearchResult(item.name, item.type),
               );
 
           if (item.type == SearchItemTypes.food) {
