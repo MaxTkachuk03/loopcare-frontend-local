@@ -88,9 +88,6 @@ import 'package:loopcare_frontend/features/proxy/proxy_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_serving_page/select_serving_page.dart';
 import 'package:loopcare_frontend/features/reflection/presentation/nutrition_details_page.dart';
 import 'package:loopcare_frontend/features/reflection/presentation/reflection_page.dart';
-import 'package:loopcare_frontend/features/self_help/presentation/gender_preferences/self_help_gender_preferences_page.dart';
-import 'package:loopcare_frontend/features/self_help/presentation/intro/self_help_intro_page.dart';
-import 'package:loopcare_frontend/features/self_help/presentation/ready/self_help_ready_page.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/video_page.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/video_session_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/allergic/allergic_page.dart';
@@ -300,18 +297,6 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.doNotLike,
       page: DoNotLikePage,
-    ),
-    AutoRoute(
-      path: AppRoutes.selfHelpIntro,
-      page: SelfHelpIntroPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.selfHelpGenderPreferences,
-      page: SelfHelpGenderPreferencesPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.selfHelpReady,
-      page: SelfHelpReadyPage,
     ),
     AutoRoute(
       path: AppRoutes.householdIntro,
