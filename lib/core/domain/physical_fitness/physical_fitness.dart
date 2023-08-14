@@ -12,7 +12,7 @@ abstract class PhysicalFitness implements _$PhysicalFitness {
     required int id,
     required double height,
     required double weight,
-    required int bmi,
+    required double bmi,
     required DateTime birthDate,
   }) = _PhysicalFitness;
 

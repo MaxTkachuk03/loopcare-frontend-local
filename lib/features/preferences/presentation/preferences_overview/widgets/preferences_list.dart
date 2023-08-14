@@ -7,7 +7,6 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/diabetes/application/diabetes_bloc.dart';
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/widgets/preferences_list_item.dart';
-import 'package:loopcare_frontend/features/self_help/application/self_help_bloc.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 class Pref {
@@ -34,13 +33,9 @@ class PreferencesList extends StatefulWidget {
 class _PreferencesListState extends State<PreferencesList> {
   @override
   void initState() {
-    context
-        .read<YouAndFoodBloc>()
-        .add(const YouAndFoodEvent.fetchFoodPreferences());
+    context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.fetchFoodPreferences());
 
     context.read<DiabetesBloc>().add(const DiabetesEvent.getAccountDiabetesType());
-
-    context.read<SelfHelpBloc>().add(const SelfHelpEvent.getAccountPreferGender());
 
     super.initState();
   }
@@ -49,8 +44,7 @@ class _PreferencesListState extends State<PreferencesList> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        BlocBuilder<YouAndFoodBloc, YouAndFoodState>(
-            builder: (BuildContext context, state) {
+        BlocBuilder<YouAndFoodBloc, YouAndFoodState>(builder: (BuildContext context, state) {
           return Column(
             children: [
               PreferencesListItem(
@@ -67,8 +61,7 @@ class _PreferencesListState extends State<PreferencesList> {
             ],
           );
         }),
-        BlocBuilder<DiabetesBloc, DiabetesState>(
-            builder: (BuildContext context, state) {
+        BlocBuilder<DiabetesBloc, DiabetesState>(builder: (BuildContext context, state) {
           return Column(
             children: [
               PreferencesListItem(
@@ -80,24 +73,6 @@ class _PreferencesListState extends State<PreferencesList> {
                 ),
                 imageOverlayColor: AppColors.yellowish.withOpacity(0.8),
                 routePath: AppRoutes.diabetes,
-              ),
-              const SizedBox(height: 8.0),
-            ],
-          );
-        }),
-        BlocBuilder<SelfHelpBloc, SelfHelpState>(
-            builder: (BuildContext context, state) {
-          return Column(
-            children: [
-              PreferencesListItem(
-                item: Pref(
-                  title: LocalizedTexts.selfHelp.tr(),
-                  completionTime: '2 ${LocalizedTexts.minutes.tr()}',
-                  isCompleted: state.isCompleted,
-                  imagePath: AppImages.selfHelpIntro,
-                ),
-                imageOverlayColor: AppColors.yellowish.withOpacity(0.8),
-                routePath: AppRoutes.selfHelpIntro,
               ),
               const SizedBox(height: 8.0),
             ],

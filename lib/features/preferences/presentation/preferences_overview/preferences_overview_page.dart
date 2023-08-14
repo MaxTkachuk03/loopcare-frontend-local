@@ -12,7 +12,6 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/diabetes/application/diabetes_bloc.dart';
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/widgets/preferences_list.dart';
-import 'package:loopcare_frontend/features/self_help/application/self_help_bloc.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 class PreferencesOverviewPage extends StatelessWidget {
@@ -35,10 +34,6 @@ class PreferencesOverviewPage extends StatelessWidget {
           listener: (BuildContext context, _) => _updateAccount(context),
         ),
         BlocListener<DiabetesBloc, DiabetesState>(
-          listenWhen: (prev, cur) => !prev.isCompleted && cur.isCompleted,
-          listener: (BuildContext context, _) => _updateAccount(context),
-        ),
-        BlocListener<SelfHelpBloc, SelfHelpState>(
           listenWhen: (prev, cur) => !prev.isCompleted && cur.isCompleted,
           listener: (BuildContext context, _) => _updateAccount(context),
         ),
