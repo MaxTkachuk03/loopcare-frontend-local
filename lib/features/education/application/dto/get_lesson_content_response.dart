@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
+import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 
 part 'get_lesson_content_response.g.dart';
 
@@ -13,6 +14,7 @@ class GetLessonContentResponse {
   final String image;
   final int duration;
   final int pageCounter;
+  final ExtraActionTypes? extraAction;
   final DateTime? completedAt;
   final int step;
   final List<LessonPage> pages;
@@ -24,6 +26,7 @@ class GetLessonContentResponse {
     this.title,
     this.image,
     this.duration,
+    this.extraAction,
     this.pageCounter,
     this.completedAt,
     this.step,

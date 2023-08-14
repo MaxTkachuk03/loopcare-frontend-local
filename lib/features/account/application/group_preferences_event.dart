@@ -20,4 +20,6 @@ class GroupPreferencesEvent with _$GroupPreferencesEvent {
   const factory GroupPreferencesEvent.leaveGroup() = LeaveGroup;
 
   const factory GroupPreferencesEvent.cancelGrouping() = CancelGrouping;
+
+  const factory GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode groupPrefsMode) = ChangeGroupPrefsMode;
 }

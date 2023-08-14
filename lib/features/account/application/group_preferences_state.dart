@@ -21,6 +21,7 @@ class GroupPreferencesData with _$GroupPreferencesData {
     @Default('') String timezone,
     @Default(null) GenderPreferences? genderPreferences,
     @Default(false) bool isLoading,
+    @Default(GroupPrefsMode.singlePage) GroupPrefsMode groupPrefsMode,
     RequestError? error,
   }) = _GroupPreferencesData;
 }

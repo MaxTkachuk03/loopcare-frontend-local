@@ -3,12 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/html_renderer/html_renderer.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/oval_bottom_border_clipper.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_content.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
+import 'package:loopcare_frontend/features/education/presentation/widgets/lesson_image_header.dart';
 
 class LessonTextPage extends StatelessWidget {
   final LessonContent content;
@@ -36,33 +41,24 @@ class LessonTextPage extends StatelessWidget {
         child: ScrollableContainer(
           child: Column(
             children: [
-              BlocBuilder<EducationLessonBloc, EducationLessonState>(builder: (BuildContext context, state) {
-                final lesson = state.data;
+              BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                builder: (context, accountState) {
+                  return BlocBuilder<EducationLessonBloc, EducationLessonState>(
+                    builder: (context, state) {
+                      if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
+                          accountState.groupingState == UserGroupingState.locked) {
+                        return ProgressBar(
+                          progress: state.data.lessonProgress,
+                          backgroundColor: AppColors.white,
+                        );
+                      }
 
-                return Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    ClipPath(
-                      clipper: OvalBottomBorderClipper(),
-                      child: Container(
-                        height: 90,
-                        width: double.infinity,
-                        color: AppColors.white,
-                      ),
-                    ),
-                    Positioned(
-                      bottom: -95,
-                      left: 1,
-                      right: 1,
-                      child: SizedBox(
-                        width: 234,
-                        height: 182,
-                        child: NetworkImageWithCache(url: lesson.lessonImage),
-                      ),
-                    ),
-                  ],
-                );
-              }),
+                      return const SizedBox.shrink();
+                    },
+                  );
+                },
+              ),
+              const LessonImageHeader(),
               const SizedBox(height: 60.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,

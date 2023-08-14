@@ -3,6 +3,7 @@ import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
+import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
 
 part 'authentication_state.freezed.dart';
 
@@ -64,57 +65,49 @@ class AuthenticationState with _$AuthenticationState {
   }
 
   String? get email {
-    return maybeWhen(
-      orElse: () => '',
-      authenticated: (state) => state.email,
-    );
-  }
-
-  String get gender {
-    return maybeWhen(
-      orElse: () => '',
-      authenticated: (state) => state.gender,
+    return mapOrNull(
+      authenticated: (state) => state.account.email,
     );
   }
 
   double? get height {
-    return maybeMap(
-      orElse: () => 0.0,
+    return mapOrNull(
       authenticated: (state) => state.account.height,
     );
   }
 
+  SexType? get gender {
+    return mapOrNull(
+      authenticated: (state) => state.account.gender,
+    );
+  }
+
   UserGroupingState? get groupingState {
-    return maybeMap(
-      orElse: () => null,
+    return mapOrNull(
       authenticated: (state) => state.account.groupingState,
     );
   }
 
   String? get nickname {
-    return maybeMap(
-      orElse: () => '',
+    return mapOrNull(
       authenticated: (state) => state.account.nickname,
     );
   }
 
   GenderPreferences? get genderPreferences {
-    return maybeMap(
-      orElse: () => null,
+    return mapOrNull(
       authenticated: (state) => state.account.genderPreference,
     );
   }
 
   String? get timezone {
-    return maybeMap(
-      orElse: () => '',
+    return mapOrNull(
       authenticated: (state) => state.account.timezone,
     );
   }
 
   DateTime? get groupingStartedAt {
-    return maybeMap(
-      orElse: () => null,
+    return mapOrNull(
       authenticated: (state) => state.account.groupingStartedAt,
     );
   }

@@ -11,6 +11,10 @@ class EducationLessonEvent with _$EducationLessonEvent {
 
   const factory EducationLessonEvent.prevPage() = PrevPage;
 
+  const factory EducationLessonEvent.progressForward() = ProgressForward;
+
+  const factory EducationLessonEvent.progressBack() = ProgressBack;
+
   const factory EducationLessonEvent.completeLesson() = CompleteLesson;
 
   const factory EducationLessonEvent.downloadAudioFile(String url) =

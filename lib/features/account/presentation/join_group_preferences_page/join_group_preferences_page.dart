@@ -4,20 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/orange_button.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
-import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
+import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
 
 class JoinGroupPreferencesPage extends StatefulWidget {
-  final GroupPrefsMode groupPrefsMode;
-
-  const JoinGroupPreferencesPage({Key? key, required this.groupPrefsMode}) : super(key: key);
+  const JoinGroupPreferencesPage({Key? key}) : super(key: key);
 
   @override
   State<JoinGroupPreferencesPage> createState() => _JoinGroupPreferencesPageState();
@@ -40,10 +36,10 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
   }
 
   void _onNextPressedHandler() {
-    if (widget.groupPrefsMode == GroupPrefsMode.flow && _selectedValue == YesNoAnswer.yes) {
-      context.router.push(GenderPreferencesRoute(groupPrefsMode: GroupPrefsMode.flow));
-    } else {
+    if (_selectedValue == YesNoAnswer.no) {
       context.router.pop();
+    } else {
+      context.router.pushNamed(AppRoutes.genderPreferences);
     }
 
     context.read<GroupPreferencesBloc>().add(GroupPreferencesEvent.setWouldLikeJoinGroup(_selectedValue!));
@@ -51,19 +47,8 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.blueAppBar,
-        leading: const BackButtonHexagon(),
-        title: Text(
-          LocalizedTexts.groupPreferences,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                fontWeight: FontWeight.w700,
-                color: AppColors.white,
-              ),
-        ).tr(),
-      ),
-      body: SafeArea(
+    return GroupPrefsPageWrap(
+      child: SafeArea(
         child: MainContainer(
           child: ScrollableContainer(
             child: Column(

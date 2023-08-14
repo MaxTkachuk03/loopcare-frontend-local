@@ -4,24 +4,25 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/orange_button.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
+import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
+import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
+import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_progress.dart';
+import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:timezone/timezone.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/search_field.dart';
 
 class TimezonePreferencesPage extends StatefulWidget {
-  final GroupPrefsMode groupPrefsMode;
-
-  const TimezonePreferencesPage({Key? key, required this.groupPrefsMode}) : super(key: key);
+  const TimezonePreferencesPage({Key? key}) : super(key: key);
 
   @override
   State<TimezonePreferencesPage> createState() => _TimezonePreferencesPageState();
@@ -67,10 +68,16 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
   }
 
   void _onUpdateHandler(GroupPreferencesState state) {
-    if (widget.groupPrefsMode == GroupPrefsMode.flow) {
-      context.router.push(NicknamePreferencesRoute(groupPrefsMode: GroupPrefsMode.flow));
-    } else {
+    final groupPrefsMode = context.read<GroupPreferencesBloc>().state.data.groupPrefsMode;
+
+    if (groupPrefsMode == GroupPrefsMode.groupingLesson) {
+      context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward());
+    }
+
+    if (groupPrefsMode == GroupPrefsMode.singlePage) {
       context.router.pop();
+    } else {
+      context.router.pushNamed(AppRoutes.nicknamePreferences);
     }
   }
 
@@ -84,81 +91,80 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: BlueAppBar(
-        title: LocalizedTexts.groupPreferences.translation,
-        leading: const BackButtonHexagon(),
-      ),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 28.0),
-            BlocListener<GroupPreferencesBloc, GroupPreferencesState>(
-              listenWhen: (prev, cur) => context.router.current.name == TimezonePreferencesRoute.name,
-              listener: _onChangeListener,
-              child: MainContainer(
+    return GroupLessonWrap(
+      child: GroupPrefsPageWrap(
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const GroupPrefsProgress(),
+              const SizedBox(height: 28.0),
+              BlocListener<GroupPreferencesBloc, GroupPreferencesState>(
+                listenWhen: (prev, cur) => context.router.current.name == TimezonePreferencesRoute.name,
+                listener: _onChangeListener,
+                child: MainContainer(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        LocalizedTexts.whatIsYourTimezone,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ).tr(),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      SearchField(
+                          hintText: LocalizedTexts.searchTimezone.translation,
+                          contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16.0),
+                          prefixIcon: const Icon(
+                            Icons.search,
+                            color: AppColors.greyLabel,
+                          ),
+                          onChanged: _onSearch),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 28.0,
+              ),
+              Expanded(
+                child: ScrollablePositionedList.separated(
+                  itemScrollController: _itemScrollController,
+                  itemCount: locations.length,
+                  itemBuilder: (BuildContext context, index) {
+                    final item = locations[index];
+
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                      child: AppChoiceChip(
+                        label: item,
+                        selected: _selectedLocation == item,
+                        value: item,
+                        onSelected: onSelected,
+                        textAlign: TextAlign.left,
+                      ),
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const SizedBox(height: 8.0);
+                  },
+                ),
+              ),
+              MainContainer(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      LocalizedTexts.whatIsYourTimezone,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ).tr(),
-                    const SizedBox(
-                      height: 20.0,
+                    const SizedBox(height: 24.0),
+                    OrangeButton(
+                      onPressedHandler: _selectedLocation == null ? null : _onNextPressedHandler,
+                      child: const Text(LocalizedTexts.next).tr(),
                     ),
-                    SearchField(
-                        hintText: LocalizedTexts.searchTimezone.translation,
-                        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16.0),
-                        prefixIcon: const Icon(
-                          Icons.search,
-                          color: AppColors.greyLabel,
-                        ),
-                        onChanged: _onSearch),
+                    const SizedBox(height: 30.0),
                   ],
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 28.0,
-            ),
-            Expanded(
-              child: ScrollablePositionedList.separated(
-                itemScrollController: _itemScrollController,
-                itemCount: locations.length,
-                itemBuilder: (BuildContext context, index) {
-                  final item = locations[index];
-
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                    child: AppChoiceChip(
-                      label: item,
-                      selected: _selectedLocation == item,
-                      value: item,
-                      onSelected: onSelected,
-                      textAlign: TextAlign.left,
-                    ),
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return const SizedBox(height: 8.0);
-                },
-              ),
-            ),
-            MainContainer(
-              child: Column(
-                children: [
-                  const SizedBox(height: 24.0),
-                  OrangeButton(
-                    onPressedHandler: _selectedLocation == null ? null : _onNextPressedHandler,
-                    child: const Text(LocalizedTexts.next).tr(),
-                  ),
-                  const SizedBox(height: 30.0),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

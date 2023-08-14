@@ -5,9 +5,14 @@ import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.d
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
+import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson_page_type.dart';
+import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_audio_body.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_text_body.dart';
 
@@ -31,8 +36,23 @@ class _LessonPageState extends State<LessonPage> {
 
     lessonBloc.add(const EducationLessonEvent.nextPage());
 
+    lessonBloc.add(const EducationLessonEvent.progressForward());
+
     if (lessonBloc.state.data.isLastPage) {
-      context.router.pushNamed(AppRoutes.lessonComplete);
+      final extraAction = lessonBloc.state.data.extraAction;
+      final groupingState = context.read<AuthenticationCubit>().state.groupingState;
+
+      if (extraAction != null &&
+          extraAction == ExtraActionTypes.setupGroupingPreferences &&
+          groupingState == UserGroupingState.locked) {
+        context
+          ..read<GroupPreferencesBloc>()
+              .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupingLesson))
+          ..router.pushNamed(AppRoutes.supportGroupIntro);
+      } else {
+        context.router.pushNamed(AppRoutes.lessonComplete);
+      }
+
       return;
     }
 
@@ -42,15 +62,10 @@ class _LessonPageState extends State<LessonPage> {
   }
 
   _onPrevPressed() {
-    context
-        .read<EducationLessonBloc>()
-        .add(const EducationLessonEvent.prevPage());
+    context.read<EducationLessonBloc>().add(const EducationLessonEvent.prevPage());
+    context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressBack());
 
     context.router.pop();
-  }
-
-  Future<bool> _onWillPop() {
-    return Future.value(true);
   }
 
   _errorListener(BuildContext context, EducationLessonState state) {
@@ -65,60 +80,52 @@ class _LessonPageState extends State<LessonPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: BlocConsumer<EducationLessonBloc, EducationLessonState>(
-        listenWhen: (prev, cur) => cur is ErrorGettingLessons,
-        listener: _errorListener,
-        builder: (BuildContext context, state) {
-          return state.maybeMap(
-            loading: (_) => const Loader(),
-            contentLoaded: (s) {
-              final currentPage = s.data.currentPage;
+    return BlocConsumer<EducationLessonBloc, EducationLessonState>(
+      listenWhen: (prev, cur) => cur is ErrorGettingLessons,
+      listener: _errorListener,
+      builder: (BuildContext context, state) {
+        return state.maybeMap(
+          loading: (_) => const Loader(),
+          contentLoaded: (s) {
+            final currentPage = s.data.currentPage;
 
-              if (currentPage.type == EducationLessonPageType.text) {
-                return LessonTextPage(
-                  onNextPressed: _onNextPressed,
-                  onPrevPressed: _onPrevPressed,
-                  content: currentPage.content,
-                );
+            if (currentPage.type == EducationLessonPageType.text) {
+              return LessonTextPage(
+                onNextPressed: _onNextPressed,
+                onPrevPressed: _onPrevPressed,
+                content: currentPage.content,
+              );
+            }
+            if (currentPage.type == EducationLessonPageType.audio) {
+              if (state.data.temporaryDirectory.isEmpty) {
+                context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
               }
-              if (currentPage.type == EducationLessonPageType.audio) {
-                if (state.data.temporaryDirectory.isEmpty) {
-                  context
-                      .read<EducationLessonBloc>()
-                      .add(const EducationLessonEvent.init());
-                }
-                if (!state.data.isLoading &&
-                    state.data.currentPage.type ==
-                        EducationLessonPageType.audio &&
-                    state.data.currentPage.content.audioFilePath.isEmpty) {
-                  context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadAudioFile(
-                            state.data.currentPage.content.url),
-                      );
-                }
-                if (!state.data.isLoading &&
-                    state.data.currentPage.type ==
-                        EducationLessonPageType.audio &&
-                    state.data.currentPage.content.subtitlesImages != null &&
-                    state.data.currentPage.content.subtitleFilePath.isEmpty) {
-                  context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadSubtitlesFile(
-                            state.data.currentPage.content.subtitlesImages!),
-                      );
-                }
-                return LessonAudioPage(
-                  onNextPressed: _onNextPressed,
-                  onPrevPressed: _onPrevPressed,
-                );
+              if (!state.data.isLoading &&
+                  state.data.currentPage.type == EducationLessonPageType.audio &&
+                  state.data.currentPage.content.audioFilePath.isEmpty) {
+                context.read<EducationLessonBloc>().add(
+                      EducationLessonEvent.downloadAudioFile(state.data.currentPage.content.url),
+                    );
               }
-              return const SizedBox.shrink();
-            },
-            orElse: () => const SizedBox.shrink(),
-          );
-        },
-      ),
+              if (!state.data.isLoading &&
+                  state.data.currentPage.type == EducationLessonPageType.audio &&
+                  state.data.currentPage.content.subtitlesImages != null &&
+                  state.data.currentPage.content.subtitleFilePath.isEmpty) {
+                context.read<EducationLessonBloc>().add(
+                      EducationLessonEvent.downloadSubtitlesFile(
+                          state.data.currentPage.content.subtitlesImages!),
+                    );
+              }
+              return LessonAudioPage(
+                onNextPressed: _onNextPressed,
+                onPrevPressed: _onPrevPressed,
+              );
+            }
+            return const SizedBox.shrink();
+          },
+          orElse: () => const SizedBox.shrink(),
+        );
+      },
     );
   }
 }

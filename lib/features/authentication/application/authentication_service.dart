@@ -24,6 +24,8 @@ abstract class AuthenticationService {
 
   Future<Either<RequestError, dynamic>> logout();
 
+  Future<Either<RequestError, dynamic>> unlockGrouping();
+
   Future<Either<RequestError, dynamic>> forgotPassword(
       ForgotPasswordData email);
 }

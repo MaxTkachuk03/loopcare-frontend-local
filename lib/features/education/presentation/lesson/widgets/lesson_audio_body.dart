@@ -8,7 +8,12 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/rive_animation_renderer/rive_animation_renderer.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
+import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/audio_block.dart';
 import 'package:loopcare_frontend/features/education/domain/subtitle/image_subtitle_controller.dart';
 import 'dart:io';
@@ -111,7 +116,6 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<EducationLessonBloc, EducationLessonState>(
       builder: (context, state) {
-        lessonId = state.data.lessonId;
         if (state.data.currentPage.content.subtitleFilePath.isNotEmpty) {
           prepareSubtitleController(state.data.currentPage.content.subtitleFilePath);
         }
@@ -135,6 +139,22 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                      builder: (context, accountState) {
+                        return BlocBuilder<EducationLessonBloc, EducationLessonState>(
+                          builder: (context, state) {
+                            if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
+                                accountState.groupingState == UserGroupingState.locked) {
+                              return ProgressBar(
+                                progress: state.data.lessonProgress,
+                              );
+                            }
+
+                            return const SizedBox.shrink();
+                          },
+                        );
+                      },
+                    ),
                     Expanded(
                       child: Stack(
                         children: [

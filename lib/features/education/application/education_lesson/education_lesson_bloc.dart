@@ -1,13 +1,19 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
+import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'education_lesson_event.dart';
+
 part 'education_lesson_state.dart';
+
 part 'education_lesson_bloc.freezed.dart';
 
 @singleton
@@ -26,6 +32,8 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     on<GetLessonContent>(_onGetLessonContent);
     on<NextPage>(_onNextPage);
     on<PrevPage>(_onPrevPage);
+    on<ProgressForward>(_onProgressForward);
+    on<ProgressBack>(_onProgressBack);
     on<CompleteLesson>(_onCompleteLesson);
     on<DownloadAudioFile>(_onDownloadAudioFile);
     on<DownloadSubtitlesFile>(_onDownloadSubtitlesFile);
@@ -148,8 +156,14 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
         emit(
           EducationLessonState.contentLoaded(
             state.data.copyWith(
+              extraAction: r.extraAction,
               pages: r.pages,
+              totalPagesLength: r.extraAction == ExtraActionTypes.setupGroupingPreferences
+                  ? r.pages.length + groupLessonRoutes.length
+                  : r.pages.length,
               currentPageIndex: event.pageIndex,
+              currentProgressPageIndex: event.pageIndex,
+              lessonProgress: 0,
               lessonId: r.id,
               lessonCompletedDate: r.completedAt,
               lessonCategory: r.category,
@@ -210,5 +224,23 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
         )));
       },
     );
+  }
+
+  FutureOr<void> _onProgressForward(ProgressForward event, Emitter<EducationLessonState> emit) {
+    final newProgressIndexPage = state.data.currentProgressPageIndex + 1;
+
+    emit(EducationLessonState.contentLoaded(state.data.copyWith(
+        currentProgressPageIndex: newProgressIndexPage,
+        lessonProgress: (100 * newProgressIndexPage) ~/ state.data.totalPagesLength)));
+  }
+
+  FutureOr<void> _onProgressBack(ProgressBack event, Emitter<EducationLessonState> emit) {
+    if (state.data.currentProgressPageIndex == 0) return null;
+
+    final newProgressIndexPage = state.data.currentProgressPageIndex - 1;
+
+    emit(EducationLessonState.contentLoaded(state.data.copyWith(
+        currentProgressPageIndex: newProgressIndexPage,
+        lessonProgress: (100 * newProgressIndexPage) ~/ state.data.totalPagesLength)));
   }
 }

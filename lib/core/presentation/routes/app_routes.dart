@@ -86,6 +86,7 @@ class AppRoutes {
   // Education
   static const String lesson = '/lesson/:lessonId/page/:pageIndex';
   static const String educationAudioTextVersion = '/education-audio-text_version';
+  static const String supportGroupIntro = '/support-group-intro';
 
   static const String lessonComplete = '/lesson-complete';
   static const String lessonError = '/lesson-error';

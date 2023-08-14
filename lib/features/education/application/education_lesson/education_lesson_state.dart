@@ -26,13 +26,17 @@ class EducationLessonData with _$EducationLessonData {
   const factory EducationLessonData({
     @Default('') String temporaryDirectory,
     @Default([]) List<LessonPage> pages,
+    @Default(0) int totalPagesLength,
     @Default(0) int lessonId,
+    ExtraActionTypes? extraAction,
     @Default(null) DateTime? lessonCompletedDate,
     @Default('') String lessonCategory,
     @Default(0) int lessonDuration,
     @Default('') String lessonImage,
     @Default('') String lessonTitle,
     @Default(false) bool isLoading,
+    @Default(0) int lessonProgress,
+    @Default(0) int currentProgressPageIndex,
     @Default(0) int currentPageIndex,
     RequestError? error,
   }) = _EducationLessonData;

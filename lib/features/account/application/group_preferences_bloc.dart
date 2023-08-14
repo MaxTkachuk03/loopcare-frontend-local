@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/account/application/dto/group_preferences_body.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_service.dart';
+import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
 
@@ -30,6 +31,7 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
     on<SetNickname>(_onSetNickname);
     on<LeaveGroup>(_onLeaveGroup);
     on<CancelGrouping>(_onCancelGrouping);
+    on<ChangeGroupPrefsMode>(_onChangeGroupPrefsMode);
   }
 
   FutureOr<void> _onSetInitialData(
@@ -158,5 +160,11 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
         )));
       },
     );
+  }
+
+  FutureOr<void> _onChangeGroupPrefsMode(ChangeGroupPrefsMode event, Emitter<GroupPreferencesState> emit) {
+    emit(GroupPreferencesState.updated(state.data.copyWith(
+      groupPrefsMode: event.groupPrefsMode,
+    )));
   }
 }
