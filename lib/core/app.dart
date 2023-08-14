@@ -32,7 +32,6 @@ import 'package:loopcare_frontend/features/nutrition/application/select_serving/
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
-import 'package:loopcare_frontend/features/self_help/application/self_help_bloc.dart';
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
@@ -69,9 +68,6 @@ class App extends StatelessWidget {
         ),
         BlocProvider<DiabetesBloc>(
           create: (_) => getIt<DiabetesBloc>(),
-        ),
-        BlocProvider<SelfHelpBloc>(
-          create: (_) => getIt<SelfHelpBloc>(),
         ),
         BlocProvider<NutritionInstructionsBloc>(
           create: (_) => getIt<NutritionInstructionsBloc>(),

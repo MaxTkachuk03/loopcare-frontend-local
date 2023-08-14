@@ -28,6 +28,7 @@ class AppChoiceChip<T> extends StatelessWidget {
       padding: padding ?? const EdgeInsets.symmetric(horizontal: 30.0),
       label: SizedBox(
         width: width ?? double.infinity,
+        height: 22.0,
         child: AutoSizeText(
           label,
           textAlign: textAlign ?? TextAlign.center,
