@@ -6,13 +6,13 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 class SectionItem extends StatelessWidget {
   final String title;
   final String? subTitle;
-  final void Function() onPressHandler;
+  final void Function()? onPressHandler;
 
   const SectionItem({
     Key? key,
     this.subTitle,
     required this.title,
-    required this.onPressHandler,
+    this.onPressHandler,
   }) : super(key: key);
 
   @override

@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/divider_light.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
@@ -125,15 +125,24 @@ class GroupPreferencesForm extends StatelessWidget {
   }
 
   void _onGenderPreferencesTap(BuildContext context) {
-    context.router.push(GenderPreferencesRoute(groupPrefsMode: GroupPrefsMode.single));
+    context
+      ..read<GroupPreferencesBloc>()
+          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..router.pushNamed(AppRoutes.genderPreferences);
   }
 
   void _onTimezoneTap(BuildContext context) {
-    context.router.push(TimezonePreferencesRoute(groupPrefsMode: GroupPrefsMode.single));
+    context
+      ..read<GroupPreferencesBloc>()
+          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..router.pushNamed(AppRoutes.timezone);
   }
 
   void _onNicknamePreferencesTap(BuildContext context) {
-    context.router.push(NicknamePreferencesRoute(groupPrefsMode: GroupPrefsMode.single));
+    context
+      ..read<GroupPreferencesBloc>()
+          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..router.pushNamed(AppRoutes.nicknamePreferences);
   }
 
   _onLeaveGroupPressed(BuildContext context) {

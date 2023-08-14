@@ -11,8 +11,8 @@ import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
-import 'package:loopcare_frontend/features/home/application/home_bottom_navigation_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
+import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
+import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_block.dart';
 
 class LessonCompletePage extends StatefulWidget {
   const LessonCompletePage({Key? key}) : super(key: key);
@@ -35,10 +35,6 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
   _onPressHandler(BuildContext context) {
     context.router.popUntilRouteWithName(HomeRoute.name);
-
-    context
-        .read<HomeBottomNavigationBloc>()
-        .add(const HomeBottomNavigationEvent.tabChanged(DashboardNavbarItems.education));
   }
 
   _onErrorListener(BuildContext context, EducationLessonState state) {
@@ -102,6 +98,29 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                         '${LocalizedTexts.completed.translation}!'.capitalize(),
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600),
                         textAlign: TextAlign.center,
+                      ),
+                      BlocBuilder<EducationLessonBloc, EducationLessonState>(
+                        builder: (BuildContext context, state) {
+                          if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences) {
+                            return Column(
+                              children: [
+                                const Text(
+                                  LocalizedTexts.completedLessonDesc,
+                                  textAlign: TextAlign.center,
+                                ).tr(),
+                                const SizedBox(
+                                  height: 40,
+                                ),
+                                const UnlockBloc(),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                              ],
+                            );
+                          }
+
+                          return const SizedBox.shrink();
+                        },
                       ),
                     ],
                   ),

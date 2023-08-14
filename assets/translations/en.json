@@ -492,5 +492,15 @@
   "bookYourSeatNow": "Book your seat now",
   "comingUpThisWeek": "Coming up this week",
   "on": "on",
-  "was": "was"
+  "was": "was",
+  "yourSupportSystem": "Your Support System",
+  "supportGroupIntroDesc": "Having a support group increases the likelihood of staying on track and reaching sustainable weightloss. \nSurround yourself with people who get it. In the weekly sessions you can discuss, learn new things and share your experiences.",
+  "yesILikeToJoin": "Yes, I like to join a support group",
+  "joinLater": "I may join later",
+  "theSupportGroup": "The Support Group",
+  "introduction": "Introduction",
+  "groupSessionsUnlocked": "Group sessions unlocked.",
+  "waitingForGroupCompletedLesson": "We will notify you once we found a group based on your preferences.",
+  "notJoinedToGroupCompletedLesson": "If you want to join group sessions in the future you can indicate this in the preferences.",
+  "completedLessonDesc": "Your preference have been added to your profile. You can update them later."
 }

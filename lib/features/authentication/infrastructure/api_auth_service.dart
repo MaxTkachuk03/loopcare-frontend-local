@@ -63,6 +63,12 @@ class APIAuthenticationService implements AuthenticationService {
   }
 
   @override
+  Future<Either<RequestError, dynamic>> unlockGrouping() async {
+    return client
+        .patch('/accounts/unlock-grouping', data: {});
+  }
+
+  @override
   Future<Either<RequestError, dynamic>> forgotPassword(
       ForgotPasswordData data) async {
     return client.post('/accounts/forgotPassword', data: data.toJson());

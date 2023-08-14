@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
 
 part 'login_response.g.dart';
 
@@ -13,7 +14,7 @@ class LoginResponse {
   final String email;
   final String? country;
   final bool isPreferencesComplete;
-  final String gender;
+  final SexType gender;
   final String bioGender;
 
   const LoginResponse({

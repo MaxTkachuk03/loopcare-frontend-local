@@ -4,6 +4,7 @@ import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/diary/diary.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/education.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/log_meal.dart';
@@ -127,7 +128,15 @@ class _DashboardPageState extends State<DashboardPage> {
                         const SizedBox(height: 10.0),
                         PhysicalActivities(selectedDay: _selectedDay),
                         const SizedBox(height: 10.0),
-                        SupportGroup(isEditable: _isMealBlockEditable),
+                        BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                          builder: (context, state) {
+                            if (state.groupingState == UserGroupingState.locked) {
+                              return const SizedBox.shrink();
+                            }
+
+                            return SupportGroup(isEditable: _isMealBlockEditable);
+                          },
+                        ),
                         const SizedBox(height: 10.0),
                         BlocBuilder<DashboardEducationBloc, DashboardEducationState>(
                           builder: (BuildContext context, state) {

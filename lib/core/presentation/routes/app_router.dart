@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:loopcare_frontend/core/presentation/routes/gender_prefs_guard.dart';
 import 'package:loopcare_frontend/core/presentation/routes/intro_guard.dart';
 import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/account_page.dart';
@@ -31,6 +32,7 @@ import 'package:loopcare_frontend/features/diabetes/presentation/summary/summary
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/lesson_complete_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_error_page/lesson_error_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_page/lesson_page.dart';
+import 'package:loopcare_frontend/features/education/presentation/support_group_intro/support_group_intro_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/cooking/cooking_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/healthier_food/healthier_food_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/household_and_habits_intro/household_and_habits_intro_page.dart';
@@ -99,6 +101,19 @@ import 'package:loopcare_frontend/features/you_and_food/presentation/you_and_foo
 import 'package:loopcare_frontend/features/you_and_food/presentation/you_and_food_ready/you_and_food_ready_page.dart';
 
 part 'app_routes.dart';
+
+const groupLessonRoutes = [
+  'SupportGroupIntroRoute',
+  'GenderPreferencesRoute',
+  'TimezonePreferencesRoute',
+  'NicknamePreferencesRoute',
+  'GroupRulesOneRoute',
+  'GroupRulesTwoRoute',
+  'GroupRulesThreeRoute',
+  'GroupRulesFourRoute',
+  'GroupRulesFiveRoute',
+  'GroupRulesSixRoute',
+];
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
@@ -441,6 +456,7 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.genderPreferences,
       page: GenderPreferencesPage,
+      guards: [GenderPrefsGuard]
     ),
     AutoRoute(
       path: AppRoutes.nicknamePreferences,
@@ -494,6 +510,10 @@ part 'app_routes.dart';
     AutoRoute(
       path: AppRoutes.groupRulesSix,
       page: GroupRulesSixPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.supportGroupIntro,
+      page: SupportGroupIntroPage,
     ),
   ],
 )

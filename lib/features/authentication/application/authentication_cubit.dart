@@ -73,6 +73,21 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     });
   }
 
+  void unlockGrouping() async {
+    await state.mapOrNull(authenticated: (state) async {
+      final response = await _authenticationService.unlockGrouping();
+
+      response.fold(
+        (l) => null,
+        (r) {
+          emit(state.copyWith(
+            account: state.account.copyWith(groupingState: UserGroupingState.notGrouped),
+          ));
+        },
+      );
+    });
+  }
+
   void getAccount() async {
     await state.mapOrNull(authenticated: (state) async {
       final response = await _authenticationService.fetchAccount();

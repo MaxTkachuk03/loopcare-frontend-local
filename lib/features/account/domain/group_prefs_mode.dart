@@ -1,1 +1,5 @@
-enum GroupPrefsMode { flow, single }
+enum GroupPrefsMode {
+  groupPreferencesFlow,
+  singlePage,
+  groupingLesson,
+}

@@ -408,6 +408,10 @@ class LocalizedTexts {
   static const String backToToday = 'backToToday';
   static const String backToEducation = 'backToEducation';
   static const String completed = 'completed';
+  static const String waitingForGroupCompletedLesson = 'waitingForGroupCompletedLesson';
+  static const String notJoinedToGroupCompletedLesson = 'notJoinedToGroupCompletedLesson';
+  static const String groupSessionsUnlocked = 'groupSessionsUnlocked';
+  static const String completedLessonDesc = 'completedLessonDesc';
 
   // Physical exercise
   static const String physicalActivity = 'physicalActivity';
@@ -526,6 +530,12 @@ class LocalizedTexts {
   static const String lookingAtEatingBehavior = 'lookingAtEatingBehavior';
   static const String bookYourSeatNow = 'bookYourSeatNow';
   static const String comingUpThisWeek = 'comingUpThisWeek';
+  static const String yourSupportSystem = 'yourSupportSystem';
+  static const String supportGroupIntroDesc = 'supportGroupIntroDesc';
+  static const String yesILikeToJoin = 'yesILikeToJoin';
+  static const String joinLater = 'joinLater';
+  static const String theSupportGroup = 'theSupportGroup';
+  static const String introduction = 'introduction';
 
   // Group rules
   static const String groupRulesOneTitle = "groupRulesOneTitle";

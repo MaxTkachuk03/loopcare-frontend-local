@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/routes/gender_prefs_guard.dart';
 import 'package:loopcare_frontend/core/presentation/routes/intro_guard.dart';
 import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -163,6 +164,9 @@ class _AppState extends State<_App> {
         onboardingBloc,
         consentConfirmationBloc,
         legalStatementBloc,
+      ),
+      genderPrefsGuard: GenderPrefsGuard(
+        authBloc,
       ),
     );
 

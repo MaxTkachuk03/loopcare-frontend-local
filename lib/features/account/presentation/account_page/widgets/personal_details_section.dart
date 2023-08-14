@@ -28,7 +28,7 @@ class PersonalDetailsSection extends StatelessWidget {
             const Divider(height: 1.0, color: AppColors.yellowLight),
             const SizedBox(height: 16.0),
             SectionItem(
-                title: LocalizedTexts.yourSex, subTitle: state.gender.capitalize(), onPressHandler: () {}),
+                title: LocalizedTexts.yourSex, subTitle: state.gender?.name.capitalize(), onPressHandler: () {}),
           ]),
         );
       },

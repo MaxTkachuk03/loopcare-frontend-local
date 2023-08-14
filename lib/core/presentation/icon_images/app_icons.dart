@@ -62,6 +62,9 @@ class AppIcons {
   static const AssetImage cutlery = AssetImage(
     '$iconsFilePath/cutlery.png',
   );
+  static const AssetImage unlock = AssetImage(
+    '$iconsFilePath/unlock.png',
+  );
 
   // Dashboard
   static const AssetImage dashboardWeight = AssetImage('$iconsFilePath/dashboard_weight.png');
