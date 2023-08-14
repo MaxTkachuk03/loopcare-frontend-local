@@ -80,7 +80,6 @@ class _SelectExercisePageState extends State<SelectExercisePage> with TickerProv
                   height: 16.0,
                 ),
                 ChipsTabBar(
-                  onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
                   tabController: _tabController,
                   tabs: tabs.map((e) => Tab(text: e.text)).toList(),
                 ),

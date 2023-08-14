@@ -24,6 +24,8 @@ class _EducationBodyState extends State<EducationBody> with AutomaticKeepAliveCl
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return BlocBuilder<EducationProgramBloc, EducationProgramState>(
       builder: (BuildContext context, state) {
         return state.map(
