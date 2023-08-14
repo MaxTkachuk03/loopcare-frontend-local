@@ -9,6 +9,7 @@ class ScaleItem extends StatelessWidget {
   final bool useHorizontalLayout;
   final double minimalPossibleValue = 0.99;
   final double? separatorSize;
+  final bool isLastElement;
 
   const ScaleItem({
     Key? key,
@@ -17,6 +18,7 @@ class ScaleItem extends StatelessWidget {
     required this.useHorizontalLayout,
     required this.separatorColor,
     this.separatorSize,
+    required this.isLastElement,
   }) : super(key: key);
 
   Widget _renderSeparator() {
@@ -51,7 +53,9 @@ class ScaleItem extends StatelessWidget {
 
     if (density == null) return false;
     if (useHorizontalLayout) {
-      return (range.min <= density && density <= range.max);
+      return isLastElement
+          ? (range.min <= density && density <= range.max) || density >= range.max
+          : (range.min <= density && density <= range.max);
     } else {
       return (range.min <= density && density <= range.max) || density >= range.max;
     }

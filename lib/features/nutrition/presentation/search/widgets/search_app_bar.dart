@@ -26,7 +26,6 @@ class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMixin {
-  String searchText = '';
   String? searchMode = '';
   final TextEditingController _searchTextController = TextEditingController();
   late TabController _tabController;
@@ -35,6 +34,7 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
   @override
   initState() {
     super.initState();
+
     var mode = widget.mode;
     if (mode != null) {
       tabs = <String>[mode.label];
@@ -72,7 +72,7 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
               child: BlocListener<SearchBloc, SearchState>(
                 listenWhen: (prev, cur) =>
                     prev.data.searchParameters.query != cur.data.searchParameters.query,
-                listener: _searchQueryListene,
+                listener: _searchQueryListener,
                 child: Field(
                   autofocus: true,
                   contentPadding: const EdgeInsets.only(left: 12),
@@ -132,7 +132,7 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
 
       context.read<SearchBloc>().add(
             SearchEvent.search(
-              searchText,
+              _searchTextController.text,
               mode: searchMode,
               filteredMode: widget.mode?.searchModeValue,
             ),
@@ -141,13 +141,8 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
   }
 
   void _onTextChange(String value) {
-    setState(() {
-      searchText = value;
-    });
-
     if (value.isEmpty) {
       context.read<SearchBloc>().add(const SearchEvent.resetData());
-
       return;
     }
 
@@ -164,7 +159,7 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
     context.read<SearchBloc>().add(const SearchEvent.resetData());
   }
 
-  void _searchQueryListene(BuildContext context, SearchState state) {
+  void _searchQueryListener(BuildContext context, SearchState state) {
     _searchTextController.text = state.data.searchParameters.query ?? '';
     _searchTextController.selection = TextSelection.collapsed(offset: _searchTextController.text.length);
   }

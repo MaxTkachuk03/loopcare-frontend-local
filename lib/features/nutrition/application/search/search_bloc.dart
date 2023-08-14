@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -52,19 +53,20 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     AddSearchResult event,
     Emitter<SearchState> emit,
   ) {
-    _addRecentSearch(event.query);
+    _addRecentSearch(event.query, event.type);
   }
 
-  Future<void> _addRecentSearch(String query) async {
+  Future<void> _addRecentSearch(String query, SearchItemTypes type) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     var list = await _getRecentSearch(false);
+    var itemType = type;
 
-    if (!list.contains(query)) {
+    if (!list.contains('$query*-*$itemType')) {
       if (list.length > maxRecentSearchListSize - 1) {
         list.removeAt(maxRecentSearchListSize - 1);
       }
-      list.insert(0, query);
+      list.insert(0, '$query*-*$type');
     }
 
     prefs.setStringList('recent_search', list);

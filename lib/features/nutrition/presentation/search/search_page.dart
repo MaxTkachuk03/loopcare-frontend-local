@@ -42,7 +42,12 @@ class _SearchPageState extends State<SearchPage> {
           selectedTab: currentTab,
           onItemTap: widget.onItemTap,
           onRecentSearchItemTap: (item) {
-            context.read<SearchBloc>().add(SearchEvent.search(item));
+            context.read<SearchBloc>().add(
+                  SearchEvent.search(
+                    item,
+                    mode: currentTab,
+                  ),
+                );
           },
         ),
       ),

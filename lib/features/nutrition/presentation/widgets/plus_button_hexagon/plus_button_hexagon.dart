@@ -49,7 +49,7 @@ class PlusButtonHexagon extends StatelessWidget {
           if (mealId == null) return;
 
           context.read<SearchBloc>().add(
-                SearchEvent.addSearchResult(item.name),
+                SearchEvent.addSearchResult(item.name, item.type),
               );
 
           if (item.type == SearchItemTypes.food) {
