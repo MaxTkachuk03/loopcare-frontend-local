@@ -29,8 +29,9 @@ class NutritionValuesBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final nutritionItem = nutritionValuesList
-        .firstWhere((element) => element.key == selectedNutritionType.name);
+    final nutritionItem =
+        nutritionValuesList.firstWhere((element) => element.key == selectedNutritionType.name);
+    final totalValue = (numberOfPortions * nutritionItem.value).toStringAsFixed(2);
 
     return Container(
       decoration: const BoxDecoration(
@@ -60,8 +61,7 @@ class NutritionValuesBlock extends StatelessWidget {
                 ),
               if (isPortionsEditable == null)
                 Text(
-                  LocalizedTexts.portionMeal.translateWithNamedArgs(
-                      {'numberOfPortion': '$numberOfPortions'}),
+                  LocalizedTexts.portionMeal.translateWithNamedArgs({'numberOfPortion': '$numberOfPortions'}),
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -83,7 +83,7 @@ class NutritionValuesBlock extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      '${nutritionItem.value} ${selectedNutritionType.unitLabel}',
+                      '$totalValue ${selectedNutritionType.unitLabel}',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontWeight: FontWeight.w600,
                           ),
