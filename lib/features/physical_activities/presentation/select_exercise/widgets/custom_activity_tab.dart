@@ -25,6 +25,8 @@ class _CustomActivityTabState extends State<CustomActivityTab> with AutomaticKee
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return ScrollableContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,9 +39,7 @@ class _CustomActivityTabState extends State<CustomActivityTab> with AutomaticKee
                 LocalizedTexts.whatPhysicalActivityDidYouDo,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
               ).tr(),
-              const SizedBox(
-                height: 20.0,
-              ),
+              const SizedBox(height: 20.0),
               CustomExerciseField(
                 onChanged: _onFieldChanged,
               )
@@ -65,9 +65,7 @@ class _CustomActivityTabState extends State<CustomActivityTab> with AutomaticKee
                 ),
                 child: const Text(LocalizedTexts.logActivity).tr(),
               ),
-              const SizedBox(
-                height: 54.0,
-              ),
+              const SizedBox(height: 54.0),
             ],
           ),
         ],

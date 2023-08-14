@@ -8,6 +8,7 @@ class CustomExerciseField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofocus: true,
       maxLength: 30,
       enableSuggestions: false,
       keyboardType: TextInputType.text,
