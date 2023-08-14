@@ -82,8 +82,8 @@ class _RecipePageState extends State<RecipePage> {
 
     final recipeId = !isMealRecipe
         ? mealState.currentFoodItems
-            .firstWhere(
-                (element) => element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
+            .firstWhere((element) =>
+                element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
             .id
         : recipeState.recipeId;
 
@@ -350,7 +350,8 @@ class _RecipePageState extends State<RecipePage> {
           final recipeId = !isMealRecipe
               ? mealState.currentFoodItems
                   .firstWhere((element) =>
-                      element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
+                      element.type == MealItemType.recipe &&
+                      element.externalId == recipeState.externalRecipeId)
                   .id
               : recipeState.recipeId;
 
@@ -383,11 +384,13 @@ class _RecipePageState extends State<RecipePage> {
     final externalRecipeId = context.read<RecipeBloc>().state.externalRecipeId;
     final prevFoodItems = previous.currentFoodItems;
     final curFoodItems = current.currentFoodItems;
-    final newRecipeId = curFoodItems.firstWhere((element) => !prevFoodItems.contains(element));
-    if (newRecipeId.type == MealItemType.recipe && newRecipeId.externalId == externalRecipeId) {
-      setState(() {
-        internalRecipeId = newRecipeId.id;
-      });
+    if (curFoodItems.isNotEmpty) {
+      final newRecipeId = curFoodItems.firstWhere((element) => !prevFoodItems.contains(element));
+      if (newRecipeId.type == MealItemType.recipe && newRecipeId.externalId == externalRecipeId) {
+        setState(() {
+          internalRecipeId = newRecipeId.id;
+        });
+      }
     }
     return true;
   }

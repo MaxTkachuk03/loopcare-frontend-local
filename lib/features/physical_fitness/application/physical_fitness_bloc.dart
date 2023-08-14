@@ -80,7 +80,7 @@ class PhysicalFitnessBloc extends HydratedBloc<PhysicalFitnessEvent, PhysicalFit
   ) async {
     final data = AddPhysicalSurvey(
       birthDate: state.birthday ?? DateTime.now(),
-      bmi: state.bmi as int,
+      bmi: state.bmi as double,
       height: int.parse(state.heightInCm ?? '0'),
       weight: int.parse(state.weightInKg ?? '0'),
     );

@@ -13,7 +13,7 @@ class WeightConversionUtils {
 
   static num convertLbsToKg(double weight) {
     final fixedValue = fixedValueToTwo(weight * lbsInKg);
-    return isZeroAfterDecimal(fixedValue) ? fixedValue.toInt() : fixedValue;
+    return isZeroAfterDecimal(fixedValue) ? fixedValue.toInt() : num.parse(fixedValue.toStringAsFixed(1));
   }
 
   static num convertOzToGramms(num weight) {

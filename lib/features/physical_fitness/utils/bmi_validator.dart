@@ -1,6 +1,6 @@
 class BmiValidator {
   static const minValue = 25;
-  static const maxValue = 40;
+  static const maxValue = 39.9;
   static const percent = 1.4; // 140%
   static const index = 27.5;
   static const minAllowedAge = 19;

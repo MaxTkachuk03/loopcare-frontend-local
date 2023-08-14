@@ -10,7 +10,7 @@ class UserPhysicalSurveyResponse {
   final int height;
   final DateTime birthDate;
   final int weight;
-  final int bmi;
+  final double bmi;
   final int account;
   final DateTime createdAt;
   final DateTime updatedAt;
