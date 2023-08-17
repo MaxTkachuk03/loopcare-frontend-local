@@ -105,9 +105,13 @@ class _SearchResultListState extends State<SearchResultList> {
 
   Widget detailedLayout(SearchState itemsState) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+      padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 16,
+        ),
         itemCount: itemsState.data.items.length + 1,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -132,8 +136,10 @@ class _SearchResultListState extends State<SearchResultList> {
 
   Widget recipeButtonLayout() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 30.0),
+      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
       child: Container(
+        width: 114,
+        height: 40,
         decoration: BoxDecoration(
           color: AppColors.white,
           border: Border.all(color: AppColors.yellowLight),
@@ -143,13 +149,12 @@ class _SearchResultListState extends State<SearchResultList> {
         ),
         child: IntrinsicHeight(
           child: Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
                 child: IconButton(
-                  iconSize: 16,
                   onPressed: () => _onSelectLayoutTap(SearchListLayout.detailed),
+                  iconSize: 16,
+                  padding: const EdgeInsets.all(0.0),
                   icon: ImageIcon(
                     AppIcons.detailsLayout,
                     color: (selectedLayout == SearchListLayout.detailed)
@@ -164,8 +169,9 @@ class _SearchResultListState extends State<SearchResultList> {
               ),
               SizedBox(
                 child: IconButton(
-                  iconSize: 16,
                   onPressed: () => _onSelectLayoutTap(SearchListLayout.list),
+                  iconSize: 16,
+                  padding: const EdgeInsets.all(0.0),
                   icon: ImageIcon(
                     AppIcons.listLayout,
                     color:

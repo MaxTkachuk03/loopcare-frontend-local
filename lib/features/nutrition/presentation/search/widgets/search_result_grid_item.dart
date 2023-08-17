@@ -18,13 +18,14 @@ class SearchResultGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     var url = item.image;
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(0.0),
       child: Material(
         child: InkWell(
           onTap: () => onTap(item),
           child: Ink(
             color: AppColors.white,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: GridTile(
