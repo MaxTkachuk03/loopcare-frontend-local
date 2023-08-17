@@ -24,9 +24,9 @@ extension SearchItemTypesX on SearchItemTypes {
     switch (this) {
       case SearchItemTypes.favorite:
         return AppIcons.starFilled;
-      case SearchItemTypes.food:
-        return AppIcons.pan;
       case SearchItemTypes.dish:
+        return AppIcons.pan;
+      case SearchItemTypes.food:
       case SearchItemTypes.recent:
         return AppIcons.magnifyingGlass;
       case SearchItemTypes.recipe:
