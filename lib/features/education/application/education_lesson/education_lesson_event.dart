@@ -17,10 +17,9 @@ class EducationLessonEvent with _$EducationLessonEvent {
 
   const factory EducationLessonEvent.completeLesson() = CompleteLesson;
 
-  const factory EducationLessonEvent.downloadAudioFile(String url) =
-      DownloadAudioFile;
-  const factory EducationLessonEvent.downloadSubtitlesFile(String url) =
-      DownloadSubtitlesFile;
+  const factory EducationLessonEvent.downloadAudioFile(String url) = DownloadAudioFile;
+  const factory EducationLessonEvent.downloadSubtitlesFile(String url) = DownloadSubtitlesFile;
+  const factory EducationLessonEvent.downloadSVGFile(String url) = DownloadSVGFile;
 
   const factory EducationLessonEvent.init() = Init;
 }
