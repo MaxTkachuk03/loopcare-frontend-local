@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -46,6 +47,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
   int position = 0;
   int duration = 0;
   bool isPlay = false;
+  bool isSvg = false;
 
   @override
   void initState() {
@@ -85,6 +87,12 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
         setState(() {
           imageUrl = "${appConfig.baseUrl}/education/content/$lessonId/$text";
           imageUrlFromJson = text;
+          if (text.contains('.svg')) {
+            context.read<EducationLessonBloc>().add(EducationLessonEvent.downloadSVGFile(imageUrl!));
+            isSvg = true;
+          } else {
+            isSvg = false;
+          }
         });
       } else if (text.isEmpty) {
         setState(() {
@@ -119,6 +127,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
         if (state.data.currentPage.content.subtitleFilePath.isNotEmpty) {
           prepareSubtitleController(state.data.currentPage.content.subtitleFilePath);
         }
+        lessonId = state.data.lessonId;
 
         return Scaffold(
           appBar: AppBar(
@@ -164,11 +173,15 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                             child: SizedBox(
                               height: 600,
                               child: imageUrl != null && imageUrl != ''
-                                  ? NetworkImageWithCache(
-                                      withPlaceholder: false,
-                                      url: imageUrl!,
-                                      imageBoxFit: BoxFit.contain,
-                                    )
+                                  ? isSvg
+                                      ? state.data.isSvgLoaded
+                                          ? SvgPicture.asset(state.data.svgFile)
+                                          : null
+                                      : NetworkImageWithCache(
+                                          withPlaceholder: false,
+                                          url: imageUrl!,
+                                          imageBoxFit: BoxFit.contain,
+                                        )
                                   : null,
                             ),
                           ),
@@ -219,7 +232,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 14),
+                                const SizedBox(height: 20),
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Container(
