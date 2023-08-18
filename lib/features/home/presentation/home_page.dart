@@ -3,12 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/features/account/presentation/account_page/account_page.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/dashboard_page.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/bottom_navigation/bottom_navigation.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/education_page.dart';
 import 'package:loopcare_frontend/features/home/application/home_bottom_navigation_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
@@ -22,29 +18,31 @@ class HomePage extends StatelessWidget {
       listener: _logoutListener,
       child: BlocBuilder<HomeBottomNavigationBloc, HomeBottomNavigationState>(
         builder: (context, tabsState) {
-          return Scaffold(
-            appBar: AppBar(
+          return AutoTabsScaffold(
+            animationDuration: Duration.zero,
+            routes: const [
+              DashboardRoute(),
+              EducationRoute(),
+              AccountRoute(),
+            ],
+            appBarBuilder: (_, tabsRouter) => AppBar(
               toolbarHeight: 0.0,
               backgroundColor: tabsState.activeTab.appBarColor,
             ),
-            body: IndexedStack(
-              sizing: StackFit.expand,
-              index: tabsState.activeTab.index,
-              children: const <Widget>[
-                DashboardPage(),
-                EducationPage(),
-                AccountPage(),
-              ],
-            ),
-            bottomNavigationBar: BlocBuilder<AuthenticationCubit, AuthenticationState>(
-              builder: (BuildContext context, state) {
-                return BottomNavigation(
-                  onItemPress: (int index) => onNavigationPressed(index, context),
-                  items: _getNavBarItems(state.name).values.toList(),
-                  selectedItem: tabsState.activeTab,
-                );
-              },
-            ),
+            bottomNavigationBuilder: (_, tabsRouter) {
+              return BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                builder: (BuildContext context, state) {
+                  return BottomNavigationBar(
+                    onTap: (int index) {
+                      tabsRouter.setActiveIndex(index);
+                      onNavigationPressed(index, context);
+                    },
+                    items: _getNavBarItems(state.name).values.toList(),
+                    currentIndex: tabsState.activeTab.index,
+                  );
+                },
+              );
+            },
           );
         },
       ),

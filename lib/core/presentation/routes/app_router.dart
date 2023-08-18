@@ -29,6 +29,7 @@ import 'package:loopcare_frontend/features/dashboard/presentation/dashboard_page
 import 'package:loopcare_frontend/features/diabetes/presentation/diabetes/diabetes_page.dart';
 import 'package:loopcare_frontend/features/diabetes/presentation/disclaimer/disclaimer_page.dart';
 import 'package:loopcare_frontend/features/diabetes/presentation/summary/summary_page.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/education_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/lesson_complete_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_error_page/lesson_error_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_page/lesson_page.dart';
@@ -130,6 +131,31 @@ const groupLessonRoutes = [
       path: AppRoutes.intro,
       page: IntroPage,
     ),
+
+// Start  TabBar
+    AutoRoute(
+      path: AppRoutes.home,
+      page: HomePage,
+      children: [
+        AutoRoute(path: AppRoutes.nutritionDashboard, page: DashboardPage),
+        AutoRoute(path: AppRoutes.education, page: EducationPage),
+        AutoRoute(path: AppRoutes.account, page: AccountPage),
+      ],
+    ),
+    AutoRoute(
+      path: AppRoutes.account,
+      page: AccountPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.education,
+      page: EducationPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.nutritionDashboard,
+      page: DashboardPage,
+    ),
+// End of TabBar
+
     AutoRoute(
       path: AppRoutes.joinUs,
       page: JoinUsPage,
@@ -335,11 +361,8 @@ const groupLessonRoutes = [
       path: AppRoutes.barcodeScanner,
       page: BarcodeScannerPage,
     ),
-    //Nutrition
-    AutoRoute(
-      path: AppRoutes.nutritionDashboard,
-      page: DashboardPage,
-    ),
+    // Nutrition
+
     AutoRoute(
       path: AppRoutes.nutritionInstructions,
       page: NutritionInstructionsPage,
@@ -372,14 +395,7 @@ const groupLessonRoutes = [
       path: AppRoutes.logWeight,
       page: LogWeightPage,
     ),
-    AutoRoute(
-      path: AppRoutes.home,
-      page: HomePage,
-    ),
-    AutoRoute(
-      path: AppRoutes.account,
-      page: AccountPage,
-    ),
+
     AutoRoute(
       path: AppRoutes.recipeDetails,
       page: RecipeDetailsPage,
@@ -438,11 +454,8 @@ const groupLessonRoutes = [
       path: AppRoutes.joinGroupPreferences,
       page: JoinGroupPreferencesPage,
     ),
-    AutoRoute(
-      path: AppRoutes.genderPreferences,
-      page: GenderPreferencesPage,
-      guards: [GenderPrefsGuard]
-    ),
+    AutoRoute(path: AppRoutes.genderPreferences, page: GenderPreferencesPage, guards: [GenderPrefsGuard]),
+
     AutoRoute(
       path: AppRoutes.nicknamePreferences,
       page: NicknamePreferencesPage,

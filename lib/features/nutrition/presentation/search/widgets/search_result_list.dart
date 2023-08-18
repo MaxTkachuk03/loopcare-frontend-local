@@ -230,8 +230,10 @@ class _SearchResultListState extends State<SearchResultList> {
 
                   final item = recentSearchList[index].split('*-*');
                   final itemName = item[0];
-                  final itemType = SearchItemTypes.values
-                      .firstWhere((e) => e.toString() == item[1], orElse: () => SearchItemTypes.recent);
+                  final itemType = item.length > 1
+                      ? SearchItemTypes.values
+                          .firstWhere((e) => e.toString() == item[1], orElse: () => SearchItemTypes.recent)
+                      : SearchItemTypes.recent;
 
                   return SearchResultListItem(
                     item: SearchItem(
