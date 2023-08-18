@@ -60,7 +60,7 @@ class AppRoutes {
   static const String barcodeScanner = '/barcode-scanner';
 
   // Nutrition
-  static const String nutritionDashboard = '/nutrition-dashboard';
+  static const String nutritionDashboard = 'nutrition-dashboard';
   static const String nutritionInstructions = '/nutrition-instructions';
   static const String selectFood = '/select-food';
   static const String selectServing = '/select-serving';
@@ -73,7 +73,7 @@ class AppRoutes {
   static const String meal = '/meal';
   static const String logWeight = '/log-weight';
   static const String home = '/home';
-  static const String account = '/account';
+  static const String account = 'account';
 
   // Dish
   static const String dish = '/dish';
@@ -81,6 +81,7 @@ class AppRoutes {
   static const String editDish = '/edit-dish';
 
   // Education
+  static const String education = 'education';
   static const String lesson = '/lesson/:lessonId/page/:pageIndex';
   static const String educationAudioTextVersion = '/education-audio-text_version';
   static const String supportGroupIntro = '/support-group-intro';

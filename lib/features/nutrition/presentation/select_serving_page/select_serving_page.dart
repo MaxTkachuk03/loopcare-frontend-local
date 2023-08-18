@@ -85,21 +85,6 @@ class _SelectServingPageState extends State<SelectServingPage> {
                               height: 48.0,
                               width: 32.0,
                             ),
-                            error: (errorState) {
-                              final error = errorState.fetchError;
-
-                              return ErrorScreen(
-                                error: error,
-                                onButtonPressed: () => context.read<FoodItemServingsBloc>().add(
-                                      FoodItemServingsEvent.fetchFoodItemServings(
-                                        foodItemId: widget.foodItemId,
-                                        selectedServingId: widget.initialServingId,
-                                        initialServingAmount: widget.initialServingAmount,
-                                        initialCaloriesValue: widget.initialCaloriesValue,
-                                      ),
-                                    ),
-                              );
-                            },
                             foodItemServings: (foodItemServingsState) {
                               if (foodItemServingsState.selectedServing == null) {
                                 return const SizedBox.shrink();
