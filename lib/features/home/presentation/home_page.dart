@@ -5,12 +5,32 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
+import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
 import 'package:loopcare_frontend/features/home/application/home_bottom_navigation_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    context.read<AuthenticationCubit>().getAccount();
+    context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.fetchFoodPreferences());
+
+    context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons(LessonCategory.all));
+    context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

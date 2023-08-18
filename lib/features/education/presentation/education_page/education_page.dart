@@ -38,9 +38,7 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
 
     _tabController.addListener(_onTabsChanged);
 
-    context.read<EducationProgramBloc>().add(
-          const EducationProgramEvent.getLessons(LessonCategory.all),
-        );
+    context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons(LessonCategory.all));
 
     context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
   }
