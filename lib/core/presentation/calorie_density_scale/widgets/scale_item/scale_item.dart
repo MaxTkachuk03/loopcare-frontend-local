@@ -54,10 +54,10 @@ class ScaleItem extends StatelessWidget {
     if (density == null) return false;
     if (useHorizontalLayout) {
       return isLastElement
-          ? (range.min <= density && density <= range.max) || density >= range.max
-          : (range.min <= density && density <= range.max);
+          ? (range.min <= density && density < range.max) || density >= range.max
+          : (range.min <= density && density < range.max);
     } else {
-      return (range.min <= density && density <= range.max) || density >= range.max;
+      return (range.min <= density && density < range.max) || density >= range.max;
     }
   }
 
