@@ -569,6 +569,12 @@ class LocalizedTexts {
   static const String groupRulesSixParagraphTwo = "groupRulesSixParagraphTwo";
   static const String groupRulesSixParagraphThree = "groupRulesSixParagraphThree";
   static const String groupRulesSixParagraphFour = "groupRulesSixParagraphFour";
+
+  // Mental Health
+  static const String yourMentalHealth = "yourMentalHealth";
+  static const String mentalHealthIntroTextOne = "mentalHealthIntroTextOne";
+  static const String mentalHealthIntroTextTwo = "mentalHealthIntroTextTwo";
+  static const String mentalHealthIntroTextThree = "mentalHealthIntroTextThree";
 }
 
 extension StringX on String {

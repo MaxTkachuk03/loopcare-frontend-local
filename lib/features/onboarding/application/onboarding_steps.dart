@@ -3,7 +3,7 @@ part of 'onboarding_bloc.dart';
 enum OnboardingSteps {
   physicalFitness,
   medicalFitness,
-  // mentalFitness,
+  mentalFitness,
 }
 
 extension OnboardingStepsX on OnboardingSteps {
@@ -13,10 +13,10 @@ extension OnboardingStepsX on OnboardingSteps {
         return PhysicalFitnessQuestions.values.map((e) => e.route).toList();
       case OnboardingSteps.medicalFitness:
         return medicalFitnessQuestions.map((e) => getQuestionRoute(e)).toList();
-      // case OnboardingSteps.mentalFitness:
-      //   return PhysicalFitnessQuestions.values
-      //       .map((e) => e.route)
-      //       .toList(); // TODO: change after adding enum for mentalFitness step
+      case OnboardingSteps.mentalFitness:
+        return PhysicalFitnessQuestions.values
+            .map((e) => e.route)
+            .toList(); // TODO change to mental health routes
     }
   }
 

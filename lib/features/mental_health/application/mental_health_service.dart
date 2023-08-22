@@ -1,0 +1,7 @@
+import 'package:dartz/dartz.dart';
+import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/mental_health/application/dto/mental_health_tests_response.dart';
+
+abstract class MentalHealthService {
+  Future<Either<RequestError, MentalHealthTestsResponse>> mentalHealthQuestions();
+}
