@@ -29,7 +29,15 @@ extension DateTimeExtension on DateTime {
     return DateFormat('EEEE d MMMM y', 'en_EN').format(this);
   }
 
+  String get timeHoursMinutes24 {
+    return DateFormat('HH:mm', 'en_EN').format(this);
+  }
+
   String get timeHoursMinutes {
     return DateFormat('HH:mma', 'en_EN').format(this);
+  }
+
+  String get weekdayString {
+    return DateFormat('EEEE', 'en_EN').format(this);
   }
 }

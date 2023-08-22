@@ -3,17 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 
 class Grouped extends StatelessWidget {
-  const Grouped({Key? key}) : super(key: key);
+  final bool nextWeek;
+
+  const Grouped({
+    Key? key,
+    this.nextWeek = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var groupingStartedAt = DateTime.now();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          LocalizedTexts.comingUpThisWeek.tr().toUpperCase(),
+          nextWeek
+              ? LocalizedTexts.comingUpNextWeek.tr().toUpperCase()
+              : LocalizedTexts.comingUpThisWeek.tr().toUpperCase(),
           style: const TextStyle(
             fontSize: ThemeConstants.fontSize12,
             color: AppColors.greyLabel,
@@ -22,12 +32,32 @@ class Grouped extends StatelessWidget {
         const SizedBox(
           height: 16.0,
         ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+              child: Text(
+                LocalizedTexts.lookingAtEatingBehavior,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+              ).tr(),
+            ),
+            const ImageIcon(
+              AppIcons.arrow,
+              color: AppColors.greyLabel,
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 8.0,
+        ),
         Text(
-          LocalizedTexts.lookingAtEatingBehavior,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-        ).tr(),
+          '${LocalizedTexts.booked.translation} ${groupingStartedAt.weekdayString} ' +
+              '${LocalizedTexts.from.translation} ${groupingStartedAt.timeHoursMinutes24} ' +
+              '${LocalizedTexts.to.translation} ${groupingStartedAt.timeHoursMinutes24}.',
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
         const SizedBox(
           height: 8.0,
         ),

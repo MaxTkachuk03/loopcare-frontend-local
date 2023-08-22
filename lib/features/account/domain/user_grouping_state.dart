@@ -6,4 +6,7 @@ enum UserGroupingState {
   refused,
   grouped,
   left,
+
+  noTS,
+  noGroup,
 }

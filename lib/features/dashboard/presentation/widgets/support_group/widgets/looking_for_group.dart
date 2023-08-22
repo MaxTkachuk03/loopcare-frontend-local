@@ -65,7 +65,9 @@ class LookingForGroup extends StatelessWidget {
               children: [
                 Text(
                   LocalizedTexts.moreInformationInPreferences,
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                 ).tr(),
                 const ImageIcon(
                   AppIcons.arrow,
