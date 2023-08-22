@@ -502,5 +502,9 @@
   "groupSessionsUnlocked": "Group sessions unlocked.",
   "waitingForGroupCompletedLesson": "We will notify you once we found a group based on your preferences.",
   "notJoinedToGroupCompletedLesson": "If you want to join group sessions in the future you can indicate this in the preferences.",
-  "completedLessonDesc": "Your preference have been added to your profile. You can update them later."
+  "completedLessonDesc": "Your preference have been added to your profile. You can update them later.",
+  "yourMentalHealth": "Your mental health",
+  "mentalHealthIntroTextOne": "A good mental health is vital to successfully improve your lifestyle.",
+  "mentalHealthIntroTextTwo": "To tailor the program to suit your needs you will be asked questions in the next section regarding your current well-being, physiological symptoms, possible anxiety symptoms and mood. This should take around 10 minutes.",
+  "mentalHealthIntroTextThree": "You can take a break inbetween. If you do take more than an hour to complete all questions you will be asked to start this section again. You will receive your results immediately after the questions. Please note that these test results are not a diagnosis. A diagnosis can only be made by a doctor or psychologist."
 }

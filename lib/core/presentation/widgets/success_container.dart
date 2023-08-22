@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 class SuccessContainer extends StatelessWidget {
   final String title;
   final Widget content;
+  final bool? withoutCheckMark;
   final EdgeInsetsGeometry? contentPadding;
 
   const SuccessContainer({
@@ -12,10 +13,13 @@ class SuccessContainer extends StatelessWidget {
     required this.title,
     required this.content,
     this.contentPadding,
+    this.withoutCheckMark,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final withoutCheckMark = this.withoutCheckMark ?? false;
+
     return Column(
       children: [
         Stack(
@@ -52,10 +56,7 @@ class SuccessContainer extends StatelessWidget {
                         child: Text(
                           title,
                           textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium
-                              ?.copyWith(
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.white,
                                 fontFamily: ThemeConstants.bitterFontFamily,
@@ -67,10 +68,11 @@ class SuccessContainer extends StatelessWidget {
                 ),
               ),
             ),
-            Align(
-              alignment: AlignmentDirectional.topCenter,
-              child: AppImages.checkMarkGreen,
-            ),
+            if (!withoutCheckMark)
+              Align(
+                alignment: AlignmentDirectional.topCenter,
+                child: AppImages.checkMarkGreen,
+              ),
           ],
         ),
         Container(

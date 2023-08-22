@@ -21,6 +21,7 @@ import 'package:loopcare_frontend/features/group_sessions/appliction/topics_bloc
 import 'package:loopcare_frontend/features/home/application/home_bottom_navigation_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
+import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/barcode_scanner_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
@@ -132,6 +133,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<GroupPreferencesBloc>(
           create: (_) => getIt<GroupPreferencesBloc>(),
+        ),
+        BlocProvider<MentalHealthBloc>(
+          create: (_) => getIt<MentalHealthBloc>(),
         ),
         BlocProvider<TopicsBloc>(
           create: (_) => getIt<TopicsBloc>(),
