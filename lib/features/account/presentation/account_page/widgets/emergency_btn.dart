@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -25,21 +26,29 @@ class EmergencyBtn extends StatelessWidget {
                     side: const BorderSide(color: AppColors.darkGreen)),
               ),
             ),
-        child: Row(
-          children: [
-            AppIcons.sos,
-            const SizedBox(width: 8.0),
-            const Text(
-              LocalizedTexts.inCaseOfEmergency,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: AppColors.darkGreen,
-              ),
-            ).tr(), // <-- Text
-          ],
+        child: InkWell(
+          onTap: () => ModalBottomSheet.emergencyNumbers(
+            context: context,
+            onBtnPress: () => _onBtnPress,
+          ),
+          child: Row(
+            children: [
+              AppIcons.sos,
+              const SizedBox(width: 8.0),
+              const Text(
+                LocalizedTexts.inCaseOfEmergency,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.darkGreen,
+                ),
+              ).tr(), // <-- Text
+            ],
+          ),
         ),
       ),
     );
   }
+
+  void _onBtnPress() {}
 }
