@@ -5,8 +5,7 @@ class HeightConversionUtils {
   static double cmInFoot = 30.48;
   static double cmInInch = 2.54;
 
-  static int convertCMtoFT(int lengthInCm) =>
-      lengthInCm.floor() / cmInInch ~/ inchesInFoot;
+  static int convertCMtoFT(int lengthInCm) => lengthInCm.floor() / cmInInch ~/ inchesInFoot;
 
   static double convertCMtoIN(int lengthInCm) => lengthInCm.floor() * inchInCm;
 
@@ -26,7 +25,7 @@ class HeightConversionUtils {
   static double convertINtoCM(int inches) => inches * cmInInch;
 
   static int convertFeetAndInchesToCM(int foot, int inches) =>
-      (convertFTtoCM(foot) + convertINtoCM(inches)).ceil();
+      (convertFTtoCM(foot) + convertINtoCM(inches)).round();
 
   HeightConversionUtils._();
 }
