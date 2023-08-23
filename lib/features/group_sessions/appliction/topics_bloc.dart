@@ -3,6 +3,8 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/features/group_sessions/appliction/dto/topic.dart';
 import 'package:loopcare_frontend/features/group_sessions/appliction/topics_service.dart';
 
 part 'topics_bloc.freezed.dart';
@@ -23,13 +25,35 @@ class TopicsBloc extends Bloc<TopicsEvent, TopicsState> {
     FetchTopics event,
     Emitter<TopicsState> emit,
   ) async {
-    // final response = await diabetesService.diabetesTypes();
+    final response = await topicsService.fetchTopics();
 
-    // response.fold(
-    //   (l) => null,
-    //   (r) => emit(
-    //     state.copyWith(diabetesTypes: r.data.toIList()),
-    //   ),
-    // );
+    response.fold(
+      (l) => emit(
+        TopicsState.error(
+          state.data.copyWith(
+            error: l,
+            isLoading: false,
+          ),
+        ),
+      ),
+      (r) => emit(
+        TopicsState.updated(
+          state.data.copyWith(topics: _combineTopicsByWeek(null, r.data)),
+        ),
+      ),
+    );
+  }
+
+  Map<int, Topic> _combineTopicsByWeek(
+    Map<int, Topic>? previousData,
+    List<Topic> data,
+  ) {
+    Map<int, Topic> elements = Map<int, Topic>.from(previousData ?? {});
+
+    for (var element in data) {
+      elements[element.groupSessions.first.startDate.weekNumber] = element;
+    }
+
+    return elements;
   }
 }

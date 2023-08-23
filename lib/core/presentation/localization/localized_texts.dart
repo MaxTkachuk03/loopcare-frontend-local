@@ -530,12 +530,18 @@ class LocalizedTexts {
   static const String lookingAtEatingBehavior = 'lookingAtEatingBehavior';
   static const String bookYourSeatNow = 'bookYourSeatNow';
   static const String comingUpThisWeek = 'comingUpThisWeek';
+  static const String comingUpNextWeek = 'comingUpNextWeek';
   static const String yourSupportSystem = 'yourSupportSystem';
   static const String supportGroupIntroDesc = 'supportGroupIntroDesc';
   static const String yesILikeToJoin = 'yesILikeToJoin';
   static const String joinLater = 'joinLater';
   static const String theSupportGroup = 'theSupportGroup';
   static const String introduction = 'introduction';
+  static const String noOtherTimeslotsAvailable = 'noOtherTimeslotsAvailable';
+  static const String noGroupThisWeek = 'noGroupThisWeek';
+  static const String booked = 'booked';
+  static const String from = 'from';
+  static const String to = 'to';
 
   // Group rules
   static const String groupRulesOneTitle = "groupRulesOneTitle";

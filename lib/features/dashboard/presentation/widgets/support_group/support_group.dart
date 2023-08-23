@@ -11,6 +11,8 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/lessons_uncompleted.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/looking_for_group.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/no_group.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/no_timeslots.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/not_grouped.dart';
 
 class SupportGroup extends StatelessWidget {
@@ -77,6 +79,8 @@ class SupportGroup extends StatelessWidget {
             const Divider(color: AppColors.yellowLight),
             BlocBuilder<AuthenticationCubit, AuthenticationState>(
               builder: (context, state) {
+                // var tt = UserGroupingState.grouped;
+                // switch (tt) {
                 switch (state.groupingState) {
                   case UserGroupingState.notGrouped:
                     return const LessonsUncompleted();
@@ -88,6 +92,10 @@ class SupportGroup extends StatelessWidget {
                     return const LookingForGroup();
                   case UserGroupingState.grouped:
                     return const Grouped();
+                  case UserGroupingState.noTS:
+                    return const NoTimeslots();
+                  case UserGroupingState.noGroup:
+                    return const NoGroup();
                   default:
                     return const SizedBox.shrink();
                 }
