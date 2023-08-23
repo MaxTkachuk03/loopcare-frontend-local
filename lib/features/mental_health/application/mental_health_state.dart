@@ -22,6 +22,10 @@ class MentalHealthData with _$MentalHealthData {
     @Default(0) int currentTestIndex,
     @Default(0) int currentQuestionIndex,
     @Default([]) List<MentalHealthAnswer> answers,
+    @Default({}) Map<MentalHealthTestType, TestResult> results,
+    @Default(false) bool isLoading,
+    @Default(false) bool isCompleted,
+    RequestError? error
   }) = _MentalHealthData;
 
   MentalHealthTest? get currentTest {

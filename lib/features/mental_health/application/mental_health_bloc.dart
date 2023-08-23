@@ -3,10 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/mental_health/application/dto/answers_body.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_service.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/mental_health_answer.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/mental_health_question.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/mental_health_test.dart';
+import 'package:loopcare_frontend/features/mental_health/domain/mental_health_test_type.dart';
+import 'package:loopcare_frontend/features/mental_health/domain/test_result.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 
 part 'mental_health_bloc.freezed.dart';
@@ -28,6 +32,8 @@ class MentalHealthBloc extends Bloc<MentalHealthEvent, MentalHealthState> {
     on<_PrevQuestion>(_onPrevQuestion);
     on<_NextQuestion>(_onNextQuestion);
     on<_SetAnswer>(_onSetAnswer);
+    on<_GetTestResults>(_onGetTestResults);
+    on<_SetCompleted>(_onSetCompleted);
   }
 
   FutureOr<void> _onGetMentalHealthTests(event, Emitter<MentalHealthState> emit) async {
@@ -115,7 +121,8 @@ class MentalHealthBloc extends Bloc<MentalHealthEvent, MentalHealthState> {
 
   FutureOr<void> _onSetAnswer(_SetAnswer event, Emitter<MentalHealthState> emit) {
     var newAnswers = [...state.data.answers];
-    var existingQuestionIndex = newAnswers.indexWhere((element) => element.questionId == event.answer.questionId);
+    var existingQuestionIndex =
+        newAnswers.indexWhere((element) => element.questionId == event.answer.questionId);
 
     if (existingQuestionIndex.isNegative) {
       newAnswers = [...state.data.answers, event.answer];
@@ -125,10 +132,54 @@ class MentalHealthBloc extends Bloc<MentalHealthEvent, MentalHealthState> {
 
     emit(
       MentalHealthState.mentalHealthTests(
-        state.data.copyWith(
-          answers: newAnswers
-        ),
+        state.data.copyWith(answers: newAnswers),
       ),
     );
+  }
+
+  FutureOr<void> _onGetTestResults(_GetTestResults event, Emitter<MentalHealthState> emit) async {
+    final currentTest = state.data.currentTest;
+
+    if (currentTest == null) return;
+
+    emit(MentalHealthState.loading(state.data.copyWith(isLoading: true)));
+
+    final answers = state.data.isLastTest && state.data.isCompleted
+        ? state.data.answers
+        : currentTest.questions
+            .map(
+              (e) {
+                return state.data.answers.firstWhereOrNull((element) => element.questionId == e.id);
+              },
+            )
+            .whereType<MentalHealthAnswer>()
+            .toList();
+
+    final response = await _mentalHealthService.getTestResults(AnswersBody(answers: answers));
+
+    response.fold(
+      (e) => emit(MentalHealthState.loading(state.data.copyWith(isLoading: false, error: e))),
+      (r) {
+        emit(
+          MentalHealthState.mentalHealthTests(
+            state.data.copyWith(
+              results: {
+                ...state.data.results,
+                currentTest.type: TestResult(
+                  totalScore: r.totalScore,
+                  interpretation: r.interpretation,
+                )
+              },
+              isLoading: false,
+              error: null,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  FutureOr<void> _onSetCompleted(event, Emitter<MentalHealthState> emit) {
+    emit(MentalHealthState.mentalHealthTests(state.data.copyWith(isCompleted: event.value)));
   }
 }

@@ -445,7 +445,7 @@ class LocalizedTexts {
   static const String backToTodayNotLogged = 'backToTodayNotLogged';
   static const String notReally = 'notReally';
   static const String yesYes = 'yesYes';
-  static const String exercise = 'exercise';
+  static const String exerciseLength = 'exerciseLength';
   static const String exercises = 'exercises';
   static const String programNote = 'programNote';
   static const String physicalProgramAlreadyLogged = 'physicalProgramAlreadyLogged';
@@ -575,6 +575,39 @@ class LocalizedTexts {
   static const String mentalHealthIntroTextOne = "mentalHealthIntroTextOne";
   static const String mentalHealthIntroTextTwo = "mentalHealthIntroTextTwo";
   static const String mentalHealthIntroTextThree = "mentalHealthIntroTextThree";
+  static const String who5ResultTestMinimal = "who5ResultTestMinimal";
+  static const String who5ResultTestHigh = "who5ResultTestHigh";
+  static const String phq15ResultMinimal = "phq15ResultMinimal";
+  static const String phq15ResultMild = "phq15ResultMild";
+  static const String phq15ResultMedium = "phq15ResultMedium";
+  static const String phq15ResultHigh = "phq15ResultHigh";
+  static const String gad7ResultMinimal = "gad7ResultMinimal";
+  static const String gad7ResultMild = "gad7ResultMild";
+  static const String gad7ResultMedium = "gad7ResultMedium";
+  static const String gad7ResultHigh = "gad7ResultHigh";
+  static const String ifYouHaveSuicidalThoughts = "ifYouHaveSuicidalThoughts";
+  static const String phq8ResultMinimal = "phq8ResultMinimal";
+  static const String phq8ResultMild = "phq8ResultMild";
+  static const String phq8ResultMedium = "phq8ResultMedium";
+  static const String phq8ResultHigh = "phq8ResultHigh";
+  static const String phq8ResultHighest = "phq8ResultHighest";
+  static const String generalWellBeingConclusions = "generalWellBeingConclusions";
+  static const String partialConclusion = "partialConclusion";
+  static const String checkCompleted = "checkCompleted";
+  static const String weWouldLikeToSupportYou = "weWouldLikeToSupportYou";
+  static const String feelLimitedByMentalOrPhysicalSymptoms = "feelLimitedByMentalOrPhysicalSymptoms";
+  static const String feelLimitedByAnxietyOrPhysicalSymptoms = "feelLimitedByAnxietyOrPhysicalSymptoms";
+  static const String feelLimitedByPhysicalSymptoms = "feelLimitedByPhysicalSymptoms";
+  static const String feelLimitedByAnxietySymptoms = "feelLimitedByAnxietySymptoms";
+  static const String youHaveBurdenInSeveralFields = "youHaveBurdenInSeveralFields";
+  static const String youAreWelcomeToRepeatTests = "youAreWelcomeToRepeatTests";
+  static const String weAreNotOverloadYou = "weAreNotOverloadYou";
+  static const String pleaseAppreciateThat = "pleaseAppreciateThat";
+  static const String weTailorTheProgramToYouPersonally = "weTailorTheProgramToYouPersonally";
+  static const String theFollowingAreasAreUnlocked = "theFollowingAreasAreUnlocked";
+  static const String weWillGuideYou = "weWillGuideYou";
+  static const String findBuddyAndGetIntoSupportGroup = "findBuddyAndGetIntoSupportGroup";
+  static const String exercise = "exercise";
 }
 
 extension StringX on String {
