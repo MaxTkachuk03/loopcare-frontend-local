@@ -59,6 +59,9 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/stomach_
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor/presentation/treatment_by_doctor_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor_failled/presentation/treatment_by_doctor_failled_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/weight_loss_medication/weight_loss_medication_page.dart';
+import 'package:loopcare_frontend/features/mental_health/presentation/mental_check_result_page.dart';
+import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_intro_page.dart';
+import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_question_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/daily_intake/daily_intake_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/log_planned_meals/log_planned_meals_page.dart';
@@ -247,6 +250,18 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.consentNeeded,
       page: ConsentNeededPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.mentalHealthIntro,
+      page: MentalHealthIntroPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.mentalHealthQuestion,
+      page: MentalHealthQuestionPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.mentalCheckResult,
+      page: MentalCheckResultPage,
     ),
     AutoRoute(
       path: AppRoutes.login,

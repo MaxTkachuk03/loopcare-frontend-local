@@ -43,6 +43,8 @@ class AppColors {
 
   static const Color dirtyWhite = Color(0xFFF9FAF5);
 
+  static const Color greyLight = Color(0xFFE6E8DC);
+
   static const Color greyMid = Color(0xFFCDCFD0);
 
   static const Color greyLabel = Color(0xFF999999);

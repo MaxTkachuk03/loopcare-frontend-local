@@ -13,7 +13,7 @@ class APITopicsService implements TopicsService {
   APITopicsService(this.client);
 
   @override
-  Future<Either<RequestError, GroupSessionsResponse>> topics() async {
+  Future<Either<RequestError, GroupSessionsResponse>> fetchTopics() async {
     return client.get('/group-sessions').then(parseResponse(GroupSessionsResponse.fromJson));
   }
 }

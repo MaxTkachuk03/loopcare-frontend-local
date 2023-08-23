@@ -79,7 +79,7 @@ class SupportGroup extends StatelessWidget {
             const Divider(color: AppColors.yellowLight),
             BlocBuilder<AuthenticationCubit, AuthenticationState>(
               builder: (context, state) {
-                // var tt = UserGroupingState.noGroup;
+                // var tt = UserGroupingState.grouped;
                 // switch (tt) {
                 switch (state.groupingState) {
                   case UserGroupingState.notGrouped:

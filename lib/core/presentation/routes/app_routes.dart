@@ -46,6 +46,10 @@ class AppRoutes {
   static const String allergic = '/allergic';
   static const String youAndFoodReady = '/you-and-food-ready';
   static const String doNotLike = '/do-not-like';
+  static const String mentalHealthIntro = '/mental-health-intro';
+  static const String mentalHealthQuestion = '/mental-health-question';
+  static const String mentalCheckResult = '/mental-check-result';
+
   //Self Help
   static const String householdIntro = '/household-intro';
   static const String shareMealWith = '/share-meal-with';
