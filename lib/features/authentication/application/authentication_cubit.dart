@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/forgot_password_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/login_data.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/dto/registration_physical_fitness_data.dart';
 
@@ -156,7 +157,11 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     });
   }
 
-  void signUp(String email, RegistrationPhysicalFitnessData registrationPhysicalFitnessData) async {
+  void signUp(
+    String email,
+    RegistrationPhysicalFitnessData registrationPhysicalFitnessData,
+    MentalHealthTestAnswer mentalHealthTest,
+  ) async {
     state.mapOrNull(
       emailAddress: (state) async {
         final data = SignUpData(
@@ -171,6 +176,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
           birthDate: registrationPhysicalFitnessData.birthday,
           bioGender: registrationPhysicalFitnessData.bioGender,
           gender: registrationPhysicalFitnessData.gender,
+          mentalHealthTest: mentalHealthTest,
         );
 
         final response = await _authenticationService.signUp(data);
