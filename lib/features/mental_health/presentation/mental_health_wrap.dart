@@ -55,7 +55,10 @@ class MentalHealthWrap extends StatelessWidget {
           child: IntrinsicHeight(
             child: MainContainer(
               child: Column(
-                children: <Widget>[const ProgressBar(), Expanded(child: child)],
+                children: <Widget>[
+                  const ProgressBar(),
+                  Expanded(child: child),
+                ],
               ),
             ),
           ),

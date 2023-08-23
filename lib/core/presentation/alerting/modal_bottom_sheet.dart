@@ -173,6 +173,51 @@ class ModalBottomSheet {
     );
   }
 
+  static void timeWasExceeded({
+    required BuildContext context,
+    required void Function() onStartAgain,
+  }) {
+    showModalBottomSheet<void>(
+      isScrollControlled: true,
+      isDismissible: false,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24.0),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return Wrap(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 58.0, horizontal: 40.0),
+              child: SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      LocalizedTexts.youExceededTimeMessage,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+                    ).tr(),
+                    Text(
+                      LocalizedTexts.noWorriesYouCanDoItLater,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ).tr(),
+                    const SizedBox(
+                      height: 40.0,
+                    ),
+                    ElevatedButton(
+                      onPressed: onStartAgain,
+                      child: const Text(LocalizedTexts.startAgain).tr(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   static void deleteMeal({
     required BuildContext context,
     required void Function() onDeleted,
@@ -190,7 +235,6 @@ class ModalBottomSheet {
             top: false,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              // mainAxisAlignment: MainAxisAlignment.,
               children: [
                 Align(
                   alignment: Alignment.topRight,
