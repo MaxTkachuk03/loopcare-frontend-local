@@ -88,7 +88,7 @@ class ProgramDetailsPage extends StatelessWidget {
                         height: 24.0,
                       ),
                       Text(
-                        exercisesLength > 1 ? LocalizedTexts.exercises : LocalizedTexts.exercise,
+                        exercisesLength > 1 ? LocalizedTexts.exercises : LocalizedTexts.exerciseLength,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.w700,
                             ),
