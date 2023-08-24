@@ -12,8 +12,10 @@ import 'package:loopcare_frontend/core/presentation/widgets/checkbox_form_field.
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
+import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 
 const accountAlreadyExists = 'account_with_this_email_already_exists';
@@ -48,8 +50,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
           listener: _errorListener,
         ),
         BlocListener<AuthenticationCubit, AuthenticationState>(
-          listenWhen: (previous, current) =>
-              previous is EmailAddress && current is WaitedForConfirmation,
+          listenWhen: (previous, current) => previous is EmailAddress && current is WaitedForConfirmation,
           listener: _navigationListener,
         )
       ],
@@ -79,8 +80,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
                   style: Theme.of(context).textTheme.bodyMedium,
                   children: [
                     TextSpan(
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = _onTermsAndConditionsTap,
+                      recognizer: TapGestureRecognizer()..onTap = _onTermsAndConditionsTap,
                       text: LocalizedTexts.termsAndConditions.tr(),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             decoration: TextDecoration.underline,
@@ -103,8 +103,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
   }
 
   _onChangedForm() {
-    final isValidForm = Email.create(_emailController.text).isRight() &&
-        termsAndConditionsAreChecked;
+    final isValidForm = Email.create(_emailController.text).isRight() && termsAndConditionsAreChecked;
 
     setState(() {
       _isDisabled = !isValidForm;
@@ -115,14 +114,15 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
     setState(() {
       emailErrorText = null;
     });
-    final registrationPhysicalFitnessData = context
-        .read<PhysicalFitnessBloc>()
-        .state
-        .registrationPhysicalFitnessData;
+    final registrationPhysicalFitnessData =
+        context.read<PhysicalFitnessBloc>().state.registrationPhysicalFitnessData;
+
+    final mentalHealthTest = context.read<MentalHealthBloc>().state.data.answers;
 
     context.read<AuthenticationCubit>().signUp(
           _emailController.text,
           registrationPhysicalFitnessData,
+          MentalHealthTestAnswer(answers: mentalHealthTest),
         );
   }
 

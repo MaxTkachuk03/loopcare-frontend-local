@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
 
 part 'sign_up_data.g.dart';
 
@@ -19,6 +20,8 @@ class SignUpData {
   final String gender;
   final String bioGender;
 
+  final MentalHealthTestAnswer mentalHealthTest;
+
   const SignUpData({
     required this.name,
     required this.email,
@@ -31,6 +34,7 @@ class SignUpData {
     required this.birthDate,
     required this.gender,
     required this.bioGender,
+    required this.mentalHealthTest,
   });
 
   factory SignUpData.fromJson(Map<String, dynamic> json) =>
