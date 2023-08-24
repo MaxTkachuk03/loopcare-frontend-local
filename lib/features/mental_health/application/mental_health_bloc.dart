@@ -34,6 +34,8 @@ class MentalHealthBloc extends Bloc<MentalHealthEvent, MentalHealthState> {
     on<_SetAnswer>(_onSetAnswer);
     on<_GetTestResults>(_onGetTestResults);
     on<_SetCompleted>(_onSetCompleted);
+    on<_SetStartTime>(_onSetStartTime);
+    on<_StartTestFromBeginning>(_onStartTestFromBeginning);
   }
 
   FutureOr<void> _onGetMentalHealthTests(event, Emitter<MentalHealthState> emit) async {
@@ -181,5 +183,26 @@ class MentalHealthBloc extends Bloc<MentalHealthEvent, MentalHealthState> {
 
   FutureOr<void> _onSetCompleted(event, Emitter<MentalHealthState> emit) {
     emit(MentalHealthState.mentalHealthTests(state.data.copyWith(isCompleted: event.value)));
+  }
+
+  FutureOr<void> _onSetStartTime(_SetStartTime event, Emitter<MentalHealthState> emit) {
+    emit(MentalHealthState.mentalHealthTests(state.data.copyWith(startTestTime: event.time)));
+  }
+
+  FutureOr<void> _onStartTestFromBeginning(_StartTestFromBeginning event, Emitter<MentalHealthState> emit) {
+    emit(MentalHealthState.mentalHealthTests(state.data.copyWith(
+      startTestTime: null,
+      results: {},
+      answers: [],
+      currentQuestionIndex: 0,
+      currentTestIndex: 0,
+    )));
+
+    _onboardingBloc.add(
+      const OnboardingEvent.currentStepChanged(
+        progress: 0,
+        questionIndex: 0,
+      ),
+    );
   }
 }

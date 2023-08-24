@@ -25,7 +25,8 @@ class MentalHealthData with _$MentalHealthData {
     @Default({}) Map<MentalHealthTestType, TestResult> results,
     @Default(false) bool isLoading,
     @Default(false) bool isCompleted,
-    RequestError? error
+    RequestError? error,
+    DateTime? startTestTime,
   }) = _MentalHealthData;
 
   MentalHealthTest? get currentTest {

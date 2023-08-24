@@ -614,6 +614,9 @@ class LocalizedTexts {
   static const String weWillGuideYou = "weWillGuideYou";
   static const String findBuddyAndGetIntoSupportGroup = "findBuddyAndGetIntoSupportGroup";
   static const String exercise = "exercise";
+  static const String youExceededTimeMessage = "youExceededTimeMessage";
+  static const String noWorriesYouCanDoItLater = "noWorriesYouCanDoItLater";
+  static const String startAgain = "startAgain";
 }
 
 extension StringX on String {

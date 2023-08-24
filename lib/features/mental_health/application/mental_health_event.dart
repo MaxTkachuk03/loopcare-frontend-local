@@ -17,4 +17,8 @@ class MentalHealthEvent with _$MentalHealthEvent {
   const factory MentalHealthEvent.getTestResults() = _GetTestResults;
 
   const factory MentalHealthEvent.setCompleted(bool value) = _SetCompleted;
+
+  const factory MentalHealthEvent.setStartTime(DateTime time) = _SetStartTime;
+
+  const factory MentalHealthEvent.startTestFromBeginning() = _StartTestFromBeginning;
 }
