@@ -466,6 +466,7 @@ class LocalizedTexts {
   static const String requireLoginEachTime = 'requireLoginEachTime';
   static const String food = 'food';
   static const String groupSessions = 'groupSessions';
+  static const String groupSession = 'groupSession';
   static const String signOut = 'signOut';
   static const String foodPreferences = 'foodPreferences';
   static const String dislikeFoodMessage = 'dislikeFoodMessage';
@@ -575,6 +576,25 @@ class LocalizedTexts {
   static const String groupRulesSixParagraphTwo = "groupRulesSixParagraphTwo";
   static const String groupRulesSixParagraphThree = "groupRulesSixParagraphThree";
   static const String groupRulesSixParagraphFour = "groupRulesSixParagraphFour";
+
+  // Session waiting room
+  static const String sessionGreeting = "sessionGreeting";
+  static const String goodToKnow = "goodToKnow";
+  static const String warningOne = "warningOne";
+  static const String warningTwo = "warningTwo";
+  static const String hi = "hi";
+  static const String sessionWillStartIn = "sessionWillStartIn";
+  static const String sessionStartedMessage = "sessionStartedMessage";
+  static const String enterSession = "enterSession";
+
+  // Zoom call
+  static const String reportIssue = "reportIssue";
+  static const String discussion = "discussion";
+  static const String left = "left";
+  static const String error = "error";
+  static const String sessionIsInProgress = "sessionIsInProgress";
+  static const String failedToJoinSession = "failedToJoinSession";
+  static const String disconnectedFromSession = "disconnectedFromSession";
 
   // Mental Health
   static const String yourMentalHealth = "yourMentalHealth";

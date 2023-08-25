@@ -6,6 +6,8 @@
  <true/>
  <key>NSCameraUsageDescription</key> 
  <string>This app needs camera access to scan QR codes</string>
+ <key>NSMicrophoneUsageDescription</key>
+ <string>flutter_zoom_videosdk needs microphone access to allow you to speak in a meeting</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>

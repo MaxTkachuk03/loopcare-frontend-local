@@ -61,4 +61,16 @@ extension DateTimeExtension on DateTime {
     to = DateTime.utc(to.year, to.month, to.day);
     return (to.difference(from).inDays / 7).ceil();
   }
+
+  get firstDayOfCurrentWeek {
+    final date = subtract(Duration(days: weekday - 1));
+
+    return DateTime(date.year, date.month, date.day);
+  }
+
+  get lastDayOfCurrentWeek {
+    final date = add(Duration(days: DateTime.daysPerWeek - weekday));
+
+    return DateTime(date.year, date.month, date.day);
+  }
 }

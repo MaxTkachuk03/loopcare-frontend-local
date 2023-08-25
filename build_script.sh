@@ -7,9 +7,9 @@ else
 fi
 
 if [ "$2" == "ios" ]; then
-  flutter build ipa --release --export-method ad-hoc --dart-define FLAVOR=$build_type --flavor $build_type
+  flutter build ipa --release --obfuscate --split-debug-info=debug-info --export-method ad-hoc --dart-define FLAVOR=$build_type --flavor $build_type
 else
-  flutter build apk --release --dart-define FLAVOR=$build_type --flavor $build_type
+  flutter build apk --release --obfuscate --split-debug-info=debug-info --dart-define FLAVOR=$build_type --flavor $build_type
 fi
 
 
