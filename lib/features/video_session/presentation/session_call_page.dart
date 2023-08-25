@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
@@ -11,10 +12,12 @@ import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.d
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_utils.dart';
-import 'package:loopcare_frontend/features/video_session/presentation/config.dart';
+import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/jwt.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/call_controls.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/error_dialog.dart';
@@ -72,15 +75,23 @@ class _SessionCallPageState extends State<SessionCallPage> {
 
   void _joinSession() {
     Future<void>.microtask(() async {
-      final String token = generateJwt(defaultSessionName, defaultSessionRole);
+      final String sessionName = context.read<TopicsBloc>().state.data.thisWeekTopicName;
+      final String? sessionPassword = context.read<TopicsBloc>().state.data.signedGroupSessionPassword;
+
+      // final String token = context.read<TopicsBloc>().state.data.signedGroupSessionToken!;
+
+      // TODO in case we need to generate signature on the front end side
+      final String token = generateJwt(sessionName, ZoomConfig.defaultSessionRole);
+      final String userName = context.read<AuthenticationCubit>().state.nickname ??
+          context.read<AuthenticationCubit>().state.name;
 
       JoinSessionConfig joinSession = JoinSessionConfig(
-        sessionName: defaultSessionName,
-        sessionPassword: defaultSessionPwd,
+        sessionName: sessionName,
+        sessionPassword: sessionPassword ?? ZoomConfig.defaultSessionPwd,
         token: token,
-        userName: context.read<AuthenticationCubit>().state.name,
-        audioOptions: sdkAudioOptions,
-        videoOptions: sdkVideoOptions,
+        userName: userName,
+        audioOptions: ZoomConfig.sdkAudioOptions,
+        videoOptions: ZoomConfig.sdkVideoOptions,
         sessionIdleTimeoutMins: 5,
       );
 
@@ -117,6 +128,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
       isInSession = true;
       // TODO set initial _sessionStart value = TimeStamp.now() - sessionStartTime
       _startTimer();
+      print('_sessionJoinListener');
 
       ZoomVideoSdkUser mySelf = ZoomVideoSdkUser.fromJson(jsonDecode(sessionUser.toString()));
       List<ZoomVideoSdkUser>? remoteUsers = await zoom.session.getRemoteUsers();
@@ -144,10 +156,9 @@ class _SessionCallPageState extends State<SessionCallPage> {
 
     _sessionLeaveListener = emitter.on(EventType.onSessionLeave, (data) async {
       isInSession = false;
-      final a = await zoom.recordingHelper.stopCloudRecording();
-      print('stopCloudRecording status $a');
+      print('_sessionLeaveListener');
 
-      _timer.cancel();
+      if (_timer != null) _timer.cancel();
 
       users = <ZoomVideoSdkUser>[];
 
@@ -318,6 +329,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
 
     _eventErrorListener = emitter.on(EventType.onError, (Map data) async {
       String errorType = data['errorType'];
+      print(errorType);
 
       if (_error == errorType) return;
 
@@ -331,7 +343,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
           errorText: errorType,
           onErrorHandler: () {
             context.router.pop();
-            _onErrorHandler(errorType);
+            if (!isInSession) _onErrorHandler(errorType);
           },
         ),
       );
@@ -412,7 +424,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
   void _showNotSupportSnack() {
     showAppSnackBar(
       context: context,
-      text: 'Device not support speaker toggle',
+      text: LocalizedTexts.toggleSpeakerError.tr(),
       background: AppColors.red,
       textColor: Colors.white,
     );

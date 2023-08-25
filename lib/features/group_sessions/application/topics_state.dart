@@ -31,9 +31,17 @@ class TopicsData with _$TopicsData {
 
   String get nextWeekTopicName => topics[DateTime.now().nextWeekNumber]?.topic ?? '';
 
-  GroupSession? get signedGroupSession => thisWeekTopic?.groupSessions.firstWhereOrNull((s) => s.signed);
+  GroupSession? get signedGroupSession {
+    // TODO hardcode for testing
+    return thisWeekTopic?.groupSessions.first;
+    // return thisWeekTopic?.groupSessions.firstWhereOrNull((s) => s.signed);
+  }
 
   DateTime? get signedGroupSessionStartTime => signedGroupSession?.startDate;
+
+  String? get signedGroupSessionToken => signedGroupSession?.signature;
+
+  String? get signedGroupSessionPassword => signedGroupSession?.password;
 
   Duration get durationLeftToSessionStart {
     // TODO hardcode for testing

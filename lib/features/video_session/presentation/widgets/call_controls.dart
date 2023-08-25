@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class CallControls extends StatelessWidget {
@@ -44,9 +46,9 @@ class CallControls extends StatelessWidget {
                       isMuted ? const Icon(Icons.mic_off) : const Icon(Icons.mic),
                       const SizedBox(height: 8.0),
                       const Text(
-                        'Mute',
+                        LocalizedTexts.mute,
                         style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.white),
-                      ),
+                      ).tr(),
                     ],
                   ),
                 ),
@@ -70,9 +72,9 @@ class CallControls extends StatelessWidget {
                           : const Icon(Icons.videocam_off_rounded),
                       const SizedBox(height: 8.0),
                       const Text(
-                        'Stop video',
+                        LocalizedTexts.stopVideo,
                         style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.white),
-                      ),
+                      ).tr(),
                     ],
                   ),
                 ),
@@ -94,9 +96,9 @@ class CallControls extends StatelessWidget {
                   AppIcons.settings,
                   const SizedBox(height: 8.0),
                   const Text(
-                    'Settings',
+                    LocalizedTexts.settings,
                     style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.white),
-                  ),
+                  ).tr(),
                 ],
               ),
             ),

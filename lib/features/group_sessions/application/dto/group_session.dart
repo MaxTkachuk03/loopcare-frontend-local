@@ -5,11 +5,11 @@ part 'group_session.freezed.dart';
 part 'group_session.g.dart';
 
 @freezed
-abstract class GroupSession implements _$GroupSession {
+class GroupSession with _$GroupSession {
   const GroupSession._();
 
   const factory GroupSession({
-    required String? signature,
+    required String signature,
     required int memberCount,
     required int mixMemberCount,
     required int maxMemberCount,
