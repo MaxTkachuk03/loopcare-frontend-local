@@ -5,7 +5,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
-import 'package:loopcare_frontend/features/group_sessions/appliction/topics_bloc.dart';
+import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 
 class Grouped extends StatelessWidget {
   final bool nextWeek;
@@ -41,7 +41,7 @@ class Grouped extends StatelessWidget {
               children: [
                 Flexible(
                   child: Text(
-                    state.nextWeekTopicName,
+                    state.data.nextWeekTopicName,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
