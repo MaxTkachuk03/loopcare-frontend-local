@@ -1,5 +1,8 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
 ///@nodoc
 abstract class ZoomVideoSdkCRCHelperPlatform extends PlatformInterface {
   ZoomVideoSdkCRCHelperPlatform() : super(token: _token);
@@ -34,9 +37,7 @@ class ZoomVideoSdkCRCHelper extends ZoomVideoSdkCRCHelperPlatform {
   /// Note: only get the correct value after join session
   @override
   Future<bool> isCRCEnabled() async {
-    return await methodChannel
-        .invokeMethod<bool>('isCRCEnabled')
-        .then<bool>((bool? value) => value ?? false);
+    return await methodChannel.invokeMethod<bool>('isCRCEnabled').then<bool>((bool? value) => value ?? false);
   }
 
   /// Calls CRC device. Only available for the host/co-host.

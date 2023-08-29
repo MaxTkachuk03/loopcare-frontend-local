@@ -11,7 +11,7 @@ abstract class GroupSession implements _$GroupSession {
   const factory GroupSession({
     required String? signature,
     required int memberCount,
-    required int mixMemberCount,
+    required int minMemberCount,
     required int maxMemberCount,
     required String status,
     required bool signed,

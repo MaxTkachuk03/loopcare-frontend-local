@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session_program_event.dart';
+import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session_status.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/topic.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_service.dart';
 

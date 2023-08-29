@@ -6,7 +6,6 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/meals_blo
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/meal_item_type/meal_item_type.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/meal_item_type/meal_item_type.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/recipe_food_item/recipe_food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/food_list_item/food_list_item.dart';
 
@@ -58,8 +57,7 @@ class RecipeList extends StatelessWidget {
     final recipeId = !isMealRecipe
         ? mealState.currentFoodItems
             .firstWhere((element) =>
-                element.type == MealItemType.recipe &&
-                element.externalId == recipeState.externalRecipeId)
+                element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
             .id
         : recipeState.recipeId;
 
