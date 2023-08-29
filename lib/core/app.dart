@@ -164,6 +164,7 @@ class _AppState extends State<_App> {
     final onboardingBloc = context.read<OnboardingBloc>();
     final legalStatementBloc = context.read<LegalStatementBloc>();
     final consentConfirmationBloc = context.read<ConsentConfirmationBloc>();
+    final mentalHealthBloc = context.read<MentalHealthBloc>();
 
     _appRouter = AppRouter(
       proxyGuard: ProxyGuard(),
@@ -172,6 +173,7 @@ class _AppState extends State<_App> {
         onboardingBloc,
         consentConfirmationBloc,
         legalStatementBloc,
+        mentalHealthBloc,
       ),
       genderPrefsGuard: GenderPrefsGuard(
         authBloc,

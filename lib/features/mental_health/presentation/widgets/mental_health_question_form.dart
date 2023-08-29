@@ -81,7 +81,9 @@ class MentalHealthQuestionForm extends StatelessWidget {
     final isLastQuestion = context.read<MentalHealthBloc>().state.data.isLastQuestion;
 
     if (isLastQuestion) {
-      context.router.pushNamed(AppRoutes.mentalCheckResult);
+      context
+        ..read<MentalHealthBloc>().add(const MentalHealthEvent.nextPage())
+        ..router.pushNamed(AppRoutes.mentalCheckResult);
 
       return;
     }
