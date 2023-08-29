@@ -4,13 +4,13 @@ part of 'topics_bloc.dart';
 class TopicsState with _$TopicsState {
   const TopicsState._();
 
-  const factory TopicsState.initial(TopicsData data) = _Initial;
+  const factory TopicsState.initial(TopicsData data) = TopicsStateInitial;
 
-  const factory TopicsState.updated(TopicsData data) = _Updated;
+  const factory TopicsState.updated(TopicsData data) = TopicsStateUpdated;
 
-  const factory TopicsState.loading(TopicsData data) = _Loading;
+  const factory TopicsState.loading(TopicsData data) = TopicsStateLoading;
 
-  const factory TopicsState.error(TopicsData data) = _Error;
+  const factory TopicsState.error(TopicsData data) = TopicsStateError;
 }
 
 @freezed
@@ -19,6 +19,7 @@ class TopicsData with _$TopicsData {
 
   const factory TopicsData({
     @Default({}) Map<int, Topic> topics,
+    @Default('') String signedSessionSignature,
     @Default(false) bool isLoading,
     RequestError? error,
   }) = _TopicsData;
@@ -89,9 +90,9 @@ class TopicsData with _$TopicsData {
 
   DateTime? get signedGroupSessionStartTime => signedGroupSession?.startDate;
 
-  String? get signedGroupSessionToken => signedGroupSession?.signature;
-
   String? get signedGroupSessionPassword => signedGroupSession?.password;
+
+  int? get signedGroupSessionId => signedGroupSession?.id;
 
   List<GroupSessionProgramEvent> get thisWeekTopicsEvents => thisWeekTopic?.groupSessionProgramEvents ?? [];
 

@@ -39,6 +39,10 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
 
     context.read<VideoPlayerBloc>().add(const VideoPlayerEvent.getAwsCookies());
 
+    final int? sessionId = context.read<TopicsBloc>().state.data.signedGroupSessionId;
+
+    context.read<TopicsBloc>().add(TopicsEvent.getSessionSignature(sessionId!));
+
     super.initState();
   }
 

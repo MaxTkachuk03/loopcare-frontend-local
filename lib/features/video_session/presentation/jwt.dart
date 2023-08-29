@@ -34,7 +34,6 @@ String generateJwt(String sessionName, String roleType) {
 
     return jwt.sign(SecretKey(configs["ZOOM_SDK_SECRET"]));
   } catch (e) {
-    print(e);
     return '';
   }
 }
