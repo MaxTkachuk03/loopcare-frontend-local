@@ -30,22 +30,6 @@ class _GroupSessionPlayerOverlayState extends State<GroupSessionPlayerOverlay> {
     return widget.orientation == Orientation.portrait;
   }
 
-  double get _videoWidth {
-    final width = widget.controller.value.size.width;
-
-    return width == 0 || width < GroupSessionPlayerOverlay._defaultVideoWidth
-        ? GroupSessionPlayerOverlay._defaultVideoWidth
-        : width;
-  }
-
-  double get _videoHeight {
-    final height = widget.controller.value.size.height;
-
-    return height != 0 || height < GroupSessionPlayerOverlay._defaultVideoHeight
-        ? GroupSessionPlayerOverlay._defaultVideoHeight
-        : height;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
