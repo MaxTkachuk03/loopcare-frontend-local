@@ -68,12 +68,13 @@ class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
   void _initController(PhysicalProgramExercise exercise) async {
     final headers = context.read<VideoPlayerBloc>().state.data.videoHttpHeaders;
 
-    _videoPlayerController = VideoPlayerController.network(exercise.video ?? '', httpHeaders: headers)
-      ..initialize().then((value) {
-        _videoPlayerController?.play();
-      }).whenComplete(() {
-        setState(() {});
-      });
+    _videoPlayerController =
+        VideoPlayerController.networkUrl(Uri.parse(exercise.video ?? ''), httpHeaders: headers)
+          ..initialize().then((value) {
+            _videoPlayerController?.play();
+          }).whenComplete(() {
+            setState(() {});
+          });
   }
 
   _loadVideoPlayer(PhysicalProgramExercise exercise) {

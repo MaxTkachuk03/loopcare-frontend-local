@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
-import 'package:loopcare_frontend/features/video_session/presentation/config.dart';
+import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_countdown/session_timer.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -73,7 +73,7 @@ class _SessionCountdownState extends State<SessionCountdown> {
     bool blocked = false;
     List<Permission> notGranted = [];
 
-    List<Permission> permissions = permissionsList;
+    List<Permission> permissions = ZoomConfig.permissionsList;
 
     Map<Permission, PermissionStatus>? statuses = await permissions.request();
 
@@ -144,7 +144,7 @@ class _SessionCountdownState extends State<SessionCountdown> {
               ).tr(),
             ),
             sessionNotStarted: (_) => SessionTimer(
-              value: context.read<TopicsBloc>().state.data.durationLeftToSessionStart.inSeconds,
+              value: context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inSeconds,
               onTimerEnds: _onTImerEndsHandler,
             ),
           )

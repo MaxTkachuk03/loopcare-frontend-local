@@ -5,7 +5,7 @@ part 'group_session_program_event.freezed.dart';
 part 'group_session_program_event.g.dart';
 
 @freezed
-abstract class GroupSessionProgramEvent implements _$GroupSessionProgramEvent {
+class GroupSessionProgramEvent with _$GroupSessionProgramEvent {
   const GroupSessionProgramEvent._();
 
   const factory GroupSessionProgramEvent({

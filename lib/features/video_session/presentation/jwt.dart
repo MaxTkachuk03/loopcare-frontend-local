@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
-import 'package:loopcare_frontend/features/video_session/presentation/config.dart';
+import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
+
+// TODO delete when back end will be finished
 
 String makeId(int length) {
   String result = "";
