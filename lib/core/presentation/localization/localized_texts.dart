@@ -598,6 +598,7 @@ class LocalizedTexts {
 
   // Mental Health
   static const String yourMentalHealth = "yourMentalHealth";
+  static const String mentalHealthMoreInfo = "mentalHealthMoreInfo";
   static const String mentalHealthIntroTextOne = "mentalHealthIntroTextOne";
   static const String mentalHealthIntroTextTwo = "mentalHealthIntroTextTwo";
   static const String mentalHealthIntroTextThree = "mentalHealthIntroTextThree";
@@ -637,6 +638,14 @@ class LocalizedTexts {
   static const String youExceededTimeMessage = "youExceededTimeMessage";
   static const String noWorriesYouCanDoItLater = "noWorriesYouCanDoItLater";
   static const String startAgain = "startAgain";
+  static const String who8Question = "who8Question";
+  static const String lastTwoWeeks = "lastTwoWeeks";
+  static const String duringThe = "duringThe";
+  static const String pastFourWeeks = "pastFourWeeks";
+  static const String phq15Question = "phq15Question";
+  static const String gad7Question = "gad7Question";
+  static const String overThe = "overThe";
+  static const String phq8Question = "phq8Question";
 }
 
 extension StringX on String {

@@ -564,5 +564,14 @@
   "hi": "Hi",
   "sessionWillStartIn": "The session will start in",
   "sessionStartedMessage": "The session already started. You can only join it within 15 minutes since its start",
-  "enterSession": "Enter session"
+  "enterSession": "Enter session",
+  "mentalHealthMoreInfo": "In this section you will be asked questions from validated questionnaires. If you would like to get more information on the questionnaires that are used, please contact {appName}.",
+  "who8Question": "Please indicate for each of give statements which is closest to how you have been feeling over the",
+  "lastTwoWeeks": "last two weeks",
+  "duringThe": "During the",
+  "pastFourWeeks": "past four weeks",
+  "phq15Question": "how much have you been bothered by any of the following problems?",
+  "gad7Question": "Over the last 2 weeks, how often have you been bothered by the following problems?",
+  "overThe": "Over the",
+  "phq8Question":  "how often have you been bothered by any of the following problems?"
 }
