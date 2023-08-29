@@ -10,7 +10,7 @@ class SessionVideoContainer extends StatelessWidget {
       width: double.infinity,
       height: double.infinity,
       color: AppColors.black,
-      child: Text('full screen container'),
+      child: const Text('full screen container'),
     );
   }
 }

@@ -10,7 +10,6 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/favorites_item/favorites_item.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
 
 class FooterOverlay extends StatelessWidget {
   const FooterOverlay({super.key});
@@ -19,8 +18,7 @@ class FooterOverlay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.only(
-          right: 24.0, left: 24.0, top: 16.0, bottom: 40.0),
+      padding: const EdgeInsets.only(right: 24.0, left: 24.0, top: 16.0, bottom: 40.0),
       decoration: const BoxDecoration(
           border: Border(
         top: BorderSide(color: AppColors.yellowLight),
@@ -34,10 +32,7 @@ class FooterOverlay extends StatelessWidget {
 
               return Text(
                 '$count ${count > 1 ? LocalizedTexts.items.tr() : LocalizedTexts.item.tr()} ${LocalizedTexts.selected.tr()}',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(fontStyle: FontStyle.italic),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
               );
             },
           ),
@@ -56,8 +51,7 @@ class FooterOverlay extends StatelessWidget {
                 width: 14.0,
               ),
               Expanded(
-                child: BlocBuilder<SelectFoodBloc, SelectFoodState>(
-                    builder: (BuildContext context, state) {
+                child: BlocBuilder<SelectFoodBloc, SelectFoodState>(builder: (BuildContext context, state) {
                   return ElevatedButton(
                     onPressed: () => _onAdd(
                       context,
@@ -75,9 +69,7 @@ class FooterOverlay extends StatelessWidget {
   }
 
   void _onDeselectAll(BuildContext context) {
-    context
-        .read<SelectFoodBloc>()
-        .add(const SelectFoodEvent.itemsDeselectAll());
+    context.read<SelectFoodBloc>().add(const SelectFoodEvent.itemsDeselectAll());
   }
 
   void _onAdd(BuildContext context, List<FavoritesItem> foodItemList) {

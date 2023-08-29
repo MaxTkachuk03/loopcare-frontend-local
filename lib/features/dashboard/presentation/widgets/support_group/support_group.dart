@@ -81,7 +81,10 @@ class SupportGroup extends StatelessWidget {
                 onPressed: () {
                   context.router.pushNamed(AppRoutes.sessionWaitingRoom);
                 },
-                child: const Text('call')),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 12),
+                  child: Text('call'),
+                )),
             BlocBuilder<AuthenticationCubit, AuthenticationState>(
               builder: (context, state) {
                 // var tt = UserGroupingState.grouped;
