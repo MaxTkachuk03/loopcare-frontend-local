@@ -532,6 +532,7 @@ class LocalizedTexts {
   static const String bookYourSeatNow = 'bookYourSeatNow';
   static const String comingUpThisWeek = 'comingUpThisWeek';
   static const String comingUpNextWeek = 'comingUpNextWeek';
+  static const String happeningNow = 'happeningNow';
   static const String yourSupportSystem = 'yourSupportSystem';
   static const String supportGroupIntroDesc = 'supportGroupIntroDesc';
   static const String yesILikeToJoin = 'yesILikeToJoin';
@@ -543,6 +544,13 @@ class LocalizedTexts {
   static const String booked = 'booked';
   static const String from = 'from';
   static const String to = 'to';
+  static const String prepareForSession = 'prepareForSession';
+  static const String prepareTakes = 'prepareTakes';
+  static const String timeslotCancelled = 'timeslotCancelled';
+  static const String timeslotMissed = 'timeslotMissed';
+  static const String chooseAnotherTimeslot = 'chooseAnotherTimeslot';
+  static const String noTimeslotsOnthisWeek = 'noTimeslotsOnthisWeek';
+  static const String noMinMemberCount = 'noMinMemberCount';
 
   // Group rules
   static const String groupRulesOneTitle = "groupRulesOneTitle";

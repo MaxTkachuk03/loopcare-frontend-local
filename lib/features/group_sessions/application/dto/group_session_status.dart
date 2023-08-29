@@ -1,0 +1,4 @@
+enum GroupSessionStatus {
+  cancelled,
+  planned,
+}

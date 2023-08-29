@@ -27,6 +27,60 @@ class TopicsData with _$TopicsData {
 
   List<GroupSessionProgramEvent>? get thisWeekTopicProgram => thisWeekTopic?.groupSessionProgramEvents;
 
+  String get topicName => topics[DateTime.now().weekNumber]?.topic ?? '';
+
+  bool get isSigned {
+    return signedGroupSessions != null ? true : false;
+  }
+
+  GroupSession? get signedGroupSessions {
+    return topics[DateTime.now().weekNumber]
+        ?.groupSessions
+        .firstWhereOrNull((element) => element.signed == true);
+  }
+
+  DateTime get signedGroupSessionsEndDate {
+    DateTime session = topics[DateTime.now().weekNumber]
+            ?.groupSessions
+            .firstWhereOrNull((element) => element.signed == true)
+            ?.startDate ??
+        DateTime.now();
+
+    return session.add(Duration(seconds: topics[DateTime.now().weekNumber]?.duration ?? 0));
+  }
+
+  bool get signedGroupSessionsCancelledOrMissed {
+    // return signedGroupSessions?.status == GroupSessionStatus.cancelled.name;
+    return true;
+  }
+
+  bool get signedGroupSessionsMissed {
+    // return signedGroupSessions?.status == GroupSessionStatus.cancelled.name;
+    return true;
+  }
+
+  bool get signedGroupSessionsCancelled {
+    return signedGroupSessions?.status == GroupSessionStatus.cancelled.name;
+  }
+
+  bool get signedGroupSessionsMightBeCancelled {
+    if (isSigned) {
+      return signedGroupSessions!.memberCount < signedGroupSessions!.minMemberCount;
+    } else {
+      return false;
+    }
+  }
+
+  bool get timeSlotsAvailable {
+    var freeSlots = 0;
+    topics[DateTime.now().weekNumber]?.groupSessions.forEach((element) {
+      if (element.startDate.isAfter(DateTime.now())) {
+        freeSlots += element.maxMemberCount - element.memberCount;
+      }
+    });
+    return freeSlots > 0;
+  }
+
   String get thisWeekTopicName => topics[DateTime.now().weekNumber]?.topic ?? '';
 
   String get nextWeekTopicName => topics[DateTime.now().nextWeekNumber]?.topic ?? '';

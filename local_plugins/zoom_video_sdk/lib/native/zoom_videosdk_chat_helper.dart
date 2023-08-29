@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
-import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
 ///@nodoc
 abstract class ZoomVideoSdkChatHelperPlatform extends PlatformInterface {
   ZoomVideoSdkChatHelperPlatform() : super(token: _token);
@@ -18,8 +18,7 @@ abstract class ZoomVideoSdkChatHelperPlatform extends PlatformInterface {
   }
 
   Future<bool> isPrivateChatDisabled() async {
-    throw UnimplementedError(
-        'isPrivateChatDisabled() has not been implemented.');
+    throw UnimplementedError('isPrivateChatDisabled() has not been implemented.');
   }
 
   Future<String> sendChatToUser(String userId, String message) async {
@@ -35,18 +34,15 @@ abstract class ZoomVideoSdkChatHelperPlatform extends PlatformInterface {
   }
 
   Future<bool> canChatMessageBeDeleted(String msgId) async {
-    throw UnimplementedError(
-        'canChatMessageBeDeleted() has not been implemented.');
+    throw UnimplementedError('canChatMessageBeDeleted() has not been implemented.');
   }
 
   Future<String> changeChatPrivilege(String privilegeType) async {
-    throw UnimplementedError(
-        'changeChatPrivilege() has not been implemented.');
+    throw UnimplementedError('changeChatPrivilege() has not been implemented.');
   }
 
   Future<String> getChatPrivilege() async {
-    throw UnimplementedError(
-        'getChatPrivilege() has not been implemented.');
+    throw UnimplementedError('getChatPrivilege() has not been implemented.');
   }
 }
 
