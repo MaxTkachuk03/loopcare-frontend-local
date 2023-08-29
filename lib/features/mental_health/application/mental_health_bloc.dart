@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:collection/collection.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -15,17 +16,18 @@ import 'package:loopcare_frontend/features/onboarding/application/onboarding_blo
 
 part 'mental_health_bloc.freezed.dart';
 
+part 'mental_health_bloc.g.dart';
+
 part 'mental_health_event.dart';
 
 part 'mental_health_state.dart';
 
 @singleton
-class MentalHealthBloc extends Bloc<MentalHealthEvent, MentalHealthState> {
+class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState> {
   final MentalHealthService _mentalHealthService;
   final OnboardingBloc _onboardingBloc;
 
-  MentalHealthBloc(this._mentalHealthService, this._onboardingBloc)
-      : super(const MentalHealthState.initial(MentalHealthData())) {
+  MentalHealthBloc(this._mentalHealthService, this._onboardingBloc) : super(MentalHealthState.initial()) {
     on<_GetMentalHealthTests>(_onGetMentalHealthTests);
     on<_NextTest>(_onNextTest);
     on<_PrevTest>(_onPrevTest);
@@ -36,6 +38,7 @@ class MentalHealthBloc extends Bloc<MentalHealthEvent, MentalHealthState> {
     on<_SetCompleted>(_onSetCompleted);
     on<_SetStartTime>(_onSetStartTime);
     on<_StartTestFromBeginning>(_onStartTestFromBeginning);
+    on<_NextPage>(_onNextPage);
   }
 
   FutureOr<void> _onGetMentalHealthTests(event, Emitter<MentalHealthState> emit) async {
@@ -45,28 +48,26 @@ class MentalHealthBloc extends Bloc<MentalHealthEvent, MentalHealthState> {
       (l) => null,
       (r) {
         final questionsListId = r.data.map((e) => e.questions.map((e) => e.id)).flattened.toList();
-        emit(
-          MentalHealthState.mentalHealthTests(
-            state.data.copyWith(
-              tests: r.data,
-              questionsListId: questionsListId,
-              totalQuestionsLength: questionsListId.length,
-            ),
+
+        emit(state.copyWith(
+          data: state.data.copyWith(
+            tests: r.data,
+            questionsListId: questionsListId,
+            totalQuestionsLength: questionsListId.length,
           ),
-        );
+        ));
       },
     );
   }
 
   FutureOr<void> _onNextTest(_NextTest event, Emitter<MentalHealthState> emit) {
-    emit(
-      MentalHealthState.mentalHealthTests(
-        state.data.copyWith(
-          currentQuestionIndex: 0,
-          currentTestIndex: state.data.currentTestIndex + 1,
-        ),
+    emit(state.copyWith(
+      data: state.data.copyWith(
+        currentQuestionIndex: 0,
+        currentPage: state.data.currentPage + 1,
+        currentTestIndex: state.data.currentTestIndex + 1,
       ),
-    );
+    ));
   }
 
   FutureOr<void> _onPrevTest(_PrevTest event, Emitter<MentalHealthState> emit) {
@@ -75,26 +76,24 @@ class MentalHealthBloc extends Bloc<MentalHealthEvent, MentalHealthState> {
     final prevTestIndex = state.data.currentTestIndex - 1;
     final lastQuestionIndexInPrevTest = state.data.tests[prevTestIndex].questions.length - 1;
 
-    emit(
-      MentalHealthState.mentalHealthTests(
-        state.data.copyWith(
-          currentTestIndex: state.data.currentTestIndex - 1,
-          currentQuestionIndex: lastQuestionIndexInPrevTest,
-        ),
+    emit(state.copyWith(
+      data: state.data.copyWith(
+        currentPage: state.data.currentPage - 1,
+        currentTestIndex: state.data.currentTestIndex - 1,
+        currentQuestionIndex: lastQuestionIndexInPrevTest,
       ),
-    );
+    ));
   }
 
   FutureOr<void> _onPrevQuestion(_PrevQuestion event, Emitter<MentalHealthState> emit) {
     if (state.data.isFirstQuestion) return null;
 
-    emit(
-      MentalHealthState.mentalHealthTests(
-        state.data.copyWith(
-          currentQuestionIndex: state.data.currentQuestionIndex - 1,
-        ),
+    emit(state.copyWith(
+      data: state.data.copyWith(
+        currentPage: state.data.currentPage - 1,
+        currentQuestionIndex: state.data.currentQuestionIndex - 1,
       ),
-    );
+    ));
 
     _onboardingBloc.add(
       OnboardingEvent.currentStepChanged(
@@ -105,13 +104,12 @@ class MentalHealthBloc extends Bloc<MentalHealthEvent, MentalHealthState> {
   }
 
   FutureOr<void> _onNextQuestion(_NextQuestion event, Emitter<MentalHealthState> emit) {
-    emit(
-      MentalHealthState.mentalHealthTests(
-        state.data.copyWith(
-          currentQuestionIndex: state.data.currentQuestionIndex + 1,
-        ),
+    emit(state.copyWith(
+      data: state.data.copyWith(
+        currentPage: state.data.currentPage + 1,
+        currentQuestionIndex: state.data.currentQuestionIndex + 1,
       ),
-    );
+    ));
 
     _onboardingBloc.add(
       OnboardingEvent.currentStepChanged(
@@ -132,11 +130,11 @@ class MentalHealthBloc extends Bloc<MentalHealthEvent, MentalHealthState> {
       newAnswers[existingQuestionIndex] = event.answer;
     }
 
-    emit(
-      MentalHealthState.mentalHealthTests(
-        state.data.copyWith(answers: newAnswers),
+    emit(state.copyWith(
+      data: state.data.copyWith(
+        answers: newAnswers,
       ),
-    );
+    ));
   }
 
   FutureOr<void> _onGetTestResults(_GetTestResults event, Emitter<MentalHealthState> emit) async {
@@ -144,7 +142,11 @@ class MentalHealthBloc extends Bloc<MentalHealthEvent, MentalHealthState> {
 
     if (currentTest == null) return;
 
-    emit(MentalHealthState.loading(state.data.copyWith(isLoading: true)));
+    emit(state.copyWith(
+      data: state.data.copyWith(
+        isLoading: true,
+      ),
+    ));
 
     final answers = state.data.isLastTest && state.data.isCompleted
         ? state.data.answers
@@ -160,43 +162,52 @@ class MentalHealthBloc extends Bloc<MentalHealthEvent, MentalHealthState> {
     final response = await _mentalHealthService.getTestResults(AnswersBody(answers: answers));
 
     response.fold(
-      (e) => emit(MentalHealthState.loading(state.data.copyWith(isLoading: false, error: e))),
+      (e) => emit(state.copyWith(
+        data: state.data.copyWith(isLoading: false, error: e),
+      )),
       (r) {
-        emit(
-          MentalHealthState.mentalHealthTests(
-            state.data.copyWith(
-              results: {
-                ...state.data.results,
-                currentTest.type: TestResult(
-                  totalScore: r.totalScore,
-                  interpretation: r.interpretation,
-                )
-              },
-              isLoading: false,
-              error: null,
-            ),
+        emit(state.copyWith(
+          data: state.data.copyWith(
+            results: {
+              ...state.data.results,
+              currentTest.type: TestResult(
+                totalScore: r.totalScore,
+                interpretation: r.interpretation,
+              )
+            },
+            isLoading: false,
+            error: null,
           ),
-        );
+        ));
       },
     );
   }
 
   FutureOr<void> _onSetCompleted(event, Emitter<MentalHealthState> emit) {
-    emit(MentalHealthState.mentalHealthTests(state.data.copyWith(isCompleted: event.value)));
+    emit(state.copyWith(
+      data: state.data.copyWith(isCompleted: event.value),
+    ));
   }
 
   FutureOr<void> _onSetStartTime(_SetStartTime event, Emitter<MentalHealthState> emit) {
-    emit(MentalHealthState.mentalHealthTests(state.data.copyWith(startTestTime: event.time)));
+    emit(state.copyWith(
+      data: state.data.copyWith(
+        startTestTime: event.time,
+        currentPage: state.data.currentPage + 1,
+      ),
+    ));
   }
 
   FutureOr<void> _onStartTestFromBeginning(_StartTestFromBeginning event, Emitter<MentalHealthState> emit) {
-    emit(MentalHealthState.mentalHealthTests(state.data.copyWith(
-      startTestTime: null,
-      results: {},
-      answers: [],
-      currentQuestionIndex: 0,
-      currentTestIndex: 0,
-    )));
+    emit(state.copyWith(
+      data: state.data.copyWith(
+        startTestTime: null,
+        results: {},
+        answers: [],
+        currentQuestionIndex: 0,
+        currentTestIndex: 0,
+      ),
+    ));
 
     _onboardingBloc.add(
       const OnboardingEvent.currentStepChanged(
@@ -204,5 +215,21 @@ class MentalHealthBloc extends Bloc<MentalHealthEvent, MentalHealthState> {
         questionIndex: 0,
       ),
     );
+  }
+
+  FutureOr<void> _onNextPage(_NextPage event, Emitter<MentalHealthState> emit) {
+    emit(state.copyWith(
+      data: state.data.copyWith(
+        currentPage: state.data.currentPage + 1,
+      ),
+    ));
+  }
+
+  @override
+  MentalHealthState? fromJson(Map<String, dynamic> json) => MentalHealthState.fromJson(json);
+
+  @override
+  Map<String, dynamic>? toJson(MentalHealthState state) {
+    return state.toJson();
   }
 }

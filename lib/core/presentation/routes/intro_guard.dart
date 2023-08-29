@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/presentation/registration_restoring.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
+import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 
 class IntroGuard extends AutoRouteGuard {
@@ -12,13 +13,31 @@ class IntroGuard extends AutoRouteGuard {
   OnboardingBloc onboardingBloc;
   ConsentConfirmationBloc consentConfirmationBloc;
   LegalStatementBloc legalStatementBloc;
+  MentalHealthBloc mentalHealthBloc;
 
   IntroGuard(
     this.authenticationCubit,
     this.onboardingBloc,
     this.consentConfirmationBloc,
     this.legalStatementBloc,
+    this.mentalHealthBloc,
   );
+
+  List<PageRouteInfo> _getMentalHealthRoutes() {
+    final mentalHealthRoutes = mentalHealthBloc.state.data.tests
+        .map((e) {
+          final questionRoutes = e.questions.map((e) => const MentalHealthQuestionRoute()).toList();
+
+          return [...questionRoutes, const MentalCheckResultRoute()];
+        })
+        .expand((element) => element)
+        .toList();
+
+    return [
+      const MentalHealthIntroRoute(),
+      ...mentalHealthRoutes,
+    ];
+  }
 
   @override
   Future<void> onNavigation(NavigationResolver resolver, StackRouter router) async {
@@ -40,7 +59,17 @@ class IntroGuard extends AutoRouteGuard {
           .map((e) => e.stepRoutes)
           .expand((element) => element)
           .toList();
-      final currentRoute = onboardingState.currentStep.stepRoutes[onboardingState.currentQuestionIndex];
+
+      final isMentalFitness = onboardingState.currentStep == OnboardingSteps.mentalFitness;
+
+      final mentalHealthRoutes = isMentalFitness ? _getMentalHealthRoutes() : <PageRouteInfo>[];
+
+      routes.addAll(mentalHealthRoutes);
+
+      final currentRoute = isMentalFitness
+          ? mentalHealthRoutes[mentalHealthBloc.state.data.currentPage]
+          : onboardingState.currentStep.stepRoutes[onboardingState.currentQuestionIndex];
+
       final routeIndex = routes.indexOf(currentRoute);
 
       List<PageRouteInfo<dynamic>> needRoutes = [];

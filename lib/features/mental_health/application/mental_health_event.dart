@@ -12,6 +12,8 @@ class MentalHealthEvent with _$MentalHealthEvent {
 
   const factory MentalHealthEvent.nextQuestion() = _NextQuestion;
 
+  const factory MentalHealthEvent.nextPage() = _NextPage;
+
   const factory MentalHealthEvent.setAnswer(MentalHealthAnswer answer) = _SetAnswer;
 
   const factory MentalHealthEvent.getTestResults() = _GetTestResults;

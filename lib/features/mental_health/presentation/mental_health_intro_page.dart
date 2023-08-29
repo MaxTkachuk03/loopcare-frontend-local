@@ -97,7 +97,7 @@ class _MentalHealthIntroPageState extends State<MentalHealthIntroPage> {
             SmallFilledButton(
               backgroundColor: AppColors.greyLight,
               text: LocalizedTexts.moreInfo.tr(),
-              onPressed: () => {},
+              onPressed: () => _onMoreInfoPressed(context),
             ),
             const SizedBox(
               height: 45.0,
@@ -158,5 +158,9 @@ class _MentalHealthIntroPageState extends State<MentalHealthIntroPage> {
 
   void _listenerTestWasCompleted(BuildContext context, MentalHealthState state) {
     _timer?.cancel();
+  }
+
+  _onMoreInfoPressed(BuildContext context) {
+    ModalBottomSheet.mentalHealthMoreInfo(context: context);
   }
 }
