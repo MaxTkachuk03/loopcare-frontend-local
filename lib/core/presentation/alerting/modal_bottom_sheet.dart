@@ -14,6 +14,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/oval_bottom_border_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
+import 'package:loopcare_frontend/features/group_sessions/presentation/widgets/timeslot_card.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
@@ -567,6 +569,93 @@ class ModalBottomSheet {
         );
       },
     );
+  }
+
+  static void timeslotsDialog({
+    required BuildContext context,
+  }) {
+    showModalBottomSheet<void>(
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+        context: context,
+        builder: (BuildContext context) {
+          return BlocBuilder<TopicsBloc, TopicsState>(
+            builder: (context, state) {
+              final topic = state.data.topics[DateTime.now().weekNumber];
+
+              if (topic == null) return const SizedBox.shrink();
+              final groupSessions = topic.groupSessions;
+
+              return FractionallySizedBox(
+                heightFactor: 0.8,
+                child: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: SizedBox(
+                            width: 30.0,
+                            height: 30.0,
+                            child: IconButton(
+                              iconSize: 30,
+                              padding: EdgeInsets.zero,
+                              onPressed: () => context.router.pop(),
+                              icon: const Icon(Icons.close),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16.0,
+                        ),
+                        Text(
+                          state.data.topicName,
+                          style: const TextStyle(
+                            fontSize: ThemeConstants.fontSize24,
+                            fontFamily: ThemeConstants.bitterFontFamily,
+                            color: AppColors.blueDark,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8.0,
+                        ),
+                        Text('Intro to what this session containsIntro to what this session contains'),
+                        const SizedBox(
+                          height: 16.0,
+                        ),
+                        Text(
+                          LocalizedTexts.pickADateAndTime,
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ).tr(),
+                        const SizedBox(
+                          height: 16.0,
+                        ),
+                        Expanded(
+                          child: ListView.separated(
+                            itemCount: groupSessions.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return TimeslotCard(
+                                duration: topic.duration,
+                                groupSession: groupSessions[index],
+                              );
+                            },
+                            separatorBuilder: (BuildContext context, int index) {
+                              return const SizedBox(
+                                height: 16.0,
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        });
   }
 
   static void filterDialog({

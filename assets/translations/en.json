@@ -581,5 +581,10 @@
   "phq15Question": "how much have you been bothered by any of the following problems?",
   "gad7Question": "Over the last 2 weeks, how often have you been bothered by the following problems?",
   "overThe": "Over the",
-  "phq8Question":  "how often have you been bothered by any of the following problems?"
+  "phq8Question":  "how often have you been bothered by any of the following problems?",
+  "pickADateAndTime": "Pick a date and time",
+  "fromTo": "From {startTime} to {endTime}",
+  "numberOfAvailableSeats": "{number} of {totalNumber} seats available",
+  "passedSession": "Passed session",
+  "noMoreSeatAvailable": "No more seat available"
 }

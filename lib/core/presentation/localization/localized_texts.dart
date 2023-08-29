@@ -654,6 +654,13 @@ class LocalizedTexts {
   static const String gad7Question = "gad7Question";
   static const String overThe = "overThe";
   static const String phq8Question = "phq8Question";
+
+  // Book a seat
+  static const String pickADateAndTime = "pickADateAndTime";
+  static const String fromTo = "fromTo";
+  static const String numberOfAvailableSeats = "numberOfAvailableSeats";
+  static const String passedSession = "passedSession";
+  static const String noMoreSeatAvailable = "noMoreSeatAvailable";
 }
 
 extension StringX on String {

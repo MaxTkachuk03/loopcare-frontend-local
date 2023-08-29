@@ -9,6 +9,10 @@ extension DateTimeExtension on DateTime {
     return DateTime(year, month, day);
   }
 
+  String get fullDateWithHyphen {
+    return DateFormat('dd-MM-yyyy').format(this);
+  }
+
   String get isoStringWithoutTime {
     return toIso8601String().split('T')[0];
   }
