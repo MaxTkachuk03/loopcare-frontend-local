@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_event_listener.dart';
@@ -22,10 +23,11 @@ import 'package:loopcare_frontend/features/video_session/presentation/jwt.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/call_controls.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/error_dialog.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/prompts_container.dart';
-import 'package:loopcare_frontend/features/video_session/presentation/widgets/report_issue.dart';
-// import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_video_container.dart';
+// import 'package:loopcare_frontend/features/video_session/presentation/widgets/report_issue.dart';
+import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_video_container.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/settings_dialog.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/users_grid.dart';
+import 'package:wakelock/wakelock.dart';
 
 class SessionCallPage extends StatefulWidget {
   const SessionCallPage({Key? key}) : super(key: key);
@@ -57,16 +59,16 @@ class _SessionCallPageState extends State<SessionCallPage> {
   bool isSpeakerOn = false;
   bool isVideoOn = false;
   bool isInSession = false;
-  bool isRecordingStarted = false;
-  bool isReceiveSpokenLanguageContentEnabled = false;
 
   String _error = '';
   late Timer _timer;
   int _sessionStart = 0;
   double aspectRatio = 1;
+  bool _isVideoPlaying = false;
 
   @override
   void initState() {
+    _allowLandscapeOrientation();
     _initSessionListeners();
     _joinSession();
 
@@ -77,10 +79,9 @@ class _SessionCallPageState extends State<SessionCallPage> {
     Future<void>.microtask(() async {
       final String sessionName = context.read<TopicsBloc>().state.data.thisWeekTopicName;
       final String? sessionPassword = context.read<TopicsBloc>().state.data.signedGroupSessionPassword;
-
+      // TODO get token from back end side
       // final String token = context.read<TopicsBloc>().state.data.signedGroupSessionToken!;
 
-      // TODO in case we need to generate signature on the front end side
       final String token = generateJwt(sessionName, ZoomConfig.defaultSessionRole);
       final String userName = context.read<AuthenticationCubit>().state.nickname ??
           context.read<AuthenticationCubit>().state.name;
@@ -126,8 +127,11 @@ class _SessionCallPageState extends State<SessionCallPage> {
 
     _sessionJoinListener = emitter.on(EventType.onSessionJoin, (sessionUser) async {
       isInSession = true;
-      // TODO set initial _sessionStart value = TimeStamp.now() - sessionStartTime
+
+      _sessionStart = context.read<TopicsBloc>().state.data.timePassedSinceSessionStart.inSeconds;
+
       _startTimer();
+
       print('_sessionJoinListener');
 
       ZoomVideoSdkUser mySelf = ZoomVideoSdkUser.fromJson(jsonDecode(sessionUser.toString()));
@@ -138,8 +142,6 @@ class _SessionCallPageState extends State<SessionCallPage> {
       var currentSessionName = await zoom.session.getSessionName();
 
       await zoom.audioHelper.setSpeaker(false);
-      // final a = await zoom.recordingHelper.startCloudRecording();
-      // print('startCloudRecording status $a');
 
       remoteUsers?.insert(0, mySelf);
       users = remoteUsers!;
@@ -148,8 +150,6 @@ class _SessionCallPageState extends State<SessionCallPage> {
       isVideoOn = videoOn!;
       users = remoteUsers;
       sessionName = currentSessionName!;
-      isReceiveSpokenLanguageContentEnabled =
-          await zoom.liveTranscriptionHelper.isReceiveSpokenLanguageContentEnabled();
 
       setState(() {});
     });
@@ -227,54 +227,9 @@ class _SessionCallPageState extends State<SessionCallPage> {
     });
 
     _cloudRecordingStatusListener = emitter.on(EventType.onCloudRecordingStatus, (Map data) async {
+      // TODO not implemented by zoom team
       print('_cloudRecordingStatusListener - ${data['status']}');
-      // ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
       await zoom.acceptRecordingConsent();
-      // if (data['status'] == RecordingStatus.Start) {
-      //   if (mySelf != null && !mySelf.isHost!) {
-      //     showDialog<String>(
-      //       context: context,
-      //       builder: (BuildContext context) => AlertDialog(
-      //         content: const Text('The session is being recorded.'),
-      //         actions: <Widget>[
-      //           TextButton(
-      //             onPressed: () async {
-      //               await zoom.acceptRecordingConsent();
-      //               if (context.mounted) {
-      //                 Navigator.pop(context);
-      //               }
-      //               ;
-      //             },
-      //             child: const Text('accept'),
-      //           ),
-      //           TextButton(
-      //             onPressed: () async {
-      //               String currentConsentType = await zoom.getRecordingConsentType();
-      //               if (currentConsentType == ConsentType.ConsentType_Individual) {
-      //                 await zoom.declineRecordingConsent();
-      //                 Navigator.pop(context);
-      //               } else {
-      //                 await zoom.declineRecordingConsent();
-      //                 zoom.leaveSession(false);
-      //                 if (!context.mounted) return;
-      //                 Navigator.popAndPushNamed(
-      //                   context,
-      //                   "Join",
-      //                   arguments: JoinArguments(args.isJoin, sessionName.value, sessionPassword.value,
-      //                       args.displayName, args.sessionIdleTimeoutMins, args.role),
-      //                 );
-      //               }
-      //             },
-      //             child: const Text('decline'),
-      //           ),
-      //         ],
-      //       ),
-      //     );
-      //   }
-      //   isRecordingStarted = true;
-      // } else {
-      //   isRecordingStarted = false;
-      // }
     });
 
     _networkStatusChangeListener = emitter.on(EventType.onUserVideoNetworkStatusChanged, (Map data) async {
@@ -348,6 +303,33 @@ class _SessionCallPageState extends State<SessionCallPage> {
         ),
       );
     });
+  }
+
+  Future _allowLandscapeOrientation() async {
+    // Remove system app bar on Android
+    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+
+    await Wakelock.enable();
+
+    await SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+        DeviceOrientation.portraitDown,
+        DeviceOrientation.portraitUp,
+      ],
+    );
+  }
+
+  Future _onlyPortraitOrientation() async {
+    // Restores system app bar on Android
+    await SystemChrome.restoreSystemUIOverlays();
+
+    await Wakelock.disable();
+
+    await SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp],
+    );
   }
 
   void _onErrorHandler(errorType) async {
@@ -448,63 +430,82 @@ class _SessionCallPageState extends State<SessionCallPage> {
 
   bool get userJoinedToSession => isInSession && users.isNotEmpty;
 
+  void _onVideoPlayingHandler(bool isVideoPlaying) {
+    print('isVideoPlaying = $isVideoPlaying');
+    setState(() {
+      _isVideoPlaying = isVideoPlaying;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: BlueAppBar(
-        title: sessionName,
-        subtitle: 'Duration ${formatSecondsToDurationString(_sessionStart)}',
-        actions: [
-          IconButton(
-            iconSize: 45.0,
-            onPressed: _endSession,
-            icon: AppIcons.greenPhone,
-          )
-        ],
-      ),
-      body: Container(
-        color: AppColors.black,
-        child: SafeArea(
-          bottom: true,
-          child: Stack(
-            children: [
-              Container(
-                color: AppColors.bgGreen,
-                child: userJoinedToSession
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: UsersGrid(
-                              users: users,
-                              talkingUsers: talkingUsers,
-                              aspectRatio: aspectRatio,
-                            ),
-                          ),
-                          const Expanded(child: PromptsContainer()),
-                          const ReportIssue(minutesLeft: '19'),
-                          CallControls(
-                            onMuteHandler: onPressAudio,
-                            onStopVideoHandler: onPressVideo,
-                            isMuted: isMuted,
-                            isCameraOn: isVideoOn,
-                            onSettingsHandler: onSettingsHandler,
-                          )
-                        ],
-                      )
-                    : const Loader(),
+    return OrientationBuilder(builder: (BuildContext context, Orientation orientation) {
+      final hideAppBar = _isVideoPlaying && orientation == Orientation.landscape;
+
+      return Scaffold(
+        appBar: hideAppBar
+            ? null
+            : BlueAppBar(
+                title: sessionName,
+                subtitle: 'Duration ${formatSecondsToDurationString(_sessionStart)}',
+                actions: [
+                  IconButton(
+                    iconSize: 45.0,
+                    onPressed: _endSession,
+                    icon: AppIcons.greenPhone,
+                  )
+                ],
               ),
-              // const SessionVideoContainer(),// will be user for video
-            ],
+        body: Container(
+          color: AppColors.black,
+          child: SafeArea(
+            bottom: !hideAppBar,
+            child: Stack(
+              children: [
+                Container(
+                  color: AppColors.bgGreen,
+                  child: userJoinedToSession
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: UsersGrid(
+                                users: users,
+                                talkingUsers: talkingUsers,
+                                aspectRatio: aspectRatio,
+                              ),
+                            ),
+                            Expanded(child: PromptsContainer(sessionTimer: _sessionStart)),
+                            // const ReportIssue(minutesLeft: '19'), // TODO out of scope for now
+                            CallControls(
+                              onMuteHandler: onPressAudio,
+                              onStopVideoHandler: onPressVideo,
+                              isMuted: isMuted,
+                              isCameraOn: isVideoOn,
+                              onSettingsHandler: onSettingsHandler,
+                            )
+                          ],
+                        )
+                      : const Loader(),
+                ),
+                SessionVideoContainer(
+                  sessionTimer: _sessionStart,
+                  onVideoPlayingListener: _onVideoPlayingHandler,
+                  orientation: orientation,
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   @override
   void dispose() {
+    _onlyPortraitOrientation();
+
     zoom.leaveSession(false);
 
     eventListener.eventEmitter.listeners.map((e) => e.cancel());

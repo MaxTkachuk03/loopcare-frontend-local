@@ -31,11 +31,7 @@ class TopicsData with _$TopicsData {
 
   String get nextWeekTopicName => topics[DateTime.now().nextWeekNumber]?.topic ?? '';
 
-  GroupSession? get signedGroupSession {
-    // TODO hardcode for testing
-    return thisWeekTopic?.groupSessions.first;
-    // return thisWeekTopic?.groupSessions.firstWhereOrNull((s) => s.signed);
-  }
+  GroupSession? get signedGroupSession => thisWeekTopic?.groupSessions.firstWhereOrNull((s) => s.signed);
 
   DateTime? get signedGroupSessionStartTime => signedGroupSession?.startDate;
 
@@ -43,12 +39,50 @@ class TopicsData with _$TopicsData {
 
   String? get signedGroupSessionPassword => signedGroupSession?.password;
 
-  Duration get durationLeftToSessionStart {
-    // TODO hardcode for testing
-    // final sessionDate = DateFormat('yyyy-MM-ddThh:mm:ss').parse("2023-08-24T22:12:00.000Z");
-    final sessionDate = DateTime.now().add(const Duration(seconds: 10));
+  List<GroupSessionProgramEvent> get thisWeekTopicsEvents => thisWeekTopic?.groupSessionProgramEvents ?? [];
 
-    return sessionDate.difference(DateTime.now());
-    // return signedGroupSessionStartTime?.difference(DateTime.now());
+  Duration get timePassedSinceSessionStart {
+    // TODO uncomment in release code
+    // final startTime = signedGroupSessionStartTime;
+    //
+    // if (startTime == null) return Duration.zero;
+    //
+    // return DateTime.now().difference(startTime);
+
+    // TODO for testing
+    // return DateTime.now()
+    //     .difference(DateFormat('yyyy-MM-ddTHH:mm:ss').parse('2023-08-28T12:31:00.000Z', true));
+
+    return Duration.zero;
+  }
+
+  Duration get timeLeftToSessionStart {
+    // TODO uncomment in release code
+    // final startTime = signedGroupSessionStartTime;
+    //
+    // if (startTime == null) return Duration.zero;
+    //
+    // TODO for testing
+    // return DateFormat('yyyy-MM-ddTHH:mm:ss')
+    //     .parse('2023-08-28T12:31:00.000Z', true)
+    //     .difference(DateTime.now());
+
+    return Duration.zero;
+  }
+
+  List<GroupSessionProgramEvent> get textEvents {
+    final events = thisWeekTopicsEvents;
+
+    if (events.isEmpty) return [];
+
+    return events.where((event) => event.event == 'TEXT').toList();
+  }
+
+  List<GroupSessionProgramEvent> get videoEvents {
+    final events = thisWeekTopicsEvents;
+
+    if (events.isEmpty) return [];
+
+    return events.where((event) => event.event == 'VIDEO').toList();
   }
 }

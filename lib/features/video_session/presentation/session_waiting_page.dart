@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
+import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_countdown/session_countdown.dart';
 
@@ -35,6 +36,8 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
     zoom.initSdk(initConfig);
 
     _groupRulesTapRecognizer.onTap = _onRulesTapHandler;
+
+    context.read<VideoPlayerBloc>().add(const VideoPlayerEvent.getAwsCookies());
 
     super.initState();
   }
@@ -132,6 +135,7 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
                           ),
                         ),
                       ),
+                      const SizedBox(height: 16.0),
                     ],
                   ),
                 ),

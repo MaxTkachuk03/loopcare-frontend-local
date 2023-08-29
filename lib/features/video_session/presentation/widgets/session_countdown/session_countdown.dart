@@ -144,7 +144,7 @@ class _SessionCountdownState extends State<SessionCountdown> {
               ).tr(),
             ),
             sessionNotStarted: (_) => SessionTimer(
-              value: context.read<TopicsBloc>().state.data.durationLeftToSessionStart.inSeconds,
+              value: context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inSeconds,
               onTimerEnds: _onTImerEndsHandler,
             ),
           )
