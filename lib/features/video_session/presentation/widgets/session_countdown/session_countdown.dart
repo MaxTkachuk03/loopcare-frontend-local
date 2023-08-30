@@ -24,6 +24,9 @@ class SessionTimerMode with _$SessionTimerMode {
 
   const factory SessionTimerMode.sessionNotStarted() = SessionNotStarted;
 
+  const factory SessionTimerMode.sessionStartedMoreThanFifteenMinutesAgo() =
+      SessionStartedMoreThanFifteenMinutesAgo;
+
   const factory SessionTimerMode.sessionError() = SessionError;
 }
 
@@ -39,24 +42,32 @@ class _SessionCountdownState extends State<SessionCountdown> {
 
   @override
   void initState() {
-    final DateTime? startTime = context.read<TopicsBloc>().state.data.signedGroupSessionStartTime;
-    if (startTime == null) {
-      _sessionTimerMode = const SessionTimerMode.sessionNotStarted();
-    } else {
-      final bool isSessionAlreadyStarted = startTime.isBefore(DateTime.now());
-
-      _sessionTimerMode = isSessionAlreadyStarted
-          ? const SessionTimerMode.sessionStarted()
-          : const SessionTimerMode.sessionNotStarted();
-    }
+    _updateSessionState();
 
     super.initState();
+  }
+
+  void _updateSessionState() {
+    final signedSession = context.read<TopicsBloc>().state.data.signedGroupSession;
+
+    if (signedSession == null) {
+      _sessionTimerMode = const SessionTimerMode.sessionNotStarted();
+    } else if (!signedSession.isStartedLessThanFifteenMinutesAgo) {
+      _sessionTimerMode = const SessionTimerMode.sessionStartedMoreThanFifteenMinutesAgo();
+    } else if (signedSession.isSessionAlreadyStarted) {
+      _sessionTimerMode = const SessionTimerMode.sessionStarted();
+    } else {
+      _sessionTimerMode = const SessionTimerMode.sessionNotStarted();
+    }
+
+    setState(() {});
   }
 
   String get text => _sessionTimerMode.map(
         sessionStarted: (_) => LocalizedTexts.sessionStartedMessage,
         sessionNotStarted: (_) => LocalizedTexts.sessionWillStartIn,
         sessionError: (_) => LocalizedTexts.signatureErrorMessage,
+        sessionStartedMoreThanFifteenMinutesAgo: (_) => LocalizedTexts.sessionStartsMoreThanFifteenMinutesAgo,
       );
 
   TextStyle get textStyles => _sessionTimerMode.map(
@@ -71,6 +82,11 @@ class _SessionCountdownState extends State<SessionCountdown> {
           fontWeight: FontWeight.w600,
         ),
         sessionError: (_) => const TextStyle(
+          color: AppColors.red,
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+        ),
+        sessionStartedMoreThanFifteenMinutesAgo: (_) => const TextStyle(
           color: AppColors.red,
           fontSize: 18,
           fontWeight: FontWeight.w600,
@@ -107,6 +123,18 @@ class _SessionCountdownState extends State<SessionCountdown> {
   }
 
   void _onEnterSessionHandler() async {
+    final signedSession = context.read<TopicsBloc>().state.data.signedGroupSession;
+
+    if (signedSession == null) return;
+
+    if (!signedSession.isStartedLessThanFifteenMinutesAgo) {
+      setState(() {
+        _sessionTimerMode = const SessionTimerMode.sessionStartedMoreThanFifteenMinutesAgo();
+      });
+
+      return;
+    }
+
     final hasPermissions = await requestFilePermissions();
     if (!hasPermissions) {
       print('not all permissions are provided');
@@ -174,6 +202,7 @@ class _SessionCountdownState extends State<SessionCountdown> {
                 onTimerEnds: _onTimerEndsHandler,
               ),
               sessionError: (_) => const SizedBox.shrink(),
+              sessionStartedMoreThanFifteenMinutesAgo: (_) => const SizedBox.shrink(),
             )
           ],
         ),
