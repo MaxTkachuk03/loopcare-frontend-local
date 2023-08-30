@@ -1113,4 +1113,49 @@ class ModalBottomSheet {
       },
     );
   }
+
+  static void leaveSessionCall({
+    required BuildContext context,
+    required void Function() onLeavePressed,
+    required void Function() onStayPressed,
+  }) {
+    Size size = MediaQuery.of(context).size;
+
+    showModalBottomSheet<void>(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 42.0, horizontal: 39.0),
+          height: size.height * 0.35,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text(
+                LocalizedTexts.sessionLeaveDialogText,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ).tr(),
+              const SizedBox(height: 48.0),
+              ElevatedButton(
+                onPressed: () {
+                  context.router.pop();
+                  onLeavePressed();
+                },
+                child: const Text(LocalizedTexts.leaveSession).tr(),
+              ),
+              const SizedBox(height: 12.0),
+              ElevatedButton(
+                onPressed: onStayPressed,
+                child: const Text(LocalizedTexts.stayInTheSession).tr(),
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
 }

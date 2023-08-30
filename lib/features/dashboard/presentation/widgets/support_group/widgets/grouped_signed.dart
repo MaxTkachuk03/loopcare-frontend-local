@@ -14,7 +14,7 @@ class GroupedSigned extends StatelessWidget {
   final GroupSession signedGroupSessions;
 
   final String topicName;
-
+  final DateTime startDate;
   final DateTime endDate;
   final bool preparationMaterialsAvailable;
   final bool isCancelledOrMissed;
@@ -28,6 +28,7 @@ class GroupedSigned extends StatelessWidget {
     Key? key,
     required this.signedGroupSessions,
     required this.topicName,
+    required this.startDate,
     required this.endDate,
     required this.preparationMaterialsAvailable,
     required this.isCancelledOrMissed,
@@ -73,15 +74,15 @@ class GroupedSigned extends StatelessWidget {
                 children: [
                   if (isHappeningNow && !isCancelledOrMissed)
                     Text(
-                      '${signedGroupSessions.startDate.weekdayString} ' +
-                          '${LocalizedTexts.from.translation} ${signedGroupSessions.startDate.timeHoursMinutes24} ' +
+                      '${startDate.weekdayString} ' +
+                          '${LocalizedTexts.from.translation} ${startDate.timeHoursMinutes24} ' +
                           '${LocalizedTexts.to.translation} ${endDate.timeHoursMinutes24}.',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   if (!isHappeningNow)
                     Text(
-                      '${LocalizedTexts.booked.translation} ${signedGroupSessions.startDate.weekdayString} ' +
-                          '${LocalizedTexts.from.translation} ${signedGroupSessions.startDate.timeHoursMinutes24} ' +
+                      '${LocalizedTexts.booked.translation} ${startDate.weekdayString} ' +
+                          '${LocalizedTexts.from.translation} ${startDate.timeHoursMinutes24} ' +
                           '${LocalizedTexts.to.translation} ${endDate.timeHoursMinutes24}.',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.greyLabel),
                     ),

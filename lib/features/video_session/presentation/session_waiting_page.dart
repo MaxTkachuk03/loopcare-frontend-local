@@ -14,6 +14,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
+import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
+import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_countdown/session_countdown.dart';
 
 class SessionWaitingPage extends StatefulWidget {
@@ -29,11 +31,17 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
 
   @override
   void initState() {
-    InitConfig initConfig = InitConfig(domain: "zoom.us", enableLog: false);
+    InitConfig initConfig = InitConfig(domain: ZoomConfig.domain, enableLog: ZoomConfig.enableLog);
 
     zoom.initSdk(initConfig);
 
     _groupRulesTapRecognizer.onTap = _onRulesTapHandler;
+
+    context.read<VideoPlayerBloc>().add(const VideoPlayerEvent.getAwsCookies());
+
+    final int? sessionId = context.read<TopicsBloc>().state.data.signedGroupSessionId;
+
+    context.read<TopicsBloc>().add(TopicsEvent.getSessionSignature(sessionId!));
 
     super.initState();
   }
@@ -131,6 +139,7 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
                           ),
                         ),
                       ),
+                      const SizedBox(height: 16.0),
                     ],
                   ),
                 ),

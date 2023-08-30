@@ -603,6 +603,14 @@ class LocalizedTexts {
   static const String sessionIsInProgress = "sessionIsInProgress";
   static const String failedToJoinSession = "failedToJoinSession";
   static const String disconnectedFromSession = "disconnectedFromSession";
+  static const String toggleSpeakerError = "toggleSpeakerError";
+  static const String mute = "mute";
+  static const String stopVideo = "stopVideo";
+  static const String settings = "settings";
+  static const String signatureErrorMessage = "signatureErrorMessage";
+  static const String sessionLeaveDialogText = "sessionLeaveDialogText";
+  static const String leaveSession = "leaveSession";
+  static const String stayInTheSession = "stayInTheSession";
 
   // Mental Health
   static const String yourMentalHealth = "yourMentalHealth";
