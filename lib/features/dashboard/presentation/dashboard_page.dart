@@ -74,6 +74,8 @@ class _DashboardPageState extends State<DashboardPage> {
     context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
 
     context.read<AuthenticationCubit>().getAccount();
+
+    context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
   }
 
   @override
