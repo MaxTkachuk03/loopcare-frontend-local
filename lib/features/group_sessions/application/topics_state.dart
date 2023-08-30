@@ -111,31 +111,19 @@ class TopicsData with _$TopicsData {
 
   Duration get timePassedSinceSessionStart {
     // TODO uncomment in release code
-    // final startTime = signedGroupSessionStartTime;
-    //
-    // if (startTime == null) return Duration.zero;
-    //
-    // return DateTime.now().difference(startTime);
+    final startTime = signedGroupSessionStartTime;
 
-    // TODO for testing
-    // return DateTime.now()
-    //     .difference(DateFormat('yyyy-MM-ddTHH:mm:ss').parse('2023-08-28T12:31:00.000Z', true));
+    if (startTime == null) return Duration.zero;
 
-    return Duration.zero;
+    return DateTime.now().difference(startTime);
   }
 
   Duration get timeLeftToSessionStart {
-    // TODO uncomment in release code
-    // final startTime = signedGroupSessionStartTime;
-    //
-    // if (startTime == null) return Duration.zero;
-    //
-    // TODO for testing
-    // return DateFormat('yyyy-MM-ddTHH:mm:ss')
-    //     .parse('2023-08-28T12:31:00.000Z', true)
-    //     .difference(DateTime.now());
+    final startTime = signedGroupSessionStartTime;
 
-    return Duration.zero;
+    if (startTime == null) return Duration.zero;
+
+    return startTime.difference(DateTime.now());
   }
 
   List<GroupSessionProgramEvent> get textEvents {

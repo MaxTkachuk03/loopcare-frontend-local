@@ -62,7 +62,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
   bool isInSession = false;
 
   String _error = '';
-  late Timer _timer;
+  Timer? _timer;
   int _sessionStart = 0;
   double aspectRatio = 1;
   bool _isVideoPlaying = false;
@@ -159,7 +159,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
       isInSession = false;
       print('_sessionLeaveListener');
 
-      if (_timer != null) _timer.cancel();
+      _timer?.cancel();
 
       users = <ZoomVideoSdkUser>[];
 
@@ -531,7 +531,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
     eventListener.eventEmitter.removeEventListener(_requireSystemPermission);
     eventListener.eventEmitter.removeEventListener(_eventErrorListener);
 
-    _timer.cancel();
+    _timer?.cancel();
 
     super.dispose();
   }

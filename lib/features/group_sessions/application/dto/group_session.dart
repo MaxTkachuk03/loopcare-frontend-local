@@ -22,5 +22,10 @@ class GroupSession with _$GroupSession {
     required String password,
   }) = _GroupSession;
 
+  bool get isSessionAlreadyStarted => startDate.isBefore(DateTime.now());
+
+  bool get isStartedLessThanFifteenMinutesAgo =>
+      DateTime.now().difference(startDate.toLocal()).inMinutes < 15;
+
   factory GroupSession.fromJson(Map<String, dynamic> json) => _$GroupSessionFromJson(json);
 }
