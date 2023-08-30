@@ -439,11 +439,28 @@ class _SessionCallPageState extends State<SessionCallPage> {
 
   bool get userJoinedToSession => isInSession && users.isNotEmpty;
 
-  void _onVideoPlayingHandler(bool isVideoPlaying) {
-    print('isVideoPlaying = $isVideoPlaying');
+  void _onVideoPlayingHandler(bool isVideoPlaying) async {
+    isVideoPlaying ? muteAllParticipants() : unMuteAllParticipants();
+
     setState(() {
       _isVideoPlaying = isVideoPlaying;
     });
+  }
+
+  void muteAllParticipants() async {
+    if (users.isEmpty) return;
+
+    for (var user in users) {
+      await zoom.audioHelper.muteAudio(user.userId);
+    }
+  }
+
+  void unMuteAllParticipants() async {
+    if (users.isEmpty) return;
+
+    for (var user in users) {
+      await zoom.audioHelper.unMuteAudio(user.userId);
+    }
   }
 
   @override

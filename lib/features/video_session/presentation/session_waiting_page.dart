@@ -19,6 +19,7 @@ import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_countdown/session_countdown.dart';
 
 class SessionWaitingPage extends StatefulWidget {
+  // TODO pass session as a prop so we can get rid of check if we have session
   const SessionWaitingPage({Key? key}) : super(key: key);
 
   @override

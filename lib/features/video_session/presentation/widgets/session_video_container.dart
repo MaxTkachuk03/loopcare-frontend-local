@@ -55,9 +55,8 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
   void _checkIfHasVideoForCurrentTime() {
     final List<GroupSessionProgramEvent> videoEvents = context.read<TopicsBloc>().state.data.videoEvents;
 
-    final videoEventForCurrentTime = videoEvents.lastWhereOrNull((e) => widget.sessionTimer == e.timestamp);
-    // TODO if need to run video on the specific moment
-    // final videoEventForCurrentTime = videoEvents.lastWhereOrNull((e) => widget.sessionTimer == 5);
+    final videoEventForCurrentTime = videoEvents.lastWhereOrNull(
+        (e) => e.eventStartTime <= widget.sessionTimer && widget.sessionTimer <= e.eventEndTime);
 
     if (videoEventForCurrentTime == null) return;
 
@@ -88,9 +87,19 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
   void _initVideoController(String videoLink) {
     final headers = context.read<VideoPlayerBloc>().state.data.videoHttpHeaders;
 
-    _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(videoLink), httpHeaders: headers)
+    _videoPlayerController = VideoPlayerController.networkUrl(
+        Uri.parse("https://d316h49i7nayz2.cloudfront.net/Lunges/index.m3u8"),
+        httpHeaders: headers,
+        videoPlayerOptions: VideoPlayerOptions(allowBackgroundPlayback: true))
       ..initialize().then((value) {
-        _videoPlayerController?.play();
+        final bool isVideoInProgress = (_currentVideoEvent?.eventStartTime ?? 0) <= widget.sessionTimer &&
+            widget.sessionTimer <= (_currentVideoEvent?.eventEndTime ?? 0);
+        final int startPosition =
+            isVideoInProgress ? widget.sessionTimer - (_currentVideoEvent?.eventStartTime ?? 0) : 0;
+
+        _videoPlayerController
+          ?..seekTo(Duration(seconds: startPosition))
+          ..play();
       }).whenComplete(() {
         setState(() {
           _videoIsPlaying = true;
