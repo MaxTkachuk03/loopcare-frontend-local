@@ -30,14 +30,14 @@ class TopicsData with _$TopicsData {
 
   String get topicName => topics[DateTime.now().weekNumber]?.topic ?? '';
 
-  GroupSession? get signedGroupSessions {
+  GroupSession? get _signedGroupSessions {
     return topics[DateTime.now().weekNumber]
         ?.groupSessions
         .firstWhereOrNull((element) => element.signed == true);
   }
 
   bool get isSigned {
-    return signedGroupSessions != null ? true : false;
+    return _signedGroupSessions != null ? true : false;
   }
 
   DateTime? get signedGroupSessionStartTime => signedGroupSession?.startDate.toLocal();
@@ -46,16 +46,16 @@ class TopicsData with _$TopicsData {
       signedGroupSessionStartTime?.add(Duration(seconds: topics[DateTime.now().weekNumber]?.duration ?? 0));
 
   bool get signedGroupSessionsCancelledOrMissed {
-    return signedGroupSessions?.status == GroupSessionStatus.cancelled.name;
+    return _signedGroupSessions?.status == GroupSessionStatus.cancelled.name;
   }
 
   bool get signedGroupSessionsMissed {
-    return signedGroupSessions?.status == GroupSessionStatus.cancelled.name;
+    return _signedGroupSessions?.status == GroupSessionStatus.cancelled.name;
     // return true;
   }
 
   bool get signedGroupSessionsCancelled {
-    return signedGroupSessions?.status == GroupSessionStatus.cancelled.name;
+    return _signedGroupSessions?.status == GroupSessionStatus.cancelled.name;
   }
 
   bool get signedGroupSessionsMightBeCancelled {
@@ -63,7 +63,7 @@ class TopicsData with _$TopicsData {
       if (DateTime.now()
               .isAfter(signedGroupSessionStartTime?.subtract(const Duration(hours: 1)) ?? DateTime.now()) &&
           DateTime.now().isBefore(signedGroupSessionStartTime ?? DateTime.now())) {
-        return signedGroupSessions!.memberCount < signedGroupSessions!.minMemberCount;
+        return _signedGroupSessions!.memberCount < _signedGroupSessions!.minMemberCount;
       } else {
         return false;
       }

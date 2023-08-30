@@ -3,6 +3,8 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/group_sessions/application/dto/empty_response.dart';
+import 'package:loopcare_frontend/features/group_sessions/application/dto/fetch_session_data.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/get_session_signature_response.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_sessions_response.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/sign_to_group_session_response.dart';
@@ -15,8 +17,13 @@ class APITopicsService implements TopicsService {
   APITopicsService(this.client);
 
   @override
-  Future<Either<RequestError, GroupSessionsResponse>> fetchTopics() async {
-    return client.get('/group-sessions').then(parseResponse(GroupSessionsResponse.fromJson));
+  Future<Either<RequestError, GroupSessionsResponse>> fetchTopics(FetchSessionData data) async {
+    return client
+        .get(
+          '/group-sessions',
+          data: data,
+        )
+        .then(parseResponse(GroupSessionsResponse.fromJson));
   }
 
   @override
@@ -25,6 +32,14 @@ class APITopicsService implements TopicsService {
       '/group-sessions/$groupSessionId/members',
       data: {},
     ).then(parseResponse(SignToGroupSessionsResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, EmptyResponse>> signOutGroupMeeting(int groupSessionId) {
+    return client.delete(
+      '/group-sessions/$groupSessionId/members',
+      data: {},
+    ).then(parseResponse(EmptyResponse.fromJson));
   }
 
   @override

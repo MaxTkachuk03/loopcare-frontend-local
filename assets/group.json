@@ -12,14 +12,14 @@
       "signature": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfa2V5IjoiTnlMWGd2OUN3dkNNaHE5b1ZjdUlBTTFHaG4zRVJQaDRLdUNxIiwiaWF0IjoxNjkzMTYyNzcwLCJleHAiOjE2OTMxNjYzNzAsInRwYyI6IkdldHRpbmcgdG8ga25vdyBlYWNoIG90aGVyLiBXaGF0IGlzIHlvdXIgbW90aXZhdGlvbiB0byBsb3NlIHdlaWdodD8iLCJwd2QiOiJoYkxScDdjWmM4Iiwicm9sZV90eXBlIjoxLCJjbG91ZF9yZWNvcmRpbmdfb3B0aW9uIjowLCJjbG91ZF9yZWNvcmRpbmdfZWxlY3Rpb24iOjAsInNlc3Npb25fa2V5IjoiIiwidXNlcl9pZGVudGl0eSI6IiJ9.Kjrr6KxPI52NSpINkMdlSkk3z9JhwVtuMcUkGefSiCA"
     },
     {
-      "memberCount": 1,
+      "memberCount": 8,
       "minMemberCount": 4,
       "maxMemberCount": 9,
       "status": "planned",
       "signed": true,
       "id": 2,
       "topic": "Getting to know each other. What is your motivation to lose weight?",
-      "startDate": "2023-08-29T15:28:00.000Z",
+      "startDate": "2023-08-31T15:28:00.000Z",
       "password": "_SA9c5gliA",
       "signature": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfa2V5IjoiTnlMWGd2OUN3dkNNaHE5b1ZjdUlBTTFHaG4zRVJQaDRLdUNxIiwiaWF0IjoxNjkyOTYxMTcwLCJleHAiOjE2OTI5NjQ3NzAsInRwYyI6IkdldHRpbmcgdG8ga25vdyBlYWNoIG90aGVyLiBXaGF0IGlzIHlvdXIgbW90aXZhdGlvbiB0byBsb3NlIHdlaWdodD8iLCJwd2QiOiJfU0E5YzVnbGlBIiwicm9sZV90eXBlIjoxLCJjbG91ZF9yZWNvcmRpbmdfb3B0aW9uIjowLCJjbG91ZF9yZWNvcmRpbmdfZWxlY3Rpb24iOjAsInNlc3Npb25fa2V5IjoiIiwidXNlcl9pZGVudGl0eSI6IiJ9.juiQjVOF5btiyh4w1LZUV64KuC2S9o4r4zmyijEehnI"
     },
@@ -31,7 +31,7 @@
       "signed": false,
       "id": 3,
       "topic": "Goals: How to achieve them, how to overcome obstacles.",
-      "startDate": "2023-08-31T13:00:00.000Z",
+      "startDate": "2023-09-01T13:00:00.000Z",
       "password": "Tvk2cgklaN",
       "signature": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfa2V5IjoiTnlMWGd2OUN3dkNNaHE5b1ZjdUlBTTFHaG4zRVJQaDRLdUNxIiwiaWF0IjoxNjkzNzY3NTcwLCJleHAiOjE2OTM3NzExNzAsInRwYyI6IkdvYWxzOiBIb3cgdG8gYWNoaWV2ZSB0aGVtLCBob3cgdG8gb3ZlcmNvbWUgb2JzdGFjbGVzLiIsInB3ZCI6IlR2azJjZ2tsYU4iLCJyb2xlX3R5cGUiOjEsImNsb3VkX3JlY29yZGluZ19vcHRpb24iOjAsImNsb3VkX3JlY29yZGluZ19lbGVjdGlvbiI6MCwic2Vzc2lvbl9rZXkiOiIiLCJ1c2VyX2lkZW50aXR5IjoiIn0.0B2Qxp_l-NbgSExCgf2uNiMDZT7GUi3Vr-pryV7mEIg"
     }

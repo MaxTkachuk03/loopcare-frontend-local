@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session.dart';
+import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/domain/group_session_status.dart';
 
 part 'timeslot_card.freezed.dart';
@@ -41,7 +43,8 @@ class _TimeslotCardState extends State<TimeslotCard> {
 
     if (isFullSession) {
       _type = const TimeslotCardType.full();
-    } else if (widget.groupSession.status == GroupSessionStatus.finished) {
+    } else if (widget.groupSession.status == GroupSessionStatus.finished ||
+        widget.groupSession.startDate.toLocal().isBefore(DateTime.now())) {
       _type = const TimeslotCardType.passed();
     } else {
       _type = const TimeslotCardType.available();
@@ -81,9 +84,7 @@ class _TimeslotCardState extends State<TimeslotCard> {
             color: borderColor,
             style: BorderStyle.solid,
           ),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(8.0),
-          ),
+          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
         ),
         child: Row(
           children: [
@@ -91,27 +92,26 @@ class _TimeslotCardState extends State<TimeslotCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.groupSession.startDate.weekdayString,
+                  widget.groupSession.startDate.toLocal().weekdayString,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(color: textColor),
                 ),
                 Text(
-                  widget.groupSession.startDate.fullDateWithHyphen,
+                  widget.groupSession.startDate.toLocal().fullDateWithHyphen,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(color: textColor),
                 ),
               ],
             ),
-            const SizedBox(
-              width: 22.0,
-            ),
+            const SizedBox(width: 22.0),
             Container(
               padding: const EdgeInsets.only(left: 16.0),
               decoration: const BoxDecoration(
-                  border: Border(
-                left: BorderSide(
-                  color: AppColors.yellowLight,
-                  width: 1.0,
+                border: Border(
+                  left: BorderSide(
+                    color: AppColors.yellowLight,
+                    width: 1.0,
+                  ),
                 ),
-              )),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -120,8 +120,9 @@ class _TimeslotCardState extends State<TimeslotCard> {
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(color: textColor),
                   ).tr(
                     namedArgs: {
-                      'startTime': widget.groupSession.startDate.timeHoursMinutes24,
+                      'startTime': widget.groupSession.startDate.toLocal().timeHoursMinutes24,
                       'endTime': widget.groupSession.startDate
+                          .toLocal()
                           .add(Duration(seconds: widget.duration))
                           .timeHoursMinutes24,
                     },
@@ -139,5 +140,9 @@ class _TimeslotCardState extends State<TimeslotCard> {
     );
   }
 
-  _onSessionPressed() {}
+  _onSessionPressed() {
+    context.read<TopicsBloc>().add(
+          TopicsEvent.signUpToSession(widget.groupSession.id),
+        );
+  }
 }
