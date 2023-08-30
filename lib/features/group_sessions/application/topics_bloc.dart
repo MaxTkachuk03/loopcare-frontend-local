@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:collection/collection.dart';
+import 'package:flutter/services.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -39,6 +41,7 @@ class TopicsBloc extends Bloc<TopicsEvent, TopicsState> {
     // final lastDayOfTheWeek = DateTime.now().lastDayOfCurrentWeek;
 
     final response = await topicsService.fetchTopics();
+    var mockData = await _mockData();
 
     response.fold(
       (l) => emit(
@@ -52,13 +55,19 @@ class TopicsBloc extends Bloc<TopicsEvent, TopicsState> {
       (r) => emit(
         TopicsState.updated(
           state.data.copyWith(
-            topics: _combineTopicsByWeek(null, r.data),
+            topics: _combineTopicsByWeek(null, mockData), // r.data),
             error: null,
             isLoading: false,
           ),
         ),
       ),
     );
+  }
+
+  Future<List<Topic>> _mockData() async {
+    String response = await rootBundle.loadString('assets/group.json');
+    List<dynamic> result = json.decode(response);
+    return result.map((n) => Topic.fromJson(n)).toList();
   }
 
   FutureOr<void> _onSignUpToSession(
