@@ -103,8 +103,6 @@ class TopicsData with _$TopicsData {
 
   String? get signedGroupSessionToken => signedGroupSession?.signature;
 
-  DateTime? get signedGroupSessionStartTime => signedGroupSession?.startDate;
-
   String? get signedGroupSessionPassword => signedGroupSession?.password;
 
   int? get signedGroupSessionId => signedGroupSession?.id;
