@@ -15,10 +15,17 @@ class PromptsContainer extends StatefulWidget {
 }
 
 class _PromptsContainerState extends State<PromptsContainer> {
-  String get currentPrompt {
+  static const _animationDuration = Duration(milliseconds: 300);
+
+  String _text = '';
+
+  @override
+  void didUpdateWidget(covariant PromptsContainer oldWidget) {
     final textEvents = context.read<TopicsBloc>().state.data.textEvents;
 
-    return textEvents.lastWhere((e) => widget.sessionTimer >= e.timestamp).text ?? '';
+    _text = textEvents.lastWhere((e) => widget.sessionTimer >= e.timestamp).text ?? '';
+
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -30,10 +37,14 @@ class _PromptsContainerState extends State<PromptsContainer> {
       padding: const EdgeInsets.all(24.0),
       child: ScrollableContainer(
         child: Center(
-          child: AutoSizeText(
-            currentPrompt,
-            style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600, color: AppColors.darkGreen),
-            textAlign: TextAlign.center,
+          child: AnimatedSwitcher(
+            duration: _animationDuration,
+            child: AutoSizeText(
+              _text,
+              key: ValueKey<String>(_text),
+              style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600, color: AppColors.darkGreen),
+              textAlign: TextAlign.center,
+            ),
           ),
         ),
       ),

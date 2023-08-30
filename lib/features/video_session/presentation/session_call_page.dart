@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_event_listener.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_user.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
@@ -19,7 +20,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
-import 'package:loopcare_frontend/features/video_session/presentation/jwt.dart';
+// import 'package:loopcare_frontend/features/video_session/presentation/jwt.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/call_controls.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/error_dialog.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/prompts_container.dart';
@@ -80,9 +81,9 @@ class _SessionCallPageState extends State<SessionCallPage> {
       final String sessionName = context.read<TopicsBloc>().state.data.thisWeekTopicName;
       final String? sessionPassword = context.read<TopicsBloc>().state.data.signedGroupSessionPassword;
       // TODO get token from back end side
-      // final String token = context.read<TopicsBloc>().state.data.signedGroupSessionToken!;
+      final String token = context.read<TopicsBloc>().state.data.signedSessionSignature;
 
-      final String token = generateJwt(sessionName, ZoomConfig.defaultSessionRole);
+      // final String token = generateJwt(sessionName, ZoomConfig.defaultSessionRole);
       final String userName = context.read<AuthenticationCubit>().state.nickname ??
           context.read<AuthenticationCubit>().state.name;
 
@@ -347,6 +348,14 @@ class _SessionCallPageState extends State<SessionCallPage> {
   }
 
   _endSession() async {
+    ModalBottomSheet.leaveSessionCall(
+      context: context,
+      onLeavePressed: _leaveSessionHandler,
+      onStayPressed: context.router.pop,
+    );
+  }
+
+  _leaveSessionHandler() async {
     await zoom.leaveSession(false);
     if (context.mounted) {
       context.router.pop();

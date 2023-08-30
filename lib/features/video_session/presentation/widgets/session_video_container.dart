@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/features/group_sessions/application/dto/group_
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/group_session_player_overlay.dart';
+import 'package:loopcare_frontend/features/video_player/presentation/widgets/group_session_video_error.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/video_block.dart';
 import 'package:video_player/video_player.dart';
 
@@ -14,11 +15,12 @@ class SessionVideoContainer extends StatefulWidget {
   final void Function(bool) onVideoPlayingListener;
   final Orientation orientation;
 
-  const SessionVideoContainer(
-      {super.key,
-      required this.sessionTimer,
-      required this.onVideoPlayingListener,
-      required this.orientation});
+  const SessionVideoContainer({
+    super.key,
+    required this.sessionTimer,
+    required this.onVideoPlayingListener,
+    required this.orientation,
+  });
 
   @override
   State<SessionVideoContainer> createState() => _SessionVideoContainerState();
@@ -30,6 +32,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
 
   bool _videoIsPlaying = false;
   VideoPlayerController? _videoPlayerController;
+  GroupSessionProgramEvent? _currentVideoEvent;
 
   @override
   void initState() {
@@ -52,19 +55,40 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
   void _checkIfHasVideoForCurrentTime() {
     final List<GroupSessionProgramEvent> videoEvents = context.read<TopicsBloc>().state.data.videoEvents;
 
-    final videoEventForCurrentTime = videoEvents.lastWhereOrNull((e) => widget.sessionTimer == 5);
+    final videoEventForCurrentTime = videoEvents.lastWhereOrNull((e) => widget.sessionTimer == e.timestamp);
+    // TODO if need to run video on the specific moment
+    // final videoEventForCurrentTime = videoEvents.lastWhereOrNull((e) => widget.sessionTimer == 5);
 
     if (videoEventForCurrentTime == null) return;
 
-    _initVideoController(videoEventForCurrentTime.videoPath!);
+    setState(() {
+      _currentVideoEvent = videoEventForCurrentTime;
+    });
+
+    _loadVideoPlayer(videoEventForCurrentTime.videoPath!);
+  }
+
+  _loadVideoPlayer(String videoLink) {
+    if (_videoPlayerController == null) {
+      _initVideoController(videoLink);
+    } else {
+      final oldController = _videoPlayerController;
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        await oldController?.dispose();
+
+        _initVideoController(videoLink);
+      });
+
+      setState(() {
+        _videoPlayerController = null;
+      });
+    }
   }
 
   void _initVideoController(String videoLink) {
     final headers = context.read<VideoPlayerBloc>().state.data.videoHttpHeaders;
 
-    _videoPlayerController = VideoPlayerController.networkUrl(
-        Uri.parse("https://d316h49i7nayz2.cloudfront.net/Lunges/index.m3u8"),
-        httpHeaders: headers)
+    _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(videoLink), httpHeaders: headers)
       ..initialize().then((value) {
         _videoPlayerController?.play();
       }).whenComplete(() {
@@ -73,6 +97,22 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
         });
         widget.onVideoPlayingListener(true);
       });
+  }
+
+  void _onVideoEnds() {
+    final controller = _videoPlayerController;
+
+    if (controller == null) return;
+
+    if (controller.value.isPlaying) controller.pause();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        _videoIsPlaying = false;
+      });
+
+      widget.onVideoPlayingListener(false);
+    });
   }
 
   double get _videoWidth {
@@ -87,24 +127,19 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
     return height != 0 && height != null ? height : _defaultVideoHeight;
   }
 
-  void _onVideoEnds() {
-    final oldController = _videoPlayerController;
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await oldController?.dispose();
-    });
+  void onUpdateHandler() {
+    final video = _currentVideoEvent;
 
-    _videoPlayerController = null;
+    if (video == null) return;
 
-    _videoIsPlaying = false;
-
-    widget.onVideoPlayingListener(false);
-
-    setState(() {});
+    _loadVideoPlayer(video.videoPath!);
   }
 
   @override
   Widget build(BuildContext context) {
-    return _videoPlayerController == null
+    final controller = _videoPlayerController;
+
+    return controller == null || !_videoIsPlaying
         ? const SizedBox.shrink()
         : Container(
             width: double.infinity,
@@ -116,15 +151,34 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
               children: [
                 Expanded(
                   flex: widget.orientation == Orientation.portrait ? 0 : 1,
-                  child: Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      VideoBlock(controller: _videoPlayerController, orientation: widget.orientation),
-                      GroupSessionPlayerOverlay(
-                        controller: _videoPlayerController!,
-                        orientation: widget.orientation,
-                      )
-                    ],
+                  child: ValueListenableBuilder(
+                    valueListenable: controller,
+                    builder: (BuildContext context, VideoPlayerValue value, child) {
+                      if (value.hasError) {
+                        return GroupSessionVideoError(
+                          width: _videoWidth,
+                          height: _videoHeight,
+                          errorMessage: value.errorDescription,
+                          onUpdate: onUpdateHandler,
+                          onClose: _onVideoEnds,
+                        );
+                      }
+
+                      final videoFinished = value.isInitialized && value.position == value.duration;
+
+                      if (videoFinished) _onVideoEnds();
+
+                      return Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          VideoBlock(controller: controller, orientation: widget.orientation),
+                          GroupSessionPlayerOverlay(
+                            controller: controller,
+                            orientation: widget.orientation,
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ),
               ],

@@ -25,6 +25,7 @@ class TopicsBloc extends Bloc<TopicsEvent, TopicsState> {
 
   TopicsBloc(this.topicsService) : super(const TopicsState.initial(TopicsData())) {
     on<FetchTopics>(_onFetchTopics);
+    on<GetSessionSignature>(_onGetSessionSignature);
     on<SignUpToSession>(_onSignUpToSession);
     on<SignOutFromSession>(_onSignOutFromSession);
   }
@@ -81,6 +82,22 @@ class TopicsBloc extends Bloc<TopicsEvent, TopicsState> {
     Emitter<TopicsState> emit,
   ) async {
     // emit(TopicsState.loading(state.data.copyWith(isLoading: true)));
+  }
+
+  FutureOr<void> _onGetSessionSignature(
+    GetSessionSignature event,
+    Emitter<TopicsState> emit,
+  ) async {
+    emit(TopicsState.loading(state.data.copyWith(isLoading: true)));
+
+    final response = await topicsService.getSessionSignature(event.sessionId);
+
+    response.fold(
+      (l) => emit(TopicsState.error(state.data.copyWith(error: l, isLoading: false))),
+      (r) => emit(TopicsState.updated(
+        state.data.copyWith(signedSessionSignature: r.signature, error: null, isLoading: false),
+      )),
+    );
   }
 
   Map<int, Topic> _combineTopicsByWeek(
