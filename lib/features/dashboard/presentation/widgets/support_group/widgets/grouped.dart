@@ -6,14 +6,12 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped_no_timeslots.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped_not_signed.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped_signed.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/no_group.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 
 class Grouped extends StatelessWidget {
-  final bool nextWeek;
-
   const Grouped({
     Key? key,
-    this.nextWeek = false,
   }) : super(key: key);
 
   @override
@@ -22,38 +20,38 @@ class Grouped extends StatelessWidget {
       builder: (context, state) {
         var isHappeningNow = false;
         if (state.data.isSigned) {
-          var sessionStartDate = state.data.signedGroupSession!.startDate;
-          var sessionEndDate = state.data.signedGroupSessionsEndDate;
+          var sessionStartDate = state.data.signedGroupSessionStartTime;
+          var sessionEndDate = state.data.signedGroupSessionsEndTime;
           var nowMoment = DateTime.now();
-          if (nowMoment.isAfter(sessionStartDate) && nowMoment.isBefore(sessionEndDate)) {
-            isHappeningNow = true;
+          if (sessionStartDate != null && sessionEndDate != null) {
+            if (nowMoment.isAfter(sessionStartDate) && nowMoment.isBefore(sessionEndDate)) {
+              isHappeningNow = true;
+            }
           }
         }
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              nextWeek
-                  ? LocalizedTexts.comingUpNextWeek.tr().toUpperCase()
-                  : isHappeningNow
-                      ? LocalizedTexts.happeningNow.tr().toUpperCase()
-                      : LocalizedTexts.comingUpThisWeek.tr().toUpperCase(),
-              style: const TextStyle(
-                fontSize: ThemeConstants.fontSize12,
-                color: AppColors.greyLabel,
+            if (state.data.isGroupsOnThisWeekAvailable)
+              Text(
+                isHappeningNow
+                    ? LocalizedTexts.happeningNow.tr().toUpperCase()
+                    : LocalizedTexts.comingUpThisWeek.tr().toUpperCase(),
+                style: const TextStyle(
+                  fontSize: ThemeConstants.fontSize12,
+                  color: AppColors.greyLabel,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 16.0,
-            ),
-            if (!state.data.timeSlotsAvailable) const GroupedNoTimeslots(),
+            const SizedBox(height: 16.0),
+            if (!state.data.timeSlotsAvailable && !state.data.isSigned) const GroupedNoTimeslots(),
             if (state.data.timeSlotsAvailable && !state.data.isSigned)
               GroupedNotSigned(topicName: state.data.topicName),
-            if (state.data.isSigned)
+            if (state.data.isSigned && state.data.isGroupsOnThisWeekAvailable)
               GroupedSigned(
                 signedGroupSessions: state.data.signedGroupSession!,
                 topicName: state.data.topicName,
-                endDate: state.data.signedGroupSessionsEndDate,
+                startDate: state.data.signedGroupSessionStartTime ?? DateTime.now(),
+                endDate: state.data.signedGroupSessionsEndTime ?? DateTime.now(),
                 preparationMaterialsAvailable: !state.data.signedGroupSessionsCancelled,
                 isCancelledOrMissed: state.data.signedGroupSessionsCancelledOrMissed,
                 isCancelled: state.data.signedGroupSessionsCancelled,
@@ -62,6 +60,7 @@ class Grouped extends StatelessWidget {
                 sessionMightBeCancelled: state.data.signedGroupSessionsMightBeCancelled,
                 isHappeningNow: isHappeningNow,
               ),
+            if (!state.data.isGroupsOnThisWeekAvailable) const NoGroup(),
           ],
         );
       },
