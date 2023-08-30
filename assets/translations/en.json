@@ -533,6 +533,7 @@
   "leaveSession": "Leave the session anyway",
   "stayInTheSession": "Stay in the session",
   "signatureErrorMessage": "Something went wrong with your session, try go back and return later",
+  "sessionStartsMoreThanFifteenMinutesAgo": "Your session started more than 15 minutes ago, you can't join",
   "yourMentalHealth": "Your mental health",
   "mentalHealthIntroTextOne": "A good mental health is vital to successfully improve your lifestyle.",
   "mentalHealthIntroTextTwo": "To tailor the program to suit your needs you will be asked questions in the next section regarding your current well-being, physiological symptoms, possible anxiety symptoms and mood. This should take around 10 minutes.",
