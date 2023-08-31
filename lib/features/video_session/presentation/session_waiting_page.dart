@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
+import 'package:loopcare_frontend/core/domain/aws_cookies_type.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -38,7 +39,7 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
 
     _groupRulesTapRecognizer.onTap = _onRulesTapHandler;
 
-    context.read<VideoPlayerBloc>().add(const VideoPlayerEvent.getAwsCookies());
+    context.read<VideoPlayerBloc>().add(const VideoPlayerEvent.getAwsCookies(AwsCookiesType.SESSION));
 
     final int? sessionId = context.read<TopicsBloc>().state.data.signedGroupSessionId;
 

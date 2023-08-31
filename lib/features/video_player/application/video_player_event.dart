@@ -2,5 +2,5 @@ part of 'video_player_bloc.dart';
 
 @freezed
 class VideoPlayerEvent with _$VideoPlayerEvent {
-  const factory VideoPlayerEvent.getAwsCookies() = GetAwsCookies;
+  const factory VideoPlayerEvent.getAwsCookies(AwsCookiesType type) = GetAwsCookies;
 }

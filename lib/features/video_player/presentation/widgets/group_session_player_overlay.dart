@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/progress_bar.dart';
 import 'package:video_player/video_player.dart';
@@ -7,9 +5,6 @@ import 'package:video_player/video_player.dart';
 class GroupSessionPlayerOverlay extends StatefulWidget {
   final VideoPlayerController controller;
   final Orientation orientation;
-
-  static const double _defaultVideoWidth = 1280.0;
-  static const double _defaultVideoHeight = 720.0;
 
   const GroupSessionPlayerOverlay({
     Key? key,

@@ -87,6 +87,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
   void _initVideoController(String videoLink) {
     final headers = context.read<VideoPlayerBloc>().state.data.videoHttpHeaders;
     // TODO link for testing "https://d316h49i7nayz2.cloudfront.net/Lunges/index.m3u8"
+
     _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(videoLink),
         httpHeaders: headers, videoPlayerOptions: VideoPlayerOptions(allowBackgroundPlayback: true))
       ..initialize().then((value) {

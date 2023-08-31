@@ -1,0 +1,1 @@
+enum AwsCookiesType { MAIN, SESSION }

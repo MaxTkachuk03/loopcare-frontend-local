@@ -6,7 +6,7 @@ class CountDown extends StatelessWidget {
   final CountDownController controller;
   final int duration;
   final VoidCallback onComplete;
-  final bool isPortraiteOrientation;
+  final bool isPortraitOrientation;
   final Function(Duration value) onDurationChange;
 
   const CountDown({
@@ -14,7 +14,7 @@ class CountDown extends StatelessWidget {
     required this.controller,
     required this.duration,
     required this.onComplete,
-    required this.isPortraiteOrientation,
+    required this.isPortraitOrientation,
     required this.onDurationChange,
   }) : super(key: key);
 
@@ -33,18 +33,18 @@ class CountDown extends StatelessWidget {
       duration: duration,
       initialDuration: 0,
       controller: controller,
-      width: isPortraiteOrientation ? 40 : 60,
-      height: isPortraiteOrientation ? 40 : 60,
+      width: isPortraitOrientation ? 40 : 60,
+      height: isPortraitOrientation ? 40 : 60,
       ringColor: AppColors.d9d9d9,
       ringGradient: null,
       fillColor: AppColors.blueMid,
       fillGradient: null,
       backgroundColor: Colors.transparent,
       backgroundGradient: null,
-      strokeWidth: isPortraiteOrientation ? 5.0 : 7.0,
+      strokeWidth: isPortraitOrientation ? 5.0 : 7.0,
       strokeCap: StrokeCap.round,
       textStyle: TextStyle(
-        fontSize: isPortraiteOrientation ? 12.0 : 16.0,
+        fontSize: isPortraitOrientation ? 12.0 : 16.0,
         color: Colors.white,
         fontWeight: FontWeight.bold,
         fontFamily: ThemeConstants.bitterFontFamily,
