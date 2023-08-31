@@ -38,7 +38,7 @@ class PreparationMaterials extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  LocalizedTexts.prepareForSession.tr(),
+                  LocalizedTexts.prepareForSession,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
                 ).tr(),
                 Text(

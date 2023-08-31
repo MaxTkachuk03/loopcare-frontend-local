@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:collection/collection.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
-import 'package:loopcare_frontend/features/group_sessions/application/dto/fetch_session_data.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session_program_event.dart';
 import 'package:loopcare_frontend/features/group_sessions/domain/group_session_status.dart';
@@ -43,12 +41,10 @@ class TopicsBloc extends Bloc<TopicsEvent, TopicsState> {
     final lastDayOfTheWeek = DateTime.now().lastDayOfCurrentWeek;
 
     final response = await topicsService.fetchTopics(
-      FetchSessionData(
-        startDate: firstDayOfTheWeek.toUtc().toIso8601String(),
-        endDate: lastDayOfTheWeek.toUtc().toIso8601String(),
-      ),
+      startDate: firstDayOfTheWeek.toUtc().toIso8601String(),
+      endDate: lastDayOfTheWeek.toUtc().toIso8601String(),
     );
-    var mockData = await _mockData();
+    // var mockData = await _mockData();
 
     response.fold(
       (l) => emit(
@@ -96,10 +92,9 @@ class TopicsBloc extends Bloc<TopicsEvent, TopicsState> {
     SignOutFromSession event,
     Emitter<TopicsState> emit,
   ) async {
-    emit(TopicsState.loading(state.data.copyWith(isLoading: true)));
+    emit(TopicsState.loading(state.data.copyWith(isLoading: true, error: null)));
 
     final response = await topicsService.signOutGroupMeeting(event.sessionId);
-
     response.fold(
       (l) => emit(TopicsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(TopicsState.updated(state.data.copyWith(error: null, isLoading: false))),

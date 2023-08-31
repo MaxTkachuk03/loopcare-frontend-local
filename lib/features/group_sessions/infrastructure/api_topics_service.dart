@@ -4,7 +4,6 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/empty_response.dart';
-import 'package:loopcare_frontend/features/group_sessions/application/dto/fetch_session_data.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/get_session_signature_response.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_sessions_response.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/sign_to_group_session_response.dart';
@@ -17,11 +16,21 @@ class APITopicsService implements TopicsService {
   APITopicsService(this.client);
 
   @override
-  Future<Either<RequestError, GroupSessionsResponse>> fetchTopics(FetchSessionData data) async {
+  Future<Either<RequestError, GroupSessionsResponse>> fetchTopics({
+    String? startDate,
+    String? endDate,
+  }) async {
+    final queryParameters = <String, dynamic>{};
+    if (startDate != null && endDate != null) {
+      queryParameters.addAll({
+        'startDate': startDate,
+        'endDate': endDate,
+      });
+    }
     return client
         .get(
           '/group-sessions',
-          data: data,
+          queryParameters: queryParameters,
         )
         .then(parseResponse(GroupSessionsResponse.fromJson));
   }
@@ -35,11 +44,8 @@ class APITopicsService implements TopicsService {
   }
 
   @override
-  Future<Either<RequestError, EmptyResponse>> signOutGroupMeeting(int groupSessionId) {
-    return client.delete(
-      '/group-sessions/$groupSessionId/members',
-      data: {},
-    ).then(parseResponse(EmptyResponse.fromJson));
+  Future<Either<RequestError, dynamic>> signOutGroupMeeting(int groupSessionId) {
+    return client.delete('/group-sessions/$groupSessionId/members', data: {});
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -74,67 +75,71 @@ class _TimeslotCardState extends State<TimeslotCard> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: _type == const TimeslotCardType.available() ? _onSessionPressed : null,
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 1,
-            color: borderColor,
-            style: BorderStyle.solid,
-          ),
-          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-        ),
-        child: Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.groupSession.startDate.toLocal().weekdayString,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(color: textColor),
-                ),
-                Text(
-                  widget.groupSession.startDate.toLocal().fullDateWithHyphen,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(color: textColor),
-                ),
-              ],
+    return BlocListener<TopicsBloc, TopicsState>(
+      listenWhen: (prev, cur) => prev is TopicsStateLoading && cur is TopicsStateError,
+      listener: _signUpFailureListener,
+      child: InkWell(
+        onTap: _type == const TimeslotCardType.available() ? _onSessionPressed : null,
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 1,
+              color: borderColor,
+              style: BorderStyle.solid,
             ),
-            const SizedBox(width: 22.0),
-            Container(
-              padding: const EdgeInsets.only(left: 16.0),
-              decoration: const BoxDecoration(
-                border: Border(
-                  left: BorderSide(
-                    color: AppColors.yellowLight,
-                    width: 1.0,
-                  ),
-                ),
-              ),
-              child: Column(
+            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+          ),
+          child: Row(
+            children: [
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    LocalizedTexts.fromTo,
+                    widget.groupSession.startDate.toLocal().weekdayString,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(color: textColor),
-                  ).tr(
-                    namedArgs: {
-                      'startTime': widget.groupSession.startDate.toLocal().timeHoursMinutes24,
-                      'endTime': widget.groupSession.startDate
-                          .toLocal()
-                          .add(Duration(seconds: widget.duration))
-                          .timeHoursMinutes24,
-                    },
                   ),
                   Text(
-                    description,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: textColor),
+                    widget.groupSession.startDate.toLocal().fullDateWithHyphen,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(color: textColor),
                   ),
                 ],
               ),
-            ),
-          ],
+              const SizedBox(width: 22.0),
+              Container(
+                padding: const EdgeInsets.only(left: 16.0),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    left: BorderSide(
+                      color: AppColors.yellowLight,
+                      width: 1.0,
+                    ),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      LocalizedTexts.fromTo,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(color: textColor),
+                    ).tr(
+                      namedArgs: {
+                        'startTime': widget.groupSession.startDate.toLocal().timeHoursMinutes24,
+                        'endTime': widget.groupSession.startDate
+                            .toLocal()
+                            .add(Duration(seconds: widget.duration))
+                            .timeHoursMinutes24,
+                      },
+                    ),
+                    Text(
+                      description,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: textColor),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -144,5 +149,12 @@ class _TimeslotCardState extends State<TimeslotCard> {
     context.read<TopicsBloc>().add(
           TopicsEvent.signUpToSession(widget.groupSession.id),
         );
+  }
+
+  void _signUpFailureListener(BuildContext context, TopicsState state) {
+    context.showErrorBar(
+      content: Text(LocalizedTexts.somethingWentWrong.translation),
+      position: FlashPosition.top,
+    );
   }
 }

@@ -692,8 +692,6 @@ class ModalBottomSheet {
                           color: AppColors.blueDark,
                         ),
                       ),
-                      const SizedBox(height: 8.0),
-                      Text('Intro to what this session containsIntro to what this session contains'),
                       const SizedBox(height: 16.0),
                       Text(
                         LocalizedTexts.pickADateAndTime,

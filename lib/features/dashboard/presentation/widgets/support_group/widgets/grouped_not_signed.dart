@@ -27,7 +27,7 @@ class GroupedNotSigned extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
-              ).tr(),
+              ),
             ),
           ],
         ),

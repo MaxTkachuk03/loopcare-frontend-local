@@ -55,7 +55,7 @@ class GroupedSigned extends StatelessWidget {
                 child: Text(topicName,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.w600,
-                        )).tr(),
+                        )),
               ),
               const ImageIcon(AppIcons.arrow, color: AppColors.greyLabel),
             ],
