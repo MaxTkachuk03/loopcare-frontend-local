@@ -93,7 +93,9 @@ import 'package:loopcare_frontend/features/nutrition/presentation/select_serving
 import 'package:loopcare_frontend/features/reflection/presentation/nutrition_details_page.dart';
 import 'package:loopcare_frontend/features/reflection/presentation/reflection_page.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/video_page.dart';
-import 'package:loopcare_frontend/features/video_session/presentation/video_session_page.dart';
+import 'package:loopcare_frontend/features/video_session/presentation/session_call_page.dart';
+import 'package:loopcare_frontend/features/video_session/presentation/session_rules_page.dart';
+import 'package:loopcare_frontend/features/video_session/presentation/session_waiting_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/allergic/allergic_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/do_not_like/do_not_like_page.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/meat_preferences/meat_preferences_page.dart';
@@ -134,8 +136,7 @@ const groupLessonRoutes = [
       path: AppRoutes.intro,
       page: IntroPage,
     ),
-
-// Start  TabBar
+    // Start  TabBar
     AutoRoute(
       path: AppRoutes.home,
       page: HomePage,
@@ -469,8 +470,11 @@ const groupLessonRoutes = [
       path: AppRoutes.joinGroupPreferences,
       page: JoinGroupPreferencesPage,
     ),
-    AutoRoute(path: AppRoutes.genderPreferences, page: GenderPreferencesPage, guards: [GenderPrefsGuard]),
-
+    AutoRoute(
+      path: AppRoutes.genderPreferences,
+      page: GenderPreferencesPage,
+      guards: [GenderPrefsGuard],
+    ),
     AutoRoute(
       path: AppRoutes.nicknamePreferences,
       page: NicknamePreferencesPage,
@@ -488,10 +492,7 @@ const groupLessonRoutes = [
       path: AppRoutes.reflectionNutritionDetails,
       page: NutritionDetailsPage,
     ),
-    AutoRoute(
-      path: AppRoutes.videoSession,
-      page: VideoSessionPage,
-    ),
+
     AutoRoute(
       path: AppRoutes.groupPreferences,
       page: GroupPreferencesPage,
@@ -527,6 +528,19 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.supportGroupIntro,
       page: SupportGroupIntroPage,
+    ),
+    // Zoom video sessions
+    AutoRoute(
+      path: AppRoutes.sessionWaitingRoom,
+      page: SessionWaitingPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.sessionCall,
+      page: SessionCallPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.sessionRules,
+      page: SessionRulesPage,
     ),
   ],
 )

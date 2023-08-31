@@ -11,6 +11,8 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/lessons_uncompleted.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/looking_for_group.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/no_group.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/no_timeslots.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/not_grouped.dart';
 
 class SupportGroup extends StatelessWidget {
@@ -75,6 +77,14 @@ class SupportGroup extends StatelessWidget {
             ),
             const SizedBox(height: 8.0),
             const Divider(color: AppColors.yellowLight),
+            ElevatedButton(
+                onPressed: () {
+                  context.router.pushNamed(AppRoutes.sessionWaitingRoom);
+                },
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 12),
+                  child: Text('call'),
+                )),
             BlocBuilder<AuthenticationCubit, AuthenticationState>(
               builder: (context, state) {
                 switch (state.groupingState) {
@@ -88,6 +98,10 @@ class SupportGroup extends StatelessWidget {
                     return const LookingForGroup();
                   case UserGroupingState.grouped:
                     return const Grouped();
+                  case UserGroupingState.noTS:
+                    return const NoTimeslots();
+                  case UserGroupingState.noGroup:
+                    return const NoGroup();
                   default:
                     return const SizedBox.shrink();
                 }

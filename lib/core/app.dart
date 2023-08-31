@@ -17,7 +17,7 @@ import 'package:loopcare_frontend/features/dashboard/application/physical_activi
 import 'package:loopcare_frontend/features/diabetes/application/diabetes_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
-import 'package:loopcare_frontend/features/group_sessions/appliction/topics_bloc.dart';
+import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/home/application/home_bottom_navigation_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
@@ -164,6 +164,7 @@ class _AppState extends State<_App> {
     final onboardingBloc = context.read<OnboardingBloc>();
     final legalStatementBloc = context.read<LegalStatementBloc>();
     final consentConfirmationBloc = context.read<ConsentConfirmationBloc>();
+    final mentalHealthBloc = context.read<MentalHealthBloc>();
 
     _appRouter = AppRouter(
       proxyGuard: ProxyGuard(),
@@ -172,6 +173,7 @@ class _AppState extends State<_App> {
         onboardingBloc,
         consentConfirmationBloc,
         legalStatementBloc,
+        mentalHealthBloc,
       ),
       genderPrefsGuard: GenderPrefsGuard(
         authBloc,

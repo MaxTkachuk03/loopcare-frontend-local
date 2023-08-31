@@ -14,9 +14,7 @@ extension OnboardingStepsX on OnboardingSteps {
       case OnboardingSteps.medicalFitness:
         return medicalFitnessQuestions.map((e) => getQuestionRoute(e)).toList();
       case OnboardingSteps.mentalFitness:
-        return PhysicalFitnessQuestions.values
-            .map((e) => e.route)
-            .toList(); // TODO change to mental health routes
+        return [];
     }
   }
 

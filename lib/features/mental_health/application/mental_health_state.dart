@@ -2,13 +2,15 @@ part of 'mental_health_bloc.dart';
 
 @freezed
 class MentalHealthState with _$MentalHealthState {
-  const factory MentalHealthState.initial(MentalHealthData data) = _Initial;
+  const MentalHealthState._();
 
-  const factory MentalHealthState.mentalHealthTests(MentalHealthData data) = _MentalHealthTests;
+  factory MentalHealthState.initial() => const MentalHealthState(data: MentalHealthData());
 
-  const factory MentalHealthState.loading(MentalHealthData data) = _Loading;
+  const factory MentalHealthState({
+    required MentalHealthData data,
+  }) = _MentalHealthState;
 
-  const factory MentalHealthState.error(MentalHealthData data) = _Error;
+  factory MentalHealthState.fromJson(Map<String, dynamic> json) => _$MentalHealthStateFromJson(json);
 }
 
 @freezed
@@ -20,9 +22,17 @@ class MentalHealthData with _$MentalHealthData {
     @Default([]) List<int> questionsListId,
     @Default(0) int totalQuestionsLength,
     @Default(0) int currentTestIndex,
+    @Default(0) int currentPage,
     @Default(0) int currentQuestionIndex,
     @Default([]) List<MentalHealthAnswer> answers,
+    @Default({}) Map<MentalHealthTestType, TestResult> results,
+    @Default(false) bool isLoading,
+    @Default(false) bool isCompleted,
+    @JsonKey(ignore: true) RequestError? error,
+    DateTime? startTestTime,
   }) = _MentalHealthData;
+
+  factory MentalHealthData.fromJson(Map<String, dynamic> json) => _$MentalHealthDataFromJson(json);
 
   MentalHealthTest? get currentTest {
     if (tests.isEmpty) return null;
@@ -36,7 +46,6 @@ class MentalHealthData with _$MentalHealthData {
   bool get isLastQuestion {
     return currentQuestionIndex + 1 == currentTest?.questions.length;
   }
-
 
   bool get isFirstQuestion {
     return currentQuestionIndex == 0;

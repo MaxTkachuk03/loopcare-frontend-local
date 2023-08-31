@@ -9,6 +9,10 @@ extension DateTimeExtension on DateTime {
     return DateTime(year, month, day);
   }
 
+  String get fullDateWithHyphen {
+    return DateFormat('dd-MM-yyyy').format(this);
+  }
+
   String get isoStringWithoutTime {
     return toIso8601String().split('T')[0];
   }
@@ -29,7 +33,48 @@ extension DateTimeExtension on DateTime {
     return DateFormat('EEEE d MMMM y', 'en_EN').format(this);
   }
 
+  String get timeHoursMinutes24 {
+    return DateFormat('HH:mm', 'en_EN').format(this);
+  }
+
   String get timeHoursMinutes {
     return DateFormat('HH:mma', 'en_EN').format(this);
+  }
+
+  String get weekdayString {
+    return DateFormat('EEEE', 'en_EN').format(this);
+  }
+
+  int get nextWeekNumber {
+    final now = this;
+    final firstJan = DateTime(now.year, 1, 1);
+    final lasdDecember = DateTime(now.year, 12, 31);
+    var nowWeekNumber = weeksBetween(firstJan, now);
+    var lastWeekNumber = weeksBetween(firstJan, lasdDecember);
+    return nowWeekNumber != lastWeekNumber ? nowWeekNumber : 1;
+  }
+
+  int get weekNumber {
+    final now = this;
+    final firstJan = DateTime(now.year, 1, 1);
+    return weeksBetween(firstJan, now);
+  }
+
+  int weeksBetween(DateTime from, DateTime to) {
+    from = DateTime.utc(from.year, from.month, from.day);
+    to = DateTime.utc(to.year, to.month, to.day);
+    return (to.difference(from).inDays / 7).ceil();
+  }
+
+  get firstDayOfCurrentWeek {
+    final date = subtract(Duration(days: weekday - 1));
+
+    return DateTime(date.year, date.month, date.day);
+  }
+
+  get lastDayOfCurrentWeek {
+    final date = add(Duration(days: DateTime.daysPerWeek - weekday));
+
+    return DateTime(date.year, date.month, date.day);
   }
 }

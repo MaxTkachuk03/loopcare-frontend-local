@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/reflec
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/slider_calendar/slider_calendar.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/support_group.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/weight/weight_block.dart';
+import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -49,6 +50,8 @@ class _DashboardPageState extends State<DashboardPage> {
 
     context.read<DashboardEducationBloc>().add(const DashboardEducationEvent.getDashboardLessons());
 
+    context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
+
     super.initState();
   }
 
@@ -71,6 +74,8 @@ class _DashboardPageState extends State<DashboardPage> {
     context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
 
     context.read<AuthenticationCubit>().getAccount();
+
+    context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
   }
 
   @override

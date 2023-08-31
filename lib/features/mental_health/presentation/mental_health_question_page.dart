@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_wrap.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/widgets/mental_health_question_form.dart';
+import 'package:loopcare_frontend/features/mental_health/presentation/widgets/question_text.dart';
 
 class MentalHealthQuestionPage extends StatefulWidget {
   const MentalHealthQuestionPage({Key? key}) : super(key: key);
@@ -26,7 +27,11 @@ class _MentalHealthQuestionPageState extends State<MentalHealthQuestionPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
-                    height: 10.0,
+                    height: 20.0,
+                  ),
+                  const QuestionText(),
+                  const SizedBox(
+                    height: 40.0,
                   ),
                   Text(
                     currentQuestion.title,

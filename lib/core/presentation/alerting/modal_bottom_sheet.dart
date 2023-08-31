@@ -2,22 +2,31 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/html_renderer/html_renderer.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/oval_bottom_border_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
+import 'package:loopcare_frontend/features/group_sessions/presentation/widgets/booked_session_card.dart';
+import 'package:loopcare_frontend/features/group_sessions/presentation/widgets/timeslot_card.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/injection.dart';
+
+AppConfig appConfig = getIt<AppConfig>();
 
 class ModalBottomSheet {
   ModalBottomSheet._();
@@ -173,6 +182,51 @@ class ModalBottomSheet {
     );
   }
 
+  static void timeWasExceeded({
+    required BuildContext context,
+    required void Function() onStartAgain,
+  }) {
+    showModalBottomSheet<void>(
+      isScrollControlled: true,
+      isDismissible: false,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24.0),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return Wrap(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 58.0, horizontal: 40.0),
+              child: SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      LocalizedTexts.youExceededTimeMessage,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+                    ).tr(),
+                    Text(
+                      LocalizedTexts.noWorriesYouCanDoItLater,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ).tr(),
+                    const SizedBox(
+                      height: 40.0,
+                    ),
+                    ElevatedButton(
+                      onPressed: onStartAgain,
+                      child: const Text(LocalizedTexts.startAgain).tr(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   static void deleteMeal({
     required BuildContext context,
     required void Function() onDeleted,
@@ -190,7 +244,6 @@ class ModalBottomSheet {
             top: false,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              // mainAxisAlignment: MainAxisAlignment.,
               children: [
                 Align(
                   alignment: Alignment.topRight,
@@ -380,6 +433,59 @@ class ModalBottomSheet {
     );
   }
 
+  static void mentalHealthMoreInfo({
+    required BuildContext context,
+  }) {
+    showModalBottomSheet<void>(
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24.0),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: FractionallySizedBox(
+            heightFactor: 0.9,
+            child: MainContainer(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8.0, top: 32.0),
+                      child: SizedBox(
+                        width: 30.0,
+                        height: 30.0,
+                        child: IconButton(
+                          iconSize: 30,
+                          padding: EdgeInsets.zero,
+                          onPressed: () => context.router.pop(),
+                          icon: const Icon(Icons.close),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 26.0,
+                  ),
+                  Text(LocalizedTexts.mentalHealthMoreInfo,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          )).tr(
+                    namedArgs: {
+                      'appName': appConfig.projectName,
+                    },
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   static void nutrientFactsDialog({
     required BuildContext context,
     required List<NutritionItem> list,
@@ -462,6 +568,158 @@ class ModalBottomSheet {
               ],
             ),
           ),
+        );
+      },
+    );
+  }
+
+  static void sessionMoreInfoDialog({
+    required BuildContext context,
+  }) {
+    showModalBottomSheet<void>(
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      context: context,
+      builder: (BuildContext context) {
+        return BlocBuilder<TopicsBloc, TopicsState>(
+          builder: (context, state) {
+            return FractionallySizedBox(
+              heightFactor: 0.8,
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: SizedBox(
+                          width: 30.0,
+                          height: 30.0,
+                          child: IconButton(
+                            iconSize: 30,
+                            padding: EdgeInsets.zero,
+                            onPressed: () => context.router.pop(),
+                            icon: const Icon(Icons.close),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      Text(
+                        state.data.topicName,
+                        style: const TextStyle(
+                          fontSize: ThemeConstants.fontSize24,
+                          fontFamily: ThemeConstants.bitterFontFamily,
+                          color: AppColors.blueDark,
+                        ),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text('Intro to what this session containsIntro to what this session contains'),
+                      const SizedBox(height: 16.0),
+                      Text(
+                        LocalizedTexts.bookedForYou,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ).tr(),
+                      const SizedBox(height: 16.0),
+                      BookedSessionCard(
+                        duration: state.data.topics[DateTime.now().weekNumber]?.duration ?? 0,
+                        groupSession: state.data.signedGroupSession!,
+                      ),
+                      const SizedBox(height: 16.0),
+                      BulletListItem(
+                        bulletSize: 14.0,
+                        centered: false,
+                        text: Text(LocalizedTexts.sessionWarning_1.tr()),
+                      ),
+                      BulletListItem(
+                        bulletSize: 14.0,
+                        centered: false,
+                        text: Text(LocalizedTexts.sessionWarning_2.tr()),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  static void timeslotsDialog({
+    required BuildContext context,
+  }) {
+    showModalBottomSheet<void>(
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      context: context,
+      builder: (BuildContext context) {
+        return BlocBuilder<TopicsBloc, TopicsState>(
+          builder: (context, state) {
+            final topic = state.data.topics[DateTime.now().weekNumber];
+
+            if (topic == null) return const SizedBox.shrink();
+            final groupSessions = topic.groupSessions;
+
+            return FractionallySizedBox(
+              heightFactor: 0.8,
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: SizedBox(
+                          width: 30.0,
+                          height: 30.0,
+                          child: IconButton(
+                            iconSize: 30,
+                            padding: EdgeInsets.zero,
+                            onPressed: () => context.router.pop(),
+                            icon: const Icon(Icons.close),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      Text(
+                        state.data.topicName,
+                        style: const TextStyle(
+                          fontSize: ThemeConstants.fontSize24,
+                          fontFamily: ThemeConstants.bitterFontFamily,
+                          color: AppColors.blueDark,
+                        ),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text('Intro to what this session containsIntro to what this session contains'),
+                      const SizedBox(height: 16.0),
+                      Text(
+                        LocalizedTexts.pickADateAndTime,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ).tr(),
+                      const SizedBox(height: 16.0),
+                      Expanded(
+                        child: ListView.separated(
+                          itemCount: groupSessions.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return TimeslotCard(
+                              duration: topic.duration,
+                              groupSession: groupSessions[index],
+                            );
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return const SizedBox(height: 16.0);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
         );
       },
     );
@@ -923,6 +1181,7 @@ class ModalBottomSheet {
     );
   }
 
+<<<<<<< HEAD
   static void emergencyNumbers({
     required BuildContext context,
     required void Function() onBtnPress,
@@ -969,6 +1228,46 @@ class ModalBottomSheet {
                 onPressed: onBtnPress,
                 child: Text(LocalizedTexts.getStarted.translation),
               ),
+=======
+  static void leaveSessionCall({
+    required BuildContext context,
+    required void Function() onLeavePressed,
+    required void Function() onStayPressed,
+  }) {
+    Size size = MediaQuery.of(context).size;
+
+    showModalBottomSheet<void>(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 42.0, horizontal: 39.0),
+          height: size.height * 0.35,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text(
+                LocalizedTexts.sessionLeaveDialogText,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ).tr(),
+              const SizedBox(height: 48.0),
+              ElevatedButton(
+                onPressed: () {
+                  context.router.pop();
+                  onLeavePressed();
+                },
+                child: const Text(LocalizedTexts.leaveSession).tr(),
+              ),
+              const SizedBox(height: 12.0),
+              ElevatedButton(
+                onPressed: onStayPressed,
+                child: const Text(LocalizedTexts.stayInTheSession).tr(),
+              )
+>>>>>>> feature/LOOPCARE-1252
             ],
           ),
         );

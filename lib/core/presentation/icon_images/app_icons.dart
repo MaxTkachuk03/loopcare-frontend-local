@@ -150,5 +150,9 @@ class AppIcons {
 
   static const AssetImage detailsLayout = AssetImage('$iconsFilePath/icon_detail.png');
 
+  static SvgPicture greenPhone = SvgPicture.asset('$iconsFilePath/green_phone.svg');
+
+  static const AssetImage exclamationPoint = AssetImage('$iconsFilePath/exclamation_point.png');
+
   AppIcons._();
 }

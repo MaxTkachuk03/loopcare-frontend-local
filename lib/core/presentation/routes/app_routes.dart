@@ -114,7 +114,9 @@ class AppRoutes {
   static const String reflectionNutritionDetails = '/reflection-nutrition-details';
 
   // Video session
-  static const String videoSession = '/video-session';
+  static const String sessionWaitingRoom = '/session-waiting-room';
+  static const String sessionCall = '/session-call';
+  static const String sessionRules = '/session-rules';
 
   // group preferences
   static const String groupPreferences = '/group-preferences';

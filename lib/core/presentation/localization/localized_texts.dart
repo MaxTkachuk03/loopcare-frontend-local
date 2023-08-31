@@ -445,7 +445,7 @@ class LocalizedTexts {
   static const String backToTodayNotLogged = 'backToTodayNotLogged';
   static const String notReally = 'notReally';
   static const String yesYes = 'yesYes';
-  static const String exercise = 'exercise';
+  static const String exerciseLength = 'exerciseLength';
   static const String exercises = 'exercises';
   static const String programNote = 'programNote';
   static const String physicalProgramAlreadyLogged = 'physicalProgramAlreadyLogged';
@@ -466,6 +466,7 @@ class LocalizedTexts {
   static const String requireLoginEachTime = 'requireLoginEachTime';
   static const String food = 'food';
   static const String groupSessions = 'groupSessions';
+  static const String groupSession = 'groupSession';
   static const String signOut = 'signOut';
   static const String foodPreferences = 'foodPreferences';
   static const String dislikeFoodMessage = 'dislikeFoodMessage';
@@ -530,12 +531,28 @@ class LocalizedTexts {
   static const String lookingAtEatingBehavior = 'lookingAtEatingBehavior';
   static const String bookYourSeatNow = 'bookYourSeatNow';
   static const String comingUpThisWeek = 'comingUpThisWeek';
+  static const String comingUpNextWeek = 'comingUpNextWeek';
+  static const String happeningNow = 'happeningNow';
   static const String yourSupportSystem = 'yourSupportSystem';
   static const String supportGroupIntroDesc = 'supportGroupIntroDesc';
   static const String yesILikeToJoin = 'yesILikeToJoin';
   static const String joinLater = 'joinLater';
   static const String theSupportGroup = 'theSupportGroup';
   static const String introduction = 'introduction';
+  static const String noOtherTimeslotsAvailable = 'noOtherTimeslotsAvailable';
+  static const String noGroupThisWeek = 'noGroupThisWeek';
+  static const String booked = 'booked';
+  static const String from = 'from';
+  static const String to = 'to';
+  static const String prepareForSession = 'prepareForSession';
+  static const String prepareTakes = 'prepareTakes';
+  static const String timeslotCancelled = 'timeslotCancelled';
+  static const String timeslotMissed = 'timeslotMissed';
+  static const String chooseAnotherTimeslot = 'chooseAnotherTimeslot';
+  static const String noTimeslotsOnthisWeek = 'noTimeslotsOnthisWeek';
+  static const String noMinMemberCount = 'noMinMemberCount';
+  static const String bookedForYou = 'bookedForYou';
+  static const String cancelBooking = 'cancelBooking';
 
   // Group rules
   static const String groupRulesOneTitle = "groupRulesOneTitle";
@@ -570,11 +587,94 @@ class LocalizedTexts {
   static const String groupRulesSixParagraphThree = "groupRulesSixParagraphThree";
   static const String groupRulesSixParagraphFour = "groupRulesSixParagraphFour";
 
+  // Session waiting room
+  static const String sessionGreeting = "sessionGreeting";
+  static const String goodToKnow = "goodToKnow";
+  static const String warningOne = "warningOne";
+  static const String warningTwo = "warningTwo";
+  static const String hi = "hi";
+  static const String sessionWillStartIn = "sessionWillStartIn";
+  static const String sessionStartedMessage = "sessionStartedMessage";
+  static const String enterSession = "enterSession";
+
+  // Zoom call
+  static const String reportIssue = "reportIssue";
+  static const String discussion = "discussion";
+  static const String left = "left";
+  static const String error = "error";
+  static const String sessionIsInProgress = "sessionIsInProgress";
+  static const String failedToJoinSession = "failedToJoinSession";
+  static const String disconnectedFromSession = "disconnectedFromSession";
+  static const String toggleSpeakerError = "toggleSpeakerError";
+  static const String mute = "mute";
+  static const String stopVideo = "stopVideo";
+  static const String settings = "settings";
+  static const String signatureErrorMessage = "signatureErrorMessage";
+  static const String sessionLeaveDialogText = "sessionLeaveDialogText";
+  static const String leaveSession = "leaveSession";
+  static const String stayInTheSession = "stayInTheSession";
+  static const String sessionStartsMoreThanFifteenMinutesAgo = "sessionStartsMoreThanFifteenMinutesAgo";
+
   // Mental Health
   static const String yourMentalHealth = "yourMentalHealth";
+  static const String mentalHealthMoreInfo = "mentalHealthMoreInfo";
   static const String mentalHealthIntroTextOne = "mentalHealthIntroTextOne";
   static const String mentalHealthIntroTextTwo = "mentalHealthIntroTextTwo";
   static const String mentalHealthIntroTextThree = "mentalHealthIntroTextThree";
+  static const String who5ResultTestMinimal = "who5ResultTestMinimal";
+  static const String who5ResultTestHigh = "who5ResultTestHigh";
+  static const String phq15ResultMinimal = "phq15ResultMinimal";
+  static const String phq15ResultMild = "phq15ResultMild";
+  static const String phq15ResultMedium = "phq15ResultMedium";
+  static const String phq15ResultHigh = "phq15ResultHigh";
+  static const String gad7ResultMinimal = "gad7ResultMinimal";
+  static const String gad7ResultMild = "gad7ResultMild";
+  static const String gad7ResultMedium = "gad7ResultMedium";
+  static const String gad7ResultHigh = "gad7ResultHigh";
+  static const String ifYouHaveSuicidalThoughts = "ifYouHaveSuicidalThoughts";
+  static const String phq8ResultMinimal = "phq8ResultMinimal";
+  static const String phq8ResultMild = "phq8ResultMild";
+  static const String phq8ResultMedium = "phq8ResultMedium";
+  static const String phq8ResultHigh = "phq8ResultHigh";
+  static const String phq8ResultHighest = "phq8ResultHighest";
+  static const String generalWellBeingConclusions = "generalWellBeingConclusions";
+  static const String partialConclusion = "partialConclusion";
+  static const String checkCompleted = "checkCompleted";
+  static const String weWouldLikeToSupportYou = "weWouldLikeToSupportYou";
+  static const String feelLimitedByMentalOrPhysicalSymptoms = "feelLimitedByMentalOrPhysicalSymptoms";
+  static const String feelLimitedByAnxietyOrPhysicalSymptoms = "feelLimitedByAnxietyOrPhysicalSymptoms";
+  static const String feelLimitedByPhysicalSymptoms = "feelLimitedByPhysicalSymptoms";
+  static const String feelLimitedByAnxietySymptoms = "feelLimitedByAnxietySymptoms";
+  static const String youHaveBurdenInSeveralFields = "youHaveBurdenInSeveralFields";
+  static const String youAreWelcomeToRepeatTests = "youAreWelcomeToRepeatTests";
+  static const String weAreNotOverloadYou = "weAreNotOverloadYou";
+  static const String pleaseAppreciateThat = "pleaseAppreciateThat";
+  static const String weTailorTheProgramToYouPersonally = "weTailorTheProgramToYouPersonally";
+  static const String theFollowingAreasAreUnlocked = "theFollowingAreasAreUnlocked";
+  static const String weWillGuideYou = "weWillGuideYou";
+  static const String findBuddyAndGetIntoSupportGroup = "findBuddyAndGetIntoSupportGroup";
+  static const String exercise = "exercise";
+  static const String youExceededTimeMessage = "youExceededTimeMessage";
+  static const String noWorriesYouCanDoItLater = "noWorriesYouCanDoItLater";
+  static const String startAgain = "startAgain";
+  static const String who8Question = "who8Question";
+  static const String lastTwoWeeks = "lastTwoWeeks";
+  static const String duringThe = "duringThe";
+  static const String pastFourWeeks = "pastFourWeeks";
+  static const String phq15Question = "phq15Question";
+  static const String gad7Question = "gad7Question";
+  static const String overThe = "overThe";
+  static const String phq8Question = "phq8Question";
+
+  // Book a seat
+  static const String pickADateAndTime = "pickADateAndTime";
+  static const String fromTo = "fromTo";
+  static const String fromToLower = "fromToLower";
+  static const String numberOfAvailableSeats = "numberOfAvailableSeats";
+  static const String passedSession = "passedSession";
+  static const String noMoreSeatAvailable = "noMoreSeatAvailable";
+  static const String sessionWarning_1 = "sessionWarning_1";
+  static const String sessionWarning_2 = "sessionWarning_2";
 }
 
 extension StringX on String {
