@@ -1181,7 +1181,6 @@ class ModalBottomSheet {
     );
   }
 
-<<<<<<< HEAD
   static void emergencyNumbers({
     required BuildContext context,
     required void Function() onBtnPress,
@@ -1228,7 +1227,13 @@ class ModalBottomSheet {
                 onPressed: onBtnPress,
                 child: Text(LocalizedTexts.getStarted.translation),
               ),
-=======
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   static void leaveSessionCall({
     required BuildContext context,
     required void Function() onLeavePressed,
@@ -1267,7 +1272,6 @@ class ModalBottomSheet {
                 onPressed: onStayPressed,
                 child: const Text(LocalizedTexts.stayInTheSession).tr(),
               )
->>>>>>> feature/LOOPCARE-1252
             ],
           ),
         );
