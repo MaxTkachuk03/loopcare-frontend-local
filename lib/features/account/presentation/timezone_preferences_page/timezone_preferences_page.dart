@@ -91,18 +91,18 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GroupLessonWrap(
-      child: GroupPrefsPageWrap(
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const GroupPrefsProgress(),
-              const SizedBox(height: 28.0),
-              BlocListener<GroupPreferencesBloc, GroupPreferencesState>(
-                listenWhen: (prev, cur) => context.router.current.name == TimezonePreferencesRoute.name,
-                listener: _onChangeListener,
-                child: MainContainer(
+    return BlocListener<GroupPreferencesBloc, GroupPreferencesState>(
+      listenWhen: (prev, cur) => context.router.current.name == TimezonePreferencesRoute.name,
+      listener: _onChangeListener,
+      child: GroupLessonWrap(
+        child: GroupPrefsPageWrap(
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const GroupPrefsProgress(),
+                const SizedBox(height: 28.0),
+                MainContainer(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -124,46 +124,46 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
                     ],
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 28.0,
-              ),
-              Expanded(
-                child: ScrollablePositionedList.separated(
-                  itemScrollController: _itemScrollController,
-                  itemCount: locations.length,
-                  itemBuilder: (BuildContext context, index) {
-                    final item = locations[index];
+                const SizedBox(
+                  height: 28.0,
+                ),
+                Expanded(
+                  child: ScrollablePositionedList.separated(
+                    itemScrollController: _itemScrollController,
+                    itemCount: locations.length,
+                    itemBuilder: (BuildContext context, index) {
+                      final item = locations[index];
 
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                      child: AppChoiceChip(
-                        label: item,
-                        selected: _selectedLocation == item,
-                        value: item,
-                        onSelected: onSelected,
-                        textAlign: TextAlign.left,
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        child: AppChoiceChip(
+                          label: item,
+                          selected: _selectedLocation == item,
+                          value: item,
+                          onSelected: onSelected,
+                          textAlign: TextAlign.left,
+                        ),
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const SizedBox(height: 8.0);
+                    },
+                  ),
+                ),
+                MainContainer(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 24.0),
+                      OrangeButton(
+                        onPressedHandler: _selectedLocation == null ? null : _onNextPressedHandler,
+                        child: const Text(LocalizedTexts.next).tr(),
                       ),
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(height: 8.0);
-                  },
+                      const SizedBox(height: 30.0),
+                    ],
+                  ),
                 ),
-              ),
-              MainContainer(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 24.0),
-                    OrangeButton(
-                      onPressedHandler: _selectedLocation == null ? null : _onNextPressedHandler,
-                      child: const Text(LocalizedTexts.next).tr(),
-                    ),
-                    const SizedBox(height: 30.0),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

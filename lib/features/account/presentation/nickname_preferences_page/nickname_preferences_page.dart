@@ -70,12 +70,12 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GroupLessonWrap(
-      child: GroupPrefsPageWrap(
-        child: SafeArea(
-          child: BlocListener<GroupPreferencesBloc, GroupPreferencesState>(
-            listenWhen: (prev, cur) => context.router.current.name == NicknamePreferencesRoute.name,
-            listener: _onChangeListener,
+    return BlocListener<GroupPreferencesBloc, GroupPreferencesState>(
+      listenWhen: (prev, cur) => context.router.current.name == NicknamePreferencesRoute.name,
+      listener: _onChangeListener,
+      child: GroupLessonWrap(
+        child: GroupPrefsPageWrap(
+          child: SafeArea(
             child: MainContainer(
               child: ScrollableContainer(
                 child: Column(
