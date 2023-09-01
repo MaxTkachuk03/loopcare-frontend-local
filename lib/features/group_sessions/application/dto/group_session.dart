@@ -24,6 +24,7 @@ class GroupSession with _$GroupSession {
 
   bool get isSessionAlreadyStarted => startDate.isBefore(DateTime.now());
 
+  // TODO move to constants
   bool get isStartedLessThanFifteenMinutesAgo =>
       DateTime.now().difference(startDate.toLocal()).inMinutes < 15;
 

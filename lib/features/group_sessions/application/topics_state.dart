@@ -30,6 +30,7 @@ class TopicsData with _$TopicsData {
 
   String get topicName => topics[DateTime.now().weekNumber]?.topic ?? '';
 
+  // TODO have same getter signedGroupSession
   GroupSession? get _signedGroupSessions {
     return topics[DateTime.now().weekNumber]
         ?.groupSessions
@@ -57,6 +58,7 @@ class TopicsData with _$TopicsData {
     return _signedGroupSessions?.status == GroupSessionStatus.cancelled;
   }
 
+  // TODO can be simplified, calculations can be moved to the GroupSession model
   bool get signedGroupSessionsMightBeCancelled {
     if (isSigned) {
       if (DateTime.now()
@@ -86,6 +88,7 @@ class TopicsData with _$TopicsData {
 
   bool get isCanJoin => timeLeftToSessionStart < const Duration(minutes: 10);
 
+  // TODO move to the GroupSession model
   bool get timeSlotsAvailable {
     var freeSlots = 0;
     topics[DateTime.now().weekNumber]?.groupSessions.forEach((element) {
@@ -111,8 +114,8 @@ class TopicsData with _$TopicsData {
 
   List<GroupSessionProgramEvent> get thisWeekTopicsEvents => thisWeekTopic?.groupSessionProgramEvents ?? [];
 
+  // TODO move to the GroupSession model
   Duration get timePassedSinceSessionStart {
-    // TODO uncomment in release code
     final startTime = signedGroupSessionStartTime;
 
     if (startTime == null) return Duration.zero;
@@ -120,6 +123,7 @@ class TopicsData with _$TopicsData {
     return DateTime.now().difference(startTime);
   }
 
+  // TODO move to the GroupSession model
   Duration get timeLeftToSessionStart {
     final startTime = signedGroupSessionStartTime;
 
@@ -128,6 +132,7 @@ class TopicsData with _$TopicsData {
     return startTime.difference(DateTime.now());
   }
 
+  // TODO move to enum
   List<GroupSessionProgramEvent> get textEvents {
     final events = thisWeekTopicsEvents;
 
@@ -136,6 +141,7 @@ class TopicsData with _$TopicsData {
     return events.where((event) => event.event == 'TEXT').toList();
   }
 
+  // TODO move to enum
   List<GroupSessionProgramEvent> get videoEvents {
     final events = thisWeekTopicsEvents;
 

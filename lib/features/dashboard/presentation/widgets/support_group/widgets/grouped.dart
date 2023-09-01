@@ -18,6 +18,7 @@ class Grouped extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TopicsBloc, TopicsState>(
       builder: (context, state) {
+        // TODO move to TopicsState
         var isHappeningNow = false;
         if (state.data.isSigned) {
           var sessionStartDate = state.data.signedGroupSessionStartTime;
