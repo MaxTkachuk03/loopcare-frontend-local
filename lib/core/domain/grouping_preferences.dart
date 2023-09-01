@@ -10,9 +10,9 @@ abstract class GroupingPreferences implements _$GroupingPreferences {
   const GroupingPreferences._();
 
   const factory GroupingPreferences({
-    required String nickname,
-    required GenderPreferences genderPreference,
-    required String timezone,
+    required String? nickname,
+    required GenderPreferences? genderPreference,
+    required String? timezone,
   }) = _GroupingPreferences;
 
   factory GroupingPreferences.fromJson(Map<String, dynamic> json) => _$GroupingPreferencesFromJson(json);
