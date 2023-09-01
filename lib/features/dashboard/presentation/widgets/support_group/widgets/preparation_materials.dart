@@ -20,6 +20,7 @@ class PreparationMaterials extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('12345');
     return InkWell(
       onTap: () => _onMoreInfoPressed(context),
       child: Container(

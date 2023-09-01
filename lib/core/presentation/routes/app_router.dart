@@ -34,6 +34,7 @@ import 'package:loopcare_frontend/features/education/presentation/lesson_complet
 import 'package:loopcare_frontend/features/education/presentation/lesson_error_page/lesson_error_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_page/lesson_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/support_group_intro/support_group_intro_page.dart';
+import 'package:loopcare_frontend/features/group_sessions/presentation/preparation_materials_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/cooking/cooking_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/healthier_food/healthier_food_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/household_and_habits_intro/household_and_habits_intro_page.dart';
@@ -541,6 +542,10 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.sessionRules,
       page: SessionRulesPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.preparationMaterials,
+      page: PreparationMaterialsPage,
     ),
   ],
 )
