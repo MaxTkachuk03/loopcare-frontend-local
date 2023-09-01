@@ -76,12 +76,12 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GroupLessonWrap(
-      child: GroupPrefsPageWrap(
-        child: SafeArea(
-          child: BlocListener<GroupPreferencesBloc, GroupPreferencesState>(
-            listenWhen: (prev, cur) => context.router.current.name == GenderPreferencesRoute.name,
-            listener: _onChangeListener,
+    return BlocListener<GroupPreferencesBloc, GroupPreferencesState>(
+      listenWhen: (prev, cur) => context.router.current.name == GenderPreferencesRoute.name,
+      listener: _onChangeListener,
+      child: GroupLessonWrap(
+        child: GroupPrefsPageWrap(
+          child: SafeArea(
             child: MainContainer(
               child: ScrollableContainer(
                 child: Column(
