@@ -478,6 +478,9 @@ class LocalizedTexts {
   static const String maleOnly = 'maleOnly';
   static const String mixed = 'mixed';
 
+  // Emergency Numbers
+  static const String emergencySubtitle = 'emergencySubtitle';
+
   // Video
   static const String rotateDevice = 'rotateDevice';
   static const String skipExplanation = 'skipExplanation';

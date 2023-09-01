@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_numbers.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/html_renderer/html_renderer.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
@@ -13,6 +14,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/oval_bottom_border_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/account/presentation/emergency_numbers/emergency_number_card.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/presentation/widgets/booked_session_modal_content.dart';
@@ -1078,6 +1080,73 @@ class ModalBottomSheet {
               ),
             );
           },
+        );
+      },
+    );
+  }
+
+  static void emergencyNumbers({
+    required BuildContext context,
+    required void Function() onBtnPress,
+  }) {
+    showModalBottomSheet<void>(
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24.0),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return FractionallySizedBox(
+          heightFactor: 0.93,
+          child: SafeArea(
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 32.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 6.0),
+                      child: IconButton(
+                        padding: const EdgeInsets.all(0.0),
+                        onPressed: () => context.router.pop(),
+                        icon: const Icon(Icons.close, size: 16.0),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    LocalizedTexts.inCaseOfEmergency.tr(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall
+                        ?.copyWith(fontFamily: ThemeConstants.bitterFontFamily),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(LocalizedTexts.emergencySubtitle.tr(), style: Theme.of(context).textTheme.bodySmall),
+                  const SizedBox(height: 12),
+                  Expanded(
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      itemCount: emergencyNumbersList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return EmergencyNumberCard(
+                          number: emergencyNumbersList[index],
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const Divider(
+                          thickness: 2.0,
+                          height: 2.0,
+                          color: AppColors.bgGreen,
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         );
       },
     );
