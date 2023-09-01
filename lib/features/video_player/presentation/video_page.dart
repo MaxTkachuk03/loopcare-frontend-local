@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/aws_cookies_type.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -133,7 +134,7 @@ class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
   void initState() {
     _allowLandscapeOrientation();
 
-    context.read<VideoPlayerBloc>().add(const VideoPlayerEvent.getAwsCookies());
+    context.read<VideoPlayerBloc>().add(const VideoPlayerEvent.getAwsCookies(AwsCookiesType.MAIN));
 
     WidgetsBinding.instance.addObserver(this);
 

@@ -170,7 +170,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                         duration: duration,
                         onDurationChange: onDurationChange,
                         onComplete: onVideoEnds,
-                        isPortraiteOrientation: _isPortraitOrientation,
+                        isPortraitOrientation: _isPortraitOrientation,
                       ),
                     ],
                   ),

@@ -77,14 +77,6 @@ class SupportGroup extends StatelessWidget {
             ),
             const SizedBox(height: 8.0),
             const Divider(color: AppColors.yellowLight),
-            ElevatedButton(
-                onPressed: () {
-                  context.router.pushNamed(AppRoutes.sessionWaitingRoom);
-                },
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12),
-                  child: Text('call'),
-                )),
             BlocBuilder<AuthenticationCubit, AuthenticationState>(
               builder: (context, state) {
                 switch (state.groupingState) {

@@ -12,9 +12,14 @@ class GroupSessionProgramEvent with _$GroupSessionProgramEvent {
     required int id,
     required String event,
     required int timestamp,
+    required int? duration,
     required String? text,
     required String? videoPath,
   }) = _GroupSessionProgramEvent;
+
+  int get eventEndTime => timestamp + (duration ?? 0);
+
+  int get eventStartTime => timestamp;
 
   factory GroupSessionProgramEvent.fromJson(Map<String, dynamic> json) =>
       _$GroupSessionProgramEventFromJson(json);

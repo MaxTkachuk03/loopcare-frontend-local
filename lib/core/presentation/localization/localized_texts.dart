@@ -536,6 +536,7 @@ class LocalizedTexts {
   static const String comingUpThisWeek = 'comingUpThisWeek';
   static const String comingUpNextWeek = 'comingUpNextWeek';
   static const String happeningNow = 'happeningNow';
+  static const String joinSession = 'joinSession';
   static const String yourSupportSystem = 'yourSupportSystem';
   static const String supportGroupIntroDesc = 'supportGroupIntroDesc';
   static const String yesILikeToJoin = 'yesILikeToJoin';
@@ -545,6 +546,8 @@ class LocalizedTexts {
   static const String noOtherTimeslotsAvailable = 'noOtherTimeslotsAvailable';
   static const String noGroupThisWeek = 'noGroupThisWeek';
   static const String booked = 'booked';
+  static const String bookedFromTo = 'bookedFromTo';
+  static const String dayFromTo = 'dayFromTo';
   static const String from = 'from';
   static const String to = 'to';
   static const String prepareForSession = 'prepareForSession';

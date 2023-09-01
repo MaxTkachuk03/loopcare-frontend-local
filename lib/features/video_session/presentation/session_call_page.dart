@@ -20,7 +20,6 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
-// import 'package:loopcare_frontend/features/video_session/presentation/jwt.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/call_controls.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/error_dialog.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/prompts_container.dart';
@@ -80,10 +79,8 @@ class _SessionCallPageState extends State<SessionCallPage> {
     Future<void>.microtask(() async {
       final String sessionName = context.read<TopicsBloc>().state.data.thisWeekTopicName;
       final String? sessionPassword = context.read<TopicsBloc>().state.data.signedGroupSessionPassword;
-      // TODO get token from back end side
       final String token = context.read<TopicsBloc>().state.data.signedSessionSignature;
 
-      // final String token = generateJwt(sessionName, ZoomConfig.defaultSessionRole);
       final String userName = context.read<AuthenticationCubit>().state.nickname ??
           context.read<AuthenticationCubit>().state.name;
 
@@ -230,7 +227,6 @@ class _SessionCallPageState extends State<SessionCallPage> {
     _cloudRecordingStatusListener = emitter.on(EventType.onCloudRecordingStatus, (Map data) async {
       // TODO not implemented by zoom team
       print('_cloudRecordingStatusListener - ${data['status']}');
-      await zoom.acceptRecordingConsent();
     });
 
     _networkStatusChangeListener = emitter.on(EventType.onUserVideoNetworkStatusChanged, (Map data) async {
@@ -238,10 +234,10 @@ class _SessionCallPageState extends State<SessionCallPage> {
 
       print('_networkStatusChangeListener $networkUser ${data['status']}');
 
-      if (data['status'] == NetworkStatus.Bad) {
-        debugPrint(
-            "onUserVideoNetworkStatusChanged: status: ${data['status']}, user: ${networkUser.userName}");
-      }
+      // TODO handle network status change
+      // if (data['status'] == NetworkStatus.Bad) {
+      //
+      // }
     });
 
     _requireSystemPermission = emitter.on(EventType.onRequireSystemPermission, (Map data) async {
@@ -439,11 +435,28 @@ class _SessionCallPageState extends State<SessionCallPage> {
 
   bool get userJoinedToSession => isInSession && users.isNotEmpty;
 
-  void _onVideoPlayingHandler(bool isVideoPlaying) {
-    print('isVideoPlaying = $isVideoPlaying');
+  void _onVideoPlayingHandler(bool isVideoPlaying) async {
+    isVideoPlaying ? muteAllParticipants() : unMuteAllParticipants();
+
     setState(() {
       _isVideoPlaying = isVideoPlaying;
     });
+  }
+
+  void muteAllParticipants() async {
+    if (users.isEmpty) return;
+
+    for (var user in users) {
+      await zoom.audioHelper.muteAudio(user.userId);
+    }
+  }
+
+  void unMuteAllParticipants() async {
+    if (users.isEmpty) return;
+
+    for (var user in users) {
+      await zoom.audioHelper.unMuteAudio(user.userId);
+    }
   }
 
   @override

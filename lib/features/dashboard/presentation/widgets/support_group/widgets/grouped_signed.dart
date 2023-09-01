@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_adjacent_string_concatenation, prefer_interpolation_to_compose_strings
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
@@ -7,6 +5,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped_join_session.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped_signed_cancelled_booking.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped_signed_might_cancelled.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/preparation_materials.dart';
@@ -25,6 +24,7 @@ class GroupedSigned extends StatelessWidget {
   final bool timeSlotsAvailable;
   final bool sessionMightBeCancelled;
   final bool isHappeningNow;
+  final bool isCanJoin;
 
   const GroupedSigned({
     Key? key,
@@ -39,6 +39,7 @@ class GroupedSigned extends StatelessWidget {
     required this.timeSlotsAvailable,
     required this.sessionMightBeCancelled,
     required this.isHappeningNow,
+    required this.isCanJoin,
   }) : super(key: key);
 
   @override
@@ -79,17 +80,25 @@ class GroupedSigned extends StatelessWidget {
                 children: [
                   if (isHappeningNow && !isCancelledOrMissed)
                     Text(
-                      '${startDate.weekdayString} ' +
-                          '${LocalizedTexts.from.translation} ${startDate.timeHoursMinutes24} ' +
-                          '${LocalizedTexts.to.translation} ${endDate.timeHoursMinutes24}.',
-                      style: Theme.of(context).textTheme.bodySmall,
+                      LocalizedTexts.dayFromTo,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.greyLabel),
+                    ).tr(
+                      namedArgs: {
+                        'day': startDate.weekdayString,
+                        'startTime': startDate.timeHoursMinutes24,
+                        'endTime': endDate.timeHoursMinutes24,
+                      },
                     ),
                   if (!isHappeningNow)
                     Text(
-                      '${LocalizedTexts.booked.translation} ${startDate.weekdayString} ' +
-                          '${LocalizedTexts.from.translation} ${startDate.timeHoursMinutes24} ' +
-                          '${LocalizedTexts.to.translation} ${endDate.timeHoursMinutes24}.',
+                      LocalizedTexts.bookedFromTo,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.greyLabel),
+                    ).tr(
+                      namedArgs: {
+                        'day': startDate.weekdayString,
+                        'startTime': startDate.timeHoursMinutes24,
+                        'endTime': endDate.timeHoursMinutes24,
+                      },
                     ),
                   if (isCancelledOrMissed)
                     Row(
@@ -120,6 +129,7 @@ class GroupedSigned extends StatelessWidget {
         const SizedBox(height: 8.0),
         if (isCancelledOrMissed) GroupedSignedCancelledBooking(isTimeslotsAvailable: timeSlotsAvailable),
         if (preparationMaterialsAvailable) const PreparationMaterials(),
+        if (isCanJoin && !isCancelledOrMissed) const GroupedJoinSession(),
         if (!isCancelled && sessionMightBeCancelled)
           GroupedSignedMightBeCancelled(number: signedGroupSessions.minMemberCount),
       ],

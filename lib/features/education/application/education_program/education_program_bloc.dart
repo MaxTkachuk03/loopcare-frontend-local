@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -87,8 +88,9 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
     final startDate = lessons.firstWhereOrNull((element) => element.step == lastStartedStep)?.completedAt;
 
     final endDate = DateTime.now();
-    const oneDayInSeconds = 86400;
-    final currentDifference = oneDayInSeconds - endDate.difference(startDate ?? DateTime.now()).inSeconds;
+    final timeBeforeNextStepUnblock = int.parse(dotenv.env['EDUCATION_STEP_UNBLOCK_DELAY']!);
+    final currentDifference =
+        timeBeforeNextStepUnblock - endDate.difference(startDate ?? DateTime.now()).inSeconds;
 
     if (currentDifference <= 0) return null;
 

@@ -494,9 +494,12 @@
   "comingUpThisWeek": "Coming up this week",
   "comingUpNextWeek": "Coming up next week",
   "happeningNow": "Happening Now",
+  "joinSession": "Join session",
   "booked": "Booked:",
   "from": "from",
   "to": "to",
+  "bookedFromTo": "Booked {day} from {startTime} to {endTime}",
+  "dayFromTo": "{day} from {startTime} to {endTime}",
   "prepareForSession": "Prepare for this session",
   "prepareTakes": "Takes {times}",
   "timeslotCancelled": "Sorry, this timeslot is canceled",
@@ -601,5 +604,5 @@
   "cancelBooking": "Cancel booking",
   "sessionWarning_1": "If less than 4 seats will be booked the session will be canceled ",
   "sessionWarning_2": "If you cant make it please be sure to cancel your booking",
-  "emergencySubtitle": "This program is not psychotherapy and cannot replace psychotherapy. \n\nIf you have an acute mental health crisis or feel you need psychological support or are having suicidal thoughts, please seek medical or psychological help immediately.\n\nIn an emergency, you can also contact the following numbers, which you can reach 24h/day toll-free:"
+  "emergencySubtitle": "This program is not psychotherapy and cannot replace psychotherapy. \n\nIf you have an acute mental health crisis or feel you need psychological support or are having suicidal thoughts, please seek medical or psychological help immediately.\n\nIn an emergency, you can also contact the following numbers, which you can reach 24h/day toll-free:",
 }
