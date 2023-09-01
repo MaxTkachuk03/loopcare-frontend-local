@@ -1,6 +1,4 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
@@ -24,95 +22,71 @@ class BookedSessionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<TopicsBloc, TopicsState>(
-          listenWhen: (prev, cur) => prev is TopicsStateLoading && cur is TopicsStateError,
-          listener: _signOutFailureListener,
-        ),
-        BlocListener<TopicsBloc, TopicsState>(
-          listenWhen: (prev, cur) =>
-              prev is TopicsStateLoading && cur is TopicsStateUpdated && cur.data.error == null,
-          listener: _signOutSuccessfullyListener,
-        ),
-      ],
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        decoration: const BoxDecoration(
-          color: AppColors.bgGreen,
-          borderRadius: BorderRadius.all(Radius.circular(3)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const SizedBox(
-                  width: 42,
-                  height: 42.0,
-                  child: ImageIcon(
-                    AppIcons.checkmark,
-                    color: AppColors.blueMid,
-                    size: 24.0,
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      decoration: const BoxDecoration(
+        color: AppColors.bgGreen,
+        borderRadius: BorderRadius.all(Radius.circular(3)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const SizedBox(
+                width: 42,
+                height: 42.0,
+                child: ImageIcon(
+                  AppIcons.checkmark,
+                  color: AppColors.blueMid,
+                  size: 24.0,
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${groupSession.startDate.toLocal().weekdayString} ${groupSession.startDate.toLocal().fullDateWithHyphen}',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.darkGreen),
                   ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '${groupSession.startDate.toLocal().weekdayString} ${groupSession.startDate.toLocal().fullDateWithHyphen}',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.darkGreen),
-                    ),
-                    Text(
-                      LocalizedTexts.fromToLower,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.darkGreen),
-                    ).tr(
-                      namedArgs: {
-                        'startTime': groupSession.startDate.toLocal().timeHoursMinutes24,
-                        'endTime': groupSession.startDate
-                            .toLocal()
-                            .add(Duration(seconds: duration))
-                            .timeHoursMinutes24,
-                      },
-                    ),
-                    Text(
-                      LocalizedTexts.numberOfAvailableSeats.translateWithNamedArgs({
-                        'number': '${groupSession.memberCount}',
-                        'totalNumber': '${groupSession.maxMemberCount}',
-                      }),
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.darkGreen),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 16.0),
-            const PreparationMaterials(),
-            const SizedBox(height: 16.0),
-            OutlinedRoundedButton(
-              text: LocalizedTexts.cancelBooking.translation,
-              borderColor: AppColors.greyMid,
-              isRegularText: true,
-              onPressed: () => _onCancelPressed(context),
-            ),
-          ],
-        ),
+                  Text(
+                    LocalizedTexts.fromToLower,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.darkGreen),
+                  ).tr(
+                    namedArgs: {
+                      'startTime': groupSession.startDate.toLocal().timeHoursMinutes24,
+                      'endTime': groupSession.startDate
+                          .toLocal()
+                          .add(Duration(seconds: duration))
+                          .timeHoursMinutes24,
+                    },
+                  ),
+                  Text(
+                    LocalizedTexts.numberOfAvailableSeats.translateWithNamedArgs({
+                      'number': '${groupSession.memberCount}',
+                      'totalNumber': '${groupSession.maxMemberCount}',
+                    }),
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.darkGreen),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 16.0),
+          const PreparationMaterials(),
+          const SizedBox(height: 16.0),
+          OutlinedRoundedButton(
+            text: LocalizedTexts.cancelBooking.translation,
+            borderColor: AppColors.greyMid,
+            isRegularText: true,
+            onPressed: () => _onCancelPressed(context),
+          ),
+        ],
       ),
     );
   }
 
   _onCancelPressed(BuildContext context) {
     context.read<TopicsBloc>().add(TopicsEvent.signOutFromSession(groupSession.id));
-  }
-
-  void _signOutSuccessfullyListener(BuildContext context, TopicsState state) {
-    context.router.pop();
-  }
-
-  void _signOutFailureListener(BuildContext context, TopicsState state) {
-    context.showErrorBar(
-      content: Text(LocalizedTexts.somethingWentWrong.translation),
-      position: FlashPosition.top,
-    );
   }
 }

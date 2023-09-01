@@ -49,6 +49,6 @@ class GroupedSignedCancelledBooking extends StatelessWidget {
   }
 
   _onBookSeatPressed(BuildContext context) {
-    ModalBottomSheet.timeslotsDialog(context: context);
+    ModalBottomSheet.sessionsDialog(context: context);
   }
 }

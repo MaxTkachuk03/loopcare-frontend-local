@@ -127,6 +127,6 @@ class GroupedSigned extends StatelessWidget {
   }
 
   _onMoreInfoPressed(BuildContext context) {
-    ModalBottomSheet.sessionMoreInfoDialog(context: context);
+    ModalBottomSheet.sessionsDialog(context: context);
   }
 }
