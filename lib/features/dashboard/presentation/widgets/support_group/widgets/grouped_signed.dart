@@ -2,12 +2,14 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped_signed_cancelled_booking.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped_signed_might_cancelled.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/preparation_materials.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session.dart';
 
 class GroupedSigned extends StatelessWidget {
@@ -44,17 +46,20 @@ class GroupedSigned extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flexible(
-              child: Text(topicName,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      )).tr(),
-            ),
-            const ImageIcon(AppIcons.arrow, color: AppColors.greyLabel),
-          ],
+        InkWell(
+          onTap: () => _onMoreInfoPressed(context),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Text(topicName,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        )),
+              ),
+              const ImageIcon(AppIcons.arrow, color: AppColors.greyLabel),
+            ],
+          ),
         ),
         const SizedBox(height: 8.0),
         IntrinsicHeight(
@@ -114,51 +119,14 @@ class GroupedSigned extends StatelessWidget {
         ),
         const SizedBox(height: 8.0),
         if (isCancelledOrMissed) GroupedSignedCancelledBooking(isTimeslotsAvailable: timeSlotsAvailable),
-        if (preparationMaterialsAvailable)
-          InkWell(
-            onTap: () => _onMoreInfoPressed(context),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(
-                  width: 1,
-                  color: AppColors.yellowLight,
-                  style: BorderStyle.solid,
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Icon(Icons.menu_book),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        LocalizedTexts.prepareForSession.tr(),
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
-                      ).tr(),
-                      Text(
-                        LocalizedTexts.prepareTakes.tr(
-                          namedArgs: {'times': '10 min'},
-                        ),
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ],
-                  ),
-                  const ImageIcon(
-                    AppIcons.arrow,
-                    color: AppColors.greyLabel,
-                  ),
-                ],
-              ),
-            ),
-          ),
+        if (preparationMaterialsAvailable) const PreparationMaterials(),
         if (!isCancelled && sessionMightBeCancelled)
           GroupedSignedMightBeCancelled(number: signedGroupSessions.minMemberCount),
       ],
     );
   }
 
-  _onMoreInfoPressed(BuildContext context) {}
+  _onMoreInfoPressed(BuildContext context) {
+    ModalBottomSheet.sessionsDialog(context: context);
+  }
 }

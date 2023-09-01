@@ -8,6 +8,8 @@ class OutlinedRoundedButton extends StatelessWidget {
   final double? radius;
   final double? textPadding;
   final BorderRadius? borderRadius;
+  final Color? borderColor;
+  final bool isRegularText;
 
   const OutlinedRoundedButton({
     Key? key,
@@ -17,6 +19,8 @@ class OutlinedRoundedButton extends StatelessWidget {
     this.radius,
     this.textPadding,
     this.borderRadius,
+    this.borderColor,
+    this.isRegularText = false,
   }) : super(key: key);
 
   @override
@@ -33,9 +37,9 @@ class OutlinedRoundedButton extends StatelessWidget {
                   Radius.circular(5.0),
                 ),
           ),
-          textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
+          textStyle: isRegularText
+              ? Theme.of(context).textTheme.bodySmall
+              : Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
         ),
         onPressed: onPressed,
         icon: ImageIcon(icon),
@@ -49,12 +53,12 @@ class OutlinedRoundedButton extends StatelessWidget {
           Radius.circular(radius ?? 5.0),
         ),
       ),
-      side: const BorderSide(width: 1.0, color: AppColors.darkGreen),
+      side: BorderSide(width: 1.0, color: borderColor ?? AppColors.darkGreen),
       minimumSize: const Size(0, 38.0),
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0.0),
-      textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
+      textStyle: isRegularText
+          ? Theme.of(context).textTheme.bodySmall
+          : Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
     );
 
     if (icon == null) {

@@ -14,6 +14,9 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/oval_bottom_border_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
+import 'package:loopcare_frontend/features/group_sessions/presentation/widgets/booked_session_modal_content.dart';
+import 'package:loopcare_frontend/features/group_sessions/presentation/widgets/not_booked_sessions_modal_content.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
@@ -564,6 +567,61 @@ class ModalBottomSheet {
               ],
             ),
           ),
+        );
+      },
+    );
+  }
+
+  static void sessionsDialog({
+    required BuildContext context,
+  }) {
+    showModalBottomSheet<void>(
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      context: context,
+      builder: (BuildContext context) {
+        return BlocBuilder<TopicsBloc, TopicsState>(
+          builder: (context, state) {
+            return FractionallySizedBox(
+              heightFactor: 0.8,
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: SizedBox(
+                          width: 30.0,
+                          height: 30.0,
+                          child: IconButton(
+                            iconSize: 30,
+                            padding: EdgeInsets.zero,
+                            onPressed: () => context.router.pop(),
+                            icon: const Icon(Icons.close),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      Text(
+                        state.data.topicName,
+                        style: const TextStyle(
+                          fontSize: ThemeConstants.fontSize24,
+                          fontFamily: ThemeConstants.bitterFontFamily,
+                          color: AppColors.blueDark,
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      state.data.isSigned && state.data.isGroupsOnThisWeekAvailable
+                          ? const BookedSessionModalContent()
+                          : const NotBookedSessionsModalContent()
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
         );
       },
     );

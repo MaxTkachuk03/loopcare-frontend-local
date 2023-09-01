@@ -43,7 +43,10 @@ class Grouped extends StatelessWidget {
                 ),
               ),
             const SizedBox(height: 16.0),
-            if (!state.data.timeSlotsAvailable && !state.data.isSigned) const GroupedNoTimeslots(),
+            if (!state.data.timeSlotsAvailable &&
+                !state.data.isSigned &&
+                state.data.isGroupsOnThisWeekAvailable)
+              const GroupedNoTimeslots(),
             if (state.data.timeSlotsAvailable && !state.data.isSigned)
               GroupedNotSigned(topicName: state.data.topicName),
             if (state.data.isSigned && state.data.isGroupsOnThisWeekAvailable)
