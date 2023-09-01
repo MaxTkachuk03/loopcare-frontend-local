@@ -498,6 +498,8 @@
   "booked": "Booked:",
   "from": "from",
   "to": "to",
+  "bookedFromTo": "Booked {day} from {startTime} to {endTime}",
+  "dayFromTo": "{day} from {startTime} to {endTime}",
   "prepareForSession": "Prepare for this session",
   "prepareTakes": "Takes {times}",
   "timeslotCancelled": "Sorry, this timeslot is canceled",
