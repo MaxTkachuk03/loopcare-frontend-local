@@ -546,6 +546,8 @@ class LocalizedTexts {
   static const String noOtherTimeslotsAvailable = 'noOtherTimeslotsAvailable';
   static const String noGroupThisWeek = 'noGroupThisWeek';
   static const String booked = 'booked';
+  static const String bookedFromTo = 'bookedFromTo';
+  static const String dayFromTo = 'dayFromTo';
   static const String from = 'from';
   static const String to = 'to';
   static const String prepareForSession = 'prepareForSession';

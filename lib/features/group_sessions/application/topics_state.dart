@@ -46,16 +46,15 @@ class TopicsData with _$TopicsData {
       signedGroupSessionStartTime?.add(Duration(seconds: topics[DateTime.now().weekNumber]?.duration ?? 0));
 
   bool get signedGroupSessionsCancelledOrMissed {
-    return _signedGroupSessions?.status == GroupSessionStatus.cancelled.name;
+    return _signedGroupSessions?.status == GroupSessionStatus.cancelled;
   }
 
   bool get signedGroupSessionsMissed {
-    return _signedGroupSessions?.status == GroupSessionStatus.cancelled.name;
-    // return true;
+    return _signedGroupSessions?.status == GroupSessionStatus.cancelled;
   }
 
   bool get signedGroupSessionsCancelled {
-    return _signedGroupSessions?.status == GroupSessionStatus.cancelled.name;
+    return _signedGroupSessions?.status == GroupSessionStatus.cancelled;
   }
 
   bool get signedGroupSessionsMightBeCancelled {
@@ -90,7 +89,8 @@ class TopicsData with _$TopicsData {
   bool get timeSlotsAvailable {
     var freeSlots = 0;
     topics[DateTime.now().weekNumber]?.groupSessions.forEach((element) {
-      if (element.startDate.toLocal().isAfter(DateTime.now())) {
+      if (element.startDate.toLocal().isAfter(DateTime.now()) &&
+          element.status != GroupSessionStatus.cancelled) {
         freeSlots += element.maxMemberCount - element.memberCount;
       }
     });

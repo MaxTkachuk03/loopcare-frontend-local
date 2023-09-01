@@ -80,13 +80,25 @@ class GroupedSigned extends StatelessWidget {
                 children: [
                   if (isHappeningNow && !isCancelledOrMissed)
                     Text(
-                      '${startDate.weekdayString} ${LocalizedTexts.from.translation} ${startDate.timeHoursMinutes24} ${LocalizedTexts.to.translation} ${endDate.timeHoursMinutes24}.',
-                      style: Theme.of(context).textTheme.bodySmall,
+                      LocalizedTexts.dayFromTo,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.greyLabel),
+                    ).tr(
+                      namedArgs: {
+                        'day': startDate.weekdayString,
+                        'startTime': startDate.timeHoursMinutes24,
+                        'endTime': endDate.timeHoursMinutes24,
+                      },
                     ),
                   if (!isHappeningNow)
                     Text(
-                      '${LocalizedTexts.booked.translation} ${startDate.weekdayString} ${LocalizedTexts.from.translation} ${startDate.timeHoursMinutes24} ${LocalizedTexts.to.translation} ${endDate.timeHoursMinutes24}.',
+                      LocalizedTexts.bookedFromTo,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.greyLabel),
+                    ).tr(
+                      namedArgs: {
+                        'day': startDate.weekdayString,
+                        'startTime': startDate.timeHoursMinutes24,
+                        'endTime': endDate.timeHoursMinutes24,
+                      },
                     ),
                   if (isCancelledOrMissed)
                     Row(
@@ -117,7 +129,7 @@ class GroupedSigned extends StatelessWidget {
         const SizedBox(height: 8.0),
         if (isCancelledOrMissed) GroupedSignedCancelledBooking(isTimeslotsAvailable: timeSlotsAvailable),
         if (preparationMaterialsAvailable) const PreparationMaterials(),
-        if (isCanJoin) const GroupedJoinSession(),
+        if (isCanJoin && !isCancelledOrMissed) const GroupedJoinSession(),
         if (!isCancelled && sessionMightBeCancelled)
           GroupedSignedMightBeCancelled(number: signedGroupSessions.minMemberCount),
       ],
