@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 
@@ -60,6 +60,6 @@ class PreparationMaterials extends StatelessWidget {
 
     if (materials == null) return null;
 
-    context.router.push(PreparationMaterialsRoute(content: materials));
+    context.router.pushNamed(AppRoutes.preparationMaterials);
   }
 }
