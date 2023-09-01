@@ -281,7 +281,8 @@ class _SessionCallPageState extends State<SessionCallPage> {
 
     _eventErrorListener = emitter.on(EventType.onError, (Map data) async {
       String errorType = data['errorType'];
-      print(errorType);
+
+      debugPrint('_eventErrorListener called with $errorType');
 
       if (_error == errorType) return;
 
