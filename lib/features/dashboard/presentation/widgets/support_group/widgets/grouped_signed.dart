@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_adjacent_string_concatenation, prefer_interpolation_to_compose_strings
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
@@ -82,16 +80,12 @@ class GroupedSigned extends StatelessWidget {
                 children: [
                   if (isHappeningNow && !isCancelledOrMissed)
                     Text(
-                      '${startDate.weekdayString} ' +
-                          '${LocalizedTexts.from.translation} ${startDate.timeHoursMinutes24} ' +
-                          '${LocalizedTexts.to.translation} ${endDate.timeHoursMinutes24}.',
+                      '${startDate.weekdayString} ${LocalizedTexts.from.translation} ${startDate.timeHoursMinutes24} ${LocalizedTexts.to.translation} ${endDate.timeHoursMinutes24}.',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   if (!isHappeningNow)
                     Text(
-                      '${LocalizedTexts.booked.translation} ${startDate.weekdayString} ' +
-                          '${LocalizedTexts.from.translation} ${startDate.timeHoursMinutes24} ' +
-                          '${LocalizedTexts.to.translation} ${endDate.timeHoursMinutes24}.',
+                      '${LocalizedTexts.booked.translation} ${startDate.weekdayString} ${LocalizedTexts.from.translation} ${startDate.timeHoursMinutes24} ${LocalizedTexts.to.translation} ${endDate.timeHoursMinutes24}.',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.greyLabel),
                     ),
                   if (isCancelledOrMissed)

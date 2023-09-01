@@ -63,7 +63,7 @@ class BookedSessionCard extends StatelessWidget {
                   ),
                   Text(
                     LocalizedTexts.numberOfAvailableSeats.translateWithNamedArgs({
-                      'number': '${groupSession.memberCount}',
+                      'number': '${groupSession.availableSeatsAmount}',
                       'totalNumber': '${groupSession.maxMemberCount}',
                     }),
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.darkGreen),

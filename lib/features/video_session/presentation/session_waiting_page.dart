@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
+import 'package:loopcare_frontend/core/domain/aws_cookies_type.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -19,6 +20,7 @@ import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_countdown/session_countdown.dart';
 
 class SessionWaitingPage extends StatefulWidget {
+  // TODO pass session as a prop so we can get rid of check if we have session
   const SessionWaitingPage({Key? key}) : super(key: key);
 
   @override
@@ -37,7 +39,7 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
 
     _groupRulesTapRecognizer.onTap = _onRulesTapHandler;
 
-    context.read<VideoPlayerBloc>().add(const VideoPlayerEvent.getAwsCookies());
+    context.read<VideoPlayerBloc>().add(const VideoPlayerEvent.getAwsCookies(AwsCookiesType.SESSION));
 
     final int? sessionId = context.read<TopicsBloc>().state.data.signedGroupSessionId;
 

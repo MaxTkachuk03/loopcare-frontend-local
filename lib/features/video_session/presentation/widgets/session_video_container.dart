@@ -5,7 +5,6 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session_program_event.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
-import 'package:loopcare_frontend/features/video_player/presentation/widgets/group_session_player_overlay.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/group_session_video_error.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/video_block.dart';
 import 'package:video_player/video_player.dart';
@@ -55,9 +54,8 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
   void _checkIfHasVideoForCurrentTime() {
     final List<GroupSessionProgramEvent> videoEvents = context.read<TopicsBloc>().state.data.videoEvents;
 
-    final videoEventForCurrentTime = videoEvents.lastWhereOrNull((e) => widget.sessionTimer == e.timestamp);
-    // TODO if need to run video on the specific moment
-    // final videoEventForCurrentTime = videoEvents.lastWhereOrNull((e) => widget.sessionTimer == 5);
+    final videoEventForCurrentTime = videoEvents.lastWhereOrNull(
+        (e) => e.eventStartTime <= widget.sessionTimer && widget.sessionTimer <= e.eventEndTime);
 
     if (videoEventForCurrentTime == null) return;
 
@@ -88,9 +86,17 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
   void _initVideoController(String videoLink) {
     final headers = context.read<VideoPlayerBloc>().state.data.videoHttpHeaders;
 
-    _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(videoLink), httpHeaders: headers)
+    _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(videoLink),
+        httpHeaders: headers, videoPlayerOptions: VideoPlayerOptions(allowBackgroundPlayback: true))
       ..initialize().then((value) {
-        _videoPlayerController?.play();
+        final bool isVideoInProgress = (_currentVideoEvent?.eventStartTime ?? 0) <= widget.sessionTimer &&
+            widget.sessionTimer <= (_currentVideoEvent?.eventEndTime ?? 0);
+        final int startPosition =
+            isVideoInProgress ? widget.sessionTimer - (_currentVideoEvent?.eventStartTime ?? 0) : 0;
+
+        _videoPlayerController
+          ?..seekTo(Duration(seconds: startPosition))
+          ..play();
       }).whenComplete(() {
         setState(() {
           _videoIsPlaying = true;
@@ -172,10 +178,19 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
                         alignment: Alignment.bottomCenter,
                         children: [
                           VideoBlock(controller: controller, orientation: widget.orientation),
-                          GroupSessionPlayerOverlay(
-                            controller: controller,
-                            orientation: widget.orientation,
-                          ),
+                          VideoProgressIndicator(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: widget.orientation == Orientation.portrait ? 20.0 : 60.0,
+                              vertical: 20.0,
+                            ),
+                            controller,
+                            allowScrubbing: false,
+                            colors: const VideoProgressColors(
+                              playedColor: AppColors.blueMid,
+                              bufferedColor: AppColors.ballBlue,
+                              backgroundColor: AppColors.greyMid,
+                            ),
+                          )
                         ],
                       );
                     },

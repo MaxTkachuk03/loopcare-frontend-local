@@ -65,7 +65,7 @@ class _TimeslotCardState extends State<TimeslotCard> {
 
   String get description => _type.map(
         available: (_) => LocalizedTexts.numberOfAvailableSeats.translateWithNamedArgs({
-          'number': '${widget.groupSession.memberCount}',
+          'number': '${widget.groupSession.availableSeatsAmount}',
           'totalNumber': '${widget.groupSession.maxMemberCount}',
         }),
         passed: (_) => LocalizedTexts.passedSession.translation,
