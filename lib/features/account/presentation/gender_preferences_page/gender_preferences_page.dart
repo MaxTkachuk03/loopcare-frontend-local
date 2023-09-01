@@ -48,6 +48,7 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
   }
 
   void _onChangeListener(BuildContext context, GroupPreferencesState state) {
+    print('_onChangeListener');
     state.maybeMap(
       orElse: () => {},
       error: _onErrorHandler,
@@ -61,6 +62,7 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
   }
 
   void _onUpdateHandler(GroupPreferencesState state) {
+    print('_onUpdateHandler');
     final groupPrefsMode = context.read<GroupPreferencesBloc>().state.data.groupPrefsMode;
 
     if (groupPrefsMode == GroupPrefsMode.groupingLesson) {

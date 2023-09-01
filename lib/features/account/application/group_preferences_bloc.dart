@@ -53,6 +53,7 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
     SetGenderPreferences event,
     Emitter<GroupPreferencesState> emit,
   ) async {
+    print('_onSetGenderPreferences');
     emit(GroupPreferencesState.loading(state.data.copyWith(isLoading: true)));
 
     final data = GroupPreferencesBody(genderPreference: event.gender);
@@ -60,7 +61,10 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
     final response = await _groupPreferencesService.savePreferences(data);
 
     response.fold(
-      (l) => emit(GroupPreferencesState.error(state.data.copyWith(error: l, isLoading: false))),
+      (l) {
+        print('_onSetGenderPreferences error');
+        emit(GroupPreferencesState.error(state.data.copyWith(error: l, isLoading: false)));
+      },
       (r) => emit(GroupPreferencesState.updated(state.data.copyWith(
         genderPreferences: r.genderPreference ?? state.data.genderPreferences,
         isLoading: false,
