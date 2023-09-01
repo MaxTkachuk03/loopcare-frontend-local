@@ -7,6 +7,7 @@ part 'emergency_number_data.g.dart';
 enum EmergencyNumberType {
   phone,
   messenger,
+  none,
 }
 
 @freezed

@@ -37,15 +37,32 @@ class EmergencyNumberCard extends StatelessWidget {
                     ),
                     backgroundColor: MaterialStateProperty.all(AppColors.blueDark),
                   ),
-              child: Text(
-                number.btnTxt,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.white),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: _getIcon() ?? const SizedBox.shrink(),
+                  ),
+                  Text(
+                    number.btnTxt,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.white),
+                  ),
+                ],
               ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  Icon? _getIcon() {
+    if (number.type == EmergencyNumberType.phone) {
+      return const Icon(Icons.call, size: 16.0, color: Colors.white);
+    } else if (number.type == EmergencyNumberType.messenger) {
+      return const Icon(Icons.message, size: 16.0, color: Colors.white);
+    }
+    return null;
   }
 
   Future<void> _onPressed() async {
