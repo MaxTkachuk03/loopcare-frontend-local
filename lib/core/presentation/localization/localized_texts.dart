@@ -536,6 +536,7 @@ class LocalizedTexts {
   static const String comingUpThisWeek = 'comingUpThisWeek';
   static const String comingUpNextWeek = 'comingUpNextWeek';
   static const String happeningNow = 'happeningNow';
+  static const String joinSession = 'joinSession';
   static const String yourSupportSystem = 'yourSupportSystem';
   static const String supportGroupIntroDesc = 'supportGroupIntroDesc';
   static const String yesILikeToJoin = 'yesILikeToJoin';

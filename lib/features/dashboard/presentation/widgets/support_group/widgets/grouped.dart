@@ -62,6 +62,7 @@ class Grouped extends StatelessWidget {
                 timeSlotsAvailable: state.data.timeSlotsAvailable,
                 sessionMightBeCancelled: state.data.signedGroupSessionsMightBeCancelled,
                 isHappeningNow: isHappeningNow,
+                isCanJoin: state.data.isCanJoin,
               ),
             if (!state.data.isGroupsOnThisWeekAvailable) const NoGroup(),
           ],
