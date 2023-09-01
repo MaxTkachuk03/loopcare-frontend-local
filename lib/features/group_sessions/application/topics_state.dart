@@ -85,6 +85,8 @@ class TopicsData with _$TopicsData {
     return sessionsAvailableOnThisWeek > 0;
   }
 
+  bool get isCanJoin => timeLeftToSessionStart < const Duration(minutes: 10);
+
   bool get timeSlotsAvailable {
     var freeSlots = 0;
     topics[DateTime.now().weekNumber]?.groupSessions.forEach((element) {
