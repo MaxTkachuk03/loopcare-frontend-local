@@ -49,6 +49,7 @@ class AppRoutes {
   static const String mentalHealthIntro = '/mental-health-intro';
   static const String mentalHealthQuestion = '/mental-health-question';
   static const String mentalCheckResult = '/mental-check-result';
+  static const String preparationMaterials = '/preparation-materials';
 
   //Self Help
   static const String householdIntro = '/household-intro';

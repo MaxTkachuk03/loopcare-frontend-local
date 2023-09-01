@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session_program_event.dart';
+import 'package:loopcare_frontend/features/group_sessions/application/dto/material.dart';
 
 part 'topic.freezed.dart';
 
@@ -15,6 +16,7 @@ class Topic with _$Topic {
     required int id,
     required String topic,
     required int duration,
+    required List<Material> materials,
     required List<GroupSessionProgramEvent> groupSessionProgramEvents,
   }) = _Topic;
 

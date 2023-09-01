@@ -1,11 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
-import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 
 class PreparationMaterials extends StatelessWidget {
   const PreparationMaterials({Key? key}) : super(key: key);
@@ -36,17 +35,11 @@ class PreparationMaterials extends StatelessWidget {
                   LocalizedTexts.prepareForSession,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
                 ).tr(),
-                BlocBuilder<TopicsBloc, TopicsState>(
-                  builder: (context, state) {
-                    final duration = state.data.topics[DateTime.now().weekNumber]?.duration ?? 0;
-
-                    return Text(
-                      LocalizedTexts.prepareTakes.tr(
-                        namedArgs: {'times': '${Duration(seconds: duration).inMinutes} min'},
-                      ),
-                      style: Theme.of(context).textTheme.bodySmall,
-                    );
-                  },
+                Text(
+                  LocalizedTexts.prepareTakes.tr(
+                    namedArgs: {'times': '10 min'},
+                  ),
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
             ),
@@ -60,5 +53,7 @@ class PreparationMaterials extends StatelessWidget {
     );
   }
 
-  _onMoreInfoPressed(BuildContext context) {}
+  _onMoreInfoPressed(BuildContext context) {
+    context.router.pushNamed(AppRoutes.preparationMaterials);
+  }
 }
