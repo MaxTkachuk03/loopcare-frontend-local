@@ -16,12 +16,7 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/suppor
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/not_grouped.dart';
 
 class SupportGroup extends StatelessWidget {
-  final bool isEditable;
-
-  const SupportGroup({
-    Key? key,
-    required this.isEditable,
-  }) : super(key: key);
+  const SupportGroup({Key? key}) : super(key: key);
 
   void onPressHandler(BuildContext context) {
     context.router.pushNamed(AppRoutes.groupPreferences);

@@ -81,6 +81,8 @@ class _SessionCallPageState extends State<SessionCallPage> {
       final String? sessionPassword = context.read<TopicsBloc>().state.data.signedGroupSessionPassword;
       final String token = context.read<TopicsBloc>().state.data.signedSessionSignature;
 
+      print('session token = $token');
+
       final String userName = context.read<AuthenticationCubit>().state.nickname ??
           context.read<AuthenticationCubit>().state.name;
 
@@ -97,7 +99,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
       try {
         await zoom.joinSession(joinSession);
       } catch (e) {
-        print('error during join session $e');
+        print('Error while join session $e');
         const AlertDialog(title: Text("Error"), content: Text("Failed to join the session"));
       }
     });
@@ -164,6 +166,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
     });
 
     _userJoinListener = emitter.on(EventType.onUserJoin, (Map data) async {
+      print('_userJoinListener $data');
       ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
       var userListJson = jsonDecode(data['remoteUsers']) as List;
       final List<ZoomVideoSdkUser> remoteUserList = [];
@@ -176,6 +179,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
     });
 
     _userLeaveListener = emitter.on(EventType.onUserLeave, (Map data) async {
+      print('_userLeaveListener $data');
       ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
       var remoteUserListJson = jsonDecode(data['remoteUsers']) as List;
 
@@ -199,6 +203,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
     });
 
     _userAudioStatusChangedListener = emitter.on(EventType.onUserAudioStatusChanged, (Map data) async {
+      print('_userAudioStatusChangedListener $data');
       final ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
 
       final List<ZoomVideoSdkUser> userList = _getSessionChangedUsers(data);
@@ -212,6 +217,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
     });
 
     _userVideoStatusChangedListener = emitter.on(EventType.onUserVideoStatusChanged, (Map data) async {
+      print('_userVideoStatusChangedListener $data');
       final ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
 
       final List<ZoomVideoSdkUser> userList = _getSessionChangedUsers(data);
@@ -241,6 +247,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
     });
 
     _requireSystemPermission = emitter.on(EventType.onRequireSystemPermission, (Map data) async {
+      print("_requireSystemPermission $data");
       //FIXME refactor this listener
       // ZoomVideoSdkUser? changedUser = ZoomVideoSdkUser.fromJson(jsonDecode(data['changedUser']));
 
