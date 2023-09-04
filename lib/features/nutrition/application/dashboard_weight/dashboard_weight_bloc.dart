@@ -20,7 +20,8 @@ part 'dashboard_weight_bloc.freezed.dart';
 class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightState> {
   final NutritionService nutritionService;
 
-  DashboardWeightBloc(this.nutritionService) : super(const DashboardWeightState.initial()) {
+  DashboardWeightBloc(this.nutritionService)
+      : super(const DashboardWeightState.initial(DashBoardWeightData())) {
     on<FetchWeights>(_onFetchWeights);
     on<SetDate>(_onSetDate);
     on<LogWeight>(_onLogWeight);
@@ -44,20 +45,21 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
     FetchWeights event,
     Emitter<DashboardWeightState> emit,
   ) async {
-    emit(const DashboardWeightState.loading());
+    emit(DashboardWeightState.loading(state.data.copyWith(isLoading: true)));
 
     final response = await nutritionService.getDashboardWeights(
-      event.startDate.isoStringWithoutTime,
-      DateTime.now().isoStringWithoutTime,
+      event.startDate.toUtc().toIso8601String(),
+      DateTime.now().toUtc().toIso8601String(),
     );
 
     response.fold(
-      (error) => emit(DashboardWeightState.error(error)),
-      (response) => emit(
-        DashboardWeightState.weights(
-          weights: _combineWeightsByDate(
-            null,
-            response.data,
+      (l) => emit(DashboardWeightState.error(state.data.copyWith(isLoading: false, error: l))),
+      (r) => emit(
+        DashboardWeightState.updated(
+          state.data.copyWith(
+            isLoading: false,
+            error: null,
+            weights: _combineWeightsByDate(null, r.data),
           ),
         ),
       ),
@@ -68,9 +70,9 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
     SetDate event,
     Emitter<DashboardWeightState> emit,
   ) async {
-    final weights = state.mapOrNull(weights: (s) => s.weights);
+    final weights = state.data.weights;
 
-    if (weights == null || event.date.isAfter(DateTime.now())) return;
+    if (weights.isEmpty || event.date.isAfter(DateTime.now())) return;
 
     final isoStringDate = event.date.isoStringWithoutTime;
 
@@ -78,7 +80,7 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
 
     if (isAlreadyLoaded) return;
 
-    emit(const DashboardWeightState.loading());
+    emit(DashboardWeightState.loading(state.data.copyWith(isLoading: true)));
 
     final response = await nutritionService.getDashboardWeights(
       isoStringDate,
@@ -86,14 +88,13 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
     );
 
     response.fold(
-      (error) => emit(DashboardWeightState.error(error)),
-      (response) => emit(
-        DashboardWeightState.weights(
-          weights: _combineWeightsByDate(
-            weights,
-            response.data,
-          ),
-        ),
+      (l) => emit(DashboardWeightState.error(state.data.copyWith(isLoading: false, error: l))),
+      (r) => emit(
+        DashboardWeightState.updated(state.data.copyWith(
+          isLoading: false,
+          error: null,
+          weights: _combineWeightsByDate(weights, r.data),
+        )),
       ),
     );
   }
@@ -102,24 +103,28 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
     LogWeight event,
     Emitter<DashboardWeightState> emit,
   ) async {
-    final Map<String, DashboardWeightItem> weights = Map.from(state.weights);
+    final Map<String, DashboardWeightItem> weights = Map.from(state.data.weights);
 
     final data = LogWeightBody(
-      date: event.date.isoStringWithoutTime,
+      date: event.date.toUtc().toIso8601String(),
       weight: event.weight,
     );
 
-    emit(const DashboardWeightState.loading());
+    emit(DashboardWeightState.loading(state.data.copyWith(isLoading: false)));
 
     final response = await nutritionService.logWeight(data);
 
     response.fold(
-      (error) => emit(DashboardWeightState.error(error)),
-      (response) {
-        weights[response.data.date] = response.data;
+      (l) => emit(DashboardWeightState.error(state.data.copyWith(isLoading: false, error: l))),
+      (r) {
+        weights[r.data.date] = r.data;
 
         emit(
-          DashboardWeightState.weights(weights: weights),
+          DashboardWeightState.updated(state.data.copyWith(
+            weights: weights,
+            isLoading: false,
+            error: null,
+          )),
         );
       },
     );

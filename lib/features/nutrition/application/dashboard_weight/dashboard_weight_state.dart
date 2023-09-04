@@ -4,24 +4,13 @@ part of 'dashboard_weight_bloc.dart';
 class DashboardWeightState with _$DashboardWeightState {
   const DashboardWeightState._();
 
-  const factory DashboardWeightState.initial() = _Initial;
+  const factory DashboardWeightState.initial(DashBoardWeightData data) = DashboardWeightStateInitial;
 
-  const factory DashboardWeightState.loading() = _Loading;
+  const factory DashboardWeightState.loading(DashBoardWeightData data) = DashboardWeightStateLoading;
 
-//TODO: old state style
-  const factory DashboardWeightState.error(RequestError error) = _Error;
+  const factory DashboardWeightState.error(DashBoardWeightData data) = DashboardWeightStateError;
 
-  const factory DashboardWeightState.weights({
-    required Map<String, DashboardWeightItem> weights,
-  }) = _Weights;
-
-  double? getSelectedDayWeight(String date) {
-    return mapOrNull(weights: (s) => s.weights[date]?.weight);
-  }
-
-  bool hasLogOnSelectedDate(DateTime date) {
-    return mapOrNull(weights: (s) => s.weights.containsKey(date.isoStringWithoutTime)) ?? false;
-  }
+  const factory DashboardWeightState.updated(DashBoardWeightData data) = DashboardWeightStateUpdated;
 
   isToday(DateTime date) {
     final todayMidnight = DateTime.now().midnightTime;
@@ -46,18 +35,19 @@ class DashboardWeightState with _$DashboardWeightState {
   String get userWeightUnits {
     return isMetricSystem ? WeightUnits.kg.name : WeightUnits.lbs.name;
   }
-
-  Map<String, DashboardWeightItem> get weights {
-    return mapOrNull(weights: (s) => s.weights) ?? {};
-  }
 }
 
+@freezed
 class DashBoardWeightData with _$DashBoardWeightData {
-  DashBoardWeightData._();
+  const DashBoardWeightData._();
 
   const factory DashBoardWeightData({
     @Default({}) Map<String, DashboardWeightItem> weights,
     @Default(false) bool isLoading,
     RequestError? error,
   }) = _DashBoardWeightData;
+
+  double? getSelectedDayWeight(String date) => weights[date]?.weight;
+
+  bool hasLogOnSelectedDate(DateTime date) => weights.containsKey(date.isoStringWithoutTime);
 }
