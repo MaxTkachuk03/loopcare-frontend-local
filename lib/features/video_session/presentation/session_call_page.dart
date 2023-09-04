@@ -81,6 +81,8 @@ class _SessionCallPageState extends State<SessionCallPage> {
       final String? sessionPassword = context.read<TopicsBloc>().state.data.signedGroupSessionPassword;
       final String token = context.read<TopicsBloc>().state.data.signedSessionSignature;
 
+      print('session token = $token');
+
       final String userName = context.read<AuthenticationCubit>().state.nickname ??
           context.read<AuthenticationCubit>().state.name;
 

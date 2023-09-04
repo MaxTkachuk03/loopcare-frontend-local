@@ -133,16 +133,15 @@ class _DashboardPageState extends State<DashboardPage> {
                         const SizedBox(height: 10.0),
                         PhysicalActivities(selectedDay: _selectedDay),
                         const SizedBox(height: 10.0),
-                        // TODO build without group sessions
-                        // BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                        //   builder: (context, state) {
-                        //     if (state.groupingState == UserGroupingState.locked) {
-                        //       return const SizedBox.shrink();
-                        //     }
-                        //
-                        //     return SupportGroup(isEditable: _isMealBlockEditable);
-                        //   },
-                        // ),
+                        BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                          builder: (context, state) {
+                            if (state.groupingState == UserGroupingState.locked) {
+                              return const SizedBox.shrink();
+                            }
+
+                            return const SupportGroup();
+                          },
+                        ),
                         const SizedBox(height: 10.0),
                         BlocBuilder<DashboardEducationBloc, DashboardEducationState>(
                           builder: (BuildContext context, state) {
