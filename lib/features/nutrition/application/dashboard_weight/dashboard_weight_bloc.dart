@@ -35,7 +35,7 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
         Map<String, DashboardWeightItem>.from(previousWeightsData ?? {});
 
     for (var element in data) {
-      weights[element.date] = element;
+      weights[element.date.toLocal().isoStringWithoutTime] = element;
     }
 
     return weights;
@@ -72,9 +72,9 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
   ) async {
     final weights = state.data.weights;
 
-    if (weights.isEmpty || event.date.isAfter(DateTime.now())) return;
+    if (weights.isEmpty || event.date.isAfter(DateTime.now().toLocal())) return;
 
-    final isoStringDate = event.date.isoStringWithoutTime;
+    final isoStringDate = event.date.toLocal().isoStringWithoutTime;
 
     final bool isAlreadyLoaded = weights.containsKey(isoStringDate.split('T')[0]);
 
@@ -83,8 +83,8 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
     emit(DashboardWeightState.loading(state.data.copyWith(isLoading: true)));
 
     final response = await nutritionService.getDashboardWeights(
-      isoStringDate,
-      isoStringDate,
+      event.date.toUtc().toIso8601String(),
+      event.date.toUtc().toIso8601String(),
     );
 
     response.fold(
@@ -117,7 +117,7 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
     response.fold(
       (l) => emit(DashboardWeightState.error(state.data.copyWith(isLoading: false, error: l))),
       (r) {
-        weights[r.data.date] = r.data;
+        weights[r.data.date.toLocal().isoStringWithoutTime] = r.data;
 
         emit(
           DashboardWeightState.updated(state.data.copyWith(
