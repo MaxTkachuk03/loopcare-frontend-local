@@ -10,6 +10,7 @@ class AppChoiceChip<T> extends StatelessWidget {
   final TextAlign? textAlign;
   final EdgeInsetsGeometry? padding;
   final double? width;
+  final bool available;
 
   const AppChoiceChip({
     Key? key,
@@ -20,6 +21,7 @@ class AppChoiceChip<T> extends StatelessWidget {
     this.textAlign,
     this.padding,
     this.width,
+    this.available = true,
   }) : super(key: key);
 
   @override
@@ -34,7 +36,11 @@ class AppChoiceChip<T> extends StatelessWidget {
           textAlign: textAlign ?? TextAlign.center,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w600,
-                color: selected ? AppColors.white : AppColors.darkGreen,
+                color: available
+                    ? selected
+                        ? AppColors.white
+                        : AppColors.darkGreen
+                    : AppColors.greyMid,
               ),
         ),
       ),
@@ -45,9 +51,13 @@ class AppChoiceChip<T> extends StatelessWidget {
       selectedColor: AppColors.blueDark,
       shadowColor: Colors.transparent,
       elevation: 0,
-      backgroundColor: AppColors.white,
+      backgroundColor: available ? AppColors.white : AppColors.bgGreen,
       labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: selected ? AppColors.white : AppColors.darkGreen,
+            color: available
+                ? selected
+                    ? AppColors.white
+                    : AppColors.darkGreen
+                : AppColors.greyMid,
           ),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(

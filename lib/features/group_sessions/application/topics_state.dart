@@ -87,7 +87,8 @@ class TopicsData with _$TopicsData {
   }
 
   bool get isCanJoin =>
-      (timeLeftToSessionStart < const Duration(minutes: 10)) ||
+      (timeLeftToSessionStart > const Duration(minutes: 0) &&
+          timeLeftToSessionStart < const Duration(minutes: 10)) ||
       (DateTime.now().isAfter(signedGroupSessionStartTime ?? DateTime.now()) &&
           DateTime.now().isBefore(signedGroupSessionsEndTime ?? DateTime.now()));
 
@@ -99,8 +100,8 @@ class TopicsData with _$TopicsData {
         var endTime = element.startDate
             .add(Duration(seconds: topics[DateTime.now().weekNumber]?.duration ?? 0))
             .toLocal();
-        var isAfter = endTime.isAfter(DateTime.now());
-        if (isAfter) {
+        var isAfterNow = endTime.isAfter(DateTime.now());
+        if (isAfterNow) {
           freeSlots += element.maxMemberCount - element.memberCount;
         }
       }
