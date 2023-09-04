@@ -51,3 +51,13 @@ class DashboardWeightState with _$DashboardWeightState {
     return mapOrNull(weights: (s) => s.weights) ?? {};
   }
 }
+
+class DashBoardWeightData with _$DashBoardWeightData {
+  DashBoardWeightData._();
+
+  const factory DashBoardWeightData({
+    @Default({}) Map<String, DashboardWeightItem> weights,
+    @Default(false) bool isLoading,
+    RequestError? error,
+  }) = _DashBoardWeightData;
+}
