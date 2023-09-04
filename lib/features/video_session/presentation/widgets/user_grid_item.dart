@@ -12,6 +12,7 @@ class UserGridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('render UserGridItem');
     return Container(
       decoration: BoxDecoration(
         border: Border.all(width: 2.5, color: isTalking ? AppColors.orange : Colors.transparent),

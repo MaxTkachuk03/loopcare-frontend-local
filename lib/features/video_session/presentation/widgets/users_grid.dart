@@ -13,6 +13,8 @@ class UsersGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
+    print('render UsersGrid');
+
     return GridView.builder(
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
