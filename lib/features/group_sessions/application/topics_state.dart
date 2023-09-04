@@ -86,15 +86,23 @@ class TopicsData with _$TopicsData {
     return sessionsAvailableOnThisWeek > 0;
   }
 
-  bool get isCanJoin => timeLeftToSessionStart < const Duration(minutes: 10);
+  bool get isCanJoin =>
+      (timeLeftToSessionStart < const Duration(minutes: 10)) ||
+      (DateTime.now().isAfter(signedGroupSessionStartTime ?? DateTime.now()) &&
+          DateTime.now().isBefore(signedGroupSessionsEndTime ?? DateTime.now()));
 
   // TODO move to the GroupSession model
   bool get timeSlotsAvailable {
     var freeSlots = 0;
     topics[DateTime.now().weekNumber]?.groupSessions.forEach((element) {
-      if (element.startDate.toLocal().isAfter(DateTime.now()) &&
-          element.status != GroupSessionStatus.cancelled) {
-        freeSlots += element.maxMemberCount - element.memberCount;
+      if (element.status != GroupSessionStatus.cancelled) {
+        var endTime = element.startDate
+            .add(Duration(seconds: topics[DateTime.now().weekNumber]?.duration ?? 0))
+            .toLocal();
+        var isAfter = endTime.isAfter(DateTime.now());
+        if (isAfter) {
+          freeSlots += element.maxMemberCount - element.memberCount;
+        }
       }
     });
     return freeSlots > 0;
