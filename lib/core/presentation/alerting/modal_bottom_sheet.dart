@@ -1106,12 +1106,14 @@ class ModalBottomSheet {
                 children: [
                   Align(
                     alignment: Alignment.topRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 6.0),
+                    child: SizedBox(
+                      width: 30.0,
+                      height: 30.0,
                       child: IconButton(
-                        padding: const EdgeInsets.all(0.0),
+                        iconSize: 30,
+                        padding: EdgeInsets.zero,
                         onPressed: () => context.router.pop(),
-                        icon: const Icon(Icons.close, size: 16.0),
+                        icon: const Icon(Icons.close),
                       ),
                     ),
                   ),
