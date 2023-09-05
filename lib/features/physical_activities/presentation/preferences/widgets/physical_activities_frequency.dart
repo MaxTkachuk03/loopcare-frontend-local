@@ -10,14 +10,14 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_image_header.dart';
 
-class PhysicalActivitiesPreferencesPage extends StatefulWidget {
-  const PhysicalActivitiesPreferencesPage({Key? key}) : super(key: key);
+class PhysicalActivitiesFrequencyPage extends StatefulWidget {
+  const PhysicalActivitiesFrequencyPage({Key? key}) : super(key: key);
 
   @override
-  State<PhysicalActivitiesPreferencesPage> createState() => _PhysicalActivitiesPreferencesPageState();
+  State<PhysicalActivitiesFrequencyPage> createState() => _PhysicalActivitiesFrequencyPageState();
 }
 
-class _PhysicalActivitiesPreferencesPageState extends State<PhysicalActivitiesPreferencesPage> {
+class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFrequencyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,13 +26,16 @@ class _PhysicalActivitiesPreferencesPageState extends State<PhysicalActivitiesPr
         title: Column(
           children: [
             Text(
-              LocalizedTexts.physicalActivitiesPreferences.translation,
+              LocalizedTexts.physicalActivitiesPreferences.tr(),
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
             ),
             Text(
-              LocalizedTexts.introduction.translation,
+              LocalizedTexts.currentStep.translateWithNamedArgs({
+                'currentStep': '1',
+                'totalSteps': '2',
+              }),
               style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
             ),
           ],
