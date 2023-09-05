@@ -349,6 +349,11 @@ class LocalizedTexts {
   static const String selectAMeal = 'selectAMeal';
   static const String today = 'today';
   static const String physicalActivities = 'physicalActivities';
+  static const String physicalActivitiesPreferences = 'physicalActivitiesPreferences';
+  static const String physicalActivitiesPreferencesDesc = 'physicalActivitiesPreferencesDesc';
+  static const String physicalActivitiesPreferencesItemOne = 'physicalActivitiesPreferencesItemOne';
+  static const String physicalActivitiesPreferencesItemTwo = 'physicalActivitiesPreferencesItemTwo';
+  static const String physicalActivitiesPreferencesItemThree = 'physicalActivitiesPreferencesItemThree';
   static const String supportGroup = 'supportGroup';
   static const String explore = 'explore';
   static const String overview = 'overview';

@@ -1,3 +1,4 @@
 enum ExtraActionTypes {
-  setupGroupingPreferences
+  setupGroupingPreferences,
+  unlockMeals,
 }
