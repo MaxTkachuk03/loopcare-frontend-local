@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
+import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 
@@ -222,6 +223,8 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
               .add(const MedicalFitnessEvent.resetData())
           ..read<PhysicalFitnessBloc>()
               .add(const PhysicalFitnessEvent.resetData())
+          ..read<MentalHealthBloc>()
+              .add(const MentalHealthEvent.resetData())
           ..router.replaceAll([const LoginRoute()]);
       },
     );

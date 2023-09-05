@@ -5,6 +5,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/mental_health/application/dto/answers_body.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_service.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/mental_health_answer.dart';
@@ -13,6 +14,7 @@ import 'package:loopcare_frontend/features/mental_health/domain/mental_health_te
 import 'package:loopcare_frontend/features/mental_health/domain/mental_health_test_type.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/test_result.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 
 part 'mental_health_bloc.freezed.dart';
 
@@ -26,8 +28,17 @@ part 'mental_health_state.dart';
 class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState> {
   final MentalHealthService _mentalHealthService;
   final OnboardingBloc _onboardingBloc;
+  final PhysicalFitnessBloc _physicalFitnessBloc;
+  final AuthenticationCubit _authenticationCubit;
 
-  MentalHealthBloc(this._mentalHealthService, this._onboardingBloc) : super(MentalHealthState.initial()) {
+  late final StreamSubscription _authBlocStreamSubscription;
+
+  MentalHealthBloc(
+    this._mentalHealthService,
+    this._onboardingBloc,
+    this._physicalFitnessBloc,
+    this._authenticationCubit,
+  ) : super(MentalHealthState.initial()) {
     on<_GetMentalHealthTests>(_onGetMentalHealthTests);
     on<_NextTest>(_onNextTest);
     on<_PrevTest>(_onPrevTest);
@@ -39,6 +50,22 @@ class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState
     on<_SetStartTime>(_onSetStartTime);
     on<_StartTestFromBeginning>(_onStartTestFromBeginning);
     on<_NextPage>(_onNextPage);
+    on<_ResetData>(_onResetData);
+
+    _authBlocStreamSubscription = _authenticationCubit.stream.distinct().listen((s) {
+      s.mapOrNull(
+        authenticated: (_) {
+          add(const MentalHealthEvent.resetData());
+        },
+      );
+    });
+  }
+
+  @override
+  Future<void> close() async {
+    _authBlocStreamSubscription.cancel();
+
+    return super.close();
   }
 
   FutureOr<void> _onGetMentalHealthTests(event, Emitter<MentalHealthState> emit) async {
@@ -47,11 +74,21 @@ class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState
     response.fold(
       (l) => null,
       (r) {
-        final questionsListId = r.data.map((e) => e.questions.map((e) => e.id)).flattened.toList();
+        final selectedGender = _physicalFitnessBloc.state.sexType;
+
+        if (selectedGender == null) return null;
+
+        final testsWithGenderExclusions = r.data
+            .map((element) => element.copyWith(
+                questions: element.questions.where((e) => e.excludeGender != selectedGender).toList()))
+            .toList();
+
+        final questionsListId =
+            testsWithGenderExclusions.map((e) => e.questions.map((e) => e.id)).flattened.toList();
 
         emit(state.copyWith(
           data: state.data.copyWith(
-            tests: r.data,
+            tests: testsWithGenderExclusions,
             questionsListId: questionsListId,
             totalQuestionsLength: questionsListId.length,
           ),
@@ -223,6 +260,10 @@ class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState
         currentPage: state.data.currentPage + 1,
       ),
     ));
+  }
+
+  FutureOr<void> _onResetData(_ResetData event, Emitter<MentalHealthState> emit) {
+    emit(MentalHealthState.initial());
   }
 
   @override
