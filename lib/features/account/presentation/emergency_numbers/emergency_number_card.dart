@@ -38,6 +38,7 @@ class EmergencyNumberCard extends StatelessWidget {
                     backgroundColor: MaterialStateProperty.all(AppColors.blueDark),
                   ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),

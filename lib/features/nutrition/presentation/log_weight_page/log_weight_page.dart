@@ -44,7 +44,7 @@ class _LogWeightPageState extends State<LogWeightPage> {
   String _getInputInitialValue() {
     final state = context.read<DashboardWeightBloc>().state;
 
-    double? selectedDayWeightValue = state.getSelectedDayWeight(widget.selectedDay.isoStringWithoutTime);
+    double? selectedDayWeightValue = state.data.getSelectedDayWeight(widget.selectedDay.isoStringWithoutTime);
 
     if (selectedDayWeightValue == null) return '';
 
