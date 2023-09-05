@@ -6,4 +6,6 @@ class AppConfig {
   String get projectName => 'LeanOnMe';
 
   String get baseUrl => dotenv.env['BASE_URL'] ?? "";
+
+  String get baseHost => Uri.parse(dotenv.env['BASE_URL'] ?? "").host;
 }
