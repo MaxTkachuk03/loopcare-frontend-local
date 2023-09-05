@@ -123,23 +123,23 @@ class _SessionCountdownState extends State<SessionCountdown> {
   }
 
   void _onEnterSessionHandler() async {
-    // final signedSession = context.read<TopicsBloc>().state.data.signedGroupSession;
+    final signedSession = context.read<TopicsBloc>().state.data.signedGroupSession;
 
-    // if (signedSession == null) return;
-    //
-    // if (!signedSession.isStartedLessThanFifteenMinutesAgo) {
-    //   setState(() {
-    //     _sessionTimerMode = const SessionTimerMode.sessionStartedMoreThanFifteenMinutesAgo();
-    //   });
-    //
-    //   return;
-    // }
-    //
-    // final hasPermissions = await requestFilePermissions();
-    // if (!hasPermissions) {
-    //   print('not all permissions are provided');
-    //   return;
-    // }
+    if (signedSession == null) return;
+
+    if (!signedSession.isStartedLessThanFifteenMinutesAgo) {
+      setState(() {
+        _sessionTimerMode = const SessionTimerMode.sessionStartedMoreThanFifteenMinutesAgo();
+      });
+
+      return;
+    }
+
+    final hasPermissions = await requestFilePermissions();
+    if (!hasPermissions) {
+      print('not all permissions are provided');
+      return;
+    }
 
     context.router.pushNamed(AppRoutes.sessionCall);
   }

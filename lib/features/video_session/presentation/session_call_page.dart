@@ -38,7 +38,7 @@ class SessionCallPage extends StatefulWidget {
   State<SessionCallPage> createState() => _SessionCallPageState();
 }
 
-class _SessionCallPageState extends State<SessionCallPage> {
+class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingObserver {
   ZoomVideoSdk zoom = ZoomVideoSdk();
   ZoomVideoSdkEventListener eventListener = ZoomVideoSdkEventListener();
 
@@ -70,11 +70,56 @@ class _SessionCallPageState extends State<SessionCallPage> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
+
     _allowLandscapeOrientation();
     _initSessionListeners();
     _joinSession();
 
     super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    if (state != AppLifecycleState.resumed) {
+      _setInactiveUserState();
+    } else {
+      _setActiveUserState();
+    }
+  }
+
+  _setInactiveUserState() async {
+    ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
+    if (mySelf == null) return;
+
+    final audioStatus = mySelf.audioStatus;
+    final videoStatus = mySelf.videoStatus;
+
+    if (audioStatus != null) {
+      await zoom.audioHelper.muteAudio(mySelf.userId);
+    }
+
+    if (videoStatus != null) {
+      await zoom.videoHelper.stopVideo();
+    }
+  }
+
+  _setActiveUserState() async {
+    ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
+    if (mySelf == null) return;
+
+    final audioStatus = mySelf.audioStatus;
+    final videoStatus = mySelf.videoStatus;
+
+    if (audioStatus != null) {
+      await zoom.audioHelper.unMuteAudio(mySelf.userId);
+    }
+
+    if (videoStatus != null) {
+      await zoom.videoHelper.startVideo();
+    }
   }
 
   void _joinSession() {
@@ -233,7 +278,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
       final List<ZoomVideoSdkUser> userList = _getSessionChangedUsers(data);
 
       for (var user in userList) {
-        // if (user.userId != mySelf?.userId) return;
+        if (user.userId != mySelf?.userId) return;
         mySelf?.videoStatus?.isOn().then((on) => isVideoOn = on);
       }
 
@@ -516,7 +561,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
                                 aspectRatio: aspectRatio,
                               ),
                             ),
-                            // Expanded(child: PromptsContainer(sessionTimer: _sessionStart)),
+                            Expanded(child: PromptsContainer(sessionTimer: _sessionStart)),
                             // const ReportIssue(minutesLeft: '19'), // TODO out of scope for now
                             CallControls(
                               onMuteHandler: onPressAudio,
@@ -529,11 +574,11 @@ class _SessionCallPageState extends State<SessionCallPage> {
                         )
                       : const Loader(),
                 ),
-                // SessionVideoContainer(
-                //   sessionTimer: _sessionStart,
-                //   onVideoPlayingListener: _onVideoPlayingHandler,
-                //   orientation: orientation,
-                // ),
+                SessionVideoContainer(
+                  sessionTimer: _sessionStart,
+                  onVideoPlayingListener: _onVideoPlayingHandler,
+                  orientation: orientation,
+                ),
               ],
             ),
           ),
@@ -544,6 +589,8 @@ class _SessionCallPageState extends State<SessionCallPage> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+
     _onlyPortraitOrientation();
 
     zoom.leaveSession(false);
