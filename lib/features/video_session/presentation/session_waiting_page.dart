@@ -43,7 +43,7 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
 
     final int? sessionId = context.read<TopicsBloc>().state.data.signedGroupSessionId;
 
-    // context.read<TopicsBloc>().add(TopicsEvent.getSessionSignature(sessionId!));
+    context.read<TopicsBloc>().add(TopicsEvent.getSessionSignature(sessionId!));
 
     super.initState();
   }
