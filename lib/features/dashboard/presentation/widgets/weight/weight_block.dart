@@ -39,8 +39,8 @@ class WeightBlock extends StatelessWidget {
           BlocBuilder<DashboardWeightBloc, DashboardWeightState>(
             builder: (BuildContext context, state) {
               return state.maybeMap(
-                weights: (s) {
-                  final weightValue = s.getSelectedDayWeight(date.isoStringWithoutTime);
+                updated: (s) {
+                  final weightValue = s.data.getSelectedDayWeight(date.isoStringWithoutTime);
                   final bool isEditable = s.isEditable(date);
                   final hasLog = weightValue != null;
 
@@ -85,7 +85,7 @@ class WeightBlock extends StatelessWidget {
                 },
                 loading: (_) => const LoadingWeight(),
                 error: (errorState) {
-                  final error = errorState.error;
+                  final error = errorState.data.error;
 
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -106,7 +106,7 @@ class WeightBlock extends StatelessWidget {
               return s.maybeMap(
                 orElse: () {
                   final bool isEditable = s.isEditable(date);
-                  final hasLog = s.hasLogOnSelectedDate(date);
+                  final hasLog = s.data.hasLogOnSelectedDate(date);
 
                   return isEditable
                       ? Hexagon(

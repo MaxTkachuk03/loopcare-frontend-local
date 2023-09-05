@@ -8,9 +8,8 @@ part 'dashboard_weight_item.g.dart';
 class DashboardWeightItem with _$DashboardWeightItem {
   const factory DashboardWeightItem({
     required double weight,
-    required String date,
+    required DateTime date,
   }) = _DashboardWeightItem;
 
-  factory DashboardWeightItem.fromJson(Map<String, dynamic> json) =>
-      _$DashboardWeightItemFromJson(json);
+  factory DashboardWeightItem.fromJson(Map<String, dynamic> json) => _$DashboardWeightItemFromJson(json);
 }
