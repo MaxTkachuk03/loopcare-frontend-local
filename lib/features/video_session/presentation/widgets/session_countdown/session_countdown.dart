@@ -27,6 +27,8 @@ class SessionTimerMode with _$SessionTimerMode {
   const factory SessionTimerMode.sessionStartedMoreThanFifteenMinutesAgo() =
       SessionStartedMoreThanFifteenMinutesAgo;
 
+  const factory SessionTimerMode.sessionEnded() = SessionEnded;
+
   const factory SessionTimerMode.sessionError() = SessionError;
 }
 
@@ -56,6 +58,8 @@ class _SessionCountdownState extends State<SessionCountdown> {
       _sessionTimerMode = const SessionTimerMode.sessionStartedMoreThanFifteenMinutesAgo();
     } else if (signedSession.isSessionAlreadyStarted) {
       _sessionTimerMode = const SessionTimerMode.sessionStarted();
+    } else if (signedSession.isSessionEnded) {
+      _sessionTimerMode = const SessionTimerMode.sessionEnded();
     } else {
       _sessionTimerMode = const SessionTimerMode.sessionNotStarted();
     }
@@ -68,6 +72,7 @@ class _SessionCountdownState extends State<SessionCountdown> {
         sessionNotStarted: (_) => LocalizedTexts.sessionWillStartIn,
         sessionError: (_) => LocalizedTexts.signatureErrorMessage,
         sessionStartedMoreThanFifteenMinutesAgo: (_) => LocalizedTexts.sessionStartsMoreThanFifteenMinutesAgo,
+        sessionEnded: (_) => LocalizedTexts.sessionAlreadyEnded,
       );
 
   TextStyle get textStyles => _sessionTimerMode.map(
@@ -87,6 +92,11 @@ class _SessionCountdownState extends State<SessionCountdown> {
           fontWeight: FontWeight.w600,
         ),
         sessionStartedMoreThanFifteenMinutesAgo: (_) => const TextStyle(
+          color: AppColors.red,
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+        ),
+        sessionEnded: (_) => const TextStyle(
           color: AppColors.red,
           fontSize: 18,
           fontWeight: FontWeight.w600,
@@ -136,12 +146,11 @@ class _SessionCountdownState extends State<SessionCountdown> {
     }
 
     final hasPermissions = await requestFilePermissions();
-    if (!hasPermissions) {
-      print('not all permissions are provided');
-      return;
-    }
+    if (!hasPermissions) return;
 
-    context.router.pushNamed(AppRoutes.sessionCall);
+    if (mounted) {
+      context.router.pushNamed(AppRoutes.sessionCall);
+    }
   }
 
   _onTimerEndsHandler() {
@@ -203,6 +212,7 @@ class _SessionCountdownState extends State<SessionCountdown> {
               ),
               sessionError: (_) => const SizedBox.shrink(),
               sessionStartedMoreThanFifteenMinutesAgo: (_) => const SizedBox.shrink(),
+              sessionEnded: (_) => const SizedBox.shrink(),
             )
           ],
         ),

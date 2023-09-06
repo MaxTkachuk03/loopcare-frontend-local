@@ -12,19 +12,17 @@ import 'package:flutter_zoom_videosdk/native/zoom_videosdk_event_listener.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_user.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_utils.dart';
+import 'package:loopcare_frontend/features/video_session/application/session_call_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
-import 'package:loopcare_frontend/features/video_session/presentation/jwt.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/call_controls.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/error_dialog.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/prompts_container.dart';
+import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_app_bar.dart';
 // import 'package:loopcare_frontend/features/video_session/presentation/widgets/report_issue.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_video_container.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/settings_dialog.dart';
@@ -54,8 +52,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   late final dynamic _requireSystemPermission;
   late final dynamic _eventErrorListener;
 
-  List<ZoomVideoSdkUser> users = [];
-  List<String> talkingUsers = [];
+  List<ZoomVideoSdkUser> _sessionParticipants = [];
+  List<String> _talkingUsers = [];
   String sessionName = '';
   bool isMuted = false;
   bool isSpeakerOn = false;
@@ -64,12 +62,14 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
   String _error = '';
   Timer? _timer;
+
   int _sessionStart = 0;
   double aspectRatio = 1;
   bool _isVideoPlaying = false;
 
   @override
   void initState() {
+    context.read<SessionCallBloc>().add(const SessionCallEvent.resetTimerValue());
     WidgetsBinding.instance.addObserver(this);
 
     _allowLandscapeOrientation();
@@ -126,10 +126,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     Future<void>.microtask(() async {
       final String sessionName = context.read<TopicsBloc>().state.data.thisWeekTopicName;
       final String? sessionPassword = context.read<TopicsBloc>().state.data.signedGroupSessionPassword;
-      // TODO production code
-      // final String token = context.read<TopicsBloc>().state.data.signedSessionSignature;
 
-      final String token = generateJwt(sessionName, ZoomConfig.defaultSessionRole);
+      final String token = context.read<TopicsBloc>().state.data.signedSessionSignature;
 
       log('session token = $token', name: 'zoomSessionLog');
 
@@ -164,9 +162,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        _sessionStart++;
-      });
+      context.read<SessionCallBloc>().add(SessionCallEvent.setTimerValue(_sessionStart++));
     });
   }
 
@@ -193,12 +189,11 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
       await zoom.audioHelper.setSpeaker(false);
 
-      remoteUsers?.insert(0, mySelf);
-      users = remoteUsers!;
+      _sessionParticipants = [mySelf, ...?remoteUsers];
       isMuted = muted!;
       isSpeakerOn = speakerOn;
       isVideoOn = videoOn!;
-      users = remoteUsers;
+
       sessionName = currentSessionName!;
 
       setState(() {});
@@ -211,7 +206,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
       _timer?.cancel();
 
-      users = <ZoomVideoSdkUser>[];
+      _sessionParticipants = <ZoomVideoSdkUser>[];
 
       setState(() {});
     });
@@ -221,12 +216,12 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
       ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
       var userListJson = jsonDecode(data['remoteUsers']) as List;
-      final List<ZoomVideoSdkUser> remoteUserList = [];
-      remoteUserList.add(mySelf!);
-      remoteUserList.addAll(userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson)));
 
       setState(() {
-        users = remoteUserList;
+        _sessionParticipants = [
+          mySelf!,
+          ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))
+        ];
       });
     });
 
@@ -236,13 +231,11 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
       var remoteUserListJson = jsonDecode(data['remoteUsers']) as List;
 
-      List<ZoomVideoSdkUser> remoteUserList =
-          remoteUserListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson)).toList();
-
-      remoteUserList.add(mySelf!);
-
       setState(() {
-        users = remoteUserList;
+        _sessionParticipants = [
+          mySelf!,
+          ...remoteUserListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson)).toList()
+        ];
       });
     });
 
@@ -250,7 +243,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       // Gets list of user who are speaking at the moment
       final List<ZoomVideoSdkUser> userList = _getSessionChangedUsers(data);
 
-      talkingUsers = userList.map((u) => u.userId).toList();
+      _talkingUsers = userList.map((u) => u.userId).toList();
 
       setState(() {});
     });
@@ -496,7 +489,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
             ));
   }
 
-  bool get userJoinedToSession => isInSession && users.isNotEmpty;
+  bool get userJoinedToSession => isInSession && _sessionParticipants.isNotEmpty;
 
   void _onVideoPlayingHandler(bool isVideoPlaying) async {
     isVideoPlaying ? muteAllParticipants() : unMuteAllParticipants();
@@ -507,17 +500,17 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   }
 
   void muteAllParticipants() async {
-    if (users.isEmpty) return;
+    if (_sessionParticipants.isEmpty) return;
 
-    for (var user in users) {
+    for (var user in _sessionParticipants) {
       await zoom.audioHelper.muteAudio(user.userId);
     }
   }
 
   void unMuteAllParticipants() async {
-    if (users.isEmpty) return;
+    if (_sessionParticipants.isEmpty) return;
 
-    for (var user in users) {
+    for (var user in _sessionParticipants) {
       await zoom.audioHelper.unMuteAudio(user.userId);
     }
   }
@@ -528,19 +521,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       final hideAppBar = _isVideoPlaying && orientation == Orientation.landscape;
 
       return Scaffold(
-        appBar: hideAppBar
-            ? null
-            : BlueAppBar(
-                title: sessionName,
-                subtitle: 'Duration ${formatSecondsToDurationString(_sessionStart)}',
-                actions: [
-                  IconButton(
-                    iconSize: 45.0,
-                    onPressed: _endSession,
-                    icon: AppIcons.greenPhone,
-                  )
-                ],
-              ),
+        appBar: hideAppBar ? null : SessionAppBar(sessionName: sessionName, onEndSessionHandler: _endSession),
         body: Container(
           color: AppColors.black,
           child: SafeArea(
@@ -556,12 +537,12 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                             Expanded(
                               flex: 2,
                               child: UsersGrid(
-                                users: users,
-                                talkingUsers: talkingUsers,
+                                users: _sessionParticipants,
+                                talkingUsers: _talkingUsers,
                                 aspectRatio: aspectRatio,
                               ),
                             ),
-                            Expanded(child: PromptsContainer(sessionTimer: _sessionStart)),
+                            const Expanded(child: PromptsContainer()),
                             // const ReportIssue(minutesLeft: '19'), // TODO out of scope for now
                             CallControls(
                               onMuteHandler: onPressAudio,
@@ -574,10 +555,14 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                         )
                       : const Loader(),
                 ),
-                SessionVideoContainer(
-                  sessionTimer: _sessionStart,
-                  onVideoPlayingListener: _onVideoPlayingHandler,
-                  orientation: orientation,
+                BlocBuilder<SessionCallBloc, SessionCallState>(
+                  builder: (context, state) {
+                    return SessionVideoContainer(
+                      sessionTimer: state.data.sessionTime,
+                      onVideoPlayingListener: _onVideoPlayingHandler,
+                      orientation: orientation,
+                    );
+                  },
                 ),
               ],
             ),

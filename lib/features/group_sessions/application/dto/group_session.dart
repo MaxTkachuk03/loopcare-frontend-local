@@ -31,6 +31,8 @@ class GroupSession with _$GroupSession {
   bool get isStartedLessThanFifteenMinutesAgo =>
       DateTime.now().difference(startDate.toLocal()).inMinutes < 15;
 
+  bool get isSessionEnded => DateTime.now().toLocal().isAfter(endDate.toLocal());
+
   get availableSeatsAmount => maxMemberCount - memberCount;
 
   factory GroupSession.fromJson(Map<String, dynamic> json) => _$GroupSessionFromJson(json);
