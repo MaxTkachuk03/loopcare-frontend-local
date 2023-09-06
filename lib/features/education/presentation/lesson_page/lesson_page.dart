@@ -1,13 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
-import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
@@ -40,18 +40,27 @@ class _LessonPageState extends State<LessonPage> {
 
     if (lessonBloc.state.data.isLastPage) {
       final extraAction = lessonBloc.state.data.extraAction;
-      final groupingState = context.read<AuthenticationCubit>().state.groupingState;
+      final unlockedFeatures = context.read<AuthenticationCubit>().state.unlockedFeatures;
 
-      if (extraAction != null &&
-          extraAction == ExtraActionTypes.setupGroupingPreferences &&
-          groupingState == UserGroupingState.locked) {
+      if (extraAction == ExtraActionTypes.setupGroupingPreferences &&
+          !unlockedFeatures.contains(UnlockedFeatureType.grouping)) {
         context
           ..read<GroupPreferencesBloc>()
               .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupingLesson))
           ..router.pushNamed(AppRoutes.supportGroupIntro);
-      } else {
-        context.router.pushNamed(AppRoutes.lessonComplete);
+
+        return;
       }
+
+      if (extraAction == ExtraActionTypes.unlockMeals) {
+        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.meals.name);
+      }
+
+      if (extraAction == ExtraActionTypes.unlockPhysicalActivities) {
+        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.physicalActivities.name);
+      }
+
+      context.router.pushNamed(AppRoutes.lessonComplete);
 
       return;
     }

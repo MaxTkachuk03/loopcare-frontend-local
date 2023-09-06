@@ -1,4 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
+import 'package:loopcare_frontend/features/account/domain/physical_activities_preferences.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
@@ -33,6 +35,8 @@ abstract class Account implements _$Account {
     @Default([]) List<FoodPreference>? foodPreferencesHates,
     @Default([]) List<FoodPreference>? foodPreferencesDislikes,
     @Default([]) List<FoodPreference>? foodPreferencesAllergic,
+    @Default([]) List<UnlockedFeatureType> unlockedFeatures,
+    PhysicalActivitiesPreferences? physicalActivitiesPreferences,
   }) = _Account;
 
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);

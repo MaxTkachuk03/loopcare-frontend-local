@@ -11,6 +11,8 @@ class GroupPreferencesEvent with _$GroupPreferencesEvent {
 
   const factory GroupPreferencesEvent.setGenderPreferences(GenderPreferences gender) = SetGenderPreferences;
 
+  const factory GroupPreferencesEvent.acceptRules() = AcceptRules;
+
   const factory GroupPreferencesEvent.setWouldLikeJoinGroup(YesNoAnswer value) = SetWouldLikeJoinGroup;
 
   const factory GroupPreferencesEvent.setTimezone(String timezone) = SetTimezone;

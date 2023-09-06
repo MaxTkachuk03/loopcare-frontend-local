@@ -18,4 +18,15 @@ extension ProgramTypeX on ProgramType {
         return LocalizedTexts.mobility.translation.capitalize();
     }
   }
+
+  bool get isAvailable {
+    switch (this) {
+      case ProgramType.strength:
+        return true;
+      case ProgramType.endurance:
+        return false;
+      case ProgramType.mobility:
+        return false;
+    }
+  }
 }

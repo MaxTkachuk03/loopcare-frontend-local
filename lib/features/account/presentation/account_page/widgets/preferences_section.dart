@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
@@ -39,10 +39,11 @@ class PreferencesSection extends StatelessWidget {
           BlocBuilder<AuthenticationCubit, AuthenticationState>(
             builder: (context, state) {
               return SectionItem(
-                  title: LocalizedTexts.groupSessions,
-                  onPressHandler: state.groupingState == UserGroupingState.locked
-                      ? null
-                      : () => _onGroupSessionsHandler(context));
+                title: LocalizedTexts.groupSessions,
+                onPressHandler: state.unlockedFeatures.contains(UnlockedFeatureType.grouping)
+                    ? () => _onGroupSessionsHandler(context)
+                    : null,
+              );
             },
           ),
           const SizedBox(height: 16.0),

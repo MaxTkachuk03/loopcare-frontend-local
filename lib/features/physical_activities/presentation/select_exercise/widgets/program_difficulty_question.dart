@@ -34,7 +34,9 @@ class ProgramDifficultyQuestion extends StatelessWidget {
                           value: e,
                           padding: const EdgeInsets.all(0),
                           width: 96,
-                          onSelected: (ProgramDifficulty value) => _onSelected(context, value),
+                          onSelected: (ProgramDifficulty value) =>
+                              e.isAvailable ? _onSelected(context, value) : null,
+                          available: e.isAvailable,
                         ),
                         const SizedBox(
                           width: 8.0,
