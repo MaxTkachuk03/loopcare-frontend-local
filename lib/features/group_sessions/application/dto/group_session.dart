@@ -22,7 +22,7 @@ class GroupSession with _$GroupSession {
     required DateTime startDate,
     required DateTime endDate,
     required String password,
-    required MemberSessionStatus memberStatus,
+    required MemberSessionStatus? memberStatus,
   }) = _GroupSession;
 
   bool get isSessionAlreadyStarted => startDate.isBefore(DateTime.now());
