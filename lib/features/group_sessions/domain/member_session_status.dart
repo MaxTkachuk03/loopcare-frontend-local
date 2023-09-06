@@ -1,4 +1,5 @@
 enum MemberSessionStatus {
+  notSigned,
   signedUp,
   joined,
   lost,
