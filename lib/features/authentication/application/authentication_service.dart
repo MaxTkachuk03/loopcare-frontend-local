@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/features/authentication/application/dto/login_
 import 'package:loopcare_frontend/features/authentication/application/dto/login_response.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_response.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/unlock_feature_response.dart';
 
 abstract class AuthenticationService {
   Future<Either<RequestError, EmailApproveDateResponse>> emailApproveDate(
@@ -24,7 +25,7 @@ abstract class AuthenticationService {
 
   Future<Either<RequestError, dynamic>> logout();
 
-  Future<Either<RequestError, dynamic>> unlockGrouping();
+  Future<Either<RequestError, UnlockFeatureResponse>> unlockFeature(String feature);
 
   Future<Either<RequestError, dynamic>> forgotPassword(
       ForgotPasswordData email);

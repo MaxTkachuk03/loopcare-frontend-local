@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/domain/account/account.dart';
+import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
@@ -54,6 +55,13 @@ class AuthenticationState with _$AuthenticationState {
     return maybeWhen(
       orElse: () => false,
       authenticated: (state) => state.isPreferencesComplete,
+    );
+  }
+
+  List<UnlockedFeatureType> get unlockedFeatures {
+    return maybeWhen(
+      orElse: () => [],
+      authenticated: (state) => state.unlockedFeatures,
     );
   }
 
