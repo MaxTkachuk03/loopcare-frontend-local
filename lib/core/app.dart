@@ -160,6 +160,7 @@ class _AppState extends State<_App> {
 
   @override
   void initState() {
+    super.initState();
     final authBloc = context.read<AuthenticationCubit>();
     final onboardingBloc = context.read<OnboardingBloc>();
     final legalStatementBloc = context.read<LegalStatementBloc>();
@@ -167,7 +168,7 @@ class _AppState extends State<_App> {
     final mentalHealthBloc = context.read<MentalHealthBloc>();
 
     _appRouter = AppRouter(
-      proxyGuard: ProxyGuard(),
+      proxyGuard: ProxyGuard(authBloc),
       introGuard: IntroGuard(
         authBloc,
         onboardingBloc,
@@ -179,8 +180,6 @@ class _AppState extends State<_App> {
         authBloc,
       ),
     );
-
-    super.initState();
   }
 
   @override
