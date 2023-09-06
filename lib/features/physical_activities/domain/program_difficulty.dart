@@ -17,4 +17,15 @@ extension ProgramDifficultyX on ProgramDifficulty {
         return LocalizedTexts.hard.translation;
     }
   }
+
+  bool get isAvailable {
+    switch (this) {
+      case ProgramDifficulty.easy:
+        return true;
+      case ProgramDifficulty.medium:
+        return false;
+      case ProgramDifficulty.hard:
+        return false;
+    }
+  }
 }
