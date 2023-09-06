@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/features/authentication/application/dto/login_
 import 'package:loopcare_frontend/features/authentication/application/dto/login_response.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_response.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/unlock_feature_response.dart';
 
 @Injectable(as: AuthenticationService)
 class APIAuthenticationService implements AuthenticationService {
@@ -19,8 +20,7 @@ class APIAuthenticationService implements AuthenticationService {
   APIAuthenticationService(this.client);
 
   @override
-  Future<Either<RequestError, EmailApproveDateResponse>> emailApproveDate(
-      int accountId) async {
+  Future<Either<RequestError, EmailApproveDateResponse>> emailApproveDate(int accountId) async {
     return client
         .get('/accounts/$accountId/emailApproveDate')
         .then(parseResponse(EmailApproveDateResponse.fromJson));
@@ -28,9 +28,7 @@ class APIAuthenticationService implements AuthenticationService {
 
   @override
   Future<Either<RequestError, AccountResponse>> fetchAccount() async {
-    return client
-        .get('/accounts')
-        .then(parseResponse(AccountResponse.fromJson));
+    return client.get('/accounts').then(parseResponse(AccountResponse.fromJson));
   }
 
   @override
@@ -52,9 +50,7 @@ class APIAuthenticationService implements AuthenticationService {
 
   @override
   Future<Either<RequestError, LoginResponse>> login(LoginData data) async {
-    return client
-        .post('/auth/login', data: data.toJson())
-        .then(parseResponse(LoginResponse.fromJson));
+    return client.post('/auth/login', data: data.toJson()).then(parseResponse(LoginResponse.fromJson));
   }
 
   @override
@@ -63,14 +59,15 @@ class APIAuthenticationService implements AuthenticationService {
   }
 
   @override
-  Future<Either<RequestError, dynamic>> unlockGrouping() async {
-    return client
-        .patch('/accounts/unlock-grouping', data: {});
+  Future<Either<RequestError, UnlockFeatureResponse>> unlockFeature(String feature) async {
+    return client.patch(
+      '/accounts/unlock-feature/$feature',
+      data: {},
+    ).then(parseResponse(UnlockFeatureResponse.fromJson));
   }
 
   @override
-  Future<Either<RequestError, dynamic>> forgotPassword(
-      ForgotPasswordData data) async {
+  Future<Either<RequestError, dynamic>> forgotPassword(ForgotPasswordData data) async {
     return client.post('/accounts/forgotPassword', data: data.toJson());
   }
 }

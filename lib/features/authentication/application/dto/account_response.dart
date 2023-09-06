@@ -3,6 +3,8 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:loopcare_frontend/core/domain/food_preferences/food_preferences.dart';
 import 'package:loopcare_frontend/core/domain/grouping_preferences.dart';
 import 'package:loopcare_frontend/core/domain/physical_fitness/physical_fitness.dart';
+import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
+import 'package:loopcare_frontend/features/account/domain/physical_activities_preferences.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/diabetes/application/dto/diabetes_type.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
@@ -29,6 +31,8 @@ class AccountResponse {
   final DiabetesType diabetes;
   final FoodPreferences foodPreferences;
   final GroupingPreferences? groupingPreferences;
+  final List<UnlockedFeatureType> unlockedFeatures;
+  final PhysicalActivitiesPreferences? physicalActivitiesPreferences;
 
   const AccountResponse({
     required this.id,
@@ -48,6 +52,8 @@ class AccountResponse {
     required this.diabetes,
     required this.foodPreferences,
     required this.groupingPreferences,
+    required this.unlockedFeatures,
+    required this.physicalActivitiesPreferences,
   });
 
   factory AccountResponse.fromJson(Map<String, dynamic> json) => _$AccountResponseFromJson(json);

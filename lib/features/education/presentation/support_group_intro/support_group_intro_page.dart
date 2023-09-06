@@ -2,10 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
@@ -113,14 +113,14 @@ class SupportGroupIntroPage extends StatelessWidget {
 
   _onJoinPressed(BuildContext context) {
     context
-      ..read<AuthenticationCubit>().unlockGrouping()
+      ..read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.grouping.name)
       ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.setWouldLikeJoinGroup(YesNoAnswer.yes))
       ..read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward())
       ..router.pushNamed(AppRoutes.genderPreferences);
   }
 
   _onDoNotJoinPressed(BuildContext context) {
-    context.read<AuthenticationCubit>().unlockGrouping();
+    context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.grouping.name);
 
     context.router.pushNamed(AppRoutes.lessonComplete);
   }

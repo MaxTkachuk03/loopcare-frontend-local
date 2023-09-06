@@ -32,6 +32,7 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
     on<LeaveGroup>(_onLeaveGroup);
     on<CancelGrouping>(_onCancelGrouping);
     on<ChangeGroupPrefsMode>(_onChangeGroupPrefsMode);
+    on<AcceptRules>(_onAcceptRules);
   }
 
   FutureOr<void> _onSetInitialData(
@@ -53,7 +54,6 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
     SetGenderPreferences event,
     Emitter<GroupPreferencesState> emit,
   ) async {
-    print('_onSetGenderPreferences');
     emit(GroupPreferencesState.loading(state.data.copyWith(isLoading: true)));
 
     final data = GroupPreferencesBody(genderPreference: event.gender);
@@ -61,10 +61,7 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
     final response = await _groupPreferencesService.savePreferences(data);
 
     response.fold(
-      (l) {
-        print('_onSetGenderPreferences error');
-        emit(GroupPreferencesState.error(state.data.copyWith(error: l, isLoading: false)));
-      },
+      (l) => emit(GroupPreferencesState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(GroupPreferencesState.updated(state.data.copyWith(
         genderPreferences: r.genderPreference ?? state.data.genderPreferences,
         isLoading: false,
@@ -170,5 +167,23 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
     emit(GroupPreferencesState.updated(state.data.copyWith(
       groupPrefsMode: event.groupPrefsMode,
     )));
+  }
+
+  FutureOr<void> _onAcceptRules(event, Emitter<GroupPreferencesState> emit) async {
+    emit(GroupPreferencesState.loading(state.data.copyWith(isLoading: true)));
+
+    final response =
+        await _groupPreferencesService.savePreferences(const GroupPreferencesBody(rulesAccepted: true));
+
+    response.fold(
+      (l) => emit(GroupPreferencesState.error(state.data.copyWith(error: l, isLoading: false))),
+      (r) {
+        _authBloc.getAccount();
+        emit(GroupPreferencesState.updated(state.data.copyWith(
+          isLoading: false,
+          error: null,
+        )));
+      },
+    );
   }
 }
