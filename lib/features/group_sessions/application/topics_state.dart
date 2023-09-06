@@ -30,15 +30,18 @@ class TopicsData with _$TopicsData {
 
   String get topicName => topics[DateTime.now().weekNumber]?.topic ?? '';
 
-  // TODO have same getter signedGroupSession
-  GroupSession? get _signedGroupSessions {
-    return topics[DateTime.now().weekNumber]
-        ?.groupSessions
-        .firstWhereOrNull((element) => element.signed == true);
+  GroupSession? get signedGroupSession => thisWeekTopic?.groupSessions.firstWhereOrNull((s) => s.signed);
+
+  bool get isSignedInPast {
+    if (signedGroupSession != null) {
+      return DateTime.now().isAfter(signedGroupSessionsEndTime ?? DateTime.now());
+    } else {
+      return false;
+    }
   }
 
   bool get isSigned {
-    return _signedGroupSessions != null ? true : false;
+    return signedGroupSession != null ? true : false;
   }
 
   DateTime? get signedGroupSessionStartTime => signedGroupSession?.startDate.toLocal();
@@ -47,15 +50,15 @@ class TopicsData with _$TopicsData {
       signedGroupSessionStartTime?.add(Duration(seconds: topics[DateTime.now().weekNumber]?.duration ?? 0));
 
   bool get signedGroupSessionsCancelledOrMissed {
-    return _signedGroupSessions?.status == GroupSessionStatus.cancelled;
+    return signedGroupSession?.status == GroupSessionStatus.cancelled;
   }
 
   bool get signedGroupSessionsMissed {
-    return _signedGroupSessions?.status == GroupSessionStatus.cancelled;
+    return signedGroupSession?.status == GroupSessionStatus.cancelled;
   }
 
   bool get signedGroupSessionsCancelled {
-    return _signedGroupSessions?.status == GroupSessionStatus.cancelled;
+    return signedGroupSession?.status == GroupSessionStatus.cancelled;
   }
 
   // TODO can be simplified, calculations can be moved to the GroupSession model
@@ -64,7 +67,7 @@ class TopicsData with _$TopicsData {
       if (DateTime.now()
               .isAfter(signedGroupSessionStartTime?.subtract(const Duration(hours: 1)) ?? DateTime.now()) &&
           DateTime.now().isBefore(signedGroupSessionStartTime ?? DateTime.now())) {
-        return _signedGroupSessions!.memberCount < _signedGroupSessions!.minMemberCount;
+        return signedGroupSession!.memberCount < signedGroupSession!.minMemberCount;
       } else {
         return false;
       }
@@ -74,6 +77,8 @@ class TopicsData with _$TopicsData {
   }
 
   bool get isGroupsOnThisWeekAvailable {
+    if (isSignedInPast) return false;
+
     int sessionsAvailableOnThisWeek = topics[DateTime.now().weekNumber]
             ?.groupSessions
             .where((element) => element.startDate
@@ -112,8 +117,6 @@ class TopicsData with _$TopicsData {
   String get thisWeekTopicName => topics[DateTime.now().weekNumber]?.topic ?? '';
 
   String get nextWeekTopicName => topics[DateTime.now().nextWeekNumber]?.topic ?? '';
-
-  GroupSession? get signedGroupSession => thisWeekTopic?.groupSessions.firstWhereOrNull((s) => s.signed);
 
   String? get signedGroupSessionToken => signedGroupSession?.signature;
 

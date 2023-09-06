@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/features/group_sessions/domain/group_session_status.dart';
+import 'package:loopcare_frontend/features/group_sessions/domain/member_session_status.dart';
 
 part 'group_session.freezed.dart';
 
@@ -19,7 +20,9 @@ class GroupSession with _$GroupSession {
     required int id,
     required String topic,
     required DateTime startDate,
+    required DateTime endDate,
     required String password,
+    required MemberSessionStatus? memberStatus,
   }) = _GroupSession;
 
   bool get isSessionAlreadyStarted => startDate.isBefore(DateTime.now());

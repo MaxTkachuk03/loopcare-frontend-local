@@ -74,15 +74,17 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     });
   }
 
-  void unlockGrouping() async {
+  void unlockFeature(String feature) async {
     await state.mapOrNull(authenticated: (state) async {
-      final response = await _authenticationService.unlockGrouping();
+      final response = await _authenticationService.unlockFeature(feature);
 
       response.fold(
         (l) => null,
         (r) {
           emit(state.copyWith(
-            account: state.account.copyWith(groupingState: UserGroupingState.notGrouped),
+            account: state.account.copyWith(
+              unlockedFeatures: r.unlockedFeatures,
+            ),
           ));
         },
       );
@@ -118,6 +120,8 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
               foodPreferencesHates: r.foodPreferences.hates,
               foodPreferencesDislikes: r.foodPreferences.dislike,
               foodPreferencesAllergic: r.foodPreferences.allergic,
+              unlockedFeatures: r.unlockedFeatures,
+              physicalActivitiesPreferences: r.physicalActivitiesPreferences,
             ),
           ));
         },

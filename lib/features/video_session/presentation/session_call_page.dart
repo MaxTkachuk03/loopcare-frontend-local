@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -20,6 +21,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
+import 'package:loopcare_frontend/features/video_session/presentation/jwt.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/call_controls.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/error_dialog.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/prompts_container.dart';
@@ -36,7 +38,7 @@ class SessionCallPage extends StatefulWidget {
   State<SessionCallPage> createState() => _SessionCallPageState();
 }
 
-class _SessionCallPageState extends State<SessionCallPage> {
+class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingObserver {
   ZoomVideoSdk zoom = ZoomVideoSdk();
   ZoomVideoSdkEventListener eventListener = ZoomVideoSdkEventListener();
 
@@ -68,6 +70,8 @@ class _SessionCallPageState extends State<SessionCallPage> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
+
     _allowLandscapeOrientation();
     _initSessionListeners();
     _joinSession();
@@ -75,13 +79,59 @@ class _SessionCallPageState extends State<SessionCallPage> {
     super.initState();
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    if (state != AppLifecycleState.resumed) {
+      _setInactiveUserState();
+    } else {
+      _setActiveUserState();
+    }
+  }
+
+  _setInactiveUserState() async {
+    ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
+    if (mySelf == null) return;
+
+    final audioStatus = mySelf.audioStatus;
+    final videoStatus = mySelf.videoStatus;
+
+    if (audioStatus != null) {
+      await zoom.audioHelper.muteAudio(mySelf.userId);
+    }
+
+    if (videoStatus != null) {
+      await zoom.videoHelper.stopVideo();
+    }
+  }
+
+  _setActiveUserState() async {
+    ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
+    if (mySelf == null) return;
+
+    final audioStatus = mySelf.audioStatus;
+    final videoStatus = mySelf.videoStatus;
+
+    if (audioStatus != null) {
+      await zoom.audioHelper.unMuteAudio(mySelf.userId);
+    }
+
+    if (videoStatus != null) {
+      await zoom.videoHelper.startVideo();
+    }
+  }
+
   void _joinSession() {
     Future<void>.microtask(() async {
       final String sessionName = context.read<TopicsBloc>().state.data.thisWeekTopicName;
       final String? sessionPassword = context.read<TopicsBloc>().state.data.signedGroupSessionPassword;
-      final String token = context.read<TopicsBloc>().state.data.signedSessionSignature;
+      // TODO production code
+      // final String token = context.read<TopicsBloc>().state.data.signedSessionSignature;
 
-      print('session token = $token');
+      final String token = generateJwt(sessionName, ZoomConfig.defaultSessionRole);
+
+      log('session token = $token', name: 'zoomSessionLog');
 
       final String userName = context.read<AuthenticationCubit>().state.nickname ??
           context.read<AuthenticationCubit>().state.name;
@@ -99,7 +149,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
       try {
         await zoom.joinSession(joinSession);
       } catch (e) {
-        print('Error while join session $e');
+        log('Error while join session $e', name: 'zoomSessionLog');
         const AlertDialog(title: Text("Error"), content: Text("Failed to join the session"));
       }
     });
@@ -132,7 +182,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
 
       _startTimer();
 
-      print('_sessionJoinListener');
+      log('_sessionJoinListener', name: 'zoomSessionLog');
 
       ZoomVideoSdkUser mySelf = ZoomVideoSdkUser.fromJson(jsonDecode(sessionUser.toString()));
       List<ZoomVideoSdkUser>? remoteUsers = await zoom.session.getRemoteUsers();
@@ -156,7 +206,8 @@ class _SessionCallPageState extends State<SessionCallPage> {
 
     _sessionLeaveListener = emitter.on(EventType.onSessionLeave, (data) async {
       isInSession = false;
-      print('_sessionLeaveListener');
+
+      log('_sessionLeaveListener $data', name: 'zoomSessionLog');
 
       _timer?.cancel();
 
@@ -166,7 +217,8 @@ class _SessionCallPageState extends State<SessionCallPage> {
     });
 
     _userJoinListener = emitter.on(EventType.onUserJoin, (Map data) async {
-      print('_userJoinListener $data');
+      log('_userJoinListener $data', name: 'zoomSessionLog');
+
       ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
       var userListJson = jsonDecode(data['remoteUsers']) as List;
       final List<ZoomVideoSdkUser> remoteUserList = [];
@@ -179,7 +231,8 @@ class _SessionCallPageState extends State<SessionCallPage> {
     });
 
     _userLeaveListener = emitter.on(EventType.onUserLeave, (Map data) async {
-      print('_userLeaveListener $data');
+      log('_userLeaveListener $data', name: 'zoomSessionLog');
+
       ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
       var remoteUserListJson = jsonDecode(data['remoteUsers']) as List;
 
@@ -203,7 +256,8 @@ class _SessionCallPageState extends State<SessionCallPage> {
     });
 
     _userAudioStatusChangedListener = emitter.on(EventType.onUserAudioStatusChanged, (Map data) async {
-      print('_userAudioStatusChangedListener $data');
+      log('_userAudioStatusChangedListener $data', name: 'zoomSessionLog');
+
       final ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
 
       final List<ZoomVideoSdkUser> userList = _getSessionChangedUsers(data);
@@ -217,7 +271,8 @@ class _SessionCallPageState extends State<SessionCallPage> {
     });
 
     _userVideoStatusChangedListener = emitter.on(EventType.onUserVideoStatusChanged, (Map data) async {
-      print('_userVideoStatusChangedListener $data');
+      log('_userVideoStatusChangedListener $data', name: 'zoomSessionLog');
+
       final ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
 
       final List<ZoomVideoSdkUser> userList = _getSessionChangedUsers(data);
@@ -232,13 +287,13 @@ class _SessionCallPageState extends State<SessionCallPage> {
 
     _cloudRecordingStatusListener = emitter.on(EventType.onCloudRecordingStatus, (Map data) async {
       // TODO not implemented by zoom team
-      print('_cloudRecordingStatusListener - ${data['status']}');
+      log('_cloudRecordingStatusListener - ${data['status']}', name: 'zoomSessionLog');
     });
 
     _networkStatusChangeListener = emitter.on(EventType.onUserVideoNetworkStatusChanged, (Map data) async {
       ZoomVideoSdkUser? networkUser = ZoomVideoSdkUser.fromJson(jsonDecode(data['user']));
 
-      print('_networkStatusChangeListener $networkUser ${data['status']}');
+      log('_networkStatusChangeListener - $networkUser ${data['status']}', name: 'zoomSessionLog');
 
       // TODO handle network status change
       // if (data['status'] == NetworkStatus.Bad) {
@@ -247,7 +302,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
     });
 
     _requireSystemPermission = emitter.on(EventType.onRequireSystemPermission, (Map data) async {
-      print("_requireSystemPermission $data");
+      log('_requireSystemPermission - $data', name: 'zoomSessionLog');
       //FIXME refactor this listener
       // ZoomVideoSdkUser? changedUser = ZoomVideoSdkUser.fromJson(jsonDecode(data['changedUser']));
 
@@ -289,7 +344,7 @@ class _SessionCallPageState extends State<SessionCallPage> {
     _eventErrorListener = emitter.on(EventType.onError, (Map data) async {
       String errorType = data['errorType'];
 
-      debugPrint('_eventErrorListener called with $errorType');
+      log('_eventErrorListener called with $errorType', name: 'zoomSessionLog');
 
       if (_error == errorType) return;
 
@@ -534,6 +589,8 @@ class _SessionCallPageState extends State<SessionCallPage> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+
     _onlyPortraitOrientation();
 
     zoom.leaveSession(false);

@@ -13,7 +13,6 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_progress.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 
 class GroupRulesSixPage extends StatelessWidget {
   const GroupRulesSixPage({Key? key}) : super(key: key);
@@ -21,7 +20,7 @@ class GroupRulesSixPage extends StatelessWidget {
   void _onIAgreePressHandler(BuildContext context) {
     final groupPrefsMode = context.read<GroupPreferencesBloc>().state.data.groupPrefsMode;
 
-    context.read<AuthenticationCubit>().getAccount();
+    context.read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.acceptRules());
 
     if (groupPrefsMode == GroupPrefsMode.groupPreferencesFlow) {
       context.router.popUntilRouteWithName(GroupPreferencesRoute.name);
