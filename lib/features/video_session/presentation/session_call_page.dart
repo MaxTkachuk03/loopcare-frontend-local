@@ -154,6 +154,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   }
 
   void _reconnectToTheSession() {
+    _timer?.cancel();
     Timer(const Duration(milliseconds: 500), () async {
       await zoom.leaveSession(false);
       _joinSession();
@@ -161,6 +162,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   }
 
   void _startTimer() {
+    if (_timer != null) _timer?.cancel();
+
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       context.read<SessionCallBloc>().add(SessionCallEvent.setTimerValue(_sessionStart++));
     });
