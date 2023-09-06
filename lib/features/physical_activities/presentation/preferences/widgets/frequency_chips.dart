@@ -1,12 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/physical_activities_frequency.dart';
-import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
-import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 
 class FrequencyChips extends StatefulWidget {
   const FrequencyChips({Key? key}) : super(key: key);
@@ -20,9 +14,6 @@ class _FrequencyChipsState extends State<FrequencyChips> {
 
   @override
   void initState() {
-    // final bloc = context.read<MedicalFitnessBloc>();
-    // _selectedValue = bloc.state.pregnancy;
-
     super.initState();
   }
 
@@ -30,18 +21,6 @@ class _FrequencyChipsState extends State<FrequencyChips> {
     setState(() {
       _selectedValue = value;
     });
-
-    if (value == YesNoAnswer.yes) {
-      context.router.pushNamed(AppRoutes.pregnancyFailed);
-
-      return;
-    }
-
-    // final bloc = context.read<MedicalFitnessBloc>();
-    // bloc.add(MedicalFitnessEvent.pregnancyChanged(value));
-    // final medicalFitnessNavigationState = StepNavigationState.of(context);
-
-    // medicalFitnessNavigationState.onNextPage();
   }
 
   @override
