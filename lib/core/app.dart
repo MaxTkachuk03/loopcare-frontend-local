@@ -38,6 +38,7 @@ import 'package:loopcare_frontend/features/onboarding/application/onboarding_blo
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
+import 'package:loopcare_frontend/features/video_session/application/session_call_bloc.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
 
@@ -140,6 +141,9 @@ class App extends StatelessWidget {
         BlocProvider<TopicsBloc>(
           create: (_) => getIt<TopicsBloc>(),
         ),
+        BlocProvider<SessionCallBloc>(
+          create: (_) => getIt<SessionCallBloc>(),
+        ),
       ],
       child: const _App(),
     );
@@ -160,6 +164,7 @@ class _AppState extends State<_App> {
 
   @override
   void initState() {
+    super.initState();
     final authBloc = context.read<AuthenticationCubit>();
     final onboardingBloc = context.read<OnboardingBloc>();
     final legalStatementBloc = context.read<LegalStatementBloc>();
@@ -167,7 +172,7 @@ class _AppState extends State<_App> {
     final mentalHealthBloc = context.read<MentalHealthBloc>();
 
     _appRouter = AppRouter(
-      proxyGuard: ProxyGuard(),
+      proxyGuard: ProxyGuard(authBloc),
       introGuard: IntroGuard(
         authBloc,
         onboardingBloc,
@@ -179,8 +184,6 @@ class _AppState extends State<_App> {
         authBloc,
       ),
     );
-
-    super.initState();
   }
 
   @override
