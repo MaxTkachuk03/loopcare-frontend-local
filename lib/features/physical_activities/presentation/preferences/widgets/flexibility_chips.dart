@@ -1,38 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/domain/flexibility_option.dart';
 import 'package:loopcare_frontend/core/domain/multi_choice_type.dart';
-import 'package:loopcare_frontend/core/domain/physical_activities_type.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
 
-class ActivityTypeChips extends StatefulWidget {
-  const ActivityTypeChips({Key? key}) : super(key: key);
+class FlexibilityChips extends StatefulWidget {
+  const FlexibilityChips({Key? key}) : super(key: key);
 
   @override
-  State<ActivityTypeChips> createState() => _ActivityTypeChipsState();
+  State<FlexibilityChips> createState() => _FlexibilityChipsState();
 }
 
-class _ActivityTypeChipsState extends State<ActivityTypeChips> {
-  PhysicalActivitiesType? _selectedValue;
+class _FlexibilityChipsState extends State<FlexibilityChips> {
+  FlexibilityOption? _selectedValue;
 
   @override
   void initState() {
     super.initState();
   }
 
-  void _onSelectedHandler(PhysicalActivitiesType value) {
+  void _onSelectedHandler(FlexibilityOption value) {
     setState(() {
-      _selectedValue = value;
+      _selectedValue = _selectedValue == value ? null : value;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: PhysicalActivitiesType.values
+      children: FlexibilityOption.values
           .map(
-            (PhysicalActivitiesType value) => Column(
+            (FlexibilityOption value) => Column(
               children: [
                 AppChoiceChip(
-                  type: MultiChoiceType.radio,
+                  type: MultiChoiceType.checkbox,
                   textAlign: TextAlign.start,
                   label: value.label,
                   selected: value == _selectedValue,

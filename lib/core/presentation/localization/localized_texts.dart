@@ -362,9 +362,10 @@ class LocalizedTexts {
   static const String physicalActivitiesFrequencyItemFive = 'physicalActivitiesFrequencyItemFive';
   static const String physicalActivitiesFrequencyItemSix = 'physicalActivitiesFrequencyItemSix';
   static const String whatWouldYouLikeToStartWorkingOn = 'whatWouldYouLikeToStartWorkingOn';
-
   static const String buildUpMuscle = 'buildUpMuscle';
   static const String inceaseYourStamina = 'inceaseYourStamina';
+  static const String youCanAlsoOptionally = 'youCanAlsoOptionally';
+  static const String moreFlexibility = 'moreFlexibility';
 
   static const String supportGroup = 'supportGroup';
   static const String explore = 'explore';

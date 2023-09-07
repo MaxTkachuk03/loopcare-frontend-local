@@ -306,9 +306,10 @@
   "physicalActivitiesFrequencyItemFive": "5 times",
   "physicalActivitiesFrequencyItemSix": "Currently not able to exercise",
   "whatWouldYouLikeToStartWorkingOn": "What would you like to start working on?",
-
   "buildUpMuscle": "Build up muscle",
   "inceaseYourStamina": "Increase your stamina",
+  "youCanAlsoOptionally": "You can also optionally work on your body’s mobility.",
+  "moreFlexibility": "Getting more flexible",
 
   "supportGroup": "Support group",
   "explore": "Explore",
