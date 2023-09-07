@@ -1,40 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/domain/physical_activities_frequency.dart';
+import 'package:loopcare_frontend/core/domain/physical_activities_type.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/app_multi_choice_chip.dart';
 
-class FrequencyChips extends StatefulWidget {
-  const FrequencyChips({Key? key}) : super(key: key);
+class ActivityTypeChips extends StatefulWidget {
+  const ActivityTypeChips({Key? key}) : super(key: key);
 
   @override
-  State<FrequencyChips> createState() => _FrequencyChipsState();
+  State<ActivityTypeChips> createState() => _ActivityTypeChipsState();
 }
 
-class _FrequencyChipsState extends State<FrequencyChips> {
-  PhysicalActivitiesFrequency? _selectedValue;
+class _ActivityTypeChipsState extends State<ActivityTypeChips> {
+  PhysicalActivitiesType? _selectedValue;
 
   @override
   void initState() {
     super.initState();
   }
 
-  void _onSelectedHandler(PhysicalActivitiesFrequency value) {
+  void _onSelectedHandler(PhysicalActivitiesType value) {
     setState(() {
       _selectedValue = value;
     });
-    
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: PhysicalActivitiesFrequency.values
+      children: PhysicalActivitiesType.values
           .map(
-            (PhysicalActivitiesFrequency value) => Column(
+            (PhysicalActivitiesType value) => Column(
               children: [
                 AppChoiceChip(
                   textAlign: TextAlign.start,
                   label: value.label,
-                  recommended: value.recommended,
                   selected: value == _selectedValue,
                   value: value,
                   onSelected: _onSelectedHandler,

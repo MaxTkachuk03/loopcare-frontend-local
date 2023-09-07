@@ -355,13 +355,16 @@ class LocalizedTexts {
   static const String physicalActivitiesPreferencesItemTwo = 'physicalActivitiesPreferencesItemTwo';
   static const String physicalActivitiesPreferencesItemThree = 'physicalActivitiesPreferencesItemThree';
   static const String physicalActivitiesFrequencyTitle = 'physicalActivitiesFrequencyTitle';
-
   static const String physicalActivitiesFrequencyItemOne = 'physicalActivitiesFrequencyItemOne';
   static const String physicalActivitiesFrequencyItemTwo = 'physicalActivitiesFrequencyItemTwo';
   static const String physicalActivitiesFrequencyItemThree = 'physicalActivitiesFrequencyItemThree';
   static const String physicalActivitiesFrequencyItemFour = 'physicalActivitiesFrequencyItemFour';
   static const String physicalActivitiesFrequencyItemFive = 'physicalActivitiesFrequencyItemFive';
   static const String physicalActivitiesFrequencyItemSix = 'physicalActivitiesFrequencyItemSix';
+  static const String whatWouldYouLikeToStartWorkingOn = 'whatWouldYouLikeToStartWorkingOn';
+
+  static const String buildUpMuscle = 'buildUpMuscle';
+  static const String inceaseYourStamina = 'inceaseYourStamina';
 
   static const String supportGroup = 'supportGroup';
   static const String explore = 'explore';

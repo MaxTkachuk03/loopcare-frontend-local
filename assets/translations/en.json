@@ -292,7 +292,6 @@
   "selectAMeal": "Select a meal",
   "today": "Today",
   "activities": "Activities",
-
   "physicalActivities": "Physical activities",
   "physicalActivitiesPreferences": "Physical activities preferences",
   "physicalActivitiesPreferencesDesc": "We love to offer you personal and relevant physical activities.",
@@ -306,6 +305,10 @@
   "physicalActivitiesFrequencyItemFour": "4 times",
   "physicalActivitiesFrequencyItemFive": "5 times",
   "physicalActivitiesFrequencyItemSix": "Currently not able to exercise",
+  "whatWouldYouLikeToStartWorkingOn": "What would you like to start working on?",
+
+  "buildUpMuscle": "Build up muscle",
+  "inceaseYourStamina": "Increase your stamina",
 
   "supportGroup": "Support group",
   "explore": "Explore",

@@ -101,6 +101,7 @@ class AppRoutes {
   static const String programDetails = '/program-details';
   static const String physicalActivitiesPreferences = '/physical-activities-preferences';
   static const String physicalActivitiesFrequency = '/physical-activities-frequency';
+  static const String physicalActivitiesActivityType = '/physical-activities-activity-type';
 
   // User profile
   static const String foodPreferences = '/food-preferences';

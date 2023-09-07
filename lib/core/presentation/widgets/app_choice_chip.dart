@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/domain/multi_choice_type.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
@@ -14,6 +15,7 @@ class AppChoiceChip<T> extends StatelessWidget {
   final double? width;
   final bool available;
   final bool recommended;
+  final MultiChoiceType type;
 
   const AppChoiceChip({
     Key? key,
@@ -26,6 +28,7 @@ class AppChoiceChip<T> extends StatelessWidget {
     this.width,
     this.available = true,
     this.recommended = false,
+    this.type = MultiChoiceType.none,
   }) : super(key: key);
 
   @override
@@ -63,6 +66,16 @@ class AppChoiceChip<T> extends StatelessWidget {
                           : AppColors.greyMid,
                     ),
               ),
+            if (type == MultiChoiceType.radio)
+              Icon(
+                color: selected ? AppColors.white : AppColors.yellowLight,
+                selected ? Icons.radio_button_checked_outlined : Icons.radio_button_unchecked,
+              ),
+            if (type == MultiChoiceType.checkbox)
+              Icon(
+                color: selected ? AppColors.white : AppColors.yellowLight,
+                selected ? Icons.check_box_outlined : Icons.check_box_outline_blank,
+              )
           ],
         ),
       ),

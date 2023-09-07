@@ -76,8 +76,9 @@ import 'package:loopcare_frontend/features/nutrition/presentation/recipe/recipe_
 import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/barcode_scanner_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/select_food_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/nutrition_instructions_page.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_frequency.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_preferences.dart';
+import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_activity_page.dart';
+import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_frequency_page.dart';
+import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_preferences_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/program_assessment_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/physical_programs_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_details/program_details_page.dart';
@@ -556,6 +557,10 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.physicalActivitiesFrequency,
       page: PhysicalActivitiesFrequencyPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.physicalActivitiesActivityType,
+      page: PhysicalActivitiesActivityTypePage,
     ),
   ],
 )

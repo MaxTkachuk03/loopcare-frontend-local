@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
@@ -71,6 +72,21 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
                   ),
                 ],
               ),
+              SafeArea(
+                top: false,
+                child: MainContainer(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 53.0),
+                    child: ElevatedButton(
+                      onPressed: () => _onNext(context),
+                      style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                            backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
+                          ),
+                      child: Text(LocalizedTexts.next.tr()),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -78,7 +94,7 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
     );
   }
 
-  void _onStart(BuildContext context) {
-    context.router.pushNamed(AppRoutes.physicalActivitiesFrequency);
+  void _onNext(BuildContext context) {
+    context.router.pushNamed(AppRoutes.physicalActivitiesActivityType);
   }
 }
