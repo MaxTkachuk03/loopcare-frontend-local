@@ -14,7 +14,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_block.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/app_unlock_bloc.dart';
+import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/app_unlock_block.dart';
 
 class PhysicalActivitiesCompletePage extends StatefulWidget {
   const PhysicalActivitiesCompletePage({Key? key}) : super(key: key);
@@ -105,7 +105,7 @@ class _PhysicalActivitiesCompletePageState extends State<PhysicalActivitiesCompl
                       textAlign: TextAlign.center,
                     ).tr(),
                     const SizedBox(height: 24),
-                    AppUnlockBloc(
+                    AppUnlockBlock(
                       title: LocalizedTexts.physicalActivitiesUnlockedTitle.translation.capitalize(),
                       text: LocalizedTexts.physicalActivitiesUnlockedText.translation.capitalize(),
                     ),

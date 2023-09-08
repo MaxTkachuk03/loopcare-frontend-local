@@ -9,10 +9,11 @@ class PhysicalActivitiesPreferences with _$PhysicalActivitiesPreferences {
   const PhysicalActivitiesPreferences._();
 
   const factory PhysicalActivitiesPreferences({
-    required String trainingFrequency,
-    required String trainingTargets,
-    required bool flexible,
+    @Default('') String? trainingFrequency,
+    @Default('') String? trainingTargets,
+    @Default(false) bool? flexible,
   }) = _PhysicalActivitiesPreferences;
 
-  factory PhysicalActivitiesPreferences.fromJson(Map<String, dynamic> json) => _$PhysicalActivitiesPreferencesFromJson(json);
+  factory PhysicalActivitiesPreferences.fromJson(Map<String, dynamic> json) =>
+      _$PhysicalActivitiesPreferencesFromJson(json);
 }

@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
-class AppUnlockBloc extends StatelessWidget {
+class AppUnlockBlock extends StatelessWidget {
   final String title;
   final String text;
 
-  const AppUnlockBloc({
+  const AppUnlockBlock({
     Key? key,
     required this.title,
     required this.text,

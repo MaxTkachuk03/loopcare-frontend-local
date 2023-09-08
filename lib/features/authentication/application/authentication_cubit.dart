@@ -75,20 +75,24 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
   }
 
   void unlockFeature(String feature) async {
-    await state.mapOrNull(authenticated: (state) async {
-      final response = await _authenticationService.unlockFeature(feature);
+    await state.mapOrNull(
+      authenticated: (state) async {
+        final response = await _authenticationService.unlockFeature(feature);
 
-      response.fold(
-        (l) => null,
-        (r) {
-          emit(state.copyWith(
-            account: state.account.copyWith(
-              unlockedFeatures: r.unlockedFeatures,
-            ),
-          ));
-        },
-      );
-    });
+        response.fold(
+          (l) => null,
+          (r) {
+            emit(
+              state.copyWith(
+                account: state.account.copyWith(
+                  unlockedFeatures: r.unlockedFeatures,
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   void getAccount() async {
