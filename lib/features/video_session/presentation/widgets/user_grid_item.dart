@@ -3,12 +3,14 @@ import 'package:flutter_zoom_videosdk/flutter_zoom_view.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_user.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/video_session/presentation/widgets/user_default_avatar.dart';
 
 class UserGridItem extends StatelessWidget {
   final ZoomVideoSdkUser user;
   final bool isTalking;
+  final bool isCameraOff;
 
-  const UserGridItem({super.key, required this.user, required this.isTalking});
+  const UserGridItem({super.key, required this.user, required this.isTalking, required this.isCameraOff});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class UserGridItem extends StatelessWidget {
             "videoAspect": VideoAspect.FullFilled,
             "fullScreen": false,
           }),
+          if (isCameraOff) const UserDefaultAvatar(),
           Align(
             alignment: Alignment.bottomLeft,
             child: Padding(
