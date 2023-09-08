@@ -5,9 +5,15 @@ import 'package:loopcare_frontend/features/video_session/presentation/widgets/us
 class UsersGrid extends StatelessWidget {
   final List<ZoomVideoSdkUser> users;
   final List<String> talkingUsers;
+  final List<String> usersWithCameraOff;
   final double aspectRatio;
 
-  const UsersGrid({super.key, required this.users, required this.talkingUsers, required this.aspectRatio});
+  const UsersGrid(
+      {super.key,
+      required this.users,
+      required this.talkingUsers,
+      required this.aspectRatio,
+      required this.usersWithCameraOff});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +33,7 @@ class UsersGrid extends StatelessWidget {
           key: ValueKey(currentUser.userId),
           user: currentUser,
           isTalking: talkingUsers.contains(currentUser.userId),
+          isCameraOff: usersWithCameraOff.contains(currentUser.userId),
         );
       },
     );
