@@ -136,7 +136,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     _inactivityTimer?.cancel();
 
     _inactivityTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (timer.tick >= 10) {
+      if (timer.tick >= 60) {
         _leaveSessionHandler();
         timer.cancel();
       }
