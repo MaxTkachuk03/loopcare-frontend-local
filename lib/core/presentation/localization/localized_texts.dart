@@ -366,6 +366,10 @@ class LocalizedTexts {
   static const String inceaseYourStamina = 'inceaseYourStamina';
   static const String youCanAlsoOptionally = 'youCanAlsoOptionally';
   static const String moreFlexibility = 'moreFlexibility';
+  static const String physicalActivitiesCompletedTitle = 'physicalActivitiesCompletedTitle';
+  static const String physicalActivitiesCompletedDesc = 'physicalActivitiesCompletedDesc';
+  static const String physicalActivitiesUnlockedTitle = 'physicalActivitiesUnlockedTitle';
+  static const String physicalActivitiesUnlockedText = 'physicalActivitiesUnlockedText';
 
   static const String supportGroup = 'supportGroup';
   static const String explore = 'explore';

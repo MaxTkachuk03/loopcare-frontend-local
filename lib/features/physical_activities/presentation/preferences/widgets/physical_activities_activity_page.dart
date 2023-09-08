@@ -9,7 +9,6 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/activity_type_chips.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/flexibility_chips.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/frequency_chips.dart';
 
 class PhysicalActivitiesActivityTypePage extends StatefulWidget {
   const PhysicalActivitiesActivityTypePage({Key? key}) : super(key: key);
@@ -79,7 +78,7 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
                   ),
                 ],
               ),
-                            SafeArea(
+              SafeArea(
                 top: false,
                 child: MainContainer(
                   child: Padding(
@@ -102,6 +101,6 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
   }
 
   void _onNext(BuildContext context) {
-    context.router.pushNamed(AppRoutes.physicalActivitiesActivityType);
+    context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
   }
 }

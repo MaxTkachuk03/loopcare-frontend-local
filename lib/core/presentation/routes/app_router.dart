@@ -77,6 +77,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanne
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/select_food_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/nutrition_instructions_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_activity_page.dart';
+import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_completed_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_frequency_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_preferences_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/program_assessment_page.dart';
@@ -561,6 +562,10 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.physicalActivitiesActivityType,
       page: PhysicalActivitiesActivityTypePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.physicalActivitiesComplete,
+      page: PhysicalActivitiesCompletePage,
     ),
   ],
 )
