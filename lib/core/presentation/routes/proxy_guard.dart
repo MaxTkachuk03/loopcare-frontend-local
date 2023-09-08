@@ -20,7 +20,7 @@ class ProxyGuard extends AutoRouteGuard {
         router.replaceNamed(route);
         return;
       } else {
-        router.replaceNamed(AppRoutes.intro);
+        router.replaceNamed(AppRoutes.preIntro);
       }
     }
   }

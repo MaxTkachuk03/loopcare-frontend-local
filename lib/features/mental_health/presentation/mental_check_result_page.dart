@@ -22,7 +22,9 @@ import 'package:loopcare_frontend/features/onboarding/application/onboarding_blo
 const psychologistConsultingLink = 'https://locator.apa.org/';
 
 class MentalCheckResultPage extends StatefulWidget {
-  const MentalCheckResultPage({Key? key}) : super(key: key);
+  final bool? calculationResultsNotNeeded;
+
+  const MentalCheckResultPage({Key? key, this.calculationResultsNotNeeded}) : super(key: key);
 
   @override
   State<MentalCheckResultPage> createState() => _MentalCheckResultPageState();
@@ -31,7 +33,9 @@ class MentalCheckResultPage extends StatefulWidget {
 class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
   @override
   void initState() {
-    context.read<MentalHealthBloc>().add(const MentalHealthEvent.getTestResults());
+    if (!(widget.calculationResultsNotNeeded ?? false)) {
+      context.read<MentalHealthBloc>().add(const MentalHealthEvent.getTestResults());
+    }
 
     super.initState();
   }
@@ -44,7 +48,15 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
 
         final error = state.data.error;
 
-        if (error != null) return MentalHealthWrap(child: ErrorScreen(error: error));
+        if (error != null) {
+          return MentalHealthWrap(
+            child: ErrorScreen(
+              error: error,
+              onButtonPressed: () =>
+                  context.read<MentalHealthBloc>().add(const MentalHealthEvent.getTestResults()),
+            ),
+          );
+        }
 
         final currentTest = state.data.currentTest;
         if (currentTest == null) return const SizedBox.shrink();
@@ -114,6 +126,10 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
 
   _onNextPressed(BuildContext context) {
     final state = context.read<MentalHealthBloc>().state.data;
+
+    if (!(state.isLastTest && state.isCompleted)) {
+      context.read<MentalHealthBloc>().add(const MentalHealthEvent.nextPage());
+    }
 
     if (state.isLastTest && !state.isCompleted) {
       context
