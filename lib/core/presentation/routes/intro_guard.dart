@@ -38,6 +38,7 @@ class IntroGuard extends AutoRouteGuard {
     return [
       const MentalHealthIntroRoute(),
       ...mentalHealthRoutes,
+      MentalCheckResultRoute(calculationResultsNotNeeded: true)
     ];
   }
 

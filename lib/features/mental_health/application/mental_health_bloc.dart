@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -175,6 +174,8 @@ class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState
   }
 
   FutureOr<void> _onPrevPage(_PrevPage event, Emitter<MentalHealthState> emit) {
+    if (state.data.currentPage == 0) return null;
+
     emit(state.copyWith(
       data: state.data.copyWith(
         currentPage: state.data.currentPage - 1,
