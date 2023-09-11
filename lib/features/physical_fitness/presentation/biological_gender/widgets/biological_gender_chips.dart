@@ -51,6 +51,7 @@ class _BiologicalGenderChipsState extends State<BiologicalGenderChips> {
                   label: _getLabelText(gender.name),
                   selected: gender == _selectedValue,
                   value: gender,
+                  chipHeight: 50.0,
                   onSelected: _onSelectedBiologicalGenderHandler,
                 ),
                 const SizedBox(height: 8.0),

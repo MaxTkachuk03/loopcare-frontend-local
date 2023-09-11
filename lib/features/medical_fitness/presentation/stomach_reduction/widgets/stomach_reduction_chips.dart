@@ -57,6 +57,7 @@ class _StomachReductionChipsState extends State<StomachReductionChips> {
                   label: value.label,
                   selected: value == _selectedValue,
                   value: value,
+                  chipHeight: 50.0,
                   onSelected: _onSelected,
                 ),
                 const SizedBox(height: 8.0),

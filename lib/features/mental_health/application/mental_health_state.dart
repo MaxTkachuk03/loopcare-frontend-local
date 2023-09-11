@@ -43,8 +43,16 @@ class MentalHealthData with _$MentalHealthData {
     return currentTest?.questions[currentQuestionIndex];
   }
 
-  bool get isLastQuestion {
+  bool get isLastQuestionInTest {
     return currentQuestionIndex + 1 == currentTest?.questions.length;
+  }
+
+  bool get isLastMentalHealthQuestion {
+    final currentQuestionId = currentQuestion?.id;
+
+    if (currentQuestionId == null) return false;
+
+    return questionsListId.indexOf(currentQuestionId) + 1 == questionsListId.length;
   }
 
   bool get isFirstQuestion {
@@ -64,7 +72,7 @@ class MentalHealthData with _$MentalHealthData {
 
     if (currentQuestionId == null) return 0;
 
-    final index = questionsListId.indexOf(currentQuestionId) + 1;
+    final index = questionsListId.indexOf(currentQuestionId);
     return (index * 100) ~/ totalQuestionsLength;
   }
 }

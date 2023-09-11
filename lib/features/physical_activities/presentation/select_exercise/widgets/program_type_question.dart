@@ -33,7 +33,7 @@ class ProgramTypeQuestion extends StatelessWidget {
                           selected: state.data.programType == e,
                           value: e,
                           padding: const EdgeInsets.all(0),
-                          width: 96,
+                          labelWidth: 96,
                           onSelected: (ProgramType value) =>
                               e.isAvailable ? _onSelected(context, value) : null,
                           available: e.isAvailable,

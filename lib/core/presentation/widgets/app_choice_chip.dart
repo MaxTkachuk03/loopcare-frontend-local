@@ -12,7 +12,8 @@ class AppChoiceChip<T> extends StatelessWidget {
   final void Function(T value) onSelected;
   final TextAlign? textAlign;
   final EdgeInsetsGeometry? padding;
-  final double? width;
+  final double? labelWidth;
+  final double? chipHeight;
   final bool available;
   final bool recommended;
   final MultiChoiceType type;
@@ -25,7 +26,8 @@ class AppChoiceChip<T> extends StatelessWidget {
     required this.onSelected,
     this.textAlign,
     this.padding,
-    this.width,
+    this.labelWidth,
+    this.chipHeight,
     this.available = true,
     this.recommended = false,
     this.type = MultiChoiceType.none,
@@ -33,10 +35,10 @@ class AppChoiceChip<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChoiceChip(
+    final choiceChip = ChoiceChip(
       padding: padding ?? const EdgeInsets.symmetric(horizontal: 30.0),
       label: SizedBox(
-        width: width ?? double.infinity,
+        width: labelWidth ?? double.infinity,
         height: 22.0,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -104,5 +106,14 @@ class AppChoiceChip<T> extends StatelessWidget {
         color: !selected ? AppColors.yellowLight : Colors.transparent,
       ),
     );
+
+    if (chipHeight != null) {
+      return SizedBox(
+        height: chipHeight,
+        child: choiceChip,
+      );
+    }
+
+    return choiceChip;
   }
 }

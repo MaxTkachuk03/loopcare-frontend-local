@@ -29,17 +29,19 @@ class QuestionWrap extends StatelessWidget {
           title: Text(LocalizedTexts.bodyAndMind.tr()),
         ),
         body: SafeArea(
-          child: ScrollableContainer(
-            child: IntrinsicHeight(
-              child: Column(
-                children: <Widget>[
-                  const MainContainer(
-                    child: ProgressBar(),
-                  ),
-                  Expanded(child: child)
-                ],
+          child: Column(
+            children: <Widget>[
+              const MainContainer(
+                child: ProgressBar(),
               ),
-            ),
+              Expanded(
+                child: ScrollableContainer(
+                  child: IntrinsicHeight(
+                    child: child,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

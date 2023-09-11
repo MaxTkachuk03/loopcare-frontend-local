@@ -15,55 +15,66 @@ class MentalHealthWrap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text(
-              LocalizedTexts.bodyAndMind,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ).tr(),
-            BlocBuilder<MentalHealthBloc, MentalHealthState>(
-              builder: (context, state) {
-                final curQuestionId = state.data.currentQuestion?.id;
+    return WillPopScope(
+      onWillPop: () => _onWillPop(context),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                LocalizedTexts.bodyAndMind,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ).tr(),
+              BlocBuilder<MentalHealthBloc, MentalHealthState>(
+                builder: (context, state) {
+                  final curQuestionId = state.data.currentQuestion?.id;
 
-                if (curQuestionId == null) return const SizedBox.shrink();
+                  if (curQuestionId == null) return const SizedBox.shrink();
 
-                final curIndex = state.data.questionsListId.indexOf(curQuestionId) + 1;
-                final paginationText = withoutPagination ?? false
-                    ? ''
-                    : ': $curIndex ${LocalizedTexts.of.translation} ${state.data.totalQuestionsLength}';
+                  final curIndex = state.data.questionsListId.indexOf(curQuestionId) + 1;
+                  final paginationText = withoutPagination ?? false
+                      ? ''
+                      : ': $curIndex ${LocalizedTexts.of.translation} ${state.data.totalQuestionsLength}';
 
-                return Text(
-                  '${LocalizedTexts.mentalHealth.translation}$paginationText',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-      body: SafeArea(
-        child: ScrollableContainer(
-          child: IntrinsicHeight(
-            child: MainContainer(
-              child: Column(
-                children: <Widget>[
-                  const ProgressBar(),
-                  Expanded(child: child),
-                ],
+                  return Text(
+                    '${LocalizedTexts.mentalHealth.translation}$paginationText',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
+                  );
+                },
               ),
+            ],
+          ),
+        ),
+        body: SafeArea(
+          child: MainContainer(
+            child: Column(
+              children: <Widget>[
+                const ProgressBar(),
+                Expanded(
+                  child: ScrollableContainer(
+                    child: IntrinsicHeight(
+                      child: child,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Future<bool> _onWillPop(BuildContext context) {
+    context.read<MentalHealthBloc>().add(const MentalHealthEvent.prevPage());
+
+    return Future.value(true);
   }
 }

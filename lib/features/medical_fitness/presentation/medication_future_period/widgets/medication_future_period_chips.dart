@@ -34,6 +34,7 @@ class _MedicationFuturePeriodChipsState extends State<MedicationFuturePeriodChip
                   label: value.label,
                   selected: value == _selectedValue,
                   value: value,
+                  chipHeight: 50.0,
                   onSelected: _onSelectedMedicationPastPeriodHandler,
                 ),
                 const SizedBox(height: 8.0),
