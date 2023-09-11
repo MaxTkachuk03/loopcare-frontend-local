@@ -60,6 +60,7 @@ class _SexChipsState extends State<SexChips> {
                   label: sex.name.capitalize(),
                   selected: sex == _selectedValue,
                   value: sex,
+                  chipHeight: 50.0,
                   onSelected: _onSelectedSexHandler,
                 ),
                 const SizedBox(height: 8.0),

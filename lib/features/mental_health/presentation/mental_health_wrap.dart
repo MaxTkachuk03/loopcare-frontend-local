@@ -53,16 +53,18 @@ class MentalHealthWrap extends StatelessWidget {
           ),
         ),
         body: SafeArea(
-          child: ScrollableContainer(
-            child: IntrinsicHeight(
-              child: MainContainer(
-                child: Column(
-                  children: <Widget>[
-                    const ProgressBar(),
-                    Expanded(child: child),
-                  ],
+          child: MainContainer(
+            child: Column(
+              children: <Widget>[
+                const ProgressBar(),
+                Expanded(
+                  child: ScrollableContainer(
+                    child: IntrinsicHeight(
+                      child: child,
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         ),

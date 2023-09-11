@@ -57,6 +57,7 @@ class _WeightLossMedicationChipsState extends State<WeightLossMedicationChips> {
                   label: value.label,
                   selected: value == _selectedValue,
                   value: value,
+                  chipHeight: 50.0,
                   onSelected: _onSelectedMedicationHandler,
                 ),
                 const SizedBox(height: 8.0),

@@ -57,6 +57,7 @@ class _TreatmentByDoctorChipsState extends State<TreatmentByDoctorChips> {
               label: value.label,
               selected: value == _selectedValue,
               value: value,
+              chipHeight: 50.0,
               onSelected: _onSelectedPregnancyHandler,
             ),
             const SizedBox(height: 8.0),

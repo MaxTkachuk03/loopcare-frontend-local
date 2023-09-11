@@ -38,6 +38,7 @@ class MentalHealthQuestionForm extends StatelessWidget {
                           selected: currentAnswer?.optionId == value.id,
                           value: value.id,
                           textAlign: TextAlign.left,
+                          chipHeight: 50.0,
                           onSelected: (int value) => _onSelected(value, currentQuestion.id, context),
                         ),
                         const SizedBox(height: 8.0),

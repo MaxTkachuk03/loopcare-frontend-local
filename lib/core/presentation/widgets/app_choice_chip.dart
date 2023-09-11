@@ -9,7 +9,8 @@ class AppChoiceChip<T> extends StatelessWidget {
   final void Function(T value) onSelected;
   final TextAlign? textAlign;
   final EdgeInsetsGeometry? padding;
-  final double? width;
+  final double? labelWidth;
+  final double? chipHeight;
   final bool available;
 
   const AppChoiceChip({
@@ -20,28 +21,29 @@ class AppChoiceChip<T> extends StatelessWidget {
     required this.onSelected,
     this.textAlign,
     this.padding,
-    this.width,
+    this.labelWidth,
+    this.chipHeight,
     this.available = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ChoiceChip(
+    final choiceChip = ChoiceChip(
       padding: padding ?? const EdgeInsets.symmetric(horizontal: 30.0),
       label: SizedBox(
-        width: width ?? double.infinity,
+        width: labelWidth ?? double.infinity,
         height: 22.0,
         child: AutoSizeText(
           label,
           textAlign: textAlign ?? TextAlign.center,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: available
-                    ? selected
-                        ? AppColors.white
-                        : AppColors.darkGreen
-                    : AppColors.greyMid,
-              ),
+            fontWeight: FontWeight.w600,
+            color: available
+                ? selected
+                ? AppColors.white
+                : AppColors.darkGreen
+                : AppColors.greyMid,
+          ),
         ),
       ),
       labelPadding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -53,12 +55,12 @@ class AppChoiceChip<T> extends StatelessWidget {
       elevation: 0,
       backgroundColor: available ? AppColors.white : AppColors.bgGreen,
       labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: available
-                ? selected
-                    ? AppColors.white
-                    : AppColors.darkGreen
-                : AppColors.greyMid,
-          ),
+        color: available
+            ? selected
+            ? AppColors.white
+            : AppColors.darkGreen
+            : AppColors.greyMid,
+      ),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(8.0),
@@ -69,5 +71,14 @@ class AppChoiceChip<T> extends StatelessWidget {
         color: !selected ? AppColors.yellowLight : Colors.transparent,
       ),
     );
+
+    if (chipHeight != null) {
+      return SizedBox(
+        height: chipHeight,
+        child: choiceChip,
+      );
+    }
+
+    return choiceChip;
   }
 }

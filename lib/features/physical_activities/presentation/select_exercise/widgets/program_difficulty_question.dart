@@ -33,7 +33,7 @@ class ProgramDifficultyQuestion extends StatelessWidget {
                           selected: state.data.programDifficulty == e,
                           value: e,
                           padding: const EdgeInsets.all(0),
-                          width: 96,
+                          labelWidth: 96,
                           onSelected: (ProgramDifficulty value) =>
                               e.isAvailable ? _onSelected(context, value) : null,
                           available: e.isAvailable,
