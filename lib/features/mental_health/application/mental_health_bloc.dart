@@ -69,10 +69,21 @@ class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState
   }
 
   FutureOr<void> _onGetMentalHealthTests(event, Emitter<MentalHealthState> emit) async {
+    emit(state.copyWith(
+      data: state.data.copyWith(
+        isLoading: true,
+        error: null,
+      ),
+    ));
+
     final response = await _mentalHealthService.mentalHealthQuestions();
 
     response.fold(
-      (l) => null,
+      (e) => emit(
+        state.copyWith(
+          data: state.data.copyWith(error: e, isLoading: false),
+        ),
+      ),
       (r) {
         final selectedGender = _physicalFitnessBloc.state.sexType;
 
@@ -88,6 +99,7 @@ class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState
 
         emit(state.copyWith(
           data: state.data.copyWith(
+            isLoading: false,
             tests: testsWithGenderExclusions,
             questionsListId: questionsListId,
             totalQuestionsLength: questionsListId.length,
