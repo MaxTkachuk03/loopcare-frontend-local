@@ -36,8 +36,7 @@ class ReportAbuseFormLimitTextField extends AppLimitTextField {
           onChanged: (_) {},
           enforcedLimitCount: MaxLengthEnforcement.none,
           limitCount: 500,
-          minLines: null,
-          linesCount: null,
-          expands: true,
+          minLines: 30,
+          linesCount: 50,
         );
 }
