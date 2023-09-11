@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/oval_bottom_border_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/emergency_numbers/emergency_number_card.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/group_session_report.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/presentation/widgets/booked_session_modal_content.dart';
@@ -25,6 +26,7 @@ import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_typ
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/features/report_abuse/presentation/widget/report_abuse_widget.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 AppConfig appConfig = getIt<AppConfig>();
@@ -930,9 +932,7 @@ class ModalBottomSheet {
                         ),
                   ),
                   Text(
-                    currentDate.isSameDate(DateTime.now())
-                        ? LocalizedTexts.today.translation
-                        : currentDate.shortDate,
+                    currentDate.isSameDate(DateTime.now()) ? LocalizedTexts.today.translation : currentDate.shortDate,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           color: AppColors.blueDark,
                         ),
@@ -1084,6 +1084,48 @@ class ModalBottomSheet {
       },
     );
   }
+
+  static void reportAbuse({
+    required BuildContext context,
+    GroupSessionReport? groupSession,
+  }) =>
+      showModalBottomSheet<void>(
+          context: context,
+          isScrollControlled: true,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24.0),
+          ),
+          builder: (BuildContext context) {
+            return FractionallySizedBox(
+              heightFactor: 0.93,
+              child: SafeArea(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: SizedBox(
+                          width: 30.0,
+                          height: 30.0,
+                          child: IconButton(
+                            iconSize: 30,
+                            padding: EdgeInsets.zero,
+                            onPressed: () => context.router.pop(),
+                            icon: const Icon(Icons.close),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                          child: ReportAbuseWidget(
+                        groupSession: groupSession,
+                      )),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          });
 
   static void emergencyNumbers({
     required BuildContext context,

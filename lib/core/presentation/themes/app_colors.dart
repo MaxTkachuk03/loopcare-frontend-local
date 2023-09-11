@@ -1,7 +1,7 @@
 part of 'themes.dart';
 
 class AppColors {
-  static const Color black = Color(0xFF090A0A);
+  static const Color black = Color(0xFF090A0A);//text
 
   static const Color darkGreen = Color(0xFF324429);
 
@@ -23,6 +23,8 @@ class AppColors {
 
   static const Color yellowLight = Color(0xFFDDD8C7);
 
+  static const Color yellowTrans = Color(0xFFF0F3E7);
+
   static const Color blueDark = Color(0xFF18BDC6);
 
   static const Color blueAppBar = Color(0xFF15aab2);
@@ -34,6 +36,8 @@ class AppColors {
   static const Color ballBlue = Color(0xFF21ABCD);
 
   static const Color purple = Color(0xFFBDBAE3);
+
+  static const Color redFocus = Color(0xFFFF5247);
 
   static const Color red = Color(0xFFC20000);
 
@@ -50,6 +54,8 @@ class AppColors {
   static const Color greyLabel = Color(0xFF999999);
 
   static const Color grey = Color(0xFF72777A);
+
+  static const Color greyDisable = Color(0xFFE3E5E5);
 
   static const Color datePickerBg = Color(0xFF3D3D3F);
 

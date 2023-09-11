@@ -4,11 +4,10 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class ReportIssue extends StatelessWidget {
-  final String minutesLeft;
+  final int minutesLeft;
+  final Function()? onReportIssueHandler;
 
-  const ReportIssue({super.key, required this.minutesLeft});
-
-  void _onReportIssueHandler() {}
+  const ReportIssue({super.key, required this.minutesLeft, this.onReportIssueHandler});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ class ReportIssue extends StatelessWidget {
               minimumSize: const Size(0, 32.0),
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             ),
-            onPressed: _onReportIssueHandler,
+            onPressed: onReportIssueHandler,
             child: const Text(
               LocalizedTexts.reportIssue,
               style: TextStyle(
