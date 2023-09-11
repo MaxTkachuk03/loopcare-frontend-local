@@ -19,10 +19,22 @@ class PhysicalActivitiesPreferencesData with _$PhysicalActivitiesPreferencesData
   const PhysicalActivitiesPreferencesData._();
 
   const factory PhysicalActivitiesPreferencesData({
-    @Default('') String trainingFrequency,
-    @Default('') String trainingTargets,
-    @Default(false) bool flexible,
+    PhysicalActivitiesFrequency? trainingFrequency,
+    PhysicalActivitiesType? trainingTargets,
+    bool? flexible,
     @Default(false) bool isLoading,
     RequestError? error,
   }) = _PhysicalActivitiesPreferencesData;
+
+  bool get isFrequencySet {
+    return trainingFrequency != null;
+  }
+
+  bool get isTargetsSet {
+    return trainingTargets != null;
+  }
+
+  bool get needActivitiesType {
+    return trainingFrequency != PhysicalActivitiesFrequency.notAble;
+  }
 }

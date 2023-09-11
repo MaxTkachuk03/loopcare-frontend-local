@@ -151,10 +151,10 @@ const groupLessonRoutes = [
         AutoRoute(path: AppRoutes.account, page: AccountPage),
       ],
     ),
-    AutoRoute(
-      path: AppRoutes.account,
-      page: AccountPage,
-    ),
+    // AutoRoute(
+    //   path: AppRoutes.account,
+    //   page: AccountPage,
+    // ),
     AutoRoute(
       path: AppRoutes.education,
       page: EducationPage,

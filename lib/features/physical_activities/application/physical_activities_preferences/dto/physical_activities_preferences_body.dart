@@ -10,8 +10,8 @@ abstract class PhysicalActivitiesPreferencesBody implements _$PhysicalActivities
 
   const factory PhysicalActivitiesPreferencesBody({
     required String trainingFrequency,
-    required String trainingTargets,
-    required bool flexible,
+    String? trainingTargets,
+    bool? flexible,
   }) = _PhysicalActivitiesPreferencesBody;
 
   factory PhysicalActivitiesPreferencesBody.fromJson(Map<String, dynamic> json) =>

@@ -1,12 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/activity_type_chips.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/flexibility_chips.dart';
 
@@ -83,12 +87,16 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
                 child: MainContainer(
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 53.0),
-                    child: ElevatedButton(
-                      onPressed: () => _onNext(context),
-                      style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                            backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
-                          ),
-                      child: Text(LocalizedTexts.next.tr()),
+                    child: BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
+                      builder: (context, state) {
+                        return ElevatedButton(
+                          onPressed: () => state.data.isTargetsSet ? _onNext(context) : null,
+                          style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                                backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
+                              ),
+                          child: Text(LocalizedTexts.next.tr()),
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -101,6 +109,16 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
   }
 
   void _onNext(BuildContext context) {
-    context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
+    context
+        .read<PhysicalActivitiesPreferencesBloc>()
+        .add(const PhysicalActivitiesPreferencesEvent.savePreferences());
+
+    final bloc = context.read<AuthenticationCubit>();
+
+    if (!bloc.state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {
+      context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
+    } else {
+      context.router.popUntilRoot();
+    }
   }
 }

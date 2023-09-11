@@ -1,12 +1,14 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/domain/physical_activities_frequency.dart';
+import 'package:loopcare_frontend/core/domain/physical_activities_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/dto/physical_activities_preferences_body.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_service.dart';
-import 'package:loopcare_frontend/features/physical_activities/domain/physical_activities_preferences.dart';
 
 part 'physical_activities_preferences_bloc.freezed.dart';
 
@@ -22,7 +24,47 @@ class PhysicalActivitiesPreferencesBloc
   PhysicalActivitiesPreferencesBloc(this._physicalActivitiesService)
       : super(const PhysicalActivitiesPreferencesState.initial(PhysicalActivitiesPreferencesData())) {
     on<_GetPreferences>(_onGetPreferences);
-    on<_SetPreferences>(_onSetPreferences);
+    on<_SavePreferences>(_onSavePreferences);
+
+    on<_SetFrequency>(_onSetFrequency);
+    on<_SetTargets>(_onSetTargets);
+    on<_SetFlexible>(_onSetFlexible);
+  }
+
+  FutureOr<void> _onSetFrequency(
+    _SetFrequency event,
+    Emitter<PhysicalActivitiesPreferencesState> emit,
+  ) async {
+    emit(PhysicalActivitiesPreferencesState.preferencesLoaded(
+      state.data.copyWith(
+        trainingFrequency: event.data,
+        trainingTargets:
+            event.data == PhysicalActivitiesFrequency.notAble ? null : state.data.trainingTargets,
+        flexible: event.data == PhysicalActivitiesFrequency.notAble ? null : state.data.flexible,
+      ),
+    ));
+  }
+
+  FutureOr<void> _onSetTargets(
+    _SetTargets event,
+    Emitter<PhysicalActivitiesPreferencesState> emit,
+  ) async {
+    emit(PhysicalActivitiesPreferencesState.preferencesLoaded(
+      state.data.copyWith(
+        trainingTargets: event.data,
+      ),
+    ));
+  }
+
+  FutureOr<void> _onSetFlexible(
+    _SetFlexible event,
+    Emitter<PhysicalActivitiesPreferencesState> emit,
+  ) async {
+    emit(PhysicalActivitiesPreferencesState.preferencesLoaded(
+      state.data.copyWith(
+        flexible: event.data,
+      ),
+    ));
   }
 
   FutureOr<void> _onGetPreferences(
@@ -38,8 +80,10 @@ class PhysicalActivitiesPreferencesBloc
       (r) => emit(
         PhysicalActivitiesPreferencesState.preferencesLoaded(
           state.data.copyWith(
-            trainingFrequency: r.trainingFrequency ?? '',
-            trainingTargets: r.trainingTargets ?? '',
+            trainingFrequency:
+                PhysicalActivitiesFrequency.values.firstWhereOrNull((e) => e.apiValue == r.trainingFrequency),
+            trainingTargets:
+                PhysicalActivitiesType.values.firstWhereOrNull((e) => e.apiValue == r.trainingTargets),
             flexible: r.flexible ?? false,
             isLoading: false,
           ),
@@ -48,17 +92,17 @@ class PhysicalActivitiesPreferencesBloc
     );
   }
 
-  FutureOr<void> _onSetPreferences(
-    _SetPreferences event,
+  FutureOr<void> _onSavePreferences(
+    _SavePreferences event,
     Emitter<PhysicalActivitiesPreferencesState> emit,
   ) async {
     emit(PhysicalActivitiesPreferencesState.loading(state.data.copyWith(isLoading: true, error: null)));
 
     final response = await _physicalActivitiesService.setPreferences(
       PhysicalActivitiesPreferencesBody(
-        trainingFrequency: event.data.trainingFrequency ?? '',
-        trainingTargets: event.data.trainingTargets ?? '',
-        flexible: event.data.flexible ?? false,
+        trainingFrequency: state.data.trainingFrequency?.apiValue ?? '',
+        trainingTargets: state.data.trainingTargets?.apiValue,
+        flexible: state.data.flexible,
       ),
     );
 

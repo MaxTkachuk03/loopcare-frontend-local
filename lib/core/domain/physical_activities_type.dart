@@ -16,4 +16,13 @@ extension PhysicalActivitiesTypeX on PhysicalActivitiesType {
         return LocalizedTexts.inceaseYourStamina.tr().capitalize();
     }
   }
+
+  String get apiValue {
+    switch (this) {
+      case PhysicalActivitiesType.buildUpMuscle:
+        return 'Build up muscles';
+      case PhysicalActivitiesType.inceaseYourStamina:
+        return 'Increase you stamina';
+    }
+  }
 }

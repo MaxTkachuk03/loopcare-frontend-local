@@ -19,6 +19,11 @@ class PhysicalActivitiesPreferencesPage extends StatefulWidget {
 
 class _PhysicalActivitiesPreferencesPageState extends State<PhysicalActivitiesPreferencesPage> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

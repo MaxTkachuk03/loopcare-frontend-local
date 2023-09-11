@@ -29,6 +29,23 @@ extension PhysicalActivitiesFrequencyX on PhysicalActivitiesFrequency {
     }
   }
 
+  String get apiValue {
+    switch (this) {
+      case PhysicalActivitiesFrequency.oneTime:
+        return '1 time';
+      case PhysicalActivitiesFrequency.twoTimes:
+        return '2 time';
+      case PhysicalActivitiesFrequency.threeTimes:
+        return '3 time';
+      case PhysicalActivitiesFrequency.fourTimes:
+        return '4 time';
+      case PhysicalActivitiesFrequency.fiveTimes:
+        return '5 time';
+      case PhysicalActivitiesFrequency.notAble:
+        return 'Currently no able to exercise';
+    }
+  }
+
   bool get recommended {
     switch (this) {
       case PhysicalActivitiesFrequency.oneTime:
