@@ -8,7 +8,6 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
-import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
@@ -51,7 +50,7 @@ class PreferencesSection extends StatelessWidget {
 
   String _groupSessionsSubtitle(AuthenticationState state) {
     LocalizedTexts.partOfGroup.translation;
-    var grouped = (state.groupingState == UserGroupingState.grouped)
+    var grouped = state.unlockedFeatures.contains(UnlockedFeatureType.grouping)
         ? LocalizedTexts.yes.translation.capitalize()
         : LocalizedTexts.no.translation.capitalize();
 
