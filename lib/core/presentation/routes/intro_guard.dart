@@ -26,11 +26,17 @@ class IntroGuard extends AutoRouteGuard {
   );
 
   List<PageRouteInfo> _getMentalHealthRoutes() {
-    final mentalHealthRoutes = mentalHealthBloc.state.data.tests
+    final tests = mentalHealthBloc.state.data.tests;
+    if (tests.isEmpty) return [const MentalHealthIntroRoute()];
+
+    final mentalHealthRoutes = tests
         .map((e) {
           final questionRoutes = e.questions.map((e) => const MentalHealthQuestionRoute()).toList();
 
-          return [...questionRoutes, MentalCheckResultRoute(calculationResultsNotNeeded: true) as PageRouteInfo<void>];
+          return [
+            ...questionRoutes,
+            MentalCheckResultRoute(calculationResultsNotNeeded: true) as PageRouteInfo<void>
+          ];
         })
         .expand((element) => element)
         .toList();

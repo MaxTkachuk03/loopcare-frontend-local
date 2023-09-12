@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -26,11 +28,9 @@ class _MentalHealthIntroPageState extends State<MentalHealthIntroPage> {
 
   @override
   void initState() {
-    final bloc = context.read<MentalHealthBloc>();
+    _onLoadTests();
 
-    bloc.add(const MentalHealthEvent.getMentalHealthTests());
-
-    if (bloc.state.data.startTestTime != null) {
+    if (context.read<MentalHealthBloc>().state.data.startTestTime != null) {
       _startTimer();
     }
 
@@ -48,76 +48,98 @@ class _MentalHealthIntroPageState extends State<MentalHealthIntroPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => _onWillPop(context),
-      child: MentalHealthWrap(
-        withoutPagination: true,
-        child: MultiBlocListener(
-          listeners: [
-            BlocListener<MentalHealthBloc, MentalHealthState>(
-              listenWhen: (prev, cur) => prev.data.startTestTime == null && cur.data.startTestTime != null,
-              listener: _listenerTestWasStarted,
+      child: BlocBuilder<MentalHealthBloc, MentalHealthState>(
+        builder: (context, state) {
+          if (state.data.isLoading) return const MentalHealthWrap(child: Loader());
+
+          final error = state.data.error;
+
+          if (error != null) {
+            return MentalHealthWrap(
+              child: ErrorScreen(
+                error: error,
+                onButtonPressed: _onLoadTests,
+              ),
+            );
+          }
+
+          return MentalHealthWrap(
+            withoutPagination: true,
+            child: MultiBlocListener(
+              listeners: [
+                BlocListener<MentalHealthBloc, MentalHealthState>(
+                  listenWhen: (prev, cur) =>
+                      prev.data.startTestTime == null && cur.data.startTestTime != null,
+                  listener: _listenerTestWasStarted,
+                ),
+                BlocListener<MentalHealthBloc, MentalHealthState>(
+                  listenWhen: (prev, cur) => !prev.data.isCompleted && cur.data.isCompleted,
+                  listener: _listenerTestWasCompleted,
+                ),
+              ],
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 24.0,
+                  ),
+                  Text(
+                    LocalizedTexts.yourMentalHealth,
+                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                          fontFamily: ThemeConstants.bitterFontFamily,
+                          color: AppColors.blueDark,
+                        ),
+                  ).tr(),
+                  const SizedBox(
+                    height: 16.0,
+                  ),
+                  Text(
+                    LocalizedTexts.mentalHealthIntroTextOne,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ).tr(),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  Text(
+                    LocalizedTexts.mentalHealthIntroTextTwo,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ).tr(),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  Text(
+                    LocalizedTexts.mentalHealthIntroTextThree,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ).tr(),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  SmallFilledButton(
+                    backgroundColor: AppColors.greyLight,
+                    text: LocalizedTexts.moreInfo.tr(),
+                    onPressed: () => _onMoreInfoPressed(context),
+                  ),
+                  const SizedBox(
+                    height: 45.0,
+                  ),
+                  ElevatedButton(
+                    onPressed: () => _onNextPressed(context),
+                    child: const Text(LocalizedTexts.next).tr(),
+                  ),
+                  const SizedBox(
+                    height: 25.0,
+                  ),
+                ],
+              ),
             ),
-            BlocListener<MentalHealthBloc, MentalHealthState>(
-              listenWhen: (prev, cur) => !prev.data.isCompleted && cur.data.isCompleted,
-              listener: _listenerTestWasCompleted,
-            ),
-          ],
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 24.0,
-              ),
-              Text(
-                LocalizedTexts.yourMentalHealth,
-                style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      fontFamily: ThemeConstants.bitterFontFamily,
-                      color: AppColors.blueDark,
-                    ),
-              ).tr(),
-              const SizedBox(
-                height: 16.0,
-              ),
-              Text(
-                LocalizedTexts.mentalHealthIntroTextOne,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ).tr(),
-              const SizedBox(
-                height: 20.0,
-              ),
-              Text(
-                LocalizedTexts.mentalHealthIntroTextTwo,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ).tr(),
-              const SizedBox(
-                height: 20.0,
-              ),
-              Text(
-                LocalizedTexts.mentalHealthIntroTextThree,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ).tr(),
-              const SizedBox(
-                height: 20.0,
-              ),
-              SmallFilledButton(
-                backgroundColor: AppColors.greyLight,
-                text: LocalizedTexts.moreInfo.tr(),
-                onPressed: () => _onMoreInfoPressed(context),
-              ),
-              const SizedBox(
-                height: 45.0,
-              ),
-              ElevatedButton(
-                onPressed: () => _onNextPressed(context),
-                child: const Text(LocalizedTexts.next).tr(),
-              ),
-              const SizedBox(
-                height: 25.0,
-              ),
-            ],
-          ),
-        ),
+          );
+        },
       ),
     );
+  }
+
+  void _onLoadTests() {
+    context.read<MentalHealthBloc>().add(const MentalHealthEvent.getMentalHealthTests());
   }
 
   void _startTimer() {
