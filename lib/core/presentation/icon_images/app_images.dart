@@ -29,6 +29,9 @@ class AppImages {
 
   static const AssetImage youAndFoodIntro = AssetImage('$imagesFilePath/you_and_food_intro.png');
 
+  static const AssetImage physicalActivitiesIntro =
+      AssetImage('$imagesFilePath/physical_activities_intro.png');
+
   static const AssetImage selfHelpIntro = AssetImage('$imagesFilePath/self_help_intro.png');
 
   static const AssetImage calorieDensityFoodA = AssetImage('$imagesFilePath/calorie_dencity_food_a.png');

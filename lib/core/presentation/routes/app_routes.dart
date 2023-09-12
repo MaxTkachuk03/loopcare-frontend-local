@@ -99,6 +99,10 @@ class AppRoutes {
   static const String chooseProgram = '/choose-program';
   static const String programAssessment = '/program-assessment';
   static const String programDetails = '/program-details';
+  static const String physicalActivitiesPreferences = '/physical-activities-preferences';
+  static const String physicalActivitiesFrequency = '/physical-activities-frequency';
+  static const String physicalActivitiesActivityType = '/physical-activities-activity-type';
+  static const String physicalActivitiesComplete = '/physical-activities-complete';
 
   // User profile
   static const String foodPreferences = '/food-preferences';

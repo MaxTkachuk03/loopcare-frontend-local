@@ -4,6 +4,8 @@ import 'package:loopcare_frontend/features/physical_activities/application/dto/l
 import 'package:loopcare_frontend/features/physical_activities/application/dto/physical_program_response.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/dto/custom_activity_body.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/dto/program_list_response.dart';
+import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/dto/physical_activities_preferences_body.dart';
+import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/dto/physical_activities_preferences_response.dart';
 
 abstract class PhysicalActivitiesService {
   Future<Either<RequestError, ProgramListResponse>> getProgramsByPreferences({
@@ -28,5 +30,11 @@ abstract class PhysicalActivitiesService {
 
   Future<Either<RequestError, PhysicalProgramResponse>> createCustomActivity(
     CustomActivityBody data,
+  );
+
+  Future<Either<RequestError, PhysicalActivitiesPreferencesResponse>> getPreferences();
+
+  Future<Either<RequestError, PhysicalActivitiesPreferencesResponse>> setPreferences(
+    PhysicalActivitiesPreferencesBody data,
   );
 }

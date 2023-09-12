@@ -18,6 +18,10 @@ class PreferencesSection extends StatelessWidget {
     context.router.pushNamed(AppRoutes.foodPreferences);
   }
 
+  void _onPhysicalActivitiesHandler(BuildContext context) {
+    context.router.pushNamed(AppRoutes.physicalActivitiesFrequency);
+  }
+
   void _onGroupSessionsHandler(BuildContext context) {
     context.router.pushNamed(AppRoutes.groupPreferences);
   }
@@ -32,7 +36,15 @@ class PreferencesSection extends StatelessWidget {
           const SizedBox(height: 16.0),
           const Divider(height: 1.0, color: AppColors.yellowLight),
           const SizedBox(height: 16.0),
-          SectionItem(title: LocalizedTexts.physicalActivities, onPressHandler: () {}),
+          BlocBuilder<AuthenticationCubit, AuthenticationState>(
+            builder: (context, state) {
+              return SectionItem(
+                  title: LocalizedTexts.physicalActivities,
+                  onPressHandler: state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)
+                      ? () => _onPhysicalActivitiesHandler(context)
+                      : null);
+            },
+          ),
           const SizedBox(height: 16.0),
           const Divider(height: 1.0, color: AppColors.yellowLight),
           const SizedBox(height: 16.0),
