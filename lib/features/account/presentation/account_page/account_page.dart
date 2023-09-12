@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/features/account/presentation/account_page/wid
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/report_abuse_section.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/test_results_section.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 class AccountPage extends StatefulWidget {
@@ -27,6 +28,10 @@ class _AccountPageState extends State<AccountPage> {
   void initState() {
     context.read<AuthenticationCubit>().getAccount();
     context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.fetchFoodPreferences());
+
+    context
+        .read<PhysicalActivitiesPreferencesBloc>()
+        .add(const PhysicalActivitiesPreferencesEvent.getPreferences());
 
     super.initState();
   }

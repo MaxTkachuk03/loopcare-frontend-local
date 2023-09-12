@@ -7,6 +7,8 @@ import 'package:loopcare_frontend/features/physical_activities/application/dto/c
 import 'package:loopcare_frontend/features/physical_activities/application/dto/log_program_body.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/dto/physical_program_response.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/dto/program_list_response.dart';
+import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/dto/physical_activities_preferences_response.dart';
+import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/dto/physical_activities_preferences_body.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_service.dart';
 
 @Injectable(as: PhysicalActivitiesService)
@@ -68,5 +70,20 @@ class APIPhysicalActivitiesService implements PhysicalActivitiesService {
     return client
         .post('/physical-activities/programs/custom', data: data)
         .then(parseResponse(PhysicalProgramResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, PhysicalActivitiesPreferencesResponse>> getPreferences() {
+    return client
+        .get('/physical-activities/preferences')
+        .then(parseResponse(PhysicalActivitiesPreferencesResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, PhysicalActivitiesPreferencesResponse>> setPreferences(
+      PhysicalActivitiesPreferencesBody data) {
+    return client
+        .post('/physical-activities/preferences', data: data)
+        .then(parseResponse(PhysicalActivitiesPreferencesResponse.fromJson));
   }
 }
