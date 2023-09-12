@@ -38,6 +38,7 @@ import 'package:loopcare_frontend/features/onboarding/application/onboarding_blo
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
+import 'package:loopcare_frontend/features/report_abuse/application/report_abuse_bloc.dart';
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/application/session_call_bloc.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
@@ -147,6 +148,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<PhysicalActivitiesPreferencesBloc>(
           create: (_) => getIt<PhysicalActivitiesPreferencesBloc>(),
+        ),
+        BlocProvider<ReportAbuseBloc>(
+          create: (_) => getIt<ReportAbuseBloc>(),
         ),
       ],
       child: const _App(),

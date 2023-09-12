@@ -67,7 +67,6 @@ class _SessionTimerState extends State<SessionTimer> {
   @override
   void dispose() {
     _sessionTimer.cancel();
-
     super.dispose();
   }
 }

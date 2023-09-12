@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/features/authentication/application/dto/email_
 import 'package:loopcare_frontend/features/authentication/application/dto/forgot_password_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/login_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/login_response.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/report_abuse_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_response.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/unlock_feature_response.dart';
@@ -29,4 +30,5 @@ abstract class AuthenticationService {
 
   Future<Either<RequestError, dynamic>> forgotPassword(
       ForgotPasswordData email);
+  Future<Either<RequestError, dynamic>> reportAbuse(ReportAbuseData data);
 }
