@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -10,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/frequency_chips.dart';
 
@@ -47,7 +49,13 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
     if (state.data.needActivitiesType) {
       context.router.pushNamed(AppRoutes.physicalActivitiesActivityType);
     } else {
-      context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
+      final bloc = context.read<AuthenticationCubit>();
+
+      if (!bloc.state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {
+        context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
+      } else {
+        context.router.popUntilRoot();
+      }
     }
   }
 
