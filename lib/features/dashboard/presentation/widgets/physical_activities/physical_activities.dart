@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/application/programs_in_progress_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/application/physical_activities_bloc.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/filled_activities_list.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/weekly_activities_list.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 
@@ -119,21 +120,7 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                       loading: (_) => const Loader(),
                       orElse: () => const SizedBox.shrink(),
                       activitiesLoaded: (s) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              '3 ${LocalizedTexts.activitiesForThisWeek.translation.toUpperCase()}',
-                              style: const TextStyle(
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.greyLabel,
-                              ),
-                            ),
-                            const SizedBox(height: 16.0),
-                            WeeklyActivitiesList(data: [...activePrograms, ...s.data.activities]),
-                          ],
-                        );
+                        return FilledActivitiesList(programsList: [...activePrograms, ...s.data.activities]);
                       },
                     );
                   },
