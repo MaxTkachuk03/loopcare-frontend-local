@@ -96,7 +96,7 @@ class PhysicalActivitiesPreferencesBloc
     _SavePreferences event,
     Emitter<PhysicalActivitiesPreferencesState> emit,
   ) async {
-    emit(PhysicalActivitiesPreferencesState.loading(state.data.copyWith(isLoading: true, error: null)));
+    emit(PhysicalActivitiesPreferencesState.saving(state.data.copyWith(isLoading: true, error: null)));
 
     final response = await _physicalActivitiesService.setPreferences(
       PhysicalActivitiesPreferencesBody(

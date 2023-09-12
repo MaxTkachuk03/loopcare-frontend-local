@@ -6,6 +6,8 @@ class PhysicalActivitiesPreferencesState with _$PhysicalActivitiesPreferencesSta
 
   const factory PhysicalActivitiesPreferencesState.loading(PhysicalActivitiesPreferencesData data) = Loading;
 
+  const factory PhysicalActivitiesPreferencesState.saving(PhysicalActivitiesPreferencesData data) = Saving;
+
   const factory PhysicalActivitiesPreferencesState.preferencesLoaded(PhysicalActivitiesPreferencesData data) =
       PreferencesLoaded;
 

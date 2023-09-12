@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -22,97 +24,20 @@ class PhysicalActivitiesActivityTypePage extends StatefulWidget {
 }
 
 class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesActivityTypePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Column(
-          children: [
-            Text(
-              LocalizedTexts.physicalActivitiesPreferences.tr(),
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-            Text(
-              LocalizedTexts.currentStep.translateWithNamedArgs({
-                'currentStep': '2',
-                'totalSteps': '2',
-              }),
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
-            ),
-          ],
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.router.pop(),
-        ),
-      ),
-      body: SafeArea(
-        child: ScrollableContainer(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                children: [
-                  const ProgressBar(
-                    progress: 90,
-                  ),
-                  const SizedBox(height: 30.0),
-                  MainContainer(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          LocalizedTexts.whatWouldYouLikeToStartWorkingOn.translation,
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                        const SizedBox(height: 16.0),
-                        const ActivityTypeChips(),
-                        const SizedBox(height: 16.0),
-                        Text(
-                          LocalizedTexts.youCanAlsoOptionally.translation,
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                        const SizedBox(height: 16.0),
-                        const FlexibilityChips(),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SafeArea(
-                top: false,
-                child: MainContainer(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 53.0),
-                    child: BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
-                      builder: (context, state) {
-                        return ElevatedButton(
-                          onPressed: () => state.data.isTargetsSet ? _onNext(context) : null,
-                          style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                                backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
-                              ),
-                          child: Text(LocalizedTexts.next.tr()),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+  void _onErrorHandler(PhysicalActivitiesPreferencesState state) {
+    context.showErrorBar(
+        content: Text(state.data.error?.error.toString() ?? ''), position: FlashPosition.top);
+  }
+
+  void _onChangeListener(BuildContext context, PhysicalActivitiesPreferencesState state) {
+    state.maybeMap(
+      orElse: () => {},
+      error: _onErrorHandler,
+      preferencesLoaded: _onUpdateHandler,
     );
   }
 
-  void _onNext(BuildContext context) {
-    context
-        .read<PhysicalActivitiesPreferencesBloc>()
-        .add(const PhysicalActivitiesPreferencesEvent.savePreferences());
-
+  void _onUpdateHandler(PhysicalActivitiesPreferencesState state) {
     final bloc = context.read<AuthenticationCubit>();
 
     if (!bloc.state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {
@@ -120,5 +45,103 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
     } else {
       context.router.popUntilRoot();
     }
+  }
+
+  void _onNext(BuildContext context) {
+    context
+        .read<PhysicalActivitiesPreferencesBloc>()
+        .add(const PhysicalActivitiesPreferencesEvent.savePreferences());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
+      listenWhen: (prev, cur) =>
+          prev is Saving && context.router.current.name == PhysicalActivitiesActivityTypeRoute.name,
+      listener: _onChangeListener,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Column(
+            children: [
+              Text(
+                LocalizedTexts.physicalActivitiesPreferences.tr(),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
+              Text(
+                LocalizedTexts.currentStep.translateWithNamedArgs({
+                  'currentStep': '2',
+                  'totalSteps': '2',
+                }),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
+              ),
+            ],
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => context.router.pop(),
+          ),
+        ),
+        body: SafeArea(
+          child: ScrollableContainer(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    const ProgressBar(
+                      progress: 90,
+                    ),
+                    const SizedBox(height: 30.0),
+                    MainContainer(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            LocalizedTexts.whatWouldYouLikeToStartWorkingOn.translation,
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                          const SizedBox(height: 16.0),
+                          const ActivityTypeChips(),
+                          const SizedBox(height: 16.0),
+                          Text(
+                            LocalizedTexts.youCanAlsoOptionally.translation,
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                          const SizedBox(height: 16.0),
+                          const FlexibilityChips(),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                SafeArea(
+                  top: false,
+                  child: MainContainer(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 53.0),
+                      child:
+                          BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
+                        builder: (context, state) {
+                          return ElevatedButton(
+                            onPressed: () => state.data.isTargetsSet ? _onNext(context) : null,
+                            style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                                  backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
+                                ),
+                            child: Text(LocalizedTexts.next.tr()),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

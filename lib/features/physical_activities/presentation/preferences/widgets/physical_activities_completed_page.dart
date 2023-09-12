@@ -98,11 +98,9 @@ class _PhysicalActivitiesCompletePageState extends State<PhysicalActivitiesCompl
                       const SizedBox(height: 30),
                     ],
                   ),
-                  Builder(
-                    builder: (context) => OutlinedButton(
-                      onPressed: () => _onPressHandler(context),
-                      child: Text(LocalizedTexts.backToToday.tr()),
-                    ),
+                  OutlinedButton(
+                    onPressed: () => _onPressHandler(context),
+                    child: Text(LocalizedTexts.backToToday.tr()),
                   ),
                   const SizedBox(height: 30.0),
                 ],
