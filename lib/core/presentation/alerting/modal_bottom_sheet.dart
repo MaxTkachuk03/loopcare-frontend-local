@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/oval_bottom_border_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -1098,29 +1099,31 @@ class ModalBottomSheet {
           builder: (BuildContext context) {
             return FractionallySizedBox(
               heightFactor: 0.93,
-              child: SafeArea(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: SizedBox(
-                          width: 30.0,
-                          height: 30.0,
-                          child: IconButton(
-                            iconSize: 30,
-                            padding: EdgeInsets.zero,
-                            onPressed: () => context.router.pop(),
-                            icon: const Icon(Icons.close),
+              child: KeyboardContainerListener(
+                child: SafeArea(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: SizedBox(
+                            width: 30.0,
+                            height: 30.0,
+                            child: IconButton(
+                              iconSize: 30,
+                              padding: EdgeInsets.zero,
+                              onPressed: () => context.router.pop(),
+                              icon: const Icon(Icons.close),
+                            ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                          child: ReportAbuseWidget(
-                        groupSession: groupSession,
-                      )),
-                    ],
+                        Expanded(
+                            child: ReportAbuseWidget(
+                          groupSession: groupSession,
+                        )),
+                      ],
+                    ),
                   ),
                 ),
               ),
