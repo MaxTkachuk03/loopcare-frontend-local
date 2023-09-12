@@ -26,11 +26,17 @@ class IntroGuard extends AutoRouteGuard {
   );
 
   List<PageRouteInfo> _getMentalHealthRoutes() {
-    final mentalHealthRoutes = mentalHealthBloc.state.data.tests
+    final tests = mentalHealthBloc.state.data.tests;
+    if (tests.isEmpty) return [const MentalHealthIntroRoute()];
+
+    final mentalHealthRoutes = tests
         .map((e) {
           final questionRoutes = e.questions.map((e) => const MentalHealthQuestionRoute()).toList();
 
-          return [...questionRoutes, const MentalCheckResultRoute()];
+          return [
+            ...questionRoutes,
+            MentalCheckResultRoute(calculationResultsNotNeeded: true) as PageRouteInfo<void>
+          ];
         })
         .expand((element) => element)
         .toList();
@@ -38,6 +44,7 @@ class IntroGuard extends AutoRouteGuard {
     return [
       const MentalHealthIntroRoute(),
       ...mentalHealthRoutes,
+      MentalCheckResultRoute(calculationResultsNotNeeded: true)
     ];
   }
 
@@ -68,15 +75,13 @@ class IntroGuard extends AutoRouteGuard {
 
       final isMentalFitness = onboardingState.currentStep == OnboardingSteps.mentalFitness;
 
+      final routeIndex = isMentalFitness
+          ? routes.length + mentalHealthBloc.state.data.currentPage
+          : routes.indexOf(onboardingState.currentStep.stepRoutes[onboardingState.currentQuestionIndex]);
+
       final mentalHealthRoutes = isMentalFitness ? _getMentalHealthRoutes() : <PageRouteInfo>[];
 
       routes.addAll(mentalHealthRoutes);
-
-      final currentRoute = isMentalFitness
-          ? mentalHealthRoutes[mentalHealthBloc.state.data.currentPage]
-          : onboardingState.currentStep.stepRoutes[onboardingState.currentQuestionIndex];
-
-      final routeIndex = routes.indexOf(currentRoute);
 
       List<PageRouteInfo<dynamic>> needRoutes = [];
 

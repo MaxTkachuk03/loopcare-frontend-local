@@ -16,11 +16,11 @@ Follow these steps to set up a project:
 7. To setup firebase for all environments, download `google-services.json` files for each environment, you can do it from firebase
 8. Create `dev` and `prod` folders in `android/app/src` folder
 9. Put `google-services.json` to the `android/app/src/<env_name>` (ex. `android/app/src/dev`) folder, if there is no such folder, you have to create it. Folder name should be exact as flavour name, because android by default looks to the folder with the flavour name
-10. Create `config` folder in the `ios` folder, then create `dev` and `prod` folders in the `config` folder, so next pathes should be valid `ios/config/dev` and `ios/config/prod`
+10. Create `config` folder in the `ios` folder, then create `dev` and `prod` folders in the `config` folder, so next paths should be valid `ios/config/dev` and `ios/config/prod`
 11. Download firebase `GoogleService-Info.plist` files for each environment from the firebase
 12. Put `GoogleService-Info.plist` to the `ios/config<env_name>` (ex. `ios/config/dev`) folder, if there is no such folder, you have to create it. Project has custom build script that will copy right plist file to the runner folder during the build process.
-13. Create `.env.dev` and `.env.prod` files in the root directory.
-14. File `.env.example` contains needed variable names, copy it to the `.env.dev` and `.env.prod`.You can find env file variable values in the project documentation. Also firebase variables you can get from the `google-services.json` and `GoogleService-Info.plist` respectevly
+13. Create `.env.dev` and `.env.prod` files in the root directory. 
+14. File `.env.example` contains needed variable names, copy it to the `.env.dev` and `.env.prod`.You can find env file variable values in the project [documentation](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/53739539/Environment+variables). Also firebase variables you can get from the `google-services.json` and `GoogleService-Info.plist` respectively.
 
 ## Application development
 

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -50,6 +49,7 @@ class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState
     on<_SetStartTime>(_onSetStartTime);
     on<_StartTestFromBeginning>(_onStartTestFromBeginning);
     on<_NextPage>(_onNextPage);
+    on<_PrevPage>(_onPrevPage);
     on<_ResetData>(_onResetData);
 
     _authBlocStreamSubscription = _authenticationCubit.stream.distinct().listen((s) {
@@ -69,10 +69,21 @@ class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState
   }
 
   FutureOr<void> _onGetMentalHealthTests(event, Emitter<MentalHealthState> emit) async {
+    emit(state.copyWith(
+      data: state.data.copyWith(
+        isLoading: true,
+        error: null,
+      ),
+    ));
+
     final response = await _mentalHealthService.mentalHealthQuestions();
 
     response.fold(
-      (l) => null,
+      (e) => emit(
+        state.copyWith(
+          data: state.data.copyWith(error: e, isLoading: false),
+        ),
+      ),
       (r) {
         final selectedGender = _physicalFitnessBloc.state.sexType;
 
@@ -88,6 +99,7 @@ class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState
 
         emit(state.copyWith(
           data: state.data.copyWith(
+            isLoading: false,
             tests: testsWithGenderExclusions,
             questionsListId: questionsListId,
             totalQuestionsLength: questionsListId.length,
@@ -101,7 +113,6 @@ class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState
     emit(state.copyWith(
       data: state.data.copyWith(
         currentQuestionIndex: 0,
-        currentPage: state.data.currentPage + 1,
         currentTestIndex: state.data.currentTestIndex + 1,
       ),
     ));
@@ -115,7 +126,6 @@ class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState
 
     emit(state.copyWith(
       data: state.data.copyWith(
-        currentPage: state.data.currentPage - 1,
         currentTestIndex: state.data.currentTestIndex - 1,
         currentQuestionIndex: lastQuestionIndexInPrevTest,
       ),
@@ -127,7 +137,6 @@ class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState
 
     emit(state.copyWith(
       data: state.data.copyWith(
-        currentPage: state.data.currentPage - 1,
         currentQuestionIndex: state.data.currentQuestionIndex - 1,
       ),
     ));
@@ -141,9 +150,21 @@ class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState
   }
 
   FutureOr<void> _onNextQuestion(_NextQuestion event, Emitter<MentalHealthState> emit) {
+    if (state.data.isLastMentalHealthQuestion) {
+      _onboardingBloc.add(
+        OnboardingEvent.currentStepChanged(
+          progress: 100,
+          questionIndex: state.data.currentQuestionIndex,
+        ),
+      );
+
+      return null;
+    }
+
+    if (state.data.isLastQuestionInTest) return null;
+
     emit(state.copyWith(
       data: state.data.copyWith(
-        currentPage: state.data.currentPage + 1,
         currentQuestionIndex: state.data.currentQuestionIndex + 1,
       ),
     ));
@@ -154,6 +175,24 @@ class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState
         questionIndex: state.data.currentQuestionIndex,
       ),
     );
+  }
+
+  FutureOr<void> _onNextPage(_NextPage event, Emitter<MentalHealthState> emit) {
+    emit(state.copyWith(
+      data: state.data.copyWith(
+        currentPage: state.data.currentPage + 1,
+      ),
+    ));
+  }
+
+  FutureOr<void> _onPrevPage(_PrevPage event, Emitter<MentalHealthState> emit) {
+    if (state.data.currentPage == 0) return null;
+
+    emit(state.copyWith(
+      data: state.data.copyWith(
+        currentPage: state.data.currentPage - 1,
+      ),
+    ));
   }
 
   FutureOr<void> _onSetAnswer(_SetAnswer event, Emitter<MentalHealthState> emit) {
@@ -227,12 +266,7 @@ class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState
   }
 
   FutureOr<void> _onSetStartTime(_SetStartTime event, Emitter<MentalHealthState> emit) {
-    emit(state.copyWith(
-      data: state.data.copyWith(
-        startTestTime: event.time,
-        currentPage: state.data.currentPage + 1,
-      ),
-    ));
+    emit(state.copyWith(data: state.data.copyWith(startTestTime: event.time)));
   }
 
   FutureOr<void> _onStartTestFromBeginning(_StartTestFromBeginning event, Emitter<MentalHealthState> emit) {
@@ -243,6 +277,7 @@ class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState
         answers: [],
         currentQuestionIndex: 0,
         currentTestIndex: 0,
+        currentPage: 0,
       ),
     ));
 
@@ -252,14 +287,6 @@ class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState
         questionIndex: 0,
       ),
     );
-  }
-
-  FutureOr<void> _onNextPage(_NextPage event, Emitter<MentalHealthState> emit) {
-    emit(state.copyWith(
-      data: state.data.copyWith(
-        currentPage: state.data.currentPage + 1,
-      ),
-    ));
   }
 
   FutureOr<void> _onResetData(_ResetData event, Emitter<MentalHealthState> emit) {

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -59,6 +60,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
   List<ZoomVideoSdkUser> _sessionParticipants = [];
   List<String> _talkingUsers = [];
+  List<String> _usersWithCameraOff = [];
   String sessionName = '';
   bool isMuted = false;
   bool isSpeakerOn = false;
@@ -67,6 +69,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
   String _error = '';
   Timer? _timer;
+  Timer? _inactivityTimer;
 
   int _sessionStart = 0;
   double aspectRatio = 1;
@@ -88,10 +91,15 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
 
-    if (state != AppLifecycleState.resumed) {
+    if (state == AppLifecycleState.inactive) {
       _setInactiveUserState();
-    } else {
+    }
+    if (state == AppLifecycleState.paused) {
+      _setInactiveUserState();
+      _setInactivityTimer();
+    } else if (state == AppLifecycleState.resumed) {
       _setActiveUserState();
+      _inactivityTimer?.cancel();
     }
   }
 
@@ -125,6 +133,19 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     if (videoStatus != null) {
       await zoom.videoHelper.startVideo();
     }
+  }
+
+  void _setInactivityTimer() {
+    if (Platform.isIOS) return;
+
+    _inactivityTimer?.cancel();
+
+    _inactivityTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (timer.tick >= 60) {
+        _leaveSessionHandler();
+        timer.cancel();
+      }
+    });
   }
 
   void _joinSession() {
@@ -275,10 +296,16 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
       final List<ZoomVideoSdkUser> userList = _getSessionChangedUsers(data);
 
+      List<String> usersWithCameraOff = [];
+
       for (var user in userList) {
-        if (user.userId != mySelf?.userId) return;
-        mySelf?.videoStatus?.isOn().then((on) => isVideoOn = on);
+        user.videoStatus?.isOn().then((value) {
+          if (!value) usersWithCameraOff.add(user.userId);
+          if (user.userId == mySelf?.userId) isVideoOn = value;
+        });
       }
+
+      _usersWithCameraOff = usersWithCameraOff;
 
       setState(() {});
     });
@@ -559,6 +586,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                               child: UsersGrid(
                                 users: _sessionParticipants,
                                 talkingUsers: _talkingUsers,
+                                usersWithCameraOff: _usersWithCameraOff,
                                 aspectRatio: aspectRatio,
                               ),
                             ),
@@ -577,15 +605,21 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                         )
                       : const Loader(),
                 ),
-                BlocBuilder<SessionCallBloc, SessionCallState>(
-                  builder: (context, state) {
-                    return SessionVideoContainer(
-                      sessionTimer: state.data.sessionTime,
-                      onVideoPlayingListener: _onVideoPlayingHandler,
-                      orientation: orientation,
-                    );
-                  },
-                ),
+                if (userJoinedToSession)
+                  BlocBuilder<SessionCallBloc, SessionCallState>(
+                    builder: (context, state) {
+                      return state.maybeMap(
+                        updateSessionTime: (s) {
+                          return SessionVideoContainer(
+                            sessionTimer: s.data.sessionTime,
+                            onVideoPlayingListener: _onVideoPlayingHandler,
+                            orientation: orientation,
+                          );
+                        },
+                        orElse: () => const SizedBox.shrink(),
+                      );
+                    },
+                  ),
               ],
             ),
           ),
@@ -617,6 +651,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     eventListener.eventEmitter.removeEventListener(_eventErrorListener);
 
     _timer?.cancel();
+    _inactivityTimer?.cancel();
 
     super.dispose();
   }

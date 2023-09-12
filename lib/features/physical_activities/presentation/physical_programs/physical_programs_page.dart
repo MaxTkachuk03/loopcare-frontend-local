@@ -68,7 +68,7 @@ class PhysicalProgramsPage extends StatelessWidget {
                                 const SizedBox(
                                   height: 24.0,
                                 ),
-                                const Text(LocalizedTexts.recommended).tr(),
+                                Text(LocalizedTexts.recommended.toUpperCase()).tr(),
                                 const SizedBox(
                                   height: 16.0,
                                 ),
