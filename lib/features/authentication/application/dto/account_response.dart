@@ -31,6 +31,7 @@ class AccountResponse {
   final DiabetesType diabetes;
   final FoodPreferences foodPreferences;
   final GroupingPreferences? groupingPreferences;
+  @JsonKey(unknownEnumValue: UnlockedFeatureType.unknown)
   final List<UnlockedFeatureType> unlockedFeatures;
   final PhysicalActivitiesPreferences? physicalActivitiesPreferences;
 

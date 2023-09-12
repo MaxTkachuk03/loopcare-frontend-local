@@ -349,7 +349,6 @@ class LocalizedTexts {
   static const String selectAMeal = 'selectAMeal';
   static const String today = 'today';
   static const String physicalActivities = 'physicalActivities';
-  static const String physicalExersises = 'physicalExersises';
   static const String physicalActivitiesPreferences = 'physicalActivitiesPreferences';
   static const String physicalActivitiesPreferencesDesc = 'physicalActivitiesPreferencesDesc';
   static const String physicalActivitiesPreferencesItemOne = 'physicalActivitiesPreferencesItemOne';
@@ -372,7 +371,7 @@ class LocalizedTexts {
   static const String physicalActivitiesUnlockedTitle = 'physicalActivitiesUnlockedTitle';
   static const String physicalActivitiesUnlockedText = 'physicalActivitiesUnlockedText';
   static const String perWeek = 'perWeek';
-
+  static const String physicalExersises = 'physicalExersises';
   static const String supportGroup = 'supportGroup';
   static const String explore = 'explore';
   static const String overview = 'overview';
