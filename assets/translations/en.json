@@ -631,5 +631,15 @@
   "cancelBooking": "Cancel booking",
   "sessionWarning_1": "If less than 4 seats will be booked the session will be canceled ",
   "sessionWarning_2": "If you cant make it please be sure to cancel your booking",
-  "emergencySubtitle": "This program is not psychotherapy and cannot replace psychotherapy. \n\nIf you have an acute mental health crisis or feel you need psychological support or are having suicidal thoughts, please seek medical or psychological help immediately.\n\nIn an emergency, you can also contact the following numbers, which you can reach 24h/day toll-free:"
+  "emergencySubtitle": "This program is not psychotherapy and cannot replace psychotherapy. \n\nIf you have an acute mental health crisis or feel you need psychological support or are having suicidal thoughts, please seek medical or psychological help immediately.\n\nIn an emergency, you can also contact the following numbers, which you can reach 24h/day toll-free:",
+  "subjectReport": "Subject",
+  "descriptionReport": "Description",
+  "reportTitle": "Report issue",
+  "reportSubTitle": "Please describe the matter",
+  "reportSuccessTitle": "Thanks for reporting your issue",
+  "reportSuccessSubTitle": "If relevant, we will get in touch via email as soon as possible.",
+  "errorReportMessage": "Text message must be at least 1 symbol and less than 500 symbols",
+  "errorSubjectMessage": "Text message must be at least 1 symbol and less than 30 symbols",
+  "requiredField": "Field is required",
+  "send": "Send"
 }

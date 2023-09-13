@@ -1,4 +1,4 @@
-package com.example.loopcare_frontend
+package com.loopcare.leanonme.app
 
 import io.flutter.embedding.android.FlutterActivity
 
