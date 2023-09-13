@@ -29,7 +29,7 @@ class LogWeightPage extends StatefulWidget {
 class _LogWeightPageState extends State<LogWeightPage> {
   late TextEditingController weightFieldController;
   late TextEditingController lbsController;
-  late FocusNode fieldFocusNode;
+  final FocusNode fieldFocusNode = FocusNode();
 
   final bool _isMetricSystem = getMeasurementSystem() == MeasurementSystemType.metric;
 
@@ -37,7 +37,7 @@ class _LogWeightPageState extends State<LogWeightPage> {
   void initState() {
     weightFieldController = TextEditingController(text: _getInputInitialValue());
 
-    fieldFocusNode = FocusNode();
+    fieldFocusNode.requestFocus();
     super.initState();
   }
 
