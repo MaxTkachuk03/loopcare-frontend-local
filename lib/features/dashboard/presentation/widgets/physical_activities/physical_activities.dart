@@ -56,8 +56,6 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
 
   get _isActive => widget.selectedDay.midnightTime == DateTime.now().midnightTime;
 
-  // get _isAvailable => context.read<PhysicalActivitiesPreferencesBloc>().state.data.needActivitiesType;
-
   void _programLogged(BuildContext context, PhysicalProgramsState state) {
     context
         .read<PhysicalActivitiesBloc>()
