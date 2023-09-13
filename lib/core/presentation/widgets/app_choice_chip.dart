@@ -41,7 +41,7 @@ class AppChoiceChip<T> extends StatelessWidget {
         width: labelWidth ?? double.infinity,
         height: 22.0,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
               child: AutoSizeText(
