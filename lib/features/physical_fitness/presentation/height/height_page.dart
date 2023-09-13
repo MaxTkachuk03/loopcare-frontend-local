@@ -33,8 +33,8 @@ class _HeightPageState extends State<HeightPage> {
   late TextEditingController cmController;
   late TextEditingController ftController;
   late TextEditingController inController;
-  late FocusNode cmFieldFocusNode;
-  late FocusNode ftFieldFocusNode;
+  final FocusNode cmFieldFocusNode = FocusNode();
+  final FocusNode ftFieldFocusNode = FocusNode();
   MeasurementSystemType activeMeasurementType = getMeasurementSystem();
   int? heightInCm;
   int heightFT = 0;
@@ -57,8 +57,8 @@ class _HeightPageState extends State<HeightPage> {
     }
 
     super.initState();
-    cmFieldFocusNode = FocusNode();
-    ftFieldFocusNode = FocusNode();
+    cmFieldFocusNode.requestFocus();
+    ftFieldFocusNode.requestFocus();
   }
 
   @override

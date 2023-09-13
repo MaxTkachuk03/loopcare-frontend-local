@@ -27,8 +27,8 @@ class WeightPage extends StatefulWidget {
 class _WeightPageState extends State<WeightPage> {
   late TextEditingController kgController;
   late TextEditingController lbsController;
-  late FocusNode kgFieldFocusNode;
-  late FocusNode lbsFieldFocusNode;
+  final FocusNode kgFieldFocusNode = FocusNode();
+  final FocusNode lbsFieldFocusNode = FocusNode();
   MeasurementSystemType activeMeasurementType = getMeasurementSystem();
 
   @override
@@ -40,8 +40,9 @@ class _WeightPageState extends State<WeightPage> {
     lbsController = TextEditingController(
         text: weightInKg != null ? '${WeightConversionUtils.convertKgToLbs(double.parse(weightInKg))}' : '');
 
-    kgFieldFocusNode = FocusNode();
-    lbsFieldFocusNode = FocusNode();
+    kgFieldFocusNode.requestFocus();
+    lbsFieldFocusNode.requestFocus();
+
     super.initState();
   }
 

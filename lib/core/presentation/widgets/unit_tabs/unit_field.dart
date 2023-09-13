@@ -41,7 +41,6 @@ class UnitField extends StatelessWidget {
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(RegExp(_getRegexString()))
               ],
-              autofocus: true,
               style: Theme.of(context).textTheme.displayLarge,
               decoration: InputDecoration(
                 counterText: counterText,
