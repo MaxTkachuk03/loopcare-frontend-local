@@ -29,10 +29,6 @@ class _AccountPageState extends State<AccountPage> {
     context.read<AuthenticationCubit>().getAccount();
     context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.fetchFoodPreferences());
 
-    context
-        .read<PhysicalActivitiesPreferencesBloc>()
-        .add(const PhysicalActivitiesPreferencesEvent.getPreferences());
-
     super.initState();
   }
 
