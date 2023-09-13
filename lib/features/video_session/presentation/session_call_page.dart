@@ -28,8 +28,6 @@ import 'package:loopcare_frontend/features/video_session/presentation/widgets/er
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/prompts_container.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/report_issue.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_app_bar.dart';
-
-// import 'package:loopcare_frontend/features/video_session/presentation/widgets/report_issue.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_video_container.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/settings_dialog.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/users_grid.dart';
@@ -157,8 +155,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
       log('session token = $token', name: 'zoomSessionLog');
 
-      final String userName =
-          context.read<AuthenticationCubit>().state.nickname ?? context.read<AuthenticationCubit>().state.name;
+      final String userName = context.read<AuthenticationCubit>().state.nickname ??
+          context.read<AuthenticationCubit>().state.name;
 
       JoinSessionConfig joinSession = JoinSessionConfig(
         sessionName: sessionName,
@@ -247,7 +245,10 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       var userListJson = jsonDecode(data['remoteUsers']) as List;
 
       setState(() {
-        _sessionParticipants = [mySelf!, ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))];
+        _sessionParticipants = [
+          mySelf!,
+          ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))
+        ];
       });
     });
 
@@ -549,7 +550,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
   Future<void> _onReportIssueHandler() async {
     final signedSessionId = context.read<TopicsBloc>().state.data.signedGroupSessionId;
-    if (signedSessionId== null) {
+    if (signedSessionId == null) {
       return;
     }
     context.read<ReportAbuseBloc>().add(const ReportAbuseEvent.init());
@@ -592,8 +593,10 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                             ),
                             const Expanded(child: PromptsContainer()),
                             ReportIssue(
-                                minutesLeft: context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inMinutes,
-                                onReportIssueHandler: _onReportIssueHandler), // TODO out of scope for now
+                              minutesLeft:
+                                  context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inMinutes,
+                              onReportIssueHandler: _onReportIssueHandler,
+                            ),
                             CallControls(
                               onMuteHandler: onPressAudio,
                               onStopVideoHandler: onPressVideo,

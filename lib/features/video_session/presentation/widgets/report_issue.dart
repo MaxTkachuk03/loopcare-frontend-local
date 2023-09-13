@@ -16,14 +16,16 @@ class ReportIssue extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            '${LocalizedTexts.discussion.tr()}: $minutesLeft ${LocalizedTexts.minutes.tr()} ${LocalizedTexts.left.tr()}',
-            style: const TextStyle(
-              color: AppColors.darkGreen,
-              fontSize: 12.0,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          const SizedBox(),
+          // TODO will be implemented in future
+          // Text(
+          //   '${LocalizedTexts.discussion.tr()}: $minutesLeft ${LocalizedTexts.minutes.tr()} ${LocalizedTexts.left.tr()}',
+          //   style: const TextStyle(
+          //     color: AppColors.darkGreen,
+          //     fontSize: 12.0,
+          //     fontWeight: FontWeight.w600,
+          //   ),
+          // ),
           OutlinedButton(
             style: OutlinedButton.styleFrom(
               shape: const RoundedRectangleBorder(
