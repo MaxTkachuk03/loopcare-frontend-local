@@ -72,6 +72,7 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<GroupPreferencesBloc, GroupPreferencesState>(
+      listenWhen: (prev, cur) => context.router.current.name == NicknamePreferencesRoute.name,
       listener: _onChangeListener,
       builder: (BuildContext context, GroupPreferencesState state) {
         return GroupLessonWrap(

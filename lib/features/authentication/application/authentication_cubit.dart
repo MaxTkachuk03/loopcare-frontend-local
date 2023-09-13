@@ -2,6 +2,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/domain/account/account.dart';
+import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
@@ -74,10 +75,10 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     });
   }
 
-  void unlockFeature(String feature) async {
+  void unlockFeature(UnlockedFeatureType feature) async {
     await state.mapOrNull(
       authenticated: (state) async {
-        final response = await _authenticationService.unlockFeature(feature);
+        final response = await _authenticationService.unlockFeature(feature.name);
 
         response.fold(
           (l) => null,
@@ -89,6 +90,10 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
                 ),
               ),
             );
+
+            if (feature == UnlockedFeatureType.grouping) {
+              changeAccountGroupStatus(UserGroupingState.notGrouped);
+            }
           },
         );
       },

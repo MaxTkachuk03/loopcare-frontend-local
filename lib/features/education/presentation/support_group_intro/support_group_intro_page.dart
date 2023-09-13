@@ -113,14 +113,14 @@ class SupportGroupIntroPage extends StatelessWidget {
 
   _onJoinPressed(BuildContext context) {
     context
-      ..read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.grouping.name)
+      ..read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.grouping)
       ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.setWouldLikeJoinGroup(YesNoAnswer.yes))
       ..read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward())
       ..router.pushNamed(AppRoutes.genderPreferences);
   }
 
   _onDoNotJoinPressed(BuildContext context) {
-    context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.grouping.name);
+    context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.grouping);
 
     context.router.pushNamed(AppRoutes.lessonComplete);
   }
