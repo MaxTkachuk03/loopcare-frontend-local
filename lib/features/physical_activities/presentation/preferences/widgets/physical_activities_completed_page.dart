@@ -22,7 +22,7 @@ class PhysicalActivitiesCompletePage extends StatefulWidget {
 class _PhysicalActivitiesCompletePageState extends State<PhysicalActivitiesCompletePage> {
   @override
   void initState() {
-    context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.physicalActivities.name);
+    context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.physicalActivities);
 
     super.initState();
   }

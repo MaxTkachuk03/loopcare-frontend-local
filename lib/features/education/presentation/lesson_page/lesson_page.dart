@@ -53,12 +53,12 @@ class _LessonPageState extends State<LessonPage> {
       }
 
       if (extraAction == ExtraActionTypes.unlockMeals) {
-        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.meals.name);
+        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.meals);
       }
 
       if (extraAction == ExtraActionTypes.unlockPhysicalActivities) {
         context
-          ..read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.physicalActivities.name)
+          ..read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.physicalActivities)
           ..router.pushNamed(AppRoutes.physicalActivitiesPreferences);
 
         return;

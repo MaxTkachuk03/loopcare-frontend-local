@@ -75,9 +75,10 @@ class SupportGroup extends StatelessWidget {
             BlocBuilder<AuthenticationCubit, AuthenticationState>(
               builder: (context, state) {
                 switch (state.groupingState) {
-                  case UserGroupingState.notGrouped:
+                  case UserGroupingState.locked:
                     return const LessonsUncompleted();
                   case UserGroupingState.refused:
+                  case UserGroupingState.notGrouped:
                   case UserGroupingState.left:
                     return const NotGrouped();
                   case UserGroupingState.waitingInPool:
