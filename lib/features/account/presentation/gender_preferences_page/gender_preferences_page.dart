@@ -56,8 +56,12 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
   }
 
   void _onErrorHandler(GroupPreferencesState state) {
-    context.showErrorBar(
-        content: Text(state.data.error?.error.toString() ?? ''), position: FlashPosition.top);
+    final String? errorMessage = state.data.error?.maybeMap(
+      unprocessableEntity: (s) => s.error.message,
+      orElse: () => LocalizedTexts.somethingWentWrong.tr(),
+    );
+
+    context.showErrorBar(content: Text(errorMessage ?? ''), position: FlashPosition.top);
   }
 
   void _onUpdateHandler(GroupPreferencesState state) {

@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/application/dto/error_response.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -219,11 +218,7 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
     if (error != null) {
       final errorMessage = error.maybeMap(
         conflict: (error) {
-          final message = ErrorResponse.fromJson(
-            error.error.response?.data ?? {},
-          ).message;
-
-          return message == physicalProgramAlreadyLogged
+          return error.error.message == physicalProgramAlreadyLogged
               ? LocalizedTexts.physicalProgramAlreadyLogged.translation
               : LocalizedTexts.somethingIsIncorrect.translation;
         },
