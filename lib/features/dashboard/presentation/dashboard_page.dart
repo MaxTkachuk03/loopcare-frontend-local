@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/diary/diary.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/education.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/log_meal.dart';
@@ -50,7 +51,9 @@ class _DashboardPageState extends State<DashboardPage> {
 
     context.read<DashboardEducationBloc>().add(const DashboardEducationEvent.getDashboardLessons());
 
-    context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
+    if (context.read<AuthenticationCubit>().state.groupingState == UserGroupingState.grouped) {
+      context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
+    }
 
     super.initState();
   }
@@ -75,7 +78,9 @@ class _DashboardPageState extends State<DashboardPage> {
 
     context.read<AuthenticationCubit>().getAccount();
 
-    context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
+    if (context.read<AuthenticationCubit>().state.groupingState == UserGroupingState.grouped) {
+      context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
+    }
   }
 
   @override
