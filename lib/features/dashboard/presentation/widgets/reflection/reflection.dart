@@ -26,39 +26,43 @@ class Reflection extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Image(image: AppIcons.dashbordReflection),
-                const SizedBox(width: 24.0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      LocalizedTexts.reflection.translation,
-                      style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                            fontFamily: ThemeConstants.bitterFontFamily,
-                          ),
+            Expanded(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Image(image: AppIcons.dashbordReflection),
+                  const SizedBox(width: 24.0),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          LocalizedTexts.reflection.translation,
+                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                fontFamily: ThemeConstants.bitterFontFamily,
+                              ),
+                        ),
+                        const SizedBox(height: 3.0),
+                        // TODO get text from the server
+                        AutoSizeText(
+                          'Looking back at past 2 weeks',
+                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                          maxLines: 2,
+                        ),
+                        Text(
+                          'Completed',
+                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                fontStyle: FontStyle.italic,
+                                color: const Color(0xFF919B8C),
+                              ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 3.0),
-                    // TODO get text from the server
-                    AutoSizeText(
-                      'Looking back at past 2 weeks',
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            fontWeight: FontWeight.w600,
-                          ),
-                      maxLines: 1,
-                    ),
-                    Text(
-                      'Completed',
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            fontStyle: FontStyle.italic,
-                            color: const Color(0xFF919B8C),
-                          ),
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
             const ImageIcon(
               AppIcons.arrow,
