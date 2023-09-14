@@ -2,10 +2,12 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/duration_extensions.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session_program_event.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/group_session_video_error.dart';
+import 'package:loopcare_frontend/features/video_player/presentation/widgets/rotate_device_message.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/video_block.dart';
 import 'package:video_player/video_player.dart';
 
@@ -26,13 +28,10 @@ class SessionVideoContainer extends StatefulWidget {
 }
 
 class _SessionVideoContainerState extends State<SessionVideoContainer> with WidgetsBindingObserver {
-  static const double _defaultVideoWidth = 1280.0;
-  static const double _defaultVideoHeight = 720.0;
-
-  bool _videoIsPlaying = false;
   bool _closedVideo = false;
   VideoPlayerController? _videoPlayerController;
   GroupSessionProgramEvent? _currentVideoEvent;
+  bool _visibility = false;
 
   @override
   void initState() {
@@ -47,7 +46,9 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
   void didUpdateWidget(covariant SessionVideoContainer oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (_videoIsPlaying || _closedVideo) return;
+    final controller = _videoPlayerController;
+
+    if (controller != null && controller.value.isPlaying || _closedVideo) return;
 
     _checkIfHasVideoForCurrentTime();
   }
@@ -100,7 +101,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
           ..play();
       }).whenComplete(() {
         setState(() {
-          _videoIsPlaying = true;
+          _visibility = true;
         });
         widget.onVideoPlayingListener(true);
       });
@@ -115,8 +116,8 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
-        _videoIsPlaying = false;
         _closedVideo = false;
+        _visibility = false;
       });
 
       widget.onVideoPlayingListener(false);
@@ -132,24 +133,12 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
-        _videoIsPlaying = false;
         _closedVideo = true;
+        _visibility = false;
       });
 
       widget.onVideoPlayingListener(false);
     });
-  }
-
-  double get _videoWidth {
-    final width = _videoPlayerController?.value.size.width;
-
-    return width != 0 && width != null ? width : _defaultVideoWidth;
-  }
-
-  double get _videoHeight {
-    final height = _videoPlayerController?.value.size.height;
-
-    return height != 0 && height != null ? height : _defaultVideoHeight;
   }
 
   void onUpdateHandler() {
@@ -160,64 +149,88 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
     _loadVideoPlayer(video.videoPath!);
   }
 
+  bool get _isPortrait => widget.orientation == Orientation.portrait;
+
+  Widget _errorWidgetCb(double width, double height, String? error) => GroupSessionVideoError(
+        width: width,
+        height: height,
+        errorMessage: error,
+        onUpdate: onUpdateHandler,
+        onClose: _onVideoClose,
+      );
+
   @override
   Widget build(BuildContext context) {
     final controller = _videoPlayerController;
 
-    return controller == null || !_videoIsPlaying
-        ? const SizedBox.shrink()
-        : Container(
-            width: double.infinity,
-            height: double.infinity,
-            color: AppColors.black,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: widget.orientation == Orientation.portrait ? 0 : 1,
-                  child: ValueListenableBuilder(
-                    valueListenable: controller,
-                    builder: (BuildContext context, VideoPlayerValue value, child) {
-                      if (value.hasError) {
-                        return GroupSessionVideoError(
-                          width: _videoWidth,
-                          height: _videoHeight,
-                          errorMessage: value.errorDescription,
-                          onUpdate: onUpdateHandler,
-                          onClose: _onVideoClose,
-                        );
-                      }
-
-                      final videoFinished = value.isInitialized && value.position == value.duration;
-
-                      if (videoFinished) _onVideoEnds();
-
-                      return Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          VideoBlock(controller: controller, orientation: widget.orientation),
-                          VideoProgressIndicator(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: widget.orientation == Orientation.portrait ? 20.0 : 60.0,
-                              vertical: 20.0,
-                            ),
-                            controller,
-                            allowScrubbing: false,
-                            colors: const VideoProgressColors(
-                              playedColor: AppColors.blueMid,
-                              bufferedColor: AppColors.ballBlue,
-                              backgroundColor: AppColors.greyMid,
-                            ),
-                          )
-                        ],
-                      );
-                    },
+    return AnimatedOpacity(
+      duration: const Duration(milliseconds: 350),
+      opacity: _visibility ? 1 : 0,
+      child: Visibility(
+        visible: _visibility,
+        child: Container(
+          color: AppColors.black,
+          child: Column(
+            children: [
+              if (_isPortrait) const Expanded(child: RotateDeviceMessage()),
+              Expanded(
+                  child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  VideoBlock(
+                    controller: controller,
+                    orientation: widget.orientation,
+                    errorWidget: _errorWidgetCb,
                   ),
-                ),
-              ],
-            ),
-          );
+                  if (controller != null && controller.value.isInitialized)
+                    ValueListenableBuilder(
+                      valueListenable: controller,
+                      builder: (BuildContext context, VideoPlayerValue value, child) {
+                        final videoFinished = value.isInitialized && value.position == value.duration;
+
+                        if (videoFinished) _onVideoEnds();
+
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: _isPortrait ? 20.0 : 60.0,
+                                vertical: 20.0,
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: VideoProgressIndicator(
+                                      controller,
+                                      allowScrubbing: false,
+                                      colors: const VideoProgressColors(
+                                        playedColor: AppColors.anotherBlue,
+                                        bufferedColor: AppColors.C6C5C5,
+                                        backgroundColor: AppColors.d9d9d9,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    (value.duration - value.position).toVideoDurationString,
+                                    style: const TextStyle(color: AppColors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    )
+                ],
+              )),
+              if (_isPortrait) const Expanded(child: SizedBox()),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   _disposeVideoController() {

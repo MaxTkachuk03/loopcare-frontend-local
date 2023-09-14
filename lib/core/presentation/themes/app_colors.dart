@@ -1,7 +1,7 @@
 part of 'themes.dart';
 
 class AppColors {
-  static const Color black = Color(0xFF090A0A);//text
+  static const Color black = Color(0xFF090A0A); //text
 
   static const Color darkGreen = Color(0xFF324429);
 
@@ -72,6 +72,10 @@ class AppColors {
   static const Color profileDivider = Color(0xFF95A98B);
 
   static const Color d9d9d9 = Color(0xFFD9D9D9);
+
+  static const Color C6C5C5 = Color(0xFFC6C5C5);
+
+  static const Color anotherBlue = Color(0xFF16AAB2);
 
   static const Color gridTitleGradientStart = Color(0xFF090A0A);
   static const Color gridTitleGradientEnd = Color(0x00090A0A);

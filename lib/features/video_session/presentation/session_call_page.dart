@@ -78,7 +78,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     context.read<SessionCallBloc>().add(const SessionCallEvent.resetTimerValue());
     WidgetsBinding.instance.addObserver(this);
 
-    _allowLandscapeOrientation();
+    Wakelock.enable();
+
     _initSessionListeners();
     _joinSession();
 
@@ -391,11 +392,9 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     });
   }
 
-  Future _allowLandscapeOrientation() async {
+  Future _enableLandscapeOrientation() async {
     // Remove system app bar on Android
     await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-
-    await Wakelock.enable();
 
     await SystemChrome.setPreferredOrientations(
       [
@@ -407,11 +406,9 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     );
   }
 
-  Future _onlyPortraitOrientation() async {
+  Future _enablePortraitOrientation() async {
     // Restores system app bar on Android
     await SystemChrome.restoreSystemUIOverlays();
-
-    await Wakelock.disable();
 
     await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp],
@@ -525,6 +522,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   bool get userJoinedToSession => isInSession && _sessionParticipants.isNotEmpty;
 
   void _onVideoPlayingHandler(bool isVideoPlaying) async {
+    isVideoPlaying ? _enableLandscapeOrientation() : _enablePortraitOrientation();
+
     isVideoPlaying ? muteAllParticipants() : unMuteAllParticipants();
 
     setState(() {
@@ -635,7 +634,9 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
 
-    _onlyPortraitOrientation();
+    Wakelock.disable();
+
+    _enablePortraitOrientation();
 
     zoom.leaveSession(false);
 
