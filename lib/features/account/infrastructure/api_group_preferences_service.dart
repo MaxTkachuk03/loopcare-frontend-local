@@ -25,14 +25,11 @@ class APIGroupPreferencesService implements GroupPreferencesService {
   @override
   Future<Either<RequestError, CancelGroupingProcessResponse>> cancelGroupingProcess() async {
     return client
-        .patch('/grouping/cancel', data: {})
-        .then(parseResponse(CancelGroupingProcessResponse.fromJson));
+        .patch('/grouping/cancel', data: {}).then(parseResponse(CancelGroupingProcessResponse.fromJson));
   }
 
   @override
   Future<Either<RequestError, LeaveGroupResponse>> leaveGroup() async {
-    return client
-        .patch('/grouping/leave-group', data: {})
-        .then(parseResponse(LeaveGroupResponse.fromJson));
+    return client.patch('/grouping/leave-group', data: {}).then(parseResponse(LeaveGroupResponse.fromJson));
   }
 }

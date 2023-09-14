@@ -1,5 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_number_data.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -27,7 +30,7 @@ class EmergencyNumberCard extends StatelessWidget {
           ),
           Expanded(
             child: OutlinedButton(
-              onPressed: _onPressed,
+              onPressed: () => _onPressed(context),
               style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
                     side: MaterialStateProperty.all(
                       const BorderSide(
@@ -66,30 +69,40 @@ class EmergencyNumberCard extends StatelessWidget {
     return null;
   }
 
-  Future<void> _onPressed() async {
+  Future<void> _onPressed(BuildContext context) async {
     if (number.type == EmergencyNumberType.phone) {
-      _makePhoneCall(number.number);
+      _makePhoneCall(number.number, context);
     } else if (number.type == EmergencyNumberType.messenger) {
-      _launchInBrowser(number.number);
+      _launchInBrowser(number.number, context);
     }
   }
 
-  Future<void> _launchInBrowser(String url) async {
+  void _showError(BuildContext context) {
+    showAppSnackBar(
+      context: context,
+      text: LocalizedTexts.openLinkErrorMessage.tr(),
+      background: AppColors.red,
+      textColor: Colors.white,
+    );
+  }
+
+  Future<void> _launchInBrowser(String url, BuildContext context) async {
     final Uri launchUri = Uri.parse(url);
 
-    if (!await launchUrl(
-      launchUri,
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw Exception('Could not launch $url');
+    try {
+      await launchUrl(launchUri, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      _showError(context);
     }
   }
 
-  Future<void> _makePhoneCall(String phoneNumber) async {
-    final Uri launchUri = Uri(
-      scheme: 'tel',
-      path: phoneNumber,
-    );
-    await launchUrl(launchUri);
+  Future<void> _makePhoneCall(String phoneNumber, BuildContext context) async {
+    final Uri launchUri = Uri(scheme: 'tel', path: phoneNumber);
+
+    try {
+      await launchUrl(launchUri);
+    } catch (e) {
+      _showError(context);
+    }
   }
 }

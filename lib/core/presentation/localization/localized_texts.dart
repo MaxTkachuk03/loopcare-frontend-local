@@ -506,14 +506,14 @@ class LocalizedTexts {
   static const String reportSubTitle = 'reportSubTitle';
   static const String reportSuccessTitle = 'reportSuccessTitle';
   static const String reportSuccessSubTitle = 'reportSuccessSubTitle';
-  static const String errorReportMessage =  'errorReportMessage';
-  static const String errorSubjectMessage =  'errorSubjectMessage';
-  static const String requiredField =  'requiredField';
-  static const String send =  'send';
-
+  static const String errorReportMessage = 'errorReportMessage';
+  static const String errorSubjectMessage = 'errorSubjectMessage';
+  static const String requiredField = 'requiredField';
+  static const String send = 'send';
 
   // Emergency Numbers
   static const String emergencySubtitle = 'emergencySubtitle';
+  static const String openLinkErrorMessage = 'openLinkErrorMessage';
 
   // Video
   static const String rotateDevice = 'rotateDevice';
