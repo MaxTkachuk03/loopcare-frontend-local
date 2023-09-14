@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/application/dto/error_response.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -151,9 +150,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
             badRequest: (error) {
               final errorMessage = error.maybeMap(
                 badRequest: (error) {
-                  final message = ErrorResponse.fromJson(
-                    error.error.response?.data ?? {},
-                  ).message;
+                  final message = error.error.message;
 
                   if (message == accountAlreadyExists) {
                     setState(() {

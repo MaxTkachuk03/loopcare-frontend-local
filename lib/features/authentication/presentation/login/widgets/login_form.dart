@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/application/dto/error_response.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -111,9 +110,7 @@ class _LoginFormState extends State<LoginForm> {
             notFound: (error) {
               return error.maybeMap(
                 notFound: (e) {
-                  final message = ErrorResponse.fromJson(
-                    error.error.response?.data ?? {},
-                  ).message;
+                  final message = e.error.message;
 
                   return message == accountNotFound
                       ? LocalizedTexts.emailOrPasswordAreIncorrect.tr()
@@ -123,9 +120,7 @@ class _LoginFormState extends State<LoginForm> {
               );
             },
             badRequest: (error) {
-              final message = ErrorResponse.fromJson(
-                error.error.response?.data ?? {},
-              ).message;
+              final message = error.error.message;
 
               return message == emailOrPasswordAreIncorrect
                   ? LocalizedTexts.emailOrPasswordAreIncorrect.tr()
@@ -148,9 +143,7 @@ class _LoginFormState extends State<LoginForm> {
   void _navigationListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(
       authenticated: (state) {
-        final route = state.isPreferencesComplete
-            ? const HomeRoute()
-            : const PreferencesOverviewRoute();
+        final route = state.isPreferencesComplete ? const HomeRoute() : const PreferencesOverviewRoute();
         context.router.replaceAll([route]);
       },
     );
