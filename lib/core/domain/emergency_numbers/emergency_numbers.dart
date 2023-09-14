@@ -38,7 +38,7 @@ List<EmergencyNumberData> emergencyNumbersList = [
     btnTxt: '1-800-233-4357',
   ),
   const EmergencyNumberData(
-    type: EmergencyNumberType.none,
+    type: EmergencyNumberType.messenger,
     title: 'Veterans Line',
     number: 'https://veteranscrisisline.net/',
     btnTxt: 'Veterans Line',
