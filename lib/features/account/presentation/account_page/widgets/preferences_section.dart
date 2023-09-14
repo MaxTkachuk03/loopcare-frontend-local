@@ -72,11 +72,12 @@ class PreferencesSection extends StatelessWidget {
               return BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
                 builder: (context, physicalActivitiesPreferencesState) {
                   return SectionItem(
-                      title: LocalizedTexts.physicalExersises,
-                      subTitle: _physicalActivitiesPreferencesSubtitle(physicalActivitiesPreferencesState),
-                      onPressHandler: state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)
-                          ? () => _onPhysicalActivitiesHandler(context)
-                          : null);
+                    title: LocalizedTexts.physicalExersises,
+                    subTitle: _physicalActivitiesPreferencesSubtitle(physicalActivitiesPreferencesState),
+                    onPressHandler: state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)
+                        ? () => _onPhysicalActivitiesHandler(context)
+                        : null,
+                  );
                 },
               );
             },

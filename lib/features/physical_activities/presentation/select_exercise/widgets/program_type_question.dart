@@ -18,9 +18,7 @@ class ProgramTypeQuestion extends StatelessWidget {
           LocalizedTexts.whatWouldYouLikeToWorkOn,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
         ).tr(),
-        const SizedBox(
-          height: 8.0,
-        ),
+        const SizedBox(height: 8.0),
         BlocBuilder<PhysicalProgramsBloc, PhysicalProgramsState>(
           builder: (context, state) {
             return Row(
@@ -38,9 +36,7 @@ class ProgramTypeQuestion extends StatelessWidget {
                               e.isAvailable ? _onSelected(context, value) : null,
                           available: e.isAvailable,
                         ),
-                        const SizedBox(
-                          width: 8.0,
-                        )
+                        const SizedBox(width: 8.0)
                       ],
                     ),
                   )

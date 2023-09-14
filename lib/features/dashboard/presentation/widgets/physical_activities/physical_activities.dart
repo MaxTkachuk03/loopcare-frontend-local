@@ -11,7 +11,9 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/application/programs_in_progress_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/application/physical_activities_bloc.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/weekly_activities_list.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/empty_activities_list.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/filled_activities_list.dart';
+import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 
 class PhysicalActivities extends StatefulWidget {
@@ -71,76 +73,70 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
           color: AppColors.white,
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
-        child: Column(
-          children: [
-            InkWell(
-              onTap: _isActive ? () => onPressHandler(context) : null,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
+        child: BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
+          builder: (BuildContext context, physicalActivitiesPreferencesState) {
+            final isAvailable = physicalActivitiesPreferencesState.data.needActivitiesType;
+
+            return Column(
+              children: [
+                InkWell(
+                  onTap: _isActive && isAvailable ? () => onPressHandler(context) : null,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Image(image: AppIcons.physicalExercise),
-                      const SizedBox(width: 24.0),
-                      Text(
-                        LocalizedTexts.physicalActivities,
-                        style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                              fontFamily: ThemeConstants.bitterFontFamily,
-                              color: _isActive ? AppColors.darkGreen : AppColors.greyLabel,
-                            ),
-                      ).tr(),
+                      Row(
+                        children: [
+                          const Image(image: AppIcons.physicalExercise),
+                          const SizedBox(width: 24.0),
+                          Text(
+                            LocalizedTexts.physicalActivities,
+                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                  fontFamily: ThemeConstants.bitterFontFamily,
+                                  color: _isActive && isAvailable ? AppColors.darkGreen : AppColors.greyLabel,
+                                ),
+                          ).tr(),
+                        ],
+                      ),
+                      if (isAvailable) const ImageIcon(AppIcons.arrow, color: AppColors.greyLabel),
                     ],
                   ),
-                  const ImageIcon(AppIcons.arrow, color: AppColors.greyLabel),
-                ],
-              ),
-            ),
-            const SizedBox(height: 8.0),
-            const Divider(color: AppColors.yellowLight),
-            const SizedBox(height: 6.0),
-            BlocBuilder<ProgramsInProgressBloc, ProgramsInProgressState>(
-              builder: (BuildContext context, state) {
-                final activePrograms = state.programsList;
-
-                return BlocBuilder<PhysicalActivitiesBloc, PhysicalActivitiesState>(
+                ),
+                const SizedBox(height: 8.0),
+                const Divider(color: AppColors.yellowLight),
+                const SizedBox(height: 6.0),
+                BlocBuilder<ProgramsInProgressBloc, ProgramsInProgressState>(
                   builder: (BuildContext context, state) {
-                    return state.maybeMap(
-                      error: (errorState) {
-                        final error = errorState.data.error;
+                    final activePrograms = state.programsList;
 
-                        return ErrorScreen(
-                          smallVersion: true,
-                          error: error,
-                          onButtonPressed: () => context
-                              .read<PhysicalActivitiesBloc>()
-                              .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay)),
-                        );
-                      },
-                      loading: (_) => const Loader(),
-                      orElse: () => const SizedBox.shrink(),
-                      activitiesLoaded: (s) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              '3 ${LocalizedTexts.activitiesForThisWeek.translation.toUpperCase()}',
-                              style: const TextStyle(
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.greyLabel,
-                              ),
-                            ),
-                            const SizedBox(height: 16.0),
-                            WeeklyActivitiesList(data: [...activePrograms, ...s.data.activities]),
-                          ],
+                    return BlocBuilder<PhysicalActivitiesBloc, PhysicalActivitiesState>(
+                      builder: (BuildContext context, state) {
+                        return state.maybeMap(
+                          error: (errorState) {
+                            final error = errorState.data.error;
+
+                            return ErrorScreen(
+                              smallVersion: true,
+                              error: error,
+                              onButtonPressed: () => context.read<PhysicalActivitiesBloc>().add(
+                                  PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay)),
+                            );
+                          },
+                          loading: (_) => const Loader(),
+                          orElse: () => const SizedBox.shrink(),
+                          activitiesLoaded: (s) {
+                            return isAvailable
+                                ? FilledActivitiesList(
+                                    programsList: [...activePrograms, ...s.data.activities])
+                                : const EmptyActivitiesList();
+                          },
                         );
                       },
                     );
                   },
-                );
-              },
-            ),
-          ],
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/features/education/domain/lesson_category.dart
 import 'package:loopcare_frontend/features/home/application/home_bottom_navigation_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 class HomePage extends StatefulWidget {
@@ -28,6 +29,10 @@ class _HomePageState extends State<HomePage> {
 
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons(LessonCategory.all));
     context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
+
+    context
+        .read<PhysicalActivitiesPreferencesBloc>()
+        .add(const PhysicalActivitiesPreferencesEvent.getPreferences());
 
     super.initState();
   }

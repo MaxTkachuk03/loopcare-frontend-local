@@ -43,17 +43,19 @@ class AppChoiceChip<T> extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            AutoSizeText(
-              label,
-              textAlign: textAlign ?? TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: available
-                        ? selected
-                            ? AppColors.white
-                            : AppColors.darkGreen
-                        : AppColors.greyMid,
-                  ),
+            Expanded(
+              child: AutoSizeText(
+                label,
+                textAlign: textAlign ?? TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: available
+                          ? selected
+                              ? AppColors.white
+                              : AppColors.darkGreen
+                          : AppColors.greyMid,
+                    ),
+              ),
             ),
             if (recommended)
               AutoSizeText(
