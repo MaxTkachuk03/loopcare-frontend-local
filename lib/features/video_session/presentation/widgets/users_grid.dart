@@ -6,14 +6,13 @@ class UsersGrid extends StatelessWidget {
   final List<ZoomVideoSdkUser> users;
   final List<String> talkingUsers;
   final List<String> usersWithCameraOff;
-  final double aspectRatio;
 
-  const UsersGrid(
-      {super.key,
-      required this.users,
-      required this.talkingUsers,
-      required this.aspectRatio,
-      required this.usersWithCameraOff});
+  const UsersGrid({
+    super.key,
+    required this.users,
+    required this.talkingUsers,
+    required this.usersWithCameraOff,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +20,7 @@ class UsersGrid extends StatelessWidget {
 
     return GridView.builder(
       shrinkWrap: true,
-      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: size.width / 3,
-        childAspectRatio: aspectRatio,
-      ),
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: size.width / 3),
       itemCount: users.length,
       itemBuilder: (BuildContext context, int i) {
         final currentUser = users[i];

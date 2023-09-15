@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 
 class SettingsDialog extends StatelessWidget {
   final void Function() onToggleSpeaker;
-  final void Function() onToggleAspectRatio;
   final bool isSpeakerOn;
 
   const SettingsDialog({
     super.key,
     required this.onToggleSpeaker,
-    required this.onToggleAspectRatio,
     required this.isSpeakerOn,
   });
 
@@ -20,7 +18,7 @@ class SettingsDialog extends StatelessWidget {
       insetPadding: const EdgeInsets.symmetric(horizontal: 40),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: SizedBox(
-        height: 116,
+        height: 58,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -36,13 +34,12 @@ class SettingsDialog extends StatelessWidget {
                       context.router.pop();
                     },
                   ),
-                  ListTile(
-                    title: const Text('Toggle camera aspect ratio'),
-                    onTap: () {
-                      onToggleAspectRatio();
-                      context.router.pop();
-                    },
-                  ),
+                  // ListTile(
+                  //   title: const Text('Toggle camera aspect ratio'),
+                  //   onTap: () {
+                  //     context.router.pop();
+                  //   },
+                  // ),
                 ],
               ).toList(),
             ),

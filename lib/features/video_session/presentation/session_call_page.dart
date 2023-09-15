@@ -70,7 +70,6 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   Timer? _inactivityTimer;
 
   int _sessionStart = 0;
-  double aspectRatio = 1;
   bool _isVideoPlaying = false;
 
   @override
@@ -215,7 +214,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       var speakerOn = await zoom.audioHelper.getSpeakerStatus();
       var currentSessionName = await zoom.session.getSessionName();
 
-      await zoom.audioHelper.setSpeaker(false);
+      await zoom.audioHelper.setSpeaker(true);
 
       _sessionParticipants = [mySelf, ...?remoteUsers];
       isMuted = muted!;
@@ -503,18 +502,11 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     );
   }
 
-  void onToggleAspectRatio() {
-    setState(() {
-      aspectRatio = aspectRatio == 1 ? 0.57 : 1;
-    });
-  }
-
   void onSettingsHandler() {
     showDialog(
         context: context,
         builder: (context) => SettingsDialog(
               onToggleSpeaker: onToggleSpeaker,
-              onToggleAspectRatio: onToggleAspectRatio,
               isSpeakerOn: isSpeakerOn,
             ));
   }
@@ -575,38 +567,38 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
             bottom: !hideAppBar,
             child: Stack(
               children: [
-                Container(
-                  color: AppColors.bgGreen,
-                  child: userJoinedToSession
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              flex: 2,
-                              child: UsersGrid(
-                                users: _sessionParticipants,
-                                talkingUsers: _talkingUsers,
-                                usersWithCameraOff: _usersWithCameraOff,
-                                aspectRatio: aspectRatio,
+                if (!_isVideoPlaying)
+                  Container(
+                    color: AppColors.bgGreen,
+                    child: userJoinedToSession
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: UsersGrid(
+                                  users: _sessionParticipants,
+                                  talkingUsers: _talkingUsers,
+                                  usersWithCameraOff: _usersWithCameraOff,
+                                ),
                               ),
-                            ),
-                            const Expanded(child: PromptsContainer()),
-                            ReportIssue(
-                              minutesLeft:
-                                  context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inMinutes,
-                              onReportIssueHandler: _onReportIssueHandler,
-                            ),
-                            CallControls(
-                              onMuteHandler: onPressAudio,
-                              onStopVideoHandler: onPressVideo,
-                              isMuted: isMuted,
-                              isCameraOn: isVideoOn,
-                              onSettingsHandler: onSettingsHandler,
-                            )
-                          ],
-                        )
-                      : const Loader(),
-                ),
+                              const Expanded(child: PromptsContainer()),
+                              ReportIssue(
+                                minutesLeft:
+                                    context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inMinutes,
+                                onReportIssueHandler: _onReportIssueHandler,
+                              ),
+                              CallControls(
+                                onMuteHandler: onPressAudio,
+                                onStopVideoHandler: onPressVideo,
+                                isMuted: isMuted,
+                                isCameraOn: isVideoOn,
+                                onSettingsHandler: onSettingsHandler,
+                              )
+                            ],
+                          )
+                        : const Loader(),
+                  ),
                 if (userJoinedToSession)
                   BlocBuilder<SessionCallBloc, SessionCallState>(
                     builder: (context, state) {

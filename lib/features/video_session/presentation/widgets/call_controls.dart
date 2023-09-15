@@ -23,7 +23,7 @@ class CallControls extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.black,
+      color: AppColors.darkGreen,
       padding: const EdgeInsets.only(right: 24.0, left: 24.0, top: 12.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
