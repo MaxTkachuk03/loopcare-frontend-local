@@ -18,8 +18,7 @@ class UsersGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return GridView.builder(
-      shrinkWrap: true,
+    return SliverGrid.builder(
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: size.width / 3),
       itemCount: users.length,
       itemBuilder: (BuildContext context, int i) {
