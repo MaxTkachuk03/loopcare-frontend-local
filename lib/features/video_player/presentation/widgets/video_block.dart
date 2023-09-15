@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/features/video_player/presentation/widgets/video_error.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoBlock extends StatelessWidget {
@@ -9,8 +8,14 @@ class VideoBlock extends StatelessWidget {
 
   final Orientation orientation;
   final VideoPlayerController? controller;
+  final Widget Function(double width, double height, String? error) errorWidget;
 
-  const VideoBlock({Key? key, required this.orientation, required this.controller}) : super(key: key);
+  const VideoBlock({
+    Key? key,
+    required this.orientation,
+    required this.controller,
+    required this.errorWidget,
+  }) : super(key: key);
 
   double get _videoWidth {
     final width = controller?.value.size.width;
@@ -31,8 +36,7 @@ class VideoBlock extends StatelessWidget {
             valueListenable: controller!,
             builder: (BuildContext context, VideoPlayerValue value, child) {
               if (value.hasError) {
-                return VideoError(
-                    width: _videoWidth, height: _videoHeight, errorMessage: value.errorDescription);
+                return errorWidget(_videoWidth, _videoHeight, value.errorDescription);
               }
 
               if (!value.isInitialized) return const Center(child: Loader());

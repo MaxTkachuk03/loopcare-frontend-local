@@ -4,6 +4,7 @@ import 'package:loopcare_frontend/features/physical_activities/domain/physical_p
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/player_end_video_overlay.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/player_overlay.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/video_block.dart';
+import 'package:loopcare_frontend/features/video_player/presentation/widgets/video_error.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerWidget extends StatelessWidget {
@@ -36,12 +37,15 @@ class VideoPlayerWidget extends StatelessWidget {
     required this.onDurationChange,
   });
 
+  Widget _errorWidgetCb(double width, double height, String? error) =>
+      VideoError(width: width, height: height, errorMessage: error);
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       fit: StackFit.expand,
       children: [
-        VideoBlock(controller: controller, orientation: orientation),
+        VideoBlock(controller: controller, orientation: orientation, errorWidget: _errorWidgetCb),
         if (controller != null)
           ValueListenableBuilder(
             valueListenable: controller!,

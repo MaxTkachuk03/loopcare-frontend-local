@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/aws_cookies_type.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -15,6 +14,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
+import 'package:loopcare_frontend/features/video_player/presentation/widgets/rotate_device_message.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/video_player_widget.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wakelock/wakelock.dart';
@@ -196,25 +196,7 @@ class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      if (isPortrait)
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 38.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                AppIcons.telephone,
-                                const SizedBox(height: 22.0),
-                                const Text(
-                                  LocalizedTexts.rotateDevice,
-                                  style: TextStyle(
-                                      fontSize: 18.0, fontWeight: FontWeight.w400, color: AppColors.white),
-                                  textAlign: TextAlign.center,
-                                ).tr(),
-                              ],
-                            ),
-                          ),
-                        ),
+                      if (isPortrait) const Expanded(child: RotateDeviceMessage()),
                       Expanded(
                         child: VideoPlayerWidget(
                           controller: controller,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/duration_extensions.dart';
 import 'package:video_player/video_player.dart';
 
 class ProgressBar extends StatelessWidget {
@@ -11,15 +12,6 @@ class ProgressBar extends StatelessWidget {
     required this.controller,
     required this.onSliderProgressChange,
   }) : super(key: key);
-
-  String _videoDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, '0');
-    final hours = twoDigits(duration.inHours);
-    final minutes = twoDigits(duration.inMinutes.remainder(60));
-    final seconds = twoDigits(duration.inSeconds.remainder(60));
-
-    return [if (duration.inHours > 0) hours, minutes, seconds].join(':');
-  }
 
   double _durationToDouble(Duration val) {
     return val.inMilliseconds.toDouble();
@@ -58,7 +50,7 @@ class ProgressBar extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      _videoDuration(value.duration - value.position),
+                      (value.duration - value.position).toVideoDurationString,
                       style: const TextStyle(color: AppColors.white),
                     ),
                   ],

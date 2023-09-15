@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/video_session/application/session_call_bloc.dart';
 
@@ -26,8 +25,9 @@ class SessionAppBar extends StatelessWidget implements PreferredSizeWidget {
             sessionName,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w400,
                   color: AppColors.white,
                 ),
           ),
@@ -38,14 +38,13 @@ class SessionAppBar extends StatelessWidget implements PreferredSizeWidget {
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: AppColors.white,
-                      fontStyle: FontStyle.italic,
                     ),
               );
             },
           ),
         ],
       ),
-      leading: const BackButtonHexagon(),
+      automaticallyImplyLeading: false,
       actions: [
         IconButton(
           iconSize: 45.0,

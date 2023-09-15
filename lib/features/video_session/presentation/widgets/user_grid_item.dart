@@ -14,39 +14,56 @@ class UserGridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(width: 2.5, color: isTalking ? AppColors.orange : Colors.transparent),
-        color: AppColors.black,
-      ),
-      child: Stack(
-        children: [
-          View(creationParams: {
-            "userId": user.userId,
-            "sharing": false,
-            "preview": false,
-            "focused": false,
-            "hasMultiCamera": false,
-            "videoAspect": VideoAspect.FullFilled,
-            "fullScreen": false,
-          }),
-          if (isCameraOff) const UserDefaultAvatar(),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(11.0),
-              child: Text(
-                user.userName,
-                style: const TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.white,
+    final size = MediaQuery.of(context).size;
+
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(width: 2.5, color: AppColors.orange),
+            color: AppColors.black,
+          ),
+          child: ClipRect(
+            child: OverflowBox(
+              maxWidth: double.infinity,
+              maxHeight: double.infinity,
+              alignment: Alignment.center,
+              child: FittedBox(
+                fit: BoxFit.cover,
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: size.width / 3,
+                  height: size.height / 3,
+                  child: View(creationParams: {
+                    "userId": user.userId,
+                    "sharing": false,
+                    "preview": false,
+                    "focused": false,
+                    "hasMultiCamera": false,
+                    "videoAspect": VideoAspect.FullFilled,
+                    "fullScreen": false,
+                  }),
                 ),
               ),
             ),
           ),
-        ],
-      ),
+        ),
+        if (isCameraOff) const UserDefaultAvatar(),
+        Align(
+          alignment: Alignment.bottomLeft,
+          child: Padding(
+            padding: const EdgeInsets.all(11.0),
+            child: Text(
+              user.userName,
+              style: const TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w400,
+                color: AppColors.white,
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }
