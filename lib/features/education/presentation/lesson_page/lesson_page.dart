@@ -115,13 +115,6 @@ class _LessonPageState extends State<LessonPage> {
               }
               if (!state.data.isLoading &&
                   state.data.currentPage.type == EducationLessonPageType.audio &&
-                  state.data.currentPage.content.audioFilePath.isEmpty) {
-                context.read<EducationLessonBloc>().add(
-                      EducationLessonEvent.downloadAudioFile(state.data.currentPage.content.url),
-                    );
-              }
-              if (!state.data.isLoading &&
-                  state.data.currentPage.type == EducationLessonPageType.audio &&
                   state.data.currentPage.content.subtitlesImages != null &&
                   state.data.currentPage.content.subtitleFilePath.isEmpty) {
                 context.read<EducationLessonBloc>().add(
