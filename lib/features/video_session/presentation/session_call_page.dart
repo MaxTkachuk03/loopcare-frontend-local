@@ -165,7 +165,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
         userName: userName,
         audioOptions: ZoomConfig.sdkAudioOptions,
         videoOptions: ZoomConfig.sdkVideoOptions,
-        sessionIdleTimeoutMins: 5,
+        sessionIdleTimeoutMins: ZoomConfig.sessionIdleTimeoutMins,
       );
 
       try {
@@ -428,7 +428,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     return userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson)).toList();
   }
 
-  _endSession() async {
+  void _endSession() async {
     ModalBottomSheet.leaveSessionCall(
       context: context,
       onLeavePressed: _leaveSessionHandler,
@@ -436,10 +436,25 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     );
   }
 
-  _leaveSessionHandler() async {
+  void _leaveSessionHandler() async {
     await zoom.leaveSession(false);
     if (context.mounted) {
       context.router.pop();
+    }
+  }
+
+  _forceEndSession() async {
+    await zoom.leaveSession(true);
+
+    if (context.mounted) {
+      context.router.pop();
+
+      showAppSnackBar(
+        context: context,
+        text: LocalizedTexts.sessionEndDialogText,
+        background: Colors.white,
+        textColor: Colors.black,
+      );
     }
   }
 
@@ -568,40 +583,31 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
             child: Stack(
               children: [
                 if (!_isVideoPlaying)
-                  Container(
-                    color: AppColors.bgGreen,
-                    child: userJoinedToSession
-                        ? Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                flex: 2,
-                                child: UsersGrid(
-                                  users: _sessionParticipants,
-                                  talkingUsers: _talkingUsers,
-                                  usersWithCameraOff: _usersWithCameraOff,
-                                ),
-                              ),
-                              const Expanded(child: PromptsContainer()),
-                              ReportIssue(
-                                minutesLeft:
-                                    context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inMinutes,
-                                onReportIssueHandler: _onReportIssueHandler,
-                              ),
-                              CallControls(
-                                onMuteHandler: onPressAudio,
-                                onStopVideoHandler: onPressVideo,
-                                isMuted: isMuted,
-                                isCameraOn: isVideoOn,
-                                onSettingsHandler: onSettingsHandler,
-                              )
-                            ],
-                          )
-                        : const Loader(),
-                  ),
+                  if (userJoinedToSession)
+                    Container(
+                      color: AppColors.FF313030,
+                      child: CustomScrollView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        slivers: [
+                          UsersGrid(
+                            users: _sessionParticipants,
+                            talkingUsers: _talkingUsers,
+                            usersWithCameraOff: _usersWithCameraOff,
+                          ),
+                          const SliverFillRemaining(child: PromptsContainer()),
+                        ],
+                      ),
+                    ),
+                if (!userJoinedToSession) const Loader(),
                 if (userJoinedToSession)
                   BlocBuilder<SessionCallBloc, SessionCallState>(
                     builder: (context, state) {
+                      final currentSession = context.read<TopicsBloc>().state.data.signedGroupSession;
+
+                      if (currentSession != null && currentSession.isSessionEnded) {
+                        _forceEndSession();
+                      }
+
                       return state.maybeMap(
                         updateSessionTime: (s) {
                           return SessionVideoContainer(
@@ -618,6 +624,28 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
             ),
           ),
         ),
+        bottomNavigationBar: !_isVideoPlaying && userJoinedToSession
+            ? SizedBox(
+                height: 160,
+                child: Column(
+                  children: [
+                    ReportIssue(
+                      minutesLeft: context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inMinutes,
+                      onReportIssueHandler: _onReportIssueHandler,
+                    ),
+                    Expanded(
+                      child: CallControls(
+                        onMuteHandler: onPressAudio,
+                        onStopVideoHandler: onPressVideo,
+                        isMuted: isMuted,
+                        isCameraOn: isVideoOn,
+                        onSettingsHandler: onSettingsHandler,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : const SizedBox.shrink(),
       );
     });
   }

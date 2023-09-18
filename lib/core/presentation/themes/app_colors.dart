@@ -75,6 +75,8 @@ class AppColors {
 
   static const Color C6C5C5 = Color(0xFFC6C5C5);
 
+  static const Color FF313030 = Color(0xFF313030);
+
   static const Color anotherBlue = Color(0xFF16AAB2);
 
   static const Color gridTitleGradientStart = Color(0xFF090A0A);

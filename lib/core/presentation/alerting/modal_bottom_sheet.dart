@@ -933,7 +933,9 @@ class ModalBottomSheet {
                         ),
                   ),
                   Text(
-                    currentDate.isSameDate(DateTime.now()) ? LocalizedTexts.today.translation : currentDate.shortDate,
+                    currentDate.isSameDate(DateTime.now())
+                        ? LocalizedTexts.today.translation
+                        : currentDate.shortDate,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           color: AppColors.blueDark,
                         ),

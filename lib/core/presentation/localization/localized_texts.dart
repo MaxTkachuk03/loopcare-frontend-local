@@ -653,6 +653,7 @@ class LocalizedTexts {
   static const String settings = "settings";
   static const String signatureErrorMessage = "signatureErrorMessage";
   static const String sessionLeaveDialogText = "sessionLeaveDialogText";
+  static const String sessionEndDialogText = "sessionEndDialogText";
   static const String leaveSession = "leaveSession";
   static const String stayInTheSession = "stayInTheSession";
   static const String sessionStartsMoreThanFifteenMinutesAgo = "sessionStartsMoreThanFifteenMinutesAgo";
