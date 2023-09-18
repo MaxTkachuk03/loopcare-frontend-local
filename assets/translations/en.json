@@ -412,6 +412,7 @@
   "useFaceOrTouchId": "Use Face or touch ID",
   "requireLoginEachTime": "Require login each time app is used",
   "food": "Food",
+  "group": "Group",
   "groupSessions": "Group Sessions",
   "groupSession": "Group Session",
   "foodPreferences": "Food preferences",

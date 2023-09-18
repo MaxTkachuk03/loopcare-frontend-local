@@ -17,6 +17,7 @@ class YouAndFoodState with _$YouAndFoodState {
 
   const factory YouAndFoodState({
     @Default(false) bool isCompleted,
+    @Default(false) bool saved,
     required IList<FoodPreference> foodTypes,
     required IList<FoodPreference> foodPeriods,
     required IList<FoodPreference> foodAllergens,

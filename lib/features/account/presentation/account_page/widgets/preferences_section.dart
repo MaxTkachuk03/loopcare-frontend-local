@@ -1,16 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/physical_activities_frequency.dart';
 import 'package:loopcare_frontend/core/domain/physical_activities_type.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_success_popup.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
@@ -65,24 +65,46 @@ class PreferencesSection extends StatelessWidget {
     YouAndFoodState previous,
     YouAndFoodState current,
   ) {
-    return true;
+    return !previous.saved && current.saved;
   }
 
-  void _foodUpdatedListener(BuildContext context, YouAndFoodState state) {
-    context.showSuccessBar(
-      content: Row(
-        children: [
-          const Image(image: AppIcons.hexaDone),
-          const SizedBox(width: 16.0),
-          Expanded(child: Text(LocalizedTexts.yourPreferencesUpdated.tr())),
-        ],
-      ),
-      position: FlashPosition.top,
-      icon: const Icon(
-        Icons.done,
-        size: 0,
-      ),
-    );
+  Future<void> _foodUpdatedListener(BuildContext context, YouAndFoodState state) async {
+    showSuccessPopup(
+        text: LocalizedTexts.yourPreferencesUpdated.tr(namedArgs: {
+          'prefName': LocalizedTexts.food.tr(),
+        }),
+        context: context);
+  }
+
+  bool _whenPhysicalActivitiesUpdated(
+    PhysicalActivitiesPreferencesState previous,
+    PhysicalActivitiesPreferencesState current,
+  ) {
+    return previous is Saving && current is PreferencesLoaded;
+  }
+
+  Future<void> _physicalActivitiesUpdatingListener(
+      BuildContext context, PhysicalActivitiesPreferencesState state) async {
+    showSuccessPopup(
+        text: LocalizedTexts.yourPreferencesUpdated.tr(namedArgs: {
+          'prefName': LocalizedTexts.physicalExercises.tr().toLowerCase(),
+        }),
+        context: context);
+  }
+
+  bool _whenGroupUpdated(
+    GroupPreferencesState previous,
+    GroupPreferencesState current,
+  ) {
+    return previous is GroupPreferencesLoading && current is GroupPreferencesUpdated;
+  }
+
+  Future<void> _groupUpdatingListener(BuildContext context, GroupPreferencesState state) async {
+    showSuccessPopup(
+        text: LocalizedTexts.yourPreferencesUpdated.tr(namedArgs: {
+          'prefName': LocalizedTexts.group.tr().toLowerCase(),
+        }),
+        context: context);
   }
 
   @override
@@ -93,14 +115,14 @@ class PreferencesSection extends StatelessWidget {
           listenWhen: _whenFoodUpdated,
           listener: _foodUpdatedListener,
         ),
-        // BlocListener<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
-        //   listenWhen: _whenRecipeUpdated,
-        //   listener: _recipeUpdatingListener,
-        // ),
-        // BlocListener<AuthenticationCubit, AuthenticationState>(
-        //   listenWhen: _whenMealsUpdated,
-        //   listener: _mealsUpdatingListener,
-        // ),
+        BlocListener<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
+          listenWhen: _whenPhysicalActivitiesUpdated,
+          listener: _physicalActivitiesUpdatingListener,
+        ),
+        BlocListener<GroupPreferencesBloc, GroupPreferencesState>(
+          listenWhen: _whenGroupUpdated,
+          listener: _groupUpdatingListener,
+        ),
       ],
       child: AccountContainer(
         child: Column(
@@ -115,7 +137,7 @@ class PreferencesSection extends StatelessWidget {
                 return BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
                   builder: (context, physicalActivitiesPreferencesState) {
                     return SectionItem(
-                      title: LocalizedTexts.physicalExersises,
+                      title: LocalizedTexts.physicalExercises.tr(),
                       subTitle: _physicalActivitiesPreferencesSubtitle(physicalActivitiesPreferencesState),
                       onPressHandler: state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)
                           ? () => _onPhysicalActivitiesHandler(context)
@@ -131,7 +153,7 @@ class PreferencesSection extends StatelessWidget {
             BlocBuilder<AuthenticationCubit, AuthenticationState>(
               builder: (context, state) {
                 return SectionItem(
-                  title: LocalizedTexts.groupSessions,
+                  title: LocalizedTexts.groupSessions.tr(),
                   subTitle: _groupSessionsSubtitle(state),
                   onPressHandler: state.unlockedFeatures.contains(UnlockedFeatureType.grouping)
                       ? () => _onGroupSessionsHandler(context)

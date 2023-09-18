@@ -142,6 +142,12 @@ class YouAndFoodBloc extends Bloc<YouAndFoodEvent, YouAndFoodState> {
     SaveFoodPreferences event,
     Emitter<YouAndFoodState> emit,
   ) async {
+    emit(
+      state.copyWith(
+        saved: false,
+      ),
+    );
+
     final data = FoodPrefsData(
       hates: state.selectedHatesIds,
       allergic: state.selectedAllergicIds,
@@ -158,6 +164,7 @@ class YouAndFoodBloc extends Bloc<YouAndFoodEvent, YouAndFoodState> {
       (r) => emit(
         state.copyWith(
           isCompleted: true,
+          saved: true,
         ),
       ),
     );
