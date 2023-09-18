@@ -1,9 +1,12 @@
 import 'dart:async';
 
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/common.dart';
+import 'package:rxdart/rxdart.dart';
 
 class PlayerWidget extends StatefulWidget {
   final AudioPlayer player;
@@ -19,177 +22,156 @@ class PlayerWidget extends StatefulWidget {
   }
 }
 
-class _PlayerWidgetState extends State<PlayerWidget> {
-  PlayerState? _playerState;
-  Duration? _duration;
-  Duration? _position;
-
-  StreamSubscription? _durationSubscription;
-  StreamSubscription? _positionSubscription;
-  StreamSubscription? _playerCompleteSubscription;
-  StreamSubscription? _playerStateChangeSubscription;
-
-  bool _isMute = false;
-
-  bool get _isPlaying => _playerState == PlayerState.playing;
-
-  bool get _isPaused => _playerState == PlayerState.paused;
-
-  String get _durationText => _duration?.toString().split('.').first ?? '';
-
-  String get _positionText => _position?.toString().split('.').first ?? '';
-
-  AudioPlayer get player => widget.player;
+class _PlayerWidgetState extends State<PlayerWidget> with WidgetsBindingObserver {
+  final ValueNotifier<bool> _muteNotifier = ValueNotifier(false);
 
   @override
   void initState() {
     super.initState();
-    // Use initial values from player
-    _playerState = player.state;
-    player.getDuration().then(
-          (value) => setState(() {
-            _duration = value;
-          }),
-        );
-    player.getCurrentPosition().then(
-          (value) => setState(() {
-            _position = value;
-          }),
-        );
-    _initStreams();
-  }
-
-  @override
-  void setState(VoidCallback fn) {
-    if (mounted) {
-      super.setState(fn);
-    }
+    ambiguate(WidgetsBinding.instance)!.addObserver(this);
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.black,
+    ));
   }
 
   @override
   void dispose() {
-    _durationSubscription?.cancel();
-    _positionSubscription?.cancel();
-    _playerCompleteSubscription?.cancel();
-    _playerStateChangeSubscription?.cancel();
+    ambiguate(WidgetsBinding.instance)!.removeObserver(this);
+    // Release decoders and buffers back to the operating system making them
+    // available for other apps to use.
+    widget.player.dispose();
+    _muteNotifier.dispose();
     super.dispose();
   }
 
-  _onSliderChangeHandler(v) {
-    final duration = _duration;
-    if (duration == null) {
-      return;
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      // Release the player's resources when not in use. We use "stop" so that
+      // if the app resumes later, it will still remember what position to
+      // resume from.
+      widget.player.stop();
     }
-    final position = v * duration.inMilliseconds;
-    player.seek(Duration(milliseconds: position.round()));
   }
+
+  /// Collects the data useful for displaying in a seek bar, using a handy
+  /// feature of rx_dart to combine the 3 streams of interest into one.
+  Stream<PositionData> get _positionDataStream => Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
+      widget.player.positionStream,
+      widget.player.bufferedPositionStream,
+      widget.player.durationStream,
+      (position, bufferedPosition, duration) => PositionData(position, bufferedPosition, duration ?? Duration.zero));
 
   @override
   Widget build(BuildContext context) {
     return MainContainer(
       child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Slider(
-                  onChanged: _onSliderChangeHandler,
-                  value: (_position != null &&
-                          _duration != null &&
-                          _position!.inMilliseconds > 0 &&
-                          _position!.inMilliseconds < _duration!.inMilliseconds)
-                      ? _position!.inMilliseconds / _duration!.inMilliseconds
-                      : 0.0,
-                ),
-              ),
-              Text(
-                _position != null
-                    ? _positionText
-                    : _duration != null
-                        ? _durationText
-                        : '',
-                style: const TextStyle(fontSize: 16.0),
-              ),
-            ],
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          // Display seek bar. Using StreamBuilder, this widget rebuilds
+          // each time the position, buffered position or duration changes.
+          StreamBuilder<PositionData>(
+            stream: _positionDataStream,
+            builder: (context, snapshot) {
+              final positionData = snapshot.data;
+              return SeekBar(
+                duration: positionData?.duration ?? Duration.zero,
+                position: positionData?.position ?? Duration.zero,
+                bufferedPosition: positionData?.bufferedPosition ?? Duration.zero,
+                onChangeEnd: widget.player.seek,
+              );
+            },
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: IconButton(
-                  onPressed: _isPlaying ? _pause : _play,
-                  iconSize: 35.0,
-                  icon: Icon(_isPlaying ? Icons.pause : Icons.play_arrow),
-                  color: AppColors.darkGreen,
-                ),
-              ),
-              IconButton(
-                key: const Key('mute_button'),
-                onPressed: _handleMute,
-                iconSize: 30.0,
-                icon: Icon(_isMute ? Icons.volume_off : Icons.volume_up),
-                color: AppColors.darkGreen,
-              ),
-            ],
-          ),
+          ControlButtons(widget.player, _muteNotifier),
         ],
       ),
     );
   }
+}
+
+class ControlButtons extends StatelessWidget {
+  final AudioPlayer player;
+  final ValueNotifier<bool> muteNotifier;
+
+  const ControlButtons(this.player, this.muteNotifier, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        /// This StreamBuilder rebuilds whenever the player state changes, which
+        /// includes the playing/paused state and also the
+        /// loading/buffering/ready state. Depending on the state we show the
+        /// appropriate button or loading indicator.
+        Center(
+          child: StreamBuilder<PlayerState>(
+            stream: player.playerStateStream,
+            builder: (context, snapshot) {
+              final playerState = snapshot.data;
+              final processingState = playerState?.processingState;
+              final playing = playerState?.playing;
+              if (processingState == ProcessingState.loading || processingState == ProcessingState.buffering) {
+                return Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10.0),
+                  width: 30.0,
+                  height: 30.0,
+                  child: const CircularProgressIndicator(
+                    color: AppColors.darkGreen,
+                  ),
+                );
+              } else if (playing != true) {
+                return IconButton(
+                  icon: const Icon(Icons.play_arrow),
+                  color: AppColors.darkGreen,
+                  iconSize: 35.0,
+                  onPressed: player.play,
+                );
+              } else if (processingState != ProcessingState.completed) {
+                return IconButton(
+                  icon: const Icon(Icons.pause),
+                  iconSize: 35.0,
+                  color: AppColors.darkGreen,
+                  onPressed: player.pause,
+                );
+              } else {
+                return IconButton(
+                  icon: const Icon(Icons.replay),
+                  iconSize: 35.0,
+                  color: AppColors.darkGreen,
+                  onPressed: () => player.seek(Duration.zero),
+                );
+              }
+            },
+          ),
+        ),
+
+        Positioned(
+          right: 16,
+          child: ValueListenableBuilder<bool>(
+            valueListenable: muteNotifier,
+            builder: (context, isMute, _) {
+              return IconButton(
+                key: const Key('mute_button'),
+                onPressed: _handleMute,
+                iconSize: 30.0,
+                icon: Icon(isMute ? Icons.volume_off : Icons.volume_up),
+                color: AppColors.darkGreen,
+              );
+            },
+          ),
+        ),
+        // Opens speed slider dialog
+      ],
+    );
+  }
 
   void _handleMute() {
-    if (_isMute) {
+    if (muteNotifier.value) {
       player.setVolume(1);
     } else {
       player.setVolume(0);
     }
-    setState(() => _isMute = !_isMute);
-  }
-
-  void _initStreams() {
-    _durationSubscription = player.onDurationChanged.listen((duration) {
-      setState(() => _duration = duration);
-    });
-
-    _positionSubscription = player.onPositionChanged.listen(
-      (p) => setState(() => _position = p),
-    );
-
-    _playerCompleteSubscription = player.onPlayerComplete.listen((event) {
-      setState(() {
-        _playerState = PlayerState.stopped;
-        _position = Duration.zero;
-      });
-    });
-
-    _playerStateChangeSubscription =
-        player.onPlayerStateChanged.listen((state) {
-      setState(() {
-        _playerState = state;
-      });
-    });
-  }
-
-  Future<void> _play() async {
-    final position = _position;
-    if (position != null && position.inMilliseconds > 0) {
-      await player.seek(position);
-    }
-    await player.resume();
-    setState(() => _playerState = PlayerState.playing);
-  }
-
-  Future<void> _pause() async {
-    await player.pause();
-    setState(() => _playerState = PlayerState.paused);
-  }
-
-  Future<void> _stop() async {
-    await player.stop();
-    setState(() {
-      _playerState = PlayerState.stopped;
-      _position = Duration.zero;
-    });
+    muteNotifier.value = !muteNotifier.value;
   }
 }

@@ -258,9 +258,10 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                         ],
                       ),
                     ),
-                    if (state.data.currentPage.content.audioFilePath.isNotEmpty)
+                    if (state.data.currentPage.content.url.isNotEmpty)
                       AudioBlock(
-                        url: state.data.currentPage.content.audioFilePath,
+                        url: state.data.currentPage.content.url,
+                        duration: state.data.lessonDuration,
                         onDurationChanged: (int duration) {
                           _setDuration(duration);
                         },
