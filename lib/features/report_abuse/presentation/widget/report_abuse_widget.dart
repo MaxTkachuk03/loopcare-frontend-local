@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/features/report_abuse/presentation/widget/repo
 
 class ReportAbuseWidget extends StatefulWidget {
   final GroupSessionReport? groupSession;
+
   const ReportAbuseWidget({super.key, this.groupSession});
 
   @override
@@ -26,6 +27,12 @@ class _ReportAbuseWidgetState extends State<ReportAbuseWidget> {
   void initState() {
     super.initState();
     controller = ReportAbuseController()..addFocusNodeListeners();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -58,8 +65,7 @@ class _ReportAbuseWidgetState extends State<ReportAbuseWidget> {
     context.read<ReportAbuseBloc>().add(ReportAbuseEvent.sendReport(
           controller.subjectController.value.text,
           controller.reportController.value.text,
-      groupSession: widget.groupSession,
-
+          groupSession: widget.groupSession,
         ));
   }
 }

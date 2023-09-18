@@ -40,5 +40,6 @@ class ReportAbuseController {
     reportController.dispose();
     subjectFocusNode.dispose();
     reportFocusNode.dispose();
+    isEnableSend.dispose();
   }
 }
