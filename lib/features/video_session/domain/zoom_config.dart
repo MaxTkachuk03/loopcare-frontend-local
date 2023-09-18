@@ -10,6 +10,7 @@ class ZoomConfig {
   static const String defaultSessionName = 'test';
   static const String defaultSessionPwd = '123456';
   static const String defaultSessionRole = '1'; // 1 - admin 0 - user
+  static const int sessionIdleTimeoutMins = 60;
   static const String domain = 'zoom.us';
   static const bool enableLog = true;
 

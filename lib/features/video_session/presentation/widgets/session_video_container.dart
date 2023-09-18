@@ -28,6 +28,7 @@ class SessionVideoContainer extends StatefulWidget {
 }
 
 class _SessionVideoContainerState extends State<SessionVideoContainer> with WidgetsBindingObserver {
+  bool _videoIsPlaying = false;
   bool _closedVideo = false;
   VideoPlayerController? _videoPlayerController;
   GroupSessionProgramEvent? _currentVideoEvent;
@@ -46,9 +47,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
   void didUpdateWidget(covariant SessionVideoContainer oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    final controller = _videoPlayerController;
-
-    if (controller != null && controller.value.isPlaying || _closedVideo) return;
+    if (_videoIsPlaying || _closedVideo) return;
 
     _checkIfHasVideoForCurrentTime();
   }
@@ -101,6 +100,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
           ..play();
       }).whenComplete(() {
         setState(() {
+          _videoIsPlaying = true;
           _visibility = true;
         });
         widget.onVideoPlayingListener(true);
@@ -116,6 +116,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
+        _videoIsPlaying = false;
         _closedVideo = false;
         _visibility = false;
       });
@@ -133,6 +134,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
+        _videoIsPlaying = false;
         _closedVideo = true;
         _visibility = false;
       });

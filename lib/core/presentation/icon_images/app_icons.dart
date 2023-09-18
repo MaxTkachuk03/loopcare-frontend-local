@@ -152,6 +152,9 @@ class AppIcons {
 
   static SvgPicture greenPhone = SvgPicture.asset('$iconsFilePath/green_phone.svg');
 
+  static SvgPicture sessionUserDefaultAvatar =
+      SvgPicture.asset('$iconsFilePath/session_user_default_avatar.svg');
+
   static const AssetImage exclamationPoint = AssetImage('$iconsFilePath/exclamation_point.png');
 
   AppIcons._();
