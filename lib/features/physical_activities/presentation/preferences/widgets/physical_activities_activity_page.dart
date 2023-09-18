@@ -113,7 +113,13 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
                             style: Theme.of(context).textTheme.headlineSmall,
                           ),
                           const SizedBox(height: 16.0),
-                          const FlexibilityChips(),
+                          BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
+                            builder: (context, state) {
+                              return state.data.needFlexibility
+                                  ? const FlexibilityChips()
+                                  : const SizedBox(height: 0.0);
+                            },
+                          ),
                         ],
                       ),
                     ),
