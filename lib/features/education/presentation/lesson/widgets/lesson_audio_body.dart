@@ -175,7 +175,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                               child: imageUrl != null && imageUrl != ''
                                   ? isSvg
                                       ? state.data.isSvgLoaded
-                                          ? SvgPicture.asset(state.data.svgFile)
+                                          ? SvgPicture.file(File(state.data.svgFile))
                                           : null
                                       : NetworkImageWithCache(
                                           withPlaceholder: false,
