@@ -642,5 +642,6 @@
   "errorReportMessage": "Text message must be at least 1 symbol and less than 500 symbols",
   "errorSubjectMessage": "Text message must be at least 1 symbol and less than 30 symbols",
   "requiredField": "Field is required",
-  "send": "Send"
+  "send": "Send",
+  "yourPreferencesUpdated": "Your {prefName} preferences have been updated"
 }

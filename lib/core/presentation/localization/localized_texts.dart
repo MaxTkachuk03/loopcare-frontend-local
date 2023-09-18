@@ -427,6 +427,7 @@ class LocalizedTexts {
   static const String deleteModalMessage = 'deleteModalMessage';
   static const String yesDelete = 'yesDelete';
   static const String noCancel = 'noCancel';
+  static const String yourPreferencesUpdated = 'yourPreferencesUpdated';
 
   // Education
   static const String lessonCompleteTitle = 'lessonCompleteTitle';

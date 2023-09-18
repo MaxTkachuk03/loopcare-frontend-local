@@ -34,7 +34,9 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
 
   void _onErrorHandler(PhysicalActivitiesPreferencesState state) {
     context.showErrorBar(
-        content: Text(state.data.error?.error.toString() ?? ''), position: FlashPosition.top);
+      content: Text(state.data.error?.error.toString() ?? ''),
+      position: FlashPosition.top,
+    );
   }
 
   void _onChangeListener(BuildContext context, PhysicalActivitiesPreferencesState state) {

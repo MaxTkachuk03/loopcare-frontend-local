@@ -26,7 +26,9 @@ class PhysicalActivitiesActivityTypePage extends StatefulWidget {
 class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesActivityTypePage> {
   void _onErrorHandler(PhysicalActivitiesPreferencesState state) {
     context.showErrorBar(
-        content: Text(state.data.error?.error.toString() ?? ''), position: FlashPosition.top);
+      content: Text(state.data.error?.error.toString() ?? ''),
+      position: FlashPosition.top,
+    );
   }
 
   void _onChangeListener(BuildContext context, PhysicalActivitiesPreferencesState state) {

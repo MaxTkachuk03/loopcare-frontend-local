@@ -154,5 +154,7 @@ class AppIcons {
 
   static const AssetImage exclamationPoint = AssetImage('$iconsFilePath/exclamation_point.png');
 
+  static const AssetImage hexaDone = AssetImage('$iconsFilePath/hexa_done.png');
+
   AppIcons._();
 }

@@ -61,7 +61,10 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
       orElse: () => LocalizedTexts.somethingWentWrong.tr(),
     );
 
-    context.showErrorBar(content: Text(errorMessage ?? ''), position: FlashPosition.top);
+    context.showErrorBar(
+      content: Text(errorMessage ?? ''),
+      position: FlashPosition.top,
+    );
   }
 
   void _onUpdateHandler(GroupPreferencesState state) {
