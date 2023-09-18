@@ -40,6 +40,11 @@ class PhysicalActivitiesPreferencesData with _$PhysicalActivitiesPreferencesData
     return trainingFrequency != PhysicalActivitiesFrequency.notAble;
   }
 
+  bool get needFlexibility {
+    return trainingFrequency != PhysicalActivitiesFrequency.oneTime &&
+        trainingFrequency != PhysicalActivitiesFrequency.twoTimes;
+  }
+
   PhysicalActivitiesFrequency? get currentTrainingFrequency => trainingFrequency;
 
   PhysicalActivitiesType? get currentTrainingTargets => trainingTargets;

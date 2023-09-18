@@ -119,7 +119,10 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
           final mealBloc = context.read<MealsBloc>();
           final mealId = mealBloc.state.getCurrentMealId;
 
-          if (mealId == null) return;
+          if (mealId == null) {
+            print('Search item click freezed DishDetailsPage mealId == null');
+            return;
+          }
 
           context.router.push(
             SelectServingRoute(

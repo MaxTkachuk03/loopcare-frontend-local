@@ -128,7 +128,9 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
 
       String? selectedMode = SearchMode.values.toList()[_tabController.index].searchModeValue;
       searchMode = selectedMode;
-      widget.onTabChanged?.call(searchMode);
+      if (widget.onTabChanged != null) {
+        widget.onTabChanged!(searchMode);
+      }
 
       context.read<SearchBloc>().add(
             SearchEvent.search(

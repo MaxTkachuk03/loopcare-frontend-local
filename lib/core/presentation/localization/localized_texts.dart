@@ -373,7 +373,7 @@ class LocalizedTexts {
   static const String physicalActivitiesUnlockedTitle = 'physicalActivitiesUnlockedTitle';
   static const String physicalActivitiesUnlockedText = 'physicalActivitiesUnlockedText';
   static const String perWeek = 'perWeek';
-  static const String physicalExersises = 'physicalExersises';
+  static const String physicalExercises = 'physicalExercises';
   static const String supportGroup = 'supportGroup';
   static const String explore = 'explore';
   static const String overview = 'overview';
