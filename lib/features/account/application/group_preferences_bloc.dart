@@ -39,8 +39,6 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
     SetInitialData event,
     Emitter<GroupPreferencesState> emit,
   ) {
-    emit(GroupPreferencesState.loading(state.data.copyWith(isLoading: true)));
-
     emit(GroupPreferencesState.updated(state.data.copyWith(
       isLoading: false,
       timezone: event.timezone,

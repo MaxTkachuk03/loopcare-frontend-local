@@ -64,7 +64,9 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
 
   void _onErrorHandler(GroupPreferencesState state) {
     context.showErrorBar(
-        content: Text(state.data.error?.error.toString() ?? ''), position: FlashPosition.top);
+      content: Text(state.data.error?.error.toString() ?? ''),
+      position: FlashPosition.top,
+    );
   }
 
   void _onUpdateHandler(GroupPreferencesState state) {

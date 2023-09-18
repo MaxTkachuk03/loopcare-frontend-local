@@ -52,7 +52,10 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
   }
 
   void _onErrorHandler(GroupPreferencesState state) {
-    context.showErrorBar(content: Text(state.data.error?.error.toString() ?? ''), position: FlashPosition.top);
+    context.showErrorBar(
+      content: Text(state.data.error?.error.toString() ?? ''),
+      position: FlashPosition.top,
+    );
   }
 
   void _onUpdateHandler(GroupPreferencesState state) {

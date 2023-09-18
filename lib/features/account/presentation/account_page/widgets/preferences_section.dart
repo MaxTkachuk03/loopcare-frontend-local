@@ -1,19 +1,23 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/physical_activities_frequency.dart';
 import 'package:loopcare_frontend/core/domain/physical_activities_type.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_success_popup.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 class PreferencesSection extends StatelessWidget {
   const PreferencesSection({Key? key}) : super(key: key);
@@ -57,50 +61,112 @@ class PreferencesSection extends StatelessWidget {
     return "${LocalizedTexts.partOfGroup.translation}: $grouped";
   }
 
+  bool _whenFoodUpdated(
+    YouAndFoodState previous,
+    YouAndFoodState current,
+  ) {
+    return !previous.saved && current.saved;
+  }
+
+  Future<void> _foodUpdatedListener(BuildContext context, YouAndFoodState state) async {
+    showSuccessPopup(
+        text: LocalizedTexts.yourPreferencesUpdated.tr(namedArgs: {
+          'prefName': LocalizedTexts.food.tr(),
+        }),
+        context: context);
+  }
+
+  bool _whenPhysicalActivitiesUpdated(
+    PhysicalActivitiesPreferencesState previous,
+    PhysicalActivitiesPreferencesState current,
+  ) {
+    return previous is Saving && current is PreferencesLoaded;
+  }
+
+  Future<void> _physicalActivitiesUpdatingListener(
+      BuildContext context, PhysicalActivitiesPreferencesState state) async {
+    showSuccessPopup(
+        text: LocalizedTexts.yourPreferencesUpdated.tr(namedArgs: {
+          'prefName': LocalizedTexts.physicalExercises.tr().toLowerCase(),
+        }),
+        context: context);
+  }
+
+  bool _whenGroupUpdated(
+    GroupPreferencesState previous,
+    GroupPreferencesState current,
+  ) {
+    return previous is GroupPreferencesLoading && current is GroupPreferencesUpdated;
+  }
+
+  Future<void> _groupUpdatingListener(BuildContext context, GroupPreferencesState state) async {
+    showSuccessPopup(
+        text: LocalizedTexts.yourPreferencesUpdated.tr(namedArgs: {
+          'prefName': LocalizedTexts.group.tr().toLowerCase(),
+        }),
+        context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return AccountContainer(
-      child: Column(
-        children: [
-          const SectionTitle(title: LocalizedTexts.preferences),
-          SectionItem(title: LocalizedTexts.food, onPressHandler: () => _onFoodHandler(context)),
-          const SizedBox(height: 16.0),
-          const Divider(height: 1.0, color: AppColors.yellowLight),
-          const SizedBox(height: 16.0),
-          BlocBuilder<AuthenticationCubit, AuthenticationState>(
-            builder: (context, state) {
-              return BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
-                builder: (context, physicalActivitiesPreferencesState) {
-                  return SectionItem(
-                    title: LocalizedTexts.physicalExercises,
-                    subTitle: _physicalActivitiesPreferencesSubtitle(physicalActivitiesPreferencesState),
-                    onPressHandler: state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)
-                        ? () => _onPhysicalActivitiesHandler(context)
-                        : null,
-                  );
-                },
-              );
-            },
-          ),
-          const SizedBox(height: 16.0),
-          const Divider(height: 1.0, color: AppColors.yellowLight),
-          const SizedBox(height: 16.0),
-          BlocBuilder<AuthenticationCubit, AuthenticationState>(
-            builder: (context, state) {
-              return SectionItem(
-                title: LocalizedTexts.groupSessions,
-                subTitle: _groupSessionsSubtitle(state),
-                onPressHandler: state.unlockedFeatures.contains(UnlockedFeatureType.grouping)
-                    ? () => _onGroupSessionsHandler(context)
-                    : null,
-              );
-            },
-          ),
-          const SizedBox(height: 16.0),
-          const Divider(height: 1.0, color: AppColors.yellowLight),
-          const SizedBox(height: 16.0),
-          SectionItem(title: LocalizedTexts.diabetes, onPressHandler: () {}),
-        ],
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<YouAndFoodBloc, YouAndFoodState>(
+          listenWhen: _whenFoodUpdated,
+          listener: _foodUpdatedListener,
+        ),
+        BlocListener<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
+          listenWhen: _whenPhysicalActivitiesUpdated,
+          listener: _physicalActivitiesUpdatingListener,
+        ),
+        BlocListener<GroupPreferencesBloc, GroupPreferencesState>(
+          listenWhen: _whenGroupUpdated,
+          listener: _groupUpdatingListener,
+        ),
+      ],
+      child: AccountContainer(
+        child: Column(
+          children: [
+            const SectionTitle(title: LocalizedTexts.preferences),
+            SectionItem(title: LocalizedTexts.food, onPressHandler: () => _onFoodHandler(context)),
+            const SizedBox(height: 16.0),
+            const Divider(height: 1.0, color: AppColors.yellowLight),
+            const SizedBox(height: 16.0),
+            BlocBuilder<AuthenticationCubit, AuthenticationState>(
+              builder: (context, state) {
+                return BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
+                  builder: (context, physicalActivitiesPreferencesState) {
+                    return SectionItem(
+                      title: LocalizedTexts.physicalExercises.tr(),
+                      subTitle: _physicalActivitiesPreferencesSubtitle(physicalActivitiesPreferencesState),
+                      onPressHandler: state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)
+                          ? () => _onPhysicalActivitiesHandler(context)
+                          : null,
+                    );
+                  },
+                );
+              },
+            ),
+            const SizedBox(height: 16.0),
+            const Divider(height: 1.0, color: AppColors.yellowLight),
+            const SizedBox(height: 16.0),
+            BlocBuilder<AuthenticationCubit, AuthenticationState>(
+              builder: (context, state) {
+                return SectionItem(
+                  title: LocalizedTexts.groupSessions.tr(),
+                  subTitle: _groupSessionsSubtitle(state),
+                  onPressHandler: state.unlockedFeatures.contains(UnlockedFeatureType.grouping)
+                      ? () => _onGroupSessionsHandler(context)
+                      : null,
+                );
+              },
+            ),
+            const SizedBox(height: 16.0),
+            const Divider(height: 1.0, color: AppColors.yellowLight),
+            const SizedBox(height: 16.0),
+            SectionItem(title: LocalizedTexts.diabetes, onPressHandler: () {}),
+          ],
+        ),
       ),
     );
   }

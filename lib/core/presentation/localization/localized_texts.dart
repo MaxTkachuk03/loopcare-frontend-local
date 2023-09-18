@@ -427,6 +427,7 @@ class LocalizedTexts {
   static const String deleteModalMessage = 'deleteModalMessage';
   static const String yesDelete = 'yesDelete';
   static const String noCancel = 'noCancel';
+  static const String yourPreferencesUpdated = 'yourPreferencesUpdated';
 
   // Education
   static const String lessonCompleteTitle = 'lessonCompleteTitle';
@@ -490,6 +491,7 @@ class LocalizedTexts {
   static const String useFaceOrTouchId = 'useFaceOrTouchId';
   static const String requireLoginEachTime = 'requireLoginEachTime';
   static const String food = 'food';
+  static const String group = 'group';
   static const String groupSessions = 'groupSessions';
   static const String groupSession = 'groupSession';
   static const String signOut = 'signOut';

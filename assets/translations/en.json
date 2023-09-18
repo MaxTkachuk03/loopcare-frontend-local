@@ -412,6 +412,7 @@
   "useFaceOrTouchId": "Use Face or touch ID",
   "requireLoginEachTime": "Require login each time app is used",
   "food": "Food",
+  "group": "Group",
   "groupSessions": "Group Sessions",
   "groupSession": "Group Session",
   "foodPreferences": "Food preferences",
@@ -643,5 +644,6 @@
   "errorReportMessage": "Text message must be at least 1 symbol and less than 500 symbols",
   "errorSubjectMessage": "Text message must be at least 1 symbol and less than 30 symbols",
   "requiredField": "Field is required",
-  "send": "Send"
+  "send": "Send",
+  "yourPreferencesUpdated": "Your {prefName} preferences have been updated"
 }

@@ -4,9 +4,9 @@ part of 'group_preferences_bloc.dart';
 class GroupPreferencesState with _$GroupPreferencesState {
   const factory GroupPreferencesState.initial(GroupPreferencesData data) = _Initial;
 
-  const factory GroupPreferencesState.updated(GroupPreferencesData data) = _Updated;
+  const factory GroupPreferencesState.updated(GroupPreferencesData data) = GroupPreferencesUpdated;
 
-  const factory GroupPreferencesState.loading(GroupPreferencesData data) = _Loading;
+  const factory GroupPreferencesState.loading(GroupPreferencesData data) = GroupPreferencesLoading;
 
   const factory GroupPreferencesState.error(GroupPreferencesData data) = _Error;
 }
