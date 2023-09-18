@@ -46,7 +46,10 @@ class PlusButtonHexagon extends StatelessWidget {
           final mealBloc = context.read<MealsBloc>();
           final mealId = mealBloc.state.getCurrentMealId;
 
-          if (mealId == null) return;
+          if (mealId == null) {
+            print('Search item click freezed PlusButtonHexagon mealId == null line 50');
+            return;
+          }
 
           context.read<SearchBloc>().add(
                 SearchEvent.addSearchResult(item.name, item.type),
@@ -72,6 +75,8 @@ class PlusButtonHexagon extends StatelessWidget {
                       ),
                     );
                     context.router.pushNamed(AppRoutes.meal);
+                  } else {
+                    print('Search item click freezed PlusButtonHexagon mealId == null line 79');
                   }
                 },
               ),
@@ -90,6 +95,8 @@ class PlusButtonHexagon extends StatelessWidget {
                 canEditDish: false,
               ),
             );
+          } else {
+            print('Search item click freezed PlusButtonHexagon line 99');
           }
         },
       ),

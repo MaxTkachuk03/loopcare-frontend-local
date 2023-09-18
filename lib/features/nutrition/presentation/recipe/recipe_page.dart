@@ -355,7 +355,10 @@ class _RecipePageState extends State<RecipePage> {
                   .id
               : recipeState.recipeId;
 
-          if (mealId == null || recipeId == null) return;
+          if (mealId == null || recipeId == null) {
+            print('Search item click freezed RecipePage mealId == null || recipeId == null');
+            return;
+          }
 
           context.router.push(
             SelectServingRoute(
