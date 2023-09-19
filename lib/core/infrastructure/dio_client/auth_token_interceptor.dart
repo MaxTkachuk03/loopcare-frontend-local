@@ -22,6 +22,8 @@ class AuthTokenInterceptor extends InterceptorsWrapper {
     if (token != null) {
       options.headers['Authorization'] = 'Bearer $token';
     }
+    // TODO will be used to restrict test users access to the app after testing period
+    options.headers["MVP_ACCESS_HEADER_NAME"] = 'access-control-loopcare';
     handler.next(options);
   }
 
