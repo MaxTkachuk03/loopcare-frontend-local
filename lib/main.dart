@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_manager.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanle_event_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
@@ -53,11 +56,15 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
 
+  await MixpanelManager().init();
+
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
 
   configureDependencies();
+
+  MixpanelEventService.instance.trackVisit("${AppMixpanelEvents.appStart} main",);
 
   return runApp(
     EasyLocalization(

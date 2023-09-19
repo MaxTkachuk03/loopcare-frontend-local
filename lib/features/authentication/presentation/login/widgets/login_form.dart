@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanle_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -86,8 +88,8 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   _onChangedForm() {
-    final isValidForm = Email.create(_emailController.text).isRight() &&
-        LoginPassword.create(_passwordController.text).isRight();
+    final isValidForm =
+        Email.create(_emailController.text).isRight() && LoginPassword.create(_passwordController.text).isRight();
 
     setState(() {
       _isDisabled = !isValidForm;
@@ -135,6 +137,14 @@ class _LoginFormState extends State<LoginForm> {
             background: AppColors.red,
             textColor: Colors.white,
           );
+          MixpanelEventService.instance.track(
+            AppMixpanelEvents.loginFail,
+            {
+              'userId': state.id,
+              'email': state.email,
+              'message': errorMessage,
+            },
+          );
         }
       },
     );
@@ -144,6 +154,14 @@ class _LoginFormState extends State<LoginForm> {
     state.mapOrNull(
       authenticated: (state) {
         final route = state.isPreferencesComplete ? const HomeRoute() : const PreferencesOverviewRoute();
+        MixpanelEventService.instance.track(
+          AppMixpanelEvents.loginSuccess,
+          {
+            'userId': state.account.id,
+            'email': state.account.email,
+            'next_rout': route,
+          },
+        );
         context.router.replaceAll([route]);
       },
     );

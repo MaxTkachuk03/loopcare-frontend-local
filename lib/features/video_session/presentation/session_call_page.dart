@@ -11,6 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_event_listener.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_user.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanle_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
@@ -43,6 +45,8 @@ class SessionCallPage extends StatefulWidget {
 class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingObserver {
   ZoomVideoSdk zoom = ZoomVideoSdk();
   ZoomVideoSdkEventListener eventListener = ZoomVideoSdkEventListener();
+
+  int get userId => context.read<AuthenticationCubit>().state.id;
 
   late final dynamic _sessionJoinListener;
   late final dynamic _userJoinListener;
@@ -155,8 +159,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
       log('session token = $token', name: 'zoomSessionLog');
 
-      final String userName = context.read<AuthenticationCubit>().state.nickname ??
-          context.read<AuthenticationCubit>().state.name;
+      final String userName =
+          context.read<AuthenticationCubit>().state.nickname ?? context.read<AuthenticationCubit>().state.name;
 
       JoinSessionConfig joinSession = JoinSessionConfig(
         sessionName: sessionName,
@@ -165,12 +169,21 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
         userName: userName,
         audioOptions: ZoomConfig.sdkAudioOptions,
         videoOptions: ZoomConfig.sdkVideoOptions,
-        sessionIdleTimeoutMins: ZoomConfig.sessionIdleTimeoutMins,
+        sessionIdleTimeoutMins: 5,
       );
 
       try {
         await zoom.joinSession(joinSession);
       } catch (e) {
+        MixpanelEventService.instance.track(
+          AppMixpanelEvents.joinSessionFail,
+          {
+            'userId': userId,
+            'userName': joinSession.userName,
+            'session_token': joinSession.token,
+            'error': e.toString(),
+          },
+        );
         log('Error while join session $e', name: 'zoomSessionLog');
         const AlertDialog(title: Text("Error"), content: Text("Failed to join the session"));
       }
@@ -245,10 +258,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       var userListJson = jsonDecode(data['remoteUsers']) as List;
 
       setState(() {
-        _sessionParticipants = [
-          mySelf!,
-          ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))
-        ];
+        _sessionParticipants = [mySelf!, ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))];
       });
     });
 
@@ -372,6 +382,14 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
       log('_eventErrorListener called with $errorType', name: 'zoomSessionLog');
 
+      MixpanelEventService.instance.track(
+        AppMixpanelEvents.sessionFail,
+        {
+          'userId': userId,
+          'error_type': errorType,
+        },
+      );
+
       if (_error == errorType) return;
 
       setState(() {
@@ -428,7 +446,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     return userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson)).toList();
   }
 
-  void _endSession() async {
+  _endSession() async {
     ModalBottomSheet.leaveSessionCall(
       context: context,
       onLeavePressed: _leaveSessionHandler,
@@ -436,25 +454,10 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     );
   }
 
-  void _leaveSessionHandler() async {
+  _leaveSessionHandler() async {
     await zoom.leaveSession(false);
     if (context.mounted) {
       context.router.pop();
-    }
-  }
-
-  _forceEndSession() async {
-    await zoom.leaveSession(true);
-
-    if (context.mounted) {
-      context.router.pop();
-
-      showAppSnackBar(
-        context: context,
-        text: LocalizedTexts.sessionEndDialogText,
-        background: Colors.white,
-        textColor: Colors.black,
-      );
     }
   }
 
@@ -583,31 +586,39 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
             child: Stack(
               children: [
                 if (!_isVideoPlaying)
-                  if (userJoinedToSession)
-                    Container(
-                      color: AppColors.FF313030,
-                      child: CustomScrollView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        slivers: [
-                          UsersGrid(
-                            users: _sessionParticipants,
-                            talkingUsers: _talkingUsers,
-                            usersWithCameraOff: _usersWithCameraOff,
-                          ),
-                          const SliverFillRemaining(child: PromptsContainer()),
-                        ],
-                      ),
-                    ),
-                if (!userJoinedToSession) const Loader(),
+                  Container(
+                    color: AppColors.bgGreen,
+                    child: userJoinedToSession
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: UsersGrid(
+                                  users: _sessionParticipants,
+                                  talkingUsers: _talkingUsers,
+                                  usersWithCameraOff: _usersWithCameraOff,
+                                ),
+                              ),
+                              const Expanded(child: PromptsContainer()),
+                              ReportIssue(
+                                minutesLeft: context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inMinutes,
+                                onReportIssueHandler: _onReportIssueHandler,
+                              ),
+                              CallControls(
+                                onMuteHandler: onPressAudio,
+                                onStopVideoHandler: onPressVideo,
+                                isMuted: isMuted,
+                                isCameraOn: isVideoOn,
+                                onSettingsHandler: onSettingsHandler,
+                              )
+                            ],
+                          )
+                        : const Loader(),
+                  ),
                 if (userJoinedToSession)
                   BlocBuilder<SessionCallBloc, SessionCallState>(
                     builder: (context, state) {
-                      final currentSession = context.read<TopicsBloc>().state.data.signedGroupSession;
-
-                      if (currentSession != null && currentSession.isSessionEnded) {
-                        _forceEndSession();
-                      }
-
                       return state.maybeMap(
                         updateSessionTime: (s) {
                           return SessionVideoContainer(
@@ -624,28 +635,6 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
             ),
           ),
         ),
-        bottomNavigationBar: !_isVideoPlaying && userJoinedToSession
-            ? SizedBox(
-                height: 160,
-                child: Column(
-                  children: [
-                    ReportIssue(
-                      minutesLeft: context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inMinutes,
-                      onReportIssueHandler: _onReportIssueHandler,
-                    ),
-                    Expanded(
-                      child: CallControls(
-                        onMuteHandler: onPressAudio,
-                        onStopVideoHandler: onPressVideo,
-                        isMuted: isMuted,
-                        isCameraOn: isVideoOn,
-                        onSettingsHandler: onSettingsHandler,
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            : const SizedBox.shrink(),
       );
     });
   }

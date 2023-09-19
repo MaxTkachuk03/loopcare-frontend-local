@@ -1,8 +1,11 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanle_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/duration_extensions.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session_program_event.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
@@ -34,12 +37,12 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
   GroupSessionProgramEvent? _currentVideoEvent;
   bool _visibility = false;
 
+  int get userId => context.read<AuthenticationCubit>().state.id;
+
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
-
     _checkIfHasVideoForCurrentTime();
-
     super.initState();
   }
 
@@ -54,16 +57,12 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
 
   void _checkIfHasVideoForCurrentTime() {
     final List<GroupSessionProgramEvent> videoEvents = context.read<TopicsBloc>().state.data.videoEvents;
-
-    final videoEventForCurrentTime = videoEvents.lastWhereOrNull(
-        (e) => e.eventStartTime <= widget.sessionTimer && widget.sessionTimer <= e.eventEndTime);
-
+    final videoEventForCurrentTime = videoEvents
+        .lastWhereOrNull((e) => e.eventStartTime <= widget.sessionTimer && widget.sessionTimer <= e.eventEndTime);
     if (videoEventForCurrentTime == null) return;
-
     setState(() {
       _currentVideoEvent = videoEventForCurrentTime;
     });
-
     _loadVideoPlayer(videoEventForCurrentTime.videoPath!);
   }
 
@@ -74,10 +73,8 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
       final oldController = _videoPlayerController;
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         await oldController?.dispose();
-
         _initVideoController(videoLink);
       });
-
       setState(() {
         _videoPlayerController = null;
       });
@@ -86,7 +83,6 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
 
   void _initVideoController(String videoLink) {
     final headers = context.read<VideoPlayerBloc>().state.data.videoHttpHeaders;
-
     _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(videoLink),
         httpHeaders: headers, videoPlayerOptions: VideoPlayerOptions(allowBackgroundPlayback: true))
       ..initialize().then((value) {
@@ -104,6 +100,13 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
           _visibility = true;
         });
         widget.onVideoPlayingListener(true);
+        MixpanelEventService.instance.track(
+          AppMixpanelEvents.sessionVideoSuccess,
+          {
+            'userId': userId,
+            'video_link': videoLink,
+          },
+        );
       });
   }
 
@@ -122,6 +125,13 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
       });
 
       widget.onVideoPlayingListener(false);
+      MixpanelEventService.instance.track(
+        AppMixpanelEvents.sessionVideoEnd,
+        {
+          'userId': userId,
+          'video_link': _currentVideoEvent?.videoPath ?? '',
+        },
+      );
     });
   }
 
@@ -131,6 +141,13 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
     if (controller == null) return;
 
     if (controller.value.isPlaying) controller.pause();
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.sessionVideoClose,
+      {
+        'userId': userId,
+        'video_link': _currentVideoEvent?.videoPath ?? '',
+      },
+    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
