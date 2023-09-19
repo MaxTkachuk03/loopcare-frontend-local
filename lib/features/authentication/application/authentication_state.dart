@@ -65,6 +65,12 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
+  int get id {
+    return maybeWhen(
+      orElse: () => -1,
+      authenticated: (state) => state.id,
+    );
+  }
   String get name {
     return maybeWhen(
       orElse: () => '',
