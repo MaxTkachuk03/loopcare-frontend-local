@@ -39,6 +39,14 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     await super.close();
   }
 
+  Future<bool> updateAccessToken() async {
+    return authTokenManager.updateAccessToken();
+  }
+
+  Future<bool> updateRefreshToken() async {
+    return authTokenManager.updateRefreshToken();
+  }
+
   void login(String email, String password) async {
     final data = LoginData(email: email, password: password);
 
