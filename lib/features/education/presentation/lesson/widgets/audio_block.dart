@@ -2,11 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
-
-// import 'package:audioplayers/audioplayers.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/player_widget.dart';
-import 'package:loopcare_frontend/injection.dart';
+
 
 class AudioBlock extends StatefulWidget {
   final void Function(int duration) onDurationChanged;
@@ -82,15 +79,9 @@ class _AudioBlockState extends State<AudioBlock> {
   }
 
   Future<void> _setupPlayer() async {
-    final authManager = getIt<AuthTokenManager>();
-    final token = await authManager.getAccessToken();
     try {
-      await audioPlayer.setUrl(widget.url, headers: {'Authorization': 'Bearer $token'});
-      var duration = await audioPlayer.load();
-      if (duration == null || duration == Duration.zero) {
-        audioPlayer.setClip(start: const Duration(seconds: 0), end:  Duration(seconds: widget.duration));
-      }
-      debugPrint('devcpp duration: $duration');
+      await audioPlayer.setAudioSource(AudioSource.uri(Uri.parse('file://${widget.url}')),
+          initialPosition: Duration.zero, preload: true);
     } on PlayerException catch (e) {
       // iOS/macOS: maps to NSError.code
       // Android: maps to ExoPlayerException.type
