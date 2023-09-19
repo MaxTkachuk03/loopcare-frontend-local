@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/mixpanle_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -88,8 +88,8 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   _onChangedForm() {
-    final isValidForm =
-        Email.create(_emailController.text).isRight() && LoginPassword.create(_passwordController.text).isRight();
+    final isValidForm = Email.create(_emailController.text).isRight() &&
+        LoginPassword.create(_passwordController.text).isRight();
 
     setState(() {
       _isDisabled = !isValidForm;

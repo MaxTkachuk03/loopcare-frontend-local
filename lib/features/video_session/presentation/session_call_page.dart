@@ -12,7 +12,7 @@ import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_event_listener.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_user.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/mixpanle_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
@@ -68,6 +68,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   bool isSpeakerOn = false;
   bool isVideoOn = false;
   bool isInSession = false;
+  bool _isCloudRecordingActive = false;
 
   String _error = '';
   Timer? _timer;
@@ -107,34 +108,16 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
   _setInactiveUserState() async {
     ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
-    if (mySelf == null) return;
 
-    final audioStatus = mySelf.audioStatus;
-    final videoStatus = mySelf.videoStatus;
-
-    if (audioStatus != null) {
-      await zoom.audioHelper.muteAudio(mySelf.userId);
-    }
-
-    if (videoStatus != null) {
-      await zoom.videoHelper.stopVideo();
-    }
+    await zoom.audioHelper.muteAudio(mySelf!.userId);
+    await zoom.videoHelper.stopVideo();
   }
 
   _setActiveUserState() async {
     ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
-    if (mySelf == null) return;
 
-    final audioStatus = mySelf.audioStatus;
-    final videoStatus = mySelf.videoStatus;
-
-    if (audioStatus != null) {
-      await zoom.audioHelper.unMuteAudio(mySelf.userId);
-    }
-
-    if (videoStatus != null) {
-      await zoom.videoHelper.startVideo();
-    }
+    await zoom.audioHelper.unMuteAudio(mySelf!.userId);
+    await zoom.videoHelper.startVideo();
   }
 
   void _setInactivityTimer() {
@@ -159,8 +142,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
       log('session token = $token', name: 'zoomSessionLog');
 
-      final String userName =
-          context.read<AuthenticationCubit>().state.nickname ?? context.read<AuthenticationCubit>().state.name;
+      final String userName = context.read<AuthenticationCubit>().state.nickname ??
+          context.read<AuthenticationCubit>().state.name;
 
       JoinSessionConfig joinSession = JoinSessionConfig(
         sessionName: sessionName,
@@ -227,6 +210,10 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       var speakerOn = await zoom.audioHelper.getSpeakerStatus();
       var currentSessionName = await zoom.session.getSessionName();
 
+      if (!_isCloudRecordingActive) {
+        await zoom.recordingHelper.startCloudRecording();
+      }
+
       await zoom.audioHelper.setSpeaker(true);
 
       _sessionParticipants = [mySelf, ...?remoteUsers];
@@ -241,6 +228,10 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
     _sessionLeaveListener = emitter.on(EventType.onSessionLeave, (data) async {
       isInSession = false;
+
+      if (_isCloudRecordingActive) {
+        await zoom.recordingHelper.stopCloudRecording();
+      }
 
       log('_sessionLeaveListener $data', name: 'zoomSessionLog');
 
@@ -258,7 +249,10 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       var userListJson = jsonDecode(data['remoteUsers']) as List;
 
       setState(() {
-        _sessionParticipants = [mySelf!, ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))];
+        _sessionParticipants = [
+          mySelf!,
+          ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))
+        ];
       });
     });
 
@@ -322,7 +316,9 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     });
 
     _cloudRecordingStatusListener = emitter.on(EventType.onCloudRecordingStatus, (Map data) async {
-      // TODO not implemented by zoom team
+      _isCloudRecordingActive = data['status'] == 'ZoomVideoSDKRecordingStatus_Start';
+      setState(() {});
+
       log('_cloudRecordingStatusListener - ${data['status']}', name: 'zoomSessionLog');
     });
 
@@ -602,7 +598,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                               ),
                               const Expanded(child: PromptsContainer()),
                               ReportIssue(
-                                minutesLeft: context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inMinutes,
+                                minutesLeft:
+                                    context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inMinutes,
                                 onReportIssueHandler: _onReportIssueHandler,
                               ),
                               CallControls(
