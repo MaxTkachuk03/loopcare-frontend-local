@@ -13,12 +13,17 @@ class ProxyGuard extends AutoRouteGuard {
   );
 
   @override
-  void onNavigation(NavigationResolver resolver, StackRouter router) {
+  Future<void> onNavigation(NavigationResolver resolver, StackRouter router) async {
+    if (authenticationCubit.state.isAuthenticated) {
+      await authenticationCubit.updateAccessToken();
+      await authenticationCubit.updateRefreshToken();
+    }
     if (const String.fromEnvironment('FLAVOR', defaultValue: 'dev') == 'dev') {
       resolver.next(true);
     } else {
       if (authenticationCubit.state.isAuthenticated) {
-        final route = authenticationCubit.state.isPreferencesComplete ? AppRoutes.home : AppRoutes.preferencesOverview;
+        final route =
+            authenticationCubit.state.isPreferencesComplete ? AppRoutes.home : AppRoutes.preferencesOverview;
         MixpanelEventService.instance.trackVisit(
           "${AppMixpanelEvents.appRote}:  $route",
           userId: authenticationCubit.state.id,
