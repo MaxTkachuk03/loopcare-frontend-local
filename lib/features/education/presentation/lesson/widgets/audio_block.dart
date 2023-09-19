@@ -87,8 +87,8 @@ class _AudioBlockState extends State<AudioBlock> {
     try {
       await audioPlayer.setUrl(widget.url, headers: {'Authorization': 'Bearer $token'});
       var duration = await audioPlayer.load();
-      if (duration == null) {
-        audioPlayer.setClip(start: const Duration(seconds: 0), end: const Duration(seconds: 117));
+      if (duration == null || duration == Duration.zero) {
+        audioPlayer.setClip(start: const Duration(seconds: 0), end:  Duration(seconds: widget.duration));
       }
       debugPrint('devcpp duration: $duration');
     } on PlayerException catch (e) {

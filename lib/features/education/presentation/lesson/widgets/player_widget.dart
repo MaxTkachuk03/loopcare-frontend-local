@@ -37,8 +37,6 @@ class _PlayerWidgetState extends State<PlayerWidget> with WidgetsBindingObserver
   @override
   void dispose() {
     ambiguate(WidgetsBinding.instance)!.removeObserver(this);
-    // Release decoders and buffers back to the operating system making them
-    // available for other apps to use.
     widget.player.dispose();
     _muteNotifier.dispose();
     super.dispose();
@@ -50,7 +48,7 @@ class _PlayerWidgetState extends State<PlayerWidget> with WidgetsBindingObserver
       // Release the player's resources when not in use. We use "stop" so that
       // if the app resumes later, it will still remember what position to
       // resume from.
-      widget.player.stop();
+      // widget.player.stop();
     }
   }
 
