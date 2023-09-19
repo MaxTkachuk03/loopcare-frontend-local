@@ -3,7 +3,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_manager.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/mixpanle_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
@@ -48,9 +48,6 @@ Future<void> main() async {
 
   tz.initializeTimeZones();
 
-  // final byteData = await rootBundle.load('local_plugins/timezone/lib/data/latest.tzf');
-  // tz.initializeDatabase(byteData.buffer.asUint8List());
-
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -64,7 +61,9 @@ Future<void> main() async {
 
   configureDependencies();
 
-  MixpanelEventService.instance.trackVisit("${AppMixpanelEvents.appStart} main",);
+  MixpanelEventService.instance.trackVisit(
+    "${AppMixpanelEvents.appStart} main",
+  );
 
   return runApp(
     EasyLocalization(
