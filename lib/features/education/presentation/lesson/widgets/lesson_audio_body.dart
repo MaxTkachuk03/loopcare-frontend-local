@@ -21,6 +21,7 @@ import 'dart:io';
 
 import 'package:loopcare_frontend/injection.dart';
 
+// TODO refactor _subtitleController
 class LessonAudioPage extends StatefulWidget {
   final void Function() onNextPressed;
   final void Function() onPrevPressed;
@@ -170,19 +171,21 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                           AnimatedOpacity(
                             opacity: isPlay ? 1.0 : 0.0,
                             duration: const Duration(milliseconds: 300),
-                            child: SizedBox(
-                              height: 600,
-                              child: imageUrl != null && imageUrl != ''
-                                  ? isSvg
-                                      ? state.data.isSvgLoaded
-                                          ? SvgPicture.file(File(state.data.svgFile))
-                                          : null
-                                      : NetworkImageWithCache(
-                                          withPlaceholder: false,
-                                          url: imageUrl!,
-                                          imageBoxFit: BoxFit.contain,
-                                        )
-                                  : null,
+                            child: Center(
+                              child: SizedBox(
+                                height: 600,
+                                child: imageUrl != null && imageUrl != ''
+                                    ? isSvg
+                                        ? state.data.isSvgLoaded
+                                            ? SvgPicture.file(File(state.data.svgFile))
+                                            : null
+                                        : NetworkImageWithCache(
+                                            withPlaceholder: false,
+                                            url: imageUrl!,
+                                            imageBoxFit: BoxFit.contain,
+                                          )
+                                    : null,
+                              ),
                             ),
                           ),
                           AnimatedOpacity(
