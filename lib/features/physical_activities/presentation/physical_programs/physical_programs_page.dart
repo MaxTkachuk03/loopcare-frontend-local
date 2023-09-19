@@ -79,22 +79,24 @@ class PhysicalProgramsPage extends StatelessWidget {
                                 const SizedBox(
                                   height: 16.0,
                                 ),
-                                const Text(LocalizedTexts.alternatives).tr(),
-                                const SizedBox(
-                                  height: 16.0,
-                                ),
+                                if (state.data.alternativePrograms.isNotEmpty)
+                                  const Text(LocalizedTexts.alternatives).tr(),
+                                if (state.data.alternativePrograms.isNotEmpty)
+                                  const SizedBox(
+                                    height: 16.0,
+                                  ),
                               ],
                             ),
                         ],
                       ),
                     ),
-                    if (state.data.programs.isNotEmpty)
+                    if (state.data.alternativePrograms.isNotEmpty)
                       Padding(
                         padding: const EdgeInsets.only(left: 24),
                         child: SizedBox(
                           height: 220,
                           child: ProgramCarousel(
-                            programs: state.data.programs.skip(1).toList(),
+                            programs: state.data.alternativePrograms.toList(),
                           ),
                         ),
                       ),

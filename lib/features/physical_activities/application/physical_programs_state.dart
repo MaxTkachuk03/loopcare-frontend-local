@@ -23,9 +23,10 @@ class PhysicalProgramsData with _$PhysicalProgramsData {
 
   const factory PhysicalProgramsData({
     @Default([]) List<PhysicalProgram> programs,
+    @Default([]) List<PhysicalProgram> alternativePrograms,
     PhysicalProgram? currentProgram,
     @Default(ProgramType.strength) ProgramType programType,
-    @Default(ProgramPlace.home) ProgramPlace programPlace,
+    @Default(ProgramPlace.outdoor) ProgramPlace programPlace,
     @Default(ProgramDifficulty.easy) ProgramDifficulty programDifficulty,
     @Default(false) bool isLoading,
     RequestError? error,

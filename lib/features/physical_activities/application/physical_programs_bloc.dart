@@ -41,22 +41,59 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
     emit(PhysicalProgramsState.loading(state.data.copyWith(isLoading: true)));
 
     final response = await _physicalActivitiesService.getProgramsByPreferences(
-      programType: ProgramType.strength.name,
-      programPlace: ProgramPlace.outdoor.name,
-      programDifficulty: ProgramDifficulty.easy.name,
+      programType: state.data.programType.name,
+      programPlace: state.data.programPlace.name,
+      programDifficulty: state.data.programDifficulty.name,
     );
+
+    var allPrograms = await _combinedProgram();
 
     response.fold(
       (l) => emit(PhysicalProgramsState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(
-        PhysicalProgramsState.programLoaded(
-          state.data.copyWith(
-            programs: r.data,
-            isLoading: false,
+      (r) {
+        var alternativePrograms = _diffList(allPrograms, r.data);
+        emit(
+          PhysicalProgramsState.programLoaded(
+            state.data.copyWith(
+              programs: r.data,
+              isLoading: false,
+              alternativePrograms: alternativePrograms,
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
+  }
+
+  List<PhysicalProgramBasic> _diffList(List<PhysicalProgramBasic> first, List<PhysicalProgramBasic> second) {
+    for (var elem in second) {
+      first.remove(elem);
+    }
+
+    return first;
+  }
+
+  Future<List<PhysicalProgramBasic>> _combinedProgram() async {
+    List<PhysicalProgramBasic> retList = [];
+
+    for (var programType in ProgramType.values) {
+      for (var programPlace in ProgramPlace.values) {
+        for (var programDifficulty in ProgramDifficulty.values) {
+          final response = await _physicalActivitiesService.getProgramsByPreferences(
+            programType: programType.name,
+            programPlace: programPlace.name,
+            programDifficulty: programDifficulty.name,
+          );
+
+          response.fold(
+            (l) => null,
+            (r) => retList.addAll(r.data),
+          );
+        }
+      }
+    }
+
+    return retList;
   }
 
   FutureOr<void> _onCreateCustomActivity(

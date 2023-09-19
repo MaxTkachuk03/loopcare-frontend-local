@@ -17,4 +17,15 @@ extension ProgramPlaceX on ProgramPlace {
         return LocalizedTexts.outdoor.translation;
     }
   }
+
+  bool get isAvailable {
+    switch (this) {
+      case ProgramPlace.home:
+        return false;
+      case ProgramPlace.office:
+        return true;
+      case ProgramPlace.outdoor:
+        return true;
+    }
+  }
 }
