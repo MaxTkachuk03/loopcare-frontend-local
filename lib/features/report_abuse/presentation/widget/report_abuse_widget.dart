@@ -88,37 +88,40 @@ class _ReportFormWidget extends StatelessWidget {
             elevation: 0,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-              child: Form(
-                key: controller.formKey,
-                onChanged: () => controller.isFormValid,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const ReportSectionTitle(
-                      title: LocalizedTexts.reportSubTitle,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.darkGreen,
-                    ),
-                    SubjectAbuseFormInputField.subject(controller),
-                    const SizedBox(height: 16.0),
-                    Expanded(child: ReportAbuseFormLimitTextField.report(controller)),
-                    const SizedBox(height: 16.0),
-                    ValueListenableBuilder<bool>(
-                      valueListenable: controller.isEnableSend,
-                      builder: (context, isEnableSend, _) {
-                        return ElevatedButton(
-                          onPressed: isEnableSend ? onSend : null,
-                          style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                                backgroundColor: isEnableSend
-                                    ? MaterialStateProperty.all(AppColors.orangeDark)
-                                    : MaterialStateProperty.all(AppColors.greyLight),
-                              ),
-                          child: const Text(LocalizedTexts.send).tr(),
-                        );
-                      },
-                    ),
-                  ],
+              child: Scaffold(
+                resizeToAvoidBottomInset: true,
+                body: Form(
+                  key: controller.formKey,
+                  onChanged: () => controller.isFormValid,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const ReportSectionTitle(
+                        title: LocalizedTexts.reportSubTitle,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.darkGreen,
+                      ),
+                      SubjectAbuseFormInputField.subject(controller),
+                      const SizedBox(height: 16.0),
+                      Expanded(child: ReportAbuseFormLimitTextField.report(controller)),
+                      const SizedBox(height: 16.0),
+                      ValueListenableBuilder<bool>(
+                        valueListenable: controller.isEnableSend,
+                        builder: (context, isEnableSend, _) {
+                          return ElevatedButton(
+                            onPressed: isEnableSend ? onSend : null,
+                            style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                                  backgroundColor: isEnableSend
+                                      ? MaterialStateProperty.all(AppColors.orangeDark)
+                                      : MaterialStateProperty.all(AppColors.greyLight),
+                                ),
+                            child: const Text(LocalizedTexts.send).tr(),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
