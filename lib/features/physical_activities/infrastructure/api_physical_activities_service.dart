@@ -26,18 +26,30 @@ class APIPhysicalActivitiesService implements PhysicalActivitiesService {
 
   @override
   Future<Either<RequestError, ProgramListResponse>> getProgramsByPreferences({
-    required String programType,
-    required String programPlace,
-    required String programDifficulty,
+    String? programType,
+    String? programPlace,
+    String? programDifficulty,
   }) {
-    return client.get(
-      '/physical-activities/programs',
-      queryParameters: {
-        'type': programType,
-        'place': programPlace,
-        'difficulty': programDifficulty,
-      },
-    ).then(parseResponse(ProgramListResponse.fromJson));
+    Map<String, dynamic>? queryParameters;
+    if (programType != null || programPlace != null || programDifficulty != null) {
+      queryParameters = {};
+    }
+
+    if (programType != null) {
+      queryParameters!['type'] = programType;
+    }
+    if (programPlace != null) {
+      queryParameters!['place'] = programPlace;
+    }
+    if (programDifficulty != null) {
+      queryParameters!['difficulty'] = programDifficulty;
+    }
+    return client
+        .get(
+          '/physical-activities/programs',
+          queryParameters: queryParameters,
+        )
+        .then(parseResponse(ProgramListResponse.fromJson));
   }
 
   @override

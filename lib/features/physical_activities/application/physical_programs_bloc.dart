@@ -76,22 +76,12 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
   Future<List<PhysicalProgramBasic>> _combinedProgram() async {
     List<PhysicalProgramBasic> retList = [];
 
-    for (var programType in ProgramType.values) {
-      for (var programPlace in ProgramPlace.values) {
-        for (var programDifficulty in ProgramDifficulty.values) {
-          final response = await _physicalActivitiesService.getProgramsByPreferences(
-            programType: programType.name,
-            programPlace: programPlace.name,
-            programDifficulty: programDifficulty.name,
-          );
+    final response = await _physicalActivitiesService.getProgramsByPreferences();
 
-          response.fold(
-            (l) => null,
-            (r) => retList.addAll(r.data),
-          );
-        }
-      }
-    }
+    response.fold(
+      (l) => null,
+      (r) => retList.addAll(r.data),
+    );
 
     return retList;
   }
