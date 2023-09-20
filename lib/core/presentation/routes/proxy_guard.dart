@@ -14,10 +14,10 @@ class ProxyGuard extends AutoRouteGuard {
 
   @override
   Future<void> onNavigation(NavigationResolver resolver, StackRouter router) async {
-    if (authenticationCubit.state.isAuthenticated) {
-      await authenticationCubit.updateAccessToken();
-      await authenticationCubit.updateRefreshToken();
-    }
+    // if (authenticationCubit.state.isAuthenticated) {
+    //   await authenticationCubit.updateAccessToken();
+    //   await authenticationCubit.updateRefreshToken();
+    // }
     if (const String.fromEnvironment('FLAVOR', defaultValue: 'dev') == 'dev') {
       resolver.next(true);
     } else {

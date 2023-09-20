@@ -33,7 +33,7 @@ PODS:
     - Firebase/Performance (= 10.12.0)
     - firebase_core
     - Flutter
-  - FirebaseABTesting (10.13.0):
+  - FirebaseABTesting (10.15.0):
     - FirebaseCore (~> 10.0)
   - FirebaseAnalytics (10.12.0):
     - FirebaseAnalytics/AdIdSupport (= 10.12.0)
@@ -84,7 +84,7 @@ PODS:
     - GoogleUtilities/ISASwizzler (~> 7.8)
     - GoogleUtilities/MethodSwizzler (~> 7.8)
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - FirebaseRemoteConfig (10.13.0):
+  - FirebaseRemoteConfig (10.15.0):
     - FirebaseABTesting (~> 10.0)
     - FirebaseCore (~> 10.0)
     - FirebaseInstallations (~> 10.0)
@@ -296,7 +296,7 @@ SPEC CHECKSUMS:
   firebase_core: e477125798fc37cd4ab43ca6a8536bf7e0929c00
   firebase_crashlytics: 6043ce85800f96e53f15ee5051f9cfad10cce73d
   firebase_performance: 9d2cbfdd26ee15f999c7873048440ce9f2dc72a6
-  FirebaseABTesting: 86ac5a4fc749088bb4d55a1cbfb2c4cb42c6d5de
+  FirebaseABTesting: 7fa3bca17f79ac433301d20d5cd33401f7738dca
   FirebaseAnalytics: 0270389efbe3022b54ec4588862dabec3477ee98
   FirebaseCore: f86a1394906b97ac445ae49c92552a9425831bed
   FirebaseCoreExtension: ce60f9db46d83944cf444664d6d587474128eeca
@@ -304,7 +304,7 @@ SPEC CHECKSUMS:
   FirebaseCrashlytics: c4d111b7430c49744c74bcc6346ea00868661ac8
   FirebaseInstallations: b28af1b9f997f1a799efe818c94695a3728c352f
   FirebasePerformance: 1a63c51c9d14fc1190b0970d5aab96672cb0bce6
-  FirebaseRemoteConfig: 33e0dcf43899fbb4f8ef2d84200bf5f5e32eaf05
+  FirebaseRemoteConfig: 64b6ada098c649304114a817effd7e5f87229b11
   FirebaseSessions: 991fb4c20b3505eef125f7cbfa20a5b5b189c2a4
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_zoom_videosdk: 6cfe5ed4a015adaf8c2bc57e50261914f1ddd38b
