@@ -58,7 +58,7 @@ class PhysicalProgramsPage extends StatelessWidget {
                               fontWeight: FontWeight.w700,
                             ),
                           ).tr(),
-                          if (state.getSelectedPrograms.isNotEmpty)
+                          if (state.data.getSelectedPrograms.isNotEmpty)
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -66,25 +66,26 @@ class PhysicalProgramsPage extends StatelessWidget {
                                 Text(LocalizedTexts.recommended.toUpperCase()).tr(),
                                 const SizedBox(height: 16.0),
                                 ProgramCard(
-                                  program: state.getSelectedPrograms.first,
+                                  program: state.data.getSelectedPrograms.first,
                                   size: const ProgramCardSize.large(),
                                 ),
                                 const SizedBox(height: 16.0),
-                                if (state.getAlternativePrograms.isNotEmpty)
+                                if (state.data.getAlternativePrograms.isNotEmpty)
                                   const Text(LocalizedTexts.alternatives).tr(),
-                                if (state.getAlternativePrograms.isNotEmpty) const SizedBox(height: 16.0),
+                                if (state.data.getAlternativePrograms.isNotEmpty)
+                                  const SizedBox(height: 16.0),
                               ],
                             ),
                         ],
                       ),
                     ),
-                    if (state.getAlternativePrograms.isNotEmpty)
+                    if (state.data.getAlternativePrograms.isNotEmpty)
                       Padding(
                         padding: const EdgeInsets.only(left: 24),
                         child: SizedBox(
                           height: 220,
                           child: ProgramCarousel(
-                            programs: state.getAlternativePrograms.toList(),
+                            programs: state.data.getAlternativePrograms.toList(),
                           ),
                         ),
                       ),

@@ -13,33 +13,6 @@ class PhysicalProgramsState with _$PhysicalProgramsState {
   const factory PhysicalProgramsState.programUpdated(PhysicalProgramsData data) = ProgramUpdated;
 
   const PhysicalProgramsState._();
-
-  List<PhysicalProgram> get getAlternativePrograms {
-    return maybeWhen(
-        orElse: () => [],
-        programLoaded: (state) {
-          var neededProgram = state.allPrograms.toList();
-          for (var elem in getSelectedPrograms) {
-            neededProgram.remove(elem);
-          }
-          return neededProgram;
-        });
-  }
-
-  List<PhysicalProgram> get getSelectedPrograms {
-    return maybeWhen(
-        orElse: () => [],
-        programLoaded: (state) {
-          return state.allPrograms
-              .where(
-                (element) =>
-                    element.type == state.programType &&
-                    element.place == state.programPlace &&
-                    element.difficulty == state.programDifficulty,
-              )
-              .toList();
-        });
-  }
 }
 
 @freezed
@@ -55,4 +28,25 @@ class PhysicalProgramsData with _$PhysicalProgramsData {
     @Default(false) bool isLoading,
     RequestError? error,
   }) = _PhysicalProgramsData;
+
+  List<PhysicalProgram> get getAlternativePrograms {
+    var neededProgram = allPrograms.toList();
+
+    for (var elem in getSelectedPrograms) {
+      neededProgram.remove(elem);
+    }
+
+    return neededProgram;
+  }
+
+  List<PhysicalProgram> get getSelectedPrograms {
+    return allPrograms
+        .where(
+          (element) =>
+              element.type == programType &&
+              element.place == programPlace &&
+              element.difficulty == programDifficulty,
+        )
+        .toList();
+  }
 }
