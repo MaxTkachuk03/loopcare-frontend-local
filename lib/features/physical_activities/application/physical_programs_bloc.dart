@@ -25,65 +25,34 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
 
   PhysicalProgramsBloc(this._physicalActivitiesService)
       : super(const PhysicalProgramsState.initial(PhysicalProgramsData())) {
-    on<_GetProgramsByPreferences>(_onGetProgramsByPreferences);
     on<_CreateCustomActivity>(_onCreateCustomActivity);
     on<_SetProgramType>(_onSetProgramType);
     on<_SetCurrentProgram>(_onSetCurrentProgram);
     on<_SetProgramPlace>(_onSetProgramPlace);
     on<_SetProgramDifficulty>(_onSetProgramDifficulty);
     on<_LogAssessment>(_onLogAssessment);
+    on<_GetAllPrograms>(_onGetAllPrograms);
   }
 
-  FutureOr<void> _onGetProgramsByPreferences(
-    _GetProgramsByPreferences event,
+  FutureOr<void> _onGetAllPrograms(
+    _GetAllPrograms event,
     Emitter<PhysicalProgramsState> emit,
   ) async {
     emit(PhysicalProgramsState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _physicalActivitiesService.getProgramsByPreferences(
-      programType: state.data.programType.name,
-      programPlace: state.data.programPlace.name,
-      programDifficulty: state.data.programDifficulty.name,
-    );
-
-    var allPrograms = await _combinedProgram();
-
-    response.fold(
-      (l) => emit(PhysicalProgramsState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) {
-        var alternativePrograms = _diffList(allPrograms, r.data);
-        emit(
-          PhysicalProgramsState.programLoaded(
-            state.data.copyWith(
-              programs: r.data,
-              isLoading: false,
-              alternativePrograms: alternativePrograms,
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  List<PhysicalProgramBasic> _diffList(List<PhysicalProgramBasic> first, List<PhysicalProgramBasic> second) {
-    for (var elem in second) {
-      first.remove(elem);
-    }
-
-    return first;
-  }
-
-  Future<List<PhysicalProgramBasic>> _combinedProgram() async {
-    List<PhysicalProgramBasic> retList = [];
-
     final response = await _physicalActivitiesService.getProgramsByPreferences();
 
     response.fold(
-      (l) => null,
-      (r) => retList.addAll(r.data),
+      (l) => emit(PhysicalProgramsState.error(state.data.copyWith(error: l, isLoading: false))),
+      (r) => emit(
+        PhysicalProgramsState.programLoaded(
+          state.data.copyWith(
+            allPrograms: r.data,
+            isLoading: false,
+          ),
+        ),
+      ),
     );
-
-    return retList;
   }
 
   FutureOr<void> _onCreateCustomActivity(
@@ -104,7 +73,7 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
 
   FutureOr<void> _onSetProgramType(_SetProgramType event, Emitter<PhysicalProgramsState> emit) {
     emit(
-      PhysicalProgramsState.programFilterSet(
+      PhysicalProgramsState.programLoaded(
         state.data.copyWith(programType: event.programType),
       ),
     );
@@ -112,7 +81,7 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
 
   FutureOr<void> _onSetProgramPlace(_SetProgramPlace event, Emitter<PhysicalProgramsState> emit) {
     emit(
-      PhysicalProgramsState.programFilterSet(
+      PhysicalProgramsState.programLoaded(
         state.data.copyWith(programPlace: event.programPlace),
       ),
     );
@@ -120,7 +89,7 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
 
   FutureOr<void> _onSetProgramDifficulty(_SetProgramDifficulty event, Emitter<PhysicalProgramsState> emit) {
     emit(
-      PhysicalProgramsState.programFilterSet(
+      PhysicalProgramsState.programLoaded(
         state.data.copyWith(programDifficulty: event.programDifficulty),
       ),
     );

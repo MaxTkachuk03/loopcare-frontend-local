@@ -15,6 +15,8 @@ class ProgramTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<PhysicalProgramsBloc>().add(const PhysicalProgramsEvent.getAllPrograms());
+
     return ScrollableContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,13 +26,9 @@ class ProgramTab extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
               ProgramTypeQuestion(),
-              SizedBox(
-                height: 24.0,
-              ),
+              SizedBox(height: 24.0),
               ProgramPlaceQuestion(),
-              SizedBox(
-                height: 24.0,
-              ),
+              SizedBox(height: 24.0),
               ProgramDifficultyQuestion()
             ],
           ),
@@ -40,9 +38,7 @@ class ProgramTab extends StatelessWidget {
                 onPressed: () => _onNextPressed(context),
                 child: const Text(LocalizedTexts.next).tr(),
               ),
-              const SizedBox(
-                height: 54.0,
-              ),
+              const SizedBox(height: 54.0),
             ],
           ),
         ],
@@ -51,8 +47,6 @@ class ProgramTab extends StatelessWidget {
   }
 
   void _onNextPressed(BuildContext context) {
-    context
-      ..read<PhysicalProgramsBloc>().add(const PhysicalProgramsEvent.getProgramsByPreferences())
-      ..router.pushNamed(AppRoutes.chooseProgram);
+    context.router.pushNamed(AppRoutes.chooseProgram);
   }
 }
