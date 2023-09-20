@@ -262,12 +262,14 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
       var remoteUserListJson = jsonDecode(data['remoteUsers']) as List;
 
-      setState(() {
-        _sessionParticipants = [
-          mySelf!,
-          ...remoteUserListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson)).toList()
-        ];
-      });
+      if (context.mounted) {
+        setState(() {
+          _sessionParticipants = [
+            mySelf!,
+            ...remoteUserListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson)).toList()
+          ];
+        });
+      }
     });
 
     _userActiveAudioChangedListener = emitter.on(EventType.onUserActiveAudioChanged, (Map data) async {
