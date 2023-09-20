@@ -38,6 +38,12 @@ class PhysicalProgram with _$PhysicalProgram {
 
   int get duration => maybeMap(basic: (s) => s.duration, orElse: () => 0);
 
+  ProgramType? get type => mapOrNull(basic: (s) => s.type);
+
+  ProgramDifficulty? get difficulty => mapOrNull(basic: (s) => s.difficulty);
+
+  ProgramPlace? get place => mapOrNull(basic: (s) => s.place);
+
   String get typeName => maybeMap(basic: (s) => s.type.name, orElse: () => '');
 
   String get difficultyName => maybeMap(basic: (s) => s.difficulty.name, orElse: () => '');

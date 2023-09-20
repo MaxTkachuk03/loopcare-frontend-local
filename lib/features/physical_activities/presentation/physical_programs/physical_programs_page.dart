@@ -26,9 +26,8 @@ class PhysicalProgramsPage extends StatelessWidget {
 
             return ErrorScreen(
               error: error,
-              onButtonPressed: () => context
-                  .read<PhysicalProgramsBloc>()
-                  .add(const PhysicalProgramsEvent.getProgramsByPreferences()),
+              onButtonPressed: () =>
+                  context.read<PhysicalProgramsBloc>().add(const PhysicalProgramsEvent.getAllPrograms()),
             );
           },
           loading: (_) => Scaffold(
@@ -50,9 +49,7 @@ class PhysicalProgramsPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const SizedBox(
-                            height: 32.0,
-                          ),
+                          const SizedBox(height: 32.0),
                           const Text(
                             LocalizedTexts.chooseYourProgram,
                             style: TextStyle(
@@ -61,40 +58,34 @@ class PhysicalProgramsPage extends StatelessWidget {
                               fontWeight: FontWeight.w700,
                             ),
                           ).tr(),
-                          if (state.data.programs.isNotEmpty)
+                          if (state.data.getSelectedPrograms.isNotEmpty)
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const SizedBox(
-                                  height: 24.0,
-                                ),
+                                const SizedBox(height: 24.0),
                                 Text(LocalizedTexts.recommended.toUpperCase()).tr(),
-                                const SizedBox(
-                                  height: 16.0,
-                                ),
+                                const SizedBox(height: 16.0),
                                 ProgramCard(
-                                  program: state.data.programs.first,
+                                  program: state.data.getSelectedPrograms.first,
                                   size: const ProgramCardSize.large(),
                                 ),
-                                const SizedBox(
-                                  height: 16.0,
-                                ),
-                                const Text(LocalizedTexts.alternatives).tr(),
-                                const SizedBox(
-                                  height: 16.0,
-                                ),
+                                const SizedBox(height: 16.0),
+                                if (state.data.getAlternativePrograms.isNotEmpty)
+                                  const Text(LocalizedTexts.alternatives).tr(),
+                                if (state.data.getAlternativePrograms.isNotEmpty)
+                                  const SizedBox(height: 16.0),
                               ],
                             ),
                         ],
                       ),
                     ),
-                    if (state.data.programs.isNotEmpty)
+                    if (state.data.getAlternativePrograms.isNotEmpty)
                       Padding(
                         padding: const EdgeInsets.only(left: 24),
                         child: SizedBox(
                           height: 220,
                           child: ProgramCarousel(
-                            programs: state.data.programs.skip(1).toList(),
+                            programs: state.data.getAlternativePrograms.toList(),
                           ),
                         ),
                       ),

@@ -2,7 +2,7 @@ part of 'physical_programs_bloc.dart';
 
 @freezed
 class PhysicalProgramsEvent with _$PhysicalProgramsEvent {
-  const factory PhysicalProgramsEvent.getProgramsByPreferences() = _GetProgramsByPreferences;
+  const factory PhysicalProgramsEvent.getAllPrograms() = _GetAllPrograms;
 
   const factory PhysicalProgramsEvent.createCustomActivity(String name) = _CreateCustomActivity;
 

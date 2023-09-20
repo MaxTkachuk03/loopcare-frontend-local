@@ -34,7 +34,9 @@ class ProgramPlaceQuestion extends StatelessWidget {
                           value: e,
                           padding: const EdgeInsets.all(0),
                           labelWidth: 96,
-                          onSelected: (ProgramPlace value) => _onSelected(context, value),
+                          onSelected: (ProgramPlace value) =>
+                              e.isAvailable ? _onSelected(context, value) : null,
+                          available: e.isAvailable,
                         ),
                         const SizedBox(
                           width: 8.0,

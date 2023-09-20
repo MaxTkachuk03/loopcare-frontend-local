@@ -9,9 +9,9 @@ import 'package:loopcare_frontend/features/physical_activities/application/physi
 
 abstract class PhysicalActivitiesService {
   Future<Either<RequestError, ProgramListResponse>> getProgramsByPreferences({
-    required String programType,
-    required String programPlace,
-    required String programDifficulty,
+    String? programType,
+    String? programPlace,
+    String? programDifficulty,
   });
 
   Future<Either<RequestError, ProgramListResponse>> getProgramsByDate({
