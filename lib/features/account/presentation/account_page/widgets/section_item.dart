@@ -17,35 +17,39 @@ class SectionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                title,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ).tr(),
-              if (subTitle != null)
-                Text(subTitle ?? '',
-                    style: const TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.greyLabel,
-                    )).tr(),
-            ],
+    return InkWell(
+      onTap: onPressHandler,
+      highlightColor: AppColors.greyLight.withOpacity(0.5),
+      borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ).tr(),
+                if (subTitle != null)
+                  Text(subTitle ?? '',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontSize: ThemeConstants.fontSize14,
+                            fontFamily: ThemeConstants.openSansFontFamily,
+                            color: AppColors.greyLabel,
+                          )).tr(),
+              ],
+            ),
           ),
-        ),
-        IconButton(
-          onPressed: onPressHandler,
-          icon: const ImageIcon(
-            AppIcons.arrow,
-            color: AppColors.greyLabel,
+          IconButton(
+            icon: const ImageIcon(
+              AppIcons.arrow,
+              color: AppColors.greyLabel,
+            ), onPressed: () {  },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

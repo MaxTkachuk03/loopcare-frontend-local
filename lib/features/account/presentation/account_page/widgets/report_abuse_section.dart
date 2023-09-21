@@ -11,16 +11,12 @@ class ReportAbuseSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
+    return AccountContainer(
+      child:  SectionItem(title: LocalizedTexts.reportAbuse,
+        onPressHandler: () {
         context.read<ReportAbuseBloc>().add(const ReportAbuseEvent.init());
         ModalBottomSheet.reportAbuse(context: context);
-      },
-      child: AccountContainer(
-        child: Column(children: [
-          SectionItem(title: LocalizedTexts.reportAbuse, onPressHandler: () {}),
-        ]),
-      ),
+      },),
     );
   }
 }
