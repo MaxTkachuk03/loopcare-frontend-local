@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/sounds/app_sounds.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 
@@ -33,7 +34,7 @@ class _PromptsContainerState extends State<PromptsContainer> {
     if (oldWidget.text == widget.text) return;
     _text = widget.text;
 
-    player.play(AssetSource('audio/sound.wav'));
+    player.play(AssetSource(AppSounds.prompt));
 
     super.didUpdateWidget(oldWidget);
   }
