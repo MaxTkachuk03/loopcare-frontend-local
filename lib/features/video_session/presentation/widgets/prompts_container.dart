@@ -34,7 +34,7 @@ class _PromptsContainerState extends State<PromptsContainer> {
     if (oldWidget.text == widget.text) return;
     _text = widget.text;
 
-    player.play(AssetSource(AppSounds.prompt));
+    player.play(AssetSource(AppSounds.plop));
 
     super.didUpdateWidget(oldWidget);
   }

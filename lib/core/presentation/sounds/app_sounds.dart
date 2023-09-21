@@ -1,11 +1,9 @@
 class AppSounds {
   static const String _soundsFilePath = 'audio';
 
-  static const String sessionCallPrompt = '$_soundsFilePath/prompts.m4a';
+  static const String plop = '$_soundsFilePath/plop.mp3';
 
-  static const String sessionCheckIn = '$_soundsFilePath/checkin.m4a';
-
-  static const String prompt = '$_soundsFilePath/sound.wav';
+  static const String bell = '$_soundsFilePath/bell.mp3';
 
   AppSounds._();
 }
