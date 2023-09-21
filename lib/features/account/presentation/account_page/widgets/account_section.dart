@@ -55,8 +55,7 @@ class _AccountSectionState extends State<AccountSection> {
           const SectionTitle(title: LocalizedTexts.account),
           BlocBuilder<AuthenticationCubit, AuthenticationState>(
             builder: (BuildContext context, state) {
-              return SectionItem(
-                  title: LocalizedTexts.username, subTitle: state.email, onPressHandler: () {});
+              return SectionItem(title: LocalizedTexts.username, subTitle: state.email, onPressHandler: () {});
             },
           ),
           const SizedBox(height: 16.0),

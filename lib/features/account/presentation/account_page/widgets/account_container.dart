@@ -8,20 +8,17 @@ class AccountContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(24.0),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: const BorderRadius.all(Radius.circular(12)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.black.withOpacity(0.1),
-            blurRadius: 3,
-            offset: const Offset(0, 2),
-          ),
-        ],
+    return Card(
+      color: AppColors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+
       ),
-      child: child,
+      elevation: 3,
+      child: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: child,
+      ),
     );
   }
 }
