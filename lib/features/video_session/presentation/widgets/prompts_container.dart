@@ -1,5 +1,4 @@
 import 'package:just_audio/just_audio.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/sounds/app_sounds.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -53,9 +52,8 @@ class _PromptsContainerState extends State<PromptsContainer> {
         child: Center(
           child: AnimatedSwitcher(
             duration: PromptsContainer._animationDuration,
-            child: AutoSizeText(
+            child: Text(
               _text,
-              key: ValueKey<String>(widget.text),
               style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600, color: AppColors.darkGreen),
               textAlign: TextAlign.center,
             ),

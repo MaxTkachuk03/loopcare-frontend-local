@@ -1,0 +1,1 @@
+enum GroupSessionEventType { TEXT, VIDEO }

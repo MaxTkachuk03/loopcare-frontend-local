@@ -20,7 +20,7 @@ class UserGridItem extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            border: Border.all(width: 2.5, color: AppColors.orange),
+            border: Border.all(width: 2.5, color: isTalking ? AppColors.orange : Colors.transparent),
             color: AppColors.black,
           ),
           child: ClipRect(

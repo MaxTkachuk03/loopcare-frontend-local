@@ -144,21 +144,19 @@ class TopicsData with _$TopicsData {
     return startTime.difference(DateTime.now());
   }
 
-  // TODO move to enum
   List<GroupSessionProgramEvent> get textEvents {
     final events = thisWeekTopicsEvents;
 
     if (events.isEmpty) return [];
 
-    return events.where((event) => event.event == 'TEXT').toList();
+    return events.where((event) => event.event == GroupSessionEventType.TEXT.name).toList();
   }
 
-  // TODO move to enum
   List<GroupSessionProgramEvent> get videoEvents {
     final events = thisWeekTopicsEvents;
 
     if (events.isEmpty) return [];
 
-    return events.where((event) => event.event == 'VIDEO').toList();
+    return events.where((event) => event.event == GroupSessionEventType.VIDEO.name).toList();
   }
 }
