@@ -1,4 +1,4 @@
-import 'package:audioplayers/audioplayers.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/sounds/app_sounds.dart';
@@ -24,6 +24,8 @@ class _PromptsContainerState extends State<PromptsContainer> {
   @override
   void initState() {
     super.initState();
+
+    player.setAsset(AppSounds.plop);
     player.setVolume(1.0);
 
     _text = widget.text;
@@ -34,7 +36,8 @@ class _PromptsContainerState extends State<PromptsContainer> {
     if (oldWidget.text == widget.text) return;
     _text = widget.text;
 
-    player.play(AssetSource(AppSounds.plop));
+    player.play();
+    player.seek(const Duration(milliseconds: 0));
 
     super.didUpdateWidget(oldWidget);
   }

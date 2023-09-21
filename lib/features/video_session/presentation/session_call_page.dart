@@ -75,7 +75,6 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   Timer? _timer;
   Timer? _inactivityTimer;
 
-  int _sessionStart = 0;
   bool _isVideoPlaying = false;
 
   @override
@@ -186,7 +185,11 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     if (_timer != null) _timer?.cancel();
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      context.read<SessionCallBloc>().add(SessionCallEvent.setTimerValue(_sessionStart++));
+      context.read<SessionCallBloc>().add(
+            SessionCallEvent.setTimerValue(
+              context.read<TopicsBloc>().state.data.timePassedSinceSessionStart.inSeconds,
+            ),
+          );
     });
   }
 
@@ -197,8 +200,6 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
     _sessionJoinListener = emitter.on(EventType.onSessionJoin, (sessionUser) async {
       isInSession = true;
-
-      _sessionStart = context.read<TopicsBloc>().state.data.timePassedSinceSessionStart.inSeconds;
 
       _startTimer();
 

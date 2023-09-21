@@ -5,7 +5,6 @@ description: A new Flutter project.
 environment: 
   sdk: '>=2.18.4 <3.0.0'
 dependencies: 
-  audioplayers: 4.0.1
   auto_route: ^5.0.4
   auto_size_text: ^3.0.0
   bloc_concurrency: ^0.2.2

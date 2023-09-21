@@ -17,7 +17,7 @@ class ZoomConfig {
   static const Map<String, bool> sdkAudioOptions = {
     "connect": true,
     "mute": false,
-    "autoAdjustSpeakerVolume": false
+    "autoAdjustSpeakerVolume": true
   };
   static const Map<String, bool> sdkVideoOptions = {"localVideoOn": true};
 

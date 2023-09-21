@@ -1,5 +1,5 @@
 class AppSounds {
-  static const String _soundsFilePath = 'audio';
+  static const String _soundsFilePath = 'assets/audio';
 
   static const String plop = '$_soundsFilePath/plop.mp3';
 

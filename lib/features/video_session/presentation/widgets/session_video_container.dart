@@ -82,6 +82,14 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
   }
 
   void _initVideoController(String videoLink) {
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.sessionVideoPlayerInitStart,
+      {
+        'userId': userId,
+        "session_current_time": widget.sessionTimer,
+      },
+    );
+
     final headers = context.read<VideoPlayerBloc>().state.data.videoHttpHeaders;
     _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(videoLink),
         httpHeaders: headers, videoPlayerOptions: VideoPlayerOptions(allowBackgroundPlayback: true))
@@ -94,6 +102,15 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
         _videoPlayerController
           ?..seekTo(Duration(seconds: startPosition))
           ..play();
+
+        MixpanelEventService.instance.track(
+          AppMixpanelEvents.sessionVideoPlayerInitFinished,
+          {
+            'userId': userId,
+            "session_current_time": widget.sessionTimer,
+            "video_start_position": startPosition,
+          },
+        );
       }).whenComplete(() {
         setState(() {
           _videoIsPlaying = true;
