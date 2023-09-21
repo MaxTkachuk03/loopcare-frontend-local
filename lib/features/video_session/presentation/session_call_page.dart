@@ -331,10 +331,9 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
       log('_networkStatusChangeListener - $networkUser ${data['status']}', name: 'zoomSessionLog');
 
-      // TODO handle network status change
-      // if (data['status'] == NetworkStatus.Bad) {
-      //
-      // }
+      if (data['status'] == NetworkStatus.Bad) {
+        showAppSnackBar(context: context, text: LocalizedTexts.badConnectionMessage.tr());
+      }
     });
 
     _requireSystemPermission = emitter.on(EventType.onRequireSystemPermission, (Map data) async {

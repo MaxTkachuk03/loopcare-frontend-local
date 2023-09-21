@@ -661,6 +661,7 @@ class LocalizedTexts {
   static const String sessionStartsMoreThanFifteenMinutesAgo = "sessionStartsMoreThanFifteenMinutesAgo";
   static const String sessionAlreadyEnded = "sessionAlreadyEnded";
   static const String duration = "duration";
+  static const String badConnectionMessage = "badConnectionMessage";
 
   // Mental Health
   static const String yourMentalHealth = "yourMentalHealth";
