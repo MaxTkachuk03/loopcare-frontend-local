@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
+import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
+import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 
 class EducationCountDown extends StatefulWidget {
   final int seconds;
@@ -15,6 +17,7 @@ class EducationCountDown extends StatefulWidget {
 class _EducationCountDownState extends State<EducationCountDown> {
   Timer? _timer;
   int _remainingTimeInSeconds = 0;
+  int counterPeriodInSeconds = 60;
 
   @override
   void initState() {
@@ -34,30 +37,27 @@ class _EducationCountDownState extends State<EducationCountDown> {
 
   @override
   Widget build(BuildContext context) {
-    final hours = _remainingTimeInSeconds ~/ 3600;
-    final minutes = (((_remainingTimeInSeconds - hours * 3600)) / 60).ceil();
-    final hoursOutput = hours != 0 ? '${hours}hrs' : '';
-    final minutesOutput = minutes != 0 ? '${minutes}m' : '';
-
-    if (hours <= 0 && minutes <= 0) return const SizedBox.shrink();
-
-    return Text('$hoursOutput $minutesOutput');
+    return Text(
+      formatFullDuration(_remainingTimeInSeconds, withSeconds: false),
+      style: Theme.of(context).textTheme.bodySmall,
+    );
   }
 
   void _startTimer() {
     _timer = Timer.periodic(
-      const Duration(minutes: 1),
+      Duration(seconds: counterPeriodInSeconds),
       (timer) {
         setState(
           () {
-            final newRemainingTime = _remainingTimeInSeconds - 60;
+            final newRemainingTime = _remainingTimeInSeconds - counterPeriodInSeconds;
 
             if (newRemainingTime > 0) {
-              _remainingTimeInSeconds -= 60;
+              _remainingTimeInSeconds -= counterPeriodInSeconds;
             } else {
               context
-                  .read<EducationProgramBloc>()
-                  .add(const EducationProgramEvent.resetLessonWithCountdown());
+                ..read<EducationProgramBloc>().add(const EducationProgramEvent.resetLessonWithCountdown())
+                ..read<EducationProgramBloc>()
+                    .add(const EducationProgramEvent.getLessons(LessonCategory.all));
               _timer?.cancel();
             }
           },
