@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details
 class Summary extends StatelessWidget {
   const Summary({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RecipeDetailsBloc, RecipeDetailsState>(

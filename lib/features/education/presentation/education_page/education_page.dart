@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
@@ -129,6 +130,7 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
 
   void _onTabsChanged() {
     final currentTab = LessonCategory.values[_tabController.index];
+    AnalyticsEventService.instance.logEvent('education_screen_${currentTab.label.toLowerCase()}');
 
     if (currentTab == LessonCategory.all) {
       _jumpToLessonsList();

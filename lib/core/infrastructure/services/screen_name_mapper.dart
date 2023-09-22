@@ -3,7 +3,7 @@ final screenNames = {
   'EducationRoute': 'Education Screen', // added
   'DashboardRoute': 'Calendar Screen', // added
   'AccountRoute': 'User profile Screen', // added
-  'LogWeightRoute': 'Today' 's weight Screen', //added
+  'LogWeightRoute': 'Today\'s weight Screen', //added
   'SelectFoodRoute': 'Select Food Screen', // added
   'BarcodeScannerRoute': 'Barcode Scanner ',
   'SearchRoute': 'Search Screen', // added

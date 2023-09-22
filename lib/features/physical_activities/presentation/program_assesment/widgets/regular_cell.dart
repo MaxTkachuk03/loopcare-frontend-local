@@ -17,9 +17,6 @@ class RegularCell extends StatelessWidget {
       onTap: () => onPress(index),
       child: Container(
         height: 56,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10.0,
-        ),
         decoration: BoxDecoration(
           color: AppColors.bgGreen,
           border: _getBorders(index),
@@ -28,6 +25,7 @@ class RegularCell extends StatelessWidget {
           child: Text(
             '$index',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
           ),

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -13,8 +14,25 @@ import 'package:loopcare_frontend/features/account/presentation/food_preferences
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
-class FoodPreferencesPage extends StatelessWidget {
+class FoodPreferencesPage extends StatefulWidget {
   const FoodPreferencesPage({Key? key}) : super(key: key);
+
+  @override
+  State<FoodPreferencesPage> createState() => _FoodPreferencesPageState();
+}
+
+class _FoodPreferencesPageState extends State<FoodPreferencesPage> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final state = context.read<YouAndFoodBloc>().state;
+    AnalyticsEventService.instance.logFoodPreferencesEvent(
+      'food_preferences_screen',
+      state.selectedHatesNames,
+      state.selectedAllergicNames,
+      state.selectedDislikesNames,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +63,8 @@ class FoodPreferencesPage extends StatelessWidget {
                         SectionItem(
                           title: LocalizedTexts.iDoNotEatOrDrink,
                           options: state.selectedHatesNames,
-                          onPressHandler: () => context.router.push(
-                              EditFoodPreferencesRoute(mode: const EditFoodPreferencesPageMode.hates())),
+                          onPressHandler: () => context.router
+                              .push(EditFoodPreferencesRoute(mode: const EditFoodPreferencesPageMode.hates())),
                         ),
                         const SizedBox(height: 16.0),
                         const Divider(height: 1.0, color: AppColors.yellowLight),
@@ -54,8 +72,8 @@ class FoodPreferencesPage extends StatelessWidget {
                         SectionItem(
                           title: LocalizedTexts.iAmAllergicTo,
                           options: state.selectedAllergicNames,
-                          onPressHandler: () => context.router.push(
-                              EditFoodPreferencesRoute(mode: const EditFoodPreferencesPageMode.allergies())),
+                          onPressHandler: () => context.router
+                              .push(EditFoodPreferencesRoute(mode: const EditFoodPreferencesPageMode.allergies())),
                         ),
                         const SizedBox(height: 16.0),
                         const Divider(height: 1.0, color: AppColors.yellowLight),
@@ -63,8 +81,8 @@ class FoodPreferencesPage extends StatelessWidget {
                         SectionItem(
                           title: LocalizedTexts.iDoNotLike,
                           options: state.selectedDislikesNames,
-                          onPressHandler: () => context.router.push(
-                              EditFoodPreferencesRoute(mode: const EditFoodPreferencesPageMode.dislikes())),
+                          onPressHandler: () => context.router
+                              .push(EditFoodPreferencesRoute(mode: const EditFoodPreferencesPageMode.dislikes())),
                         ),
                       ],
                     ),

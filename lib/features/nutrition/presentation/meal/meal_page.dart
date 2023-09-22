@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
@@ -42,10 +43,9 @@ class _MealPageState extends State<MealPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory =
-        DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
-            ? state.currentMealCategory
-            : MealCategory.breakfast.originalValue;
+    final mealCategory = DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
+        ? state.currentMealCategory
+        : MealCategory.breakfast.originalValue;
 
     final mealId = state.getCurrentMealId;
 
@@ -89,6 +89,8 @@ class _MealPageState extends State<MealPage> {
     final date = state.getCurrentDate.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
         ? state.getCurrentDate.shortDate
         : 'today';
+
+    AnalyticsEventService.instance.logEvent('meal_screen_type_$currentMealCategory');
 
     return '${currentMealCategory.capitalizeOnlyFirstLetter()}${state.isPlanningMeals ? '' : ' ${LocalizedTexts.logList.translation}'} $date';
   }
@@ -155,7 +157,8 @@ class _MealPageState extends State<MealPage> {
                             calorieDensity: state.currentMealCalorieDensity,
                           ),
                           const SizedBox(height: 26.0),
-                          MainContainer(
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 19),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [

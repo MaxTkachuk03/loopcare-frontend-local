@@ -30,19 +30,13 @@ class NutritionInstructionsPage extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: ScrollableContainer(
-          child: MainContainer(
-            child: Column(
-              children: [
-                NutritionTabs(
-                  initialIndex: tabIndex,
-                  tabBarViewChildren: [
-                    CalorieDensity(value: calorieDensity),
-                    ProteinDegree(value: proteinDegree),
-                  ],
-                ),
-              ],
-            ),
+        child: MainContainer(
+          child: NutritionTabs(
+            initialIndex: tabIndex,
+            tabBarViewChildren: [
+              CalorieDensity(value: calorieDensity),
+              ProteinDegree(value: proteinDegree),
+            ],
           ),
         ),
       ),

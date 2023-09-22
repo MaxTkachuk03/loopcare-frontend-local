@@ -24,10 +24,10 @@ class ProgramDifficultyQuestion extends StatelessWidget {
         BlocBuilder<PhysicalProgramsBloc, PhysicalProgramsState>(
           builder: (context, state) {
             return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: ProgramDifficulty.values
                   .map(
-                    (e) => Row(
-                      children: [
+                    (e) =>
                         AppChoiceChip(
                           label: e.label,
                           selected: state.data.programDifficulty == e,
@@ -38,11 +38,7 @@ class ProgramDifficultyQuestion extends StatelessWidget {
                               e.isAvailable ? _onSelected(context, value) : null,
                           available: e.isAvailable,
                         ),
-                        const SizedBox(
-                          width: 8.0,
-                        )
-                      ],
-                    ),
+
                   )
                   .toList(),
             );

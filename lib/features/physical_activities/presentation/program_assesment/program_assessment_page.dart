@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -146,8 +147,7 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24.0),
                     child: ElevatedButton(
-                      onPressed:
-                          assessmentLike != null && assessmentScore != null ? () => logAssessment() : null,
+                      onPressed: assessmentLike != null && assessmentScore != null ? () => logAssessment() : null,
                       style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
                         backgroundColor: MaterialStateProperty.resolveWith<Color?>(
                           (Set<MaterialState> states) {
@@ -192,6 +192,8 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
     final assessmentLikeValue = assessmentLike;
     if (assessmentScoreValue == null || assessmentLikeValue == null) return;
 
+    AnalyticsEventService.instance
+        .logProgramAssessmentEvent('program_assessment_screen', assessmentScore! , '${assessmentLike!}');
     context.read<PhysicalProgramsBloc>().add(
           PhysicalProgramsEvent.logAssessment(
             assessmentScoreValue,
