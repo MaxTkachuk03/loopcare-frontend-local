@@ -51,7 +51,7 @@ extension DateTimeExtension on DateTime {
     final lasdDecember = DateTime(now.year, 12, 31);
     var nowWeekNumber = weeksBetween(firstJan, now);
     var lastWeekNumber = weeksBetween(firstJan, lasdDecember);
-    return nowWeekNumber != lastWeekNumber ? nowWeekNumber : 1;
+    return nowWeekNumber != lastWeekNumber ? nowWeekNumber + 1 : 1;
   }
 
   int get weekNumber {
@@ -72,9 +72,25 @@ extension DateTimeExtension on DateTime {
     return DateTime(date.year, date.month, date.day);
   }
 
+  bool get isLastDayOfWeek {
+    return isSameDate(lastDayOfCurrentWeek);
+  }
+
   get lastDayOfCurrentWeek {
     final date = add(Duration(days: DateTime.daysPerWeek - weekday));
 
+    return DateTime(date.year, date.month, date.day, 23, 59, 59);
+  }
+
+  get firstDayOfNextWeek {
+    final date = add(Duration(days: DateTime.daysPerWeek + weekday - 1));
+
     return DateTime(date.year, date.month, date.day);
+  }
+
+  get lastDayOfNextWeek {
+    final date = add(Duration(days: DateTime.daysPerWeek + DateTime.daysPerWeek - weekday));
+
+    return DateTime(date.year, date.month, date.day, 23, 59, 59);
   }
 }

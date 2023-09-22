@@ -24,13 +24,21 @@ class TopicsData with _$TopicsData {
     RequestError? error,
   }) = _TopicsData;
 
-  Topic? get thisWeekTopic => topics[DateTime.now().weekNumber];
+  Topic? get _thisWeekTopic => topics[DateTime.now().weekNumber];
 
-  List<GroupSessionProgramEvent>? get thisWeekTopicProgram => thisWeekTopic?.groupSessionProgramEvents;
+  Topic? get _nextWeekTopic => topics[DateTime.now().nextWeekNumber];
 
-  String get topicName => topics[DateTime.now().weekNumber]?.topic ?? '';
+  Topic? get weekTopic => DateTime.now().isLastDayOfWeek ? _nextWeekTopic : _thisWeekTopic;
 
-  GroupSession? get signedGroupSession => thisWeekTopic?.groupSessions.firstWhereOrNull((s) => s.signed);
+  List<GroupSessionProgramEvent>? get thisWeekTopicProgram => _thisWeekTopic?.groupSessionProgramEvents;
+
+  String get weekTopicName => DateTime.now().isLastDayOfWeek ? _nextWeekTopicName : _thisWeekTopicName;
+
+  String get _thisWeekTopicName => topics[DateTime.now().weekNumber]?.topic ?? '';
+
+  String get _nextWeekTopicName => topics[DateTime.now().nextWeekNumber]?.topic ?? '';
+
+  GroupSession? get signedGroupSession => weekTopic?.groupSessions.firstWhereOrNull((s) => s.signed);
 
   bool get isSignedInPast {
     if (signedGroupSession != null) {
@@ -47,7 +55,7 @@ class TopicsData with _$TopicsData {
   DateTime? get signedGroupSessionStartTime => signedGroupSession?.startDate.toLocal();
 
   DateTime? get signedGroupSessionsEndTime =>
-      signedGroupSessionStartTime?.add(Duration(seconds: topics[DateTime.now().weekNumber]?.duration ?? 0));
+      signedGroupSessionStartTime?.add(Duration(seconds: weekTopic?.duration ?? 0));
 
   bool get signedGroupSessionsCancelledOrMissed {
     return signedGroupSession?.status == GroupSessionStatus.cancelled;
@@ -76,20 +84,55 @@ class TopicsData with _$TopicsData {
     }
   }
 
-  bool get isGroupsOnThisWeekAvailable {
+  bool get isGroupsOnWeekAvailable {
     if (isSignedInPast) return false;
 
-    int sessionsAvailableOnThisWeek = topics[DateTime.now().weekNumber]
-            ?.groupSessions
-            .where((element) => element.startDate
-                .add(Duration(seconds: topics[DateTime.now().weekNumber]?.duration ?? 0))
-                .toLocal()
-                .isAfter(DateTime.now()))
+    int sessionsAvailableOnThisWeek = weekTopic?.groupSessions
+            .where(
+              (element) =>
+                  element.startDate.add(Duration(seconds: weekTopic?.duration ?? 0)).toLocal().isAfter(
+                        DateTime.now(),
+                      ) &&
+                  element.status == GroupSessionStatus.planned,
+            )
             .toList()
             .length ??
         0;
     return sessionsAvailableOnThisWeek > 0;
   }
+
+  // bool get _isGroupsOnThisWeekAvailable {
+  //   if (isSignedInPast) return false;
+
+  //   int sessionsAvailableOnThisWeek = _thisWeekTopic?.groupSessions
+  //           .where(
+  //             (element) =>
+  //                 element.startDate
+  //                     .add(Duration(seconds: topics[DateTime.now().weekNumber]?.duration ?? 0))
+  //                     .toLocal()
+  //                     .isAfter(
+  //                       DateTime.now(),
+  //                     ) &&
+  //                 element.status == GroupSessionStatus.planned,
+  //           )
+  //           .toList()
+  //           .length ??
+  //       0;
+  //   return sessionsAvailableOnThisWeek > 0;
+  // }
+
+  // bool get _isGroupsOnNextWeekAvailable {
+  //   if (!DateTime.now().isLastDayOfWeek) return false;
+
+  //   int sessionsAvailableOnNextWeek = _nextWeekTopic?.groupSessions
+  //           .where(
+  //             (element) => element.status == GroupSessionStatus.planned,
+  //           )
+  //           .toList()
+  //           .length ??
+  //       0;
+  //   return sessionsAvailableOnNextWeek > 0;
+  // }
 
   bool get isCanJoin =>
       (timeLeftToSessionStart > const Duration(minutes: 0) &&
@@ -100,11 +143,9 @@ class TopicsData with _$TopicsData {
   // TODO move to the GroupSession model
   bool get timeSlotsAvailable {
     var freeSlots = 0;
-    topics[DateTime.now().weekNumber]?.groupSessions.forEach((element) {
+    weekTopic?.groupSessions.forEach((element) {
       if (element.status != GroupSessionStatus.cancelled) {
-        var endTime = element.startDate
-            .add(Duration(seconds: topics[DateTime.now().weekNumber]?.duration ?? 0))
-            .toLocal();
+        var endTime = element.startDate.add(Duration(seconds: weekTopic?.duration ?? 0)).toLocal();
         var isAfterNow = endTime.isAfter(DateTime.now());
         if (isAfterNow) {
           freeSlots += element.maxMemberCount - element.memberCount;
@@ -114,17 +155,13 @@ class TopicsData with _$TopicsData {
     return freeSlots > 0;
   }
 
-  String get thisWeekTopicName => topics[DateTime.now().weekNumber]?.topic ?? '';
-
-  String get nextWeekTopicName => topics[DateTime.now().nextWeekNumber]?.topic ?? '';
-
   String? get signedGroupSessionToken => signedGroupSession?.signature;
 
   String? get signedGroupSessionPassword => signedGroupSession?.password;
 
   int? get signedGroupSessionId => signedGroupSession?.id;
 
-  List<GroupSessionProgramEvent> get thisWeekTopicsEvents => thisWeekTopic?.groupSessionProgramEvents ?? [];
+  List<GroupSessionProgramEvent> get thisWeekTopicsEvents => _thisWeekTopic?.groupSessionProgramEvents ?? [];
 
   // TODO move to the GroupSession model
   Duration get timePassedSinceSessionStart {

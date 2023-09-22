@@ -31,9 +31,7 @@ class GroupedNotSigned extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(
-          height: 8.0,
-        ),
+        const SizedBox(height: 8.0),
         InkWell(
           onTap: () => _onBookSeatPressed(context),
           child: Container(

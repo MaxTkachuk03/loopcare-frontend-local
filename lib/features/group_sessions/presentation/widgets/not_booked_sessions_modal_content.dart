@@ -20,7 +20,7 @@ class NotBookedSessionsModalContent extends StatelessWidget {
         builder: (context, state) {
           if (state.data.isLoading) return const Expanded(child: Loader());
 
-          final topic = state.data.topics[DateTime.now().weekNumber];
+          final topic = state.data.weekTopic;
 
           if (topic == null) return const SizedBox.shrink();
           final groupSessions = topic.groupSessions;
