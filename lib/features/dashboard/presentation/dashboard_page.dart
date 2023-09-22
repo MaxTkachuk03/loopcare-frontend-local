@@ -15,6 +15,8 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/reflec
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/slider_calendar/slider_calendar.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/support_group.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/weight/weight_block.dart';
+import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
+import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
@@ -77,6 +79,8 @@ class _DashboardPageState extends State<DashboardPage> {
     context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
 
     context.read<AuthenticationCubit>().getAccount();
+
+    context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons(LessonCategory.all));
 
     if (context.read<AuthenticationCubit>().state.groupingState == UserGroupingState.grouped) {
       context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());

@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_countdown.dart';
 import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 
 class EducationCard extends StatelessWidget {
@@ -101,21 +103,25 @@ class EducationCard extends StatelessWidget {
                                   ),
                             ),
                             const SizedBox(height: 14.0),
-                            // lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id
-                            //     ? Wrap(
-                            //         children: [
-                            //           const Image(
-                            //             image: AppImages.iconAttention,
-                            //           ),
-                            //           const SizedBox(
-                            //             width: 6.0,
-                            //           ),
-                            //           Text('${LocalizedTexts.availableIn.translation}: '),
-                            //           EducationCountDown(
-                            //             seconds: lessonWithCountdown.timeRemaining,
-                            //           ),
-                            //         ],
-                            //       )
+                            if (lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id)
+                              Wrap(
+                                children: [
+                                  const Image(
+                                    image: AppImages.iconAttention,
+                                    height: 16.0,
+                                  ),
+                                  const SizedBox(width: 6.0),
+                                  Text(
+                                    '${LocalizedTexts.availableIn.translation}: ',
+                                    style: Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                  EducationCountDown(
+                                    seconds: lessonWithCountdown.timeRemaining,
+                                  ),
+                                ],
+                              ),
+                            if (lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id)
+                              const SizedBox(height: 6.0),
                             Row(
                               children: [
                                 if (icon != null)
@@ -127,15 +133,11 @@ class EducationCard extends StatelessWidget {
                                               color: AppColors.darkGreen,
                                             )
                                           : icon,
-                                      const SizedBox(
-                                        width: 8.0,
-                                      ),
+                                      const SizedBox(width: 8.0),
                                     ],
                                   ),
                                 AppIcons.clock,
-                                const SizedBox(
-                                  width: 6.0,
-                                ),
+                                const SizedBox(width: 6.0),
                                 Text(
                                   formatDuration(lesson.duration),
                                   style: Theme.of(context).textTheme.bodySmall,
