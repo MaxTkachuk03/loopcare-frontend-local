@@ -52,7 +52,7 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
 
   @override
   Widget build(BuildContext context) {
-    final sessionTopic = context.read<TopicsBloc>().state.data.topicName;
+    final sessionTopic = context.read<TopicsBloc>().state.data.weekTopicName;
 
     return Scaffold(
       appBar: BlueAppBar(

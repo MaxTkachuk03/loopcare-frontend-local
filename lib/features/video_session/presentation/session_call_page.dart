@@ -135,7 +135,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
   void _joinSession() {
     Future<void>.microtask(() async {
-      final String sessionName = context.read<TopicsBloc>().state.data.thisWeekTopicName;
+      final String sessionName = context.read<TopicsBloc>().state.data.weekTopicName;
       final String? sessionPassword = context.read<TopicsBloc>().state.data.signedGroupSessionPassword;
 
       final String token = context.read<TopicsBloc>().state.data.signedSessionSignature;

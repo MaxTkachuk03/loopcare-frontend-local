@@ -610,7 +610,7 @@ class ModalBottomSheet {
                       ),
                       const SizedBox(height: 16.0),
                       Text(
-                        state.data.topicName,
+                        state.data.weekTopicName,
                         style: const TextStyle(
                           fontSize: ThemeConstants.fontSize24,
                           fontFamily: ThemeConstants.bitterFontFamily,
@@ -618,7 +618,7 @@ class ModalBottomSheet {
                         ),
                       ),
                       const SizedBox(height: 16.0),
-                      state.data.isSigned && state.data.isGroupsOnThisWeekAvailable
+                      state.data.isSigned && state.data.isGroupsOnWeekAvailable
                           ? const BookedSessionModalContent()
                           : const NotBookedSessionsModalContent()
                     ],

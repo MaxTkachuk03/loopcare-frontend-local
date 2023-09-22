@@ -94,9 +94,9 @@ class TopicsBloc extends Bloc<TopicsEvent, TopicsState> {
   Future<void> _fetchTopics(Emitter<TopicsState> emit) async {
     emit(TopicsState.loading(state.data.copyWith(isLoading: true)));
 
-    // TODO will be user as query params for get topics for the current week
+    // TODO will be user as query params for get topics for the current and next weeks
     final firstDayOfTheWeek = DateTime.now().firstDayOfCurrentWeek;
-    final lastDayOfTheWeek = DateTime.now().lastDayOfCurrentWeek;
+    final lastDayOfTheWeek = DateTime.now().lastDayOfNextWeek;
 
     final response = await topicsService.fetchTopics(
       startDate: firstDayOfTheWeek.toUtc().toIso8601String(),

@@ -15,14 +15,14 @@ class PreparationMaterialsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TopicsBloc, TopicsState>(
       builder: (context, state) {
-        final content = state.data.thisWeekTopic?.materials.first.article;
+        final content = state.data.weekTopic?.materials.first.article;
 
         return Scaffold(
           appBar: BlueAppBar(
             leading: const BackButtonHexagon(),
             title: LocalizedTexts.preparation.translation,
             italicSubtitle: false,
-            subtitle: state.data.topicName,
+            subtitle: state.data.weekTopicName,
           ),
           body: SafeArea(
             child: ScrollableContainer(

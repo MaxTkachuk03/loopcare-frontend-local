@@ -33,7 +33,7 @@ class Grouped extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (state.data.isGroupsOnThisWeekAvailable)
+            if (state.data.isGroupsOnWeekAvailable)
               Text(
                 isHappeningNow
                     ? LocalizedTexts.happeningNow.tr().toUpperCase()
@@ -44,16 +44,14 @@ class Grouped extends StatelessWidget {
                 ),
               ),
             const SizedBox(height: 16.0),
-            if (!state.data.timeSlotsAvailable &&
-                !state.data.isSigned &&
-                state.data.isGroupsOnThisWeekAvailable)
+            if (!state.data.timeSlotsAvailable && !state.data.isSigned && state.data.isGroupsOnWeekAvailable)
               const GroupedNoTimeslots(),
             if (state.data.timeSlotsAvailable && !state.data.isSigned)
-              GroupedNotSigned(topicName: state.data.topicName),
-            if (state.data.isSigned && state.data.isGroupsOnThisWeekAvailable)
+              GroupedNotSigned(topicName: state.data.weekTopicName),
+            if (state.data.isSigned && state.data.isGroupsOnWeekAvailable)
               GroupedSigned(
                 signedGroupSessions: state.data.signedGroupSession!,
-                topicName: state.data.topicName,
+                topicName: state.data.weekTopicName,
                 startDate: state.data.signedGroupSessionStartTime ?? DateTime.now(),
                 endDate: state.data.signedGroupSessionsEndTime ?? DateTime.now(),
                 preparationMaterialsAvailable: !state.data.signedGroupSessionsCancelled,
@@ -65,7 +63,7 @@ class Grouped extends StatelessWidget {
                 isHappeningNow: isHappeningNow,
                 isCanJoin: state.data.isCanJoin,
               ),
-            if (!state.data.isGroupsOnThisWeekAvailable) const NoGroup(),
+            if (!state.data.isGroupsOnWeekAvailable) const NoGroup(),
           ],
         );
       },
