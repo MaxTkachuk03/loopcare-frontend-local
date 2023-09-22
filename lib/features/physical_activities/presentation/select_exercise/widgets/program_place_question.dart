@@ -24,24 +24,18 @@ class ProgramPlaceQuestion extends StatelessWidget {
         BlocBuilder<PhysicalProgramsBloc, PhysicalProgramsState>(
           builder: (context, state) {
             return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: ProgramPlace.values
                   .map(
-                    (e) => Row(
-                      children: [
-                        AppChoiceChip(
-                          label: e.label,
-                          selected: state.data.programPlace == e,
-                          value: e,
-                          padding: const EdgeInsets.all(0),
-                          labelWidth: 96,
-                          onSelected: (ProgramPlace value) =>
-                              e.isAvailable ? _onSelected(context, value) : null,
-                          available: e.isAvailable,
-                        ),
-                        const SizedBox(
-                          width: 8.0,
-                        )
-                      ],
+                    (e) =>   AppChoiceChip(
+                      label: e.label,
+                      selected: state.data.programPlace == e,
+                      value: e,
+                      padding: const EdgeInsets.all(0),
+                      labelWidth: 96,
+                      onSelected: (ProgramPlace value) =>
+                      e.isAvailable ? _onSelected(context, value) : null,
+                      available: e.isAvailable,
                     ),
                   )
                   .toList(),

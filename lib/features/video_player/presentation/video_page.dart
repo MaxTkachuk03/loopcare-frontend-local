@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/aws_cookies_type.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -69,13 +70,13 @@ class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
   void _initController(PhysicalProgramExercise exercise) async {
     final headers = context.read<VideoPlayerBloc>().state.data.videoHttpHeaders;
 
-    _videoPlayerController =
-        VideoPlayerController.networkUrl(Uri.parse(exercise.video ?? ''), httpHeaders: headers)
-          ..initialize().then((value) {
-            _videoPlayerController?.play();
-          }).whenComplete(() {
-            setState(() {});
-          });
+    _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(exercise.video ?? ''), httpHeaders: headers)
+      ..initialize().then((value) {
+        _videoPlayerController?.play();
+        AnalyticsEventService.instance.logPhysicalActivityVideoEvent('video_screen', widget.program, exercise);
+      }).whenComplete(() {
+        setState(() {});
+      });
   }
 
   _loadVideoPlayer(PhysicalProgramExercise exercise) {
@@ -231,8 +232,7 @@ class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
                                             onPressed: _onSkipExplanationHandler,
                                             style: ButtonStyle(
                                               minimumSize: MaterialStateProperty.all(const Size(186, 52.0)),
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(AppColors.orangeDark),
+                                              backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
                                             ),
                                             child: const Text(LocalizedTexts.skipExplanation).tr(),
                                           ),

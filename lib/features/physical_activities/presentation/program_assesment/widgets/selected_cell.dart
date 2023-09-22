@@ -13,9 +13,6 @@ class SelectedCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 65,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10.0,
-      ),
       decoration: const BoxDecoration(
         color: AppColors.blueMid,
         borderRadius: BorderRadius.all(

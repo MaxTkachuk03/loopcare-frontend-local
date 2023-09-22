@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -100,6 +101,7 @@ class _LessonPageState extends State<LessonPage> {
           loading: (_) => const Loader(),
           contentLoaded: (s) {
             final currentPage = s.data.currentPage;
+            AnalyticsEventService.instance.logLessonEvent('lesson_screen', widget.lessonId, currentPage);
 
             if (currentPage.type == EducationLessonPageType.text) {
               return LessonTextPage(

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -27,9 +28,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
     if (context.read<EducationLessonBloc>().state.data.isLessonCompleted) {
       return;
     }
-
     context.read<EducationLessonBloc>().add(const EducationLessonEvent.completeLesson());
-
     super.initState();
   }
 
@@ -70,7 +69,12 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                       BlocBuilder<EducationLessonBloc, EducationLessonState>(
                         builder: (context, state) {
                           final lesson = state.data;
-
+                          if (state.data.isLessonCompleted) {
+                            AnalyticsEventService.instance.logLessonCompletedEvent(
+                              'lesson_completed_screen',
+                              context.read<EducationLessonBloc>().state.data.lessonId,
+                            );
+                          }
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [

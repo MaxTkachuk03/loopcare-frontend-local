@@ -22,22 +22,17 @@ class ProgramTypeQuestion extends StatelessWidget {
         BlocBuilder<PhysicalProgramsBloc, PhysicalProgramsState>(
           builder: (context, state) {
             return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: ProgramType.values
                   .map(
-                    (e) => Row(
-                      children: [
-                        AppChoiceChip(
-                          label: e.label,
-                          selected: state.data.programType == e,
-                          value: e,
-                          padding: const EdgeInsets.all(0),
-                          labelWidth: 96,
-                          onSelected: (ProgramType value) =>
-                              e.isAvailable ? _onSelected(context, value) : null,
-                          available: e.isAvailable,
-                        ),
-                        const SizedBox(width: 8.0)
-                      ],
+                    (e) => AppChoiceChip(
+                      label: e.label,
+                      selected: state.data.programType == e,
+                      value: e,
+                      padding: const EdgeInsets.all(0),
+                      labelWidth: 96,
+                      onSelected: (ProgramType value) => e.isAvailable ? _onSelected(context, value) : null,
+                      available: e.isAvailable,
                     ),
                   )
                   .toList(),

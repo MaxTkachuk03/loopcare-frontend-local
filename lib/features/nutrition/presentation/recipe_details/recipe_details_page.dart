@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -50,41 +51,43 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
           recipeInfo: (s) {
             return DefaultTabController(
               length: 3,
-              child: Scaffold(
-                body: NestedScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  headerSliverBuilder:
-                      (BuildContext context, bool innerBoxIsScrolled) {
-                    return <Widget>[
-                      const RecipeDetailsAppBar(),
-                      SliverPersistentHeader(
-                        pinned: true,
-                        delegate: SliverRecipeAppBarDelegate(
-                          TabBar(
-                            tabs: [
-                              Tab(text: LocalizedTexts.summary.translation),
-                              Tab(
-                                  text:
-                                      LocalizedTexts.instructions.translation),
-                              Tab(text: LocalizedTexts.ingredients.translation),
-                            ],
+              child: Builder(builder: (context) {
+                final tabController = DefaultTabController.of(context)!;
+                tabController.addListener(() => _logAnalytics(tabController));
+
+                return Scaffold(
+                  body: NestedScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                      return <Widget>[
+                        const RecipeDetailsAppBar(),
+                        SliverPersistentHeader(
+                          pinned: true,
+                          delegate: SliverRecipeAppBarDelegate(
+                            TabBar(
+                              tabs: [
+                                Tab(text: LocalizedTexts.summary.translation),
+                                Tab(text: LocalizedTexts.instructions.translation),
+                                Tab(text: LocalizedTexts.ingredients.translation),
+                              ],
+                            ),
                           ),
                         ),
+                      ];
+                    },
+                    body: const SafeArea(
+                      top: false,
+                      child: TabBarView(
+                        children: [
+                          Summary(),
+                          Instructions(),
+                          Ingredients(),
+                        ],
                       ),
-                    ];
-                  },
-                  body: const SafeArea(
-                    top: false,
-                    child: TabBarView(
-                      children: [
-                        Summary(),
-                        Instructions(),
-                        Ingredients(),
-                      ],
                     ),
                   ),
-                ),
-              ),
+                );
+              }),
             );
           },
           orElse: () => const Scaffold(
@@ -93,5 +96,19 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
         );
       },
     );
+  }
+
+  void _logAnalytics(TabController tabController) {
+    switch (tabController.index) {
+      case 1:
+        AnalyticsEventService.instance.logEvent('recipe_details_screen_instructions');
+        break;
+      case 2:
+        AnalyticsEventService.instance.logEvent('recipe_details_screen_ingredients');
+        break;
+      default:
+        AnalyticsEventService.instance.logEvent('recipe_details_screen_summary');
+        break;
+    }
   }
 }
