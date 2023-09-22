@@ -44,6 +44,7 @@ class _SessionCountdownState extends State<SessionCountdown> {
 
   @override
   void initState() {
+    requestFilePermissions();
     _updateSessionState();
 
     super.initState();

@@ -31,6 +31,7 @@ class ZoomConfig {
       Permission.microphone,
       Permission.bluetoothConnect,
       Permission.phone,
+      Permission.storage,
     ],
   };
 
