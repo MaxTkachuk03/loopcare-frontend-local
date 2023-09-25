@@ -31,13 +31,17 @@ class SessionVideoContainer extends StatefulWidget {
 }
 
 class _SessionVideoContainerState extends State<SessionVideoContainer> with WidgetsBindingObserver {
-  bool _videoIsPlaying = false;
-  bool _closedVideo = false;
   VideoPlayerController? _videoPlayerController;
   GroupSessionProgramEvent? _currentVideoEvent;
+
+  bool _videoIsPlaying = false;
+  bool _closedVideo = false;
   bool _visibility = false;
+  final List<int> _completedEventsIds = [];
 
   int get userId => context.read<AuthenticationCubit>().state.id;
+
+  bool get _shouldNotUpdate => _videoIsPlaying || _closedVideo;
 
   @override
   void initState() {
@@ -50,7 +54,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
   void didUpdateWidget(covariant SessionVideoContainer oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (_videoIsPlaying || _closedVideo) return;
+    if (_shouldNotUpdate) return;
 
     _checkIfHasVideoForCurrentTime();
   }
@@ -59,7 +63,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
     final List<GroupSessionProgramEvent> videoEvents = context.read<TopicsBloc>().state.data.videoEvents;
     final videoEventForCurrentTime = videoEvents.lastWhereOrNull(
         (e) => e.eventStartTime <= widget.sessionTimer && widget.sessionTimer <= e.eventEndTime);
-    if (videoEventForCurrentTime == null) return;
+    if (videoEventForCurrentTime == null || _completedEventsIds.contains(videoEventForCurrentTime.id)) return;
     setState(() {
       _currentVideoEvent = videoEventForCurrentTime;
     });
@@ -112,6 +116,12 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
           },
         );
       }).whenComplete(() {
+        final currentVideoEvent = _currentVideoEvent;
+
+        if (currentVideoEvent != null) {
+          _completedEventsIds.add(currentVideoEvent.id);
+        }
+
         setState(() {
           _videoIsPlaying = true;
           _visibility = true;
