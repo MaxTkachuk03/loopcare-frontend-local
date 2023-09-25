@@ -59,7 +59,7 @@ class AnalyticsEventService {
     FirebaseAnalytics.instance.logEvent(
       name: eventName,
       parameters: {
-        'lesson_id': lessonId,
+        'lessonId': lessonId,
       },
     );
   }
@@ -68,8 +68,8 @@ class AnalyticsEventService {
     await FirebaseAnalytics.instance.logEvent(
       name: eventName,
       parameters: {
-        'lesson_id': lessonId,
-        'lesson_type': lesson.type.name,
+        'lessonId': lessonId,
+        'lessonType': lesson.type.name,
       },
     );
   }
@@ -78,8 +78,8 @@ class AnalyticsEventService {
     await FirebaseAnalytics.instance.logEvent(
       name: eventName,
       parameters: {
-        'assessment_level': score,
-        'assessment_like': assessmentLike,
+        'assessmentLevel': score,
+        'assessmentLike': assessmentLike,
       },
     );
   }
@@ -88,10 +88,10 @@ class AnalyticsEventService {
     await FirebaseAnalytics.instance.logEvent(
       name: eventName,
       parameters: {
-        'physical_program_id': program.id,
-        'physical_program_name': program.name,
-        'physical_program_duration': program.duration,
-        'physical_program_difficulty': program.difficultyName,
+        'programId': program.id,
+        'programName': program.name,
+        'programDuration': program.duration,
+        'programDifficulty': program.difficultyName,
       },
     );
   }
@@ -101,13 +101,13 @@ class AnalyticsEventService {
     await FirebaseAnalytics.instance.logEvent(
       name: eventName,
       parameters: {
-        'physical_program_id': program.id,
-        'physical_program_name': program.name,
-        'physical_program_duration': program.duration,
-        'physical_program_difficulty': program.difficultyName,
+        'programId': program.id,
+        'programName': program.name,
+        'programDuration': program.duration,
+        'programDifficulty': program.difficultyName,
         'exercise': exercise.name,
-        'exercise_duration': exercise.duration,
-        'exercise_video': exercise.video ?? '',
+        'exerciseDuration': exercise.duration,
+        'exerciseLink': exercise.video ?? '',
       },
     );
   }
