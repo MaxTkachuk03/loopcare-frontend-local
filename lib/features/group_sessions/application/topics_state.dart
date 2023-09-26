@@ -40,6 +40,21 @@ class TopicsData with _$TopicsData {
 
   GroupSession? get signedGroupSession => weekTopic?.groupSessions.firstWhereOrNull((s) => s.signed);
 
+  bool get isHappeningNow {
+    var isHappeningNow = false;
+    if (isSigned) {
+      var sessionStartDate = signedGroupSessionStartTime;
+      var sessionEndDate = signedGroupSessionsEndTime;
+      var nowMoment = DateTime.now();
+      if (sessionStartDate != null && sessionEndDate != null) {
+        if (nowMoment.isAfter(sessionStartDate) && nowMoment.isBefore(sessionEndDate)) {
+          isHappeningNow = true;
+        }
+      }
+    }
+    return isHappeningNow;
+  }
+
   bool get isSignedInPast {
     if (signedGroupSession != null) {
       return DateTime.now().isAfter(signedGroupSessionsEndTime ?? DateTime.now());
@@ -100,39 +115,6 @@ class TopicsData with _$TopicsData {
         0;
     return sessionsAvailableOnThisWeek > 0;
   }
-
-  // bool get _isGroupsOnThisWeekAvailable {
-  //   if (isSignedInPast) return false;
-
-  //   int sessionsAvailableOnThisWeek = _thisWeekTopic?.groupSessions
-  //           .where(
-  //             (element) =>
-  //                 element.startDate
-  //                     .add(Duration(seconds: topics[DateTime.now().weekNumber]?.duration ?? 0))
-  //                     .toLocal()
-  //                     .isAfter(
-  //                       DateTime.now(),
-  //                     ) &&
-  //                 element.status == GroupSessionStatus.planned,
-  //           )
-  //           .toList()
-  //           .length ??
-  //       0;
-  //   return sessionsAvailableOnThisWeek > 0;
-  // }
-
-  // bool get _isGroupsOnNextWeekAvailable {
-  //   if (!DateTime.now().isLastDayOfWeek) return false;
-
-  //   int sessionsAvailableOnNextWeek = _nextWeekTopic?.groupSessions
-  //           .where(
-  //             (element) => element.status == GroupSessionStatus.planned,
-  //           )
-  //           .toList()
-  //           .length ??
-  //       0;
-  //   return sessionsAvailableOnNextWeek > 0;
-  // }
 
   bool get isCanJoin =>
       (timeLeftToSessionStart > const Duration(minutes: 0) &&

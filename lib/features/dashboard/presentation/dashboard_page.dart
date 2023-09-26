@@ -5,7 +5,6 @@ import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/diary/diary.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/education.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/log_meal.dart';
@@ -49,15 +48,23 @@ class _DashboardPageState extends State<DashboardPage> {
         .read<DashboardWeightBloc>()
         .add(DashboardWeightEvent.fetchWeights(_selectedDay.midnightTime.subtract(const Duration(days: 8))));
 
-    context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
-
-    context.read<DashboardEducationBloc>().add(const DashboardEducationEvent.getDashboardLessons());
-
-    if (context.read<AuthenticationCubit>().state.groupingState == UserGroupingState.grouped) {
-      context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
-    }
+    _onRefresh();
 
     super.initState();
+  }
+
+  Future<void> _onRefresh() async {
+    context.read<AuthenticationCubit>().getAccount();
+
+    context
+        .read<DashboardEducationBloc>()
+        .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
+
+    context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
+
+    context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons(LessonCategory.all));
+
+    context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
   }
 
   void _onDaySelected(DateTime day) {
@@ -69,22 +76,6 @@ class _DashboardPageState extends State<DashboardPage> {
           .read<DashboardEducationBloc>()
           .add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
     });
-  }
-
-  Future<void> _onRefresh() async {
-    context
-        .read<DashboardEducationBloc>()
-        .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
-
-    context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
-
-    context.read<AuthenticationCubit>().getAccount();
-
-    context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons(LessonCategory.all));
-
-    if (context.read<AuthenticationCubit>().state.groupingState == UserGroupingState.grouped) {
-      context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
-    }
   }
 
   @override
