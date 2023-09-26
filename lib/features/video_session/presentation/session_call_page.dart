@@ -64,6 +64,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   List<ZoomVideoSdkUser> _sessionParticipants = [];
   List<String> _talkingUsers = [];
   List<String> _usersWithCameraOff = [];
+  String sessionName = '';
   bool isMuted = false;
   bool isSpeakerOn = false;
   bool isVideoOn = false;
@@ -134,8 +135,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
   void _joinSession() {
     Future<void>.microtask(() async {
+      final String sessionName = context.read<TopicsBloc>().state.data.weekTopicName;
       final String? sessionPassword = context.read<TopicsBloc>().state.data.signedGroupSessionPassword;
-      final String? sessionKey = context.read<TopicsBloc>().state.data.signedGroupSessionKey;
 
       final String token = context.read<TopicsBloc>().state.data.signedSessionSignature;
 
@@ -145,7 +146,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
           context.read<AuthenticationCubit>().state.name;
 
       JoinSessionConfig joinSession = JoinSessionConfig(
-        sessionName: sessionKey,
+        sessionName: sessionName,
         sessionPassword: sessionPassword ?? ZoomConfig.defaultSessionPwd,
         token: token,
         userName: userName,
@@ -209,6 +210,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       var muted = await mySelf.audioStatus?.isMuted();
       var videoOn = await mySelf.videoStatus?.isOn();
       var speakerOn = await zoom.audioHelper.getSpeakerStatus();
+      var currentSessionName = await zoom.session.getSessionName();
 
       if (!_isCloudRecordingActive) {
         await zoom.recordingHelper.startCloudRecording();
@@ -220,6 +222,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       isMuted = muted!;
       isSpeakerOn = speakerOn;
       isVideoOn = videoOn!;
+
+      sessionName = currentSessionName!;
 
       setState(() {});
     });
@@ -570,12 +574,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       final hideAppBar = _isVideoPlaying && orientation == Orientation.landscape;
 
       return Scaffold(
-        appBar: hideAppBar
-            ? null
-            : SessionAppBar(
-                sessionName: context.read<TopicsBloc>().state.data.weekTopicName,
-                onEndSessionHandler: _endSession,
-              ),
+        appBar: hideAppBar ? null : SessionAppBar(sessionName: sessionName, onEndSessionHandler: _endSession),
         body: Container(
           color: AppColors.black,
           child: SafeArea(
