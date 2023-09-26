@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped_no_timeslots.dart';
@@ -18,53 +20,64 @@ class Grouped extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TopicsBloc, TopicsState>(
       builder: (context, state) {
-        // TODO move to TopicsState
-        var isHappeningNow = false;
-        if (state.data.isSigned) {
-          var sessionStartDate = state.data.signedGroupSessionStartTime;
-          var sessionEndDate = state.data.signedGroupSessionsEndTime;
-          var nowMoment = DateTime.now();
-          if (sessionStartDate != null && sessionEndDate != null) {
-            if (nowMoment.isAfter(sessionStartDate) && nowMoment.isBefore(sessionEndDate)) {
-              isHappeningNow = true;
-            }
-          }
-        }
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (state.data.isGroupsOnWeekAvailable)
-              Text(
-                isHappeningNow
-                    ? LocalizedTexts.happeningNow.tr().toUpperCase()
-                    : LocalizedTexts.comingUpThisWeek.tr().toUpperCase(),
-                style: const TextStyle(
-                  fontSize: ThemeConstants.fontSize12,
-                  color: AppColors.greyLabel,
-                ),
+        return state.maybeMap(
+          error: (errorState) {
+            final error = errorState.data.error;
+
+            return Container(
+              padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
+              decoration: const BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
-            const SizedBox(height: 16.0),
-            if (!state.data.timeSlotsAvailable && !state.data.isSigned && state.data.isGroupsOnWeekAvailable)
-              const GroupedNoTimeslots(),
-            if (state.data.timeSlotsAvailable && !state.data.isSigned)
-              GroupedNotSigned(topicName: state.data.weekTopicName),
-            if (state.data.isSigned && state.data.isGroupsOnWeekAvailable)
-              GroupedSigned(
-                signedGroupSessions: state.data.signedGroupSession!,
-                topicName: state.data.weekTopicName,
-                startDate: state.data.signedGroupSessionStartTime ?? DateTime.now(),
-                endDate: state.data.signedGroupSessionsEndTime ?? DateTime.now(),
-                preparationMaterialsAvailable: !state.data.signedGroupSessionsCancelled,
-                isCancelledOrMissed: state.data.signedGroupSessionsCancelledOrMissed,
-                isCancelled: state.data.signedGroupSessionsCancelled,
-                isMissed: state.data.signedGroupSessionsMissed,
-                timeSlotsAvailable: state.data.timeSlotsAvailable,
-                sessionMightBeCancelled: state.data.signedGroupSessionsMightBeCancelled,
-                isHappeningNow: isHappeningNow,
-                isCanJoin: state.data.isCanJoin,
+              child: ErrorScreen(
+                smallVersion: true,
+                error: error,
+                onButtonPressed: () => context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics()),
               ),
-            if (!state.data.isGroupsOnWeekAvailable) const NoGroup(),
-          ],
+            );
+          },
+          loading: (_) => const Loader(),
+          orElse: () {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (state.data.isGroupsOnWeekAvailable)
+                  Text(
+                    state.data.isHappeningNow
+                        ? LocalizedTexts.happeningNow.tr().toUpperCase()
+                        : LocalizedTexts.comingUpThisWeek.tr().toUpperCase(),
+                    style: const TextStyle(
+                      fontSize: ThemeConstants.fontSize12,
+                      color: AppColors.greyLabel,
+                    ),
+                  ),
+                const SizedBox(height: 16.0),
+                if (!state.data.timeSlotsAvailable &&
+                    !state.data.isSigned &&
+                    state.data.isGroupsOnWeekAvailable)
+                  const GroupedNoTimeslots(),
+                if (state.data.timeSlotsAvailable && !state.data.isSigned)
+                  GroupedNotSigned(topicName: state.data.weekTopicName),
+                if (!state.data.isGroupsOnWeekAvailable) const NoGroup(),
+                if (state.data.isSigned && state.data.isGroupsOnWeekAvailable)
+                  GroupedSigned(
+                    signedGroupSessions: state.data.signedGroupSession!,
+                    topicName: state.data.weekTopicName,
+                    startDate: state.data.signedGroupSessionStartTime ?? DateTime.now(),
+                    endDate: state.data.signedGroupSessionsEndTime ?? DateTime.now(),
+                    preparationMaterialsAvailable: !state.data.signedGroupSessionsCancelled,
+                    isCancelledOrMissed: state.data.signedGroupSessionsCancelledOrMissed,
+                    isCancelled: state.data.signedGroupSessionsCancelled,
+                    isMissed: state.data.signedGroupSessionsMissed,
+                    timeSlotsAvailable: state.data.timeSlotsAvailable,
+                    sessionMightBeCancelled: state.data.signedGroupSessionsMightBeCancelled,
+                    isHappeningNow: state.data.isHappeningNow,
+                    isCanJoin: state.data.isCanJoin,
+                  ),
+              ],
+            );
+          },
         );
       },
     );
