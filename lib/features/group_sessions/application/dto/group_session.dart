@@ -11,6 +11,7 @@ class GroupSession with _$GroupSession {
   const GroupSession._();
 
   const factory GroupSession({
+    required String signature,
     required int memberCount,
     required int minMemberCount,
     required int maxMemberCount,
@@ -22,7 +23,6 @@ class GroupSession with _$GroupSession {
     required DateTime endDate,
     required String password,
     required MemberSessionStatus? memberStatus,
-    required String groupSessionKey,
   }) = _GroupSession;
 
   bool get isSessionAlreadyStarted => startDate.isBefore(DateTime.now());
