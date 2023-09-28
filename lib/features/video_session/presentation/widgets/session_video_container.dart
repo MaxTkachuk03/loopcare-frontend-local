@@ -40,6 +40,8 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
   final List<int> _completedEventsIds = [];
 
   int get userId => context.read<AuthenticationCubit>().state.id;
+  String get userName => context.read<AuthenticationCubit>().state.name;
+  String get userNickname => context.read<AuthenticationCubit>().state.nickname ?? '';
 
   bool get _shouldNotUpdate => _videoIsPlaying || _closedVideo;
 
@@ -89,8 +91,11 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
     MixpanelEventService.instance.track(
       AppMixpanelEvents.sessionVideoPlayerInitStart,
       {
-        'userId': userId,
+        "userId": userId,
+        "userName": userName,
+        "userNickname": userNickname,
         "sessionCurrentTime": widget.sessionTimer,
+        "userLocalTime": DateTime.now().toLocal(),
       },
     );
 
@@ -110,8 +115,11 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
         MixpanelEventService.instance.track(
           AppMixpanelEvents.sessionVideoPlayerInitFinished,
           {
-            'userId': userId,
+            "userId": userId,
+            "userName": userName,
+            "userNickname": userNickname,
             "sessionCurrentTime": widget.sessionTimer,
+            "userLocalTime": DateTime.now().toLocal(),
             "videoStartPosition": startPosition,
           },
         );
@@ -130,8 +138,12 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
         MixpanelEventService.instance.track(
           AppMixpanelEvents.sessionVideoSuccess,
           {
-            'userId': userId,
-            'videoLink': videoLink,
+            "userId": userId,
+            "videoLink": videoLink,
+            "userName": userName,
+            "userNickname": userNickname,
+            "sessionCurrentTime": widget.sessionTimer,
+            "userLocalTime": DateTime.now().toLocal(),
           },
         );
       });
@@ -155,8 +167,12 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
       MixpanelEventService.instance.track(
         AppMixpanelEvents.sessionVideoEnd,
         {
-          'userId': userId,
-          'videoLink': _currentVideoEvent?.videoPath ?? '',
+          "userId": userId,
+          "videoLink": _currentVideoEvent?.videoPath ?? '',
+          "userName": userName,
+          "userNickname": userNickname,
+          "sessionCurrentTime": widget.sessionTimer,
+          "userLocalTime": DateTime.now().toLocal(),
         },
       );
     });
@@ -171,8 +187,12 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
     MixpanelEventService.instance.track(
       AppMixpanelEvents.sessionVideoClose,
       {
-        'userId': userId,
-        'videoLink': _currentVideoEvent?.videoPath ?? '',
+        "userId": userId,
+        "videoLink": _currentVideoEvent?.videoPath ?? '',
+        "userName": userName,
+        "userNickname": userNickname,
+        "sessionCurrentTime": widget.sessionTimer,
+        "userLocalTime": DateTime.now().toLocal(),
       },
     );
 

@@ -160,10 +160,10 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
         MixpanelEventService.instance.track(
           AppMixpanelEvents.joinSessionFail,
           {
-            'userId': userId,
-            'userName': joinSession.userName,
-            'sessionToken': joinSession.token,
-            'error': e.toString(),
+            "userId": userId,
+            "userName": joinSession.userName,
+            "sessionToken": joinSession.token,
+            "error": e.toString(),
           },
         );
         log('Error while join session $e', name: 'zoomSessionLog');
@@ -220,6 +220,20 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       isMuted = muted!;
       isSpeakerOn = speakerOn;
       isVideoOn = videoOn!;
+
+      if (mounted) {
+        MixpanelEventService.instance.track(
+          AppMixpanelEvents.joinSessionFail,
+          {
+            "userId": userId,
+            "isMuted": muted,
+            "videoOn": videoOn,
+            "speakerOn": speakerOn,
+            "currentLocalTime": DateTime.now().toLocal(),
+            "sessionTime": context.read<SessionCallBloc>().state.data.sessionTime,
+          },
+        );
+      }
 
       setState(() {});
     });
@@ -380,8 +394,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       MixpanelEventService.instance.track(
         AppMixpanelEvents.sessionFail,
         {
-          'userId': userId,
-          'errorType': errorType,
+          "userId": userId,
+          "errorType": errorType,
         },
       );
 
