@@ -90,7 +90,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
       AppMixpanelEvents.sessionVideoPlayerInitStart,
       {
         'userId': userId,
-        "session_current_time": widget.sessionTimer,
+        "sessionCurrentTime": widget.sessionTimer,
       },
     );
 
@@ -111,8 +111,8 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
           AppMixpanelEvents.sessionVideoPlayerInitFinished,
           {
             'userId': userId,
-            "session_current_time": widget.sessionTimer,
-            "video_start_position": startPosition,
+            "sessionCurrentTime": widget.sessionTimer,
+            "videoStartPosition": startPosition,
           },
         );
       }).whenComplete(() {
@@ -131,7 +131,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
           AppMixpanelEvents.sessionVideoSuccess,
           {
             'userId': userId,
-            'video_link': videoLink,
+            'videoLink': videoLink,
           },
         );
       });
@@ -156,7 +156,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
         AppMixpanelEvents.sessionVideoEnd,
         {
           'userId': userId,
-          'video_link': _currentVideoEvent?.videoPath ?? '',
+          'videoLink': _currentVideoEvent?.videoPath ?? '',
         },
       );
     });
@@ -172,7 +172,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
       AppMixpanelEvents.sessionVideoClose,
       {
         'userId': userId,
-        'video_link': _currentVideoEvent?.videoPath ?? '',
+        'videoLink': _currentVideoEvent?.videoPath ?? '',
       },
     );
 

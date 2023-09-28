@@ -162,7 +162,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
           {
             'userId': userId,
             'userName': joinSession.userName,
-            'session_token': joinSession.token,
+            'sessionToken': joinSession.token,
             'error': e.toString(),
           },
         );
@@ -381,7 +381,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
         AppMixpanelEvents.sessionFail,
         {
           'userId': userId,
-          'error_type': errorType,
+          'errorType': errorType,
         },
       );
 
