@@ -19,9 +19,7 @@ class BiologicalGenderPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(
-              height: 80,
-            ),
+            const SizedBox(height: 80),
             Text(
               LocalizedTexts.biologicalGenderPageTitle.tr(),
               textAlign: TextAlign.center,
@@ -30,20 +28,18 @@ class BiologicalGenderPage extends StatelessWidget {
                     fontSize: ThemeConstants.fontSize18,
                   ),
             ),
-            const SizedBox(
-              height: 16,
-            ),
+            const SizedBox(height: 16),
             const BiologicalGenderChips(),
             const SizedBox(height: 15.0),
-            SmallOutlinedButton(
-              text: LocalizedTexts.whyWeAreAsking.tr(),
-              onPressed: _onWhyWeAreAskingPressed,
-            ),
+            // SmallOutlinedButton(
+            //   text: LocalizedTexts.whyWeAreAsking.tr(),
+            //   onPressed: _onWhyWeAreAskingPressed,
+            // ),
           ],
         ),
       ),
     );
   }
 
-  void _onWhyWeAreAskingPressed() {}
+  // void _onWhyWeAreAskingPressed() {}
 }

@@ -19,23 +19,18 @@ class IntroTop extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(
-          height: 40.0,
-        ),
+        const SizedBox(height: 40.0),
         const Align(
           alignment: Alignment.center,
           child: Image(image: AppImages.logo),
         ),
-        const SizedBox(
-          height: 16.0,
-        ),
+        const SizedBox(height: 16.0),
         Align(
           alignment: Alignment.center,
           child: SizedBox(
             width: size.width * .75,
             child: Text(
-              LocalizedTexts.introTitle
-                  .tr(namedArgs: {'projectName': appConfig.projectName}),
+              LocalizedTexts.introTitle.tr(namedArgs: {'projectName': appConfig.projectName}),
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontFamily: ThemeConstants.bitterFontFamily,
                   ),
@@ -43,31 +38,29 @@ class IntroTop extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(
-          height: 52,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: Column(
-            children: [
-              IntroItem(
-                text: LocalizedTexts.introItemFirst.tr(),
-                image: AppImages.introOne,
-                color: AppColors.orangeLight,
-              ),
-              IntroItem(
-                text: LocalizedTexts.introItemSecond.tr(),
-                image: AppImages.introTwo,
-                color: AppColors.blueLight,
-              ),
-              IntroItem(
-                text: LocalizedTexts.introItemThird.tr(),
-                image: AppImages.introThree,
-                color: AppColors.greenLight,
-              ),
-            ],
-          ),
-        ),
+        const SizedBox(height: 52),
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 20),
+        //   child: Column(
+        //     children: [
+        //       IntroItem(
+        //         text: LocalizedTexts.introItemFirst.tr(),
+        //         image: AppImages.introOne,
+        //         color: AppColors.orangeLight,
+        //       ),
+        //       IntroItem(
+        //         text: LocalizedTexts.introItemSecond.tr(),
+        //         image: AppImages.introTwo,
+        //         color: AppColors.blueLight,
+        //       ),
+        //       IntroItem(
+        //         text: LocalizedTexts.introItemThird.tr(),
+        //         image: AppImages.introThree,
+        //         color: AppColors.greenLight,
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ],
     );
   }

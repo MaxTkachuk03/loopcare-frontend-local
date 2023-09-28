@@ -133,15 +133,15 @@ class _DashboardPageState extends State<DashboardPage> {
                             );
                           },
                         ),
-                        const SizedBox(height: 10.0),
-                        const Diary(),
+                        // const SizedBox(height: 10.0),
+                        // const Diary(),
                         const SizedBox(height: 16.0),
                         Text(
                           LocalizedTexts.activities.translation,
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
-                        const SizedBox(height: 16.0),
-                        const Reflection(),
+                        // const SizedBox(height: 16.0),
+                        // const Reflection(),
                         BlocBuilder<AuthenticationCubit, AuthenticationState>(
                           builder: (BuildContext context, state) {
                             if (!state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {

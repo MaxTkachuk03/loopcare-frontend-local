@@ -32,9 +32,7 @@ class JoinUsPage extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const SizedBox(
-                            height: 24.0,
-                          ),
+                          const SizedBox(height: 24.0),
                           Text(
                             LocalizedTexts.joinUsIn2Steps.tr(),
                             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
@@ -42,48 +40,40 @@ class JoinUsPage extends StatelessWidget {
                                 ),
                             textAlign: TextAlign.center,
                           ),
-                          const SizedBox(
-                            height: 40.0,
-                          ),
+                          const SizedBox(height: 40.0),
                           JoinUsStep(
                             title: LocalizedTexts.bodyAndMindFitnessCheck.tr(),
                             subtitle: LocalizedTexts.joinUsStepOneDesc.tr(),
                             markLetter: 'A',
                           ),
-                          const SizedBox(
-                            height: 8.0,
-                          ),
+                          const SizedBox(height: 8.0),
                           JoinUsStep(
                             title: LocalizedTexts.whatAreYourPreferences.tr(),
                             subtitle: LocalizedTexts.joinUsStepTwoDesc.tr(),
                             markLetter: 'B',
                           ),
-                          const SizedBox(
-                            height: 26,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Hexagon(
-                                width: 80,
-                                height: 80,
-                                borderRadius: 15.0,
-                                innerWidget: Container(
-                                  decoration: const BoxDecoration(
-                                    color: AppColors.white,
-                                    image: DecorationImage(
-                                      image: AppImages.coffee,
-                                    ),
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 18.0,
-                              ),
-                              Flexible(child: Text(LocalizedTexts.joinUsNote.tr())),
-                            ],
-                          ),
+                          // const SizedBox(height: 26),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Hexagon(
+                          //       width: 80,
+                          //       height: 80,
+                          //       borderRadius: 15.0,
+                          //       innerWidget: Container(
+                          //         decoration: const BoxDecoration(
+                          //           color: AppColors.white,
+                          //           image: DecorationImage(
+                          //             image: AppImages.coffee,
+                          //           ),
+                          //           shape: BoxShape.circle,
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     const SizedBox(width: 18.0),
+                          //     Flexible(child: Text(LocalizedTexts.joinUsNote.tr())),
+                          //   ],
+                          // ),
                         ],
                       ),
                       Column(
@@ -95,9 +85,7 @@ class JoinUsPage extends StatelessWidget {
                                 ),
                             child: Text(LocalizedTexts.stepOneFitnessCheck.tr()),
                           ),
-                          const SizedBox(
-                            height: 16.0,
-                          ),
+                          const SizedBox(height: 16.0),
                         ],
                       ),
                     ],
@@ -113,8 +101,6 @@ class JoinUsPage extends StatelessWidget {
 
   void _onStepFitnessCheckPressed(BuildContext context) {
     context.read<OnboardingBloc>().add(const OnboardingEvent.started());
-    context.router.pushAll(const [
-      HeightRoute(),
-    ]);
+    context.router.pushAll(const [HeightRoute()]);
   }
 }

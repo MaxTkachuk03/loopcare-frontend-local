@@ -38,7 +38,7 @@ class LookingForGroup extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 Text(
-                  '${groupingStartedAt.fullDateWithYear} ${LocalizedTexts.at.translation} ${groupingStartedAt.timeHoursMinutes}.',
+                  '${groupingStartedAt.fullDateWithYear}.',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
                 ),
               ],

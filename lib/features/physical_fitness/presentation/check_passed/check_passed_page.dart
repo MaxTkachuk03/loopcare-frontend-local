@@ -27,15 +27,13 @@ class CheckPassedPage extends StatelessWidget {
       int.parse(heightInCm),
     );
 
-    final heightValue =
-        useMetric ? '$heightInCm cm' : '$heightFt ft $heightInches in';
+    final heightValue = useMetric ? '$heightInCm cm' : '$heightFt ft $heightInches in';
 
     return heightValue;
   }
 
   String _getWeightValue(bool useMetric, String weightInKg) {
-    final weightLbs =
-        WeightConversionUtils.convertKgToLbs(double.parse(weightInKg));
+    final weightLbs = WeightConversionUtils.convertKgToLbs(double.parse(weightInKg));
 
     return useMetric ? '$weightInKg kg' : '$weightLbs lbs';
   }
@@ -66,69 +64,49 @@ class CheckPassedPage extends StatelessWidget {
                               Text(LocalizedTexts.bmi.tr()),
                             ],
                           ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          BlocBuilder<PhysicalFitnessBloc,
-                                  PhysicalFitnessState>(
+                          const SizedBox(width: 10),
+                          BlocBuilder<PhysicalFitnessBloc, PhysicalFitnessState>(
                               builder: (BuildContext context, state) {
                             final isHeightMetric =
-                                state.heightMeasurementSystemType ==
-                                    MeasurementSystemType.metric;
+                                state.heightMeasurementSystemType == MeasurementSystemType.metric;
                             final isWeightMetric =
-                                state.weightMeasurementSystemType ==
-                                    MeasurementSystemType.metric;
+                                state.weightMeasurementSystemType == MeasurementSystemType.metric;
 
-                            final heightValue = _getHeightValue(
-                                isHeightMetric, state.heightInCm ?? '');
+                            final heightValue = _getHeightValue(isHeightMetric, state.heightInCm ?? '');
 
-                            final weightValue = _getWeightValue(
-                                isWeightMetric, state.weightInKg ?? '');
+                            final weightValue = _getWeightValue(isWeightMetric, state.weightInKg ?? '');
 
-                            return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '${state.age} years',
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                  Text(
-                                    heightValue,
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                  Text(
-                                    weightValue,
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                  Text(
-                                    '${state.bmi}',
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                ]);
+                            return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                              Text(
+                                '${state.age} years',
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              Text(
+                                heightValue,
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              Text(
+                                weightValue,
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              Text(
+                                '${state.bmi}',
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                            ]);
                           })
                         ],
                       ),
-                      const SizedBox(
-                        height: 16,
-                      ),
+                      const SizedBox(height: 16),
                       Text(
                         LocalizedTexts.fitnessCheckPassedText.tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge
-                            ?.copyWith(color: AppColors.blueDark),
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.blueDark),
                       ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      SmallFilledButton(
-                        text: LocalizedTexts.moreInfo.tr(),
-                        onPressed: _onMoreInfoPressed,
-                      ),
+                      const SizedBox(height: 16),
+                      // SmallFilledButton(
+                      //   text: LocalizedTexts.moreInfo.tr(),
+                      //   onPressed: _onMoreInfoPressed,
+                      // ),
                     ],
                   ),
                 ),
@@ -139,8 +117,7 @@ class CheckPassedPage extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () => _onContinuePressed(context),
                   style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                        backgroundColor:
-                            MaterialStateProperty.all(AppColors.orangeDark),
+                        backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
                       ),
                   child: Text(LocalizedTexts.continueBtn.tr()),
                 ),
@@ -159,5 +136,5 @@ class CheckPassedPage extends StatelessWidget {
       ..router.pushNamed(AppRoutes.medicalIntro);
   }
 
-  void _onMoreInfoPressed() {}
+  // void _onMoreInfoPressed() {}
 }
