@@ -71,6 +71,7 @@ class AuthenticationState with _$AuthenticationState {
       authenticated: (state) => state.id,
     );
   }
+
   String get name {
     return maybeWhen(
       orElse: () => '',
@@ -123,6 +124,12 @@ class AuthenticationState with _$AuthenticationState {
   DateTime? get groupingStartedAt {
     return mapOrNull(
       authenticated: (state) => state.account.groupingStartedAt,
+    );
+  }
+
+  int? get trainingFrequency {
+    return mapOrNull(
+      authenticated: (state) => state.account.trainingFrequency,
     );
   }
 

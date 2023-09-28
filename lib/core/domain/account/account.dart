@@ -39,5 +39,12 @@ abstract class Account implements _$Account {
     PhysicalActivitiesPreferences? physicalActivitiesPreferences,
   }) = _Account;
 
+  int get trainingFrequency {
+    final RegExpMatch? match =
+        RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
+
+    return match != null ? int.parse(match[0] ?? '0') : 0;
+  }
+
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 }
