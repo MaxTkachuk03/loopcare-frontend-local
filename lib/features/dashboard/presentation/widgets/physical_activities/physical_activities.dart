@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/dashboard/application/programs_in_progress_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/application/physical_activities_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/empty_activities_list.dart';
@@ -124,9 +125,12 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                           loading: (_) => const Loader(),
                           orElse: () => const SizedBox.shrink(),
                           activitiesLoaded: (s) {
+                            final int timesPerWeek =
+                                context.read<AuthenticationCubit>().state.trainingFrequency!;
+
                             return isAvailable
                                 ? FilledActivitiesList(
-                                    programsList: [...activePrograms, ...s.data.activities])
+                                    programsList: [...activePrograms, ...s.data.activities(timesPerWeek)])
                                 : const EmptyActivitiesList();
                           },
                         );
