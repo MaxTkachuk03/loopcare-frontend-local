@@ -42,12 +42,12 @@ class CheckFailedAgePage extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       const SizedBox(height: 26),
-                      Text(LocalizedTexts.fitnessCheckFailedAdviceText.tr()),
-                      const SizedBox(height: 26),
-                      SmallFilledButton(
-                        text: LocalizedTexts.moreInfo.tr(),
-                        onPressed: _onMoreInfoPressed,
-                      ),
+                      // Text(LocalizedTexts.fitnessCheckFailedAdviceText.tr()),
+                      // const SizedBox(height: 26),
+                      // SmallFilledButton(
+                      //   text: LocalizedTexts.moreInfo.tr(),
+                      //   onPressed: _onMoreInfoPressed,
+                      // ),
                     ],
                   ),
                 ),
@@ -60,5 +60,5 @@ class CheckFailedAgePage extends StatelessWidget {
     );
   }
 
-  void _onMoreInfoPressed() {}
+  // void _onMoreInfoPressed() {}
 }

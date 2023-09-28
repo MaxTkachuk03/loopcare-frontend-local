@@ -80,9 +80,7 @@ class _MentalHealthIntroPageState extends State<MentalHealthIntroPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(
-                    height: 24.0,
-                  ),
+                  const SizedBox(height: 24.0),
                   Text(
                     LocalizedTexts.yourMentalHealth,
                     style: Theme.of(context).textTheme.displaySmall?.copyWith(
@@ -90,45 +88,33 @@ class _MentalHealthIntroPageState extends State<MentalHealthIntroPage> {
                           color: AppColors.blueDark,
                         ),
                   ).tr(),
-                  const SizedBox(
-                    height: 16.0,
-                  ),
+                  const SizedBox(height: 16.0),
                   Text(
                     LocalizedTexts.mentalHealthIntroTextOne,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ).tr(),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   Text(
                     LocalizedTexts.mentalHealthIntroTextTwo,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ).tr(),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   Text(
                     LocalizedTexts.mentalHealthIntroTextThree,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ).tr(),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   SmallFilledButton(
                     backgroundColor: AppColors.greyLight,
                     text: LocalizedTexts.moreInfo.tr(),
                     onPressed: () => _onMoreInfoPressed(context),
                   ),
-                  const SizedBox(
-                    height: 45.0,
-                  ),
+                  const SizedBox(height: 45.0),
                   ElevatedButton(
                     onPressed: () => _onNextPressed(context),
                     child: const Text(LocalizedTexts.next).tr(),
                   ),
-                  const SizedBox(
-                    height: 25.0,
-                  ),
+                  const SizedBox(height: 25.0),
                 ],
               ),
             ),

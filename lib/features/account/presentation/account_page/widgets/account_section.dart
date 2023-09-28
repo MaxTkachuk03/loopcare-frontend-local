@@ -55,32 +55,33 @@ class _AccountSectionState extends State<AccountSection> {
           const SectionTitle(title: LocalizedTexts.account),
           BlocBuilder<AuthenticationCubit, AuthenticationState>(
             builder: (BuildContext context, state) {
-              return SectionItem(title: LocalizedTexts.username, subTitle: state.email, onPressHandler: () {});
+              return SectionItem(
+                  title: LocalizedTexts.username, subTitle: state.email, onPressHandler: () {});
             },
           ),
           const SizedBox(height: 16.0),
           const Divider(height: 1.0, color: AppColors.yellowLight),
           const SizedBox(height: 16.0),
-          SectionItem(title: LocalizedTexts.changePassword, onPressHandler: () {}),
-          const SizedBox(height: 16.0),
-          const Divider(height: 1.0, color: AppColors.yellowLight),
-          const SizedBox(height: 16.0),
-          SectionItemToggler(
-            title: LocalizedTexts.useFaceOrTouchId,
-            value: _useFaceId,
-            onPressHandler: _onUseFaceIdToggle,
-          ),
-          const SizedBox(height: 16.0),
-          const Divider(height: 1.0, color: AppColors.yellowLight),
-          const SizedBox(height: 16.0),
-          SectionItemToggler(
-            title: LocalizedTexts.requireLoginEachTime,
-            value: _requireLogin,
-            onPressHandler: _onRequireLogin,
-          ),
-          const SizedBox(height: 16.0),
-          const Divider(height: 1.0, color: AppColors.yellowLight),
-          const SizedBox(height: 16.0),
+          // SectionItem(title: LocalizedTexts.changePassword, onPressHandler: () {}),
+          // const SizedBox(height: 16.0),
+          // const Divider(height: 1.0, color: AppColors.yellowLight),
+          // const SizedBox(height: 16.0),
+          // SectionItemToggler(
+          //   title: LocalizedTexts.useFaceOrTouchId,
+          //   value: _useFaceId,
+          //   onPressHandler: _onUseFaceIdToggle,
+          // ),
+          // const SizedBox(height: 16.0),
+          // const Divider(height: 1.0, color: AppColors.yellowLight),
+          // const SizedBox(height: 16.0),
+          // SectionItemToggler(
+          //   title: LocalizedTexts.requireLoginEachTime,
+          //   value: _requireLogin,
+          //   onPressHandler: _onRequireLogin,
+          // ),
+          // const SizedBox(height: 16.0),
+          // const Divider(height: 1.0, color: AppColors.yellowLight),
+          // const SizedBox(height: 16.0),
           ElevatedButton(
             onPressed: _onLogOutPressed,
             style: Theme.of(context).elevatedButtonTheme.style?.copyWith(

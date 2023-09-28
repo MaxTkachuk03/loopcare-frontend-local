@@ -56,9 +56,7 @@ class JoinUsStep extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            width: 18.0,
-          ),
+          const SizedBox(width: 18.0),
           Flexible(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,10 +94,10 @@ class JoinUsStep extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
-                    SmallOutlinedButton(
-                      text: LocalizedTexts.moreInfo.tr(),
-                      onPressed: _onMoreInfoPressed,
-                    )
+                    // SmallOutlinedButton(
+                    //   text: LocalizedTexts.moreInfo.tr(),
+                    //   onPressed: _onMoreInfoPressed,
+                    // )
                   ],
                 )
               ],
@@ -110,5 +108,5 @@ class JoinUsStep extends StatelessWidget {
     );
   }
 
-  void _onMoreInfoPressed() {}
+  // void _onMoreInfoPressed() {}
 }

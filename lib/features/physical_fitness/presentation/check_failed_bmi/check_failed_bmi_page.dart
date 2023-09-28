@@ -60,14 +60,11 @@ class CheckFailedBmiPage extends StatelessWidget {
                       const SizedBox(height: 26),
                       BlocBuilder<PhysicalFitnessBloc, PhysicalFitnessState>(
                         builder: (BuildContext context, state) {
-                          final bmiMaxValue =
-                              BmiValidator.getMaxBmiIndexValue(state.age ?? 0);
-                          final bmiMinValue =
-                              BmiValidator.getMinBmiIndexValue();
+                          final bmiMaxValue = BmiValidator.getMaxBmiIndexValue(state.age ?? 0);
+                          final bmiMinValue = BmiValidator.getMinBmiIndexValue();
 
                           return Text(
-                            LocalizedTexts.fitnessCheckFailedInformationsText
-                                .tr(
+                            LocalizedTexts.fitnessCheckFailedInformationsText.tr(
                               namedArgs: {
                                 'bmiMaxIndex': bmiMaxValue,
                                 'bmiMinIndex': bmiMinValue,
@@ -78,8 +75,8 @@ class CheckFailedBmiPage extends StatelessWidget {
                         },
                       ),
                       const SizedBox(height: 26),
-                      Text(LocalizedTexts
-                          .fitnessCheckFailedAdviceText.translation),
+                      // Text(LocalizedTexts
+                      //     .fitnessCheckFailedAdviceText.translation),
                     ],
                   ),
                 ),

@@ -63,9 +63,7 @@ class _WeightPageState extends State<WeightPage> {
       child: MainContainer(
         child: Column(
           children: [
-            const SizedBox(
-              height: 70,
-            ),
+            const SizedBox(height: 70),
             Text(
               LocalizedTexts.yourWeight.tr(),
               textAlign: TextAlign.center,
@@ -73,9 +71,7 @@ class _WeightPageState extends State<WeightPage> {
                     fontWeight: FontWeight.w600,
                   ),
             ),
-            const SizedBox(
-              height: 48,
-            ),
+            const SizedBox(height: 48),
             UnitTabs(
               tabBarViewChildren: [
                 UnitField(
@@ -95,30 +91,24 @@ class _WeightPageState extends State<WeightPage> {
               ],
               onTabChanged: _onTabChanged,
             ),
-            const SizedBox(
-              height: 16.0,
-            ),
-            UnderlinedClickableText(
-              text: LocalizedTexts.needHelpWithThis.tr(),
-              onTap: _onHelpTap,
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 16.0),
+            // UnderlinedClickableText(
+            //   text: LocalizedTexts.needHelpWithThis.tr(),
+            //   onTap: _onHelpTap,
+            // ),
+            const SizedBox(height: 20.0),
             _NextButton(
               measurementSystemType: activeMeasurementType,
               getWeight: getWeight,
             ),
-            const SizedBox(
-              height: 30.0,
-            ),
+            const SizedBox(height: 30.0),
           ],
         ),
       ),
     );
   }
 
-  void _onHelpTap() {}
+  // void _onHelpTap() {}
 
   _onTabChanged(MeasurementSystemType unitType) {
     setState(() {

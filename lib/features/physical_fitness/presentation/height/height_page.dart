@@ -124,10 +124,10 @@ class _HeightPageState extends State<HeightPage> {
               onTabChanged: _onTabChanged,
             ),
             const SizedBox(height: 16.0),
-            UnderlinedClickableText(
-              text: LocalizedTexts.needHelpWithThis.tr(),
-              onTap: _onHelpTap,
-            ),
+            // UnderlinedClickableText(
+            //   text: LocalizedTexts.needHelpWithThis.tr(),
+            //   onTap: _onHelpTap,
+            // ),
             const SizedBox(height: 20.0),
             _NextButton(
               measurementSystemType: activeMeasurementType,
@@ -168,7 +168,7 @@ class _HeightPageState extends State<HeightPage> {
     });
   }
 
-  void _onHelpTap() {}
+  // void _onHelpTap() {}
 
   String getHeight() => heightInCm.toString();
 
