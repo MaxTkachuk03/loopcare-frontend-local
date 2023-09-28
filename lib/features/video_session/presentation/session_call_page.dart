@@ -223,7 +223,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
       if (mounted) {
         MixpanelEventService.instance.track(
-          AppMixpanelEvents.joinSessionFail,
+          AppMixpanelEvents.onSessionJoin,
           {
             "userId": userId,
             "isMuted": muted,
