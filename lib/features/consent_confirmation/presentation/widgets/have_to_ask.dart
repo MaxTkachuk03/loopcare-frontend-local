@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HaveToAsk extends StatefulWidget {
   const HaveToAsk({Key? key}) : super(key: key);
@@ -10,8 +11,7 @@ class HaveToAsk extends StatefulWidget {
   State<HaveToAsk> createState() => _HaveToAskState();
 }
 
-class _HaveToAskState extends State<HaveToAsk>
-    with SingleTickerProviderStateMixin {
+class _HaveToAskState extends State<HaveToAsk> with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<Offset> offset;
 
@@ -24,8 +24,7 @@ class _HaveToAskState extends State<HaveToAsk>
       duration: const Duration(milliseconds: 300),
     )..forward();
 
-    offset = Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero)
-        .animate(CurvedAnimation(
+    offset = Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero).animate(CurvedAnimation(
       parent: controller,
       curve: Curves.easeInOut,
     ));
@@ -43,8 +42,7 @@ class _HaveToAskState extends State<HaveToAsk>
     return SlideTransition(
       position: offset,
       child: Container(
-        padding:
-            const EdgeInsets.only(top: 34, right: 40, left: 40, bottom: 80),
+        padding: const EdgeInsets.only(top: 34, right: 40, left: 40, bottom: 80),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(24),
@@ -57,16 +55,12 @@ class _HaveToAskState extends State<HaveToAsk>
           children: [
             Text(
               LocalizedTexts.offCourseNoProblem.tr(),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge
-                  ?.copyWith(fontWeight: FontWeight.w700),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700),
             ),
             const SizedBox(
               height: 16.0,
             ),
-            Text(LocalizedTexts.asSoonAsYouReceiveAnswer.tr(),
-                style: Theme.of(context).textTheme.bodyLarge),
+            Text(LocalizedTexts.asSoonAsYouReceiveAnswer.tr(), style: Theme.of(context).textTheme.bodyLarge),
             const SizedBox(
               height: 16.0,
             ),
@@ -76,10 +70,9 @@ class _HaveToAskState extends State<HaveToAsk>
               height: 20.0,
             ),
             ElevatedButton(
-              onPressed: _onDownloadInstructionPressed,
+              onPressed: _onDownloadInstructionsPressed,
               style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                    backgroundColor:
-                        MaterialStateProperty.all(AppColors.bgGreen),
+                    backgroundColor: MaterialStateProperty.all(AppColors.bgGreen),
                     foregroundColor: MaterialStateProperty.all(AppColors.black),
                   ),
               child: Text(LocalizedTexts.downloadInstructions.tr()),
@@ -90,5 +83,9 @@ class _HaveToAskState extends State<HaveToAsk>
     );
   }
 
-  void _onDownloadInstructionPressed() {}
+  Future<void> _onDownloadInstructionsPressed() async {
+    await launchUrl(
+      Uri.parse('https://loopcare-pdf-instructions.s3.eu-central-1.amazonaws.com/Dokument2-2.pdf'),
+    );
+  }
 }

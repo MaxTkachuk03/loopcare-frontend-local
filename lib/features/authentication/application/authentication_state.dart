@@ -127,11 +127,15 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
+
   int? get trainingFrequency {
     return mapOrNull(
       authenticated: (state) => state.account.trainingFrequency,
     );
   }
+
+  bool get isUserGrouped => groupingState == UserGroupingState.grouped;
+
 
   factory AuthenticationState.fromJson(Map<String, dynamic> json) => _$AuthenticationStateFromJson(json);
 }

@@ -12,6 +12,7 @@ class AppMixpanelEvents {
 
   static String get loginFail => 'AuthenticationCubit_login_fail ';
   static String get joinSessionFail => 'SessionCallPage_joinSession_fail';
+  static String get onSessionJoin => 'SessionCallPage_user_join_session';
   static String get sessionFail => 'SessionCallPage_session_fail';
   static String get videoBlockFail => 'VideoBlock_player_fail';
 }

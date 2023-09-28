@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/medical_question_wrap.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ConsentNeededPage extends StatelessWidget {
   const ConsentNeededPage({Key? key}) : super(key: key);
@@ -49,32 +50,22 @@ class ConsentNeededPage extends StatelessWidget {
                           children: [
                             Text(
                               LocalizedTexts.needConsentBodyText1.tr(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(),
+                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(),
                             ),
                             const SizedBox(
                               height: 30.0,
                             ),
                             Text(
                               LocalizedTexts.needConsentBodyText2.tr(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(),
+                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(),
                             ),
                             const SizedBox(
                               height: 36.0,
                             ),
                             ElevatedButton(
                               onPressed: _onDownloadInstructionsPressed,
-                              style: Theme.of(context)
-                                  .elevatedButtonTheme
-                                  .style
-                                  ?.copyWith(
-                                    backgroundColor: MaterialStateProperty.all(
-                                        AppColors.blueDark),
+                              style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                                    backgroundColor: MaterialStateProperty.all(AppColors.blueDark),
                                   ),
                               child: Text(
                                 LocalizedTexts.downloadInstructions.tr(),
@@ -114,7 +105,11 @@ class ConsentNeededPage extends StatelessWidget {
     );
   }
 
-  void _onDownloadInstructionsPressed() {}
+  Future<void> _onDownloadInstructionsPressed() async {
+    await launchUrl(
+      Uri.parse('https://loopcare-pdf-instructions.s3.eu-central-1.amazonaws.com/Dokument2-2.pdf'),
+    );
+  }
 }
 
 class _NextButton extends StatelessWidget {
