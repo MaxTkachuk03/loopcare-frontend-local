@@ -8,7 +8,6 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
-import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 
@@ -20,7 +19,7 @@ class PartOfGroup extends StatelessWidget {
     return BlocBuilder<AuthenticationCubit, AuthenticationState>(builder: (BuildContext context, state) {
       if (state.groupingState == null) return const SizedBox.shrink();
 
-      if (state.groupingState == UserGroupingState.grouped) {
+      if (state.isUserGrouped) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

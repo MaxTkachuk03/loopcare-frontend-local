@@ -53,8 +53,7 @@ class PreferencesSection extends StatelessWidget {
   }
 
   String _groupSessionsSubtitle(AuthenticationState state) {
-    LocalizedTexts.partOfGroup.translation;
-    var grouped = state.unlockedFeatures.contains(UnlockedFeatureType.grouping)
+    var grouped = state.isUserGrouped
         ? LocalizedTexts.yes.translation.capitalize()
         : LocalizedTexts.no.translation.capitalize();
 

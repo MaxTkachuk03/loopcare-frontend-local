@@ -71,6 +71,7 @@ class AuthenticationState with _$AuthenticationState {
       authenticated: (state) => state.id,
     );
   }
+
   String get name {
     return maybeWhen(
       orElse: () => '',
@@ -125,6 +126,8 @@ class AuthenticationState with _$AuthenticationState {
       authenticated: (state) => state.account.groupingStartedAt,
     );
   }
+
+  bool get isUserGrouped => groupingState == UserGroupingState.grouped;
 
   factory AuthenticationState.fromJson(Map<String, dynamic> json) => _$AuthenticationStateFromJson(json);
 }
