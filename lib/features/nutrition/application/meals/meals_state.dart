@@ -187,10 +187,12 @@ class MealsState with _$MealsState {
   }
 
   MealsListItem? get currentMeal {
-    return mapOrNull(mealsInfo: (state) {
-      return state.mealsMap[state.currentDate?.isoStringWithoutTime]
-          ?.firstWhere((el) => el.id == state.currentMealId);
-    });
+    return mapOrNull(
+      mealsInfo: (state) {
+        return state.mealsMap[state.currentDate?.isoStringWithoutTime]
+            ?.firstWhere((el) => el.id == state.currentMealId);
+      },
+    );
   }
 
   String? get mealListLength {
