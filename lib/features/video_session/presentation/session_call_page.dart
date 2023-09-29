@@ -108,15 +108,37 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   _setInactiveUserState() async {
     ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
 
-    await zoom.audioHelper.muteAudio(mySelf!.userId);
-    await zoom.videoHelper.stopVideo();
+    final userMuteState = await zoom.audioHelper.muteAudio(mySelf!.userId);
+    final userVideoOffState = await zoom.videoHelper.stopVideo();
+
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.sessionInactiveState,
+      {
+        "userId": userId,
+        "userName": mySelf.userName,
+        "userMuteState": userMuteState,
+        "userVideoOffState": userVideoOffState,
+        "userLocalTime": DateTime.now().toLocal(),
+      },
+    );
   }
 
   _setActiveUserState() async {
     ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
 
-    await zoom.audioHelper.unMuteAudio(mySelf!.userId);
-    await zoom.videoHelper.startVideo();
+    final userMuteState = await zoom.audioHelper.unMuteAudio(mySelf!.userId);
+    final userVideoOffState = await zoom.videoHelper.startVideo();
+
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.sessionActiveState,
+      {
+        "userId": userId,
+        "userName": mySelf.userName,
+        "userMuteState": userMuteState,
+        "userVideoOffState": userVideoOffState,
+        "userLocalTime": DateTime.now().toLocal(),
+      },
+    );
   }
 
   void _setInactivityTimer() {

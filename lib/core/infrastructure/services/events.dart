@@ -15,4 +15,6 @@ class AppMixpanelEvents {
   static String get onSessionJoin => 'SessionCallPage_user_join_session';
   static String get sessionFail => 'SessionCallPage_session_fail';
   static String get videoBlockFail => 'VideoBlock_player_fail';
+  static String get sessionInactiveState => 'SessionCallPage_user_inactive_state';
+  static String get sessionActiveState => 'SessionCallPage_user_active_state';
 }
