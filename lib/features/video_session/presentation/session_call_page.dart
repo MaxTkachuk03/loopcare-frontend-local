@@ -108,15 +108,37 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   _setInactiveUserState() async {
     ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
 
-    await zoom.audioHelper.muteAudio(mySelf!.userId);
-    await zoom.videoHelper.stopVideo();
+    final userMuteState = await zoom.audioHelper.muteAudio(mySelf!.userId);
+    final userVideoOffState = await zoom.videoHelper.stopVideo();
+
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.sessionInactiveState,
+      {
+        "userId": userId,
+        "userName": mySelf.userName,
+        "userMuteState": userMuteState,
+        "userVideoOffState": userVideoOffState,
+        "userLocalTime": DateTime.now().toLocal().toString(),
+      },
+    );
   }
 
   _setActiveUserState() async {
     ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
 
-    await zoom.audioHelper.unMuteAudio(mySelf!.userId);
-    await zoom.videoHelper.startVideo();
+    final userMuteState = await zoom.audioHelper.unMuteAudio(mySelf!.userId);
+    final userVideoOffState = await zoom.videoHelper.startVideo();
+
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.sessionActiveState,
+      {
+        "userId": userId,
+        "userName": mySelf.userName,
+        "userMuteState": userMuteState,
+        "userVideoOffState": userVideoOffState,
+        "userLocalTime": DateTime.now().toLocal().toString(),
+      },
+    );
   }
 
   void _setInactivityTimer() {
@@ -160,10 +182,10 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
         MixpanelEventService.instance.track(
           AppMixpanelEvents.joinSessionFail,
           {
-            'userId': userId,
-            'userName': joinSession.userName,
-            'session_token': joinSession.token,
-            'error': e.toString(),
+            "userId": userId,
+            "userName": joinSession.userName,
+            "sessionToken": joinSession.token,
+            "error": e.toString(),
           },
         );
         log('Error while join session $e', name: 'zoomSessionLog');
@@ -220,6 +242,20 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       isMuted = muted!;
       isSpeakerOn = speakerOn;
       isVideoOn = videoOn!;
+
+      if (mounted) {
+        MixpanelEventService.instance.track(
+          AppMixpanelEvents.onSessionJoin,
+          {
+            "userId": userId,
+            "isMuted": muted,
+            "videoOn": videoOn,
+            "speakerOn": speakerOn,
+            "currentLocalTime": DateTime.now().toLocal().toString(),
+            "sessionTime": context.read<SessionCallBloc>().state.data.sessionTime,
+          },
+        );
+      }
 
       setState(() {});
     });
@@ -380,8 +416,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       MixpanelEventService.instance.track(
         AppMixpanelEvents.sessionFail,
         {
-          'userId': userId,
-          'error_type': errorType,
+          "userId": userId,
+          "errorType": errorType,
         },
       );
 

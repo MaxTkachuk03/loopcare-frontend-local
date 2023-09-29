@@ -8,6 +8,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/presentation/widgets/legal_statement_confirmation_box.dart';
 
+import 'package:url_launcher/url_launcher.dart';
+
 class LegalStatementPage extends StatelessWidget {
   const LegalStatementPage({Key? key}) : super(key: key);
 
@@ -49,17 +51,15 @@ class LegalStatementPage extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: _onReadLegalStatement,
-                    style:
-                        Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                              minimumSize: MaterialStateProperty.all(
-                                const Size(
-                                  0,
-                                  38,
-                                ),
-                              ),
-                              textStyle: MaterialStateProperty.all(
-                                  Theme.of(context).textTheme.bodyMedium),
+                    style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                          minimumSize: MaterialStateProperty.all(
+                            const Size(
+                              0,
+                              38,
                             ),
+                          ),
+                          textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.bodyMedium),
+                        ),
                     child: Text(LocalizedTexts.readLegalStatement.tr()),
                   ),
                   const SizedBox(
@@ -75,12 +75,14 @@ class LegalStatementPage extends StatelessWidget {
     );
   }
 
-  void _onReadLegalStatement() {}
+  Future<void> _onReadLegalStatement() async {
+    await launchUrl(
+      Uri.parse('https://loopcare-pdf-instructions.s3.eu-central-1.amazonaws.com/Dokument2-2.pdf'),
+    );
+  }
 
   Future<bool> _onWillPop(BuildContext context) async {
-    context
-        .read<ConsentConfirmationBloc>()
-        .add(const ConsentConfirmationEvent.passageChanged(false));
+    context.read<ConsentConfirmationBloc>().add(const ConsentConfirmationEvent.passageChanged(false));
 
     return Future.value(true);
   }

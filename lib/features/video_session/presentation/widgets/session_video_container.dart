@@ -40,6 +40,8 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
   final List<int> _completedEventsIds = [];
 
   int get userId => context.read<AuthenticationCubit>().state.id;
+  String get userName => context.read<AuthenticationCubit>().state.name;
+  String get userNickname => context.read<AuthenticationCubit>().state.nickname ?? '';
 
   bool get _shouldNotUpdate => _videoIsPlaying || _closedVideo;
 
@@ -57,6 +59,35 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
     if (_shouldNotUpdate) return;
 
     _checkIfHasVideoForCurrentTime();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    if (state == AppLifecycleState.resumed) {
+      _syncVideoState();
+    }
+  }
+
+  void _syncVideoState() {
+    final currentEvent = _currentVideoEvent;
+
+    if (currentEvent == null) return;
+
+    final bool isVideoInProgress = currentEvent.eventStartTime <= widget.sessionTimer &&
+        widget.sessionTimer <= currentEvent.eventEndTime;
+
+    final bool isVideoEnds = widget.sessionTimer > currentEvent.eventEndTime;
+
+    if (isVideoEnds) {
+      _onVideoEnds();
+    }
+
+    if (isVideoInProgress) {
+      _videoPlayerController
+          ?.seekTo(Duration(seconds: widget.sessionTimer - (currentEvent.eventStartTime ?? 0)));
+    }
   }
 
   void _checkIfHasVideoForCurrentTime() {
@@ -89,8 +120,11 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
     MixpanelEventService.instance.track(
       AppMixpanelEvents.sessionVideoPlayerInitStart,
       {
-        'userId': userId,
-        "session_current_time": widget.sessionTimer,
+        "userId": userId,
+        "userName": userName,
+        "userNickname": userNickname,
+        "sessionCurrentTime": widget.sessionTimer,
+        "userLocalTime": DateTime.now().toLocal().toString(),
       },
     );
 
@@ -110,9 +144,12 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
         MixpanelEventService.instance.track(
           AppMixpanelEvents.sessionVideoPlayerInitFinished,
           {
-            'userId': userId,
-            "session_current_time": widget.sessionTimer,
-            "video_start_position": startPosition,
+            "userId": userId,
+            "userName": userName,
+            "userNickname": userNickname,
+            "sessionCurrentTime": widget.sessionTimer,
+            "userLocalTime": DateTime.now().toLocal().toString(),
+            "videoStartPosition": startPosition,
           },
         );
       }).whenComplete(() {
@@ -130,8 +167,12 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
         MixpanelEventService.instance.track(
           AppMixpanelEvents.sessionVideoSuccess,
           {
-            'userId': userId,
-            'video_link': videoLink,
+            "userId": userId,
+            "videoLink": videoLink,
+            "userName": userName,
+            "userNickname": userNickname,
+            "sessionCurrentTime": widget.sessionTimer,
+            "userLocalTime": DateTime.now().toLocal().toString(),
           },
         );
       });
@@ -155,8 +196,12 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
       MixpanelEventService.instance.track(
         AppMixpanelEvents.sessionVideoEnd,
         {
-          'userId': userId,
-          'video_link': _currentVideoEvent?.videoPath ?? '',
+          "userId": userId,
+          "videoLink": _currentVideoEvent?.videoPath ?? '',
+          "userName": userName,
+          "userNickname": userNickname,
+          "sessionCurrentTime": widget.sessionTimer,
+          "userLocalTime": DateTime.now().toLocal().toString(),
         },
       );
     });
@@ -171,8 +216,12 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
     MixpanelEventService.instance.track(
       AppMixpanelEvents.sessionVideoClose,
       {
-        'userId': userId,
-        'video_link': _currentVideoEvent?.videoPath ?? '',
+        "userId": userId,
+        "videoLink": _currentVideoEvent?.videoPath ?? '',
+        "userName": userName,
+        "userNickname": userNickname,
+        "sessionCurrentTime": widget.sessionTimer,
+        "userLocalTime": DateTime.now().toLocal().toString(),
       },
     );
 

@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_utils.dart';
 
 class SessionTimer extends StatefulWidget {
@@ -14,7 +16,7 @@ class SessionTimer extends StatefulWidget {
   State<SessionTimer> createState() => _SessionTimerState();
 }
 
-class _SessionTimerState extends State<SessionTimer> {
+class _SessionTimerState extends State<SessionTimer> with WidgetsBindingObserver {
   static const _timerPeriod = Duration(seconds: 1);
 
   late Timer _sessionTimer;
@@ -22,11 +24,28 @@ class _SessionTimerState extends State<SessionTimer> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
+
     _timeBeforeStart = widget.value;
 
     _sessionTimer = Timer.periodic(_timerPeriod, timerCb);
 
     super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    if (state == AppLifecycleState.paused) {
+      _sessionTimer.cancel();
+    }
+
+    if (state == AppLifecycleState.resumed) {
+      _sessionTimer.cancel();
+      _timeBeforeStart = context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inSeconds;
+      _sessionTimer = Timer.periodic(_timerPeriod, timerCb);
+    }
   }
 
   void timerCb(_) {
@@ -66,6 +85,8 @@ class _SessionTimerState extends State<SessionTimer> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+
     _sessionTimer.cancel();
     super.dispose();
   }
