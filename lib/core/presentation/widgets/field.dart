@@ -57,6 +57,7 @@ class _FieldState extends State<Field> {
     return TextFormField(
       autofocus: widget.autofocus ?? false,
       controller: widget.controller,
+      enableIMEPersonalizedLearning: false,
       enableSuggestions: false,
       autocorrect: false,
       keyboardType: widget.keyboardType,
