@@ -61,6 +61,35 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
     _checkIfHasVideoForCurrentTime();
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    if (state == AppLifecycleState.resumed) {
+      _syncVideoState();
+    }
+  }
+
+  void _syncVideoState() {
+    final currentEvent = _currentVideoEvent;
+
+    if (currentEvent == null) return;
+
+    final bool isVideoInProgress = currentEvent.eventStartTime <= widget.sessionTimer &&
+        widget.sessionTimer <= currentEvent.eventEndTime;
+
+    final bool isVideoEnds = widget.sessionTimer > currentEvent.eventEndTime;
+
+    if (isVideoEnds) {
+      _onVideoEnds();
+    }
+
+    if (isVideoInProgress) {
+      _videoPlayerController
+          ?.seekTo(Duration(seconds: widget.sessionTimer - (currentEvent.eventStartTime ?? 0)));
+    }
+  }
+
   void _checkIfHasVideoForCurrentTime() {
     final List<GroupSessionProgramEvent> videoEvents = context.read<TopicsBloc>().state.data.videoEvents;
     final videoEventForCurrentTime = videoEvents.lastWhereOrNull(
@@ -95,7 +124,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
         "userName": userName,
         "userNickname": userNickname,
         "sessionCurrentTime": widget.sessionTimer,
-        "userLocalTime": DateTime.now().toLocal(),
+        "userLocalTime": DateTime.now().toLocal().toString(),
       },
     );
 
@@ -119,7 +148,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
             "userName": userName,
             "userNickname": userNickname,
             "sessionCurrentTime": widget.sessionTimer,
-            "userLocalTime": DateTime.now().toLocal(),
+            "userLocalTime": DateTime.now().toLocal().toString(),
             "videoStartPosition": startPosition,
           },
         );
@@ -143,7 +172,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
             "userName": userName,
             "userNickname": userNickname,
             "sessionCurrentTime": widget.sessionTimer,
-            "userLocalTime": DateTime.now().toLocal(),
+            "userLocalTime": DateTime.now().toLocal().toString(),
           },
         );
       });
@@ -172,7 +201,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
           "userName": userName,
           "userNickname": userNickname,
           "sessionCurrentTime": widget.sessionTimer,
-          "userLocalTime": DateTime.now().toLocal(),
+          "userLocalTime": DateTime.now().toLocal().toString(),
         },
       );
     });
@@ -192,7 +221,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
         "userName": userName,
         "userNickname": userNickname,
         "sessionCurrentTime": widget.sessionTimer,
-        "userLocalTime": DateTime.now().toLocal(),
+        "userLocalTime": DateTime.now().toLocal().toString(),
       },
     );
 
