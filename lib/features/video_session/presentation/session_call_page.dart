@@ -500,7 +500,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
       showAppSnackBar(
         context: context,
-        text: LocalizedTexts.sessionEndDialogText,
+        text: LocalizedTexts.sessionEndDialogText.tr(),
         background: Colors.white,
         textColor: Colors.black,
       );
