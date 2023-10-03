@@ -141,6 +141,14 @@ class MealsState with _$MealsState {
         }
         final selectedDayMeals = state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
+        var category = selectedDayMeals
+            .where((item) => item.mealItems.isNotEmpty)
+            .toList()
+            .map((e) => categoryShortVersion(e.mealCategory))
+            .toList()
+            .toSet()
+            .toList();
+
         return selectedDayMeals
             .where((item) => item.mealItems.isNotEmpty)
             .toList()
@@ -187,10 +195,12 @@ class MealsState with _$MealsState {
   }
 
   MealsListItem? get currentMeal {
-    return mapOrNull(mealsInfo: (state) {
-      return state.mealsMap[state.currentDate?.isoStringWithoutTime]
-          ?.firstWhere((el) => el.id == state.currentMealId);
-    });
+    return mapOrNull(
+      mealsInfo: (state) {
+        return state.mealsMap[state.currentDate?.isoStringWithoutTime]
+            ?.firstWhere((el) => el.id == state.currentMealId);
+      },
+    );
   }
 
   String? get mealListLength {

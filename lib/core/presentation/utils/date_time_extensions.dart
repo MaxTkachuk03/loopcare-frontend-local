@@ -93,4 +93,16 @@ extension DateTimeExtension on DateTime {
 
     return DateTime(date.year, date.month, date.day, 23, 59, 59);
   }
+
+  get beginDay {
+    final now = this;
+
+    return DateTime(now.year, now.month, now.day, 0, 0, 0);
+  }
+
+  get endDay {
+    final now = this;
+
+    return DateTime(now.year, now.month, now.day, 23, 59, 59);
+  }
 }
