@@ -20,6 +20,9 @@ class SearchField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autocorrect: false,
+      enableSuggestions: false,
+      enableIMEPersonalizedLearning: false,
       readOnly: readOnly,
       onChanged: onChanged,
       decoration: InputDecoration(
