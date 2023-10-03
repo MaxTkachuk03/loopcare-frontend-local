@@ -118,7 +118,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
         "userName": mySelf.userName,
         "userMuteState": userMuteState,
         "userVideoOffState": userVideoOffState,
-        "userLocalTime": DateTime.now().toLocal().toString(),
+        "userLocalTime": DateTime.now().toLocal().toIso8601String(),
       },
     );
   }
@@ -136,7 +136,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
         "userName": mySelf.userName,
         "userMuteState": userMuteState,
         "userVideoOffState": userVideoOffState,
-        "userLocalTime": DateTime.now().toLocal().toString(),
+        "userLocalTime": DateTime.now().toLocal().toIso8601String(),
       },
     );
   }
@@ -251,7 +251,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
             "isMuted": muted,
             "videoOn": videoOn,
             "speakerOn": speakerOn,
-            "currentLocalTime": DateTime.now().toLocal().toString(),
+            "currentLocalTime": DateTime.now().toLocal().toIso8601String(),
             "sessionTime": context.read<SessionCallBloc>().state.data.sessionTime,
           },
         );
