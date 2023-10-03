@@ -114,8 +114,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           emit(const MealsState.loading());
 
           final response = await nutritionService.getMeals(
-            startDate: event.currentDate.toUtc().isoStringWithoutTime,
-            endDate: event.currentDate.toUtc().isoStringWithoutTime,
+            startDate: event.currentDate.beginDay.toUtc().toIso8601String(),
+            endDate: event.currentDate.endDay.toUtc().toIso8601String(),
           );
 
           response.fold(
@@ -143,8 +143,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           emit(const MealsState.loading());
 
           final response = await nutritionService.getPlannedMeals(
-            startDate: event.currentDate.toUtc().isoStringWithoutTime,
-            endDate: event.currentDate.toUtc().isoStringWithoutTime,
+            startDate: event.currentDate.beginDay.toUtc().toIso8601String(),
+            endDate: event.currentDate.endDay.toUtc().toIso8601String(),
           );
 
           response.fold(
@@ -211,12 +211,12 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     final mealsResponses = await Future.wait(
       [
         nutritionService.getMeals(
-          startDate: DateTime.now().toUtc().subtract(const Duration(days: 8)).isoStringWithoutTime,
-          endDate: DateTime.now().toUtc().isoStringWithoutTime,
+          startDate: DateTime.now().beginDay.toUtc().subtract(const Duration(days: 8)).toIso8601String(),
+          endDate: DateTime.now().endDay.toUtc().toIso8601String(),
         ),
         nutritionService.getPlannedMeals(
-          startDate: DateTime.now().toUtc().isoStringWithoutTime,
-          endDate: DateTime.now().toUtc().isoStringWithoutTime,
+          startDate: DateTime.now().beginDay.toUtc().toIso8601String(),
+          endDate: DateTime.now().endDay.toUtc().toIso8601String(),
         )
       ],
     );
@@ -754,8 +754,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           LogPlannedMealBody(
             plannedMealId: event.plannedMealId,
             loggingDate: currentDate != null
-                ? currentDate.toUtc().isoStringWithoutTime
-                : DateTime.now().toUtc().isoStringWithoutTime,
+                ? currentDate.toUtc().toIso8601String()
+                : DateTime.now().toUtc().toIso8601String(),
           ),
         );
 
