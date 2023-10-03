@@ -111,6 +111,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     final userMuteState = await zoom.audioHelper.muteAudio(mySelf!.userId);
     final userVideoOffState = await zoom.videoHelper.stopVideo();
 
+    _showToggleMicPopup(status: userMuteState, isOn: false);
+
     MixpanelEventService.instance.track(
       AppMixpanelEvents.sessionInactiveState,
       {
@@ -129,6 +131,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     final userMuteState = await zoom.audioHelper.unMuteAudio(mySelf!.userId);
     final userVideoOffState = await zoom.videoHelper.startVideo();
 
+    _showToggleMicPopup(status: userMuteState, isOn: true);
+
     MixpanelEventService.instance.track(
       AppMixpanelEvents.sessionActiveState,
       {
@@ -138,6 +142,21 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
         "userVideoOffState": userVideoOffState,
         "userLocalTime": DateTime.now().toLocal().toIso8601String(),
       },
+    );
+  }
+
+  void _showToggleMicPopup({String status = '', bool isOn = false}) {
+    final micState = isOn ? LocalizedTexts.on : LocalizedTexts.off;
+
+    final message = status == Errors.Success
+        ? LocalizedTexts.micState.tr(namedArgs: {"micState": micState})
+        : LocalizedTexts.somethingWentWrong.tr();
+
+    showAppSnackBar(
+      context: context,
+      text: message,
+      background: Colors.white,
+      textColor: Colors.black,
     );
   }
 

@@ -388,6 +388,7 @@ class LocalizedTexts {
   static const String todo = 'todo';
   static const String done = 'done';
   static const String on = 'on';
+  static const String off = 'off';
   static const String was = 'was';
 
   // Education
@@ -649,6 +650,9 @@ class LocalizedTexts {
   static const String sessionIsInProgress = "sessionIsInProgress";
   static const String failedToJoinSession = "failedToJoinSession";
   static const String disconnectedFromSession = "disconnectedFromSession";
+  static const String micState = "micState";
+  static const String cameraState = "cameraState";
+  static const String zoomWrongUsage = "zoomWrongUsage";
   static const String toggleSpeakerError = "toggleSpeakerError";
   static const String mute = "mute";
   static const String stopVideo = "stopVideo";

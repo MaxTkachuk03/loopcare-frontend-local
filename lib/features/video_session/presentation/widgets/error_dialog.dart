@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/features/video_session/presentation/widgets/zoom_errors_mapper.dart';
+import 'package:loopcare_frontend/features/video_session/domain/zoom_errors_mapper.dart';
 
 class ErrorDialog extends StatelessWidget {
   final String errorText;
