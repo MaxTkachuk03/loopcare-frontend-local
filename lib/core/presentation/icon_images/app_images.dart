@@ -85,8 +85,7 @@ class AppImages {
 
   static SvgPicture exclamationMark = SvgPicture.asset(
     '$imagesFilePath/exclamation_mark.svg',
-    width: 50,
-    height: 50,
+    fit: BoxFit.scaleDown,
   );
 
   static SvgPicture like = SvgPicture.asset(
