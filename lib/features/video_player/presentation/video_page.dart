@@ -70,13 +70,16 @@ class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
   void _initController(PhysicalProgramExercise exercise) async {
     final headers = context.read<VideoPlayerBloc>().state.data.videoHttpHeaders;
 
-    _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(exercise.video ?? ''), httpHeaders: headers)
-      ..initialize().then((value) {
-        _videoPlayerController?.play();
-        AnalyticsEventService.instance.logPhysicalActivityVideoEvent('video_screen', widget.program, exercise);
-      }).whenComplete(() {
-        setState(() {});
-      });
+    _videoPlayerController =
+        VideoPlayerController.networkUrl(Uri.parse(exercise.video ?? ''), httpHeaders: headers)
+          ..initialize().then((value) {
+            _videoPlayerController?.play();
+
+            AnalyticsEventService.instance
+                .logPhysicalActivityVideoEvent('video_screen', widget.program, exercise);
+          }).whenComplete(() {
+            setState(() {});
+          });
   }
 
   _loadVideoPlayer(PhysicalProgramExercise exercise) {
@@ -100,7 +103,7 @@ class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
     // check if it was the last video in playlist
     if (_isLastExercise) {
       _onlyPortraitOrientation();
-      _videoPlayerController?.pause();
+      _videoPlayerController?.dispose();
       context.router.push(ProgramAssessmentRoute(onDisposeCb: _allowLandscapeOrientation));
       return;
     }
@@ -232,7 +235,8 @@ class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
                                             onPressed: _onSkipExplanationHandler,
                                             style: ButtonStyle(
                                               minimumSize: MaterialStateProperty.all(const Size(186, 52.0)),
-                                              backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(AppColors.orangeDark),
                                             ),
                                             child: const Text(LocalizedTexts.skipExplanation).tr(),
                                           ),
