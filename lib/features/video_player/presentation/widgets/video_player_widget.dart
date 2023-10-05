@@ -50,7 +50,7 @@ class VideoPlayerWidget extends StatelessWidget {
           ValueListenableBuilder(
             valueListenable: controller!,
             builder: (BuildContext context, VideoPlayerValue value, child) {
-              final videoFinished = value.isInitialized && value.position == value.duration;
+              final videoFinished = value.isInitialized && value.position >= value.duration;
 
               return videoFinished
                   ? PlayerEndVideoOverlay(

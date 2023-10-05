@@ -604,7 +604,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
         final data = AddPlannedMealBody(
           planningDates: [
-            state.currentDate?.toUtc().toIso8601String() ?? DateTime.now().toUtc().toIso8601String(),
+            state.currentDate?.toIso8601String() ?? DateTime.now().toIso8601String(),
           ],
           mealCategory: event.mealCategory,
         );
