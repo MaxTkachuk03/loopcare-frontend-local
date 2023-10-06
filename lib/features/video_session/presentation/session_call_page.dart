@@ -100,7 +100,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       _setInactiveUserState();
       _setInactivityTimer();
     } else if (state == AppLifecycleState.resumed) {
-      _setActiveUserState();
+      _setActiveUserState(_isVideoPlaying);
       _inactivityTimer?.cancel();
     }
   }
@@ -125,7 +125,9 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     );
   }
 
-  _setActiveUserState() async {
+  _setActiveUserState(bool isVideoPlaying) async {
+    if (isVideoPlaying) return;
+
     ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
 
     final userMuteState = await zoom.audioHelper.unMuteAudio(mySelf!.userId);
@@ -597,7 +599,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   void _onVideoPlayingHandler(bool isVideoPlaying) async {
     isVideoPlaying ? _enableLandscapeOrientation() : _enablePortraitOrientation();
 
-    isVideoPlaying ? _setInactiveUserState() : _setActiveUserState();
+    isVideoPlaying ? _setInactiveUserState() : _setActiveUserState(isVideoPlaying);
 
     setState(() {
       _isVideoPlaying = isVideoPlaying;
