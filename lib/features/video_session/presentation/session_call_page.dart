@@ -7,11 +7,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_event_listener.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_user.dart';
+import 'package:loopcare_frontend/core/application/system_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
@@ -462,26 +462,13 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   }
 
   Future _enableLandscapeOrientation() async {
-    // Remove system app bar on Android
-    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-
-    await SystemChrome.setPreferredOrientations(
-      [
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.landscapeRight,
-        DeviceOrientation.portraitDown,
-        DeviceOrientation.portraitUp,
-      ],
-    );
+    SystemService.hideSystemOverlays();
+    SystemService.allowBothOrientations();
   }
 
   Future _enablePortraitOrientation() async {
-    // Restores system app bar on Android
-    await SystemChrome.restoreSystemUIOverlays();
-
-    await SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp],
-    );
+    SystemService.showSystemOverlays();
+    SystemService.allowOnlyPortraitOrientation();
   }
 
   void _onErrorHandler(errorType) async {
