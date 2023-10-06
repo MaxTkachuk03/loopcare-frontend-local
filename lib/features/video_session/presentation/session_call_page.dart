@@ -680,13 +680,14 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
         ),
         bottomNavigationBar: !_isVideoPlaying && userJoinedToSession
             ? SizedBox(
-                height: 160,
+                height: Platform.isIOS ? 160 : 100,
                 child: Column(
                   children: [
-                    ReportIssue(
-                      minutesLeft: context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inMinutes,
-                      onReportIssueHandler: _onReportIssueHandler,
-                    ),
+                    if (Platform.isIOS)
+                      ReportIssue(
+                        minutesLeft: context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inMinutes,
+                        onReportIssueHandler: _onReportIssueHandler,
+                      ),
                     Expanded(
                       child: CallControls(
                         onMuteHandler: onPressAudio,
