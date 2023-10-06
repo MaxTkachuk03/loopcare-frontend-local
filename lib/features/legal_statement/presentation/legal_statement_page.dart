@@ -1,14 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/instructions_service.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/presentation/widgets/legal_statement_confirmation_box.dart';
-
-import 'package:url_launcher/url_launcher.dart';
 
 class LegalStatementPage extends StatelessWidget {
   const LegalStatementPage({Key? key}) : super(key: key);
@@ -50,7 +50,7 @@ class LegalStatementPage extends StatelessWidget {
                     height: 16.0,
                   ),
                   ElevatedButton(
-                    onPressed: _onReadLegalStatement,
+                    onPressed: () => _onReadLegalStatement(context),
                     style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
                           minimumSize: MaterialStateProperty.all(
                             const Size(
@@ -75,11 +75,18 @@ class LegalStatementPage extends StatelessWidget {
     );
   }
 
-  Future<void> _onReadLegalStatement() async {
-    await launchUrl(
-      Uri.parse('https://loopcare-pdf-instructions.s3.eu-central-1.amazonaws.com/Dokument2-2.pdf'),
-    );
+  Future<void> _onReadLegalStatement(BuildContext context) async {
+    InstructionsService.downloadInstructions(onErrorCb: _showError(context));
   }
+
+  _showError(BuildContext context) => () {
+        showAppSnackBar(
+          context: context,
+          text: LocalizedTexts.openLinkErrorMessage.tr(),
+          background: AppColors.red,
+          textColor: Colors.white,
+        );
+      };
 
   Future<bool> _onWillPop(BuildContext context) async {
     context.read<ConsentConfirmationBloc>().add(const ConsentConfirmationEvent.passageChanged(false));
