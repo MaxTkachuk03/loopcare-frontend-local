@@ -12,6 +12,8 @@ const String kEventSlotCancelled = 'SLOT_CANCELLED';
 const String kEventTopicAvailable = 'TOPIC_AVAILABLE';
 const String kEventTopicUnavailable = 'TOPIC_UNAVAILABLE';
 const String kEventNewTopicAvailable = 'NEW_TOPIC_AVAILABLE';
+const String kEventTopicSlotFinished = 'SLOT_FINISHED';
+const String kEventTopicSlotStarted = 'SLOT_STARTED';
 
 final getIt = GetIt.instance;
 
@@ -84,6 +86,8 @@ class IOSocketService extends SocketService {
       ..on(kEventTopicAvailable, (data) => _onTopicAvailable(data))
       ..on(kEventTopicUnavailable, (data) => _onTopicUnavailable(data))
       ..on(kEventNewTopicAvailable, (data) => _onNewTopicAvailable(data))
+      ..on(kEventTopicSlotFinished, (data) => _onTopicSlotFinished(data))
+      ..on(kEventTopicSlotStarted, (data) => _onTopicSlotStarted(data))
       ..onError((data) => _onError(data));
 
     _socket!.connect();
@@ -116,6 +120,16 @@ class IOSocketService extends SocketService {
   void _onNewTopicAvailable(dynamic data) {
     refreshTopics();
     _debug('on $kEventNewTopicAvailable: $data');
+  }
+
+  void _onTopicSlotFinished(dynamic data) {
+    refreshTopics();
+    _debug('on $kEventTopicSlotFinished: $data');
+  }
+
+  void _onTopicSlotStarted(dynamic data) {
+    refreshTopics();
+    _debug('on $kEventTopicSlotStarted: $data');
   }
 
   void _debug(String data) {
