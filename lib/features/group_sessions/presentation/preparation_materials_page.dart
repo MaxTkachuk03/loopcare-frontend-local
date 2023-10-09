@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/presentation/html_renderer/html_renderer.
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
@@ -15,13 +16,16 @@ class PreparationMaterialsPage extends StatelessWidget {
   const PreparationMaterialsPage({Key? key}) : super(key: key);
 
   Future<bool> _onWillPop(BuildContext context) {
+    final userId = context.read<AuthenticationCubit>().state.id;
+    final sessionId = context.read<TopicsBloc>().state.data.signedGroupSessionId ?? 0;
+
     context
         .read<AnalyticsBloc>()
         .add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.closedSessionPreparationMaterials, {
           "timestamp": DateTime.now().toIso8601String(),
         }));
 
-    AnalyticsEventService.instance.closedSessionPreparationMaterialsEvent();
+    AnalyticsEventService.instance.closedSessionPreparationMaterialsEvent(userId, sessionId);
 
     return Future.value(true);
   }

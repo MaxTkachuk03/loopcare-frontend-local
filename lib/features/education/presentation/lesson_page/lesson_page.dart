@@ -95,6 +95,7 @@ class _LessonPageState extends State<LessonPage> {
 
   Future<bool> _onWillPop() {
     final lessonType = context.read<EducationLessonBloc>().state.data.currentPage.type.name;
+    final userId = context.read<AuthenticationCubit>().state.id;
 
     context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.leaveLessonScreen, {
           "lessonId": widget.lessonId.toString(),
@@ -102,7 +103,11 @@ class _LessonPageState extends State<LessonPage> {
           "timestamp": DateTime.now().toIso8601String(),
         }));
 
-    AnalyticsEventService.instance.leaveLessonEvent('leave_lesson_screen', widget.lessonId, lessonType);
+    AnalyticsEventService.instance.leaveLessonEvent(
+      widget.lessonId,
+      lessonType,
+      userId,
+    );
 
     return Future.value(true);
   }
@@ -119,7 +124,14 @@ class _LessonPageState extends State<LessonPage> {
             loading: (_) => const Loader(),
             contentLoaded: (s) {
               final currentPage = s.data.currentPage;
-              AnalyticsEventService.instance.logLessonEvent('lesson_screen', widget.lessonId, currentPage);
+              final userId = context.read<AuthenticationCubit>().state.id;
+
+              AnalyticsEventService.instance.logLessonEvent(
+                'lesson_screen',
+                widget.lessonId,
+                currentPage,
+                userId,
+              );
 
               if (currentPage.type == EducationLessonPageType.text) {
                 return LessonTextPage(

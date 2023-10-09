@@ -66,73 +66,80 @@ class AnalyticsEventService {
     );
   }
 
-  void logLessonEvent(String eventName, int lessonId, LessonPage lesson) async {
+  void logLessonEvent(String eventName, int lessonId, LessonPage lesson, int userId) async {
     await FirebaseAnalytics.instance.logEvent(
       name: eventName,
       parameters: {
         'lessonId': lessonId,
+        'userId': userId,
         'lessonType': lesson.type.name,
         'timestamp': DateTime.now().toIso8601String(),
       },
     );
   }
 
-  void leaveLessonEvent(String eventName, int lessonId, String lessonType) async {
+  void leaveLessonEvent(int lessonId, String lessonType, int userId) async {
     await FirebaseAnalytics.instance.logEvent(
-      name: eventName,
+      name: 'leave_lesson_screen',
       parameters: {
         'lessonId': lessonId,
         'lessonType': lessonType,
+        'userId': userId,
         'timestamp': DateTime.now().toIso8601String(),
       },
     );
   }
 
-  void openedTextLessonVersionEvent(int lessonId) async {
+  void openedTextLessonVersionEvent(int lessonId, int userId) async {
     await FirebaseAnalytics.instance.logEvent(
       name: 'opened_text_lesson_version',
       parameters: {
         'lessonId': lessonId,
+        'userId': userId,
         'timestamp': DateTime.now().toIso8601String(),
       },
     );
   }
 
-  void closedTextLessonVersionEvent(int lessonId) async {
+  void closedTextLessonVersionEvent(int lessonId, int userId) async {
     await FirebaseAnalytics.instance.logEvent(
       name: 'closed_text_lesson_version',
       parameters: {
         'lessonId': lessonId,
+        'userId': userId,
         'timestamp': DateTime.now().toIso8601String(),
       },
     );
   }
 
-  void lessonAudioPlayEvent(int lessonId) async {
+  void lessonAudioPlayEvent(int lessonId, int userId) async {
     await FirebaseAnalytics.instance.logEvent(
       name: 'lesson_audio_play',
       parameters: {
         'lessonId': lessonId,
+        'userId': userId,
         'timestamp': DateTime.now().toIso8601String(),
       },
     );
   }
 
-  void lessonAudioStopEvent(int lessonId) async {
+  void lessonAudioStopEvent(int lessonId, int userId) async {
     await FirebaseAnalytics.instance.logEvent(
       name: 'lesson_audio_stop',
       parameters: {
         'lessonId': lessonId,
+        'userId': userId,
         'timestamp': DateTime.now().toIso8601String(),
       },
     );
   }
 
-  void lessonAudioFinishedEvent(int lessonId) async {
+  void lessonAudioFinishedEvent(int lessonId, int userId) async {
     await FirebaseAnalytics.instance.logEvent(
       name: 'lesson_audio_finished',
       parameters: {
         'lessonId': lessonId,
+        'userId': userId,
         'timestamp': DateTime.now().toIso8601String(),
       },
     );
@@ -176,19 +183,23 @@ class AnalyticsEventService {
     );
   }
 
-  void openedSessionPreparationMaterialsEvent() async {
+  void openedSessionPreparationMaterialsEvent(int userId, int sessionId) async {
     await FirebaseAnalytics.instance.logEvent(
       name: "opened_session_preparation_materials",
       parameters: {
+        'userId': userId,
+        'sessionId': sessionId,
         'timestamp': DateTime.now().toIso8601String(),
       },
     );
   }
 
-  void closedSessionPreparationMaterialsEvent() async {
+  void closedSessionPreparationMaterialsEvent(int userId, int sessionId) async {
     await FirebaseAnalytics.instance.logEvent(
       name: "closed_session_preparation_materials",
       parameters: {
+        'userId': userId,
+        'sessionId': sessionId,
         'timestamp': DateTime.now().toIso8601String(),
       },
     );

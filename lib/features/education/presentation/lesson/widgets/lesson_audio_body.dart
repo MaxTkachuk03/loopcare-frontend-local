@@ -108,19 +108,23 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
   }
 
   _setIsComplete() {
+    final userId = context.read<AuthenticationCubit>().state.id;
+
     context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.lessonAudioFinished, {
           "lessonId": lessonId.toString(),
           "timestamp": DateTime.now().toIso8601String(),
         }));
 
-    AnalyticsEventService.instance.lessonAudioFinishedEvent(lessonId);
+    AnalyticsEventService.instance.lessonAudioFinishedEvent(lessonId, userId);
     widget.onNextPressed();
   }
 
   _setIsPlay(bool state) {
+    final userId = context.read<AuthenticationCubit>().state.id;
+
     state
-        ? AnalyticsEventService.instance.lessonAudioPlayEvent(lessonId)
-        : AnalyticsEventService.instance.lessonAudioStopEvent(lessonId);
+        ? AnalyticsEventService.instance.lessonAudioPlayEvent(lessonId, userId)
+        : AnalyticsEventService.instance.lessonAudioStopEvent(lessonId, userId);
 
     state
         ? context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.lessonAudioPlay, {
@@ -138,21 +142,25 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
   }
 
   void onCompleteModelHandler() {
+    final userId = context.read<AuthenticationCubit>().state.id;
+
     context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.closedTextLessonVersion, {
           "lessonId": lessonId.toString(),
           "timestamp": DateTime.now().toIso8601String(),
         }));
 
-    AnalyticsEventService.instance.closedTextLessonVersionEvent(lessonId);
+    AnalyticsEventService.instance.closedTextLessonVersionEvent(lessonId, userId);
   }
 
   void _onReadText() {
+    final userId = context.read<AuthenticationCubit>().state.id;
+
     context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.openedTextLessonVersion, {
           "lessonId": lessonId.toString(),
           "timestamp": DateTime.now().toIso8601String(),
         }));
 
-    AnalyticsEventService.instance.openedTextLessonVersionEvent(lessonId);
+    AnalyticsEventService.instance.openedTextLessonVersionEvent(lessonId, userId);
 
     ModalBottomSheet.readTextVersion(
       context: context,

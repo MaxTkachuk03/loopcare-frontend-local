@@ -9,6 +9,8 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 
 class PreparationMaterials extends StatelessWidget {
   const PreparationMaterials({Key? key}) : super(key: key);
@@ -58,13 +60,16 @@ class PreparationMaterials extends StatelessWidget {
   }
 
   _onMoreInfoPressed(BuildContext context) {
+    final userId = context.read<AuthenticationCubit>().state.id;
+    final sessionId = context.read<TopicsBloc>().state.data.signedGroupSessionId ?? 0;
+
     context
         .read<AnalyticsBloc>()
         .add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.openedSessionPreparationMaterials, {
           "timestamp": DateTime.now().toIso8601String(),
         }));
 
-    AnalyticsEventService.instance.openedSessionPreparationMaterialsEvent();
+    AnalyticsEventService.instance.openedSessionPreparationMaterialsEvent(userId, sessionId);
 
     context.router.pushNamed(AppRoutes.preparationMaterials);
   }
