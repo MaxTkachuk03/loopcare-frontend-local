@@ -1003,6 +1003,7 @@ class ModalBottomSheet {
   static void readTextVersion({
     required BuildContext context,
     required void Function() onBtnPress,
+    required void Function() onCompleteModal,
   }) {
     showModalBottomSheet<void>(
       isScrollControlled: true,
@@ -1070,7 +1071,10 @@ class ModalBottomSheet {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 24.0),
                             child: ElevatedButton(
-                              onPressed: onBtnPress,
+                              onPressed: () {
+                                context.router.pop();
+                                onBtnPress();
+                              },
                               child: Text(LocalizedTexts.next.translation),
                             ),
                           ),
@@ -1085,7 +1089,7 @@ class ModalBottomSheet {
           },
         );
       },
-    );
+    ).whenComplete(onCompleteModal);
   }
 
   static void reportAbuse({

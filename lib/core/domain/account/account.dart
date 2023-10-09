@@ -23,6 +23,7 @@ abstract class Account implements _$Account {
     required SexType gender,
     required String bioGender,
     @Default(null) UserGroupingState? groupingState,
+    @Default(null) int? groupId,
     @Default(null) DateTime? groupingStartedAt,
     @Default(0) double height,
     @Default(0) double weight,

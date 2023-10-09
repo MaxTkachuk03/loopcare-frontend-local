@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
@@ -105,19 +108,56 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
   }
 
   _setIsComplete() {
+    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.lessonAudioFinished, {
+          "lessonId": lessonId.toString(),
+          "timestamp": DateTime.now().toIso8601String(),
+        }));
+
+    AnalyticsEventService.instance.lessonAudioFinishedEvent(lessonId);
     widget.onNextPressed();
   }
 
   _setIsPlay(bool state) {
+    state
+        ? AnalyticsEventService.instance.lessonAudioPlayEvent(lessonId)
+        : AnalyticsEventService.instance.lessonAudioStopEvent(lessonId);
+
+    state
+        ? context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.lessonAudioPlay, {
+              "lessonId": lessonId.toString(),
+              "timestamp": DateTime.now().toIso8601String(),
+            }))
+        : context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.lessonAudioStop, {
+              "lessonId": lessonId.toString(),
+              "timestamp": DateTime.now().toIso8601String(),
+            }));
+
     setState(() {
       isPlay = state;
     });
   }
 
+  void onCompleteModelHandler() {
+    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.closedTextLessonVersion, {
+          "lessonId": lessonId.toString(),
+          "timestamp": DateTime.now().toIso8601String(),
+        }));
+
+    AnalyticsEventService.instance.closedTextLessonVersionEvent(lessonId);
+  }
+
   void _onReadText() {
+    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.openedTextLessonVersion, {
+          "lessonId": lessonId.toString(),
+          "timestamp": DateTime.now().toIso8601String(),
+        }));
+
+    AnalyticsEventService.instance.openedTextLessonVersionEvent(lessonId);
+
     ModalBottomSheet.readTextVersion(
       context: context,
       onBtnPress: widget.onNextPressed,
+      onCompleteModal: onCompleteModelHandler,
     );
   }
 

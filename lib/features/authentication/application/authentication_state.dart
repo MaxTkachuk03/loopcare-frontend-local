@@ -127,6 +127,11 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
+  int? get groupId {
+    return mapOrNull(
+      authenticated: (state) => state.account.groupId,
+    );
+  }
 
   int? get trainingFrequency {
     return mapOrNull(
@@ -135,7 +140,6 @@ class AuthenticationState with _$AuthenticationState {
   }
 
   bool get isUserGrouped => groupingState == UserGroupingState.grouped;
-
 
   factory AuthenticationState.fromJson(Map<String, dynamic> json) => _$AuthenticationStateFromJson(json);
 }

@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_navigator_observer.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/routes/gender_prefs_guard.dart';
@@ -151,6 +152,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<ReportAbuseBloc>(
           create: (_) => getIt<ReportAbuseBloc>(),
+        ),
+        BlocProvider<AnalyticsBloc>(
+          create: (_) => getIt<AnalyticsBloc>(),
         ),
       ],
       child: const _App(),

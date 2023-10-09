@@ -2,6 +2,7 @@
 final screenNames = {
   'EducationRoute': 'Education Screen', // added
   'DashboardRoute': 'Calendar Screen', // added
+  'HomeRoute': 'Calendar Screen', // added
   'AccountRoute': 'User profile Screen', // added
   'LogWeightRoute': 'Today\'s weight Screen', //added
   'SelectFoodRoute': 'Select Food Screen', // added
@@ -47,9 +48,22 @@ final screenNames = {
   'NoConsentRoute': 'No Consent Screen',
   'LegalStatementRoute': 'Legal Statement Screen', //added
   'PreferencesOverviewRoute': 'Preferences Overview Screen',
+
+  'YouAndFoodIntroRoute': 'You and Food Screen',
+  'TypesOfFoodRoute': 'Types of Food Screen',
+  'MeatPreferencesRoute': 'Meat Preferences Screen',
+  'AllergicRoute': 'Allergic Screen',
+  'YouAndFoodReadyRoute': 'You and Food Ready Screen',
+  'DoNotLikeRoute': 'Do not Like Screen',
+  'MentalHealthIntroRoute': 'Mental Health Screen',
+  'MentalHealthQuestionRoute': 'Mental Health Question Screen',
+  'MentalCheckResultRoute': 'Mental Check Result Screen',
+
+  // Diabetes
   'DiabetesRoute': 'Diabetes Screen',
   'DisclaimerRoute': 'Disclaimer Screen',
   'SummaryRoute': 'Summary Screen',
+
   'NutritionInstructionsRoute': 'Nutrition Instructions Screen', //added
   'MealRoute': 'Meal Screen', //added
   'LogPlannedMealsRoute': 'Log Planned Meals Screen',
@@ -59,18 +73,30 @@ final screenNames = {
   'LessonRoute': 'Lesson Screen', // added
   'LessonCompleteRoute': 'Lesson Complete Screen', // added
   'LessonErrorRoute': 'Lesson Error Screen',
+
+  // Physical activities
+  'ChooseProgramRoute': 'Choose Physical Program Screen',
   'SelectExerciseRoute': 'Select Exercise Screen', // added
-  'DailyIntakeRoute': 'Daily Intake Screen',
   'ProgramAssessmentRoute': 'Program Assessment Screen', // added
   'PhysicalProgramsRoute': 'Physical Programs Screen', // added
   'ProgramDetailsRoute': 'Program Details Screen', // added
+  'PhysicalActivitiesPreferencesRoute': '',
+  'PhysicalActivitiesFrequencyRoute': '',
+  'PhysicalActivitiesActivityTypeRoute': '',
+  'PhysicalActivitiesCompleteRoute': '',
+
+  'DailyIntakeRoute': 'Daily Intake Screen',
   'FoodPreferencesRoute': 'Food Preferences Screen', // added
   'EditFoodPreferencesRoute': ' Edit Food Preferences Screen', // added
   'JoinGroupPreferencesRoute': 'Join Group Preferences Screen', // added
   'GenderPreferencesRoute': 'User Gender Preferences Screen', // added
   'NicknamePreferencesRoute': 'Nickname Preferences Screen', // added
   'VideoRoute': 'Video Screen', // added
+
+  // Reflection
   'ReflectionRoute': 'Reflection Screen', // added
+  'reflectionNutritionDetailsRoute': 'Reflection Nutrition Details Screen',
+
   'NutritionDetailsRoute': 'Nutrition Details Screen',
   'VideoSessionRoute': 'Video Session Screen',
   'GroupPreferencesRoute': 'Group Preferences Screen', // added
@@ -82,4 +108,10 @@ final screenNames = {
   'GroupRulesFiveRoute': 'Group Rules Five Screen', // added
   'GroupRulesSixRoute': 'Group Rules Six Screen', // added
   'SupportGroupIntroRoute': 'Support Group Intro Screen',
+
+  // Video session
+  'SessionWaitingRoomRoute': 'Group Session Waiting Room Screen',
+  'SessionCallRoute': 'Group Session Call Screen',
+  'SessionRulesRoute': 'Group Session Rules Screen',
+  'PreparationMaterialsRoute': 'Group Session Preparation Materials Screen',
 };
