@@ -42,7 +42,7 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
     final data = SendAnalyticsEventBody(
       event: event.name,
       accountId: userId,
-      groupId: userGroupId ?? 0,
+      groupId: userGroupId,
       platform: platform,
       metadata: event.data,
     );

@@ -8,7 +8,7 @@ part 'send_analytics_event_response.g.dart';
 class SendAnalyticsEventResponse {
   final String event;
   final int accountId;
-  final int groupId;
+  final int? groupId;
   final String platform;
   final Map<String, String> metadata;
 

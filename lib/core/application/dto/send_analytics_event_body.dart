@@ -11,7 +11,7 @@ abstract class SendAnalyticsEventBody implements _$SendAnalyticsEventBody {
   const factory SendAnalyticsEventBody({
     required String event,
     required int accountId,
-    required int groupId,
+    required int? groupId,
     required String platform,
     required Map<String, String> metadata,
   }) = _SendAnalyticsEventBody;
