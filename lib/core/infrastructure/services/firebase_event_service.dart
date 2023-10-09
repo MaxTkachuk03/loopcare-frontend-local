@@ -61,7 +61,7 @@ class AnalyticsEventService {
     FirebaseAnalytics.instance.logEvent(
       name: eventName,
       parameters: {
-        'lessonId': lessonId,
+        'lessonId': lessonId.toString(),
       },
     );
   }
@@ -70,8 +70,8 @@ class AnalyticsEventService {
     await FirebaseAnalytics.instance.logEvent(
       name: eventName,
       parameters: {
-        'lessonId': lessonId,
-        'userId': userId,
+        'lessonId': lessonId.toString(),
+        'userId': userId.toString(),
         'lessonType': lesson.type.name,
         'timestamp': DateTime.now().toIso8601String(),
       },
@@ -82,9 +82,9 @@ class AnalyticsEventService {
     await FirebaseAnalytics.instance.logEvent(
       name: 'leave_lesson_screen',
       parameters: {
-        'lessonId': lessonId,
+        'lessonId': lessonId.toString(),
         'lessonType': lessonType,
-        'userId': userId,
+        'userId': userId.toString(),
         'timestamp': DateTime.now().toIso8601String(),
       },
     );
@@ -94,8 +94,8 @@ class AnalyticsEventService {
     await FirebaseAnalytics.instance.logEvent(
       name: 'opened_text_lesson_version',
       parameters: {
-        'lessonId': lessonId,
-        'userId': userId,
+        'lessonId': lessonId.toString(),
+        'userId': userId.toString(),
         'timestamp': DateTime.now().toIso8601String(),
       },
     );
@@ -105,8 +105,8 @@ class AnalyticsEventService {
     await FirebaseAnalytics.instance.logEvent(
       name: 'closed_text_lesson_version',
       parameters: {
-        'lessonId': lessonId,
-        'userId': userId,
+        'lessonId': lessonId.toString(),
+        'userId': userId.toString(),
         'timestamp': DateTime.now().toIso8601String(),
       },
     );
@@ -116,8 +116,8 @@ class AnalyticsEventService {
     await FirebaseAnalytics.instance.logEvent(
       name: 'lesson_audio_play',
       parameters: {
-        'lessonId': lessonId,
-        'userId': userId,
+        'lessonId': lessonId.toString(),
+        'userId': userId.toString(),
         'timestamp': DateTime.now().toIso8601String(),
       },
     );
@@ -127,8 +127,8 @@ class AnalyticsEventService {
     await FirebaseAnalytics.instance.logEvent(
       name: 'lesson_audio_stop',
       parameters: {
-        'lessonId': lessonId,
-        'userId': userId,
+        'lessonId': lessonId.toString(),
+        'userId': userId.toString(),
         'timestamp': DateTime.now().toIso8601String(),
       },
     );
@@ -138,8 +138,8 @@ class AnalyticsEventService {
     await FirebaseAnalytics.instance.logEvent(
       name: 'lesson_audio_finished',
       parameters: {
-        'lessonId': lessonId,
-        'userId': userId,
+        'lessonId': lessonId.toString(),
+        'userId': userId.toString(),
         'timestamp': DateTime.now().toIso8601String(),
       },
     );
@@ -187,8 +187,8 @@ class AnalyticsEventService {
     await FirebaseAnalytics.instance.logEvent(
       name: "opened_session_preparation_materials",
       parameters: {
-        'userId': userId,
-        'sessionId': sessionId,
+        'userId': userId.toString(),
+        'sessionId': sessionId.toString(),
         'timestamp': DateTime.now().toIso8601String(),
       },
     );
@@ -198,8 +198,8 @@ class AnalyticsEventService {
     await FirebaseAnalytics.instance.logEvent(
       name: "closed_session_preparation_materials",
       parameters: {
-        'userId': userId,
-        'sessionId': sessionId,
+        'userId': userId.toString(),
+        'sessionId': sessionId.toString(),
         'timestamp': DateTime.now().toIso8601String(),
       },
     );
