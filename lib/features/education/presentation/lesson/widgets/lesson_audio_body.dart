@@ -120,22 +120,6 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
   }
 
   _setIsPlay(bool state) {
-    final userId = context.read<AuthenticationCubit>().state.id;
-
-    state
-        ? AnalyticsEventService.instance.lessonAudioPlayEvent(lessonId, userId)
-        : AnalyticsEventService.instance.lessonAudioStopEvent(lessonId, userId);
-
-    state
-        ? context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.lessonAudioPlay, {
-              "lessonId": lessonId.toString(),
-              "timestamp": DateTime.now().toIso8601String(),
-            }))
-        : context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.lessonAudioStop, {
-              "lessonId": lessonId.toString(),
-              "timestamp": DateTime.now().toIso8601String(),
-            }));
-
     setState(() {
       isPlay = state;
     });
@@ -315,16 +299,10 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                       AudioBlock(
                         url: state.data.currentPage.content.audioFilePath,
                         duration: state.data.lessonDuration,
-                        onDurationChanged: (int duration) {
-                          _setDuration(duration);
-                        },
-                        onPositionChanged: (int position) {
-                          _setPosition(position);
-                        },
-                        onPlayingChanged: (bool isPlay) {
-                          _setIsPlay(isPlay);
-                        },
-                        onPlayerComplete: () => _setIsComplete(),
+                        onDurationChanged: _setDuration,
+                        onPositionChanged: _setPosition,
+                        onPlayingChanged: _setIsPlay,
+                        onPlayerComplete: _setIsComplete,
                       ),
                     const SizedBox(height: 14),
                   ],

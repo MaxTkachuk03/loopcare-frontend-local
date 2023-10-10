@@ -2,9 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/common.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -54,11 +60,13 @@ class _PlayerWidgetState extends State<PlayerWidget> with WidgetsBindingObserver
 
   /// Collects the data useful for displaying in a seek bar, using a handy
   /// feature of rx_dart to combine the 3 streams of interest into one.
-  Stream<PositionData> get _positionDataStream => Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
-      widget.player.positionStream,
-      widget.player.bufferedPositionStream,
-      widget.player.durationStream,
-      (position, bufferedPosition, duration) => PositionData(position, bufferedPosition, duration ?? Duration.zero));
+  Stream<PositionData> get _positionDataStream =>
+      Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
+          widget.player.positionStream,
+          widget.player.bufferedPositionStream,
+          widget.player.durationStream,
+          (position, bufferedPosition, duration) =>
+              PositionData(position, bufferedPosition, duration ?? Duration.zero));
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +102,34 @@ class ControlButtons extends StatelessWidget {
 
   const ControlButtons(this.player, this.muteNotifier, {Key? key}) : super(key: key);
 
+  _onPlayPressed(BuildContext context) {
+    final userId = context.read<AuthenticationCubit>().state.id;
+    final lessonId = context.read<EducationLessonBloc>().state.data.lessonId;
+
+    AnalyticsEventService.instance.lessonAudioPlayEvent(lessonId, userId);
+
+    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.lessonAudioPlay, {
+          "lessonId": lessonId.toString(),
+          "timestamp": DateTime.now().toIso8601String(),
+        }));
+
+    player.play();
+  }
+
+  _onPlayPaused(BuildContext context) {
+    final userId = context.read<AuthenticationCubit>().state.id;
+    final lessonId = context.read<EducationLessonBloc>().state.data.lessonId;
+
+    AnalyticsEventService.instance.lessonAudioStopEvent(lessonId, userId);
+
+    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.lessonAudioStop, {
+          "lessonId": lessonId.toString(),
+          "timestamp": DateTime.now().toIso8601String(),
+        }));
+
+    player.pause();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -109,7 +145,8 @@ class ControlButtons extends StatelessWidget {
               final playerState = snapshot.data;
               final processingState = playerState?.processingState;
               final playing = playerState?.playing;
-              if (processingState == ProcessingState.loading || processingState == ProcessingState.buffering) {
+              if (processingState == ProcessingState.loading ||
+                  processingState == ProcessingState.buffering) {
                 return Container(
                   margin: const EdgeInsets.symmetric(vertical: 10.0),
                   width: 30.0,
@@ -123,14 +160,14 @@ class ControlButtons extends StatelessWidget {
                   icon: const Icon(Icons.play_arrow),
                   color: AppColors.darkGreen,
                   iconSize: 35.0,
-                  onPressed: player.play,
+                  onPressed: () => _onPlayPressed(context),
                 );
               } else if (processingState != ProcessingState.completed) {
                 return IconButton(
                   icon: const Icon(Icons.pause),
                   iconSize: 35.0,
                   color: AppColors.darkGreen,
-                  onPressed: player.pause,
+                  onPressed: () => _onPlayPaused(context),
                 );
               } else {
                 return IconButton(
