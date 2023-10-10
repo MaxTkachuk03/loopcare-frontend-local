@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
@@ -71,18 +73,23 @@ class IOSocketService extends SocketService {
     startListen();
   }
 
+  void _onConnectTimeout(data) {
+    _socket?.connect();
+  }
+
   void _initSocket() {
     _socket = io.io(
       _baseUrl,
       io.OptionBuilder()
           .setTransports(['websocket'])
           .setQuery({'authorization': 'Bearer $_authToken'})
-          .disableAutoConnect()
           .enableReconnection()
+          .enableAutoConnect()
           .build(),
     )
       ..onConnect((data) => _onConnect())
       ..onDisconnect((data) => _onDisconnect(data))
+      ..onConnectTimeout((data) => _onConnectTimeout(data))
       ..on(kEventSlotCancelled, (data) => _onSlotCancelled(data))
       ..on(kEventTopicAvailable, (data) => _onTopicAvailable(data))
       ..on(kEventTopicUnavailable, (data) => _onTopicUnavailable(data))
@@ -155,6 +162,5 @@ class IOSocketService extends SocketService {
 
   void _onError(dynamic data) {
     _debug('Error: $data');
-    disconnect();
   }
 }
