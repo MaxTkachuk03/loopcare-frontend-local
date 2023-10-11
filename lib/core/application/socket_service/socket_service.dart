@@ -1,44 +1,32 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
-import 'package:loopcare_frontend/core/application/socket_data.dart';
-import 'package:loopcare_frontend/core/application/socket_service_abstract.dart';
+import 'package:loopcare_frontend/core/application/socket_service/socket_data.dart';
+import 'package:loopcare_frontend/core/application/socket_service/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
-const String kEventSlotCancelled = 'SLOT_CANCELLED';
-const String kEventTopicAvailable = 'TOPIC_AVAILABLE';
-const String kEventTopicUnavailable = 'TOPIC_UNAVAILABLE';
-const String kEventNewTopicAvailable = 'NEW_TOPIC_AVAILABLE';
-const String kEventTopicSlotFinished = 'SLOT_FINISHED';
-const String kEventTopicSlotStarted = 'SLOT_STARTED';
-const String kEventTopicSlotStartedSoon = 'SLOT_STARTING_SOON';
+@Injectable()
+class SocketService {
+  final AppConfig? _appConfig;
+  final TopicsBloc? _topicsBloc;
+  final AuthTokenManager? _tokenManager;
 
-final getIt = GetIt.instance;
-
-AppConfig appConfig = getIt<AppConfig>();
-
-@Injectable(as: SocketService)
-class IOSocketService extends SocketService {
-  final String _baseUrl = 'wss://${appConfig.baseHost}/group-session';
-  final AuthTokenManager _tokenManager = getIt<AuthTokenManager>();
-  final TopicsBloc topicsBloc = getIt<TopicsBloc>();
   String? _authToken;
+  String? _baseUrl;
   io.Socket? _socket;
 
-  Future<void> _initToken() async {
-    final token = await _tokenManager.getAccessToken();
-    if (token != null) {
-      _authToken = token;
-    }
+  SocketService()
+      : _appConfig = GetIt.instance<AppConfig>(),
+        _tokenManager = GetIt.instance<AuthTokenManager>(),
+        _topicsBloc = GetIt.instance<TopicsBloc>() {
+    _baseUrl = 'wss://${_appConfig?.baseHost}/group-session';
   }
 
   /// Should started after login
-  @override
   Future<void> startListen() async {
     if (_authToken == null) {
       await _initToken();
@@ -48,6 +36,13 @@ class IOSocketService extends SocketService {
       _initSocket();
     } else {
       connect();
+    }
+  }
+
+  Future<void> _initToken() async {
+    final token = await _tokenManager?.getAccessToken();
+    if (token != null) {
+      _authToken = token;
     }
   }
 
@@ -87,69 +82,67 @@ class IOSocketService extends SocketService {
           .enableAutoConnect()
           .build(),
     )
-      ..onConnect((data) => _onConnect())
-      ..onDisconnect((data) => _onDisconnect(data))
-      ..onConnectTimeout((data) => _onConnectTimeout(data))
-      ..on(kEventSlotCancelled, (data) => _onSlotCancelled(data))
-      ..on(kEventTopicAvailable, (data) => _onTopicAvailable(data))
-      ..on(kEventTopicUnavailable, (data) => _onTopicUnavailable(data))
-      ..on(kEventNewTopicAvailable, (data) => _onNewTopicAvailable(data))
-      ..on(kEventTopicSlotFinished, (data) => _onTopicSlotFinished(data))
-      ..on(kEventTopicSlotStarted, (data) => _onTopicSlotStarted(data))
-      ..on(kEventTopicSlotStartedSoon, (data) => _onTopicSlotStartedSoon(data))
-      ..onError((data) => _onError(data));
+      ..onConnect(_onConnect)
+      ..onDisconnect(_onDisconnect)
+      ..onConnectTimeout(_onConnectTimeout)
+      ..on(SocketEvents.slotCancelled, _onSlotCancelled)
+      ..on(SocketEvents.topicAvailable, _onTopicAvailable)
+      ..on(SocketEvents.topicUnavailable, _onTopicUnavailable)
+      ..on(SocketEvents.newTopicAvailable, _onNewTopicAvailable)
+      ..on(SocketEvents.topicSlotFinished, _onTopicSlotFinished)
+      ..on(SocketEvents.topicSlotStarted, _onTopicSlotStarted)
+      ..on(SocketEvents.topicSlotStartedSoon, _onTopicSlotStartedSoon)
+      ..onError(_onError);
 
     _socket!.connect();
   }
 
-  void _onConnect() {
+  void _onConnect(_) {
     _debug('socket is connected ${_socket!.connected} ${_socket!.id}');
   }
 
   void refreshTopics() {
-    topicsBloc.add(const TopicsEvent.fetchTopics());
+    _topicsBloc?.add(const TopicsEvent.fetchTopics());
     _debug('refreshTopics BLoC event');
   }
 
   void _onSlotCancelled(dynamic data) {
     refreshTopics();
-    _debug('on $kEventSlotCancelled: $data');
+    _debug('on ${SocketEvents.slotCancelled}: $data');
   }
 
   void _onTopicAvailable(dynamic data) {
     refreshTopics();
-    _debug('on $kEventTopicAvailable: $data');
+    _debug('on ${SocketEvents.topicAvailable}: $data');
   }
 
   void _onTopicUnavailable(dynamic data) {
     refreshTopics();
-    _debug('on $kEventTopicUnavailable: $data');
+    _debug('on ${SocketEvents.topicUnavailable}: $data');
   }
 
   void _onNewTopicAvailable(dynamic data) {
     refreshTopics();
-    _debug('on $kEventNewTopicAvailable: $data');
+    _debug('on ${SocketEvents.newTopicAvailable}: $data');
   }
 
   void _onTopicSlotFinished(dynamic data) {
     refreshTopics();
-    _debug('on $kEventTopicSlotFinished: $data');
+    _debug('on ${SocketEvents.topicSlotFinished}: $data');
   }
 
   void _onTopicSlotStarted(dynamic data) {
     refreshTopics();
-    _debug('on $kEventTopicSlotStarted: $data');
+    _debug('on ${SocketEvents.topicSlotStarted}: $data');
   }
 
   void _onTopicSlotStartedSoon(dynamic data) {
     refreshTopics();
-    _debug('on $kEventTopicSlotStartedSoon: $data');
+    _debug('on ${SocketEvents.topicSlotStartedSoon}: $data');
   }
 
   void _debug(String data) {
-    if (kDebugMode) {
-      print('SocketIO -------: ${DateTime.now().toIso8601String()} on  $data');
-    }
+    print('SocketIO -------: ${DateTime.now().toIso8601String()} on  $data');
   }
 
   void _onDisconnect(dynamic data) {
