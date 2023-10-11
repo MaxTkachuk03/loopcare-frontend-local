@@ -6,7 +6,6 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item.dart';
-import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item_toggler.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';

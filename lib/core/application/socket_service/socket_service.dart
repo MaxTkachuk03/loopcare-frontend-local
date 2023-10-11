@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:get_it/get_it.dart';
-import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/socket_service/socket_data.dart';
 import 'package:loopcare_frontend/core/application/socket_service/events.dart';
@@ -9,41 +8,44 @@ import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
-@Injectable()
 class SocketService {
   final AppConfig? _appConfig;
   final TopicsBloc? _topicsBloc;
   final AuthTokenManager? _tokenManager;
 
-  String? _authToken;
   String? _baseUrl;
   io.Socket? _socket;
+  static final SocketService _instance = SocketService._internal();
 
-  SocketService()
+  static SocketService get instance => _instance;
+
+  SocketService._internal()
       : _appConfig = GetIt.instance<AppConfig>(),
         _tokenManager = GetIt.instance<AuthTokenManager>(),
         _topicsBloc = GetIt.instance<TopicsBloc>() {
     _baseUrl = 'wss://${_appConfig?.baseHost}/group-session';
   }
 
-  /// Should started after login
   Future<void> startListen() async {
-    if (_authToken == null) {
-      await _initToken();
-    }
+    final token = await _initToken();
+    if (token == null) return;
 
     if (_socket == null) {
-      _initSocket();
+      _initSocket(token);
     } else {
-      connect();
+      connect(token);
     }
   }
 
-  Future<void> _initToken() async {
+  Future<String?> _initToken() async {
     final token = await _tokenManager?.getAccessToken();
-    if (token != null) {
-      _authToken = token;
+
+    if (token == null) {
+      disconnect();
+      return null;
     }
+
+    return token;
   }
 
   bool get isConnected => _socket?.connected ?? false;
@@ -58,8 +60,8 @@ class SocketService {
     _socket?.disconnect();
   }
 
-  void connect() {
-    _socket?.io.options!['authorization'] = {'Bearer': _authToken};
+  void connect(String token) {
+    _socket?.io.options!['authorization'] = {'Bearer': token};
     _socket?.connect();
   }
 
@@ -72,12 +74,12 @@ class SocketService {
     _socket?.connect();
   }
 
-  void _initSocket() {
+  void _initSocket(String token) {
     _socket = io.io(
       _baseUrl,
       io.OptionBuilder()
           .setTransports(['websocket'])
-          .setQuery({'authorization': 'Bearer $_authToken'})
+          .setQuery({'authorization': 'Bearer $token'})
           .enableReconnection()
           .enableAutoConnect()
           .build(),
@@ -92,6 +94,7 @@ class SocketService {
       ..on(SocketEvents.topicSlotFinished, _onTopicSlotFinished)
       ..on(SocketEvents.topicSlotStarted, _onTopicSlotStarted)
       ..on(SocketEvents.topicSlotStartedSoon, _onTopicSlotStartedSoon)
+      ..on(SocketEvents.error, _onErrorHandler)
       ..onError(_onError);
 
     _socket!.connect();
@@ -141,13 +144,18 @@ class SocketService {
     _debug('on ${SocketEvents.topicSlotStartedSoon}: $data');
   }
 
+  void _onErrorHandler(dynamic data) {
+    disconnect();
+    _debug('on ${SocketEvents.error}: $data');
+  }
+
   void _debug(String data) {
     print('SocketIO -------: ${DateTime.now().toIso8601String()} on  $data');
   }
 
   void _onDisconnect(dynamic data) {
     if ((data as String) == 'io server disconnect') {
-      connect();
+      reconnect();
     } else {
       _debug('socket is disconnect with reason: $data');
     }
