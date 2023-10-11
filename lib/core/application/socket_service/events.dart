@@ -8,4 +8,5 @@ class SocketEvents {
   static const String topicSlotFinished = 'SLOT_FINISHED';
   static const String topicSlotStarted = 'SLOT_STARTED';
   static const String topicSlotStartedSoon = 'SLOT_STARTING_SOON';
+  static const String error = 'ERROR';
 }

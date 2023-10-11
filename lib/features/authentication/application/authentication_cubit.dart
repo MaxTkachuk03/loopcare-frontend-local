@@ -1,6 +1,7 @@
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
+import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
@@ -18,6 +19,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
   final AuthenticationService _authenticationService;
   final DioClient client;
   final AuthTokenManager authTokenManager;
+  final SocketService _socketService = SocketService.instance;
   AccessTokenSubscription? _accessTokenSubscription;
 
   AuthenticationCubit(
@@ -59,6 +61,8 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
       (response) {
         authTokenManager.setAccessToken(response.accessToken);
         authTokenManager.setRefreshToken(response.refreshToken);
+
+        _socketService.startListen();
 
         emit(
           AuthenticationState.authenticated(
@@ -164,6 +168,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     await authTokenManager.removeAccessToken();
     await authTokenManager.removeRefreshToken();
     emit(const AuthenticationState.guest());
+    _socketService.disconnect();
   }
 
   Future<void> authenticatedCheck() async {

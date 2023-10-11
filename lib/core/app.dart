@@ -173,7 +173,7 @@ class _App extends StatefulWidget {
 class _AppState extends State<_App> {
   late final AppRouter _appRouter;
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  final SocketService _socketService = SocketService();
+  final SocketService _socketService = SocketService.instance;
   static final FirebaseAnalyticsObserver _analyticsObserver = FirebaseAnalyticsObserver(analytics: analytics);
 
   @override
