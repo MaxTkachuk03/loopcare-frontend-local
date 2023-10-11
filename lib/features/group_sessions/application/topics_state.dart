@@ -107,7 +107,8 @@ class TopicsData with _$TopicsData {
                   element.startDate.add(Duration(seconds: weekTopic?.duration ?? 0)).toLocal().isAfter(
                         DateTime.now(),
                       ) &&
-                  element.status == GroupSessionStatus.planned,
+                  (element.status == GroupSessionStatus.planned ||
+                      element.status == GroupSessionStatus.active),
             )
             .toList()
             .length ??
