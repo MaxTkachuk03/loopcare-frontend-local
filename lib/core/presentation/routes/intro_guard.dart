@@ -35,10 +35,7 @@ class IntroGuard extends AutoRouteGuard {
         .map((e) {
           final questionRoutes = e.questions.map((e) => const MentalHealthQuestionRoute()).toList();
 
-          return [
-            ...questionRoutes,
-            MentalCheckResultRoute(calculationResultsNotNeeded: true) as PageRouteInfo<void>
-          ];
+          return [...questionRoutes, MentalCheckResultRoute(calculationResultsNotNeeded: true) as PageRouteInfo<void>];
         })
         .expand((element) => element)
         .toList();
@@ -56,9 +53,9 @@ class IntroGuard extends AutoRouteGuard {
       socketService ??= IOSocketService();
 
       socketService?.startListen();
-
+//Todo AppRoutes.home
       final route =
-          authenticationCubit.state.isPreferencesComplete ? AppRoutes.home : AppRoutes.preferencesOverview;
+          authenticationCubit.state.isPreferencesComplete ? AppRoutes.subscription : AppRoutes.preferencesOverview;
       MixpanelEventService.instance.trackVisit(
         "${AppMixpanelEvents.appRote}:  $route",
         userId: authenticationCubit.state.id,

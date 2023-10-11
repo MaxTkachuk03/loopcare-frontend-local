@@ -97,6 +97,7 @@ import 'package:loopcare_frontend/features/proxy/proxy_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_serving_page/select_serving_page.dart';
 import 'package:loopcare_frontend/features/reflection/presentation/nutrition_details_page.dart';
 import 'package:loopcare_frontend/features/reflection/presentation/reflection_page.dart';
+import 'package:loopcare_frontend/features/subscription/presentation/subscription_page.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/video_page.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/session_call_page.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/session_rules_page.dart';
@@ -272,6 +273,10 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.login,
       page: LoginPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.subscription,
+      page: SubscriptionPage,
     ),
     AutoRoute(
       path: AppRoutes.forgotPassword,

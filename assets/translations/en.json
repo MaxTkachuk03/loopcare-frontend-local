@@ -646,5 +646,21 @@
   "errorSubjectMessage": "Text message must be at least 1 symbol and less than 30 symbols",
   "requiredField": "Field is required",
   "send": "Send",
-  "yourPreferencesUpdated": "Your {prefName} preferences have been updated"
+  "yourPreferencesUpdated": "Your {prefName} preferences have been updated",
+  "subscriptionTrialTitle": "First 4 weeks free",
+  "subscriptionTrialLabel": "You can try out LeanOnMe for 4 weeks before deciding to purchase",
+  "subscriptionTrialExpiredTitle": "Your trial has expired",
+  "subscriptionTrialExpiredLabel": "We hope you enjoyed our program. If you want to continue choose one of the following:",
+  "subscriptionEndedTitle": "Your subscription \nhas ended",
+  "subscriptionEndedLabel": "We hope you enjoyed our program. If you want to continue choose one of following:",
+  "subscriptionCancelledTitle": "Your subscription \nwas cancelled",
+  "subscriptionCancelledLabel": "We are sorry that you cancelled your subscription. If you want to continue choose one of following:",
+  "subscriptionRenewedTitle": "Your subscription \ncould not be renewed",
+  "subscriptionRenewedLabel": "We want to let you know that your subscription could not be automatically renewed. \n\nYou will get a couple of days grace to look into this while you can still continue use the app.",
+  "subscriptionRestoreLabel": "Restore Purchase",
+  "subscriptionTermsLabel": "Terms & Conditions",
+  "subscriptionAnnual": "Annual",
+  "subscriptionMonthly": "Monthly",
+  "subscriptionSubscribe": "Subscribe",
+  "subscriptionPrice": "{C} {XX,XX} ({C} {X,XX} / month) after 4 week trial"
 }

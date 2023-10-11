@@ -153,13 +153,14 @@ class _LoginFormState extends State<LoginForm> {
   void _navigationListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(
       authenticated: (state) {
-        final route = state.isPreferencesComplete ? const HomeRoute() : const PreferencesOverviewRoute();
+        final route = state.isPreferencesComplete ? const SubscriptionRoute() : const PreferencesOverviewRoute();
+       // final route = state.isPreferencesComplete ? const HomeRoute() : const PreferencesOverviewRoute();
         MixpanelEventService.instance.track(
           AppMixpanelEvents.loginSuccess,
           {
             'userId': state.account.id,
             'email': state.account.email,
-            'next_rout': route,
+            'next_rout': route.path,
           },
         );
         context.router.replaceAll([route]);

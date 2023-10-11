@@ -723,6 +723,24 @@ class LocalizedTexts {
   static const String noMoreSeatAvailable = "noMoreSeatAvailable";
   static const String sessionWarning_1 = "sessionWarning_1";
   static const String sessionWarning_2 = "sessionWarning_2";
+
+  //Subscription
+  static const String subscriptionTrialTitle = "subscriptionTrialTitle";
+  static const String subscriptionTrialLabel = "subscriptionTrialLabel";
+  static const String subscriptionTrialExpiredTitle = "subscriptionTrialExpiredTitle";
+  static const String subscriptionTrialExpiredLabel = "subscriptionTrialExpiredLabel";
+  static const String subscriptionEndedTitle = "subscriptionEndedTitle";
+  static const String subscriptionEndedLabel = "subscriptionEndedLabel";
+  static const String subscriptionCancelledTitle = "subscriptionCancelledTitle";
+  static const String subscriptionCancelledLabel = "subscriptionCancelledLabel";
+  static const String subscriptionRenewedTitle = "subscriptionRenewedTitle";
+  static const String subscriptionRenewedLabel = "subscriptionRenewedLabel";
+  static const String subscriptionRestoreLabel = "subscriptionRestoreLabel";
+  static const String subscriptionTermsLabel = "subscriptionTermsLabel";
+  static const String subscriptionAnnual = "subscriptionAnnual";
+  static const String subscriptionMonthly = "subscriptionMonthly";
+  static const String subscriptionSubscribe = "subscriptionSubscribe";
+  static const String subscriptionPrice = "subscriptionPrice";
 }
 
 extension StringX on String {

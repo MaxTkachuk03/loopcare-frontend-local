@@ -35,6 +35,8 @@ class AppColors {
 
   static const Color ballBlue = Color(0xFF21ABCD);
 
+  static const Color blueLink = Color(0xFF108E95);
+
   static const Color purple = Color(0xFFBDBAE3);
 
   static const Color redFocus = Color(0xFFFF5247);
