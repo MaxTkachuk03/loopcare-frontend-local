@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_block.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 
 class LessonCompletePage extends StatefulWidget {
   const LessonCompletePage({Key? key}) : super(key: key);
@@ -33,6 +34,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
   }
 
   _onPressHandler(BuildContext context) {
+    context.read<DashboardEducationBloc>().add(const DashboardEducationEvent.getDashboardLessons());
     context.router.popUntilRouteWithName(HomeRoute.name);
   }
 

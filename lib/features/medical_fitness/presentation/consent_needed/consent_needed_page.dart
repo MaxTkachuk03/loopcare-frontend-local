@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/application/instructions_service.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -49,32 +51,22 @@ class ConsentNeededPage extends StatelessWidget {
                           children: [
                             Text(
                               LocalizedTexts.needConsentBodyText1.tr(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(),
+                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(),
                             ),
                             const SizedBox(
                               height: 30.0,
                             ),
                             Text(
                               LocalizedTexts.needConsentBodyText2.tr(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(),
+                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(),
                             ),
                             const SizedBox(
                               height: 36.0,
                             ),
                             ElevatedButton(
-                              onPressed: _onDownloadInstructionsPressed,
-                              style: Theme.of(context)
-                                  .elevatedButtonTheme
-                                  .style
-                                  ?.copyWith(
-                                    backgroundColor: MaterialStateProperty.all(
-                                        AppColors.blueDark),
+                              onPressed: () => _onDownloadInstructionsPressed(context),
+                              style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                                    backgroundColor: MaterialStateProperty.all(AppColors.blueDark),
                                   ),
                               child: Text(
                                 LocalizedTexts.downloadInstructions.tr(),
@@ -103,9 +95,7 @@ class ConsentNeededPage extends StatelessWidget {
             Column(
               children: const [
                 _NextButton(),
-                SizedBox(
-                  height: 30.0,
-                ),
+                SizedBox(height: 30.0),
               ],
             ),
           ],
@@ -114,7 +104,18 @@ class ConsentNeededPage extends StatelessWidget {
     );
   }
 
-  void _onDownloadInstructionsPressed() {}
+  Future<void> _onDownloadInstructionsPressed(BuildContext context) async {
+    InstructionsService.downloadInstructions(onErrorCb: _showError(context));
+  }
+
+  _showError(BuildContext context) => () {
+        showAppSnackBar(
+          context: context,
+          text: LocalizedTexts.openLinkErrorMessage.tr(),
+          background: AppColors.red,
+          textColor: Colors.white,
+        );
+      };
 }
 
 class _NextButton extends StatelessWidget {

@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/instructions_service.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -48,18 +50,16 @@ class LegalStatementPage extends StatelessWidget {
                     height: 16.0,
                   ),
                   ElevatedButton(
-                    onPressed: _onReadLegalStatement,
-                    style:
-                        Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                              minimumSize: MaterialStateProperty.all(
-                                const Size(
-                                  0,
-                                  38,
-                                ),
-                              ),
-                              textStyle: MaterialStateProperty.all(
-                                  Theme.of(context).textTheme.bodyMedium),
+                    onPressed: () => _onReadLegalStatement(context),
+                    style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                          minimumSize: MaterialStateProperty.all(
+                            const Size(
+                              0,
+                              38,
                             ),
+                          ),
+                          textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.bodyMedium),
+                        ),
                     child: Text(LocalizedTexts.readLegalStatement.tr()),
                   ),
                   const SizedBox(
@@ -75,12 +75,21 @@ class LegalStatementPage extends StatelessWidget {
     );
   }
 
-  void _onReadLegalStatement() {}
+  Future<void> _onReadLegalStatement(BuildContext context) async {
+    InstructionsService.downloadInstructions(onErrorCb: _showError(context));
+  }
+
+  _showError(BuildContext context) => () {
+        showAppSnackBar(
+          context: context,
+          text: LocalizedTexts.openLinkErrorMessage.tr(),
+          background: AppColors.red,
+          textColor: Colors.white,
+        );
+      };
 
   Future<bool> _onWillPop(BuildContext context) async {
-    context
-        .read<ConsentConfirmationBloc>()
-        .add(const ConsentConfirmationEvent.passageChanged(false));
+    context.read<ConsentConfirmationBloc>().add(const ConsentConfirmationEvent.passageChanged(false));
 
     return Future.value(true);
   }

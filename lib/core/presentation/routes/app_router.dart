@@ -355,6 +355,7 @@ const groupLessonRoutes = [
       path: AppRoutes.doNotLike,
       page: DoNotLikePage,
     ),
+    // TODO check house hold screens seems they could be deleted
     AutoRoute(
       path: AppRoutes.householdIntro,
       page: HouseholdAndHabitsIntroPage,

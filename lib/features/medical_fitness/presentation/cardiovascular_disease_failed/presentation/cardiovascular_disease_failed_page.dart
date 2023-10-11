@@ -42,15 +42,15 @@ class CardiovascularDiseaseFailedPage extends StatelessWidget {
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       const SizedBox(height: 26),
-                      Text(
-                        LocalizedTexts.alsoSomeAdviceWhereToTurnNext.tr(),
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      const SizedBox(height: 26),
-                      SmallFilledButton(
-                        text: LocalizedTexts.moreInfo.tr(),
-                        onPressed: _onMoreInfoPressed,
-                      ),
+                      // Text(
+                      //   LocalizedTexts.alsoSomeAdviceWhereToTurnNext.tr(),
+                      //   style: Theme.of(context).textTheme.bodyLarge,
+                      // ),
+                      // const SizedBox(height: 26),
+                      // SmallFilledButton(
+                      //   text: LocalizedTexts.moreInfo.tr(),
+                      //   onPressed: _onMoreInfoPressed,
+                      // ),
                     ],
                   ),
                 ),
@@ -63,5 +63,5 @@ class CardiovascularDiseaseFailedPage extends StatelessWidget {
     );
   }
 
-  void _onMoreInfoPressed() {}
+  // void _onMoreInfoPressed() {}
 }

@@ -6,7 +6,6 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item.dart';
-import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item_toggler.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
@@ -55,32 +54,33 @@ class _AccountSectionState extends State<AccountSection> {
           const SectionTitle(title: LocalizedTexts.account),
           BlocBuilder<AuthenticationCubit, AuthenticationState>(
             builder: (BuildContext context, state) {
-              return SectionItem(title: LocalizedTexts.username, subTitle: state.email, onPressHandler: () {});
+              return SectionItem(
+                  title: LocalizedTexts.username, subTitle: state.email, onPressHandler: () {});
             },
           ),
           const SizedBox(height: 16.0),
           const Divider(height: 1.0, color: AppColors.yellowLight),
           const SizedBox(height: 16.0),
-          SectionItem(title: LocalizedTexts.changePassword, onPressHandler: () {}),
-          const SizedBox(height: 16.0),
-          const Divider(height: 1.0, color: AppColors.yellowLight),
-          const SizedBox(height: 16.0),
-          SectionItemToggler(
-            title: LocalizedTexts.useFaceOrTouchId,
-            value: _useFaceId,
-            onPressHandler: _onUseFaceIdToggle,
-          ),
-          const SizedBox(height: 16.0),
-          const Divider(height: 1.0, color: AppColors.yellowLight),
-          const SizedBox(height: 16.0),
-          SectionItemToggler(
-            title: LocalizedTexts.requireLoginEachTime,
-            value: _requireLogin,
-            onPressHandler: _onRequireLogin,
-          ),
-          const SizedBox(height: 16.0),
-          const Divider(height: 1.0, color: AppColors.yellowLight),
-          const SizedBox(height: 16.0),
+          // SectionItem(title: LocalizedTexts.changePassword, onPressHandler: () {}),
+          // const SizedBox(height: 16.0),
+          // const Divider(height: 1.0, color: AppColors.yellowLight),
+          // const SizedBox(height: 16.0),
+          // SectionItemToggler(
+          //   title: LocalizedTexts.useFaceOrTouchId,
+          //   value: _useFaceId,
+          //   onPressHandler: _onUseFaceIdToggle,
+          // ),
+          // const SizedBox(height: 16.0),
+          // const Divider(height: 1.0, color: AppColors.yellowLight),
+          // const SizedBox(height: 16.0),
+          // SectionItemToggler(
+          //   title: LocalizedTexts.requireLoginEachTime,
+          //   value: _requireLogin,
+          //   onPressHandler: _onRequireLogin,
+          // ),
+          // const SizedBox(height: 16.0),
+          // const Divider(height: 1.0, color: AppColors.yellowLight),
+          // const SizedBox(height: 16.0),
           ElevatedButton(
             onPressed: _onLogOutPressed,
             style: Theme.of(context).elevatedButtonTheme.style?.copyWith(

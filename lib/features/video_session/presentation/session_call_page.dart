@@ -7,11 +7,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_event_listener.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_user.dart';
+import 'package:loopcare_frontend/core/application/system_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
@@ -64,7 +64,6 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   List<ZoomVideoSdkUser> _sessionParticipants = [];
   List<String> _talkingUsers = [];
   List<String> _usersWithCameraOff = [];
-  String sessionName = '';
   bool isMuted = false;
   bool isSpeakerOn = false;
   bool isVideoOn = false;
@@ -101,7 +100,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       _setInactiveUserState();
       _setInactivityTimer();
     } else if (state == AppLifecycleState.resumed) {
-      _setActiveUserState();
+      _setActiveUserState(_isVideoPlaying);
       _inactivityTimer?.cancel();
     }
   }
@@ -109,15 +108,58 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   _setInactiveUserState() async {
     ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
 
-    await zoom.audioHelper.muteAudio(mySelf!.userId);
-    await zoom.videoHelper.stopVideo();
+    final userMuteState = await zoom.audioHelper.muteAudio(mySelf!.userId);
+    final userVideoOffState = await zoom.videoHelper.stopVideo();
+
+    _showToggleMicPopup(status: userMuteState, isOn: false);
+
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.sessionInactiveState,
+      {
+        "userId": userId,
+        "userName": mySelf.userName,
+        "userMuteState": userMuteState,
+        "userVideoOffState": userVideoOffState,
+        "userLocalTime": DateTime.now().toLocal().toIso8601String(),
+      },
+    );
   }
 
-  _setActiveUserState() async {
+  _setActiveUserState(bool isVideoPlaying) async {
+    if (isVideoPlaying) return;
+
     ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
 
-    await zoom.audioHelper.unMuteAudio(mySelf!.userId);
-    await zoom.videoHelper.startVideo();
+    final userMuteState = await zoom.audioHelper.unMuteAudio(mySelf!.userId);
+    final userVideoOffState = await zoom.videoHelper.startVideo();
+
+    _showToggleMicPopup(status: userMuteState, isOn: true);
+
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.sessionActiveState,
+      {
+        "userId": userId,
+        "userName": mySelf.userName,
+        "userMuteState": userMuteState,
+        "userVideoOffState": userVideoOffState,
+        "userLocalTime": DateTime.now().toLocal().toIso8601String(),
+      },
+    );
+  }
+
+  void _showToggleMicPopup({String status = '', bool isOn = false}) {
+    final micState = isOn ? LocalizedTexts.on : LocalizedTexts.off;
+
+    final message = status == Errors.Success
+        ? LocalizedTexts.micState.tr(namedArgs: {"micState": micState})
+        : LocalizedTexts.somethingWentWrong.tr();
+
+    showAppSnackBar(
+      context: context,
+      text: message,
+      background: Colors.white,
+      textColor: Colors.black,
+    );
   }
 
   void _setInactivityTimer() {
@@ -135,8 +177,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
   void _joinSession() {
     Future<void>.microtask(() async {
-      final String sessionName = context.read<TopicsBloc>().state.data.weekTopicName;
       final String? sessionPassword = context.read<TopicsBloc>().state.data.signedGroupSessionPassword;
+      final String? sessionKey = context.read<TopicsBloc>().state.data.signedGroupSessionKey;
 
       final String token = context.read<TopicsBloc>().state.data.signedSessionSignature;
 
@@ -146,7 +188,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
           context.read<AuthenticationCubit>().state.name;
 
       JoinSessionConfig joinSession = JoinSessionConfig(
-        sessionName: sessionName,
+        sessionName: sessionKey,
         sessionPassword: sessionPassword ?? ZoomConfig.defaultSessionPwd,
         token: token,
         userName: userName,
@@ -161,10 +203,10 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
         MixpanelEventService.instance.track(
           AppMixpanelEvents.joinSessionFail,
           {
-            'userId': userId,
-            'userName': joinSession.userName,
-            'session_token': joinSession.token,
-            'error': e.toString(),
+            "userId": userId,
+            "userName": joinSession.userName,
+            "sessionToken": joinSession.token,
+            "error": e.toString(),
           },
         );
         log('Error while join session $e', name: 'zoomSessionLog');
@@ -210,7 +252,6 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       var muted = await mySelf.audioStatus?.isMuted();
       var videoOn = await mySelf.videoStatus?.isOn();
       var speakerOn = await zoom.audioHelper.getSpeakerStatus();
-      var currentSessionName = await zoom.session.getSessionName();
 
       if (!_isCloudRecordingActive) {
         await zoom.recordingHelper.startCloudRecording();
@@ -223,7 +264,19 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       isSpeakerOn = speakerOn;
       isVideoOn = videoOn!;
 
-      sessionName = currentSessionName!;
+      if (mounted) {
+        MixpanelEventService.instance.track(
+          AppMixpanelEvents.onSessionJoin,
+          {
+            "userId": userId,
+            "isMuted": muted,
+            "videoOn": videoOn,
+            "speakerOn": speakerOn,
+            "currentLocalTime": DateTime.now().toLocal().toIso8601String(),
+            "sessionTime": context.read<SessionCallBloc>().state.data.sessionTime,
+          },
+        );
+      }
 
       setState(() {});
     });
@@ -384,8 +437,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       MixpanelEventService.instance.track(
         AppMixpanelEvents.sessionFail,
         {
-          'userId': userId,
-          'error_type': errorType,
+          "userId": userId,
+          "errorType": errorType,
         },
       );
 
@@ -409,26 +462,13 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   }
 
   Future _enableLandscapeOrientation() async {
-    // Remove system app bar on Android
-    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-
-    await SystemChrome.setPreferredOrientations(
-      [
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.landscapeRight,
-        DeviceOrientation.portraitDown,
-        DeviceOrientation.portraitUp,
-      ],
-    );
+    SystemService.hideSystemOverlays();
+    SystemService.allowBothOrientations();
   }
 
   Future _enablePortraitOrientation() async {
-    // Restores system app bar on Android
-    await SystemChrome.restoreSystemUIOverlays();
-
-    await SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp],
-    );
+    SystemService.showSystemOverlays();
+    SystemService.allowOnlyPortraitOrientation();
   }
 
   void _onErrorHandler(errorType) async {
@@ -468,7 +508,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
       showAppSnackBar(
         context: context,
-        text: LocalizedTexts.sessionEndDialogText,
+        text: LocalizedTexts.sessionEndDialogText.tr(),
         background: Colors.white,
         textColor: Colors.black,
       );
@@ -546,7 +586,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   void _onVideoPlayingHandler(bool isVideoPlaying) async {
     isVideoPlaying ? _enableLandscapeOrientation() : _enablePortraitOrientation();
 
-    isVideoPlaying ? _setInactiveUserState() : _setActiveUserState();
+    isVideoPlaying ? _setInactiveUserState() : _setActiveUserState(isVideoPlaying);
 
     setState(() {
       _isVideoPlaying = isVideoPlaying;
@@ -574,7 +614,12 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       final hideAppBar = _isVideoPlaying && orientation == Orientation.landscape;
 
       return Scaffold(
-        appBar: hideAppBar ? null : SessionAppBar(sessionName: sessionName, onEndSessionHandler: _endSession),
+        appBar: hideAppBar
+            ? null
+            : SessionAppBar(
+                sessionName: context.read<TopicsBloc>().state.data.weekTopicName,
+                onEndSessionHandler: _endSession,
+              ),
         body: Container(
           color: AppColors.black,
           child: SafeArea(
@@ -635,13 +680,14 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
         ),
         bottomNavigationBar: !_isVideoPlaying && userJoinedToSession
             ? SizedBox(
-                height: 160,
+                height: Platform.isIOS ? 160 : 100,
                 child: Column(
                   children: [
-                    ReportIssue(
-                      minutesLeft: context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inMinutes,
-                      onReportIssueHandler: _onReportIssueHandler,
-                    ),
+                    if (Platform.isIOS)
+                      ReportIssue(
+                        minutesLeft: context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inMinutes,
+                        onReportIssueHandler: _onReportIssueHandler,
+                      ),
                     Expanded(
                       child: CallControls(
                         onMuteHandler: onPressAudio,

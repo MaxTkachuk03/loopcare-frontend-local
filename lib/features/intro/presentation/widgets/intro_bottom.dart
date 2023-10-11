@@ -15,14 +15,11 @@ class IntroBottom extends StatelessWidget {
         ElevatedButton(
           onPressed: () => _onGetStarted(context),
           style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                backgroundColor:
-                    MaterialStateProperty.all(AppColors.orangeDark),
+                backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
               ),
           child: Text(LocalizedTexts.getStarted.translation),
         ),
-        const SizedBox(
-          height: 16.0,
-        ),
+        const SizedBox(height: 16.0),
         GestureDetector(
           onTap: () => _onLoginTap(context),
           child: RichText(
@@ -44,9 +41,7 @@ class IntroBottom extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(
-          height: 16.0,
-        ),
+        const SizedBox(height: 16.0),
       ],
     );
   }

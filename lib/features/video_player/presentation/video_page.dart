@@ -4,8 +4,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/system_service.dart';
 import 'package:loopcare_frontend/core/domain/aws_cookies_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
@@ -41,42 +41,32 @@ class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
   Orientation? _currentOrientation;
 
   Future _allowLandscapeOrientation() async {
-    // Remove system app bar on Android
-    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-
     await Wakelock.enable();
 
-    await SystemChrome.setPreferredOrientations(
-      [
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.landscapeRight,
-        DeviceOrientation.portraitDown,
-        DeviceOrientation.portraitUp,
-      ],
-    );
+    SystemService.hideSystemOverlays();
+    SystemService.allowBothOrientations();
   }
 
   Future _onlyPortraitOrientation() async {
-    // Restores system app bar on Android
-    await SystemChrome.restoreSystemUIOverlays();
-
     await Wakelock.disable();
 
-    await SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp],
-    );
+    SystemService.showSystemOverlays();
+    SystemService.allowOnlyPortraitOrientation();
   }
 
   void _initController(PhysicalProgramExercise exercise) async {
     final headers = context.read<VideoPlayerBloc>().state.data.videoHttpHeaders;
 
-    _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(exercise.video ?? ''), httpHeaders: headers)
-      ..initialize().then((value) {
-        _videoPlayerController?.play();
-        AnalyticsEventService.instance.logPhysicalActivityVideoEvent('video_screen', widget.program, exercise);
-      }).whenComplete(() {
-        setState(() {});
-      });
+    _videoPlayerController =
+        VideoPlayerController.networkUrl(Uri.parse(exercise.video ?? ''), httpHeaders: headers)
+          ..initialize().then((value) {
+            _videoPlayerController?.play();
+
+            AnalyticsEventService.instance
+                .logPhysicalActivityVideoEvent('video_screen', widget.program, exercise);
+          }).whenComplete(() {
+            setState(() {});
+          });
   }
 
   _loadVideoPlayer(PhysicalProgramExercise exercise) {
@@ -100,7 +90,7 @@ class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
     // check if it was the last video in playlist
     if (_isLastExercise) {
       _onlyPortraitOrientation();
-      _videoPlayerController?.pause();
+      _videoPlayerController?.dispose();
       context.router.push(ProgramAssessmentRoute(onDisposeCb: _allowLandscapeOrientation));
       return;
     }
@@ -232,7 +222,8 @@ class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
                                             onPressed: _onSkipExplanationHandler,
                                             style: ButtonStyle(
                                               minimumSize: MaterialStateProperty.all(const Size(186, 52.0)),
-                                              backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(AppColors.orangeDark),
                                             ),
                                             child: const Text(LocalizedTexts.skipExplanation).tr(),
                                           ),

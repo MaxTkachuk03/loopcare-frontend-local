@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
@@ -91,55 +93,84 @@ class _LessonPageState extends State<LessonPage> {
     context.router.pop();
   }
 
+  Future<bool> _onWillPop() {
+    final lessonType = context.read<EducationLessonBloc>().state.data.currentPage.type.name;
+    final userId = context.read<AuthenticationCubit>().state.id;
+
+    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.leaveLessonScreen, {
+          "lessonId": widget.lessonId.toString(),
+          "lessonType": lessonType,
+          "timestamp": DateTime.now().toIso8601String(),
+        }));
+
+    AnalyticsEventService.instance.leaveLessonEvent(
+      widget.lessonId,
+      lessonType,
+      userId,
+    );
+
+    return Future.value(true);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<EducationLessonBloc, EducationLessonState>(
-      listenWhen: (prev, cur) => cur is ErrorGettingLessons,
-      listener: _errorListener,
-      builder: (BuildContext context, state) {
-        return state.maybeMap(
-          loading: (_) => const Loader(),
-          contentLoaded: (s) {
-            final currentPage = s.data.currentPage;
-            AnalyticsEventService.instance.logLessonEvent('lesson_screen', widget.lessonId, currentPage);
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: BlocConsumer<EducationLessonBloc, EducationLessonState>(
+        listenWhen: (prev, cur) => cur is ErrorGettingLessons,
+        listener: _errorListener,
+        builder: (BuildContext context, state) {
+          return state.maybeMap(
+            loading: (_) => const Loader(),
+            contentLoaded: (s) {
+              final currentPage = s.data.currentPage;
+              final userId = context.read<AuthenticationCubit>().state.id;
 
-            if (currentPage.type == EducationLessonPageType.text) {
-              return LessonTextPage(
-                onNextPressed: _onNextPressed,
-                onPrevPressed: _onPrevPressed,
-                content: currentPage.content,
+              AnalyticsEventService.instance.logLessonEvent(
+                'lesson_screen',
+                widget.lessonId,
+                currentPage,
+                userId,
               );
-            }
-            if (currentPage.type == EducationLessonPageType.audio) {
-              if (state.data.temporaryDirectory.isEmpty) {
-                context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
+
+              if (currentPage.type == EducationLessonPageType.text) {
+                return LessonTextPage(
+                  onNextPressed: _onNextPressed,
+                  onPrevPressed: _onPrevPressed,
+                  content: currentPage.content,
+                );
               }
-              if (!state.data.isLoading &&
-                  state.data.currentPage.type == EducationLessonPageType.audio &&
-                  state.data.currentPage.content.audioFilePath.isEmpty) {
-                context.read<EducationLessonBloc>().add(
-                      EducationLessonEvent.downloadAudioFile(state.data.currentPage.content.url),
-                    );
+              if (currentPage.type == EducationLessonPageType.audio) {
+                if (state.data.temporaryDirectory.isEmpty) {
+                  context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
+                }
+                if (!state.data.isLoading &&
+                    state.data.currentPage.type == EducationLessonPageType.audio &&
+                    state.data.currentPage.content.audioFilePath.isEmpty) {
+                  context.read<EducationLessonBloc>().add(
+                        EducationLessonEvent.downloadAudioFile(state.data.currentPage.content.url),
+                      );
+                }
+                if (!state.data.isLoading &&
+                    state.data.currentPage.type == EducationLessonPageType.audio &&
+                    state.data.currentPage.content.subtitlesImages != null &&
+                    state.data.currentPage.content.subtitleFilePath.isEmpty) {
+                  context.read<EducationLessonBloc>().add(
+                        EducationLessonEvent.downloadSubtitlesFile(
+                            state.data.currentPage.content.subtitlesImages!),
+                      );
+                }
+                return LessonAudioPage(
+                  onNextPressed: _onNextPressed,
+                  onPrevPressed: _onPrevPressed,
+                );
               }
-              if (!state.data.isLoading &&
-                  state.data.currentPage.type == EducationLessonPageType.audio &&
-                  state.data.currentPage.content.subtitlesImages != null &&
-                  state.data.currentPage.content.subtitleFilePath.isEmpty) {
-                context.read<EducationLessonBloc>().add(
-                      EducationLessonEvent.downloadSubtitlesFile(
-                          state.data.currentPage.content.subtitlesImages!),
-                    );
-              }
-              return LessonAudioPage(
-                onNextPressed: _onNextPressed,
-                onPrevPressed: _onPrevPressed,
-              );
-            }
-            return const SizedBox.shrink();
-          },
-          orElse: () => const SizedBox.shrink(),
-        );
-      },
+              return const SizedBox.shrink();
+            },
+            orElse: () => const SizedBox.shrink(),
+          );
+        },
+      ),
     );
   }
 }

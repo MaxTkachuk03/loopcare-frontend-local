@@ -13,6 +13,7 @@ abstract class FoodItemBarCode implements _$FoodItemBarCode {
   const factory FoodItemBarCode({
     required String id,
     required String foodName,
+    @JsonKey(unknownEnumValue: MealItemType.unknown)
     required MealItemType foodType,
     required String foodUrl,
     required String? brandName,

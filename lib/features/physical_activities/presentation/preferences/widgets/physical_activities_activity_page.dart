@@ -41,7 +41,7 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
 
   void _onUpdateHandler(PhysicalActivitiesPreferencesState state) {
     final bloc = context.read<AuthenticationCubit>();
-
+    bloc.getAccount();
     if (!bloc.state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {
       context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
     } else {

@@ -63,12 +63,12 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
       final loggingDate = element.loggingDate;
       if (loggingDate == null) continue;
 
-      List<MealsListItem> dayData = meals[loggingDate.isoStringWithoutTime] ?? <MealsListItem>[];
+      List<MealsListItem> dayData = meals[loggingDate.toLocal().isoStringWithoutTime] ?? <MealsListItem>[];
       final isAlreadyExist = dayData.contains(element);
       if (isAlreadyExist) continue;
 
       dayData.add(element);
-      meals[loggingDate.isoStringWithoutTime] = dayData;
+      meals[loggingDate.toLocal().isoStringWithoutTime] = dayData;
     }
 
     return meals;
@@ -101,9 +101,11 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
   ) async {
     await state.mapOrNull(
       mealsInfo: (s) async {
-        emit(s.copyWith(
-          currentDate: event.currentDate,
-        ));
+        emit(
+          s.copyWith(
+            currentDate: event.currentDate,
+          ),
+        );
 
         if (event.currentDate.isBefore(DateTime.now())) {
           final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
@@ -112,8 +114,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           emit(const MealsState.loading());
 
           final response = await nutritionService.getMeals(
-            startDate: event.currentDate.isoStringWithoutTime,
-            endDate: event.currentDate.isoStringWithoutTime,
+            startDate: event.currentDate.beginDay.toUtc().toIso8601String(),
+            endDate: event.currentDate.endDay.toUtc().toIso8601String(),
           );
 
           response.fold(
@@ -123,7 +125,9 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
                 currentDate: event.currentDate,
                 meals: {
                   ...meals ?? {},
-                  ...{event.currentDate.isoStringWithoutTime: r.data},
+                  ...{
+                    event.currentDate.isoStringWithoutTime: r.data,
+                  },
                 },
                 selectedServing: null,
                 plannedMeals: plannedMeals ?? {},
@@ -139,8 +143,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           emit(const MealsState.loading());
 
           final response = await nutritionService.getPlannedMeals(
-            startDate: event.currentDate.isoStringWithoutTime,
-            endDate: event.currentDate.isoStringWithoutTime,
+            startDate: event.currentDate.beginDay.toUtc().toIso8601String(),
+            endDate: event.currentDate.endDay.toUtc().toIso8601String(),
           );
 
           response.fold(
@@ -152,7 +156,9 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
                 selectedServing: null,
                 plannedMeals: {
                   ...plannedMeals ?? {},
-                  ...{event.currentDate.isoStringWithoutTime: r.data},
+                  ...{
+                    event.currentDate.isoStringWithoutTime: r.data,
+                  },
                 },
               ),
             ),
@@ -202,30 +208,39 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
   ) async {
     emit(const MealsState.loading());
 
-    final mealsResponses = await Future.wait([
-      nutritionService.getMeals(
-        startDate: DateTime.now().subtract(const Duration(days: 8)).isoStringWithoutTime,
-        endDate: DateTime.now().isoStringWithoutTime,
-      ),
-      nutritionService.getPlannedMeals(
-        startDate: DateTime.now().isoStringWithoutTime,
-        endDate: DateTime.now().isoStringWithoutTime,
-      )
-    ]);
+    final mealsResponses = await Future.wait(
+      [
+        nutritionService.getMeals(
+          startDate: DateTime.now().beginDay.toUtc().subtract(const Duration(days: 8)).toIso8601String(),
+          endDate: DateTime.now().endDay.toUtc().toIso8601String(),
+        ),
+        nutritionService.getPlannedMeals(
+          startDate: DateTime.now().beginDay.toUtc().toIso8601String(),
+          endDate: DateTime.now().endDay.toUtc().toIso8601String(),
+        )
+      ],
+    );
 
-    final mealsMap = mealsResponses.first.fold((l) => null, (r) => _combineMealsByDate({}, r.data));
+    final mealsMap = mealsResponses.first.fold(
+      (l) => null,
+      (r) => _combineMealsByDate({}, r.data),
+    );
     if (mealsMap == null) {
-      mealsResponses.first.leftMap((l) => emit(MealsState.error(l)));
+      mealsResponses.first.leftMap(
+        (l) => emit(MealsState.error(l)),
+      );
 
       return;
     }
 
-    final plannedMealsMap =
-        mealsResponses.last.fold((l) => null, (r) => _combinePlannedMealsByDate({}, r.data));
+    final plannedMealsMap = mealsResponses.last.fold(
+      (l) => null,
+      (r) => _combinePlannedMealsByDate({}, r.data),
+    );
     if (plannedMealsMap == null) {
-      mealsResponses.last.leftMap((l) {
-        emit(MealsState.error(l));
-      });
+      mealsResponses.last.leftMap(
+        (l) => emit(MealsState.error(l)),
+      );
 
       return;
     }
@@ -251,13 +266,13 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
         response.fold(
           (l) => emit(MealsState.error(l)),
-          (response) {
+          (r) {
             final newState = state.isPlanningMeals
                 ? state.copyWith(
-                    plannedMeals: _getUpdatedMealsList(response),
+                    plannedMeals: _getUpdatedMealsList(r),
                   )
                 : state.copyWith(
-                    meals: _getUpdatedMealsList(response),
+                    meals: _getUpdatedMealsList(r),
                   );
 
             emit(newState);
@@ -530,7 +545,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         ));
 
         final data = AddMealBody(
-          loggingDate: state.currentDate?.toIso8601String() ?? DateTime.now().toIso8601String(),
+          loggingDate:
+              state.currentDate?.toUtc().toIso8601String() ?? DateTime.now().toUtc().toIso8601String(),
           mealCategory: event.mealCategory,
         );
 
@@ -547,7 +563,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             if (loggingDate == null) return;
 
             Map<String, List<MealsListItem>> meals = Map<String, List<MealsListItem>>.from(state.meals);
-            var selectedDayMeals = meals[loggingDate.isoStringWithoutTime] ?? <MealsListItem>[];
+            var selectedDayMeals = meals[loggingDate.toLocal().isoStringWithoutTime] ?? <MealsListItem>[];
 
             if (selectedDayMeals.isEmpty) {
               updatedList = (selectedDayMeals.toList()..add(r)).toList();
@@ -559,7 +575,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
               }
             }
 
-            meals[loggingDate.isoStringWithoutTime] = updatedList;
+            meals[loggingDate.toLocal().isoStringWithoutTime] = updatedList;
 
             emit(
               state.copyWith(
@@ -605,7 +621,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
             Map<String, List<MealsListItem>> meals =
                 Map<String, List<MealsListItem>>.from(state.plannedMeals);
-            var selectedDayMeals = meals[planningDates.first.isoStringWithoutTime] ?? <MealsListItem>[];
+            var selectedDayMeals =
+                meals[planningDates.first.toLocal().isoStringWithoutTime] ?? <MealsListItem>[];
 
             if (selectedDayMeals.isEmpty) {
               updatedList = (selectedDayMeals.toList()..add(r)).toList();
@@ -617,7 +634,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
               }
             }
 
-            meals[planningDates.first.isoStringWithoutTime] = updatedList;
+            meals[planningDates.first.toLocal().isoStringWithoutTime] = updatedList;
 
             emit(
               state.copyWith(
@@ -733,11 +750,14 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
         final currentDate = state.currentDate;
 
-        final response = await nutritionService.logPlannedMeal(LogPlannedMealBody(
-          plannedMealId: event.plannedMealId,
-          loggingDate:
-              currentDate != null ? currentDate.isoStringWithoutTime : DateTime.now().isoStringWithoutTime,
-        ));
+        final response = await nutritionService.logPlannedMeal(
+          LogPlannedMealBody(
+            plannedMealId: event.plannedMealId,
+            loggingDate: currentDate != null
+                ? currentDate.toUtc().toIso8601String()
+                : DateTime.now().toUtc().toIso8601String(),
+          ),
+        );
 
         response.fold(
           (l) => emit(state.copyWith(isLoading: false, error: l)),
@@ -747,13 +767,14 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             if (loggingDate == null) return;
 
             Map<String, List<MealsListItem>> meals = Map<String, List<MealsListItem>>.from(state.meals);
-            var selectedDayMeals = meals[loggingDate.isoStringWithoutTime] ?? <MealsListItem>[];
+            var selectedDayMeals = meals[loggingDate.toLocal().isoStringWithoutTime] ?? <MealsListItem>[];
             final currentCategoryMeal =
                 selectedDayMeals.firstWhereOrNull((element) => element.mealCategory == r.mealCategory);
             if (currentCategoryMeal == null) {
-              meals[loggingDate.isoStringWithoutTime] = (selectedDayMeals.toList()..add(r)).toList();
+              meals[loggingDate.toLocal().isoStringWithoutTime] =
+                  (selectedDayMeals.toList()..add(r)).toList();
             } else {
-              meals[loggingDate.isoStringWithoutTime] =
+              meals[loggingDate.toLocal().isoStringWithoutTime] =
                   selectedDayMeals.map((e) => e.mealCategory == r.mealCategory ? r : e).toList();
             }
 

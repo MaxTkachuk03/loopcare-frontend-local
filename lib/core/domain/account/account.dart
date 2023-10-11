@@ -23,6 +23,7 @@ abstract class Account implements _$Account {
     required SexType gender,
     required String bioGender,
     @Default(null) UserGroupingState? groupingState,
+    @Default(null) int? groupId,
     @Default(null) DateTime? groupingStartedAt,
     @Default(0) double height,
     @Default(0) double weight,
@@ -38,6 +39,13 @@ abstract class Account implements _$Account {
     @Default([]) List<UnlockedFeatureType> unlockedFeatures,
     PhysicalActivitiesPreferences? physicalActivitiesPreferences,
   }) = _Account;
+
+  int get trainingFrequency {
+    final RegExpMatch? match =
+        RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
+
+    return match != null ? int.parse(match[0] ?? '0') : 0;
+  }
 
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 }

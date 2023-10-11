@@ -53,8 +53,7 @@ class PreferencesSection extends StatelessWidget {
   }
 
   String _groupSessionsSubtitle(AuthenticationState state) {
-    LocalizedTexts.partOfGroup.translation;
-    var grouped = state.unlockedFeatures.contains(UnlockedFeatureType.grouping)
+    var grouped = state.isUserGrouped
         ? LocalizedTexts.yes.translation.capitalize()
         : LocalizedTexts.no.translation.capitalize();
 
@@ -161,10 +160,10 @@ class PreferencesSection extends StatelessWidget {
                 );
               },
             ),
-            const SizedBox(height: 16.0),
-            const Divider(height: 1.0, color: AppColors.yellowLight),
-            const SizedBox(height: 16.0),
-            SectionItem(title: LocalizedTexts.diabetes, onPressHandler: () {}),
+            // const SizedBox(height: 16.0),
+            // const Divider(height: 1.0, color: AppColors.yellowLight),
+            // const SizedBox(height: 16.0),
+            // SectionItem(title: LocalizedTexts.diabetes, onPressHandler: () {}),
           ],
         ),
       ),

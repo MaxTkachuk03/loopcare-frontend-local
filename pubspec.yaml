@@ -1,5 +1,5 @@
 name: loopcare_frontend
-version: 1.0.15+84
+version: 1.0.23+96
 publish_to: none
 description: Lean on me
 environment: 
@@ -57,7 +57,7 @@ dependencies:
   flutter: 
     sdk: flutter
   flutter_zoom_videosdk: 
-    path: ./local_plugins/zoom_video_sdk
+    path: ./local_plugins/zoom_video_sdk_update
 dev_dependencies: 
   auto_route_generator: ^5.0.3
   build_runner: ^2.3.2

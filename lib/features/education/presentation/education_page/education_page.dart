@@ -86,7 +86,7 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
     return MultiBlocListener(
       listeners: [
         BlocListener<EducationLessonBloc, EducationLessonState>(
-          listenWhen: (prev, cur) => cur is LessonCompleted,
+          listenWhen: (prev, cur) => cur is LessonCompleted, //TODO: Probably incorrect
           listener: _lessonCompleteListener,
         ),
         BlocListener<HomeBottomNavigationBloc, HomeBottomNavigationState>(

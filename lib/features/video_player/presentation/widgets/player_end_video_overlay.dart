@@ -47,6 +47,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
   }
 
   void _onNextHandler() {
+    countDownController.pause();
     onVideoEnds();
   }
 
@@ -148,8 +149,8 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                     ),
                   ],
                 ),
-                Opacity(
-                  opacity: isLastVideo ? 0 : 1,
+                Visibility(
+                  visible: isLastVideo ? false : true,
                   child: Column(
                     children: [
                       SizedBox(

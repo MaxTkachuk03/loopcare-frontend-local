@@ -52,7 +52,7 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
       context.router.pushNamed(AppRoutes.physicalActivitiesActivityType);
     } else {
       final bloc = context.read<AuthenticationCubit>();
-
+      bloc.getAccount();
       if (!bloc.state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {
         context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
       } else {

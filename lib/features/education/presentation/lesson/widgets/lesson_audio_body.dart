@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
@@ -105,6 +108,14 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
   }
 
   _setIsComplete() {
+    final userId = context.read<AuthenticationCubit>().state.id;
+
+    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.lessonAudioFinished, {
+          "lessonId": lessonId.toString(),
+          "timestamp": DateTime.now().toIso8601String(),
+        }));
+
+    AnalyticsEventService.instance.lessonAudioFinishedEvent(lessonId, userId);
     widget.onNextPressed();
   }
 
@@ -114,10 +125,31 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
     });
   }
 
+  void onCompleteModelHandler() {
+    final userId = context.read<AuthenticationCubit>().state.id;
+
+    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.closedTextLessonVersion, {
+          "lessonId": lessonId.toString(),
+          "timestamp": DateTime.now().toIso8601String(),
+        }));
+
+    AnalyticsEventService.instance.closedTextLessonVersionEvent(lessonId, userId);
+  }
+
   void _onReadText() {
+    final userId = context.read<AuthenticationCubit>().state.id;
+
+    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.openedTextLessonVersion, {
+          "lessonId": lessonId.toString(),
+          "timestamp": DateTime.now().toIso8601String(),
+        }));
+
+    AnalyticsEventService.instance.openedTextLessonVersionEvent(lessonId, userId);
+
     ModalBottomSheet.readTextVersion(
       context: context,
       onBtnPress: widget.onNextPressed,
+      onCompleteModal: onCompleteModelHandler,
     );
   }
 
@@ -267,16 +299,10 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                       AudioBlock(
                         url: state.data.currentPage.content.audioFilePath,
                         duration: state.data.lessonDuration,
-                        onDurationChanged: (int duration) {
-                          _setDuration(duration);
-                        },
-                        onPositionChanged: (int position) {
-                          _setPosition(position);
-                        },
-                        onPlayingChanged: (bool isPlay) {
-                          _setIsPlay(isPlay);
-                        },
-                        onPlayerComplete: () => _setIsComplete(),
+                        onDurationChanged: _setDuration,
+                        onPositionChanged: _setPosition,
+                        onPlayingChanged: _setIsPlay,
+                        onPlayerComplete: _setIsComplete,
                       ),
                     const SizedBox(height: 14),
                   ],

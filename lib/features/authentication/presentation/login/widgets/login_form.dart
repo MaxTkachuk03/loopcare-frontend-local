@@ -160,7 +160,7 @@ class _LoginFormState extends State<LoginForm> {
           {
             'userId': state.account.id,
             'email': state.account.email,
-            'next_rout': route.path,
+            'nextRoute': route.toString(),
           },
         );
         context.router.replaceAll([route]);

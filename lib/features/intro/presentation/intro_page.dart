@@ -14,13 +14,11 @@ class IntroPage extends StatelessWidget {
         child: ScrollableContainer(
           child: MainContainer(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: const [
                 IntroTop(),
-                SizedBox(
-                  height: 24.0,
-                ),
+                SizedBox(height: 24.0),
                 IntroBottom(),
               ],
             ),

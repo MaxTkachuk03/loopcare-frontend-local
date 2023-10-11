@@ -3,6 +3,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
+import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_navigator_observer.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/routes/gender_prefs_guard.dart';
@@ -160,6 +162,9 @@ class App extends StatelessWidget {
         BlocProvider<ManageSubscriptionBloc>(
           create: (_) => getIt<ManageSubscriptionBloc>(),
         ),
+        BlocProvider<AnalyticsBloc>(
+          create: (_) => getIt<AnalyticsBloc>(),
+        ),
       ],
       child: const _App(),
     );
@@ -176,6 +181,7 @@ class _App extends StatefulWidget {
 class _AppState extends State<_App> {
   late final AppRouter _appRouter;
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  final SocketService _socketService = SocketService.instance;
   static final FirebaseAnalyticsObserver _analyticsObserver = FirebaseAnalyticsObserver(analytics: analytics);
 
   @override
@@ -187,6 +193,8 @@ class _AppState extends State<_App> {
     final consentConfirmationBloc = context.read<ConsentConfirmationBloc>();
     final mentalHealthBloc = context.read<MentalHealthBloc>();
 
+    _socketService.startListen();
+
     _appRouter = AppRouter(
       proxyGuard: ProxyGuard(authBloc),
       introGuard: IntroGuard(
@@ -196,9 +204,7 @@ class _AppState extends State<_App> {
         legalStatementBloc,
         mentalHealthBloc,
       ),
-      genderPrefsGuard: GenderPrefsGuard(
-        authBloc,
-      ),
+      genderPrefsGuard: GenderPrefsGuard(authBloc),
     );
   }
 

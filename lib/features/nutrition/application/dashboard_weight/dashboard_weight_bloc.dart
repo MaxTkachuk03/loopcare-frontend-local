@@ -53,7 +53,9 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
     );
 
     response.fold(
-      (l) => emit(DashboardWeightState.error(state.data.copyWith(isLoading: false, error: l))),
+      (l) => emit(
+        DashboardWeightState.error(state.data.copyWith(isLoading: false, error: l)),
+      ),
       (r) => emit(
         DashboardWeightState.updated(
           state.data.copyWith(
@@ -88,13 +90,17 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
     );
 
     response.fold(
-      (l) => emit(DashboardWeightState.error(state.data.copyWith(isLoading: false, error: l))),
+      (l) => emit(
+        DashboardWeightState.error(state.data.copyWith(isLoading: false, error: l)),
+      ),
       (r) => emit(
-        DashboardWeightState.updated(state.data.copyWith(
-          isLoading: false,
-          error: null,
-          weights: _combineWeightsByDate(weights, r.data),
-        )),
+        DashboardWeightState.updated(
+          state.data.copyWith(
+            isLoading: false,
+            error: null,
+            weights: _combineWeightsByDate(weights, r.data),
+          ),
+        ),
       ),
     );
   }
@@ -120,11 +126,13 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
         weights[r.data.date.toLocal().isoStringWithoutTime] = r.data;
 
         emit(
-          DashboardWeightState.updated(state.data.copyWith(
-            weights: weights,
-            isLoading: false,
-            error: null,
-          )),
+          DashboardWeightState.updated(
+            state.data.copyWith(
+              weights: weights,
+              isLoading: false,
+              error: null,
+            ),
+          ),
         );
       },
     );

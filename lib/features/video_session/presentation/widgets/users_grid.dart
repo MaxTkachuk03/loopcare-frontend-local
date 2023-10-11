@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_user.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/user_grid_item.dart';
+import 'package:loopcare_frontend/features/video_session/presentation/widgets/user_grid_item_android.dart';
 
 class UsersGrid extends StatelessWidget {
   final List<ZoomVideoSdkUser> users;
@@ -24,12 +27,14 @@ class UsersGrid extends StatelessWidget {
       itemBuilder: (BuildContext context, int i) {
         final currentUser = users[i];
 
-        return UserGridItem(
-          key: ValueKey(currentUser.userId),
-          user: currentUser,
-          isTalking: talkingUsers.contains(currentUser.userId),
-          isCameraOff: usersWithCameraOff.contains(currentUser.userId),
-        );
+        return Platform.isAndroid
+            ? UserGridItemAndroid(key: ValueKey(currentUser.userId), user: currentUser)
+            : UserGridItem(
+                key: ValueKey(currentUser.userId),
+                user: currentUser,
+                isTalking: talkingUsers.contains(currentUser.userId),
+                isCameraOff: usersWithCameraOff.contains(currentUser.userId),
+              );
       },
     );
   }

@@ -26,7 +26,7 @@ class FilledActivitiesList extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16.0),
-        WeeklyActivitiesList(data: [...programsList]),
+        WeeklyActivitiesList(data: programsList),
       ],
     );
   }
