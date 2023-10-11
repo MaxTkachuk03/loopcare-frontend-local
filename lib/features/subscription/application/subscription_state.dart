@@ -34,5 +34,6 @@ class SubscriptionStateData with _$SubscriptionStateData {
     @Default(false) bool isLoading,
     @Default(<ProductDetails>[]) List<ProductDetails> plans,
     @Default(<PurchaseDetails>[]) List<PurchaseDetails> purchases,
+    PurchasedProduct? purchased,
   }) = _SubscriptionStateData;
 }

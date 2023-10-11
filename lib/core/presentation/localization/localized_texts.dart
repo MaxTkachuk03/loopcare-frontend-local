@@ -725,6 +725,8 @@ class LocalizedTexts {
   static const String sessionWarning_2 = "sessionWarning_2";
 
   //Subscription
+  static const String subscription = "subscription";
+  static const String manageSubscription = "manageSubscription";
   static const String subscriptionTrialTitle = "subscriptionTrialTitle";
   static const String subscriptionTrialLabel = "subscriptionTrialLabel";
   static const String subscriptionTrialExpiredTitle = "subscriptionTrialExpiredTitle";
@@ -741,6 +743,10 @@ class LocalizedTexts {
   static const String subscriptionMonthly = "subscriptionMonthly";
   static const String subscriptionSubscribe = "subscriptionSubscribe";
   static const String subscriptionPrice = "subscriptionPrice";
+  static const String subscriptionType = "subscriptionType";
+  static const String subscriptionVia = "subscriptionVia";
+  static const String memberSince = "memberSince";
+  static const String automaticRenewalOn = "automaticRenewalOn";
 }
 
 extension StringX on String {

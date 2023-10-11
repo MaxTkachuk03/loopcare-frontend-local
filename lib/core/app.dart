@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/routes/intro_guard.dart';
 import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/account/presentation/subscription_page/application/manage_subscription_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/application/programs_in_progress_bloc.dart';
@@ -155,6 +156,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<SubscriptionBloc>(
           create: (_) => getIt<SubscriptionBloc>(),
+        ),
+        BlocProvider<ManageSubscriptionBloc>(
+          create: (_) => getIt<ManageSubscriptionBloc>(),
         ),
       ],
       child: const _App(),

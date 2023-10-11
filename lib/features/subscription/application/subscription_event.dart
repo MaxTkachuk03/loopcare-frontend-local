@@ -12,7 +12,5 @@ class SubscriptionEvent with _$SubscriptionEvent {
 
   const factory SubscriptionEvent.dispose() = SubscriptionDispose;
 
-  const factory SubscriptionEvent.purchasedSubscription() = PurchasedSubscription;
-
-
+  const factory SubscriptionEvent.purchasedSubscription(PurchasedProduct purchasedProduct) = PurchasedSubscription;
 }

@@ -82,5 +82,6 @@ final screenNames = {
   'GroupRulesFiveRoute': 'Group Rules Five Screen', // added
   'GroupRulesSixRoute': 'Group Rules Six Screen', // added
   'SupportGroupIntroRoute': 'Support Group Intro Screen',
-  'SubscriptionRoute' : 'Subscription Screen'
+  'SubscriptionRoute': 'Subscription Screen',
+  'ManageSubscriptionRoute': 'Manage Subscription Screen'
 };

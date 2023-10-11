@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
@@ -9,7 +10,7 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/subscription/application/purchase_details_subscriptions.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_service.dart';
-import 'package:in_app_purchase_android/in_app_purchase_android.dart';
+import 'package:loopcare_frontend/features/subscription/donain/purchased_product.dart';
 
 import '../../../injection.dart';
 
@@ -35,8 +36,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       onCanceled: () => debugPrint('devcpp Subscription Canceled'),
       onError: () => debugPrint('devcpp Subscription Error '),
       onPurchased: (PurchaseDetails purchaseDetails) async {
-        debugPrint('devcpp  onPurchased: ${purchaseDetails.toString()}');
-        debugPrint('devcpp  purchase ID: ${purchaseDetails.purchaseID}');
+        debugPrint('devcpp  product ID: ${purchaseDetails.productID}');
         debugPrint(
             'devcpp  purchase serverVerificationData: ${purchaseDetails.verificationData.serverVerificationData}');
         debugPrint('devcpp  purchase localVerificationData: ${purchaseDetails.verificationData.localVerificationData}');
@@ -50,11 +50,20 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       if (purchaseDetails.status == PurchaseStatus.purchased) {
         // Send to server
         // var validPurchase = await _verifyPurchase(purchaseDetails);
-      }
-      // if (res) {
-      if (purchaseDetails.pendingCompletePurchase) {
-        await inAppPurchaseService.instance.completePurchase(purchaseDetails);
-        add(const SubscriptionEvent.purchasedSubscription());
+
+        // if (res) {
+        if (purchaseDetails.pendingCompletePurchase) {
+          await inAppPurchaseService.instance.completePurchase(purchaseDetails);
+        }
+        DateTime date = DateTime.fromMillisecondsSinceEpoch(
+          int.parse(purchaseDetails.transactionDate!),
+        );
+        String transactionDate = DateFormat('dd MMM yyyy').format(date);
+        debugPrint('devcpp  transactionDate: $transactionDate');
+        add(SubscriptionEvent.purchasedSubscription(PurchasedProduct(
+          purchaseDetails: purchaseDetails,
+          memberSince: transactionDate,
+        )));
       }
       // }
     } catch (_, __) {}
@@ -83,7 +92,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     PurchasedSubscription event,
     Emitter<SubscriptionState> emit,
   ) async =>
-      emit(SubscriptionState.purchasedSubscription(state.data));
+      emit(SubscriptionState.purchasedSubscription(state.data.copyWith(purchased:  event.purchasedProduct)));
 
   FutureOr<void> _onGetStatusSubscription(
     GetStatusSubscription event,

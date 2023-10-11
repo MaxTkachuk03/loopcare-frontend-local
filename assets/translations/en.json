@@ -662,5 +662,11 @@
   "subscriptionAnnual": "Annual",
   "subscriptionMonthly": "Monthly",
   "subscriptionSubscribe": "Subscribe",
-  "subscriptionPrice": "{C} {XX,XX} ({C} {X,XX} / month) after 4 week trial"
+  "subscriptionPrice": "{C} {XX,XX} ({C} {X,XX} / month) after 4 week trial",
+  "subscription": "Subscription",
+  "manageSubscription": "Manage subscription",
+  "subscriptionType": "Subscription type",
+  "subscriptionVia": "Subscription via",
+  "memberSince": "Member since",
+  "automaticRenewalOn": "Automatic renewal on"
 }

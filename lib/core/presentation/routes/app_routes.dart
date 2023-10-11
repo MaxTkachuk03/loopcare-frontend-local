@@ -7,6 +7,7 @@ class AppRoutes {
   static const String joinUs = '/join-us';
   static const String login = '/login';
   static const String subscription = '/subscription';
+  static const String manageSubscription = '/manage-subscription';
   static const String height = '/height';
   static const String weight = '/weight';
   static const String birthday = '/birthday';

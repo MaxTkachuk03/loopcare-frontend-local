@@ -4,7 +4,6 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/widgets/chips_tab_bar.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/nutrition_tabs/nutrition_value_tab.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/nutrition_tabs/nutrition_value_tab_type.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 
 class NutritionTabs extends StatefulWidget {
   final int initialIndex;
