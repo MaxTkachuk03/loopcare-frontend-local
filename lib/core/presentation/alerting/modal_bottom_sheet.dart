@@ -1007,86 +1007,88 @@ class ModalBottomSheet {
   }) {
     showModalBottomSheet<void>(
       isScrollControlled: true,
-      useSafeArea: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       context: context,
       builder: (BuildContext context) {
-        return BlocBuilder<EducationLessonBloc, EducationLessonState>(
-          builder: (context, state) {
-            return Scaffold(
-              appBar: AppBar(backgroundColor: AppColors.white),
-              body: SafeArea(
-                child: ScrollableContainer(
-                  child: Column(
-                    children: [
-                      Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          ClipPath(
-                            clipper: OvalBottomBorderClipper(),
-                            child: Container(
-                              height: 90,
-                              width: double.infinity,
-                              color: AppColors.white,
+        return FractionallySizedBox(
+          heightFactor: 0.9,
+          child: BlocBuilder<EducationLessonBloc, EducationLessonState>(
+            builder: (context, state) {
+              return Scaffold(
+                appBar: AppBar(backgroundColor: AppColors.white),
+                body: SafeArea(
+                  child: ScrollableContainer(
+                    child: Column(
+                      children: [
+                        Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            ClipPath(
+                              clipper: OvalBottomBorderClipper(),
+                              child: Container(
+                                height: 90,
+                                width: double.infinity,
+                                color: AppColors.white,
+                              ),
                             ),
-                          ),
-                          Positioned(
-                            bottom: -95,
-                            left: 1,
-                            right: 1,
-                            child: SizedBox(
-                              width: 234,
-                              height: 182,
-                              child: NetworkImageWithCache(url: state.data.lessonImage),
+                            Positioned(
+                              bottom: -95,
+                              left: 1,
+                              right: 1,
+                              child: SizedBox(
+                                width: 234,
+                                height: 182,
+                                child: NetworkImageWithCache(url: state.data.lessonImage),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 60.0),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const SizedBox(height: 20.0),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                            child: Text(
-                              state.data.lessonCategory.toUpperCase(),
-                              style: const TextStyle(
-                                  color: AppColors.orangeDark, fontSize: 12.0, fontWeight: FontWeight.w600),
+                          ],
+                        ),
+                        const SizedBox(height: 60.0),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            const SizedBox(height: 20.0),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                              child: Text(
+                                state.data.lessonCategory.toUpperCase(),
+                                style: const TextStyle(
+                                    color: AppColors.orangeDark, fontSize: 12.0, fontWeight: FontWeight.w600),
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 14),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                            child: Text(
-                              state.data.lessonTitle,
-                              style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                                    fontFamily: ThemeConstants.bitterFontFamily,
-                                  ),
+                            const SizedBox(height: 14),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                              child: Text(
+                                state.data.lessonTitle,
+                                style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                                      fontFamily: ThemeConstants.bitterFontFamily,
+                                    ),
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 24.0),
-                          HtmlRenderer(content: state.data.currentPage.content.html),
-                          const SizedBox(height: 24.0),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                context.router.pop();
-                                onBtnPress();
-                              },
-                              child: Text(LocalizedTexts.next.translation),
+                            const SizedBox(height: 24.0),
+                            HtmlRenderer(content: state.data.currentPage.content.html),
+                            const SizedBox(height: 24.0),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  context.router.pop();
+                                  onBtnPress();
+                                },
+                                child: Text(LocalizedTexts.next.translation),
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 40.0),
-                        ],
-                      ),
-                    ],
+                            const SizedBox(height: 40.0),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         );
       },
     ).whenComplete(onCompleteModal);

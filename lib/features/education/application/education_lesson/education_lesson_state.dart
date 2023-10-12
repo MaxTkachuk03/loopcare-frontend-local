@@ -59,4 +59,6 @@ class EducationLessonData with _$EducationLessonData {
   bool get isLastPage => currentPageIndex == pages.length - 1;
 
   bool get isFirstPage => currentPageIndex == 0;
+
+  String? get errorMessage => error?.maybeMap(conflict: (s) => s.error.message, orElse: () => null);
 }
