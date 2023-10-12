@@ -39,9 +39,11 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
   }
 
   _onErrorListener(BuildContext context, EducationLessonState state) {
+    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
+
     showAppSnackBar(
       context: context,
-      text: 'Something went wrong, try again',
+      text: errorMessage,
       background: AppColors.red,
       textColor: Colors.white,
     );
@@ -56,7 +58,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            onPressed: () => context.router.pop(),
+            onPressed: context.router.pop,
           ),
         ),
         body: SafeArea(
