@@ -98,11 +98,11 @@ class CheckPassedPage extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      Text(
-                        LocalizedTexts.fitnessCheckPassedText.tr(),
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.blueDark),
-                      ),
-                      const SizedBox(height: 16),
+                      // Text(
+                      //   LocalizedTexts.fitnessCheckPassedText.tr(),
+                      //   style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.blueDark),
+                      // ),
+                      // const SizedBox(height: 16),
                       // SmallFilledButton(
                       //   text: LocalizedTexts.moreInfo.tr(),
                       //   onPressed: _onMoreInfoPressed,
