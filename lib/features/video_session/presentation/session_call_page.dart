@@ -18,6 +18,7 @@ import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_session_report.dart';
@@ -504,7 +505,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     await zoom.leaveSession(true);
 
     if (context.mounted) {
-      context.router.pop();
+      context.router.popUntilRouteWithPath(AppRoutes.home);
 
       showAppSnackBar(
         context: context,
