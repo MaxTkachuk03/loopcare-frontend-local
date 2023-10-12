@@ -123,12 +123,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             (r) => emit(
               MealsState.mealsInfo(
                 currentDate: event.currentDate,
-                meals: {
-                  ...meals ?? {},
-                  ...{
-                    event.currentDate.isoStringWithoutTime: r.data,
-                  },
-                },
+                meals: _combineMealsByDate(meals, r.data),
                 selectedServing: null,
                 plannedMeals: plannedMeals ?? {},
               ),
@@ -143,8 +138,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           emit(const MealsState.loading());
 
           final response = await nutritionService.getPlannedMeals(
-            startDate: event.currentDate.beginDay.toUtc().toIso8601String(),
-            endDate: event.currentDate.endDay.toUtc().toIso8601String(),
+            startDate: event.currentDate.beginDay.toIso8601String(),
+            endDate: event.currentDate.endDay.toIso8601String(),
           );
 
           response.fold(
@@ -154,12 +149,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
                 currentDate: event.currentDate,
                 meals: meals ?? {},
                 selectedServing: null,
-                plannedMeals: {
-                  ...plannedMeals ?? {},
-                  ...{
-                    event.currentDate.isoStringWithoutTime: r.data,
-                  },
-                },
+                plannedMeals: _combinePlannedMealsByDate(plannedMeals, r.data),
               ),
             ),
           );
@@ -215,8 +205,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           endDate: DateTime.now().endDay.toUtc().toIso8601String(),
         ),
         nutritionService.getPlannedMeals(
-          startDate: DateTime.now().beginDay.toUtc().toIso8601String(),
-          endDate: DateTime.now().endDay.toUtc().toIso8601String(),
+          startDate: DateTime.now().beginDay.toIso8601String(),
+          endDate: DateTime.now().endDay.toIso8601String(),
         )
       ],
     );
@@ -545,14 +535,11 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         ));
 
         final data = AddMealBody(
-          loggingDate:
-              state.currentDate?.toUtc().toIso8601String() ?? DateTime.now().toUtc().toIso8601String(),
+          loggingDate: state.currentDate?.toIso8601String() ?? DateTime.now().toUtc().toIso8601String(),
           mealCategory: event.mealCategory,
         );
 
-        final response = await nutritionService.addMeal(
-          data,
-        );
+        final response = await nutritionService.addMeal(data);
 
         response.fold(
           (l) => emit(MealsState.error(l)),

@@ -48,11 +48,7 @@ class LogMeal extends StatelessWidget {
           return;
         }
 
-        mealsBloc.add(
-          MealsEvent.addMeal(
-            item.name.toLowerCase(),
-          ),
-        );
+        mealsBloc.add(MealsEvent.addMeal(item.name.toLowerCase()));
 
         context.router.push(SelectFoodRoute(mealCategory: item.name));
       },
