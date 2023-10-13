@@ -114,8 +114,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           emit(const MealsState.loading());
 
           final response = await nutritionService.getMeals(
-            startDate: event.currentDate.beginDay.toUtc().toIso8601String(),
-            endDate: event.currentDate.endDay.toUtc().toIso8601String(),
+            startDate: event.currentDate.beginDay.toIso8601String(),
+            endDate: event.currentDate.endDay.toIso8601String(),
           );
 
           response.fold(
@@ -201,8 +201,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     final mealsResponses = await Future.wait(
       [
         nutritionService.getMeals(
-          startDate: DateTime.now().beginDay.toUtc().subtract(const Duration(days: 8)).toIso8601String(),
-          endDate: DateTime.now().endDay.toUtc().toIso8601String(),
+          startDate: DateTime.now().beginDay.subtract(const Duration(days: 8)).toIso8601String(),
+          endDate: DateTime.now().endDay.toIso8601String(),
         ),
         nutritionService.getPlannedMeals(
           startDate: DateTime.now().beginDay.toIso8601String(),
@@ -743,8 +743,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           LogPlannedMealBody(
             plannedMealId: event.plannedMealId,
             loggingDate: currentDate != null
-                ? currentDate.toUtc().toIso8601String()
-                : DateTime.now().toUtc().toIso8601String(),
+                ? currentDate.midnightTime.toIso8601String()
+                : DateTime.now().midnightTime.toIso8601String(),
           ),
         );
 
