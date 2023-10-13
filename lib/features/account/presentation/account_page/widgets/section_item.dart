@@ -42,11 +42,11 @@ class SectionItem extends StatelessWidget {
               ],
             ),
           ),
-          IconButton(
-            icon: const ImageIcon(
+          const IconButton(
+            icon:  ImageIcon(
               AppIcons.arrow,
               color: AppColors.greyLabel,
-            ), onPressed: () {  },
+            ), onPressed: null,
           ),
         ],
       ),

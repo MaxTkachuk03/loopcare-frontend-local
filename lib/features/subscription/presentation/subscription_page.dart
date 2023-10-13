@@ -28,7 +28,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    controller.getPlans();
+    controller.getSubscriptionPlans();
   }
 
   @override
@@ -66,9 +66,13 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
             ),
             BlocConsumer<SubscriptionBloc, SubscriptionState>(
               listenWhen: (prev, cur) =>
-                  cur is ErrorSubscriptionState || cur is SuccessSubscriptionPlans || cur is PurchasedSubscriptionState,
+                  cur is ErrorSubscriptionState ||
+                  cur is SuccessSubscriptionPlans ||
+                  cur is PurchasedSubscriptionState ||
+                  cur is SubscriptionActual,
               listener: (BuildContext context, SubscriptionState state) => state.maybeWhen(
                 successInPlans: (data) => controller.setupPlans(data),
+                subscriptionActual: (data) => context.router.replaceNamed(AppRoutes.home),
                 purchasedSubscription: (data) => context.router.replaceNamed(AppRoutes.home),
                 orElse: () => _errorListener,
               ),

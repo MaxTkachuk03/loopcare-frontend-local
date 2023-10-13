@@ -56,8 +56,9 @@ class SubscriptionController {
     bloc.add(SubscriptionEvent.buySubscription(selectedPlan.value!.details!));
   }
 
-  void getPlans() => bloc.add(const SubscriptionEvent.getSubscriptionPlans());
-  void getPlansState() => bloc.add(const SubscriptionEvent.getStatusSubscription());
+  void getSubscriptionPlans() => bloc.add(const SubscriptionEvent.getSubscriptionPlans());
+
+  void getActiveSubscriptionStatus() => bloc.add(const SubscriptionEvent.getActiveSubscription());
 
   void dispose() => bloc.add(const SubscriptionEvent.dispose());
 }

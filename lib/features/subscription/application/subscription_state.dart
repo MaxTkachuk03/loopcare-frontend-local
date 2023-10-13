@@ -23,6 +23,8 @@ class SubscriptionState with _$SubscriptionState {
   const factory SubscriptionState.subscriptionCancelled(SubscriptionStateData data) = SubscriptionCancelled;
 
   const factory SubscriptionState.subscriptionUnRenewed(SubscriptionStateData data) = SubscriptionUnRenewed;
+
+  const factory SubscriptionState.subscriptionActual(SubscriptionStateData data) = SubscriptionActual;
 }
 
 @freezed
@@ -35,5 +37,6 @@ class SubscriptionStateData with _$SubscriptionStateData {
     @Default(<ProductDetails>[]) List<ProductDetails> plans,
     @Default(<PurchaseDetails>[]) List<PurchaseDetails> purchases,
     PurchasedProduct? purchased,
+    Subscription? subscription,
   }) = _SubscriptionStateData;
 }

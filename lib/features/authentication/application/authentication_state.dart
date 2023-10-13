@@ -57,6 +57,12 @@ class AuthenticationState with _$AuthenticationState {
       authenticated: (state) => state.isPreferencesComplete,
     );
   }
+  bool get hasActiveSubscription {
+    return maybeWhen(
+      orElse: () => false,
+      authenticated: (state) => state.subscription.isActive,
+    );
+  }
 
   List<UnlockedFeatureType> get unlockedFeatures {
     return maybeWhen(

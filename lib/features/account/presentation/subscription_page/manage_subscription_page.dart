@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/subscription_page/application/manage_subscription_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ManageSubscriptionPage extends StatefulWidget {
   const ManageSubscriptionPage({super.key});
@@ -48,33 +51,41 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
                     ),
                     _DetailsSection(
                       title: LocalizedTexts.subscriptionType,
-                      value: state.data.purchased?.productID ?? '',
+                      value: state.data.subscription?.subscriptionPlan.title ?? '',
                     ),
                     const SizedBox(
                       height: 14,
                     ),
                     _DetailsSection(
                       title: LocalizedTexts.subscriptionVia,
-                      value: state.data.purchased?.subscriptionVia ?? '',
+                      value: state.data.subscription?.vendor == 'ios' ? 'App Store' : 'Play Market',
                     ),
                     const SizedBox(
                       height: 14,
                     ),
-                    _DetailsSection(
+                    //Todo Subscription
+                     _DetailsSection(
                       title: LocalizedTexts.memberSince,
-                      value: state.data.purchased?.memberSince ?? '',
+                      value:  _getDate(state.data.subscription?.createdAt) ?? '',
                     ),
                     const SizedBox(
                       height: 14,
                     ),
                     _DetailsSection(
                       title: LocalizedTexts.automaticRenewalOn,
-                      value: state.data.purchased?.automaticRenewalOn ?? '',
+                      value: _getDate(state.data.subscription?.expiresAt) ?? '',
                     ),
                     const SizedBox(
                       height: 14,
                     ),
-                    _ManageButton(onTap: () {}),
+                    _ManageButton(
+                      onTap: () {
+                        Platform.isIOS
+                            ? launchUrl(Uri.parse("https://apps.apple.com/account/subscriptions"))
+                            : launchUrl(Uri.parse(
+                                'https://play.google.com/store/account/subscriptions?sku=monthly&com.loopcare.leanonme.app'));
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -83,6 +94,13 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
         );
       },
     );
+  }
+
+  String?  _getDate(String? timeStamp) {
+    if(timeStamp == null) {return null;}
+
+    final date = DateFormat('yyyy-MM-ddTHH:mm:sssZ').parseUtc(timeStamp).toLocal();
+    return DateFormat('dd MMM yyyy').format(date);
   }
 
   _errorListener(BuildContext context, ManageSubscriptionState state) {

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:loopcare_frontend/core/domain/account/subscription.dart';
 import 'package:loopcare_frontend/core/domain/food_preferences/food_preferences.dart';
 import 'package:loopcare_frontend/core/domain/grouping_preferences.dart';
 import 'package:loopcare_frontend/core/domain/physical_fitness/physical_fitness.dart';
@@ -31,6 +32,9 @@ class AccountResponse {
   final DiabetesType diabetes;
   final FoodPreferences foodPreferences;
   final GroupingPreferences? groupingPreferences;
+  //Todo Subscription
+  @JsonKey(ignore: true)
+  final Subscription? subscription;
   @JsonKey(unknownEnumValue: UnlockedFeatureType.unknown)
   final List<UnlockedFeatureType> unlockedFeatures;
   final PhysicalActivitiesPreferences? physicalActivitiesPreferences;
@@ -55,6 +59,7 @@ class AccountResponse {
     required this.groupingPreferences,
     required this.unlockedFeatures,
     required this.physicalActivitiesPreferences,
+    this.subscription,
   });
 
   factory AccountResponse.fromJson(Map<String, dynamic> json) => _$AccountResponseFromJson(json);
