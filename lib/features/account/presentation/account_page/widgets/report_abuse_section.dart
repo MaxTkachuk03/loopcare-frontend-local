@@ -9,14 +9,18 @@ import 'package:loopcare_frontend/features/report_abuse/application/report_abuse
 class ReportAbuseSection extends StatelessWidget {
   const ReportAbuseSection({Key? key}) : super(key: key);
 
+  void _onPressHandler(BuildContext context) {
+    context.read<ReportAbuseBloc>().add(const ReportAbuseEvent.init());
+    ModalBottomSheet.reportAbuse(context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return AccountContainer(
-      child:  SectionItem(title: LocalizedTexts.reportAbuse,
-        onPressHandler: () {
-        context.read<ReportAbuseBloc>().add(const ReportAbuseEvent.init());
-        ModalBottomSheet.reportAbuse(context: context);
-      },),
+      child: SectionItem(
+        title: LocalizedTexts.reportAbuse,
+        onPressHandler: () => _onPressHandler(context),
+      ),
     );
   }
 }

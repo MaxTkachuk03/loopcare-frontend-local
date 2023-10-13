@@ -12,7 +12,6 @@ class AccountContainer extends StatelessWidget {
       color: AppColors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-
       ),
       elevation: 3,
       child: Padding(
