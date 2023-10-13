@@ -123,7 +123,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     if (event.query.length < 3) return;
 
     if (isPaginatedSearchRequstRun) {
-      cancelRequestToken.cancel(DioRequestCancellationReason.seachManualCancel);
+      cancelRequestToken.cancel(DioRequestCancellationReason.searchManualCancel);
       isPaginatedSearchRequstRun = false;
     }
 

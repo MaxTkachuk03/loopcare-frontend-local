@@ -15,10 +15,7 @@ import 'package:loopcare_frontend/features/physical_fitness/utils/weight_convers
 class WeightBlock extends StatelessWidget {
   final DateTime date;
 
-  const WeightBlock({
-    Key? key,
-    required this.date,
-  }) : super(key: key);
+  const WeightBlock({Key? key, required this.date}) : super(key: key);
 
   void onPressHandler(BuildContext context) {
     context.router.push(LogWeightRoute(selectedDay: date));
@@ -32,33 +29,32 @@ class WeightBlock extends StatelessWidget {
         color: AppColors.white,
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          BlocBuilder<DashboardWeightBloc, DashboardWeightState>(
-            builder: (BuildContext context, state) {
-              return state.maybeMap(
-                updated: (s) {
-                  final weightValue = s.data.getSelectedDayWeight(date.isoStringWithoutTime);
-                  final bool isEditable = s.isEditable(date);
-                  final hasLog = weightValue != null;
+      child: BlocBuilder<DashboardWeightBloc, DashboardWeightState>(
+        builder: (BuildContext context, state) {
+          return state.maybeMap(
+            updated: (s) {
+              final weightValue = s.data.getSelectedDayWeight(date.isoStringWithoutTime);
+              final bool isEditable = s.isEditable(date);
+              final hasLog = weightValue != null;
 
-                  final inputWeightValue = s.isMetricSystem
-                      ? weightValue
-                      : WeightConversionUtils.convertKgToLbs(
-                          weightValue ?? 0.0,
-                        );
+              final inputWeightValue = s.isMetricSystem
+                  ? weightValue
+                  : WeightConversionUtils.convertKgToLbs(
+                      weightValue ?? 0.0,
+                    );
 
-                  final text = hasLog
-                      ? "${LocalizedTexts.weight.translation} : $inputWeightValue ${s.userWeightUnits}"
-                      : isEditable
-                          ? LocalizedTexts.logYourWeight.translation
-                          : LocalizedTexts.noWeightLogged.translation;
+              final text = hasLog
+                  ? "${LocalizedTexts.weight.translation} : $inputWeightValue ${s.userWeightUnits}"
+                  : isEditable
+                      ? LocalizedTexts.logYourWeight.translation
+                      : LocalizedTexts.noWeightLogged.translation;
 
-                  final showSubText = !hasLog && isEditable;
+              final showSubText = !hasLog && isEditable;
 
-                  return Row(
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
                     children: [
                       const Image(image: AppIcons.dashboardWeight),
                       const SizedBox(width: 24.0),
@@ -81,57 +77,41 @@ class WeightBlock extends StatelessWidget {
                         ],
                       ),
                     ],
-                  );
-                },
-                loading: (_) => const LoadingWeight(),
-                error: (errorState) {
-                  final error = errorState.data.error;
-
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ErrorScreen(
-                      smallVersion: true,
-                      error: error,
-                      onButtonPressed: () =>
-                          context.read<DashboardWeightBloc>().add(DashboardWeightEvent.fetchWeights(date)),
-                    ),
-                  );
-                },
-                orElse: () => const SizedBox(),
-              );
-            },
-          ),
-          BlocBuilder<DashboardWeightBloc, DashboardWeightState>(
-            builder: (BuildContext context, s) {
-              return s.maybeMap(
-                orElse: () {
-                  final bool isEditable = s.isEditable(date);
-                  final hasLog = s.data.hasLogOnSelectedDate(date);
-
-                  return isEditable
-                      ? Hexagon(
-                          width: 42,
-                          height: 42,
-                          borderRadius: 16,
-                          innerWidget: Container(
-                            color: AppColors.bgGreen,
-                            child: IconButton(
-                              icon: ImageIcon(
-                                hasLog ? AppIcons.edit : AppIcons.plus,
-                                color: AppColors.darkGreen,
-                                size: 12,
-                              ),
-                              onPressed: () => onPressHandler(context),
-                            ),
+                  ),
+                  if (isEditable)
+                    Hexagon(
+                      width: 42,
+                      height: 42,
+                      borderRadius: 16,
+                      innerWidget: Container(
+                        color: AppColors.bgGreen,
+                        child: IconButton(
+                          icon: ImageIcon(
+                            hasLog ? AppIcons.edit : AppIcons.plus,
+                            color: AppColors.darkGreen,
+                            size: 12,
                           ),
-                        )
-                      : Container();
-                },
-                error: (value) => const SizedBox(),
+                          onPressed: () => onPressHandler(context),
+                        ),
+                      ),
+                    )
+                ],
               );
             },
-          ),
-        ],
+            loading: (_) => const LoadingWeight(),
+            error: (errorState) {
+              final error = errorState.data.error;
+
+              return ErrorScreen(
+                smallVersion: true,
+                error: error,
+                onButtonPressed: () =>
+                    context.read<DashboardWeightBloc>().add(DashboardWeightEvent.fetchWeights(date)),
+              );
+            },
+            orElse: () => const SizedBox.shrink(),
+          );
+        },
       ),
     );
   }

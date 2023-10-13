@@ -13,15 +13,11 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum DioRequestCancellationReason {
-  seachManualCancel,
+  searchManualCancel,
 }
 
-Future<Either<RequestError, T>> process<T>(Future<T> Function() request) => Task(request)
-    .attempt()
-    .map(
-      (e) => e.leftMap(parseRequestError),
-    )
-    .run();
+Future<Either<RequestError, T>> process<T>(Future<T> Function() request) =>
+    Task(request).attempt().map((e) => e.leftMap(parseRequestError)).run();
 
 @lazySingleton
 class DioClient {
