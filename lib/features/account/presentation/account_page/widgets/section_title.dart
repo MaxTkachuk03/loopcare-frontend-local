@@ -23,7 +23,6 @@ class SectionTitle extends StatelessWidget {
         ).tr(),
         const SizedBox(height: 16.0),
         const Divider(height: 1.0, color: AppColors.yellowLight),
-        const SizedBox(height: 16.0),
       ],
     );
   }

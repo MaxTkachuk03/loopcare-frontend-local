@@ -128,9 +128,7 @@ class PreferencesSection extends StatelessWidget {
           children: [
             const SectionTitle(title: LocalizedTexts.preferences),
             SectionItem(title: LocalizedTexts.food, onPressHandler: () => _onFoodHandler(context)),
-            const SizedBox(height: 16.0),
             const Divider(height: 1.0, color: AppColors.yellowLight),
-            const SizedBox(height: 16.0),
             BlocBuilder<AuthenticationCubit, AuthenticationState>(
               builder: (context, state) {
                 return BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
@@ -146,9 +144,7 @@ class PreferencesSection extends StatelessWidget {
                 );
               },
             ),
-            const SizedBox(height: 16.0),
             const Divider(height: 1.0, color: AppColors.yellowLight),
-            const SizedBox(height: 16.0),
             BlocBuilder<AuthenticationCubit, AuthenticationState>(
               builder: (context, state) {
                 return SectionItem(
