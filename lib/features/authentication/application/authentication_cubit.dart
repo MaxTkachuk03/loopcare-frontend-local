@@ -13,12 +13,14 @@ import 'package:loopcare_frontend/features/authentication/application/dto/login_
 import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/dto/registration_physical_fitness_data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 @singleton
 class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
   final AuthenticationService _authenticationService;
   final DioClient client;
   final AuthTokenManager authTokenManager;
+  final SharedPreferences _sharedPref;
   final SocketService _socketService = SocketService.instance;
   AccessTokenSubscription? _accessTokenSubscription;
 
@@ -26,6 +28,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     this._authenticationService,
     this.client,
     this.authTokenManager,
+    this._sharedPref,
   ) : super(const AuthenticationState.guest()) {
     hydrate();
     _accessTokenSubscription = authTokenManager.addListener((token) {
@@ -157,7 +160,10 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
 
         response.fold(
           (l) => null,
-          (r) => logout(),
+          (r) {
+            _sharedPref.clear();
+            logout();
+          },
         );
       },
     );
