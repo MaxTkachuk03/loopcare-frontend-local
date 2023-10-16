@@ -196,6 +196,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     FetchMeals _,
     Emitter<MealsState> emit,
   ) async {
+    var prevDate = state.getCurrentDate;
     emit(const MealsState.loading());
 
     final mealsResponses = await Future.wait(
@@ -237,7 +238,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
     emit(
       MealsState.mealsInfo(
-        currentDate: DateTime.now(),
+        currentDate: prevDate,
         meals: mealsMap,
         plannedMeals: plannedMealsMap,
       ),
