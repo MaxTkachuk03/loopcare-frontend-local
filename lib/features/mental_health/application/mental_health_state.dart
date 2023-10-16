@@ -75,4 +75,18 @@ class MentalHealthData with _$MentalHealthData {
     final index = questionsListId.indexOf(currentQuestionId);
     return (index * 100) ~/ totalQuestionsLength;
   }
+
+  bool get isGad7Test => currentTest?.type == MentalHealthTestType.gad7;
+
+  bool get isPhq8Test => currentTest?.type == MentalHealthTestType.phq8;
+
+  bool get showEmergencyBtn {
+    if (!isGad7Test && !isPhq8Test) return false;
+
+    final currentTestType = currentTest?.type;
+
+    final testResult = results[currentTestType];
+
+    return testResult?.interpretation == InterpretationType.high;
+  }
 }
