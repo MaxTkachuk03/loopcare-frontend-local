@@ -26,7 +26,7 @@ abstract class FoodItem implements _$FoodItem {
 
     servingAmount = serving.metricServingUnit == 'g' || serving.metricServingUnit == 'ml'
         ? servingAmount
-        : WeightConversionUtils.convertOzToGramms(servingAmount);
+        : WeightConversionUtils.convertOzToGrams(servingAmount);
 
     return double.parse((serving.calories / servingAmount).toStringAsFixed(2));
   }
