@@ -80,6 +80,7 @@ class AppRoutes {
   static const String logWeight = '/log-weight'; // added
   static const String home = '/home'; // added
   static const String account = 'account'; // added
+  static const String chooseDate = 'choose-date'; // added
 
   // Dish
   static const String dishDetails = '/dish-details'; // added

@@ -1,0 +1,97 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:loopcare_frontend/core/presentation/app_bar/green_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
+
+import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
+
+class ChooseDateCalendarPage extends StatelessWidget {
+  final String mealCategory;
+  final DateTime? date;
+
+  const ChooseDateCalendarPage({
+    Key? key,
+    required this.mealCategory,
+    required this.date,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<RecipeBloc, RecipeState>(
+      builder: (BuildContext context, state) {
+        return state.maybeMap(
+          loadingRecipe: (_) {
+            return Scaffold(
+              appBar: AppBar(
+                leading: BackButtonHexagon(
+                  background: AppColors.white.withOpacity(0.2),
+                ),
+              ),
+              body: const Loader(),
+            );
+          },
+          recipeInfo: (s) {
+            return Scaffold(
+              body: SafeArea(
+                top: false,
+                child: ScrollableContainer(
+                  child: Column(
+                    children: [
+                      GreenAppBar(
+                        title: LocalizedTexts.chooseDateFor.tr(
+                          namedArgs: {
+                            'mealCategory': mealCategory,
+                          },
+                        ),
+                        // subtitle: mealCategory,
+                        darkGreen: true,
+                      ),
+                      // SizedBox(
+                      //   height: 600,
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.all(16.0),
+                      //     child: RecommendationsCarousel(
+                      //       recommendations: state.data.recommendationRecipe,
+                      //     ),
+                      //   ),
+                      // ),
+                      Column(
+                        children: [
+                          const SizedBox(height: 26.0),
+                          MainContainer(
+                            child: ElevatedButton(
+                              onPressed: () => _onSkipPressed(context),
+                              child: Text(LocalizedTexts.skip.translation),
+                            ),
+                          ),
+                          const SizedBox(height: 20.0)
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+          orElse: () => const Scaffold(
+            body: SizedBox.shrink(),
+          ),
+        );
+      },
+    );
+  }
+
+  _onSkipPressed(BuildContext context) {
+    context.router.push(SelectFoodRoute(mealCategory: mealCategory));
+  }
+}

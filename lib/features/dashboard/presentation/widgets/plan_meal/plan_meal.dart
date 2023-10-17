@@ -46,25 +46,37 @@ class PlanMeal extends StatelessWidget {
         final plannedMealsForCurrentDate = plannedMeals?[mealsBloc.state.getCurrentDate.isoStringWithoutTime]
             ?.firstWhereOrNull((element) => element.mealCategory == item.label);
 
-        if (plannedMealsForCurrentDate != null) {
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => InformationDialog(
-              content: LocalizedTexts.existMealText.translation,
-              okText: LocalizedTexts.createNew.translation.toUpperCase(),
-              cancelText: LocalizedTexts.updateExist.translation.toUpperCase(),
-              onOkHandler: () {
-                createPlannedMeal(context, item);
-              },
-              onCancelHandler: () {
-                editPlannedMeal(context, plannedMealsForCurrentDate);
-              },
-            ),
-          );
-        } else {
-          createPlannedMeal(context, item);
-        }
+        // if (plannedMealsForCurrentDate != null) {
+        //   showDialog<String>(
+        //     context: context,
+        //     builder: (BuildContext context) => InformationDialog(
+        //       content: LocalizedTexts.existMealText.translation,
+        //       okText: LocalizedTexts.createNew.translation.toUpperCase(),
+        //       cancelText: LocalizedTexts.updateExist.translation.toUpperCase(),
+        //       onOkHandler: () {
+        //         createPlannedMeal(context, item);
+        //       },
+        //       onCancelHandler: () {
+        //         editPlannedMeal(context, plannedMealsForCurrentDate);
+        //       },
+        //     ),
+        //   );
+        // } else {
+        //   createPlannedMeal(context, item);
+        // }
+
+        chooseDate(context, item);
       },
+    );
+  }
+
+  void chooseDate(BuildContext context, NameLabel item) {
+    // context.read<MealsBloc>().add(MealsEvent.addPlannedMeal(item.name.toLowerCase()));
+    context.router.push(
+      ChooseDateCalendarRoute(
+        mealCategory: item.name,
+        date: context.read<MealsBloc>().state.getCurrentDate,
+      ),
     );
   }
 

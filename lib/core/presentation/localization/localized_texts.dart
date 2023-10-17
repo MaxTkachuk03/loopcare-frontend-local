@@ -316,6 +316,7 @@ class LocalizedTexts {
   static const String existMealText = 'existMealText';
   static const String createNew = 'createNew';
   static const String updateExist = 'updateExist';
+  static const String chooseDateFor = 'chooseDateFor';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';
