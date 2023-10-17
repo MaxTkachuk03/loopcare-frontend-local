@@ -96,6 +96,7 @@ class _DashboardPageState extends State<DashboardPage> {
               child: RefreshIndicator(
                 onRefresh: _onRefresh,
                 child: ScrollableContainer(
+                  physics: const AlwaysScrollableScrollPhysics(),
                   child: MainContainer(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
