@@ -196,18 +196,18 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     FetchMeals _,
     Emitter<MealsState> emit,
   ) async {
-    var prevDate = state.getCurrentDate;
+    var savedDateInState = state.getCurrentDate;
     emit(const MealsState.loading());
 
     final mealsResponses = await Future.wait(
       [
         nutritionService.getMeals(
-          startDate: DateTime.now().beginDay.subtract(const Duration(days: 8)).toIso8601String(),
-          endDate: DateTime.now().endDay.toIso8601String(),
+          startDate: savedDateInState.beginDay.subtract(const Duration(days: 8)).toIso8601String(),
+          endDate: savedDateInState.endDay.toIso8601String(),
         ),
         nutritionService.getPlannedMeals(
-          startDate: DateTime.now().beginDay.toIso8601String(),
-          endDate: DateTime.now().endDay.toIso8601String(),
+          startDate: savedDateInState.beginDay.toIso8601String(),
+          endDate: savedDateInState.endDay.toIso8601String(),
         )
       ],
     );
@@ -238,7 +238,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
     emit(
       MealsState.mealsInfo(
-        currentDate: prevDate,
+        currentDate: savedDateInState,
         meals: mealsMap,
         plannedMeals: plannedMealsMap,
       ),
