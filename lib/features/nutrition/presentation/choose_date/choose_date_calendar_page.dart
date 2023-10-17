@@ -10,12 +10,11 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/choose_date/choose_date_bloc.dart';
 
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
-class ChooseDateCalendarPage extends StatelessWidget {
+class ChooseDateCalendarPage extends StatefulWidget {
   final String mealCategory;
   final DateTime? date;
 
@@ -26,11 +25,28 @@ class ChooseDateCalendarPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<ChooseDateCalendarPage> createState() => _ChooseDateCalendarPageState();
+}
+
+class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<ChooseDateBloc>().add(
+          ChooseDateEvent.setData(
+            mealCategory: widget.mealCategory,
+            date: widget.date,
+          ),
+        );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RecipeBloc, RecipeState>(
+    return BlocBuilder<ChooseDateBloc, ChooseDateState>(
       builder: (BuildContext context, state) {
         return state.maybeMap(
-          loadingRecipe: (_) {
+          loading: (_) {
             return Scaffold(
               appBar: AppBar(
                 leading: BackButtonHexagon(
@@ -40,7 +56,7 @@ class ChooseDateCalendarPage extends StatelessWidget {
               body: const Loader(),
             );
           },
-          recipeInfo: (s) {
+          calendar: (s) {
             return Scaffold(
               body: SafeArea(
                 top: false,
@@ -50,7 +66,7 @@ class ChooseDateCalendarPage extends StatelessWidget {
                       GreenAppBar(
                         title: LocalizedTexts.chooseDateFor.tr(
                           namedArgs: {
-                            'mealCategory': mealCategory,
+                            'mealCategory': widget.mealCategory,
                           },
                         ),
                         // subtitle: mealCategory,
@@ -92,6 +108,6 @@ class ChooseDateCalendarPage extends StatelessWidget {
   }
 
   _onSkipPressed(BuildContext context) {
-    context.router.push(SelectFoodRoute(mealCategory: mealCategory));
+    context.router.push(SelectFoodRoute(mealCategory: widget.mealCategory));
   }
 }

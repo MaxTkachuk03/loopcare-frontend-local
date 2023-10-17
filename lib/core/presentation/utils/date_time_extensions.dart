@@ -45,6 +45,15 @@ extension DateTimeExtension on DateTime {
     return DateFormat('EEEE', 'en_EN').format(this);
   }
 
+  int get secondNextWeekNumber {
+    final now = this;
+    final firstJan = DateTime(now.year, 1, 1);
+    final lasdDecember = DateTime(now.year, 12, 31);
+    var nowWeekNumber = weeksBetween(firstJan, now);
+    var lastWeekNumber = weeksBetween(firstJan, lasdDecember);
+    return nowWeekNumber != lastWeekNumber ? nowWeekNumber + 2 : 2;
+  }
+
   int get nextWeekNumber {
     final now = this;
     final firstJan = DateTime(now.year, 1, 1);
