@@ -21,3 +21,23 @@ String formatSecondsToDurationString(int value) {
 
   return '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
 }
+
+DateTime findFirstDateOfTheWeek(DateTime dateTime) {
+  return dateTime.subtract(Duration(days: dateTime.weekday - 1));
+}
+
+DateTime findLastDateOfTheWeek(DateTime dateTime) {
+  return dateTime.add(Duration(days: DateTime.daysPerWeek - dateTime.weekday));
+}
+
+List<DateTime> getDatesByWeekNumber(
+  int weeknumber,
+  int year,
+) {
+  List<DateTime> ret = [];
+  var days = ((weeknumber - 1) * 7) + 2;
+  for (var i = 0; i < 7; i++) {
+    ret.add(DateTime(year, 1, days + i));
+  }
+  return ret;
+}

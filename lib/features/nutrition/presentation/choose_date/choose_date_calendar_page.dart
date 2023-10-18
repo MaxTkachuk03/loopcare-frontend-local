@@ -57,6 +57,7 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
             );
           },
           calendar: (s) {
+            var weeks = s.weeks;
             return Scaffold(
               body: SafeArea(
                 top: false,

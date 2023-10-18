@@ -5,6 +5,8 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/choose_date/week_day_element.dart';
+import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_utils.dart';
 
 part 'choose_date_event.dart';
 

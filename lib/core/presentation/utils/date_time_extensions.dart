@@ -45,6 +45,18 @@ extension DateTimeExtension on DateTime {
     return DateFormat('EEEE', 'en_EN').format(this);
   }
 
+  String get shortWeekdayString {
+    return DateFormat('E', 'en_EN').format(this);
+  }
+
+  String get shortestWeekdayString {
+    return DateFormat('E', 'en_EN').format(this).substring(0, 1);
+  }
+
+  String get shortMonthString {
+    return DateFormat('MMM', 'en_EN').format(this);
+  }
+
   int get secondNextWeekNumber {
     final now = this;
     final firstJan = DateTime(now.year, 1, 1);
@@ -63,15 +75,31 @@ extension DateTimeExtension on DateTime {
     return nowWeekNumber != lastWeekNumber ? nowWeekNumber + 1 : 1;
   }
 
+  int get nextWeekYear {
+    final now = this;
+    return nextWeekNumber > weekNumber ? now.year : now.year + 1;
+  }
+
+  int get secondNextWeekYear {
+    final now = this;
+    return secondNextWeekNumber > weekNumber ? now.year : now.year + 1;
+  }
+
   int get weekNumber {
     final now = this;
     final firstJan = DateTime(now.year, 1, 1);
     return weeksBetween(firstJan, now);
   }
 
+  int daysBetween(DateTime from, DateTime to) {
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
+    return (to.difference(from).inHours / 24).round();
+  }
+
   int weeksBetween(DateTime from, DateTime to) {
-    from = DateTime.utc(from.year, from.month, from.day);
-    to = DateTime.utc(to.year, to.month, to.day);
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
     return (to.difference(from).inDays / 7).ceil();
   }
 
