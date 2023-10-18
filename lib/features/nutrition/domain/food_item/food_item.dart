@@ -24,13 +24,12 @@ abstract class FoodItem implements _$FoodItem {
     num? servingAmount = serving.metricServingAmount;
     if (servingAmount == null) return 1.0;
 
-    servingAmount = serving.metricServingUnit == 'g'
+    servingAmount = serving.metricServingUnit == 'g' || serving.metricServingUnit == 'ml'
         ? servingAmount
-        : WeightConversionUtils.convertOzToGramms(servingAmount);
+        : WeightConversionUtils.convertOzToGrams(servingAmount);
 
     return double.parse((serving.calories / servingAmount).toStringAsFixed(2));
   }
 
-  factory FoodItem.fromJson(Map<String, dynamic> json) =>
-      _$FoodItemFromJson(json);
+  factory FoodItem.fromJson(Map<String, dynamic> json) => _$FoodItemFromJson(json);
 }

@@ -20,15 +20,13 @@ class PersonalDetailsSection extends StatelessWidget {
           child: Column(children: [
             const SectionTitle(title: LocalizedTexts.personalDetails),
             SectionItem(title: LocalizedTexts.name, subTitle: state.name, onPressHandler: () {}),
-            const SizedBox(height: 16.0),
             const Divider(height: 1.0, color: AppColors.yellowLight),
-            const SizedBox(height: 16.0),
             SectionItem(title: LocalizedTexts.height, subTitle: '${state.height}', onPressHandler: () {}),
-            const SizedBox(height: 16.0),
             const Divider(height: 1.0, color: AppColors.yellowLight),
-            const SizedBox(height: 16.0),
             SectionItem(
-                title: LocalizedTexts.yourSex, subTitle: state.gender?.name.capitalize(), onPressHandler: () {}),
+                title: LocalizedTexts.yourSex,
+                subTitle: state.gender?.name.capitalize(),
+                onPressHandler: () {}),
           ]),
         );
       },

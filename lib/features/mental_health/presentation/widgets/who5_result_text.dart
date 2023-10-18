@@ -1,12 +1,36 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/interpretation_type.dart';
+import 'package:loopcare_frontend/features/mental_health/presentation/mental_check_result_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class WHO5ResultText extends StatelessWidget {
   const WHO5ResultText({Key? key}) : super(key: key);
+
+  void _onUrlHandler(BuildContext context) async {
+    final Uri launchUri = Uri.parse(psychologistConsultingLink);
+
+    try {
+      await launchUrl(launchUri);
+    } catch (e) {
+      _showError(context);
+    }
+  }
+
+  void _showError(BuildContext context) {
+    showAppSnackBar(
+      context: context,
+      text: LocalizedTexts.openLinkErrorMessage.tr(),
+      background: AppColors.red,
+      textColor: Colors.white,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +42,22 @@ class WHO5ResultText extends StatelessWidget {
 
         final interpretation = state.data.results[currentTestType]?.interpretation;
         final text = interpretation == InterpretationType.minimal
-            ? LocalizedTexts.who5ResultTestMinimal
-            : LocalizedTexts.who5ResultTestHigh;
+            ? LocalizedTexts.who5ResultTestMinimal.tr()
+            : LocalizedTexts.who5ResultTestHigh.tr();
 
-        return Text(
-          text,
-          style: Theme.of(context).textTheme.bodyLarge,
-        ).tr();
+        return RichText(
+          text: TextSpan(children: [
+            TextSpan(
+              text: '$text \n',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            TextSpan(
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.blueAppBar),
+              text: '$psychologistConsultingLink \n\n',
+              recognizer: TapGestureRecognizer()..onTap = () => _onUrlHandler(context),
+            ),
+          ]),
+        );
       },
     );
   }

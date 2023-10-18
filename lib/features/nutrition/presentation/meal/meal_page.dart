@@ -43,9 +43,10 @@ class _MealPageState extends State<MealPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory = DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
-        ? state.currentMealCategory
-        : MealCategory.breakfast.originalValue;
+    final mealCategory =
+        DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
+            ? state.currentMealCategory
+            : MealCategory.breakfast.originalValue;
 
     final mealId = state.getCurrentMealId;
 

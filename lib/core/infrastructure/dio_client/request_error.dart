@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
 
@@ -29,7 +30,7 @@ class RequestError with _$RequestError {
 
   const factory RequestError.socketException(SocketException error) = _SocketException;
 
-  const factory RequestError.dioOther(ServerErrorData error) = _Other;
+  const factory RequestError.dioOther(DioError error) = _Other;
 
   const factory RequestError.unhandledError(dynamic error) = _Unhandled;
 }

@@ -26,12 +26,12 @@ class PhysicalActivitiesData with _$PhysicalActivitiesData {
   }
 
   List<PhysicalProgram> activities(int timesPerWeek) {
-    // Adding placeholder activities if there are less than 3 already logged
+    // Adding placeholder activities if there are less than timesPerWeek already logged
     final activities = [...weeklyActivities];
 
     if (weeklyActivities.length < timesPerWeek) {
       for (var i = weeklyActivities.length; i < timesPerWeek; i++) {
-        activities.add(PhysicalProgram.placeholder(name: 'To do:  Activity $i'));
+        activities.add(PhysicalProgram.placeholder(name: 'To do:  Activity ${i + 1}'));
       }
     }
 

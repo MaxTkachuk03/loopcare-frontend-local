@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
@@ -84,12 +86,15 @@ class _LessonPageState extends State<LessonPage> {
   }
 
   _errorListener(BuildContext context, EducationLessonState state) {
+    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
+
     showAppSnackBar(
       context: context,
-      text: 'Something went wrong, try again',
+      text: errorMessage,
       background: AppColors.red,
       textColor: Colors.white,
     );
+
     context.router.pop();
   }
 
@@ -122,6 +127,43 @@ class _LessonPageState extends State<LessonPage> {
         builder: (BuildContext context, state) {
           return state.maybeMap(
             loading: (_) => const Loader(),
+            lessonCompleted: (s) {
+              final currentPage = s.data.currentPage;
+
+              if (currentPage.type == EducationLessonPageType.text) {
+                return LessonTextPage(
+                  onNextPressed: _onNextPressed,
+                  onPrevPressed: _onPrevPressed,
+                  content: currentPage.content,
+                );
+              }
+              if (currentPage.type == EducationLessonPageType.audio) {
+                if (state.data.temporaryDirectory.isEmpty) {
+                  context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
+                }
+                if (!state.data.isLoading &&
+                    state.data.currentPage.type == EducationLessonPageType.audio &&
+                    state.data.currentPage.content.audioFilePath.isEmpty) {
+                  context.read<EducationLessonBloc>().add(
+                        EducationLessonEvent.downloadAudioFile(state.data.currentPage.content.url),
+                      );
+                }
+                if (!state.data.isLoading &&
+                    state.data.currentPage.type == EducationLessonPageType.audio &&
+                    state.data.currentPage.content.subtitlesImages != null &&
+                    state.data.currentPage.content.subtitleFilePath.isEmpty) {
+                  context.read<EducationLessonBloc>().add(
+                        EducationLessonEvent.downloadSubtitlesFile(
+                            state.data.currentPage.content.subtitlesImages!),
+                      );
+                }
+                return LessonAudioPage(
+                  onNextPressed: _onNextPressed,
+                  onPrevPressed: _onPrevPressed,
+                );
+              }
+              return const SizedBox.shrink();
+            },
             contentLoaded: (s) {
               final currentPage = s.data.currentPage;
               final userId = context.read<AuthenticationCubit>().state.id;
@@ -132,6 +174,43 @@ class _LessonPageState extends State<LessonPage> {
                 currentPage,
                 userId,
               );
+
+              if (currentPage.type == EducationLessonPageType.text) {
+                return LessonTextPage(
+                  onNextPressed: _onNextPressed,
+                  onPrevPressed: _onPrevPressed,
+                  content: currentPage.content,
+                );
+              }
+              if (currentPage.type == EducationLessonPageType.audio) {
+                if (state.data.temporaryDirectory.isEmpty) {
+                  context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
+                }
+                if (!state.data.isLoading &&
+                    state.data.currentPage.type == EducationLessonPageType.audio &&
+                    state.data.currentPage.content.audioFilePath.isEmpty) {
+                  context.read<EducationLessonBloc>().add(
+                        EducationLessonEvent.downloadAudioFile(state.data.currentPage.content.url),
+                      );
+                }
+                if (!state.data.isLoading &&
+                    state.data.currentPage.type == EducationLessonPageType.audio &&
+                    state.data.currentPage.content.subtitlesImages != null &&
+                    state.data.currentPage.content.subtitleFilePath.isEmpty) {
+                  context.read<EducationLessonBloc>().add(
+                        EducationLessonEvent.downloadSubtitlesFile(
+                            state.data.currentPage.content.subtitlesImages!),
+                      );
+                }
+                return LessonAudioPage(
+                  onNextPressed: _onNextPressed,
+                  onPrevPressed: _onPrevPressed,
+                );
+              }
+              return const SizedBox.shrink();
+            },
+            errorCompleteLesson: (s) {
+              final currentPage = s.data.currentPage;
 
               if (currentPage.type == EducationLessonPageType.text) {
                 return LessonTextPage(

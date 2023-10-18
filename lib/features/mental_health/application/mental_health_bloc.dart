@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/mental_health/application/dto/answers_body.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_service.dart';
+import 'package:loopcare_frontend/features/mental_health/domain/interpretation_type.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/mental_health_answer.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/mental_health_question.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/mental_health_test.dart';

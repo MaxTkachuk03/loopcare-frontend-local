@@ -21,34 +21,35 @@ class SectionItem extends StatelessWidget {
       onTap: onPressHandler,
       highlightColor: AppColors.greyLight.withOpacity(0.5),
       borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ).tr(),
-                if (subTitle != null)
-                  Text(subTitle ?? '',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontSize: ThemeConstants.fontSize14,
-                            fontFamily: ThemeConstants.openSansFontFamily,
-                            color: AppColors.greyLabel,
-                          )).tr(),
-              ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ).tr(),
+                  if (subTitle != null)
+                    Text(subTitle ?? '',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontSize: ThemeConstants.fontSize14,
+                              fontFamily: ThemeConstants.openSansFontFamily,
+                              color: AppColors.greyLabel,
+                            )).tr(),
+                ],
+              ),
             ),
-          ),
-          const IconButton(
-            icon:  ImageIcon(
+            const ImageIcon(
               AppIcons.arrow,
               color: AppColors.greyLabel,
-            ), onPressed: null,
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

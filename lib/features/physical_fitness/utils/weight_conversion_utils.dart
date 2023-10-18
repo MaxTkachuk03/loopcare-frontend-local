@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/features/physical_fitness/utils/is_zero_after_
 class WeightConversionUtils {
   static double kgInLbs = 2.20462262185;
   static double lbsInKg = 0.45359237;
-  static double grammsInOz = 28.35;
+  static double gramsInOz = 28.35;
 
   static num convertKgToLbs(double weight) {
     final fixedValue = fixedValueToOne(weight * kgInLbs);
@@ -16,8 +16,8 @@ class WeightConversionUtils {
     return isZeroAfterDecimal(fixedValue) ? fixedValue.toInt() : num.parse(fixedValue.toStringAsFixed(2));
   }
 
-  static num convertOzToGramms(num weight) {
-    final fixedValue = fixedValueToTwo(weight * grammsInOz);
+  static num convertOzToGrams(num weight) {
+    final fixedValue = fixedValueToTwo(weight * gramsInOz);
     return isZeroAfterDecimal(fixedValue) ? fixedValue.toInt() : fixedValue;
   }
 
