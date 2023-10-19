@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/domain/account/subscription.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -33,37 +34,58 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     on<SubscriptionInit>(_onInitSubscription);
     on<SubscriptionDispose>(_onSubscriptionDispose);
     on<BuySubscription>(_onBuySubscription);
+    on<RestorePurchased>(_onRestorePurchased);
     on<PurchasedSubscription>(_onPurchasedSubscription);
     on<GetActiveSubscription>(_onGetActiveSubscription);
     on<GetSubscriptionPlans>(_onGetSubscriptionPlans);
     purchaseDetailsStreamSubscription = PurchaseDetailsStreamSubscription(
       onCanceled: () => debugPrint('devcpp Subscription Canceled'),
       onError: () => debugPrint('devcpp Subscription Error '),
-      onPurchased: (PurchaseDetails purchaseDetails) async {
-        debugPrint('devcpp  product ID: ${purchaseDetails.productID}');
-        debugPrint(
-            'devcpp  purchase serverVerificationData: ${purchaseDetails.verificationData.serverVerificationData}');
-        debugPrint('devcpp  purchase localVerificationData: ${purchaseDetails.verificationData.localVerificationData}');
-        _handlePurchase(purchaseDetails);
-      },
+      onRestored: (purchase) async => _restoreTransactionData(purchase),
+      onPurchased: (PurchaseDetails purchaseDetails) async => _handlePurchase(purchaseDetails),
     )..init();
+  }
+
+  void _restoreTransactionData(PurchaseDetails purchaseDetails) async {
+    if (purchaseDetails.status == PurchaseStatus.restored) {
+      if (purchaseDetails is AppStorePurchaseDetails) {
+        final originalTransaction = purchaseDetails.skPaymentTransaction.originalTransaction;
+        if (originalTransaction != null) {
+          final purchaseID = originalTransaction.transactionIdentifier;
+          debugPrint('devcpp  status: iOS restored -> ${purchaseDetails.productID} -> $purchaseID');
+        }
+      } else {
+        debugPrint('devcpp  status: Google restored -> ${purchaseDetails.productID} -> ${purchaseDetails.purchaseID}');
+      }
+      String transactionDate = _getTransactionDate(purchaseDetails);
+      debugPrint('devcpp  status:  restored ->  transactionDate: $transactionDate');
+
+      // Todo verified restore transaction
+      add(SubscriptionEvent.purchasedSubscription(PurchasedProduct(
+        purchaseDetails: purchaseDetails,
+        memberSince: transactionDate,
+      )));
+    }
   }
 
   Future<void> _handlePurchase(PurchaseDetails purchaseDetails) async {
     try {
       if (purchaseDetails.pendingCompletePurchase) {
+        debugPrint('devcpp  CompletePurchase product ID: ${purchaseDetails.productID}');
         await inAppPurchaseService.instance.completePurchase(purchaseDetails);
       }
+
       if (purchaseDetails.status == PurchaseStatus.purchased) {
         // Send to server
         // var validPurchase = await _verifyPurchase(purchaseDetails);
 
         // if (res) {
-
-        DateTime date = DateTime.fromMillisecondsSinceEpoch(
-          int.parse(purchaseDetails.transactionDate!),
-        );
-        String transactionDate = DateFormat('dd MMM yyyy').format(date);
+        await inAppPurchaseService.instance.completePurchase(purchaseDetails);
+        String transactionDate = _getTransactionDate(purchaseDetails);
+        debugPrint('devcpp  product ID: ${purchaseDetails.productID}');
+        debugPrint(
+            'devcpp  purchase serverVerificationData: ${purchaseDetails.verificationData.serverVerificationData}');
+        debugPrint('devcpp  purchase localVerificationData: ${purchaseDetails.verificationData.localVerificationData}');
         debugPrint('devcpp  transactionDate: $transactionDate');
         add(SubscriptionEvent.purchasedSubscription(PurchasedProduct(
           purchaseDetails: purchaseDetails,
@@ -78,25 +100,36 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     PurchasedSubscription event,
     Emitter<SubscriptionState> emit,
   ) async =>
-      emit(SubscriptionState.purchasedSubscription(state.data.copyWith(purchased: event.purchasedProduct)));
+      emit(SubscriptionState.purchasedSubscription(state.data.copyWith(
+        purchased: event.purchasedProduct,
+        isLoading: false,
+      )));
 
-  FutureOr<void> _onInitSubscription(
-    SubscriptionInit event,
+  FutureOr<void> _onRestorePurchased(
+    RestorePurchased event,
     Emitter<SubscriptionState> emit,
-  ) async {
-    emit(const SubscriptionState.initial(SubscriptionStateData()));
+  ) {
+    emit(
+      SubscriptionState.loading(state.data.copyWith(isLoading: true)),
+    );
+    debugPrint('devcpp  _onRestorePurchased');
+    final inAppPurchaseService = getIt<AppSubscriptionService>();
+    inAppPurchaseService.restorePurchase();
   }
 
   FutureOr<void> _onGetSubscriptionPlans(
     GetSubscriptionPlans event,
     Emitter<SubscriptionState> emit,
   ) async {
+    emit(
+      SubscriptionState.loading(state.data.copyWith(isLoading: true)),
+    );
     final inAppPurchaseService = getIt<AppSubscriptionService>();
     final plans = await inAppPurchaseService.getSubscriptionPlans();
+
     emit(
-      SubscriptionState.successInPlans(SubscriptionStateData(plans: plans)),
+      SubscriptionState.successInPlans(state.data.copyWith(isLoading: false, plans: plans)),
     );
-    add(const SubscriptionEvent.getActiveSubscription());
   }
 
   FutureOr<void> _onGetActiveSubscription(
@@ -110,12 +143,13 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     response.fold(
       (error) {
         debugPrint('devcpp error Account: $error');
-        emit(SubscriptionState.error(state.data.copyWith(error: error)));
+        emit(SubscriptionState.error(state.data.copyWith(error: error, isLoading: false)));
       },
       (r) {
         // Todo final status = SubscriptionStatusUtil.parse(r.subscription.state);
         var subscription = const Subscription();
-        final status = subscription == null ? SubscriptionStatus.trialPeriod:SubscriptionStatusUtil.parse(subscription.state);
+        final status =
+            subscription == null ? SubscriptionStatus.trialPeriod : SubscriptionStatusUtil.parse(subscription.state);
 
         debugPrint('devcpp SubscriptionStatus: ${status.name}');
         switch (status) {
@@ -147,10 +181,23 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     BuySubscription event,
     Emitter<SubscriptionState> emit,
   ) async {
+    emit(
+      SubscriptionState.loading(state.data.copyWith(isLoading: true)),
+    );
     final inAppPurchaseService = getIt<AppSubscriptionService>();
     debugPrint('devcpp Buy request: ${event.product.id}');
     final response = await inAppPurchaseService.buyItemInStore(event.product);
     debugPrint('devcpp Buy response: ${response.toString()}');
+    emit(
+      SubscriptionState.loading(state.data.copyWith(isLoading: false)),
+    );
+  }
+
+  FutureOr<void> _onInitSubscription(
+    SubscriptionInit event,
+    Emitter<SubscriptionState> emit,
+  ) async {
+    emit(const SubscriptionState.initial(SubscriptionStateData()));
   }
 
   FutureOr<void> _onSubscriptionDispose(
@@ -158,6 +205,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     Emitter<SubscriptionState> emit,
   ) {
     purchaseDetailsStreamSubscription.close();
+    emit(SubscriptionState.success(state.data));
   }
 
   bool _isPassDate(String? timeStamp) {
@@ -167,5 +215,13 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
 
     final date = DateFormat('yyyy-MM-ddTHH:mm:sssZ').parseUtc(timeStamp).toLocal();
     return date.isAfter(DateTime.now()) || date.isSameDate(DateTime.now());
+  }
+
+  String _getTransactionDate(PurchaseDetails purchaseDetails) {
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(
+      int.parse(purchaseDetails.transactionDate!),
+    );
+    String transactionDate = DateFormat('dd MMM yyyy').format(date);
+    return transactionDate;
   }
 }

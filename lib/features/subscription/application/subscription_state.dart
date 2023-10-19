@@ -4,12 +4,6 @@ part of 'subscription_bloc.dart';
 class SubscriptionState with _$SubscriptionState {
   const factory SubscriptionState.initial(SubscriptionStateData data) = InitialSubscriptionState;
 
-  const factory SubscriptionState.success(SubscriptionStateData data) = SuccessSubscriptionState;
-
-  const factory SubscriptionState.successInPlans(SubscriptionStateData data) = SuccessSubscriptionPlans;
-
-  const factory SubscriptionState.purchasedSubscription(SubscriptionStateData data) = PurchasedSubscriptionState;
-
   const factory SubscriptionState.loading(SubscriptionStateData data) = LoadingSubscriptionState;
 
   const factory SubscriptionState.error(SubscriptionStateData data) = ErrorSubscriptionState;
@@ -23,6 +17,14 @@ class SubscriptionState with _$SubscriptionState {
   const factory SubscriptionState.subscriptionCancelled(SubscriptionStateData data) = SubscriptionCancelled;
 
   const factory SubscriptionState.subscriptionUnRenewed(SubscriptionStateData data) = SubscriptionUnRenewed;
+
+  const factory SubscriptionState.success(SubscriptionStateData data) = SuccessSubscriptionState;
+
+  const factory SubscriptionState.successInPlans(SubscriptionStateData data) = SuccessSubscriptionPlans;
+
+  const factory SubscriptionState.purchasedSubscription(SubscriptionStateData data) = PurchasedSubscriptionState;
+
+  const factory SubscriptionState.restoredSubscription(SubscriptionStateData data) = RestoredSubscriptionState;
 
   const factory SubscriptionState.subscriptionActual(SubscriptionStateData data) = SubscriptionActual;
 }

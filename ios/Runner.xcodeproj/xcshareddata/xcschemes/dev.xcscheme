@@ -65,9 +65,6 @@
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
-      <StoreKitConfigurationFileReference
-         identifier = "../IAPTest.storekit">
-      </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Profile-dev"

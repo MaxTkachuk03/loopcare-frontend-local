@@ -15,7 +15,7 @@ class PurchaseDetailsStreamSubscription {
   final Function()? onPending;
   final Function(PurchaseDetails purchaseDetails)? onPurchased;
   final Function()? onError;
-  final Function()? onRestored;
+  final Function(PurchaseDetails purchases)? onRestored;
   final Function()? onCanceled;
 
   StreamSubscription<List<PurchaseDetails>>? _streamSubscription;
@@ -31,8 +31,7 @@ class PurchaseDetailsStreamSubscription {
   Future<void> init() async {
     if (Platform.isIOS) {
       final InAppPurchaseStoreKitPlatformAddition iosPlatformAddition =
-      inAppPurchaseService.instance
-          .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
+          inAppPurchaseService.instance.getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
       await iosPlatformAddition.setDelegate(ExamplePaymentQueueDelegate());
     }
     _streamSubscription = inAppPurchaseService.storeSubscription.listen(
@@ -44,7 +43,6 @@ class PurchaseDetailsStreamSubscription {
               case PurchaseStatus.pending:
                 onPending?.call();
                 break;
-              case PurchaseStatus.restored:
               case PurchaseStatus.purchased:
                 onPurchased?.call(purchaseDetails);
                 break;
@@ -54,9 +52,17 @@ class PurchaseDetailsStreamSubscription {
               case PurchaseStatus.canceled:
                 onCanceled?.call();
                 break;
+              case PurchaseStatus.restored:
+                onRestored?.call(purchaseDetails);
+                break;
             }
           },
         );
+
+        // if(events.isNotEmpty && events.last.status == PurchaseStatus.restored){
+        //   onRestored?.call(events.last);
+        //   return;
+        // }
       },
       onDone: () => close(),
       onError: (e) {
@@ -69,8 +75,7 @@ class PurchaseDetailsStreamSubscription {
   void close() {
     if (Platform.isIOS) {
       final InAppPurchaseStoreKitPlatformAddition iosPlatformAddition =
-      inAppPurchaseService.instance
-          .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
+          inAppPurchaseService.instance.getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
       iosPlatformAddition.setDelegate(null);
     }
     _streamSubscription?.cancel();
@@ -84,8 +89,7 @@ class PurchaseDetailsStreamSubscription {
 /// needed to complete transactions.
 class ExamplePaymentQueueDelegate implements SKPaymentQueueDelegateWrapper {
   @override
-  bool shouldContinueTransaction(
-      SKPaymentTransactionWrapper transaction, SKStorefrontWrapper storefront) {
+  bool shouldContinueTransaction(SKPaymentTransactionWrapper transaction, SKStorefrontWrapper storefront) {
     return true;
   }
 

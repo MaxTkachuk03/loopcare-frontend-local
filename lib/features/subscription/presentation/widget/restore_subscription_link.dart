@@ -50,6 +50,7 @@ class RestoreSubscriptionLink extends StatelessWidget {
   }
 
   void _navigate(BuildContext context, {required bool isTerms}) {
+    onTap();
     // WebViewScreenRoute(
     //   url: url,
     //   title: title,

@@ -2,8 +2,8 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 
  class PurchasableProduct {
   final ProductDetails? details;
-  final int monthlyPrice;
-  final int commonPrice;
+  final double monthlyPrice;
+  final double commonPrice;
   final String currency;
   final bool isAnnual;
 

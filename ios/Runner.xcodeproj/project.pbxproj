@@ -17,7 +17,6 @@
 		CE56C241299442FD00C2D9C2 /* config in Resources */ = {isa = PBXBuildFile; fileRef = CE56C240299442FD00C2D9C2 /* config */; };
 		CECF069A2AD0563D000C8965 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CECF06992AD0563D000C8965 /* StoreKit.framework */; };
 		CECF06A32AD34947000C8965 /* StoreKitTestCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = CECF06A22AD34947000C8965 /* StoreKitTestCertificate.cer */; };
-		CECF06A62AD447E9000C8965 /* IAPTest.storekit in Resources */ = {isa = PBXBuildFile; fileRef = CECF06A12AD344C6000C8965 /* IAPTest.storekit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -231,7 +230,6 @@
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
-				CECF06A62AD447E9000C8965 /* IAPTest.storekit in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
 				CECF06A32AD34947000C8965 /* StoreKitTestCertificate.cer in Resources */,
 			);

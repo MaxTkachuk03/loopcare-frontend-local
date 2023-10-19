@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
@@ -18,6 +19,7 @@ class SubscriptionPage extends StatefulWidget {
 
 class _SubscriptionPageState extends State<SubscriptionPage> {
   late SubscriptionController controller;
+  Widget content = const SizedBox.shrink();
 
   @override
   void initState() {
@@ -29,6 +31,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     controller.getSubscriptionPlans();
+    controller.getActiveSubscriptionStatus();
   }
 
   @override
@@ -69,30 +72,38 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                   cur is ErrorSubscriptionState ||
                   cur is SuccessSubscriptionPlans ||
                   cur is PurchasedSubscriptionState ||
-                  cur is SubscriptionActual,
+                  cur is SubscriptionActual ||
+                  cur is LoadingSubscriptionState,
               listener: (BuildContext context, SubscriptionState state) => state.maybeWhen(
                 successInPlans: (data) => controller.setupPlans(data),
                 subscriptionActual: (data) => context.router.replaceNamed(AppRoutes.home),
                 purchasedSubscription: (data) => context.router.replaceNamed(AppRoutes.home),
+                loading: (data) => controller.isEnableSubscribe.value = !data.isLoading,
                 orElse: () => _errorListener,
               ),
-              builder: (BuildContext context, SubscriptionState state) => state.maybeWhen(
-                orElse: () => const SizedBox.shrink(),
-                trial: (s) => SubscriptionStatusWidget.trial(
-                  controller: controller,
-                ),
-                trialExpired: (_) => SubscriptionStatusWidget.trialExpired(
-                  controller: controller,
-                ),
-                subscriptionEnded: (_) => SubscriptionStatusWidget.endedSubscription(
-                  controller: controller,
-                ),
-                subscriptionCancelled: (_) => SubscriptionStatusWidget.cancelledSubscription(
-                  controller: controller,
-                ),
-                subscriptionUnRenewed: (_) => SubscriptionStatusWidget.notRenewSubscription(
-                  onTap: () {},
-                ),
+              builder: (BuildContext context, SubscriptionState state) => Stack(
+                children: [
+                  state.maybeWhen(
+                    orElse: () => content,
+                    trial: (s) => content = SubscriptionStatusWidget.trial(
+                      controller: controller,
+                    ),
+                    trialExpired: (_) => content = SubscriptionStatusWidget.trialExpired(
+                      controller: controller,
+                    ),
+                    subscriptionEnded: (_) => content = SubscriptionStatusWidget.endedSubscription(
+                      controller: controller,
+                    ),
+                    subscriptionCancelled: (_) => content = SubscriptionStatusWidget.cancelledSubscription(
+                      controller: controller,
+                    ),
+                    subscriptionUnRenewed: (_) => content = SubscriptionStatusWidget.notRenewSubscription(
+                      onTap: () {},
+                    ),
+                  ),
+                  if (state.data.isLoading)
+                    const Positioned.fill(child: Align(alignment: Alignment.center, child: Loader())),
+                ],
               ),
             ),
           ],

@@ -42,7 +42,7 @@ class _FooterSubscriptionState extends State<FooterSubscription> {
                 selected: !(widget.controller.selectedPlan.value?.isAnnual ?? true),
               ),
               const SizedBox(height: 18.0),
-              RestoreSubscriptionLink(onTap: () {}),
+              RestoreSubscriptionLink(onTap: () => widget.controller.restorePurchase()),
               const SizedBox(height: 34.0),
               SubscribeButton(controller: widget.controller),
               const SizedBox(height: 30.0),

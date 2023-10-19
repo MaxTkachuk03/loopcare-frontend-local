@@ -20,19 +20,22 @@ class SubscriptionController {
 
     for (var plan in data.plans) {
       debugPrint('devcpp  PLAN ID:  ${plan.id}  PRICE: ${plan.rawPrice} CURRENCY:  ${plan.currencySymbol}');
+      if (plan.id == 'annual') {
+        annual = PurchasableProduct(
+          details: plan,
+          monthlyPrice: _getPricePerMonth(plan.rawPrice),
+          commonPrice: plan.rawPrice,
+          currency: plan.currencySymbol,
+          isAnnual: true,
+        );
+      } else {
+        monthly = PurchasableProduct(
+            details: plan,
+            monthlyPrice: plan.rawPrice,
+            commonPrice: plan.rawPrice,
+            currency: plan.currencySymbol);
+      }
     }
-    annual = PurchasableProduct(
-      details: data.plans[1],
-      monthlyPrice: _getPricePerMonth(data.plans[1].rawPrice).toInt(),
-      commonPrice: data.plans[1].rawPrice.toInt(),
-      currency: data.plans[1].currencySymbol,
-      isAnnual: true,
-    );
-    monthly = PurchasableProduct(
-        details: data.plans[0],
-        monthlyPrice: data.plans[0].rawPrice.toInt(),
-        commonPrice: data.plans[0].rawPrice.toInt(),
-        currency: data.plans[0].currencySymbol);
   }
 
   String _getCurrency(String currencyCode) => NumberFormat().simpleCurrencySymbol(currencyCode);
@@ -47,7 +50,7 @@ class SubscriptionController {
     isEnableSubscribe.value = true;
   }
 
-  int _getPricePerMonth(double annualPrice) => annualPrice ~/ 12;
+  double _getPricePerMonth(double annualPrice) => annualPrice / 12;
 
   void onSubscribe() {
     if (selectedPlan.value?.details == null) {
@@ -55,6 +58,7 @@ class SubscriptionController {
     }
     bloc.add(SubscriptionEvent.buySubscription(selectedPlan.value!.details!));
   }
+  void restorePurchase() => bloc.add(const SubscriptionEvent.restorePurchased());
 
   void getSubscriptionPlans() => bloc.add(const SubscriptionEvent.getSubscriptionPlans());
 
