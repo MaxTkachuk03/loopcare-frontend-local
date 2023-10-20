@@ -35,5 +35,9 @@ class GroupSession with _$GroupSession {
 
   get availableSeatsAmount => maxMemberCount - memberCount;
 
+  DateTime get localStartTime => startDate.toLocal();
+
+  DateTime get localEndTime => endDate.toLocal();
+
   factory GroupSession.fromJson(Map<String, dynamic> json) => _$GroupSessionFromJson(json);
 }

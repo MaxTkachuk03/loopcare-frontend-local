@@ -120,11 +120,8 @@ class _TimeslotCardState extends State<TimeslotCard> {
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(color: textColor),
                   ).tr(
                     namedArgs: {
-                      'startTime': widget.groupSession.startDate.toLocal().timeHoursMinutes24,
-                      'endTime': widget.groupSession.startDate
-                          .toLocal()
-                          .add(Duration(seconds: widget.duration))
-                          .timeHoursMinutes24,
+                      'startTime': widget.groupSession.localStartTime.timeHoursMinutes24,
+                      'endTime': widget.groupSession.localEndTime.timeHoursMinutes24,
                     },
                   ),
                   Text(

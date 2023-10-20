@@ -66,10 +66,9 @@ class TopicsData with _$TopicsData {
     return signedGroupSession != null ? true : false;
   }
 
-  DateTime? get signedGroupSessionStartTime => signedGroupSession?.startDate.toLocal();
+  DateTime? get signedGroupSessionStartTime => signedGroupSession?.localStartTime;
 
-  DateTime? get signedGroupSessionsEndTime =>
-      signedGroupSessionStartTime?.add(Duration(seconds: weekTopic?.duration ?? 0));
+  DateTime? get signedGroupSessionsEndTime => signedGroupSession?.localEndTime;
 
   bool get signedGroupSessionsCancelledOrMissed {
     return signedGroupSession?.status == GroupSessionStatus.cancelled;
