@@ -26,7 +26,7 @@ class SubscriptionState with _$SubscriptionState {
 
   const factory SubscriptionState.restoredSubscription(SubscriptionStateData data) = RestoredSubscriptionState;
 
-  const factory SubscriptionState.subscriptionActual(SubscriptionStateData data) = SubscriptionActual;
+  const factory SubscriptionState.subscriptionActive(SubscriptionStateData data) = SubscriptionActual;
 }
 
 @freezed

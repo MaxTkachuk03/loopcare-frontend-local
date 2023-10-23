@@ -15,4 +15,6 @@ class SubscriptionEvent with _$SubscriptionEvent {
   const factory SubscriptionEvent.purchasedSubscription(PurchasedProduct purchasedProduct) = PurchasedSubscription;
 
   const factory SubscriptionEvent.restorePurchased() = RestorePurchased;
+
+  const factory SubscriptionEvent.errorVerifyPurchase(RequestError error) = ErrorVerifyPurchase;
 }

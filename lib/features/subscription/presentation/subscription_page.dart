@@ -31,7 +31,6 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     controller.getSubscriptionPlans();
-    controller.getActiveSubscriptionStatus();
   }
 
   @override
@@ -79,7 +78,10 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                 subscriptionActual: (data) => context.router.replaceNamed(AppRoutes.home),
                 purchasedSubscription: (data) => context.router.replaceNamed(AppRoutes.home),
                 loading: (data) => controller.isEnableSubscribe.value = !data.isLoading,
-                orElse: () => _errorListener,
+                orElse: () {
+                  controller.resetState();
+                  return _errorListener(context, state);
+                },
               ),
               builder: (BuildContext context, SubscriptionState state) => Stack(
                 children: [
@@ -119,6 +121,5 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
       background: AppColors.red,
       textColor: Colors.white,
     );
-    context.router.pop();
   }
 }

@@ -12,9 +12,11 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
 import 'package:loopcare_frontend/features/subscription/application/purchase_details_subscriptions.dart';
+import 'package:loopcare_frontend/features/subscription/application/purchase_service.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_service.dart';
 import 'package:loopcare_frontend/features/subscription/donain/purchased_product.dart';
 import 'package:loopcare_frontend/features/subscription/donain/subscription_state.dart';
+import 'package:loopcare_frontend/features/subscription/donain/verify_purchase_data.dart';
 
 import '../../../injection.dart';
 
@@ -29,13 +31,16 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   late PurchaseDetailsStreamSubscription purchaseDetailsStreamSubscription;
   final inAppPurchaseService = getIt<AppSubscriptionService>();
   final AuthenticationService _authenticationService;
+  final PurchaseService _purchaseService;
 
-  SubscriptionBloc(this._authenticationService) : super(const SubscriptionState.initial(SubscriptionStateData())) {
+  SubscriptionBloc(this._authenticationService, this._purchaseService)
+      : super(const SubscriptionState.initial(SubscriptionStateData())) {
     on<SubscriptionInit>(_onInitSubscription);
     on<SubscriptionDispose>(_onSubscriptionDispose);
     on<BuySubscription>(_onBuySubscription);
     on<RestorePurchased>(_onRestorePurchased);
     on<PurchasedSubscription>(_onPurchasedSubscription);
+    on<ErrorVerifyPurchase>(_onErrorVerifyPurchase);
     on<GetActiveSubscription>(_onGetActiveSubscription);
     on<GetSubscriptionPlans>(_onGetSubscriptionPlans);
     purchaseDetailsStreamSubscription = PurchaseDetailsStreamSubscription(
@@ -57,14 +62,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       } else {
         debugPrint('devcpp  status: Google restored -> ${purchaseDetails.productID} -> ${purchaseDetails.purchaseID}');
       }
-      String transactionDate = _getTransactionDate(purchaseDetails);
-      debugPrint('devcpp  status:  restored ->  transactionDate: $transactionDate');
 
       // Todo verified restore transaction
-      add(SubscriptionEvent.purchasedSubscription(PurchasedProduct(
-        purchaseDetails: purchaseDetails,
-        memberSince: transactionDate,
-      )));
     }
   }
 
@@ -77,22 +76,22 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
 
       if (purchaseDetails.status == PurchaseStatus.purchased) {
         // Send to server
-        // var validPurchase = await _verifyPurchase(purchaseDetails);
-
-        // if (res) {
-        await inAppPurchaseService.instance.completePurchase(purchaseDetails);
-        String transactionDate = _getTransactionDate(purchaseDetails);
-        debugPrint('devcpp  product ID: ${purchaseDetails.productID}');
+        final vendor = purchaseDetails is AppStorePurchaseDetails ? 'ios' : 'android';
         debugPrint(
             'devcpp  purchase serverVerificationData: ${purchaseDetails.verificationData.serverVerificationData}');
-        debugPrint('devcpp  purchase localVerificationData: ${purchaseDetails.verificationData.localVerificationData}');
-        debugPrint('devcpp  transactionDate: $transactionDate');
-        add(SubscriptionEvent.purchasedSubscription(PurchasedProduct(
-          purchaseDetails: purchaseDetails,
-          memberSince: transactionDate,
-        )));
+        var response = await _purchaseService.verifyPurchase(
+            VerifyPurchaseData(purchaseToken: purchaseDetails.verificationData.serverVerificationData), vendor);
+        response.fold((error) {
+          debugPrint('devcpp error VerifyPurchaseData: $error');
+          add(SubscriptionEvent.errorVerifyPurchase(error));
+        }, (r) async {
+          await inAppPurchaseService.instance.completePurchase(purchaseDetails);
+          add(SubscriptionEvent.purchasedSubscription(PurchasedProduct(
+            purchaseDetails: purchaseDetails,
+            memberSince: _getTransactionDate(r.createdAt),
+          )));
+        });
       }
-      // }
     } catch (_, __) {}
   }
 
@@ -102,6 +101,15 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   ) async =>
       emit(SubscriptionState.purchasedSubscription(state.data.copyWith(
         purchased: event.purchasedProduct,
+        isLoading: false,
+      )));
+
+  FutureOr<void> _onErrorVerifyPurchase(
+    ErrorVerifyPurchase event,
+    Emitter<SubscriptionState> emit,
+  ) async =>
+      emit(SubscriptionState.error(state.data.copyWith(
+        error: event.error,
         isLoading: false,
       )));
 
@@ -130,6 +138,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     emit(
       SubscriptionState.successInPlans(state.data.copyWith(isLoading: false, plans: plans)),
     );
+    add(const SubscriptionEvent.getActiveSubscription());
   }
 
   FutureOr<void> _onGetActiveSubscription(
@@ -137,12 +146,14 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     Emitter<SubscriptionState> emit,
   ) async {
     debugPrint('devcpp fetchAccount');
+    emit(
+      SubscriptionState.loading(state.data.copyWith(isLoading: true)),
+    );
     final response = await _authenticationService.fetchAccount();
     //Todo Subscription
 
     response.fold(
       (error) {
-        debugPrint('devcpp error Account: $error');
         emit(SubscriptionState.error(state.data.copyWith(error: error, isLoading: false)));
       },
       (r) {
@@ -150,7 +161,9 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         var subscription = const Subscription();
         final status =
             subscription == null ? SubscriptionStatus.trialPeriod : SubscriptionStatusUtil.parse(subscription.state);
-
+        emit(
+          SubscriptionState.loading(state.data.copyWith(isLoading: false)),
+        );
         debugPrint('devcpp SubscriptionStatus: ${status.name}');
         switch (status) {
           case SubscriptionStatus.trialPeriod:
@@ -171,7 +184,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
             emit(SubscriptionState.subscriptionUnRenewed(state.data.copyWith(subscription: subscription)));
             break;
           default:
-            emit(SubscriptionState.subscriptionActual(state.data.copyWith(subscription: subscription)));
+            emit(SubscriptionState.subscriptionActive(state.data.copyWith(subscription: subscription)));
         }
       },
     );
@@ -217,10 +230,11 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     return date.isAfter(DateTime.now()) || date.isSameDate(DateTime.now());
   }
 
-  String _getTransactionDate(PurchaseDetails purchaseDetails) {
-    DateTime date = DateTime.fromMillisecondsSinceEpoch(
-      int.parse(purchaseDetails.transactionDate!),
-    );
+  String _getTransactionDate(String? timeStamp) {
+    if (timeStamp == null) {
+      return '';
+    }
+    final date = DateFormat('yyyy-MM-ddTHH:mm:sssZ').parseUtc(timeStamp).toLocal();
     String transactionDate = DateFormat('dd MMM yyyy').format(date);
     return transactionDate;
   }

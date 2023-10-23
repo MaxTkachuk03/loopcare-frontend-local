@@ -49,6 +49,10 @@ class SubscriptionController {
     selectedPlan.value = plan;
     isEnableSubscribe.value = true;
   }
+  void resetState(){
+   selectedPlan.value = null;
+    isEnableSubscribe.value = false;
+  }
 
   double _getPricePerMonth(double annualPrice) => annualPrice / 12;
 
