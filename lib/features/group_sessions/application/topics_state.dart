@@ -17,11 +17,12 @@ class TopicsState with _$TopicsState {
 class TopicsData with _$TopicsData {
   const TopicsData._();
 
-  const factory TopicsData(
-      {@Default({}) Map<int, Topic> topics,
-      @Default('') String signedSessionSignature,
-      @Default(false) bool isLoading,
-      RequestError? error}) = _TopicsData;
+  const factory TopicsData({
+    @Default({}) Map<int, Topic> topics,
+    @Default('') String signedSessionSignature,
+    @Default(false) bool isLoading,
+    RequestError? error,
+  }) = _TopicsData;
 
   Topic? get _thisWeekTopic => topics[DateTime.now().weekNumber];
 
@@ -66,10 +67,9 @@ class TopicsData with _$TopicsData {
     return signedGroupSession != null ? true : false;
   }
 
-  DateTime? get signedGroupSessionStartTime => signedGroupSession?.startDate.toLocal();
+  DateTime? get signedGroupSessionStartTime => signedGroupSession?.localStartTime;
 
-  DateTime? get signedGroupSessionsEndTime =>
-      signedGroupSessionStartTime?.add(Duration(seconds: weekTopic?.duration ?? 0));
+  DateTime? get signedGroupSessionsEndTime => signedGroupSession?.localEndTime;
 
   bool get signedGroupSessionsCancelledOrMissed {
     return signedGroupSession?.status == GroupSessionStatus.cancelled;

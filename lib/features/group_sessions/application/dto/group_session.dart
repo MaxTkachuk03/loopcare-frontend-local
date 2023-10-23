@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/features/group_sessions/domain/group_session_constants.dart';
 import 'package:loopcare_frontend/features/group_sessions/domain/group_session_status.dart';
 import 'package:loopcare_frontend/features/group_sessions/domain/member_session_status.dart';
 
@@ -27,13 +28,17 @@ class GroupSession with _$GroupSession {
 
   bool get isSessionAlreadyStarted => startDate.isBefore(DateTime.now());
 
-  // TODO move to constants
   bool get isStartedLessThanFifteenMinutesAgo =>
-      DateTime.now().difference(startDate.toLocal()).inMinutes < 15;
+      DateTime.now().difference(startDate.toLocal()).inMinutes <
+      GroupSessionConstants.timeUserCanRejoinToSession;
 
   bool get isSessionEnded => DateTime.now().toLocal().isAfter(endDate.toLocal());
 
   get availableSeatsAmount => maxMemberCount - memberCount;
+
+  DateTime get localStartTime => startDate.toLocal();
+
+  DateTime get localEndTime => endDate.toLocal();
 
   factory GroupSession.fromJson(Map<String, dynamic> json) => _$GroupSessionFromJson(json);
 }

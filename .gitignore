@@ -50,8 +50,10 @@ app.*.map.json
 # firebase settings
 /android/app/src/dev/google-services.json
 /android/app/src/prod/google-services.json
+/android/app/src/stag/google-services.json
 /ios/config/dev/GoogleService-Info.plist
 /ios/config/prod/GoogleService-Info.plist
+/ios/config/stag/GoogleService-Info.plist
 
 # Code generated files
 *.freezed.dart*
