@@ -79,7 +79,8 @@ flutter:
     - assets/translations/
     - .env.dev
     - .env.prod
-  fonts: 
+    - .env.stag
+  fonts:
     - 
       family: OpenSans
       fonts: 

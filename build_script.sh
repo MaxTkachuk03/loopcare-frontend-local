@@ -2,6 +2,8 @@
 
 if [ "$1" == "prod" ]; then
   build_type="prod"
+elif [ "$1" == "stag" ]; then
+  build_type="stag"
 else
   build_type="dev"
 fi
