@@ -8,7 +8,7 @@ part 'request_error.freezed.dart';
 
 @freezed
 class RequestError with _$RequestError {
-  const factory RequestError.requestCancelled(ServerErrorData error) = _RequestCancelled;
+  const factory RequestError.requestCancelled(dynamic error) = _RequestCancelled;
 
   const factory RequestError.badRequest(ServerErrorData error) = _BadRequest;
 
@@ -20,7 +20,7 @@ class RequestError with _$RequestError {
 
   const factory RequestError.conflict(ServerErrorData error) = _Conflict;
 
-  const factory RequestError.timeout(ServerErrorData error) = _Timeout;
+  const factory RequestError.timeout(dynamic error) = _Timeout;
 
   const factory RequestError.serverError(ServerErrorData error) = _InternalServerError;
 

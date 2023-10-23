@@ -1,5 +1,5 @@
 name: loopcare_frontend
-version: 1.0.26+102
+version: 1.0.27+103
 publish_to: none
 description: Lean on me
 environment: 
@@ -79,7 +79,8 @@ flutter:
     - assets/translations/
     - .env.dev
     - .env.prod
-  fonts: 
+    - .env.stag
+  fonts:
     - 
       family: OpenSans
       fonts: 
