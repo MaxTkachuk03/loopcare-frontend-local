@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/choose_date/choose_date_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/choose_date/widgets/week_calendar.dart';
 
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
@@ -57,7 +58,6 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
             );
           },
           calendar: (s) {
-            var weeks = s.weeks;
             return Scaffold(
               body: SafeArea(
                 top: false,
@@ -66,33 +66,32 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
                     children: [
                       GreenAppBar(
                         title: LocalizedTexts.chooseDateFor.tr(
-                          namedArgs: {
-                            'mealCategory': widget.mealCategory,
-                          },
+                          namedArgs: {'mealCategory': widget.mealCategory},
                         ),
-                        // subtitle: mealCategory,
                         darkGreen: true,
                       ),
-                      // SizedBox(
-                      //   height: 600,
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.all(16.0),
-                      //     child: RecommendationsCarousel(
-                      //       recommendations: state.data.recommendationRecipe,
-                      //     ),
-                      //   ),
-                      // ),
-                      Column(
-                        children: [
-                          const SizedBox(height: 26.0),
-                          MainContainer(
-                            child: ElevatedButton(
-                              onPressed: () => _onSkipPressed(context),
-                              child: Text(LocalizedTexts.skip.translation),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 24.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              LocalizedTexts.youCanChangeTheDate,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ).tr(),
+                            const SizedBox(height: 26.0),
+                            const ChooseDateCalendar(),
+                            const SizedBox(height: 26.0),
+                            MainContainer(
+                              child: ElevatedButton(
+                                onPressed: () => _onSaveChangesPressed(context),
+                                child: Text(LocalizedTexts.saveChanges.translation),
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 20.0)
-                        ],
+                            // const SizedBox(height: 20.0)
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -108,7 +107,7 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
     );
   }
 
-  _onSkipPressed(BuildContext context) {
+  _onSaveChangesPressed(BuildContext context) {
     context.router.push(SelectFoodRoute(mealCategory: widget.mealCategory));
   }
 }

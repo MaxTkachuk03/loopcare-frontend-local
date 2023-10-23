@@ -46,7 +46,8 @@ class ChooseDateState with _$ChooseDateState {
               month: e.shortMonthString,
               name: e.shortestWeekdayString,
               enabled: _isDayEnabledInCalendar(e),
-              filled: false,
+              filled: Random().nextInt(2) == 1 ? true : false,
+              selected: Random().nextInt(5) == 0 ? true : false,
             ))
         .toList();
   }

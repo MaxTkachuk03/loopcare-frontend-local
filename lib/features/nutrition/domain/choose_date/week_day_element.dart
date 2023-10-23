@@ -14,6 +14,7 @@ abstract class WeekDayElement implements _$WeekDayElement {
     required String month,
     required bool enabled,
     required bool filled,
+    required bool selected,
   }) = _WeekDayElement;
 
   factory WeekDayElement.fromJson(Map<String, dynamic> json) => _$WeekDayElementFromJson(json);
