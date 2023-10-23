@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/features/subscription/application/subscription
 import 'package:loopcare_frontend/features/subscription/donain/purchased_product.dart';
 import 'package:loopcare_frontend/features/subscription/donain/subscription_state.dart';
 import 'package:loopcare_frontend/features/subscription/donain/verify_purchase_data.dart';
+import 'package:loopcare_frontend/features/subscription/utils/date_utils.dart';
 
 import '../../../injection.dart';
 
@@ -48,11 +49,12 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       onError: () => debugPrint('devcpp Subscription Error '),
       onRestored: (purchase) async => _restoreTransactionData(purchase),
       onPurchased: (PurchaseDetails purchaseDetails) async => _handlePurchase(purchaseDetails),
-    )..init();
+    )
+      ..init();
   }
 
   void _restoreTransactionData(PurchaseDetails purchaseDetails) async {
-    if (purchaseDetails.status == PurchaseStatus.restored) {
+   if (purchaseDetails.status == PurchaseStatus.restored) {
       if (purchaseDetails is AppStorePurchaseDetails) {
         final originalTransaction = purchaseDetails.skPaymentTransaction.originalTransaction;
         if (originalTransaction != null) {
@@ -62,8 +64,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       } else {
         debugPrint('devcpp  status: Google restored -> ${purchaseDetails.productID} -> ${purchaseDetails.purchaseID}');
       }
-
-      // Todo verified restore transaction
+   // Send to server
+      await _verifyPurchase(purchaseDetails);
     }
   }
 
@@ -76,47 +78,45 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
 
       if (purchaseDetails.status == PurchaseStatus.purchased) {
         // Send to server
-        final vendor = purchaseDetails is AppStorePurchaseDetails ? 'ios' : 'android';
-        debugPrint(
-            'devcpp  purchase serverVerificationData: ${purchaseDetails.verificationData.serverVerificationData}');
-        var response = await _purchaseService.verifyPurchase(
-            VerifyPurchaseData(purchaseToken: purchaseDetails.verificationData.serverVerificationData), vendor);
-        response.fold((error) {
-          debugPrint('devcpp error VerifyPurchaseData: $error');
-          add(SubscriptionEvent.errorVerifyPurchase(error));
-        }, (r) async {
-          await inAppPurchaseService.instance.completePurchase(purchaseDetails);
-          add(SubscriptionEvent.purchasedSubscription(PurchasedProduct(
-            purchaseDetails: purchaseDetails,
-            memberSince: _getTransactionDate(r.createdAt),
-          )));
-        });
+        await _verifyPurchase(purchaseDetails);
       }
     } catch (_, __) {}
   }
 
-  FutureOr<void> _onPurchasedSubscription(
-    PurchasedSubscription event,
-    Emitter<SubscriptionState> emit,
-  ) async =>
+  Future<void> _verifyPurchase(PurchaseDetails purchaseDetails) async {
+    final vendor = purchaseDetails is AppStorePurchaseDetails ? 'ios' : 'android';
+    debugPrint(
+        'devcpp  purchase serverVerificationData: ${purchaseDetails.verificationData.serverVerificationData}');
+    var response = await _purchaseService.verifyPurchase(
+        VerifyPurchaseData(purchaseToken: purchaseDetails.verificationData.serverVerificationData), vendor);
+    response.fold((error) {
+      debugPrint('devcpp error VerifyPurchaseData: $error');
+      add(SubscriptionEvent.errorVerifyPurchase(error));
+    }, (r) async {
+      await inAppPurchaseService.instance.completePurchase(purchaseDetails);
+      add(SubscriptionEvent.purchasedSubscription(PurchasedProduct(
+        purchaseDetails: purchaseDetails,
+        memberSince: SubscriptionDateUtils.getTransactionDate(r.createdAt),
+      )));
+    });
+  }
+
+  FutureOr<void> _onPurchasedSubscription(PurchasedSubscription event,
+      Emitter<SubscriptionState> emit,) async =>
       emit(SubscriptionState.purchasedSubscription(state.data.copyWith(
         purchased: event.purchasedProduct,
         isLoading: false,
       )));
 
-  FutureOr<void> _onErrorVerifyPurchase(
-    ErrorVerifyPurchase event,
-    Emitter<SubscriptionState> emit,
-  ) async =>
+  FutureOr<void> _onErrorVerifyPurchase(ErrorVerifyPurchase event,
+      Emitter<SubscriptionState> emit,) async =>
       emit(SubscriptionState.error(state.data.copyWith(
         error: event.error,
         isLoading: false,
       )));
 
-  FutureOr<void> _onRestorePurchased(
-    RestorePurchased event,
-    Emitter<SubscriptionState> emit,
-  ) {
+  FutureOr<void> _onRestorePurchased(RestorePurchased event,
+      Emitter<SubscriptionState> emit,) {
     emit(
       SubscriptionState.loading(state.data.copyWith(isLoading: true)),
     );
@@ -125,10 +125,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     inAppPurchaseService.restorePurchase();
   }
 
-  FutureOr<void> _onGetSubscriptionPlans(
-    GetSubscriptionPlans event,
-    Emitter<SubscriptionState> emit,
-  ) async {
+  FutureOr<void> _onGetSubscriptionPlans(GetSubscriptionPlans event,
+      Emitter<SubscriptionState> emit,) async {
     emit(
       SubscriptionState.loading(state.data.copyWith(isLoading: true)),
     );
@@ -141,10 +139,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     add(const SubscriptionEvent.getActiveSubscription());
   }
 
-  FutureOr<void> _onGetActiveSubscription(
-    GetActiveSubscription event,
-    Emitter<SubscriptionState> emit,
-  ) async {
+  FutureOr<void> _onGetActiveSubscription(GetActiveSubscription event,
+      Emitter<SubscriptionState> emit,) async {
     debugPrint('devcpp fetchAccount');
     emit(
       SubscriptionState.loading(state.data.copyWith(isLoading: true)),
@@ -153,14 +149,14 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     //Todo Subscription
 
     response.fold(
-      (error) {
+          (error) {
         emit(SubscriptionState.error(state.data.copyWith(error: error, isLoading: false)));
       },
-      (r) {
+          (r) {
         // Todo final status = SubscriptionStatusUtil.parse(r.subscription.state);
         var subscription = const Subscription();
         final status =
-            subscription == null ? SubscriptionStatus.trialPeriod : SubscriptionStatusUtil.parse(subscription.state);
+        subscription == null ? SubscriptionStatus.trialPeriod : SubscriptionStatusUtil.parse(subscription.state);
         emit(
           SubscriptionState.loading(state.data.copyWith(isLoading: false)),
         );
@@ -170,7 +166,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
             emit(SubscriptionState.trial(state.data.copyWith(subscription: subscription)));
             break;
           case SubscriptionStatus.common:
-            if (!subscription.isActive && _isPassDate(subscription.expiresAt)) {
+            if (!subscription.isActive && SubscriptionDateUtils.isPassDate(subscription.expiresAt)) {
               emit(SubscriptionState.subscriptionEnded(state.data.copyWith(subscription: subscription)));
             } else {
               emit(SubscriptionState.trialExpired(state.data.copyWith(subscription: subscription)));
@@ -190,10 +186,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     );
   }
 
-  FutureOr<void> _onBuySubscription(
-    BuySubscription event,
-    Emitter<SubscriptionState> emit,
-  ) async {
+  FutureOr<void> _onBuySubscription(BuySubscription event,
+      Emitter<SubscriptionState> emit,) async {
     emit(
       SubscriptionState.loading(state.data.copyWith(isLoading: true)),
     );
@@ -206,36 +200,17 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     );
   }
 
-  FutureOr<void> _onInitSubscription(
-    SubscriptionInit event,
-    Emitter<SubscriptionState> emit,
-  ) async {
+  FutureOr<void> _onInitSubscription(SubscriptionInit event,
+      Emitter<SubscriptionState> emit,) async {
     emit(const SubscriptionState.initial(SubscriptionStateData()));
   }
 
-  FutureOr<void> _onSubscriptionDispose(
-    SubscriptionDispose event,
-    Emitter<SubscriptionState> emit,
-  ) {
+  FutureOr<void> _onSubscriptionDispose(SubscriptionDispose event,
+      Emitter<SubscriptionState> emit,) {
     purchaseDetailsStreamSubscription.close();
     emit(SubscriptionState.success(state.data));
   }
 
-  bool _isPassDate(String? timeStamp) {
-    if (timeStamp == null) {
-      return true;
-    }
 
-    final date = DateFormat('yyyy-MM-ddTHH:mm:sssZ').parseUtc(timeStamp).toLocal();
-    return date.isAfter(DateTime.now()) || date.isSameDate(DateTime.now());
-  }
 
-  String _getTransactionDate(String? timeStamp) {
-    if (timeStamp == null) {
-      return '';
-    }
-    final date = DateFormat('yyyy-MM-ddTHH:mm:sssZ').parseUtc(timeStamp).toLocal();
-    String transactionDate = DateFormat('dd MMM yyyy').format(date);
-    return transactionDate;
-  }
 }

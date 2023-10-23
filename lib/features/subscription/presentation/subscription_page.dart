@@ -75,7 +75,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                   cur is LoadingSubscriptionState,
               listener: (BuildContext context, SubscriptionState state) => state.maybeWhen(
                 successInPlans: (data) => controller.setupPlans(data),
-                subscriptionActual: (data) => context.router.replaceNamed(AppRoutes.home),
+                subscriptionActive: (data) => context.router.replaceNamed(AppRoutes.home),
                 purchasedSubscription: (data) => context.router.replaceNamed(AppRoutes.home),
                 loading: (data) => controller.isEnableSubscribe.value = !data.isLoading,
                 orElse: () {
@@ -121,5 +121,6 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
       background: AppColors.red,
       textColor: Colors.white,
     );
+    context.router.replaceNamed(AppRoutes.home);
   }
 }

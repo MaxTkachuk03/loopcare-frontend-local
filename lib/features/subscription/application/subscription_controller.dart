@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
@@ -54,7 +56,12 @@ class SubscriptionController {
     isEnableSubscribe.value = false;
   }
 
-  double _getPricePerMonth(double annualPrice) => annualPrice / 12;
+  double _getPricePerMonth(double annualPrice) => _roundNumber(annualPrice / 12, 2);
+
+  double _roundNumber(double value, int places) {
+    num val = pow(10.0, places);
+    return ((value * val).round().toDouble() / val);
+  }
 
   void onSubscribe() {
     if (selectedPlan.value?.details == null) {

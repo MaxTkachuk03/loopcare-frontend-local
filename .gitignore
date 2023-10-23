@@ -67,3 +67,4 @@ pubspec.lock
 .fvm/*
 /ios/IAPTest.storekit
 /ios/StoreKitTestCertificate.cer
+/env.stag
