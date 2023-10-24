@@ -10,6 +10,8 @@ class MealsEvent with _$MealsEvent {
 
   const factory MealsEvent.setPlannedMeal(MealsListItem meal) = SetPlannedMeal;
 
+  const factory MealsEvent.getPlannedMeals(DateTime startDate, DateTime endDate) = GetPlannedMeals;
+
   const factory MealsEvent.logPlannedMeal(int plannedMealId, String mealCategory) = LogPlannedMeal;
 
   const factory MealsEvent.addMeal(

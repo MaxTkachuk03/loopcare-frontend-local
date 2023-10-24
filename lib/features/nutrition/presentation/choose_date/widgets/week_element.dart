@@ -8,11 +8,13 @@ import 'package:loopcare_frontend/features/nutrition/presentation/choose_date/wi
 class WeekElement extends StatelessWidget {
   final List<WeekDayElement> weekElements;
   final String weekNumber;
+  final Function(DateTime day) onPressHandler;
 
   const WeekElement({
     Key? key,
     required this.weekNumber,
     required this.weekElements,
+    required this.onPressHandler,
   }) : super(key: key);
 
   @override
@@ -50,6 +52,7 @@ class WeekElement extends StatelessWidget {
               .map(
                 (entry) => DayElement(
                   dayElement: entry,
+                  onPressHandler: onPressHandler,
                 ),
               )
               .toList(),

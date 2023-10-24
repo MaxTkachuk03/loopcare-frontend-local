@@ -5,10 +5,12 @@ import 'package:loopcare_frontend/features/nutrition/domain/choose_date/week_day
 
 class DayElement extends StatelessWidget {
   final WeekDayElement dayElement;
+  final Function(DateTime day) onPressHandler;
 
   const DayElement({
     Key? key,
     required this.dayElement,
+    required this.onPressHandler,
   }) : super(key: key);
 
   Color _getDayBgColor() {
@@ -46,7 +48,7 @@ class DayElement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // onTap: () => onPressHandler(day),
+      onTap: () => dayElement.enabled ? onPressHandler(dayElement.date) : null,
       child: Container(
         width: 45,
         height: 84,

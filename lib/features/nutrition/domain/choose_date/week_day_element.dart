@@ -9,6 +9,7 @@ abstract class WeekDayElement implements _$WeekDayElement {
   const WeekDayElement._();
 
   const factory WeekDayElement({
+    required DateTime date,
     required String name,
     required int day,
     required String month,

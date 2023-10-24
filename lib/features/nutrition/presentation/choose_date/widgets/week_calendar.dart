@@ -29,12 +29,13 @@ class ChooseDateCalendar extends StatelessWidget {
             );
           },
           calendar: (s) {
-            final weeks = s.weeks;
+            // var weeks = s.data.weekDayElementList;
             return Column(
-              children: weeks.entries
+              children: s.data.weekDayElementList.entries
                   .map((entry) => WeekElement(
                         weekNumber: entry.key,
                         weekElements: entry.value,
+                        onPressHandler: (DateTime date) => onPressHandler(date, context),
                       ))
                   .toList(),
             );
@@ -45,5 +46,11 @@ class ChooseDateCalendar extends StatelessWidget {
         );
       },
     );
+  }
+
+  void onPressHandler(DateTime date, BuildContext context) {
+    context.read<ChooseDateBloc>().add(
+          ChooseDateEvent.selectDate(date),
+        );
   }
 }

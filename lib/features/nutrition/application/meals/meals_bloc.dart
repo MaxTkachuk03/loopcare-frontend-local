@@ -51,6 +51,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     on<NutritionItemChanged>(_onNutritionItemChanged);
     on<LogPlannedMeal>(_onLogPlannedMeal);
     on<SetMealId>(_onSetMealId);
+    on<GetPlannedMeals>(_onGetPlannedMeals);
   }
 
   Map<String, List<MealsListItem>> _combineMealsByDate(
@@ -189,6 +190,31 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           ),
         );
       },
+    );
+  }
+
+  FutureOr<void> _onGetPlannedMeals(
+    GetPlannedMeals event,
+    Emitter<MealsState> emit,
+  ) async {
+    emit(const MealsState.loading());
+
+    final plannedMeals = state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
+    final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
+
+    final response = await nutritionService.getPlannedMeals(
+      startDate: event.startDate.beginDay.toIso8601String(),
+      endDate: event.endDate.endDay.toIso8601String(),
+    );
+
+    response.fold(
+      (l) => emit(MealsState.error(l)),
+      (r) => emit(
+        MealsState.mealsInfo(
+          meals: meals ?? {},
+          plannedMeals: _combinePlannedMealsByDate(plannedMeals, r.data),
+        ),
+      ),
     );
   }
 

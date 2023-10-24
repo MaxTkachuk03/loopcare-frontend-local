@@ -11,6 +11,39 @@ class ChooseDateState with _$ChooseDateState {
   const factory ChooseDateState.calendar(ChooseDateData data) = _Calendar;
 
   const factory ChooseDateState.error(ChooseDateData data) = _Error;
+}
+
+@freezed
+class ChooseDateData with _$ChooseDateData {
+  const ChooseDateData._();
+
+  const factory ChooseDateData({
+    @Default('') String mealCategory,
+    @Default(null) DateTime? date,
+    @Default([]) List<WeekDayElement> dateList,
+    @Default([]) List<DateTime> filledDateList,
+    @Default([]) List<DateTime> selectedDateList,
+    @Default({}) Map<String, List<WeekDayElement>> weekDayElementList,
+    @Default(false) bool isLoading,
+    RequestError? error,
+    DateTime? startTestTime,
+  }) = _ChooseDateData;
+
+  _weekDayElementMapper(List<DateTime> list) {
+    return list
+        .map(
+          (e) => WeekDayElement(
+            date: e,
+            day: e.day,
+            month: e.shortMonthString,
+            name: e.shortestWeekdayString,
+            enabled: _isDayEnabledInCalendar(e),
+            filled: filledDateList.contains(e),
+            selected: selectedDateList.contains(e),
+          ),
+        )
+        .toList();
+  }
 
   bool _isDayEnabledInCalendar(DateTime day) {
     return (day.midnightTime.isAfter(DateTime.now().midnightTime) ||
@@ -38,30 +71,4 @@ class ChooseDateState with _$ChooseDateState {
 
     return returnList;
   }
-
-  _weekDayElementMapper(List<DateTime> list) {
-    return list
-        .map((e) => WeekDayElement(
-              day: e.day,
-              month: e.shortMonthString,
-              name: e.shortestWeekdayString,
-              enabled: _isDayEnabledInCalendar(e),
-              filled: Random().nextInt(2) == 1 ? true : false,
-              selected: Random().nextInt(5) == 0 ? true : false,
-            ))
-        .toList();
-  }
-}
-
-@freezed
-class ChooseDateData with _$ChooseDateData {
-  const ChooseDateData._();
-
-  const factory ChooseDateData({
-    @Default('') String mealCategory,
-    @Default(null) DateTime? date,
-    @Default(false) bool isLoading,
-    RequestError? error,
-    DateTime? startTestTime,
-  }) = _ChooseDateData;
 }

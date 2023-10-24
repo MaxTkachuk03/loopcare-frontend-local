@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/choose_date/choose_date_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/choose_date/widgets/week_calendar.dart';
 
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
@@ -35,10 +36,18 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
     super.initState();
 
     context.read<ChooseDateBloc>().add(
+          const ChooseDateEvent.init(),
+        );
+
+    context.read<ChooseDateBloc>().add(
           ChooseDateEvent.setData(
             mealCategory: widget.mealCategory,
             date: widget.date,
           ),
+        );
+
+    context.read<MealsBloc>().add(
+          MealsEvent.getPlannedMeals(DateTime.now(), DateTime.now().add(const Duration(days: 15))),
         );
   }
 

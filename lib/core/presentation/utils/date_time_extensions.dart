@@ -59,20 +59,13 @@ extension DateTimeExtension on DateTime {
 
   int get secondNextWeekNumber {
     final now = this;
-    final firstJan = DateTime(now.year, 1, 1);
-    final lasdDecember = DateTime(now.year, 12, 31);
-    var nowWeekNumber = weeksBetween(firstJan, now);
-    var lastWeekNumber = weeksBetween(firstJan, lasdDecember);
-    return nowWeekNumber != lastWeekNumber ? nowWeekNumber + 2 : 2;
+    return now.add(const Duration(days: 14)).weekNumber;
   }
 
   int get nextWeekNumber {
     final now = this;
-    final firstJan = DateTime(now.year, 1, 1);
-    final lasdDecember = DateTime(now.year, 12, 31);
-    var nowWeekNumber = weeksBetween(firstJan, now);
-    var lastWeekNumber = weeksBetween(firstJan, lasdDecember);
-    return nowWeekNumber != lastWeekNumber ? nowWeekNumber + 1 : 1;
+
+    return now.add(const Duration(days: 7)).weekNumber;
   }
 
   int get nextWeekYear {
@@ -86,9 +79,26 @@ extension DateTimeExtension on DateTime {
   }
 
   int get weekNumber {
-    final now = this;
-    final firstJan = DateTime(now.year, 1, 1);
-    return weeksBetween(firstJan, now);
+    final woy = ((ordinalDate - weekday + 10) ~/ 7);
+    if (woy == 0) {
+      return DateTime(year - 1, 12, 28).weekNumber;
+    }
+    if (woy == 53 &&
+        DateTime(year, 1, 1).weekday != DateTime.thursday &&
+        DateTime(year, 12, 31).weekday != DateTime.thursday) {
+      return 1;
+    }
+
+    return woy;
+  }
+
+  int get ordinalDate {
+    const offsets = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+    return offsets[month - 1] + day + (isLeapYear && month > 2 ? 1 : 0);
+  }
+
+  bool get isLeapYear {
+    return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
   }
 
   int daysBetween(DateTime from, DateTime to) {
