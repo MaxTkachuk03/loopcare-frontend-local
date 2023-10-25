@@ -197,7 +197,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     GetPlannedMeals event,
     Emitter<MealsState> emit,
   ) async {
-    emit(const MealsState.loading());
+    // emit(const MealsState.loading());
 
     final plannedMeals = state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
     final meals = state.mapOrNull(mealsInfo: (s) => s.meals);

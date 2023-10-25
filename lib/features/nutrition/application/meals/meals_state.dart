@@ -215,6 +215,13 @@ class MealsState with _$MealsState {
     );
   }
 
+  List<DateTime>? get currentMealDates {
+    return maybeMap(
+      mealsInfo: (s) => isPlanningMeals ? s.currentMeal?.planningDates! : [getCurrentDate],
+      orElse: () => [getCurrentDate],
+    );
+  }
+
   String? get currentMealCategory {
     return mapOrNull(
       mealsInfo: (state) => state.currentMealCategory?.capitalizeOnlyFirstLetter(),

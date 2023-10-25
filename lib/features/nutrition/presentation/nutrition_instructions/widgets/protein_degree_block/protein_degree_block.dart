@@ -24,13 +24,11 @@ class ProteinDegreeBlock extends StatelessWidget {
           nutritionInstructions: (state) {
             final currentProteinDegreeItem = state.getProteinDegreeItem(value);
 
-            if (state.proteinDegreeValues.isEmpty ||
-                currentProteinDegreeItem == null) {
+            if (state.proteinDegreeValues.isEmpty || currentProteinDegreeItem == null) {
               return const SizedBox();
             }
 
-            final proteinDegreeValue =
-                value != null ? '${value?.round()}%' : '-';
+            final proteinDegreeValue = value != null ? '${value?.round()}%' : '-';
 
             return GestureDetector(
               onTap: () => _onItemPressed(context),
@@ -43,12 +41,10 @@ class ProteinDegreeBlock extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          LocalizedTexts.proteinDegree.translation
-                              .toUpperCase(),
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontSize: 12.0,
-                                  ),
+                          LocalizedTexts.proteinDegree.translation.toUpperCase(),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                fontSize: 12.0,
+                              ),
                         ),
                         Text(
                           proteinDegreeValue,
@@ -56,12 +52,8 @@ class ProteinDegreeBlock extends StatelessWidget {
                         ),
                         if (value != null)
                           Text(
-                            currentProteinDegreeItem.label
-                                .capitalizeOnlyFirstLetter(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
+                            currentProteinDegreeItem.label.capitalizeOnlyFirstLetter(),
+                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                   fontSize: 14.0,
                                 ),
                           ),
@@ -70,12 +62,16 @@ class ProteinDegreeBlock extends StatelessWidget {
                     const SizedBox(
                       width: 8.0,
                     ),
-                    const SizedBox(
-                      width: 10,
-                      height: 14,
-                      child: ImageIcon(
-                        AppIcons.arrow,
-                        color: AppColors.darkGreen,
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.centerRight,
+                        width: 10,
+                        height: 14,
+                        child: const ImageIcon(
+                          size: 14.0,
+                          AppIcons.arrow,
+                          color: AppColors.darkGreen,
+                        ),
                       ),
                     ),
                   ],

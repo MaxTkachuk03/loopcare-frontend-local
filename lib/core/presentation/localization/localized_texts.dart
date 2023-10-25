@@ -320,6 +320,7 @@ class LocalizedTexts {
   static const String youCanChangeTheDate = 'youCanChangeTheDate';
   static const String weekWithNumber = 'weekWithNumber';
   static const String saveChanges = 'saveChanges';
+  static const String thisMealPlannedFor = 'thisMealPlannedFor';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';

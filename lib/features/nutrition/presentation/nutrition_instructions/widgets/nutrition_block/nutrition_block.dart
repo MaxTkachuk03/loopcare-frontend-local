@@ -17,9 +17,7 @@ class NutritionBlock extends StatelessWidget {
 
   void _onPressHandler({required BuildContext context, required int tabIndex}) {
     context.router.push(NutritionInstructionsRoute(
-        tabIndex: tabIndex,
-        calorieDensity: calorieDensity,
-        proteinDegree: proteinDegree));
+        tabIndex: tabIndex, calorieDensity: calorieDensity, proteinDegree: proteinDegree));
   }
 
   @override
@@ -27,8 +25,7 @@ class NutritionBlock extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(24.0),
       decoration: const BoxDecoration(
-        border:
-            Border(bottom: BorderSide(width: 1, color: AppColors.yellowLight)),
+        border: Border(bottom: BorderSide(width: 1, color: AppColors.yellowLight)),
       ),
       child: IntrinsicHeight(
         child: Row(
