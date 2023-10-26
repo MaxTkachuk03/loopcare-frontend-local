@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_service.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
@@ -14,7 +15,7 @@ class PurchaseDetailsStreamSubscription {
   final AppSubscriptionService inAppPurchaseService = getIt<AppSubscriptionService>();
   final Function()? onPending;
   final Function(PurchaseDetails purchaseDetails)? onPurchased;
-  final Function()? onError;
+  final Function(RequestError error)? onError;
   final Function(PurchaseDetails purchase)? onRestored;
   final Function()? onCanceled;
 
@@ -36,6 +37,11 @@ class PurchaseDetailsStreamSubscription {
     }
     _streamSubscription = inAppPurchaseService.storeSubscription.listen(
       (List<PurchaseDetails> events) {
+        debugPrint('devcpp STREAM: ${events.toString()} ');
+        if (events.isEmpty) {
+          onError?.call(const RequestError.streamSubscription('Something went wrong with service, please try again'));
+        return;
+        }
         if (events.first.status == PurchaseStatus.restored) {
           debugPrint('devcpp RESTORED: ${events.length} ');
           events.sort((a, b) => int.parse(a.transactionDate!).compareTo(int.parse(b.transactionDate!)));
@@ -53,14 +59,14 @@ class PurchaseDetailsStreamSubscription {
                 case PurchaseStatus.purchased:
                   onPurchased?.call(purchaseDetails);
                   break;
-                case PurchaseStatus.error:
-                  onError?.call();
-                  break;
                 case PurchaseStatus.canceled:
                   onCanceled?.call();
                   break;
                 case PurchaseStatus.restored:
-                 break;
+                  break;
+                case PurchaseStatus.error:
+                  onError?.call(const RequestError.streamSubscription('Something went wrong, please try again'));
+                  break;
               }
             },
           );

@@ -25,7 +25,7 @@ class _FooterSubscriptionState extends State<FooterSubscription> {
         builder: (context, selectedPlan, _) {
           return Column(
             children: [
-              const SizedBox(height: 18.0),
+              const SizedBox(height: 16.0),
               SubscriptionPlane.annual(
                 monthlyPrice: widget.controller.annual.monthlyPrice.toString(),
                 commonPrice: widget.controller.annual.commonPrice.toString(),
@@ -33,7 +33,7 @@ class _FooterSubscriptionState extends State<FooterSubscription> {
                 onTap: () => widget.controller.setPlans(widget.controller.annual),
                 selected: widget.controller.selectedPlan.value?.isAnnual ?? false,
               ),
-              const SizedBox(height: 18.0),
+              const SizedBox(height: 16.0),
               SubscriptionPlane.monthly(
                 onTap: () => widget.controller.setPlans(widget.controller.monthly),
                 monthlyPrice: widget.controller.monthly.monthlyPrice.toString(),
@@ -41,11 +41,8 @@ class _FooterSubscriptionState extends State<FooterSubscription> {
                 currency: widget.controller.monthly.currency,
                 selected: !(widget.controller.selectedPlan.value?.isAnnual ?? true),
               ),
-              const SizedBox(height: 18.0),
+              const SizedBox(height: 16.0),
               RestoreSubscriptionLink(onTap: () => widget.controller.restorePurchase()),
-              const SizedBox(height: 34.0),
-              SubscribeButton(controller: widget.controller),
-              const SizedBox(height: 30.0),
             ],
           );
         });

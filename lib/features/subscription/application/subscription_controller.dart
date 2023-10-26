@@ -9,6 +9,7 @@ class SubscriptionController {
   final SubscriptionBloc bloc;
   SubscriptionStateData data = const SubscriptionStateData();
   ValueNotifier<bool> isEnableSubscribe = ValueNotifier(false);
+  ValueNotifier<bool> loading = ValueNotifier(false);
   ValueNotifier<PurchasableProduct?> selectedPlan = ValueNotifier(null);
   PurchasableProduct annual = const PurchasableProduct(monthlyPrice: 2, commonPrice: 24, currency: '', isAnnual: true);
   PurchasableProduct monthly = const PurchasableProduct(monthlyPrice: 1, commonPrice: 1, currency: '');
@@ -32,10 +33,7 @@ class SubscriptionController {
         );
       } else {
         monthly = PurchasableProduct(
-            details: plan,
-            monthlyPrice: plan.rawPrice,
-            commonPrice: plan.rawPrice,
-            currency: plan.currencySymbol);
+            details: plan, monthlyPrice: plan.rawPrice, commonPrice: plan.rawPrice, currency: plan.currencySymbol);
       }
     }
   }
@@ -51,8 +49,9 @@ class SubscriptionController {
     selectedPlan.value = plan;
     isEnableSubscribe.value = true;
   }
-  void resetState(){
-   selectedPlan.value = null;
+
+  void resetState() {
+    selectedPlan.value = null;
     isEnableSubscribe.value = false;
   }
 
@@ -63,17 +62,28 @@ class SubscriptionController {
     return ((value * val).round().toDouble() / val);
   }
 
+  void handleLoading(bool isLoading) {
+    isEnableSubscribe.value = !isLoading;
+    loading.value = isLoading;
+  }
+
   void onSubscribe() {
     if (selectedPlan.value?.details == null) {
       return;
     }
     bloc.add(SubscriptionEvent.buySubscription(selectedPlan.value!.details!));
   }
+
   void restorePurchase() => bloc.add(const SubscriptionEvent.restorePurchased());
 
   void getSubscriptionPlans() => bloc.add(const SubscriptionEvent.getSubscriptionPlans());
 
   void getActiveSubscriptionStatus() => bloc.add(const SubscriptionEvent.getActiveSubscription());
 
-  void dispose() => bloc.add(const SubscriptionEvent.dispose());
+  void dispose() {
+    isEnableSubscribe.dispose();
+    loading.dispose();
+    selectedPlan.dispose();
+    // bloc.add(const SubscriptionEvent.dispose());
+  }
 }

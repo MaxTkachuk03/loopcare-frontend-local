@@ -22,10 +22,12 @@ abstract class Subscription implements _$Subscription {
     @Default('2023-09-12T10:28:20.536Z') String createdAt,
     @Default(false) bool isActive,
     @Default('ios') String vendor,
-    @Default('common') String state,
-    @Default(SubscriptionPlan())  SubscriptionPlan  subscriptionPlan,
+     @Default('trialPeriod') String state,
+    // @Default('common') String state,
+    //  @Default('cancelled') String state,
+    //@Default('gracePeriod') String state,
+    @Default(SubscriptionPlan()) SubscriptionPlan subscriptionPlan,
   }) = _Subscription;
-
 
   factory Subscription.fromJson(Map<String, dynamic> json) => _$SubscriptionFromJson(json);
 }

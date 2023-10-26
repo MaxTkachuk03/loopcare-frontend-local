@@ -40,7 +40,6 @@ class SubscriptionHeaderState extends StatelessWidget {
                 ),
           ).tr(),
         ),
-        const SizedBox(height: 8.0),
       ],
     );
   }

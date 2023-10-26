@@ -663,7 +663,7 @@
   "subscriptionCancelledTitle": "Your subscription \nwas cancelled",
   "subscriptionCancelledLabel": "We are sorry that you cancelled your subscription. If you want to continue choose one of following:",
   "subscriptionRenewedTitle": "Your subscription \ncould not be renewed",
-  "subscriptionRenewedLabel": "We want to let you know that your subscription could not be automatically renewed. \n\nYou will get a couple of days grace to look into this while you can still continue use the app.",
+  "subscriptionRenewedLabel": "We want to let you know that your\nsubscription could not be automatically\nrenewed. \n\nYou will get a couple of days grace to look\ninto this while you can still continue use the\napp.",
   "subscriptionRestoreLabel": "Restore Purchase",
   "subscriptionTermsLabel": "Terms & Conditions",
   "subscriptionAnnual": "Annual",

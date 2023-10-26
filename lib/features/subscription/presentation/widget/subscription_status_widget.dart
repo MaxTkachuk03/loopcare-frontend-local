@@ -4,7 +4,6 @@ import 'package:loopcare_frontend/features/subscription/presentation/widget/subs
 import 'package:loopcare_frontend/features/subscription/presentation/widget/subscription_footer.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/widget/subscription_header_state.dart';
 
-
 class SubscriptionStatusWidget extends Column {
   SubscriptionStatusWidget.trial({
     super.key,
@@ -12,9 +11,12 @@ class SubscriptionStatusWidget extends Column {
   }) : super(
           children: [
             SubscriptionHeader.trial(),
-            FooterSubscription(
-              controller: controller,
+            Expanded(
+              child: FooterSubscription(
+                controller: controller,
+              ),
             ),
+            SubscribeButton(controller: controller),
           ],
         );
 
@@ -24,9 +26,12 @@ class SubscriptionStatusWidget extends Column {
   }) : super(
           children: [
             SubscriptionHeader.trialExpired(),
-            FooterSubscription(
-              controller: controller,
+            Expanded(
+              child: FooterSubscription(
+                controller: controller,
+              ),
             ),
+            SubscribeButton(controller: controller),
           ],
         );
 
@@ -36,9 +41,12 @@ class SubscriptionStatusWidget extends Column {
   }) : super(
           children: [
             SubscriptionHeader.endedSubscription(),
-            FooterSubscription(
-              controller: controller,
+            Expanded(
+              child: FooterSubscription(
+                controller: controller,
+              ),
             ),
+            SubscribeButton(controller: controller),
           ],
         );
 
@@ -48,9 +56,12 @@ class SubscriptionStatusWidget extends Column {
   }) : super(
           children: [
             SubscriptionHeader.cancelledSubscription(),
-            FooterSubscription(
-              controller: controller,
+            Expanded(
+              child: FooterSubscription(
+                controller: controller,
+              ),
             ),
+            SubscribeButton(controller: controller),
           ],
         );
 
@@ -58,13 +69,11 @@ class SubscriptionStatusWidget extends Column {
     super.key,
     Function()? onTap,
   }) : super(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SubscriptionHeader.notRenewSubscription(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 30),
-              child: RenewButton(
-                onTap: onTap,
-              ),
+            Expanded(child: SubscriptionHeader.notRenewSubscription()),
+            RenewButton(
+              onTap: onTap,
             ),
           ],
         );

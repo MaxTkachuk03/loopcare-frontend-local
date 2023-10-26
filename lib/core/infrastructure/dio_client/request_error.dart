@@ -33,4 +33,6 @@ class RequestError with _$RequestError {
   const factory RequestError.dioOther(DioError error) = _Other;
 
   const factory RequestError.unhandledError(dynamic error) = _Unhandled;
+
+  const factory RequestError.streamSubscription(dynamic error) = _StreamSubscription;
 }

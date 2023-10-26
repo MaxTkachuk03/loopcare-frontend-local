@@ -15,7 +15,7 @@ class SubscribeButton extends StatelessWidget {
       valueListenable: controller.isEnableSubscribe,
       builder: (context, isEnableSubscribe, _) {
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
           child: ElevatedButton(
             onPressed: isEnableSubscribe ? controller.onSubscribe : null,
             style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
@@ -46,21 +46,24 @@ class RenewButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onTap,
-      style: Theme.of(context)
-          .elevatedButtonTheme
-          .style
-          ?.copyWith(backgroundColor: MaterialStateProperty.all(AppColors.orangeDark)),
-      child: Text(
-        LocalizedTexts.ok.toUpperCase(),
-        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              fontSize: ThemeConstants.fontSize16,
-              fontFamily: ThemeConstants.openSansFontFamily,
-              fontWeight: FontWeight.w600,
-              color: AppColors.white,
-            ),
-      ).tr(),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
+      child: ElevatedButton(
+        onPressed: onTap,
+        style: Theme.of(context)
+            .elevatedButtonTheme
+            .style
+            ?.copyWith(backgroundColor: MaterialStateProperty.all(AppColors.orangeDark)),
+        child: Text(
+          LocalizedTexts.ok.toUpperCase(),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontSize: ThemeConstants.fontSize16,
+                fontFamily: ThemeConstants.openSansFontFamily,
+                fontWeight: FontWeight.w600,
+                color: AppColors.white,
+              ),
+        ).tr(),
+      ),
     );
   }
 }

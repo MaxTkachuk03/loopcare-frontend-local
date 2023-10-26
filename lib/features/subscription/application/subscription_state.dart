@@ -41,4 +41,6 @@ class SubscriptionStateData with _$SubscriptionStateData {
     PurchasedProduct? purchased,
     Subscription? subscription,
   }) = _SubscriptionStateData;
+
+  String? get errorMessage => error?.maybeMap(conflict: (s) => s.error.message, orElse: () => null);
 }
