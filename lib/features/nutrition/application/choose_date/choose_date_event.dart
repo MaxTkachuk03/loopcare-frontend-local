@@ -11,8 +11,9 @@ class ChooseDateEvent with _$ChooseDateEvent {
   }) = SetData;
 
   const factory ChooseDateEvent.selectDate(
-    List<DateTime> dates,
-  ) = SelectDate;
+    List<DateTime> dates, {
+    @Default(false) bool confirmed,
+  }) = SelectDate;
 
   const factory ChooseDateEvent.getPlannedMeals(
     DateTime startDate,

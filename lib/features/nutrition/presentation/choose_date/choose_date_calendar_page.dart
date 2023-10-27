@@ -85,13 +85,24 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
 
       ModalBottomSheet.replacePlannedMeal(
         context: context,
-        onBtnPressed: context.router.pop,
+        onBtnPressed: () => _onReplacePressHandler(state.data.getWarningDate, context),
         date: state.data.getWarningDate.shortDate,
         mealCategory: widget.mealCategory,
         oldItem: state.data.plannedMealsForWarningDate.first,
         newItem: mealsState.currentMeal,
       );
     }
+  }
+
+  void _onReplacePressHandler(DateTime date, BuildContext context) {
+    context
+      ..read<ChooseDateBloc>().add(
+        ChooseDateEvent.selectDate(
+          [date],
+          confirmed: true,
+        ),
+      )
+      ..router.pop();
   }
 
   @override

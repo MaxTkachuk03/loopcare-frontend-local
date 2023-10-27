@@ -99,7 +99,9 @@ class ChooseDateBloc extends Bloc<ChooseDateEvent, ChooseDateState> {
     for (var i = 0; i < event.dates.length; i++) {
       var date = event.dates[i];
 
-      if (date.isContainedIn(state.data.filledDateList)) {
+      if (date.isContainedIn(state.data.filledDateList) &&
+          !date.isContainedIn(selectedDates) &&
+          !event.confirmed) {
         emit(state.copyWith(data: state.data.copyWith(showReplaceWarning: false)));
 
         emit(
@@ -116,6 +118,7 @@ class ChooseDateBloc extends Bloc<ChooseDateEvent, ChooseDateState> {
           state.copyWith(
             data: state.data.copyWith(
               showReplaceWarning: false,
+              warningDate: null,
             ),
           ),
         );
@@ -137,6 +140,8 @@ class ChooseDateBloc extends Bloc<ChooseDateEvent, ChooseDateState> {
             selectedDateList: selectedDates,
             canSave: isNotIdentical(selectedDates, state.data.originSelectedDateList),
             showSaveWarning: false,
+            showReplaceWarning: false,
+            warningDate: null,
           ),
         ),
       );
