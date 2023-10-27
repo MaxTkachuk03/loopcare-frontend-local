@@ -81,13 +81,15 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
       );
     }
     if (state.data.showReplaceWarning) {
+      final mealsState = context.read<MealsBloc>().state;
+
       ModalBottomSheet.replacePlannedMeal(
         context: context,
         onBtnPressed: context.router.pop,
         date: state.data.getWarningDate.shortDate,
         mealCategory: widget.mealCategory,
         oldItem: state.data.plannedMealsForWarningDate.first,
-        newItem: state.data.plannedMealsForWarningDate.first,
+        newItem: mealsState.currentMeal,
       );
     }
   }

@@ -662,5 +662,7 @@
   "saveDateError": "You first have to select another date before you can deslect this one",
   "yesReplace": "Yes replace",
   "youAlreadyPlanned": "You already planned a {mealCategory} for this day:",
-  "andOtherDates": "and {number} other dates"
+  "andOtherDates": "and {number} other dates",
+  "alreadyPlannedCategory": "{mealCategory} ALREADY PLANNED",
+  "replaceWith": "Replace with?"
 }

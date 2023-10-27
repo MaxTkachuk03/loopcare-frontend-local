@@ -202,8 +202,6 @@ class MealsState with _$MealsState {
   MealsListItem? get currentMeal {
     return mapOrNull(
       mealsInfo: (state) {
-        var meals = state.mealsMap[state.currentDate?.isoStringWithoutTime];
-        var currentMealId = state.currentMealId;
         return state.mealsMap[state.currentDate?.isoStringWithoutTime]
             ?.firstWhere((el) => el.id == state.currentMealId);
       },
