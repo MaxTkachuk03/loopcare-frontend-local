@@ -1,3 +1,5 @@
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+
 List<DateTime> getDaysInBeteween(DateTime startDate, DateTime endDate) {
   List<DateTime> days = [];
   for (int i = 0; i <= endDate.difference(startDate).inDays; i++) {
@@ -10,6 +12,11 @@ List<DateTime> getDaysInBeteween(DateTime startDate, DateTime endDate) {
     );
   }
   return days;
+}
+
+bool isNotIdentical(List<DateTime> first, List<DateTime> second) {
+  if (first.length != second.length) return true;
+  return first.where((item) => !item.isContainedIn(second)).toList().isNotEmpty;
 }
 
 String formatSecondsToDurationString(int value) {

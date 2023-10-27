@@ -68,16 +68,6 @@ class PlanMeal extends StatelessWidget {
     );
   }
 
-  void chooseDate(BuildContext context, NameLabel item) {
-    // context.read<MealsBloc>().add(MealsEvent.addPlannedMeal(item.name.toLowerCase()));
-    context.router.push(
-      ChooseDateCalendarRoute(
-        mealCategory: item.name,
-        date: context.read<MealsBloc>().state.getCurrentDate,
-      ),
-    );
-  }
-
   void editPlannedMeal(BuildContext context, MealsListItem plannedMealsForCurrentDate) {
     context.read<MealsBloc>().add(MealsEvent.setPlannedMeal(plannedMealsForCurrentDate));
     context.router.pushNamed(AppRoutes.meal);

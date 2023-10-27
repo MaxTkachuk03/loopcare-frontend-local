@@ -20,6 +20,7 @@ import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/c
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_from_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/update_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/log_planned_meal_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/dto/update_planned_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
@@ -225,6 +226,16 @@ class APINutritionService implements NutritionService {
   }
 
   @override
+  Future<Either<RequestError, MealsListItem>> addMeal(AddMealBody data) {
+    return client.post('/meals', data: data).then(parseResponse(MealsListItem.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, MealsListItem>> getMealById(int mealId) async {
+    return client.get('/meals/$mealId').then(parseResponse(MealsListItem.fromJson));
+  }
+
+  @override
   Future<Either<RequestError, MealsResponse>> getPlannedMeals({
     String? startDate,
     String? endDate,
@@ -242,18 +253,8 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, MealsListItem>> addMeal(AddMealBody data) {
-    return client.post('/meals', data: data).then(parseResponse(MealsListItem.fromJson));
-  }
-
-  @override
   Future<Either<RequestError, MealsListItem>> addPlannedMeal(AddPlannedMealBody data) {
     return client.post('/planned-meals', data: data).then(parseResponse(MealsListItem.fromJson));
-  }
-
-  @override
-  Future<Either<RequestError, MealsListItem>> getMealById(int mealId) async {
-    return client.get('/meals/$mealId').then(parseResponse(MealsListItem.fromJson));
   }
 
   @override
@@ -262,8 +263,11 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, MealsListItem>> removeMeal(int mealId) {
-    return client.delete('/meals/$mealId').then(parseResponse(MealsListItem.fromJson));
+  Future<Either<RequestError, MealsListItem>> updatePlannedMeal(
+    int mealId,
+    UpdatePlannedMealBody data,
+  ) {
+    return client.patch('/planned-meals/$mealId', data: data).then(parseResponse(MealsListItem.fromJson));
   }
 
   @override
@@ -273,12 +277,12 @@ class APINutritionService implements NutritionService {
 
   @override
   Future<Either<RequestError, MealsListItem>> logPlannedMeal(LogPlannedMealBody data) {
-    return client
-        .post(
-          '/planned-meals/log',
-          data: data,
-        )
-        .then(parseResponse(MealsListItem.fromJson));
+    return client.post('/planned-meals/log', data: data).then(parseResponse(MealsListItem.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, MealsListItem>> removeMeal(int mealId) {
+    return client.delete('/meals/$mealId').then(parseResponse(MealsListItem.fromJson));
   }
 
   @override

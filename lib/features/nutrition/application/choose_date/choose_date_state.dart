@@ -19,15 +19,32 @@ class ChooseDateData with _$ChooseDateData {
 
   const factory ChooseDateData({
     @Default('') String mealCategory,
-    @Default(null) DateTime? date,
-    @Default([]) List<WeekDayElement> dateList,
-    @Default([]) List<DateTime> filledDateList,
+    @Default(-1) int currentMealId,
+    @Default(null) DateTime? currentDate,
     @Default([]) List<DateTime> selectedDateList,
+    @Default([]) List<DateTime> originSelectedDateList,
     @Default({}) Map<String, List<WeekDayElement>> weekDayElementList,
+    @Default({}) Map<String, List<MealsListItem>> plannedMeals,
     @Default(false) bool isLoading,
+    @Default(false) bool canSave,
+    @Default(null) DateTime? warningDate,
+    @Default(false) bool showSaveWarning,
+    @Default(false) bool showReplaceWarning,
     RequestError? error,
     DateTime? startTestTime,
   }) = _ChooseDateData;
+
+  DateTime get getWarningDate {
+    return warningDate ?? DateTime.now();
+  }
+
+  DateTime get getCurrentDate {
+    return currentDate ?? DateTime.now();
+  }
+
+  List<MealsListItem> get plannedMealsForWarningDate {
+    return plannedMeals[getWarningDate.isoStringWithoutTime] ?? [];
+  }
 
   _weekDayElementMapper(List<DateTime> list) {
     return list
@@ -38,21 +55,43 @@ class ChooseDateData with _$ChooseDateData {
             month: e.shortMonthString,
             name: e.shortestWeekdayString,
             enabled: _isDayEnabledInCalendar(e),
-            filled: filledDateList.contains(e),
-            selected: selectedDateList.contains(e),
+            filled: e.isContainedIn(filledDateList),
+            selected: e.isContainedIn(selectedDateList),
           ),
         )
         .toList();
   }
 
+  List<DateTime> get initSelectedDateList {
+    var retList = <DateTime>[];
+    if (plannedMeals.isNotEmpty) {
+      plannedMeals.forEach((key, value) {
+        if (value.where((event) => event.id == currentMealId).toList().isNotEmpty) {
+          retList.add(DateTime.parse(key));
+        }
+      });
+    }
+    return retList;
+  }
+
+  List<DateTime> get filledDateList {
+    var retList = <DateTime>[];
+    if (plannedMeals.isNotEmpty) {
+      plannedMeals.forEach((key, value) {
+        if (value
+            .where((element) => (element.id != currentMealId && element.mealCategory == mealCategory))
+            .toList()
+            .isNotEmpty) {
+          retList.add(DateTime.parse(key));
+        }
+      });
+    }
+    return retList;
+  }
+
   bool _isDayEnabledInCalendar(DateTime day) {
-    return (day.midnightTime.isAfter(DateTime.now().midnightTime) ||
-            day.midnightTime.isSameDate(DateTime.now().midnightTime)) &&
-        day.isBefore(
-          DateTime.now().midnightTime.add(
-                const Duration(days: 15),
-              ),
-        );
+    return day.midnightTime.isAfter(DateTime.now().midnightTime) &&
+        day.isBefore(DateTime.now().midnightTime.add(const Duration(days: 15)));
   }
 
   Map<String, List<WeekDayElement>> get weeks {

@@ -52,7 +52,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
             return DefaultTabController(
               length: 3,
               child: Builder(builder: (context) {
-                final tabController = DefaultTabController.of(context)!;
+                final tabController = DefaultTabController.of(context);
                 tabController.addListener(() => _logAnalytics(tabController));
 
                 return Scaffold(

@@ -202,6 +202,8 @@ class MealsState with _$MealsState {
   MealsListItem? get currentMeal {
     return mapOrNull(
       mealsInfo: (state) {
+        var meals = state.mealsMap[state.currentDate?.isoStringWithoutTime];
+        var currentMealId = state.currentMealId;
         return state.mealsMap[state.currentDate?.isoStringWithoutTime]
             ?.firstWhere((el) => el.id == state.currentMealId);
       },
@@ -230,7 +232,10 @@ class MealsState with _$MealsState {
 
   Map<String, List<MealsListItem>> get mealsMap {
     return maybeMap(
-      mealsInfo: (s) => isPlanningMeals ? s.plannedMeals : s.meals,
+      mealsInfo: (s) {
+        var tmp = isPlanningMeals ? s.plannedMeals : s.meals;
+        return isPlanningMeals ? s.plannedMeals : s.meals;
+      },
       orElse: () => {},
     );
   }
@@ -266,7 +271,9 @@ class MealsState with _$MealsState {
           (item) => item.id == state.currentMealId,
         );
 
-        if (currentMeal == null) return <MealItem>[];
+        if (currentMeal == null) {
+          return <MealItem>[];
+        }
 
         return currentMeal.mealItems.toList();
       },

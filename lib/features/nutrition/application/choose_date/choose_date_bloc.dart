@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/choose_date/week_day_element.dart';
@@ -28,27 +28,36 @@ class ChooseDateBloc extends Bloc<ChooseDateEvent, ChooseDateState> {
     on<Init>(_onInit);
     on<SetData>(_onSetData);
     on<SelectDate>(_onSelectDate);
+    on<GetPlannedMeals>(_onGetPlannedMeals);
   }
 
-  FutureOr<void> _onSelectDate(
-    SelectDate event,
+  FutureOr<void> _onGetPlannedMeals(
+    GetPlannedMeals event,
     Emitter<ChooseDateState> emit,
   ) async {
-    var selectedDates = state.data.selectedDateList.toList();
+    final response = await nutritionService.getPlannedMeals(
+      startDate: event.startDate.beginDay.toIso8601String(),
+      endDate: event.endDate.endDay.toIso8601String(),
+    );
 
-    if (selectedDates.contains(event.date)) {
-      selectedDates.remove(event.date);
-    } else {
-      selectedDates.add(event.date);
-    }
-    emit(
-      state.copyWith(
-        data: state.data.copyWith(
-          selectedDateList: selectedDates,
+    response.fold(
+      (l) => emit(ChooseDateState.error(state.data.copyWith(error: l))),
+      (r) => emit(
+        state.copyWith(
+          data: state.data.copyWith(
+            plannedMeals: _combinePlannedMealsByDate({}, r.data),
+          ),
         ),
       ),
     );
-
+    emit(
+      state.copyWith(
+        data: state.data.copyWith(
+          selectedDateList: state.data.initSelectedDateList,
+          originSelectedDateList: state.data.initSelectedDateList,
+        ),
+      ),
+    );
     emit(
       state.copyWith(
         data: state.data.copyWith(
@@ -56,6 +65,84 @@ class ChooseDateBloc extends Bloc<ChooseDateEvent, ChooseDateState> {
         ),
       ),
     );
+  }
+
+  Map<String, List<MealsListItem>> _combinePlannedMealsByDate(
+    Map<String, List<MealsListItem>>? previousMealsData,
+    List<MealsListItem> data,
+  ) {
+    Map<String, List<MealsListItem>> meals = Map<String, List<MealsListItem>>.from(previousMealsData ?? {});
+
+    for (var element in data) {
+      final loggingDates = element.planningDates;
+      if (loggingDates == null) continue;
+
+      for (var i = 0; i < loggingDates.length; i++) {
+        var loggingDate = loggingDates[i].isoStringWithoutTime;
+        List<MealsListItem> dayData = meals[loggingDate] ?? <MealsListItem>[];
+        final isAlreadyExist = dayData.contains(element);
+        if (isAlreadyExist) continue;
+
+        dayData.add(element);
+        meals[loggingDate] = dayData;
+      }
+    }
+
+    return meals;
+  }
+
+  FutureOr<void> _onSelectDate(
+    SelectDate event,
+    Emitter<ChooseDateState> emit,
+  ) async {
+    var selectedDates = state.data.selectedDateList.toList();
+    for (var i = 0; i < event.dates.length; i++) {
+      var date = event.dates[i];
+
+      if (date.isContainedIn(state.data.filledDateList)) {
+        emit(state.copyWith(data: state.data.copyWith(showReplaceWarning: false)));
+
+        emit(
+          state.copyWith(
+            data: state.data.copyWith(
+              showReplaceWarning: true,
+              warningDate: date,
+            ),
+          ),
+        );
+        return;
+      } else {
+        emit(
+          state.copyWith(
+            data: state.data.copyWith(
+              showReplaceWarning: false,
+            ),
+          ),
+        );
+      }
+
+      if (date.isContainedIn(selectedDates)) {
+        selectedDates.removeAt(date.containedIndex(selectedDates));
+      } else {
+        selectedDates.add(date);
+      }
+    }
+    if (selectedDates.isEmpty) {
+      emit(state.copyWith(data: state.data.copyWith(showSaveWarning: false)));
+      emit(state.copyWith(data: state.data.copyWith(showSaveWarning: true)));
+    } else {
+      emit(
+        state.copyWith(
+          data: state.data.copyWith(
+            selectedDateList: selectedDates,
+            canSave: isNotIdentical(selectedDates, state.data.originSelectedDateList),
+            showSaveWarning: false,
+          ),
+        ),
+      );
+
+      emit(state.copyWith(data: state.data.copyWith(weekDayElementList: state.data.weeks)));
+    }
   }
 
   FutureOr<void> _onSetData(
@@ -66,7 +153,17 @@ class ChooseDateBloc extends Bloc<ChooseDateEvent, ChooseDateState> {
       ChooseDateState.calendar(
         state.data.copyWith(
           mealCategory: event.mealCategory,
-          date: event.date,
+          currentDate: event.dates?.first,
+          currentMealId: event.currentMealId,
+          showSaveWarning: false,
+        ),
+      ),
+    );
+
+    emit(
+      state.copyWith(
+        data: state.data.copyWith(
+          weekDayElementList: state.data.weeks,
         ),
       ),
     );
@@ -76,13 +173,11 @@ class ChooseDateBloc extends Bloc<ChooseDateEvent, ChooseDateState> {
     Init event,
     Emitter<ChooseDateState> emit,
   ) async {
-    var filledPlannedMealDates = mealsBloc.state.filledPlannedMealDates;
-
     emit(
       ChooseDateState.calendar(
         state.data.copyWith(
           weekDayElementList: state.data.weeks,
-          filledDateList: filledPlannedMealDates.map((e) => DateTime.parse(e)).toList(),
+          showSaveWarning: false,
         ),
       ),
     );

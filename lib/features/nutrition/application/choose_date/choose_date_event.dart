@@ -6,10 +6,16 @@ class ChooseDateEvent with _$ChooseDateEvent {
 
   const factory ChooseDateEvent.setData({
     required String mealCategory,
-    DateTime? date,
+    List<DateTime>? dates,
+    required int currentMealId,
   }) = SetData;
 
   const factory ChooseDateEvent.selectDate(
-    DateTime date,
+    List<DateTime> dates,
   ) = SelectDate;
+
+  const factory ChooseDateEvent.getPlannedMeals(
+    DateTime startDate,
+    DateTime endDate,
+  ) = GetPlannedMeals;
 }

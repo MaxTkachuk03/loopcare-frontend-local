@@ -321,6 +321,9 @@ class LocalizedTexts {
   static const String weekWithNumber = 'weekWithNumber';
   static const String saveChanges = 'saveChanges';
   static const String thisMealPlannedFor = 'thisMealPlannedFor';
+  static const String saveDateError = 'saveDateError';
+  static const String yesReplace = 'yesReplace';
+  static const String youAlreadyPlanned = 'youAlreadyPlanned';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';

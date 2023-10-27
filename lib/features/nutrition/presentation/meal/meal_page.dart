@@ -97,8 +97,7 @@ class _MealPageState extends State<MealPage> {
     return '${currentMealCategory.capitalizeOnlyFirstLetter()}${state.isPlanningMeals ? '' : ' ${LocalizedTexts.logList.translation}'} $date';
   }
 
-  String get _mealDates {
-    final state = context.read<MealsBloc>().state;
+  String _mealDates(MealsState state) {
     final dates = state.currentMealDates;
     if (dates != null) {
       final addString = dates.length > 1 ? '(and ${dates.length - 1} other dates)' : '';
@@ -170,7 +169,7 @@ class _MealPageState extends State<MealPage> {
                             calorieDensity: state.currentMealCalorieDensity,
                           ),
                           ChooseDateBlock(
-                            date: _mealDates,
+                            date: _mealDates(mealsState),
                             onTap: (BuildContext context) => _onChooseDates(context),
                           ),
                           const SizedBox(height: 26.0),
@@ -231,7 +230,8 @@ class _MealPageState extends State<MealPage> {
     context.router.push(
       ChooseDateCalendarRoute(
         mealCategory: state.currentMealCategory ?? '',
-        date: state.getCurrentDate,
+        dates: state.currentMeal?.planningDates,
+        mealId: context.read<MealsBloc>().state.getCurrentMealId ?? -1,
       ),
     );
   }

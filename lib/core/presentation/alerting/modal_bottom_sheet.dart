@@ -21,6 +21,7 @@ import 'package:loopcare_frontend/features/education/application/education_lesso
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/presentation/widgets/booked_session_modal_content.dart';
 import 'package:loopcare_frontend/features/group_sessions/presentation/widgets/not_booked_sessions_modal_content.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
@@ -1245,6 +1246,54 @@ class ModalBottomSheet {
                 onPressed: onStayPressed,
                 child: const Text(LocalizedTexts.stayInTheSession).tr(),
               )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  static void replacePlannedMeal({
+    required BuildContext context,
+    required String date,
+    required String mealCategory,
+    required void Function() onBtnPressed,
+    required MealsListItem oldItem,
+    required MealsListItem newItem,
+  }) {
+    Size size = MediaQuery.of(context).size;
+
+    showModalBottomSheet<void>(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 42.0, horizontal: 39.0),
+          height: size.height * 0.35,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                date,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: AppColors.blueDark,
+                    ),
+              ).tr(),
+              const SizedBox(height: 16.0),
+              Text(
+                LocalizedTexts.youAlreadyPlanned,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ).tr(
+                namedArgs: {'mealCategory': mealCategory},
+              ),
+              const SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () {
+                  onBtnPressed();
+                },
+                child: const Text(LocalizedTexts.yesReplace).tr(),
+              ),
             ],
           ),
         );

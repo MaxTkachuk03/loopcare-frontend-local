@@ -101,6 +101,32 @@ extension DateTimeExtension on DateTime {
     return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
   }
 
+  bool isContainedIn(List<DateTime>? list) {
+    if (list == null) {
+      return false;
+    }
+    final now = this;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].isSameDate(now)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  int containedIndex(List<DateTime>? list) {
+    if (list == null) {
+      return -1;
+    }
+    final now = this;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].isSameDate(now)) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
   int daysBetween(DateTime from, DateTime to) {
     from = DateTime(from.year, from.month, from.day);
     to = DateTime(to.year, to.month, to.day);

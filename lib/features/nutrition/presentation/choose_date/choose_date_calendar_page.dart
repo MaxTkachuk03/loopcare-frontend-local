@@ -2,12 +2,17 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 
 import 'package:loopcare_frontend/core/presentation/app_bar/green_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/choose_date/choose_date_bloc.dart';
@@ -18,12 +23,14 @@ import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_b
 
 class ChooseDateCalendarPage extends StatefulWidget {
   final String mealCategory;
-  final DateTime? date;
+  final List<DateTime>? dates;
+  final int mealId;
 
   const ChooseDateCalendarPage({
     Key? key,
     required this.mealCategory,
-    required this.date,
+    required this.dates,
+    required this.mealId,
   }) : super(key: key);
 
   @override
@@ -36,24 +43,60 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
     super.initState();
 
     context.read<ChooseDateBloc>().add(
-          const ChooseDateEvent.init(),
+          ChooseDateEvent.getPlannedMeals(
+            DateTime.now(),
+            DateTime.now().add(
+              const Duration(days: 15),
+            ),
+          ),
         );
 
     context.read<ChooseDateBloc>().add(
           ChooseDateEvent.setData(
             mealCategory: widget.mealCategory,
-            date: widget.date,
+            dates: widget.dates,
+            currentMealId: widget.mealId,
           ),
         );
+  }
 
-    context.read<MealsBloc>().add(
-          MealsEvent.getPlannedMeals(DateTime.now(), DateTime.now().add(const Duration(days: 15))),
-        );
+  _errorListener(BuildContext context, ChooseDateState state) {
+    if (state.data.showSaveWarning) {
+      showAppSnackBar(
+        context: context,
+        text: LocalizedTexts.saveDateError.translation,
+        background: AppColors.white,
+        leadIcon: Hexagon(
+          width: 54,
+          height: 54,
+          borderRadius: 18,
+          innerWidget: Container(
+            color: AppColors.white,
+            child: Container(
+              color: AppColors.blueDark,
+              child: AppImages.exclamationMark,
+            ),
+          ),
+        ),
+      );
+    }
+    if (state.data.showReplaceWarning) {
+      ModalBottomSheet.replacePlannedMeal(
+        context: context,
+        onBtnPressed: context.router.pop,
+        date: state.data.getWarningDate.shortDate,
+        mealCategory: widget.mealCategory,
+        oldItem: state.data.plannedMealsForWarningDate.first,
+        newItem: state.data.plannedMealsForWarningDate.first,
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChooseDateBloc, ChooseDateState>(
+    return BlocConsumer<ChooseDateBloc, ChooseDateState>(
+      listenWhen: (prev, cur) => (cur.data.showSaveWarning || cur.data.showReplaceWarning),
+      listener: _errorListener,
       builder: (BuildContext context, state) {
         return state.maybeMap(
           loading: (_) {
@@ -94,11 +137,21 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
                             const SizedBox(height: 26.0),
                             MainContainer(
                               child: ElevatedButton(
-                                onPressed: () => _onSaveChangesPressed(context),
+                                onPressed: () => state.data.canSave ? _onSaveChangesPressed(context) : null,
+                                style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                                  backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                                    (Set<MaterialState> states) {
+                                      if (state.data.canSave) {
+                                        return AppColors.blueDark;
+                                      }
+
+                                      return AppColors.greyMid;
+                                    },
+                                  ),
+                                ),
                                 child: Text(LocalizedTexts.saveChanges.translation),
                               ),
                             ),
-                            // const SizedBox(height: 20.0)
                           ],
                         ),
                       ),
@@ -117,6 +170,17 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
   }
 
   _onSaveChangesPressed(BuildContext context) {
-    context.router.push(SelectFoodRoute(mealCategory: widget.mealCategory));
+    final mealsBloc = context.read<MealsBloc>();
+    final chooseDateBloc = context.read<ChooseDateBloc>();
+
+    mealsBloc.add(
+      MealsEvent.updatePlannedMeal(
+        chooseDateBloc.state.data.currentMealId,
+        chooseDateBloc.state.data.selectedDateList,
+      ),
+    );
+    // mealsBloc.add(MealsEvent.fetchMealById(chooseDateBloc.state.data.currentMealId));
+
+    context.router.pop();
   }
 }
