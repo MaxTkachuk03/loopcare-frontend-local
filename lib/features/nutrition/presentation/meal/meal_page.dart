@@ -89,7 +89,7 @@ class _MealPageState extends State<MealPage> {
     if (currentMealCategory == null) return '';
 
     final date = state.getCurrentDate.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
-        ? state.getCurrentDate.shortDate
+        ? _mealDates(state, needNewLine: true)
         : 'today';
 
     AnalyticsEventService.instance.logEvent('meal_screen_type_$currentMealCategory');
@@ -97,10 +97,12 @@ class _MealPageState extends State<MealPage> {
     return '${currentMealCategory.capitalizeOnlyFirstLetter()}${state.isPlanningMeals ? '' : ' ${LocalizedTexts.logList.translation}'} $date';
   }
 
-  String _mealDates(MealsState state) {
+  String _mealDates(MealsState state, {bool needNewLine = false}) {
     final dates = state.currentMealDates;
+    String newLine = needNewLine ? '\n' : '';
     if (dates != null) {
-      final addString = dates.length > 1 ? '(and ${dates.length - 1} other dates)' : '';
+      final addString = dates.length > 1 ? '$newLine(and ${dates.length - 1} other dates)' : '';
+
       return '${state.getCurrentDate.shortDate} $addString';
     }
     return state.getCurrentDate.shortDate;

@@ -77,9 +77,11 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         final currentMealId = state.getCurrentMealId;
         final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
         final plannedMeals = _getUpdatedPlannedMealsList(r);
+        final currentMealCategory = state.mapOrNull(mealsInfo: (s) => s.currentMealCategory);
 
         emit(
           MealsState.mealsInfo(
+            currentMealCategory: currentMealCategory,
             currentMealId: currentMealId,
             currentDate: currentDate,
             meals: meals ?? {},
