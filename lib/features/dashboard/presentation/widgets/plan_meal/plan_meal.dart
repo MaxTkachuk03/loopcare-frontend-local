@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 
@@ -38,9 +39,20 @@ class PlanMeal extends StatelessWidget {
           )
           .toList(),
       onSelect: (NameLabel item) {
-        context.read<MealsBloc>().add(MealsEvent.addPlannedMeal(item.name.toLowerCase()));
+        final mealsBloc = context.read<MealsBloc>();
+        final recipeBloc = context.read<RecipeBloc>();
 
-        context.router.push(SelectFoodRoute(mealCategory: item.name));
+        final mealCategory = item.name.toLowerCase();
+
+        mealsBloc.add(MealsEvent.addPlannedMeal(mealCategory));
+        recipeBloc.add(RecipeEvent.getRecommendations(mealCategory));
+
+        context.router.push(
+          RecommendationsRoute(
+            mealCategory: item.name,
+            date: mealsBloc.state.getCurrentDate,
+          ),
+        );
       },
     );
   }

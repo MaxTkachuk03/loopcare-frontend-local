@@ -621,8 +621,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
             Map<String, List<MealsListItem>> meals =
                 Map<String, List<MealsListItem>>.from(state.plannedMeals);
-            var selectedDayMeals =
-                meals[planningDates.first.toLocal().isoStringWithoutTime] ?? <MealsListItem>[];
+
+            var selectedDayMeals = meals[planningDates.first.isoStringWithoutTime] ?? <MealsListItem>[];
 
             if (selectedDayMeals.isEmpty) {
               updatedList = (selectedDayMeals.toList()..add(r)).toList();
@@ -634,7 +634,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
               }
             }
 
-            meals[planningDates.first.toLocal().isoStringWithoutTime] = updatedList;
+            meals[planningDates.first.isoStringWithoutTime] = updatedList;
 
             emit(
               state.copyWith(

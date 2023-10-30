@@ -11,11 +11,13 @@ import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart
 class CalorieDensityBlock extends StatelessWidget {
   final double? value;
   final void Function({required int tabIndex}) onPress;
+  final bool showArrow;
 
   const CalorieDensityBlock({
     Key? key,
     this.value,
     required this.onPress,
+    required this.showArrow,
   }) : super(key: key);
 
   @override
@@ -24,11 +26,9 @@ class CalorieDensityBlock extends StatelessWidget {
       builder: (BuildContext context, state) {
         return state.maybeMap(
             nutritionInstructions: (state) {
-              final currentCalorieDensityItem =
-                  state.getCalorieDensityItem(value);
+              final currentCalorieDensityItem = state.getCalorieDensityItem(value);
 
-              if (state.calorieDensityValues.isEmpty ||
-                  currentCalorieDensityItem == null) {
+              if (state.calorieDensityValues.isEmpty || currentCalorieDensityItem == null) {
                 return const SizedBox();
               }
 
@@ -52,12 +52,10 @@ class CalorieDensityBlock extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          LocalizedTexts.calorieDensity.translation
-                              .toUpperCase(),
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontSize: 12.0,
-                                  ),
+                          LocalizedTexts.calorieDensity.translation.toUpperCase(),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                fontSize: 12.0,
+                              ),
                         ),
                         Text(
                           value?.toStringAsFixed(2) ?? '-',
@@ -65,28 +63,26 @@ class CalorieDensityBlock extends StatelessWidget {
                         ),
                         if (value != null)
                           Text(
-                            currentCalorieDensityItem.label
-                                .capitalizeOnlyFirstLetter(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
+                            currentCalorieDensityItem.label.capitalizeOnlyFirstLetter(),
+                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                   fontSize: 14.0,
                                 ),
                           )
                       ],
                     ),
-                    const SizedBox(
-                      width: 8.0,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                      height: 14,
-                      child: ImageIcon(
-                        AppIcons.arrow,
-                        color: AppColors.darkGreen,
+                    if (showArrow)
+                      const SizedBox(
+                        width: 8.0,
                       ),
-                    ),
+                    if (showArrow)
+                      const SizedBox(
+                        width: 10,
+                        height: 14,
+                        child: ImageIcon(
+                          AppIcons.arrow,
+                          color: AppColors.darkGreen,
+                        ),
+                      ),
                   ],
                 ),
               );
