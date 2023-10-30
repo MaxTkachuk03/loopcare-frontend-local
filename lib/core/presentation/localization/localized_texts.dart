@@ -316,6 +316,9 @@ class LocalizedTexts {
   static const String plannedMeals = 'plannedMeals';
   static const String loggedMeals = 'loggedMeals';
   static const String planThisMeal = 'planThisMeal';
+  static const String existMealText = 'existMealText';
+  static const String createNew = 'createNew';
+  static const String updateExist = 'updateExist';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';

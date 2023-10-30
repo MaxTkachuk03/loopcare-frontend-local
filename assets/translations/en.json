@@ -653,5 +653,8 @@
   "errorSubjectMessage": "Text message must be at least 1 symbol and less than 30 symbols",
   "requiredField": "Field is required",
   "send": "Send",
-  "yourPreferencesUpdated": "Your {prefName} preferences have been updated"
+  "yourPreferencesUpdated": "Your {prefName} preferences have been updated",
+  "createNew": "Create new",
+  "updateExist": "Update existing",
+  "existMealText": "You want to create a new meal or edit  existing?"
 }

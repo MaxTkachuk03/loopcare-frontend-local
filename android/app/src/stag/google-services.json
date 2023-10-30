@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "844025304072",
+    "project_id": "leanonme-stag",
+    "storage_bucket": "leanonme-stag.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844025304072:android:bd78ad8cc84d0ae572adbd",
+        "android_client_info": {
+          "package_name": "com.loopcare.leanonme.app.stag"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARhAi1qdKpwjqK82HJD512Lpthlu82C7g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
