@@ -24,11 +24,10 @@ class Ingredients extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 NutritionValuesBlock(
-                  numberOfPortions: recipeState.recipe.numberOfServings,
-                  selectedNutritionType: recipeState.currentNutritionType,
-                  nutritionValuesList: recipeState.recipe.nutritionValues,
-                  onNutritionFactSelect: (NutritionValuesTypes item) =>
-                      _onNutritionFactSelect(
+                  numberOfPortions: recipeState.data.recipe.numberOfServings,
+                  selectedNutritionType: recipeState.data.currentNutritionType,
+                  nutritionValuesList: recipeState.data.recipe.nutritionValues,
+                  onNutritionFactSelect: (NutritionValuesTypes item) => _onNutritionFactSelect(
                     context,
                     item,
                   ),
@@ -36,9 +35,9 @@ class Ingredients extends StatelessWidget {
                 Expanded(
                   child: ListView.builder(
                     padding: const EdgeInsets.all(0),
-                    itemCount: recipeState.recipe.ingredients.length,
+                    itemCount: recipeState.data.recipe.ingredients.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final item = recipeState.recipe.ingredients[index];
+                      final item = recipeState.data.recipe.ingredients[index];
 
                       return FoodListItem(
                         foodItem: FoodItem(
@@ -49,14 +48,14 @@ class Ingredients extends StatelessWidget {
                           foodDescription: item.foodDescription,
                           serving: item.serving,
                         ),
-                        nutritionKey: recipeState.currentNutritionType.name,
+                        nutritionKey: recipeState.data.currentNutritionType.name,
                       );
                     },
                   ),
                 ),
                 NutritionBlock(
-                  calorieDensity: recipeState.recipe.calorieDensity,
-                  proteinDegree: recipeState.recipe.proteinDegree,
+                  calorieDensity: recipeState.data.recipe.calorieDensity,
+                  proteinDegree: recipeState.data.recipe.proteinDegree,
                 ),
               ],
             );

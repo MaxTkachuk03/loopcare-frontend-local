@@ -307,12 +307,15 @@ class LocalizedTexts {
   static const String addToMyDishes = 'addToMyDishes';
   static const String cookingTime = 'cookingTime';
   static const String preparation = 'preparation';
+  static const String preparationTime = 'preparationTime';
+  static const String show = 'show';
   static const String portions = 'portions';
   static const String howToPrepare = 'howToPrepare';
   static const String logAs = 'logAs';
   static const String skip = 'skip';
   static const String plannedMeals = 'plannedMeals';
   static const String loggedMeals = 'loggedMeals';
+  static const String planThisMeal = 'planThisMeal';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';

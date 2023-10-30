@@ -26,6 +26,7 @@ import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/reci
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_food_item_in_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe_details/dto/recipe_details_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recommendations/dto/recommendations_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/dto/favorites_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/dto/barcode_information_response.dart';
@@ -109,6 +110,14 @@ class APINutritionService implements NutritionService {
   @override
   Future<Either<RequestError, RecipeDetailsResponse>> getRecipe(int id) {
     return client.get('/recipes/$id').then(parseResponse(RecipeDetailsResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, RecommendationsResponse>> getRecommendations(List<String>? mealCategories) {
+    return client.get('/recipes/recommendations', queryParameters: {
+      "mealCategories": mealCategories ?? [],
+      "pageSize": "20",
+    }).then(parseResponse(RecommendationsResponse.fromJson));
   }
 
   @override
