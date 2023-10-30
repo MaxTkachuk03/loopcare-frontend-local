@@ -141,14 +141,6 @@ class MealsState with _$MealsState {
         }
         final selectedDayMeals = state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
-        var category = selectedDayMeals
-            .where((item) => item.mealItems.isNotEmpty)
-            .toList()
-            .map((e) => categoryShortVersion(e.mealCategory))
-            .toList()
-            .toSet()
-            .toList();
-
         return selectedDayMeals
             .where((item) => item.mealItems.isNotEmpty)
             .toList()
@@ -188,6 +180,19 @@ class MealsState with _$MealsState {
     );
   }
 
+  List<String> get filledPlannedMealDates {
+    return maybeMap(
+      mealsInfo: (state) {
+        if (state.plannedMeals.isEmpty) {
+          return <String>[];
+        }
+
+        return state.plannedMeals.keys.toList();
+      },
+      orElse: () => <String>[],
+    );
+  }
+
   int? get getCurrentMealId {
     return mapOrNull(
       mealsInfo: (state) => state.currentMealId,
@@ -210,6 +215,13 @@ class MealsState with _$MealsState {
     );
   }
 
+  List<DateTime>? get currentMealDates {
+    return maybeMap(
+      mealsInfo: (s) => isPlanningMeals ? s.currentMeal?.planningDates! : [getCurrentDate],
+      orElse: () => [getCurrentDate],
+    );
+  }
+
   String? get currentMealCategory {
     return mapOrNull(
       mealsInfo: (state) => state.currentMealCategory?.capitalizeOnlyFirstLetter(),
@@ -218,7 +230,10 @@ class MealsState with _$MealsState {
 
   Map<String, List<MealsListItem>> get mealsMap {
     return maybeMap(
-      mealsInfo: (s) => isPlanningMeals ? s.plannedMeals : s.meals,
+      mealsInfo: (s) {
+        var tmp = isPlanningMeals ? s.plannedMeals : s.meals;
+        return isPlanningMeals ? s.plannedMeals : s.meals;
+      },
       orElse: () => {},
     );
   }
@@ -254,7 +269,9 @@ class MealsState with _$MealsState {
           (item) => item.id == state.currentMealId,
         );
 
-        if (currentMeal == null) return <MealItem>[];
+        if (currentMeal == null) {
+          return <MealItem>[];
+        }
 
         return currentMeal.mealItems.toList();
       },

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_numbers.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/widgets/already_planned_card.dart';
 import 'package:loopcare_frontend/core/presentation/html_renderer/html_renderer.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
@@ -21,6 +22,7 @@ import 'package:loopcare_frontend/features/education/application/education_lesso
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/presentation/widgets/booked_session_modal_content.dart';
 import 'package:loopcare_frontend/features/group_sessions/presentation/widgets/not_booked_sessions_modal_content.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
@@ -1053,7 +1055,10 @@ class ModalBottomSheet {
                               child: Text(
                                 state.data.lessonCategory.toUpperCase(),
                                 style: const TextStyle(
-                                    color: AppColors.orangeDark, fontSize: 12.0, fontWeight: FontWeight.w600),
+                                  color: AppColors.orangeDark,
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                             const SizedBox(height: 14),
@@ -1245,6 +1250,93 @@ class ModalBottomSheet {
                 onPressed: onStayPressed,
                 child: const Text(LocalizedTexts.stayInTheSession).tr(),
               )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  static void replacePlannedMeal({
+    required BuildContext context,
+    required String date,
+    required String mealCategory,
+    required void Function() onBtnPressed,
+    required MealsListItem oldItem,
+    required MealsListItem? newItem,
+  }) {
+    Size size = MediaQuery.of(context).size;
+
+    showModalBottomSheet<void>(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+      backgroundColor: AppColors.white,
+      isScrollControlled: true,
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 42.0, horizontal: 39.0),
+          height: size.height * 0.75,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8.0, top: 32.0),
+                  child: SizedBox(
+                    width: 30.0,
+                    height: 30.0,
+                    child: IconButton(
+                      iconSize: 30,
+                      padding: EdgeInsets.zero,
+                      onPressed: () => context.router.pop(),
+                      icon: const Icon(Icons.close),
+                    ),
+                  ),
+                ),
+              ),
+              Text(
+                date,
+                textAlign: TextAlign.left,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: AppColors.blueDark,
+                      fontWeight: FontWeight.w600,
+                    ),
+              ).tr(),
+              const SizedBox(height: 16.0),
+              Text(
+                LocalizedTexts.youAlreadyPlanned,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ).tr(
+                namedArgs: {'mealCategory': mealCategory},
+              ),
+              const SizedBox(height: 16.0),
+              AlreadyPlannedCard(
+                mealCategory: mealCategory,
+                mealItems: oldItem.mealItems,
+                active: false,
+              ),
+              const SizedBox(height: 24.0),
+              Text(
+                LocalizedTexts.replaceWith,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: AppColors.blueDark,
+                    ),
+              ).tr(),
+              if (newItem != null) const SizedBox(height: 16.0),
+              if (newItem != null)
+                AlreadyPlannedCard(
+                  mealCategory: mealCategory,
+                  mealItems: newItem.mealItems,
+                  active: true,
+                ),
+              const SizedBox(height: 32.0),
+              ElevatedButton(
+                onPressed: () {
+                  onBtnPressed();
+                },
+                child: const Text(LocalizedTexts.yesReplace).tr(),
+              ),
             ],
           ),
         );

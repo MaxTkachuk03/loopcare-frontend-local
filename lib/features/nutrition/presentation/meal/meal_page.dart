@@ -22,6 +22,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/meal/widgets/choose_date_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/meal/widgets/meals_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
@@ -88,12 +89,23 @@ class _MealPageState extends State<MealPage> {
     if (currentMealCategory == null) return '';
 
     final date = state.getCurrentDate.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
-        ? state.getCurrentDate.shortDate
+        ? _mealDates(state, needNewLine: true)
         : 'today';
 
     AnalyticsEventService.instance.logEvent('meal_screen_type_$currentMealCategory');
 
     return '${currentMealCategory.capitalizeOnlyFirstLetter()}${state.isPlanningMeals ? '' : ' ${LocalizedTexts.logList.translation}'} $date';
+  }
+
+  String _mealDates(MealsState state, {bool needNewLine = false}) {
+    final dates = state.currentMealDates;
+    String newLine = needNewLine ? '\n' : '';
+    if (dates != null) {
+      final addString = dates.length > 1 ? '$newLine(and ${dates.length - 1} other dates)' : '';
+
+      return '${state.getCurrentDate.shortDate} $addString';
+    }
+    return state.getCurrentDate.shortDate;
   }
 
   @override
@@ -145,6 +157,7 @@ class _MealPageState extends State<MealPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           NutritionValuesBlock(
                             numberOfPortions: mealsState.currentMeal?.serving.numberOfUnits.toInt() ?? 0,
@@ -157,35 +170,33 @@ class _MealPageState extends State<MealPage> {
                             proteinDegree: state.currentMealProteinDegree,
                             calorieDensity: state.currentMealCalorieDensity,
                           ),
+                          ChooseDateBlock(
+                            date: _mealDates(mealsState),
+                            onTap: (BuildContext context) => _onChooseDates(context),
+                          ),
                           const SizedBox(height: 26.0),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 19),
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  children: [
-                                    OutlinedRoundedButton(
-                                      text: LocalizedTexts.saveToMyDishes.translation,
-                                      icon: AppIcons.dish,
-                                      onPressed: _onSaveToMyDishesHandler,
-                                    ),
-                                    const SizedBox(width: 8.0),
-                                    OutlinedRoundedButton(
-                                      text: LocalizedTexts.deleteMeal.translation,
-                                      icon: AppIcons.delete,
-                                      onPressed: () => _onDeleteMealPressed(context),
-                                    )
-                                  ],
+                                OutlinedRoundedButton(
+                                  text: LocalizedTexts.saveToMyDishes.translation,
+                                  icon: AppIcons.dish,
+                                  onPressed: _onSaveToMyDishesHandler,
                                 ),
-                                const SizedBox(
-                                  height: 16.0,
-                                ),
+                                const SizedBox(height: 16.0),
                                 if (mealsState.isPlanningMeals)
                                   OutlinedRoundedButton(
                                     text: LocalizedTexts.recommendations.translation,
                                     icon: AppIcons.recommendations,
                                   ),
+                                if (mealsState.isPlanningMeals) const SizedBox(height: 16.0),
+                                OutlinedRoundedButton(
+                                  text: LocalizedTexts.deleteMeal.translation,
+                                  icon: AppIcons.delete,
+                                  onPressed: () => _onDeleteMealPressed(context),
+                                )
                               ],
                             ),
                           ),
@@ -212,6 +223,18 @@ class _MealPageState extends State<MealPage> {
           ),
         );
       },
+    );
+  }
+
+  void _onChooseDates(BuildContext context) {
+    final state = context.read<MealsBloc>().state;
+
+    context.router.push(
+      ChooseDateCalendarRoute(
+        mealCategory: state.currentMealCategory ?? '',
+        dates: state.currentMeal?.planningDates,
+        mealId: context.read<MealsBloc>().state.getCurrentMealId ?? -1,
+      ),
     );
   }
 

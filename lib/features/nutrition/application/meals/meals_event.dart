@@ -66,4 +66,9 @@ class MealsEvent with _$MealsEvent {
   ) = AddDishToMeal;
 
   const factory MealsEvent.nutritionItemChanged(NutritionValuesTypes item) = NutritionItemChanged;
+
+  const factory MealsEvent.updatePlannedMeal(
+    int mealId,
+    List<DateTime> planningDates,
+  ) = UpdatePlannedMeal;
 }

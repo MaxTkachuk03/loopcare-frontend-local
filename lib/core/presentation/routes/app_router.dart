@@ -63,6 +63,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/weight_l
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_check_result_page.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_intro_page.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_question_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/choose_date/choose_date_calendar_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/daily_intake/daily_intake_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/log_planned_meals/log_planned_meals_page.dart';
@@ -422,6 +423,11 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.recipeDetails,
       page: RecipeDetailsPage,
+    ),
+
+    AutoRoute(
+      path: AppRoutes.chooseDate,
+      page: ChooseDateCalendarPage,
     ),
 
     AutoRoute(

@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/c
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_from_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/update_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/log_planned_meal_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/dto/update_planned_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
@@ -123,6 +124,11 @@ abstract class NutritionService {
     String? startDate,
     String? endDate,
   });
+
+  Future<Either<RequestError, MealsListItem>> updatePlannedMeal(
+    int mealId,
+    UpdatePlannedMealBody data,
+  );
 
   Future<Either<RequestError, MealsListItem>> addMeal(
     AddMealBody data,

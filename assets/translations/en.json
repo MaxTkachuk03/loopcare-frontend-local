@@ -656,5 +656,16 @@
   "yourPreferencesUpdated": "Your {prefName} preferences have been updated",
   "createNew": "Create new",
   "updateExist": "Update existing",
-  "existMealText": "You want to create a new meal or edit  existing?"
+  "existMealText": "You want to create a new meal or edit  existing?",
+  "chooseDateFor": "Choose date for {mealCategory}",
+  "youCanChangeTheDate": "You can change the date and/or plan it on multiple days. Don’t forget to save your changes if you made any",
+  "weekWithNumber": "WEEK {number}",
+  "saveChanges": "Save changes",
+  "thisMealPlannedFor": "This meal is planned for",
+  "saveDateError": "You first have to select another date before you can deslect this one",
+  "yesReplace": "Yes replace",
+  "youAlreadyPlanned": "You already planned a {mealCategory} for this day:",
+  "andOtherDates": "and {number} other dates",
+  "alreadyPlannedCategory": "{mealCategory} ALREADY PLANNED",
+  "replaceWith": "Replace with?"
 }

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/meal_item_type/meal_item_type.dart';
 
 class GroupedMealList extends StatelessWidget {
   final List<MealItem> mealItems;
+  final bool active;
 
   const GroupedMealList({
     super.key,
     required this.mealItems,
+    this.active = false,
   });
 
   @override
@@ -26,25 +29,22 @@ class GroupedMealList extends StatelessWidget {
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(width: 30.0),
             if (type != prevType)
               Image(
                 image: _getIcon(type),
                 width: 16.0,
+                color: active ? AppColors.anotherBlue : AppColors.darkGreen,
               ),
             if (type == prevType) const SizedBox(width: 16.0),
             const SizedBox(width: 12.0),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${item.name}$recipeNotation',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  )
-                ],
-              ),
+            Text(
+              '${item.name}$recipeNotation',
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.darkGreen,
+                  ),
             )
           ],
         );

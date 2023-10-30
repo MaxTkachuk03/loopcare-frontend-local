@@ -29,6 +29,9 @@ class NutritionValuesBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (nutritionValuesList.isEmpty) {
+      return const SizedBox.shrink();
+    }
     final nutritionItem =
         nutritionValuesList.firstWhere((element) => element.key == selectedNutritionType.name);
     final totalValue = (numberOfPortions * nutritionItem.value).toStringAsFixed(2);

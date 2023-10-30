@@ -319,6 +319,17 @@ class LocalizedTexts {
   static const String existMealText = 'existMealText';
   static const String createNew = 'createNew';
   static const String updateExist = 'updateExist';
+  static const String chooseDateFor = 'chooseDateFor';
+  static const String youCanChangeTheDate = 'youCanChangeTheDate';
+  static const String weekWithNumber = 'weekWithNumber';
+  static const String saveChanges = 'saveChanges';
+  static const String thisMealPlannedFor = 'thisMealPlannedFor';
+  static const String saveDateError = 'saveDateError';
+  static const String yesReplace = 'yesReplace';
+  static const String youAlreadyPlanned = 'youAlreadyPlanned';
+  static const String andOtherDates = 'andOtherDates';
+  static const String alreadyPlannedCategory = 'alreadyPlannedCategory';
+  static const String replaceWith = 'replaceWith';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';
