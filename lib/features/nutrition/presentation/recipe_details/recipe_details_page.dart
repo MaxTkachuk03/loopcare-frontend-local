@@ -1,11 +1,19 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe_details/recipe_details_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/dish_favorites_category/dish_favorites_category.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/sliver_recipe_app_bar_delegate.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/ingredients.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/instructions.dart';
@@ -14,13 +22,20 @@ import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
 class RecipeDetailsPage extends StatefulWidget {
-  const RecipeDetailsPage({Key? key}) : super(key: key);
+  final bool fromRecommendation;
+
+  const RecipeDetailsPage({
+    Key? key,
+    this.fromRecommendation = false,
+  }) : super(key: key);
 
   @override
   State<RecipeDetailsPage> createState() => _RecipeDetailsPageState();
 }
 
 class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
+  static const double _defaultNumberOfUnitsForDish = 1.0;
+
   @override
   void initState() {
     final recipeId = context.read<RecipeBloc>().state.externalRecipeId;
@@ -75,13 +90,16 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                         ),
                       ];
                     },
-                    body: const SafeArea(
+                    body: SafeArea(
                       top: false,
                       child: TabBarView(
                         children: [
-                          Summary(),
-                          Instructions(),
-                          Ingredients(),
+                          Summary(
+                            onAddToDishPress: () => _onSaveToMyDishesHandler(),
+                            fromRecommendation: widget.fromRecommendation,
+                          ),
+                          const Instructions(),
+                          const Ingredients(),
                         ],
                       ),
                     ),
@@ -95,6 +113,47 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
           ),
         );
       },
+    );
+  }
+
+  String get _genericDishName {
+    // TODO dish name cant be empty, so get generic name for now
+    final mealCategory = context.read<MealsBloc>().state.currentMealCategory;
+    final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+    return '$mealCategory dish from meal $mealId';
+  }
+
+  void _onSaveToMyDishesHandler() {
+    final state = context.read<MealsBloc>().state;
+
+    final mealCategory =
+        DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
+            ? state.currentMealCategory
+            : MealCategory.breakfast.originalValue;
+
+    final mealId = state.getCurrentMealId;
+
+    if (mealId == null || mealCategory == null) return;
+
+    if (state.isContainsRecipeOrDish) {
+      showAppSnackBar(
+        context: context,
+        background: AppColors.white,
+        text: LocalizedTexts.invalidCreateDishFromMealMessage.translation,
+      );
+      return;
+    }
+
+    context.router.push(
+      EditDishRoute(
+        mode: EditDishPageMode.create,
+        event: EditDishEvent.createDishFromMeal(
+          mealId,
+          _defaultNumberOfUnitsForDish,
+          mealCategory,
+          _genericDishName,
+        ),
+      ),
     );
   }
 

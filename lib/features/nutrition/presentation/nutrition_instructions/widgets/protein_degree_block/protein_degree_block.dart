@@ -9,11 +9,13 @@ import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart
 class ProteinDegreeBlock extends StatelessWidget {
   final double? value;
   final void Function({required int tabIndex}) onPress;
+  final bool showArrow;
 
   const ProteinDegreeBlock({
     Key? key,
     this.value,
     required this.onPress,
+    required this.showArrow,
   }) : super(key: key);
 
   @override
@@ -59,21 +61,19 @@ class ProteinDegreeBlock extends StatelessWidget {
                           ),
                       ],
                     ),
-                    const SizedBox(
-                      width: 8.0,
-                    ),
-                    Expanded(
-                      child: Container(
-                        alignment: Alignment.centerRight,
+                    if (showArrow)
+                      const SizedBox(
+                        width: 8.0,
+                      ),
+                    if (showArrow)
+                      const SizedBox(
                         width: 10,
                         height: 14,
-                        child: const ImageIcon(
-                          size: 14.0,
+                        child: ImageIcon(
                           AppIcons.arrow,
                           color: AppColors.darkGreen,
                         ),
                       ),
-                    ),
                   ],
                 ),
               ),

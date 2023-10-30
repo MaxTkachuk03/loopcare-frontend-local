@@ -115,4 +115,7 @@ final screenNames = {
   'SessionCallRoute': 'Group Session Call Screen',
   'SessionRulesRoute': 'Group Session Rules Screen',
   'PreparationMaterialsRoute': 'Group Session Preparation Materials Screen',
+
+  // Recommendations
+  'RecommendationsRoute': 'Recommendations Screen',
 };

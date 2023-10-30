@@ -8,11 +8,15 @@ import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_inst
 class NutritionBlock extends StatelessWidget {
   final double? calorieDensity;
   final double? proteinDegree;
+  final bool bottomBorder;
+  final bool showArrow;
 
   const NutritionBlock({
     Key? key,
     this.calorieDensity,
     this.proteinDegree,
+    this.bottomBorder = true,
+    this.showArrow = true,
   }) : super(key: key);
 
   void _onPressHandler({required BuildContext context, required int tabIndex}) {
@@ -23,9 +27,12 @@ class NutritionBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(24.0),
-      decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(width: 1, color: AppColors.yellowLight)),
+      padding: const EdgeInsets.all(12.0),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: bottomBorder ? const BorderSide(width: 1, color: AppColors.yellowLight) : BorderSide.none,
+          top: bottomBorder ? BorderSide.none : const BorderSide(width: 1, color: AppColors.yellowLight),
+        ),
       ),
       child: IntrinsicHeight(
         child: Row(
@@ -34,6 +41,7 @@ class NutritionBlock extends StatelessWidget {
           children: [
             Expanded(
               child: CalorieDensityBlock(
+                showArrow: showArrow,
                 value: calorieDensity,
                 onPress: ({required int tabIndex}) => _onPressHandler(
                   tabIndex: tabIndex,
@@ -48,6 +56,7 @@ class NutritionBlock extends StatelessWidget {
             ),
             Expanded(
               child: ProteinDegreeBlock(
+                showArrow: showArrow,
                 value: proteinDegree,
                 onPress: ({required int tabIndex}) => _onPressHandler(
                   tabIndex: tabIndex,

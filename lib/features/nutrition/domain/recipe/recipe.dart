@@ -11,14 +11,14 @@ abstract class Recipe implements _$Recipe {
   const Recipe._();
 
   const factory Recipe({
-    required int id,
-    required String externalId,
-    required List<RecipeFoodItem> ingredients,
-    required double calorieDensity,
-    required double proteinDegree,
-    required List<NutritionItem> nutritionValues,
-    required int numberOfServings,
-    required double servingAmount,
+    @Default(0) int id,
+    @Default('') String externalId,
+    @Default([]) List<RecipeFoodItem> ingredients,
+    @Default(0) double calorieDensity,
+    @Default(0) double proteinDegree,
+    @Default([]) List<NutritionItem> nutritionValues,
+    @Default(0) int numberOfServings,
+    @Default(0) double servingAmount,
   }) = _Recipe;
 
   factory Recipe.fromJson(Map<String, dynamic> json) => _$RecipeFromJson(json);
