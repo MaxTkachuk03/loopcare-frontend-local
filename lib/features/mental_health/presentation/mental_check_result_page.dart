@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/success_container.dart';
+import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/emergency_btn.dart';
 import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/medical_fitness/domain/cardiovascular_disease_answers.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
@@ -90,6 +91,8 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
                         ],
                       ),
                     ),
+                    const SizedBox(height: 34.0),
+                    if (state.data.showEmergencyBtn) EmergencyBtn(onPressHandler: () {}),
                   ],
                 ),
                 Column(

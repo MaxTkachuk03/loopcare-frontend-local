@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
+// import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
@@ -18,33 +18,33 @@ class AccountSection extends StatefulWidget {
 }
 
 class _AccountSectionState extends State<AccountSection> {
-  bool _useFaceId = false;
-  bool _requireLogin = false;
-
-  _onUseFaceIdToggle(bool? value) {
-    setState(() {
-      _useFaceId = value ?? false;
-    });
-  }
-
-  _onRequireLogin(bool? value) {
-    setState(() {
-      _requireLogin = value ?? false;
-    });
-  }
+  // bool _useFaceId = false;
+  // bool _requireLogin = false;
+  //
+  // _onUseFaceIdToggle(bool? value) {
+  //   setState(() {
+  //     _useFaceId = value ?? false;
+  //   });
+  // }
+  //
+  // _onRequireLogin(bool? value) {
+  //   setState(() {
+  //     _requireLogin = value ?? false;
+  //   });
+  // }
 
   _onLogOutPressed() {
     context.read<AuthenticationCubit>().logout();
   }
 
-  _onDeleteAccountPressed() {
-    ModalBottomSheet.deleteAccount(
-      context: context,
-      onDeleted: () {
-        context.read<AuthenticationCubit>().deleteAccount();
-      },
-    );
-  }
+  // _onDeleteAccountPressed() {
+  //   ModalBottomSheet.deleteAccount(
+  //     context: context,
+  //     onDeleted: () {
+  //       context.read<AuthenticationCubit>().deleteAccount();
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -88,14 +88,15 @@ class _AccountSectionState extends State<AccountSection> {
             child: const Text(LocalizedTexts.signOut).tr(),
           ),
           const SizedBox(height: 16.0),
-          TextButton(
-            onPressed: _onDeleteAccountPressed,
-            style: TextButton.styleFrom(
-              foregroundColor: AppColors.red,
-              textStyle: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
-            ),
-            child: const Text(LocalizedTexts.deleteAccount).tr(),
-          ),
+          // TODO button removed for testing build 1.0.26+102
+          // TextButton(
+          //   onPressed: _onDeleteAccountPressed,
+          //   style: TextButton.styleFrom(
+          //     foregroundColor: AppColors.red,
+          //     textStyle: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
+          //   ),
+          //   child: const Text(LocalizedTexts.deleteAccount).tr(),
+          // ),
         ],
       ),
     );

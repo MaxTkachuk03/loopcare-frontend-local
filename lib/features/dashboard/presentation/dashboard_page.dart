@@ -34,12 +34,13 @@ class DashboardPage extends StatefulWidget {
   State<DashboardPage> createState() => _DashboardPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserver {
   late final bool _isMealBlockEditable;
   DateTime _selectedDay = DateTime.now();
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     _isMealBlockEditable = false;
 
     context.read<NutritionInstructionsBloc>().add(const NutritionInstructionsEvent.fetchValuesExplanation());
@@ -51,6 +52,15 @@ class _DashboardPageState extends State<DashboardPage> {
     _onRefresh();
 
     super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    if (state == AppLifecycleState.resumed) {
+      context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
+    }
   }
 
   Future<void> _onRefresh() async {
@@ -79,6 +89,13 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
@@ -96,6 +113,7 @@ class _DashboardPageState extends State<DashboardPage> {
               child: RefreshIndicator(
                 onRefresh: _onRefresh,
                 child: ScrollableContainer(
+                  physics: const AlwaysScrollableScrollPhysics(),
                   child: MainContainer(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
