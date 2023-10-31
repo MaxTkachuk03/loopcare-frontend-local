@@ -48,11 +48,12 @@ class IntroGuard extends AutoRouteGuard {
   @override
   Future<void> onNavigation(NavigationResolver resolver, StackRouter router) async {
     if (authenticationCubit.state.isAuthenticated) {
-      final route = authenticationCubit.state.isPreferencesComplete
-          ? authenticationCubit.state.hasActiveSubscription
-              ? AppRoutes.home
-              : AppRoutes.subscription
-          : AppRoutes.preferencesOverview;
+      String route;
+      if (authenticationCubit.state.hasActiveSubscription) {
+        route = authenticationCubit.state.isPreferencesComplete ? AppRoutes.home : AppRoutes.preferencesOverview;
+      } else {
+        route = AppRoutes.subscription;
+      }
       MixpanelEventService.instance.trackVisit(
         "${AppMixpanelEvents.appRote}:  $route",
         userId: authenticationCubit.state.id,

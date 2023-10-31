@@ -151,7 +151,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     emit(
       SubscriptionState.successInPlans(state.data.copyWith(isLoading: false, plans: plans)),
     );
-    add(const SubscriptionEvent.getActiveSubscription());
   }
 
   FutureOr<void> _onGetActiveSubscription(
@@ -184,7 +183,9 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
                 !subscription.isActive &&
                 SubscriptionDateUtils.isPassDate(subscription.expiresAt)) {
               emit(SubscriptionState.subscriptionEnded(state.data.copyWith(subscription: subscription)));
-            } else {
+            } else if (subscription?.isActive??false){
+              emit(SubscriptionState.subscriptionActive(state.data.copyWith(subscription: subscription)));
+            } else{
               emit(SubscriptionState.trialExpired(state.data.copyWith(subscription: subscription)));
             }
             break;

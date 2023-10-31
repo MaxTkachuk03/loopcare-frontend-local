@@ -57,10 +57,11 @@ class AuthenticationState with _$AuthenticationState {
       authenticated: (state) => state.isPreferencesComplete,
     );
   }
+
   bool get hasActiveSubscription {
     return maybeWhen(
       orElse: () => false,
-      authenticated: (state) => state.subscription.isActive,
+      authenticated: (state) => state.subscription.isActive && state.subscription.state == 'common',
     );
   }
 

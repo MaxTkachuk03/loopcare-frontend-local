@@ -88,8 +88,8 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   _onChangedForm() {
-    final isValidForm = Email.create(_emailController.text).isRight() &&
-        LoginPassword.create(_passwordController.text).isRight();
+    final isValidForm =
+        Email.create(_emailController.text).isRight() && LoginPassword.create(_passwordController.text).isRight();
 
     setState(() {
       _isDisabled = !isValidForm;
@@ -153,8 +153,12 @@ class _LoginFormState extends State<LoginForm> {
   void _navigationListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(
       authenticated: (state) {
-        final route = state.isPreferencesComplete ? const SubscriptionRoute() : const PreferencesOverviewRoute();
-       // final route = state.isPreferencesComplete ? const HomeRoute() : const PreferencesOverviewRoute();
+        PageRouteInfo<void> route;
+        if (state.hasActiveSubscription) {
+          route = state.isPreferencesComplete ? const HomeRoute() : const PreferencesOverviewRoute();
+        } else {
+          route = const SubscriptionRoute();
+        }
         MixpanelEventService.instance.track(
           AppMixpanelEvents.loginSuccess,
           {
