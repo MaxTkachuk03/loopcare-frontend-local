@@ -11,7 +11,6 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
-import 'package:loopcare_frontend/features/account/presentation/subscription_page/application/manage_subscription_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -26,6 +25,7 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    context.read<SubscriptionBloc>().add(const SubscriptionEvent.getActiveSubscription());
   }
 
   @override
@@ -51,22 +51,25 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
                     ),
                     _DetailsSection(
                       title: LocalizedTexts.subscriptionType,
-                      value: state.data.subscription?.subscriptionPlan.title ?? '',
+                      value: state.data.subscription?.subscriptionPlan?.title ?? '',
                     ),
                     const SizedBox(
                       height: 14,
                     ),
                     _DetailsSection(
                       title: LocalizedTexts.subscriptionVia,
-                      value: state.data.subscription?.vendor == 'ios' ? 'App Store' : 'Play Market',
+                      value: state.data.subscription == null
+                          ? ''
+                          : state.data.subscription!.vendor == 'ios'
+                              ? 'App Store'
+                              : 'Play Market',
                     ),
                     const SizedBox(
                       height: 14,
                     ),
-                    //Todo Subscription
-                     _DetailsSection(
+                    _DetailsSection(
                       title: LocalizedTexts.memberSince,
-                      value:  _getDate(state.data.subscription?.createdAt) ?? '',
+                      value: _getDate(state.data.subscription?.purchasedAt) ?? '',
                     ),
                     const SizedBox(
                       height: 14,
@@ -96,17 +99,20 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
     );
   }
 
-  String?  _getDate(String? timeStamp) {
-    if(timeStamp == null) {return null;}
-
+  String? _getDate(String? timeStamp) {
+    if (timeStamp == null) {
+      return null;
+    }
     final date = DateFormat('yyyy-MM-ddTHH:mm:sssZ').parseUtc(timeStamp).toLocal();
     return DateFormat('dd MMM yyyy').format(date);
   }
 
-  _errorListener(BuildContext context, ManageSubscriptionState state) {
+  _errorListener(BuildContext context, SubscriptionState state) {
+    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
+
     showAppSnackBar(
       context: context,
-      text: 'Something went wrong, try again',
+      text: errorMessage,
       background: AppColors.red,
       textColor: Colors.white,
     );

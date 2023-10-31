@@ -6,10 +6,12 @@ part 'verify_purchase_data.g.dart';
 @immutable
 @JsonSerializable()
 class VerifyPurchaseData {
-  final String purchaseToken;
+  final String receipt;
+  final String transactionId;
 
   const VerifyPurchaseData({
-    required this.purchaseToken,
+    required this.receipt,
+    required this.transactionId,
   });
 
   factory VerifyPurchaseData.fromJson(Map<String, dynamic> json) => _$VerifyPurchaseDataFromJson(json);

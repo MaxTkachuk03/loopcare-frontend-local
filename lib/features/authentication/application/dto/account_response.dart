@@ -33,7 +33,7 @@ class AccountResponse {
   final FoodPreferences foodPreferences;
   final GroupingPreferences? groupingPreferences;
   //Todo Subscription
-  @JsonKey(ignore: true)
+  // @JsonKey(ignore: true)
   final Subscription? subscription;
   @JsonKey(unknownEnumValue: UnlockedFeatureType.unknown)
   final List<UnlockedFeatureType> unlockedFeatures;
