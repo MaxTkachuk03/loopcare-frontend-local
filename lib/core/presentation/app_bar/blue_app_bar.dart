@@ -14,6 +14,7 @@ class BlueAppBar extends StatefulWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final Function()? onCustomTap;
   final Function()? onClose;
+  final bool isPlanningMeals;
 
   const BlueAppBar({
     Key? key,
@@ -26,6 +27,7 @@ class BlueAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.actions,
     this.onCustomTap,
     this.onClose,
+    this.isPlanningMeals = false,
   }) : super(key: key);
 
   @override
@@ -43,7 +45,8 @@ class _BlueAppBarState extends State<BlueAppBar> {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (BuildContext context, state) {
         return AppBar(
-          backgroundColor: state.isPlanningMeals ? AppColors.darkGreen : AppColors.blueAppBar,
+          backgroundColor:
+              state.isPlanningMeals || widget.isPlanningMeals ? AppColors.darkGreen : AppColors.blueAppBar,
           title: (title != null)
               ? _Title(
                   title: title,

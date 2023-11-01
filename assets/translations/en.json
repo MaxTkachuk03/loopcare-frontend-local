@@ -660,6 +660,8 @@
   "chooseDateFor": "Choose date for {mealCategory}",
   "youCanChangeTheDate": "You can change the date and/or plan it on multiple days. Don’t forget to save your changes if you made any",
   "weekWithNumber": "WEEK {number}",
+  "capitalizeWeekWithNumber": "Week {number}",
+  "weekDates": "{from} to {to} {month}",
   "saveChanges": "Save changes",
   "thisMealPlannedFor": "This meal is planned for",
   "saveDateError": "You first have to select another date before you can deslect this one",

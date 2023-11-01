@@ -2,37 +2,28 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
-import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
-import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
+import 'package:loopcare_frontend/features/nutrition/application/choose_date/choose_date_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/log_planned_meals/widgets/planned_meal_card.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/week_planner/widgets/selected_day_list.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/widgets/grouped_meal_list/grouped_meal_list.dart';
 
-class PlannedMealCarousel extends StatefulWidget {
-  final NameLabel selectedMealCategory;
-
-  const PlannedMealCarousel({
+class WeekPlannerCarousel extends StatefulWidget {
+  const WeekPlannerCarousel({
     Key? key,
-    required this.selectedMealCategory,
   }) : super(key: key);
 
   @override
-  _PlannedMealCarouselState createState() => _PlannedMealCarouselState();
+  State createState() => _WeekPlannerCarouselState();
 }
 
-class _PlannedMealCarouselState extends State<PlannedMealCarousel> {
+class _WeekPlannerCarouselState extends State<WeekPlannerCarousel> {
   late PageController _pageController;
   int currentPage = 0;
 
   @override
   void initState() {
-    final plannedMealsForCurrentDate = context.read<MealsBloc>().state.plannedMealsForCurrentDate;
-    final indexCurrentCategory = plannedMealsForCurrentDate
-        .indexWhere((element) => element.mealCategory == widget.selectedMealCategory.label);
-    final initialPage = indexCurrentCategory > 0 ? indexCurrentCategory : 0;
-    setState(() {
-      currentPage = initialPage;
-    });
     _pageController = PageController(initialPage: currentPage, viewportFraction: .85);
 
     super.initState();
@@ -46,36 +37,29 @@ class _PlannedMealCarouselState extends State<PlannedMealCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MealsBloc, MealsState>(
+    return BlocBuilder<ChooseDateBloc, ChooseDateState>(
       builder: (context, state) {
         return Column(
           children: [
             Expanded(
               child: PageView.builder(
                 controller: _pageController,
-                itemCount: state.plannedMealsForCurrentDate.length,
+                itemCount: state.data.plannedMealsForSelectedWeek.length,
                 onPageChanged: _onPageChanged,
                 itemBuilder: (BuildContext context, index) {
-                  final groupedMealItem = groupBy(state.plannedMealsForCurrentDate[index].mealItems,
-                      (MealItem mealItem) => mealItem.type);
-
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: PlannedMealCard(
-                      plannedMealId: state.plannedMealsForCurrentDate[index].id,
-                      mealItem: groupedMealItem,
-                      mealCategory: state.plannedMealsForCurrentDate[index].mealCategory,
+                    child: SelectedDayList(
+                      mealsListItems: state.data.plannedMealsForSelectedWeek[index],
                     ),
                   );
                 },
               ),
             ),
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: state.plannedMealsForCurrentDate
+              children: state.data.plannedMealsForSelectedWeek
                   .mapIndexed(
                     (index, el) => Hexagon(
                       width: 16,

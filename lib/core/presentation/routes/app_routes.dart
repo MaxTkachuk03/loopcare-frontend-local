@@ -82,6 +82,7 @@ class AppRoutes {
   static const String home = '/home'; // added
   static const String account = 'account'; // added
   static const String chooseDate = 'choose-date'; // added
+  static const String weekPlanner = 'week-lanner'; // added
 
   // Dish
   static const String dishDetails = '/dish-details'; // added

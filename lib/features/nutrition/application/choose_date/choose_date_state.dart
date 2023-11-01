@@ -30,6 +30,7 @@ class ChooseDateData with _$ChooseDateData {
     @Default(null) DateTime? warningDate,
     @Default(false) bool showSaveWarning,
     @Default(false) bool showReplaceWarning,
+    @Default(null) DateTime? selectedDate,
     RequestError? error,
     DateTime? startTestTime,
   }) = _ChooseDateData;
@@ -44,6 +45,28 @@ class ChooseDateData with _$ChooseDateData {
 
   List<MealsListItem> get plannedMealsForWarningDate {
     return plannedMeals[getWarningDate.isoStringWithoutTime] ?? [];
+  }
+
+  List<MealsListItem> get plannedMealsForCurrentDate {
+    return plannedMeals[getCurrentDate.isoStringWithoutTime] ?? [];
+  }
+
+  List<List<MealsListItem>> get plannedMealsForSelectedWeek {
+    var retList = List<List<MealsListItem>>.filled(7, []);
+
+    if (plannedMeals.isNotEmpty) {
+      plannedMeals.forEach((key, value) {
+        var plannedDate = DateTime.parse(key);
+        if (plannedDate.isSameDate(currentDate?.firstDayOfCurrentWeek) ||
+            plannedDate.isSameDate(currentDate?.lastDayOfCurrentWeek) ||
+            plannedDate.isAfter(currentDate?.firstDayOfCurrentWeek) &&
+                plannedDate.isBefore(currentDate?.lastDayOfCurrentWeek)) {
+          var day = DateTime.parse(key).weekday - 1;
+          retList[day] = value;
+        }
+      });
+    }
+    return retList;
   }
 
   _weekDayElementMapper(List<DateTime> list) {

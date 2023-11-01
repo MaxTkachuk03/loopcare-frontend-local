@@ -29,6 +29,70 @@ class ChooseDateBloc extends Bloc<ChooseDateEvent, ChooseDateState> {
     on<SetData>(_onSetData);
     on<SelectDate>(_onSelectDate);
     on<GetPlannedMeals>(_onGetPlannedMeals);
+    on<SetCurrentDate>(_onSetCurrentDate);
+  }
+
+  FutureOr<void> _onSetCurrentDate(
+    SetCurrentDate event,
+    Emitter<ChooseDateState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        data: state.data.copyWith(
+          currentDate: event.currentDate,
+        ),
+      ),
+    );
+
+    //     if (event.currentDate.isBefore(DateTime.now())) {
+    //       final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
+    //       final plannedMeals = state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
+
+    //       emit(const MealsState.loading());
+
+    //       final response = await nutritionService.getMeals(
+    //         startDate: event.currentDate.beginDay.toIso8601String(),
+    //         endDate: event.currentDate.endDay.toIso8601String(),
+    //       );
+
+    //       response.fold(
+    //         (l) => emit(MealsState.error(l)),
+    //         (r) => emit(
+    //           MealsState.mealsInfo(
+    //             currentDate: event.currentDate,
+    //             meals: _combineMealsByDate(meals, r.data),
+    //             selectedServing: null,
+    //             plannedMeals: plannedMeals ?? {},
+    //           ),
+    //         ),
+    //       );
+    //     }
+
+    //     if (state.isNeededToFetchMeal) {
+    //       final plannedMeals = state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
+    //       final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
+
+    //       emit(const MealsState.loading());
+
+    //       final response = await nutritionService.getPlannedMeals(
+    //         startDate: event.currentDate.beginDay.toIso8601String(),
+    //         endDate: event.currentDate.endDay.toIso8601String(),
+    //       );
+
+    //       response.fold(
+    //         (l) => emit(MealsState.error(l)),
+    //         (r) => emit(
+    //           MealsState.mealsInfo(
+    //             currentDate: event.currentDate,
+    //             meals: meals ?? {},
+    //             selectedServing: null,
+    //             plannedMeals: _combinePlannedMealsByDate(plannedMeals, r.data),
+    //           ),
+    //         ),
+    //       );
+    //     }
+    //   },
+    // );
   }
 
   FutureOr<void> _onGetPlannedMeals(

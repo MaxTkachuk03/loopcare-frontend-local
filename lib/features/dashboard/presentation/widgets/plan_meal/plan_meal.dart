@@ -27,6 +27,14 @@ class PlanMeal extends StatelessWidget {
   }) : super(key: key);
 
   void onPressHandler(BuildContext context) {
+    weekPlanner(context);
+  }
+
+  void weekPlanner(BuildContext context) {
+    context.router.push(const WeekPlannerRoute());
+  }
+
+  void onPressHandlerOld(BuildContext context) {
     ModalBottomSheet.selectAMealDialog(
       context: context,
       filledList: context.read<MealsBloc>().state.filledPlannedMealCategories,
@@ -50,12 +58,12 @@ class PlanMeal extends StatelessWidget {
         mealsBloc.add(MealsEvent.addPlannedMeal(mealCategory));
         recipeBloc.add(RecipeEvent.getRecommendations(mealCategory));
 
-        context.router.push(
-          RecommendationsRoute(
-            mealCategory: item.name,
-            date: mealsBloc.state.getCurrentDate,
-          ),
-        );
+        // context.router.push(
+        //   RecommendationsRoute(
+        //     mealCategory: item.name,
+        //     date: mealsBloc.state.getCurrentDate,
+        //   ),
+        // );
         final plannedMeals = mealsBloc.state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
         final plannedMealsForCurrentDate = plannedMeals?[mealsBloc.state.getCurrentDate.isoStringWithoutTime]
             ?.firstWhereOrNull((element) => element.mealCategory == item.label);

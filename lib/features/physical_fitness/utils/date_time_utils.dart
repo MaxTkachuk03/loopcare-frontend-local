@@ -1,17 +1,54 @@
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/features/dashboard/domain/slider_calendar/week_element.dart';
 
 List<DateTime> getDaysInBeteween(DateTime startDate, DateTime endDate) {
   List<DateTime> days = [];
   for (int i = 0; i <= endDate.difference(startDate).inDays; i++) {
     days.add(
       DateTime(
-          startDate.year,
-          startDate.month,
-          // In Dart you can set more than. 30 days, DateTime will do the trick
-          startDate.day + i),
+        startDate.year,
+        startDate.month,
+        // In Dart you can set more than. 30 days, DateTime will do the trick
+        startDate.day + i,
+      ),
     );
   }
   return days;
+}
+
+List<WeekElement> getWeeksElementBeteween(DateTime startDate, DateTime endDate) {
+  var utcDate = DateTime.utc(startDate.year, startDate.month, startDate.day);
+  var date = findFirstDateOfTheWeek(utcDate);
+
+  List<WeekElement> weeks = List.generate((getWeeksBeteween(startDate, endDate)), (int index) {
+    date = date.add(const Duration(days: 7));
+
+    return WeekElement(
+      startDate: date,
+      endDate: date.lastDayOfCurrentWeek.toLocal(),
+      weekNumber: date.weekNumber,
+    );
+  }, growable: false);
+
+  return weeks;
+}
+
+List<int> getWeeksNumberBeteween(DateTime startDate, DateTime endDate) {
+  var date = findFirstDateOfTheWeek(startDate);
+
+  List<int> weeks = List.generate((getWeeksBeteween(startDate, endDate)), (int index) {
+    date = date.add(const Duration(days: 7));
+    return date.weekNumber;
+  }, growable: false);
+
+  return weeks;
+}
+
+int getWeeksBeteween(DateTime startDate, DateTime endDate) {
+  var daysBetween = endDate.difference(startDate).inDays;
+  var weeks = (daysBetween / 7).floor();
+
+  return weeks + 1;
 }
 
 bool isNotIdentical(List<DateTime> first, List<DateTime> second) {

@@ -322,6 +322,8 @@ class LocalizedTexts {
   static const String chooseDateFor = 'chooseDateFor';
   static const String youCanChangeTheDate = 'youCanChangeTheDate';
   static const String weekWithNumber = 'weekWithNumber';
+  static const String capitalizeWeekWithNumber = 'capitalizeWeekWithNumber';
+  static const String weekDates = 'weekDates';
   static const String saveChanges = 'saveChanges';
   static const String thisMealPlannedFor = 'thisMealPlannedFor';
   static const String saveDateError = 'saveDateError';

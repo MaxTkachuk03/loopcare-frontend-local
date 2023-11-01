@@ -78,6 +78,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/recipe/recipe_
 import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/barcode_scanner_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/select_food_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/nutrition_instructions_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/week_planner/week_planner_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_activity_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_completed_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_frequency_page.dart';
@@ -428,6 +429,11 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.chooseDate,
       page: ChooseDateCalendarPage,
+    ),
+
+    AutoRoute(
+      path: AppRoutes.weekPlanner,
+      page: WeekPlannerPage,
     ),
 
     AutoRoute(

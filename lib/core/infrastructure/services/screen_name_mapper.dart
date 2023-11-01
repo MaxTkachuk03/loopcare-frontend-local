@@ -49,6 +49,7 @@ final screenNames = {
   'LegalStatementRoute': 'Legal Statement Screen', //added
   'PreferencesOverviewRoute': 'Preferences Overview Screen',
   'ChooseDateCalendarRoute': 'Plan Meal Choose Date Screen', //added
+  ' WeekPlannerRoute': 'Week Planner  Screen', //added
 
   'YouAndFoodIntroRoute': 'You and Food Screen',
   'TypesOfFoodRoute': 'Types of Food Screen',

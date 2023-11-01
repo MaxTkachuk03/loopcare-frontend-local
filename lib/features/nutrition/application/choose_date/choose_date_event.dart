@@ -19,4 +19,8 @@ class ChooseDateEvent with _$ChooseDateEvent {
     DateTime startDate,
     DateTime endDate,
   ) = GetPlannedMeals;
+
+  const factory ChooseDateEvent.setCurrentDate(
+    DateTime currentDate,
+  ) = SetCurrentDate;
 }

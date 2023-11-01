@@ -57,6 +57,10 @@ extension DateTimeExtension on DateTime {
     return DateFormat('MMM', 'en_EN').format(this);
   }
 
+  String get dayInMonth {
+    return DateFormat('d', 'en_EN').format(this);
+  }
+
   int get secondNextWeekNumber {
     final now = this;
     return now.add(const Duration(days: 14)).weekNumber;
