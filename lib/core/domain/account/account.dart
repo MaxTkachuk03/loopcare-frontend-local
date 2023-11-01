@@ -23,6 +23,7 @@ abstract class Account implements _$Account {
     required bool isPreferencesComplete,
     required SexType gender,
     required String bioGender,
+    required Subscription subscription,
     @Default(null) UserGroupingState? groupingState,
     @Default(null) int? groupId,
     @Default(null) DateTime? groupingStartedAt,
@@ -38,9 +39,6 @@ abstract class Account implements _$Account {
     @Default([]) List<FoodPreference>? foodPreferencesDislikes,
     @Default([]) List<FoodPreference>? foodPreferencesAllergic,
     @Default([]) List<UnlockedFeatureType> unlockedFeatures,
-    //Todo Subscription
-    @JsonKey(ignore: true)
-    @Default(Subscription())  Subscription subscription,
     PhysicalActivitiesPreferences? physicalActivitiesPreferences,
   }) = _Account;
 

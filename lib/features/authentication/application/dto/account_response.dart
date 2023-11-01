@@ -32,9 +32,7 @@ class AccountResponse {
   final DiabetesType diabetes;
   final FoodPreferences foodPreferences;
   final GroupingPreferences? groupingPreferences;
-  //Todo Subscription
-  // @JsonKey(ignore: true)
-  final Subscription? subscription;
+  final Subscription subscription;
   @JsonKey(unknownEnumValue: UnlockedFeatureType.unknown)
   final List<UnlockedFeatureType> unlockedFeatures;
   final PhysicalActivitiesPreferences? physicalActivitiesPreferences;
@@ -59,7 +57,7 @@ class AccountResponse {
     required this.groupingPreferences,
     required this.unlockedFeatures,
     required this.physicalActivitiesPreferences,
-    this.subscription,
+    required this.subscription,
   });
 
   factory AccountResponse.fromJson(Map<String, dynamic> json) => _$AccountResponseFromJson(json);

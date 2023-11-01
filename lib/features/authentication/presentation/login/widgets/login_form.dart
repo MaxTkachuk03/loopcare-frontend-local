@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_se
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
@@ -37,53 +38,47 @@ class _LoginFormState extends State<LoginForm> {
   @override
   void dispose() {
     super.dispose();
-
     _passwordController.dispose();
     _emailController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<AuthenticationCubit, AuthenticationState>(
-          listener: _errorListener,
-        ),
-        BlocListener<AuthenticationCubit, AuthenticationState>(
-          listener: _navigationListener,
-        ),
-      ],
-      child: Form(
-        key: _formKey,
-        onChanged: _onChangedForm,
-        child: Column(
-          children: [
-            Field(
-              controller: _emailController,
-              hintText: LocalizedTexts.yourEmail.tr(),
-              validator: emailValidator(),
-              prefixIcon: AppIcons.iconMail,
-              keyboardType: TextInputType.emailAddress,
-              contentPadding: const EdgeInsets.only(bottom: 0.0, top: 15.0),
-            ),
-            const SizedBox(height: 10.0),
-            Field(
-              hintText: LocalizedTexts.yourPassword.tr(),
-              prefixIcon: AppIcons.iconLock,
-              isToggleEye: true,
-              obscureText: true,
-              controller: _passwordController,
-              validator: loginPasswordValidator(),
-              contentPadding: const EdgeInsets.only(bottom: 0.0, top: 15.0),
-            ),
-            const SizedBox(height: 32.0),
-            ElevatedButton(
-              onPressed: _isDisabled ? null : _onLogin,
-              child: Text(LocalizedTexts.loginBtn.tr()),
-            ),
-          ],
-        ),
-      ),
+    return BlocConsumer<AuthenticationCubit, AuthenticationState>(
+      listener: _navigationListener,
+      builder: (BuildContext context, AuthenticationState state) {
+        return Form(
+          key: _formKey,
+          onChanged: _onChangedForm,
+          child: Column(
+            children: [
+              Field(
+                controller: _emailController,
+                hintText: LocalizedTexts.yourEmail.tr(),
+                validator: emailValidator(),
+                prefixIcon: AppIcons.iconMail,
+                keyboardType: TextInputType.emailAddress,
+                contentPadding: const EdgeInsets.only(bottom: 0.0, top: 15.0),
+              ),
+              const SizedBox(height: 10.0),
+              Field(
+                hintText: LocalizedTexts.yourPassword.tr(),
+                prefixIcon: AppIcons.iconLock,
+                isToggleEye: true,
+                obscureText: true,
+                controller: _passwordController,
+                validator: loginPasswordValidator(),
+                contentPadding: const EdgeInsets.only(bottom: 0.0, top: 15.0),
+              ),
+              const SizedBox(height: 32.0),
+              ElevatedButton(
+                onPressed: _isDisabled ? null : _onLogin,
+                child: Text(LocalizedTexts.loginBtn.tr()),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -98,13 +93,32 @@ class _LoginFormState extends State<LoginForm> {
 
   _onLogin() {
     context.read<AuthenticationCubit>().login(
-          _emailController.text,
-          _passwordController.text,
-        );
+      _emailController.text,
+      _passwordController.text,
+    );
   }
 
-  void _errorListener(BuildContext context, AuthenticationState state) {
+  void _navigationListener(BuildContext context, AuthenticationState state) {
+    debugPrint('devcpp LOGIN: _navigationListener: ${state}');
     state.mapOrNull(
+      authenticated: (state) {
+        String route;
+        if (state.hasActiveSubscription) {
+          route = state.isPreferencesComplete ? AppRoutes.home : AppRoutes.preferencesOverview;
+        } else {
+          route = AppRoutes.subscription;
+        }
+        debugPrint('devcpp Nav: $route');
+        MixpanelEventService.instance.track(
+          AppMixpanelEvents.loginSuccess,
+          {
+            'userId': state.account.id,
+            'email': state.account.email,
+            'nextRoute': route.toString(),
+          },
+        );
+        pushNamedAndClearStack(context, route);
+      },
       guest: (state) {
         final error = state.error;
         if (error != null) {
@@ -150,25 +164,8 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  void _navigationListener(BuildContext context, AuthenticationState state) {
-    state.mapOrNull(
-      authenticated: (state) {
-        PageRouteInfo<void> route;
-        if (state.hasActiveSubscription) {
-          route = state.isPreferencesComplete ? const HomeRoute() : const PreferencesOverviewRoute();
-        } else {
-          route = const SubscriptionRoute();
-        }
-        MixpanelEventService.instance.track(
-          AppMixpanelEvents.loginSuccess,
-          {
-            'userId': state.account.id,
-            'email': state.account.email,
-            'nextRoute': route.toString(),
-          },
-        );
-        context.router.replaceAll([route]);
-      },
-    );
+  Future<dynamic> pushNamedAndClearStack(BuildContext context, String path) {
+    context.router.popUntilRoot();
+    return context.router.replaceNamed(path);
   }
 }

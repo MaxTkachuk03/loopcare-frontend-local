@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
@@ -66,7 +67,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
         authTokenManager.setRefreshToken(response.refreshToken);
 
         _socketService.startListen();
-
+        debugPrint('devcpp login: emit');
         emit(
           AuthenticationState.authenticated(
             Account(
@@ -77,7 +78,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
               isPreferencesComplete: response.isPreferencesComplete,
               gender: response.gender,
               bioGender: response.bioGender,
-              subscription: response.s
+              subscription: response.subscription,
             ),
           ),
         );
@@ -147,6 +148,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
               foodPreferencesAllergic: r.foodPreferences.allergic,
               unlockedFeatures: r.unlockedFeatures,
               physicalActivitiesPreferences: r.physicalActivitiesPreferences,
+              subscription: r.subscription,
             ),
           ));
         },

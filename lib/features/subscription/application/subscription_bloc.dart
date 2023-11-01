@@ -151,6 +151,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     emit(
       SubscriptionState.successInPlans(state.data.copyWith(isLoading: false, plans: plans)),
     );
+    add(const SubscriptionEvent.getActiveSubscription());
   }
 
   FutureOr<void> _onGetActiveSubscription(

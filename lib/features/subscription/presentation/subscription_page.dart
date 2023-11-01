@@ -32,7 +32,6 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    controller.getActiveSubscriptionStatus();
     controller.getSubscriptionPlans();
   }
 
