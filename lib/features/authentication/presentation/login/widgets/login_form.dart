@@ -85,7 +85,6 @@ class _LoginFormState extends State<LoginForm> {
   _onChangedForm() {
     final isValidForm =
         Email.create(_emailController.text).isRight() && LoginPassword.create(_passwordController.text).isRight();
-
     setState(() {
       _isDisabled = !isValidForm;
     });
@@ -99,7 +98,6 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _navigationListener(BuildContext context, AuthenticationState state) {
-    debugPrint('devcpp LOGIN: _navigationListener: ${state}');
     state.mapOrNull(
       authenticated: (state) {
         String route;
@@ -108,7 +106,6 @@ class _LoginFormState extends State<LoginForm> {
         } else {
           route = AppRoutes.subscription;
         }
-        debugPrint('devcpp Nav: $route');
         MixpanelEventService.instance.track(
           AppMixpanelEvents.loginSuccess,
           {
