@@ -77,6 +77,8 @@ class AppColors {
 
   static const Color FF313030 = Color(0xFF313030);
 
+  static const Color FF404040 = Color(0xFF404040);
+
   static const Color anotherBlue = Color(0xFF16AAB2);
 
   static const Color gridTitleGradientStart = Color(0xFF090A0A);

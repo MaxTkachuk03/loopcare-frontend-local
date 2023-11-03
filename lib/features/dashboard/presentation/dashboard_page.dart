@@ -5,9 +5,14 @@ import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-// import 'package:loopcare_frontend/features/dashboard/presentation/widgets/diary/diary.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/education.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/log_meal.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/person_mood/person_mood.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/physical_activities.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/plan_meal/plan_meal.dart';
 // import 'package:loopcare_frontend/features/dashboard/presentation/widgets/reflection/reflection.dart';
@@ -17,15 +22,11 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/weight
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
+import 'package:loopcare_frontend/features/mood/application/mood_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -47,7 +48,10 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
     context
         .read<DashboardWeightBloc>()
-        .add(DashboardWeightEvent.fetchWeights(_selectedDay.midnightTime.subtract(const Duration(days: 8))));
+        .add(DashboardWeightEvent.fetchWeights(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime));
+
+    context.read<MoodBloc>().add(MoodEvent.getMoods(
+        _selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime, DateTime.now().utcIsoStringFormat));
 
     _onRefresh();
 
@@ -82,17 +86,11 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
       _selectedDay = day;
       context.read<DashboardWeightBloc>().add(DashboardWeightEvent.setDate(day));
       context.read<MealsBloc>().add(MealsEvent.setCurrentDate(day));
+      context.read<MoodBloc>().add(MoodEvent.setDate(day));
       context
           .read<DashboardEducationBloc>()
           .add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
     });
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-
-    super.dispose();
   }
 
   @override
@@ -151,8 +149,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                             );
                           },
                         ),
-                        // const SizedBox(height: 10.0),
-                        // const Diary(),
+                        const SizedBox(height: 10.0),
+                        PersonMood(date: _selectedDay),
                         const SizedBox(height: 16.0),
                         Text(
                           LocalizedTexts.activities.translation,
@@ -224,5 +222,12 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+
+    super.dispose();
   }
 }
