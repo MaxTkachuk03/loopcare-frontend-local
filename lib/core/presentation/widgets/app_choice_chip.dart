@@ -17,6 +17,7 @@ class AppChoiceChip<T> extends StatelessWidget {
   final bool available;
   final bool recommended;
   final MultiChoiceType type;
+  final Widget? icon;
 
   const AppChoiceChip({
     Key? key,
@@ -31,6 +32,7 @@ class AppChoiceChip<T> extends StatelessWidget {
     this.available = true,
     this.recommended = false,
     this.type = MultiChoiceType.none,
+    this.icon,
   }) : super(key: key);
 
   @override
@@ -43,6 +45,7 @@ class AppChoiceChip<T> extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            icon ?? const SizedBox.shrink(),
             Expanded(
               child: AutoSizeText(
                 label,

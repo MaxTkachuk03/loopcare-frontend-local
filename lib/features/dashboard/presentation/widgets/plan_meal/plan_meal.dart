@@ -115,7 +115,7 @@ class PlanMeal extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        const Image(image: AppIcons.dashbordPlanMeals),
+                        const Image(image: AppIcons.dashboardPlanMeals),
                         const SizedBox(width: 24.0),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
