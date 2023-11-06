@@ -5,9 +5,8 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/application/choose_date/choose_date_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/log_planned_meals/widgets/planned_meal_card.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/week_planner/widgets/selected_day_list.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/grouped_meal_list/grouped_meal_list.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/week_planner/widgets/selected_week_list.dart';
 
 class WeekPlannerCarousel extends StatefulWidget {
   const WeekPlannerCarousel({
@@ -24,9 +23,39 @@ class _WeekPlannerCarouselState extends State<WeekPlannerCarousel> {
 
   @override
   void initState() {
-    _pageController = PageController(initialPage: currentPage, viewportFraction: .85);
+    initPage();
 
     super.initState();
+  }
+
+  void initPage() {
+    final selectedDate = context.read<ChooseDateBloc>().state.data.currentDate ?? DateTime.now().midnightTime;
+
+    final initialPage = selectedDate.isToday ? selectedDate.weekday : selectedDate.weekday - 1;
+
+    _pageController = PageController(
+      keepPage: false,
+      initialPage: currentPage,
+      viewportFraction: .85,
+    );
+
+    setState(() {
+      currentPage = initialPage;
+      jumpToPage();
+    });
+  }
+
+  void _dateChange(BuildContext context, _) {
+    initPage();
+    jumpToPage();
+  }
+
+  void jumpToPage() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_pageController.hasClients) {
+        _pageController.jumpToPage(currentPage);
+      }
+    });
   }
 
   @override
@@ -37,20 +66,27 @@ class _WeekPlannerCarouselState extends State<WeekPlannerCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChooseDateBloc, ChooseDateState>(
+    return BlocConsumer<ChooseDateBloc, ChooseDateState>(
+      listenWhen: (prev, cur) => prev.data.currentDate != cur.data.currentDate,
+      listener: _dateChange,
       builder: (context, state) {
+        var plannedMeals = state.data.plannedMealsForSelectedWeek;
         return Column(
           children: [
             Expanded(
               child: PageView.builder(
                 controller: _pageController,
-                itemCount: state.data.plannedMealsForSelectedWeek.length,
+                itemCount: plannedMeals.length,
                 onPageChanged: _onPageChanged,
                 itemBuilder: (BuildContext context, index) {
+                  final key = plannedMeals.keys.elementAt(index);
+                  final value = plannedMeals[key];
+
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: SelectedDayList(
-                      mealsListItems: state.data.plannedMealsForSelectedWeek[index],
+                    child: SelectedWeekList(
+                      mealsListItems: value ?? [],
+                      date: DateTime.parse(key),
                     ),
                   );
                 },
@@ -59,7 +95,7 @@ class _WeekPlannerCarouselState extends State<WeekPlannerCarousel> {
             const SizedBox(height: 20.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: state.data.plannedMealsForSelectedWeek
+              children: plannedMeals.entries
                   .mapIndexed(
                     (index, el) => Hexagon(
                       width: 16,
@@ -82,5 +118,13 @@ class _WeekPlannerCarouselState extends State<WeekPlannerCarousel> {
     setState(() {
       currentPage = index;
     });
+
+    var chooseDateBloc = context.read<ChooseDateBloc>();
+
+    var plannedMeals = chooseDateBloc.state.data.plannedMealsForSelectedWeek;
+    final key = plannedMeals.keys.elementAt(index);
+    var day = (DateTime.parse(key));
+
+    context.read<MealsBloc>().add(MealsEvent.setCurrentDate(day));
   }
 }

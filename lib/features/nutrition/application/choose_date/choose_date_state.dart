@@ -51,20 +51,26 @@ class ChooseDateData with _$ChooseDateData {
     return plannedMeals[getCurrentDate.isoStringWithoutTime] ?? [];
   }
 
-  List<List<MealsListItem>> get plannedMealsForSelectedWeek {
-    var retList = List<List<MealsListItem>>.filled(7, []);
+  Map<String, List<MealsListItem>> get plannedMealsForSelectedWeek {
+    var retList = <String, List<MealsListItem>>{};
 
-    if (plannedMeals.isNotEmpty) {
-      plannedMeals.forEach((key, value) {
-        var plannedDate = DateTime.parse(key);
-        if (plannedDate.isSameDate(currentDate?.firstDayOfCurrentWeek) ||
-            plannedDate.isSameDate(currentDate?.lastDayOfCurrentWeek) ||
-            plannedDate.isAfter(currentDate?.firstDayOfCurrentWeek) &&
-                plannedDate.isBefore(currentDate?.lastDayOfCurrentWeek)) {
-          var day = DateTime.parse(key).weekday - 1;
-          retList[day] = value;
-        }
-      });
+    if (currentDate != null) {
+      var startWeekDay = currentDate?.firstDayOfCurrentWeek;
+      var daysOfWeek = getDaysInBeteween(startWeekDay, startWeekDay.add(const Duration(days: 6)));
+
+      retList = {for (var item in daysOfWeek) item.isoStringWithoutTime: []};
+
+      if (plannedMeals.isNotEmpty) {
+        plannedMeals.forEach((key, value) {
+          var plannedDate = DateTime.parse(key);
+          if (plannedDate.isSameDate(currentDate?.firstDayOfCurrentWeek) ||
+              plannedDate.isSameDate(currentDate?.lastDayOfCurrentWeek) ||
+              plannedDate.isAfter(currentDate?.firstDayOfCurrentWeek) &&
+                  plannedDate.isBefore(currentDate?.lastDayOfCurrentWeek)) {
+            retList[key] = value;
+          }
+        });
+      }
     }
     return retList;
   }

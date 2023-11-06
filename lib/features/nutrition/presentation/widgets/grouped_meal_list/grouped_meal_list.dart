@@ -18,6 +18,7 @@ class GroupedMealList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: mealItems.length,
       itemBuilder: (BuildContext context, index) {
@@ -37,15 +38,17 @@ class GroupedMealList extends StatelessWidget {
               ),
             if (type == prevType) const SizedBox(width: 16.0),
             const SizedBox(width: 12.0),
-            Text(
-              '${item.name}$recipeNotation',
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.darkGreen,
-                  ),
-            )
+            Expanded(
+              child: Text(
+                '${item.name}$recipeNotation',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.darkGreen,
+                    ),
+              ),
+            ),
           ],
         );
       },

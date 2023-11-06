@@ -171,7 +171,7 @@ class MealsState with _$MealsState {
         return selectedDayMeals
             .where((item) => item.mealItems.isNotEmpty)
             .toList()
-            .map((e) => e.mealCategory)
+            .map((e) => categoryShortVersion(e.mealCategory))
             .toList()
             .toSet()
             .toList();
@@ -231,7 +231,6 @@ class MealsState with _$MealsState {
   Map<String, List<MealsListItem>> get mealsMap {
     return maybeMap(
       mealsInfo: (s) {
-        var tmp = isPlanningMeals ? s.plannedMeals : s.meals;
         return isPlanningMeals ? s.plannedMeals : s.meals;
       },
       orElse: () => {},

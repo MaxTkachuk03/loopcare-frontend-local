@@ -669,5 +669,7 @@
   "youAlreadyPlanned": "You already planned a {mealCategory} for this day:",
   "andOtherDates": "and {number} other dates",
   "alreadyPlannedCategory": "{mealCategory} ALREADY PLANNED",
-  "replaceWith": "Replace with?"
+  "replaceWith": "Replace with?",
+  "nothingOnTheMenu": "Nothing on the menu yet",
+  "startPlanning": "Start planning"
 }

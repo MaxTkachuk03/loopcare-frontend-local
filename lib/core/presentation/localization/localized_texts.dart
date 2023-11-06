@@ -332,6 +332,8 @@ class LocalizedTexts {
   static const String andOtherDates = 'andOtherDates';
   static const String alreadyPlannedCategory = 'alreadyPlannedCategory';
   static const String replaceWith = 'replaceWith';
+  static const String nothingOnTheMenu = 'nothingOnTheMenu';
+  static const String startPlanning = 'startPlanning';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';

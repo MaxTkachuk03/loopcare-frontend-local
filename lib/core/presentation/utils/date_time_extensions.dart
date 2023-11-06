@@ -5,6 +5,10 @@ extension DateTimeExtension on DateTime {
     return year == other.year && month == other.month && day == other.day;
   }
 
+  bool get isToday {
+    return isSameDate(DateTime.now());
+  }
+
   DateTime get midnightTime {
     return DateTime(year, month, day);
   }
