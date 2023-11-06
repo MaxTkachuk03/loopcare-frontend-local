@@ -30,7 +30,7 @@ class Reflection extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Image(image: AppIcons.dashbordReflection),
+                  const Image(image: AppIcons.dashboardReflection),
                   const SizedBox(width: 24.0),
                   Expanded(
                     child: Column(

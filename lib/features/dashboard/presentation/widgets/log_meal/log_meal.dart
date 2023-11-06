@@ -92,7 +92,7 @@ class LogMeal extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const Image(image: AppIcons.dashbordLogMeals),
+                          const Image(image: AppIcons.dashboardLogMeals),
                           const SizedBox(width: 24.0),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

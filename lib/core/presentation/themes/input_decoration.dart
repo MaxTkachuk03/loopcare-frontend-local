@@ -41,7 +41,7 @@ class AppInputDecoration extends InputDecoration {
           disabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: _kDisabled),
           ),
-          filled: false,
+          filled: true,
           hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: _kHint,
                 fontSize: ThemeConstants.fontSize16,
@@ -96,7 +96,7 @@ class AppInputDecoration extends InputDecoration {
           disabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: _kDisabled),
           ),
-          filled: false,
+          filled: true,
           hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: _kHint,
                 fontSize: ThemeConstants.fontSize16,
@@ -114,7 +114,7 @@ class AppInputDecoration extends InputDecoration {
           errorText: errorText,
           suffixIcon: suffixIcon,
           errorMaxLines: errorMaxLines,
-          contentPadding: contentPadding ?? const EdgeInsets.symmetric(horizontal: 16),
+          contentPadding: contentPadding ?? const EdgeInsets.symmetric(vertical: 19.0, horizontal: 16.0),
         );
 }
 

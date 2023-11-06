@@ -68,7 +68,7 @@ class PlanMeal extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const Image(image: AppIcons.dashbordPlanMeals),
+                          const Image(image: AppIcons.dashboardPlanMeals),
                           const SizedBox(width: 24.0),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,6 +83,16 @@ class PlanMeal extends StatelessWidget {
                                           : AppColors.greyLabel,
                                     ),
                               ),
+                              if (currentPlannedMeals.isEmpty)
+                                Text(
+                                  LocalizedTexts.planYourMeals.translation,
+                                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                        fontFamily: ThemeConstants.bitterFontFamily,
+                                        color: state.isPossibleToPlanMeal
+                                            ? AppColors.darkGreen
+                                            : AppColors.greyLabel,
+                                      ),
+                                ),
                               if (currentPlannedMeals.isEmpty)
                                 Text(
                                   state.isPossibleToPlanMeal

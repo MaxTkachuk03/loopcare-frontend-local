@@ -105,8 +105,9 @@ class WeightBlock extends StatelessWidget {
               return ErrorScreen(
                 smallVersion: true,
                 error: error,
-                onButtonPressed: () =>
-                    context.read<DashboardWeightBloc>().add(DashboardWeightEvent.fetchWeights(date)),
+                onButtonPressed: () => context
+                    .read<DashboardWeightBloc>()
+                    .add(DashboardWeightEvent.fetchWeights(date.toUtc().toIso8601String())),
               );
             },
             orElse: () => const SizedBox.shrink(),

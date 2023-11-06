@@ -5,10 +5,10 @@ import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/infrastructure/dio_client/auth_token_interceptor.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/auth_token_interceptor.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -31,14 +31,9 @@ class DioClient {
     dio.interceptors.add(_authTokenInterceptor);
 
     if (dotenv.env['NEED_DIO_LOGGER'] == 'true') {
-      dio.interceptors.add(
-        PrettyDioLogger(
-          requestHeader: true,
-          requestBody: true,
-          // responseHeader: true,
-        ),
-      );
+      dio.interceptors.add(PrettyDioLogger(requestHeader: true, requestBody: true));
     }
+
     if (const String.fromEnvironment('FLAVOR') == 'dev') {
       dio.httpClientAdapter = _createAdapter();
     }
