@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/emoji_choice_chip.dart';
 import 'package:loopcare_frontend/features/mood/infrastructure/mood_emotion.dart';
 
 class MoodEmotionOption extends StatelessWidget {
@@ -20,7 +20,7 @@ class MoodEmotionOption extends StatelessWidget {
             .map(
               (e) => SizedBox(
                 width: width,
-                child: AppChoiceChip(
+                child: EmojiChoiceChip(
                   label: e.value,
                   icon: e.icon,
                   selected: selectedValues.contains(e),

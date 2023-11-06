@@ -3,20 +3,21 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 
 enum MoodEmotion {
   sad(1, 'Sad'),
-  worried(2, 'Worried'),
-  embarrassed(3, 'Embarrassed'),
-  bored(4, 'Bored'),
-  proud(5, 'Proud'),
-  happy(6, 'Happy'),
-  energised(7, 'Energized'),
-  sick(8, 'Sick'),
   angry(9, 'Angry'),
+  worried(2, 'Worried'),
   ashamed(10, 'Ashamed'),
+  embarrassed(3, 'Embarrassed'),
   nervous(11, 'Nervous'),
+  bored(4, 'Bored'),
   exhausted(12, 'Exhausted'),
+  proud(5, 'Proud'),
   content(13, 'Content'),
+  happy(6, 'Happy'),
   overwhelmed(14, 'Overwhelmed'),
+  energised(7, 'Energized'),
   hungry(15, 'Hungry'),
+  sick(8, 'Sick'),
+
   lonely(16, 'Lonely');
 
   const MoodEmotion(this.number, this.value);
@@ -40,7 +41,7 @@ enum MoodEmotion {
         return AppIcons.emojiProud;
       case 'Happy':
         return AppIcons.emojiHappy;
-      case 'Energised':
+      case 'Energized':
         return AppIcons.emojiEnergized;
       case 'Sick':
         return AppIcons.emojiSick;

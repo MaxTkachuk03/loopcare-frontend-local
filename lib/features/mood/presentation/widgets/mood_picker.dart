@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/mood/infrastructure/mood_picker_list.dart';
@@ -17,31 +18,31 @@ class MoodPicker extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       height: 65,
-      child: ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          itemCount: moodPickerList.length,
-          itemBuilder: (BuildContext context, int i) {
-            final item = moodPickerList[i];
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: moodPickerList.mapIndexed((i, el) {
+          final bool isSelected = value == el;
 
-            final bool isSelected = value == item;
-
-            return InkWell(
-              onTap: () => onItemPressed(item),
+          return Expanded(
+            child: InkWell(
+              onTap: () => onItemPressed(el),
               child: Container(
+                alignment: Alignment.center,
                 decoration: BoxDecoration(
                   border: i.isOdd
                       ? const Border.symmetric(vertical: BorderSide(width: 1, color: AppColors.FF404040))
                       : null,
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 14.5),
+                // padding: const EdgeInsets.symmetric(horizontal: 14.5),
                 child: Opacity(
                   opacity: isSelected ? 1 : 0.3,
-                  child: item.icon,
+                  child: el.icon,
                 ),
               ),
-            );
-          }),
+            ),
+          );
+        }).toList(),
+      ),
     );
   }
 }

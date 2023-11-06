@@ -21,7 +21,7 @@ class MoodStateData with _$MoodStateData {
     @Default(null) RequestError? error,
   }) = _MoodStateData;
 
-  String? get errorMessage => error?.maybeMap(notFound: (s) => s.error.message, orElse: () => null);
+  String? get errorMessage => error?.maybeMap(badRequest: (s) => s.error.message, notFound: (s) => s.error.message, orElse: () => null);
 
   List<Mood> getSelectedDayMoods(String date) => moods[date] ?? [];
 }

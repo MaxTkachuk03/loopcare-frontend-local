@@ -1,11 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -108,9 +109,11 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
   }
 
   _onErrorHandler(MoodState s) {
-    context.showErrorBar(
-      content: Text(s.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr()),
-      position: FlashPosition.top,
+    showAppSnackBar(
+      context: context,
+      text: s.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr(),
+      background: AppColors.red,
+      textColor: Colors.white,
     );
   }
 
@@ -133,53 +136,50 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
               child: BlocBuilder<MoodBloc, MoodState>(
                 builder: (context, state) {
                   return state.maybeMap(
-                    updated: (s) {
-                      return Form(
-                        key: _moodPageController.formKey,
-                        onChanged: () => _moodPageController.isFormValid,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 34.0),
-                            Text(LocalizedTexts.selectMoodText,
-                                    style: Theme.of(context).textTheme.headlineSmall)
-                                .tr(),
-                            const SizedBox(height: 12.0),
-                            ValueListenableBuilder<MoodPickerListItem?>(
-                              valueListenable: _moodPageController.moodValue,
-                              builder: (context, moodValue, _) =>
-                                  MoodPicker(onItemPressed: _onMoodValueChangeHandler, value: moodValue),
-                            ),
-                            const SizedBox(height: 12.0),
-                            MoodOptions(controller: _moodPageController),
-                            const SizedBox(height: 12.0),
-                            Text(LocalizedTexts.personalNote,
-                                    style: Theme.of(context).textTheme.headlineSmall)
-                                .tr(),
-                            const SizedBox(height: 12.0),
-                            MoodNoteField(_moodPageController),
-                            const SizedBox(height: 24.0),
-                            widget.mode.map(
-                              create: (_) => const SizedBox.shrink(),
-                              edit: (_) => SizedBox(
-                                width: 180,
-                                child: DeleteMoodBtn(onPress: _onDeleteMoodHandler),
-                              ),
-                            ),
-                            const SizedBox(height: 24.0),
-                            ValueListenableBuilder<bool>(
-                              valueListenable: _moodPageController.isValid,
-                              builder: (context, isValid, _) => ElevatedButton(
-                                onPressed: isValid ? _onConfirmPressed : null,
-                                child: Text(_btnText).tr(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
                     loading: (_) => const Loader(),
-                    orElse: () => const SizedBox.shrink(),
+                    orElse: () => Form(
+                      key: _moodPageController.formKey,
+                      onChanged: () => _moodPageController.isFormValid,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 34.0),
+                          Text(LocalizedTexts.selectMoodText,
+                                  style: Theme.of(context).textTheme.headlineSmall)
+                              .tr(),
+                          const SizedBox(height: 12.0),
+                          ValueListenableBuilder<MoodPickerListItem?>(
+                            valueListenable: _moodPageController.moodValue,
+                            builder: (context, moodValue, _) =>
+                                MoodPicker(onItemPressed: _onMoodValueChangeHandler, value: moodValue),
+                          ),
+                          const SizedBox(height: 12.0),
+                          MoodOptions(controller: _moodPageController),
+                          const SizedBox(height: 12.0),
+                          Text(LocalizedTexts.personalNote, style: Theme.of(context).textTheme.headlineSmall)
+                              .tr(),
+                          const SizedBox(height: 12.0),
+                          MoodNoteField(_moodPageController),
+                          const SizedBox(height: 24.0),
+                          widget.mode.map(
+                            create: (_) => const SizedBox.shrink(),
+                            edit: (_) => SizedBox(
+                              width: 180,
+                              child: DeleteMoodBtn(onPress: _onDeleteMoodHandler),
+                            ),
+                          ),
+                          const SizedBox(height: 24.0),
+                          ValueListenableBuilder<bool>(
+                            valueListenable: _moodPageController.isValid,
+                            builder: (context, isValid, _) => ElevatedButton(
+                              onPressed: isValid ? _onConfirmPressed : null,
+                              child: Text(_btnText).tr(),
+                            ),
+                          ),
+                          const SizedBox(height: 30.0),
+                        ],
+                      ),
+                    ),
                   );
                 },
               ),

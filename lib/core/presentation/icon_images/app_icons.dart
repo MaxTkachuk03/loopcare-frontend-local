@@ -99,20 +99,15 @@ class AppIcons {
   static SvgPicture dashboardMood =
       SvgPicture.asset('$iconsFilePath/dashboard_mood.svg', width: 44, height: 42);
 
-  static SvgPicture moodEmotionHappy =
-      SvgPicture.asset('$iconsFilePath/mood_emotion_happy.svg', width: 44, height: 42);
+  static SvgPicture moodEmotionHappy = SvgPicture.asset('$iconsFilePath/mood_emotion_happy.svg');
 
-  static SvgPicture moodEmotionJoy =
-      SvgPicture.asset('$iconsFilePath/mood_emotion_joy.svg', width: 44, height: 42);
+  static SvgPicture moodEmotionJoy = SvgPicture.asset('$iconsFilePath/mood_emotion_joy.svg');
 
-  static SvgPicture moodEmotionNeutral =
-      SvgPicture.asset('$iconsFilePath/mood_emotion_neutral.svg', width: 44, height: 42);
+  static SvgPicture moodEmotionNeutral = SvgPicture.asset('$iconsFilePath/mood_emotion_neutral.svg');
 
-  static SvgPicture moodEmotionAngry =
-      SvgPicture.asset('$iconsFilePath/mood_emotion_angry.svg', width: 44, height: 42);
+  static SvgPicture moodEmotionAngry = SvgPicture.asset('$iconsFilePath/mood_emotion_angry.svg');
 
-  static SvgPicture moodEmotionSad =
-      SvgPicture.asset('$iconsFilePath/mood_emotion_sad.svg', width: 44, height: 42);
+  static SvgPicture moodEmotionSad = SvgPicture.asset('$iconsFilePath/mood_emotion_sad.svg');
 
   static SvgPicture emojiSad = SvgPicture.asset('$iconsFilePath/sad.svg', width: 30, height: 30);
 

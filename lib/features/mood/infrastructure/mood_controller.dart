@@ -30,11 +30,8 @@ class MoodController {
 
   bool get isFormValid => isValid.value = (noteFieldKey.currentState?.isValid ?? false) &&
       moodValue.value != null &&
-      timeValue.value != null &&
-      withWhoValues.value.isNotEmpty &&
-      whereValues.value.isNotEmpty &&
-      foodValues.value.isNotEmpty &&
-      emotionValues.value.isNotEmpty;
+      timeValue.value != null;
+
 
   void setMoodInitialValues(Mood value) {
     final moodValue = MoodUtils.getMoodByValue(value.scale);
