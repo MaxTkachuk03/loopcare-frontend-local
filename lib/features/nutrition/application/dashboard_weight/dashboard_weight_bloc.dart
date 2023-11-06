@@ -112,7 +112,7 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
     final Map<String, DashboardWeightItem> weights = Map.from(state.data.weights);
 
     final data = LogWeightBody(
-      date: event.date.toIso8601String(),
+      date: event.date.toUtc().toIso8601String(),
       weight: event.weight,
     );
 
