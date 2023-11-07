@@ -145,6 +145,5 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
       background: AppColors.red,
       textColor: Colors.white,
     );
-    context.router.replaceNamed(AppRoutes.home);
   }
 }
