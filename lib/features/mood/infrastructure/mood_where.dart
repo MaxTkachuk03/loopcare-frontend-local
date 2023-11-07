@@ -2,12 +2,13 @@ enum MoodWhere {
   work(9, 'Work'),
   home(8, 'Home'),
   study(7, 'Study'),
-  onHoliday(6, 'On holiday'),
-  party(5, 'Party'),
-  inTown(4, 'In town'),
-  physicalActivity(3, 'Physical Activity'),
-  socialMedia(2, '(Social) Media'),
-  relaxing(1, 'Relaxing');
+  traveling(6, 'Traveling'),
+  onHoliday(5, 'On holiday'),
+  party(4, 'Party'),
+  inTown(3, 'In town'),
+  physicalActivity(2, 'Physical Activity'),
+  socialMedia(1, '(Social) Media'),
+  relaxing(10, 'Relaxing');
 
   const MoodWhere(this.number, this.value);
 

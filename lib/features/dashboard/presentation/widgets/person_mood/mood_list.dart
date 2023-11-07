@@ -23,6 +23,8 @@ class MoodList extends StatelessWidget {
       itemCount: list.length,
       itemBuilder: (BuildContext context, int i) {
         final item = list[i];
+        final text =
+            '${item.dashboardTime} ${item.note.isEmpty ? item.location.map((e) => e).join(', ') : item.note}';
 
         return GestureDetector(
           onTap: isEditable ? () => onPressItem(item) : null,
@@ -33,7 +35,7 @@ class MoodList extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Text(
-                    '${item.dashboardTime} ${item.note}',
+                    text,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(fontStyle: FontStyle.italic),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

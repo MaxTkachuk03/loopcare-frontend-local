@@ -163,10 +163,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                           const SizedBox(height: 24.0),
                           widget.mode.map(
                             create: (_) => const SizedBox.shrink(),
-                            edit: (_) => SizedBox(
-                              width: 180,
-                              child: DeleteMoodBtn(onPress: _onDeleteMoodHandler),
-                            ),
+                            edit: (_) => DeleteMoodBtn(onPress: _onDeleteMoodHandler),
                           ),
                           const SizedBox(height: 24.0),
                           ValueListenableBuilder<bool>(

@@ -62,7 +62,7 @@ class MoodOptions extends StatelessWidget {
               valueListenable: controller.withWhoValues,
               builder: (context, withWhoValue, _) {
                 final subTitle = withWhoValue.isEmpty
-                    ? LocalizedTexts.makeChoice
+                    ? LocalizedTexts.makeChoice.tr()
                     : withWhoValue.map((e) => e.value).join(', ').toString();
 
                 return MoodOptionItem(
@@ -77,7 +77,7 @@ class MoodOptions extends StatelessWidget {
               valueListenable: controller.whereValues,
               builder: (context, whereValues, _) {
                 final subTitle = whereValues.isEmpty
-                    ? LocalizedTexts.makeChoice
+                    ? LocalizedTexts.makeChoice.tr()
                     : whereValues.map((e) => e.value).join(', ').toString();
 
                 return MoodOptionItem(
@@ -92,7 +92,7 @@ class MoodOptions extends StatelessWidget {
               valueListenable: controller.foodValues,
               builder: (context, foodValues, _) {
                 final subTitle = foodValues.isEmpty
-                    ? LocalizedTexts.makeChoice
+                    ? LocalizedTexts.makeChoice.tr()
                     : foodValues.map((e) => e.value).join(', ').toString();
 
                 return MoodOptionItem(
