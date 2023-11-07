@@ -31,13 +31,13 @@ class PhysicalProgramsPage extends StatelessWidget {
             );
           },
           loading: (_) => Scaffold(
-            appBar: OrangeAppBar(title: state.data.programType.label),
+            appBar: OrangeAppBar(title: state.data.programType?.label ?? ''),
             body: const SafeArea(
               child: Loader(),
             ),
           ),
           orElse: () => Scaffold(
-            appBar: OrangeAppBar(title: state.data.programType.label),
+            appBar: OrangeAppBar(title: state.data.programType?.label ?? ''),
             body: SafeArea(
               child: ScrollableContainer(
                 child: Column(
@@ -72,8 +72,7 @@ class PhysicalProgramsPage extends StatelessWidget {
                                 const SizedBox(height: 16.0),
                                 if (state.data.getAlternativePrograms.isNotEmpty)
                                   const Text(LocalizedTexts.alternatives).tr(),
-                                if (state.data.getAlternativePrograms.isNotEmpty)
-                                  const SizedBox(height: 16.0),
+                                if (state.data.getAlternativePrograms.isNotEmpty) const SizedBox(height: 16.0),
                               ],
                             ),
                         ],

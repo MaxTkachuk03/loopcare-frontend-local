@@ -31,6 +31,8 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
   late TabController _tabController;
   late List<String> tabs;
 
+  SearchMode get searchType => SearchMode.values.toList()[_tabController.index];
+
   @override
   initState() {
     super.initState();
@@ -39,8 +41,7 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
     if (mode != null) {
       tabs = <String>[mode.label];
     } else {
-      tabs =
-          SearchMode.values.where((e) => e.label != SearchMode.favorite.label).map((e) => e.label).toList();
+      tabs = SearchMode.values.where((e) => e.label != SearchMode.favorite.label).map((e) => e.label).toList();
     }
 
     _tabController = TabController(
@@ -70,8 +71,7 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
             child: Padding(
               padding: const EdgeInsets.fromLTRB(25, 8, 0, 8),
               child: BlocListener<SearchBloc, SearchState>(
-                listenWhen: (prev, cur) =>
-                    prev.data.searchParameters.query != cur.data.searchParameters.query,
+                listenWhen: (prev, cur) => prev.data.searchParameters.query != cur.data.searchParameters.query,
                 listener: _searchQueryListener,
                 child: Field(
                   autofocus: true,
@@ -124,9 +124,8 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
 
   void _tabsChangeListener() {
     if (_tabController.indexIsChanging) {
-      context.read<SearchBloc>().add(const SearchEvent.resetData());
-
-      String? selectedMode = SearchMode.values.toList()[_tabController.index].searchModeValue;
+      context.read<SearchBloc>().add(SearchEvent.resetData(mode: searchType));
+      String? selectedMode = searchType.searchModeValue;
       searchMode = selectedMode;
       if (widget.onTabChanged != null) {
         widget.onTabChanged!(searchMode);
@@ -144,7 +143,7 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
 
   void _onTextChange(String value) {
     if (value.isEmpty) {
-      context.read<SearchBloc>().add(const SearchEvent.resetData());
+      context.read<SearchBloc>().add(SearchEvent.resetData(mode: searchType));
       return;
     }
 
@@ -157,9 +156,7 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
         );
   }
 
-  void _onCleared() {
-    context.read<SearchBloc>().add(const SearchEvent.resetData());
-  }
+  void _onCleared() => context.read<SearchBloc>().add(SearchEvent.resetData(mode: searchType));
 
   void _searchQueryListener(BuildContext context, SearchState state) {
     _searchTextController.text = state.data.searchParameters.query ?? '';

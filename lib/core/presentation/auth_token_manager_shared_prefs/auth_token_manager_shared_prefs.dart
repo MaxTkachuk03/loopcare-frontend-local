@@ -1,19 +1,19 @@
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/auth_token_service.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 
 const _accessTokenKey = 'access_token';
 const _refreshTokenKey = 'refresh_token';
 
 @Singleton(as: AuthTokenManager)
 class TokenManagerSharedPrefs extends AuthTokenManager {
-  final SharedPreferences _sharedPreferences;
+  final SharedStorageService _sharedPreferences;
   final AuthTokenService _authTokenService;
 
   final Set<AccessTokenListener> _listeners = {};
 
-  TokenManagerSharedPrefs(this._sharedPreferences, this._authTokenService);
+  TokenManagerSharedPrefs(this._authTokenService, this._sharedPreferences);
 
   _updateListener(String? token) {
     for (var l in _listeners) {

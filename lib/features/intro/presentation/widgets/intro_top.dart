@@ -4,7 +4,6 @@ import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/intro/presentation/widgets/intro_item.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 AppConfig appConfig = getIt<AppConfig>();

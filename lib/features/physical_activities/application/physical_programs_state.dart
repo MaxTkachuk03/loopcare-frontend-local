@@ -22,9 +22,9 @@ class PhysicalProgramsData with _$PhysicalProgramsData {
   const factory PhysicalProgramsData({
     @Default([]) List<PhysicalProgram> allPrograms,
     PhysicalProgram? currentProgram,
-    @Default(ProgramType.strength) ProgramType programType,
-    @Default(ProgramPlace.outdoor) ProgramPlace programPlace,
-    @Default(ProgramDifficulty.easy) ProgramDifficulty programDifficulty,
+    ProgramType? programType,
+    ProgramPlace? programPlace,
+    ProgramDifficulty? programDifficulty,
     @Default(false) bool isLoading,
     RequestError? error,
   }) = _PhysicalProgramsData;
