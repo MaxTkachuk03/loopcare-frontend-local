@@ -2,9 +2,9 @@ part of 'search_bloc.dart';
 
 @freezed
 class SearchEvent with _$SearchEvent {
-  const factory SearchEvent.resetData() = ResetData;
+  const factory SearchEvent.resetData({SearchMode? mode}) = ResetData;
 
-  const factory SearchEvent.addSearchResult(String query, SearchItemTypes type) = AddSearchResult;
+  const factory SearchEvent.addSearchResult(String query, SearchMode mode) = AddSearchResult;
 
   const factory SearchEvent.search(
     String query, {

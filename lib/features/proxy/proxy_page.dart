@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class ProxyPage extends StatefulWidget {
   const ProxyPage({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class _ProxyPageState extends State<ProxyPage> {
   }
 
   _onPressed() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = getIt<SharedStorageService>();
 
     prefs.setString('_ip', _ipController.text);
     prefs.setString('_port', _portController.text);

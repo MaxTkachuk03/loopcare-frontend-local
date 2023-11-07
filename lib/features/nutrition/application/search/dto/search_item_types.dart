@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 
 enum SearchItemTypes {
   @JsonValue("favorite")
@@ -34,6 +35,22 @@ extension SearchItemTypesX on SearchItemTypes {
 
       default:
         return AppIcons.magnifyingGlass;
+    }
+  }
+
+
+  SearchMode get searchModeValue {
+    switch (this) {
+      case SearchItemTypes.food:
+        return SearchMode.food;
+      case SearchItemTypes.dish:
+        return SearchMode.dish;
+      case SearchItemTypes.recipe:
+        return SearchMode.recipe;
+       case SearchItemTypes.favorite:
+        return SearchMode.favorite;
+      default:
+        return SearchMode.all;
     }
   }
 }
