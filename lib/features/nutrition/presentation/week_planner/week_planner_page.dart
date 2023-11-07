@@ -47,7 +47,7 @@ class _WeekPlannerPageState extends State<WeekPlannerPage> {
       context.read<ChooseDateBloc>().add(
             ChooseDateEvent.getPlannedMeals(
               _selectedDay,
-              _selectedDay.add(const Duration(days: 8)),
+              _selectedDay.add(const Duration(days: 15)),
             ),
           );
     });

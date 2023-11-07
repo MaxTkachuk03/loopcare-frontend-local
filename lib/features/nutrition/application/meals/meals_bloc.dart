@@ -748,23 +748,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     );
   }
 
-  Map<String, List<MealsListItem>> _deleteMealFromList(int mealItem) {
-    return state.maybeMap(
-      mealsInfo: (state) {
-        final currentDate = state.currentDate ?? DateTime.now();
-
-        Map<String, List<MealsListItem>> meals =
-            state.mealsMap.map((key, value) => MapEntry(key, [...value]));
-        var selectedDayMeals = meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
-
-        selectedDayMeals.removeWhere((e) => e.id == mealItem);
-
-        return meals;
-      },
-      orElse: () => {},
-    );
-  }
-
   FutureOr<void> _onAddDishToMeal(
     AddDishToMeal event,
     Emitter<MealsState> emit,

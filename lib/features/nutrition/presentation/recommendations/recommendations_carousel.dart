@@ -29,7 +29,6 @@ class _RecommendationsCarouselState extends State<RecommendationsCarousel> {
           padding: const EdgeInsets.only(right: 16),
           child: RecommendationCard(
             recommendation: widget.recommendations[index],
-            size: const RecommendationCardSize.large(),
           ),
         );
       },
