@@ -9,6 +9,11 @@ extension DateTimeExtension on DateTime {
     return DateTime(year, month, day);
   }
 
+  String get utsIsoStringWeekBeforeDateWithMidnightTime =>
+      midnightTime.subtract(const Duration(days: 8)).toUtc().toIso8601String();
+
+  String get utcIsoStringFormat => toUtc().toIso8601String();
+
   String get fullDateWithHyphen {
     return DateFormat('dd-MM-yyyy').format(this);
   }
@@ -19,6 +24,10 @@ extension DateTimeExtension on DateTime {
 
   String get shortDate {
     return DateFormat('d MMMM', 'en_EN').format(this);
+  }
+
+  String get shortDateWithYear {
+    return DateFormat('d MMMM y', 'en_EN').format(this);
   }
 
   String get fullDate {
@@ -35,6 +44,10 @@ extension DateTimeExtension on DateTime {
 
   String get timeHoursMinutes24 {
     return DateFormat('HH:mm', 'en_EN').format(this);
+  }
+
+  String get timeHoursMinutes12 {
+    return DateFormat.jm('en_EN').format(this);
   }
 
   String get timeHoursMinutes {

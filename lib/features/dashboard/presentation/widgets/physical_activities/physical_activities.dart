@@ -21,7 +21,6 @@ class PhysicalActivities extends StatefulWidget {
   final DateTime selectedDay;
 
   const PhysicalActivities({Key? key, required this.selectedDay}) : super(key: key);
-
   @override
   State<PhysicalActivities> createState() => _PhysicalActivitiesState();
 }

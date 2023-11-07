@@ -64,6 +64,8 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/weight_l
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_check_result_page.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_intro_page.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_question_page.dart';
+import 'package:loopcare_frontend/features/mood/presentation/create_mood_page.dart';
+import 'package:loopcare_frontend/features/mood/presentation/mood_option_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/daily_intake/daily_intake_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/log_planned_meals/log_planned_meals_page.dart';
@@ -577,6 +579,15 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.physicalActivitiesComplete,
       page: PhysicalActivitiesCompletePage,
+    ),
+    // Mood
+    AutoRoute(
+      path: AppRoutes.createMood,
+      page: CreateMoodPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.moodOption,
+      page: MoodOptionPage,
     ),
   ],
 )

@@ -123,7 +123,7 @@ class AppRoutes {
   static const String sessionCall = '/session-call'; // added
   static const String sessionRules = '/session-rules'; // added
 
-  // group preferences
+  // Group preferences
   static const String groupPreferences = '/group-preferences'; // added
   static const String timezone = '/timezone_preferences_page'; // added
   static const String groupRulesOne = '/group-rules-one'; // added
@@ -132,6 +132,10 @@ class AppRoutes {
   static const String groupRulesFour = '/group-rules-four'; // added
   static const String groupRulesFive = '/group-rules-five'; // added
   static const String groupRulesSix = '/group-rules-six'; // added
+
+  // Mood
+  static const String createMood = '/create-mood';
+  static const String moodOption = '/mood-option';
 
   AppRoutes._();
 }

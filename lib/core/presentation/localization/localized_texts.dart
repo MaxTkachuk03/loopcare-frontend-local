@@ -346,7 +346,7 @@ class LocalizedTexts {
   static const String logYourWeight = 'logYourWeight';
   static const String logYourMeals = 'logYourMeals';
   static const String planYourMeals = 'planYourMeals';
-  static const String diary = 'diary';
+  static const String mood = 'mood';
   static const String reflection = 'reflection';
   static const String activities = 'activities';
   static const String selectAMeal = 'selectAMeal';
@@ -393,6 +393,7 @@ class LocalizedTexts {
   static const String on = 'on';
   static const String off = 'off';
   static const String was = 'was';
+  static const String noMoodRecords = 'noMoodRecords';
 
   // Education
   static const String all = 'all';
@@ -731,6 +732,18 @@ class LocalizedTexts {
   static const String sessionWarning_1 = "sessionWarning_1";
   static const String sessionWarning_2 = "sessionWarning_2";
 
+  // Mood
+  static const String selectMoodText = "selectMoodText";
+  static const String time = "time";
+  static const String specifyEmotion = "specifyEmotion";
+  static const String withWho = "withWho";
+  static const String where = "where";
+  static const String makeChoice = "makeChoice";
+  static const String personalNote = "personalNote";
+  static const String errorMoodNoteMessage = "errorMoodNoteMessage";
+  static const String moodOptionPageEmotionTitle = "moodOptionPageEmotionTitle";
+  static const String deleteMood = "deleteMood";
+
   //Subscription
   static const String subscription = "subscription";
   static const String manageSubscription = "manageSubscription";
@@ -754,6 +767,7 @@ class LocalizedTexts {
   static const String subscriptionVia = "subscriptionVia";
   static const String memberSince = "memberSince";
   static const String automaticRenewalOn = "automaticRenewalOn";
+
 }
 
 extension StringX on String {

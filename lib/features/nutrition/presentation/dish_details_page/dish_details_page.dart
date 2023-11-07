@@ -64,7 +64,6 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
   @override
   void dispose() {
     _servingController.dispose();
-
     super.dispose();
   }
 

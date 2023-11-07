@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/small_outlined_button.dart';
 
 class JoinUsStep extends StatelessWidget {
   final String title;

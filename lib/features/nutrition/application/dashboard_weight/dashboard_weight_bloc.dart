@@ -48,7 +48,7 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
     emit(DashboardWeightState.loading(state.data.copyWith(isLoading: true)));
 
     final response = await nutritionService.getDashboardWeights(
-      event.startDate.toUtc().toIso8601String(),
+      event.startDate,
       DateTime.now().toUtc().toIso8601String(),
     );
 

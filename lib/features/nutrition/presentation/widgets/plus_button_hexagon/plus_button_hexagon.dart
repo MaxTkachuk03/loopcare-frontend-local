@@ -47,12 +47,11 @@ class PlusButtonHexagon extends StatelessWidget {
           final mealId = mealBloc.state.getCurrentMealId;
 
           if (mealId == null) {
-            print('Search item click freezed PlusButtonHexagon mealId == null line 50');
             return;
           }
 
           context.read<SearchBloc>().add(
-                SearchEvent.addSearchResult(item.name, item.type),
+                SearchEvent.addSearchResult(item.name, item.type.searchModeValue),
               );
 
           if (item.type == SearchItemTypes.food) {
