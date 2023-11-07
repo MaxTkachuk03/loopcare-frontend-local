@@ -767,7 +767,6 @@ class LocalizedTexts {
   static const String subscriptionVia = "subscriptionVia";
   static const String memberSince = "memberSince";
   static const String automaticRenewalOn = "automaticRenewalOn";
-
 }
 
 extension StringX on String {
