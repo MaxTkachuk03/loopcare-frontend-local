@@ -8,10 +8,10 @@ import 'package:loopcare_frontend/features/mood/infrastructure/utils.dart';
 
 class MoodList extends StatelessWidget {
   final List<Mood> list;
-  final bool isEditable;
+
   final void Function(Mood item) onPressItem;
 
-  const MoodList({super.key, required this.list, required this.isEditable, required this.onPressItem});
+  const MoodList({super.key, required this.list, required this.onPressItem});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class MoodList extends StatelessWidget {
             '${item.dashboardTime} ${item.note.isEmpty ? item.location.map((e) => e).join(', ') : item.note}';
 
         return GestureDetector(
-          onTap: isEditable ? () => onPressItem(item) : null,
+          onTap: () => onPressItem(item),
           child: Row(
             children: [
               MoodUtils.getMoodIconByValue(item.scale),

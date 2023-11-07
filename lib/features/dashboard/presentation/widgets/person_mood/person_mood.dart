@@ -84,7 +84,6 @@ class PersonMood extends StatelessWidget {
                   const Divider(color: AppColors.yellowLight),
                   MoodList(
                     list: moodValues,
-                    isEditable: isEditable,
                     onPressItem: (Mood item) => _onMoodItemPressedHandler(context, item),
                   ),
                 ],

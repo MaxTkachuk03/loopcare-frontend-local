@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/features/mood/infrastructure/mood_picker_list_
 
 class MoodPicker extends StatelessWidget {
   final MoodPickerListItem? value;
-  final void Function(MoodPickerListItem item) onItemPressed;
+  final void Function(MoodPickerListItem item)? onItemPressed;
 
   const MoodPicker({super.key, required this.onItemPressed, required this.value});
 
@@ -25,7 +25,7 @@ class MoodPicker extends StatelessWidget {
 
           return Expanded(
             child: InkWell(
-              onTap: () => onItemPressed(el),
+              onTap: () => onItemPressed?.call(el),
               child: Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(

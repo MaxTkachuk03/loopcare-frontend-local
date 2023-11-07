@@ -3,7 +3,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/app_input_limit_fiel
 import 'package:loopcare_frontend/features/mood/infrastructure/mood_controller.dart';
 
 class MoodNoteField extends AppLimitTextField {
-  MoodNoteField(MoodController controller, {super.key})
+  MoodNoteField(MoodController controller, bool readOnly, {super.key})
       : super(
           fieldKey: controller.noteFieldKey,
           focusNode: controller.noteFocusNode,
@@ -15,5 +15,6 @@ class MoodNoteField extends AppLimitTextField {
           limitCount: 300,
           minLines: 8,
           linesCount: 50,
+          readOnly: readOnly,
         );
 }

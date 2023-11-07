@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/dashboard/domain/dashboard_utils.dart';
 import 'package:loopcare_frontend/features/mood/application/mood_bloc.dart';
 import 'package:loopcare_frontend/features/mood/domain/mood.dart';
 import 'package:loopcare_frontend/features/mood/infrastructure/mood_controller.dart';
@@ -135,6 +136,8 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
             child: MainContainer(
               child: BlocBuilder<MoodBloc, MoodState>(
                 builder: (context, state) {
+                  final bool isEditable = DashboardUtils.isEditable(widget.date);
+
                   return state.maybeMap(
                     loading: (_) => const Loader(),
                     orElse: () => Form(
@@ -150,16 +153,17 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                           const SizedBox(height: 12.0),
                           ValueListenableBuilder<MoodPickerListItem?>(
                             valueListenable: _moodPageController.moodValue,
-                            builder: (context, moodValue, _) =>
-                                MoodPicker(onItemPressed: _onMoodValueChangeHandler, value: moodValue),
+                            builder: (context, moodValue, _) => MoodPicker(
+                                onItemPressed: isEditable ? _onMoodValueChangeHandler : null,
+                                value: moodValue),
                           ),
                           const SizedBox(height: 12.0),
-                          MoodOptions(controller: _moodPageController),
+                          MoodOptions(controller: _moodPageController, isEditable: isEditable),
                           const SizedBox(height: 12.0),
                           Text(LocalizedTexts.personalNote, style: Theme.of(context).textTheme.headlineSmall)
                               .tr(),
                           const SizedBox(height: 12.0),
-                          MoodNoteField(_moodPageController),
+                          MoodNoteField(_moodPageController, !isEditable),
                           const SizedBox(height: 24.0),
                           widget.mode.map(
                             create: (_) => const SizedBox.shrink(),
@@ -169,7 +173,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                           ValueListenableBuilder<bool>(
                             valueListenable: _moodPageController.isValid,
                             builder: (context, isValid, _) => ElevatedButton(
-                              onPressed: isValid ? _onConfirmPressed : null,
+                              onPressed: isValid && isEditable ? _onConfirmPressed : null,
                               child: Text(_btnText).tr(),
                             ),
                           ),

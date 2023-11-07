@@ -16,11 +16,14 @@ import 'package:loopcare_frontend/features/mood/presentation/widgets/mood_option
 
 class MoodOptions extends StatelessWidget {
   final MoodController controller;
+  final bool isEditable;
 
-  const MoodOptions({super.key, required this.controller});
+  const MoodOptions({super.key, required this.controller, required this.isEditable});
 
-  _onPressHandler(BuildContext context, MoodOptionPageMode mode) =>
-      () => context.router.push(MoodOptionRoute(mode: mode, controller: controller));
+  _onPressHandler(BuildContext context, MoodOptionPageMode mode) => () {
+        if (!isEditable) return;
+        context.router.push(MoodOptionRoute(mode: mode, controller: controller));
+      };
 
   @override
   Widget build(BuildContext context) {
