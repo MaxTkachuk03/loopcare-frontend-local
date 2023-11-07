@@ -13,11 +13,11 @@ import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
 class PlanMeal extends StatelessWidget {
-  final bool isEditable;
+  // final bool isEditable;
 
   const PlanMeal({
     Key? key,
-    required this.isEditable,
+    // required this.isEditable,
   }) : super(key: key);
 
   void onPressHandler(BuildContext context) {
@@ -74,15 +74,6 @@ class PlanMeal extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                LocalizedTexts.planYourMeals.translation,
-                                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                      fontFamily: ThemeConstants.bitterFontFamily,
-                                      color: state.isPossibleToPlanMeal
-                                          ? AppColors.darkGreen
-                                          : AppColors.greyLabel,
-                                    ),
-                              ),
                               if (currentPlannedMeals.isEmpty)
                                 Text(
                                   LocalizedTexts.planYourMeals.translation,
@@ -117,7 +108,7 @@ class PlanMeal extends StatelessWidget {
                             color: AppColors.bgGreen,
                             child: IconButton(
                               icon: ImageIcon(
-                                isEditable ? AppIcons.edit : AppIcons.plus,
+                                AppIcons.plus,
                                 color: AppColors.darkGreen,
                                 size: 12,
                               ),
