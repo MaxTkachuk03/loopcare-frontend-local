@@ -38,9 +38,7 @@ class UnitField extends StatelessWidget {
               keyboardType: TextInputType.numberWithOptions(
                 decimal: isDecimal ?? false,
               ),
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.allow(RegExp(_getRegexString()))
-              ],
+              inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.allow(RegExp(_getRegexString()))],
               style: Theme.of(context).textTheme.displayLarge,
               decoration: InputDecoration(
                 counterText: counterText,
@@ -70,9 +68,6 @@ class UnitField extends StatelessWidget {
 
   String _getRegexString() {
     final isDecimal = this.isDecimal;
-
-    return isDecimal != null && isDecimal
-        ? RegExpUtils.withDecimals
-        : RegExpUtils.onlyDigits;
+    return isDecimal != null && isDecimal ? RegExpUtils.withDecimals : RegExpUtils.onlyDigits;
   }
 }
