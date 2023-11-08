@@ -15,7 +15,6 @@ import 'package:loopcare_frontend/features/authentication/application/dto/mental
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/dto/registration_physical_fitness_data.dart';
 
-
 @singleton
 class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
   final AuthenticationService _authenticationService;
@@ -60,6 +59,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
 
     response.fold(
       (error) {
+        emit(const AuthenticationState.init());
         emit(AuthenticationState.guest(error: error));
       },
       (response) {

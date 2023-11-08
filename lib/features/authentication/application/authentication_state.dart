@@ -7,12 +7,13 @@ import 'package:loopcare_frontend/features/physical_fitness/domain/gender_prefer
 import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
 
 part 'authentication_state.freezed.dart';
-
 part 'authentication_state.g.dart';
 
 @Freezed(unionKey: 'type', unionValueCase: FreezedUnionCase.pascal)
 class AuthenticationState with _$AuthenticationState {
   const AuthenticationState._();
+
+  const factory AuthenticationState.init() = Init;
 
   const factory AuthenticationState.authenticated(
     Account account,
