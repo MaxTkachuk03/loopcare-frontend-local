@@ -116,19 +116,16 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
         Map<String, List<MealsListItem>> meals = _cleanPlannedMealsList(rawMeals, mealItem);
 
-        final loggingDate = mealItem.planningDates;
-        if (loggingDate != null) {
-          for (var i = 0; i < loggingDate.length; i++) {
-            var newDate = loggingDate[i].isoStringWithoutTime;
+        final planningDate = mealItem.planningDates;
+        if (planningDate != null) {
+          for (var i = 0; i < planningDate.length; i++) {
+            var newDate = planningDate[i].isoStringWithoutTime;
             var dayData = meals[newDate] ?? <MealsListItem>[];
 
-            // var updatedSelectedDayMeals = dayData.isEmpty
-            //     ? [mealItem]
-            //     : dayData.map((e) => e.id == mealItem.id ? mealItem : e).toList();
-
             final isAlreadyExist = dayData.contains(mealItem);
-            if (isAlreadyExist) continue;
-
+            if (isAlreadyExist) {
+              dayData.remove(mealItem);
+            }
             dayData.add(mealItem);
 
             meals[newDate] = dayData;
@@ -556,15 +553,33 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           response.fold(
             (l) => emit(MealsState.error(l)),
             (r) {
+              final updatedList = _deleteMealFromList(mealId);
               final newState = state.isPlanningMeals
-                  ? state.copyWith(plannedMeals: _getUpdatedPlannedMealsList(r))
-                  : state.copyWith(meals: _getUpdatedMealsList(r));
+                  ? state.copyWith(plannedMeals: updatedList)
+                  : state.copyWith(meals: updatedList);
 
               emit(newState);
             },
           );
         }
       },
+    );
+  }
+
+  Map<String, List<MealsListItem>> _deleteMealFromList(int mealItem) {
+    return state.maybeMap(
+      mealsInfo: (state) {
+        final currentDate = state.currentDate ?? DateTime.now();
+
+        Map<String, List<MealsListItem>> meals =
+            state.mealsMap.map((key, value) => MapEntry(key, [...value]));
+        var selectedDayMeals = meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+
+        selectedDayMeals.removeWhere((e) => e.id == mealItem);
+
+        return meals;
+      },
+      orElse: () => {},
     );
   }
 

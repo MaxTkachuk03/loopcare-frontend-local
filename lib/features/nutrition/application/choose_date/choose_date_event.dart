@@ -23,4 +23,6 @@ class ChooseDateEvent with _$ChooseDateEvent {
   const factory ChooseDateEvent.setCurrentDate(
     DateTime currentDate,
   ) = SetCurrentDate;
+
+  const factory ChooseDateEvent.fetchMealById(int id) = FetchMealById;
 }

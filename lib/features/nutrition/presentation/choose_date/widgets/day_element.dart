@@ -70,7 +70,6 @@ class DayElement extends StatelessWidget {
                   dayElement.name,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         color: _getDayTextColor(),
-                        // decoration: isSelected ? TextDecoration.underline : TextDecoration.none,
                         fontWeight: FontWeight.w600,
                       ),
                 ),

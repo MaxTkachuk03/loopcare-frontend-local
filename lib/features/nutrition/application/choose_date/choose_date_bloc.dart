@@ -30,6 +30,49 @@ class ChooseDateBloc extends Bloc<ChooseDateEvent, ChooseDateState> {
     on<SelectDate>(_onSelectDate);
     on<GetPlannedMeals>(_onGetPlannedMeals);
     on<SetCurrentDate>(_onSetCurrentDate);
+    on<FetchMealById>(_onFetchMealById);
+  }
+
+  FutureOr<void> _onFetchMealById(
+    FetchMealById event,
+    Emitter<ChooseDateState> emit,
+  ) async {
+    final response = await nutritionService.getPlannedMealById(event.id);
+
+    response.fold(
+      (l) => emit(ChooseDateState.error(state.data.copyWith(error: l))),
+      (r) => emit(
+        state.copyWith(
+          data: state.data.copyWith(
+            plannedMeals: _combinePlannedMealsByDate(state.data.plannedMeals, [r]),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Map<String, List<MealsListItem>> _combinePlannedMealsByDate(
+    Map<String, List<MealsListItem>>? previousMealsData,
+    List<MealsListItem> data,
+  ) {
+    Map<String, List<MealsListItem>> meals = Map<String, List<MealsListItem>>.from(previousMealsData ?? {});
+
+    for (var element in data) {
+      final loggingDates = element.planningDates;
+      if (loggingDates == null) continue;
+
+      for (var i = 0; i < loggingDates.length; i++) {
+        var loggingDate = loggingDates[i].isoStringWithoutTime;
+        List<MealsListItem> dayData = meals[loggingDate] ?? <MealsListItem>[];
+        final isAlreadyExist = dayData.contains(element);
+        if (isAlreadyExist) continue;
+
+        dayData.add(element);
+        meals[loggingDate] = dayData;
+      }
+    }
+
+    return meals;
   }
 
   FutureOr<void> _onSetCurrentDate(
@@ -79,30 +122,6 @@ class ChooseDateBloc extends Bloc<ChooseDateEvent, ChooseDateState> {
         ),
       ),
     );
-  }
-
-  Map<String, List<MealsListItem>> _combinePlannedMealsByDate(
-    Map<String, List<MealsListItem>>? previousMealsData,
-    List<MealsListItem> data,
-  ) {
-    Map<String, List<MealsListItem>> meals = Map<String, List<MealsListItem>>.from(previousMealsData ?? {});
-
-    for (var element in data) {
-      final loggingDates = element.planningDates;
-      if (loggingDates == null) continue;
-
-      for (var i = 0; i < loggingDates.length; i++) {
-        var loggingDate = loggingDates[i].isoStringWithoutTime;
-        List<MealsListItem> dayData = meals[loggingDate] ?? <MealsListItem>[];
-        final isAlreadyExist = dayData.contains(element);
-        if (isAlreadyExist) continue;
-
-        dayData.add(element);
-        meals[loggingDate] = dayData;
-      }
-    }
-
-    return meals;
   }
 
   FutureOr<void> _onSelectDate(

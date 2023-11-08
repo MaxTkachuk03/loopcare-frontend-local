@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/search_field.dart';
+import 'package:loopcare_frontend/features/nutrition/application/choose_date/choose_date_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_food_item_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
@@ -118,6 +119,8 @@ class UnderAppBarContainer extends StatelessWidget {
                         ),
                       ),
                     );
+                    context.read<ChooseDateBloc>().add(ChooseDateEvent.fetchMealById(int.parse(item.id)));
+
                     context.router.pushNamed(AppRoutes.meal);
                   }
                 },

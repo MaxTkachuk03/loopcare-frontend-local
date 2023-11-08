@@ -30,69 +30,84 @@ class _WeekPlannerPageState extends State<WeekPlannerPage> {
 
     _originSelectedDay = context.read<MealsBloc>().state.getCurrentDate;
 
-    _onSelectDay(DateTime.now());
-  }
-
-  String? _appBarSubtitle(BuildContext context) {
-    final state = context.read<MealsBloc>().state;
-
-    return state.getCurrentDate.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
-        ? null
-        : state.getCurrentDate.shortDate;
+    _onSelectDay(_originSelectedDay);
   }
 
   void _onSelectDay(DateTime day) {
     setState(() {
       _selectedDay = day;
+
       context.read<ChooseDateBloc>().add(
             ChooseDateEvent.getPlannedMeals(
-              _selectedDay,
-              _selectedDay.add(const Duration(days: 15)),
+              _selectedDay.firstDayOfCurrentWeek,
+              _selectedDay.firstDayOfCurrentWeek.add(
+                const Duration(days: 6),
+              ),
             ),
           );
+
+      context.read<ChooseDateBloc>().add(ChooseDateEvent.setCurrentDate(day));
     });
   }
 
+// TODO: Check this
+  Future<bool> _onWillPop() {
+    _setOriginDate();
+
+    return Future.value(true);
+  }
+
   void _onClose() {
-    final mealBloc = context.read<MealsBloc>();
-    mealBloc.add(MealsEvent.setCurrentDate(_originSelectedDay));
+    _setOriginDate();
 
     context.router.pop();
   }
 
+  void _setOriginDate() {
+    final mealBloc = context.read<MealsBloc>();
+    mealBloc.add(MealsEvent.setCurrentDate(_originSelectedDay));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: BlueAppBar(
-        isCustomLeading: false,
-        isPlanningMeals: true,
-        title: LocalizedTexts.planYourMeals.translation,
-        subtitle: _appBarSubtitle(context),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              onPressed: _onClose,
-              icon: const Icon(
-                Icons.close,
-                color: AppColors.white,
-                size: 28.0,
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: BlocBuilder<MealsBloc, MealsState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: BlueAppBar(
+              isCustomLeading: false,
+              isPlanningMeals: true,
+              title: LocalizedTexts.planYourMeals.translation,
+              subtitle: state.getCurrentDate.shortDate,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    onPressed: _onClose,
+                    icon: const Icon(
+                      Icons.close,
+                      color: AppColors.white,
+                      size: 28.0,
+                    ),
+                  ),
+                )
+              ],
+            ),
+            body: SafeArea(
+              child: Column(
+                children: [
+                  WeekSliderCalendar(onSelectDay: _onSelectDay),
+                  const SizedBox(height: 28.0),
+                  const Expanded(
+                    child: WeekPlannerCarousel(),
+                  ),
+                  const SizedBox(height: 30.0),
+                ],
               ),
             ),
-          )
-        ],
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            WeekSliderCalendar(onSelectDay: _onSelectDay),
-            const SizedBox(height: 28.0),
-            const Expanded(
-              child: WeekPlannerCarousel(),
-            ),
-            const SizedBox(height: 30.0),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

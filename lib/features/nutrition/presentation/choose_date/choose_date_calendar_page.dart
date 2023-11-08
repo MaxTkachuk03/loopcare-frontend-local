@@ -37,18 +37,20 @@ class ChooseDateCalendarPage extends StatefulWidget {
 }
 
 class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
+  bool isShowReplaceWarning = false;
+
   @override
   void initState() {
     super.initState();
 
-    // context.read<ChooseDateBloc>().add(
-    //       ChooseDateEvent.getPlannedMeals(
-    //         DateTime.now(),
-    //         DateTime.now().add(
-    //           const Duration(days: 15),
-    //         ),
-    //       ),
-    //     );
+    context.read<ChooseDateBloc>().add(
+          ChooseDateEvent.getPlannedMeals(
+            DateTime.now().firstDayOfCurrentWeek,
+            DateTime.now().firstDayOfCurrentWeek.add(
+                  const Duration(days: 15),
+                ),
+          ),
+        );
 
     context.read<ChooseDateBloc>().add(
           ChooseDateEvent.setData(
@@ -79,7 +81,8 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
         ),
       );
     }
-    if (state.data.showReplaceWarning) {
+    if (state.data.showReplaceWarning && !isShowReplaceWarning) {
+      isShowReplaceWarning = true;
       final mealsState = context.read<MealsBloc>().state;
 
       ModalBottomSheet.replacePlannedMeal(
@@ -94,6 +97,7 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
   }
 
   void _onReplacePressHandler(DateTime date, BuildContext context) {
+    isShowReplaceWarning = false;
     context
       ..read<ChooseDateBloc>().add(
         ChooseDateEvent.selectDate(

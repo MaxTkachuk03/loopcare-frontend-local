@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/week_planner/widgets/day_card_header.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/week_planner/widgets/meal_category_list_item.dart';
 
 class FilledDayCard extends StatelessWidget {
@@ -31,44 +29,7 @@ class FilledDayCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Text(
-                date.weekdayString,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppColors.blueAppBar,
-                      fontWeight: FontWeight.w600,
-                    ),
-              ),
-              if (date.isToday)
-                Text(
-                  LocalizedTexts.today.translation.toUpperCase(),
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: AppColors.blueAppBar,
-                        fontWeight: FontWeight.w600,
-                      ),
-                ),
-              if (date.isAfter(DateTime.now()))
-                Hexagon(
-                  width: 42,
-                  height: 42,
-                  borderRadius: 16,
-                  innerWidget: Container(
-                    color: AppColors.blueMid,
-                    child: IconButton(
-                      icon: const ImageIcon(
-                        AppIcons.plus,
-                        color: AppColors.white,
-                        size: 12,
-                      ),
-                      onPressed: () => onPressHandler(),
-                    ),
-                  ),
-                )
-            ],
-          ),
+          DayCardHeader(date: date, onPressHandler: onPressHandler),
           const Gap(6.0),
           Text(
             date.shortDate,

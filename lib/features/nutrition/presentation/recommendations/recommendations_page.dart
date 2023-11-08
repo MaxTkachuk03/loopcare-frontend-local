@@ -77,8 +77,33 @@ class RecommendationsPage extends StatelessWidget {
               ),
             );
           },
-          orElse: () => const Scaffold(
-            body: SizedBox.shrink(),
+          orElse: () => Scaffold(
+            body: SafeArea(
+              top: false,
+              child: ScrollableContainer(
+                child: Column(
+                  children: [
+                    GreenAppBar(
+                      title: LocalizedTexts.recommended.translation,
+                      subtitle: mealCategory,
+                      darkGreen: true,
+                    ),
+                    Column(
+                      children: [
+                        const SizedBox(height: 26.0),
+                        MainContainer(
+                          child: ElevatedButton(
+                            onPressed: () => _onSkipPressed(context),
+                            child: Text(LocalizedTexts.skip.translation),
+                          ),
+                        ),
+                        const SizedBox(height: 20.0)
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         );
       },

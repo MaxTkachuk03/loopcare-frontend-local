@@ -74,16 +74,15 @@ class PlanMeal extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              if (currentPlannedMeals.isEmpty)
-                                Text(
-                                  LocalizedTexts.planYourMeals.translation,
-                                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                        fontFamily: ThemeConstants.bitterFontFamily,
-                                        color: state.isPossibleToPlanMeal
-                                            ? AppColors.darkGreen
-                                            : AppColors.greyLabel,
-                                      ),
-                                ),
+                              Text(
+                                LocalizedTexts.planYourMeals.translation,
+                                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                      fontFamily: ThemeConstants.bitterFontFamily,
+                                      color: state.isPossibleToPlanMeal
+                                          ? AppColors.darkGreen
+                                          : AppColors.greyLabel,
+                                    ),
+                              ),
                               if (currentPlannedMeals.isEmpty)
                                 Text(
                                   state.isPossibleToPlanMeal
@@ -107,7 +106,7 @@ class PlanMeal extends StatelessWidget {
                           innerWidget: Container(
                             color: AppColors.bgGreen,
                             child: IconButton(
-                              icon: ImageIcon(
+                              icon: const ImageIcon(
                                 AppIcons.plus,
                                 color: AppColors.darkGreen,
                                 size: 12,

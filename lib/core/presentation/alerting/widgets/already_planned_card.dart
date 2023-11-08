@@ -25,6 +25,7 @@ class AlreadyPlannedCard extends StatelessWidget {
       padding: const EdgeInsets.only(
         top: 20.0,
         left: 24.0,
+        bottom: 8.0,
       ),
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -55,7 +56,6 @@ class AlreadyPlannedCard extends StatelessWidget {
                   mealItems: mealItems,
                   active: active,
                 ),
-                // const SizedBox(height: 30.0),
               ],
             ),
           ),
