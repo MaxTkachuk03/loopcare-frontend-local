@@ -41,20 +41,26 @@ class _WeekSliderCalendarState extends State<WeekSliderCalendar> {
     );
 
     _selectedDay = DateTime.now();
+
+    _scrollToIndex();
   }
 
   void _scrollToIndex() {
-    final int scrollIndex =
-        _weeks.lastIndexWhere((e) => e.startDate.isSameDate(_selectedDay.firstDayOfCurrentWeek));
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        final int scrollIndex =
+            _weeks.lastIndexWhere((e) => e.startDate.isSameDate(_selectedDay.firstDayOfCurrentWeek));
 
-    final int indexWithOffset = scrollIndex - 2;
+        final int indexWithOffset = scrollIndex - 2;
 
-    if (scrollIndex < 0) return;
+        if (scrollIndex < 0) return;
 
-    _itemScrollController.scrollTo(
-      index: indexWithOffset > 0 ? indexWithOffset : scrollIndex,
-      alignment: 0.07,
-      duration: const Duration(milliseconds: 100),
+        _itemScrollController.scrollTo(
+          index: indexWithOffset > 0 ? indexWithOffset : scrollIndex,
+          alignment: 0.07,
+          duration: const Duration(milliseconds: 100),
+        );
+      },
     );
   }
 
@@ -68,10 +74,6 @@ class _WeekSliderCalendarState extends State<WeekSliderCalendar> {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration.zero, () {
-      _scrollToIndex();
-    });
-
     return SizedBox(
       height: 70,
       child: ScrollablePositionedList.builder(

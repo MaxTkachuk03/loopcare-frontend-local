@@ -44,37 +44,37 @@ class MealCategoryListItem extends StatelessWidget {
               color: AppColors.white,
               borderRadius: BorderRadius.circular(8.0),
             ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Expanded(
-                  flex: 9,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        mealCategory.toUpperCase(),
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.greyLabel),
-                      ),
-                      const Gap(16.0),
-                      GroupedMealList(
-                        mealItems: mealItems,
-                        active: true,
-                      ),
-                    ],
+            child: GestureDetector(
+              onTap: () => editPlannedMeal(context),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(
+                    flex: 9,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          mealCategory.toUpperCase(),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.greyLabel),
+                        ),
+                        const Gap(16.0),
+                        GroupedMealList(
+                          mealItems: mealItems,
+                          active: true,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: GestureDetector(
-                    onTap: () => editPlannedMeal(context),
-                    child: const ImageIcon(
+                  const Expanded(
+                    flex: 1,
+                    child: ImageIcon(
                       AppIcons.arrow,
                       color: AppColors.anotherBlue,
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
   }

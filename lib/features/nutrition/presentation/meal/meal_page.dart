@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/nutrition/application/choose_date/choose_date_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
@@ -108,9 +109,15 @@ class _MealPageState extends State<MealPage> {
     return state.getCurrentDate.shortDate;
   }
 
+  void _onFilledListener(BuildContext context, MealsState state) {
+    context.read<ChooseDateBloc>().add(ChooseDateEvent.fetchMealById(state.getCurrentMealId ?? -1));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MealsBloc, MealsState>(
+    return BlocConsumer<MealsBloc, MealsState>(
+      listenWhen: (prev, cur) => cur.getCurrentMealId != null,
+      listener: _onFilledListener,
       builder: (BuildContext context, state) {
         return Scaffold(
           appBar: BlueAppBar(
