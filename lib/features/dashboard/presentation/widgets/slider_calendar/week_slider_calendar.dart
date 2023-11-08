@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/dashboard/domain/slider_calendar/week_element.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/slider_calendar/calendar_week.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_utils.dart';
@@ -28,8 +30,13 @@ class _WeekSliderCalendarState extends State<WeekSliderCalendar> {
   void initState() {
     super.initState();
 
+    final authState = context.read<AuthenticationCubit>().state;
+    final emailApproveDate = authState.emailApproveDate;
+    final startDate = emailApproveDate?.firstDayOfCurrentWeek.subtract(const Duration(days: 7)) ??
+        DateTime.now().subtract(const Duration(days: 2 * 365));
+
     _weeks = getWeeksElementBeteween(
-      DateUtils.dateOnly(DateTime.now().subtract(const Duration(days: 2 * 365))),
+      DateUtils.dateOnly(startDate),
       DateUtils.dateOnly(DateTime.now().add(const Duration(days: 13))),
     );
 

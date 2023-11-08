@@ -15,7 +15,6 @@ import 'package:loopcare_frontend/features/authentication/application/dto/mental
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/dto/registration_physical_fitness_data.dart';
 
-
 @singleton
 class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
   final AuthenticationService _authenticationService;
@@ -78,6 +77,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
               isPreferencesComplete: response.isPreferencesComplete,
               gender: response.gender,
               bioGender: response.bioGender,
+              emailApproveDate: response.emailApproveDate,
             ),
           ),
         );
@@ -147,6 +147,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
               foodPreferencesAllergic: r.foodPreferences.allergic,
               unlockedFeatures: r.unlockedFeatures,
               physicalActivitiesPreferences: r.physicalActivitiesPreferences,
+              emailApproveDate: r.emailApproveDate,
             ),
           ));
         },

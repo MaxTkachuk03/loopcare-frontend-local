@@ -38,6 +38,7 @@ abstract class Account implements _$Account {
     @Default([]) List<FoodPreference>? foodPreferencesAllergic,
     @Default([]) List<UnlockedFeatureType> unlockedFeatures,
     PhysicalActivitiesPreferences? physicalActivitiesPreferences,
+    @Default(null) DateTime? emailApproveDate,
   }) = _Account;
 
   int get trainingFrequency {

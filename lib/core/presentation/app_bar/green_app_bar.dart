@@ -7,6 +7,7 @@ class GreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final String? subtitle;
   final bool darkGreen;
+  final Function()? onClose;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -16,6 +17,7 @@ class GreenAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.title,
     this.subtitle,
     this.darkGreen = false,
+    this.onClose,
   }) : super(key: key);
 
   @override
@@ -52,9 +54,7 @@ class GreenAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           if (darkGreen)
             IconButton(
-              onPressed: () => {
-                context.router.pop(),
-              },
+              onPressed: () => onClose != null ? onClose!() : context.router.pop(),
               icon: const Icon(
                 Icons.close,
                 color: AppColors.white,

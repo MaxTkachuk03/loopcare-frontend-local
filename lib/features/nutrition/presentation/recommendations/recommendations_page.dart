@@ -7,6 +7,8 @@ import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
@@ -57,8 +59,9 @@ class RecommendationsPage extends StatelessWidget {
                     children: [
                       GreenAppBar(
                         title: LocalizedTexts.recommended.translation,
-                        subtitle: mealCategory,
+                        subtitle: '${mealCategory.capitalize()} ${date.shortDate}',
                         darkGreen: true,
+                        onClose: () => _onSkipPressed(context),
                       ),
                       SizedBox(
                         height: 600,
@@ -95,7 +98,7 @@ class RecommendationsPage extends StatelessWidget {
                   children: [
                     GreenAppBar(
                       title: LocalizedTexts.recommended.translation,
-                      subtitle: mealCategory,
+                      subtitle: '${mealCategory.capitalize()} ${date.shortDate}',
                       darkGreen: true,
                     ),
                     Column(
