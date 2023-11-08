@@ -59,6 +59,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
 
     response.fold(
       (error) {
+        emit(const AuthenticationState.init());
         emit(AuthenticationState.guest(error: error));
       },
       (response) {
