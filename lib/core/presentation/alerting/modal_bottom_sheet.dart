@@ -1262,6 +1262,7 @@ class ModalBottomSheet {
     required String date,
     required String mealCategory,
     required void Function() onBtnPressed,
+    required void Function() onClose,
     required MealsListItem oldItem,
     required MealsListItem? newItem,
   }) {
@@ -1289,7 +1290,10 @@ class ModalBottomSheet {
                     child: IconButton(
                       iconSize: 30,
                       padding: EdgeInsets.zero,
-                      onPressed: () => context.router.pop(),
+                      onPressed: () {
+                        onClose();
+                        context.router.pop();
+                      },
                       icon: const Icon(Icons.close),
                     ),
                   ),

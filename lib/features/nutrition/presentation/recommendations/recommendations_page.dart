@@ -23,9 +23,19 @@ class RecommendationsPage extends StatelessWidget {
     required this.date,
   }) : super(key: key);
 
+  _emptyListListener(BuildContext context, RecipeState state) {
+    context.router.replace(SelectFoodRoute(mealCategory: mealCategory));
+  }
+
+  _onSkipPressed(BuildContext context) {
+    context.router.push(SelectFoodRoute(mealCategory: mealCategory));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RecipeBloc, RecipeState>(
+    return BlocConsumer<RecipeBloc, RecipeState>(
+      listenWhen: (prev, cur) => cur.data.recommendationRecipe.isEmpty,
+      listener: _emptyListListener,
       builder: (BuildContext context, state) {
         return state.maybeMap(
           loadingRecipe: (_) {
@@ -108,9 +118,5 @@ class RecommendationsPage extends StatelessWidget {
         );
       },
     );
-  }
-
-  _onSkipPressed(BuildContext context) {
-    context.router.push(SelectFoodRoute(mealCategory: mealCategory));
   }
 }

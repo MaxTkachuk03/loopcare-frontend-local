@@ -59,6 +59,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
           state.data.copyWith(
             error: error,
             isLoading: false,
+            recommendationRecipe: [],
           ),
         ),
       ),

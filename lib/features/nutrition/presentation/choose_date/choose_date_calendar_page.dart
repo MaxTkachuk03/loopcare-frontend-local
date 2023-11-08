@@ -45,10 +45,10 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
 
     context.read<ChooseDateBloc>().add(
           ChooseDateEvent.getPlannedMeals(
-            DateTime.now().firstDayOfCurrentWeek,
-            DateTime.now().firstDayOfCurrentWeek.add(
-                  const Duration(days: 15),
-                ),
+            DateTime.now(),
+            DateTime.now().add(
+              const Duration(days: 15),
+            ),
           ),
         );
 
@@ -88,6 +88,7 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
       ModalBottomSheet.replacePlannedMeal(
         context: context,
         onBtnPressed: () => _onReplacePressHandler(state.data.getWarningDate, context),
+        onClose: () => isShowReplaceWarning = false,
         date: state.data.getWarningDate.shortDate,
         mealCategory: widget.mealCategory,
         oldItem: state.data.plannedMealsForWarningDate.first,
