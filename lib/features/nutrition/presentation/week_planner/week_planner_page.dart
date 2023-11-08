@@ -79,7 +79,6 @@ class _WeekPlannerPageState extends State<WeekPlannerPage> {
               isCustomLeading: false,
               isPlanningMeals: true,
               title: LocalizedTexts.planYourMeals.translation,
-              subtitle: state.getCurrentDate.shortDate,
               actions: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),

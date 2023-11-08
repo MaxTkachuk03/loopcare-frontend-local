@@ -20,15 +20,19 @@ List<WeekElement> getWeeksElementBeteween(DateTime startDate, DateTime endDate) 
   var utcDate = DateTime.utc(startDate.year, startDate.month, startDate.day);
   var date = findFirstDateOfTheWeek(utcDate);
 
-  List<WeekElement> weeks = List.generate((getWeeksBeteween(startDate, endDate)), (int index) {
-    date = date.add(const Duration(days: 7));
+  List<WeekElement> weeks = List.generate(
+    (getWeeksBeteween(startDate, endDate)),
+    (int index) {
+      date = date.add(const Duration(days: 7));
 
-    return WeekElement(
-      startDate: date,
-      endDate: date.lastDayOfCurrentWeek.toLocal(),
-      weekNumber: date.weekNumber,
-    );
-  }, growable: false);
+      return WeekElement(
+        startDate: date,
+        endDate: date.lastDayOfCurrentWeek.toLocal(),
+        weekNumber: date.weekNumber,
+      );
+    },
+    growable: false,
+  );
 
   return weeks;
 }
@@ -48,7 +52,7 @@ int getWeeksBeteween(DateTime startDate, DateTime endDate) {
   var daysBetween = endDate.difference(startDate).inDays;
   var weeks = (daysBetween / 7).floor();
 
-  return weeks + 1;
+  return weeks;
 }
 
 bool isNotIdentical(List<DateTime> first, List<DateTime> second) {

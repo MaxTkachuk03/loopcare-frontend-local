@@ -30,7 +30,7 @@ class _WeekSliderCalendarState extends State<WeekSliderCalendar> {
 
     _weeks = getWeeksElementBeteween(
       DateUtils.dateOnly(DateTime.now().subtract(const Duration(days: 2 * 365))),
-      DateUtils.dateOnly(DateTime.now().add(const Duration(days: 14))),
+      DateUtils.dateOnly(DateTime.now().add(const Duration(days: 13))),
     );
 
     _selectedDay = DateTime.now();

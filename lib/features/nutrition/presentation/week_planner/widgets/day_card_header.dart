@@ -33,7 +33,7 @@ class DayCardHeader extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
           ),
-        if (date.isAfter(DateTime.now()))
+        if (date.isAfter(DateTime.now()) && date.isBefore(DateTime.now().add(const Duration(days: 14))))
           Hexagon(
             width: 42,
             height: 42,
