@@ -1,17 +1,19 @@
 import 'dart:async';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/domain/recent_search_user/recent_search_data.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
-import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dartz/dartz.dart' as dartz;
 
 import 'dto/search_response.dart';
@@ -26,13 +28,19 @@ part 'search_bloc.g.dart';
 
 @singleton
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
+  final AuthenticationCubit _authenticationCubit;
   final NutritionService nutritionService;
+  final SharedStorageService _sharedStorageService;
   static const maxRecentSearchListSize = 10;
   static const searchLimit = 20;
   late CancelToken cancelRequestToken;
   bool isPaginatedSearchRequstRun = false;
 
-  SearchBloc(this.nutritionService) : super(const SearchState.initial(SearchData())) {
+  SearchBloc(
+    this.nutritionService,
+    this._authenticationCubit,
+    this._sharedStorageService,
+  ) : super(const SearchState.initial(SearchData())) {
     on<Search>(
       _onSearch,
       transformer: (events, mapper) => events
@@ -53,37 +61,22 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     AddSearchResult event,
     Emitter<SearchState> emit,
   ) {
-    _addRecentSearch(event.query, event.type);
+    _addRecentSearch(event.query, event.mode);
   }
 
-  Future<void> _addRecentSearch(String query, SearchItemTypes type) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    var list = await _getRecentSearch(false);
-    var itemType = type;
-
-    if (!list.contains('$query*-*$itemType')) {
-      if (list.length > maxRecentSearchListSize - 1) {
-        list.removeAt(maxRecentSearchListSize - 1);
-      }
-      list.insert(0, '$query*-*$type');
-    }
-
-    prefs.setStringList('recent_search', list);
+  Future<void> _addRecentSearch(String query, SearchMode type) async {
+    final userId = _authenticationCubit.state.id;
+    _sharedStorageService.findOrAddRecentUser(userId, RecentSearchData(type: type, query: query));
   }
 
-  Future<List<String>> _getRecentSearch(bool needHeader) async {
+  Future<List<String>> _getRecentSearch(bool needHeader, {SearchMode? type}) async {
     var list = <String>[];
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    List<String>? savedList = prefs.getStringList('recent_search');
-    if (savedList != null) {
-      if (needHeader) {
-        list.add('header');
-      }
-      list.addAll(savedList);
+    final userId = _authenticationCubit.state.id;
+    List<String> savedList = _sharedStorageService.searchValues(userId, type: type);
+    if (needHeader) {
+      list.add('header');
     }
-
+    list.addAll(savedList);
     return list;
   }
 
@@ -214,8 +207,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     );
   }
 
-  FutureOr<void> _onResetData(ResetData event, Emitter<SearchState> emit) async {
-    final list = await _getRecentSearch(true);
+  FutureOr<void> _onResetData(
+    ResetData event,
+    Emitter<SearchState> emit,
+  ) async {
+    final list = await _getRecentSearch(true, type: event.mode);
     emit(
       SearchState.initial(
         state.data.copyWith(

@@ -90,14 +90,11 @@ class UnderAppBarContainer extends StatelessWidget {
         onItemTap: (SearchItem item) {
           final mealBloc = context.read<MealsBloc>();
           final mealId = mealBloc.state.getCurrentMealId;
-
           if (mealId == null) {
-            print('Search item click freezed UnderAppBarContainer mealId == null');
             return;
           }
-
           context.read<SearchBloc>().add(
-                SearchEvent.addSearchResult(item.name, item.type),
+                SearchEvent.addSearchResult(item.name, item.type.searchModeValue),
               );
 
           if (item.type == SearchItemTypes.food) {

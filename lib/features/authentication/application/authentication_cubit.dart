@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/application/socket_service/socket_service
 import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
@@ -13,14 +14,14 @@ import 'package:loopcare_frontend/features/authentication/application/dto/login_
 import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/dto/registration_physical_fitness_data.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 @singleton
 class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
   final AuthenticationService _authenticationService;
   final DioClient client;
   final AuthTokenManager authTokenManager;
-  final SharedPreferences _sharedPref;
+  final SharedStorageService _sharedPref;
   final SocketService _socketService = SocketService.instance;
   AccessTokenSubscription? _accessTokenSubscription;
 
@@ -161,7 +162,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
         response.fold(
           (l) => null,
           (r) {
-            _sharedPref.clear();
+            _sharedPref.cleanStorage();
             logout();
           },
         );
