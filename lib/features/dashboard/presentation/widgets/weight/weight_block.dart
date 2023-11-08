@@ -1,15 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/weight/loading_weight.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/weight_conversion_utils.dart';
 
 class WeightBlock extends StatelessWidget {
@@ -29,7 +28,15 @@ class WeightBlock extends StatelessWidget {
         color: AppColors.white,
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
-      child: BlocBuilder<DashboardWeightBloc, DashboardWeightState>(
+      child: BlocConsumer<DashboardWeightBloc, DashboardWeightState>(
+        listener: (BuildContext context, state) {
+          state.maybeWhen(
+            error: (_) => context
+                .read<DashboardWeightBloc>()
+                .add(DashboardWeightEvent.fetchWeights(date.toUtc().toIso8601String())),
+            orElse: () => null,
+          );
+        },
         builder: (BuildContext context, state) {
           return state.maybeMap(
             updated: (s) {
@@ -71,8 +78,7 @@ class WeightBlock extends StatelessWidget {
                           if (showSubText)
                             Text(
                               LocalizedTexts.preferableInTheMorning.translation,
-                              style:
-                                  Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.greyLabel),
+                              style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.greyLabel),
                             )
                         ],
                       ),
@@ -99,17 +105,6 @@ class WeightBlock extends StatelessWidget {
               );
             },
             loading: (_) => const LoadingWeight(),
-            error: (errorState) {
-              final error = errorState.data.error;
-
-              return ErrorScreen(
-                smallVersion: true,
-                error: error,
-                onButtonPressed: () => context
-                    .read<DashboardWeightBloc>()
-                    .add(DashboardWeightEvent.fetchWeights(date.toUtc().toIso8601String())),
-              );
-            },
             orElse: () => const SizedBox.shrink(),
           );
         },
