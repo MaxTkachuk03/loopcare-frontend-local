@@ -359,6 +359,10 @@ class LocalizedTexts {
 
   //Dashboard
   static const String deleteMealModalMessage = 'deleteMealModalMessage';
+  static const String deleteMultiDateMealModalMessage = 'deleteMultiDateMealModalMessage';
+  static const String deleteMultiDateMealModalExplain = 'deleteMultiDateMealModalExplain';
+  static const String deleteMultiDateMealModalExplain2 = 'deleteMultiDateMealModalExplain2';
+  static const String openDatepicker = 'openDatepicker';
   static const String remove = 'remove';
   static const String goodMorning = 'goodMorning';
   static const String logYourWeight = 'logYourWeight';

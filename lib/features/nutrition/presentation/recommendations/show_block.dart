@@ -23,12 +23,12 @@ class ShowBlock extends StatelessWidget {
             child: Text(
               LocalizedTexts.show.translation,
               style:
-                  Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 12.0, color: AppColors.blueDark),
+                  Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 14.0, color: AppColors.blueDark),
             ),
           ),
           const SizedBox(
             width: 8,
-            height: 12,
+            height: 16,
             child: ImageIcon(
               AppIcons.arrow,
               color: AppColors.blueDark,

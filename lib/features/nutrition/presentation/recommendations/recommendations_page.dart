@@ -18,11 +18,13 @@ import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_b
 class RecommendationsPage extends StatelessWidget {
   final String mealCategory;
   final DateTime date;
+  final bool fromMealPage;
 
   const RecommendationsPage({
     Key? key,
     required this.mealCategory,
     required this.date,
+    this.fromMealPage = false,
   }) : super(key: key);
 
   _emptyListListener(BuildContext context, RecipeState state) {
@@ -30,7 +32,11 @@ class RecommendationsPage extends StatelessWidget {
   }
 
   _onSkipPressed(BuildContext context) {
-    context.router.push(SelectFoodRoute(mealCategory: mealCategory));
+    if (fromMealPage) {
+      context.router.pop();
+    } else {
+      context.router.push(SelectFoodRoute(mealCategory: mealCategory));
+    }
   }
 
   @override
@@ -72,18 +78,19 @@ class RecommendationsPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Column(
-                        children: [
-                          const SizedBox(height: 26.0),
-                          MainContainer(
-                            child: ElevatedButton(
-                              onPressed: () => _onSkipPressed(context),
-                              child: Text(LocalizedTexts.skip.translation),
+                      if (!fromMealPage)
+                        Column(
+                          children: [
+                            const SizedBox(height: 26.0),
+                            MainContainer(
+                              child: ElevatedButton(
+                                onPressed: () => _onSkipPressed(context),
+                                child: Text(LocalizedTexts.skip.translation),
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 20.0)
-                        ],
-                      ),
+                            const SizedBox(height: 20.0)
+                          ],
+                        ),
                     ],
                   ),
                 ),

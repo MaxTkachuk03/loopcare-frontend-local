@@ -233,6 +233,122 @@ class ModalBottomSheet {
     );
   }
 
+  static void deleteMultiDateMeal({
+    required BuildContext context,
+    required void Function() onDeleted,
+    required void Function() onCanceled,
+    required String mealCategory,
+  }) {
+    showModalBottomSheet<void>(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24.0),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
+          child: SafeArea(
+            top: false,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8.0, top: 12.0),
+                    child: IconButton(
+                      onPressed: () => context.router.pop(),
+                      icon: const Icon(
+                        Icons.close,
+                        size: 30,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 32.0),
+                            Text(
+                              LocalizedTexts.deleteMultiDateMealModalMessage,
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ).tr(namedArgs: {
+                              'mealCategory': mealCategory,
+                            }),
+                            const SizedBox(height: 8.0),
+                            Text(
+                              LocalizedTexts.deleteMultiDateMealModalExplain.translation,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            const SizedBox(height: 8.0),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Icon(
+                                  Icons.calendar_month,
+                                  color: AppColors.darkGreen,
+                                ),
+                                const SizedBox(width: 16.0),
+                                Expanded(
+                                  child: Text(
+                                    LocalizedTexts.deleteMultiDateMealModalExplain2.translation,
+                                    style: Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 47.0),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            OutlinedButton(
+                              onPressed: onCanceled,
+                              style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
+                                    side: MaterialStateProperty.all(
+                                      const BorderSide(
+                                        width: 1.0,
+                                        color: AppColors.blueDark,
+                                      ),
+                                    ),
+                                  ),
+                              child: Text(
+                                LocalizedTexts.openDatepicker.translation,
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                      color: AppColors.blueDark,
+                                    ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 12.0,
+                            ),
+                            ElevatedButton(
+                              onPressed: onDeleted,
+                              child: Text('${LocalizedTexts.remove.translation} $mealCategory'),
+                            ),
+                            const SizedBox(
+                              height: 24.0,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   static void deleteMeal({
     required BuildContext context,
     required void Function() onDeleted,

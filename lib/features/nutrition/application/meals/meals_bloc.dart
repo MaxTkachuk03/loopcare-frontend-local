@@ -87,6 +87,10 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             meals: meals ?? {},
             selectedServing: null,
             plannedMeals: plannedMeals,
+
+            // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+            timeStamp: DateTime.now(),
+            // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
             mealActionMode: MealActionModes.mealPlanning,
           ),
         );
@@ -130,7 +134,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
             meals[newDate] = dayData;
           }
-          return meals;
+
+          return Map<String, List<MealsListItem>>.from(meals);
         }
         return state.mealsMap;
       },
@@ -180,7 +185,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
       }
     }
 
-    return meals;
+    return Map<String, List<MealsListItem>>.from(meals);
   }
 
   FutureOr<void> _onSetCurrentDate(
@@ -349,6 +354,9 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             final newState = state.isPlanningMeals
                 ? state.copyWith(
                     plannedMeals: _getUpdatedPlannedMealsList(r),
+                    // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                    timeStamp: DateTime.now(),
+                    // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
                   )
                 : state.copyWith(
                     meals: _getUpdatedMealsList(r),
@@ -383,7 +391,12 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           (l) => emit(MealsState.error(l)),
           (r) {
             final newState = state.isPlanningMeals
-                ? state.copyWith(plannedMeals: _getUpdatedPlannedMealsList(r))
+                ? state.copyWith(
+                    plannedMeals: _getUpdatedPlannedMealsList(r),
+                    // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                    timeStamp: DateTime.now(),
+                    // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                  )
                 : state.copyWith(meals: _getUpdatedMealsList(r));
             emit(newState);
           },
@@ -408,7 +421,12 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           (l) => emit(MealsState.error(l)),
           (r) {
             final newState = state.isPlanningMeals
-                ? state.copyWith(plannedMeals: _getUpdatedPlannedMealsList(r))
+                ? state.copyWith(
+                    plannedMeals: _getUpdatedPlannedMealsList(r),
+                    // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                    timeStamp: DateTime.now(),
+                    // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                  )
                 : state.copyWith(meals: _getUpdatedMealsList(r));
 
             emit(newState);
@@ -438,7 +456,12 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           (l) => emit(MealsState.error(l)),
           (r) {
             final newState = state.isPlanningMeals
-                ? state.copyWith(plannedMeals: _getUpdatedPlannedMealsList(r))
+                ? state.copyWith(
+                    plannedMeals: _getUpdatedPlannedMealsList(r),
+                    // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                    timeStamp: DateTime.now(),
+                    // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                  )
                 : state.copyWith(meals: _getUpdatedMealsList(r));
 
             emit(newState);
@@ -467,7 +490,12 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           (l) => emit(MealsState.error(l)),
           (r) {
             final newState = state.isPlanningMeals
-                ? state.copyWith(plannedMeals: _getUpdatedPlannedMealsList(r))
+                ? state.copyWith(
+                    plannedMeals: _getUpdatedPlannedMealsList(r),
+                    // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                    timeStamp: DateTime.now(),
+                    // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                  )
                 : state.copyWith(meals: _getUpdatedMealsList(r));
 
             emit(newState);
@@ -496,7 +524,12 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           (l) => emit(MealsState.error(l)),
           (r) {
             final newState = state.isPlanningMeals
-                ? state.copyWith(plannedMeals: _getUpdatedPlannedMealsList(r))
+                ? state.copyWith(
+                    plannedMeals: _getUpdatedPlannedMealsList(r),
+                    // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                    timeStamp: DateTime.now(),
+                    // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                  )
                 : state.copyWith(meals: _getUpdatedMealsList(r));
 
             emit(newState);
@@ -525,7 +558,12 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           (l) => emit(MealsState.error(l)),
           (r) {
             final newState = state.isPlanningMeals
-                ? state.copyWith(plannedMeals: _getUpdatedPlannedMealsList(r))
+                ? state.copyWith(
+                    plannedMeals: _getUpdatedPlannedMealsList(r),
+                    // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                    timeStamp: DateTime.now(),
+                    // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                  )
                 : state.copyWith(meals: _getUpdatedMealsList(r));
 
             emit(newState);
@@ -612,7 +650,12 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             (l) => emit(MealsState.error(l)),
             (r) {
               final newState = state.isPlanningMeals
-                  ? state.copyWith(currentMealId: mealId, plannedMeals: _getUpdatedPlannedMealsList(r))
+                  ? state.copyWith(
+                      currentMealId: mealId, plannedMeals: _getUpdatedPlannedMealsList(r),
+                      // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                      timeStamp: DateTime.now(),
+                      // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                    )
                   : state.copyWith(currentMealId: mealId, meals: _getUpdatedMealsList(r));
 
               emit(newState);

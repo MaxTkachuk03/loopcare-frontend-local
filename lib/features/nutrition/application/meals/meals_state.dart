@@ -21,6 +21,7 @@ class MealsState with _$MealsState {
     String? currentMealCategory,
     required Map<String, List<MealsListItem>> meals,
     required Map<String, List<MealsListItem>> plannedMeals,
+    DateTime? timeStamp,
     ServingSize? selectedServing,
   }) = _MealsInfo;
 

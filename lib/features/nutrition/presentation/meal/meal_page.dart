@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/features/nutrition/application/choose_date/cho
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_favorites_category/dish_favorites_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -90,12 +91,22 @@ class _MealPageState extends State<MealPage> {
     if (currentMealCategory == null) return '';
 
     final date = state.getCurrentDate.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
-        ? _mealDates(state, needNewLine: true)
+        ? state.getCurrentDate.shortDate
         : 'today';
 
     AnalyticsEventService.instance.logEvent('meal_screen_type_$currentMealCategory');
 
     return '${currentMealCategory.capitalizeOnlyFirstLetter()}${state.isPlanningMeals ? '' : ' ${LocalizedTexts.logList.translation}'} $date';
+  }
+
+  String get _appBarSubTitle {
+    final state = context.read<MealsBloc>().state;
+    final dates = state.currentMealDates;
+
+    if (dates != null) {
+      return dates.length > 1 ? '(and ${dates.length - 1} other dates)' : '';
+    }
+    return '';
   }
 
   String _mealDates(MealsState state, {bool needNewLine = false}) {
@@ -136,24 +147,61 @@ class _MealPageState extends State<MealPage> {
         );
   }
 
+  _onRecommendationsPressed(BuildContext context) {
+    final mealState = context.read<MealsBloc>().state;
+    final mealCategory = mealState.currentMealCategory;
+
+    if (mealCategory != null) {
+      context.router.push(
+        RecommendationsRoute(
+          mealCategory: mealCategory,
+          date: mealState.getCurrentDate,
+          fromMealPage: true,
+        ),
+      );
+    }
+  }
+
   _onDeleteMealPressed(BuildContext context) {
-    final currentCategory = context.read<MealsBloc>().state.currentMealCategory;
+    final mealsState = context.read<MealsBloc>().state;
+    final currentCategory = mealsState.currentMealCategory;
+    final mealDates = mealsState.currentMealDates;
 
     if (currentCategory == null) return;
 
-    ModalBottomSheet.deleteMeal(
-      context: context,
-      onDeleted: () {
-        context.read<MealsBloc>().add(
-              MealsEvent.deleteMeal(
-                context.read<MealsBloc>().state.getCurrentMealId,
-              ),
-            );
+    if (mealDates != null && mealDates.length > 1) {
+      ModalBottomSheet.deleteMultiDateMeal(
+        context: context,
+        onCanceled: () {
+          context.router.pop();
+          _onChooseDates(context);
+        },
+        onDeleted: () {
+          context.read<MealsBloc>().add(
+                MealsEvent.deleteMeal(
+                  context.read<MealsBloc>().state.getCurrentMealId,
+                ),
+              );
 
-        context.router.popUntilRouteWithName(HomeRoute.name);
-      },
-      mealCategory: currentCategory,
-    );
+          context.router.popUntilRouteWithName(HomeRoute.name);
+        },
+        mealCategory: currentCategory,
+      );
+    } else {
+      ModalBottomSheet.deleteMeal(
+        context: context,
+        onDeleted: () {
+          context.read<MealsBloc>().add(
+                MealsEvent.deleteMeal(
+                  context.read<MealsBloc>().state.getCurrentMealId,
+                ),
+              );
+
+          context.router.popUntilRouteWithName(HomeRoute.name);
+        },
+        mealCategory: currentCategory,
+      );
+    }
   }
 
   _onBackToDashboardPressed(BuildContext context) {
@@ -172,6 +220,18 @@ class _MealPageState extends State<MealPage> {
   }
 
   @override
+  void initState() {
+    final mealState = context.read<MealsBloc>().state;
+    final mealCategory = mealState.currentMealCategory;
+
+    if (mealCategory != null) {
+      context.read<RecipeBloc>().add(RecipeEvent.getRecommendations(mealCategory));
+    }
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<MealsBloc, MealsState>(
       listenWhen: (prev, cur) => cur.getCurrentMealId != null,
@@ -183,6 +243,8 @@ class _MealPageState extends State<MealPage> {
             appBar: BlueAppBar(
               isCustomLeading: true,
               title: _appBarTitle,
+              subtitle: _appBarSubTitle,
+              italicSubtitle: false,
               actions: const [PlusButtonHexagon()],
             ),
             body: SafeArea(
@@ -254,9 +316,16 @@ class _MealPageState extends State<MealPage> {
                                   ),
                                   const SizedBox(height: 16.0),
                                   if (mealsState.isPlanningMeals)
-                                    OutlinedRoundedButton(
-                                      text: LocalizedTexts.recommendations.translation,
-                                      icon: AppIcons.recommendations,
+                                    BlocBuilder<RecipeBloc, RecipeState>(
+                                      builder: (BuildContext context, recipeState) {
+                                        return OutlinedRoundedButton(
+                                          text: LocalizedTexts.recommendations.translation,
+                                          icon: AppIcons.recommendations,
+                                          onPressed: () => recipeState.data.recommendationRecipe.isEmpty
+                                              ? null
+                                              : _onRecommendationsPressed(context),
+                                        );
+                                      },
                                     ),
                                   if (mealsState.isPlanningMeals) const SizedBox(height: 16.0),
                                   OutlinedRoundedButton(

@@ -20,6 +20,14 @@ class MealsList extends StatelessWidget {
       builder: (BuildContext context, state) {
         return state.maybeMap(
           mealsInfo: (mealsState) {
+            // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+            var transactionTime = state.maybeMap(
+              mealsInfo: (s) {
+                return s.timeStamp;
+              },
+              orElse: () => null,
+            );
+            // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
             return mealsState.currentFoodItems.isEmpty
                 ? const EmptyMeal()
                 : ListView.builder(

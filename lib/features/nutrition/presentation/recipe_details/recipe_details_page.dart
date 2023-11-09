@@ -131,30 +131,59 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
             ? state.currentMealCategory
             : MealCategory.breakfast.originalValue;
 
-    final mealId = state.getCurrentMealId;
+    // final mealId = state.getCurrentMealId;
 
-    if (mealId == null || mealCategory == null) return;
+    // if (mealId == null || mealCategory == null) return;
 
-    if (state.isContainsRecipeOrDish) {
-      showAppSnackBar(
-        context: context,
-        background: AppColors.white,
-        text: LocalizedTexts.invalidCreateDishFromMealMessage.translation,
-      );
-      return;
-    }
+    // if (state.isContainsRecipeOrDish) {
+    //   showAppSnackBar(
+    //     context: context,
+    //     background: AppColors.white,
+    //     text: LocalizedTexts.invalidCreateDishFromMealMessage.translation,
+    //   );
+    //   return;
+    // }
 
     context.router.push(
       EditDishRoute(
         mode: EditDishPageMode.create,
-        event: EditDishEvent.createDishFromMeal(
-          mealId,
+        event: EditDishEvent.createDishFromRecipe(
+          int.parse(context.read<RecipeBloc>().state.externalRecipeId ?? ''),
           _defaultNumberOfUnitsForDish,
-          mealCategory,
-          _genericDishName,
+          _getSelectedMealCategories(mealCategory),
         ),
+        fromRecommendation: widget.fromRecommendation,
       ),
     );
+
+    // context.router.push(
+    //   EditDishRoute(
+    //     mode: EditDishPageMode.create,
+    //     event: EditDishEvent.createDishFromMeal(
+    //       mealId,
+    //       _defaultNumberOfUnitsForDish,
+    //       mealCategory,
+    //       _genericDishName,
+    //     ),
+    //   ),
+    // );
+  }
+
+  List<DishFavoritesCategory> _getSelectedMealCategories(String? category) {
+    List<DishFavoritesCategory> defaultMealCategories = [];
+    if (category == null) return defaultMealCategories;
+
+    for (final mealCategory in DishFavoritesCategory.values) {
+      if (mealCategory.value == category) {
+        defaultMealCategories.add(mealCategory);
+      }
+    }
+
+    if (defaultMealCategories.isEmpty) {
+      defaultMealCategories.add(DishFavoritesCategory.breakfast);
+    }
+
+    return defaultMealCategories;
   }
 
   void _logAnalytics(TabController tabController) {
