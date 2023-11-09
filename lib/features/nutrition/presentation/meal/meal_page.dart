@@ -110,139 +110,24 @@ class _MealPageState extends State<MealPage> {
   }
 
   void _onFilledListener(BuildContext context, MealsState state) {
+    if (state.currentMeal == null) {
+      context.router.popUntilRouteWithName(HomeRoute.name);
+    }
     context.read<ChooseDateBloc>().add(ChooseDateEvent.fetchMealById(state.getCurrentMealId ?? -1));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<MealsBloc, MealsState>(
-      listenWhen: (prev, cur) => cur.getCurrentMealId != null,
-      listener: _onFilledListener,
-      builder: (BuildContext context, state) {
-        return Scaffold(
-          appBar: BlueAppBar(
-            isCustomLeading: true,
-            title: _appBarTitle,
-            actions: const [PlusButtonHexagon()],
-          ),
-          body: SafeArea(
-            child: ScrollableContainer(
-              child: state.maybeMap(
-                loading: (_) => const Loader(),
-                error: (errorState) {
-                  final error = errorState.fetchError;
-
-                  return ErrorScreen(
-                    error: error,
-                    //TODO: need to check
-                    onButtonPressed: () {
-                      final mealId = context.read<MealsBloc>().state.getCurrentMealId;
-                      if (mealId != null) {
-                        context.read<MealsBloc>().add(MealsEvent.fetchMealById(mealId));
-                      }
-                    },
-                  );
-                },
-                mealsInfo: (mealsState) {
-                  if (mealsState.isLoading) {
-                    return const Loader();
-                  }
-
-                  final error = mealsState.error;
-
-                  if (error != null) {
-                    return SizedBox(
-                      width: double.infinity,
-                      child: MainContainer(
-                        child: ErrorScreen(error: error),
-                      ),
-                    );
-                  }
-
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          NutritionValuesBlock(
-                            numberOfPortions: mealsState.currentMeal?.serving.numberOfUnits.toInt() ?? 0,
-                            selectedNutritionType: mealsState.currentNutritionType,
-                            nutritionValuesList: mealsState.currentMeal?.serving.list ?? <NutritionItem>[],
-                            onNutritionFactSelect: _onNutritionFactSelect,
-                          ),
-                          const MealsList(),
-                          NutritionBlock(
-                            proteinDegree: state.currentMealProteinDegree,
-                            calorieDensity: state.currentMealCalorieDensity,
-                          ),
-                          ChooseDateBlock(
-                            date: _mealDates(mealsState),
-                            onTap: (BuildContext context) => _onChooseDates(context),
-                          ),
-                          const SizedBox(height: 26.0),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                OutlinedRoundedButton(
-                                  text: LocalizedTexts.saveToMyDishes.translation,
-                                  icon: AppIcons.dish,
-                                  onPressed: _onSaveToMyDishesHandler,
-                                ),
-                                const SizedBox(height: 16.0),
-                                if (mealsState.isPlanningMeals)
-                                  OutlinedRoundedButton(
-                                    text: LocalizedTexts.recommendations.translation,
-                                    icon: AppIcons.recommendations,
-                                  ),
-                                if (mealsState.isPlanningMeals) const SizedBox(height: 16.0),
-                                OutlinedRoundedButton(
-                                  text: LocalizedTexts.deleteMeal.translation,
-                                  icon: AppIcons.delete,
-                                  onPressed: () => _onDeleteMealPressed(context),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          const SizedBox(height: 26.0),
-                          MainContainer(
-                            child: ElevatedButton(
-                              onPressed: () => context.router.popUntilRouteWithName(HomeRoute.name),
-                              child: Text(LocalizedTexts.backToDashboard.translation),
-                            ),
-                          ),
-                          const SizedBox(height: 20.0)
-                        ],
-                      )
-                    ],
-                  );
-                },
-                orElse: () => const SizedBox.shrink(),
-              ),
-            ),
-          ),
-        );
-      },
-    );
   }
 
   void _onChooseDates(BuildContext context) {
     final state = context.read<MealsBloc>().state;
 
-    context.router.push(
-      ChooseDateCalendarRoute(
-        mealCategory: state.currentMealCategory ?? '',
-        dates: state.currentMeal?.planningDates,
-        mealId: context.read<MealsBloc>().state.getCurrentMealId ?? -1,
-      ),
-    );
+    if (state.currentFoodItems.isNotEmpty) {
+      context.router.push(
+        ChooseDateCalendarRoute(
+          mealCategory: state.currentMealCategory ?? '',
+          dates: state.currentMeal?.planningDates,
+          mealId: context.read<MealsBloc>().state.getCurrentMealId ?? -1,
+        ),
+      );
+    }
   }
 
   void _onNutritionFactSelect(NutritionValuesTypes item) {
@@ -268,6 +153,144 @@ class _MealPageState extends State<MealPage> {
         context.router.popUntilRouteWithName(HomeRoute.name);
       },
       mealCategory: currentCategory,
+    );
+  }
+
+  _onBackToDashboardPressed(BuildContext context) {
+    final state = context.read<MealsBloc>().state;
+
+    if (state.currentFoodItems.isEmpty) {
+      context.read<MealsBloc>().add(MealsEvent.deleteMeal(state.getCurrentMealId));
+    }
+    context.router.popUntilRouteWithName(HomeRoute.name);
+  }
+
+  Future<bool> _onWillPop(BuildContext context) async {
+    _onBackToDashboardPressed(context);
+
+    return Future.value(true);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<MealsBloc, MealsState>(
+      listenWhen: (prev, cur) => cur.getCurrentMealId != null,
+      listener: _onFilledListener,
+      builder: (BuildContext context, state) {
+        return WillPopScope(
+          onWillPop: () => _onWillPop(context),
+          child: Scaffold(
+            appBar: BlueAppBar(
+              isCustomLeading: true,
+              title: _appBarTitle,
+              actions: const [PlusButtonHexagon()],
+            ),
+            body: SafeArea(
+              child: ScrollableContainer(
+                child: state.maybeMap(
+                  loading: (_) => const Loader(),
+                  error: (errorState) {
+                    final error = errorState.fetchError;
+
+                    return ErrorScreen(
+                      error: error,
+                      //TODO: need to check
+                      onButtonPressed: () {
+                        final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+                        if (mealId != null) {
+                          context.read<MealsBloc>().add(MealsEvent.fetchMealById(mealId));
+                        }
+                      },
+                    );
+                  },
+                  mealsInfo: (mealsState) {
+                    if (mealsState.isLoading) {
+                      return const Loader();
+                    }
+
+                    final error = mealsState.error;
+
+                    if (error != null) {
+                      return SizedBox(
+                        width: double.infinity,
+                        child: MainContainer(
+                          child: ErrorScreen(error: error),
+                        ),
+                      );
+                    }
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            NutritionValuesBlock(
+                              numberOfPortions: mealsState.currentMeal?.serving.numberOfUnits.toInt() ?? 0,
+                              selectedNutritionType: mealsState.currentNutritionType,
+                              nutritionValuesList: mealsState.currentMeal?.serving.list ?? <NutritionItem>[],
+                              onNutritionFactSelect: _onNutritionFactSelect,
+                            ),
+                            const MealsList(),
+                            NutritionBlock(
+                              proteinDegree: state.currentMealProteinDegree,
+                              calorieDensity: state.currentMealCalorieDensity,
+                            ),
+                            ChooseDateBlock(
+                              date: _mealDates(mealsState),
+                              onTap: (BuildContext context) => _onChooseDates(context),
+                            ),
+                            const SizedBox(height: 26.0),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 24),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  OutlinedRoundedButton(
+                                    text: LocalizedTexts.saveToMyDishes.translation,
+                                    icon: AppIcons.dish,
+                                    onPressed: _onSaveToMyDishesHandler,
+                                  ),
+                                  const SizedBox(height: 16.0),
+                                  if (mealsState.isPlanningMeals)
+                                    OutlinedRoundedButton(
+                                      text: LocalizedTexts.recommendations.translation,
+                                      icon: AppIcons.recommendations,
+                                    ),
+                                  if (mealsState.isPlanningMeals) const SizedBox(height: 16.0),
+                                  OutlinedRoundedButton(
+                                    text: LocalizedTexts.deleteMeal.translation,
+                                    icon: AppIcons.delete,
+                                    onPressed: () => _onDeleteMealPressed(context),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            const SizedBox(height: 26.0),
+                            MainContainer(
+                              child: ElevatedButton(
+                                onPressed: () => _onBackToDashboardPressed(context),
+                                child: Text(LocalizedTexts.backToDashboard.translation),
+                              ),
+                            ),
+                            const SizedBox(height: 20.0)
+                          ],
+                        )
+                      ],
+                    );
+                  },
+                  orElse: () => const SizedBox.shrink(),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

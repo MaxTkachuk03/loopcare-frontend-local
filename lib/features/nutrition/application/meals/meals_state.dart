@@ -203,7 +203,30 @@ class MealsState with _$MealsState {
     return mapOrNull(
       mealsInfo: (state) {
         return state.mealsMap[state.currentDate?.isoStringWithoutTime]
-            ?.firstWhere((el) => el.id == state.currentMealId);
+            ?.firstWhereOrNull((el) => el.id == state.currentMealId);
+      },
+    );
+  }
+
+  MealsListItem? get plannedMealByCurrentId {
+    return mapOrNull(
+      mealsInfo: (state) {
+        var retItem;
+        if (state.plannedMeals.isNotEmpty) {
+          state.plannedMeals.forEach(
+            (key, value) {
+              if (value.isNotEmpty) {
+                for (var element in value) {
+                  if (element.id == getCurrentMealId) {
+                    retItem = element;
+                  }
+                }
+              }
+            },
+          );
+        }
+
+        return retItem;
       },
     );
   }
