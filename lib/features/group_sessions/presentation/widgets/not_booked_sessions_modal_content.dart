@@ -23,6 +23,9 @@ class NotBookedSessionsModalContent extends StatelessWidget {
 
           if (topic == null) return const SizedBox.shrink();
           final groupSessions = topic.groupSessions;
+          groupSessions.sort((session1, session2) {
+            return session1.startDate.compareTo(session2.startDate);
+          });
 
           return Expanded(
             child: Column(
