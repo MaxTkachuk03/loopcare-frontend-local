@@ -43,6 +43,9 @@ class PersonMood extends StatelessWidget {
             updated: (s) {
               final bool isEditable = DashboardUtils.isEditable(date);
               final List<Mood> moodValues = s.data.getSelectedDayMoods(date.isoStringWithoutTime);
+              moodValues.sort((a, b) => a.time.compareTo(b.time));
+
+              print(moodValues);
 
               return Column(
                 children: [
