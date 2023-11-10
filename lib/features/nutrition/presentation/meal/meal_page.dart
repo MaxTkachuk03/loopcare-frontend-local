@@ -42,6 +42,7 @@ class MealPage extends StatefulWidget {
 
 class _MealPageState extends State<MealPage> {
   static const double _defaultNumberOfUnitsForDish = 1.0;
+  DateTime currentDate = DateTime.now();
 
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
@@ -228,6 +229,9 @@ class _MealPageState extends State<MealPage> {
       context.read<RecipeBloc>().add(RecipeEvent.getRecommendations(mealCategory));
     }
 
+    final state = context.read<MealsBloc>().state;
+    currentDate = state.getCurrentDate;
+
     super.initState();
   }
 
@@ -245,7 +249,7 @@ class _MealPageState extends State<MealPage> {
               title: _appBarTitle,
               subtitle: _appBarSubTitle,
               italicSubtitle: false,
-              actions: const [PlusButtonHexagon()],
+              actions: currentDate.isTodayOrFuture ? const [PlusButtonHexagon()] : null,
             ),
             body: SafeArea(
               child: ScrollableContainer(
@@ -294,14 +298,15 @@ class _MealPageState extends State<MealPage> {
                               nutritionValuesList: mealsState.currentMeal?.serving.list ?? <NutritionItem>[],
                               onNutritionFactSelect: _onNutritionFactSelect,
                             ),
-                            const MealsList(),
+                            MealsList(isActive: currentDate.isTodayOrFuture),
                             NutritionBlock(
                               proteinDegree: state.currentMealProteinDegree,
                               calorieDensity: state.currentMealCalorieDensity,
                             ),
                             ChooseDateBlock(
                               date: _mealDates(mealsState),
-                              onTap: (BuildContext context) => _onChooseDates(context),
+                              onTap: (BuildContext context) =>
+                                  currentDate.isTodayOrFuture ? _onChooseDates(context) : null,
                             ),
                             const SizedBox(height: 26.0),
                             Padding(

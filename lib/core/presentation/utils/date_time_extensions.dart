@@ -9,6 +9,14 @@ extension DateTimeExtension on DateTime {
     return isSameDate(DateTime.now());
   }
 
+  bool get isFuture {
+    return beginDay.isAfter(DateTime.now().beginDay);
+  }
+
+  bool get isTodayOrFuture {
+    return isSameDate(DateTime.now()) || beginDay.isAfter(DateTime.now().beginDay);
+  }
+
   DateTime get midnightTime {
     return DateTime(year, month, day);
   }
