@@ -81,8 +81,11 @@ class MealCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 8.0),
-                GroupedMealList(
-                  mealItems: mealItems,
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0),
+                  child: GroupedMealList(
+                    mealItems: mealItems,
+                  ),
                 ),
               ],
             )

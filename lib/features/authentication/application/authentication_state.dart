@@ -80,6 +80,12 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
+  DateTime? get emailApproveDate {
+    return mapOrNull(
+      authenticated: (state) => state.account.emailApproveDate,
+    );
+  }
+
   String? get email {
     return mapOrNull(
       authenticated: (state) => state.account.email,

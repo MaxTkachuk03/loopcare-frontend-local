@@ -144,7 +144,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                                   },
                                 ),
                                 const SizedBox(height: 10.0),
-                                PlanMeal(isEditable: _isMealBlockEditable),
+                                const PlanMeal(),
                               ],
                             );
                           },

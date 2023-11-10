@@ -143,6 +143,9 @@ class AppIcons {
 
   static SvgPicture emojiLonely = SvgPicture.asset('$iconsFilePath/lonely.svg', width: 30, height: 30);
 
+  static SvgPicture calendarWarning = SvgPicture.asset('$iconsFilePath/calendar.svg',
+      colorFilter: const ColorFilter.mode(AppColors.darkGreen, BlendMode.srcIn));
+
   static SvgPicture calendar = SvgPicture.asset('$iconsFilePath/calendar.svg');
 
   static SvgPicture calendarFull = SvgPicture.asset('$iconsFilePath/calendar_full.svg');

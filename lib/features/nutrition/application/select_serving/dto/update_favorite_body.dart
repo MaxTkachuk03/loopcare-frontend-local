@@ -11,8 +11,7 @@ abstract class UpdateFavoriteBody implements _$UpdateFavoriteBody {
   const factory UpdateFavoriteBody({
     required List<String> mealCategories,
     required double? numberOfUnits,
-  }) = _AUpdateFavoriteBody;
+  }) = _UpdateFavoriteBody;
 
-  factory UpdateFavoriteBody.fromJson(Map<String, dynamic> json) =>
-      _$UpdateFavoriteBodyFromJson(json);
+  factory UpdateFavoriteBody.fromJson(Map<String, dynamic> json) => _$UpdateFavoriteBodyFromJson(json);
 }

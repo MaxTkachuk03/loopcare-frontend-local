@@ -4,13 +4,14 @@ part of 'recipe_bloc.dart';
 class RecipeEvent with _$RecipeEvent {
   const factory RecipeEvent.fetchRecipe(int id) = FetchRecipe;
 
+  const factory RecipeEvent.getRecommendations(String mealCategory) = GetRecommendations;
+
   const factory RecipeEvent.fetchRecipeFromMeal({
     required int recipeId,
     required int mealId,
   }) = FetchRecipeFromMeal;
 
-  const factory RecipeEvent.nutritionItemChanged(NutritionValuesTypes item) =
-      NutritionItemChanged;
+  const factory RecipeEvent.nutritionItemChanged(NutritionValuesTypes item) = NutritionItemChanged;
 
   const factory RecipeEvent.servingChanged({
     required int mealId,

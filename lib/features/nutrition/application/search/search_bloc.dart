@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -43,11 +42,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   ) : super(const SearchState.initial(SearchData())) {
     on<Search>(
       _onSearch,
-      transformer: (events, mapper) => events
-          .map((q) => q.copyWith(query: q.query.trim()))
-          .distinct()
-          .debounceTime(const Duration(milliseconds: 300))
-          .switchMap(mapper),
+      transformer: (events, mapper) =>
+          events.distinct().debounceTime(const Duration(milliseconds: 300)).switchMap(mapper),
     );
     on<PaginatedSearch>(
       _onPaginatedSearch,

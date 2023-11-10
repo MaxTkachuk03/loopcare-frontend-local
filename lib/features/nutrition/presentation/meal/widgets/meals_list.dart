@@ -12,7 +12,11 @@ import 'package:loopcare_frontend/features/nutrition/presentation/meal/widgets/e
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/food_list_item/food_list_item.dart';
 
 class MealsList extends StatelessWidget {
-  const MealsList({super.key});
+  final bool isActive;
+  const MealsList({
+    this.isActive = true,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +24,14 @@ class MealsList extends StatelessWidget {
       builder: (BuildContext context, state) {
         return state.maybeMap(
           mealsInfo: (mealsState) {
+            // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+            var transactionTime = state.maybeMap(
+              mealsInfo: (s) {
+                return s.timeStamp;
+              },
+              orElse: () => null,
+            );
+            // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
             return mealsState.currentFoodItems.isEmpty
                 ? const EmptyMeal()
                 : ListView.builder(
@@ -39,8 +51,8 @@ class MealsList extends StatelessWidget {
                           serving: item.serving,
                         ),
                         nutritionKey: mealsState.currentNutritionType.name,
-                        onDeletePressed: _onDeletePressed,
-                        onTap: (BuildContext context) => _onTap(context, item),
+                        onDeletePressed: isActive ? _onDeletePressed : null,
+                        onTap: isActive ? (BuildContext context) => _onTap(context, item) : null,
                       );
                     },
                   );

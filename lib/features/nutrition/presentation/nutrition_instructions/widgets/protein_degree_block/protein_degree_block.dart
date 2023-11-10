@@ -9,11 +9,13 @@ import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart
 class ProteinDegreeBlock extends StatelessWidget {
   final double? value;
   final void Function({required int tabIndex}) onPress;
+  final bool showArrow;
 
   const ProteinDegreeBlock({
     Key? key,
     this.value,
     required this.onPress,
+    required this.showArrow,
   }) : super(key: key);
 
   @override
@@ -24,13 +26,11 @@ class ProteinDegreeBlock extends StatelessWidget {
           nutritionInstructions: (state) {
             final currentProteinDegreeItem = state.getProteinDegreeItem(value);
 
-            if (state.proteinDegreeValues.isEmpty ||
-                currentProteinDegreeItem == null) {
+            if (state.proteinDegreeValues.isEmpty || currentProteinDegreeItem == null) {
               return const SizedBox();
             }
 
-            final proteinDegreeValue =
-                value != null ? '${value?.round()}%' : '-';
+            final proteinDegreeValue = value != null ? '${value?.round()}%' : '-';
 
             return GestureDetector(
               onTap: () => _onItemPressed(context),
@@ -43,12 +43,10 @@ class ProteinDegreeBlock extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          LocalizedTexts.proteinDegree.translation
-                              .toUpperCase(),
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontSize: 12.0,
-                                  ),
+                          LocalizedTexts.proteinDegree.translation.toUpperCase(),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                fontSize: 12.0,
+                              ),
                         ),
                         Text(
                           proteinDegreeValue,
@@ -56,28 +54,26 @@ class ProteinDegreeBlock extends StatelessWidget {
                         ),
                         if (value != null)
                           Text(
-                            currentProteinDegreeItem.label
-                                .capitalizeOnlyFirstLetter(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
+                            currentProteinDegreeItem.label.capitalizeOnlyFirstLetter(),
+                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                   fontSize: 14.0,
                                 ),
                           ),
                       ],
                     ),
-                    const SizedBox(
-                      width: 8.0,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                      height: 14,
-                      child: ImageIcon(
-                        AppIcons.arrow,
-                        color: AppColors.darkGreen,
+                    if (showArrow)
+                      const SizedBox(
+                        width: 8.0,
                       ),
-                    ),
+                    if (showArrow)
+                      const SizedBox(
+                        width: 10,
+                        height: 14,
+                        child: ImageIcon(
+                          AppIcons.arrow,
+                          color: AppColors.darkGreen,
+                        ),
+                      ),
                   ],
                 ),
               ),

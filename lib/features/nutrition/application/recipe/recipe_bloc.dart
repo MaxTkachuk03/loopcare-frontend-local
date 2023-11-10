@@ -4,6 +4,7 @@ import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_food_item_in_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/recommendations/recommendation_recipe.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -22,7 +23,7 @@ part 'recipe_bloc.freezed.dart';
 class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   final NutritionService nutritionService;
 
-  RecipeBloc(this.nutritionService) : super(const RecipeState.initial()) {
+  RecipeBloc(this.nutritionService) : super(const RecipeState.initial(RecipenData())) {
     on<FetchRecipe>(_onFetchRecipe);
     on<FetchRecipeFromMeal>(_onFetchRecipeFromMeal);
     on<NutritionItemChanged>(_onNutritionItemChanged);
@@ -34,30 +35,86 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     on<AddFoodItemToRecipe>(_onAddFoodItemToRecipe);
     on<RemoveFoodItemToRecipe>(_onRemoveFoodItemToRecipe);
     on<UpdateFoodItemToRecipe>(_onUpdateFoodItemToRecipe);
+    on<GetRecommendations>(_onGetRecommendations);
+  }
+
+  FutureOr<void> _onGetRecommendations(
+    GetRecommendations event,
+    Emitter<RecipeState> emit,
+  ) async {
+    emit(
+      RecipeState.loadingRecipe(
+        state.data.copyWith(
+          isLoading: true,
+          error: null,
+        ),
+      ),
+    );
+
+    final response = await nutritionService.getRecommendations([event.mealCategory]);
+
+    response.fold(
+      (error) => emit(
+        RecipeState.error(
+          state.data.copyWith(
+            error: error,
+            isLoading: false,
+            recommendationRecipe: [],
+          ),
+        ),
+      ),
+      (response) => emit(
+        RecipeState.recipeInfo(
+          state.data.copyWith(
+            recommendationRecipe: response.data,
+          ),
+        ),
+      ),
+    );
   }
 
   FutureOr<void> _onFetchRecipe(
     FetchRecipe event,
     Emitter<RecipeState> emit,
   ) async {
-    emit(const RecipeState.loadingRecipe());
+    emit(
+      RecipeState.loadingRecipe(
+        state.data.copyWith(
+          isLoading: true,
+          error: null,
+          recipe: Recipe(
+            id: event.id,
+            externalId: event.id.toString(),
+          ),
+        ),
+      ),
+    );
 
     final response = await nutritionService.getRecipe(event.id);
 
     response.fold(
-      (error) => emit(RecipeState.error(error)),
+      (error) => emit(
+        RecipeState.error(
+          state.data.copyWith(
+            error: error,
+            isLoading: false,
+          ),
+        ),
+      ),
       (response) {
         emit(
           RecipeState.recipeInfo(
-            recipe: Recipe(
-              id: response.id,
-              externalId: response.externalId,
-              ingredients: response.ingredients,
-              calorieDensity: response.calorieDensity,
-              proteinDegree: response.proteinDegree,
-              nutritionValues: response.servingSize.list,
-              numberOfServings: response.numberOfServings,
-              servingAmount: response.servingSize.numberOfUnits,
+            state.data.copyWith(
+              recipe: Recipe(
+                id: response.id,
+                externalId: response.externalId,
+                ingredients: response.ingredients,
+                calorieDensity: response.calorieDensity,
+                proteinDegree: response.proteinDegree,
+                nutritionValues: response.servingSize.list,
+                numberOfServings: response.numberOfServings,
+                servingAmount: response.servingSize.numberOfUnits,
+              ),
             ),
           ),
         );
@@ -69,24 +126,40 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     FetchRecipeFromMeal event,
     Emitter<RecipeState> emit,
   ) async {
-    emit(const RecipeState.loadingRecipe());
+    emit(
+      RecipeState.loadingRecipe(
+        state.data.copyWith(
+          isLoading: true,
+          error: null,
+        ),
+      ),
+    );
 
     final response = await nutritionService.getRecipeInMeal(event.mealId, event.recipeId);
 
     response.fold(
-      (error) => emit(RecipeState.error(error)),
+      (error) => emit(
+        RecipeState.error(
+          state.data.copyWith(
+            error: error,
+            isLoading: false,
+          ),
+        ),
+      ),
       (response) {
         emit(
           RecipeState.recipeInfo(
-            recipe: Recipe(
-              id: response.id,
-              externalId: response.externalId,
-              ingredients: response.ingredients,
-              calorieDensity: response.calorieDensity,
-              proteinDegree: response.proteinDegree,
-              nutritionValues: response.servingSize.list,
-              numberOfServings: response.numberOfServings,
-              servingAmount: response.servingSize.numberOfUnits,
+            state.data.copyWith(
+              recipe: Recipe(
+                id: response.id,
+                externalId: response.externalId,
+                ingredients: response.ingredients,
+                calorieDensity: response.calorieDensity,
+                proteinDegree: response.proteinDegree,
+                nutritionValues: response.servingSize.list,
+                numberOfServings: response.numberOfServings,
+                servingAmount: response.servingSize.numberOfUnits,
+              ),
             ),
           ),
         );
@@ -98,75 +171,107 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     NutritionItemChanged event,
     Emitter<RecipeState> emit,
   ) {
-    state.mapOrNull(recipeInfo: (state) {
-      emit(state.copyWith(currentNutritionType: event.item));
-    });
+    state.mapOrNull(
+      recipeInfo: (state) {
+        emit(
+          state.copyWith(
+            data: state.data.copyWith(
+              currentNutritionType: event.item,
+            ),
+          ),
+        );
+      },
+    );
   }
 
   FutureOr<void> _onServingChanged(
     ServingChanged event,
     Emitter<RecipeState> emit,
   ) async {
-    await state.mapOrNull(recipeInfo: (state) async {
-      final response = await nutritionService.updateRecipeNumberOfServing(
-        mealId: event.mealId,
-        recipeId: event.recipeId,
-        data: UpdateRecipeBody(numberOfUnits: event.servingAmount),
-      );
+    await state.mapOrNull(
+      recipeInfo: (state) async {
+        final response = await nutritionService.updateRecipeNumberOfServing(
+          mealId: event.mealId,
+          recipeId: event.recipeId,
+          data: UpdateRecipeBody(numberOfUnits: event.servingAmount),
+        );
 
-      response.fold(
-        (l) => emit(RecipeState.error(l)),
-        (r) => emit(state.copyWith(
-          recipe: Recipe(
-            id: r.id,
-            externalId: r.externalId,
-            ingredients: r.ingredients,
-            calorieDensity: r.calorieDensity,
-            proteinDegree: r.proteinDegree,
-            nutritionValues: r.servingSize.list,
-            numberOfServings: r.numberOfServings,
-            servingAmount: r.servingSize.numberOfUnits,
+        response.fold(
+          (error) => emit(
+            RecipeState.error(
+              state.data.copyWith(
+                error: error,
+                isLoading: false,
+              ),
+            ),
           ),
-        )),
-      );
-    });
+          (r) => emit(
+            state.copyWith(
+              data: state.data.copyWith(
+                recipe: Recipe(
+                  id: r.id,
+                  externalId: r.externalId,
+                  ingredients: r.ingredients,
+                  calorieDensity: r.calorieDensity,
+                  proteinDegree: r.proteinDegree,
+                  nutritionValues: r.servingSize.list,
+                  numberOfServings: r.numberOfServings,
+                  servingAmount: r.servingSize.numberOfUnits,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   FutureOr<void> _onAddFoodItemToRecipe(
     AddFoodItemToRecipe event,
     Emitter<RecipeState> emit,
   ) async {
-    await state.mapOrNull(recipeInfo: (state) async {
-      final response = await nutritionService.addFoodItemToRecipeInMeal(
-        mealId: event.mealId,
-        recipeId: event.recipeId,
-        foodItemId: event.foodItemId,
-        data: AddFoodItemToRecipeBody(
-          numberOfUnits: event.numberOfUnits,
-          servingId: event.servingId,
-        ),
-      );
+    await state.mapOrNull(
+      recipeInfo: (state) async {
+        final response = await nutritionService.addFoodItemToRecipeInMeal(
+          mealId: event.mealId,
+          recipeId: event.recipeId,
+          foodItemId: event.foodItemId,
+          data: AddFoodItemToRecipeBody(
+            numberOfUnits: event.numberOfUnits,
+            servingId: event.servingId,
+          ),
+        );
 
-      response.fold(
-        (l) => emit(RecipeState.error(l)),
-        (r) {
-          emit(
-            state.copyWith(
-              recipe: Recipe(
-                id: r.id,
-                externalId: r.externalId,
-                ingredients: r.ingredients,
-                calorieDensity: r.calorieDensity,
-                proteinDegree: r.proteinDegree,
-                nutritionValues: r.servingSize.list,
-                numberOfServings: r.numberOfServings,
-                servingAmount: r.servingSize.numberOfUnits,
+        response.fold(
+          (error) => emit(
+            RecipeState.error(
+              state.data.copyWith(
+                error: error,
+                isLoading: false,
               ),
             ),
-          );
-        },
-      );
-    });
+          ),
+          (r) {
+            emit(
+              state.copyWith(
+                data: state.data.copyWith(
+                  recipe: Recipe(
+                    id: r.id,
+                    externalId: r.externalId,
+                    ingredients: r.ingredients,
+                    calorieDensity: r.calorieDensity,
+                    proteinDegree: r.proteinDegree,
+                    nutritionValues: r.servingSize.list,
+                    numberOfServings: r.numberOfServings,
+                    servingAmount: r.servingSize.numberOfUnits,
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   FutureOr<void> _onRemoveFoodItemToRecipe(
@@ -182,19 +287,28 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
         );
 
         response.fold(
-          (l) => emit(RecipeState.error(l)),
+          (error) => emit(
+            RecipeState.error(
+              state.data.copyWith(
+                error: error,
+                isLoading: false,
+              ),
+            ),
+          ),
           (r) {
             emit(
               state.copyWith(
-                recipe: Recipe(
-                  id: r.id,
-                  externalId: r.externalId,
-                  ingredients: r.ingredients,
-                  calorieDensity: r.calorieDensity,
-                  proteinDegree: r.proteinDegree,
-                  nutritionValues: r.servingSize.list,
-                  numberOfServings: r.numberOfServings,
-                  servingAmount: r.servingSize.numberOfUnits,
+                data: state.data.copyWith(
+                  recipe: Recipe(
+                    id: r.id,
+                    externalId: r.externalId,
+                    ingredients: r.ingredients,
+                    calorieDensity: r.calorieDensity,
+                    proteinDegree: r.proteinDegree,
+                    nutritionValues: r.servingSize.list,
+                    numberOfServings: r.numberOfServings,
+                    servingAmount: r.servingSize.numberOfUnits,
+                  ),
                 ),
               ),
             );
@@ -208,35 +322,46 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     UpdateFoodItemToRecipe event,
     Emitter<RecipeState> emit,
   ) async {
-    await state.mapOrNull(recipeInfo: (state) async {
-      final response = await nutritionService.updateFoodItemInRecipeInMeal(
-        mealId: event.mealId,
-        recipeId: event.recipeId,
-        foodItemId: event.foodItemId,
-        data: UpdateFoodItemInRecipeBody(
-          numberOfUnits: event.numberOfUnits,
-          servingId: event.servingId,
-        ),
-      );
+    await state.mapOrNull(
+      recipeInfo: (state) async {
+        final response = await nutritionService.updateFoodItemInRecipeInMeal(
+          mealId: event.mealId,
+          recipeId: event.recipeId,
+          foodItemId: event.foodItemId,
+          data: UpdateFoodItemInRecipeBody(
+            numberOfUnits: event.numberOfUnits,
+            servingId: event.servingId,
+          ),
+        );
 
-      response.fold(
-        (l) => emit(RecipeState.error(l)),
-        (r) {
-          emit(
-            state.copyWith(
-              recipe: Recipe(
-                  id: r.id,
-                  externalId: r.externalId,
-                  ingredients: r.ingredients,
-                  calorieDensity: r.calorieDensity,
-                  proteinDegree: r.proteinDegree,
-                  nutritionValues: r.servingSize.list,
-                  numberOfServings: r.numberOfServings,
-                  servingAmount: r.servingSize.numberOfUnits),
+        response.fold(
+          (error) => emit(
+            RecipeState.error(
+              state.data.copyWith(
+                error: error,
+                isLoading: false,
+              ),
             ),
-          );
-        },
-      );
-    });
+          ),
+          (r) {
+            emit(
+              state.copyWith(
+                data: state.data.copyWith(
+                  recipe: Recipe(
+                      id: r.id,
+                      externalId: r.externalId,
+                      ingredients: r.ingredients,
+                      calorieDensity: r.calorieDensity,
+                      proteinDegree: r.proteinDegree,
+                      nutritionValues: r.servingSize.list,
+                      numberOfServings: r.numberOfServings,
+                      servingAmount: r.servingSize.numberOfUnits),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }
