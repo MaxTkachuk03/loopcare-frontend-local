@@ -180,7 +180,13 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         debugPrint('devcpp SubscriptionStatus: ${subscription.state}');
         switch (status) {
           case SubscriptionStatus.trialPeriod:
-            emit(SubscriptionState.trial(state.data.copyWith(subscription: subscription)));
+            if (subscription.isActive) {
+              emit(SubscriptionState.subscriptionActive(state.data.copyWith(subscription: subscription)));
+            } else if (!subscription.isActive && SubscriptionDateUtils.isPassDate(subscription.expiresAt)) {
+              emit(SubscriptionState.subscriptionEnded(state.data.copyWith(subscription: subscription)));
+            } else {
+              emit(SubscriptionState.trial(state.data.copyWith(subscription: subscription)));
+            }
             break;
           case SubscriptionStatus.common:
             if (!subscription.isActive && SubscriptionDateUtils.isPassDate(subscription.expiresAt)) {
