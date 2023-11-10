@@ -32,11 +32,13 @@ enum EditDishPageMode { edit, create }
 class EditDishPage extends StatefulWidget {
   final EditDishPageMode mode;
   final EditDishEvent event;
+  final bool fromRecommendation;
 
   const EditDishPage({
     Key? key,
     required this.mode,
     required this.event,
+    this.fromRecommendation = false,
   }) : super(key: key);
 
   @override
@@ -235,7 +237,9 @@ class _EditDishPageState extends State<EditDishPage> {
   }
 
   _deleteDishListener(BuildContext context, state) {
-    context.router.popUntilRouteWithName(SelectFoodRoute.name);
+    widget.fromRecommendation
+        ? context.router.pop()
+        : context.router.popUntilRouteWithName(SelectFoodRoute.name);
   }
 
   Future<bool> _onWillPop() {

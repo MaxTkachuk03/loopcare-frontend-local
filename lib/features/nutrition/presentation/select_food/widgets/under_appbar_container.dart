@@ -115,6 +115,7 @@ class UnderAppBarContainer extends StatelessWidget {
                         ),
                       ),
                     );
+
                     context.router.pushNamed(AppRoutes.meal);
                   }
                 },

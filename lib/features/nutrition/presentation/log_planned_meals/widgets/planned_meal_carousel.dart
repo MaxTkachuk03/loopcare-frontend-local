@@ -11,7 +11,10 @@ import 'package:loopcare_frontend/features/nutrition/presentation/log_planned_me
 class PlannedMealCarousel extends StatefulWidget {
   final NameLabel selectedMealCategory;
 
-  const PlannedMealCarousel({Key? key, required this.selectedMealCategory}) : super(key: key);
+  const PlannedMealCarousel({
+    Key? key,
+    required this.selectedMealCategory,
+  }) : super(key: key);
 
   @override
   _PlannedMealCarouselState createState() => _PlannedMealCarouselState();

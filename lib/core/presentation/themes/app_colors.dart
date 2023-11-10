@@ -75,6 +75,10 @@ class AppColors {
 
   static const Color C6C5C5 = Color(0xFFC6C5C5);
 
+  static const Color E3E5DE = Color(0xFFE3E5DE);
+
+  static const Color weekDisabled = Color(0xFF67735F);
+
   static const Color FF313030 = Color(0xFF313030);
 
   static const Color FF404040 = Color(0xFF404040);
@@ -83,6 +87,9 @@ class AppColors {
 
   static const Color gridTitleGradientStart = Color(0xFF090A0A);
   static const Color gridTitleGradientEnd = Color(0x00090A0A);
+
+  static const Color disabledElement = Color(0xFFE4E6DE);
+  static const Color disabledText = Color(0xFF8B9483);
 
   AppColors._();
 }

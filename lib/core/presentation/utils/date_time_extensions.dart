@@ -5,6 +5,18 @@ extension DateTimeExtension on DateTime {
     return year == other.year && month == other.month && day == other.day;
   }
 
+  bool get isToday {
+    return isSameDate(DateTime.now());
+  }
+
+  bool get isFuture {
+    return beginDay.isAfter(DateTime.now().beginDay);
+  }
+
+  bool get isTodayOrFuture {
+    return isSameDate(DateTime.now()) || beginDay.isAfter(DateTime.now().beginDay);
+  }
+
   DateTime get midnightTime {
     return DateTime(year, month, day);
   }
@@ -58,24 +70,101 @@ extension DateTimeExtension on DateTime {
     return DateFormat('EEEE', 'en_EN').format(this);
   }
 
+  String get shortWeekdayString {
+    return DateFormat('E', 'en_EN').format(this);
+  }
+
+  String get shortestWeekdayString {
+    return DateFormat('E', 'en_EN').format(this).substring(0, 1);
+  }
+
+  String get shortMonthString {
+    return DateFormat('MMM', 'en_EN').format(this);
+  }
+
+  String get dayInMonth {
+    return DateFormat('d', 'en_EN').format(this);
+  }
+
+  int get secondNextWeekNumber {
+    final now = this;
+    return now.add(const Duration(days: 14)).weekNumber;
+  }
+
   int get nextWeekNumber {
     final now = this;
-    final firstJan = DateTime(now.year, 1, 1);
-    final lasdDecember = DateTime(now.year, 12, 31);
-    var nowWeekNumber = weeksBetween(firstJan, now);
-    var lastWeekNumber = weeksBetween(firstJan, lasdDecember);
-    return nowWeekNumber != lastWeekNumber ? nowWeekNumber + 1 : 1;
+
+    return now.add(const Duration(days: 7)).weekNumber;
+  }
+
+  int get nextWeekYear {
+    final now = this;
+    return nextWeekNumber > weekNumber ? now.year : now.year + 1;
+  }
+
+  int get secondNextWeekYear {
+    final now = this;
+    return secondNextWeekNumber > weekNumber ? now.year : now.year + 1;
   }
 
   int get weekNumber {
+    final woy = ((ordinalDate - weekday + 10) ~/ 7);
+    if (woy == 0) {
+      return DateTime(year - 1, 12, 28).weekNumber;
+    }
+    if (woy == 53 &&
+        DateTime(year, 1, 1).weekday != DateTime.thursday &&
+        DateTime(year, 12, 31).weekday != DateTime.thursday) {
+      return 1;
+    }
+
+    return woy;
+  }
+
+  int get ordinalDate {
+    const offsets = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+    return offsets[month - 1] + day + (isLeapYear && month > 2 ? 1 : 0);
+  }
+
+  bool get isLeapYear {
+    return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+  }
+
+  bool isContainedIn(List<DateTime>? list) {
+    if (list == null) {
+      return false;
+    }
     final now = this;
-    final firstJan = DateTime(now.year, 1, 1);
-    return weeksBetween(firstJan, now);
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].isSameDate(now)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  int containedIndex(List<DateTime>? list) {
+    if (list == null) {
+      return -1;
+    }
+    final now = this;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].isSameDate(now)) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  int daysBetween(DateTime from, DateTime to) {
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
+    return (to.difference(from).inHours / 24).round();
   }
 
   int weeksBetween(DateTime from, DateTime to) {
-    from = DateTime.utc(from.year, from.month, from.day);
-    to = DateTime.utc(to.year, to.month, to.day);
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
     return (to.difference(from).inDays / 7).ceil();
   }
 

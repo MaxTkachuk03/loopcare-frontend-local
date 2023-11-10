@@ -307,15 +307,33 @@ class LocalizedTexts {
   static const String addToMyDishes = 'addToMyDishes';
   static const String cookingTime = 'cookingTime';
   static const String preparation = 'preparation';
+  static const String preparationTime = 'preparationTime';
+  static const String show = 'show';
   static const String portions = 'portions';
   static const String howToPrepare = 'howToPrepare';
   static const String logAs = 'logAs';
   static const String skip = 'skip';
   static const String plannedMeals = 'plannedMeals';
   static const String loggedMeals = 'loggedMeals';
+  static const String planThisMeal = 'planThisMeal';
   static const String existMealText = 'existMealText';
   static const String createNew = 'createNew';
   static const String updateExist = 'updateExist';
+  static const String chooseDateFor = 'chooseDateFor';
+  static const String youCanChangeTheDate = 'youCanChangeTheDate';
+  static const String weekWithNumber = 'weekWithNumber';
+  static const String capitalizeWeekWithNumber = 'capitalizeWeekWithNumber';
+  static const String weekDates = 'weekDates';
+  static const String saveChanges = 'saveChanges';
+  static const String thisMealPlannedFor = 'thisMealPlannedFor';
+  static const String saveDateError = 'saveDateError';
+  static const String yesReplace = 'yesReplace';
+  static const String youAlreadyPlanned = 'youAlreadyPlanned';
+  static const String andOtherDates = 'andOtherDates';
+  static const String alreadyPlannedCategory = 'alreadyPlannedCategory';
+  static const String replaceWith = 'replaceWith';
+  static const String nothingOnTheMenu = 'nothingOnTheMenu';
+  static const String startPlanning = 'startPlanning';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';
@@ -341,6 +359,10 @@ class LocalizedTexts {
 
   //Dashboard
   static const String deleteMealModalMessage = 'deleteMealModalMessage';
+  static const String deleteMultiDateMealModalMessage = 'deleteMultiDateMealModalMessage';
+  static const String deleteMultiDateMealModalExplain = 'deleteMultiDateMealModalExplain';
+  static const String deleteMultiDateMealModalExplain2 = 'deleteMultiDateMealModalExplain2';
+  static const String openDatepicker = 'openDatepicker';
   static const String remove = 'remove';
   static const String goodMorning = 'goodMorning';
   static const String logYourWeight = 'logYourWeight';

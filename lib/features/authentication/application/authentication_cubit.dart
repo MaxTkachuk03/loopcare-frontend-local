@@ -78,6 +78,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
               isPreferencesComplete: response.isPreferencesComplete,
               gender: response.gender,
               bioGender: response.bioGender,
+              emailApproveDate: response.emailApproveDate,
             ),
           ),
         );
@@ -147,6 +148,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
               foodPreferencesAllergic: r.foodPreferences.allergic,
               unlockedFeatures: r.unlockedFeatures,
               physicalActivitiesPreferences: r.physicalActivitiesPreferences,
+              emailApproveDate: r.emailApproveDate,
             ),
           ));
         },

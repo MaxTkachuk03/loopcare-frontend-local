@@ -21,6 +21,7 @@ class MealsState with _$MealsState {
     String? currentMealCategory,
     required Map<String, List<MealsListItem>> meals,
     required Map<String, List<MealsListItem>> plannedMeals,
+    DateTime? timeStamp,
     ServingSize? selectedServing,
   }) = _MealsInfo;
 
@@ -141,14 +142,6 @@ class MealsState with _$MealsState {
         }
         final selectedDayMeals = state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
-        var category = selectedDayMeals
-            .where((item) => item.mealItems.isNotEmpty)
-            .toList()
-            .map((e) => categoryShortVersion(e.mealCategory))
-            .toList()
-            .toSet()
-            .toList();
-
         return selectedDayMeals
             .where((item) => item.mealItems.isNotEmpty)
             .toList()
@@ -179,10 +172,23 @@ class MealsState with _$MealsState {
         return selectedDayMeals
             .where((item) => item.mealItems.isNotEmpty)
             .toList()
-            .map((e) => e.mealCategory)
+            .map((e) => categoryShortVersion(e.mealCategory))
             .toList()
             .toSet()
             .toList();
+      },
+      orElse: () => <String>[],
+    );
+  }
+
+  List<String> get filledPlannedMealDates {
+    return maybeMap(
+      mealsInfo: (state) {
+        if (state.plannedMeals.isEmpty) {
+          return <String>[];
+        }
+
+        return state.plannedMeals.keys.toList();
       },
       orElse: () => <String>[],
     );
@@ -198,7 +204,30 @@ class MealsState with _$MealsState {
     return mapOrNull(
       mealsInfo: (state) {
         return state.mealsMap[state.currentDate?.isoStringWithoutTime]
-            ?.firstWhere((el) => el.id == state.currentMealId);
+            ?.firstWhereOrNull((el) => el.id == state.currentMealId);
+      },
+    );
+  }
+
+  MealsListItem? get plannedMealByCurrentId {
+    return mapOrNull(
+      mealsInfo: (state) {
+        var retItem;
+        if (state.plannedMeals.isNotEmpty) {
+          state.plannedMeals.forEach(
+            (key, value) {
+              if (value.isNotEmpty) {
+                for (var element in value) {
+                  if (element.id == getCurrentMealId) {
+                    retItem = element;
+                  }
+                }
+              }
+            },
+          );
+        }
+
+        return retItem;
       },
     );
   }
@@ -210,6 +239,13 @@ class MealsState with _$MealsState {
     );
   }
 
+  List<DateTime>? get currentMealDates {
+    return maybeMap(
+      mealsInfo: (s) => isPlanningMeals ? s.currentMeal?.planningDates! : [getCurrentDate],
+      orElse: () => [getCurrentDate],
+    );
+  }
+
   String? get currentMealCategory {
     return mapOrNull(
       mealsInfo: (state) => state.currentMealCategory?.capitalizeOnlyFirstLetter(),
@@ -218,7 +254,9 @@ class MealsState with _$MealsState {
 
   Map<String, List<MealsListItem>> get mealsMap {
     return maybeMap(
-      mealsInfo: (s) => isPlanningMeals ? s.plannedMeals : s.meals,
+      mealsInfo: (s) {
+        return isPlanningMeals ? s.plannedMeals : s.meals;
+      },
       orElse: () => {},
     );
   }
@@ -254,7 +292,9 @@ class MealsState with _$MealsState {
           (item) => item.id == state.currentMealId,
         );
 
-        if (currentMeal == null) return <MealItem>[];
+        if (currentMeal == null) {
+          return <MealItem>[];
+        }
 
         return currentMeal.mealItems.toList();
       },

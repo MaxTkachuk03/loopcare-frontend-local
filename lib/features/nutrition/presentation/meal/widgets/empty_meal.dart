@@ -4,7 +4,12 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class EmptyMeal extends StatelessWidget {
-  const EmptyMeal({super.key});
+  final String? message;
+
+  const EmptyMeal({
+    super.key,
+    this.message,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +28,11 @@ class EmptyMeal extends StatelessWidget {
                   image: AppImages.emptyMeal,
                 ),
               ),
-              const SizedBox(
-                height: 16.0,
-              ),
+              const SizedBox(height: 16.0),
               Text(
-                LocalizedTexts.logListEmptyMessage.translation,
+                message ?? LocalizedTexts.logListEmptyMessage.translation,
                 textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: AppColors.orangeDark),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.orangeDark),
               ),
             ],
           ),
