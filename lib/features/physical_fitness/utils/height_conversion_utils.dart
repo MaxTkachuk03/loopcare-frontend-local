@@ -11,9 +11,8 @@ class HeightConversionUtils {
 
   static int convertCMtoFtIn(int lengthInCm) {
     var foot = convertCMtoFT(lengthInCm);
-    var inches = (lengthInCm / cmInInch).floor() - convertFTtoIN(foot);
-
-    return inches;
+    var inches = (lengthInCm / cmInInch).ceil() - convertFTtoIN(foot);
+    return inches.round();
   }
 
   static int convertINtoFT(int inches) => inches ~/ inchesInFoot;
@@ -24,8 +23,7 @@ class HeightConversionUtils {
 
   static double convertINtoCM(int inches) => inches * cmInInch;
 
-  static int convertFeetAndInchesToCM(int foot, int inches) =>
-      (convertFTtoCM(foot) + convertINtoCM(inches)).round();
+  static int convertFeetAndInchesToCM(int foot, int inches) => (convertFTtoCM(foot) + convertINtoCM(inches)).round();
 
   HeightConversionUtils._();
 }
