@@ -18,6 +18,7 @@ class MealsState with _$MealsState {
     @Default(false) bool isLoading,
     RequestError? error,
     DateTime? currentDate,
+    DateTime? originCurrentDate,
     String? currentMealCategory,
     required Map<String, List<MealsListItem>> meals,
     required Map<String, List<MealsListItem>> plannedMeals,
@@ -42,6 +43,13 @@ class MealsState with _$MealsState {
   DateTime get getCurrentDate {
     return maybeMap(
       mealsInfo: (s) => s.currentDate ?? DateTime.now(),
+      orElse: () => DateTime.now(),
+    );
+  }
+
+  DateTime get getOriginDate {
+    return maybeMap(
+      mealsInfo: (s) => s.originCurrentDate ?? DateTime.now(),
       orElse: () => DateTime.now(),
     );
   }

@@ -58,8 +58,9 @@ class MealsEvent with _$MealsEvent {
   const factory MealsEvent.createFromFavorites(List<FavoritesItem> foodItemList) = CreateFromFavorites;
 
   const factory MealsEvent.setCurrentDate(
-    DateTime currentDate,
-  ) = SetCurrentDate;
+    DateTime currentDate, {
+    @Default(false) bool updateOrigin,
+  }) = SetCurrentDate;
 
   const factory MealsEvent.addDishToMeal(
     MealsListItem meal,
