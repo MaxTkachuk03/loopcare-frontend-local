@@ -22,15 +22,12 @@ class WeekPlannerPage extends StatefulWidget {
 
 class _WeekPlannerPageState extends State<WeekPlannerPage> {
   DateTime _selectedDay = DateTime.now();
-  DateTime _originSelectedDay = DateTime.now();
 
   @override
   void initState() {
     super.initState();
 
-    _originSelectedDay = context.read<MealsBloc>().state.getCurrentDate;
-
-    _onSelectDay(_originSelectedDay);
+    _onSelectDay(context.read<MealsBloc>().state.getCurrentDate);
   }
 
   void _onSelectDay(DateTime day) {
@@ -65,7 +62,7 @@ class _WeekPlannerPageState extends State<WeekPlannerPage> {
 
   void _setOriginDate() {
     final mealBloc = context.read<MealsBloc>();
-    mealBloc.add(MealsEvent.setCurrentDate(_originSelectedDay));
+    mealBloc.add(MealsEvent.setCurrentDate(mealBloc.state.getOriginDate));
   }
 
   @override

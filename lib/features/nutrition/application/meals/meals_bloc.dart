@@ -78,12 +78,14 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
         final plannedMeals = _getUpdatedPlannedMealsList(r);
         final currentMealCategory = state.mapOrNull(mealsInfo: (s) => s.currentMealCategory);
+        final originCurrentDate = state.mapOrNull(mealsInfo: (s) => s.originCurrentDate);
 
         emit(
           MealsState.mealsInfo(
             currentMealCategory: currentMealCategory,
             currentMealId: currentMealId,
             currentDate: currentDate,
+            originCurrentDate: originCurrentDate,
             meals: meals ?? {},
             selectedServing: null,
             plannedMeals: plannedMeals,
@@ -178,7 +180,10 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         var loggingDate = loggingDates[i].isoStringWithoutTime;
         List<MealsListItem> dayData = meals[loggingDate] ?? <MealsListItem>[];
         final isAlreadyExist = dayData.contains(element);
-        if (isAlreadyExist) continue;
+
+        if (isAlreadyExist) {
+          dayData.remove(element);
+        }
 
         dayData.add(element);
         meals[loggingDate] = dayData;
@@ -197,6 +202,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         emit(
           s.copyWith(
             currentDate: event.currentDate,
+            originCurrentDate: event.updateOrigin ? event.currentDate : s.originCurrentDate,
           ),
         );
 
@@ -216,6 +222,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             (r) => emit(
               MealsState.mealsInfo(
                 currentDate: event.currentDate,
+                originCurrentDate: event.updateOrigin ? event.currentDate : s.originCurrentDate,
                 meals: _combineMealsByDate(meals, r.data),
                 selectedServing: null,
                 plannedMeals: plannedMeals ?? {},
@@ -240,6 +247,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             (r) => emit(
               MealsState.mealsInfo(
                 currentDate: event.currentDate,
+                originCurrentDate: event.updateOrigin ? event.currentDate : s.originCurrentDate,
                 meals: meals ?? {},
                 selectedServing: null,
                 plannedMeals: _combinePlannedMealsByDate(plannedMeals, r.data),

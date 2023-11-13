@@ -85,7 +85,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     setState(() {
       _selectedDay = day;
       context.read<DashboardWeightBloc>().add(DashboardWeightEvent.setDate(day));
-      context.read<MealsBloc>().add(MealsEvent.setCurrentDate(day));
+      context.read<MealsBloc>().add(MealsEvent.setCurrentDate(day, updateOrigin: true));
       context.read<MoodBloc>().add(MoodEvent.setDate(day));
       context
           .read<DashboardEducationBloc>()

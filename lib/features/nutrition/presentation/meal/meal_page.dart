@@ -163,6 +163,11 @@ class _MealPageState extends State<MealPage> {
     }
   }
 
+  void _setOriginDate() {
+    final mealBloc = context.read<MealsBloc>();
+    mealBloc.add(MealsEvent.setCurrentDate(mealBloc.state.getOriginDate));
+  }
+
   _onDeleteMealPressed(BuildContext context) {
     final mealsState = context.read<MealsBloc>().state;
     final currentCategory = mealsState.currentMealCategory;
@@ -184,6 +189,8 @@ class _MealPageState extends State<MealPage> {
                 ),
               );
 
+          _setOriginDate();
+
           context.router.popUntilRouteWithName(HomeRoute.name);
         },
         mealCategory: currentCategory,
@@ -198,6 +205,8 @@ class _MealPageState extends State<MealPage> {
                 ),
               );
 
+          _setOriginDate();
+
           context.router.popUntilRouteWithName(HomeRoute.name);
         },
         mealCategory: currentCategory,
@@ -211,6 +220,8 @@ class _MealPageState extends State<MealPage> {
     if (state.currentFoodItems.isEmpty) {
       context.read<MealsBloc>().add(MealsEvent.deleteMeal(state.getCurrentMealId));
     }
+
+    _setOriginDate();
     context.router.popUntilRouteWithName(HomeRoute.name);
   }
 
