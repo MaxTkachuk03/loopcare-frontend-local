@@ -66,6 +66,7 @@ class CalendarWeek extends StatelessWidget {
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     color: _getTextColor(),
                     fontWeight: FontWeight.w600,
+                    fontSize: isSelected ? ThemeConstants.fontSize16 : ThemeConstants.fontSize14,
                   ),
             ).tr(
               namedArgs: {'number': weekNumber},
