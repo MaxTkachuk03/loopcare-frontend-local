@@ -329,6 +329,7 @@ class _MealPageState extends State<MealPage> {
                                           onPressed: () => recipeState.data.recommendationRecipe.isEmpty
                                               ? null
                                               : _onRecommendationsPressed(context),
+                                          active: recipeState.data.recommendationRecipe.isNotEmpty,
                                         );
                                       },
                                     ),
