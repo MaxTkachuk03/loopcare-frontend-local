@@ -53,6 +53,7 @@ class SubscriptionController {
   void resetState() {
     selectedPlan.value = null;
     isEnableSubscribe.value = false;
+    loading.value = false;
   }
 
   double _getPricePerMonth(double annualPrice) => _roundNumber(annualPrice / 12, 2);
@@ -63,7 +64,7 @@ class SubscriptionController {
   }
 
   void handleLoading(bool isLoading) {
-    isEnableSubscribe.value = !isLoading;
+    isEnableSubscribe.value = !isLoading && (selectedPlan.value != null);
     loading.value = isLoading;
   }
 
