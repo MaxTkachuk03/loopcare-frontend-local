@@ -280,7 +280,7 @@ class _RecipePageState extends State<RecipePage> {
   void _recipeListener(BuildContext context, RecipeState state) {
     final recipe = state.mapOrNull(recipeInfo: (s) => s.data.recipe);
 
-    if (recipe == null) return;
+    if (recipe == null || _isLogRecipePressed) return;
     final mealId = context.read<MealsBloc>().state.getCurrentMealId;
 
     final isMealRecipe = widget.isMealRecipe ?? false;
