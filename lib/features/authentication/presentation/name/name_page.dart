@@ -5,12 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/validators/name_validator.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/domain/name/name.dart';
-import 'package:loopcare_frontend/core/presentation/validators/name_validator.dart';
 
 class NamePage extends StatefulWidget {
   const NamePage({Key? key}) : super(key: key);
@@ -53,10 +53,9 @@ class _NamePageState extends State<NamePage> {
                     Text(
                       LocalizedTexts.whatIsYourName.tr(),
                       textAlign: TextAlign.center,
-                      style:
-                          Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                fontFamily: ThemeConstants.bitterFontFamily,
-                              ),
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                            fontFamily: ThemeConstants.bitterFontFamily,
+                          ),
                     ),
                     const SizedBox(
                       height: 8.0,
@@ -113,7 +112,7 @@ class _NamePageState extends State<NamePage> {
 
   void _onNextPressed() {
     context
-      ..read<AuthenticationCubit>().changeToPasswordState(_nameController.text)
+      ..read<AuthenticationCubit>().changeToPasswordState(_nameController.text.trim())
       ..router.pushNamed(AppRoutes.password);
   }
 }
