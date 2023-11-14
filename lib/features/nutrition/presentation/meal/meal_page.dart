@@ -331,7 +331,7 @@ class _MealPageState extends State<MealPage> {
                                     onPressed: _onSaveToMyDishesHandler,
                                   ),
                                   const SizedBox(height: 16.0),
-                                  if (mealsState.isPlanningMeals)
+                                  if (mealsState.isPlanningMeals && currentDate.isTodayOrFuture)
                                     BlocBuilder<RecipeBloc, RecipeState>(
                                       builder: (BuildContext context, recipeState) {
                                         return OutlinedRoundedButton(
