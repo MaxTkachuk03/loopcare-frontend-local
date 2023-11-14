@@ -24,10 +24,11 @@ class GreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: darkGreen ? AppColors.darkGreen : AppColors.greenMid,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+      title: Stack(
+        alignment: AlignmentDirectional.topEnd,
         children: [
-          Expanded(
+          SizedBox(
+            width: double.infinity,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,7 +60,8 @@ class GreenAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Icons.close,
                 color: AppColors.white,
               ),
-            )
+              iconSize: 24.0,
+            ),
         ],
       ),
       leading: darkGreen ? null : const BackButtonHexagon(),
