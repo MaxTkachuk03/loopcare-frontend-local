@@ -10,7 +10,8 @@ abstract class CreateDishFromRecipeBody implements _$CreateDishFromRecipeBody {
   const CreateDishFromRecipeBody._();
 
   const factory CreateDishFromRecipeBody({
-    required int mealRecipeId,
+    int? mealRecipeId,
+    int? recipeId,
     required double numberOfUnits,
     required List<DishFavoritesCategory> mealCategories,
   }) = _CreateDishFromRecipeBody;

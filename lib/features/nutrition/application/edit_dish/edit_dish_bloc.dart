@@ -28,6 +28,7 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
   EditDishBloc(this.nutritionService) : super(const EditDishState.initial()) {
     on<GetDish>(_onGetDish);
     on<CreateDishFromRecipe>(_onCreateDishFromRecipe);
+    on<CreateDishFromExternalRecipe>(_onCreateDishFromExternalRecipe);
     on<CreateDishFromMeal>(_onCreateDishFromMeal);
     on<CreateDish>(_onCreateDish);
     on<NutritionItemChanged>(_onNutritionItemChanged);
@@ -70,6 +71,30 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
         emit(EditDishState.dishInfo(
           currentDish: dish,
         ));
+      },
+    );
+  }
+
+  FutureOr<void> _onCreateDishFromExternalRecipe(
+    CreateDishFromExternalRecipe event,
+    Emitter<EditDishState> emit,
+  ) async {
+    emit(const EditDishState.loading());
+
+    final data = CreateDishFromRecipeBody(
+      recipeId: event.mealRecipeId,
+      numberOfUnits: event.numberOfUnits,
+      mealCategories: event.mealCategories,
+    );
+
+    final response = await nutritionService.createDishFromRecipe(data);
+
+    response.fold(
+      (l) => emit(EditDishState.error(l)),
+      (r) {
+        final Dish dish = _createDish(r);
+
+        emit(EditDishState.dishInfo(currentDish: dish));
       },
     );
   }

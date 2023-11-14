@@ -88,16 +88,16 @@ class Summary extends StatelessWidget {
                   ),
                 ),
                 if (!fromRecommendation) const SizedBox(height: 30.0),
-                // if (fromRecommendation) const SizedBox(height: 20.0),
-                // if (fromRecommendation)
-                //   Padding(
-                //     padding: const EdgeInsets.only(left: 24.0),
-                //     child: OutlinedRoundedButton(
-                //       text: LocalizedTexts.addToMyDishes.translation,
-                //       icon: AppIcons.dish,
-                //       onPressed: onAddToDishPress,
-                //     ),
-                //   ),
+                if (fromRecommendation) const SizedBox(height: 20.0),
+                if (fromRecommendation)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 24.0),
+                    child: OutlinedRoundedButton(
+                      text: LocalizedTexts.addToMyDishes.translation,
+                      icon: AppIcons.dish,
+                      onPressed: onAddToDishPress,
+                    ),
+                  ),
                 Column(
                   children: [
                     const SizedBox(height: 26.0),
