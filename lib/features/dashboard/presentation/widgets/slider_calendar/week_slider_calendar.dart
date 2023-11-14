@@ -4,6 +4,7 @@ import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.d
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/dashboard/domain/slider_calendar/week_element.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/slider_calendar/calendar_week.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_utils.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -40,7 +41,7 @@ class _WeekSliderCalendarState extends State<WeekSliderCalendar> {
       DateUtils.dateOnly(DateTime.now().add(const Duration(days: 13))),
     );
 
-    _selectedDay = DateTime.now();
+    _selectedDay = context.read<MealsBloc>().state.getCurrentDate;
 
     _scrollToIndex();
   }
