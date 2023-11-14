@@ -131,23 +131,21 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
             ? state.currentMealCategory
             : MealCategory.breakfast.originalValue;
 
-    // final mealId = state.getCurrentMealId;
+    if (mealCategory == null) return;
 
-    // if (mealId == null || mealCategory == null) return;
-
-    // if (state.isContainsRecipeOrDish) {
-    //   showAppSnackBar(
-    //     context: context,
-    //     background: AppColors.white,
-    //     text: LocalizedTexts.invalidCreateDishFromMealMessage.translation,
-    //   );
-    //   return;
-    // }
+    if (state.isContainsRecipeOrDish) {
+      showAppSnackBar(
+        context: context,
+        background: AppColors.white,
+        text: LocalizedTexts.invalidCreateDishFromMealMessage.translation,
+      );
+      return;
+    }
 
     context.router.push(
       EditDishRoute(
         mode: EditDishPageMode.create,
-        event: EditDishEvent.createDishFromRecipe(
+        event: EditDishEvent.createDishFromExternalRecipe(
           int.parse(context.read<RecipeBloc>().state.externalRecipeId ?? ''),
           _defaultNumberOfUnitsForDish,
           _getSelectedMealCategories(mealCategory),
@@ -155,18 +153,6 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
         fromRecommendation: widget.fromRecommendation,
       ),
     );
-
-    // context.router.push(
-    //   EditDishRoute(
-    //     mode: EditDishPageMode.create,
-    //     event: EditDishEvent.createDishFromMeal(
-    //       mealId,
-    //       _defaultNumberOfUnitsForDish,
-    //       mealCategory,
-    //       _genericDishName,
-    //     ),
-    //   ),
-    // );
   }
 
   List<DishFavoritesCategory> _getSelectedMealCategories(String? category) {
