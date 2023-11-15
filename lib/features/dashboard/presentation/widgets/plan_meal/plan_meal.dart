@@ -13,11 +13,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
 class PlanMeal extends StatelessWidget {
-  // final bool isEditable;
-
   const PlanMeal({
     Key? key,
-    // required this.isEditable,
   }) : super(key: key);
 
   void onPressHandler(BuildContext context) {
