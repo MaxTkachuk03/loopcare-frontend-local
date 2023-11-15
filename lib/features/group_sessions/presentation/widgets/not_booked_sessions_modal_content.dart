@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/presentation/widgets/timeslot_card.dart';
 
@@ -18,11 +19,9 @@ class NotBookedSessionsModalContent extends StatelessWidget {
       child: BlocBuilder<TopicsBloc, TopicsState>(
         builder: (context, state) {
           if (state.data.isLoading) return const Expanded(child: Loader());
-
           final topic = state.data.weekTopic;
-
           if (topic == null) return const SizedBox.shrink();
-          final groupSessions = topic.groupSessions;
+          List<GroupSession> groupSessions = [...topic.groupSessions];
           groupSessions.sort((session1, session2) {
             return session1.startDate.compareTo(session2.startDate);
           });
