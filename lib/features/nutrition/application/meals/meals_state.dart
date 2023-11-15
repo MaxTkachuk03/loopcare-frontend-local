@@ -71,11 +71,16 @@ class MealsState with _$MealsState {
   bool get isPossibleToPlanMeal {
     return maybeMap(
       mealsInfo: (s) {
-        final maxDate = DateTime.now().add(const Duration(days: 14));
-        final isAfter = s.currentDate?.isAfter(DateTime.now()) ?? false;
-        final isBefore = s.currentDate?.isBefore(maxDate) ?? false;
+        var currentDate = s.currentDate;
+        if (currentDate != null) {
+          final maxDate = DateTime.now().add(const Duration(days: 14));
+          final isAfter = (currentDate.isToday) || currentDate.isAfter(DateTime.now().midnightTime);
+          final isBefore = currentDate.isBefore(maxDate);
 
-        return isAfter && isBefore;
+          return isAfter && isBefore;
+        } else {
+          return false;
+        }
       },
       orElse: () => false,
     );
