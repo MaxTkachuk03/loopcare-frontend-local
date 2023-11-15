@@ -141,14 +141,14 @@ class _LessonPageState extends State<LessonPage> {
                 if (state.data.temporaryDirectory.isEmpty) {
                   context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
                 }
-                if (!state.data.isLoading &&
+                if (!state.data.isAudioLoading &&
                     state.data.currentPage.type == EducationLessonPageType.audio &&
                     state.data.currentPage.content.audioFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
                         EducationLessonEvent.downloadAudioFile(state.data.currentPage.content.url),
                       );
                 }
-                if (!state.data.isLoading &&
+                if (!state.data.isSubtitleLoading &&
                     state.data.currentPage.type == EducationLessonPageType.audio &&
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {
@@ -186,14 +186,14 @@ class _LessonPageState extends State<LessonPage> {
                 if (state.data.temporaryDirectory.isEmpty) {
                   context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
                 }
-                if (!state.data.isLoading &&
+                if (!state.data.isAudioLoading &&
                     state.data.currentPage.type == EducationLessonPageType.audio &&
                     state.data.currentPage.content.audioFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
                         EducationLessonEvent.downloadAudioFile(state.data.currentPage.content.url),
                       );
                 }
-                if (!state.data.isLoading &&
+                if (!state.data.isSubtitleLoading &&
                     state.data.currentPage.type == EducationLessonPageType.audio &&
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {
@@ -223,14 +223,14 @@ class _LessonPageState extends State<LessonPage> {
                 if (state.data.temporaryDirectory.isEmpty) {
                   context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
                 }
-                if (!state.data.isLoading &&
+                if (!state.data.isAudioLoading &&
                     state.data.currentPage.type == EducationLessonPageType.audio &&
                     state.data.currentPage.content.audioFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
                         EducationLessonEvent.downloadAudioFile(state.data.currentPage.content.url),
                       );
                 }
-                if (!state.data.isLoading &&
+                if (!state.data.isSubtitleLoading &&
                     state.data.currentPage.type == EducationLessonPageType.audio &&
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {

@@ -89,10 +89,67 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     DownloadAudioFile event,
     Emitter<EducationLessonState> emit,
   ) async {
+    if (state.data.isAudioLoading) {
+      return;
+    } else {
+      emit(
+        EducationLessonState.contentLoaded(
+          state.data.copyWith(
+            isAudioLoading: true,
+          ),
+        ),
+      );
+
+      final response = await _educationService.downloadFile(
+        event.url,
+        state.data.filePath(event.url),
+      );
+      response.fold(
+        (l) => emit(
+          EducationLessonState.errorGettingLessons(
+            state.data.copyWith(
+              error: l,
+              isAudioLoading: false,
+            ),
+          ),
+        ),
+        (r) {
+          var pages = state.data.pages;
+          var localPages =
+              pages.map((e) => LessonPage(content: e.content, type: e.type, order: e.order)).toList();
+
+          var index = state.data.currentPageIndex;
+
+          localPages[index] = localPages[index].copyWith(
+            content: localPages[index].content.copyWith(
+                  audioFilePath: state.data.filePath(event.url),
+                ),
+          );
+
+          emit(
+            EducationLessonState.contentLoaded(
+              state.data.copyWith(
+                isAudioLoading: false,
+                pages: localPages,
+              ),
+            ),
+          );
+        },
+      );
+    }
+  }
+
+  Future<void> _onDownloadSubtitlesFile(
+    DownloadSubtitlesFile event,
+    Emitter<EducationLessonState> emit,
+  ) async {
+    if (state.data.isSubtitleLoading) {
+      return;
+    }
     emit(
       EducationLessonState.contentLoaded(
         state.data.copyWith(
-          isLoading: true,
+          isSubtitleLoading: true,
         ),
       ),
     );
@@ -102,48 +159,14 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
       state.data.filePath(event.url),
     );
     response.fold(
-      (l) => emit(
-        EducationLessonState.errorGettingLessons(
-          state.data.copyWith(
-            error: l,
-            isLoading: false,
-          ),
-        ),
-      ),
-      (r) {
-        var pages = state.data.pages;
-        var localPages =
-            pages.map((e) => LessonPage(content: e.content, type: e.type, order: e.order)).toList();
-
-        var index = state.data.currentPageIndex;
-
-        localPages[index] = localPages[index].copyWith(
-          content: localPages[index].content.copyWith(
-                audioFilePath: state.data.filePath(event.url),
+        (l) => emit(
+              EducationLessonState.errorGettingLessons(
+                state.data.copyWith(
+                  error: l,
+                  isSubtitleLoading: false,
+                ),
               ),
-        );
-
-        emit(
-          EducationLessonState.contentLoaded(
-            state.data.copyWith(
-              isLoading: false,
-              pages: localPages,
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Future<void> _onDownloadSubtitlesFile(
-    DownloadSubtitlesFile event,
-    Emitter<EducationLessonState> emit,
-  ) async {
-    final response = await _educationService.downloadFile(
-      event.url,
-      state.data.filePath(event.url),
-    );
-    response.fold((l) {}, (r) {
+            ), (r) {
       var pages = state.data.pages;
       var localPages =
           pages.map((e) => LessonPage(content: e.content, type: e.type, order: e.order)).toList();
@@ -158,7 +181,7 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
       emit(
         EducationLessonState.contentLoaded(
           state.data.copyWith(
-            isLoading: false,
+            isSubtitleLoading: false,
             pages: localPages,
           ),
         ),

@@ -8,9 +8,9 @@ class EducationLessonState with _$EducationLessonState {
 
   const factory EducationLessonState.contentLoaded(EducationLessonData data) = ContentLoaded;
 
-  const factory EducationLessonState.audioContent(EducationLessonData data) = AudioContent;
+  // const factory EducationLessonState.audioContent(EducationLessonData data) = AudioContent;
 
-  const factory EducationLessonState.textContent(EducationLessonData data) = TextContent;
+  // const factory EducationLessonState.textContent(EducationLessonData data) = TextContent;
 
   const factory EducationLessonState.lessonCompleted(EducationLessonData data) = LessonCompleted;
 
@@ -35,6 +35,8 @@ class EducationLessonData with _$EducationLessonData {
     @Default('') String lessonImage,
     @Default('') String lessonTitle,
     @Default(false) bool isLoading,
+    @Default(false) bool isAudioLoading,
+    @Default(false) bool isSubtitleLoading,
     @Default(0) int lessonProgress,
     @Default(0) int currentProgressPageIndex,
     @Default(0) int currentPageIndex,
