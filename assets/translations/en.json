@@ -670,6 +670,7 @@
   "capitalizeWeekWithNumber": "Week {number}",
   "weekDates": "{from} to {to} {month}",
   "saveChanges": "Save changes",
+  "changesSaved": "Changes have been saved",
   "thisMealPlannedFor": "This meal is planned for",
   "saveDateError": "You first have to select another date before you can deslect this one",
   "yesReplace": "Yes replace",

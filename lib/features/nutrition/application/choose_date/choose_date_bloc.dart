@@ -131,6 +131,7 @@ class ChooseDateBloc extends Bloc<ChooseDateEvent, ChooseDateState> {
       ChooseDateState.calendar(
         state.data.copyWith(
           weekDayElementList: state.data.weeks,
+          canSave: false,
         ),
       ),
     );
@@ -148,7 +149,13 @@ class ChooseDateBloc extends Bloc<ChooseDateEvent, ChooseDateState> {
       if (date.isContainedIn(state.data.filledDateList) &&
           !date.isContainedIn(selectedDates) &&
           !event.confirmed) {
-        emit(state.copyWith(data: state.data.copyWith(showReplaceWarning: false)));
+        emit(
+          state.copyWith(
+            data: state.data.copyWith(
+              showReplaceWarning: false,
+            ),
+          ),
+        );
 
         emit(
           state.copyWith(

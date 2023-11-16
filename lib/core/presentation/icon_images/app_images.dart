@@ -83,6 +83,12 @@ class AppImages {
     height: 50,
   );
 
+  static SvgPicture checkMarkDarkGreen = SvgPicture.asset(
+    '$imagesFilePath/check_mark_darkgreen.svg',
+    width: 50,
+    height: 50,
+  );
+
   static SvgPicture exclamationMark = SvgPicture.asset(
     '$imagesFilePath/exclamation_mark.svg',
     fit: BoxFit.scaleDown,
