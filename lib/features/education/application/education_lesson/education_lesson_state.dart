@@ -8,10 +8,6 @@ class EducationLessonState with _$EducationLessonState {
 
   const factory EducationLessonState.contentLoaded(EducationLessonData data) = ContentLoaded;
 
-  // const factory EducationLessonState.audioContent(EducationLessonData data) = AudioContent;
-
-  // const factory EducationLessonState.textContent(EducationLessonData data) = TextContent;
-
   const factory EducationLessonState.lessonCompleted(EducationLessonData data) = LessonCompleted;
 
   const factory EducationLessonState.errorCompleteLesson(EducationLessonData data) = ErrorCompleteLesson;
