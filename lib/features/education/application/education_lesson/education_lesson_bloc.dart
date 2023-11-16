@@ -89,63 +89,60 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     DownloadAudioFile event,
     Emitter<EducationLessonState> emit,
   ) async {
-    if (state.data.isAudioLoading) {
-      return;
-    } else {
-      emit(
-        EducationLessonState.contentLoaded(
+    if (state.data.isAudioLoading) return;
+
+    emit(
+      EducationLessonState.contentLoaded(
+        state.data.copyWith(
+          isAudioLoading: true,
+        ),
+      ),
+    );
+
+    final response = await _educationService.downloadFile(
+      event.url,
+      state.data.filePath(event.url),
+    );
+    response.fold(
+      (l) => emit(
+        EducationLessonState.errorGettingLessons(
           state.data.copyWith(
-            isAudioLoading: true,
+            error: l,
+            isAudioLoading: false,
           ),
         ),
-      );
+      ),
+      (r) {
+        var pages = state.data.pages;
+        var localPages =
+            pages.map((e) => LessonPage(content: e.content, type: e.type, order: e.order)).toList();
 
-      final response = await _educationService.downloadFile(
-        event.url,
-        state.data.filePath(event.url),
-      );
-      response.fold(
-        (l) => emit(
-          EducationLessonState.errorGettingLessons(
-            state.data.copyWith(
-              error: l,
-              isAudioLoading: false,
-            ),
-          ),
-        ),
-        (r) {
-          var pages = state.data.pages;
-          var localPages =
-              pages.map((e) => LessonPage(content: e.content, type: e.type, order: e.order)).toList();
+        var index = state.data.currentPageIndex;
 
-          var index = state.data.currentPageIndex;
-
-          localPages[index] = localPages[index].copyWith(
-            content: localPages[index].content.copyWith(
-                  audioFilePath: state.data.filePath(event.url),
-                ),
-          );
-
-          emit(
-            EducationLessonState.contentLoaded(
-              state.data.copyWith(
-                isAudioLoading: false,
-                pages: localPages,
+        localPages[index] = localPages[index].copyWith(
+          content: localPages[index].content.copyWith(
+                audioFilePath: state.data.filePath(event.url),
               ),
+        );
+
+        emit(
+          EducationLessonState.contentLoaded(
+            state.data.copyWith(
+              isAudioLoading: false,
+              pages: localPages,
             ),
-          );
-        },
-      );
-    }
+          ),
+        );
+      },
+    );
   }
 
   Future<void> _onDownloadSubtitlesFile(
     DownloadSubtitlesFile event,
     Emitter<EducationLessonState> emit,
   ) async {
-    if (state.data.isSubtitleLoading) {
-      return;
-    }
+    if (state.data.isSubtitleLoading) return;
+
     emit(
       EducationLessonState.contentLoaded(
         state.data.copyWith(
