@@ -100,25 +100,32 @@ class RecommendationCard extends StatelessWidget {
                 const SizedBox(height: 18.0),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SummaryItem(
-                      label: LocalizedTexts.cookingTime.translation,
-                      icon: AppIcons.clockGrey,
-                      quantity: '${recommendation.cookingTimeMin}',
-                      quantityLabel: 'min',
+                    Expanded(
+                      child: SummaryItem(
+                        label: LocalizedTexts.cookingTime.translation,
+                        icon: AppIcons.clockGrey,
+                        quantity: '${recommendation.cookingTimeMin}',
+                        quantityLabel: 'min',
+                      ),
                     ),
                     const SizedBox(width: 20.0),
-                    SummaryItem(
-                      label: LocalizedTexts.preparationTime.translation,
-                      icon: AppIcons.clockGrey,
-                      quantity: '${recommendation.preparationTimeMin}',
-                      quantityLabel: 'min',
+                    Expanded(
+                      child: SummaryItem(
+                        label: LocalizedTexts.preparationTime.translation,
+                        icon: AppIcons.clockGrey,
+                        quantity: '${recommendation.preparationTimeMin}',
+                        quantityLabel: 'min',
+                      ),
                     ),
                     const SizedBox(width: 8.0),
-                    ShowBlock(
-                      onPress: () => _onPressHandler(
-                        context: context,
-                        recipeId: recommendation.id,
+                    Expanded(
+                      child: ShowBlock(
+                        onPress: () => _onPressHandler(
+                          context: context,
+                          recipeId: recommendation.id,
+                        ),
                       ),
                     ),
                   ],

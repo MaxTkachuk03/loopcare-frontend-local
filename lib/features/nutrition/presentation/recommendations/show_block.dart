@@ -17,13 +17,14 @@ class ShowBlock extends StatelessWidget {
       onTap: onPress,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Text(
               LocalizedTexts.show.translation,
-              style:
-                  Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 14.0, color: AppColors.blueDark),
+              textAlign: TextAlign.end,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 14.0, color: AppColors.blueDark),
             ),
           ),
           const SizedBox(
