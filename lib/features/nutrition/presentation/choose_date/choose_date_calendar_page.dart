@@ -196,8 +196,25 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
         chooseDateBloc.state.data.selectedDateList,
       ),
     );
-    // mealsBloc.add(MealsEvent.fetchMealById(chooseDateBloc.state.data.currentMealId));
 
     context.router.pop();
+
+    showAppSnackBar(
+      context: context,
+      text: LocalizedTexts.changesSaved.translation,
+      background: AppColors.white,
+      leadIcon: Hexagon(
+        width: 54,
+        height: 54,
+        borderRadius: 18,
+        innerWidget: Container(
+          color: AppColors.white,
+          child: Container(
+            color: AppColors.blueDark,
+            child: AppImages.checkMarkDarkGreen,
+          ),
+        ),
+      ),
+    );
   }
 }
