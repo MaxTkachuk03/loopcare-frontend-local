@@ -45,16 +45,34 @@ class _BlueAppBarState extends State<BlueAppBar> {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (BuildContext context, state) {
         return AppBar(
-          backgroundColor:
-              state.isPlanningMeals || widget.isPlanningMeals ? AppColors.darkGreen : AppColors.blueAppBar,
-          title: (title != null)
-              ? _Title(
-                  title: title,
-                  subtitle: widget.subtitle,
-                  italicSubtitle: widget.italicSubtitle,
-                )
-              : null,
-          leading: widget.isCustomLeading ?? false ? const BackButtonHexagon() : widget.leading,
+          backgroundColor: state.isPlanningMeals || widget.isPlanningMeals ? AppColors.darkGreen : AppColors.blueAppBar,
+          centerTitle: true,
+          titleSpacing: 16,
+          title: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              if (widget.isCustomLeading ?? false)
+                const BackButtonHexagon()
+              else
+                widget.leading ??
+                    const SizedBox(
+                      width: 44,
+                    ),
+              (title != null)
+                  ? Expanded(
+                      child: _Title(
+                        title: title,
+                        subtitle: widget.subtitle,
+                        italicSubtitle: widget.italicSubtitle,
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+              if (widget.actions == null)
+                const SizedBox(
+                  width: 44,
+                ),
+            ],
+          ),
           bottom: widget.bottom,
           automaticallyImplyLeading: false,
           actions: widget.actions,
@@ -84,14 +102,15 @@ class _Title extends StatelessWidget {
       children: [
         Text(
           title,
-          maxLines: 2,
+          maxLines: 1,
+          textAlign: TextAlign.center,
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w600,
                 color: AppColors.white,
               ),
         ),
-        if (subtitle != null)
+        if (subtitle != null && (subtitle?.isNotEmpty ?? false))
           Text(
             subtitle!,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -99,6 +118,7 @@ class _Title extends StatelessWidget {
                   color: AppColors.white,
                   fontStyle: italicSubtitle ?? true ? FontStyle.italic : FontStyle.normal,
                 ),
+            textAlign: TextAlign.center,
           ),
       ],
     );

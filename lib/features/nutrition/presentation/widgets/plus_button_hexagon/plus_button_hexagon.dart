@@ -34,7 +34,8 @@ class PlusButtonHexagon extends StatelessWidget {
               onPressed: () => _onSearchTap(context),
             ),
           ),
-        )
+        ),
+        const SizedBox(width: 16.0),
       ],
     );
   }
