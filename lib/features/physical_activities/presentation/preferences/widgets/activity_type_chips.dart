@@ -18,7 +18,6 @@ class _ActivityTypeChipsState extends State<ActivityTypeChips> {
   @override
   void initState() {
     super.initState();
-
     final bloc = context.read<PhysicalActivitiesPreferencesBloc>();
     if (bloc.state.data.isTargetsSet) {
       _selectedValue = bloc.state.data.trainingTargets;

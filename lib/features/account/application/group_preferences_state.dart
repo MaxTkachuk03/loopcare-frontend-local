@@ -16,10 +16,10 @@ class GroupPreferencesData with _$GroupPreferencesData {
   const GroupPreferencesData._();
 
   const factory GroupPreferencesData({
-    @Default(YesNoAnswer.no) YesNoAnswer wouldLikeJoinGroup,
-    @Default('') String nickname,
-    @Default('') String timezone,
-    @Default(null) GenderPreferences? genderPreferences,
+    YesNoAnswer? wouldLikeJoinGroup,
+    String? nickname,
+    String? timezone,
+    GenderPreferences? genderPreferences,
     @Default(false) bool isLoading,
     @Default(GroupPrefsMode.singlePage) GroupPrefsMode groupPrefsMode,
     RequestError? error,

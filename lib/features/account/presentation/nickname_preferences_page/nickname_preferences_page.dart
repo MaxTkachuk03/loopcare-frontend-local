@@ -30,7 +30,11 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
   @override
   void initState() {
     super.initState();
-    _nicknameController.text = context.read<GroupPreferencesBloc>().state.data.nickname;
+    var nick = context.read<GroupPreferencesBloc>().state.data.nickname;
+    if (nick == null) {
+      return;
+    }
+    _nicknameController.text = nick;
   }
 
   void _onNextPressedHandler() {
