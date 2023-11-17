@@ -37,13 +37,12 @@ class NotGrouped extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 4.0),
-              BlocBuilder<GroupPreferencesBloc, GroupPreferencesState>(
-                  builder: (BuildContext context, state) {
+              BlocBuilder<GroupPreferencesBloc, GroupPreferencesState>(builder: (BuildContext context, state) {
                 return state.maybeWhen(
                   orElse: () => const SizedBox.shrink(),
                   updated: (s) {
                     return Text(
-                      s.wouldLikeJoinGroup.name.capitalize(),
+                      s.wouldLikeJoinGroup?.name.capitalize() ?? '',
                       style: Theme.of(context).textTheme.headlineSmall,
                     ).tr();
                   },

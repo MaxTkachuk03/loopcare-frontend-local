@@ -9,14 +9,13 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
-import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/grouped.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/can_not_find_group.dart';
+import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/grouped.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/not_grouped.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/waiting_in_pool.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
 
 class GroupPreferencesPage extends StatefulWidget {
   const GroupPreferencesPage({Key? key}) : super(key: key);
@@ -28,19 +27,18 @@ class GroupPreferencesPage extends StatefulWidget {
 class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
   @override
   void initState() {
+    super.initState();
     final authState = context.read<AuthenticationCubit>().state;
     final timezone = context.read<GroupPreferencesBloc>().state.data.timezone;
     final nickname = context.read<GroupPreferencesBloc>().state.data.nickname;
     final genderPreferences = context.read<GroupPreferencesBloc>().state.data.genderPreferences;
 
     context.read<GroupPreferencesBloc>().add(GroupPreferencesEvent.setInitialData(
-          value: authState.groupingState == UserGroupingState.notGrouped ? YesNoAnswer.no : YesNoAnswer.no,
-          gender: genderPreferences ?? authState.genderPreferences ?? GenderPreferences.noPreference,
-          nickname: nickname.isNotEmpty ? nickname : authState.nickname ?? '',
-          timezone: timezone.isNotEmpty ? timezone : authState.timezone ?? '',
+          value: authState.groupingState == UserGroupingState.notGrouped ? YesNoAnswer.no : null,
+          gender: genderPreferences ?? authState.genderPreferences,
+          nickname: nickname ?? authState.nickname,
+          timezone: timezone ?? authState.timezone,
         ));
-
-    super.initState();
   }
 
   @override
@@ -70,10 +68,8 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
                     );
                   }
 
-                  return BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                      builder: (BuildContext context, state) {
+                  return BlocBuilder<AuthenticationCubit, AuthenticationState>(builder: (BuildContext context, state) {
                     if (state.groupingState == null) return const SizedBox.shrink();
-
                     if (state.groupingState == UserGroupingState.notGrouped) return const NotGrouped();
                     if (state.groupingState == UserGroupingState.refused) return const NotGrouped();
                     if (state.groupingState == UserGroupingState.left) return const NotGrouped();

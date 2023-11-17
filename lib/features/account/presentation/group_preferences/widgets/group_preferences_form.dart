@@ -57,7 +57,7 @@ class GroupPreferencesForm extends StatelessWidget {
                         const SizedBox(height: 16.0),
                         TappedItem(
                           title: LocalizedTexts.yourNickname,
-                          subTitle: s.data.nickname,
+                          subTitle: s.data.nickname ?? '',
                           onPressHandler: () => _onNicknamePreferencesTap(context),
                         ),
                         const SizedBox(height: 16.0),
@@ -95,7 +95,7 @@ class GroupPreferencesForm extends StatelessWidget {
                       const SizedBox(height: 16.0),
                       TappedItem(
                         title: LocalizedTexts.timezone,
-                        subTitle: s.data.timezone,
+                        subTitle: s.data.timezone ?? '',
                         onPressHandler: () => _onTimezoneTap(context),
                       ),
                       const SizedBox(height: 16.0),
@@ -103,7 +103,7 @@ class GroupPreferencesForm extends StatelessWidget {
                       const SizedBox(height: 16.0),
                       TappedItem(
                         title: LocalizedTexts.yourNickname,
-                        subTitle: s.data.nickname,
+                        subTitle: s.data.nickname ?? '',
                         onPressHandler: () => _onNicknamePreferencesTap(context),
                       ),
                       const SizedBox(height: 16.0),
@@ -141,22 +141,19 @@ class GroupPreferencesForm extends StatelessWidget {
 
   void _onGenderPreferencesTap(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>()
-          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
       ..router.pushNamed(AppRoutes.genderPreferences);
   }
 
   void _onTimezoneTap(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>()
-          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
       ..router.pushNamed(AppRoutes.timezone);
   }
 
   void _onNicknamePreferencesTap(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>()
-          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
       ..router.pushNamed(AppRoutes.nicknamePreferences);
   }
 

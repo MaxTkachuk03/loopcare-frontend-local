@@ -1,14 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 
 class AccountSection extends StatefulWidget {
   const AccountSection({Key? key}) : super(key: key);
@@ -34,6 +35,8 @@ class _AccountSectionState extends State<AccountSection> {
   // }
 
   _onLogOutPressed() {
+    context.read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.initClear());
+    context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.init());
     context.read<AuthenticationCubit>().logout();
   }
 
@@ -54,8 +57,7 @@ class _AccountSectionState extends State<AccountSection> {
           const SectionTitle(title: LocalizedTexts.account),
           BlocBuilder<AuthenticationCubit, AuthenticationState>(
             builder: (BuildContext context, state) {
-              return SectionItem(
-                  title: LocalizedTexts.username, subTitle: state.email, onPressHandler: () {});
+              return SectionItem(title: LocalizedTexts.username, subTitle: state.email, onPressHandler: () {});
             },
           ),
           const Divider(height: 1.0, color: AppColors.yellowLight),
