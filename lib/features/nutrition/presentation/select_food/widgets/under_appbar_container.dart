@@ -7,12 +7,12 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/search_field.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/underlined_tab_bar.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_food_item_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/underlined_tab_bar.dart';
 
 class UnderAppBarContainer extends StatelessWidget {
   const UnderAppBarContainer({Key? key}) : super(key: key);
@@ -46,7 +46,7 @@ class UnderAppBarContainer extends StatelessWidget {
               ),
               const SizedBox(height: 18.0),
               SizedBox(
-                height: 24,
+                height: 30,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -115,6 +115,7 @@ class UnderAppBarContainer extends StatelessWidget {
                         ),
                       ),
                     );
+
                     context.router.pushNamed(AppRoutes.meal);
                   }
                 },

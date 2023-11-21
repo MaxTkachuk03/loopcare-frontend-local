@@ -15,7 +15,6 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_me
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/person_mood/person_mood.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/physical_activities.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/plan_meal/plan_meal.dart';
-// import 'package:loopcare_frontend/features/dashboard/presentation/widgets/reflection/reflection.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/slider_calendar/slider_calendar.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/support_group.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/weight/weight_block.dart';
@@ -50,8 +49,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
         .read<DashboardWeightBloc>()
         .add(DashboardWeightEvent.fetchWeights(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime));
 
-    context.read<MoodBloc>().add(MoodEvent.getMoods(
-        _selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime, DateTime.now().utcIsoStringFormat));
+    context.read<MoodBloc>().add(
+        MoodEvent.getMoods(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime, DateTime.now().utcIsoStringFormat));
 
     _onRefresh();
 
@@ -70,9 +69,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
   Future<void> _onRefresh() async {
     context.read<AuthenticationCubit>().getAccount();
 
-    context
-        .read<DashboardEducationBloc>()
-        .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
+    context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
 
     context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
 
@@ -85,11 +82,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     setState(() {
       _selectedDay = day;
       context.read<DashboardWeightBloc>().add(DashboardWeightEvent.setDate(day));
-      context.read<MealsBloc>().add(MealsEvent.setCurrentDate(day));
+      context.read<MealsBloc>().add(MealsEvent.setCurrentDate(day, updateOrigin: true));
       context.read<MoodBloc>().add(MoodEvent.setDate(day));
-      context
-          .read<DashboardEducationBloc>()
-          .add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
+      context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
     });
   }
 
@@ -144,7 +139,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                                   },
                                 ),
                                 const SizedBox(height: 10.0),
-                                PlanMeal(isEditable: _isMealBlockEditable),
+                                const PlanMeal(),
                               ],
                             );
                           },

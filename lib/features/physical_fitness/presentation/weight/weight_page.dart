@@ -28,17 +28,16 @@ class _WeightPageState extends State<WeightPage> {
   late TextEditingController lbsController;
   final FocusNode kgFieldFocusNode = FocusNode();
   final FocusNode lbsFieldFocusNode = FocusNode();
+  final ValueNotifier<bool> valueNotifier = ValueNotifier(false);
   MeasurementSystemType activeMeasurementType = getMeasurementSystem();
 
   @override
   void initState() {
     final bloc = context.read<PhysicalFitnessBloc>();
     final weightInKg = bloc.state.weightInKg;
-
     kgController = TextEditingController(text: weightInKg ?? '');
     lbsController = TextEditingController(
         text: weightInKg != null ? '${WeightConversionUtils.convertKgToLbs(double.parse(weightInKg))}' : '');
-
     kgFieldFocusNode.requestFocus();
     lbsFieldFocusNode.requestFocus();
 
@@ -49,10 +48,9 @@ class _WeightPageState extends State<WeightPage> {
   void dispose() {
     kgController.dispose();
     lbsController.dispose();
-
+    valueNotifier.dispose();
     kgFieldFocusNode.dispose();
     lbsFieldFocusNode.dispose();
-
     super.dispose();
   }
 
@@ -78,14 +76,18 @@ class _WeightPageState extends State<WeightPage> {
                   controller: kgController,
                   focusNode: kgFieldFocusNode,
                   maxLength: 3,
+                  isDecimal: true,
                   counterText: '',
+                  onChanged: validateInput,
                 ),
                 UnitField(
                   unit: lbs,
+                  isDecimal: true,
                   controller: lbsController,
                   focusNode: lbsFieldFocusNode,
                   maxLength: 3,
                   counterText: '',
+                  onChanged: validateInput,
                 ),
               ],
               onTabChanged: _onTabChanged,
@@ -96,9 +98,16 @@ class _WeightPageState extends State<WeightPage> {
             //   onTap: _onHelpTap,
             // ),
             const SizedBox(height: 20.0),
-            _NextButton(
-              measurementSystemType: activeMeasurementType,
-              getWeight: getWeight,
+
+            ValueListenableBuilder<bool>(
+              valueListenable: valueNotifier,
+              builder: (context, enable, _) {
+                return _NextButton(
+                  measurementSystemType: activeMeasurementType,
+                  getWeight: getWeight,
+                  enable: enable,
+                );
+              },
             ),
             const SizedBox(height: 30.0),
           ],
@@ -107,11 +116,15 @@ class _WeightPageState extends State<WeightPage> {
     );
   }
 
-  // void _onHelpTap() {}
+  void validateInput(value) => valueNotifier.value = value.isNotEmpty && value != '0';
 
   _onTabChanged(MeasurementSystemType unitType) {
     setState(() {
       activeMeasurementType = unitType;
+      if (!valueNotifier.value) {
+        lbsController.clear();
+        kgController.clear();
+      }
     });
 
     if (unitType == MeasurementSystemType.metric) {
@@ -127,16 +140,18 @@ class _WeightPageState extends State<WeightPage> {
 
   String getWeight() {
     if (activeMeasurementType == MeasurementSystemType.metric) {
+      final kgText = kgController.text.replaceAll(',', '.');
+      if (kgText == '') return '';
+      kgController.text = double.parse(kgText).toString();
       return kgController.text;
     }
-
     return getMetricWeight();
   }
 
   String getMetricWeight() {
-    final lbsText = lbsController.text;
+    final lbsText = lbsController.text.replaceAll(',', '.');
     if (lbsText == '') return '';
-
+    lbsController.text = double.parse(lbsText).toString();
     return '${WeightConversionUtils.convertLbsToKg(double.parse(lbsText))}';
   }
 }
@@ -144,19 +159,21 @@ class _WeightPageState extends State<WeightPage> {
 class _NextButton extends StatelessWidget {
   final MeasurementSystemType measurementSystemType;
   final String Function() getWeight;
+  final bool enable;
 
   const _NextButton({
     Key? key,
     required this.measurementSystemType,
     required this.getWeight,
+    required this.enable,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => _onNextPressed(context),
+      onPressed: enable ? () => _onNextPressed(context) : null,
       style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-            backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
+            backgroundColor: MaterialStateProperty.all(enable ? AppColors.orangeDark : AppColors.greyLight),
           ),
       child: Text(
         LocalizedTexts.next.tr(),

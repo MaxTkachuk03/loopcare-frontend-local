@@ -7,16 +7,15 @@ import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_se
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
+import 'package:loopcare_frontend/core/presentation/validators/login_password_validator.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 import 'package:loopcare_frontend/features/authentication/domain/login_password/login_password.dart';
-import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
-import 'package:loopcare_frontend/core/presentation/validators/login_password_validator.dart';
 
 const accountNotFound = 'account_not_found';
 const emailOrPasswordAreIncorrect = 'email_or_password_are_incorrect';
@@ -37,9 +36,9 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void dispose() {
-    super.dispose();
     _passwordController.dispose();
     _emailController.dispose();
+    super.dispose();
   }
 
   @override
@@ -124,7 +123,6 @@ class _LoginFormState extends State<LoginForm> {
               return error.maybeMap(
                 notFound: (e) {
                   final message = e.error.message;
-
                   return message == accountNotFound
                       ? LocalizedTexts.emailOrPasswordAreIncorrect.tr()
                       : LocalizedTexts.somethingIsIncorrect.tr();

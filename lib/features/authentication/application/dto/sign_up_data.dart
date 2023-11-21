@@ -37,8 +37,7 @@ class SignUpData {
     required this.mentalHealthTest,
   });
 
-  factory SignUpData.fromJson(Map<String, dynamic> json) =>
-      _$SignUpDataFromJson(json);
+  factory SignUpData.fromJson(Map<String, dynamic> json) => _$SignUpDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$SignUpDataToJson(this);
 }

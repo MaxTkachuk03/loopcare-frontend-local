@@ -67,7 +67,7 @@ class _NutritionTabsState extends State<NutritionTabs> with TickerProviderStateM
           tabs: tabs.map((e) => Tab(text: e.text)).toList(),
         ),
       ),
-      body:  Padding(
+      body: Padding(
         padding: const EdgeInsets.only(top: 16.0),
         child: TabBarView(
           controller: _tabController,

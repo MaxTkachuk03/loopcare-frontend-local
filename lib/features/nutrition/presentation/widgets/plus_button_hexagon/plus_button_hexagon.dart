@@ -34,7 +34,8 @@ class PlusButtonHexagon extends StatelessWidget {
               onPressed: () => _onSearchTap(context),
             ),
           ),
-        )
+        ),
+        const SizedBox(width: 16.0),
       ],
     );
   }
@@ -73,6 +74,7 @@ class PlusButtonHexagon extends StatelessWidget {
                         ),
                       ),
                     );
+
                     context.router.pushNamed(AppRoutes.meal);
                   } else {
                     print('Search item click freezed PlusButtonHexagon mealId == null line 79');

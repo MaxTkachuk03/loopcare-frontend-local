@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
@@ -15,7 +14,6 @@ import 'package:loopcare_frontend/features/authentication/application/dto/login_
 import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/dto/registration_physical_fitness_data.dart';
-
 
 @singleton
 class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
@@ -61,6 +59,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
 
     response.fold(
       (error) {
+        emit(const AuthenticationState.init());
         emit(AuthenticationState.guest(error: error));
       },
       (response) {
@@ -68,7 +67,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
         authTokenManager.setRefreshToken(response.refreshToken);
 
         _socketService.startListen();
-        debugPrint('devcpp login: emit');
+
         emit(
           AuthenticationState.authenticated(
             Account(
@@ -79,6 +78,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
               isPreferencesComplete: response.isPreferencesComplete,
               gender: response.gender,
               bioGender: response.bioGender,
+              emailApproveDate: response.emailApproveDate,
               subscription: response.subscription,
             ),
           ),
@@ -149,6 +149,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
               foodPreferencesAllergic: r.foodPreferences.allergic,
               unlockedFeatures: r.unlockedFeatures,
               physicalActivitiesPreferences: r.physicalActivitiesPreferences,
+              emailApproveDate: r.emailApproveDate,
               subscription: r.subscription,
             ),
           ));

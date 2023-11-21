@@ -23,10 +23,8 @@ class SummaryItem extends StatelessWidget {
       children: [
         Text(
           label,
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(color: AppColors.greyLabel),
+          maxLines: 2,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.greyLabel),
         ),
         const SizedBox(
           height: 6.0,
@@ -39,10 +37,7 @@ class SummaryItem extends StatelessWidget {
             ),
             RichText(
               text: TextSpan(
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: AppColors.black),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.black),
                 children: [
                   TextSpan(
                     text: quantity,

@@ -14,7 +14,6 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson_page_type.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
@@ -141,14 +140,14 @@ class _LessonPageState extends State<LessonPage> {
                 if (state.data.temporaryDirectory.isEmpty) {
                   context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
                 }
-                if (!state.data.isLoading &&
+                if (!state.data.isAudioLoading &&
                     state.data.currentPage.type == EducationLessonPageType.audio &&
                     state.data.currentPage.content.audioFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
                         EducationLessonEvent.downloadAudioFile(state.data.currentPage.content.url),
                       );
                 }
-                if (!state.data.isLoading &&
+                if (!state.data.isSubtitleLoading &&
                     state.data.currentPage.type == EducationLessonPageType.audio &&
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {
@@ -186,14 +185,14 @@ class _LessonPageState extends State<LessonPage> {
                 if (state.data.temporaryDirectory.isEmpty) {
                   context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
                 }
-                if (!state.data.isLoading &&
+                if (!state.data.isAudioLoading &&
                     state.data.currentPage.type == EducationLessonPageType.audio &&
                     state.data.currentPage.content.audioFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
                         EducationLessonEvent.downloadAudioFile(state.data.currentPage.content.url),
                       );
                 }
-                if (!state.data.isLoading &&
+                if (!state.data.isSubtitleLoading &&
                     state.data.currentPage.type == EducationLessonPageType.audio &&
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {
@@ -223,14 +222,14 @@ class _LessonPageState extends State<LessonPage> {
                 if (state.data.temporaryDirectory.isEmpty) {
                   context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
                 }
-                if (!state.data.isLoading &&
+                if (!state.data.isAudioLoading &&
                     state.data.currentPage.type == EducationLessonPageType.audio &&
                     state.data.currentPage.content.audioFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
                         EducationLessonEvent.downloadAudioFile(state.data.currentPage.content.url),
                       );
                 }
-                if (!state.data.isLoading &&
+                if (!state.data.isSubtitleLoading &&
                     state.data.currentPage.type == EducationLessonPageType.audio &&
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {

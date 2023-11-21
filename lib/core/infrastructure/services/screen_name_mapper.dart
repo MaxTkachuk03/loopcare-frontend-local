@@ -48,6 +48,8 @@ final screenNames = {
   'NoConsentRoute': 'No Consent Screen',
   'LegalStatementRoute': 'Legal Statement Screen', //added
   'PreferencesOverviewRoute': 'Preferences Overview Screen',
+  'ChooseDateCalendarRoute': 'Plan Meal Choose Date Screen', //added
+  ' WeekPlannerRoute': 'Week Planner  Screen', //added
 
   'YouAndFoodIntroRoute': 'You and Food Screen',
   'TypesOfFoodRoute': 'Types of Food Screen',
@@ -114,6 +116,11 @@ final screenNames = {
   'SessionCallRoute': 'Group Session Call Screen',
   'SessionRulesRoute': 'Group Session Rules Screen',
   'PreparationMaterialsRoute': 'Group Session Preparation Materials Screen',
+
+  // Recommendations
+  'RecommendationsRoute': 'Recommendations Screen',
+
+  //Subscription
   'SubscriptionRoute': 'Subscription Screen',
   'ManageSubscriptionRoute': 'Manage Subscription Screen'
 };

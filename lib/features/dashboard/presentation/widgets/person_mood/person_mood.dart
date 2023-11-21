@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -40,9 +39,11 @@ class PersonMood extends StatelessWidget {
       child: BlocBuilder<MoodBloc, MoodState>(
         builder: (context, state) {
           return state.maybeMap(
-            updated: (s) {
+            loading: (_) => const Loader(),
+            orElse: () {
               final bool isEditable = DashboardUtils.isEditable(date);
-              final List<Mood> moodValues = s.data.getSelectedDayMoods(date.isoStringWithoutTime);
+              final List<Mood> moodValues = state.data.getSelectedDayMoods(date.isoStringWithoutTime);
+              moodValues.sort((a, b) => a.time.compareTo(b.time));
 
               return Column(
                 children: [
@@ -89,19 +90,6 @@ class PersonMood extends StatelessWidget {
                 ],
               );
             },
-            loading: (_) => const Loader(),
-            error: (errorState) {
-              final error = errorState.data.error;
-
-              return ErrorScreen(
-                smallVersion: true,
-                error: error,
-                onButtonPressed: () => context
-                    .read<MoodBloc>()
-                    .add(MoodEvent.getMoods(date.toUtc().toIso8601String(), date.toUtc().toIso8601String())),
-              );
-            },
-            orElse: () => const SizedBox.shrink(),
           );
         },
       ),

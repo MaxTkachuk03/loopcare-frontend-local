@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/orange_button.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -11,7 +12,6 @@ import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/get_measur
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_field.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/weight_conversion_utils.dart';
 
 class LogWeightPage extends StatefulWidget {
@@ -36,7 +36,6 @@ class _LogWeightPageState extends State<LogWeightPage> {
   @override
   void initState() {
     weightFieldController = TextEditingController(text: _getInputInitialValue());
-
     fieldFocusNode.requestFocus();
     super.initState();
   }
@@ -59,7 +58,6 @@ class _LogWeightPageState extends State<LogWeightPage> {
   void dispose() {
     weightFieldController.dispose();
     fieldFocusNode.dispose();
-
     super.dispose();
   }
 
@@ -82,6 +80,8 @@ class _LogWeightPageState extends State<LogWeightPage> {
   }
 
   bool get _isToday => widget.selectedDay.midnightTime == DateTime.now().midnightTime;
+
+  bool get _notEnableBtn => weightFieldController.text.isEmpty || weightFieldController.text == '0';
 
   void _onWeightChangeHandler(_) {
     setState(() {});
@@ -119,8 +119,7 @@ class _LogWeightPageState extends State<LogWeightPage> {
                       ),
                   ],
                 ),
-                BlocBuilder<DashboardWeightBloc, DashboardWeightState>(
-                    builder: (BuildContext context, state) {
+                BlocBuilder<DashboardWeightBloc, DashboardWeightState>(builder: (BuildContext context, state) {
                   return UnitField(
                     onChanged: _onWeightChangeHandler,
                     unit: state.userWeightUnits,
@@ -134,7 +133,7 @@ class _LogWeightPageState extends State<LogWeightPage> {
                 Column(
                   children: [
                     OrangeButton(
-                      onPressedHandler: weightFieldController.text.isEmpty ? null : _onOkPressed,
+                      onPressedHandler: _notEnableBtn ? null : _onOkPressed,
                       child: Text(LocalizedTexts.ok.translation.toUpperCase()),
                     ),
                     const SizedBox(height: 30.0),

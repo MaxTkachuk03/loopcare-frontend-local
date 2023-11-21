@@ -48,101 +48,107 @@ class FoodListItem extends StatelessWidget {
             ),
             color: AppColors.white,
           ),
-          child: Table(columnWidths: const <int, TableColumnWidth>{
-            0: FlexColumnWidth(6),
-            1: FlexColumnWidth(2),
-            2: IntrinsicColumnWidth(),
-          }, children: [
-            TableRow(children: [
-              TableCell(
-                  child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          child: Table(
+            columnWidths: const <int, TableColumnWidth>{
+              0: FlexColumnWidth(6),
+              1: FlexColumnWidth(2),
+              2: IntrinsicColumnWidth(),
+            },
+            children: [
+              TableRow(
                 children: [
-                  if (onDeletePressed != null)
-                    Row(
+                  TableCell(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          width: 20.0,
-                          height: 20.0,
-                          child: IconButton(
-                            splashRadius: 20,
-                            padding: EdgeInsets.zero,
-                            iconSize: 22,
-                            onPressed: () => onDeletePressed?.call(context, foodItem),
-                            icon: const Icon(
-                              Icons.close,
-                              color: AppColors.darkGreen,
-                            ),
+                        if (onDeletePressed != null)
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 20.0,
+                                height: 20.0,
+                                child: IconButton(
+                                  splashRadius: 20,
+                                  padding: EdgeInsets.zero,
+                                  iconSize: 22,
+                                  onPressed: () => onDeletePressed?.call(context, foodItem),
+                                  icon: const Icon(
+                                    Icons.close,
+                                    color: AppColors.darkGreen,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 6.0,
+                              ),
+                            ],
                           ),
+                        Hexagon(
+                          width: 20,
+                          height: 20,
+                          borderRadius: 10,
+                          innerWidget: Container(color: getCalorieDensityColor(foodItem.calorieDensity)),
                         ),
                         const SizedBox(
                           width: 6.0,
                         ),
-                      ],
-                    ),
-                  Hexagon(
-                    width: 20,
-                    height: 20,
-                    borderRadius: 10,
-                    innerWidget: Container(color: getCalorieDensityColor(foodItem.calorieDensity)),
-                  ),
-                  const SizedBox(
-                    width: 6.0,
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          foodItem.foodName,
-                          maxLines: 2,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
-                              ?.copyWith(fontWeight: FontWeight.w600, overflow: TextOverflow.ellipsis),
-                        ),
-                        Text(
-                          label,
-                          maxLines: 2,
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: AppColors.greyLabel,
-                                overflow: TextOverflow.ellipsis,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                foodItem.foodName,
+                                maxLines: 2,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(fontWeight: FontWeight.w600, overflow: TextOverflow.ellipsis),
                               ),
-                        )
+                              Text(
+                                label,
+                                maxLines: 2,
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: AppColors.greyLabel,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                              )
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                ],
-              )),
-              Text(
-                foodItem.serving.servingSizeLabel,
-                maxLines: 2,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  const SizedBox(
-                    width: 4.0,
+                  Text(
+                    foodItem.serving.servingSizeLabel,
+                    maxLines: 2,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                   ),
-                  Text(currentNutritionFact.value.toStringAsFixed(2),
-                      style: Theme.of(context).textTheme.bodySmall),
-                  const SizedBox(
-                    width: 4.0,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const SizedBox(
+                        width: 4.0,
+                      ),
+                      Text(currentNutritionFact.value.toStringAsFixed(2),
+                          style: Theme.of(context).textTheme.bodySmall),
+                      const SizedBox(
+                        width: 4.0,
+                      ),
+                      if (onTap != null)
+                        const ImageIcon(
+                          AppIcons.arrow,
+                          color: AppColors.greyLabel,
+                          size: 10,
+                        ),
+                    ],
                   ),
-                  if (onTap != null)
-                    const ImageIcon(
-                      AppIcons.arrow,
-                      color: AppColors.greyLabel,
-                      size: 10,
-                    ),
                 ],
-              ),
-            ])
-          ]),
+              )
+            ],
+          ),
         ),
       ),
     );

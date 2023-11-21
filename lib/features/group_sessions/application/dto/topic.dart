@@ -4,7 +4,6 @@ import 'package:loopcare_frontend/features/group_sessions/application/dto/group_
 import 'package:loopcare_frontend/features/group_sessions/application/dto/material.dart';
 
 part 'topic.freezed.dart';
-
 part 'topic.g.dart';
 
 @freezed

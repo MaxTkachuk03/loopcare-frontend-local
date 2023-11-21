@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/domain/physical_activities_frequency.dart';
 import 'package:loopcare_frontend/core/domain/physical_activities_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -11,9 +11,7 @@ import 'package:loopcare_frontend/features/physical_activities/application/physi
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_service.dart';
 
 part 'physical_activities_preferences_bloc.freezed.dart';
-
 part 'physical_activities_preferences_event.dart';
-
 part 'physical_activities_preferences_state.dart';
 
 @singleton
@@ -23,12 +21,19 @@ class PhysicalActivitiesPreferencesBloc
 
   PhysicalActivitiesPreferencesBloc(this._physicalActivitiesService)
       : super(const PhysicalActivitiesPreferencesState.initial(PhysicalActivitiesPreferencesData())) {
+    on<_Init>(_onInit);
     on<_GetPreferences>(_onGetPreferences);
     on<_SavePreferences>(_onSavePreferences);
-
     on<_SetFrequency>(_onSetFrequency);
     on<_SetTargets>(_onSetTargets);
     on<_SetFlexible>(_onSetFlexible);
+  }
+
+  FutureOr<void> _onInit(
+    _Init event,
+    Emitter<PhysicalActivitiesPreferencesState> emit,
+  ) async {
+    emit(const PhysicalActivitiesPreferencesState.initial(PhysicalActivitiesPreferencesData()));
   }
 
   FutureOr<void> _onSetFrequency(
@@ -38,8 +43,7 @@ class PhysicalActivitiesPreferencesBloc
     emit(PhysicalActivitiesPreferencesState.preferencesLoaded(
       state.data.copyWith(
         trainingFrequency: event.data,
-        trainingTargets:
-            event.data == PhysicalActivitiesFrequency.notAble ? null : state.data.trainingTargets,
+        trainingTargets: event.data == PhysicalActivitiesFrequency.notAble ? null : state.data.trainingTargets,
         flexible: event.data == PhysicalActivitiesFrequency.notAble ? null : state.data.flexible,
       ),
     ));
@@ -82,8 +86,7 @@ class PhysicalActivitiesPreferencesBloc
           state.data.copyWith(
             trainingFrequency:
                 PhysicalActivitiesFrequency.values.firstWhereOrNull((e) => e.apiValue == r.trainingFrequency),
-            trainingTargets:
-                PhysicalActivitiesType.values.firstWhereOrNull((e) => e.apiValue == r.trainingTargets),
+            trainingTargets: PhysicalActivitiesType.values.firstWhereOrNull((e) => e.apiValue == r.trainingTargets),
             flexible: r.flexible ?? false,
             isLoading: false,
           ),

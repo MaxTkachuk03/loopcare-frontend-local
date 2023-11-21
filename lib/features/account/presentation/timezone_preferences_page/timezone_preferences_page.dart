@@ -4,10 +4,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/orange_button.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/search_field.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
@@ -16,10 +20,6 @@ import 'package:loopcare_frontend/features/account/presentation/widgets/group_pr
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:timezone/timezone.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/search_field.dart';
 
 class TimezonePreferencesPage extends StatefulWidget {
   const TimezonePreferencesPage({Key? key}) : super(key: key);
@@ -34,7 +34,12 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
   String? _selectedLocation;
 
   @override
-  void initState() {
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _setupTimeZone();
+  }
+
+  void _setupTimeZone() {
     final sortedLocations = timeZoneDatabase.locations.values
         .sorted((a, b) => a.currentTimeZone.offset.compareTo(b.currentTimeZone.offset));
 
@@ -43,8 +48,13 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
             '${e.name.split('/').join(', ')} (${e.zones.last.abbreviation} ${Duration(milliseconds: e.currentTimeZone.offset).inHours}:00)')
         .toList();
 
-    final selectedLocationIndex = locations.indexWhere((item) =>
-        item.toLowerCase().contains(context.read<GroupPreferencesBloc>().state.data.timezone.toLowerCase()));
+    final selectedLocationIndex = locations.indexWhere((item) {
+      var timezone = context.read<GroupPreferencesBloc>().state.data.timezone;
+      if (timezone == null) {
+        return false;
+      }
+      return item.toLowerCase().contains(timezone.toLowerCase());
+    });
 
     final index = selectedLocationIndex.isNegative
         ? sortedLocations.indexWhere((e) {
@@ -58,8 +68,6 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
     });
 
     _selectedLocation = locations[index];
-
-    super.initState();
   }
 
   void _onErrorHandler(GroupPreferencesState state) {

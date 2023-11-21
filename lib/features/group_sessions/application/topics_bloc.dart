@@ -1,23 +1,22 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/services.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session_program_event.dart';
-import 'package:loopcare_frontend/features/group_sessions/domain/group_session_event_type.dart';
-import 'package:loopcare_frontend/features/group_sessions/domain/group_session_status.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/topic.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_service.dart';
+import 'package:loopcare_frontend/features/group_sessions/domain/group_session_event_type.dart';
+import 'package:loopcare_frontend/features/group_sessions/domain/group_session_status.dart';
 
 part 'topics_bloc.freezed.dart';
-
 part 'topics_event.dart';
-
 part 'topics_state.dart';
 
 @singleton

@@ -10,6 +10,7 @@ class OutlinedRoundedButton extends StatelessWidget {
   final BorderRadius? borderRadius;
   final Color? borderColor;
   final bool isRegularText;
+  final bool active;
 
   const OutlinedRoundedButton({
     Key? key,
@@ -21,13 +22,16 @@ class OutlinedRoundedButton extends StatelessWidget {
     this.borderRadius,
     this.borderColor,
     this.isRegularText = false,
+    this.active = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (onPressed == null) {
+    if (onPressed == null || !active) {
       return ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
+          foregroundColor: AppColors.darkGreen.withOpacity(0.4),
+          backgroundColor: AppColors.darkGreen.withOpacity(0.1),
           minimumSize: const Size(0, 38.0),
           disabledForegroundColor: AppColors.darkGreen.withOpacity(0.4),
           disabledBackgroundColor: AppColors.darkGreen.withOpacity(0.1),

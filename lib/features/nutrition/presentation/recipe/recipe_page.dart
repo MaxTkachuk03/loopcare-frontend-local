@@ -162,7 +162,7 @@ class _RecipePageState extends State<RecipePage> {
                   return state.maybeMap(
                     loadingRecipe: (_) => const Loader(),
                     error: (errorState) {
-                      final error = errorState.fetchError;
+                      final error = errorState.data.error;
 
                       return ErrorScreen(
                         error: error,
@@ -184,17 +184,17 @@ class _RecipePageState extends State<RecipePage> {
                                 onValueChangeHandler: _onValueChangeHandler,
                               ),
                               NutritionValuesBlock(
-                                  numberOfPortions: recipeState.recipe.numberOfServings,
-                                  selectedNutritionType: recipeState.currentNutritionType,
-                                  nutritionValuesList: recipeState.recipe.nutritionValues,
+                                  numberOfPortions: recipeState.data.recipe.numberOfServings,
+                                  selectedNutritionType: recipeState.data.currentNutritionType,
+                                  nutritionValuesList: recipeState.data.recipe.nutritionValues,
                                   onNutritionFactSelect: _onNutritionFactSelect),
                               RecipeList(
-                                  nutritionKey: recipeState.currentNutritionType.name,
-                                  list: recipeState.recipe.ingredients,
+                                  nutritionKey: recipeState.data.currentNutritionType.name,
+                                  list: recipeState.data.recipe.ingredients,
                                   isMealRecipe: widget.isMealRecipe ?? false),
                               NutritionBlock(
-                                proteinDegree: recipeState.recipe.proteinDegree,
-                                calorieDensity: recipeState.recipe.calorieDensity,
+                                proteinDegree: recipeState.data.recipe.proteinDegree,
+                                calorieDensity: recipeState.data.recipe.calorieDensity,
                               ),
                               const SizedBox(
                                 height: 26.0,
@@ -278,9 +278,9 @@ class _RecipePageState extends State<RecipePage> {
   }
 
   void _recipeListener(BuildContext context, RecipeState state) {
-    final recipe = state.mapOrNull(recipeInfo: (s) => s.recipe);
+    final recipe = state.mapOrNull(recipeInfo: (s) => s.data.recipe);
 
-    if (recipe == null) return;
+    if (recipe == null || _isLogRecipePressed) return;
     final mealId = context.read<MealsBloc>().state.getCurrentMealId;
 
     final isMealRecipe = widget.isMealRecipe ?? false;
@@ -309,7 +309,7 @@ class _RecipePageState extends State<RecipePage> {
     RecipeState previous,
     RecipeState current,
   ) {
-    return previous is RecipeInfo && current is RecipeInfo && current.recipe != previous.recipe;
+    return previous is RecipeInfo && current is RecipeInfo && current.data.recipe != previous.data.recipe;
   }
 
   void _onNutritionFactSelect(NutritionValuesTypes item) {

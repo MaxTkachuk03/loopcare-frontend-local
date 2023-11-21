@@ -11,8 +11,8 @@ class BackButtonHexagon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Hexagon(
-      width: 44,
-      height: 44,
+      width: 54,
+      height: 54,
       borderRadius: 16,
       innerWidget: Container(
         color: background ?? AppColors.white.withOpacity(0.2),

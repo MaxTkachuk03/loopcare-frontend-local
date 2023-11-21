@@ -69,6 +69,7 @@ class AppRoutes {
   static const String barcodeScanner = '/barcode-scanner'; // added
 
   // Nutrition
+  static const String recommendations = 'recommendations'; //added
   static const String nutritionDashboard = 'nutrition-dashboard'; // added
   static const String nutritionInstructions = '/nutrition-instructions'; // added
   static const String selectFood = '/select-food'; // added
@@ -82,6 +83,8 @@ class AppRoutes {
   static const String logWeight = '/log-weight'; // added
   static const String home = '/home'; // added
   static const String account = 'account'; // added
+  static const String chooseDate = 'choose-date'; // added
+  static const String weekPlanner = 'week-lanner'; // added
 
   // Dish
   static const String dishDetails = '/dish-details'; // added

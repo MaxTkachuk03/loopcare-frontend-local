@@ -10,6 +10,12 @@ class EditDishEvent with _$EditDishEvent {
     List<DishFavoritesCategory> mealCategories,
   ) = CreateDishFromRecipe;
 
+  const factory EditDishEvent.createDishFromExternalRecipe(
+    int mealRecipeId,
+    double numberOfUnits,
+    List<DishFavoritesCategory> mealCategories,
+  ) = CreateDishFromExternalRecipe;
+
   const factory EditDishEvent.createDishFromMeal(
     int mealId,
     double numberOfUnits,
@@ -23,8 +29,7 @@ class EditDishEvent with _$EditDishEvent {
     List<MealCategory> mealCategories,
   ) = CreateDish;
 
-  const factory EditDishEvent.nutritionItemChanged(NutritionValuesTypes item) =
-      NutritionItemChanged;
+  const factory EditDishEvent.nutritionItemChanged(NutritionValuesTypes item) = NutritionItemChanged;
 
   const factory EditDishEvent.addFoodItemToDish({
     required double numberOfUnits,

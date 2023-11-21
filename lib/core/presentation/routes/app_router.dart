@@ -64,11 +64,13 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/weight_l
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_check_result_page.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_intro_page.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_question_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/choose_date/choose_date_calendar_page.dart';
 import 'package:loopcare_frontend/features/mood/presentation/create_mood_page.dart';
 import 'package:loopcare_frontend/features/mood/presentation/mood_option_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/daily_intake/daily_intake_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/log_planned_meals/log_planned_meals_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/recommendations/recommendations_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/search_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dish_details_page/dish_details_page.dart';
@@ -79,6 +81,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/recipe/recipe_
 import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/barcode_scanner_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/select_food_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/nutrition_instructions_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/week_planner/week_planner_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_activity_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_completed_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_frequency_page.dart';
@@ -434,6 +437,22 @@ const groupLessonRoutes = [
       path: AppRoutes.recipeDetails,
       page: RecipeDetailsPage,
     ),
+
+    AutoRoute(
+      path: AppRoutes.chooseDate,
+      page: ChooseDateCalendarPage,
+    ),
+
+    AutoRoute(
+      path: AppRoutes.weekPlanner,
+      page: WeekPlannerPage,
+    ),
+
+    AutoRoute(
+      path: AppRoutes.recommendations,
+      page: RecommendationsPage,
+    ),
+
     // Dish
     AutoRoute(
       path: AppRoutes.dishDetails,

@@ -17,12 +17,14 @@ import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/c
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_from_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/update_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/log_planned_meal_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/dto/update_planned_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_food_item_to_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/recipe_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_food_item_in_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe_details/dto/recipe_details_response.dart';
+import 'package:loopcare_frontend/features/nutrition/application/recommendations/dto/recommendations_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/dto/favorites_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/dto/barcode_information_response.dart';
@@ -69,6 +71,8 @@ abstract class NutritionService {
   );
 
   Future<Either<RequestError, RecipeDetailsResponse>> getRecipe(int id);
+
+  Future<Either<RequestError, RecommendationsResponse>> getRecommendations(List<String>? mealCategories);
 
   Future<Either<RequestError, RecipeResponse>> addFoodItemToRecipeInMeal({
     required int mealId,
@@ -120,6 +124,11 @@ abstract class NutritionService {
     String? startDate,
     String? endDate,
   });
+
+  Future<Either<RequestError, MealsListItem>> updatePlannedMeal(
+    int mealId,
+    UpdatePlannedMealBody data,
+  );
 
   Future<Either<RequestError, MealsListItem>> addMeal(
     AddMealBody data,

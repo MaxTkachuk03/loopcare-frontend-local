@@ -1,5 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart' as toast;
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 
 import '../themes/themes.dart';
 
@@ -9,6 +12,7 @@ void showAppSnackBar({
   Color? background,
   VoidCallback? callback,
   Color? textColor,
+  Widget? leadIcon,
 }) async {
   final size = MediaQuery.of(context).size;
 
@@ -35,13 +39,22 @@ void showAppSnackBar({
         child: SizedBox(
           width: size.width * 0.8718,
           child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Text(
-              text,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: textColor,
-                    fontWeight: FontWeight.w600,
+            padding: (leadIcon != null)
+                ? const EdgeInsets.only(left: 12, right: 24.0, top: 24.0, bottom: 24.0)
+                : const EdgeInsets.all(24.0),
+            child: Row(
+              children: [
+                if (leadIcon != null) Padding(padding: const EdgeInsets.only(right: 8.0), child: leadIcon),
+                Expanded(
+                  child: Text(
+                    text,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: textColor,
+                          fontWeight: FontWeight.w600,
+                        ),
                   ),
+                ),
+              ],
             ),
           ),
         ),
@@ -50,4 +63,14 @@ void showAppSnackBar({
   );
 
   callback?.call();
+}
+
+void showConnectionErrorMessage() {
+  toast.Fluttertoast.cancel();
+  toast.Fluttertoast.showToast(
+    msg: LocalizedTexts.connectionLost.tr(),
+    toastLength: toast.Toast.LENGTH_LONG,
+    gravity: toast.ToastGravity.BOTTOM,
+    fontSize: 14.0,
+  );
 }
