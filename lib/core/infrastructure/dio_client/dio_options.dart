@@ -7,7 +7,8 @@ AppConfig appConfig = getIt<AppConfig>();
 final dioOptions = Dio(
   BaseOptions(
     baseUrl: appConfig.baseUrl,
-    connectTimeout: 30000,
-    receiveTimeout: 30000,
+    connectTimeout: const Duration(milliseconds: 30000),
+    receiveTimeout: const Duration(milliseconds: 30000),
+    contentType: Headers.jsonContentType,
   ),
 );

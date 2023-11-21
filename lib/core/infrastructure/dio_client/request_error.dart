@@ -30,7 +30,9 @@ class RequestError with _$RequestError {
 
   const factory RequestError.socketException(SocketException error) = _SocketException;
 
-  const factory RequestError.dioOther(DioError error) = _Other;
+  const factory RequestError.dioOther(DioException error) = _Other;
+
+  const factory RequestError.connection(DioException error) = _Connection;
 
   const factory RequestError.unhandledError(dynamic error) = _Unhandled;
 }

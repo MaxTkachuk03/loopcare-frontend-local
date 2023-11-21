@@ -1,5 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart' as toast;
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 
 import '../themes/themes.dart';
 
@@ -60,4 +63,14 @@ void showAppSnackBar({
   );
 
   callback?.call();
+}
+
+void showConnectionErrorMessage() {
+  toast.Fluttertoast.cancel();
+  toast.Fluttertoast.showToast(
+    msg: LocalizedTexts.connectionLost.tr(),
+    toastLength: toast.Toast.LENGTH_LONG,
+    gravity: toast.ToastGravity.BOTTOM,
+    fontSize: 14.0,
+  );
 }
