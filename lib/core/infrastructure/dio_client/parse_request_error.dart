@@ -7,23 +7,24 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_da
 
 RequestError parseRequestError(dynamic error) {
   if (error is Exception) {
-    if (error is DioError) {
+    if (error is DioException) {
       switch (error.type) {
-        case DioErrorType.cancel:
+        case DioExceptionType.cancel:
           return RequestError.requestCancelled(error);
-        case DioErrorType.connectTimeout:
-        case DioErrorType.receiveTimeout:
-        case DioErrorType.sendTimeout:
+        case DioExceptionType.connectionError:
+          return RequestError.connection(error);
+        case DioExceptionType.connectionTimeout:
+        case DioExceptionType.receiveTimeout:
+        case DioExceptionType.sendTimeout:
           return RequestError.timeout(error);
-        case DioErrorType.response:
+        case DioExceptionType.badResponse:
           return _handleResponseError(error);
-        case DioErrorType.other:
-          if (error.message.contains('SocketException')) {
+        case DioExceptionType.unknown:
+          if (error.message?.contains('SocketException') ?? false) {
             return const RequestError.socketException(
               SocketException('Dio SocketException'),
             );
           }
-
           return RequestError.dioOther(error);
         default:
           return RequestError.unhandledError(error);
@@ -38,7 +39,7 @@ RequestError parseRequestError(dynamic error) {
   return RequestError.unhandledError(error);
 }
 
-RequestError _handleResponseError(DioError error) {
+RequestError _handleResponseError(DioException error) {
   final ServerErrorData serverError = ServerErrorData.fromJson(jsonDecode(error.response.toString()));
 
   switch (serverError.statusCode) {

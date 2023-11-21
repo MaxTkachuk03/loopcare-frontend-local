@@ -82,6 +82,7 @@
   "signUpWelcomeTitle": "Welcome to the LeanOnMe program",
   "signYouUp": "Lets sign you up!",
   "needName": "First we need your name",
+  "connectionLost": "Internet connection lost, please check your internet connection or try later",
   "somethingIsIncorrect": "Something is incorrect or missing",
   "emailAlreadyTaken": "Email already taken",
   "pleaseEnterYourEmailAddress": "Please enter your email address",

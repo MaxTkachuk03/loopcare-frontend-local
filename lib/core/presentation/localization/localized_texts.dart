@@ -104,6 +104,9 @@ class LocalizedTexts {
   static const String signYouUp = 'signYouUp';
   static const String needName = 'needName';
 
+  //Connection
+  static const String connectionLost = 'connectionLost';
+
   // Validation
   static const String pleaseEnterYourEmailAddress = 'pleaseEnterYourEmailAddress';
   static const String pleaseEnterValidEmailAddress = 'pleaseEnterValidEmailAddress';
