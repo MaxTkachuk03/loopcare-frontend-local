@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_se
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
 import 'package:loopcare_frontend/core/presentation/validators/login_password_validator.dart';
@@ -91,9 +91,9 @@ class _LoginFormState extends State<LoginForm> {
 
   _onLogin() {
     context.read<AuthenticationCubit>().login(
-      _emailController.text,
-      _passwordController.text,
-    );
+          _emailController.text,
+          _passwordController.text,
+        );
   }
 
   void _navigationListener(BuildContext context, AuthenticationState state) {

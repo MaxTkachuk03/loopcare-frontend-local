@@ -198,10 +198,21 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
             }
             break;
           case SubscriptionStatus.cancelled:
-            emit(SubscriptionState.subscriptionCancelled(state.data.copyWith(subscription: subscription)));
+            if (SubscriptionDateUtils.isPassDate(subscription.expiresAt)) {
+              // Todo if cancelled by user  and expired time => status: Ended
+              emit(SubscriptionState.subscriptionEnded(state.data.copyWith(subscription: subscription)));
+            } else if (subscription.isActive) {
+              emit(SubscriptionState.subscriptionActive(state.data.copyWith(subscription: subscription)));
+            } else {
+              emit(SubscriptionState.subscriptionCancelled(state.data.copyWith(subscription: subscription)));
+            }
             break;
           case SubscriptionStatus.gracePeriod:
-            emit(SubscriptionState.subscriptionUnRenewed(state.data.copyWith(subscription: subscription)));
+            if (subscription.isActive) {
+              emit(SubscriptionState.subscriptionUnRenewed(state.data.copyWith(subscription: subscription)));
+            } else {
+              emit(SubscriptionState.subscriptionEnded(state.data.copyWith(subscription: subscription)));
+            }
             break;
           default:
             emit(SubscriptionState.subscriptionActive(state.data.copyWith(subscription: subscription)));

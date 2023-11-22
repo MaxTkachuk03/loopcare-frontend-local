@@ -212,8 +212,8 @@ DEPENDENCIES:
   - firebase_performance (from `.symlinks/plugins/firebase_performance/ios`)
   - Flutter (from `Flutter`)
   - flutter_zoom_videosdk (from `.symlinks/plugins/flutter_zoom_videosdk/ios`)
-  - in_app_purchase_storekit (from `.symlinks/plugins/in_app_purchase_storekit/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+  - in_app_purchase_storekit (from `.symlinks/plugins/in_app_purchase_storekit/ios`)
   - just_audio (from `.symlinks/plugins/just_audio/ios`)
   - mixpanel_flutter (from `.symlinks/plugins/mixpanel_flutter/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
@@ -273,10 +273,10 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_zoom_videosdk:
     :path: ".symlinks/plugins/flutter_zoom_videosdk/ios"
-  in_app_purchase_storekit:
-    :path: ".symlinks/plugins/in_app_purchase_storekit/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
+  in_app_purchase_storekit:
+    :path: ".symlinks/plugins/in_app_purchase_storekit/ios"
   just_audio:
     :path: ".symlinks/plugins/just_audio/ios"
   mixpanel_flutter:
@@ -355,4 +355,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 4fca446fcd0c1b360ab7bfee9bd6d961513e0403
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.11.3
