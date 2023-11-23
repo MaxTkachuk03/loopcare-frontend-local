@@ -68,7 +68,8 @@ class EducationCard extends StatelessWidget {
               return GestureDetector(
                 onTap: isLocked ? null : () => _onTapHandler(context),
                 child: Container(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 12.0, left: 20.0),
+                  margin: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: const EdgeInsets.only(top: 10.0, bottom: 8.0, left: 20.0),
                   decoration: BoxDecoration(
                     color: isLocked ? AppColors.dirtyWhite : AppColors.white,
                     borderRadius: BorderRadius.circular(8.0),
@@ -79,9 +80,7 @@ class EducationCard extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
-                              height: 10.0,
-                            ),
+                            const SizedBox(height: 10.0),
                             Text(
                               lesson.category.toUpperCase(),
                               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
