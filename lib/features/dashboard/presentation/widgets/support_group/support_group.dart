@@ -14,9 +14,22 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/suppor
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/no_group.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/no_timeslots.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/not_grouped.dart';
+import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 
-class SupportGroup extends StatelessWidget {
+class SupportGroup extends StatefulWidget {
   const SupportGroup({Key? key}) : super(key: key);
+
+  @override
+  State<SupportGroup> createState() => _SupportGroupState();
+}
+
+class _SupportGroupState extends State<SupportGroup> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
+  }
 
   void onPressHandler(BuildContext context) {
     context.router.pushNamed(AppRoutes.groupPreferences);

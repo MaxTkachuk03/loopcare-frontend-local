@@ -30,13 +30,6 @@ class _PhysicalActivitiesCompletePageState extends State<PhysicalActivitiesCompl
 
   _onPressHandler(BuildContext context) {
     context.router.pushNamed(AppRoutes.lessonComplete);
-
-    // context
-    //     .read<HomeBottomNavigationBloc>()
-    //     .add(const HomeBottomNavigationEvent.tabChanged(DashboardNavbarItems.education));
-
-    // var tabsRouter = AutoTabsRouter.of(context);
-    // tabsRouter.setActiveIndex(DashboardNavbarItems.education.index);
   }
 
   @override

@@ -12,10 +12,20 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
-class PlanMeal extends StatelessWidget {
-  const PlanMeal({
-    Key? key,
-  }) : super(key: key);
+class PlanMeal extends StatefulWidget {
+  const PlanMeal({Key? key}) : super(key: key);
+
+  @override
+  State<PlanMeal> createState() => _PlanMealState();
+}
+
+class _PlanMealState extends State<PlanMeal> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
+  }
 
   void onPressHandler(BuildContext context) {
     context.read<ChooseDateBloc>().add(
