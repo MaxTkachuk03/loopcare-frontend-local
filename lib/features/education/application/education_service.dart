@@ -24,7 +24,7 @@ abstract class EducationService {
   );
 
   Future<Either<RequestError, CalendarLessonsResponse>> getCalendarLessons({
-    String? startDate,
-    String? endDate,
+    required String startDate,
+    required String endDate,
   });
 }

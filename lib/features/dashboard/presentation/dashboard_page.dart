@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
@@ -35,22 +34,24 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserver {
-  late final bool _isMealBlockEditable;
   DateTime _selectedDay = DateTime.now();
 
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
-    _isMealBlockEditable = false;
 
-    context.read<NutritionInstructionsBloc>().add(const NutritionInstructionsEvent.fetchValuesExplanation());
+    if (!context.read<NutritionInstructionsBloc>().state.data.alreadyLoaded) {
+      context
+          .read<NutritionInstructionsBloc>()
+          .add(const NutritionInstructionsEvent.fetchValuesExplanation());
+    }
 
     context
         .read<DashboardWeightBloc>()
         .add(DashboardWeightEvent.fetchWeights(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime));
 
-    context.read<MoodBloc>().add(
-        MoodEvent.getMoods(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime, DateTime.now().utcIsoStringFormat));
+    context.read<MoodBloc>().add(MoodEvent.getMoods(
+        _selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime, DateTime.now().utcIsoStringFormat));
 
     _onRefresh();
 
@@ -69,7 +70,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
   Future<void> _onRefresh() async {
     context.read<AuthenticationCubit>().getAccount();
 
-    context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
+    context
+        .read<DashboardEducationBloc>()
+        .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
 
     context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
 
@@ -84,7 +87,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
       context.read<DashboardWeightBloc>().add(DashboardWeightEvent.setDate(day));
       context.read<MealsBloc>().add(MealsEvent.setCurrentDate(day, updateOrigin: true));
       context.read<MoodBloc>().add(MoodEvent.setDate(day));
-      context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
+      context
+          .read<DashboardEducationBloc>()
+          .add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
     });
   }
 
@@ -124,9 +129,10 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                         WeightBlock(date: _selectedDay),
                         BlocBuilder<AuthenticationCubit, AuthenticationState>(
                           builder: (BuildContext context, state) {
-                            if (!state.unlockedFeatures.contains(UnlockedFeatureType.meals)) {
+                            if (!state.isFoodLoggingUnlocked) {
                               return const SizedBox.shrink();
                             }
+
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -155,9 +161,10 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                         // const Reflection(),
                         BlocBuilder<AuthenticationCubit, AuthenticationState>(
                           builder: (BuildContext context, state) {
-                            if (!state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {
+                            if (!state.isGroupSessionsUnlocked) {
                               return const SizedBox.shrink();
                             }
+
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -169,7 +176,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                         ),
                         BlocBuilder<AuthenticationCubit, AuthenticationState>(
                           builder: (context, state) {
-                            if (!state.unlockedFeatures.contains(UnlockedFeatureType.grouping)) {
+                            if (!state.isGroupSessionsUnlocked) {
                               return const SizedBox.shrink();
                             }
 
@@ -199,10 +206,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               },
                               loading: (_) => const Loader(),
                               orElse: () => state.isVisibleOnDashboard(_selectedDay)
-                                  ? Education(
-                                      date: _selectedDay,
-                                    )
-                                  : const SizedBox(height: 0.0),
+                                  ? Education(date: _selectedDay)
+                                  : const SizedBox.shrink(),
                             );
                           },
                         ),
