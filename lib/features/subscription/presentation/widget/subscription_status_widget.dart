@@ -10,7 +10,7 @@ class SubscriptionStatusWidget extends Column {
     required SubscriptionController controller,
   }) : super(
           children: [
-            SubscriptionHeader.trial(),
+            const SubscriptionHeader.trial(),
             Expanded(
               child: FooterSubscription(
                 controller: controller,

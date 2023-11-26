@@ -24,11 +24,10 @@ Future<Either<RequestError, T>> process<T>(Future<T> Function() request) {
   return Task(request).attempt().map((e) => e.leftMap(parseRequestError)).run();
 }
 
-Future<Either<RequestError, Response<dynamic>>> _handleProcess(
-    Future<Either<RequestError, Response<dynamic>>> future) async {
+Future<Either<RequestError, Response<dynamic>>> handleProcess(Future<Response<dynamic>> Function() request) async {
   final bool connected = await getIt<NetworkStatusService>().checkInternetConnection();
   try {
-    return future;
+    return Task(request).attempt().map((response) => response.leftMap(parseRequestError)).run();
   } on DioException catch (e) {
     if (!connected) {
       throw RequestError.connection(e);
@@ -106,15 +105,13 @@ class DioClient {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    return _handleProcess(
-      process(
-        () => dio.get(
-          path,
-          queryParameters: queryParameters,
-          options: options,
-          cancelToken: cancelToken,
-          onReceiveProgress: onReceiveProgress,
-        ),
+    return handleProcess(
+      () => dio.get(
+        path,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+        onReceiveProgress: onReceiveProgress,
       ),
     );
   }
@@ -129,17 +126,15 @@ class DioClient {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    return _handleProcess(
-      process(
-        () => dio.post(
-          path,
-          data: data,
-          queryParameters: queryParameters,
-          options: options,
-          cancelToken: cancelToken,
-          onSendProgress: onSendProgress,
-          onReceiveProgress: onReceiveProgress,
-        ),
+    return handleProcess(
+      () => dio.post(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
       ),
     );
   }
@@ -152,15 +147,13 @@ class DioClient {
     String? baseUrl,
     CancelToken? cancelToken,
   }) async {
-    return _handleProcess(
-      process(
-        () => dio.delete(
-          path,
-          data: data,
-          queryParameters: queryParameters,
-          options: options,
-          cancelToken: cancelToken,
-        ),
+    return handleProcess(
+      () => dio.delete(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
       ),
     );
   }
@@ -173,15 +166,13 @@ class DioClient {
     String? baseUrl,
     CancelToken? cancelToken,
   }) async {
-    return _handleProcess(
-      process(
-        () => dio.patch(
-          path,
-          data: data,
-          queryParameters: queryParameters,
-          options: options,
-          cancelToken: cancelToken,
-        ),
+    return handleProcess(
+      () => dio.patch(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
       ),
     );
   }
@@ -193,13 +184,11 @@ class DioClient {
     bool withInterceptor = true,
     bool withRetryInterceptor = false,
   }) async {
-    return _handleProcess(
-      process(
-        () => dio.download(
-          path,
-          savePath,
-          queryParameters: queryParameters,
-        ),
+    return handleProcess(
+      () => dio.download(
+        path,
+        savePath,
+        queryParameters: queryParameters,
       ),
     );
   }

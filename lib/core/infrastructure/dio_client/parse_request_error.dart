@@ -41,7 +41,6 @@ RequestError parseRequestError(dynamic error) {
 
 RequestError _handleResponseError(DioException error) {
   final ServerErrorData serverError = ServerErrorData.fromJson(jsonDecode(error.response.toString()));
-
   switch (serverError.statusCode) {
     case HttpStatus.badRequest:
       return RequestError.badRequest(serverError);

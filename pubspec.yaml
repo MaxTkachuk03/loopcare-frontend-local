@@ -18,7 +18,7 @@ dependencies:
   dart_jsonwebtoken: ^2.4.2
   dartz: ^0.10.1
   device_info_plus: 8.1.0
-  dio: ^5.3.3
+  dio: ^5.3.4
   easy_localization: ^3.0.1
   email_validator: 2.1.17
   fast_immutable_collections: ^8.2.0

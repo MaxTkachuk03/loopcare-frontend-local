@@ -9,6 +9,9 @@ final dioOptions = Dio(
     baseUrl: appConfig.baseUrl,
     connectTimeout: const Duration(milliseconds: 30000),
     receiveTimeout: const Duration(milliseconds: 30000),
+    receiveDataWhenStatusError: true,
+    followRedirects: true,
+    validateStatus: (statusCode) => true,
     contentType: Headers.jsonContentType,
   ),
-);
+)..transformer = BackgroundTransformer();

@@ -85,8 +85,7 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
                       onTap: () {
                         Platform.isIOS
                             ? launchUrl(Uri.parse("https://apps.apple.com/account/subscriptions"))
-                            : launchUrl(Uri.parse(
-                                'https://play.google.com/store/account/subscriptions?sku=monthly&com.loopcare.leanonme.app'));
+                            : launchUrl(Uri.parse('https://play.google.com/store/account/subscriptions'));
                       },
                     ),
                   ],

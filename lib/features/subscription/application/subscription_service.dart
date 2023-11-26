@@ -5,7 +5,6 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:injectable/injectable.dart';
 
-
 @singleton
 class AppSubscriptionService {
   final InAppPurchase _inAppPurchase = InAppPurchase.instance;
@@ -27,7 +26,7 @@ class AppSubscriptionService {
     }
 
     final ProductDetailsResponse productDetailResponse = await _inAppPurchase.queryProductDetails(main);
-    debugPrint('devcpp  productDetails response: ${productDetailResponse.toString()}');
+    debugPrint('devcpp  productDetails response: ${productDetailResponse.error}');
     debugPrint('devcpp  productDetails notFoundIDs: ${productDetailResponse.notFoundIDs}');
     debugPrint('devcpp  productDetails ERRROR: ${productDetailResponse.error}');
 
@@ -42,8 +41,7 @@ class AppSubscriptionService {
     if (Platform.isIOS) {
       final paymentWrapper = SKPaymentQueueWrapper();
       final transactions = await paymentWrapper.transactions();
-      await Future.wait(transactions
-          .map((transaction) => paymentWrapper.finishTransaction(transaction)));
+      await Future.wait(transactions.map((transaction) => paymentWrapper.finishTransaction(transaction)));
     }
     final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
     return instance.buyNonConsumable(purchaseParam: purchaseParam);

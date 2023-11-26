@@ -4,6 +4,8 @@ part of 'subscription_bloc.dart';
 class SubscriptionEvent with _$SubscriptionEvent {
   const factory SubscriptionEvent.getActiveSubscription() = GetActiveSubscription;
 
+  const factory SubscriptionEvent.verifyLastPurchase(ProductDetails product) = VerifyLastPurchase;
+
   const factory SubscriptionEvent.buySubscription(ProductDetails product) = BuySubscription;
 
   const factory SubscriptionEvent.getSubscriptionPlans() = GetSubscriptionPlans;

@@ -1,5 +1,4 @@
-enum SubscriptionStatus { trialPeriod, common, gracePeriod, cancelled, ended, non }
-
+enum SubscriptionStatus { trialPeriod, common, gracePeriod, cancelled, ended, refunded, non }
 
 extension SubscriptionStatusUtil on SubscriptionStatus {
   bool get isTrialPeriod => this == SubscriptionStatus.trialPeriod;
@@ -11,6 +10,8 @@ extension SubscriptionStatusUtil on SubscriptionStatus {
   bool get isCancelled => this == SubscriptionStatus.cancelled;
 
   bool get isEnded => this == SubscriptionStatus.ended;
+
+  bool get isRefunded => this == SubscriptionStatus.refunded;
 
   static SubscriptionStatus parse(String? value) {
     switch (value) {
@@ -24,9 +25,10 @@ extension SubscriptionStatusUtil on SubscriptionStatus {
         return SubscriptionStatus.gracePeriod;
       case 'cancelled':
         return SubscriptionStatus.cancelled;
+      case 'refunded':
+        return SubscriptionStatus.refunded;
       default:
         return SubscriptionStatus.non;
     }
   }
-
 }

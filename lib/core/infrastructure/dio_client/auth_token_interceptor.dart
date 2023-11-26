@@ -23,12 +23,12 @@ class AuthTokenInterceptor extends InterceptorsWrapper {
       options.headers['Authorization'] = 'Bearer $token';
     }
     // TODO will be used to restrict test users access to the app after testing period
-    options.headers["MVP_ACCESS_HEADER_NAME"] = 'access-control-loopcare';
+    // options.headers["MVP_ACCESS_HEADER_NAME"] = 'access-control-loopcare';
     handler.next(options);
   }
 
   @override
-  Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
+  Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode != HttpStatus.unauthorized) {
       return handler.next(err);
     }

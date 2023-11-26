@@ -18,18 +18,16 @@ class APIAuthTokenService implements AuthTokenService {
   }
 
   @override
-  Future<Either<RequestError, UpdatedAccessTokenResponse>> updateAccessToken(
-      String token) async {
-    return process(() => dio.post(
+  Future<Either<RequestError, UpdatedAccessTokenResponse>> updateAccessToken(String token) async {
+    return handleProcess(() => dio.post(
           '/auth/accessToken',
           data: {'refreshToken': token},
         )).then(parseResponse(UpdatedAccessTokenResponse.fromJson));
   }
 
   @override
-  Future<Either<RequestError, UpdatedRefreshTokenResponse>> updateRefreshToken(
-      String token) async {
-    return process(() => dio.post(
+  Future<Either<RequestError, UpdatedRefreshTokenResponse>> updateRefreshToken(String token) async {
+    return handleProcess(() => dio.post(
           '/auth/refreshToken',
           data: {'refreshToken': token},
         )).then(parseResponse(UpdatedRefreshTokenResponse.fromJson));
