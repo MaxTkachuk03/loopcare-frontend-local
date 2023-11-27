@@ -143,7 +143,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                         WeightBlock(date: _selectedDay),
                         BlocBuilder<AuthenticationCubit, AuthenticationState>(
                           builder: (BuildContext context, state) {
-                            if (!state.unlockedFeatures.contains(UnlockedFeatureType.meals)) {
+                            if (!state.isFoodLoggingUnlocked) {
                               return const SizedBox.shrink();
                             }
                             return Column(
