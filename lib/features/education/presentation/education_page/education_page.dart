@@ -13,7 +13,7 @@ import 'package:loopcare_frontend/features/education/presentation/education_page
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
-const double _lessonCardHeight = 150;
+const double _lessonCardHeight = 175;
 
 class EducationPage extends StatefulWidget {
   const EducationPage({Key? key}) : super(key: key);

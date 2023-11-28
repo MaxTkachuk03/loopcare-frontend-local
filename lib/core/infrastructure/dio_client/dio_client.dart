@@ -51,7 +51,8 @@ class DioClient {
     _configureRetryConnection();
 
     if (dotenv.env['NEED_DIO_LOGGER'] == 'true') {
-      dio.interceptors.add(PrettyDioLogger(requestHeader: true, requestBody: true));
+      dio.interceptors.add(PrettyDioLogger(
+          requestHeader: false, requestBody: false, responseHeader: false, responseBody: false));
     }
 
     if (const String.fromEnvironment('FLAVOR') == 'dev') {

@@ -23,11 +23,10 @@ class CalorieBlock extends StatelessWidget {
     return BlocBuilder<NutritionInstructionsBloc, NutritionInstructionsState>(
       builder: (BuildContext context, state) {
         return state.maybeMap(
-            nutritionInstructions: (state) {
-              final currentCalorieDensityItem =
-                  state.getCalorieDensityItem(value);
+            loaded: (state) {
+              final currentCalorieDensityItem = state.data.getCalorieDensityItem(value);
 
-              if (state.calorieDensityValues.isEmpty) return const SizedBox();
+              if (state.data.calorieDensityValues.isEmpty) return const SizedBox();
 
               final label = currentCalorieDensityItem != null
                   ? currentCalorieDensityItem.label.capitalizeOnlyFirstLetter()
@@ -42,14 +41,12 @@ class CalorieBlock extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          LocalizedTexts.calorieDensity.translation
-                              .toUpperCase(),
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontSize: ThemeConstants.fontSize12,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.greyLabel,
-                                  ),
+                          LocalizedTexts.calorieDensity.translation.toUpperCase(),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                fontSize: ThemeConstants.fontSize12,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.greyLabel,
+                              ),
                         ),
                         const SizedBox(width: 4.0),
                         const ImageIcon(

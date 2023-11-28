@@ -9,7 +9,6 @@ import 'package:loopcare_frontend/features/diabetes/application/diabetes_bloc.da
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
-import 'package:loopcare_frontend/features/home/application/home_bottom_navigation_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
@@ -115,9 +114,6 @@ class AppBlocProvider {
         ),
         BlocProvider<VideoPlayerBloc>(
           create: (_) => getIt<VideoPlayerBloc>(),
-        ),
-        BlocProvider<HomeBottomNavigationBloc>(
-          create: (_) => getIt<HomeBottomNavigationBloc>(),
         ),
         BlocProvider<ProgramsInProgressBloc>(
           create: (_) => getIt<ProgramsInProgressBloc>(),

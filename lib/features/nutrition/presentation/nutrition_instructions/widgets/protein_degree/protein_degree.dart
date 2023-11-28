@@ -29,16 +29,13 @@ class ProteinDegree extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                BlocBuilder<NutritionInstructionsBloc,
-                    NutritionInstructionsState>(
+                BlocBuilder<NutritionInstructionsBloc, NutritionInstructionsState>(
                   builder: (BuildContext context, state) {
                     return state.maybeMap(
-                      nutritionInstructions: (state) {
-                        final currentProteinDegreeItem =
-                            state.getProteinDegreeItem(value);
+                      loaded: (state) {
+                        final currentProteinDegreeItem = state.data.getProteinDegreeItem(value);
 
-                        if (state.proteinDegreeValues.isEmpty ||
-                            currentProteinDegreeItem == null) {
+                        if (state.data.proteinDegreeValues.isEmpty || currentProteinDegreeItem == null) {
                           return const SizedBox();
                         }
 
@@ -47,10 +44,7 @@ class ProteinDegree extends StatelessWidget {
                           children: [
                             Text(
                               '${LocalizedTexts.proteinDegree.translation}: ${value?.round()}%',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                     fontWeight: FontWeight.w600,
                                   ),
                             ),

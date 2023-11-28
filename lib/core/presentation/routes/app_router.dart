@@ -146,30 +146,15 @@ const groupLessonRoutes = [
       path: AppRoutes.intro,
       page: IntroPage,
     ),
-    // Start  TabBar
     AutoRoute(
       path: AppRoutes.home,
       page: HomePage,
       children: [
-        AutoRoute(path: AppRoutes.nutritionDashboard, page: DashboardPage),
+        AutoRoute(path: AppRoutes.dashboard, page: DashboardPage),
         AutoRoute(path: AppRoutes.education, page: EducationPage),
         AutoRoute(path: AppRoutes.account, page: AccountPage),
       ],
     ),
-    // AutoRoute(
-    //   path: AppRoutes.account,
-    //   page: AccountPage,
-    // ),
-    AutoRoute(
-      path: AppRoutes.education,
-      page: EducationPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.nutritionDashboard,
-      page: DashboardPage,
-    ),
-// End of TabBar
-
     AutoRoute(
       path: AppRoutes.joinUs,
       page: JoinUsPage,

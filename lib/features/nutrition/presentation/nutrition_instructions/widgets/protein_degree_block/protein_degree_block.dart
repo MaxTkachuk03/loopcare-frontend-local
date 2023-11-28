@@ -23,10 +23,10 @@ class ProteinDegreeBlock extends StatelessWidget {
     return BlocBuilder<NutritionInstructionsBloc, NutritionInstructionsState>(
       builder: (BuildContext context, state) {
         return state.maybeMap(
-          nutritionInstructions: (state) {
-            final currentProteinDegreeItem = state.getProteinDegreeItem(value);
+          loaded: (state) {
+            final currentProteinDegreeItem = state.data.getProteinDegreeItem(value);
 
-            if (state.proteinDegreeValues.isEmpty || currentProteinDegreeItem == null) {
+            if (state.data.proteinDegreeValues.isEmpty || currentProteinDegreeItem == null) {
               return const SizedBox();
             }
 

@@ -56,16 +56,13 @@ class APIEducationService implements EducationService {
 
   @override
   Future<Either<RequestError, CalendarLessonsResponse>> getCalendarLessons({
-    String? startDate,
-    String? endDate,
+    required String startDate,
+    required String endDate,
   }) async {
-    final queryParameters = <String, dynamic>{};
-    if (startDate != null && endDate != null) {
-      queryParameters.addAll({
-        'startDate': startDate,
-        'endDate': endDate,
-      });
-    }
+    final queryParameters = {
+      'startDate': startDate,
+      'endDate': endDate,
+    };
 
     return client
         .get('/education/lessons/calendar', queryParameters: queryParameters)
