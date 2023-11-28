@@ -33,6 +33,19 @@ class MealsListItem with _$MealsListItem {
     return 0;
   }
 
-  factory MealsListItem.fromJson(Map<String, dynamic> json) =>
-      _$MealsListItemFromJson(json);
+  get calorieDensitySum {
+    double caloriesSum = 0;
+    double amountSum = 0;
+
+    for (var mealItem in mealItems) {
+      if (!mealItem.hasWeight) continue;
+
+      caloriesSum += mealItem.servingCalories;
+      amountSum += mealItem.servingWeight;
+    }
+
+    return caloriesSum / amountSum;
+  }
+
+  factory MealsListItem.fromJson(Map<String, dynamic> json) => _$MealsListItemFromJson(json);
 }

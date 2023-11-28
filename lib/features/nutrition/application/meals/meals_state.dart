@@ -103,19 +103,18 @@ class MealsState with _$MealsState {
         return null;
       }
 
-      double caloriesSum = 0;
-      double amountSum = 0;
+      double sum = 0;
 
       final selectedDayMeals = state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
-      for (var meal in selectedDayMeals) {
+      for (MealsListItem meal in selectedDayMeals) {
         if (meal.loggingDate?.isSameDate(currentDate) ?? false) {
-          caloriesSum += meal.serving.calories;
-          amountSum += meal.serving.metricServingAmount ?? 1;
+          sum += meal.calorieDensitySum;
         }
       }
 
-      final result = caloriesSum / amountSum;
+      final result = sum / selectedDayMeals.length;
+
       return result.isNaN || result.isInfinite ? null : result;
     });
   }
