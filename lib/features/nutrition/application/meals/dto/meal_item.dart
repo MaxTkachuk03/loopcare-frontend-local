@@ -8,6 +8,8 @@ part 'meal_item.g.dart';
 
 @freezed
 class MealItem with _$MealItem {
+  const MealItem._();
+
   const factory MealItem({
     required String? description,
     required double calorieDensity,
@@ -21,6 +23,11 @@ class MealItem with _$MealItem {
     required DateTime updatedAt,
   }) = _MealItem;
 
-  factory MealItem.fromJson(Map<String, dynamic> json) =>
-      _$MealItemFromJson(json);
+  double get servingCalories => serving.calories;
+
+  double get servingWeight => serving.metricServingAmount ?? 0.0;
+
+  bool get hasWeight => serving.metricServingAmount != 0 && serving.metricServingAmount != null;
+
+  factory MealItem.fromJson(Map<String, dynamic> json) => _$MealItemFromJson(json);
 }

@@ -11,7 +11,6 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/widgets/completed_lesson.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/widgets/next_lesson.dart';
-import 'package:loopcare_frontend/features/home/application/home_bottom_navigation_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
 
@@ -24,10 +23,6 @@ class Education extends StatelessWidget {
   }) : super(key: key);
 
   void onPressHandler(BuildContext context) {
-    context
-        .read<HomeBottomNavigationBloc>()
-        .add(const HomeBottomNavigationEvent.tabChanged(DashboardNavbarItems.education));
-
     var tabsRouter = AutoTabsRouter.of(context);
     tabsRouter.setActiveIndex(DashboardNavbarItems.education.index);
   }

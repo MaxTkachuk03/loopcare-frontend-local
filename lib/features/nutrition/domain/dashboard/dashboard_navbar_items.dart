@@ -1,33 +1,64 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 enum DashboardNavbarItems {
-  today,
-  education,
-  account,
-}
+  today(0, 'Today'),
+  education(1, 'Education'),
+  account(2, 'Account');
 
-extension DashboardNavbarItemsX on DashboardNavbarItems {
-  String get label {
-    switch (this) {
-      case DashboardNavbarItems.today:
-        return LocalizedTexts.today.translation;
-      case DashboardNavbarItems.education:
-        return LocalizedTexts.education.translation;
-      case DashboardNavbarItems.account:
-        return LocalizedTexts.account.translation;
+  const DashboardNavbarItems(this.number, this.value);
+
+  static DashboardNavbarItems getValueByString(String val) => values.firstWhere((e) => e.value == val);
+
+  static Color getColorByIndex(int index) => values.firstWhere((e) => e.index == index).color;
+
+  final int number;
+  final String value;
+
+  get color {
+    switch (value) {
+      case 'Today':
+        return AppColors.blueMid;
+      case 'Education':
+        return AppColors.orange;
+      case 'Account':
+        return AppColors.blueDark;
     }
   }
 
-  Color get appBarColor {
-    switch (this) {
-      case DashboardNavbarItems.today:
-        return AppColors.blueMid;
-      case DashboardNavbarItems.education:
-        return AppColors.orange;
-      case DashboardNavbarItems.account:
-        return AppColors.blueDark;
+  get icon {
+    switch (value) {
+      case 'Today':
+        return AppIcons.calendar;
+      case 'Education':
+        return AppIcons.book;
+      case 'Account':
+        return AppIcons.account;
+    }
+  }
+
+  get activeIcon {
+    switch (value) {
+      case 'Today':
+        return AppIcons.calendarFull;
+      case 'Education':
+        return AppIcons.bookFull;
+      case 'Account':
+        return AppIcons.accountFull;
+    }
+  }
+
+  String label(String userName) {
+    switch (value) {
+      case 'Today':
+        return value;
+      case 'Education':
+        return value;
+      case 'Account':
+        return userName;
+      default:
+        return '';
     }
   }
 }
