@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/dto/retry_response.dart';
@@ -9,7 +10,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
 
 @injectable
-class AuthTokenInterceptor extends QueuedInterceptorsWrapper {
+class AuthTokenInterceptor extends InterceptorsWrapper {
   AuthTokenManager authTokenManager;
 
   final List<RetryResponse> _repeatList = [];
@@ -19,29 +20,26 @@ class AuthTokenInterceptor extends QueuedInterceptorsWrapper {
   AuthTokenInterceptor(this.authTokenManager);
 
   @override
-  Future<void> onRequest(RequestOptions options,
-      RequestInterceptorHandler handler,) async {
+  Future<void> onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     final token = await _getToken();
     if (token.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer $token';
     }
     //Todo remove expired access = 5 min refresh = 15min
     options.headers['access-control-loopcare'] = 'V6lLuQ6cFs0VHNLQrJBazY5-new';
+    debugPrint('devcpp REQUEST  PATH: ${options.path}  TOKEN: ${options.headers['Authorization'] ?? ''}');
     return handler.next(options);
   }
 
   @override
   Future<void> onResponse(Response response, ResponseInterceptorHandler handler) async {
+    debugPrint('devcpp RESPONSE  STATUS: ${response.statusCode}  PATH: ${response.realUri.path}}');
     if (response.statusCode == HttpStatus.unauthorized) {
-      final accessTokenIsUpdated = await authTokenManager.updateAccessToken();
-      final refreshTokenIsUpdated = await authTokenManager.updateRefreshToken();
-      if (accessTokenIsUpdated && refreshTokenIsUpdated) {
-        final token = await _getToken();
-        final res = await dioOptions.fetch(response.requestOptions..setAuthenticationHeader(token));
-        return handler.resolve(res);
-      } else {
-        return handler.reject(DioException(requestOptions: response.requestOptions));
-      }
+      final res = await _refresh(response.requestOptions, handler);
+      return handler.resolve(res);
     } else {
       return handler.next(response);
     }
@@ -53,43 +51,30 @@ class AuthTokenInterceptor extends QueuedInterceptorsWrapper {
       return super.onError(err, handler);
     }
     return handler.next(err);
-    a
   }
 
-  void addRepeatResponses(RetryResponse response) {
-    _repeatList.add(response);
-  }
-
-  Future<void> _composeRepeatRequests() async {
-    for (final response in _repeatList) {
-      _repeatListHandlers.add(() => _resolveResponse(response));
+  Future<Response<dynamic>> _refresh(RequestOptions requestOptions, ResponseInterceptorHandler handler) async {
+    final accessTokenIsUpdated = await authTokenManager.updateAccessToken();
+    final refreshTokenIsUpdated = await authTokenManager.updateRefreshToken();
+    if (accessTokenIsUpdated && refreshTokenIsUpdated) {
+      final token = await _getToken();
+      return dioOptions.fetch(requestOptions..setAuthenticationHeader(token));
+    } else {
+      throw RequestError.forbidden(
+        ServerErrorData.fromJson(
+          {
+            "statusCode": 403,
+            "error": "Forbidden",
+            "message": ["Could not get access"]
+          },
+        ),
+      );
     }
-    return _repeatRequests();
   }
 
   Future<String> _getToken() async {
     final token = await authTokenManager.getAccessToken();
     return token ?? '';
-  }
-
-  Future _resolveResponse(RetryResponse retry) async {
-    final token = await _getToken();
-    final response = await dioOptions.fetch(retry.requestOptions..setAuthenticationHeader(token));
-    return retry.handler.next(response);
-  }
-
-  Future<void> _repeatRequests() async {
-    for (final response in _repeatListHandlers) {
-      try {
-        response?.call();
-      } on DioException catch (e) {
-        if (e.response?.statusCode == HttpStatus.unauthorized) {
-          response?.call();
-        }
-      }
-    }
-    _repeatListHandlers.clear();
-    _repeatList.clear();
   }
 }
 
