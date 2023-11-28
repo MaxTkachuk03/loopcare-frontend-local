@@ -18,7 +18,7 @@ RequestError parseRequestError(dynamic error) {
         case DioExceptionType.sendTimeout:
           return RequestError.timeout(error);
         case DioExceptionType.badResponse:
-          return _handleResponseError(error);
+          return _handleError(error);
         case DioExceptionType.unknown:
           if (error.message?.contains('SocketException') ?? false) {
             return const RequestError.socketException(
@@ -35,13 +35,35 @@ RequestError parseRequestError(dynamic error) {
       return RequestError.socketException(error);
     }
   }
-
   return RequestError.unhandledError(error);
 }
 
-RequestError _handleResponseError(DioException error) {
-  final ServerErrorData serverError = ServerErrorData.fromJson(jsonDecode(error.response.toString()));
+RequestError handleResponseError(int? statusCode, dynamic json) {
+  final ServerErrorData serverError = ServerErrorData.fromJson(json);
+  switch (serverError.statusCode) {
+    case HttpStatus.badRequest:
+      return RequestError.badRequest(serverError);
+    case HttpStatus.unauthorized:
+      return RequestError.unauthorized(serverError);
+    case HttpStatus.forbidden:
+      return RequestError.forbidden(serverError);
+    case HttpStatus.notFound:
+      return RequestError.notFound(serverError);
+    case HttpStatus.conflict:
+      return RequestError.conflict(serverError);
+    case HttpStatus.internalServerError:
+    case HttpStatus.badGateway:
+    case HttpStatus.serviceUnavailable:
+      return RequestError.serverError(serverError);
+    case HttpStatus.unprocessableEntity:
+      return RequestError.unprocessableEntity(serverError);
+    default:
+      return RequestError.unhandledResponse(serverError);
+  }
+}
 
+RequestError _handleError(DioException error) {
+  final ServerErrorData serverError = ServerErrorData.fromJson(jsonDecode(error.response.toString()));
   switch (serverError.statusCode) {
     case HttpStatus.badRequest:
       return RequestError.badRequest(serverError);

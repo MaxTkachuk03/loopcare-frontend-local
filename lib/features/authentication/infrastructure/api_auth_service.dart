@@ -22,9 +22,7 @@ class APIAuthenticationService implements AuthenticationService {
 
   @override
   Future<Either<RequestError, EmailApproveDateResponse>> emailApproveDate(int accountId) async {
-    return client
-        .get('/accounts/$accountId/emailApproveDate')
-        .then(parseResponse(EmailApproveDateResponse.fromJson));
+    return client.get('/accounts/$accountId/emailApproveDate').then(parseResponse(EmailApproveDateResponse.fromJson));
   }
 
   @override
@@ -39,9 +37,7 @@ class APIAuthenticationService implements AuthenticationService {
 
   @override
   Future<Either<RequestError, SignUpResponse>> signUp(SignUpData data) async {
-    return client
-        .post('/accounts/registration', data: data.toJson())
-        .then(parseResponse(SignUpResponse.fromJson));
+    return client.post('/accounts/registration', data: data.toJson()).then(parseResponse(SignUpResponse.fromJson));
   }
 
   @override

@@ -120,7 +120,6 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
   void getAccount() async {
     await state.mapOrNull(authenticated: (state) async {
       final response = await _authenticationService.fetchAccount();
-
       response.fold(
         (l) => null,
         (r) {

@@ -20,15 +20,13 @@ enum DioRequestCancellationReason {
   searchManualCancel,
 }
 
-Future<Either<RequestError, T>> process<T>(Future<T> Function() request) {
-  return Task(request).attempt().map((e) => e.leftMap(parseRequestError)).run();
-}
-
-Future<Either<RequestError, Response<dynamic>>> _handleProcess(
-    Future<Either<RequestError, Response<dynamic>>> future) async {
+Future<Either<RequestError, Response<dynamic>>> handleProcess(Future<Response<dynamic>> response) async {
   final bool connected = await getIt<NetworkStatusService>().checkInternetConnection();
   try {
-    return future;
+    return Task(() => response)
+        .attempt() // Attempt to run the above code, and catch every exceptions
+        .map((value) => value.leftMap(parseRequestError)) // this returns Task<Either<Failure, dynamic>>
+        .run();
   } on DioException catch (e) {
     if (!connected) {
       throw RequestError.connection(e);
@@ -51,7 +49,14 @@ class DioClient {
     _configureRetryConnection();
 
     if (dotenv.env['NEED_DIO_LOGGER'] == 'true') {
-      dio.interceptors.add(PrettyDioLogger(requestHeader: true, requestBody: true));
+      dio.interceptors.add(PrettyDioLogger(
+        responseBody: false,
+        requestHeader: false,
+        responseHeader: false,
+        requestBody: false,
+        error: true,
+        compact: true,
+      ));
     }
 
     if (const String.fromEnvironment('FLAVOR') == 'dev') {
@@ -106,17 +111,14 @@ class DioClient {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    return _handleProcess(
-      process(
-        () => dio.get(
-          path,
-          queryParameters: queryParameters,
-          options: options,
-          cancelToken: cancelToken,
-          onReceiveProgress: onReceiveProgress,
-        ),
-      ),
+    final response = dio.get(
+      path,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+      onReceiveProgress: onReceiveProgress,
     );
+    return handleProcess(response);
   }
 
   Future<Either<RequestError, Response<dynamic>>> post(
@@ -129,19 +131,16 @@ class DioClient {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    return _handleProcess(
-      process(
-        () => dio.post(
-          path,
-          data: data,
-          queryParameters: queryParameters,
-          options: options,
-          cancelToken: cancelToken,
-          onSendProgress: onSendProgress,
-          onReceiveProgress: onReceiveProgress,
-        ),
-      ),
+    final response = dio.post(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
     );
+    return handleProcess(response);
   }
 
   Future<Either<RequestError, Response<dynamic>>> delete(
@@ -152,17 +151,14 @@ class DioClient {
     String? baseUrl,
     CancelToken? cancelToken,
   }) async {
-    return _handleProcess(
-      process(
-        () => dio.delete(
-          path,
-          data: data,
-          queryParameters: queryParameters,
-          options: options,
-          cancelToken: cancelToken,
-        ),
-      ),
+    final response = dio.delete(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
     );
+    return handleProcess(response);
   }
 
   Future<Either<RequestError, Response<dynamic>>> patch(
@@ -173,17 +169,14 @@ class DioClient {
     String? baseUrl,
     CancelToken? cancelToken,
   }) async {
-    return _handleProcess(
-      process(
-        () => dio.patch(
-          path,
-          data: data,
-          queryParameters: queryParameters,
-          options: options,
-          cancelToken: cancelToken,
-        ),
-      ),
+    final response = dio.patch(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
     );
+    return handleProcess(response);
   }
 
   Future<Either<RequestError, Response<dynamic>>> downloading(
@@ -193,14 +186,11 @@ class DioClient {
     bool withInterceptor = true,
     bool withRetryInterceptor = false,
   }) async {
-    return _handleProcess(
-      process(
-        () => dio.download(
-          path,
-          savePath,
-          queryParameters: queryParameters,
-        ),
-      ),
+    final response = dio.download(
+      path,
+      savePath,
+      queryParameters: queryParameters,
     );
+    return handleProcess(response);
   }
 }
