@@ -36,10 +36,18 @@ class AuthTokenInterceptor extends InterceptorsWrapper {
 
   @override
   Future<void> onResponse(Response response, ResponseInterceptorHandler handler) async {
-    debugPrint('devcpp RESPONSE  STATUS: ${response.statusCode}  PATH: ${response.realUri.path}}');
+    debugPrint('devcpp RESPONSE  STATUS: ${response.statusCode}  PATH: ${response.realUri.path}');
     if (response.statusCode == HttpStatus.unauthorized) {
-      final res = await _refresh(response.requestOptions, handler);
-      return handler.resolve(res);
+      final accessTokenIsUpdated = await authTokenManager.updateAccessToken();
+      final refreshTokenIsUpdated = await authTokenManager.updateRefreshToken();
+      if (accessTokenIsUpdated && refreshTokenIsUpdated) {
+        final token = await _getToken();
+        debugPrint('devcpp RESPONSE REFRESH GOT TOKEN:  $token');
+        final res = await dioOptions.fetch(response.requestOptions..setAuthenticationHeader(token));
+        return handler.resolve(res);
+      } else {
+        return handler.reject(DioException(requestOptions: response.requestOptions));
+      }
     } else {
       return handler.next(response);
     }
