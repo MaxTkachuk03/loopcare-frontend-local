@@ -19,7 +19,7 @@ final dioOptions = Dio(
     baseUrl: appConfig.baseUrl,
     headers: headers,
     connectTimeout: const Duration(milliseconds: 30000),
-    receiveTimeout: const Duration(milliseconds: 5000),
+    receiveTimeout: const Duration(milliseconds: 30000),
     receiveDataWhenStatusError: true,
     followRedirects: true,
     validateStatus: (statusCode) => true,

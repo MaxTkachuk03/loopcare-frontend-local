@@ -30,19 +30,16 @@ class AuthTokenInterceptor extends InterceptorsWrapper {
     }
     //Todo remove expired access = 5 min refresh = 15min
     options.headers['access-control-loopcare'] = 'V6lLuQ6cFs0VHNLQrJBazY5-new';
-    debugPrint('devcpp REQUEST  PATH: ${options.path}  TOKEN: ${options.headers['Authorization'] ?? ''}');
     return handler.next(options);
   }
 
   @override
   Future<void> onResponse(Response response, ResponseInterceptorHandler handler) async {
-    debugPrint('devcpp RESPONSE  STATUS: ${response.statusCode}  PATH: ${response.realUri.path}');
     if (response.statusCode == HttpStatus.unauthorized) {
       final accessTokenIsUpdated = await authTokenManager.updateAccessToken();
       final refreshTokenIsUpdated = await authTokenManager.updateRefreshToken();
       if (accessTokenIsUpdated && refreshTokenIsUpdated) {
         final token = await _getToken();
-        debugPrint('devcpp RESPONSE REFRESH GOT TOKEN:  $token');
         final res = await dioOptions.fetch(response.requestOptions..setAuthenticationHeader(token));
         return handler.resolve(res);
       } else {
@@ -59,25 +56,6 @@ class AuthTokenInterceptor extends InterceptorsWrapper {
       return super.onError(err, handler);
     }
     return handler.next(err);
-  }
-
-  Future<Response<dynamic>> _refresh(RequestOptions requestOptions, ResponseInterceptorHandler handler) async {
-    final accessTokenIsUpdated = await authTokenManager.updateAccessToken();
-    final refreshTokenIsUpdated = await authTokenManager.updateRefreshToken();
-    if (accessTokenIsUpdated && refreshTokenIsUpdated) {
-      final token = await _getToken();
-      return dioOptions.fetch(requestOptions..setAuthenticationHeader(token));
-    } else {
-      throw RequestError.forbidden(
-        ServerErrorData.fromJson(
-          {
-            "statusCode": 403,
-            "error": "Forbidden",
-            "message": ["Could not get access"]
-          },
-        ),
-      );
-    }
   }
 
   Future<String> _getToken() async {
