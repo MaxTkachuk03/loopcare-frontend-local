@@ -25,10 +25,10 @@ class CalorieDensityBlock extends StatelessWidget {
     return BlocBuilder<NutritionInstructionsBloc, NutritionInstructionsState>(
       builder: (BuildContext context, state) {
         return state.maybeMap(
-            nutritionInstructions: (state) {
-              final currentCalorieDensityItem = state.getCalorieDensityItem(value);
+            loaded: (state) {
+              final currentCalorieDensityItem = state.data.getCalorieDensityItem(value);
 
-              if (state.calorieDensityValues.isEmpty || currentCalorieDensityItem == null) {
+              if (state.data.calorieDensityValues.isEmpty || currentCalorieDensityItem == null) {
                 return const SizedBox();
               }
 

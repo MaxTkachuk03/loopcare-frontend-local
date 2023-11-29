@@ -3,26 +3,23 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/features/education/domain/education_lesson.dart';
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
+import 'package:loopcare_frontend/features/education/domain/education_lesson.dart';
 import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
 import 'package:loopcare_frontend/features/education/domain/lesson_with_countdown.dart';
 
 part 'education_program_bloc.freezed.dart';
-
 part 'education_program_event.dart';
-
 part 'education_program_state.dart';
 
 @singleton
 class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramState> {
   final EducationService _educationService;
 
-  EducationProgramBloc(this._educationService)
-      : super(const EducationProgramState.initial(EducationProgramData())) {
+  EducationProgramBloc(this._educationService) : super(const EducationProgramState.initial(EducationProgramData())) {
     on<_GetLessons>(_onGetLessons);
     on<_ResetLessonWithCountdown>(_onResetLessonWithCountdown);
   }
@@ -42,7 +39,6 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
     );
 
     final response = await _educationService.getLessons(event.category);
-
     response.fold(
       (l) => emit(
         EducationProgramState.error(
@@ -53,9 +49,8 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
         ),
       ),
       (r) {
-        final lessonWithCountdown = event.category == LessonCategory.all
-            ? _getLessonWithCountdown(r.lessons)
-            : state.data.lessonWithCountdown;
+        final lessonWithCountdown =
+            event.category == LessonCategory.all ? _getLessonWithCountdown(r.lessons) : state.data.lessonWithCountdown;
         emit(
           EducationProgramState.educationProgram(
             state.data.copyWith(
@@ -89,8 +84,7 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
 
     final endDate = DateTime.now();
     final timeBeforeNextStepUnblock = int.parse(dotenv.env['EDUCATION_STEP_UNBLOCK_DELAY']!);
-    final currentDifference =
-        timeBeforeNextStepUnblock - endDate.difference(startDate ?? DateTime.now()).inSeconds;
+    final currentDifference = timeBeforeNextStepUnblock - endDate.difference(startDate ?? DateTime.now()).inSeconds;
 
     if (currentDifference <= 0) return null;
 

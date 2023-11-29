@@ -70,7 +70,7 @@ class AppRoutes {
 
   // Nutrition
   static const String recommendations = 'recommendations'; //added
-  static const String nutritionDashboard = 'nutrition-dashboard'; // added
+  static const String dashboard = 'dashboard'; // added
   static const String nutritionInstructions = '/nutrition-instructions'; // added
   static const String selectFood = '/select-food'; // added
   static const String selectServing = '/select-serving'; // added

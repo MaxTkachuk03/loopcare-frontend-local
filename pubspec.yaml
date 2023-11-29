@@ -6,7 +6,7 @@ environment:
   sdk: '>=2.18.4 <3.0.0'
 
 dependencies: 
-  auto_route: ^5.0.4
+  auto_route: 5.0.4
   auto_size_text: ^3.0.0
   bloc_concurrency: ^0.2.2
   cached_network_image: ^3.2.3

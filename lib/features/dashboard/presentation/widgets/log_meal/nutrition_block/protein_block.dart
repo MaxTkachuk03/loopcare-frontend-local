@@ -21,10 +21,10 @@ class ProteinBlock extends StatelessWidget {
     return BlocBuilder<NutritionInstructionsBloc, NutritionInstructionsState>(
       builder: (BuildContext context, state) {
         return state.maybeMap(
-          nutritionInstructions: (state) {
-            final currentProteinDegreeItem = state.getProteinDegreeItem(value);
+          loaded: (state) {
+            final currentProteinDegreeItem = state.data.getProteinDegreeItem(value);
 
-            if (state.proteinDegreeValues.isEmpty) return const SizedBox();
+            if (state.data.proteinDegreeValues.isEmpty) return const SizedBox();
 
             return GestureDetector(
               onTap: _onItemPressed,
@@ -52,8 +52,7 @@ class ProteinBlock extends StatelessWidget {
                   ),
                   const SizedBox(height: 5.0),
                   Text(
-                    (currentProteinDegreeItem?.label ?? '-')
-                        .capitalizeOnlyFirstLetter(),
+                    (currentProteinDegreeItem?.label ?? '-').capitalizeOnlyFirstLetter(),
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontSize: 14.0,
                         ),

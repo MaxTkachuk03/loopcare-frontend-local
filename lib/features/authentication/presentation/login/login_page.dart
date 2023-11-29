@@ -36,8 +36,10 @@ class LoginPage extends StatelessWidget {
                         const SizedBox(height: 16.0),
                         Text(
                           LocalizedTexts.welcomeTitle.tr(),
-                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                              fontFamily: ThemeConstants.bitterFontFamily, color: AppColors.blueDark),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium
+                              ?.copyWith(fontFamily: ThemeConstants.bitterFontFamily, color: AppColors.blueDark),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 4.0),

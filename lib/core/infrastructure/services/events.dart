@@ -17,4 +17,8 @@ class AppMixpanelEvents {
   static String get videoBlockFail => 'VideoBlock_player_fail';
   static String get sessionInactiveState => 'SessionCallPage_user_inactive_state';
   static String get sessionActiveState => 'SessionCallPage_user_active_state';
+
+  static String get updateToken => 'AuthTokenInterceptor_refresh_token_update';
+  static String get succeedUpdateToken => 'AuthTokenInterceptor_succeed_token_update';
+  static String get failedUpdateToken => 'AuthTokenInterceptor_failed_token_update';
 }

@@ -153,6 +153,12 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
+  bool get isFoodLoggingUnlocked => unlockedFeatures.contains(UnlockedFeatureType.meals);
+
+  bool get isGroupSessionsUnlocked => unlockedFeatures.contains(UnlockedFeatureType.grouping);
+
+  bool get isPhysicalActivitiesUnlocked => unlockedFeatures.contains(UnlockedFeatureType.physicalActivities);
+
   bool get isUserGrouped => groupingState == UserGroupingState.grouped;
 
   factory AuthenticationState.fromJson(Map<String, dynamic> json) => _$AuthenticationStateFromJson(json);

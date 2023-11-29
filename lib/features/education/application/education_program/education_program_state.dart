@@ -2,16 +2,14 @@ part of 'education_program_bloc.dart';
 
 @freezed
 class EducationProgramState with _$EducationProgramState {
-  const factory EducationProgramState.initial(EducationProgramData data) =
-      _Initial;
+  const factory EducationProgramState.initial(EducationProgramData data) = EducationProgramStateInitial;
 
-  const factory EducationProgramState.educationProgram(
-      EducationProgramData data) = _EducationProgram;
+  const factory EducationProgramState.educationProgram(EducationProgramData data) =
+      EducationProgramStateLoaded;
 
-  const factory EducationProgramState.loading(EducationProgramData data) =
-      _Loading;
+  const factory EducationProgramState.loading(EducationProgramData data) = EducationProgramStateLoading;
 
-  const factory EducationProgramState.error(EducationProgramData data) = _Error;
+  const factory EducationProgramState.error(EducationProgramData data) = EducationProgramStateError;
 }
 
 @freezed
@@ -26,7 +24,5 @@ class EducationProgramData with _$EducationProgramData {
     RequestError? error,
   }) = _EducationProgramData;
 
-   int get activeLessonIndex {
-    return lessons.indexWhere((element) => !element.isCompleted && !element.isLocked);
-  }
+  int get activeLessonIndex => lessons.indexWhere((element) => !element.isCompleted && !element.isLocked);
 }

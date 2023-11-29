@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
+import 'package:loopcare_frontend/core/presentation/utils/scroll_controller_extensions.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_app_bar.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_body.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_card.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_tab_bar.dart';
-import 'package:loopcare_frontend/features/home/application/home_bottom_navigation_bloc.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/progress_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
+
+const double _lessonCardHeight = 175;
 
 class EducationPage extends StatefulWidget {
   const EducationPage({Key? key}) : super(key: key);
@@ -23,6 +26,7 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
   late TabController _tabController;
   final ScrollController _scrollController = ScrollController();
   final GlobalKey _introContainerKey = GlobalKey();
+  final PageStorageKey _listKey = const PageStorageKey('educationLessonPage');
 
   List<Widget> categories = LessonCategory.values.map((v) => Tab(text: v.label)).toList();
 
@@ -50,10 +54,10 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
     final lessonWithCountdown = dataState.lessonWithCountdown;
 
     if (lessonWithCountdown == null && activeLessonIndex > 0) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        final size = _introContainerKey.currentContext?.size;
-        _scrollController.jumpTo(size?.height ?? 0);
-      });
+      final size = _introContainerKey.currentContext?.size;
+      final offset = (size?.height ?? 0) + activeLessonIndex * _lessonCardHeight;
+
+      _scrollController.scrollWithEase600(offset);
     }
   }
 
@@ -81,6 +85,16 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
       );
   }
 
+  _lessonsListener(BuildContext context, EducationProgramState state) {
+    final currentTab = LessonCategory.values[_tabController.index];
+
+    if (currentTab == LessonCategory.all) {
+      _jumpToLessonsList();
+    } else {
+      _scrollController.scrollWithEase600(0);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -89,15 +103,17 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
           listenWhen: (prev, cur) => cur is LessonCompleted, //TODO: Probably incorrect
           listener: _lessonCompleteListener,
         ),
-        BlocListener<HomeBottomNavigationBloc, HomeBottomNavigationState>(
-          listenWhen: (prev, cur) => cur.activeTab == DashboardNavbarItems.education,
-          listener: _tabsListener,
+        BlocListener<EducationProgramBloc, EducationProgramState>(
+          listenWhen: (prev, cur) => cur is EducationProgramStateLoaded,
+          listener: _lessonsListener,
         ),
       ],
       child: SafeArea(
         child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
           builder: (BuildContext context, state) {
+            final lessons = state.data.lessons;
             return CustomScrollView(
+              key: _listKey,
               controller: _scrollController,
               slivers: [
                 EducationTabBar(
@@ -105,21 +121,42 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
                   tabs: categories,
                 ),
                 if (state.data.currentCategory == LessonCategory.all)
-                  EducationAppBar(
-                    containerKey: _introContainerKey,
-                  ),
-                SliverFillRemaining(
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: const [
-                      EducationBody(),
-                      EducationBody(),
-                      EducationBody(),
-                      EducationBody(),
-                      EducationBody(),
-                    ],
-                  ),
-                )
+                  EducationAppBar(containerKey: _introContainerKey),
+                state.maybeMap(
+                    loading: (_) => const SliverToBoxAdapter(
+                        child: SizedBox(height: 500, child: Center(child: Loader()))),
+                    orElse: () {
+                      return SliverList(
+                          delegate: SliverChildBuilderDelegate(childCount: lessons.length, (
+                        BuildContext context,
+                        int i,
+                      ) {
+                        final isLastElement = i + 1 == lessons.length;
+                        final isFirstElement = i == 0;
+                        final nextIsLocked = isLastElement ? true : lessons[i + 1].isLocked;
+
+                        return Container(
+                          key: PageStorageKey(lessons[i].id),
+                          padding: const EdgeInsets.only(right: 22.0, left: 22.0),
+                          height: _lessonCardHeight,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              ProgressItem(
+                                isFirst: isFirstElement,
+                                isLast: isLastElement,
+                                lesson: lessons[i],
+                                nextIsLocked: nextIsLocked,
+                              ),
+                              const SizedBox(width: 4.0),
+                              Expanded(
+                                child: EducationCard(lesson: lessons[i]),
+                              ),
+                            ],
+                          ),
+                        );
+                      }));
+                    }),
               ],
             );
           },
@@ -130,18 +167,8 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
 
   void _onTabsChanged() {
     final currentTab = LessonCategory.values[_tabController.index];
-    AnalyticsEventService.instance.logEvent('education_screen_${currentTab.label.toLowerCase()}');
-
-    if (currentTab == LessonCategory.all) {
-      _jumpToLessonsList();
-    } else {
-      _scrollController.jumpTo(0);
-    }
-
     context.read<EducationProgramBloc>().add(EducationProgramEvent.getLessons(currentTab));
-  }
 
-  void _tabsListener(BuildContext context, HomeBottomNavigationState state) {
-    _jumpToLessonsList();
+    AnalyticsEventService.instance.logEvent('education_screen_${currentTab.label.toLowerCase()}');
   }
 }

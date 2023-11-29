@@ -26,7 +26,7 @@ class SearchData with _$SearchData {
 }
 
 @freezed
-abstract class SearchParameters implements _$SearchParameters {
+class SearchParameters with _$SearchParameters {
   const SearchParameters._();
 
   const factory SearchParameters({

@@ -35,11 +35,10 @@ class CalorieDensity extends StatelessWidget {
                 SizedBox(
                   width: 26,
                   height: 140,
-                  child: BlocBuilder<NutritionInstructionsBloc,
-                      NutritionInstructionsState>(
+                  child: BlocBuilder<NutritionInstructionsBloc, NutritionInstructionsState>(
                     builder: (BuildContext context, state) {
                       return state.maybeMap(
-                        nutritionInstructions: (state) {
+                        loaded: (state) {
                           return CalorieDensityScale(
                             density: value,
                             separatorColor: AppColors.white,
@@ -57,21 +56,15 @@ class CalorieDensity extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      BlocBuilder<NutritionInstructionsBloc,
-                          NutritionInstructionsState>(
+                      BlocBuilder<NutritionInstructionsBloc, NutritionInstructionsState>(
                         builder: (BuildContext context, state) {
                           return state.maybeMap(
-                            nutritionInstructions: (state) {
-                              final valueLabel = value == null
-                                  ? '-'
-                                  : '${value?.toStringAsFixed(2)}';
+                            loaded: (state) {
+                              final valueLabel = value == null ? '-' : '${value?.toStringAsFixed(2)}';
 
                               return Text(
                                 '${LocalizedTexts.calorieDensity.translation}: $valueLabel',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium
-                                    ?.copyWith(
+                                style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                       fontWeight: FontWeight.w600,
                                     ),
                               );
@@ -81,15 +74,13 @@ class CalorieDensity extends StatelessWidget {
                         },
                       ),
                       const SizedBox(height: 8.0),
-                      BlocBuilder<NutritionInstructionsBloc,
-                          NutritionInstructionsState>(
+                      BlocBuilder<NutritionInstructionsBloc, NutritionInstructionsState>(
                         builder: (BuildContext context, state) {
                           return state.maybeMap(
-                            nutritionInstructions: (state) {
-                              final currentCalorieDensityItem =
-                                  state.getCalorieDensityItem(value);
+                            loaded: (state) {
+                              final currentCalorieDensityItem = state.data.getCalorieDensityItem(value);
 
-                              if (state.calorieDensityValues.isEmpty ||
+                              if (state.data.calorieDensityValues.isEmpty ||
                                   currentCalorieDensityItem == null) {
                                 return const SizedBox();
                               }
