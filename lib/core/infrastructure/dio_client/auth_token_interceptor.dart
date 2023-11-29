@@ -1,21 +1,13 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
-import 'package:loopcare_frontend/core/application/dto/retry_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
 
 @injectable
 class AuthTokenInterceptor extends InterceptorsWrapper {
   AuthTokenManager authTokenManager;
-
-  final List<RetryResponse> _repeatList = [];
-  final List<Future<void> Function()?> _repeatListHandlers = [];
-  final int retries = 3;
 
   AuthTokenInterceptor(this.authTokenManager);
 
