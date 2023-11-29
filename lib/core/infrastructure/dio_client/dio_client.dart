@@ -53,7 +53,7 @@ class DioClient {
         responseBody: false,
         requestHeader: false,
         responseHeader: false,
-        requestBody: false,
+        requestBody: true,
         error: true,
         compact: true,
       ));

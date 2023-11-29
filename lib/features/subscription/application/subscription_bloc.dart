@@ -33,7 +33,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   final inAppPurchaseService = getIt<AppSubscriptionService>();
   final AuthenticationService _authenticationService;
   final PurchaseService _purchaseService;
-  bool isValidatePastIOSPurchase = true;
+  bool isValidatePastIOSPurchase = false;
   ProductDetails? buyingProduct;
 
   SubscriptionBloc(this._authenticationService, this._purchaseService)
@@ -50,7 +50,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     purchaseDetailsStreamSubscription = PurchaseDetailsStreamSubscription(
       onCanceled: () => debugPrint('devcpp Subscription Canceled'),
       onError: (error) => isValidatePastIOSPurchase
-          ? add(SubscriptionEvent.buySubscription(buyingProduct!))
+          ? _verifyOldPurchase(null, buyingProduct!)
           : add(SubscriptionEvent.errorVerifyPurchase(error)),
       onRestored: (purchase) async => _restoreTransactionData(purchase),
       onPurchased: (PurchaseDetails purchaseDetails) async => _handlePurchase(purchaseDetails),
@@ -64,6 +64,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     emit(
       SubscriptionState.loading(state.data.copyWith(isLoading: true)),
     );
+    isValidatePastIOSPurchase = true;
     _getOldPurchase(event.product);
   }
 
@@ -88,20 +89,20 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         await inAppPurchaseService.instance.completePurchase(purchaseDetails);
       }
       if (purchaseDetails.status == PurchaseStatus.purchased) {
-        await _verifyNewPurchase(purchaseDetails);
+        await _verifyRestorePurchase(purchaseDetails);
       }
     } catch (_, __) {}
   }
 
-  Future<void> _verifyNewPurchase(PurchaseDetails purchaseDetails) async {
-    debugPrint('devcpp _verifyNewPurchase');
-    final response = await _apiVerified(purchaseDetails);
+  Future<void> _verifyRestorePurchase(PurchaseDetails purchaseDetails) async {
+    debugPrint('devcpp _verifyRestorePurchase');
+    final response = await _apiRestore(purchaseDetails);
+    await inAppPurchaseService.instance.completePurchase(purchaseDetails);
     response.fold((error) {
-      debugPrint('devcpp error VerifyPurchaseData: $error');
+      debugPrint('devcpp error RestorePurchaseData: $error');
       add(SubscriptionEvent.errorVerifyPurchase(error));
     }, (r) async {
-      debugPrint('devcpp succeed VerifyPurchaseData: ${r.toString()}');
-      await inAppPurchaseService.instance.completePurchase(purchaseDetails);
+      debugPrint('devcpp succeed RestorePurchaseData: ${r.toString()}');
       add(SubscriptionEvent.purchasedSubscription(PurchasedProduct(
         purchaseDetails: purchaseDetails,
         memberSince: SubscriptionDateUtils.getTransactionDate(r.purchasedAt),
@@ -109,15 +110,47 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     });
   }
 
-  Future<void> _verifyOldPurchase(PurchaseDetails oldPurchaseDetails, ProductDetails product) async {
+  Future<Either<RequestError, Subscription>> _apiRestore(PurchaseDetails purchaseDetails) async {
+    var isIOS = purchaseDetails is AppStorePurchaseDetails;
+    final vendor = isIOS ? 'ios' : 'android';
+    final identifier = _getTransactionId(purchaseDetails) ?? '';
+    debugPrint('devcpp _apiRestore TransactionId: $identifier');
+    var response = isIOS
+        ? await _purchaseService.restorePurchaseIOS(
+            VerifyIOSPurchaseData(
+                receipt: purchaseDetails.verificationData.serverVerificationData, transactionId: identifier),
+            vendor)
+        : await _purchaseService.restorePurchaseAndroid(
+            VerifyAndroidPurchaseData(
+                receipt: purchaseDetails.verificationData.serverVerificationData, purchaseToken: identifier),
+            vendor);
+    debugPrint('devcpp _apiRestore: ${response.toString()}');
+    return response;
+  }
+
+  Future<void> _verifyOldPurchase(PurchaseDetails? oldPurchaseDetails, ProductDetails product) async {
     isValidatePastIOSPurchase = false;
-    final response = await _apiVerified(oldPurchaseDetails);
+    late Either<RequestError, Subscription> response;
+    if (oldPurchaseDetails == null) {
+      response = await _apiVerifiedEmpty();
+    } else {
+      response = await _apiVerified(oldPurchaseDetails);
+    }
     response.fold((error) {
       debugPrint('devcpp error Old VerifyPurchaseData: $error');
       add(SubscriptionEvent.errorVerifyPurchase(error));
     }, (r) {
       add(SubscriptionEvent.buySubscription(product));
     });
+  }
+
+  Future<Either<RequestError, Subscription>> _apiVerifiedEmpty() async {
+    final vendor = Platform.isIOS ? 'ios' : 'android';
+    var response = Platform.isIOS
+        ? await _purchaseService.verifyPurchaseIOS(null, vendor)
+        : await _purchaseService.verifyPurchaseAndroid(null, vendor);
+    debugPrint('devcpp _apiVerifiedEmpty: ${response.toString()}');
+    return response;
   }
 
   Future<Either<RequestError, Subscription>> _apiVerified(PurchaseDetails purchaseDetails) async {
@@ -146,22 +179,26 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         }
         await _verifyOldPurchase(purchaseDetails, buyingProduct!);
       } else {
-        await _verifyNewPurchase(purchaseDetails);
+        await _verifyRestorePurchase(purchaseDetails);
       }
     }
   }
 
   void _getOldPurchase(ProductDetails product) async {
-    PurchaseDetails oldPurchaseDetails;
+    PurchaseDetails? oldPurchaseDetails;
     if (Platform.isAndroid) {
       {
         final InAppPurchaseAndroidPlatformAddition androidAddition =
             inAppPurchaseService.instance.getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
         final QueryPurchaseDetailsResponse oldPurchases = await androidAddition.queryPastPurchases();
-        oldPurchaseDetails = oldPurchases.pastPurchases.last;
+        if (oldPurchases.pastPurchases.isNotEmpty) {
+          oldPurchaseDetails = oldPurchases.pastPurchases.last;
+        }
+        debugPrint('devcpp  LAST -> ${oldPurchaseDetails.toString()}');
         await _verifyOldPurchase(oldPurchaseDetails, product);
       }
     } else {
+      isValidatePastIOSPurchase = true;
       buyingProduct = product;
       inAppPurchaseService.instance.restorePurchases();
     }

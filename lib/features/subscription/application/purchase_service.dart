@@ -5,6 +5,11 @@ import 'package:loopcare_frontend/features/subscription/donain/verify_purchase_d
 import 'package:loopcare_frontend/features/subscription/donain/verify_purchase_data_ios.dart';
 
 abstract class PurchaseService {
-  Future<Either<RequestError, Subscription>> verifyPurchaseIOS(VerifyIOSPurchaseData receipt, String vendor);
-  Future<Either<RequestError, Subscription>> verifyPurchaseAndroid(VerifyAndroidPurchaseData receipt, String vendor);
+  Future<Either<RequestError, Subscription>> restorePurchaseIOS(VerifyIOSPurchaseData receipt, String vendor);
+
+  Future<Either<RequestError, Subscription>> restorePurchaseAndroid(VerifyAndroidPurchaseData receipt, String vendor);
+
+  Future<Either<RequestError, Subscription>> verifyPurchaseIOS(VerifyIOSPurchaseData? receipt, String vendor);
+
+  Future<Either<RequestError, Subscription>> verifyPurchaseAndroid(VerifyAndroidPurchaseData? receipt, String vendor);
 }
