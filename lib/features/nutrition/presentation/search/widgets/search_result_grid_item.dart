@@ -29,30 +29,6 @@ class SearchResultGridItem extends StatelessWidget {
               children: [
                 Expanded(
                   child: GridTile(
-                    footer: Container(
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          colors: [
-                            AppColors.gridTitleGradientStart,
-                            AppColors.gridTitleGradientEnd,
-                          ],
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        child: Text(
-                          item.name,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.white,
-                              ),
-                        ),
-                      ),
-                    ),
                     child: url != null
                         ? NetworkImageWithCache(
                             url: url,
