@@ -4,9 +4,7 @@ import 'package:loopcare_frontend/core/application/dto/updated_refresh_token_res
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 
 abstract class AuthTokenService {
-  Future<Either<RequestError, UpdatedAccessTokenResponse>> updateAccessToken(
-      String token);
+  Future<Either<RequestError, UpdatedAccessTokenResponse>> updateAccessToken(String token);
 
-  Future<Either<RequestError, UpdatedRefreshTokenResponse>> updateRefreshToken(
-      String token);
+  Future<Either<RequestError, UpdatedRefreshTokenResponse>> updateRefreshToken(String token);
 }

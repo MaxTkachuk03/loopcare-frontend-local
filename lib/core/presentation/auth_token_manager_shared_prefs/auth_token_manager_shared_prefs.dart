@@ -9,11 +9,11 @@ const _refreshTokenKey = 'refresh_token';
 @Singleton(as: AuthTokenManager)
 class TokenManagerSharedPrefs extends AuthTokenManager {
   final SharedStorageService _sharedPreferences;
-  final AuthTokenService _authTokenService;
+  final AuthTokenService authTokenService;
 
   final Set<AccessTokenListener> _listeners = {};
 
-  TokenManagerSharedPrefs(this._authTokenService, this._sharedPreferences);
+  TokenManagerSharedPrefs(this.authTokenService, this._sharedPreferences);
 
   _updateListener(String? token) {
     for (var l in _listeners) {
@@ -48,8 +48,7 @@ class TokenManagerSharedPrefs extends AuthTokenManager {
 
     if (token == null) return false;
 
-    final request = await _authTokenService.updateAccessToken(token);
-
+    final request = await authTokenService.updateAccessToken(token);
     request.fold(
       (error) {
         removeRefreshToken();
@@ -69,7 +68,7 @@ class TokenManagerSharedPrefs extends AuthTokenManager {
 
     if (token == null) return false;
 
-    final request = await _authTokenService.updateRefreshToken(token);
+    final request = await authTokenService.updateRefreshToken(token);
 
     request.fold(
       (error) {

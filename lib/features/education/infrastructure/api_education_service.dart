@@ -20,10 +20,7 @@ class APIEducationService implements EducationService {
     LessonCategory category,
   ) async {
     final params = category == LessonCategory.all ? null : {'category': category.name};
-
-    return client
-        .get('/education/lessons', queryParameters: params)
-        .then(parseResponse(GetLessonsResponse.fromJson));
+    return client.get('/education/lessons', queryParameters: params).then(parseResponse(GetLessonsResponse.fromJson));
   }
 
   @override

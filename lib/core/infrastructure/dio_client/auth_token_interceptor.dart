@@ -7,68 +7,61 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dar
 
 @injectable
 class AuthTokenInterceptor extends InterceptorsWrapper {
-  // Dio dio;
   AuthTokenManager authTokenManager;
 
   AuthTokenInterceptor(this.authTokenManager);
-  // AuthTokenInterceptor(this.dio, this.authTokenManager);
 
   @override
   Future<void> onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    final token = await authTokenManager.getAccessToken();
-    if (token != null) {
+    final token = await _getToken();
+    if (token.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer $token';
     }
-    // TODO will be used to restrict test users access to the app after testing period
-    options.headers["MVP_ACCESS_HEADER_NAME"] = 'access-control-loopcare';
-    handler.next(options);
+    //Todo remove expired access = 5 min refresh = 15min
+    options.headers['access-control-loopcare'] = 'V6lLuQ6cFs0VHNLQrJBazY5-new';
+    return handler.next(options);
   }
 
   @override
-  Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
-    if (err.response?.statusCode != HttpStatus.unauthorized) {
-      return handler.next(err);
-    }
-    // dio.interceptors.requestLock.lock();
-    // dio.interceptors.responseLock.lock();
-    try {
+  Future<void> onResponse(Response response, ResponseInterceptorHandler handler) async {
+    if (response.statusCode == HttpStatus.unauthorized) {
       final accessTokenIsUpdated = await authTokenManager.updateAccessToken();
       final refreshTokenIsUpdated = await authTokenManager.updateRefreshToken();
-
       if (accessTokenIsUpdated && refreshTokenIsUpdated) {
-        return _createUpdatedRequest(err.requestOptions);
+        final token = await _getToken();
+        final res = await dioOptions.fetch(response.requestOptions..setAuthenticationHeader(token));
+        return handler.resolve(res);
       } else {
-        // _unlockDio();
-        return handler.next(err);
+        return handler.reject(DioException(requestOptions: response.requestOptions));
       }
-    } catch (e) {
-      // _unlockDio();
-      return handler.next(err);
+    } else {
+      return handler.next(response);
     }
   }
 
-  // void _unlockDio() {
-  //   dio.interceptors.requestLock.unlock();
-  //   dio.interceptors.responseLock.unlock();
-  // }
-
-  Future _createUpdatedRequest(RequestOptions request) async {
-    final token = await authTokenManager.getAccessToken();
-    final dioBaseOption = dioOptions;
-
-    // _unlockDio();
-
-    return dioBaseOption.request(
-      request.path,
-      cancelToken: request.cancelToken,
-      data: request.data,
-      onReceiveProgress: request.onReceiveProgress,
-      onSendProgress: request.onSendProgress,
-      queryParameters: request.queryParameters,
-      options: Options(headers: {'Authorization': 'Bearer $token'}),
-    );
+  @override
+  Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
+    if (err.response?.statusCode != HttpStatus.unauthorized) {
+      return super.onError(err, handler);
+    }
+    return handler.next(err);
   }
+
+  Future<String> _getToken() async {
+    final token = await authTokenManager.getAccessToken();
+    return token ?? '';
+  }
+}
+
+extension _AuthRequestOptionsX on RequestOptions {
+  void setAuthenticationHeader(String token) => headers['Authorization'] = 'Bearer $token';
+
+  int get retryAttempt => (extra['auth_retry_attempt'] as int?) ?? 0;
+
+  set retryAttempt(int attempt) => extra['auth_retry_attempt'] = attempt;
+
+  void removeAuthenticationHeader() => headers.remove('Authorization');
 }
