@@ -154,5 +154,12 @@ class AuthenticationState with _$AuthenticationState {
 
   bool get isUserGrouped => groupingState == UserGroupingState.grouped;
 
+  bool get isMixedGender {
+    return maybeWhen(
+      orElse: () => false,
+      authenticated: (state) => state.isMixedGender,
+    );
+  }
+
   factory AuthenticationState.fromJson(Map<String, dynamic> json) => _$AuthenticationStateFromJson(json);
 }

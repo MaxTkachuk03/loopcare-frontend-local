@@ -90,7 +90,9 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
   ) async {
     emit(GroupPreferencesState.loading(state.data.copyWith(isLoading: true)));
 
-    final data = GroupPreferencesBody(timezone: event.timezone);
+    final data = _authBloc.state.isMixedGender
+        ? GroupPreferencesBody(timezone: event.timezone, genderPreference: GenderPreferences.mixed)
+        : GroupPreferencesBody(timezone: event.timezone);
 
     final response = await _groupPreferencesService.savePreferences(data);
 
@@ -98,6 +100,7 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
       (l) => emit(GroupPreferencesState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(GroupPreferencesState.updated(state.data.copyWith(
         timezone: r.timezone ?? state.data.timezone,
+        genderPreferences: r.genderPreference ?? state.data.genderPreferences,
         isLoading: false,
         error: null,
       ))),
@@ -175,7 +178,8 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
   FutureOr<void> _onAcceptRules(event, Emitter<GroupPreferencesState> emit) async {
     emit(GroupPreferencesState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _groupPreferencesService.savePreferences(const GroupPreferencesBody(rulesAccepted: true));
+    final response =
+        await _groupPreferencesService.savePreferences(const GroupPreferencesBody(rulesAccepted: true));
 
     response.fold(
       (l) => emit(GroupPreferencesState.error(state.data.copyWith(error: l, isLoading: false))),
