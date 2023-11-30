@@ -33,7 +33,7 @@ class PurchaseDetailsStreamSubscription {
     if (Platform.isIOS) {
       final InAppPurchaseStoreKitPlatformAddition iosPlatformAddition =
           inAppPurchaseService.instance.getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
-      await iosPlatformAddition.setDelegate(ExamplePaymentQueueDelegate());
+      await iosPlatformAddition.setDelegate(AppPaymentQueueDelegate());
     }
     _streamSubscription = inAppPurchaseService.storeSubscription.listen(
       (List<PurchaseDetails> events) {
@@ -41,7 +41,7 @@ class PurchaseDetailsStreamSubscription {
           onError?.call(const RequestError.streamSubscription('Something went wrong with service, please try again'));
           return;
         }
-        if (events.first.status == PurchaseStatus.restored) {
+        if (events.every((element) => element.status == PurchaseStatus.restored)) {
           debugPrint('devcpp RESTORED: ${events.length} ');
           events.sort((a, b) => int.parse(a.transactionDate!).compareTo(int.parse(b.transactionDate!)));
           debugPrint(
@@ -94,7 +94,7 @@ class PurchaseDetailsStreamSubscription {
 ///
 /// The payment queue delegate can be implementated to provide information
 /// needed to complete transactions.
-class ExamplePaymentQueueDelegate implements SKPaymentQueueDelegateWrapper {
+class AppPaymentQueueDelegate implements SKPaymentQueueDelegateWrapper {
   @override
   bool shouldContinueTransaction(SKPaymentTransactionWrapper transaction, SKStorefrontWrapper storefront) {
     return true;

@@ -9,6 +9,8 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
+import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/domain/account/subscription.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
@@ -33,13 +35,16 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   final inAppPurchaseService = getIt<AppSubscriptionService>();
   final AuthenticationService _authenticationService;
   final PurchaseService _purchaseService;
+  final AuthTokenManager authTokenManager;
+  final SocketService _socketService = SocketService.instance;
   bool isValidatePastIOSPurchase = false;
   ProductDetails? buyingProduct;
 
-  SubscriptionBloc(this._authenticationService, this._purchaseService)
+  SubscriptionBloc(this._authenticationService, this._purchaseService, this.authTokenManager)
       : super(const SubscriptionState.initial(SubscriptionStateData())) {
     on<SubscriptionInit>(_onInitSubscription);
     on<SubscriptionDispose>(_onSubscriptionDispose);
+    on<SubscriptionLogout>(_onLogout);
     on<BuySubscription>(_onBuySubscription);
     on<VerifyLastPurchase>(_onVerifyLastPurchase);
     on<RestorePurchased>(_onRestorePurchased);
@@ -282,7 +287,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         emit(
           SubscriptionState.loading(state.data.copyWith(isLoading: false)),
         );
-        debugPrint('devcpp SubscriptionStatus: ${subscription.state}');
         switch (status) {
           case SubscriptionStatus.trialPeriod:
             if (subscription.isActive) {
@@ -341,5 +345,23 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   ) {
     purchaseDetailsStreamSubscription.close();
     emit(SubscriptionState.success(state.data));
+  }
+
+  FutureOr<void> _onLogout(
+    SubscriptionLogout event,
+    Emitter<SubscriptionState> emit,
+  ) async {
+    emit(
+      SubscriptionState.loading(state.data.copyWith(isLoading: true)),
+    );
+    purchaseDetailsStreamSubscription.close();
+    await _authenticationService.logout();
+    await authTokenManager.removeAccessToken();
+    await authTokenManager.removeRefreshToken();
+    _socketService.disconnect();
+    emit(
+      SubscriptionState.loading(state.data.copyWith(isLoading: false)),
+    );
+    emit(SubscriptionState.logout(state.data));
   }
 }

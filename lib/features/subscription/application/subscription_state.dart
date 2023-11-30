@@ -27,6 +27,8 @@ class SubscriptionState with _$SubscriptionState {
   const factory SubscriptionState.restoredSubscription(SubscriptionStateData data) = RestoredSubscriptionState;
 
   const factory SubscriptionState.subscriptionActive(SubscriptionStateData data) = SubscriptionActual;
+
+  const factory SubscriptionState.logout(SubscriptionStateData data) = LogoutState;
 }
 
 @freezed

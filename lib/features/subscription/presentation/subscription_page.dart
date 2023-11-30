@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart'
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_controller.dart';
@@ -48,6 +49,21 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                icon: const Icon(
+                  Icons.logout,
+                  color: AppColors.orange,
+                  size: 24,
+                ),
+                onPressed: () => context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout()),
+              )
+            ],
+          ),
+        ),
         body: Stack(
           children: [
             Positioned.fill(
@@ -60,7 +76,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const SizedBox(height: 40.0),
+                        const SizedBox(height: 16.0),
                         const Align(
                           alignment: Alignment.center,
                           child: Padding(
@@ -81,17 +97,13 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                         ),
                         Expanded(
                           child: BlocConsumer<SubscriptionBloc, SubscriptionState>(
-                            listenWhen: (prev, cur) =>
-                                cur is ErrorSubscriptionState ||
-                                cur is SuccessSubscriptionPlans ||
-                                cur is PurchasedSubscriptionState ||
-                                cur is SubscriptionActual ||
-                                cur is LoadingSubscriptionState,
+                            listenWhen: _listenerStates,
                             listener: (BuildContext context, SubscriptionState state) => state.maybeWhen(
                               successInPlans: (data) => controller.setupPlans(data),
                               subscriptionActive: (data) => context.router.replaceNamed(AppRoutes.home),
                               purchasedSubscription: (data) => context.router.replaceNamed(AppRoutes.home),
                               loading: (data) => controller.handleLoading(data.isLoading),
+                              logout: (_) => context.router.replaceAll([const IntroRoute()]),
                               error: (_) => _errorListener(context, state),
                               orElse: () => null,
                             ),
@@ -138,9 +150,16 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     );
   }
 
+  bool _listenerStates(prev, cur) =>
+      cur is ErrorSubscriptionState ||
+      cur is SuccessSubscriptionPlans ||
+      cur is PurchasedSubscriptionState ||
+      cur is SubscriptionActual ||
+      cur is LoadingSubscriptionState ||
+      cur is LogoutState;
+
   _errorListener(BuildContext context, SubscriptionState state) {
     final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
-    debugPrint('devcpp  _errorListener: ${state.data.error}');
     if (state.data.error?.error is ServerErrorData) {
       if ((state.data.error?.error as ServerErrorData).statusCode == HttpStatus.unauthorized) {
         context.router.replaceNamed(AppRoutes.login);

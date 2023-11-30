@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
@@ -8,7 +9,6 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dar
 @injectable
 class AuthTokenInterceptor extends InterceptorsWrapper {
   AuthTokenManager authTokenManager;
-
   AuthTokenInterceptor(this.authTokenManager);
 
   @override
@@ -22,16 +22,19 @@ class AuthTokenInterceptor extends InterceptorsWrapper {
     }
     //Todo remove expired access = 5 min refresh = 15min
     options.headers['access-control-loopcare'] = 'V6lLuQ6cFs0VHNLQrJBazY5-new';
+    debugPrint('devcpp REQUEST  PATH: ${options.path}  TOKEN: ${options.headers['Authorization'] ?? ''}');
     return handler.next(options);
   }
 
   @override
   Future<void> onResponse(Response response, ResponseInterceptorHandler handler) async {
+    debugPrint('devcpp RESPONSE  STATUS: ${response.statusCode}  PATH: ${response.realUri.path}');
     if (response.statusCode == HttpStatus.unauthorized) {
       final accessTokenIsUpdated = await authTokenManager.updateAccessToken();
       final refreshTokenIsUpdated = await authTokenManager.updateRefreshToken();
       if (accessTokenIsUpdated && refreshTokenIsUpdated) {
         final token = await _getToken();
+        debugPrint('devcpp RESPONSE REFRESH GOT TOKEN:  $token');
         final res = await dioOptions.fetch(response.requestOptions..setAuthenticationHeader(token));
         return handler.resolve(res);
       } else {
