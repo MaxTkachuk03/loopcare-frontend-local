@@ -43,6 +43,8 @@ abstract class Account implements _$Account {
     @Default(null) DateTime? emailApproveDate,
   }) = _Account;
 
+  bool get isMixedGender => gender != SexType.female && gender != SexType.male;
+
   int get trainingFrequency {
     final RegExpMatch? match =
         RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
