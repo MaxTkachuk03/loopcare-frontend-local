@@ -90,7 +90,7 @@ class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
     // check if it was the last video in playlist
     if (_isLastExercise) {
       _onlyPortraitOrientation();
-      _videoPlayerController?.dispose();
+      _videoPlayerController?.pause();
       context.router.push(ProgramAssessmentRoute(onDisposeCb: _allowLandscapeOrientation));
       return;
     }
