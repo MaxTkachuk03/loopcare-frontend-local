@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -94,20 +95,20 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         await inAppPurchaseService.instance.completePurchase(purchaseDetails);
       }
       if (purchaseDetails.status == PurchaseStatus.purchased) {
-        await _verifyRestorePurchase(purchaseDetails);
+        await _verifyPurchasedOrRestore(purchaseDetails);
       }
     } catch (_, __) {}
   }
 
-  Future<void> _verifyRestorePurchase(PurchaseDetails purchaseDetails) async {
-    debugPrint('devcpp _verifyRestorePurchase');
-    final response = await _apiRestore(purchaseDetails);
-    await inAppPurchaseService.instance.completePurchase(purchaseDetails);
+  Future<void> _verifyPurchasedOrRestore(PurchaseDetails purchaseDetails) async {
+    debugPrint('devcpp _verifyPurchasedOrRestore');
+    final response = await _apiPurchaseOrRestore(purchaseDetails);
     response.fold((error) {
-      debugPrint('devcpp error RestorePurchaseData: $error');
+      debugPrint('devcpp error _verifyPurchasedOrRestore: $error');
       add(SubscriptionEvent.errorVerifyPurchase(error));
     }, (r) async {
-      debugPrint('devcpp succeed RestorePurchaseData: ${r.toString()}');
+      // await inAppPurchaseService.instance.completePurchase(purchaseDetails);
+      debugPrint('devcpp succeed _verifyPurchasedOrRestore: ${r.toString()}');
       add(SubscriptionEvent.purchasedSubscription(PurchasedProduct(
         purchaseDetails: purchaseDetails,
         memberSince: SubscriptionDateUtils.getTransactionDate(r.purchasedAt),
@@ -115,17 +116,18 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     });
   }
 
-  Future<Either<RequestError, Subscription>> _apiRestore(PurchaseDetails purchaseDetails) async {
+  Future<Either<RequestError, Subscription>> _apiPurchaseOrRestore(PurchaseDetails purchaseDetails) async {
     var isIOS = purchaseDetails is AppStorePurchaseDetails;
     final vendor = isIOS ? 'ios' : 'android';
     final identifier = _getTransactionId(purchaseDetails) ?? '';
-    debugPrint('devcpp _apiRestore TransactionId: $identifier');
+    debugPrint('devcpp _apiPurchaseOrRestore TransactionId: $identifier');
+    log(purchaseDetails.verificationData.serverVerificationData);
     var response = isIOS
-        ? await _purchaseService.restorePurchaseIOS(
+        ? await _purchaseService.purchaseIOS(
             VerifyIOSPurchaseData(
                 receipt: purchaseDetails.verificationData.serverVerificationData, transactionId: identifier),
             vendor)
-        : await _purchaseService.restorePurchaseAndroid(
+        : await _purchaseService.purchaseAndroid(
             VerifyAndroidPurchaseData(
                 receipt: purchaseDetails.verificationData.serverVerificationData, purchaseToken: identifier),
             vendor);
@@ -184,7 +186,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         }
         await _verifyOldPurchase(purchaseDetails, buyingProduct!);
       } else {
-        await _verifyRestorePurchase(purchaseDetails);
+        debugPrint('devcpp verify Restore purchase');
+        await _verifyPurchasedOrRestore(purchaseDetails);
       }
     }
   }
@@ -287,6 +290,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         emit(
           SubscriptionState.loading(state.data.copyWith(isLoading: false)),
         );
+        debugPrint('devcpp SubscriptionStatus: ${subscription.state}');
         switch (status) {
           case SubscriptionStatus.trialPeriod:
             if (subscription.isActive) {

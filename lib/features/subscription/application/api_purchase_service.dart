@@ -15,13 +15,12 @@ class APIPurchaseService implements PurchaseService {
   APIPurchaseService(this.client);
 
   @override
-  Future<Either<RequestError, Subscription>> restorePurchaseIOS(VerifyIOSPurchaseData data, String vendor) async {
+  Future<Either<RequestError, Subscription>> purchaseIOS(VerifyIOSPurchaseData data, String vendor) async {
     return client.post('/subscription/purchase/$vendor', data: data).then(parseResponse(Subscription.fromJson));
   }
 
   @override
-  Future<Either<RequestError, Subscription>> restorePurchaseAndroid(
-      VerifyAndroidPurchaseData data, String vendor) async {
+  Future<Either<RequestError, Subscription>> purchaseAndroid(VerifyAndroidPurchaseData data, String vendor) async {
     return client.post('/subscription/purchase/$vendor', data: data).then(parseResponse(Subscription.fromJson));
   }
 

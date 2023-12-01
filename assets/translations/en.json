@@ -705,7 +705,7 @@
   "subscriptionAnnual": "Annual",
   "subscriptionMonthly": "Monthly",
   "subscriptionSubscribe": "Subscribe",
-  "subscriptionPrice": "{C} {XX,XX} ({C} {X,XX} / month) after 4 week trial",
+  "subscriptionPrice": "{C} {XX,XX} ({C} {X,XX} / month) after 1 week trial",
   "subscription": "Subscription",
   "manageSubscription": "Manage subscription",
   "subscriptionType": "Subscription type",

@@ -20,9 +20,7 @@ class SubscriptionController {
     if (data.plans.isEmpty) {
       return;
     }
-
     for (var plan in data.plans) {
-      debugPrint('devcpp  PLAN ID:  ${plan.id}  PRICE: ${plan.rawPrice} CURRENCY:  ${plan.currencySymbol}');
       if (plan.id == 'annual') {
         annual = PurchasableProduct(
           details: plan,
