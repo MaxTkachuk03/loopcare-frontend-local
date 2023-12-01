@@ -643,6 +643,7 @@
   "fromToLower": "from {startTime} to {endTime}",
   "numberOfAvailableSeats": "{number} of {totalNumber} seats available",
   "passedSession": "Passed session",
+  "cancelledSession": "Cancelled session",
   "noMoreSeatAvailable": "No more seat available",
   "bookedForYou": "Booked for you",
   "cancelBooking": "Cancel booking",
