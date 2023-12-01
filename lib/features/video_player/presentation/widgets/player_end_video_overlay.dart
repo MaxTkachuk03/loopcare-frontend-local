@@ -149,9 +149,8 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                     ),
                   ],
                 ),
-                Visibility(
-                  visible: isLastVideo ? false : true,
-                  child: Column(
+                if (!isLastVideo)
+                  Column(
                     children: [
                       SizedBox(
                         width: 130,
@@ -175,7 +174,6 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
               ],
             ),
           ),
