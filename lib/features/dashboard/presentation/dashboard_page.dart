@@ -174,7 +174,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                         // const Reflection(),
                         BlocBuilder<AuthenticationCubit, AuthenticationState>(
                           builder: (BuildContext context, state) {
-                            if (!state.isGroupSessionsUnlocked) {
+                            if (!state.isPhysicalActivitiesUnlocked) {
                               return const SizedBox.shrink();
                             }
 

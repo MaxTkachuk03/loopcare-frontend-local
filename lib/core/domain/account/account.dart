@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
+import 'package:loopcare_frontend/features/mental_health/domain/interpretation_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_activities_preferences.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
@@ -38,6 +40,7 @@ abstract class Account implements _$Account {
     @Default([]) List<FoodPreference>? foodPreferencesAllergic,
     @Default([]) List<UnlockedFeatureType> unlockedFeatures,
     PhysicalActivitiesPreferences? physicalActivitiesPreferences,
+    @Default(null) MentalHealthTests? mentalHealthTests,
     @Default(null) DateTime? emailApproveDate,
   }) = _Account;
 
@@ -49,6 +52,22 @@ abstract class Account implements _$Account {
 
     return match != null ? int.parse(match[0] ?? '0') : 0;
   }
+
+  bool get disableGroupSessions {
+    final bool disableGroupSessions = _oneTestHasHighValues || _allTestsAreModerate;
+
+    return mentalHealthTests != null && disableGroupSessions ? true : false;
+  }
+
+  bool get _oneTestHasHighValues =>
+      mentalHealthTests?.phq8 == InterpretationType.high.name ||
+      mentalHealthTests?.phq15 == InterpretationType.high.name ||
+      mentalHealthTests?.gad7 == InterpretationType.high.name;
+
+  bool get _allTestsAreModerate =>
+      mentalHealthTests?.phq8 == InterpretationType.moderate.name &&
+      mentalHealthTests?.phq15 == InterpretationType.moderate.name &&
+      mentalHealthTests?.gad7 == InterpretationType.moderate.name;
 
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 }

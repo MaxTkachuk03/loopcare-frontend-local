@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:loopcare_frontend/core/domain/food_preferences/food_preferences.dart';
 import 'package:loopcare_frontend/core/domain/grouping_preferences.dart';
+import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
 import 'package:loopcare_frontend/core/domain/physical_fitness/physical_fitness.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
@@ -33,6 +34,7 @@ class AccountResponse {
   final GroupingPreferences? groupingPreferences;
   @JsonKey(unknownEnumValue: UnlockedFeatureType.unknown)
   final List<UnlockedFeatureType> unlockedFeatures;
+  final MentalHealthTests? mentalHealthTests;
   final PhysicalActivitiesPreferences? physicalActivitiesPreferences;
 
   const AccountResponse({
@@ -54,6 +56,7 @@ class AccountResponse {
     required this.foodPreferences,
     required this.groupingPreferences,
     required this.unlockedFeatures,
+    required this.mentalHealthTests,
     required this.physicalActivitiesPreferences,
   });
 

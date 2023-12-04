@@ -150,9 +150,8 @@ class PreferencesSection extends StatelessWidget {
                 return SectionItem(
                   title: LocalizedTexts.groupSessions.tr(),
                   subTitle: _groupSessionsSubtitle(state),
-                  onPressHandler: state.unlockedFeatures.contains(UnlockedFeatureType.grouping)
-                      ? () => _onGroupSessionsHandler(context)
-                      : null,
+                  onPressHandler:
+                      state.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
                 );
               },
             ),

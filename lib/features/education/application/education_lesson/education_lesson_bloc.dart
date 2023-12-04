@@ -25,11 +25,7 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
 
   EducationLessonBloc(
     this._educationService,
-  ) : super(
-          const EducationLessonState.initial(
-            EducationLessonData(),
-          ),
-        ) {
+  ) : super(const EducationLessonState.initial(EducationLessonData())) {
     on<GetLessonContent>(_onGetLessonContent);
     on<NextPage>(_onNextPage);
     on<PrevPage>(_onPrevPage);
