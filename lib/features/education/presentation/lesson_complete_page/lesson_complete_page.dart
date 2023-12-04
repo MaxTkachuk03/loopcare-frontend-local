@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/lesson_questions_added_to_calendar.dart';
@@ -55,6 +56,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
       AssignmentsIntroRoute(lessonId: lessonId),
     );
   }
+
+  bool get _isGroupSessionsDisabled => context.read<AuthenticationCubit>().state.disableGroupSessions;
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +119,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                       ),
                       BlocBuilder<EducationLessonBloc, EducationLessonState>(
                         builder: (BuildContext context, state) {
-                          if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences) {
+                          if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
+                              !_isGroupSessionsDisabled) {
                             return Column(
                               children: [
                                 const Text(

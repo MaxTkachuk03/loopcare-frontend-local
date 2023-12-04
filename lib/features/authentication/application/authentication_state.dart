@@ -146,9 +146,17 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
+  bool get disableGroupSessions {
+    return maybeMap(
+      authenticated: (state) => state.account.disableGroupSessions,
+      orElse: () => false,
+    );
+  }
+
   bool get isFoodLoggingUnlocked => unlockedFeatures.contains(UnlockedFeatureType.meals);
 
-  bool get isGroupSessionsUnlocked => unlockedFeatures.contains(UnlockedFeatureType.grouping);
+  bool get isGroupSessionsUnlocked =>
+      unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;
 
   bool get isPhysicalActivitiesUnlocked => unlockedFeatures.contains(UnlockedFeatureType.physicalActivities);
 
