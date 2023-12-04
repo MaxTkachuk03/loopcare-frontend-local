@@ -83,6 +83,6 @@ class SubscriptionController {
     isEnableSubscribe.dispose();
     loading.dispose();
     selectedPlan.dispose();
-    // bloc.add(const SubscriptionEvent.dispose());
+    bloc.add(const SubscriptionEvent.dispose());
   }
 }

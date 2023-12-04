@@ -99,7 +99,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     response.fold((error) {
       add(SubscriptionEvent.errorVerifyPurchase(error));
     }, (r) async {
-      // await inAppPurchaseService.instance.completePurchase(purchaseDetails);
+      await inAppPurchaseService.instance.completePurchase(purchaseDetails);
       add(SubscriptionEvent.purchasedSubscription(PurchasedProduct(
         purchaseDetails: purchaseDetails,
         memberSince: SubscriptionDateUtils.getTransactionDate(r.purchasedAt),
