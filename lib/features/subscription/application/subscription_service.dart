@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:injectable/injectable.dart';
@@ -19,19 +18,11 @@ class AppSubscriptionService {
 
   Future<List<ProductDetails>> getSubscriptionPlans() async {
     final bool isAvailable = await _inAppPurchase.isAvailable();
-
-    debugPrint('devcpp Get isAvailable: $isAvailable');
     if (!isAvailable) {
       return [];
     }
-
     final ProductDetailsResponse productDetailResponse = await _inAppPurchase.queryProductDetails(main);
-    debugPrint('devcpp  productDetails response: ${productDetailResponse.error}');
-    debugPrint('devcpp  productDetails notFoundIDs: ${productDetailResponse.notFoundIDs}');
-    debugPrint('devcpp  productDetails ERRROR: ${productDetailResponse.error}');
-
     if (productDetailResponse.error != null || productDetailResponse.productDetails.isEmpty) {
-      debugPrint('devcpp  productDetails: ${productDetailResponse.productDetails}');
       return [];
     }
     return productDetailResponse.productDetails;

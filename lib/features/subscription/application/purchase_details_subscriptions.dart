@@ -73,7 +73,6 @@ class PurchaseDetailsStreamSubscription {
       },
       onDone: () => close(),
       onError: (e) {
-        debugPrint('devcpp _streamSubscription ERROR: ${e.toString()}');
         close();
       },
     );
