@@ -39,6 +39,7 @@ class EducationLessonData with _$EducationLessonData {
     @Default('') String svgFile,
     @Default(false) bool isSvgLoaded,
     RequestError? error,
+    @Default([]) List<LessonQuestion> questions,
   }) = _EducationLessonData;
 
   LessonPage get currentPage {

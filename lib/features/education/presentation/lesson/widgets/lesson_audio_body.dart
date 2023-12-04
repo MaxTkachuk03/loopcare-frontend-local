@@ -20,7 +20,7 @@ import 'package:loopcare_frontend/features/education/application/education_lesso
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/audio_block.dart';
 import 'package:loopcare_frontend/features/education/domain/subtitle/image_subtitle_controller.dart';
-import 'dart:io';
+import 'dart:io' as i;
 
 import 'package:loopcare_frontend/injection.dart';
 
@@ -64,7 +64,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
   }
 
   prepareSubtitleController(String path) async {
-    final File file = File(path);
+    final i.File file = i.File(path);
     final subtitleFile = await file.readAsString();
 
     _subtitleController = SubtitleController.string(subtitleFile);
@@ -210,7 +210,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                                   child: imageUrl != null && imageUrl != ''
                                       ? isSvg
                                           ? state.data.isSvgLoaded
-                                              ? SvgPicture.file(File(state.data.svgFile))
+                                              ? SvgPicture.file(i.File(state.data.svgFile))
                                               : null
                                           : NetworkImageWithCache(
                                               withPlaceholder: false,

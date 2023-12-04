@@ -16,6 +16,8 @@ import 'package:loopcare_frontend/features/account/presentation/gender_preferenc
 import 'package:loopcare_frontend/features/account/presentation/join_group_preferences_page/join_group_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/nickname_preferences_page/nickname_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/timezone_preferences_page/timezone_preferences_page.dart';
+import 'package:loopcare_frontend/features/assignments/presentation/assignments_intro_page.dart';
+import 'package:loopcare_frontend/features/assignments/presentation/assignments_questions_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/email_address/email_address_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/forgot_password/forgot_password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/login/login_page.dart';
@@ -100,6 +102,8 @@ import 'package:loopcare_frontend/features/authentication/presentation/welcome/s
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/preferences_overview_page.dart';
 import 'package:loopcare_frontend/features/proxy/proxy_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_serving_page/select_serving_page.dart';
+import 'package:loopcare_frontend/features/quizzes/presentation/quizzes_intro_page.dart';
+import 'package:loopcare_frontend/features/quizzes/presentation/quizzes_questions_page.dart';
 import 'package:loopcare_frontend/features/reflection/presentation/nutrition_details_page.dart';
 import 'package:loopcare_frontend/features/reflection/presentation/reflection_page.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/video_page.dart';
@@ -335,6 +339,7 @@ const groupLessonRoutes = [
       path: AppRoutes.doNotLike,
       page: DoNotLikePage,
     ),
+
     // TODO check house hold screens seems they could be deleted
     AutoRoute(
       path: AppRoutes.householdIntro,
@@ -356,6 +361,7 @@ const groupLessonRoutes = [
       path: AppRoutes.whereDoYouEat,
       page: WhereDoYouEatPage,
     ),
+
     //Diabetes
     AutoRoute(
       path: AppRoutes.diabetes,
@@ -373,8 +379,8 @@ const groupLessonRoutes = [
       path: AppRoutes.barcodeScanner,
       page: BarcodeScannerPage,
     ),
-    // Nutrition
 
+    // Nutrition
     AutoRoute(
       path: AppRoutes.nutritionInstructions,
       page: NutritionInstructionsPage,
@@ -407,22 +413,18 @@ const groupLessonRoutes = [
       path: AppRoutes.logWeight,
       page: LogWeightPage,
     ),
-
     AutoRoute(
       path: AppRoutes.recipeDetails,
       page: RecipeDetailsPage,
     ),
-
     AutoRoute(
       path: AppRoutes.chooseDate,
       page: ChooseDateCalendarPage,
     ),
-
     AutoRoute(
       path: AppRoutes.weekPlanner,
       page: WeekPlannerPage,
     ),
-
     AutoRoute(
       path: AppRoutes.recommendations,
       page: RecommendationsPage,
@@ -469,6 +471,7 @@ const groupLessonRoutes = [
       path: AppRoutes.programDetails,
       page: ProgramDetailsPage,
     ),
+
     // User profile
     AutoRoute(
       path: AppRoutes.foodPreferences,
@@ -491,6 +494,7 @@ const groupLessonRoutes = [
       path: AppRoutes.nicknamePreferences,
       page: NicknamePreferencesPage,
     ),
+
     // Video
     AutoRoute(
       path: AppRoutes.video,
@@ -541,6 +545,7 @@ const groupLessonRoutes = [
       path: AppRoutes.supportGroupIntro,
       page: SupportGroupIntroPage,
     ),
+
     // Zoom video sessions
     AutoRoute(
       path: AppRoutes.sessionWaitingRoom,
@@ -574,6 +579,7 @@ const groupLessonRoutes = [
       path: AppRoutes.physicalActivitiesComplete,
       page: PhysicalActivitiesCompletePage,
     ),
+
     // Mood
     AutoRoute(
       path: AppRoutes.createMood,
@@ -582,6 +588,24 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.moodOption,
       page: MoodOptionPage,
+    ),
+
+    // Quizzes
+    AutoRoute(
+      path: AppRoutes.quizzes,
+      page: QuizzesIntroPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.quizesQuestions,
+      page: QuizzesQuestionsPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.assignmentsIntro,
+      page: AssignmentsIntroPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.assignmentsQuestions,
+      page: AssignmentsQuestionsPage,
     ),
   ],
 )

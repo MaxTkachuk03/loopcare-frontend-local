@@ -46,6 +46,10 @@ extension DateTimeExtension on DateTime {
     return DateFormat('EEEE d MMM', 'en_EN').format(this);
   }
 
+  String get dayWithMonthWithoutLeadingZero {
+    return DateFormat('EEEE d MMMM', 'en_EN').format(this);
+  }
+
   String get dayWithMonth {
     return DateFormat('EEEE dd MMMM', 'en_EN').format(this);
   }
