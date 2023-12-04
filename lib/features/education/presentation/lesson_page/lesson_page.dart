@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.d
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
@@ -19,6 +20,7 @@ import 'package:loopcare_frontend/features/education/domain/education_lesson_pag
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_audio_body.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_text_body.dart';
+import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_type.dart';
 
 class LessonPage extends StatefulWidget {
   final int lessonId;
@@ -67,7 +69,16 @@ class _LessonPageState extends State<LessonPage> {
         return;
       }
 
-      context.router.pushNamed(AppRoutes.lessonComplete);
+      if (lessonBloc.state.data.questions.isEmpty ||
+          lessonBloc.state.data.questions.first.type != LessonQuestionType.quiz) {
+        context.router.pushNamed(AppRoutes.lessonComplete);
+      } else {
+        context.router.push(
+          QuizzesIntroRoute(
+            lessonId: widget.lessonId,
+          ),
+        );
+      }
 
       return;
     }

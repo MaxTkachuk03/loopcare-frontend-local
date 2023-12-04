@@ -91,5 +91,9 @@ class AppColors {
   static const Color disabledElement = Color(0xFFE4E6DE);
   static const Color disabledText = Color(0xFF8B9483);
 
+  static const Color correctGreen = Color(0xFFB5BE53);
+  static const Color wrongRed = Color(0xFFC10100);
+  static const Color inactiveChipBg = Color(0xFFDDE1D2);
+
   AppColors._();
 }

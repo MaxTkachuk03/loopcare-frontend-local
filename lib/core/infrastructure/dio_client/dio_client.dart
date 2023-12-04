@@ -50,7 +50,7 @@ class DioClient {
 
     if (dotenv.env['NEED_DIO_LOGGER'] == 'true') {
       dio.interceptors.add(PrettyDioLogger(
-        responseBody: false,
+        responseBody: true,
         requestHeader: false,
         responseHeader: false,
         requestBody: false,

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
+import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 
 part 'get_lesson_content_response.g.dart';
 
@@ -18,18 +19,20 @@ class GetLessonContentResponse {
   final DateTime? completedAt;
   final int step;
   final List<LessonPage> pages;
+  final List<LessonQuestion> questions;
 
   const GetLessonContentResponse(
-    this.pages,
     this.id,
     this.category,
     this.title,
     this.image,
     this.duration,
-    this.extraAction,
     this.pageCounter,
+    this.extraAction,
     this.completedAt,
     this.step,
+    this.pages,
+    this.questions,
   );
 
   static GetLessonContentResponse fromJson(Map<String, dynamic> json) =>

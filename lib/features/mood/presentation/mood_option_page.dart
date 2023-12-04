@@ -22,7 +22,11 @@ class MoodOptionPage extends StatefulWidget {
   final MoodOptionPageMode mode;
   final MoodController controller;
 
-  const MoodOptionPage({super.key, required this.mode, required this.controller});
+  const MoodOptionPage({
+    super.key,
+    required this.mode,
+    required this.controller,
+  });
 
   @override
   State<MoodOptionPage> createState() => _MoodOptionPageState();

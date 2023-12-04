@@ -770,6 +770,19 @@ class LocalizedTexts {
   static const String errorMoodNoteMessage = "errorMoodNoteMessage";
   static const String moodOptionPageEmotionTitle = "moodOptionPageEmotionTitle";
   static const String deleteMood = "deleteMood";
+
+  // Quizes
+  static const String quiz = "quiz";
+  static const String quizDesc = "quizDesc";
+  static const String letsGo = "letsGo";
+  static const String questionOf = "questionOf";
+  static const String correct = "correct";
+  static const String incorrect = "incorrect";
+  static const String assignmentAddedTitle = "assignmentAddedTitle";
+  static const String assignmentAddedText = "assignmentAddedText";
+  static const String startNow = "startNow";
+  static const String assignment = "assignment";
+  static const String seeLesson = "seeLesson";
 }
 
 extension StringX on String {

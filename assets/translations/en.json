@@ -690,5 +690,16 @@
   "makeChoice": "Make a choice",
   "personalNote": "Personal note",
   "moodOptionPageEmotionTitle": "Choose up to 3 emotions",
-  "deleteMood": "Delete this mood"
+  "deleteMood": "Delete this mood",
+  "quiz": "Quiz",
+  "quizDesc": "Let’s do a short knowledge quiz with {questionNumber} questions to see what you have learned!",
+  "letsGo": "Let’s go!",
+  "questionOf": "Question {step} of {total}",
+  "correct": "Correct!",
+  "incorrect": "That's incorrect",
+  "assignmentAddedTitle": "Assignment added to calendar",
+  "assignmentAddedText": "Please aim to finish it before {date}",
+  "startNow": "Start now",
+  "assignment": "Assignment",
+  "seeLesson": "See lesson"
 }

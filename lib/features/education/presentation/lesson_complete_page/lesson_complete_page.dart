@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
+import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/lesson_questions_added_to_calendar.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_block.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 
@@ -46,6 +47,12 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
       text: errorMessage,
       background: AppColors.red,
       textColor: Colors.white,
+    );
+  }
+
+  _startLessonQuestion(BuildContext context, int lessonId) {
+    context.router.push(
+      AssignmentsIntroRoute(lessonId: lessonId),
     );
   }
 
@@ -124,6 +131,12 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                                   height: 30,
                                 ),
                               ],
+                            );
+                          }
+                          if (state.data.questions.isNotEmpty) {
+                            return LessonQuestionsAddedToCalendar(
+                              completedAt: state.data.lessonCompletedDate ?? DateTime.now(),
+                              onBtnPressed: () => _startLessonQuestion(context, state.data.lessonId),
                             );
                           }
 

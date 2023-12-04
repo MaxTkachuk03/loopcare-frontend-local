@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
+import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'education_lesson_event.dart';
@@ -240,6 +241,7 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
               lessonTitle: r.title,
               isLoading: false,
               error: null,
+              questions: r.questions,
             ),
           ),
         );
@@ -286,10 +288,27 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
         )));
       },
       (r) {
-        emit(EducationLessonState.lessonCompleted(state.data.copyWith(
-          error: null,
-          isLoading: false,
-        )));
+        emit(
+          EducationLessonState.lessonCompleted(
+            state.data.copyWith(
+              extraAction: r.extraAction,
+              pages: r.pages,
+              totalPagesLength: r.extraAction == ExtraActionTypes.setupGroupingPreferences
+                  ? r.pages.length + groupLessonRoutes.length
+                  : r.pages.length,
+              lessonProgress: 0,
+              lessonId: r.id,
+              lessonCompletedDate: r.completedAt,
+              lessonCategory: r.category,
+              lessonDuration: r.duration,
+              lessonImage: r.image,
+              lessonTitle: r.title,
+              isLoading: false,
+              error: null,
+              questions: r.questions,
+            ),
+          ),
+        );
       },
     );
   }
