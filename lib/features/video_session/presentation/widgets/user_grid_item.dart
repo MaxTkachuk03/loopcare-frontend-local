@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zoom_videosdk/flutter_zoom_view.dart';
+import 'package:flutter_zoom_videosdk/flutter_zoom_view.dart' as zoom;
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_user.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -34,7 +34,7 @@ class UserGridItem extends StatelessWidget {
                 child: SizedBox(
                   width: size.width / 3,
                   height: size.height / 3,
-                  child: View(creationParams: {
+                  child: zoom.View(creationParams: {
                     "userId": user.userId,
                     "sharing": false,
                     "preview": false,
