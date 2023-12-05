@@ -38,7 +38,7 @@ import 'package:loopcare_frontend/features/video_session/presentation/widgets/us
 import 'package:wakelock/wakelock.dart';
 
 class SessionCallPage extends StatefulWidget {
-  const SessionCallPage({Key? key}) : super(key: key);
+  const SessionCallPage({super.key});
 
   @override
   State<SessionCallPage> createState() => _SessionCallPageState();
@@ -182,8 +182,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
       log('session token = $token', name: 'zoomSessionLog');
 
-      final String userName = context.read<AuthenticationCubit>().state.nickname ??
-          context.read<AuthenticationCubit>().state.name;
+      final String userName =
+          context.read<AuthenticationCubit>().state.nickname ?? context.read<AuthenticationCubit>().state.name;
 
       JoinSessionConfig joinSession = JoinSessionConfig(
         sessionName: sessionKey,
@@ -624,10 +624,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                             builder: (context, state) {
                               final textEvents = context.read<TopicsBloc>().state.data.textEvents;
 
-                              final text = textEvents
-                                      .lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)
-                                      ?.text ??
-                                  '';
+                              final text =
+                                  textEvents.lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)?.text ?? '';
 
                               return PromptsContainer(text: text);
                             },
