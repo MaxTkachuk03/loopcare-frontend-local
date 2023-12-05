@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 part 'app_colors.dart';
-
 part 'theme_constants.dart';
 
 final ThemeData appThemeData = ThemeData(
+  useMaterial3: false,
   fontFamily: ThemeConstants.openSansFontFamily,
   colorScheme: _getColorScheme(),
   appBarTheme: _getAppBarTheme(),

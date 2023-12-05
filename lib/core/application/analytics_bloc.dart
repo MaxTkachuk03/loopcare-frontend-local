@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/analytics_service.dart';
@@ -11,9 +11,9 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+part 'analytics_bloc.freezed.dart';
 part 'analytics_event.dart';
 part 'analytics_state.dart';
-part 'analytics_bloc.freezed.dart';
 
 @singleton
 class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {

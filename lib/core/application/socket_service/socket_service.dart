@@ -1,9 +1,10 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
-import 'package:loopcare_frontend/core/application/socket_service/socket_data.dart';
 import 'package:loopcare_frontend/core/application/socket_service/events.dart';
+import 'package:loopcare_frontend/core/application/socket_service/socket_data.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
@@ -150,7 +151,7 @@ class SocketService {
   }
 
   void _debug(String data) {
-    print('SocketIO -------: ${DateTime.now().toIso8601String()} on  $data');
+    debugPrint('SocketIO -------: ${DateTime.now().toIso8601String()} on  $data');
   }
 
   void _onDisconnect(dynamic data) {
