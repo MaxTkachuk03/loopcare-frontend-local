@@ -6,30 +6,14 @@ var topics = [
         "minMemberCount": 4,
         "maxMemberCount": 9,
         "status": "planned",
-        "signed": false,
-        "groupSessionMembers": [],
-        "id": 1,
-        "topic": "Getting to know each other. What is your motivation to lose weight?",
-        "startDate": "2023-10-02T15:00:00.024Z",
-        "endDate": "2023-10-02T16:00:00.024Z",
-        "password": "03fa3f6a23",
-        "groupSessionKey": "1-ENV:develop-GROUP_ID:2044",
-        "memberStatus": "notSigned"
-      },
-      {
-        "memberCount": 2,
-        "minMemberCount": 4,
-        "maxMemberCount": 9,
-        "status": "planned",
         "signed": true,
         "groupSessionMembers": [],
-        "id": 2,
-        "topic": "Getting to know each other. What is your motivation to lose weight?",
-        "startDate": "2023-10-06T09:34:00.000Z",
-        "endDate": "2023-11-06T08:47:00.000Z",
-        "password": "fcc3089582",
-        "groupSessionKey": "2-ENV:develop-GROUP_ID:2044",
-        "memberStatus": "signedUp"
+        "id": 78,
+        "topic": "Mindfulness",
+        "startDate": "2023-12-05T12:30:00.000Z",
+        "endDate": "2023-12-05T13:30:00.000Z",
+        "password": "f73d4ef553",
+        "groupSessionKey": "78-ENV:develop-GROUP_ID:13809"
       },
       {
         "memberCount": 0,
@@ -38,140 +22,13 @@ var topics = [
         "status": "planned",
         "signed": false,
         "groupSessionMembers": [],
-        "id": 3,
-        "topic": "Getting to know each other. What is your motivation to lose weight?",
-        "startDate": "2023-10-02T19:00:00.035Z",
-        "endDate": "2023-10-02T20:00:00.035Z",
-        "password": "e5d5ff248d",
-        "groupSessionKey": "3-ENV:develop-GROUP_ID:2044",
-        "memberStatus": "notSigned"
-      }
-    ],
-    "materials": [
-      {
-        "id": 1,
-        "article":
-            "<html lang=\"en\">\n  <body>\n    <h2>Getting to Know Each Other</h2>\n\n    <p>Welcome to your first session with members from your support group.</p>\n    <p></p>\n\n    <p>\n      Here, you will find content to prepare yourself for your sessions every\n      week.\n    </p>\n\n    <p>\n      Your group will be a very important source of support for you throughout\n      your journey. Here you will get together with other people, who like you,\n      are on their way to better health and inner peace. And just like you, they\n      are dealing with similar questions and challenges.\n    </p>\n\n    <p>\n      It is wonderful to talk with others, give each other mutual support and\n      learn from one another. And even though this is so easy, we don't actually\n      take the time to really connect with ourselves or others. It takes\n      courage, to open up and let others in. Because the moment we do, we also\n      feel more vulnerable. Exactly for this reason, you and you alone decide\n      what you want to share with your group. If all members treat each other\n      mindfully and with respect, this will provide ample opportunity to have\n      new experiences and make some progress. Just listening and the fact that\n      your own emotions and feelings are recognized and you are allowed to\n      express them, already has a healing effect.\n    </p>\n\n    <p>\n      So, it's nothing too complicated, just listen with an open heart and learn\n      to give your own thoughts and feelings a room in which they are allowed to\n      just be.\n    </p>\n\n    <h3>The Video Session</h3>\n\n    <p>\n      The first session is just about getting to know one another a little, as\n      you will be doing a part of this journey together. If at the end of the\n      session there is still a little time left over, you can discuss the topic\n      of \"Awareness\".\n    </p>\n\n    <p>\n      The structure to the session will always be similar. When everyone has\n      logged in, you will first watch a Video of our LeanOnMe Psychologist. She\n      will give you a bit of input and then you will have a lot of time and\n      space for your discussions.\n    </p>\n\n    <p>\n      And don't worry, everything doesn't always have to be difficult, it can be\n      simple. Joy, humor and laughter are definitely allowed. Are you curious\n      yet?\n    </p>\n\n    <p><b>Key Points:</b></p>\n    <ul>\n      <li>Getting to know each other</li>\n      <li>What does the word \"mindfulness\" mean to you?</li>\n    </ul>\n  </body>\n</html>\n"
-      }
-    ],
-    "id": 1,
-    "topic": "Getting to know each other. What is your motivation to lose weight?",
-    "duration": 3600,
-    "groupSessionProgramEvents": [
-      {
-        "id": 1,
-        "event": "TEXT",
-        "timestamp": 0,
-        "text":
-            "Hello everyone, not all members have logged in. We will start when everyone is here (latest after 3 minutes).",
-        "videoPath": null,
-        "duration": null
+        "id": 92,
+        "topic": "Mindfulness",
+        "startDate": "2023-12-06T13:00:00.866Z",
+        "endDate": "2023-12-06T13:53:00.866Z",
+        "password": "c6adc4c1e0",
+        "groupSessionKey": "92-ENV:develop-GROUP_ID:13809"
       },
-      {
-        "id": 2,
-        "event": "TEXT",
-        "timestamp": 20,
-        "text": "Here, you will find instructions on what to do or what’s coming up next.",
-        "videoPath": null,
-        "duration": null
-      },
-      {
-        "id": 3,
-        "event": "TEXT",
-        "timestamp": 40,
-        "text": "At the top there is a timer, which will tell you how much time is left in the session.",
-        "videoPath": null,
-        "duration": null
-      },
-      {
-        "id": 4,
-        "event": "TEXT",
-        "timestamp": 60,
-        "text": "We will start with a short introductory video.",
-        "videoPath": null,
-        "duration": null
-      },
-      {
-        "id": 5,
-        "event": "TEXT",
-        "timestamp": 80,
-        "text":
-            "For the duration of the video, your microphone will be muted. The video lasts about 3 minutes. Have fun!",
-        "videoPath": null,
-        "duration": null
-      },
-      {
-        "id": 7,
-        "event": "TEXT",
-        "timestamp": 170,
-        "text": "Someone may start by describing their perfect day.",
-        "videoPath": null,
-        "duration": null
-      },
-      {
-        "id": 8,
-        "event": "TEXT",
-        "timestamp": 210,
-        "text":
-            "The following questions can help you keep the conversation going like: What is the weather like on your perfect day?",
-        "videoPath": null,
-        "duration": null
-      },
-      {
-        "id": 9,
-        "event": "TEXT",
-        "timestamp": 255,
-        "text":
-            "How do you feel? Are you with others or alone? What do you eat? What is important to you in life?",
-        "videoPath": null,
-        "duration": null
-      },
-      {
-        "id": 10,
-        "event": "TEXT",
-        "timestamp": 270,
-        "text":
-            "If everyone has presented their perfect day, share your thoughts on the topic “Mindfulness”. What do you think of when you hear the word “mindfulness”",
-        "videoPath": null,
-        "duration": null
-      },
-      {
-        "id": 11,
-        "event": "TEXT",
-        "timestamp": 285,
-        "text": "What are the biggest stressors in your day-to-day life?",
-        "videoPath": null,
-        "duration": null
-      },
-      {
-        "id": 12,
-        "event": "TEXT",
-        "timestamp": 300,
-        "text": "How can you reduce these stressors? What helps you to relax after a stressful day?",
-        "videoPath": null,
-        "duration": null
-      },
-      {
-        "id": 13,
-        "event": "TEXT",
-        "timestamp": 315,
-        "text":
-            "You now have five minutes left till the session ends. Use this as an opportunity to say goodbye to each other.",
-        "videoPath": null,
-        "duration": null
-      },
-      {
-        "id": 14,
-        "event": "TEXT",
-        "timestamp": 330,
-        "text": "Thank you for participating! Have a lovely week!",
-        "videoPath": null,
-        "duration": null
-      }
-    ]
-  },
-  {
-    "groupSessions": [
       {
         "memberCount": 0,
         "minMemberCount": 4,
@@ -179,25 +36,24 @@ var topics = [
         "status": "planned",
         "signed": false,
         "groupSessionMembers": [],
-        "id": 4,
-        "topic": "Goals: How to achieve them, how to overcome obstacles.",
-        "startDate": "2023-10-09T15:00:00.036Z",
-        "endDate": "2023-10-10T16:00:00.036Z",
-        "password": "862d3595b3",
-        "groupSessionKey": "4-ENV:undefined-GROUP_ID:2044",
-        "memberStatus": "notSigned"
+        "id": 105,
+        "topic": "Mindfulness",
+        "startDate": "2023-12-07T16:00:00.985Z",
+        "endDate": "2023-12-07T16:53:00.985Z",
+        "password": "4010423f99",
+        "groupSessionKey": "105-ENV:develop-GROUP_ID:13809"
       }
     ],
     "materials": [
       {
         "id": 2,
         "article":
-            "<html lang=\"en\">\n<body>\n<h2>Mindfulness</h2> \n\n<p>Your second session starts with an introductory video and a small check-in round. During the check-in, you simply describe how you are feeling at that moment in a few short words, and with what thoughts and feelings you are coming into the meeting. All future meetings will begin with a check-in. Each member has one minute to share how they are doing, what moves them or what they are feeling at that moment. The session ends with a so-called check-out round. A sound will indicate when the end of a session is near, and then every member has another minute to share with what feelings and thoughts they leave the meeting and what they take home from this week's session.</p>   \n\n<p>After the short check-in round, the LeanOnMe psychologist will give you reflection and discussion ideas in a video. The topic of this week is \"Mindfulness\". You will do a short mindfulness exercise together. Afterwards, you can share what you experienced during the exercise. Also discuss what mindfulness is good for and how you can integrate mindfulness into your everyday life.</p>  \n \n<p><b>Key Questions:</b></p>\n<ul>\n<li>What is mindfulness?</li> \n<li>What is mindfulness good for?</li> \n<li>How can you integrate mindfulness into your everyday life?</li>\n</ul>\n</body>\n</html>\n"
+            "<html lang=\"en\"><body><h2>Mindfulness</h2><p>Your second session starts with an introductory video and a small check-in round. During the check-in, you simply describe how you are feeling at that moment in a few short words, and with what thoughts and feelings you are coming into the meeting. All future meetings will begin with a check-in. Each member has one minute to share how they are doing, what moves them or what they are feeling at that moment. The session ends with a so-called check-out round. A sound will indicate when the end of a session is near, and then every member has another minute to share with what feelings and thoughts they leave the meeting and what they take home from this week`s session.</p><p>After the short check-in round, the LeanOnMe psychologist will give you reflection and discussion ideas in a video. The topic of this week is \"Mindfulness\". You will do a short mindfulness exercise together. Afterwards, you can share what you experienced during the exercise. Also discuss what mindfulness is good for and how you can integrate mindfulness into your everyday life.</p><p><strong>Key Questions:</strong></p><ul><li>What is mindfulness?</li><li>What is mindfulness good for?</li><li>How can you integrate mindfulness into your everyday life?</li></ul></body></html>"
       }
     ],
     "id": 2,
-    "topic": "Goals: How to achieve them, how to overcome obstacles.",
-    "duration": 3600,
+    "topic": "Mindfulness",
+    "duration": 3180,
     "groupSessionProgramEvents": [
       {
         "id": 15,
@@ -211,7 +67,7 @@ var topics = [
       {
         "id": 16,
         "event": "TEXT",
-        "timestamp": 15,
+        "timestamp": 180,
         "text": "We will start with a short introductory video.",
         "videoPath": null,
         "duration": null
@@ -219,7 +75,7 @@ var topics = [
       {
         "id": 17,
         "event": "TEXT",
-        "timestamp": 30,
+        "timestamp": 190,
         "text":
             "For the duration of the video, your microphone will be muted. The video lasts about 1 minute. Have fun!",
         "videoPath": null,
@@ -228,7 +84,7 @@ var topics = [
       {
         "id": 18,
         "event": "VIDEO",
-        "timestamp": 45,
+        "timestamp": 200,
         "text": "",
         "videoPath": "https://d2vj8rd7b5s9sd.cloudfront.net/2/1/index.m3u8",
         "duration": 50
@@ -236,7 +92,7 @@ var topics = [
       {
         "id": 19,
         "event": "TEXT",
-        "timestamp": 110,
+        "timestamp": 251,
         "text": "Please start the check-in round, this will last 9 minutes. One of you can now start.",
         "videoPath": null,
         "duration": null
@@ -244,7 +100,7 @@ var topics = [
       {
         "id": 20,
         "event": "TEXT",
-        "timestamp": 125,
+        "timestamp": 791,
         "text":
             "We hope everyone checked in. The second video will now begin. During the video all microphones will be muted.",
         "videoPath": null,
@@ -252,77 +108,77 @@ var topics = [
       },
       {
         "id": 21,
-        "event": "VIDEO",
-        "timestamp": 140,
-        "text": "",
-        "videoPath": "https://d2vj8rd7b5s9sd.cloudfront.net/2/2/index.m3u8",
-        "duration": 380
-      },
-      {
-        "id": 22,
         "event": "TEXT",
-        "timestamp": 529,
-        "text": "How was the exercise for you? Share your experience with your group. Anyone can start.",
-        "videoPath": null,
-        "duration": null
-      },
-      {
-        "id": 23,
-        "event": "TEXT",
-        "timestamp": 545,
+        "timestamp": 1290,
         "text": "The following questions can help you keep the conversation going:",
         "videoPath": null,
         "duration": null
       },
       {
-        "id": 24,
+        "id": 22,
         "event": "TEXT",
-        "timestamp": 600,
+        "timestamp": 1305,
         "text":
             "How was the exercise for you? Could you sense something? What was easier for you to sense? What was maybe more difficult?",
         "videoPath": null,
         "duration": null
       },
       {
-        "id": 25,
+        "id": 23,
         "event": "TEXT",
-        "timestamp": 615,
+        "timestamp": 1800,
         "text":
             "Watch out that everyone gets equal speaking time. Everyone can speak but doesn’t have to. Remember to listen and be respectful.",
         "videoPath": null,
         "duration": null
       },
       {
-        "id": 26,
+        "id": 24,
         "event": "TEXT",
-        "timestamp": 630,
+        "timestamp": 2100,
         "text":
             "If there is time left, discuss the following: For what could I use this exercise in my daily life?",
         "videoPath": null,
         "duration": null
       },
       {
-        "id": 27,
+        "id": 25,
         "event": "TEXT",
-        "timestamp": 645,
+        "timestamp": 2400,
         "text": "Also, exchange ideas on what you could do to bring more joy into your daily life!",
         "videoPath": null,
         "duration": null
       },
       {
-        "id": 28,
+        "id": 26,
         "event": "TEXT",
-        "timestamp": 660,
+        "timestamp": 3060,
         "text": "You now have 9 minutes left, till the session ends. Do a short check-out round.",
         "videoPath": null,
         "duration": null
       },
       {
-        "id": 29,
+        "id": 27,
         "event": "TEXT",
-        "timestamp": 675,
+        "timestamp": 3180,
         "text":
             "Use this as an opportunity to say goodbye to each other. Thank you for participating! See you next week!",
+        "videoPath": null,
+        "duration": null
+      },
+      {
+        "id": 42,
+        "event": "VIDEO",
+        "timestamp": 800,
+        "text": "",
+        "videoPath": "https://d2vj8rd7b5s9sd.cloudfront.net/2/2/index.m3u8",
+        "duration": 380
+      },
+      {
+        "id": 43,
+        "event": "TEXT",
+        "timestamp": 1200,
+        "text": "How was the exercise for you? Share your experience with your group. Anyone can start.",
         "videoPath": null,
         "duration": null
       }
