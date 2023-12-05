@@ -6,10 +6,10 @@ class MealPortionsInput extends StatelessWidget {
   final FocusNode? focusNode;
 
   const MealPortionsInput({
-    Key? key,
+    super.key,
     required this.controller,
     this.focusNode,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,7 @@ class MealPortionsInput extends StatelessWidget {
           contentPadding: EdgeInsets.symmetric(horizontal: 0),
         ),
         keyboardType: TextInputType.number,
-        style: Theme.of(context)
-            .textTheme
-            .bodySmall
-            ?.copyWith(fontWeight: FontWeight.w600),
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
       ),
     );
   }

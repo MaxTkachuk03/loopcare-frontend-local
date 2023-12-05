@@ -16,9 +16,9 @@ class AssignmentsIntroPage extends StatefulWidget {
   final int lessonId;
 
   const AssignmentsIntroPage({
-    Key? key,
+    super.key,
     required this.lessonId,
-  }) : super(key: key);
+  });
 
   @override
   State<AssignmentsIntroPage> createState() => _AssignmentsIntroPageState();

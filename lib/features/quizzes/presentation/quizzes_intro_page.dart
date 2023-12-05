@@ -15,9 +15,9 @@ class QuizzesIntroPage extends StatefulWidget {
   final int lessonId;
 
   const QuizzesIntroPage({
-    Key? key,
+    super.key,
     required this.lessonId,
-  }) : super(key: key);
+  });
 
   @override
   State<QuizzesIntroPage> createState() => _QuizzesIntroPageState();

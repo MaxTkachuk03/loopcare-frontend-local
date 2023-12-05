@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/features/you_and_food/application/you_and_food
 
 // TODO descoped for now, API changed, so in future changes will be required to make it works
 class MeatPreferencesChips extends StatefulWidget {
-  const MeatPreferencesChips({Key? key}) : super(key: key);
+  const MeatPreferencesChips({super.key});
 
   @override
   State<MeatPreferencesChips> createState() => _MeatPreferencesChipsState();

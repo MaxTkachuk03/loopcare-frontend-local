@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/features/education/application/education_lesso
 class GroupLessonWrap extends StatelessWidget {
   final Widget child;
 
-  const GroupLessonWrap({Key? key, required this.child}) : super(key: key);
+  const GroupLessonWrap({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

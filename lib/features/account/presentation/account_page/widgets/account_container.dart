@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 class AccountContainer extends StatelessWidget {
   final Widget child;
 
-  const AccountContainer({Key? key, required this.child}) : super(key: key);
+  const AccountContainer({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
@@ -16,9 +16,9 @@ class FavoriteList extends StatefulWidget {
   final String mealCategory;
 
   const FavoriteList({
-    Key? key,
+    super.key,
     required this.mealCategory,
-  }) : super(key: key);
+  });
 
   @override
   State<FavoriteList> createState() => _FavoriteListState();
@@ -33,6 +33,7 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
     context.read<SelectFoodBloc>().add(SelectFoodEvent.fetchFavorites(_defaultMealCategory));
     super.initState();
   }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -64,9 +65,8 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
                   child: ErrorScreen(
                     smallVersion: false,
                     error: error,
-                    onButtonPressed: () => context
-                        .read<SelectFoodBloc>()
-                        .add(SelectFoodEvent.fetchFavorites(_defaultMealCategory)),
+                    onButtonPressed: () =>
+                        context.read<SelectFoodBloc>().add(SelectFoodEvent.fetchFavorites(_defaultMealCategory)),
                   ),
                 );
               },

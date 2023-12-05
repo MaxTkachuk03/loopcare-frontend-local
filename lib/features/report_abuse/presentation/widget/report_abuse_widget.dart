@@ -74,7 +74,7 @@ class _ReportFormWidget extends StatelessWidget {
   final ReportAbuseController controller;
   final Function() onSend;
 
-  const _ReportFormWidget({super.key, required this.controller, required this.onSend});
+  const _ReportFormWidget({required this.controller, required this.onSend});
 
   @override
   Widget build(BuildContext context) {

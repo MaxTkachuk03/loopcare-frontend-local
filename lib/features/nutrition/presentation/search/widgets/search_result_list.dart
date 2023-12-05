@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -20,11 +19,11 @@ class SearchResultList extends StatefulWidget {
   final String? selectedTab;
 
   const SearchResultList({
-    Key? key,
+    super.key,
     required this.onItemTap,
     required this.onRecentSearchItemTap,
     required this.selectedTab,
-  }) : super(key: key);
+  });
 
   @override
   State<SearchResultList> createState() => _SearchResultListState();
@@ -157,9 +156,7 @@ class _SearchResultListState extends State<SearchResultList> {
                   padding: const EdgeInsets.all(0.0),
                   icon: ImageIcon(
                     AppIcons.detailsLayout,
-                    color: (selectedLayout == SearchListLayout.detailed)
-                        ? AppColors.blueMid
-                        : AppColors.yellowLight,
+                    color: (selectedLayout == SearchListLayout.detailed) ? AppColors.blueMid : AppColors.yellowLight,
                   ),
                 ),
               ),
@@ -174,8 +171,7 @@ class _SearchResultListState extends State<SearchResultList> {
                   padding: const EdgeInsets.all(0.0),
                   icon: ImageIcon(
                     AppIcons.listLayout,
-                    color:
-                        (selectedLayout == SearchListLayout.list) ? AppColors.blueMid : AppColors.yellowLight,
+                    color: (selectedLayout == SearchListLayout.list) ? AppColors.blueMid : AppColors.yellowLight,
                   ),
                 ),
               ),

@@ -15,7 +15,7 @@ import 'package:loopcare_frontend/features/account/presentation/widgets/group_le
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_progress.dart';
 
 class GroupRulesSixPage extends StatelessWidget {
-  const GroupRulesSixPage({Key? key}) : super(key: key);
+  const GroupRulesSixPage({super.key});
 
   void _onIAgreePressHandler(BuildContext context) {
     final groupPrefsMode = context.read<GroupPreferencesBloc>().state.data.groupPrefsMode;

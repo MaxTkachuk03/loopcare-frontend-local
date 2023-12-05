@@ -8,13 +8,11 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
-
-
 class GroupPrefsPageWrap extends StatelessWidget {
   final Widget child;
   final String? title;
 
-  const GroupPrefsPageWrap({Key? key, required this.child, this.title}) : super(key: key);
+  const GroupPrefsPageWrap({super.key, required this.child, this.title});
 
   @override
   Widget build(BuildContext context) {

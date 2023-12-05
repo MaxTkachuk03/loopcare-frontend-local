@@ -5,7 +5,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart'
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class InstructionsBlock extends StatelessWidget {
-  const InstructionsBlock({Key? key}) : super(key: key);
+  const InstructionsBlock({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,8 @@ class InstructionsBlock extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Stack(
-                  children: const [
+                const Stack(
+                  children: [
                     Text('A'),
                     Align(
                       child: Image(
@@ -48,8 +48,8 @@ class InstructionsBlock extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Stack(
-                  children: const [
+                const Stack(
+                  children: [
                     Text('B'),
                     Align(
                       child: Image(

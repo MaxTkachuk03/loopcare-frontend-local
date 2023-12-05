@@ -12,12 +12,12 @@ class PlannedMealCarousel extends StatefulWidget {
   final NameLabel selectedMealCategory;
 
   const PlannedMealCarousel({
-    Key? key,
+    super.key,
     required this.selectedMealCategory,
-  }) : super(key: key);
+  });
 
   @override
-  _PlannedMealCarouselState createState() => _PlannedMealCarouselState();
+  State<PlannedMealCarousel> createState() => _PlannedMealCarouselState();
 }
 
 class _PlannedMealCarouselState extends State<PlannedMealCarousel> {
@@ -27,8 +27,8 @@ class _PlannedMealCarouselState extends State<PlannedMealCarousel> {
   @override
   void initState() {
     final plannedMealsForCurrentDate = context.read<MealsBloc>().state.plannedMealsForCurrentDate;
-    final indexCurrentCategory = plannedMealsForCurrentDate
-        .indexWhere((element) => element.mealCategory == widget.selectedMealCategory.label);
+    final indexCurrentCategory =
+        plannedMealsForCurrentDate.indexWhere((element) => element.mealCategory == widget.selectedMealCategory.label);
     final initialPage = indexCurrentCategory > 0 ? indexCurrentCategory : 0;
     setState(() {
       currentPage = initialPage;
@@ -56,8 +56,8 @@ class _PlannedMealCarouselState extends State<PlannedMealCarousel> {
                 itemCount: state.plannedMealsForCurrentDate.length,
                 onPageChanged: _onPageChanged,
                 itemBuilder: (BuildContext context, index) {
-                  final groupedMealItem = groupBy(state.plannedMealsForCurrentDate[index].mealItems,
-                      (MealItem mealItem) => mealItem.type);
+                  final groupedMealItem =
+                      groupBy(state.plannedMealsForCurrentDate[index].mealItems, (MealItem mealItem) => mealItem.type);
 
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),

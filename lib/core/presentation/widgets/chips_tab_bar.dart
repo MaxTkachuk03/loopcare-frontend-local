@@ -7,11 +7,11 @@ class ChipsTabBar extends StatelessWidget {
   final VoidCallback? onTap;
 
   const ChipsTabBar({
-    Key? key,
+    super.key,
     required this.tabs,
     this.tabController,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

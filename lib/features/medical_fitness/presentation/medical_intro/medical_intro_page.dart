@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/medical_question_wrap.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 
 class MedicalIntroPage extends StatelessWidget {
-  const MedicalIntroPage({Key? key}) : super(key: key);
+  const MedicalIntroPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +78,8 @@ class MedicalIntroPage extends StatelessWidget {
                 ),
               ],
             ),
-            Column(
-              children: const [
+            const Column(
+              children: [
                 _NextButton(),
                 SizedBox(
                   height: 24.0,
@@ -98,7 +98,7 @@ class MedicalIntroPage extends StatelessWidget {
 }
 
 class _NextButton extends StatelessWidget {
-  const _NextButton({Key? key}) : super(key: key);
+  const _NextButton();
 
   @override
   Widget build(BuildContext context) {

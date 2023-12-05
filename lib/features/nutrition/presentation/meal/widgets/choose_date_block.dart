@@ -8,10 +8,10 @@ class ChooseDateBlock extends StatelessWidget {
   final String date;
 
   const ChooseDateBlock({
-    Key? key,
+    super.key,
     this.onTap,
     required this.date,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

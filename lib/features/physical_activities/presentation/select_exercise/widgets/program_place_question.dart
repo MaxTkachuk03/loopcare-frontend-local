@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/features/physical_activities/application/physi
 import 'package:loopcare_frontend/features/physical_activities/domain/program_place.dart';
 
 class ProgramPlaceQuestion extends StatelessWidget {
-  const ProgramPlaceQuestion({Key? key}) : super(key: key);
+  const ProgramPlaceQuestion({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +27,13 @@ class ProgramPlaceQuestion extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: ProgramPlace.values
                   .map(
-                    (e) =>   AppChoiceChip(
+                    (e) => AppChoiceChip(
                       label: e.label,
                       selected: state.data.programPlace == e,
                       value: e,
                       padding: const EdgeInsets.all(0),
                       labelWidth: 96,
-                      onSelected: (ProgramPlace value) =>
-                      e.isAvailable ? _onSelected(context, value) : null,
+                      onSelected: (ProgramPlace value) => e.isAvailable ? _onSelected(context, value) : null,
                       available: e.isAvailable,
                     ),
                   )

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
-
 import 'package:loopcare_frontend/core/presentation/app_bar/green_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
@@ -17,7 +16,6 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/nutrition/application/choose_date/choose_date_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/choose_date/widgets/week_calendar.dart';
-
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
 class ChooseDateCalendarPage extends StatefulWidget {
@@ -26,11 +24,11 @@ class ChooseDateCalendarPage extends StatefulWidget {
   final int mealId;
 
   const ChooseDateCalendarPage({
-    Key? key,
+    super.key,
     required this.mealCategory,
     required this.dates,
     required this.mealId,
-  }) : super(key: key);
+  });
 
   @override
   State<ChooseDateCalendarPage> createState() => _ChooseDateCalendarPageState();
@@ -63,10 +61,8 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
 
   _errorListener(BuildContext context, ChooseDateState state) {
     if (state.data.showSaveWarning) {
-      showAppSnackBar(
-        context: context,
+      context.showFlashBar(
         text: LocalizedTexts.saveDateError.translation,
-        background: AppColors.white,
         leadIcon: Hexagon(
           width: 54,
           height: 54,
@@ -198,11 +194,12 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
     );
 
     context.router.pop();
+    context.showSuccessBar(
+      content: Text(LocalizedTexts.changesSaved.translation),
+    );
 
-    showAppSnackBar(
-      context: context,
+    context.showFlashBar(
       text: LocalizedTexts.changesSaved.translation,
-      background: AppColors.white,
       leadIcon: Hexagon(
         width: 54,
         height: 54,
@@ -211,7 +208,7 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
           color: AppColors.white,
           child: Container(
             color: AppColors.blueDark,
-            child: AppImages.checkMarkDarkGreen,
+            child: AppImages.exclamationMark,
           ),
         ),
       ),

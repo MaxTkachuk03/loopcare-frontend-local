@@ -7,11 +7,11 @@ class SmallFilledButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   const SmallFilledButton({
-    Key? key,
+    super.key,
     required this.text,
     this.backgroundColor,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

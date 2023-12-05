@@ -5,9 +5,9 @@ class SelectedCell extends StatelessWidget {
   final int index;
 
   const SelectedCell({
-    Key? key,
+    super.key,
     required this.index,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

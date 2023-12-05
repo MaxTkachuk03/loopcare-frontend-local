@@ -60,13 +60,11 @@ class _PlayerWidgetState extends State<PlayerWidget> with WidgetsBindingObserver
 
   /// Collects the data useful for displaying in a seek bar, using a handy
   /// feature of rx_dart to combine the 3 streams of interest into one.
-  Stream<PositionData> get _positionDataStream =>
-      Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
-          widget.player.positionStream,
-          widget.player.bufferedPositionStream,
-          widget.player.durationStream,
-          (position, bufferedPosition, duration) =>
-              PositionData(position, bufferedPosition, duration ?? Duration.zero));
+  Stream<PositionData> get _positionDataStream => Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
+      widget.player.positionStream,
+      widget.player.bufferedPositionStream,
+      widget.player.durationStream,
+      (position, bufferedPosition, duration) => PositionData(position, bufferedPosition, duration ?? Duration.zero));
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +98,7 @@ class ControlButtons extends StatelessWidget {
   final AudioPlayer player;
   final ValueNotifier<bool> muteNotifier;
 
-  const ControlButtons(this.player, this.muteNotifier, {Key? key}) : super(key: key);
+  const ControlButtons(this.player, this.muteNotifier, {super.key});
 
   _onPlayPressed(BuildContext context) {
     final userId = context.read<AuthenticationCubit>().state.id;
@@ -145,8 +143,7 @@ class ControlButtons extends StatelessWidget {
               final playerState = snapshot.data;
               final processingState = playerState?.processingState;
               final playing = playerState?.playing;
-              if (processingState == ProcessingState.loading ||
-                  processingState == ProcessingState.buffering) {
+              if (processingState == ProcessingState.loading || processingState == ProcessingState.buffering) {
                 return Container(
                   margin: const EdgeInsets.symmetric(vertical: 10.0),
                   width: 30.0,

@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 
 class CanNotFindGroup extends StatelessWidget {
-  const CanNotFindGroup({Key? key}) : super(key: key);
+  const CanNotFindGroup({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,16 +38,10 @@ class CanNotFindGroup extends StatelessWidget {
                         TextSpan(
                             text:
                                 '${groupingStartedAt.fullDateWithYear} ${LocalizedTexts.at.translation} ${groupingStartedAt.timeHoursMinutes}.',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(fontWeight: FontWeight.w600)),
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
                         TextSpan(
                             text: '\n\n${LocalizedTexts.toSpeedUpTheProcess.translation}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(fontWeight: FontWeight.w600)),
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
                       ],
                     ),
                   );

@@ -7,12 +7,12 @@ class BulletListItem extends StatelessWidget {
   final bool? centered;
 
   const BulletListItem({
-    Key? key,
+    super.key,
     required this.text,
     required this.bulletSize,
     this.bulletSign,
     this.centered,
-  }) : super(key: key);
+  });
 
   String get _bulletSign => bulletSign == null ? "\u2022" : bulletSign!;
 

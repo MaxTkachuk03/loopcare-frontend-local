@@ -2,18 +2,17 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/quizzes/application/quizzes_bloc.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_option.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page_mode.dart';
-
 import 'package:loopcare_frontend/features/quizzes/infrastructure/quizzes_controller.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/widgets/correct_incorrect_explanation.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/widgets/quizzes_question.dart';
@@ -56,14 +55,8 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
 
   int get _percent => (_step * 100 / _totalSteps).round();
 
-  _onErrorHandler(QuizzesState s) {
-    showAppSnackBar(
-      context: context,
-      text: s.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr(),
-      background: AppColors.red,
-      textColor: Colors.white,
-    );
-  }
+  _onErrorHandler(QuizzesState s) =>
+      context.showError(content: Text(s.data.errorMessage ?? LocalizedTexts.somethingWentWrong.translation));
 
   _onUpdateHandler(QuizzesState s) {
     // context.router.pop();
@@ -234,8 +227,7 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
                                       ElevatedButton(
                                         onPressed: _onNextHandler,
                                         style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(AppColors.orangeDark),
+                                              backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
                                             ),
                                         child: const Text(LocalizedTexts.next).tr(),
                                       ),

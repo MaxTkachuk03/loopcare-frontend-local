@@ -12,12 +12,12 @@ class HouseholdAndHabitsQuestion extends StatelessWidget {
   final VoidCallback? onNextPressed;
 
   const HouseholdAndHabitsQuestion({
-    Key? key,
+    super.key,
     required this.question,
     required this.subtitle,
     required this.questionList,
     this.onNextPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,7 @@ class HouseholdAndHabitsQuestion extends StatelessWidget {
             Text(LocalizedTexts.householdAndHabits.tr()),
             Text(
               subtitle,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.copyWith(fontWeight: FontWeight.w700),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
             ),
           ],
         ),
@@ -60,10 +57,8 @@ class HouseholdAndHabitsQuestion extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: onNextPressed,
-                    style:
-                        Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                      backgroundColor:
-                          MaterialStateProperty.resolveWith<Color?>(
+                    style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color?>(
                         (Set<MaterialState> states) {
                           if (states.contains(MaterialState.disabled)) {
                             return AppColors.greyMid;

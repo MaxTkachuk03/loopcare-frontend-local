@@ -13,7 +13,7 @@ class OutlinedRoundedButton extends StatelessWidget {
   final bool active;
 
   const OutlinedRoundedButton({
-    Key? key,
+    super.key,
     required this.text,
     this.icon,
     this.onPressed,
@@ -23,7 +23,7 @@ class OutlinedRoundedButton extends StatelessWidget {
     this.borderColor,
     this.isRegularText = false,
     this.active = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

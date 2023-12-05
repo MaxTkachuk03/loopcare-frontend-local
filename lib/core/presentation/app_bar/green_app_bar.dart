@@ -13,12 +13,12 @@ class GreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   const GreenAppBar({
-    Key? key,
+    super.key,
     required this.title,
     this.subtitle,
     this.darkGreen = false,
     this.onClose,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

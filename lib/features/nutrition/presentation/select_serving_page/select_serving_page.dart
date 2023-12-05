@@ -5,8 +5,8 @@ import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/food_item_servings_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/favourite_btn/favourite_btn.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_category_filters_list/meal_category_filters_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_list/servings_list.dart';
@@ -20,14 +20,14 @@ class SelectServingPage extends StatefulWidget {
   final void Function(double numberOfUnits, String servingId) onConfirm;
 
   const SelectServingPage({
-    Key? key,
+    super.key,
     required this.foodItemId,
     required this.foodItemName,
     required this.initialServingAmount,
     required this.onConfirm,
     this.initialServingId,
     this.initialCaloriesValue,
-  }) : super(key: key);
+  });
 
   @override
   State<SelectServingPage> createState() => _SelectServingPageState();
@@ -150,12 +150,7 @@ class _SelectServingPageState extends State<SelectServingPage> {
 
     final snackBarText = _getSnackBarText(isFavorite, state.hasSelectedMealCategoryFilters);
 
-    showAppSnackBar(
-      context: context,
-      text: snackBarText,
-      background: Colors.white,
-      textColor: Colors.black,
-    );
+    context.showSuccessBar(content: Text(snackBarText));
   }
 
   _removeFromFavorite() {

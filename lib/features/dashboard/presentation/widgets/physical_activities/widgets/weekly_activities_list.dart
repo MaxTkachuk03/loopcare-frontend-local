@@ -5,7 +5,7 @@ import 'package:loopcare_frontend/features/physical_activities/domain/physical_p
 class WeeklyActivitiesList extends StatelessWidget {
   final List<PhysicalProgram> data;
 
-  const WeeklyActivitiesList({Key? key, required this.data}) : super(key: key);
+  const WeeklyActivitiesList({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {

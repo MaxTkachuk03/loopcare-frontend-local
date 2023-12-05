@@ -20,7 +20,7 @@ class Field extends StatefulWidget {
   final bool? autofocus;
 
   const Field({
-    Key? key,
+    super.key,
     this.keyboardType,
     this.controller,
     required this.hintText,
@@ -35,7 +35,7 @@ class Field extends StatefulWidget {
     this.onChanged,
     this.contentPadding,
     this.autofocus,
-  }) : super(key: key);
+  });
 
   @override
   State<Field> createState() => _FieldState();

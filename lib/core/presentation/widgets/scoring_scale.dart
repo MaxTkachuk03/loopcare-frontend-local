@@ -6,7 +6,7 @@ class ScoringScale extends StatelessWidget {
   final int? selectedScore;
   final void Function(int tabIndex) onScoreTap;
 
-  const ScoringScale({Key? key, required this.selectedScore, required this.onScoreTap}) : super(key: key);
+  const ScoringScale({super.key, required this.selectedScore, required this.onScoreTap});
 
   @override
   Widget build(BuildContext context) {

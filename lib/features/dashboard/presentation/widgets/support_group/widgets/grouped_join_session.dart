@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class GroupedJoinSession extends StatelessWidget {
-  const GroupedJoinSession({Key? key}) : super(key: key);
+  const GroupedJoinSession({super.key});
 
   @override
   Widget build(BuildContext context) {

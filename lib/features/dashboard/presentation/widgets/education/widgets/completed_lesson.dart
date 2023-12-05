@@ -9,7 +9,7 @@ import 'package:loopcare_frontend/features/education/domain/education_lesson.dar
 class CompletedLesson extends StatelessWidget {
   final EducationLesson lesson;
 
-  const CompletedLesson({Key? key, required this.lesson}) : super(key: key);
+  const CompletedLesson({super.key, required this.lesson});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,9 @@ class CompletedLesson extends StatelessWidget {
               size: 14,
             ),
           ),
-          const SizedBox(width: 14.0,),
+          const SizedBox(
+            width: 14.0,
+          ),
           Expanded(
             child: Text(
               lesson.title,
@@ -35,7 +37,9 @@ class CompletedLesson extends StatelessWidget {
                   ),
             ),
           ),
-          const SizedBox(width: 14.0,),
+          const SizedBox(
+            width: 14.0,
+          ),
           const ImageIcon(
             AppIcons.arrow,
             color: AppColors.greyLabel,
@@ -45,16 +49,14 @@ class CompletedLesson extends StatelessWidget {
     );
   }
 
-
   _onTapHandler(BuildContext context) {
     context.read<EducationLessonBloc>().add(
-      EducationLessonEvent.getLessonContent(
-        lessonId: lesson.id,
-        pageIndex: 0,
-      ),
-    );
+          EducationLessonEvent.getLessonContent(
+            lessonId: lesson.id,
+            pageIndex: 0,
+          ),
+        );
 
-    context.router
-        .pushNamed('/lesson/${lesson.id}/page/0');
+    context.router.pushNamed('/lesson/${lesson.id}/page/0');
   }
 }

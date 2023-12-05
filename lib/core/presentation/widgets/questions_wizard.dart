@@ -13,13 +13,13 @@ class QuestionsWizard extends StatelessWidget {
   final void Function() onNextPressed;
 
   const QuestionsWizard({
-    Key? key,
+    super.key,
     required this.question,
     required this.questionList,
     required this.currentStep,
     required this.stepTitle,
     required this.onNextPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +30,7 @@ class QuestionsWizard extends StatelessWidget {
             Text(stepTitle),
             Text(
               currentStep,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.copyWith(fontWeight: FontWeight.w700),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
             ),
           ],
         ),
@@ -62,10 +59,8 @@ class QuestionsWizard extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: onNextPressed,
-                    style:
-                        Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                      backgroundColor:
-                          MaterialStateProperty.resolveWith<Color?>(
+                    style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color?>(
                         (Set<MaterialState> states) {
                           if (states.contains(MaterialState.disabled)) {
                             return AppColors.greyMid;

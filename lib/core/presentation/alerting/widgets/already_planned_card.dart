@@ -13,11 +13,11 @@ class AlreadyPlannedCard extends StatelessWidget {
   final String mealCategory;
 
   const AlreadyPlannedCard({
-    Key? key,
+    super.key,
     required this.mealItems,
     required this.mealCategory,
     required this.active,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

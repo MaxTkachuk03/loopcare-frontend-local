@@ -27,10 +27,10 @@ class TimeslotCard extends StatefulWidget {
   final int duration;
 
   const TimeslotCard({
-    Key? key,
+    super.key,
     required this.groupSession,
     required this.duration,
-  }) : super(key: key);
+  });
 
   @override
   State<TimeslotCard> createState() => _TimeslotCardState();

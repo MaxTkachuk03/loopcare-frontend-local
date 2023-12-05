@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/reflection/presentation/widgets/details_button.dart';
 
 class ActivitiesSection extends StatelessWidget {
-  const ActivitiesSection({Key? key}) : super(key: key);
+  const ActivitiesSection({super.key});
 
   @override
   Widget build(BuildContext context) {

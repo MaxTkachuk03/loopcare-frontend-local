@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 
 class WaitingInPool extends StatelessWidget {
-  const WaitingInPool({Key? key}) : super(key: key);
+  const WaitingInPool({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,7 @@ class WaitingInPool extends StatelessWidget {
                     children: <TextSpan>[
                       TextSpan(
                           text: '${groupingStartedAt.fullDateWithYear}.',
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
                     ],
                   ),
                 );

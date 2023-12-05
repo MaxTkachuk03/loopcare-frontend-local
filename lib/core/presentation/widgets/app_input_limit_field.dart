@@ -32,7 +32,7 @@ class AppLimitTextField extends StatefulWidget {
   final bool enabled;
 
   const AppLimitTextField({
-    Key? key,
+    super.key,
     required this.controller,
     this.helperText,
     this.hintText,
@@ -58,7 +58,7 @@ class AppLimitTextField extends StatefulWidget {
     this.expands = false,
     this.minLines,
     this.enabled = true,
-  }) : super(key: key);
+  });
 
   @override
   State<AppLimitTextField> createState() => _AppLimitTextFieldState();

@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -17,19 +17,15 @@ import 'package:loopcare_frontend/features/physical_activities/presentation/pref
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/flexibility_chips.dart';
 
 class PhysicalActivitiesActivityTypePage extends StatefulWidget {
-  const PhysicalActivitiesActivityTypePage({Key? key}) : super(key: key);
+  const PhysicalActivitiesActivityTypePage({super.key});
 
   @override
   State<PhysicalActivitiesActivityTypePage> createState() => _PhysicalActivitiesActivityTypePageState();
 }
 
 class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesActivityTypePage> {
-  void _onErrorHandler(PhysicalActivitiesPreferencesState state) {
-    context.showErrorBar(
-      content: Text(state.data.error?.error.toString() ?? ''),
-      position: FlashPosition.top,
-    );
-  }
+  void _onErrorHandler(PhysicalActivitiesPreferencesState state) =>
+      context.showError(content: Text(state.data.error?.error.toString() ?? ''));
 
   void _onChangeListener(BuildContext context, PhysicalActivitiesPreferencesState state) {
     state.maybeMap(

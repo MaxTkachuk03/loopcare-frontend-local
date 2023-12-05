@@ -16,7 +16,7 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/meals_blo
 const double _lessonCardHeight = 175;
 
 class EducationPage extends StatefulWidget {
-  const EducationPage({Key? key}) : super(key: key);
+  const EducationPage({super.key});
 
   @override
   State<EducationPage> createState() => _EducationPageState();
@@ -120,11 +120,10 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
                   controller: _tabController,
                   tabs: categories,
                 ),
-                if (state.data.currentCategory == LessonCategory.all)
-                  EducationAppBar(containerKey: _introContainerKey),
+                if (state.data.currentCategory == LessonCategory.all) EducationAppBar(containerKey: _introContainerKey),
                 state.maybeMap(
-                    loading: (_) => const SliverToBoxAdapter(
-                        child: SizedBox(height: 500, child: Center(child: Loader()))),
+                    loading: (_) =>
+                        const SliverToBoxAdapter(child: SizedBox(height: 500, child: Center(child: Loader()))),
                     orElse: () {
                       return SliverList(
                           delegate: SliverChildBuilderDelegate(childCount: lessons.length, (

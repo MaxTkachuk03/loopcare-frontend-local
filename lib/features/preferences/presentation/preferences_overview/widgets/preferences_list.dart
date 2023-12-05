@@ -24,7 +24,7 @@ class Pref {
 }
 
 class PreferencesList extends StatefulWidget {
-  const PreferencesList({Key? key}) : super(key: key);
+  const PreferencesList({super.key});
 
   @override
   State<PreferencesList> createState() => _PreferencesListState();

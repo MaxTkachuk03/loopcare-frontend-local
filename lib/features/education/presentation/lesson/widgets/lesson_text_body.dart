@@ -20,11 +20,11 @@ class LessonTextPage extends StatelessWidget {
   final void Function() onPrevPressed;
 
   const LessonTextPage({
-    Key? key,
+    super.key,
     required this.content,
     required this.onNextPressed,
     required this.onPrevPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +71,8 @@ class LessonTextPage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 24.0),
                         child: Text(
                           lesson.lessonCategory.toUpperCase(),
-                          style: const TextStyle(
-                              color: AppColors.orangeDark, fontSize: 12.0, fontWeight: FontWeight.w600),
+                          style:
+                              const TextStyle(color: AppColors.orangeDark, fontSize: 12.0, fontWeight: FontWeight.w600),
                         ),
                       );
                     },

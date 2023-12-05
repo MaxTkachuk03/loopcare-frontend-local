@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 
 class ProgressBar extends StatelessWidget {
-  const ProgressBar({Key? key}) : super(key: key);
+  const ProgressBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +20,7 @@ class ProgressBar extends StatelessWidget {
 
           stepsList.add(Flexible(
               child: _Item(
-            progress: state.currentStep.index == i
-                ? state.currentStepProgress
-                : value,
+            progress: state.currentStep.index == i ? state.currentStepProgress : value,
           )));
         }
 
@@ -35,7 +33,7 @@ class ProgressBar extends StatelessWidget {
 class _Item extends StatelessWidget {
   final int progress;
 
-  const _Item({Key? key, required this.progress}) : super(key: key);
+  const _Item({required this.progress});
 
   @override
   Widget build(BuildContext context) {

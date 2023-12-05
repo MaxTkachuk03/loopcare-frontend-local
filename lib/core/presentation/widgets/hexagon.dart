@@ -8,12 +8,12 @@ class Hexagon extends StatelessWidget {
   final Widget innerWidget;
 
   const Hexagon({
-    Key? key,
+    super.key,
     required this.width,
     required this.height,
     required this.borderRadius,
     required this.innerWidget,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

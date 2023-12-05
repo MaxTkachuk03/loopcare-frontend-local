@@ -12,7 +12,7 @@ class UnitField extends StatelessWidget {
   final ValueChanged<String>? onChanged;
 
   const UnitField({
-    Key? key,
+    super.key,
     required this.unit,
     required this.controller,
     required this.maxLength,
@@ -20,7 +20,7 @@ class UnitField extends StatelessWidget {
     this.onChanged,
     this.isDecimal,
     this.focusNode,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

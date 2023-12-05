@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomExerciseField extends StatelessWidget {
   final Function(String value) onChanged;
 
-  const CustomExerciseField({Key? key, required this.onChanged}) : super(key: key);
+  const CustomExerciseField({super.key, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {

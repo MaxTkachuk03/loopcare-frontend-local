@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/player_widget.dart';
 
-
 class AudioBlock extends StatefulWidget {
   final void Function(int duration) onDurationChanged;
   final void Function(int position) onPositionChanged;
@@ -14,14 +13,14 @@ class AudioBlock extends StatefulWidget {
   final int duration;
 
   const AudioBlock({
-    Key? key,
+    super.key,
     required this.onDurationChanged,
     required this.onPositionChanged,
     required this.onPlayingChanged,
     required this.onPlayerComplete,
     required this.url,
     required this.duration,
-  }) : super(key: key);
+  });
 
   @override
   State<AudioBlock> createState() => _AudioBlockState();

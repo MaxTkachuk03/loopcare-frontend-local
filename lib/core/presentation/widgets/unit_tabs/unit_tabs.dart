@@ -11,17 +11,16 @@ class UnitTabs extends StatefulWidget {
   final Function(MeasurementSystemType unitType) onTabChanged;
 
   const UnitTabs({
-    Key? key,
+    super.key,
     required this.tabBarViewChildren,
     required this.onTabChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<UnitTabs> createState() => _UnitTabsState();
 }
 
-class _UnitTabsState extends State<UnitTabs>
-    with SingleTickerProviderStateMixin {
+class _UnitTabsState extends State<UnitTabs> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   final List<MeasurementSystem> tabs = [
@@ -43,8 +42,7 @@ class _UnitTabsState extends State<UnitTabs>
       vsync: this,
       length: tabs.length,
       animationDuration: Duration.zero,
-      initialIndex:
-          currentMeasurementSystem == MeasurementSystemType.imperial ? 1 : 0,
+      initialIndex: currentMeasurementSystem == MeasurementSystemType.imperial ? 1 : 0,
     );
 
     _tabController.addListener(_onTabChanged);
@@ -76,9 +74,7 @@ class _UnitTabsState extends State<UnitTabs>
         Container(
           width: 240.0,
           padding: const EdgeInsets.all(2.0),
-          decoration: BoxDecoration(
-              color: AppColors.yellowLight,
-              borderRadius: BorderRadius.circular(8.0)),
+          decoration: BoxDecoration(color: AppColors.yellowLight, borderRadius: BorderRadius.circular(8.0)),
           child: TabBar(
             controller: _tabController,
             tabs: tabs.map((e) => Tab(text: e.text)).toList(),

@@ -2,18 +2,18 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/features/nutrition/application/choose_date/choose_date_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
+import 'package:loopcare_frontend/features/nutrition/application/choose_date/choose_date_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
 class PlanMeal extends StatefulWidget {
-  const PlanMeal({Key? key}) : super(key: key);
+  const PlanMeal({super.key});
 
   @override
   State<PlanMeal> createState() => _PlanMealState();
@@ -85,9 +85,7 @@ class _PlanMealState extends State<PlanMeal> {
                                 LocalizedTexts.planYourMeals.translation,
                                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                                       fontFamily: ThemeConstants.bitterFontFamily,
-                                      color: state.isPossibleToPlanMeal
-                                          ? AppColors.darkGreen
-                                          : AppColors.greyLabel,
+                                      color: state.isPossibleToPlanMeal ? AppColors.darkGreen : AppColors.greyLabel,
                                     ),
                               ),
                               if (currentPlannedMeals.isEmpty)
@@ -96,9 +94,7 @@ class _PlanMealState extends State<PlanMeal> {
                                       ? LocalizedTexts.noMealsPlannedYet.translation
                                       : LocalizedTexts.noMealsPlanned.translation,
                                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                        color: state.isPossibleToPlanMeal
-                                            ? AppColors.darkGreen
-                                            : AppColors.greyLabel,
+                                        color: state.isPossibleToPlanMeal ? AppColors.darkGreen : AppColors.greyLabel,
                                       ),
                                 ),
                             ],
@@ -154,10 +150,7 @@ class _PlanMealState extends State<PlanMeal> {
                                                       ),
                                                 ),
                                                 Text(
-                                                  currentPlannedMeals[index]
-                                                      .mealItems
-                                                      .map((e) => e.name)
-                                                      .join(', '),
+                                                  currentPlannedMeals[index].mealItems.map((e) => e.name).join(', '),
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .headlineSmall

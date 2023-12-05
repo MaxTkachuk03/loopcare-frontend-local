@@ -6,10 +6,10 @@ class SingleUnderlinedTabBar extends StatelessWidget {
   final TabController? tabController;
 
   const SingleUnderlinedTabBar({
-    Key? key,
+    super.key,
     required this.tabs,
     this.tabController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -24,7 +24,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
   final Function(Duration value) onDurationChange;
 
   const PlayerEndVideoOverlay({
-    Key? key,
+    super.key,
     required this.controller,
     required this.orientation,
     required this.exercise,
@@ -36,7 +36,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
     required this.isLastVideo,
     required this.duration,
     required this.onDurationChange,
-  }) : super(key: key);
+  });
 
   bool get _isPortraitOrientation {
     return orientation == Orientation.portrait;
@@ -138,8 +138,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                     ElevatedButton(
                       onPressed: _onNextHandler,
                       style: ButtonStyle(
-                        minimumSize:
-                            MaterialStateProperty.all(Size(100, _isPortraitOrientation ? 32.0 : 52.0)),
+                        minimumSize: MaterialStateProperty.all(Size(100, _isPortraitOrientation ? 32.0 : 52.0)),
                         backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
                       ),
                       child: Text(

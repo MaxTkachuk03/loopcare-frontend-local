@@ -18,10 +18,10 @@ class Summary extends StatelessWidget {
   final bool fromRecommendation;
 
   const Summary({
-    Key? key,
+    super.key,
     required this.onAddToDishPress,
     required this.fromRecommendation,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

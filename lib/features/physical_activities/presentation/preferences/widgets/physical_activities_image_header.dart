@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/survey_image_clipper.dart';
 
 class PhysicalActivitiesImageHeader extends StatelessWidget {
-  const PhysicalActivitiesImageHeader({Key? key}) : super(key: key);
+  const PhysicalActivitiesImageHeader({super.key});
 
   @override
   Widget build(BuildContext context) {

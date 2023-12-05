@@ -9,11 +9,10 @@ import 'package:loopcare_frontend/features/consent_confirmation/presentation/wid
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/widgets/have_to_ask.dart';
 
 class ConsentConfirmationPage extends StatefulWidget {
-  const ConsentConfirmationPage({Key? key}) : super(key: key);
+  const ConsentConfirmationPage({super.key});
 
   @override
-  State<ConsentConfirmationPage> createState() =>
-      _ConsentConfirmationPageState();
+  State<ConsentConfirmationPage> createState() => _ConsentConfirmationPageState();
 }
 
 class _ConsentConfirmationPageState extends State<ConsentConfirmationPage> {

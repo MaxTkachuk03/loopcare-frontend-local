@@ -9,12 +9,12 @@ class CalendarDay extends StatelessWidget {
   final bool isFutureDate;
 
   const CalendarDay({
-    Key? key,
+    super.key,
     required this.onPressHandler,
     required this.day,
     required this.isSelected,
     required this.isFutureDate,
-  }) : super(key: key);
+  });
 
   Color _getDayColor() {
     return isSelected

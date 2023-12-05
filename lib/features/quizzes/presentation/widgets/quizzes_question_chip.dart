@@ -12,7 +12,7 @@ class QuizzesQuestionChip extends StatelessWidget {
   final bool? quiz;
 
   const QuizzesQuestionChip({
-    Key? key,
+    super.key,
     required this.label,
     required this.selected,
     required this.onSelected,
@@ -20,7 +20,7 @@ class QuizzesQuestionChip extends StatelessWidget {
     this.correct,
     this.active,
     this.quiz,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +40,7 @@ class QuizzesQuestionChip extends StatelessWidget {
                 : AppColors.inactiveChipBg,
             borderRadius: const BorderRadius.all(Radius.circular(8.0)),
             border: Border.all(
-              color:
-                  !selected && (correct == null) ? borderColor ?? AppColors.yellowLight : Colors.transparent,
+              color: !selected && (correct == null) ? borderColor ?? AppColors.yellowLight : Colors.transparent,
             ),
           ),
           child: Row(

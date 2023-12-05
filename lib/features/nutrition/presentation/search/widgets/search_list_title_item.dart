@@ -5,9 +5,9 @@ class SearchListTitleItem extends StatelessWidget {
   final String text;
 
   const SearchListTitleItem({
-    Key? key,
+    super.key,
     required this.text,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

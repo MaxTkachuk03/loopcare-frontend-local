@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_number_data.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
@@ -10,9 +9,9 @@ class EmergencyNumberCard extends StatelessWidget {
   final EmergencyNumberData number;
 
   const EmergencyNumberCard({
-    Key? key,
+    super.key,
     required this.number,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -77,14 +76,8 @@ class EmergencyNumberCard extends StatelessWidget {
     }
   }
 
-  void _showError(BuildContext context) {
-    showAppSnackBar(
-      context: context,
-      text: LocalizedTexts.openLinkErrorMessage.tr(),
-      background: AppColors.red,
-      textColor: Colors.white,
-    );
-  }
+  void _showError(BuildContext context) =>
+      context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.translation));
 
   Future<void> _launchInBrowser(String url, BuildContext context) async {
     final Uri launchUri = Uri.parse(url);

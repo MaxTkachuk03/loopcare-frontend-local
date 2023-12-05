@@ -10,10 +10,10 @@ class NutritionTabs extends StatefulWidget {
   final List<Widget> tabBarViewChildren;
 
   const NutritionTabs({
-    Key? key,
+    super.key,
     required this.tabBarViewChildren,
     required this.initialIndex,
-  }) : super(key: key);
+  });
 
   @override
   State<NutritionTabs> createState() => _NutritionTabsState();

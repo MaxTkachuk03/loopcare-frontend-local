@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/features/household_and_habits/presentation/hea
 import 'package:loopcare_frontend/features/household_and_habits/presentation/household_and_habits_question.dart';
 
 class HealthierFoodPage extends StatelessWidget {
-  const HealthierFoodPage({Key? key}) : super(key: key);
+  const HealthierFoodPage({super.key});
 
   @override
   Widget build(BuildContext context) {

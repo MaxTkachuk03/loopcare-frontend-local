@@ -10,8 +10,8 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/dashboard/application/programs_in_progress_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/application/physical_activities_bloc.dart';
+import 'package:loopcare_frontend/features/dashboard/application/programs_in_progress_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/empty_activities_list.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/filled_activities_list.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
@@ -20,7 +20,7 @@ import 'package:loopcare_frontend/features/physical_activities/application/physi
 class PhysicalActivities extends StatefulWidget {
   final DateTime selectedDay;
 
-  const PhysicalActivities({Key? key, required this.selectedDay}) : super(key: key);
+  const PhysicalActivities({super.key, required this.selectedDay});
   @override
   State<PhysicalActivities> createState() => _PhysicalActivitiesState();
 }
@@ -43,9 +43,7 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
   }
 
   void _updateData() {
-    context
-        .read<PhysicalActivitiesBloc>()
-        .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
+    context.read<PhysicalActivitiesBloc>().add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
 
     context.read<ProgramsInProgressBloc>().add(const ProgramsInProgressEvent.removeExpiredPrograms());
   }
@@ -57,9 +55,7 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
   get _isActive => widget.selectedDay.midnightTime == DateTime.now().midnightTime;
 
   void _programLogged(BuildContext context, PhysicalProgramsState state) {
-    context
-        .read<PhysicalActivitiesBloc>()
-        .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
+    context.read<PhysicalActivitiesBloc>().add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
   }
 
   @override
@@ -117,15 +113,15 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                             return ErrorScreen(
                               smallVersion: true,
                               error: error,
-                              onButtonPressed: () => context.read<PhysicalActivitiesBloc>().add(
-                                  PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay)),
+                              onButtonPressed: () => context
+                                  .read<PhysicalActivitiesBloc>()
+                                  .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay)),
                             );
                           },
                           loading: (_) => const Loader(),
                           orElse: () => const SizedBox.shrink(),
                           activitiesLoaded: (s) {
-                            final int timesPerWeek =
-                                context.read<AuthenticationCubit>().state.trainingFrequency!;
+                            final int timesPerWeek = context.read<AuthenticationCubit>().state.trainingFrequency!;
 
                             return isAvailable
                                 ? FilledActivitiesList(

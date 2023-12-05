@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
@@ -12,9 +12,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
 
 part 'group_preferences_bloc.freezed.dart';
-
 part 'group_preferences_event.dart';
-
 part 'group_preferences_state.dart';
 
 @singleton
@@ -178,8 +176,7 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
   FutureOr<void> _onAcceptRules(event, Emitter<GroupPreferencesState> emit) async {
     emit(GroupPreferencesState.loading(state.data.copyWith(isLoading: true)));
 
-    final response =
-        await _groupPreferencesService.savePreferences(const GroupPreferencesBody(rulesAccepted: true));
+    final response = await _groupPreferencesService.savePreferences(const GroupPreferencesBody(rulesAccepted: true));
 
     response.fold(
       (l) => emit(GroupPreferencesState.error(state.data.copyWith(error: l, isLoading: false))),

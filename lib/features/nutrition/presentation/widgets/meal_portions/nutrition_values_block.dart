@@ -17,7 +17,7 @@ class NutritionValuesBlock extends StatelessWidget {
   final FocusNode? portionsFocusNode;
 
   const NutritionValuesBlock({
-    Key? key,
+    super.key,
     required this.numberOfPortions,
     required this.selectedNutritionType,
     required this.nutritionValuesList,
@@ -25,15 +25,14 @@ class NutritionValuesBlock extends StatelessWidget {
     this.portionsController,
     this.isPortionsEditable,
     this.portionsFocusNode,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     if (nutritionValuesList.isEmpty) {
       return const SizedBox.shrink();
     }
-    final nutritionItem =
-        nutritionValuesList.firstWhere((element) => element.key == selectedNutritionType.name);
+    final nutritionItem = nutritionValuesList.firstWhere((element) => element.key == selectedNutritionType.name);
     final totalValue = (numberOfPortions * nutritionItem.value).toStringAsFixed(2);
 
     return Container(

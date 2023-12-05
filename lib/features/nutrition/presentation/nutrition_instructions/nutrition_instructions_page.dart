@@ -11,11 +11,11 @@ class NutritionInstructionsPage extends StatelessWidget {
   final int tabIndex;
 
   const NutritionInstructionsPage({
-    Key? key,
+    super.key,
     required this.tabIndex,
     this.calorieDensity,
     this.proteinDegree,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -12,7 +12,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 
 class AccountSection extends StatefulWidget {
-  const AccountSection({Key? key}) : super(key: key);
+  const AccountSection({super.key});
 
   @override
   State<AccountSection> createState() => _AccountSectionState();

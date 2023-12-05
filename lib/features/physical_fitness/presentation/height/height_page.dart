@@ -22,7 +22,7 @@ const ft = 'ft';
 const inches = 'In';
 
 class HeightPage extends StatefulWidget {
-  const HeightPage({Key? key}) : super(key: key);
+  const HeightPage({super.key});
 
   @override
   State<HeightPage> createState() => _HeightPageState();
@@ -194,10 +194,10 @@ class _NextButton extends StatelessWidget {
   final String Function() getHeight;
 
   const _NextButton({
-    Key? key,
+    super.key,
     required this.measurementSystemType,
     required this.getHeight,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

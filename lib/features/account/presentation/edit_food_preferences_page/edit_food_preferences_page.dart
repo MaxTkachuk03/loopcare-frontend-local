@@ -28,9 +28,9 @@ class EditFoodPreferencesPage extends StatelessWidget {
   final EditFoodPreferencesPageMode mode;
 
   const EditFoodPreferencesPage({
-    Key? key,
+    super.key,
     required this.mode,
-  }) : super(key: key);
+  });
 
   get _title {
     return mode.map(

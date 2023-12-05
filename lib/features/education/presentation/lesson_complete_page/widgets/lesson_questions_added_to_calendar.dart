@@ -9,10 +9,10 @@ class LessonQuestionsAddedToCalendar extends StatelessWidget {
   final VoidCallback onBtnPressed;
 
   const LessonQuestionsAddedToCalendar({
-    Key? key,
+    super.key,
     required this.completedAt,
     required this.onBtnPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

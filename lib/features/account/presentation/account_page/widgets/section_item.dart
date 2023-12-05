@@ -9,11 +9,11 @@ class SectionItem extends StatelessWidget {
   final void Function()? onPressHandler;
 
   const SectionItem({
-    Key? key,
+    super.key,
     this.subTitle,
     required this.title,
     this.onPressHandler,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

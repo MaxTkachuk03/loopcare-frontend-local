@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 class BackButtonHexagon extends StatelessWidget {
   final Color? background;
 
-  const BackButtonHexagon({Key? key, this.background}) : super(key: key);
+  const BackButtonHexagon({super.key, this.background});
 
   @override
   Widget build(BuildContext context) {

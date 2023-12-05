@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class DisabledCalorieBlock extends StatelessWidget {
-  const DisabledCalorieBlock({Key? key}) : super(key: key);
+  const DisabledCalorieBlock({super.key});
 
   @override
   Widget build(BuildContext context) {

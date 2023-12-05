@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/medical_
 import 'package:loopcare_frontend/features/medical_fitness/presentation/pain_in_chest/presentation/widgets/pain_in_chest_chips.dart';
 
 class PainInChestPage extends StatelessWidget {
-  const PainInChestPage({Key? key}) : super(key: key);
+  const PainInChestPage({super.key});
 
   @override
   Widget build(BuildContext context) {

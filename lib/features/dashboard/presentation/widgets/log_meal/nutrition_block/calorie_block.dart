@@ -5,18 +5,18 @@ import 'package:loopcare_frontend/core/presentation/calorie_density_scale/calori
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 
 class CalorieBlock extends StatelessWidget {
   final double? value;
   final void Function({required int tabIndex}) onPress;
 
   const CalorieBlock({
-    Key? key,
+    super.key,
     this.value,
     required this.onPress,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +28,8 @@ class CalorieBlock extends StatelessWidget {
 
               if (state.data.calorieDensityValues.isEmpty) return const SizedBox();
 
-              final label = currentCalorieDensityItem != null
-                  ? currentCalorieDensityItem.label.capitalizeOnlyFirstLetter()
-                  : '-';
+              final label =
+                  currentCalorieDensityItem != null ? currentCalorieDensityItem.label.capitalizeOnlyFirstLetter() : '-';
 
               return GestureDetector(
                 onTap: _onItemPressed,

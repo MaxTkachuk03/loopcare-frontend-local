@@ -11,10 +11,10 @@ class EmptyDayCard extends StatelessWidget {
   final VoidCallback onPressHandler;
 
   const EmptyDayCard({
-    Key? key,
+    super.key,
     required this.date,
     required this.onPressHandler,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

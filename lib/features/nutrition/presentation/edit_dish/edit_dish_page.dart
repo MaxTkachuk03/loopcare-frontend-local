@@ -35,11 +35,11 @@ class EditDishPage extends StatefulWidget {
   final bool fromRecommendation;
 
   const EditDishPage({
-    Key? key,
+    super.key,
     required this.mode,
     required this.event,
     this.fromRecommendation = false,
-  }) : super(key: key);
+  });
 
   @override
   State<EditDishPage> createState() => _EditDishPageState();
@@ -156,23 +156,11 @@ class _EditDishPageState extends State<EditDishPage> {
     setState(() {
       _isUserSaveChanges = true;
     });
-
-    showAppSnackBar(
-      context: context,
-      background: AppColors.white,
-      text: LocalizedTexts.dishWasSaved.translation,
-    );
-
+    context.showSuccessBar(content: Text(LocalizedTexts.dishWasSaved.translation));
     context.router.pop();
   }
 
-  void _showValidationSnackbar(String error) {
-    showAppSnackBar(
-      context: context,
-      background: AppColors.white,
-      text: error,
-    );
-  }
+  void _showValidationSnackbar(String error) => context.showError(content: Text(error));
 
   void _onDeleteFoodItem(BuildContext context, FoodItem item) {
     final dishId = context.read<EditDishBloc>().state.mapOrNull(dishInfo: (s) => s.currentDish.id);
@@ -237,9 +225,7 @@ class _EditDishPageState extends State<EditDishPage> {
   }
 
   _deleteDishListener(BuildContext context, state) {
-    widget.fromRecommendation
-        ? context.router.pop()
-        : context.router.popUntilRouteWithName(SelectFoodRoute.name);
+    widget.fromRecommendation ? context.router.pop() : context.router.popUntilRouteWithName(SelectFoodRoute.name);
   }
 
   Future<bool> _onWillPop() {
@@ -365,8 +351,7 @@ class _EditDishPageState extends State<EditDishPage> {
                                                   portionsFocusNode: _portionsFocusNode,
                                                   portionsController: _portionsController,
                                                   isPortionsEditable: true,
-                                                  numberOfPortions:
-                                                      dishState.currentDish.numberOfServings.toInt(),
+                                                  numberOfPortions: dishState.currentDish.numberOfServings.toInt(),
                                                   nutritionValuesList: dishState.currentDish.serving.list,
                                                   selectedNutritionType: dishState.currentNutritionType,
                                                   onNutritionFactSelect: _onNutritionFactSelect,
@@ -423,8 +408,7 @@ class _EditDishPageState extends State<EditDishPage> {
                                             return state.maybeMap(
                                                 dishInfo: (dishState) {
                                                   return ElevatedButton(
-                                                    onPressed:
-                                                        dishState.hasFoodItems ? _onSaveDishHandler : null,
+                                                    onPressed: dishState.hasFoodItems ? _onSaveDishHandler : null,
                                                     child: Text(
                                                       LocalizedTexts.save.translation,
                                                     ),

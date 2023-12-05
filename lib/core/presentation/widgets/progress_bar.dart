@@ -7,11 +7,7 @@ class ProgressBar extends StatelessWidget {
   final int progress;
   final Color? backgroundColor;
 
-  const ProgressBar({
-    Key? key,
-    required this.progress,
-    this.backgroundColor
-  }) : super(key: key);
+  const ProgressBar({super.key, required this.progress, this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {

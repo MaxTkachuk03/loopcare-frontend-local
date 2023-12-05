@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/features/you_and_food/presentation/allergic/wi
 import 'package:loopcare_frontend/features/you_and_food/presentation/you_and_food_question.dart';
 
 class AllergicPage extends StatelessWidget {
-  const AllergicPage({Key? key}) : super(key: key);
+  const AllergicPage({super.key});
 
   @override
   Widget build(BuildContext context) {

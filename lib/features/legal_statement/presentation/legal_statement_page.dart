@@ -11,7 +11,7 @@ import 'package:loopcare_frontend/features/consent_confirmation/application/cons
 import 'package:loopcare_frontend/features/legal_statement/presentation/widgets/legal_statement_confirmation_box.dart';
 
 class LegalStatementPage extends StatelessWidget {
-  const LegalStatementPage({Key? key}) : super(key: key);
+  const LegalStatementPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -79,14 +79,7 @@ class LegalStatementPage extends StatelessWidget {
     InstructionsService.downloadInstructions(onErrorCb: _showError(context));
   }
 
-  _showError(BuildContext context) => () {
-        showAppSnackBar(
-          context: context,
-          text: LocalizedTexts.openLinkErrorMessage.tr(),
-          background: AppColors.red,
-          textColor: Colors.white,
-        );
-      };
+  _showError(BuildContext context) => context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.translation));
 
   Future<bool> _onWillPop(BuildContext context) async {
     context.read<ConsentConfirmationBloc>().add(const ConsentConfirmationEvent.passageChanged(false));

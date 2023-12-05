@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +11,7 @@ import 'package:loopcare_frontend/features/mental_health/presentation/mental_che
 import 'package:url_launcher/url_launcher.dart';
 
 class PHQ8ResultText extends StatelessWidget {
-  const PHQ8ResultText({Key? key}) : super(key: key);
+  const PHQ8ResultText({super.key});
 
   void _onUrlHandler(BuildContext context) async {
     final Uri launchUri = Uri.parse(psychologistConsultingLink);
@@ -24,14 +23,8 @@ class PHQ8ResultText extends StatelessWidget {
     }
   }
 
-  void _showError(BuildContext context) {
-    showAppSnackBar(
-      context: context,
-      text: LocalizedTexts.openLinkErrorMessage.tr(),
-      background: AppColors.red,
-      textColor: Colors.white,
-    );
-  }
+  void _showError(BuildContext context) =>
+      context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.translation));
 
   @override
   Widget build(BuildContext context) {
@@ -51,20 +44,17 @@ class PHQ8ResultText extends StatelessWidget {
   Widget _getTextWidget(BuildContext context, TestResult? testResult) {
     switch (testResult?.interpretation) {
       case InterpretationType.minimal:
-        return Text(LocalizedTexts.phq8ResultMinimal.translation,
-            style: Theme.of(context).textTheme.bodyLarge);
+        return Text(LocalizedTexts.phq8ResultMinimal.translation, style: Theme.of(context).textTheme.bodyLarge);
       case InterpretationType.mild:
         return Text(LocalizedTexts.phq8ResultMild.translation, style: Theme.of(context).textTheme.bodyLarge);
       case InterpretationType.moderate:
-        return Text(LocalizedTexts.phq8ResultMedium.translation,
-            style: Theme.of(context).textTheme.bodyLarge);
+        return Text(LocalizedTexts.phq8ResultMedium.translation, style: Theme.of(context).textTheme.bodyLarge);
       case InterpretationType.high:
         final totalScore = testResult?.totalScore;
         if (totalScore == null) return const Text('');
 
-        final text = totalScore > 19
-            ? LocalizedTexts.phq8ResultHighest.translation
-            : LocalizedTexts.phq8ResultHigh.translation;
+        final text =
+            totalScore > 19 ? LocalizedTexts.phq8ResultHighest.translation : LocalizedTexts.phq8ResultHigh.translation;
 
         return RichText(
           text: TextSpan(children: [

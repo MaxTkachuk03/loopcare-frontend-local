@@ -6,10 +6,10 @@ class RegularCell extends StatelessWidget {
   final void Function(int tabIndex) onPress;
 
   const RegularCell({
-    Key? key,
+    super.key,
     required this.index,
     required this.onPress,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

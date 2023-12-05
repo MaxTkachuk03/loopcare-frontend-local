@@ -8,10 +8,10 @@ class AppBarSubTitle extends StatelessWidget {
   final int? total;
 
   const AppBarSubTitle({
-    Key? key,
+    super.key,
     this.currentNumber,
     this.total,
-  }) : super(key: key);
+  });
 
   String getText() {
     if (currentNumber != null && total != null) {

@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 
 class FlexibilityChips extends StatefulWidget {
-  const FlexibilityChips({Key? key}) : super(key: key);
+  const FlexibilityChips({super.key});
 
   @override
   State<FlexibilityChips> createState() => _FlexibilityChipsState();

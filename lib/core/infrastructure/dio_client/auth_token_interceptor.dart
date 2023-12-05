@@ -58,10 +58,4 @@ class AuthTokenInterceptor extends InterceptorsWrapper {
 
 extension _AuthRequestOptionsX on RequestOptions {
   void setAuthenticationHeader(String token) => headers['Authorization'] = 'Bearer $token';
-
-  int get retryAttempt => (extra['auth_retry_attempt'] as int?) ?? 0;
-
-  set retryAttempt(int attempt) => extra['auth_retry_attempt'] = attempt;
-
-  void removeAuthenticationHeader() => headers.remove('Authorization');
 }

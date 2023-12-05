@@ -15,7 +15,7 @@ import 'package:loopcare_frontend/features/physical_fitness/utils/height_convers
 import 'package:loopcare_frontend/features/physical_fitness/utils/weight_conversion_utils.dart';
 
 class CheckPassedPage extends StatelessWidget {
-  const CheckPassedPage({Key? key}) : super(key: key);
+  const CheckPassedPage({super.key});
 
   String _getHeightValue(bool useMetric, String heightInCm) {
     final heightFt = HeightConversionUtils.convertCMtoFT(
@@ -66,10 +66,8 @@ class CheckPassedPage extends StatelessWidget {
                           const SizedBox(width: 10),
                           BlocBuilder<PhysicalFitnessBloc, PhysicalFitnessState>(
                               builder: (BuildContext context, state) {
-                            final isHeightMetric =
-                                state.heightMeasurementSystemType == MeasurementSystemType.metric;
-                            final isWeightMetric =
-                                state.weightMeasurementSystemType == MeasurementSystemType.metric;
+                            final isHeightMetric = state.heightMeasurementSystemType == MeasurementSystemType.metric;
+                            final isWeightMetric = state.weightMeasurementSystemType == MeasurementSystemType.metric;
 
                             final heightValue = _getHeightValue(isHeightMetric, state.heightInCm ?? '');
 

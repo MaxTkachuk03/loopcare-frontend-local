@@ -6,10 +6,10 @@ class SmallOutlinedButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   const SmallOutlinedButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,7 @@ class SmallOutlinedButton extends StatelessWidget {
               side: MaterialStateProperty.all(
                 const BorderSide(width: 1.0, color: AppColors.yellowLight),
               ),
-              textStyle: MaterialStateProperty.all(
-                  Theme.of(context).textTheme.bodyMedium),
+              textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.bodyMedium),
             ),
         child: Text(text),
       ),

@@ -8,10 +8,10 @@ class EmptyListWidget extends StatelessWidget {
   final EmptyListType type;
   final String typeText;
   const EmptyListWidget({
-    Key? key,
+    super.key,
     required this.type,
     required this.typeText,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

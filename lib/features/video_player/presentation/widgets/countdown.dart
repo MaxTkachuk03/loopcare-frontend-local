@@ -10,13 +10,13 @@ class CountDown extends StatelessWidget {
   final Function(Duration value) onDurationChange;
 
   const CountDown({
-    Key? key,
+    super.key,
     required this.controller,
     required this.duration,
     required this.onComplete,
     required this.isPortraitOrientation,
     required this.onDurationChange,
-  }) : super(key: key);
+  });
 
   _onTimeFormatterHandler(defaultFormatterFunction, duration) {
     onDurationChange(duration);

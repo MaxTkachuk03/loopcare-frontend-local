@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/features/mental_health/application/mental_heal
 import 'package:loopcare_frontend/features/mental_health/domain/mental_health_test_type.dart';
 
 class QuestionText extends StatelessWidget {
-  const QuestionText({Key? key}) : super(key: key);
+  const QuestionText({super.key});
 
   @override
   Widget build(BuildContext context) {

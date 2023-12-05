@@ -17,7 +17,7 @@ import 'package:loopcare_frontend/features/education/domain/extra_action_types.d
 import 'package:loopcare_frontend/features/education/presentation/widgets/lesson_image_header.dart';
 
 class SupportGroupIntroPage extends StatelessWidget {
-  const SupportGroupIntroPage({Key? key}) : super(key: key);
+  const SupportGroupIntroPage({super.key});
 
   @override
   Widget build(BuildContext context) {

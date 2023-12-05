@@ -9,11 +9,11 @@ class EditableItem extends StatelessWidget {
   final String routeName;
 
   const EditableItem({
-    Key? key,
+    super.key,
     required this.title,
     this.subtitle,
     required this.routeName,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

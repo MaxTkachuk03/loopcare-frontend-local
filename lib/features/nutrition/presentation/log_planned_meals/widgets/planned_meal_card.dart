@@ -17,11 +17,11 @@ class PlannedMealCard extends StatelessWidget {
   final String mealCategory;
 
   const PlannedMealCard({
-    Key? key,
+    super.key,
     required this.mealItem,
     required this.plannedMealId,
     required this.mealCategory,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

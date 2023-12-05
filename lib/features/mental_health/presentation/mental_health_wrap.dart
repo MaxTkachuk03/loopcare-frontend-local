@@ -11,7 +11,7 @@ class MentalHealthWrap extends StatelessWidget {
   final Widget child;
   final bool? withoutPagination;
 
-  const MentalHealthWrap({Key? key, required this.child, this.withoutPagination}) : super(key: key);
+  const MentalHealthWrap({super.key, required this.child, this.withoutPagination});
 
   @override
   Widget build(BuildContext context) {

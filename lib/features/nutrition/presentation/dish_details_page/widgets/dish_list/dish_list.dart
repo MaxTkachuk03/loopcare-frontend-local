@@ -12,13 +12,13 @@ class DishList extends StatelessWidget {
   final Function(BuildContext context, DishFoodItem item) onListItemTapHandler;
 
   const DishList({
-    Key? key,
+    super.key,
     required this.list,
     required this.nutritionKey,
     required this.onDeleteHandler,
     required this.onListItemTapHandler,
     required this.isScrollable,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

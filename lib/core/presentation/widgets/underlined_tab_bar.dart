@@ -6,10 +6,10 @@ class UnderlinedTabBar extends StatelessWidget {
   final TabController? tabController;
 
   const UnderlinedTabBar({
-    Key? key,
+    super.key,
     required this.tabs,
     this.tabController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +38,7 @@ class UnderlinedTabBar extends StatelessWidget {
         unselectedLabelColor: AppColors.white,
         indicatorColor: AppColors.blueMid,
         indicatorSize: TabBarIndicatorSize.tab,
-        indicator: const UnderlineTabIndicator(
-            borderSide: BorderSide(width: 2.0, color: AppColors.white)),
+        indicator: const UnderlineTabIndicator(borderSide: BorderSide(width: 2.0, color: AppColors.white)),
         tabs: tabs,
       ),
     );

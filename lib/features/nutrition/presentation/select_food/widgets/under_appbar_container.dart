@@ -15,7 +15,7 @@ import 'package:loopcare_frontend/features/nutrition/application/search/dto/sear
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
 
 class UnderAppBarContainer extends StatelessWidget {
-  const UnderAppBarContainer({Key? key}) : super(key: key);
+  const UnderAppBarContainer({super.key});
 
   @override
   Widget build(BuildContext context) {

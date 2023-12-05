@@ -11,11 +11,11 @@ class MedicalQuestionWrap extends StatelessWidget {
   final VoidCallback? onWillPop;
 
   const MedicalQuestionWrap({
-    Key? key,
+    super.key,
     required this.child,
     this.isWithOnWillPop,
     this.onWillPop,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

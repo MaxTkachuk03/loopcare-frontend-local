@@ -9,7 +9,7 @@ import 'package:loopcare_frontend/features/you_and_food/presentation/meat_prefer
 import 'package:loopcare_frontend/features/you_and_food/presentation/you_and_food_question.dart';
 
 class MeatPreferencesPage extends StatelessWidget {
-  const MeatPreferencesPage({Key? key}) : super(key: key);
+  const MeatPreferencesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +26,7 @@ class MeatPreferencesPage extends StatelessWidget {
                 ),
           ),
           questionList: const MeatPreferencesChips(),
-          onNextPressed: state.selectedPeriod != null
-              ? () => _onNextPressed(context)
-              : null,
+          onNextPressed: state.selectedPeriod != null ? () => _onNextPressed(context) : null,
         );
       },
     );

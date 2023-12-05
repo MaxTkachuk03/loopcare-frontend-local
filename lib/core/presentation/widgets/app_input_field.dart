@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:loopcare_frontend/core/presentation/themes/input_decoration.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
-
 class AppTextField extends StatefulWidget {
   final TextStyle? helperStyle;
   final String? helperText;
@@ -35,7 +34,7 @@ class AppTextField extends StatefulWidget {
   final TextCapitalization textCapitalization;
 
   const AppTextField({
-    Key? key,
+    super.key,
     required this.controller,
     this.helperText,
     this.hintText,
@@ -63,7 +62,7 @@ class AppTextField extends StatefulWidget {
     this.textCapitalization = TextCapitalization.none,
     this.enabled = true,
     this.enableInteractiveSelection,
-  }) : super(key: key);
+  });
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -94,7 +93,7 @@ class _AppTextFieldState extends State<AppTextField> {
 
   void _focusListener() => setState(() {});
 
-  KeyEventResult _keyListener(FocusNode node,  KeyEvent event) {
+  KeyEventResult _keyListener(FocusNode node, KeyEvent event) {
     if (event.logicalKey.keyLabel == "Tab") {
       _focusNode.nextFocus();
       return KeyEventResult.handled;
@@ -145,9 +144,9 @@ class _AppTextFieldState extends State<AppTextField> {
             autofillHints: widget.autofillHints,
             keyboardType: widget.keyboardType,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: AppColors.black,
-              fontSize: ThemeConstants.fontSize16,
-            ),
+                  color: AppColors.black,
+                  fontSize: ThemeConstants.fontSize16,
+                ),
             textInputAction: widget.textInputAction ?? TextInputAction.next,
             onSubmitted: widget.onSubmitted,
             inputFormatters: widget.inputFormatters,

@@ -13,10 +13,10 @@ class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
   final void Function(String? tabName)? onTabChanged;
 
   const SearchAppBar({
-    Key? key,
+    super.key,
     this.mode,
     this.onTabChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<SearchAppBar> createState() => _SearchAppBarState();
