@@ -38,7 +38,7 @@ import 'package:loopcare_frontend/features/video_session/presentation/widgets/us
 import 'package:wakelock/wakelock.dart';
 
 class SessionCallPage extends StatefulWidget {
-  const SessionCallPage({super.key});
+  const SessionCallPage({Key? key}) : super(key: key);
 
   @override
   State<SessionCallPage> createState() => _SessionCallPageState();
@@ -162,7 +162,9 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
   void _setInactivityTimer() {
     if (Platform.isIOS) return;
+
     _inactivityTimer?.cancel();
+
     _inactivityTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (timer.tick >= 60) {
         _leaveSessionHandler();
@@ -180,8 +182,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
       log('session token = $token', name: 'zoomSessionLog');
 
-      final String userName =
-          context.read<AuthenticationCubit>().state.nickname ?? context.read<AuthenticationCubit>().state.name;
+      final String userName = context.read<AuthenticationCubit>().state.nickname ??
+          context.read<AuthenticationCubit>().state.name;
 
       JoinSessionConfig joinSession = JoinSessionConfig(
         sessionName: sessionKey,
@@ -621,8 +623,11 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                           SliverFillRemaining(child: BlocBuilder<SessionCallBloc, SessionCallState>(
                             builder: (context, state) {
                               final textEvents = context.read<TopicsBloc>().state.data.textEvents;
-                              final text =
-                                  textEvents.lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)?.text ?? '';
+
+                              final text = textEvents
+                                      .lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)
+                                      ?.text ??
+                                  '';
 
                               return PromptsContainer(text: text);
                             },

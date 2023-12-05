@@ -51,9 +51,8 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
   void _jumpToLessonsList() {
     final dataState = context.read<EducationProgramBloc>().state.data;
     final activeLessonIndex = dataState.activeLessonIndex;
-    final lessonWithCountdown = dataState.lessonWithCountdown;
 
-    if (lessonWithCountdown == null && activeLessonIndex > 0) {
+    if (activeLessonIndex > 0) {
       final size = _introContainerKey.currentContext?.size;
       final offset = (size?.height ?? 0) + activeLessonIndex * _lessonCardHeight;
 
