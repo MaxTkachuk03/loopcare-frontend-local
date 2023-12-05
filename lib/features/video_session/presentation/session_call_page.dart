@@ -642,6 +642,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                           SliverFillRemaining(child: BlocBuilder<SessionCallBloc, SessionCallState>(
                             builder: (context, state) {
                               final textEvents = context.read<TopicsBloc>().state.data.textEvents;
+
                               final text = textEvents
                                       .lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)
                                       ?.text ??

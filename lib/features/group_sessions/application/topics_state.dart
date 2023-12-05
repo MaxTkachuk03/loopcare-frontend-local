@@ -168,7 +168,10 @@ class TopicsData with _$TopicsData {
 
     if (events.isEmpty) return [];
 
-    return events.where((event) => event.event == GroupSessionEventType.TEXT.name).toList();
+    return events
+        .where((event) => event.event == GroupSessionEventType.TEXT.name)
+        .sorted((a, b) => a.timestamp.compareObjectTo(b.timestamp))
+        .toList();
   }
 
   List<GroupSessionProgramEvent> get videoEvents {

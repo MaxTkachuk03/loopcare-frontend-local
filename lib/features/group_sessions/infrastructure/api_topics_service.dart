@@ -8,6 +8,9 @@ import 'package:loopcare_frontend/features/group_sessions/application/dto/group_
 import 'package:loopcare_frontend/features/group_sessions/application/dto/sign_to_group_session_response.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_service.dart';
 
+// TODO import mock data
+// import 'topic_mock.dart';
+
 @Injectable(as: TopicsService)
 class APITopicsService implements TopicsService {
   DioClient client;
@@ -26,6 +29,9 @@ class APITopicsService implements TopicsService {
         'endDate': endDate,
       });
     }
+
+    // TODO use to mock topics server response
+    // return right(GroupSessionsResponse.fromJson({'data': topics}));
 
     return client
         .get(
