@@ -30,7 +30,7 @@ class BarcodeScannerBloc
   ) async {
     emit(BarcodeScannerState.loading());
     final response = await barcodeService
-        .getBarcodeInformation(event.barCode); //'020357122682'
+        .getBarcodeInformation(event.barCode); // '020357122682'
 
     response.fold(
       (l) => emit(BarcodeScannerState.error(error: l)),

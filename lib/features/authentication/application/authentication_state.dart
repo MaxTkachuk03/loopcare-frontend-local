@@ -59,6 +59,13 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
+  bool get hasActiveSubscription {
+    return maybeWhen(
+      orElse: () => false,
+      authenticated: (state) => state.subscription.isActive && state.subscription.state == 'common',
+    );
+  }
+
   List<UnlockedFeatureType> get unlockedFeatures {
     return maybeWhen(
       orElse: () => [],

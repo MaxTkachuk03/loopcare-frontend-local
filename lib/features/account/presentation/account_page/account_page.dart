@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/features/account/presentation/account_page/wid
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/personal_details_section.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/preferences_section.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/report_abuse_section.dart';
+import 'package:loopcare_frontend/features/account/presentation/subscription_page/widgets/subscription_sactions.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 class AccountPage extends StatefulWidget {
@@ -52,6 +53,8 @@ class _AccountPageState extends State<AccountPage> {
                 const AccountSection(),
                 const SizedBox(height: 24.0),
                 const PersonalDetailsSection(),
+                const SizedBox(height: 24.0),
+                const SubscriptionSection(),
                 const SizedBox(height: 24.0),
                 // const TestResultsSection(),
                 // const SizedBox(height: 24.0),

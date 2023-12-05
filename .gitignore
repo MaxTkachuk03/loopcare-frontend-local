@@ -65,3 +65,6 @@ pubspec.lock
 
 # Flutter Version Manager
 .fvm/*
+/ios/IAPTest.storekit
+/ios/StoreKitTestCertificate.cer
+/env.stag

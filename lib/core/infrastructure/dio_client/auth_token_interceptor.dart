@@ -8,7 +8,6 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dar
 @injectable
 class AuthTokenInterceptor extends InterceptorsWrapper {
   AuthTokenManager authTokenManager;
-
   AuthTokenInterceptor(this.authTokenManager);
 
   @override

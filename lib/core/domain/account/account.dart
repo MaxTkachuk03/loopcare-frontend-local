@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/domain/account/subscription.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_activities_preferences.dart';
@@ -22,6 +23,7 @@ abstract class Account implements _$Account {
     required bool isPreferencesComplete,
     required SexType gender,
     required String bioGender,
+    required Subscription subscription,
     @Default(null) UserGroupingState? groupingState,
     @Default(null) int? groupId,
     @Default(null) DateTime? groupingStartedAt,

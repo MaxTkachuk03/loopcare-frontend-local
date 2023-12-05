@@ -769,6 +769,30 @@ class LocalizedTexts {
   static const String errorMoodNoteMessage = "errorMoodNoteMessage";
   static const String moodOptionPageEmotionTitle = "moodOptionPageEmotionTitle";
   static const String deleteMood = "deleteMood";
+
+  //Subscription
+  static const String subscription = "subscription";
+  static const String manageSubscription = "manageSubscription";
+  static const String subscriptionTrialTitle = "subscriptionTrialTitle";
+  static const String subscriptionTrialLabel = "subscriptionTrialLabel";
+  static const String subscriptionTrialExpiredTitle = "subscriptionTrialExpiredTitle";
+  static const String subscriptionTrialExpiredLabel = "subscriptionTrialExpiredLabel";
+  static const String subscriptionEndedTitle = "subscriptionEndedTitle";
+  static const String subscriptionEndedLabel = "subscriptionEndedLabel";
+  static const String subscriptionCancelledTitle = "subscriptionCancelledTitle";
+  static const String subscriptionCancelledLabel = "subscriptionCancelledLabel";
+  static const String subscriptionRenewedTitle = "subscriptionRenewedTitle";
+  static const String subscriptionRenewedLabel = "subscriptionRenewedLabel";
+  static const String subscriptionRestoreLabel = "subscriptionRestoreLabel";
+  static const String subscriptionTermsLabel = "subscriptionTermsLabel";
+  static const String subscriptionAnnual = "subscriptionAnnual";
+  static const String subscriptionMonthly = "subscriptionMonthly";
+  static const String subscriptionSubscribe = "subscriptionSubscribe";
+  static const String subscriptionPrice = "subscriptionPrice";
+  static const String subscriptionType = "subscriptionType";
+  static const String subscriptionVia = "subscriptionVia";
+  static const String memberSince = "memberSince";
+  static const String automaticRenewalOn = "automaticRenewalOn";
 }
 
 extension StringX on String {

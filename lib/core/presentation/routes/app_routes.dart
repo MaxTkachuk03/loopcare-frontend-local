@@ -6,6 +6,8 @@ class AppRoutes {
   static const String proxy = '/proxy'; // added
   static const String joinUs = '/join-us'; // added
   static const String login = '/login'; //added
+  static const String subscription = '/subscription';
+  static const String manageSubscription = '/manage-subscription';
   static const String height = '/height'; // added
   static const String weight = '/weight'; // added
   static const String birthday = '/birthday'; // added

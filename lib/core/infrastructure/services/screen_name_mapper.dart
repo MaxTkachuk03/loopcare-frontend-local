@@ -119,4 +119,8 @@ final screenNames = {
 
   // Recommendations
   'RecommendationsRoute': 'Recommendations Screen',
+
+  //Subscription
+  'SubscriptionRoute': 'Subscription Screen',
+  'ManageSubscriptionRoute': 'Manage Subscription Screen'
 };

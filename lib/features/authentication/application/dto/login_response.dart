@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:loopcare_frontend/core/domain/account/subscription.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
 
 part 'login_response.g.dart';
@@ -16,6 +17,7 @@ class LoginResponse {
   final bool isPreferencesComplete;
   final SexType gender;
   final String bioGender;
+  final Subscription subscription;
   final DateTime emailApproveDate;
 
   const LoginResponse({
@@ -28,6 +30,7 @@ class LoginResponse {
     required this.isPreferencesComplete,
     required this.gender,
     required this.bioGender,
+    required this.subscription,
     required this.emailApproveDate,
   });
 
