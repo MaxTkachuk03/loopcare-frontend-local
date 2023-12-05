@@ -4,14 +4,12 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:injectable/injectable.dart';
 
-@singleton
+@injectable
 class AppSubscriptionService {
   final InAppPurchase _inAppPurchase = InAppPurchase.instance;
   final Stream<List<PurchaseDetails>> storeSubscription = InAppPurchase.instance.purchaseStream;
 
   static Set<String> main = {'monthly', 'annual'};
-
-  // {'monthly','annual'};
 
   InAppPurchase get instance => _inAppPurchase;
   final List purchasedList = [];

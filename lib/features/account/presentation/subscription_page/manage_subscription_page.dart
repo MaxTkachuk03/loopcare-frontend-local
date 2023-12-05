@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -12,7 +13,10 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
+import 'package:loopcare_frontend/injection.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+AppConfig appConfig = getIt<AppConfig>();
 
 class ManageSubscriptionPage extends StatefulWidget {
   const ManageSubscriptionPage({super.key});
@@ -84,8 +88,8 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
                     _ManageButton(
                       onTap: () {
                         Platform.isIOS
-                            ? launchUrl(Uri.parse("https://apps.apple.com/account/subscriptions"))
-                            : launchUrl(Uri.parse('https://play.google.com/store/account/subscriptions'));
+                            ? launchUrl(Uri.parse(appConfig.appStoreSettingsLink))
+                            : launchUrl(Uri.parse(appConfig.playMarketSettingsLink));
                       },
                     ),
                   ],

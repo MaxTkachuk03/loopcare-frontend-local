@@ -32,7 +32,7 @@ part 'subscription_state.dart';
 @singleton
 class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   late PurchaseDetailsStreamSubscription purchaseDetailsStreamSubscription;
-  final inAppPurchaseService = getIt<AppSubscriptionService>();
+  final AppSubscriptionService inAppPurchaseService;
   final AuthenticationService _authenticationService;
   final PurchaseService _purchaseService;
   final AuthTokenManager authTokenManager;
@@ -40,7 +40,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   bool isValidatePastIOSPurchase = false;
   ProductDetails? buyingProduct;
 
-  SubscriptionBloc(this._authenticationService, this._purchaseService, this.authTokenManager)
+  SubscriptionBloc(this._authenticationService, this._purchaseService, this.authTokenManager, this.inAppPurchaseService)
       : super(const SubscriptionState.initial(SubscriptionStateData())) {
     on<SubscriptionInit>(_onInitSubscription);
     on<SubscriptionDispose>(_onSubscriptionDispose);
@@ -80,7 +80,13 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       SubscriptionState.loading(state.data.copyWith(isLoading: true)),
     );
     final inAppPurchaseService = getIt<AppSubscriptionService>();
-    final response = await inAppPurchaseService.buyItemInStore(event.product);
+    final purchased = await inAppPurchaseService.buyItemInStore(event.product);
+    if (!purchased) {
+      emit(SubscriptionState.error(state.data.copyWith(
+        error: const RequestError.streamSubscription('Something went wrong with service, please try again'),
+        isLoading: false,
+      )));
+    }
   }
 
   Future<void> _handlePurchase(PurchaseDetails purchaseDetails) async {
