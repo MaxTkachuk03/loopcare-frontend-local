@@ -4,8 +4,6 @@ part of 'assignments_bloc.dart';
 class AssignmentsEvent with _$AssignmentsEvent {
   const factory AssignmentsEvent.getLessonQuestions(int lessonId) = GetLessonQuestions;
 
-  const factory AssignmentsEvent.setCurrentStep(int step) = SetCurrentStep;
-
   const factory AssignmentsEvent.saveLessonAnswerText(
     int lessonQuestionId, {
     String? text,
@@ -25,4 +23,9 @@ class AssignmentsEvent with _$AssignmentsEvent {
     int lessonQuestionId, {
     List<int>? lessonQuestionOptionIds,
   }) = UpdateLessonAnswerOption;
+
+  const factory AssignmentsEvent.getAllLessonQuestions(
+    DateTime startDate,
+    DateTime endDate,
+  ) = GetAllLessonQuestions;
 }

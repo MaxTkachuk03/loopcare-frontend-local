@@ -6,8 +6,8 @@ String? validateAnswerTextField(String? value) {
     return LocalizedTexts.requiredField.tr();
   } else if (value.trim().isEmpty) {
     return LocalizedTexts.requiredField.tr();
-  } else if (value.trim().length > 500) {
-    return LocalizedTexts.errorReportMessage.tr();
+  } else if (value.trim().length > 20000) {
+    return LocalizedTexts.errorOpenTextMessage.tr();
   }
   return null;
 }

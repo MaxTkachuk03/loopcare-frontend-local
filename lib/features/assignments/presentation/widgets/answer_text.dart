@@ -98,8 +98,10 @@ class AnswerTextFormLimitTextField extends AppLimitTextField {
           autovalidateMode: controller.answerTextAutoValidateMode,
           onChanged: (_) {},
           enforcedLimitCount: MaxLengthEnforcement.none,
-          limitCount: 500,
+          limitCount: 20000,
           minLines: 30,
           linesCount: 50,
+          focusedColor: AppColors.blueMid,
+          cursorColor: AppColors.darkGreen,
         );
 }

@@ -211,4 +211,8 @@ extension DateTimeExtension on DateTime {
 
     return DateTime(now.year, now.month, now.day, 23, 59, 59);
   }
+
+  bool inRange(DateTime startDate, DateTime endTime) {
+    return (isBefore(endTime) || isSameDate(endTime)) && (isAfter(startDate) || (isSameDate(startDate)));
+  }
 }

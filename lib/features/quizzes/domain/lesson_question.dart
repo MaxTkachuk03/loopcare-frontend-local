@@ -30,7 +30,17 @@ class LessonQuestion with _$LessonQuestion {
     required List<LessonQuestionOption> lessonQuestionOptions,
     required List<LessonQuestionFeedback> lessonQuestionFeedbacks,
     required List<LessonQuestionAnswer> lessonQuestionAnswers,
+    required DateTime? createdAt,
   }) = _LessonQuestion;
+
+  int lessonQuestionOptionIndexById(int id) {
+    var lessonQuestionOption = lessonQuestionOptions.firstWhere((element) => element.id == id);
+    return lessonQuestionOptions.indexOf(lessonQuestionOption);
+  }
+
+  LessonQuestionOption lessonQuestionOptionById(int id) {
+    return lessonQuestionOptions.firstWhere((element) => element.id == id);
+  }
 
   LessonQuestionAnswer? get questionAnswer =>
       lessonQuestionAnswers.firstWhereOrNull((el) => el.lessonQuestionId == id);
@@ -47,6 +57,8 @@ class LessonQuestion with _$LessonQuestion {
 
     return retList;
   }
+
+  List<String> get lessonQuestionOptionsLabels => lessonQuestionOptions.map((e) => e.label).toList();
 
   factory LessonQuestion.fromJson(Map<String, dynamic> json) => _$LessonQuestionFromJson(json);
 }

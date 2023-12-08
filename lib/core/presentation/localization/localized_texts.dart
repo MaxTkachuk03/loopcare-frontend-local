@@ -782,7 +782,11 @@ class LocalizedTexts {
   static const String assignmentAddedText = "assignmentAddedText";
   static const String startNow = "startNow";
   static const String assignment = "assignment";
+  static const String assignments = "assignments";
   static const String seeLesson = "seeLesson";
+  static const String allAssignmentsCompleted = "allAssignmentsCompleted";
+  static const String errorOpenTextMessage = "errorOpenTextMessage";
+  static const String saved = "saved";
 }
 
 extension StringX on String {

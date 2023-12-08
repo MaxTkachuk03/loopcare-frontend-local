@@ -17,6 +17,7 @@ class QuizzesController {
   ValueNotifier<bool> isEnableSend = ValueNotifier(false);
   ValueNotifier<LessonQuestionOption?> selectLessonValue = ValueNotifier(null);
   ValueNotifier<List<int>> selectOptionValues = ValueNotifier([]);
+  ValueNotifier<int?> selectScaleValue = ValueNotifier(null);
 
   bool get isAnswerTextValid => isEnableSend.value = answerTextFieldKey.currentState?.isValid ?? false;
 
@@ -41,6 +42,8 @@ class QuizzesController {
       selectOptionValues.value = [id];
     }
   }
+
+  void setScaleValue(int value) => selectScaleValue.value = value;
 
   void addFocusNodeListeners() {
     answerTextFocusNode.addListener(() {

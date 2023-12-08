@@ -20,14 +20,15 @@ class AppInputDecoration extends InputDecoration {
     String? hintText,
     String? errorText,
     EdgeInsetsGeometry? contentPadding,
+    Color? focusedColor,
   }) : super(
           border: const OutlineInputBorder(),
-          focusColor: _kFocused,
+          focusColor: focusedColor ?? _kFocused,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: state.color.withOpacity(0.5)),
           ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: _kFocused),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: focusedColor ?? _kFocused),
           ),
           errorBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: _kError),
@@ -74,15 +75,16 @@ class AppInputDecoration extends InputDecoration {
     String? errorText,
     EdgeInsetsGeometry? contentPadding,
     String counterText = "",
+    Color? focusedColor,
   }) : super(
           counterText: counterText,
           border: const OutlineInputBorder(),
-          focusColor: _kFocused,
+          focusColor: focusedColor ?? _kFocused,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: state.color.withOpacity(0.5)),
           ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: _kFocused),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: focusedColor ?? _kFocused),
           ),
           errorBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: _kError),
