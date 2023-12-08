@@ -36,13 +36,13 @@ class _NutritionTabsState extends State<NutritionTabs> with TickerProviderStateM
   @override
   void initState() {
     super.initState();
+
     _tabController = TabController(
       vsync: this,
       length: tabs.length,
       animationDuration: Duration.zero,
       initialIndex: widget.initialIndex,
-    );
-    _tabController.addListener(_onTabsChanged);
+    )..addListener(_onTabsChanged);
   }
 
   void _onTabsChanged() {

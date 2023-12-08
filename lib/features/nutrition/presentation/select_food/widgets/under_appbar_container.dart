@@ -52,6 +52,7 @@ class UnderAppBarContainer extends StatelessWidget {
                   children: [
                     Flexible(
                       child: UnderlinedTabBar(
+                        tabAlignment: TabAlignment.start,
                         tabs: [
                           Tab(text: LocalizedTexts.myFavorites.translation),
                           Tab(text: LocalizedTexts.myDishes.translation),
