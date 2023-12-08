@@ -17,7 +17,6 @@ class AssignmentsStateData with _$AssignmentsStateData {
 
   const factory AssignmentsStateData({
     @Default(0) int lessonId,
-    @Default(0) int currentStep,
     @Default([]) List<LessonQuestion> questions,
     @Default(false) bool isLoading,
     @Default(null) RequestError? error,
@@ -31,5 +30,16 @@ class AssignmentsStateData with _$AssignmentsStateData {
 
   LessonQuestion questionForStep(int step) => questions.get(step);
 
-  LessonQuestion get questionForCurrentStep => questions.get(currentStep);
+  List<LessonQuestion> questionsForCurrentWeek(DateTime selectedDay) {
+    return questions
+        .where(
+          (element) =>
+              element.createdAt?.inRange(
+                selectedDay.firstDayOfCurrentWeek.subtract(const Duration(days: 7)),
+                selectedDay.lastDayOfCurrentWeek,
+              ) ??
+              false,
+        )
+        .toList();
+  }
 }

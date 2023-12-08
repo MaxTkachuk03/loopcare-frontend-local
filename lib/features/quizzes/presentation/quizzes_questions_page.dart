@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
-import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/quizzes/application/quizzes_bloc.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_option.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page_mode.dart';
@@ -19,7 +19,11 @@ import 'package:loopcare_frontend/features/quizzes/presentation/widgets/correct_
 import 'package:loopcare_frontend/features/quizzes/presentation/widgets/quizzes_question.dart';
 
 class QuizzesQuestionsPage extends StatefulWidget {
-  const QuizzesQuestionsPage({super.key});
+  final int step;
+  const QuizzesQuestionsPage({
+    super.key,
+    required this.step,
+  });
 
   @override
   State<QuizzesQuestionsPage> createState() => _QuizzesQuestionsPageState();
@@ -28,33 +32,31 @@ class QuizzesQuestionsPage extends StatefulWidget {
 class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
   late QuizzesController _controller;
   QuestionsPageMode mode = const QuestionsPageMode.askQuestion();
-
-  int _step = 1;
   int _totalSteps = 1;
   int selectedValue = 0;
 
   @override
   void initState() {
     final quizzesState = context.read<QuizzesBloc>().state;
-
     _totalSteps = quizzesState.data.quizzes.isNotEmpty ? quizzesState.data.quizzes.length : 1;
-
-    super.initState();
 
     _controller = mode.map(
       askQuestion: (_) => QuizzesController()..addFocusNodeListeners(),
       showAnswer: (s) => QuizzesController()..addFocusNodeListeners(),
     );
+
+    setStep(widget.step);
+    super.initState();
   }
 
   String get _title => LocalizedTexts.questionOf.tr(
         namedArgs: {
-          'step': _step.toString(),
+          'step': (widget.step + 1).toString(),
           'total': _totalSteps.toString(),
         },
       );
 
-  int get _percent => (_step * 100 / _totalSteps).round();
+  int get _percent => ((widget.step + 1) * 100 / _totalSteps).round();
 
   _onErrorHandler(QuizzesState s) {
     showAppSnackBar(
@@ -87,40 +89,51 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
     _controller.isFormValid;
   }
 
+  void _onPrevHandler() {
+    context.router.pop();
+  }
+
+  void setStep(int currStep) {
+    setState(() {
+      var quizzesBloc = context.read<QuizzesBloc>();
+
+      var question = quizzesBloc.state.data.questionForStep(currStep);
+
+      mode = question.questionAnswer != null
+          ? const QuestionsPageMode.showAnswer()
+          : const QuestionsPageMode.askQuestion();
+
+      if (question.questionAnswer != null) {
+        _controller.setLessonValue(question.lessonQuestionOptionById(question.lessonQuestionAnswersId.first));
+      }
+    });
+  }
+
   void _onNextHandler() {
-    if (_step == _totalSteps) {
+    if (widget.step == (_totalSteps - 1)) {
       context.router.pushNamed(AppRoutes.lessonComplete);
     } else {
-      setState(() {
-        var questionsBloc = context.read<AssignmentsBloc>();
-        var quizzesBloc = context.read<QuizzesBloc>();
-        var question = quizzesBloc.state.data.questionForStep(_step);
-
-        var selectLessonValueId = _controller.selectLessonValue.value?.id;
-
-        if (question.questionAnswer != null) {
-          questionsBloc.add(
-            AssignmentsEvent.updateLessonAnswerOption(
-              question.id,
-              lessonQuestionOptionIds: selectLessonValueId != null ? [selectLessonValueId] : [],
-            ),
-          );
-        } else {
-          questionsBloc.add(
-            AssignmentsEvent.saveLessonAnswerOption(
-              question.id,
-              lessonQuestionOptionIds: selectLessonValueId != null ? [selectLessonValueId] : [],
-            ),
-          );
-        }
-
-        _step++;
-
-        mode = const QuestionsPageMode.askQuestion();
-
-        context.read<QuizzesBloc>().add(QuizzesEvent.setCurrentStep(_step - 1));
-      });
+      context.router.push(QuizzesQuestionsRoute(step: widget.step + 1));
     }
+  }
+
+  void _saveOptionsField(int lessonId) {
+    _controller.isEnableSend.value = false;
+    var quizzesBloc = context.read<QuizzesBloc>();
+
+    var question = quizzesBloc.state.data.questionForStep(widget.step);
+    var selectLessonValueId = _controller.selectLessonValue.value?.id;
+
+    if (question.questionAnswer == null) {
+      quizzesBloc.add(
+        QuizzesEvent.saveLessonAnswer(
+          question.id,
+          lessonQuestionOptionIds: selectLessonValueId != null ? [selectLessonValueId] : [],
+        ),
+      );
+    }
+
+    _onNextHandler();
   }
 
   get _mainContainerBgColor {
@@ -128,20 +141,6 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
       askQuestion: (_) => AppColors.bgGreen,
       showAnswer: (_) => AppColors.white,
     );
-  }
-
-  void _onPrevHandler() {
-    if (_step == 1) {
-      context.router.pop();
-    } else {
-      setState(() {
-        _step--;
-
-        mode = const QuestionsPageMode.showAnswer();
-
-        context.read<QuizzesBloc>().add(QuizzesEvent.setCurrentStep(_step - 1));
-      });
-    }
   }
 
   @override
@@ -154,6 +153,7 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             IconButton(
               icon: const Icon(Icons.arrow_back),
@@ -163,9 +163,7 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
               children: [
                 Text(
                   LocalizedTexts.quiz.translation,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 Text(
                   _title,
@@ -204,7 +202,7 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
                               child: QuizzesQuestion(
                                 selectedValue: _controller.selectLessonValue.value,
                                 mode: mode,
-                                question: state.data.qustionForCurrentStep,
+                                question: state.data.questionForStep(widget.step),
                                 onSelected: (LessonQuestionOption value) {
                                   _onSelectedHandler(value);
                                 },
@@ -224,15 +222,19 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
                                             return CorrectIncorrectExplanation(
                                               isCorrect: _controller.isFormValid,
                                               text: _controller.isFormValid
-                                                  ? state.data.qustionForCurrentStep.explanationCorrect ??
+                                                  ? state.data
+                                                          .questionForStep(widget.step)
+                                                          .explanationCorrect ??
                                                       LocalizedTexts.correct.translation
-                                                  : state.data.qustionForCurrentStep.explanationIncorrect ??
+                                                  : state.data
+                                                          .questionForStep(widget.step)
+                                                          .explanationIncorrect ??
                                                       LocalizedTexts.incorrect.translation,
                                             );
                                           }),
                                       const SizedBox(height: 32),
                                       ElevatedButton(
-                                        onPressed: _onNextHandler,
+                                        onPressed: () => _saveOptionsField(state.data.lessonId),
                                         style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
                                               backgroundColor:
                                                   MaterialStateProperty.all(AppColors.orangeDark),

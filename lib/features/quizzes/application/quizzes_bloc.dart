@@ -5,6 +5,7 @@ import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/presentation/utils/list_extensions.dart';
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
 import 'package:loopcare_frontend/features/education/domain/questions/lesson_answer_body.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
@@ -21,7 +22,7 @@ class QuizzesBloc extends Bloc<QuizzesEvent, QuizzesState> {
     this._educationService,
   ) : super(const QuizzesState.initial(QuizzesStateData())) {
     on<GetLessonQuizzes>(_onGetLessonQuizzes);
-    on<SetCurrentStep>(_onSetCurrentStep);
+
     on<SaveLessonAnswer>(_onSaveLessonAnswer);
   }
 
@@ -38,7 +39,7 @@ class QuizzesBloc extends Bloc<QuizzesEvent, QuizzesState> {
 
     response.fold(
       (l) => emit(QuizzesState.error(state.data.copyWith(
-        // error: l,
+        error: l,
         isLoading: false,
       ))),
       (r) {
@@ -46,11 +47,23 @@ class QuizzesBloc extends Bloc<QuizzesEvent, QuizzesState> {
           QuizzesState.updated(
             state.data.copyWith(
               isLoading: false,
+              quizzes: _updatedQuestions(r),
             ),
           ),
         );
       },
     );
+  }
+
+  List<LessonQuestion> _updatedQuestions(
+    LessonQuestion data,
+  ) {
+    List<LessonQuestion> retData = List<LessonQuestion>.from(state.data.quizzes);
+
+    final int index = retData.indexWhere((el) => el.id == data.id);
+    if (index >= 0) retData.update(index, data);
+
+    return retData;
   }
 
   FutureOr<void> _onGetLessonQuizzes(
@@ -67,20 +80,9 @@ class QuizzesBloc extends Bloc<QuizzesEvent, QuizzesState> {
         isLoading: false,
       ))),
       (r) => emit(QuizzesState.updated(state.data.copyWith(
+        lessonId: event.lessonId,
         quizzes: r.questions,
       ))),
     );
-  }
-
-  FutureOr<void> _onSetCurrentStep(
-    SetCurrentStep event,
-    Emitter<QuizzesState> emit,
-  ) async {
-    emit(QuizzesState.loading(state.data.copyWith(isLoading: true)));
-
-    emit(QuizzesState.updated(state.data.copyWith(
-      isLoading: false,
-      currentStep: event.step,
-    )));
   }
 }
