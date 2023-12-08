@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/features/account/presentation/account_page/wid
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 
 class AccountSection extends StatefulWidget {
   const AccountSection({Key? key}) : super(key: key);
@@ -36,6 +37,7 @@ class _AccountSectionState extends State<AccountSection> {
 
   _onLogOutPressed() {
     context.read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.initClear());
+    context.read<PhysicalProgramsBloc>().add(const PhysicalProgramsEvent.init());
     context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.init());
     context.read<AuthenticationCubit>().logout();
   }

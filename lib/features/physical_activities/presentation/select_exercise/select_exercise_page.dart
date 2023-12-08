@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/orange_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/keyboard_state.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/chips_tab_bar.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
@@ -12,7 +14,6 @@ import 'package:loopcare_frontend/features/physical_activities/domain/exercise_t
 import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/widgets/custom_activity_tab.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/widgets/program_tab.dart';
 import 'package:loopcare_frontend/injection.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 AppConfig appConfig = getIt<AppConfig>();
 
@@ -83,6 +84,7 @@ class _SelectExercisePageState extends State<SelectExercisePage> with TickerProv
                 ChipsTabBar(
                   tabController: _tabController,
                   tabs: tabs.map((e) => Tab(text: e.text)).toList(),
+                  onTap: () => dismissKeyboard(context),
                 ),
                 const SizedBox(height: 32.0),
                 Flexible(
