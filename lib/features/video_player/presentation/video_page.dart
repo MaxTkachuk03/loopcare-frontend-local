@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
+import 'package:loopcare_frontend/features/video_player/infrastructure/video_page_controller.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/rotate_device_message.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/video_player_widget.dart';
 import 'package:video_player/video_player.dart';
@@ -29,16 +30,14 @@ class VideoPage extends StatefulWidget {
   State<VideoPage> createState() => _VideoPageState();
 }
 
-class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
+class _VideoPageState extends State<VideoPage> {
   int _videoIndex = 0;
 
   VideoPlayerController? _videoPlayerController;
   final CountDownController _countDownController = CountDownController();
-  int _duration = 0;
+  late VideoPageController _videoPageController;
 
   bool get _isLastExercise => _videoIndex + 1 == widget.program.exercises.length;
-
-  Orientation? _currentOrientation;
 
   Future _allowLandscapeOrientation() async {
     await Wakelock.enable();
@@ -95,6 +94,8 @@ class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
 
     _loadVideoPlayer(widget.program.exercises[_videoIndex + 1]);
 
+    _videoPageController.setCountDownTimer(widget.program.exercises[_videoIndex].delayBeforeNext);
+
     setState(() {
       _videoIndex += 1;
     });
@@ -106,26 +107,23 @@ class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
 
     _loadVideoPlayer(widget.program.exercises[_videoIndex - 1]);
 
+    _videoPageController.setCountDownTimer(widget.program.exercises[_videoIndex - 1].delayBeforeNext);
+
     setState(() {
       _videoIndex -= 1;
     });
-  }
-
-  _setDuration() {
-    _duration = widget.program.exercises[_videoIndex].delayBeforeNext;
-  }
-
-  _updateDuration(Duration value) {
-    _duration = value.inSeconds;
   }
 
   @override
   void initState() {
     _allowLandscapeOrientation();
 
-    context.read<VideoPlayerBloc>().add(const VideoPlayerEvent.getAwsCookies(AwsCookiesType.MAIN));
+    _videoPageController = VideoPageController(
+      countDownController: _countDownController,
+      defaultCountDownValue: widget.program.exercises[_videoIndex].delayBeforeNext,
+    )..setCountDownTimer(widget.program.exercises[_videoIndex].delayBeforeNext);
 
-    WidgetsBinding.instance.addObserver(this);
+    context.read<VideoPlayerBloc>().add(const VideoPlayerEvent.getAwsCookies(AwsCookiesType.MAIN));
 
     super.initState();
   }
@@ -143,16 +141,6 @@ class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
   }
 
   @override
-  void didChangeMetrics() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (_currentOrientation != MediaQuery.of(context).orientation) {
-        _currentOrientation = MediaQuery.of(context).orientation;
-        _setDuration();
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     final controller = _videoPlayerController;
     return BlocConsumer<VideoPlayerBloc, VideoPlayerState>(
@@ -165,6 +153,8 @@ class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
           cookiesLoaded: (s) {
             return OrientationBuilder(builder: (BuildContext context, Orientation orientation) {
               final bool isPortrait = orientation == Orientation.portrait;
+
+              _videoPageController.setOrientation(orientation);
 
               return Scaffold(
                 backgroundColor: AppColors.black,
@@ -195,11 +185,10 @@ class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
                           programDifficulty: widget.program.difficultyName,
                           programLength: widget.program.exercises.length,
                           exercise: widget.program.exercises[_videoIndex],
-                          duration: _duration,
-                          onDurationChange: _updateDuration,
                           onVideoEnds: _onVideoEnds,
                           onPrevPressed: _videoIndex == 0 ? null : _onPrevPressed,
                           countDownController: _countDownController,
+                          videoPageController: _videoPageController,
                         ),
                       ),
                       if (isPortrait)
@@ -263,7 +252,7 @@ class _VideoPageState extends State<VideoPage> with WidgetsBindingObserver {
 
     _disposeVideoController();
 
-    WidgetsBinding.instance.removeObserver(this);
+    _videoPageController.dispose();
 
     super.dispose();
   }

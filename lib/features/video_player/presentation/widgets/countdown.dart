@@ -1,13 +1,14 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/video_player/infrastructure/video_page_controller.dart';
 
 class CountDown extends StatelessWidget {
   final CountDownController controller;
   final int duration;
   final VoidCallback onComplete;
   final bool isPortraitOrientation;
-  final Function(Duration value) onDurationChange;
+  final VideoPageController videoPageController;
 
   const CountDown({
     super.key,
@@ -15,11 +16,10 @@ class CountDown extends StatelessWidget {
     required this.duration,
     required this.onComplete,
     required this.isPortraitOrientation,
-    required this.onDurationChange,
+    required this.videoPageController,
   });
 
   _onTimeFormatterHandler(defaultFormatterFunction, duration) {
-    onDurationChange(duration);
     if (duration.inSeconds == 0) {
       return "0";
     } else {
@@ -27,11 +27,13 @@ class CountDown extends StatelessWidget {
     }
   }
 
+  int get initialDuration => duration - videoPageController.countDownTimer.value;
+
   @override
   Widget build(BuildContext context) {
     return CircularCountDownTimer(
       duration: duration,
-      initialDuration: 0,
+      initialDuration: initialDuration,
       controller: controller,
       width: isPortraitOrientation ? 40 : 60,
       height: isPortraitOrientation ? 40 : 60,

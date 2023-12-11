@@ -160,6 +160,8 @@ class AuthenticationState with _$AuthenticationState {
 
   bool get isPhysicalActivitiesUnlocked => unlockedFeatures.contains(UnlockedFeatureType.physicalActivities);
 
+  bool get isAssignmentsUnlocked => true; //unlockedFeatures.contains(UnlockedFeatureType.assignments);
+
   bool get isUserGrouped => groupingState == UserGroupingState.grouped;
 
   bool get isMixedGender {

@@ -30,6 +30,8 @@ class AppLimitTextField extends StatefulWidget {
   final bool expands;
   final int? minLines;
   final bool enabled;
+  final Color? focusedColor;
+  final Color? cursorColor;
 
   const AppLimitTextField({
     super.key,
@@ -58,6 +60,8 @@ class AppLimitTextField extends StatefulWidget {
     this.expands = false,
     this.minLines,
     this.enabled = true,
+    this.focusedColor,
+    this.cursorColor,
   });
 
   @override
@@ -152,7 +156,7 @@ class _AppLimitTextFieldState extends State<AppLimitTextField> {
             textInputAction: widget.textInputAction ?? TextInputAction.next,
             onSubmitted: widget.onSubmitted,
             expands: widget.expands,
-            cursorColor: AppColors.redFocus,
+            cursorColor: widget.cursorColor ?? AppColors.redFocus,
             decoration: AppInputDecoration.counter(
               context: context,
               state: decorationState,
@@ -161,7 +165,9 @@ class _AppLimitTextFieldState extends State<AppLimitTextField> {
               labelText: widget.labelText,
               hintText: widget.hintText,
               suffixIcon: widget.suffixIcon,
-              contentPadding: widget.contentPadding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              focusedColor: widget.focusedColor,
+              contentPadding:
+                  widget.contentPadding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             ),
           ),
         );

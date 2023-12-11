@@ -92,7 +92,9 @@ class _QuizzesIntroPageState extends State<QuizzesIntroPage> {
                                 var quizzes = state.data.quizzes;
                                 return Text(
                                   quizzes.isNotEmpty ? quizzes.first.instruction : '',
-                                  style: Theme.of(context).textTheme.bodyLarge,
+                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                 );
                               },
                             ),
@@ -127,6 +129,6 @@ class _QuizzesIntroPageState extends State<QuizzesIntroPage> {
   }
 
   void _onStart(BuildContext context) {
-    context.router.push(const QuizzesQuestionsRoute());
+    context.router.push(QuizzesQuestionsRoute(step: 0));
   }
 }

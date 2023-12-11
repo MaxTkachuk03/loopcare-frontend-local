@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/features/education/application/dto/lesson_page
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
+import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_type.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'education_lesson_event.dart';

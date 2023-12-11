@@ -53,6 +53,18 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
   bool get _isGroupSessionsDisabled => context.read<AuthenticationCubit>().state.disableGroupSessions;
 
+  String _savedComplitedText(EducationLessonState state) {
+    if (state.data.assignmentsQuestions.isNotEmpty) {
+      if (state.data.assignmentsQuestionsWithAnswers.isNotEmpty) {
+        return '${LocalizedTexts.saved.translation}!'.capitalize();
+      } else {
+        return '${LocalizedTexts.completed.translation}!'.capitalize();
+      }
+    }
+
+    return '${LocalizedTexts.completed.translation}!'.capitalize();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<EducationLessonBloc, EducationLessonState>(
@@ -106,10 +118,15 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                       const SizedBox(height: 36.0),
                       const Image(image: AppImages.lessonComplete),
                       const SizedBox(height: 32.0),
-                      Text(
-                        '${LocalizedTexts.completed.translation}!'.capitalize(),
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600),
-                        textAlign: TextAlign.center,
+                      BlocBuilder<EducationLessonBloc, EducationLessonState>(
+                        builder: (BuildContext context, state) {
+                          return Text(
+                            _savedComplitedText(state),
+                            style:
+                                Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600),
+                            textAlign: TextAlign.center,
+                          );
+                        },
                       ),
                       BlocBuilder<EducationLessonBloc, EducationLessonState>(
                         builder: (BuildContext context, state) {
@@ -121,17 +138,14 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                                   LocalizedTexts.completedLessonDesc,
                                   textAlign: TextAlign.center,
                                 ).tr(),
-                                const SizedBox(
-                                  height: 40,
-                                ),
+                                const SizedBox(height: 40),
                                 const UnlockBloc(),
-                                const SizedBox(
-                                  height: 30,
-                                ),
+                                const SizedBox(height: 30),
                               ],
                             );
                           }
-                          if (state.data.questions.isNotEmpty) {
+                          if (state.data.assignmentsQuestions.isNotEmpty &&
+                              state.data.assignmentsQuestionsWithAnswers.isEmpty) {
                             return LessonQuestionsAddedToCalendar(
                               completedAt: state.data.lessonCompletedDate ?? DateTime.now(),
                               onBtnPressed: () => _startLessonQuestion(context, state.data.lessonId),

@@ -114,7 +114,9 @@ class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
                                     const SizedBox(height: 32.0),
                                     Text(
                                       questions.isNotEmpty ? questions.first.instruction : '',
-                                      style: Theme.of(context).textTheme.bodyLarge,
+                                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                     ),
                                   ],
                                 );

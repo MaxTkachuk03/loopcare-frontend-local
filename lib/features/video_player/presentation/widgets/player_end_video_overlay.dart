@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
+import 'package:loopcare_frontend/features/video_player/infrastructure/video_page_controller.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/countdown.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/program_difficulty_chip.dart';
 import 'package:video_player/video_player.dart';
@@ -20,8 +21,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
   final bool isLastVideo;
   final String programDifficulty;
   final int programLength;
-  final int duration;
-  final Function(Duration value) onDurationChange;
+  final VideoPageController videoPageController;
 
   const PlayerEndVideoOverlay({
     super.key,
@@ -34,8 +34,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
     required this.programDifficulty,
     required this.programLength,
     required this.isLastVideo,
-    required this.duration,
-    required this.onDurationChange,
+    required this.videoPageController,
   });
 
   bool get _isPortraitOrientation {
@@ -43,11 +42,11 @@ class PlayerEndVideoOverlay extends StatelessWidget {
   }
 
   void _onRepeatHandler() {
+    videoPageController.setCountDownTimer(exercise.delayBeforeNext);
     controller.play();
   }
 
   void _onNextHandler() {
-    countDownController.pause();
     onVideoEnds();
   }
 
@@ -138,7 +137,8 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                     ElevatedButton(
                       onPressed: _onNextHandler,
                       style: ButtonStyle(
-                        minimumSize: MaterialStateProperty.all(Size(100, _isPortraitOrientation ? 32.0 : 52.0)),
+                        minimumSize:
+                            MaterialStateProperty.all(Size(100, _isPortraitOrientation ? 32.0 : 52.0)),
                         backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
                       ),
                       child: Text(
@@ -166,10 +166,10 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                       const SizedBox(height: 20.0),
                       CountDown(
                         controller: countDownController,
-                        duration: duration,
-                        onDurationChange: onDurationChange,
+                        duration: exercise.delayBeforeNext,
                         onComplete: onVideoEnds,
                         isPortraitOrientation: _isPortraitOrientation,
+                        videoPageController: videoPageController,
                       ),
                     ],
                   ),

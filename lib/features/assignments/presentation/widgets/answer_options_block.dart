@@ -27,7 +27,7 @@ class AnswerOptionsBlock extends StatelessWidget {
       children: [
         Text(
           question.question ?? '',
-          style: Theme.of(context).textTheme.bodyLarge,
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 30.0),
         ListView.separated(

@@ -16,7 +16,7 @@ class QuizzesStateData with _$QuizzesStateData {
   const QuizzesStateData._();
 
   const factory QuizzesStateData({
-    @Default(0) int currentStep,
+    @Default(0) int lessonId,
     @Default([]) List<LessonQuestion> quizzes,
     @Default(false) bool isLoading,
     @Default(null) RequestError? error,
@@ -27,8 +27,6 @@ class QuizzesStateData with _$QuizzesStateData {
         notFound: (s) => s.error.message,
         orElse: () => null,
       );
-
-  LessonQuestion get qustionForCurrentStep => quizzes.get(currentStep);
 
   LessonQuestion questionForStep(int step) => quizzes.get(step);
 }

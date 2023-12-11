@@ -5,21 +5,39 @@ import 'package:loopcare_frontend/features/physical_activities/presentation/prog
 class ScoringScale extends StatelessWidget {
   final int? selectedScore;
   final void Function(int tabIndex) onScoreTap;
+  final int? scaleSize;
+  final List<String>? labels;
+  final Color? borderColor;
 
-  const ScoringScale({super.key, required this.selectedScore, required this.onScoreTap});
+  const ScoringScale({
+    super.key,
+    required this.selectedScore,
+    required this.onScoreTap,
+    this.scaleSize,
+    this.labels,
+    this.borderColor,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(
-        10,
-        (index) => index + 1 == selectedScore
-            ? Expanded(child: SelectedCell(index: index + 1))
+        scaleSize ?? 10,
+        (index) => index == selectedScore
+            ? Expanded(
+                child: SelectedCell(
+                  index: index,
+                  label: labels?.elementAt(index),
+                ),
+              )
             : Expanded(
                 child: RegularCell(
-                  index: index + 1,
+                  index: index,
                   onPress: onScoreTap,
+                  scaleSize: scaleSize,
+                  label: labels?.elementAt(index),
+                  borderColor: borderColor,
                 ),
               ),
       ),

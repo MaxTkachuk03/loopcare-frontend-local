@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/assignments/infrastructure/answer_widget_type.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_option.dart';
+import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_scale.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_text.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_answer_type.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page_mode.dart';
@@ -32,8 +33,6 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
   late QuizzesController _controller;
   QuestionsPageMode mode = const QuestionsPageMode.askQuestion();
   late AnswerWidgetType widgetType;
-
-  // int _step = 0;
   int _totalSteps = 1;
 
   @override
@@ -76,8 +75,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
   }
 
   void _onNextHandler() {
-    // setStep(widget.step);
-    if (widget.step == _totalSteps) {
+    if (widget.step == (_totalSteps - 1)) {
       context.router.pushNamed(AppRoutes.lessonComplete);
     } else {
       context.router.push(AssignmentsQuestionsRoute(step: widget.step + 1));
@@ -85,15 +83,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
   }
 
   void _onPrevHandler() {
-    // if (widget.step == 0) {
     context.router.pop();
-    // } else {
-    //   setState(() {
-    //     _step--;
-
-    //     setStep(_step);
-    //   });
-    // }
   }
 
   void _saveTextField(int lessonId) {
@@ -145,11 +135,46 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
     _onNextHandler();
   }
 
+  void _saveScaleField(int lessonId) {
+    _controller.isEnableSend.value = false;
+
+    var questionsBloc = context.read<AssignmentsBloc>();
+    var question = questionsBloc.state.data.questionForStep(widget.step);
+
+    var selectScaleIndex = _controller.selectScaleValue.value;
+
+    if (selectScaleIndex != null) {
+      var lessonQuestionOptionId = question.lessonQuestionOptions.elementAt(selectScaleIndex).id;
+
+      if (question.questionAnswer != null) {
+        questionsBloc.add(
+          AssignmentsEvent.updateLessonAnswerOption(
+            question.id,
+            lessonQuestionOptionIds: [lessonQuestionOptionId],
+          ),
+        );
+      } else {
+        questionsBloc.add(
+          AssignmentsEvent.saveLessonAnswerOption(
+            question.id,
+            lessonQuestionOptionIds: [lessonQuestionOptionId],
+          ),
+        );
+      }
+    }
+
+    _onNextHandler();
+  }
+
+  void _onSelectScaleHandler(int value) {
+    setState(() {
+      _controller.setScaleValue(value);
+    });
+  }
+
   void setStep(int currStep) {
     setState(() {
       var questionsBloc = context.read<AssignmentsBloc>();
-      questionsBloc.add(AssignmentsEvent.setCurrentStep(currStep));
-
       var question = questionsBloc.state.data.questionForStep(widget.step);
 
       mode = question.questionAnswer != null
@@ -162,6 +187,9 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
         } else if (question.answerType == LessonQuestionAnswerType.multipleChoiceMultiple ||
             question.answerType == LessonQuestionAnswerType.multipleChoiceSingle) {
           _controller.setOptionValue(question.lessonQuestionAnswersId);
+        } else if (question.answerType == LessonQuestionAnswerType.scale) {
+          _controller
+              .setScaleValue(question.lessonQuestionOptionIndexById(question.lessonQuestionAnswersId.first));
         }
       }
 
@@ -173,8 +201,12 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
         multipleChoiceValidation: (_) => const SizedBox(
           child: Text('multipleChoiceValidation'),
         ),
-        scale: (_) => const SizedBox(
-          child: Text('scale'),
+        scale: (_) => AnswerScale(
+          controller: _controller,
+          question: state.data.questionForStep(widget.step),
+          onNextPressed: () => _saveScaleField(state.data.lessonId),
+          onSelectValue: _onSelectScaleHandler,
+          selectedScore: _controller.selectScaleValue.value,
         ),
         multipleChoiceMultiple: (_) => AnswerOption(
           controller: _controller,
@@ -185,8 +217,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
         multipleChoiceSingle: (_) => AnswerOption(
           controller: _controller,
           question: state.data.questionForStep(widget.step),
-          onNextPressed: () =>
-              _controller.isSingleChoiceValid ? _saveOptionsField(state.data.lessonId) : null,
+          onNextPressed: () => _saveOptionsField(state.data.lessonId),
           onSelectOptionValue: _onSelectOptionHandler,
         ),
         text: (_) => AnswerText(
