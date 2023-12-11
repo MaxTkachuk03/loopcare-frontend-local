@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/dto/custom_activity_body.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/dto/log_program_body.dart';
@@ -13,9 +13,7 @@ import 'package:loopcare_frontend/features/physical_activities/domain/program_pl
 import 'package:loopcare_frontend/features/physical_activities/domain/program_type.dart';
 
 part 'physical_programs_bloc.freezed.dart';
-
 part 'physical_programs_event.dart';
-
 part 'physical_programs_state.dart';
 
 @singleton
@@ -24,6 +22,7 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
 
   PhysicalProgramsBloc(this._physicalActivitiesService)
       : super(const PhysicalProgramsState.initial(PhysicalProgramsData())) {
+    on<_Init>(_onInit);
     on<_CreateCustomActivity>(_onCreateCustomActivity);
     on<_SetProgramType>(_onSetProgramType);
     on<_SetCurrentProgram>(_onSetCurrentProgram);
@@ -31,6 +30,13 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
     on<_SetProgramDifficulty>(_onSetProgramDifficulty);
     on<_LogAssessment>(_onLogAssessment);
     on<_GetAllPrograms>(_onGetAllPrograms);
+  }
+
+  FutureOr<void> _onInit(
+    _Init event,
+    Emitter<PhysicalProgramsState> emit,
+  ) async {
+    emit(const PhysicalProgramsState.initial(PhysicalProgramsData()));
   }
 
   FutureOr<void> _onGetAllPrograms(
