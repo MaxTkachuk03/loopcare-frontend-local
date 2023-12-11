@@ -43,7 +43,7 @@ class RegularCell extends StatelessWidget {
     );
   }
 
-  BorderRadiusGeometry? _getBorderRadius(int index, int maxIndex) {
+  BorderRadiusGeometry _getBorderRadius(int index, int maxIndex) {
     if (index == 0) {
       return const BorderRadius.only(
         topLeft: Radius.circular(5.0),

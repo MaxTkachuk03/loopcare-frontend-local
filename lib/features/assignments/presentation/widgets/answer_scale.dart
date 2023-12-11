@@ -72,7 +72,7 @@ class _AnswerScaleState extends State<AnswerScale> {
                         onScoreTap: widget.onSelectValue,
                         scaleSize: widget.question.lessonQuestionOptions.length,
                         labels: widget.question.lessonQuestionOptionsLabels,
-                        borderColor: AppColors.FF404040,
+                        borderColor: AppColors.ff404040,
                       ),
                       const SizedBox(height: 14.0),
                       Row(
