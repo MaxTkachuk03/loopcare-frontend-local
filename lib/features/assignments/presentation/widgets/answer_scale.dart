@@ -12,6 +12,7 @@ class AnswerScale extends StatefulWidget {
   final VoidCallback onNextPressed;
   final void Function(int id) onSelectValue;
   final int? selectedScore;
+  final String? feedbackText;
 
   const AnswerScale({
     super.key,
@@ -20,6 +21,7 @@ class AnswerScale extends StatefulWidget {
     required this.onNextPressed,
     required this.onSelectValue,
     this.selectedScore,
+    this.feedbackText,
   });
 
   @override
@@ -92,7 +94,15 @@ class _AnswerScaleState extends State<AnswerScale> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 14.0),
+                      if (widget.feedbackText != null) const SizedBox(height: 24.0),
+                      if (widget.feedbackText != null)
+                        Text(
+                          widget.feedbackText ?? '',
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.blueDark,
+                              ),
+                        ),
                     ],
                   ),
                 ),

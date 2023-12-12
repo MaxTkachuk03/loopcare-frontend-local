@@ -143,6 +143,8 @@ class AppRoutes {
   static const String quizesQuestions = '/quizzes-questions';
   static const String assignmentsIntro = '/assignments-intro';
   static const String assignmentsQuestions = '/assignments-questions';
+  static const String myAssignments = '/my-assignments';
+  static const String assignmentsSaved = '/assignments-saved';
 
   AppRoutes._();
 }
