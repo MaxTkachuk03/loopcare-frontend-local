@@ -30,8 +30,15 @@ class LessonQuestion with _$LessonQuestion {
     required List<LessonQuestionOption> lessonQuestionOptions,
     required List<LessonQuestionFeedback> lessonQuestionFeedbacks,
     required List<LessonQuestionAnswer> lessonQuestionAnswers,
-    required DateTime? createdAt,
+    required DateTime? openedAt,
+    required DateTime? answeredAt,
+    required int lessonId,
   }) = _LessonQuestion;
+
+  LessonQuestionFeedback? lessonQuestionFeedback(int lessonQuestionId, int value) =>
+      lessonQuestionFeedbacks.firstWhereOrNull(
+        (el) => (el.lessonQuestionId == id) && (value >= el.minValue && value <= el.maxValue),
+      );
 
   int lessonQuestionOptionIndexById(int id) {
     var lessonQuestionOption = lessonQuestionOptions.firstWhere((element) => element.id == id);

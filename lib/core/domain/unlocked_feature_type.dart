@@ -2,5 +2,6 @@ enum UnlockedFeatureType {
   grouping,
   physicalActivities,
   meals,
-  unknown
+  assignments,
+  unknown,
 }

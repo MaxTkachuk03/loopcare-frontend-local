@@ -14,10 +14,12 @@ import 'package:loopcare_frontend/features/physical_activities/presentation/pref
 
 class AssignmentsIntroPage extends StatefulWidget {
   final int lessonId;
+  final bool fromDashboard;
 
   const AssignmentsIntroPage({
     super.key,
     required this.lessonId,
+    required this.fromDashboard,
   });
 
   @override
@@ -41,6 +43,13 @@ class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
         );
 
     context.router.pushNamed('/lesson/${widget.lessonId}/page/0');
+  }
+
+  void _onStart(BuildContext context) {
+    context.router.push(AssignmentsQuestionsRoute(
+      step: 0,
+      fromDashboard: widget.fromDashboard,
+    ));
   }
 
   @override
@@ -159,9 +168,5 @@ class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
         ),
       ),
     );
-  }
-
-  void _onStart(BuildContext context) {
-    context.router.push(AssignmentsQuestionsRoute(step: 0));
   }
 }

@@ -787,6 +787,11 @@ class LocalizedTexts {
   static const String allAssignmentsCompleted = "allAssignmentsCompleted";
   static const String errorOpenTextMessage = "errorOpenTextMessage";
   static const String saved = "saved";
+  static const String thisWeek = "thisWeek";
+  static const String doneToday = "doneToday";
+  static const String completeBefore = "completeBefore";
+  static const String completedOn = "completedOn";
+  static const String pastAssignments = "pastAssignments";
 }
 
 extension StringX on String {
