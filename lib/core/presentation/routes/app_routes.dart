@@ -144,5 +144,8 @@ class AppRoutes {
   static const String assignmentsIntro = '/assignments-intro';
   static const String assignmentsQuestions = '/assignments-questions';
 
+  // New theme
+  static const String theme = '/theme';
+
   AppRoutes._();
 }

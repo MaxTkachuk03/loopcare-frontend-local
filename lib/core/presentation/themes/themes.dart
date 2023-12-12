@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 part 'app_colors.dart';
 part 'theme_constants.dart';
@@ -8,15 +9,12 @@ final ThemeData appThemeData = ThemeData(
   fontFamily: ThemeConstants.openSansFontFamily,
   colorScheme: _getColorScheme(),
   appBarTheme: _getAppBarTheme(),
-  scaffoldBackgroundColor: AppColors.bgGreen,
   inputDecorationTheme: _getInputDecorationTheme(),
   elevatedButtonTheme: _getElevatedButtonTheme(),
   outlinedButtonTheme: _getOutlinedButtonTheme(),
   tabBarTheme: _getTabBarTheme(),
   textTheme: _getTextTheme(),
-  textSelectionTheme: const TextSelectionThemeData(
-    cursorColor: AppColors.black,
-  ),
+  textSelectionTheme: const TextSelectionThemeData(cursorColor: AppColors.black),
   checkboxTheme: _getCheckboxTheme(),
   highlightColor: Colors.transparent,
   disabledColor: AppColors.greyMid,
@@ -38,21 +36,10 @@ ColorScheme _getColorScheme() {
   );
 }
 
-AppBarTheme _getAppBarTheme() {
-  return const AppBarTheme(
-    backgroundColor: Colors.transparent,
-    titleTextStyle: TextStyle(
-      color: AppColors.darkGreen,
-      fontSize: ThemeConstants.fontSize14,
-      fontWeight: FontWeight.w400,
-    ),
-    centerTitle: true,
-    elevation: 0,
-    iconTheme: IconThemeData(
-      color: AppColors.darkGreen,
-    ),
-  );
-}
+AppBarTheme _getAppBarTheme() => const AppBarTheme(
+      titleTextStyle: TextStyle(fontSize: ThemeConstants.fontSize18, fontWeight: FontWeight.w600),
+      centerTitle: true,
+    );
 
 InputDecorationTheme _getInputDecorationTheme() {
   return const InputDecorationTheme(
