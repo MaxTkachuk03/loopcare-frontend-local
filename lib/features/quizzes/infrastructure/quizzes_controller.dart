@@ -25,7 +25,9 @@ class QuizzesController {
 
   bool get isFormValid => isCorrect.value = (selectLessonValue.value?.isCorrect ?? false);
 
-  bool get isSingleChoiceValid => selectOptionValues.value.isNotEmpty;
+  bool get isOptionChoiceValid => selectOptionValues.value.isNotEmpty;
+
+  bool get isScaleChoiceValid => selectScaleValue.value != null;
 
   void setLessonValue(LessonQuestionOption item) => selectLessonValue.value = item;
 

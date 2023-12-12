@@ -701,9 +701,14 @@
   "assignmentAddedText": "Please aim to finish it before {date}",
   "startNow": "Start now",
   "assignment": "Assignment",
-  "assignments": "Assignmens",
+  "assignments": "Assignments",
   "seeLesson": "See lesson",
   "allAssignmentsCompleted": "All assignments have been completed",
   "errorOpenTextMessage": "Text message must be at least 1 symbol and less than 20000 symbols",
-  "saved": "saved"
+  "saved": "saved",
+  "thisWeek": "this week",
+  "doneToday": "Done today",
+  "completeBefore": "Complete before {date}",
+  "completedOn": "Completed on {date}",
+  "pastAssignments": "Past assignments"
 }

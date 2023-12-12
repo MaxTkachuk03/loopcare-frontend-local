@@ -30,16 +30,67 @@ class AssignmentsStateData with _$AssignmentsStateData {
 
   LessonQuestion questionForStep(int step) => questions.get(step);
 
+  List<LessonQuestion> pastQuestions(DateTime selectedDay) {
+    return questions
+        .where(
+          (element) =>
+              element.openedAt?.inRange(
+                selectedDay,
+                DateTime.now().add(const Duration(days: 7)),
+              ) ??
+              false,
+        )
+        .toList();
+  }
+
   List<LessonQuestion> questionsForCurrentWeek(DateTime selectedDay) {
     return questions
         .where(
           (element) =>
-              element.createdAt?.inRange(
+              element.openedAt?.inRange(
                 selectedDay.firstDayOfCurrentWeek.subtract(const Duration(days: 7)),
                 selectedDay.lastDayOfCurrentWeek,
               ) ??
               false,
         )
         .toList();
+  }
+
+  List<LessonQuestion> openedQuestionsForCurrentWeek(DateTime selectedDay) {
+    return questions
+        .where(
+          (element) =>
+              (element.openedAt?.inRange(
+                    selectedDay.firstDayOfCurrentWeek.subtract(const Duration(days: 7)),
+                    selectedDay.lastDayOfCurrentWeek,
+                  ) ??
+                  false) &&
+              element.questionAnswer == null,
+        )
+        .toList();
+  }
+
+  List<LessonQuestion> doneTodayQuestions(DateTime selectedDay) {
+    return questions
+        .where(
+          (element) => element.answeredAt?.isSameDate(selectedDay) ?? false,
+        )
+        .toList();
+  }
+
+  List<LessonQuestion> uniqueLessonsQuestions(
+    List<LessonQuestion> data,
+  ) {
+    List<LessonQuestion> retList = [];
+    List<int> lessonsList = [];
+
+    for (var element in data) {
+      if (lessonsList.contains(element.lessonId)) continue;
+
+      lessonsList.add(element.lessonId);
+      retList.add(element);
+    }
+
+    return retList;
   }
 }

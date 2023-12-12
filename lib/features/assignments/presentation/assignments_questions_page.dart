@@ -14,15 +14,19 @@ import 'package:loopcare_frontend/features/assignments/infrastructure/answer_wid
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_option.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_scale.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_text.dart';
+import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_answer_type.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page_mode.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/quizzes_controller.dart';
 
 class AssignmentsQuestionsPage extends StatefulWidget {
   final int step;
+  final bool fromDashboard;
+
   const AssignmentsQuestionsPage({
     super.key,
     required this.step,
+    required this.fromDashboard,
   });
 
   @override
@@ -76,9 +80,18 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
 
   void _onNextHandler() {
     if (widget.step == (_totalSteps - 1)) {
-      context.router.pushNamed(AppRoutes.lessonComplete);
+      if (widget.fromDashboard) {
+        context.router.pushNamed(AppRoutes.assignmentsSaved);
+      } else {
+        context.router.pushNamed(AppRoutes.lessonComplete);
+      }
     } else {
-      context.router.push(AssignmentsQuestionsRoute(step: widget.step + 1));
+      context.router.push(
+        AssignmentsQuestionsRoute(
+          step: widget.step + 1,
+          fromDashboard: widget.fromDashboard,
+        ),
+      );
     }
   }
 
@@ -172,6 +185,12 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
     });
   }
 
+  String? _feedbackText(int? value, LessonQuestion question) {
+    if (value == null) return null;
+    int label = int.tryParse(question.lessonQuestionOptionsLabels[value]) ?? int.parse('${value + 1}');
+    return question.lessonQuestionFeedback(question.id, label)?.text;
+  }
+
   void setStep(int currStep) {
     setState(() {
       var questionsBloc = context.read<AssignmentsBloc>();
@@ -204,20 +223,24 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
         scale: (_) => AnswerScale(
           controller: _controller,
           question: state.data.questionForStep(widget.step),
-          onNextPressed: () => _saveScaleField(state.data.lessonId),
+          onNextPressed: () => _controller.isScaleChoiceValid ? _saveScaleField(state.data.lessonId) : null,
           onSelectValue: _onSelectScaleHandler,
           selectedScore: _controller.selectScaleValue.value,
+          feedbackText:
+              _feedbackText(_controller.selectScaleValue.value, state.data.questionForStep(widget.step)),
         ),
         multipleChoiceMultiple: (_) => AnswerOption(
           controller: _controller,
           question: state.data.questionForStep(widget.step),
-          onNextPressed: () => _saveOptionsField(state.data.lessonId),
+          onNextPressed: () =>
+              _controller.isOptionChoiceValid ? _saveOptionsField(state.data.lessonId) : null,
           onSelectOptionValue: _onSelectOptionHandler,
         ),
         multipleChoiceSingle: (_) => AnswerOption(
           controller: _controller,
           question: state.data.questionForStep(widget.step),
-          onNextPressed: () => _saveOptionsField(state.data.lessonId),
+          onNextPressed: () =>
+              _controller.isOptionChoiceValid ? _saveOptionsField(state.data.lessonId) : null,
           onSelectOptionValue: _onSelectOptionHandler,
         ),
         text: (_) => AnswerText(

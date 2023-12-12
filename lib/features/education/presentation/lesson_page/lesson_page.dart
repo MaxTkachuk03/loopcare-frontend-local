@@ -69,6 +69,10 @@ class _LessonPageState extends State<LessonPage> {
         return;
       }
 
+      if (extraAction == ExtraActionTypes.unlockAssignments) {
+        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.assignments);
+      }
+
       if (lessonBloc.state.data.questions.isEmpty ||
           lessonBloc.state.data.questions.first.type != LessonQuestionType.quiz) {
         context.router.pushNamed(AppRoutes.lessonComplete);

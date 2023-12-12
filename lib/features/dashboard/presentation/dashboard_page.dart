@@ -108,7 +108,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     if (context.read<AuthenticationCubit>().state.isAssignmentsUnlocked) {
       context.read<AssignmentsBloc>().add(
             AssignmentsEvent.getAllLessonQuestions(
-              _selectedDay.firstDayOfCurrentWeek,
+              _selectedDay.firstDayOfCurrentWeek.subtract(const Duration(days: 7)),
               _selectedDay.lastDayOfCurrentWeek,
             ),
           );

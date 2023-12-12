@@ -90,15 +90,16 @@ extension DateTimeExtension on DateTime {
     return DateFormat('d', 'en_EN').format(this);
   }
 
+  String get plusWeekShortVersion {
+    return add(const Duration(days: 7)).dayWithMonthWithoutLeadingZero;
+  }
+
   int get secondNextWeekNumber {
-    final now = this;
-    return now.add(const Duration(days: 14)).weekNumber;
+    return add(const Duration(days: 14)).weekNumber;
   }
 
   int get nextWeekNumber {
-    final now = this;
-
-    return now.add(const Duration(days: 7)).weekNumber;
+    return add(const Duration(days: 7)).weekNumber;
   }
 
   int get nextWeekYear {
