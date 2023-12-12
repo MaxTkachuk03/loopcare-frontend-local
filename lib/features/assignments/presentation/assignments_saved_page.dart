@@ -15,7 +15,7 @@ import 'package:loopcare_frontend/features/education/application/education_lesso
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 
 class AssignmentsSavedPage extends StatelessWidget {
-  const AssignmentsSavedPage({Key? key}) : super(key: key);
+  const AssignmentsSavedPage({super.key});
 
   _onPressHandler(BuildContext context) {
     context.read<DashboardEducationBloc>().add(const DashboardEducationEvent.getDashboardLessons());
@@ -24,13 +24,7 @@ class AssignmentsSavedPage extends StatelessWidget {
 
   _onErrorListener(BuildContext context, EducationLessonState state) {
     final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
-
-    showAppSnackBar(
-      context: context,
-      text: errorMessage,
-      background: AppColors.red,
-      textColor: Colors.white,
-    );
+    context.showError(content: Text(errorMessage));
   }
 
   @override
