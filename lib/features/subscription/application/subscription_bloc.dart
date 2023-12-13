@@ -19,6 +19,7 @@ import 'package:loopcare_frontend/features/subscription/application/purchase_ser
 import 'package:loopcare_frontend/features/subscription/application/subscription_service.dart';
 import 'package:loopcare_frontend/features/subscription/donain/purchased_product.dart';
 import 'package:loopcare_frontend/features/subscription/donain/subscription_state.dart';
+import 'package:loopcare_frontend/features/subscription/donain/valid_status.dart';
 import 'package:loopcare_frontend/features/subscription/donain/verify_purchase_data_android.dart';
 import 'package:loopcare_frontend/features/subscription/donain/verify_purchase_data_ios.dart';
 import 'package:loopcare_frontend/features/subscription/utils/date_utils.dart';
@@ -132,7 +133,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
 
   Future<void> _verifyOldPurchase(PurchaseDetails? oldPurchaseDetails, ProductDetails product) async {
     isValidatePastIOSPurchase = false;
-    late Either<RequestError, Subscription> response;
+    late Either<RequestError, ValidStatus> response;
     if (oldPurchaseDetails == null) {
       response = await _apiVerifiedEmpty();
     } else {
@@ -141,11 +142,14 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     response.fold((error) {
       add(SubscriptionEvent.errorVerifyPurchase(error));
     }, (r) {
-      add(SubscriptionEvent.buySubscription(product));
+      r.valid ?? true
+          ? add(SubscriptionEvent.buySubscription(product))
+          : add(const SubscriptionEvent.errorVerifyPurchase(
+              RequestError.streamSubscription('Something went wrong with service, please try again')));
     });
   }
 
-  Future<Either<RequestError, Subscription>> _apiVerifiedEmpty() async {
+  Future<Either<RequestError, ValidStatus>> _apiVerifiedEmpty() async {
     final vendor = Platform.isIOS ? 'ios' : 'android';
     var response = Platform.isIOS
         ? await _purchaseService.verifyPurchaseIOS(null, vendor)
@@ -153,7 +157,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     return response;
   }
 
-  Future<Either<RequestError, Subscription>> _apiVerified(PurchaseDetails purchaseDetails) async {
+  Future<Either<RequestError, ValidStatus>> _apiVerified(PurchaseDetails purchaseDetails) async {
     var isIOS = purchaseDetails is AppStorePurchaseDetails;
     final vendor = isIOS ? 'ios' : 'android';
     final identifier = _getTransactionId(purchaseDetails) ?? '';
