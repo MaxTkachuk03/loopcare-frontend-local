@@ -19,5 +19,9 @@ class ThemeConstants {
   static const String bitterFontFamily = 'Bitter';
   static const String openSansFontFamily = 'OpenSans';
 
+  static const double buttonHeight = 53;
+  static const double buttonSmallHeight = 35;
+  static const double outlinedButtonBorderWidth = 2;
+
   ThemeConstants._();
 }
