@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -118,7 +117,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     var isIOS = purchaseDetails is AppStorePurchaseDetails;
     final vendor = isIOS ? 'ios' : 'android';
     final identifier = _getTransactionId(purchaseDetails) ?? '';
-    log(purchaseDetails.verificationData.serverVerificationData);
     var response = isIOS
         ? await _purchaseService.purchaseIOS(
             VerifyIOSPurchaseData(

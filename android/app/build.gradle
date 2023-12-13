@@ -32,11 +32,14 @@ apply plugin: 'com.google.firebase.crashlytics'
 def keystorePropertiesFile = project.file("keystore.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-
+ext {
+    Java_Version = JavaVersion.VERSION_1_8
+    Kotlin_Language_Version = '1.7'
+    Kotlin_Plugin_Version = '1.7.10'
+}
 android {
     compileSdkVersion 33
     ndkVersion "25.1.8937393"
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -111,6 +114,7 @@ android {
             resValue "string", "app_name", "LeanOnMe"
         }
     }
+    namespace 'com.loopcare.leanonme.app'
 }
 
 flutter {
@@ -122,6 +126,7 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     implementation "com.android.billingclient:billing:6.0.1"
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation "us.zoom.videosdk:ZoomVideoSDK:1.7.10"
