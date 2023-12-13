@@ -38,7 +38,7 @@ class _AnswerScaleState extends State<AnswerScale> {
         padding: const EdgeInsets.symmetric(vertical: 30.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
