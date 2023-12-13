@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
@@ -120,8 +121,6 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
         ),
       );
     }
-
-    _onNextHandler();
   }
 
   void _saveOptionsField(int lessonId) {
@@ -144,8 +143,6 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
         ),
       );
     }
-
-    _onNextHandler();
   }
 
   void _saveScaleField(int lessonId) {
@@ -175,8 +172,34 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
         );
       }
     }
+  }
 
+  void _onErrorHandler(AssignmentsState state) {
+    final String? errorMessage = state.data.error?.maybeMap(
+      unprocessableEntity: (s) => s.error.message,
+      orElse: () => LocalizedTexts.somethingWentWrong.tr(),
+    );
+
+    context.showErrorBar(
+      content: Text(errorMessage ?? ''),
+      position: FlashPosition.top,
+    );
+  }
+
+  void _onUpdateHandler(AssignmentsState state) {
     _onNextHandler();
+  }
+
+  bool _nextStepListenWhen(AssignmentsState previous, AssignmentsState current) {
+    return previous is AssignmentsStateLoading && current is AssignmentsStateUpdated;
+  }
+
+  void _onStepChangeListener(BuildContext context, AssignmentsState state) {
+    state.maybeMap(
+      orElse: () => {},
+      error: _onErrorHandler,
+      updated: _onUpdateHandler,
+    );
   }
 
   void _onSelectScaleHandler(int value) {
@@ -224,7 +247,8 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
           controller: _controller,
           question: state.data.questionForStep(widget.step),
           onNextPressed: () => _controller.isScaleChoiceValid ? _saveScaleField(state.data.lessonId) : null,
-          onSelectValue: _onSelectScaleHandler,
+          onSelectValue: (int value) =>
+              state.data.questionForStep(widget.step).isEditable ? _onSelectScaleHandler : null,
           selectedScore: _controller.selectScaleValue.value,
           feedbackText:
               _feedbackText(_controller.selectScaleValue.value, state.data.questionForStep(widget.step)),
@@ -234,25 +258,29 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
           question: state.data.questionForStep(widget.step),
           onNextPressed: () =>
               _controller.isOptionChoiceValid ? _saveOptionsField(state.data.lessonId) : null,
-          onSelectOptionValue: _onSelectOptionHandler,
+          onSelectOptionValue: (int value) =>
+              state.data.questionForStep(widget.step).isEditable ? _onSelectOptionHandler : null,
         ),
         multipleChoiceSingle: (_) => AnswerOption(
           controller: _controller,
           question: state.data.questionForStep(widget.step),
           onNextPressed: () =>
               _controller.isOptionChoiceValid ? _saveOptionsField(state.data.lessonId) : null,
-          onSelectOptionValue: _onSelectOptionHandler,
+          onSelectOptionValue: (int value) =>
+              state.data.questionForStep(widget.step).isEditable ? _onSelectOptionHandler : null,
         ),
         text: (_) => AnswerText(
           mode: mode,
           controller: _controller,
           question: state.data.questionForStep(widget.step),
           onNextPressed: () => _controller.isOpenTextValid ? _saveTextField(state.data.lessonId) : null,
-          onAnswerPressed: () => setState(
-            () {
-              mode = const QuestionsPageMode.askQuestion();
-            },
-          ),
+          onAnswerPressed: () => state.data.questionForStep(widget.step).isEditable
+              ? setState(
+                  () {
+                    mode = const QuestionsPageMode.askQuestion();
+                  },
+                )
+              : null,
         ),
       );
 
@@ -297,16 +325,20 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
         color: _mainContainerBgColor,
         child: SafeArea(
           child: ScrollableContainer(
-            child: BlocBuilder<AssignmentsBloc, AssignmentsState>(
-              builder: (context, state) {
-                return state.maybeMap(
-                  loading: (_) => const Loader(),
-                  orElse: () => Container(
-                    color: AppColors.bgGreen,
-                    child: content(state),
-                  ),
-                );
-              },
+            child: BlocListener<AssignmentsBloc, AssignmentsState>(
+              listenWhen: _nextStepListenWhen,
+              listener: _onStepChangeListener,
+              child: BlocBuilder<AssignmentsBloc, AssignmentsState>(
+                builder: (context, state) {
+                  return state.maybeMap(
+                    loading: (_) => const Loader(),
+                    orElse: () => Container(
+                      color: AppColors.bgGreen,
+                      child: content(state),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ),

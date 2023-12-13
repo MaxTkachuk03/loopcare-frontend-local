@@ -61,11 +61,15 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
     context.showError(content: Text(s.data.errorMessage ?? LocalizedTexts.somethingWentWrong.translation));
   }
 
-  _onUpdateHandler(QuizzesState s) {
-    // context.router.pop();
+  void _onUpdateHandler(QuizzesState state) {
+    _onNextHandler();
   }
 
-  void _onChangeListener(BuildContext context, QuizzesState state) {
+  bool _nextStepListenWhen(QuizzesState previous, QuizzesState current) {
+    return previous is QuizzesStateLoading && current is QuizzesStateUpdated;
+  }
+
+  void _onStepChangeListener(BuildContext context, QuizzesState state) {
     state.maybeMap(
       orElse: () => {},
       error: _onErrorHandler,
@@ -126,8 +130,6 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
         ),
       );
     }
-
-    _onNextHandler();
   }
 
   get _mainContainerBgColor {
@@ -178,7 +180,8 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
         child: SafeArea(
           child: ScrollableContainer(
             child: BlocListener<QuizzesBloc, QuizzesState>(
-              listener: _onChangeListener,
+              listenWhen: _nextStepListenWhen,
+              listener: _onStepChangeListener,
               child: BlocBuilder<QuizzesBloc, QuizzesState>(
                 builder: (context, state) {
                   return state.maybeMap(
