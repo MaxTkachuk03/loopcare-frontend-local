@@ -34,7 +34,7 @@ class AnswerText extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

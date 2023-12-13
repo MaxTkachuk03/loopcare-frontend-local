@@ -181,10 +181,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
       orElse: () => LocalizedTexts.somethingWentWrong.tr(),
     );
 
-    context.showError(
-      content: Text(errorMessage ?? ''),
-      position: FlashPosition.top,
-    );
+    context.showError(content: Text(errorMessage ?? ''));
   }
 
   void _onUpdateHandler(AssignmentsState state) {
