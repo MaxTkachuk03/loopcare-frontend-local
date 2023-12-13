@@ -40,11 +40,11 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
   @override
   void initState() {
+    super.initState();
+
     WidgetsBinding.instance.addObserver(this);
 
     _loadInitialData();
-
-    super.initState();
   }
 
   @override

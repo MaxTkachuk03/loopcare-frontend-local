@@ -103,7 +103,7 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     );
     response.fold(
       (l) => emit(
-        EducationLessonState.errorGettingLessons(
+        EducationLessonState.contentLoaded(
           state.data.copyWith(
             error: l,
             isAudioLoading: false,
@@ -155,7 +155,7 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     );
     response.fold(
         (l) => emit(
-              EducationLessonState.errorGettingLessons(
+              EducationLessonState.contentLoaded(
                 state.data.copyWith(
                   error: l,
                   isSubtitleLoading: false,
