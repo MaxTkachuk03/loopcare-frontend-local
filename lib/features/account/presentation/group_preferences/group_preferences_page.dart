@@ -34,7 +34,7 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
     final genderPreferences = context.read<GroupPreferencesBloc>().state.data.genderPreferences;
 
     context.read<GroupPreferencesBloc>().add(GroupPreferencesEvent.setInitialData(
-          value: authState.groupingState == UserGroupingState.notGrouped ? YesNoAnswer.no : null,
+          value: authState.groupingState == UserGroupingState.unlockedPreferences ? YesNoAnswer.no : null,
           gender: genderPreferences ?? authState.genderPreferences,
           nickname: nickname ?? authState.nickname,
           timezone: timezone ?? authState.timezone,
@@ -68,9 +68,11 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
                     );
                   }
 
-                  return BlocBuilder<AuthenticationCubit, AuthenticationState>(builder: (BuildContext context, state) {
+                  return BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                      builder: (BuildContext context, state) {
                     if (state.groupingState == null) return const SizedBox.shrink();
-                    if (state.groupingState == UserGroupingState.notGrouped) return const NotGrouped();
+                    if (state.groupingState == UserGroupingState.unlockedPreferences)
+                      return const NotGrouped();
                     if (state.groupingState == UserGroupingState.refused) return const NotGrouped();
                     if (state.groupingState == UserGroupingState.left) return const NotGrouped();
                     if (state.groupingState == UserGroupingState.waitingInPool) return const WaitingInPool();

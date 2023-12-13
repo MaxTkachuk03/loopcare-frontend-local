@@ -109,7 +109,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
             );
 
             if (feature == UnlockedFeatureType.grouping) {
-              changeAccountGroupStatus(UserGroupingState.notGrouped);
+              changeAccountGroupStatus(UserGroupingState.unlockedPreferences);
             }
           },
         );
