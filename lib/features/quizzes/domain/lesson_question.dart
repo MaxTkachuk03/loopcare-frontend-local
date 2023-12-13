@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_answer.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_answer_type.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_feedback.dart';
@@ -34,6 +35,9 @@ class LessonQuestion with _$LessonQuestion {
     required DateTime? answeredAt,
     required int lessonId,
   }) = _LessonQuestion;
+
+  bool get isEditable =>
+      openedAt?.midnightTime.isAfter(DateTime.now().subtract(const Duration(days: 7)).midnightTime) ?? false;
 
   LessonQuestionFeedback? lessonQuestionFeedback(int lessonQuestionId, int value) =>
       lessonQuestionFeedbacks.firstWhereOrNull(

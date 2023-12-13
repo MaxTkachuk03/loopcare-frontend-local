@@ -118,42 +118,46 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
   }
 
   void getAccount() async {
-    await state.mapOrNull(authenticated: (state) async {
-      final response = await _authenticationService.fetchAccount();
-      response.fold(
-        (l) => null,
-        (r) {
-          emit(state.copyWith(
-            account: Account(
-              id: r.id,
-              name: r.name,
-              email: r.email,
-              country: r.country,
-              isPreferencesComplete: r.isPreferencesComplete,
-              gender: r.gender,
-              bioGender: r.bioGender,
-              height: r.physicalFitness.height,
-              weight: r.physicalFitness.weight,
-              bmi: r.physicalFitness.bmi,
-              birthDate: r.physicalFitness.birthDate,
-              groupingState: r.groupingState,
-              groupingStartedAt: r.groupingStartedAt,
-              nickname: r.groupingPreferences?.nickname,
-              genderPreference: r.groupingPreferences?.genderPreference,
-              timezone: r.groupingPreferences?.timezone,
-              diabetes: r.diabetes.name,
-              foodPreferencesHates: r.foodPreferences.hates,
-              foodPreferencesDislikes: r.foodPreferences.dislike,
-              foodPreferencesAllergic: r.foodPreferences.allergic,
-              unlockedFeatures: r.unlockedFeatures,
-              physicalActivitiesPreferences: r.physicalActivitiesPreferences,
-              emailApproveDate: r.emailApproveDate,
-              mentalHealthTests: r.mentalHealthTests,
-            ),
-          ));
-        },
-      );
-    });
+    await state.mapOrNull(
+      authenticated: (state) async {
+        final response = await _authenticationService.fetchAccount();
+        response.fold(
+          (l) => null,
+          (r) {
+            emit(
+              state.copyWith(
+                account: Account(
+                  id: r.id,
+                  name: r.name,
+                  email: r.email,
+                  country: r.country,
+                  isPreferencesComplete: r.isPreferencesComplete,
+                  gender: r.gender,
+                  bioGender: r.bioGender,
+                  height: r.physicalFitness.height,
+                  weight: r.physicalFitness.weight,
+                  bmi: r.physicalFitness.bmi,
+                  birthDate: r.physicalFitness.birthDate,
+                  groupingState: r.groupingState,
+                  groupingStartedAt: r.groupingStartedAt,
+                  nickname: r.groupingPreferences?.nickname,
+                  genderPreference: r.groupingPreferences?.genderPreference,
+                  timezone: r.groupingPreferences?.timezone,
+                  diabetes: r.diabetes.name,
+                  foodPreferencesHates: r.foodPreferences.hates,
+                  foodPreferencesDislikes: r.foodPreferences.dislike,
+                  foodPreferencesAllergic: r.foodPreferences.allergic,
+                  unlockedFeatures: r.unlockedFeatures,
+                  physicalActivitiesPreferences: r.physicalActivitiesPreferences,
+                  emailApproveDate: r.emailApproveDate,
+                  mentalHealthTests: r.mentalHealthTests,
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   void deleteAccount() async {
