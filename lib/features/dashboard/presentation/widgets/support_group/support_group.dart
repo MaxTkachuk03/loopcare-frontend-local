@@ -91,7 +91,7 @@ class _SupportGroupState extends State<SupportGroup> {
                   case UserGroupingState.locked:
                     return const LessonsUncompleted();
                   case UserGroupingState.refused:
-                  case UserGroupingState.notGrouped:
+                  case UserGroupingState.unlockedPreferences:
                   case UserGroupingState.left:
                     return const NotGrouped();
                   case UserGroupingState.waitingInPool:
