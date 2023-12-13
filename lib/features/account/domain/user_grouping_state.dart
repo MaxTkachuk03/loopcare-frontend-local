@@ -1,6 +1,5 @@
 enum UserGroupingState {
   locked,
-  notGrouped,
   waitingInPool,
   loopedOnGenderPreferences,
   refused,
