@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
@@ -160,11 +157,11 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
 
   _errorListener(BuildContext context, SubscriptionState state) {
     final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
-    if (state.data.error?.error is ServerErrorData) {
-      if ((state.data.error?.error as ServerErrorData).statusCode == HttpStatus.unauthorized) {
-        context.router.replaceNamed(AppRoutes.login);
-      }
-    }
+    // if (state.data.error?.error is ServerErrorData) {
+    //   if ((state.data.error?.error as ServerErrorData).statusCode == HttpStatus.unauthorized) {
+    //     context.router.replaceNamed(AppRoutes.login);
+    //   }
+    // }
     controller.resetState();
     showAppSnackBar(
       context: context,

@@ -22,7 +22,7 @@ final dioOptions = Dio(
     receiveTimeout: const Duration(milliseconds: 30000),
     receiveDataWhenStatusError: true,
     followRedirects: true,
-    validateStatus: (statusCode) => true,
+    validateStatus: (statusCode) => statusCode == 401 ? false : true,
     contentType: Headers.jsonContentType,
   ),
 )..transformer = BackgroundTransformer();
