@@ -101,16 +101,16 @@ ElevatedButtonThemeData _getElevatedButtonTheme() {
   return ElevatedButtonThemeData(
     style: ButtonStyle(
       minimumSize: MaterialStateProperty.all(ButtonStyles.primarySize),
-      padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 25.0, vertical: 14.0)),
       backgroundColor: MaterialStateProperty.resolveWith<Color?>(
         (Set<MaterialState> states) {
           if (states.contains(MaterialState.disabled)) {
-            return AppColors.greyMid;
+            return AppColors.greyLight;
           }
 
-          return AppColors.blueDark;
+          return AppColors.blueRegular;
         },
       ),
+      padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 25.0, vertical: 14.0)),
       foregroundColor: MaterialStateProperty.all(AppColors.white),
       textStyle: MaterialStateProperty.all(ButtonStyles.primaryLabel),
     ),
@@ -124,6 +124,7 @@ OutlinedButtonThemeData _getOutlinedButtonTheme() {
       minimumSize: ButtonStyles.primarySize,
       textStyle: ButtonStyles.outlinedLabel,
       foregroundColor: AppColors.blueDarker,
+      disabledForegroundColor: AppColors.greyLight,
     ),
   );
 }

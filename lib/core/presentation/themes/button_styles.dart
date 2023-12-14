@@ -32,4 +32,14 @@ class ButtonStyles {
 
   static const BorderSide borderBlue =
       BorderSide(width: ThemeConstants.outlinedButtonBorderWidth, color: AppColors.blueRegular);
+
+  static const BorderSide borderDisabled =
+      BorderSide(width: ThemeConstants.outlinedButtonBorderWidth, color: AppColors.greyLight);
+
+  static getButtonBorder(defaultBorder) {
+    return MaterialStateProperty.resolveWith<BorderSide?>(
+      (Set<MaterialState> states) =>
+          states.contains(MaterialState.disabled) ? ButtonStyles.borderDisabled : defaultBorder,
+    );
+  }
 }
