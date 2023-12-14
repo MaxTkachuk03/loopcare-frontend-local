@@ -253,30 +253,14 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                             );
                           },
                         ),
-                        BlocBuilder<AssignmentsBloc, AssignmentsState>(
-                          builder: (BuildContext context, state) {
-                            return state.maybeMap(
-                              error: (errorState) {
-                                final error = errorState.data.error;
-
-                                return ErrorScreen(
-                                  smallVersion: true,
-                                  error: error,
-                                  onButtonPressed: () => context.read<AssignmentsBloc>().add(
-                                        AssignmentsEvent.getAllLessonQuestions(
-                                          _selectedDay.beginDay,
-                                          _selectedDay.endDay,
-                                        ),
-                                      ),
-                                );
-                              },
-                              loading: (_) => const Loader(),
-                              orElse: () => context.read<AuthenticationCubit>().state.isAssignmentsUnlocked
-                                  ? Padding(
-                                      padding: const EdgeInsets.only(top: 10.0),
-                                      child: DashboardAssignments(date: _selectedDay),
-                                    )
-                                  : const SizedBox.shrink(),
+                        BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                          builder: (context, state) {
+                            if (!state.isAssignmentsUnlocked) {
+                              return const SizedBox.shrink();
+                            }
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 10.0),
+                              child: DashboardAssignments(date: _selectedDay),
                             );
                           },
                         ),
