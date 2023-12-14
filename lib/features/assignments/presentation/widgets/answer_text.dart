@@ -15,6 +15,7 @@ class AnswerText extends StatelessWidget {
   final LessonQuestion question;
   final VoidCallback onNextPressed;
   final VoidCallback onAnswerPressed;
+  final bool isEditable;
 
   const AnswerText({
     super.key,
@@ -23,6 +24,7 @@ class AnswerText extends StatelessWidget {
     required this.question,
     required this.onNextPressed,
     required this.onAnswerPressed,
+    required this.isEditable,
   });
 
   @override
@@ -50,7 +52,7 @@ class AnswerText extends StatelessWidget {
                     child: AnswerTextFormLimitTextField.answerText(controller),
                   ),
                   showAnswer: (_) => InkWell(
-                    onTap: onAnswerPressed,
+                    onTap: isEditable ? onAnswerPressed : null,
                     child: Text(
                       question.questionAnswer?.text ?? '',
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
