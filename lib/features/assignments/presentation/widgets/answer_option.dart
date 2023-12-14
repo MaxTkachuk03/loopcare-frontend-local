@@ -12,6 +12,7 @@ class AnswerOption extends StatelessWidget {
   final LessonQuestion question;
   final VoidCallback onNextPressed;
   final void Function(int id) onSelectOptionValue;
+  final bool isEditable;
 
   const AnswerOption({
     super.key,
@@ -19,6 +20,7 @@ class AnswerOption extends StatelessWidget {
     required this.question,
     required this.onNextPressed,
     required this.onSelectOptionValue,
+    required this.isEditable,
   });
 
   @override
@@ -34,7 +36,7 @@ class AnswerOption extends StatelessWidget {
             AnswerOptionsBlock(
               selectedValues: controller.selectOptionValues.value,
               question: question,
-              onSelected: (LessonQuestionOption value) => onSelectOptionValue(value.id),
+              onSelected: (LessonQuestionOption value) => isEditable ? onSelectOptionValue(value.id) : null,
             ),
             Column(
               children: [

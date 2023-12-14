@@ -6,13 +6,14 @@ import 'package:loopcare_frontend/core/presentation/widgets/scoring_scale.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/quizzes_controller.dart';
 
-class AnswerScale extends StatefulWidget {
+class AnswerScale extends StatelessWidget {
   final QuizzesController controller;
   final LessonQuestion question;
   final VoidCallback onNextPressed;
   final void Function(int id) onSelectValue;
   final int? selectedScore;
   final String? feedbackText;
+  final bool isEditable;
 
   const AnswerScale({
     super.key,
@@ -22,18 +23,18 @@ class AnswerScale extends StatefulWidget {
     required this.onSelectValue,
     this.selectedScore,
     this.feedbackText,
+    required this.isEditable,
   });
 
-  @override
-  State<AnswerScale> createState() => _AnswerScaleState();
-}
+  void _onSelectedHandler(int value) {
+    onSelectValue(value);
+  }
 
-class _AnswerScaleState extends State<AnswerScale> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: widget.controller.formKey,
-      onChanged: () => widget.controller.isFormValid,
+      key: controller.formKey,
+      onChanged: () => controller.isFormValid,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 30.0),
         child: Column(
@@ -46,7 +47,7 @@ class _AnswerScaleState extends State<AnswerScale> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   child: Text(
-                    widget.question.introduction ?? '',
+                    question.introduction ?? '',
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
                   ),
                 ),
@@ -63,17 +64,17 @@ class _AnswerScaleState extends State<AnswerScale> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        widget.question.question ?? '',
+                        question.question ?? '',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.w600,
                             ),
                       ),
                       const SizedBox(height: 20.0),
                       ScoringScale(
-                        selectedScore: widget.selectedScore,
-                        onScoreTap: widget.onSelectValue,
-                        scaleSize: widget.question.lessonQuestionOptions.length,
-                        labels: widget.question.lessonQuestionOptionsLabels,
+                        selectedScore: selectedScore,
+                        onScoreTap: (int value) => isEditable ? _onSelectedHandler(value) : null,
+                        scaleSize: question.lessonQuestionOptions.length,
+                        labels: question.lessonQuestionOptionsLabels,
                         borderColor: AppColors.ff404040,
                       ),
                       const SizedBox(height: 14.0),
@@ -81,23 +82,23 @@ class _AnswerScaleState extends State<AnswerScale> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            widget.question.lowestText ?? LocalizedTexts.veryEasy.translation,
+                            question.lowestText ?? LocalizedTexts.veryEasy.translation,
                             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                   fontWeight: FontWeight.w600,
                                 ),
                           ),
                           Text(
-                            widget.question.highestText ?? LocalizedTexts.veryHard.translation,
+                            question.highestText ?? LocalizedTexts.veryHard.translation,
                             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                   fontWeight: FontWeight.w600,
                                 ),
                           ),
                         ],
                       ),
-                      if (widget.feedbackText != null) const SizedBox(height: 24.0),
-                      if (widget.feedbackText != null)
+                      if (feedbackText != null) const SizedBox(height: 24.0),
+                      if (feedbackText != null)
                         Text(
-                          widget.feedbackText ?? '',
+                          feedbackText ?? '',
                           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.blueDark,
@@ -114,10 +115,10 @@ class _AnswerScaleState extends State<AnswerScale> {
                 children: [
                   const SizedBox(height: 32),
                   ValueListenableBuilder<bool>(
-                    valueListenable: widget.controller.isEnableSend,
+                    valueListenable: controller.isEnableSend,
                     builder: (context, isEnableSend, _) {
                       return ElevatedButton(
-                        onPressed: widget.onNextPressed,
+                        onPressed: onNextPressed,
                         style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
                               backgroundColor: MaterialStateProperty.all(AppColors.blueDark),
                             ),
