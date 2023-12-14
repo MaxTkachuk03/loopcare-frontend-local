@@ -186,8 +186,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                                         : const LogMeal();
                                   },
                                 ),
-                                const SizedBox(height: 10.0),
-                                const PlanMeal(),
+                                // const SizedBox(height: 10.0), //TODO: LOOPCARE-1798: Hide Meal planning block
+                                // const PlanMeal(),
                               ],
                             );
                           },
