@@ -42,6 +42,57 @@ AppBarTheme _getAppBarTheme() => const AppBarTheme(
       centerTitle: true,
     );
 
+ElevatedButtonThemeData _getElevatedButtonTheme() {
+  return ElevatedButtonThemeData(
+    style: ButtonStyle(
+      minimumSize: MaterialStateProperty.all(ButtonStyles.primarySize),
+      backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+        (Set<MaterialState> states) {
+          if (states.contains(MaterialState.disabled)) {
+            return AppColors.greyLight;
+          }
+
+          return AppColors.blueRegular;
+        },
+      ),
+      padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 25.0, vertical: 14.0)),
+      foregroundColor: MaterialStateProperty.all(AppColors.white),
+      textStyle: MaterialStateProperty.all(ButtonStyles.primaryLabel),
+    ),
+  );
+}
+
+OutlinedButtonThemeData _getOutlinedButtonTheme() {
+  return OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      side: const BorderSide(width: 2.0),
+      minimumSize: ButtonStyles.primarySize,
+      textStyle: ButtonStyles.outlinedLabel,
+      foregroundColor: AppColors.blueDarker,
+      disabledForegroundColor: AppColors.greyLight,
+    ),
+  );
+}
+
+TabBarTheme _getTabBarTheme() {
+  return TabBarTheme(
+    labelStyle: const TextStyle(
+      fontSize: ThemeConstants.fontSize14,
+      fontWeight: FontWeight.w700,
+      color: AppColors.blueDarker,
+    ),
+    unselectedLabelStyle: const TextStyle(
+      fontSize: ThemeConstants.fontSize14,
+      fontWeight: FontWeight.w400,
+      color: AppColors.blueDarker,
+    ),
+    indicator: BoxDecoration(
+      borderRadius: BorderRadius.circular(50.0),
+      color: AppColors.white,
+    ),
+  );
+}
+
 InputDecorationTheme _getInputDecorationTheme() {
   return const InputDecorationTheme(
     filled: true,
@@ -93,57 +144,6 @@ InputDecorationTheme _getInputDecorationTheme() {
         color: AppColors.yellowLight,
         width: 2.0,
       ),
-    ),
-  );
-}
-
-ElevatedButtonThemeData _getElevatedButtonTheme() {
-  return ElevatedButtonThemeData(
-    style: ButtonStyle(
-      minimumSize: MaterialStateProperty.all(ButtonStyles.primarySize),
-      backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-        (Set<MaterialState> states) {
-          if (states.contains(MaterialState.disabled)) {
-            return AppColors.greyLight;
-          }
-
-          return AppColors.blueRegular;
-        },
-      ),
-      padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 25.0, vertical: 14.0)),
-      foregroundColor: MaterialStateProperty.all(AppColors.white),
-      textStyle: MaterialStateProperty.all(ButtonStyles.primaryLabel),
-    ),
-  );
-}
-
-OutlinedButtonThemeData _getOutlinedButtonTheme() {
-  return OutlinedButtonThemeData(
-    style: OutlinedButton.styleFrom(
-      side: const BorderSide(width: 2.0),
-      minimumSize: ButtonStyles.primarySize,
-      textStyle: ButtonStyles.outlinedLabel,
-      foregroundColor: AppColors.blueDarker,
-      disabledForegroundColor: AppColors.greyLight,
-    ),
-  );
-}
-
-TabBarTheme _getTabBarTheme() {
-  return TabBarTheme(
-    labelColor: AppColors.black,
-    labelStyle: const TextStyle(
-      fontSize: ThemeConstants.fontSize14,
-      fontWeight: FontWeight.w600,
-    ),
-    unselectedLabelColor: AppColors.grey,
-    unselectedLabelStyle: const TextStyle(
-      fontSize: ThemeConstants.fontSize14,
-      fontWeight: FontWeight.w600,
-    ),
-    indicator: BoxDecoration(
-      borderRadius: BorderRadius.circular(6.0),
-      color: AppColors.white,
     ),
   );
 }
