@@ -9,7 +9,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/password_with_indicator/password_with_indicator.dart';
 
 class ResetPasswordPage extends StatefulWidget {
-  const ResetPasswordPage({Key? key}) : super(key: key);
+  const ResetPasswordPage({super.key});
 
   @override
   State<ResetPasswordPage> createState() => _ResetPasswordPageState();
@@ -61,9 +61,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium
-                            ?.copyWith(
-                                fontFamily: ThemeConstants.bitterFontFamily,
-                                color: AppColors.blueDark),
+                            ?.copyWith(fontFamily: ThemeConstants.bitterFontFamily, color: AppColors.blueDark),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 4.0),
@@ -88,22 +86,17 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       if (!_passwordsMatch)
                         Text(
                           passwordsNotMatchError,
-                          style:
-                              Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    color: AppColors.red,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                color: AppColors.red,
+                                fontWeight: FontWeight.w600,
+                              ),
                           textAlign: TextAlign.left,
                         ),
                       const SizedBox(height: 32.0),
                       ElevatedButton(
                         onPressed: () => _onResetPasswordPressed(),
-                        style: Theme.of(context)
-                            .elevatedButtonTheme
-                            .style
-                            ?.copyWith(
-                              backgroundColor: MaterialStateProperty.all(
-                                  AppColors.orangeDark),
+                        style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                              backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
                             ),
                         child: Text(LocalizedTexts.resetPassword.tr()),
                       ),

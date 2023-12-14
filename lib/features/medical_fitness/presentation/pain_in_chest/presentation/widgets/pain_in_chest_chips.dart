@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/features/medical_fitness/application/medical_f
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 
 class PainInChestChips extends StatefulWidget {
-  const PainInChestChips({Key? key}) : super(key: key);
+  const PainInChestChips({super.key});
 
   @override
   State<PainInChestChips> createState() => _PainInChestChipsState();
@@ -52,18 +52,18 @@ class _PainInChestChipsState extends State<PainInChestChips> {
       children: YesNoAnswer.values
           .map(
             (YesNoAnswer value) => Column(
-          children: [
-            AppChoiceChip(
-              label: value.label,
-              selected: value == _selectedValue,
-              value: value,
-              chipHeight: 50.0,
-              onSelected: _onSelectedPregnancyHandler,
+              children: [
+                AppChoiceChip(
+                  label: value.label,
+                  selected: value == _selectedValue,
+                  value: value,
+                  chipHeight: 50.0,
+                  onSelected: _onSelectedPregnancyHandler,
+                ),
+                const SizedBox(height: 8.0),
+              ],
             ),
-            const SizedBox(height: 8.0),
-          ],
-        ),
-      )
+          )
           .toList(),
     );
   }

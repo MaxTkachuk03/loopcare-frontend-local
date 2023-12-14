@@ -24,7 +24,7 @@ import 'package:wakelock/wakelock.dart';
 class VideoPage extends StatefulWidget {
   final PhysicalProgram program;
 
-  const VideoPage({Key? key, required this.program}) : super(key: key);
+  const VideoPage({super.key, required this.program});
 
   @override
   State<VideoPage> createState() => _VideoPageState();
@@ -56,16 +56,14 @@ class _VideoPageState extends State<VideoPage> {
   void _initController(PhysicalProgramExercise exercise) async {
     final headers = context.read<VideoPlayerBloc>().state.data.videoHttpHeaders;
 
-    _videoPlayerController =
-        VideoPlayerController.networkUrl(Uri.parse(exercise.video ?? ''), httpHeaders: headers)
-          ..initialize().then((value) {
-            _videoPlayerController?.play();
+    _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(exercise.video ?? ''), httpHeaders: headers)
+      ..initialize().then((value) {
+        _videoPlayerController?.play();
 
-            AnalyticsEventService.instance
-                .logPhysicalActivityVideoEvent('video_screen', widget.program, exercise);
-          }).whenComplete(() {
-            setState(() {});
-          });
+        AnalyticsEventService.instance.logPhysicalActivityVideoEvent('video_screen', widget.program, exercise);
+      }).whenComplete(() {
+        setState(() {});
+      });
   }
 
   _loadVideoPlayer(PhysicalProgramExercise exercise) {
@@ -211,8 +209,7 @@ class _VideoPageState extends State<VideoPage> {
                                             onPressed: _onSkipExplanationHandler,
                                             style: ButtonStyle(
                                               minimumSize: MaterialStateProperty.all(const Size(186, 52.0)),
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(AppColors.orangeDark),
+                                              backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
                                             ),
                                             child: const Text(LocalizedTexts.skipExplanation).tr(),
                                           ),

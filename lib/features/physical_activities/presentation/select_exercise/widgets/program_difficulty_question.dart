@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/features/physical_activities/application/physi
 import 'package:loopcare_frontend/features/physical_activities/domain/program_difficulty.dart';
 
 class ProgramDifficultyQuestion extends StatelessWidget {
-  const ProgramDifficultyQuestion({Key? key}) : super(key: key);
+  const ProgramDifficultyQuestion({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,18 +27,15 @@ class ProgramDifficultyQuestion extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: ProgramDifficulty.values
                   .map(
-                    (e) =>
-                        AppChoiceChip(
-                          label: e.label,
-                          selected: state.data.programDifficulty == e,
-                          value: e,
-                          padding: const EdgeInsets.all(0),
-                          labelWidth: 96,
-                          onSelected: (ProgramDifficulty value) =>
-                              e.isAvailable ? _onSelected(context, value) : null,
-                          available: e.isAvailable,
-                        ),
-
+                    (e) => AppChoiceChip(
+                      label: e.label,
+                      selected: state.data.programDifficulty == e,
+                      value: e,
+                      padding: const EdgeInsets.all(0),
+                      labelWidth: 96,
+                      onSelected: (ProgramDifficulty value) => e.isAvailable ? _onSelected(context, value) : null,
+                      available: e.isAvailable,
+                    ),
                   )
                   .toList(),
             );

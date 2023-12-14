@@ -13,7 +13,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 
 class PreparationMaterials extends StatelessWidget {
-  const PreparationMaterials({Key? key}) : super(key: key);
+  const PreparationMaterials({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +63,7 @@ class PreparationMaterials extends StatelessWidget {
     final userId = context.read<AuthenticationCubit>().state.id;
     final sessionId = context.read<TopicsBloc>().state.data.signedGroupSessionId ?? 0;
 
-    context
-        .read<AnalyticsBloc>()
-        .add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.openedSessionPreparationMaterials, {
+    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.openedSessionPreparationMaterials, {
           "timestamp": DateTime.now().toIso8601String(),
         }));
 

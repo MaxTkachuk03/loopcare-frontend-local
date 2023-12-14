@@ -13,15 +13,13 @@ import 'package:loopcare_frontend/features/group_sessions/application/topics_blo
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
 class PreparationMaterialsPage extends StatelessWidget {
-  const PreparationMaterialsPage({Key? key}) : super(key: key);
+  const PreparationMaterialsPage({super.key});
 
   Future<bool> _onWillPop(BuildContext context) {
     final userId = context.read<AuthenticationCubit>().state.id;
     final sessionId = context.read<TopicsBloc>().state.data.signedGroupSessionId ?? 0;
 
-    context
-        .read<AnalyticsBloc>()
-        .add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.closedSessionPreparationMaterials, {
+    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.closedSessionPreparationMaterials, {
           "timestamp": DateTime.now().toIso8601String(),
         }));
 

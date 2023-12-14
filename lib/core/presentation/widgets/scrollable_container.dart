@@ -5,10 +5,10 @@ class ScrollableContainer extends StatelessWidget {
   final ScrollPhysics? physics;
 
   const ScrollableContainer({
-    Key? key,
+    super.key,
     required this.child,
     this.physics,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

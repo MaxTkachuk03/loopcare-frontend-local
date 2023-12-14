@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:html/dom.dart' as dom;
 import 'package:loopcare_frontend/core/domain/html_custom_styles.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:html/dom.dart' as dom;
 
 class HtmlRenderer extends StatelessWidget {
   final String content;
   final TextStyle? textStyle;
 
   const HtmlRenderer({
-    Key? key,
+    super.key,
     required this.content,
     this.textStyle,
-  }) : super(key: key);
+  });
 
   Widget _onErrorBuilder(context, element, error) {
     return Text('$element error: $error');

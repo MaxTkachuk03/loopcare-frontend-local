@@ -59,7 +59,7 @@ class DashboardAssignments extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8.0),
-                  const Divider(color: AppColors.FF404040),
+                  const Divider(color: AppColors.ff404040),
                   if (state.data.questionsForCurrentWeek(date).isEmpty)
                     Text(
                       LocalizedTexts.allAssignmentsCompleted,

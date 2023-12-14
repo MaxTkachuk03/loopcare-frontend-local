@@ -13,7 +13,7 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
 
 class JoinGroupPreferencesPage extends StatefulWidget {
-  const JoinGroupPreferencesPage({Key? key}) : super(key: key);
+  const JoinGroupPreferencesPage({super.key});
 
   @override
   State<JoinGroupPreferencesPage> createState() => _JoinGroupPreferencesPageState();

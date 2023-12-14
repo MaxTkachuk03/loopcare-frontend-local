@@ -8,7 +8,6 @@ import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.d
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
 import 'package:loopcare_frontend/core/presentation/validators/login_password_validator.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
@@ -21,7 +20,7 @@ const accountNotFound = 'account_not_found';
 const emailOrPasswordAreIncorrect = 'email_or_password_are_incorrect';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+  const LoginForm({super.key});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -128,13 +127,7 @@ class _LoginFormState extends State<LoginForm> {
             },
             orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
           );
-
-          showAppSnackBar(
-            context: context,
-            text: errorMessage,
-            background: AppColors.red,
-            textColor: Colors.white,
-          );
+          context.showError(content: Text(errorMessage));
           MixpanelEventService.instance.track(
             AppMixpanelEvents.loginFail,
             {

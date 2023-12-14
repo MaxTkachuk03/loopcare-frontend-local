@@ -18,15 +18,13 @@ import 'package:loopcare_frontend/features/onboarding/application/onboarding_blo
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 
 class WaitingForConfirmationPage extends StatefulWidget {
-  const WaitingForConfirmationPage({Key? key}) : super(key: key);
+  const WaitingForConfirmationPage({super.key});
 
   @override
-  State<WaitingForConfirmationPage> createState() =>
-      _WaitingForConfirmationPageState();
+  State<WaitingForConfirmationPage> createState() => _WaitingForConfirmationPageState();
 }
 
-class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
-    with WidgetsBindingObserver {
+class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage> with WidgetsBindingObserver {
   Timer? timer;
   bool waitingForResponse = false;
 
@@ -60,8 +58,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationCubit, AuthenticationState>(
-      listenWhen: (previous, current) =>
-          previous is WaitedForConfirmation && current is Guest,
+      listenWhen: (previous, current) => previous is WaitedForConfirmation && current is Guest,
       listener: _authenticatedListener,
       child: WillPopScope(
         onWillPop: _onWillPop,
@@ -79,10 +76,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                         child: Text(
                           LocalizedTexts.waitingForConfirmationTitle.tr(),
                           textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium
-                              ?.copyWith(
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                 fontFamily: ThemeConstants.bitterFontFamily,
                               ),
                         ),
@@ -108,10 +102,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                           padding: const EdgeInsets.only(right: 15.0),
                           child: Text(
                             LocalizedTexts.confirmYourAddress.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.copyWith(
+                            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                                   color: AppColors.blueDark,
                                   fontSize: 20.0,
                                 ),
@@ -122,28 +113,19 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                           padding: const EdgeInsets.only(right: 15.0),
                           child: Text(
                             LocalizedTexts.checkSpam.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(),
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
                           ),
                         ),
                         const SizedBox(height: 20.0),
                         BlocBuilder<AuthenticationCubit, AuthenticationState>(
                           builder: (BuildContext context, state) {
-                            final email = state.mapOrNull(
-                                    waitedForConfirmation: (state) =>
-                                        state.email) ??
-                                '';
+                            final email = state.mapOrNull(waitedForConfirmation: (state) => state.email) ?? '';
 
                             return Padding(
                               padding: const EdgeInsets.only(right: 15.0),
                               child: Text(
                                 '${LocalizedTexts.address.tr()}: $email',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(),
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
                               ),
                             );
                           },
@@ -151,14 +133,9 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                         const SizedBox(height: 50.0),
                         ElevatedButton(
                           onPressed: _onResendPressed,
-                          style: Theme.of(context)
-                              .elevatedButtonTheme
-                              .style
-                              ?.copyWith(
-                                backgroundColor: MaterialStateProperty.all(
-                                    AppColors.bgGreen),
-                                foregroundColor: MaterialStateProperty.all(
-                                    AppColors.darkGreen),
+                          style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                                backgroundColor: MaterialStateProperty.all(AppColors.bgGreen),
+                                foregroundColor: MaterialStateProperty.all(AppColors.darkGreen),
                               ),
                           child: Text(
                             LocalizedTexts.resend.tr(),
@@ -167,14 +144,9 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                         const SizedBox(height: 12.0),
                         ElevatedButton(
                           onPressed: () => _onChangeAddressPressed(context),
-                          style: Theme.of(context)
-                              .elevatedButtonTheme
-                              .style
-                              ?.copyWith(
-                                backgroundColor: MaterialStateProperty.all(
-                                    AppColors.bgGreen),
-                                foregroundColor: MaterialStateProperty.all(
-                                    AppColors.darkGreen),
+                          style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                                backgroundColor: MaterialStateProperty.all(AppColors.bgGreen),
+                                foregroundColor: MaterialStateProperty.all(AppColors.darkGreen),
                               ),
                           child: Text(
                             LocalizedTexts.changeAddress.tr(),
@@ -201,11 +173,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
 
   void _onResendPressed() {
     context.read<AuthenticationCubit>().resendEmail();
-    showAppSnackBar(
-      context: context,
-      background: AppColors.white,
-      text: LocalizedTexts.resendConfirmationMessage.translation,
-    );
+    context.showSuccessBar(content: Text(LocalizedTexts.resendConfirmationMessage.translation));
   }
 
   void _onChangeAddressPressed(BuildContext context) {
@@ -219,12 +187,9 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
       onContinuePressed: () {
         context
           ..read<OnboardingBloc>().add(const OnboardingEvent.resetData())
-          ..read<MedicalFitnessBloc>()
-              .add(const MedicalFitnessEvent.resetData())
-          ..read<PhysicalFitnessBloc>()
-              .add(const PhysicalFitnessEvent.resetData())
-          ..read<MentalHealthBloc>()
-              .add(const MentalHealthEvent.resetData())
+          ..read<MedicalFitnessBloc>().add(const MedicalFitnessEvent.resetData())
+          ..read<PhysicalFitnessBloc>().add(const PhysicalFitnessEvent.resetData())
+          ..read<MentalHealthBloc>().add(const MentalHealthEvent.resetData())
           ..router.replaceAll([const LoginRoute()]);
       },
     );

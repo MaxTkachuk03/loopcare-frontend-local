@@ -7,9 +7,9 @@ class ShowBlock extends StatelessWidget {
   final void Function() onPress;
 
   const ShowBlock({
-    Key? key,
+    super.key,
     required this.onPress,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

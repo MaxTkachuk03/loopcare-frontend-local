@@ -1,5 +1,5 @@
-import 'dart:io';
 import 'dart:async';
+import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -23,8 +23,7 @@ class SessionTimerMode with _$SessionTimerMode {
 
   const factory SessionTimerMode.sessionNotStarted() = SessionNotStarted;
 
-  const factory SessionTimerMode.sessionStartedMoreThanFifteenMinutesAgo() =
-      SessionStartedMoreThanFifteenMinutesAgo;
+  const factory SessionTimerMode.sessionStartedMoreThanFifteenMinutesAgo() = SessionStartedMoreThanFifteenMinutesAgo;
 
   const factory SessionTimerMode.sessionEnded() = SessionEnded;
 
@@ -160,13 +159,7 @@ class _SessionCountdownState extends State<SessionCountdown> {
   }
 
   void _onErrorListener(BuildContext context, TopicsState state) {
-    showAppSnackBar(
-      context: context,
-      text: LocalizedTexts.somethingWentWrong.tr(),
-      background: AppColors.red,
-      textColor: Colors.white,
-    );
-
+    context.showError(content: Text(LocalizedTexts.somethingWentWrong.translation));
     setState(() {
       _sessionTimerMode = const SessionTimerMode.sessionError();
     });

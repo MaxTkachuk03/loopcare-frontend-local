@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/features/medical_fitness/domain/medication_fut
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 
 class MedicationFuturePeriodChips extends StatefulWidget {
-  const MedicationFuturePeriodChips({Key? key}) : super(key: key);
+  const MedicationFuturePeriodChips({super.key});
 
   @override
   State<MedicationFuturePeriodChips> createState() => _MedicationFuturePeriodChipsState();

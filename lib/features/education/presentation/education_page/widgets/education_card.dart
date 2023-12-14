@@ -19,10 +19,10 @@ class EducationCard extends StatelessWidget {
   final bool? isCategoryItem;
 
   const EducationCard({
-    Key? key,
+    super.key,
     required this.lesson,
     this.isCategoryItem,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +61,7 @@ class EducationCard extends StatelessWidget {
           child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
             builder: (BuildContext context, state) {
               final lessonWithCountdown = state.data.lessonWithCountdown;
-              final isLessonWithCountDown =
-                  lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
+              final isLessonWithCountDown = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
               final isLocked = lesson.isLocked || isLessonWithCountDown;
 
               return GestureDetector(

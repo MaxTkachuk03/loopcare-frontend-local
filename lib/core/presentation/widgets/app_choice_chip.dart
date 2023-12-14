@@ -20,7 +20,7 @@ class AppChoiceChip<T> extends StatelessWidget {
   final Widget? icon;
 
   const AppChoiceChip({
-    Key? key,
+    super.key,
     required this.label,
     required this.selected,
     required this.value,
@@ -33,7 +33,7 @@ class AppChoiceChip<T> extends StatelessWidget {
     this.recommended = false,
     this.type = MultiChoiceType.none,
     this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

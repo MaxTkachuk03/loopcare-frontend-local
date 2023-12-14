@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/medical_
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor/presentation/widgets/treatment_by_doctor_chips.dart';
 
 class TreatmentByDoctorPage extends StatelessWidget {
-  const TreatmentByDoctorPage({Key? key}) : super(key: key);
+  const TreatmentByDoctorPage({super.key});
 
   @override
   Widget build(BuildContext context) {

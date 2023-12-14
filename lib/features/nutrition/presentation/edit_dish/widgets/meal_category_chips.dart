@@ -8,11 +8,11 @@ class MealCategoryChips extends StatelessWidget {
   final Function onItemPressHandler;
 
   const MealCategoryChips({
-    Key? key,
+    super.key,
     required this.data,
     required this.selectedChips,
     required this.onItemPressHandler,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +22,7 @@ class MealCategoryChips extends StatelessWidget {
         final isSelected = selectedChips.contains(item);
 
         return ActionChip(
-          labelPadding:
-              const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
+          labelPadding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
           labelStyle: const TextStyle(
             color: Colors.white,
             fontSize: 14,

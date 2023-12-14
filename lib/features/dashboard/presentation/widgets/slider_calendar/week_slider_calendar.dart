@@ -12,9 +12,9 @@ class WeekSliderCalendar extends StatefulWidget {
   final void Function(DateTime value) onSelectDay;
 
   const WeekSliderCalendar({
-    Key? key,
+    super.key,
     required this.onSelectDay,
-  }) : super(key: key);
+  });
 
   @override
   State<WeekSliderCalendar> createState() => _WeekSliderCalendarState();

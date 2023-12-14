@@ -11,12 +11,12 @@ class AppUnlockBlock extends StatelessWidget {
   final String? btnText;
 
   const AppUnlockBlock({
-    Key? key,
+    super.key,
     required this.title,
     required this.text,
     this.onBtnPressed,
     this.btnText,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

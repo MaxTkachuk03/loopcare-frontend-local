@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/features/mental_health/application/mental_heal
 import 'package:loopcare_frontend/features/mental_health/domain/interpretation_type.dart';
 
 class PHQ15ResultText extends StatelessWidget {
-  const PHQ15ResultText({Key? key}) : super(key: key);
+  const PHQ15ResultText({super.key});
 
   @override
   Widget build(BuildContext context) {

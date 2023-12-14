@@ -10,8 +10,8 @@ import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_p
 
 class Ingredients extends StatelessWidget {
   const Ingredients({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

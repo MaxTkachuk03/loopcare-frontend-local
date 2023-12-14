@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 
 class ProteinDegreeBlock extends StatelessWidget {
   final double? value;
@@ -12,11 +12,11 @@ class ProteinDegreeBlock extends StatelessWidget {
   final bool showArrow;
 
   const ProteinDegreeBlock({
-    Key? key,
+    super.key,
     this.value,
     required this.onPress,
     required this.showArrow,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

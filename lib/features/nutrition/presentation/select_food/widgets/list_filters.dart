@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
@@ -14,11 +15,11 @@ class ListFilters extends StatelessWidget {
   final Function(List<MealCategoryFilter> updatedFiltersList) onConfirmed;
 
   const ListFilters({
-    Key? key,
+    super.key,
     required this.title,
     required this.mealsList,
     required this.onConfirmed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

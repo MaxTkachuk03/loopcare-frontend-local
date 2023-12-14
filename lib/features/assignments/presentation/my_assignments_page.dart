@@ -14,9 +14,7 @@ import 'package:loopcare_frontend/features/assignments/presentation/widgets/my_a
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 
 class MyAssignmentsPage extends StatefulWidget {
-  const MyAssignmentsPage({
-    Key? key,
-  }) : super(key: key);
+  const MyAssignmentsPage({super.key});
 
   @override
   State<MyAssignmentsPage> createState() => _MyAssignmentsPageState();
@@ -79,7 +77,7 @@ class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
                             onBtnPressed: (int lessonId) => _startLessonQuestion(context, lessonId),
                           ),
                         if (thisWeekQuestions.isNotEmpty && pastQuestions.isNotEmpty)
-                          const Divider(color: AppColors.FF404040),
+                          const Divider(color: AppColors.ff404040),
                         if (pastQuestions.isNotEmpty)
                           PastAssignments(
                             questions: pastQuestions,

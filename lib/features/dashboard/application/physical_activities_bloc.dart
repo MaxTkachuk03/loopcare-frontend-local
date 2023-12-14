@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -9,9 +9,9 @@ import 'package:loopcare_frontend/features/physical_activities/application/physi
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/date_helpers.dart';
 
+part 'physical_activities_bloc.freezed.dart';
 part 'physical_activities_event.dart';
 part 'physical_activities_state.dart';
-part 'physical_activities_bloc.freezed.dart';
 
 @singleton
 class PhysicalActivitiesBloc extends Bloc<PhysicalActivitiesEvent, PhysicalActivitiesState> {

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ import 'package:loopcare_frontend/features/mental_health/presentation/mental_hea
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 
 class MentalHealthIntroPage extends StatefulWidget {
-  const MentalHealthIntroPage({Key? key}) : super(key: key);
+  const MentalHealthIntroPage({super.key});
 
   @override
   State<MentalHealthIntroPage> createState() => _MentalHealthIntroPageState();
@@ -68,8 +69,7 @@ class _MentalHealthIntroPageState extends State<MentalHealthIntroPage> {
             child: MultiBlocListener(
               listeners: [
                 BlocListener<MentalHealthBloc, MentalHealthState>(
-                  listenWhen: (prev, cur) =>
-                      prev.data.startTestTime == null && cur.data.startTestTime != null,
+                  listenWhen: (prev, cur) => prev.data.startTestTime == null && cur.data.startTestTime != null,
                   listener: _listenerTestWasStarted,
                 ),
                 BlocListener<MentalHealthBloc, MentalHealthState>(
@@ -138,8 +138,7 @@ class _MentalHealthIntroPageState extends State<MentalHealthIntroPage> {
       const Duration(seconds: 1),
       (timer) {
         final mentalHealthTime = int.parse(dotenv.env['MENTAL_HEALTH_TEST_TIME_IN_MINUTES']!);
-        final timeWasExceededCheck =
-            DateTime.now().isAfter(startTestTime.add(Duration(minutes: mentalHealthTime)));
+        final timeWasExceededCheck = DateTime.now().isAfter(startTestTime.add(Duration(minutes: mentalHealthTime)));
 
         if (timeWasExceededCheck) {
           timer.cancel();

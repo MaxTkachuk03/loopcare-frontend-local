@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/features/account/presentation/account_page/wid
 import 'package:loopcare_frontend/features/report_abuse/application/report_abuse_bloc.dart';
 
 class ReportAbuseSection extends StatelessWidget {
-  const ReportAbuseSection({Key? key}) : super(key: key);
+  const ReportAbuseSection({super.key});
 
   void _onPressHandler(BuildContext context) {
     context.read<ReportAbuseBloc>().add(const ReportAbuseEvent.init());

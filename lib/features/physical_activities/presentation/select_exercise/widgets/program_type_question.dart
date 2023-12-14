@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/features/physical_activities/application/physi
 import 'package:loopcare_frontend/features/physical_activities/domain/program_type.dart';
 
 class ProgramTypeQuestion extends StatelessWidget {
-  const ProgramTypeQuestion({Key? key}) : super(key: key);
+  const ProgramTypeQuestion({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -12,7 +12,7 @@ import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart'
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/white_box.dart';
 
 class NotGrouped extends StatelessWidget {
-  const NotGrouped({Key? key}) : super(key: key);
+  const NotGrouped({super.key});
 
   @override
   Widget build(BuildContext context) {

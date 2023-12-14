@@ -9,9 +9,9 @@ class GroupedNotSigned extends StatelessWidget {
   final String topicName;
 
   const GroupedNotSigned({
-    Key? key,
+    super.key,
     required this.topicName,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

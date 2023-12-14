@@ -18,7 +18,7 @@ import 'package:loopcare_frontend/features/mood/infrastructure/mood_page_mode.da
 class PersonMood extends StatelessWidget {
   final DateTime date;
 
-  const PersonMood({Key? key, required this.date}) : super(key: key);
+  const PersonMood({super.key, required this.date});
 
   void onPressHandler(BuildContext context) {
     context.router.push(CreateMoodRoute(mode: const MoodPageMode.create(), date: date));

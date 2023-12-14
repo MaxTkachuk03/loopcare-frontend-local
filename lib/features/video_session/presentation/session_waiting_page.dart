@@ -21,7 +21,7 @@ import 'package:loopcare_frontend/features/video_session/presentation/widgets/se
 
 class SessionWaitingPage extends StatefulWidget {
   // TODO pass session as a prop so we can get rid of check if we have session
-  const SessionWaitingPage({Key? key}) : super(key: key);
+  const SessionWaitingPage({super.key});
 
   @override
   State<SessionWaitingPage> createState() => _SessionWaitingPageState();

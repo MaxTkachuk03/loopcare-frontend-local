@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/medical_
 import 'package:loopcare_frontend/features/medical_fitness/presentation/medication_future_period/widgets/medication_future_period_chips.dart';
 
 class MedicationFuturePeriodPage extends StatelessWidget {
-  const MedicationFuturePeriodPage({Key? key}) : super(key: key);
+  const MedicationFuturePeriodPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/features/account/presentation/group_preference
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/outlined_box.dart';
 
 class Grouped extends StatelessWidget {
-  const Grouped({Key? key}) : super(key: key);
+  const Grouped({super.key});
 
   @override
   Widget build(BuildContext context) {

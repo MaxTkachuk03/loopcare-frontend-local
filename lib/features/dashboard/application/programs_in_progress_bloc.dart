@@ -1,15 +1,14 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 
-part 'programs_in_progress_event.dart';
-part 'programs_in_progress_state.dart';
 part 'programs_in_progress_bloc.freezed.dart';
 part 'programs_in_progress_bloc.g.dart';
+part 'programs_in_progress_event.dart';
+part 'programs_in_progress_state.dart';
 
 @singleton
 class ProgramsInProgressBloc extends HydratedBloc<ProgramsInProgressEvent, ProgramsInProgressState> {
@@ -29,10 +28,7 @@ class ProgramsInProgressBloc extends HydratedBloc<ProgramsInProgressEvent, Progr
       startDate: DateTime.now().toIso8601String(),
     );
 
-    final Map<String, PhysicalProgram> programs = {
-      ...state.programs,
-      activeProgram.id.toString(): activeProgram
-    };
+    final Map<String, PhysicalProgram> programs = {...state.programs, activeProgram.id.toString(): activeProgram};
 
     emit(state.copyWith(programs: programs));
   }

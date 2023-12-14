@@ -9,13 +9,13 @@ class RegularCell extends StatelessWidget {
   final Color? borderColor;
 
   const RegularCell({
-    Key? key,
+    super.key,
     required this.index,
     required this.onPress,
     this.scaleSize,
     this.label,
     this.borderColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class RegularCell extends StatelessWidget {
     );
   }
 
-  BorderRadiusGeometry? _getBorderRadius(int index, int maxIndex) {
+  BorderRadiusGeometry _getBorderRadius(int index, int maxIndex) {
     if (index == 0) {
       return const BorderRadius.only(
         topLeft: Radius.circular(5.0),

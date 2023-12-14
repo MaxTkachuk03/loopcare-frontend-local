@@ -4,13 +4,13 @@ import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
+import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_category_list.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_full_list.dart';
 
 class EducationBody extends StatefulWidget {
-  const EducationBody({Key? key}) : super(key: key);
+  const EducationBody({super.key});
 
   @override
   State<EducationBody> createState() => _EducationBodyState();

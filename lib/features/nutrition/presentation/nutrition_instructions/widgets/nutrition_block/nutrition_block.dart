@@ -12,16 +12,16 @@ class NutritionBlock extends StatelessWidget {
   final bool showArrow;
 
   const NutritionBlock({
-    Key? key,
+    super.key,
     this.calorieDensity,
     this.proteinDegree,
     this.bottomBorder = true,
     this.showArrow = true,
-  }) : super(key: key);
+  });
 
   void _onPressHandler({required BuildContext context, required int tabIndex}) {
-    context.router.push(NutritionInstructionsRoute(
-        tabIndex: tabIndex, calorieDensity: calorieDensity, proteinDegree: proteinDegree));
+    context.router.push(
+        NutritionInstructionsRoute(tabIndex: tabIndex, calorieDensity: calorieDensity, proteinDegree: proteinDegree));
   }
 
   @override

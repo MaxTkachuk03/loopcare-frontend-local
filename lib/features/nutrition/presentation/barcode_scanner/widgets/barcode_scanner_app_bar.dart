@@ -5,13 +5,12 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-class BarcodeScannerAppBar extends StatefulWidget
-    implements PreferredSizeWidget {
+class BarcodeScannerAppBar extends StatefulWidget implements PreferredSizeWidget {
   final QRViewController? controller;
   const BarcodeScannerAppBar({
-    Key? key,
+    super.key,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   State<BarcodeScannerAppBar> createState() => _BarcodeScannerAppBarState();

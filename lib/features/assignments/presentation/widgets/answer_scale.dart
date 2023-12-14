@@ -38,7 +38,7 @@ class _AnswerScaleState extends State<AnswerScale> {
         padding: const EdgeInsets.symmetric(vertical: 30.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -74,7 +74,7 @@ class _AnswerScaleState extends State<AnswerScale> {
                         onScoreTap: widget.onSelectValue,
                         scaleSize: widget.question.lessonQuestionOptions.length,
                         labels: widget.question.lessonQuestionOptionsLabels,
-                        borderColor: AppColors.FF404040,
+                        borderColor: AppColors.ff404040,
                       ),
                       const SizedBox(height: 14.0),
                       Row(

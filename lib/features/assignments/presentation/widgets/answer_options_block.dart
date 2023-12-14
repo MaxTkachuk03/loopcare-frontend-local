@@ -43,7 +43,7 @@ class AnswerOptionsBlock extends StatelessWidget {
               label: el.label,
               selected: selectedValues.contains(el.id),
               onSelected: _onSelectedHandler,
-              borderColor: AppColors.FF404040,
+              borderColor: AppColors.ff404040,
             );
           },
         ),

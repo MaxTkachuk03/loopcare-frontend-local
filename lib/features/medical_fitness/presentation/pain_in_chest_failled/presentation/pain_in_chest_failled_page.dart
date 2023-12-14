@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 
 class PainInChestFailedPage extends StatelessWidget {
-  const PainInChestFailedPage({Key? key}) : super(key: key);
+  const PainInChestFailedPage({super.key});
 
   @override
   Widget build(BuildContext context) {

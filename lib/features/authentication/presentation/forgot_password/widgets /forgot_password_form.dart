@@ -12,7 +12,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 
 class ForgotPasswordForm extends StatefulWidget {
-  const ForgotPasswordForm({Key? key}) : super(key: key);
+  const ForgotPasswordForm({super.key});
 
   @override
   State<ForgotPasswordForm> createState() => _ForgotPasswordFormState();
@@ -73,23 +73,21 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
 
   void _redirectListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(guest: (state) {
-      showAppSnackBar(
-        context: context,
-        text: LocalizedTexts.forgotEmailSuccessMessage.tr(namedArgs: {
-          'email': state.maybeMap(guest: (s) => s.email ?? '', orElse: () => '')
-        }),
-        textColor: Colors.white,
-        callback: () => context.router.pop(),
-      );
+      context.showSuccessBar(
+          content: Text(
+            LocalizedTexts.forgotEmailSuccessMessage.tr(
+              namedArgs: {
+                'email': state.maybeMap(guest: (s) => s.email ?? '', orElse: () => ''),
+              },
+            ),
+          ),
+          actions: [TextButton(onPressed: () => context.router.pop(), child: const Text('Ok'))]);
     });
   }
 
-  bool _redirectListenWhen(
-      AuthenticationState previous, AuthenticationState current) {
-    final previousEmail = previous.maybeMap(
-        guest: (state) => state.emailWasSend, orElse: () => false);
-    final currentEmail = current.maybeMap(
-        guest: (state) => state.emailWasSend, orElse: () => false);
+  bool _redirectListenWhen(AuthenticationState previous, AuthenticationState current) {
+    final previousEmail = previous.maybeMap(guest: (state) => state.emailWasSend, orElse: () => false);
+    final currentEmail = current.maybeMap(guest: (state) => state.emailWasSend, orElse: () => false);
     final error = current.mapOrNull(guest: (state) => state.error);
 
     return previousEmail != currentEmail && currentEmail && error == null;

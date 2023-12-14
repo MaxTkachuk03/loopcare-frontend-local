@@ -7,10 +7,10 @@ class WhereDoYouEatItem extends StatelessWidget {
   final List<EatPlaceItem> list;
 
   const WhereDoYouEatItem({
-    Key? key,
+    super.key,
     required this.label,
     required this.list,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +23,7 @@ class WhereDoYouEatItem extends StatelessWidget {
               width: 86,
               child: Text(
                 label,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(fontStyle: FontStyle.italic),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontStyle: FontStyle.italic),
               ),
             ),
             const SizedBox(

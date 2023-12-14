@@ -6,10 +6,10 @@ class EducationTabBar extends StatelessWidget {
   final List<Widget> tabs;
 
   const EducationTabBar({
-    Key? key,
+    super.key,
     required this.controller,
     required this.tabs,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

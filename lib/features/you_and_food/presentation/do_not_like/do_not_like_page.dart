@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/features/you_and_food/presentation/do_not_like
 import 'package:loopcare_frontend/features/you_and_food/presentation/you_and_food_question.dart';
 
 class DoNotLikePage extends StatelessWidget {
-  const DoNotLikePage({Key? key}) : super(key: key);
+  const DoNotLikePage({super.key});
 
   @override
   Widget build(BuildContext context) {

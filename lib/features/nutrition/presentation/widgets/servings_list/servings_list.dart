@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/serving_list_item/serving_list_item.dart';
 
 class ServingList extends StatefulWidget {
-  const ServingList({Key? key}) : super(key: key);
+  const ServingList({super.key});
 
   @override
   State<ServingList> createState() => _ServingListState();
@@ -42,8 +42,7 @@ class _ServingListState extends State<ServingList> {
                   itemCount: foodItemServingsState.servingsIList.length,
                   itemBuilder: (BuildContext context, int index) {
                     final ServingSize listItem = foodItemServingsState.servingsIList[index];
-                    final isSelected =
-                        foodItemServingsState.selectedServingItem?.servingId == listItem.servingId;
+                    final isSelected = foodItemServingsState.selectedServingItem?.servingId == listItem.servingId;
 
                     return ServingListItem(
                       item: listItem,

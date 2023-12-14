@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/features/medical_fitness/application/medical_f
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 
 class StomachReductionChips extends StatefulWidget {
-  const StomachReductionChips({Key? key}) : super(key: key);
+  const StomachReductionChips({super.key});
 
   @override
   State<StomachReductionChips> createState() => _StomachReductionChipsState();

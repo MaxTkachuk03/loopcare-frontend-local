@@ -8,11 +8,11 @@ class BottomNavigation extends StatelessWidget {
   final DashboardNavbarItems selectedItem;
 
   const BottomNavigation({
-    Key? key,
+    super.key,
     required this.onItemPress,
     required this.items,
     required this.selectedItem,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

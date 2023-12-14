@@ -27,7 +27,7 @@ class GroupedSigned extends StatelessWidget {
   final bool isCanJoin;
 
   const GroupedSigned({
-    Key? key,
+    super.key,
     required this.signedGroupSessions,
     required this.topicName,
     required this.startDate,
@@ -40,7 +40,7 @@ class GroupedSigned extends StatelessWidget {
     required this.sessionMightBeCancelled,
     required this.isHappeningNow,
     required this.isCanJoin,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -107,17 +107,11 @@ class GroupedSigned extends StatelessWidget {
                         const SizedBox(width: 8.0),
                         if (isCancelled)
                           Text(LocalizedTexts.timeslotCancelled.translation,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall
-                                      ?.copyWith(color: AppColors.orangeDark))
+                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.orangeDark))
                               .tr(),
                         if (!isCancelled && isMissed)
                           Text(LocalizedTexts.timeslotMissed.translation,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall
-                                      ?.copyWith(color: AppColors.orangeDark))
+                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.orangeDark))
                               .tr(),
                       ],
                     ),

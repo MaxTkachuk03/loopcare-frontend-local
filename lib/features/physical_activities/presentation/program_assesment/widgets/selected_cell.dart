@@ -6,10 +6,10 @@ class SelectedCell extends StatelessWidget {
   final String? label;
 
   const SelectedCell({
-    Key? key,
+    super.key,
     required this.index,
     this.label,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

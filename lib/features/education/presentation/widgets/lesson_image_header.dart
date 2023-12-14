@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/oval_bottom_border_c
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 
 class LessonImageHeader extends StatelessWidget {
-  const LessonImageHeader({Key? key}) : super(key: key);
+  const LessonImageHeader({super.key});
 
   @override
   Widget build(BuildContext context) {

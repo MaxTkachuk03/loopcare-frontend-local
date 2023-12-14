@@ -17,10 +17,10 @@ class AssignmentsIntroPage extends StatefulWidget {
   final bool fromDashboard;
 
   const AssignmentsIntroPage({
-    Key? key,
+    super.key,
     required this.lessonId,
     required this.fromDashboard,
-  }) : super(key: key);
+  });
 
   @override
   State<AssignmentsIntroPage> createState() => _AssignmentsIntroPageState();

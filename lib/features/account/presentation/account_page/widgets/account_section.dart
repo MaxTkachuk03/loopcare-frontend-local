@@ -13,7 +13,7 @@ import 'package:loopcare_frontend/features/physical_activities/application/physi
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 
 class AccountSection extends StatefulWidget {
-  const AccountSection({Key? key}) : super(key: key);
+  const AccountSection({super.key});
 
   @override
   State<AccountSection> createState() => _AccountSectionState();

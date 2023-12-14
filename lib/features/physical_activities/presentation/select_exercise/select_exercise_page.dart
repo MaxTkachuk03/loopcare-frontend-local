@@ -18,7 +18,7 @@ import 'package:loopcare_frontend/injection.dart';
 AppConfig appConfig = getIt<AppConfig>();
 
 class SelectExercisePage extends StatefulWidget {
-  const SelectExercisePage({Key? key}) : super(key: key);
+  const SelectExercisePage({super.key});
 
   @override
   State<SelectExercisePage> createState() => _SelectExercisePageState();

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -9,11 +9,9 @@ import 'package:loopcare_frontend/features/authentication/application/dto/group_
 import 'package:loopcare_frontend/features/authentication/application/dto/report_abuse_data.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-part 'report_abuse_event.dart';
-
-part 'report_abuse_state.dart';
-
 part 'report_abuse_bloc.freezed.dart';
+part 'report_abuse_event.dart';
+part 'report_abuse_state.dart';
 
 @singleton
 class ReportAbuseBloc extends Bloc<ReportAbuseEvent, ReportAbuseState> {

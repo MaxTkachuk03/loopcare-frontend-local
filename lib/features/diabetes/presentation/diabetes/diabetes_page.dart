@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/diabetes/presentation/diabetes/widgets/diabetes_type_chips.dart';
 
 class DiabetesPage extends StatelessWidget {
-  const DiabetesPage({Key? key}) : super(key: key);
+  const DiabetesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +17,7 @@ class DiabetesPage extends StatelessWidget {
             Text(LocalizedTexts.diabetes.tr()),
             Text(
               '1 ${LocalizedTexts.of.tr()} 1',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.copyWith(fontWeight: FontWeight.w700),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
             ),
           ],
         ),

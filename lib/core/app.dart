@@ -52,7 +52,7 @@ class App extends StatelessWidget {
 }
 
 class _App extends StatefulWidget {
-  const _App({Key? key}) : super(key: key);
+  const _App();
 
   @override
   _AppState createState() => _AppState();

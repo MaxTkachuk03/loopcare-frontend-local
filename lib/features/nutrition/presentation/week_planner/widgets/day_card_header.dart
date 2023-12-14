@@ -10,10 +10,10 @@ class DayCardHeader extends StatelessWidget {
   final VoidCallback onPressHandler;
 
   const DayCardHeader({
-    Key? key,
+    super.key,
     required this.date,
     required this.onPressHandler,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

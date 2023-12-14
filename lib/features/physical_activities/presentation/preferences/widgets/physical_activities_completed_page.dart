@@ -14,7 +14,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/app_unlock_block.dart';
 
 class PhysicalActivitiesCompletePage extends StatefulWidget {
-  const PhysicalActivitiesCompletePage({Key? key}) : super(key: key);
+  const PhysicalActivitiesCompletePage({super.key});
 
   @override
   State<PhysicalActivitiesCompletePage> createState() => _PhysicalActivitiesCompletePageState();

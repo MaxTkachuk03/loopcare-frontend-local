@@ -4,8 +4,8 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 
 class NoGroup extends StatelessWidget {
   const NoGroup({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

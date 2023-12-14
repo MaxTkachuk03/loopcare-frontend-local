@@ -13,7 +13,7 @@ import 'package:loopcare_frontend/features/nutrition/application/search/dto/sear
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
 
 class PlusButtonHexagon extends StatelessWidget {
-  const PlusButtonHexagon({Key? key}) : super(key: key);
+  const PlusButtonHexagon({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -76,8 +76,6 @@ class PlusButtonHexagon extends StatelessWidget {
                     );
 
                     context.router.pushNamed(AppRoutes.meal);
-                  } else {
-                    print('Search item click freezed PlusButtonHexagon mealId == null line 79');
                   }
                 },
               ),
@@ -96,8 +94,6 @@ class PlusButtonHexagon extends StatelessWidget {
                 canEditDish: false,
               ),
             );
-          } else {
-            print('Search item click freezed PlusButtonHexagon line 99');
           }
         },
       ),

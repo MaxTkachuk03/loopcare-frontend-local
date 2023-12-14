@@ -9,15 +9,13 @@ import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dar
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 
 class LegalStatementConfirmationBox extends StatefulWidget {
-  const LegalStatementConfirmationBox({Key? key}) : super(key: key);
+  const LegalStatementConfirmationBox({super.key});
 
   @override
-  State<LegalStatementConfirmationBox> createState() =>
-      _LegalStatementConfirmationBoxState();
+  State<LegalStatementConfirmationBox> createState() => _LegalStatementConfirmationBoxState();
 }
 
-class _LegalStatementConfirmationBoxState
-    extends State<LegalStatementConfirmationBox> {
+class _LegalStatementConfirmationBoxState extends State<LegalStatementConfirmationBox> {
   bool isChecked = false;
 
   @override
@@ -55,10 +53,7 @@ class _LegalStatementConfirmationBoxState
                   ),
                   Text(
                     LocalizedTexts.legalStatementCheckboxTitle.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(fontWeight: FontWeight.w700),
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(
                     height: 8.0,
@@ -114,8 +109,7 @@ class _LegalStatementConfirmationBoxState
 
   void _onConfirm() {
     context
-      ..read<LegalStatementBloc>()
-          .add(const LegalStatementEvent.passageChanged(true))
+      ..read<LegalStatementBloc>().add(const LegalStatementEvent.passageChanged(true))
       ..router.replaceNamed(AppRoutes.signUpWelcome);
   }
 }

@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/preparation_materials.dart';
@@ -15,10 +15,10 @@ class BookedSessionCard extends StatelessWidget {
   final int duration;
 
   const BookedSessionCard({
-    Key? key,
+    super.key,
     required this.groupSession,
     required this.duration,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +55,7 @@ class BookedSessionCard extends StatelessWidget {
                   ).tr(
                     namedArgs: {
                       'startTime': groupSession.startDate.toLocal().timeHoursMinutes24,
-                      'endTime': groupSession.startDate
-                          .toLocal()
-                          .add(Duration(seconds: duration))
-                          .timeHoursMinutes24,
+                      'endTime': groupSession.startDate.toLocal().add(Duration(seconds: duration)).timeHoursMinutes24,
                     },
                   ),
                   Text(

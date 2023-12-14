@@ -8,10 +8,10 @@ class ProgressBar extends StatelessWidget {
   final VoidCallback onSliderProgressChange;
 
   const ProgressBar({
-    Key? key,
+    super.key,
     required this.controller,
     required this.onSliderProgressChange,
-  }) : super(key: key);
+  });
 
   double _durationToDouble(Duration val) {
     return val.inMilliseconds.toDouble();
@@ -45,8 +45,7 @@ class ProgressBar extends StatelessWidget {
                         min: 0,
                         max: _durationToDouble(value.duration),
                         value: _durationToDouble(value.position),
-                        secondaryTrackValue:
-                            value.buffered.isEmpty ? 0.0 : _durationToDouble(value.buffered[0].end),
+                        secondaryTrackValue: value.buffered.isEmpty ? 0.0 : _durationToDouble(value.buffered[0].end),
                       ),
                     ),
                     Text(

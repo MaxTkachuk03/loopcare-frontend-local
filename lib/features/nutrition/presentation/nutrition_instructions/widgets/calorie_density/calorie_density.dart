@@ -12,9 +12,9 @@ class CalorieDensity extends StatelessWidget {
   final double? value;
 
   const CalorieDensity({
-    Key? key,
+    super.key,
     this.value,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -80,8 +80,7 @@ class CalorieDensity extends StatelessWidget {
                             loaded: (state) {
                               final currentCalorieDensityItem = state.data.getCalorieDensityItem(value);
 
-                              if (state.data.calorieDensityValues.isEmpty ||
-                                  currentCalorieDensityItem == null) {
+                              if (state.data.calorieDensityValues.isEmpty || currentCalorieDensityItem == null) {
                                 return const SizedBox();
                               }
 

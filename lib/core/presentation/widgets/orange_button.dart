@@ -5,7 +5,7 @@ class OrangeButton extends StatelessWidget {
   final void Function()? onPressedHandler;
   final Widget child;
 
-  const OrangeButton({Key? key, required this.onPressedHandler, required this.child}) : super(key: key);
+  const OrangeButton({super.key, required this.onPressedHandler, required this.child});
 
   @override
   Widget build(BuildContext context) {

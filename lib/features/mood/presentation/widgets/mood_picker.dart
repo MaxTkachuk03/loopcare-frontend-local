@@ -14,7 +14,7 @@ class MoodPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.FF404040),
+        border: Border.all(color: AppColors.ff404040),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       height: 65,
@@ -30,7 +30,7 @@ class MoodPicker extends StatelessWidget {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   border: i.isOdd
-                      ? const Border.symmetric(vertical: BorderSide(width: 1, color: AppColors.FF404040))
+                      ? const Border.symmetric(vertical: BorderSide(width: 1, color: AppColors.ff404040))
                       : null,
                 ),
                 // padding: const EdgeInsets.symmetric(horizontal: 14.5),

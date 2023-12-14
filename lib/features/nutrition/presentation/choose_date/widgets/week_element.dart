@@ -11,11 +11,11 @@ class WeekElement extends StatelessWidget {
   final Function(DateTime day) onPressHandler;
 
   const WeekElement({
-    Key? key,
+    super.key,
     required this.weekNumber,
     required this.weekElements,
     required this.onPressHandler,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

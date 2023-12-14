@@ -6,7 +6,6 @@ import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.d
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -109,14 +108,8 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
     );
   }
 
-  _onErrorHandler(MoodState s) {
-    showAppSnackBar(
-      context: context,
-      text: s.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr(),
-      background: AppColors.red,
-      textColor: Colors.white,
-    );
-  }
+  _onErrorHandler(MoodState s) =>
+      context.showError(content: Text(s.data.errorMessage ?? LocalizedTexts.somethingWentWrong.translation));
 
   _onUpdateHandler(MoodState s) {
     context.router.pop();
@@ -147,21 +140,17 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(height: 34.0),
-                          Text(LocalizedTexts.selectMoodText,
-                                  style: Theme.of(context).textTheme.headlineSmall)
-                              .tr(),
+                          Text(LocalizedTexts.selectMoodText, style: Theme.of(context).textTheme.headlineSmall).tr(),
                           const SizedBox(height: 12.0),
                           ValueListenableBuilder<MoodPickerListItem?>(
                             valueListenable: _moodPageController.moodValue,
                             builder: (context, moodValue, _) => MoodPicker(
-                                onItemPressed: isEditable ? _onMoodValueChangeHandler : null,
-                                value: moodValue),
+                                onItemPressed: isEditable ? _onMoodValueChangeHandler : null, value: moodValue),
                           ),
                           const SizedBox(height: 12.0),
                           MoodOptions(controller: _moodPageController, isEditable: isEditable),
                           const SizedBox(height: 12.0),
-                          Text(LocalizedTexts.personalNote, style: Theme.of(context).textTheme.headlineSmall)
-                              .tr(),
+                          Text(LocalizedTexts.personalNote, style: Theme.of(context).textTheme.headlineSmall).tr(),
                           const SizedBox(height: 12.0),
                           MoodNoteField(_moodPageController, !isEditable),
                           const SizedBox(height: 24.0),

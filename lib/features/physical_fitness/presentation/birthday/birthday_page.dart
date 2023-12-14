@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/features/physical_fitness/presentation/birthda
 import 'package:loopcare_frontend/features/physical_fitness/presentation/physical_question_wrap.dart';
 
 class BirthdayPage extends StatelessWidget {
-  const BirthdayPage({Key? key}) : super(key: key);
+  const BirthdayPage({super.key});
 
   @override
   Widget build(BuildContext context) {

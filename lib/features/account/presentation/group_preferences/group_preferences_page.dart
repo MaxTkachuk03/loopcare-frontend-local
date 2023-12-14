@@ -18,7 +18,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
 class GroupPreferencesPage extends StatefulWidget {
-  const GroupPreferencesPage({Key? key}) : super(key: key);
+  const GroupPreferencesPage({super.key});
 
   @override
   State<GroupPreferencesPage> createState() => _GroupPreferencesPageState();

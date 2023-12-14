@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart'
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class IntroSection extends StatelessWidget {
-  const IntroSection({Key? key}) : super(key: key);
+  const IntroSection({super.key});
 
   @override
   Widget build(BuildContext context) {

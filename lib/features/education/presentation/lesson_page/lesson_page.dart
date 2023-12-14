@@ -11,7 +11,6 @@ import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
@@ -27,10 +26,10 @@ class LessonPage extends StatefulWidget {
   final int pageIndex;
 
   const LessonPage({
-    Key? key,
+    super.key,
     @PathParam('lessonId') required this.lessonId,
     @PathParam('pageIndex') required this.pageIndex,
-  }) : super(key: key);
+  });
 
   @override
   State<LessonPage> createState() => _LessonPageState();
@@ -101,14 +100,7 @@ class _LessonPageState extends State<LessonPage> {
 
   _errorListener(BuildContext context, EducationLessonState state) {
     final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
-
-    showAppSnackBar(
-      context: context,
-      text: errorMessage,
-      background: AppColors.red,
-      textColor: Colors.white,
-    );
-
+    context.showError(content: Text(errorMessage));
     context.router.pop();
   }
 
@@ -167,8 +159,7 @@ class _LessonPageState extends State<LessonPage> {
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadSubtitlesFile(
-                            state.data.currentPage.content.subtitlesImages!),
+                        EducationLessonEvent.downloadSubtitlesFile(state.data.currentPage.content.subtitlesImages!),
                       );
                 }
                 return LessonAudioPage(
@@ -212,8 +203,7 @@ class _LessonPageState extends State<LessonPage> {
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadSubtitlesFile(
-                            state.data.currentPage.content.subtitlesImages!),
+                        EducationLessonEvent.downloadSubtitlesFile(state.data.currentPage.content.subtitlesImages!),
                       );
                 }
                 return LessonAudioPage(
@@ -249,8 +239,7 @@ class _LessonPageState extends State<LessonPage> {
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadSubtitlesFile(
-                            state.data.currentPage.content.subtitlesImages!),
+                        EducationLessonEvent.downloadSubtitlesFile(state.data.currentPage.content.subtitlesImages!),
                       );
                 }
                 return LessonAudioPage(

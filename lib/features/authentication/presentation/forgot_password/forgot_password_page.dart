@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/features/authentication/presentation/forgot_password/widgets%20/forgot_password_form.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
-  const ForgotPasswordPage({Key? key}) : super(key: key);
+  const ForgotPasswordPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +38,7 @@ class ForgotPasswordPage extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .headlineMedium
-                              ?.copyWith(
-                                  fontFamily: ThemeConstants.bitterFontFamily,
-                                  color: AppColors.blueDark),
+                              ?.copyWith(fontFamily: ThemeConstants.bitterFontFamily, color: AppColors.blueDark),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 4.0),

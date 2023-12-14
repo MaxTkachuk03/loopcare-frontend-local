@@ -1,13 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe_details/recipe_details_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
 class RecipeDetailsAppBar extends StatelessWidget {
-  const RecipeDetailsAppBar({Key? key}) : super(key: key);
+  const RecipeDetailsAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,16 +55,12 @@ class RecipeDetailsAppBar extends StatelessWidget {
                   ),
                   SafeArea(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 24.0, vertical: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
                       child: Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
                           s.recipe.name,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium
-                              ?.copyWith(
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                 fontFamily: ThemeConstants.bitterFontFamily,
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.white,

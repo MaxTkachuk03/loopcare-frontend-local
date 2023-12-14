@@ -5,15 +5,13 @@ import 'package:loopcare_frontend/features/physical_fitness/presentation/check_f
 import 'package:loopcare_frontend/features/physical_fitness/presentation/check_passed/check_passed_page.dart';
 
 class PhysicalCheckResultPage extends StatelessWidget {
-  const PhysicalCheckResultPage({Key? key}) : super(key: key);
+  const PhysicalCheckResultPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PhysicalFitnessBloc, PhysicalFitnessState>(
       builder: (BuildContext context, state) {
-        return state.isCompletedSuccessfully
-            ? const CheckPassedPage()
-            : const CheckFailedBmiPage();
+        return state.isCompletedSuccessfully ? const CheckPassedPage() : const CheckFailedBmiPage();
       },
     );
   }

@@ -15,7 +15,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/log_planned_me
 class LogPlannedMealsPage extends StatelessWidget {
   final NameLabel selectedMealCategory;
 
-  const LogPlannedMealsPage({Key? key, required this.selectedMealCategory}) : super(key: key);
+  const LogPlannedMealsPage({super.key, required this.selectedMealCategory});
 
   @override
   Widget build(BuildContext context) {

@@ -6,15 +6,15 @@ import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/program_type.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/widgets/program_carousel.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/widgets/program_card.dart';
+import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/widgets/program_carousel.dart';
 
 class PhysicalProgramsPage extends StatelessWidget {
-  const PhysicalProgramsPage({Key? key}) : super(key: key);
+  const PhysicalProgramsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

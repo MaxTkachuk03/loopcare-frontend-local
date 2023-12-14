@@ -8,10 +8,10 @@ class DayElement extends StatelessWidget {
   final Function(DateTime day) onPressHandler;
 
   const DayElement({
-    Key? key,
+    super.key,
     required this.dayElement,
     required this.onPressHandler,
-  }) : super(key: key);
+  });
 
   Color _getDayBgColor() {
     return dayElement.enabled

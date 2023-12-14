@@ -24,7 +24,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
   final VideoPageController videoPageController;
 
   const PlayerEndVideoOverlay({
-    Key? key,
+    super.key,
     required this.controller,
     required this.orientation,
     required this.exercise,
@@ -35,7 +35,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
     required this.programLength,
     required this.isLastVideo,
     required this.videoPageController,
-  }) : super(key: key);
+  });
 
   bool get _isPortraitOrientation {
     return orientation == Orientation.portrait;

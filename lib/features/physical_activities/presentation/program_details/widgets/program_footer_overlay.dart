@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/features/dashboard/application/programs_in_pro
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 
 class ProgramFooterOverlay extends StatelessWidget {
-  const ProgramFooterOverlay({Key? key}) : super(key: key);
+  const ProgramFooterOverlay({super.key});
 
   @override
   Widget build(BuildContext context) {

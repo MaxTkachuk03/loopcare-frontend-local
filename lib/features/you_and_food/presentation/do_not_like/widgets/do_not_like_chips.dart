@@ -5,7 +5,7 @@ import 'package:loopcare_frontend/features/you_and_food/application/dto/food_pre
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 class DoYouLikeChips extends StatefulWidget {
-  const DoYouLikeChips({Key? key}) : super(key: key);
+  const DoYouLikeChips({super.key});
 
   @override
   State<DoYouLikeChips> createState() => _DoYouLikeChipsState();

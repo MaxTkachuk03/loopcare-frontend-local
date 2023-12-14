@@ -14,7 +14,7 @@ import 'package:loopcare_frontend/features/physical_fitness/utils/weight_convers
 class WeightBlock extends StatelessWidget {
   final DateTime date;
 
-  const WeightBlock({Key? key, required this.date}) : super(key: key);
+  const WeightBlock({super.key, required this.date});
 
   void onPressHandler(BuildContext context) {
     context.router.push(LogWeightRoute(selectedDay: date));

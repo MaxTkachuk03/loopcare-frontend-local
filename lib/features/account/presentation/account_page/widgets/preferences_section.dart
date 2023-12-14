@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/physical_activities_frequency.dart';
 import 'package:loopcare_frontend/core/domain/physical_activities_type.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
-import 'package:loopcare_frontend/core/presentation/alerting/show_success_popup.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -20,7 +20,7 @@ import 'package:loopcare_frontend/features/physical_activities/application/physi
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 class PreferencesSection extends StatelessWidget {
-  const PreferencesSection({Key? key}) : super(key: key);
+  const PreferencesSection({super.key});
 
   void _onFoodHandler(BuildContext context) {
     context.router.pushNamed(AppRoutes.foodPreferences);
@@ -53,9 +53,8 @@ class PreferencesSection extends StatelessWidget {
   }
 
   String _groupSessionsSubtitle(AuthenticationState state) {
-    var grouped = state.isUserGrouped
-        ? LocalizedTexts.yes.translation.capitalize()
-        : LocalizedTexts.no.translation.capitalize();
+    var grouped =
+        state.isUserGrouped ? LocalizedTexts.yes.translation.capitalize() : LocalizedTexts.no.translation.capitalize();
 
     return "${LocalizedTexts.partOfGroup.translation}: $grouped";
   }
@@ -68,11 +67,13 @@ class PreferencesSection extends StatelessWidget {
   }
 
   Future<void> _foodUpdatedListener(BuildContext context, YouAndFoodState state) async {
-    showSuccessPopup(
-        text: LocalizedTexts.yourPreferencesUpdated.tr(namedArgs: {
+    context.showSuccessBar(
+      content: Text(
+        LocalizedTexts.yourPreferencesUpdated.tr(namedArgs: {
           'prefName': LocalizedTexts.food.tr(),
         }),
-        context: context);
+      ),
+    );
   }
 
   bool _whenPhysicalActivitiesUpdated(
@@ -84,11 +85,15 @@ class PreferencesSection extends StatelessWidget {
 
   Future<void> _physicalActivitiesUpdatingListener(
       BuildContext context, PhysicalActivitiesPreferencesState state) async {
-    showSuccessPopup(
-        text: LocalizedTexts.yourPreferencesUpdated.tr(namedArgs: {
-          'prefName': LocalizedTexts.physicalExercises.tr().toLowerCase(),
-        }),
-        context: context);
+    context.showSuccessBar(
+      content: Text(
+        LocalizedTexts.yourPreferencesUpdated.tr(
+          namedArgs: {
+            'prefName': LocalizedTexts.physicalExercises.tr().toLowerCase(),
+          },
+        ),
+      ),
+    );
   }
 
   bool _whenGroupUpdated(
@@ -99,11 +104,15 @@ class PreferencesSection extends StatelessWidget {
   }
 
   Future<void> _groupUpdatingListener(BuildContext context, GroupPreferencesState state) async {
-    showSuccessPopup(
-        text: LocalizedTexts.yourPreferencesUpdated.tr(namedArgs: {
-          'prefName': LocalizedTexts.group.tr().toLowerCase(),
-        }),
-        context: context);
+    context.showSuccessBar(
+      content: Text(
+        LocalizedTexts.yourPreferencesUpdated.tr(
+          namedArgs: {
+            'prefName': LocalizedTexts.group.tr().toLowerCase(),
+          },
+        ),
+      ),
+    );
   }
 
   @override
@@ -150,8 +159,7 @@ class PreferencesSection extends StatelessWidget {
                 return SectionItem(
                   title: LocalizedTexts.groupSessions.tr(),
                   subTitle: _groupSessionsSubtitle(state),
-                  onPressHandler:
-                      state.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
+                  onPressHandler: state.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
                 );
               },
             ),
