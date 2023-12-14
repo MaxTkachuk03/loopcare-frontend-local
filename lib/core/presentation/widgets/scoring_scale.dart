@@ -10,13 +10,13 @@ class ScoringScale extends StatelessWidget {
   final Color? borderColor;
 
   const ScoringScale({
-    Key? key,
+    super.key,
     required this.selectedScore,
     required this.onScoreTap,
     this.scaleSize,
     this.labels,
     this.borderColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

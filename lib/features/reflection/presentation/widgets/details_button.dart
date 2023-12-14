@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 class DetailsButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
-  const DetailsButton({Key? key, this.onPressed}) : super(key: key);
+  const DetailsButton({super.key, this.onPressed});
 
   @override
   Widget build(BuildContext context) {

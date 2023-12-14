@@ -8,8 +8,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 class EducationCategoryList extends StatefulWidget {
   final List<EducationLesson> lessons;
 
-  const EducationCategoryList({Key? key, required this.lessons})
-      : super(key: key);
+  const EducationCategoryList({super.key, required this.lessons});
 
   @override
   State<EducationCategoryList> createState() => _EducationCategoryListState();

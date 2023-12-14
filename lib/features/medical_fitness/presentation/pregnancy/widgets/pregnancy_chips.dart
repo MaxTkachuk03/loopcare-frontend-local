@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/features/medical_fitness/application/medical_f
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 
 class PregnancyChips extends StatefulWidget {
-  const PregnancyChips({Key? key}) : super(key: key);
+  const PregnancyChips({super.key});
 
   @override
   State<PregnancyChips> createState() => _PregnancyChipsState();

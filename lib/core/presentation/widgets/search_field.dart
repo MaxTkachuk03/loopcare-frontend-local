@@ -9,13 +9,13 @@ class SearchField extends StatelessWidget {
   final void Function(String value)? onChanged;
 
   const SearchField({
-    Key? key,
+    super.key,
     this.readOnly = false,
     required this.hintText,
     this.contentPadding,
     this.prefixIcon,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

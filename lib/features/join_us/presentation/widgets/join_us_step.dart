@@ -10,11 +10,11 @@ class JoinUsStep extends StatelessWidget {
   final String markLetter;
 
   const JoinUsStep({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle,
     required this.markLetter,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

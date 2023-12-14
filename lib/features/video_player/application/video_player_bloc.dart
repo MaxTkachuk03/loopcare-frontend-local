@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/aws_service.dart';
@@ -6,9 +6,9 @@ import 'package:loopcare_frontend/core/domain/aws_cookies_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/aws_presigned_cookies.dart';
 
+part 'video_player_bloc.freezed.dart';
 part 'video_player_event.dart';
 part 'video_player_state.dart';
-part 'video_player_bloc.freezed.dart';
 
 @singleton
 class VideoPlayerBloc extends Bloc<VideoPlayerEvent, VideoPlayerState> {

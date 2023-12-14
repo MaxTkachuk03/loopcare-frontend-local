@@ -51,7 +51,7 @@ class _QuizzesQuestionState extends State<QuizzesQuestion> {
                 label: el.label,
                 selected: widget.selectedValue?.id == el.id,
                 onSelected: _onSelectedHandler,
-                borderColor: AppColors.FF404040,
+                borderColor: AppColors.ff404040,
               ),
               showAnswer: (_) {
                 var isCorrect = el.isCorrect ?? false;
@@ -59,7 +59,7 @@ class _QuizzesQuestionState extends State<QuizzesQuestion> {
                   label: el.label,
                   selected: widget.selectedValue?.id == el.id,
                   onSelected: (String value) {},
-                  borderColor: AppColors.FF404040,
+                  borderColor: AppColors.ff404040,
                   correct: (!isCorrect && widget.selectedValue?.id == el.id) || isCorrect ? isCorrect : null,
                   active: (!isCorrect && widget.selectedValue?.id == el.id) || isCorrect ? true : false,
                 );

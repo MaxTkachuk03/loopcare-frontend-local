@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
 class SelectedItemsLabel extends StatelessWidget {
-  const SelectedItemsLabel({Key? key}) : super(key: key);
+  const SelectedItemsLabel({super.key});
 
   @override
   Widget build(BuildContext context) {

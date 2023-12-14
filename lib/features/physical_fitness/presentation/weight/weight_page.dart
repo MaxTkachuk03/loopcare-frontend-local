@@ -17,7 +17,7 @@ const kg = 'kg';
 const lbs = 'lbs';
 
 class WeightPage extends StatefulWidget {
-  const WeightPage({Key? key}) : super(key: key);
+  const WeightPage({super.key});
 
   @override
   State<WeightPage> createState() => _WeightPageState();
@@ -162,11 +162,10 @@ class _NextButton extends StatelessWidget {
   final bool enable;
 
   const _NextButton({
-    Key? key,
     required this.measurementSystemType,
     required this.getWeight,
     required this.enable,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

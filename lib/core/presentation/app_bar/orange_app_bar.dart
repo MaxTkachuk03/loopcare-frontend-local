@@ -8,7 +8,7 @@ class OrangeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
-  const OrangeAppBar({Key? key, this.title}) : super(key: key);
+  const OrangeAppBar({super.key, this.title});
 
   @override
   Widget build(BuildContext context) {

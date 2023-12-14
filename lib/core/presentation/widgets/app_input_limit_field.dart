@@ -34,7 +34,7 @@ class AppLimitTextField extends StatefulWidget {
   final Color? cursorColor;
 
   const AppLimitTextField({
-    Key? key,
+    super.key,
     required this.controller,
     this.helperText,
     this.hintText,
@@ -62,7 +62,7 @@ class AppLimitTextField extends StatefulWidget {
     this.enabled = true,
     this.focusedColor,
     this.cursorColor,
-  }) : super(key: key);
+  });
 
   @override
   State<AppLimitTextField> createState() => _AppLimitTextFieldState();

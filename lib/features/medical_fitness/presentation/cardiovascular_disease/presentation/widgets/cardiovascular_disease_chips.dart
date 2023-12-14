@@ -9,15 +9,13 @@ import 'package:loopcare_frontend/features/medical_fitness/domain/cardiovascular
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 
 class CardiovascularDiseaseChips extends StatefulWidget {
-  const CardiovascularDiseaseChips({Key? key}) : super(key: key);
+  const CardiovascularDiseaseChips({super.key});
 
   @override
-  State<CardiovascularDiseaseChips> createState() =>
-      _CardiovascularDiseaseChipsState();
+  State<CardiovascularDiseaseChips> createState() => _CardiovascularDiseaseChipsState();
 }
 
-class _CardiovascularDiseaseChipsState
-    extends State<CardiovascularDiseaseChips> {
+class _CardiovascularDiseaseChipsState extends State<CardiovascularDiseaseChips> {
   CardiovascularDiseaseAnswers? _selectedValue;
 
   @override
@@ -34,9 +32,9 @@ class _CardiovascularDiseaseChipsState
       _selectedValue = value;
     });
 
-    context.read<ConsentConfirmationBloc>().add(
-        ConsentConfirmationEvent.passageChanged(
-            value == CardiovascularDiseaseAnswers.no));
+    context
+        .read<ConsentConfirmationBloc>()
+        .add(ConsentConfirmationEvent.passageChanged(value == CardiovascularDiseaseAnswers.no));
 
     if (value == CardiovascularDiseaseAnswers.yes) {
       context.router.pushNamed(AppRoutes.cardiovascularDiseaseFailed);

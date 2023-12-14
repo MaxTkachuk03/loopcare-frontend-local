@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -32,8 +32,7 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
 
     response.fold(
       (l) => emit(MoodState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(
-          MoodState.updated(state.data.copyWith(moods: _combineMoodsByDate(null, r.data), isLoading: false))),
+      (r) => emit(MoodState.updated(state.data.copyWith(moods: _combineMoodsByDate(null, r.data), isLoading: false))),
     );
   }
 
@@ -70,8 +69,8 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
 
     response.fold(
       (l) => emit(MoodState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(MoodState.updated(
-          state.data.copyWith(moods: _combineMoodsByDate(state.data.moods, [r]), isLoading: false))),
+      (r) => emit(
+          MoodState.updated(state.data.copyWith(moods: _combineMoodsByDate(state.data.moods, [r]), isLoading: false))),
     );
   }
 

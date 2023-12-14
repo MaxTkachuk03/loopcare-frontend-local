@@ -6,8 +6,7 @@ class VideoError extends StatelessWidget {
   final double width;
   final double height;
 
-  const VideoError({Key? key, this.errorMessage, required this.width, required this.height})
-      : super(key: key);
+  const VideoError({super.key, this.errorMessage, required this.width, required this.height});
 
   @override
   Widget build(BuildContext context) {

@@ -27,7 +27,7 @@ class ProgramCard extends StatelessWidget {
   final ProgramCardSize size;
   final PhysicalProgram program;
 
-  const ProgramCard({Key? key, required this.size, required this.program}) : super(key: key);
+  const ProgramCard({super.key, required this.size, required this.program});
 
   double get _imageWidth {
     return size.map(

@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/features/household_and_habits/presentation/hou
 import 'package:loopcare_frontend/features/household_and_habits/presentation/share_meal_with/widgets/share_meal_with_chips.dart';
 
 class ShareMealPage extends StatelessWidget {
-  const ShareMealPage({Key? key}) : super(key: key);
+  const ShareMealPage({super.key});
 
   @override
   Widget build(BuildContext context) {

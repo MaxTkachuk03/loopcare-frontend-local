@@ -16,13 +16,13 @@ class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => _tabBar.preferredSize.height + _padding;
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       color: AppColors.orange,
       child: Column(
         children: [
           UnderlinedTabBar(
+            tabAlignment: TabAlignment.center,
             tabs: _tabBar.tabs,
             tabController: _tabBar.controller,
           )

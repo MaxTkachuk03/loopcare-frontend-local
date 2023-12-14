@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/serving_input_field/serving_input_field.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/widgets/serving_input_field/serving_input_field.dart';
 
 typedef OnValueChangesHandler = void Function(String val);
 
@@ -12,11 +12,11 @@ class ServingsAmount extends StatelessWidget {
   final FocusNode? focusNode;
 
   const ServingsAmount({
-    Key? key,
+    super.key,
     required this.inputController,
     required this.onValueChangeHandler,
     this.focusNode,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

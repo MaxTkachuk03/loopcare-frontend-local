@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class NotGrouped extends StatelessWidget {
-  const NotGrouped({Key? key}) : super(key: key);
+  const NotGrouped({super.key});
 
   @override
   Widget build(BuildContext context) {

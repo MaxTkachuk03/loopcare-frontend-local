@@ -5,8 +5,8 @@ import 'package:loopcare_frontend/core/presentation/calorie_density_scale/calori
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 
 class CalorieDensityBlock extends StatelessWidget {
   final double? value;
@@ -14,11 +14,11 @@ class CalorieDensityBlock extends StatelessWidget {
   final bool showArrow;
 
   const CalorieDensityBlock({
-    Key? key,
+    super.key,
     this.value,
     required this.onPress,
     required this.showArrow,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

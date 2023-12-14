@@ -13,10 +13,10 @@ class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
   final void Function(String? tabName)? onTabChanged;
 
   const SearchAppBar({
-    Key? key,
+    super.key,
     this.mode,
     this.onTabChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<SearchAppBar> createState() => _SearchAppBarState();
@@ -41,7 +41,8 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
     if (mode != null) {
       tabs = <String>[mode.label];
     } else {
-      tabs = SearchMode.values.where((e) => e.label != SearchMode.favorite.label).map((e) => e.label).toList();
+      tabs =
+          SearchMode.values.where((e) => e.label != SearchMode.favorite.label).map((e) => e.label).toList();
     }
 
     _tabController = TabController(
@@ -71,7 +72,8 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
             child: Padding(
               padding: const EdgeInsets.fromLTRB(25, 8, 0, 8),
               child: BlocListener<SearchBloc, SearchState>(
-                listenWhen: (prev, cur) => prev.data.searchParameters.query != cur.data.searchParameters.query,
+                listenWhen: (prev, cur) =>
+                    prev.data.searchParameters.query != cur.data.searchParameters.query,
                 listener: _searchQueryListener,
                 child: Field(
                   autofocus: true,
@@ -113,6 +115,7 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
                 UnderlinedTabBar(
                   tabs: tabs.map((e) => Tab(text: e)).toList(),
                   tabController: _tabController,
+                  tabAlignment: TabAlignment.start,
                 ),
               ],
             ),

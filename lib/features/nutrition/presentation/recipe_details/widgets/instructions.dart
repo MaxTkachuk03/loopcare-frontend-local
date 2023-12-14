@@ -5,7 +5,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/features/nutrition/application/recipe_details/recipe_details_bloc.dart';
 
 class Instructions extends StatelessWidget {
-  const Instructions({Key? key}) : super(key: key);
+  const Instructions({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +22,7 @@ class Instructions extends StatelessWidget {
                   ),
                   Text(
                     LocalizedTexts.howToPrepare.translation,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(fontWeight: FontWeight.w700),
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(
                     height: 16.0,

@@ -10,10 +10,10 @@ class PhysicalQuestionWrap extends StatelessWidget {
   final bool? isWithOnWillPop;
 
   const PhysicalQuestionWrap({
-    Key? key,
+    super.key,
     required this.child,
     this.isWithOnWillPop,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

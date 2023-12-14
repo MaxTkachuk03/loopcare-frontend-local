@@ -11,13 +11,13 @@ class CountDown extends StatelessWidget {
   final VideoPageController videoPageController;
 
   const CountDown({
-    Key? key,
+    super.key,
     required this.controller,
     required this.duration,
     required this.onComplete,
     required this.isPortraitOrientation,
     required this.videoPageController,
-  }) : super(key: key);
+  });
 
   _onTimeFormatterHandler(defaultFormatterFunction, duration) {
     if (duration.inSeconds == 0) {

@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -22,7 +22,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:timezone/timezone.dart';
 
 class TimezonePreferencesPage extends StatefulWidget {
-  const TimezonePreferencesPage({Key? key}) : super(key: key);
+  const TimezonePreferencesPage({super.key});
 
   @override
   State<TimezonePreferencesPage> createState() => _TimezonePreferencesPageState();
@@ -70,12 +70,8 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
     _selectedLocation = locations[index];
   }
 
-  void _onErrorHandler(GroupPreferencesState state) {
-    context.showErrorBar(
-      content: Text(state.data.error?.error.toString() ?? ''),
-      position: FlashPosition.top,
-    );
-  }
+  void _onErrorHandler(GroupPreferencesState state) =>
+      context.showError(content: Text(state.data.error?.error.toString() ?? ''));
 
   void _onUpdateHandler(GroupPreferencesState state) {
     final groupPrefsMode = context.read<GroupPreferencesBloc>().state.data.groupPrefsMode;

@@ -15,11 +15,11 @@ class VideoBlock extends StatelessWidget {
   final Widget Function(double width, double height, String? error) errorWidget;
 
   const VideoBlock({
-    Key? key,
+    super.key,
     required this.orientation,
     required this.controller,
     required this.errorWidget,
-  }) : super(key: key);
+  });
 
   double get _videoWidth {
     final width = controller?.value.size.width;

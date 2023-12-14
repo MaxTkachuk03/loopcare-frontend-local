@@ -10,18 +10,17 @@ class ServingListItem extends StatelessWidget {
   final void Function(ServingSize item) onPressed;
 
   const ServingListItem({
-    Key? key,
+    super.key,
     required this.item,
     required this.isSelected,
     required this.onPressed,
     required this.inputController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return isSelected
-        ? SelectedListItem(
-            item: item, onPressed: onPressed, inputController: inputController)
+        ? SelectedListItem(item: item, onPressed: onPressed, inputController: inputController)
         : DefaultListItem(item: item, onPressed: onPressed);
   }
 }

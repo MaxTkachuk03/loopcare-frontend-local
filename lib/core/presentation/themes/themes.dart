@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 part 'app_colors.dart';
-
 part 'theme_constants.dart';
+part 'button_styles.dart';
 
 final ThemeData appThemeData = ThemeData(
+  useMaterial3: true,
   fontFamily: ThemeConstants.openSansFontFamily,
   colorScheme: _getColorScheme(),
   appBarTheme: _getAppBarTheme(),
-  scaffoldBackgroundColor: AppColors.bgGreen,
   inputDecorationTheme: _getInputDecorationTheme(),
   elevatedButtonTheme: _getElevatedButtonTheme(),
   outlinedButtonTheme: _getOutlinedButtonTheme(),
   tabBarTheme: _getTabBarTheme(),
   textTheme: _getTextTheme(),
-  textSelectionTheme: const TextSelectionThemeData(
-    cursorColor: AppColors.black,
-  ),
+  textSelectionTheme: const TextSelectionThemeData(cursorColor: AppColors.black),
   checkboxTheme: _getCheckboxTheme(),
   highlightColor: Colors.transparent,
   disabledColor: AppColors.greyMid,
@@ -38,21 +37,10 @@ ColorScheme _getColorScheme() {
   );
 }
 
-AppBarTheme _getAppBarTheme() {
-  return const AppBarTheme(
-    backgroundColor: Colors.transparent,
-    titleTextStyle: TextStyle(
-      color: AppColors.darkGreen,
-      fontSize: ThemeConstants.fontSize14,
-      fontWeight: FontWeight.w400,
-    ),
-    centerTitle: true,
-    elevation: 0,
-    iconTheme: IconThemeData(
-      color: AppColors.darkGreen,
-    ),
-  );
-}
+AppBarTheme _getAppBarTheme() => const AppBarTheme(
+      titleTextStyle: TextStyle(fontSize: ThemeConstants.fontSize18, fontWeight: FontWeight.w600),
+      centerTitle: true,
+    );
 
 InputDecorationTheme _getInputDecorationTheme() {
   return const InputDecorationTheme(
@@ -112,12 +100,8 @@ InputDecorationTheme _getInputDecorationTheme() {
 ElevatedButtonThemeData _getElevatedButtonTheme() {
   return ElevatedButtonThemeData(
     style: ButtonStyle(
-      minimumSize: MaterialStateProperty.all(
-        const Size(
-          double.infinity,
-          52,
-        ),
-      ),
+      minimumSize: MaterialStateProperty.all(ButtonStyles.primarySize),
+      padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 25.0, vertical: 14.0)),
       backgroundColor: MaterialStateProperty.resolveWith<Color?>(
         (Set<MaterialState> states) {
           if (states.contains(MaterialState.disabled)) {
@@ -127,21 +111,8 @@ ElevatedButtonThemeData _getElevatedButtonTheme() {
           return AppColors.blueDark;
         },
       ),
-      foregroundColor: MaterialStateProperty.all(
-        AppColors.white,
-      ),
-      shape: MaterialStateProperty.all(
-        const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(30.0)),
-        ),
-      ),
-      elevation: MaterialStateProperty.all(0),
-      textStyle: MaterialStateProperty.all(
-        const TextStyle(
-          fontSize: ThemeConstants.fontSize16,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+      foregroundColor: MaterialStateProperty.all(AppColors.white),
+      textStyle: MaterialStateProperty.all(ButtonStyles.primaryLabel),
     ),
   );
 }
@@ -149,17 +120,10 @@ ElevatedButtonThemeData _getElevatedButtonTheme() {
 OutlinedButtonThemeData _getOutlinedButtonTheme() {
   return OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(30.0),
-        ),
-      ),
-      side: const BorderSide(width: 1.0, color: AppColors.darkGreen),
-      minimumSize: const Size(double.infinity, 52.0),
-      textStyle: const TextStyle(
-        fontSize: ThemeConstants.fontSize16,
-        fontWeight: FontWeight.w600,
-      ),
+      side: const BorderSide(width: 2.0),
+      minimumSize: ButtonStyles.primarySize,
+      textStyle: ButtonStyles.outlinedLabel,
+      foregroundColor: AppColors.blueDarker,
     ),
   );
 }

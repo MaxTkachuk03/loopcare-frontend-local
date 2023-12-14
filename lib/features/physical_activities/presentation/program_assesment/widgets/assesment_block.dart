@@ -7,9 +7,9 @@ class AssesmentBlock extends StatefulWidget {
   final void Function(int score) onScoreChange;
 
   const AssesmentBlock({
-    Key? key,
+    super.key,
     required this.onScoreChange,
-  }) : super(key: key);
+  });
 
   @override
   State<AssesmentBlock> createState() => _AssesmentBlockState();

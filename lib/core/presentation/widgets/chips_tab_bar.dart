@@ -7,11 +7,11 @@ class ChipsTabBar extends StatelessWidget {
   final VoidCallback? onTap;
 
   const ChipsTabBar({
-    Key? key,
+    super.key,
     required this.tabs,
     this.tabController,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +21,18 @@ class ChipsTabBar extends StatelessWidget {
       padding: const EdgeInsets.all(2.0),
       decoration: BoxDecoration(
         color: AppColors.yellowLight,
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: TabBar(
         onTap: (_) => onTap?.call(),
         controller: tabController,
         tabs: tabs,
+        indicatorSize: TabBarIndicatorSize.tab,
+        dividerColor: Colors.transparent,
+        indicator: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.white,
+        ),
       ),
     );
   }

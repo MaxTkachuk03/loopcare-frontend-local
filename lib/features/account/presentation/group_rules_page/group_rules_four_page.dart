@@ -16,7 +16,7 @@ import 'package:loopcare_frontend/features/account/presentation/widgets/group_pr
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 
 class GroupRulesFourPage extends StatelessWidget {
-  const GroupRulesFourPage({Key? key}) : super(key: key);
+  const GroupRulesFourPage({super.key});
 
   void _onIAgreePressHandler(BuildContext context) {
     final groupPrefsMode = context.read<GroupPreferencesBloc>().state.data.groupPrefsMode;

@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/features/you_and_food/presentation/types_of_fo
 import 'package:loopcare_frontend/features/you_and_food/presentation/you_and_food_question.dart';
 
 class TypesOfFoodPage extends StatelessWidget {
-  const TypesOfFoodPage({Key? key}) : super(key: key);
+  const TypesOfFoodPage({super.key});
 
   @override
   Widget build(BuildContext context) {

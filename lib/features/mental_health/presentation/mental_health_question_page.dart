@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/features/mental_health/presentation/widgets/me
 import 'package:loopcare_frontend/features/mental_health/presentation/widgets/question_text.dart';
 
 class MentalHealthQuestionPage extends StatefulWidget {
-  const MentalHealthQuestionPage({Key? key}) : super(key: key);
+  const MentalHealthQuestionPage({super.key});
 
   @override
   State<MentalHealthQuestionPage> createState() => _MentalHealthQuestionPageState();

@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 class WhiteBox extends StatelessWidget {
   final Widget child;
 
-  const WhiteBox({Key? key, required this.child}) : super(key: key);
+  const WhiteBox({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

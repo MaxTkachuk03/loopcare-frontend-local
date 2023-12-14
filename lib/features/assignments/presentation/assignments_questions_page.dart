@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -180,10 +181,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
       orElse: () => LocalizedTexts.somethingWentWrong.tr(),
     );
 
-    context.showErrorBar(
-      content: Text(errorMessage ?? ''),
-      position: FlashPosition.top,
-    );
+    context.showError(content: Text(errorMessage ?? ''));
   }
 
   void _onUpdateHandler(AssignmentsState state) {

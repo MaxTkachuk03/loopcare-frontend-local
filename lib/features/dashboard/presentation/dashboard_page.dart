@@ -222,9 +222,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               return const SizedBox.shrink();
                             }
 
-                            return Column(
+                            return const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
+                              children: [
                                 SizedBox(height: 10.0),
                                 SupportGroup(),
                               ],

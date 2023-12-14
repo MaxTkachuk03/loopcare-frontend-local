@@ -9,7 +9,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 
 class UnlockBloc extends StatelessWidget {
-  const UnlockBloc({Key? key}) : super(key: key);
+  const UnlockBloc({super.key});
 
   @override
   Widget build(BuildContext context) {

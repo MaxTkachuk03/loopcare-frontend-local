@@ -8,8 +8,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 
 class NoInformation extends StatelessWidget {
   const NoInformation({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +65,7 @@ class NoInformation extends StatelessWidget {
         const SizedBox(height: 14),
         OutlinedButton(
           style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
-                side: MaterialStateProperty.all(
-                    const BorderSide(width: 1.0, color: AppColors.black)),
+                side: MaterialStateProperty.all(const BorderSide(width: 1.0, color: AppColors.black)),
               ),
           onPressed: () => context.router.pop(),
           child: Text(LocalizedTexts.scanOtherProduct.tr()),

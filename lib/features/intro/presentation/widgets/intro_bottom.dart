@@ -1,12 +1,11 @@
 import 'package:auto_route/auto_route.dart';
-
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class IntroBottom extends StatelessWidget {
-  const IntroBottom({Key? key}) : super(key: key);
+  const IntroBottom({super.key});
 
   @override
   Widget build(BuildContext context) {

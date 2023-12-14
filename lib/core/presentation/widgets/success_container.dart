@@ -9,12 +9,12 @@ class SuccessContainer extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
 
   const SuccessContainer({
-    Key? key,
+    super.key,
     required this.title,
     required this.content,
     this.contentPadding,
     this.withoutCheckMark,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

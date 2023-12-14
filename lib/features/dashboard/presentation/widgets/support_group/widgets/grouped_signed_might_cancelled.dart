@@ -8,9 +8,9 @@ class GroupedSignedMightBeCancelled extends StatelessWidget {
   final int number;
 
   const GroupedSignedMightBeCancelled({
-    Key? key,
+    super.key,
     required this.number,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

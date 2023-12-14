@@ -18,9 +18,9 @@ class Education extends StatelessWidget {
   final DateTime date;
 
   const Education({
-    Key? key,
+    super.key,
     required this.date,
-  }) : super(key: key);
+  });
 
   void onPressHandler(BuildContext context) {
     var tabsRouter = AutoTabsRouter.of(context);
@@ -37,9 +37,8 @@ class Education extends StatelessWidget {
 
             return ErrorScreen(
               error: error,
-              onButtonPressed: () => context
-                  .read<DashboardEducationBloc>()
-                  .add(const DashboardEducationEvent.getDashboardLessons()),
+              onButtonPressed: () =>
+                  context.read<DashboardEducationBloc>().add(const DashboardEducationEvent.getDashboardLessons()),
             );
           },
           loading: (_) => const Loader(),

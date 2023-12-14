@@ -5,17 +5,16 @@ class FavouriteBtn extends StatefulWidget {
   final bool isActive;
 
   const FavouriteBtn({
-    Key? key,
+    super.key,
     required this.onPress,
     required this.isActive,
-  }) : super(key: key);
+  });
 
   @override
   State<FavouriteBtn> createState() => _FavouriteBtnState();
 }
 
-class _FavouriteBtnState extends State<FavouriteBtn>
-    with SingleTickerProviderStateMixin {
+class _FavouriteBtnState extends State<FavouriteBtn> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 

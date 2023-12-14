@@ -6,10 +6,10 @@ class UnderlinedClickableText extends StatelessWidget {
   final VoidCallback onTap;
 
   const UnderlinedClickableText({
-    Key? key,
+    super.key,
     required this.text,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +18,7 @@ class UnderlinedClickableText extends StatelessWidget {
       child: Text(
         text,
         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-          shadows: const [
-            Shadow(color: AppColors.black, offset: Offset(0, -2))
-          ],
+          shadows: const [Shadow(color: AppColors.black, offset: Offset(0, -2))],
           color: Colors.transparent,
           decoration: TextDecoration.underline,
           decorationColor: Colors.black,

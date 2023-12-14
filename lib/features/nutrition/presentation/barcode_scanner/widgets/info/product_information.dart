@@ -17,12 +17,12 @@ class ProductInformation extends StatelessWidget {
   final bool isReady;
 
   const ProductInformation({
-    Key? key,
+    super.key,
     required this.title,
     required this.calories,
     required this.perServing,
     required this.isReady,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +63,7 @@ class ProductInformation extends StatelessWidget {
                 Text('${LocalizedTexts.barCodeResultCalories.tr()} $calories',
                     style: Theme.of(context).textTheme.bodyMedium),
               if (isReady)
-                Text(
-                    '${LocalizedTexts.barCodeResultPerServing.tr()} $perServing',
+                Text('${LocalizedTexts.barCodeResultPerServing.tr()} $perServing',
                     style: Theme.of(context).textTheme.bodyMedium),
             ],
           ),
@@ -83,17 +82,13 @@ class ProductInformation extends StatelessWidget {
         const SizedBox(height: 14),
         OutlinedButton(
           style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
-                side: MaterialStateProperty.all(
-                    const BorderSide(width: 1.0, color: AppColors.blueDark)),
+                side: MaterialStateProperty.all(const BorderSide(width: 1.0, color: AppColors.blueDark)),
                 backgroundColor: MaterialStateProperty.all(AppColors.blueDark),
               ),
           onPressed: () => _onContinue(context),
           child: Text(
             LocalizedTexts.continueBtn.tr(),
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(color: AppColors.white),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white),
           ),
         ),
       ],
@@ -101,10 +96,7 @@ class ProductInformation extends StatelessWidget {
   }
 
   void _onContinue(BuildContext context) {
-    final foodItem = context
-        .read<BarcodeScannerBloc>()
-        .state
-        .mapOrNull(success: (state) => state.foodItem);
+    final foodItem = context.read<BarcodeScannerBloc>().state.mapOrNull(success: (state) => state.foodItem);
 
     if (foodItem == null) return;
 

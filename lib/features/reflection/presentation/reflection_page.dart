@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/features/reflection/presentation/widgets/nutri
 import 'package:loopcare_frontend/features/reflection/presentation/widgets/weight_section.dart';
 
 class ReflectionPage extends StatelessWidget {
-  const ReflectionPage({Key? key}) : super(key: key);
+  const ReflectionPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +23,8 @@ class ReflectionPage extends StatelessWidget {
         child: ScrollableContainer(
           child: Container(
             color: AppColors.bgGreen,
-            child: Column(
-              children: const [
+            child: const Column(
+              children: [
                 IntroSection(),
                 SizedBox(
                   height: 8.0,

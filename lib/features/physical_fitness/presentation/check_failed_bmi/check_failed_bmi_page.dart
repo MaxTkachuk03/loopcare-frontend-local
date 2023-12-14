@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/features/physical_fitness/utils/bmi_calculator
 import 'package:loopcare_frontend/features/physical_fitness/utils/bmi_validator.dart';
 
 class CheckFailedBmiPage extends StatelessWidget {
-  const CheckFailedBmiPage({Key? key}) : super(key: key);
+  const CheckFailedBmiPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +50,7 @@ class CheckFailedBmiPage extends StatelessWidget {
 
                           return Text(
                             '$bmiIndex',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium
-                                ?.copyWith(color: AppColors.blueDark),
+                            style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: AppColors.blueDark),
                           );
                         },
                       ),

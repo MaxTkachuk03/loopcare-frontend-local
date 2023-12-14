@@ -19,7 +19,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
 
 class GroupPreferencesForm extends StatelessWidget {
-  const GroupPreferencesForm({Key? key}) : super(key: key);
+  const GroupPreferencesForm({super.key});
 
   @override
   Widget build(BuildContext context) {

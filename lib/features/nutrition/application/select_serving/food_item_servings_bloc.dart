@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -12,11 +13,9 @@ import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 
-part 'food_item_servings_event.dart';
-
-part 'food_item_servings_state.dart';
-
 part 'food_item_servings_bloc.freezed.dart';
+part 'food_item_servings_event.dart';
+part 'food_item_servings_state.dart';
 
 @singleton
 class FoodItemServingsBloc extends Bloc<FoodItemServingsEvent, FoodItemServingsState> {
@@ -78,9 +77,8 @@ class FoodItemServingsBloc extends Bloc<FoodItemServingsEvent, FoodItemServingsS
           servingList = r.data.toIList();
         } else {
           servingList = r.data
-              .map((e) => e.servingId == event.selectedServingId
-                  ? e.copyWith(numberOfUnits: event.initialServingAmount)
-                  : e)
+              .map((e) =>
+                  e.servingId == event.selectedServingId ? e.copyWith(numberOfUnits: event.initialServingAmount) : e)
               .toIList();
         }
 

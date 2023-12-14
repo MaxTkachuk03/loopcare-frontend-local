@@ -18,9 +18,9 @@ class LogWeightPage extends StatefulWidget {
   final DateTime selectedDay;
 
   const LogWeightPage({
-    Key? key,
+    super.key,
     required this.selectedDay,
-  }) : super(key: key);
+  });
 
   @override
   State<LogWeightPage> createState() => _LogWeightPageState();

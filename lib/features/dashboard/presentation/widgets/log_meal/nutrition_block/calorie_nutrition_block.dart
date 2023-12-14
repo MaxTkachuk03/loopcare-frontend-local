@@ -9,10 +9,10 @@ class CalorieNutritionBlock extends StatelessWidget {
   final double? proteinDegree;
 
   const CalorieNutritionBlock({
-    Key? key,
+    super.key,
     this.calorieDensity,
     this.proteinDegree,
-  }) : super(key: key);
+  });
 
   void _onPressHandler(BuildContext context, {required int tabIndex}) {
     context.router.push(NutritionInstructionsRoute(

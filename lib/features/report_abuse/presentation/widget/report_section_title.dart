@@ -9,12 +9,12 @@ class ReportSectionTitle extends StatelessWidget {
   final Color? color;
 
   const ReportSectionTitle({
-    Key? key,
+    super.key,
     required this.title,
     this.fontSize = 24,
     this.fontWeight = FontWeight.w400,
     this.color = AppColors.orangeDark,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

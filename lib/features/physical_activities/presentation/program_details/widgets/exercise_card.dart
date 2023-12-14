@@ -8,7 +8,7 @@ class ExerciseCard extends StatelessWidget {
   final int index;
   final PhysicalProgramExercise exercise;
 
-  const ExerciseCard({Key? key, required this.index, required this.exercise}) : super(key: key);
+  const ExerciseCard({super.key, required this.index, required this.exercise});
 
   @override
   Widget build(BuildContext context) {

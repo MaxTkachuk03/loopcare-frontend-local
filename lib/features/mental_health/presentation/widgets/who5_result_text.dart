@@ -11,7 +11,7 @@ import 'package:loopcare_frontend/features/mental_health/presentation/mental_che
 import 'package:url_launcher/url_launcher.dart';
 
 class WHO5ResultText extends StatelessWidget {
-  const WHO5ResultText({Key? key}) : super(key: key);
+  const WHO5ResultText({super.key});
 
   void _onUrlHandler(BuildContext context) async {
     final Uri launchUri = Uri.parse(psychologistConsultingLink);
@@ -23,14 +23,8 @@ class WHO5ResultText extends StatelessWidget {
     }
   }
 
-  void _showError(BuildContext context) {
-    showAppSnackBar(
-      context: context,
-      text: LocalizedTexts.openLinkErrorMessage.tr(),
-      background: AppColors.red,
-      textColor: Colors.white,
-    );
-  }
+  void _showError(BuildContext context) =>
+      context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.translation));
 
   @override
   Widget build(BuildContext context) {

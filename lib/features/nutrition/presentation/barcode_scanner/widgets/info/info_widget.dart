@@ -8,9 +8,9 @@ class QRCodeInfoWidget extends StatefulWidget {
   final String code;
 
   const QRCodeInfoWidget({
-    Key? key,
+    super.key,
     required this.code,
-  }) : super(key: key);
+  });
 
   @override
   State<QRCodeInfoWidget> createState() => _QRCodeInfoWidgetState();
@@ -41,8 +41,7 @@ class _QRCodeInfoWidgetState extends State<QRCodeInfoWidget> {
                 ),
               ),
               child: const Padding(
-                padding:
-                    EdgeInsets.only(left: 44, right: 44, bottom: 44, top: 16),
+                padding: EdgeInsets.only(left: 44, right: 44, bottom: 44, top: 16),
                 child: NoInformation(),
               ),
             );
@@ -58,15 +57,11 @@ class _QRCodeInfoWidgetState extends State<QRCodeInfoWidget> {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 44, right: 44, bottom: 44, top: 16),
+                padding: const EdgeInsets.only(left: 44, right: 44, bottom: 44, top: 16),
                 child: ProductInformation(
                   isReady: successState.foodItem != null,
-                  title:
-                      '${successState.foodItem?.brandName} ${successState.foodItem?.foodName}',
-                  calories: successState.foodItem?.servings.first.calories
-                          .toString() ??
-                      '0',
+                  title: '${successState.foodItem?.brandName} ${successState.foodItem?.foodName}',
+                  calories: successState.foodItem?.servings.first.calories.toString() ?? '0',
                   perServing:
                       '${successState.foodItem?.servings.first.metricServingAmount} ${successState.foodItem?.servings.first.metricServingUnit}',
                 ),
@@ -84,8 +79,7 @@ class _QRCodeInfoWidgetState extends State<QRCodeInfoWidget> {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 44, right: 44, bottom: 44, top: 16),
+                padding: const EdgeInsets.only(left: 44, right: 44, bottom: 44, top: 16),
                 child: Container(),
               ),
             );

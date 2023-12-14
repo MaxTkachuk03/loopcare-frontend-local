@@ -9,7 +9,7 @@ import 'package:loopcare_frontend/injection.dart';
 AppConfig appConfig = getIt<AppConfig>();
 
 class IntroTop extends StatelessWidget {
-  const IntroTop({Key? key}) : super(key: key);
+  const IntroTop({super.key});
 
   @override
   Widget build(BuildContext context) {

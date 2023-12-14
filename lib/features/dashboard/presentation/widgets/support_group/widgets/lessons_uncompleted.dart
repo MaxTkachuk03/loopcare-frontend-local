@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 
 class LessonsUncompleted extends StatelessWidget {
-  const LessonsUncompleted({Key? key}) : super(key: key);
+  const LessonsUncompleted({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/reflection/presentation/widgets/details_button.dart';
 
 class WeightSection extends StatelessWidget {
-  const WeightSection({Key? key}) : super(key: key);
+  const WeightSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +70,8 @@ class WeightSection extends StatelessWidget {
           const SizedBox(
             height: 8.0,
           ),
-          Row(
-            children: const [
+          const Row(
+            children: [
               SizedBox(
                 width: 14,
                 child: ImageIcon(

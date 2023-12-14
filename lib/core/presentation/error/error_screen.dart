@@ -12,12 +12,12 @@ class ErrorScreen extends StatelessWidget {
   final bool smallVersion;
 
   const ErrorScreen({
-    Key? key,
+    super.key,
     this.error,
     this.buttonText,
     this.onButtonPressed,
     this.smallVersion = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +41,7 @@ class ErrorScreen extends StatelessWidget {
               if (errorType.isSomethingWentWrongType)
                 Image(image: AppImages.oeps, width: smallVersion ? 60 : 120, height: smallVersion ? 60 : 120)
               else
-                Image(
-                    image: AppImages.noConnection,
-                    width: smallVersion ? 60 : 120,
-                    height: smallVersion ? 60 : 120),
+                Image(image: AppImages.noConnection, width: smallVersion ? 60 : 120, height: smallVersion ? 60 : 120),
               Text(
                 errorType.isSomethingWentWrongType
                     ? LocalizedTexts.oeps.translation

@@ -5,7 +5,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/medical_
 import 'package:loopcare_frontend/features/medical_fitness/presentation/pregnancy/widgets/pregnancy_chips.dart';
 
 class PregnancyPage extends StatelessWidget {
-  const PregnancyPage({Key? key}) : super(key: key);
+  const PregnancyPage({super.key});
 
   @override
   Widget build(BuildContext context) {

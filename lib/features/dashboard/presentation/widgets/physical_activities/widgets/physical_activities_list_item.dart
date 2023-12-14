@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/features/physical_activities/domain/physical_p
 class PhysicalActivitiesListItem extends StatelessWidget {
   final PhysicalProgram item;
 
-  const PhysicalActivitiesListItem({Key? key, required this.item}) : super(key: key);
+  const PhysicalActivitiesListItem({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {

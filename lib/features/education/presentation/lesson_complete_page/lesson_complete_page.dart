@@ -19,7 +19,7 @@ import 'package:loopcare_frontend/features/education/presentation/lesson_complet
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 
 class LessonCompletePage extends StatefulWidget {
-  const LessonCompletePage({Key? key}) : super(key: key);
+  const LessonCompletePage({super.key});
 
   @override
   State<LessonCompletePage> createState() => _LessonCompletePageState();
@@ -42,13 +42,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
   _onErrorListener(BuildContext context, EducationLessonState state) {
     final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
-
-    showAppSnackBar(
-      context: context,
-      text: errorMessage,
-      background: AppColors.red,
-      textColor: Colors.white,
-    );
+    context.showError(content: Text(errorMessage));
   }
 
   _startLessonQuestion(BuildContext context, int lessonId) {

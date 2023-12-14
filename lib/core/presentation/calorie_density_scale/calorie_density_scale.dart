@@ -12,13 +12,12 @@ class CalorieDensityScale extends StatelessWidget {
   final bool _useHorizontal;
 
   const CalorieDensityScale({
-    Key? key,
+    super.key,
     this.density,
     required this.layout,
     required this.separatorColor,
     this.separatorSize = 3,
-  })  : _useHorizontal = layout == CalorieDensityScaleLayout.horizontal ? true : false,
-        super(key: key);
+  }) : _useHorizontal = layout == CalorieDensityScaleLayout.horizontal ? true : false;
 
   List<Widget> _renderListItems() {
     return calorieDensityScaleValues

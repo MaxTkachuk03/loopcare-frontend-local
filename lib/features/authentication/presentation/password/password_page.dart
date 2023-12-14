@@ -12,7 +12,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 
 class PasswordPage extends StatefulWidget {
-  const PasswordPage({Key? key}) : super(key: key);
+  const PasswordPage({super.key});
 
   @override
   State<PasswordPage> createState() => _PasswordPageState();
@@ -52,15 +52,10 @@ class _PasswordPageState extends State<PasswordPage> {
                       builder: (BuildContext context, state) {
                         return Text(
                           LocalizedTexts.enterPasswordTitle.tr(namedArgs: {
-                            'name': state.maybeMap(
-                                password: (state) => state.name,
-                                orElse: () => ''),
+                            'name': state.maybeMap(password: (state) => state.name, orElse: () => ''),
                           }),
                           textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium
-                              ?.copyWith(
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                 fontFamily: ThemeConstants.bitterFontFamily,
                               ),
                         );

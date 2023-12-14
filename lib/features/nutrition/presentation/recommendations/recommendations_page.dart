@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:loopcare_frontend/core/presentation/app_bar/green_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -21,11 +20,11 @@ class RecommendationsPage extends StatelessWidget {
   final bool fromMealPage;
 
   const RecommendationsPage({
-    Key? key,
+    super.key,
     required this.mealCategory,
     required this.date,
     this.fromMealPage = false,
-  }) : super(key: key);
+  });
 
   _emptyListListener(BuildContext context, RecipeState state) {
     context.router.replace(SelectFoodRoute(mealCategory: mealCategory));

@@ -12,11 +12,11 @@ class FilledDayCard extends StatelessWidget {
   final VoidCallback onPressHandler;
 
   const FilledDayCard({
-    Key? key,
+    super.key,
     required this.date,
     required this.mealItems,
     required this.onPressHandler,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

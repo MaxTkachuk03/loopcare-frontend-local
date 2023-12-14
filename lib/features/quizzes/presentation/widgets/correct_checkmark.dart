@@ -4,8 +4,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 
 class CorrectCheckmark extends StatelessWidget {
   const CorrectCheckmark({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

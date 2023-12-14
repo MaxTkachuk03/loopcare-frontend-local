@@ -5,7 +5,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart
 import 'package:loopcare_frontend/features/medical_fitness/domain/medication_past_period_answer.dart';
 
 class MedicationPastPeriodChips extends StatefulWidget {
-  const MedicationPastPeriodChips({Key? key}) : super(key: key);
+  const MedicationPastPeriodChips({super.key});
 
   @override
   State<MedicationPastPeriodChips> createState() => _MedicationPastPeriodChipsState();

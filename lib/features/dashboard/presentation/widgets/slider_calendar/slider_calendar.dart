@@ -8,9 +8,9 @@ class SliderCalendar extends StatefulWidget {
   final void Function(DateTime value) onSelectDay;
 
   const SliderCalendar({
-    Key? key,
+    super.key,
     required this.onSelectDay,
-  }) : super(key: key);
+  });
 
   @override
   State<SliderCalendar> createState() => _SliderCalendarState();

@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 class DifficultyLabel extends StatelessWidget {
   final String text;
 
-  const DifficultyLabel({Key? key, required this.text}) : super(key: key);
+  const DifficultyLabel({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {

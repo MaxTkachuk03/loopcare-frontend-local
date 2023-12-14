@@ -75,8 +75,8 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
 
     if (currentEvent == null) return;
 
-    final bool isVideoInProgress = currentEvent.eventStartTime <= widget.sessionTimer &&
-        widget.sessionTimer <= currentEvent.eventEndTime;
+    final bool isVideoInProgress =
+        currentEvent.eventStartTime <= widget.sessionTimer && widget.sessionTimer <= currentEvent.eventEndTime;
 
     final bool isVideoEnds = widget.sessionTimer > currentEvent.eventEndTime;
 
@@ -91,8 +91,8 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
 
   void _checkIfHasVideoForCurrentTime() {
     final List<GroupSessionProgramEvent> videoEvents = context.read<TopicsBloc>().state.data.videoEvents;
-    final videoEventForCurrentTime = videoEvents.lastWhereOrNull(
-        (e) => e.eventStartTime <= widget.sessionTimer && widget.sessionTimer <= e.eventEndTime);
+    final videoEventForCurrentTime = videoEvents
+        .lastWhereOrNull((e) => e.eventStartTime <= widget.sessionTimer && widget.sessionTimer <= e.eventEndTime);
     if (videoEventForCurrentTime == null || _completedEventsIds.contains(videoEventForCurrentTime.id)) return;
     setState(() {
       _currentVideoEvent = videoEventForCurrentTime;
@@ -300,7 +300,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
                                       allowScrubbing: false,
                                       colors: const VideoProgressColors(
                                         playedColor: AppColors.anotherBlue,
-                                        bufferedColor: AppColors.C6C5C5,
+                                        bufferedColor: AppColors.c6c5c5,
                                         backgroundColor: AppColors.d9d9d9,
                                       ),
                                     ),

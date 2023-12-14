@@ -10,13 +10,12 @@ class ConsentConfirmationChips extends StatefulWidget {
   final void Function(bool value) onSelectHaveToAskOption;
 
   const ConsentConfirmationChips({
-    Key? key,
+    super.key,
     required this.onSelectHaveToAskOption,
-  }) : super(key: key);
+  });
 
   @override
-  State<ConsentConfirmationChips> createState() =>
-      _ConsentConfirmationChipsState();
+  State<ConsentConfirmationChips> createState() => _ConsentConfirmationChipsState();
 }
 
 class _ConsentConfirmationChipsState extends State<ConsentConfirmationChips> {
@@ -27,8 +26,7 @@ class _ConsentConfirmationChipsState extends State<ConsentConfirmationChips> {
       _selectedValue = value;
     });
 
-    widget
-        .onSelectHaveToAskOption(value == ConsentConfirmationAnswers.haveToAsk);
+    widget.onSelectHaveToAskOption(value == ConsentConfirmationAnswers.haveToAsk);
 
     if (value == ConsentConfirmationAnswers.no) {
       context.router.pushNamed(AppRoutes.noConsent);
@@ -39,8 +37,7 @@ class _ConsentConfirmationChipsState extends State<ConsentConfirmationChips> {
     if (value == ConsentConfirmationAnswers.yes) {
       context
         ..router.pushNamed(AppRoutes.legalStatement)
-        ..read<ConsentConfirmationBloc>()
-            .add(const ConsentConfirmationEvent.passageChanged(true));
+        ..read<ConsentConfirmationBloc>().add(const ConsentConfirmationEvent.passageChanged(true));
     }
   }
 

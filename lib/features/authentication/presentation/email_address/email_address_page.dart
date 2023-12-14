@@ -9,7 +9,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/presentation/email_address/widgets/email_address_form.dart';
 
 class EmailAddressPage extends StatefulWidget {
-  const EmailAddressPage({Key? key}) : super(key: key);
+  const EmailAddressPage({super.key});
 
   @override
   State<EmailAddressPage> createState() => _EmailAddressPageState();
@@ -37,10 +37,9 @@ class _EmailAddressPageState extends State<EmailAddressPage> {
                     Text(
                       LocalizedTexts.whatIsYourEmailAddress.tr(),
                       textAlign: TextAlign.center,
-                      style:
-                          Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                fontFamily: ThemeConstants.bitterFontFamily,
-                              ),
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                            fontFamily: ThemeConstants.bitterFontFamily,
+                          ),
                     ),
                     const SizedBox(
                       height: 8.0,

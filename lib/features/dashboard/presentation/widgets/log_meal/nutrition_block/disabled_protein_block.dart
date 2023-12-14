@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class DiabledProteinBlock extends StatelessWidget {
-  const DiabledProteinBlock({Key? key}) : super(key: key);
+  const DiabledProteinBlock({super.key});
 
   @override
   Widget build(BuildContext context) {

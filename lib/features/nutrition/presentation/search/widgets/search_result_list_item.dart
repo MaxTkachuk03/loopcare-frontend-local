@@ -8,10 +8,10 @@ class SearchResultListItem extends StatelessWidget {
   final Function(SearchItem item) onTap;
 
   const SearchResultListItem({
-    Key? key,
+    super.key,
     required this.item,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +54,7 @@ class SearchResultListItem extends StatelessWidget {
                   ],
                 ),
               ),
-              const Divider(
-                  color: AppColors.yellowLight, height: 1, thickness: 1),
+              const Divider(color: AppColors.yellowLight, height: 1, thickness: 1),
             ],
           ),
         ),

@@ -19,7 +19,7 @@ const cardHeight = 214;
 class ProgramDetailsPage extends StatelessWidget {
   final PhysicalProgram program;
 
-  const ProgramDetailsPage({Key? key, required this.program}) : super(key: key);
+  const ProgramDetailsPage({super.key, required this.program});
 
   @override
   Widget build(BuildContext context) {

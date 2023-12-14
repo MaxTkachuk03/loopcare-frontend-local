@@ -6,9 +6,9 @@ class LikeUnlikeBlock extends StatefulWidget {
   final void Function(bool like) onLikeChange;
 
   const LikeUnlikeBlock({
-    Key? key,
+    super.key,
     required this.onLikeChange,
-  }) : super(key: key);
+  });
 
   @override
   State<LikeUnlikeBlock> createState() => _LikeUnlikeBlockState();
