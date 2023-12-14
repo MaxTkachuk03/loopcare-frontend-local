@@ -21,7 +21,7 @@ class QuizzesController {
 
   bool get isAnswerTextValid => isEnableSend.value = answerTextFieldKey.currentState?.isValid ?? false;
 
-  bool get isOpenTextValid => answerTextController.value.text.isNotEmpty;
+  bool get isOpenTextValid => answerTextController.value.text.trim().isNotEmpty;
 
   bool get isFormValid => isCorrect.value = (selectLessonValue.value?.isCorrect ?? false);
 
