@@ -36,7 +36,7 @@ class AssignmentsStateData with _$AssignmentsStateData {
           (element) =>
               element.openedAt?.inRange(
                 selectedDay,
-                DateTime.now().add(const Duration(days: 7)),
+                DateTime.now().subtract(const Duration(days: 7)),
               ) ??
               false,
         )
