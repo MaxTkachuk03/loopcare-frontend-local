@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 part 'app_colors.dart';
 part 'theme_constants.dart';
 part 'button_styles.dart';
+part 'tab_bar_styles.dart';
 
 final ThemeData appThemeData = ThemeData(
   useMaterial3: true,
@@ -76,16 +77,8 @@ OutlinedButtonThemeData _getOutlinedButtonTheme() {
 
 TabBarTheme _getTabBarTheme() {
   return TabBarTheme(
-    labelStyle: const TextStyle(
-      fontSize: ThemeConstants.fontSize14,
-      fontWeight: FontWeight.w700,
-      color: AppColors.blueDarker,
-    ),
-    unselectedLabelStyle: const TextStyle(
-      fontSize: ThemeConstants.fontSize14,
-      fontWeight: FontWeight.w400,
-      color: AppColors.blueDarker,
-    ),
+    labelStyle: TabBarStyles.label,
+    unselectedLabelStyle: TabBarStyles.unselectedLabel,
     indicator: BoxDecoration(
       borderRadius: BorderRadius.circular(50.0),
       color: AppColors.white,

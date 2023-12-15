@@ -6,6 +6,7 @@ class CustomTabBar extends StatelessWidget {
   final TabController tabController;
   final VoidCallback? onTap;
   final Color color;
+  final Color borderColor;
   final Color? selectedLabelColor;
 
   const CustomTabBar({
@@ -13,34 +14,61 @@ class CustomTabBar extends StatelessWidget {
     required this.tabs,
     required this.tabController,
     required this.color,
+    required this.borderColor,
     this.selectedLabelColor = AppColors.blueDarker,
     this.onTap,
   });
 
   factory CustomTabBar.coral(
           {required List<Widget> tabs, required TabController tabController, VoidCallback? onTap}) =>
-      CustomTabBar(tabs: tabs, tabController: tabController, onTap: onTap, color: AppColors.coralRegular);
+      CustomTabBar(
+        tabs: tabs,
+        tabController: tabController,
+        onTap: onTap,
+        color: AppColors.coralOffRegular,
+        borderColor: AppColors.coralRegular,
+      );
 
   factory CustomTabBar.orange(
           {required List<Widget> tabs, required TabController tabController, VoidCallback? onTap}) =>
-      CustomTabBar(tabs: tabs, tabController: tabController, onTap: onTap, color: AppColors.orangeRegular);
+      CustomTabBar(
+        tabs: tabs,
+        tabController: tabController,
+        onTap: onTap,
+        color: AppColors.orangeOffRegular,
+        borderColor: AppColors.orangeRegular,
+      );
 
   factory CustomTabBar.yellow(
           {required List<Widget> tabs, required TabController tabController, VoidCallback? onTap}) =>
-      CustomTabBar(tabs: tabs, tabController: tabController, onTap: onTap, color: AppColors.yellowRegular);
+      CustomTabBar(
+        tabs: tabs,
+        tabController: tabController,
+        onTap: onTap,
+        color: AppColors.yellowOffRegular,
+        borderColor: AppColors.yellowRegular,
+      );
 
   factory CustomTabBar.green(
           {required List<Widget> tabs, required TabController tabController, VoidCallback? onTap}) =>
-      CustomTabBar(tabs: tabs, tabController: tabController, onTap: onTap, color: AppColors.greenRegular);
+      CustomTabBar(
+        tabs: tabs,
+        tabController: tabController,
+        onTap: onTap,
+        color: AppColors.greenOffRegular,
+        borderColor: AppColors.greenRegular,
+      );
 
   factory CustomTabBar.petrol(
           {required List<Widget> tabs, required TabController tabController, VoidCallback? onTap}) =>
       CustomTabBar(
-          tabs: tabs,
-          tabController: tabController,
-          onTap: onTap,
-          color: AppColors.petrolRegular,
-          selectedLabelColor: AppColors.white);
+        tabs: tabs,
+        tabController: tabController,
+        onTap: onTap,
+        color: AppColors.petrolOffRegular,
+        borderColor: AppColors.petrolRegular,
+        selectedLabelColor: AppColors.white,
+      );
 
   factory CustomTabBar.blue(
           {required List<Widget> tabs, required TabController tabController, VoidCallback? onTap}) =>
@@ -48,7 +76,8 @@ class CustomTabBar extends StatelessWidget {
         tabs: tabs,
         tabController: tabController,
         onTap: onTap,
-        color: AppColors.blueRegular,
+        color: AppColors.blueOffRegular,
+        borderColor: AppColors.blueRegular,
         selectedLabelColor: AppColors.white,
       );
 
@@ -57,7 +86,7 @@ class CustomTabBar extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
-        border: Border.all(width: 2, color: color, style: BorderStyle.solid),
+        border: Border.all(width: 2, color: borderColor, style: BorderStyle.solid),
       ),
       child: TabBar(
         onTap: (_) => onTap?.call(),
