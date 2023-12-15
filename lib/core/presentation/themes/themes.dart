@@ -90,53 +90,33 @@ InputDecorationTheme _getInputDecorationTheme() {
   return const InputDecorationTheme(
     filled: true,
     fillColor: AppColors.white,
-    contentPadding: EdgeInsets.all(16.0),
-    prefixIconColor: AppColors.greyMid,
+    contentPadding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 12.0),
+    prefixIconColor: AppColors.greyRegular,
     errorStyle: TextStyle(
       color: AppColors.red,
       fontWeight: FontWeight.w600,
       fontSize: ThemeConstants.fontSize14,
     ),
     hintStyle: TextStyle(
-      color: AppColors.grey,
+      color: AppColors.greyRegular,
       fontSize: ThemeConstants.fontSize16,
       fontWeight: FontWeight.w400,
     ),
     enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(8.0),
-      ),
-      borderSide: BorderSide(
-        color: AppColors.yellowLight,
-        width: 1.0,
-      ),
+      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+      borderSide: BorderSide(color: AppColors.greyRegular, width: 1.0),
     ),
     focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(8.0),
-      ),
-      borderSide: BorderSide(
-        color: AppColors.yellowLight,
-        width: 2.0,
-      ),
+      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+      borderSide: BorderSide(color: AppColors.greyRegular, width: 2.0),
     ),
     focusedErrorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(8.0),
-      ),
-      borderSide: BorderSide(
-        color: AppColors.yellowLight,
-        width: 2.0,
-      ),
+      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+      borderSide: BorderSide(color: AppColors.red, width: 1.0),
     ),
     errorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(8.0),
-      ),
-      borderSide: BorderSide(
-        color: AppColors.yellowLight,
-        width: 2.0,
-      ),
+      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+      borderSide: BorderSide(color: AppColors.red, width: 1.0),
     ),
   );
 }
@@ -161,12 +141,14 @@ CheckboxThemeData _getCheckboxTheme() {
 TextTheme _getTextTheme() {
   return const TextTheme(
     bodyLarge: TextStyle(
-      color: AppColors.darkGreen,
-      fontSize: ThemeConstants.fontSize18,
-      fontWeight: FontWeight.w400,
+      // Restyled
+      color: AppColors.blueDarker,
+      fontSize: ThemeConstants.fontSize16,
+      fontWeight: FontWeight.w600,
     ),
     bodyMedium: TextStyle(
-      color: AppColors.darkGreen,
+      // Restyled
+      color: AppColors.blueDarker,
       fontSize: ThemeConstants.fontSize16,
       fontWeight: FontWeight.w400,
     ),
@@ -176,9 +158,9 @@ TextTheme _getTextTheme() {
       fontWeight: FontWeight.w400,
     ),
     displayLarge: TextStyle(
-      color: AppColors.darkGreen,
-      fontSize: ThemeConstants.fontSize78,
-      fontFamily: ThemeConstants.bitterFontFamily,
+      // Restyled
+      color: AppColors.blueDarker,
+      fontSize: ThemeConstants.fontSize28,
       fontWeight: FontWeight.w600,
     ),
     displayMedium: TextStyle(

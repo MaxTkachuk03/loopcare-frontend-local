@@ -1,10 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class LocalizedTexts {
-  static const String introTitle = 'introTitle';
-  static const String introItemFirst = 'introItemFirst';
-  static const String introItemSecond = 'introItemSecond';
-  static const String introItemThird = 'introItemThird';
   static const String getStarted = 'getStarted';
   static const String haveAnAccount = 'haveAnAccount';
   static const String logIn = 'logIn';
@@ -20,16 +16,13 @@ class LocalizedTexts {
   static const String finish = 'finish';
   static const String yourWeight = 'yourWeight';
   static const String introPage = 'introPage';
-  static const String joinUsIn2Steps = 'joinUsIn2Steps';
-  static const String bodyAndMindFitnessCheck = 'bodyAndMindFitnessCheck';
-  static const String joinUsStepOneDesc = 'joinUsStepOneDesc';
-  static const String whatAreYourPreferences = 'whatAreYourPreferences';
+
   static const String joinUsStepTwoDesc = 'joinUsStepTwoDesc';
   static const String moreInfo = 'moreInfo';
   static const String whyWeAreAsking = 'whyWeAreAsking';
   static const String testDuration = 'testDuration';
   static const String joinUsNote = 'joinUsNote';
-  static const String stepOneFitnessCheck = 'stepOneFitnessCheck';
+
   static const String yourBirthday = 'yourBirthday';
   static const String fitnessCheckPassedTitle = 'fitnessCheckPassedTitle';
   static const String fitnessCheckPassedText = 'fitnessCheckPassedText';
@@ -792,6 +785,15 @@ class LocalizedTexts {
   static const String completeBefore = "completeBefore";
   static const String completedOn = "completedOn";
   static const String pastAssignments = "pastAssignments";
+
+  // TODO new texts go under comment
+  // Intro
+  static const String introTitle = 'introTitle';
+  static const String introBodyTextFirst = 'introBodyTextFirst';
+  static const String introBodyTextSecond = 'introBodyTextSecond';
+  static const String intro2Title = 'intro2Title';
+  static const String intro2BodyTextFirst = 'intro2BodyTextFirst';
+  static const String intro2BodyTextSecond = 'intro2BodyTextSecond';
 }
 
 extension StringX on String {

@@ -1,9 +1,12 @@
 {
   "leanOnMe": "LeanOnMe",
-  "introTitle": "Get a grip on your lifestyle with {projectName}",
-  "introItemFirst": "Unique selling point 1 told from perspective of person to make it  sticky",
-  "introItemSecond": "Unique selling point 2 told from perspective of person to make it sticky",
-  "introItemThird": "Unique selling point 3, told from perspective of LeanOnMe expert",
+  "introTitle": "Welcome to {projectName}",
+  "introBodyTextFirst": "This program is specifically designed for people living with overweight and obesity that want to sustainably lose weight and change their lifestyle",
+  "introBodyTextSecond": "If this description fits you, let’s start your journey",
+  "intro2Title": "Congratulations",
+  "intro2BodyTextFirst": "You have just taken the first step to the “ME” you want to be",
+  "intro2BodyTextSecond": "To check if the program is suitable for you and your needs, please answer the upcoming questions regarding your physical, medical and mental health",
+
   "getStarted": "Get started",
   "haveAnAccount": "Have an account?",
   "logIn": "Log in",
@@ -19,16 +22,16 @@
   "finish": "Finish",
   "yourWeight": "Your weight",
   "introPage": "Intro Page!",
-  "joinUsIn2Steps": "Join us in 2 steps",
-  "bodyAndMindFitnessCheck": "Body & Mind fitness check",
-  "joinUsStepOneDesc": "Let’s make sure you are physically and mentally fit to join our program.",
-  "whatAreYourPreferences": "What are your preferences?",
+
+
+
+
   "joinUsStepTwoDesc": "We ask you about your preferences so we can make relevant recommendations.",
   "moreInfo": "More info",
   "whyWeAreAsking": "Why we are asking",
   "testDuration": "30 minutes",
   "joinUsNote": "you can take a break anytime and continue later.",
-  "stepOneFitnessCheck": "Step 1:  fitness check",
+
   "yourBirthday": "Your birthday",
   "fitnessCheckPassedTitle": "Physical fitness check passed!",
   "fitnessCheckPassedText": "Your BMI is quite high and might be damaging for your health, we can help you with that",
@@ -693,7 +696,7 @@
   "deleteMood": "Delete this mood",
   "quiz": "Quiz",
   "quizDesc": "Let’s do a short knowledge quiz with {questionNumber} questions to see what you have learned!",
-  "letsGo": "Let’s go!",
+  "letsGo": "Let’s go",
   "questionOf": "Question {step} of {total}",
   "correct": "Correct!",
   "incorrect": "That's incorrect",

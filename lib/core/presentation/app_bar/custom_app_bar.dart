@@ -5,7 +5,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 enum CustomAppBarTextTheme { light, dark }
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
+  final String? title;
   final SystemUiOverlayStyle? systemOverlayStyle;
   final CustomAppBarTextTheme? textTheme;
   final String? subtitle;
@@ -25,7 +25,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   });
 
   factory CustomAppBar.coral({
-    required String title,
+    String? title,
     String? subtitle,
     Widget? leading,
     List<Widget>? actions,
@@ -41,7 +41,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       );
 
   factory CustomAppBar.orange({
-    required String title,
+    String? title,
     String? subtitle,
     Widget? leading,
     List<Widget>? actions,
@@ -57,7 +57,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       );
 
   factory CustomAppBar.yellow({
-    required String title,
+    String? title,
     String? subtitle,
     Widget? leading,
     List<Widget>? actions,
@@ -73,7 +73,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       );
 
   factory CustomAppBar.green({
-    required String title,
+    String? title,
     String? subtitle,
     Widget? leading,
     List<Widget>? actions,
@@ -89,7 +89,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       );
 
   factory CustomAppBar.petrol({
-    required String title,
+    String? title,
     String? subtitle,
     Widget? leading,
     List<Widget>? actions,
@@ -105,7 +105,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       );
 
   factory CustomAppBar.blue({
-    required String title,
+    String? title,
     String? subtitle,
     Widget? leading,
     List<Widget>? actions,
@@ -121,7 +121,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       );
 
   factory CustomAppBar.dark({
-    required String title,
+    String? title,
     String? subtitle,
     Widget? leading,
     List<Widget>? actions,
@@ -145,7 +145,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       titleTextStyle: AppBarTheme.of(context).titleTextStyle?.copyWith(color: _titleColor),
       backgroundColor: backgroundColor,
       automaticallyImplyLeading: false,
-      leading: Padding(padding: const EdgeInsets.all(6.0), child: leading),
+      leading: Padding(padding: const EdgeInsets.all(6.0), child: leading ?? BackButton()),
       actions: actions,
     );
   }
@@ -155,7 +155,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class _Title extends StatelessWidget {
-  final String title;
+  final String? title;
   final String? subtitle;
 
   const _Title({required this.title, this.subtitle});
@@ -166,7 +166,7 @@ class _Title extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(title, maxLines: 2),
+        Text(title ?? '', maxLines: 2),
         if (subtitle != null)
           Text(
             subtitle!,
