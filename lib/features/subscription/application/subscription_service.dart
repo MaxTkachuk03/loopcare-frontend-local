@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:injectable/injectable.dart';
@@ -9,20 +10,32 @@ class AppSubscriptionService {
   final InAppPurchase _inAppPurchase = InAppPurchase.instance;
   final Stream<List<PurchaseDetails>> storeSubscription = InAppPurchase.instance.purchaseStream;
 
-  static Set<String> main = {'monthly', 'annual'};
-
   InAppPurchase get instance => _inAppPurchase;
   final List purchasedList = [];
 
-  Future<List<ProductDetails>> getSubscriptionPlans() async {
+  Future<List<ProductDetails>> getSubscriptionPlans(Set<String> main) async {
     final bool isAvailable = await _inAppPurchase.isAvailable();
+
+    debugPrint('devcpp Get isAvailable: $isAvailable');
     if (!isAvailable) {
       return [];
     }
     final ProductDetailsResponse productDetailResponse = await _inAppPurchase.queryProductDetails(main);
+    debugPrint('devcpp  productDetails response: ${productDetailResponse.toString()}');
+    debugPrint('devcpp  productDetails notFoundIDs: ${productDetailResponse.notFoundIDs}');
+    debugPrint('devcpp  productDetails ERRROR: ${productDetailResponse.error}');
+
     if (productDetailResponse.error != null || productDetailResponse.productDetails.isEmpty) {
+      debugPrint('devcpp  productDetails: ${productDetailResponse.productDetails}');
       return [];
     }
+    for (final detail in productDetailResponse.productDetails) {
+      debugPrint('devcpp  id: ${detail.id}');
+      debugPrint('devcpp  title: ${detail.title}');
+      debugPrint('devcpp  description: ${detail.description}');
+      debugPrint('devcpp  price: ${detail.price}');
+    }
+
     return productDetailResponse.productDetails;
   }
 

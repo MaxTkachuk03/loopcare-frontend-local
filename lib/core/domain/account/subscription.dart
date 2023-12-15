@@ -12,6 +12,8 @@ abstract class Subscription implements _$Subscription {
     int? id,
     String? expiresAt,
     String? purchasedAt,
+    String? serverDate,
+    double? price,
     @Default(false) bool isActive,
     String? vendor,
     String? state,

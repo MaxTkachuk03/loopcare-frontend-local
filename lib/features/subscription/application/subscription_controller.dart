@@ -11,8 +11,7 @@ class SubscriptionController {
   ValueNotifier<bool> isEnableSubscribe = ValueNotifier(false);
   ValueNotifier<bool> loading = ValueNotifier(false);
   ValueNotifier<PurchasableProduct?> selectedPlan = ValueNotifier(null);
-  PurchasableProduct annual = const PurchasableProduct(monthlyPrice: 2, commonPrice: 24, currency: '', isAnnual: true);
-  PurchasableProduct monthly = const PurchasableProduct(monthlyPrice: 1, commonPrice: 1, currency: '');
+  List<PurchasableProduct> products = [];
 
   SubscriptionController({required this.bloc});
 
@@ -21,18 +20,12 @@ class SubscriptionController {
       return;
     }
     for (var plan in data.plans) {
-      if (plan.id == 'annual') {
-        annual = PurchasableProduct(
-          details: plan,
-          monthlyPrice: _getPricePerMonth(plan.rawPrice),
-          commonPrice: plan.rawPrice,
-          currency: plan.currencySymbol,
-          isAnnual: true,
-        );
-      } else {
-        monthly = PurchasableProduct(
-            details: plan, monthlyPrice: plan.rawPrice, commonPrice: plan.rawPrice, currency: plan.currencySymbol);
-      }
+      products.add(PurchasableProduct(
+        details: plan,
+        offer: _getPricePerMonth(plan.rawPrice),
+        regularPrice: plan.rawPrice,
+        currency: plan.currencySymbol,
+      ));
     }
   }
 
@@ -75,7 +68,7 @@ class SubscriptionController {
 
   void restorePurchase() => bloc.add(const SubscriptionEvent.restorePurchased());
 
-  void getSubscriptionPlans() => bloc.add(const SubscriptionEvent.getSubscriptionPlans());
+  void getSubscriptionPlans() => bloc.add(const SubscriptionEvent.getPlansFromServer());
 
   void getActiveSubscriptionStatus() => bloc.add(const SubscriptionEvent.getActiveSubscription());
 

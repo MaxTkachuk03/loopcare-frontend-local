@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
@@ -17,6 +18,7 @@ import 'package:loopcare_frontend/features/subscription/application/purchase_det
 import 'package:loopcare_frontend/features/subscription/application/purchase_service.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_service.dart';
 import 'package:loopcare_frontend/features/subscription/donain/purchased_product.dart';
+import 'package:loopcare_frontend/features/subscription/donain/server_product.dart';
 import 'package:loopcare_frontend/features/subscription/donain/subscription_state.dart';
 import 'package:loopcare_frontend/features/subscription/donain/valid_status.dart';
 import 'package:loopcare_frontend/features/subscription/donain/verify_purchase_data_android.dart';
@@ -45,6 +47,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     on<SubscriptionInit>(_onInitSubscription);
     on<SubscriptionDispose>(_onSubscriptionDispose);
     on<SubscriptionLogout>(_onLogout);
+    on<GetPlansFromServer>(_onGetPlansFromServer);
     on<BuySubscription>(_onBuySubscription);
     on<VerifyLastPurchase>(_onVerifyLastPurchase);
     on<RestorePurchased>(_onRestorePurchased);
@@ -244,6 +247,26 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     inAppPurchaseService.restorePurchase();
   }
 
+  FutureOr<void> _onGetPlansFromServer(
+    GetPlansFromServer event,
+    Emitter<SubscriptionState> emit,
+  ) async {
+    emit(
+      SubscriptionState.loading(state.data.copyWith(isLoading: true)),
+    );
+    final vendor = Platform.isIOS ? 'ios' : 'android';
+    var response = await _purchaseService.getProductList(vendor);
+    response.fold((error) {
+      emit(SubscriptionState.serviceSubscriptionUnavailable(state.data));
+    }, (r) {
+      debugPrint('devcpp SERVER PRODUCTS RESPONSE: ${r.data.toString()}');
+      emit(
+        SubscriptionState.loading(state.data.copyWith(isLoading: false, serverPlans: r.data)),
+      );
+      add(const SubscriptionEvent.getSubscriptionPlans());
+    });
+  }
+
   FutureOr<void> _onGetSubscriptionPlans(
     GetSubscriptionPlans event,
     Emitter<SubscriptionState> emit,
@@ -251,12 +274,25 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     emit(
       SubscriptionState.loading(state.data.copyWith(isLoading: true)),
     );
+    Set<String> products = {};
+    for (final product in state.data.serverPlans) {
+      products.add(product.productId!);
+      debugPrint('devcpp PRODUCT: ${product.productId}');
+    }
+
     final inAppPurchaseService = getIt<AppSubscriptionService>();
-    final plans = await inAppPurchaseService.getSubscriptionPlans();
-    emit(
-      SubscriptionState.successInPlans(state.data.copyWith(isLoading: false, plans: plans)),
-    );
-    add(const SubscriptionEvent.getActiveSubscription());
+    final plans = await inAppPurchaseService.getSubscriptionPlans(products);
+    if (plans.isEmpty) {
+      emit(
+        SubscriptionState.loading(state.data.copyWith(isLoading: false)),
+      );
+      emit(SubscriptionState.serviceSubscriptionUnavailable(state.data));
+    } else {
+      emit(
+        SubscriptionState.successInPlans(state.data.copyWith(isLoading: false, plans: plans)),
+      );
+      add(const SubscriptionEvent.getActiveSubscription());
+    }
   }
 
   FutureOr<void> _onGetActiveSubscription(

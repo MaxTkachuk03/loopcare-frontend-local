@@ -28,6 +28,11 @@ class SubscriptionState with _$SubscriptionState {
 
   const factory SubscriptionState.subscriptionActive(SubscriptionStateData data) = SubscriptionActual;
 
+  const factory SubscriptionState.serviceSubscriptionUnavailable(SubscriptionStateData data) =
+      ServiceSubscriptionUnavailable;
+
+  const factory SubscriptionState.gotPlansFromServer(SubscriptionStateData data) = GotPlansFromServer;
+
   const factory SubscriptionState.logout(SubscriptionStateData data) = LogoutState;
 }
 
@@ -39,6 +44,7 @@ class SubscriptionStateData with _$SubscriptionStateData {
     RequestError? error,
     @Default(false) bool isLoading,
     @Default(<ProductDetails>[]) List<ProductDetails> plans,
+    @Default(<ServerProduct>[]) List<ServerProduct> serverPlans,
     @Default(<PurchaseDetails>[]) List<PurchaseDetails> purchases,
     PurchasedProduct? purchased,
     Subscription? subscription,

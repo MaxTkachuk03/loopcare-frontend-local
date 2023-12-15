@@ -77,4 +77,12 @@ class SubscriptionStatusWidget extends Column {
             ),
           ],
         );
+
+  SubscriptionStatusWidget.serviceUnavailable({super.key})
+      : super(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(child: SubscriptionHeader.serviceUnavailable()),
+          ],
+        );
 }

@@ -121,6 +121,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                               subscriptionUnRenewed: (_) => content = SubscriptionStatusWidget.notRenewSubscription(
                                 onTap: () => context.router.replaceNamed(AppRoutes.home),
                               ),
+                              serviceSubscriptionUnavailable: (_) =>
+                                  content = SubscriptionStatusWidget.serviceUnavailable(),
                             ),
                           ),
                         ),

@@ -64,6 +64,7 @@ class PurchaseDetailsStreamSubscription {
                 case PurchaseStatus.restored:
                   break;
                 case PurchaseStatus.error:
+                  debugPrint('devcpp  Service ERROR: ${purchaseDetails.toString()}');
                   onError?.call(const RequestError.streamSubscription('Something went wrong, please try again'));
                   break;
               }

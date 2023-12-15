@@ -2,6 +2,8 @@ part of 'subscription_bloc.dart';
 
 @freezed
 class SubscriptionEvent with _$SubscriptionEvent {
+  const factory SubscriptionEvent.getPlansFromServer() = GetPlansFromServer;
+
   const factory SubscriptionEvent.getActiveSubscription() = GetActiveSubscription;
 
   const factory SubscriptionEvent.verifyLastPurchase(ProductDetails product) = VerifyLastPurchase;

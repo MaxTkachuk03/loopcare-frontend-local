@@ -4,23 +4,18 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class SubscriptionPlane extends SubscriptionPlaneItem {
-  const SubscriptionPlane.annual(
-      {String? monthlyPrice, String? commonPrice, String? currency, required bool selected, Function()? onTap, super.key})
-      : super(
-          title: LocalizedTexts.subscriptionAnnual,
-          monthlyPrice: monthlyPrice,
-          commonPrice: commonPrice,
-          currency: currency,
-          selected: selected,
-          onTap: onTap,
-        );
-
-  const SubscriptionPlane.monthly(
-      {String? monthlyPrice, String? commonPrice, String? currency, Function()? onTap, required bool selected, super.key})
-      : super(
-          title: LocalizedTexts.subscriptionMonthly,
-          monthlyPrice: monthlyPrice,
-          commonPrice: commonPrice,
+  const SubscriptionPlane.general({
+    required String title,
+    String? offer,
+    String? regularPrice,
+    String? currency,
+    required bool selected,
+    Function()? onTap,
+    super.key,
+  }) : super(
+          title: title,
+          offer: offer,
+          regularPrice: regularPrice,
           currency: currency,
           selected: selected,
           onTap: onTap,
@@ -29,8 +24,8 @@ class SubscriptionPlane extends SubscriptionPlaneItem {
 
 class SubscriptionPlaneItem extends StatelessWidget {
   final String title;
-  final String? monthlyPrice;
-  final String? commonPrice;
+  final String? offer;
+  final String? regularPrice;
   final String? currency;
   final Function()? onTap;
   final bool selected;
@@ -39,8 +34,8 @@ class SubscriptionPlaneItem extends StatelessWidget {
     super.key,
     required this.title,
     required this.selected,
-    this.monthlyPrice,
-    this.commonPrice,
+    this.offer,
+    this.regularPrice,
     this.currency,
     this.onTap,
   });
@@ -48,7 +43,7 @@ class SubscriptionPlaneItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap:  onTap,
+      onTap: onTap,
       highlightColor: AppColors.greenLight.withOpacity(0.5),
       borderRadius: const BorderRadius.all(Radius.circular(12.0)),
       child: Container(
@@ -75,13 +70,12 @@ class SubscriptionPlaneItem extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                       ),
                 ).tr(),
-                if (commonPrice != null && monthlyPrice != null && currency != null)
+                if (regularPrice != null && currency != null)
                   Text(
                       LocalizedTexts.subscriptionPrice
                           .tr()
                           .replaceAll('{C}', currency!)
-                          .replaceAll('{XX,XX}', commonPrice!)
-                          .replaceAll('{X,XX}', monthlyPrice!),
+                          .replaceAll('{XX,XX}', regularPrice!),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             fontSize: ThemeConstants.fontSize16,
                             fontFamily: ThemeConstants.openSansFontFamily,

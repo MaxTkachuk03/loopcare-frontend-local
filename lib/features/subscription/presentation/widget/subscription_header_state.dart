@@ -14,22 +14,22 @@ class SubscriptionHeaderState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Center(
-          child: ReportSectionTitle(
-            title: title,
-            textAlign: TextAlign.center,
-            fontSize: 28,
-            fontWeight: FontWeight.w600,
-            color: AppColors.darkGreen,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Center(
+            child: ReportSectionTitle(
+              title: title,
+              textAlign: TextAlign.center,
+              fontSize: 28,
+              fontWeight: FontWeight.w600,
+              color: AppColors.darkGreen,
+            ),
           ),
-        ),
-        const SizedBox(height: 8.0),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Text(
+          const SizedBox(height: 8.0),
+          Text(
             label,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -39,8 +39,8 @@ class SubscriptionHeaderState extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                 ),
           ).tr(),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -74,5 +74,11 @@ class SubscriptionHeader extends SubscriptionHeaderState {
       : super(
           title: LocalizedTexts.subscriptionRenewedTitle.tr(),
           label: LocalizedTexts.subscriptionRenewedLabel.tr(),
+        );
+
+  SubscriptionHeader.serviceUnavailable({super.key})
+      : super(
+          title: LocalizedTexts.serviceUnavailable.tr(),
+          label: '',
         );
 }

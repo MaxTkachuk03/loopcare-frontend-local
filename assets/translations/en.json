@@ -705,11 +705,12 @@
   "subscriptionAnnual": "Annual",
   "subscriptionMonthly": "Monthly",
   "subscriptionSubscribe": "Subscribe",
-  "subscriptionPrice": "{C} {XX,XX} ({C} {X,XX} / month) after 1 week trial",
+  "subscriptionPrice": "{C} {XX,XX} / month after 2 week trial",
   "subscription": "Subscription",
   "manageSubscription": "Manage subscription",
   "subscriptionType": "Subscription type",
   "subscriptionVia": "Subscription via",
   "memberSince": "Member since",
-  "automaticRenewalOn": "Automatic renewal on"
+  "automaticRenewalOn": "Automatic renewal on",
+  "serviceUnavailable": "Service is unavailable,\nplease try later."
 }
