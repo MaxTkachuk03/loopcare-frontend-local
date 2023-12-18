@@ -29,7 +29,7 @@ class LoginPage extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: CustomScaffold.green(
-        appBar: CustomAppBar.green(
+        appBar: CustomAppBar.transparent(
           leading: CustomFilledIconButton.leadingGreenLighter(),
         ),
         body: SafeArea(

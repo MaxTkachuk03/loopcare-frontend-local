@@ -26,7 +26,7 @@ class JoinUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold.green(
-      appBar: CustomAppBar.green(
+      appBar: CustomAppBar.transparent(
         leading: CustomFilledIconButton.leadingGreenLighter(),
       ),
       body: SafeArea(

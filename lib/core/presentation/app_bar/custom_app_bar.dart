@@ -24,6 +24,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.backgroundColor,
   });
 
+  factory CustomAppBar.transparent({
+    String? title,
+    String? subtitle,
+    Widget? leading,
+    List<Widget>? actions,
+  }) =>
+      CustomAppBar(
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
+        textTheme: CustomAppBarTextTheme.dark,
+        backgroundColor: AppColors.transparent,
+        title: title,
+        subtitle: subtitle,
+        leading: leading,
+        actions: actions,
+      );
+
   factory CustomAppBar.coral({
     String? title,
     String? subtitle,
@@ -144,8 +160,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: _Title(title: title, subtitle: subtitle),
       titleTextStyle: AppBarTheme.of(context).titleTextStyle?.copyWith(color: _titleColor),
       backgroundColor: backgroundColor,
+      forceMaterialTransparency: backgroundColor == AppColors.transparent,
       automaticallyImplyLeading: false,
-      leading: Padding(padding: const EdgeInsets.all(6.0), child: leading ?? BackButton()),
+      leading: Padding(padding: const EdgeInsets.all(6.0), child: leading ?? const BackButton()),
       actions: actions,
     );
   }
