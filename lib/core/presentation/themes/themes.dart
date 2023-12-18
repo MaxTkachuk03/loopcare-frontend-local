@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 part 'app_colors.dart';
-part 'theme_constants.dart';
 part 'button_styles.dart';
 part 'tab_bar_styles.dart';
+part 'theme_constants.dart';
 
 final ThemeData appThemeData = ThemeData(
   useMaterial3: true,

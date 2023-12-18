@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/features/account/presentation/account_page/wid
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
 
 class SubscriptionSection extends StatelessWidget {
-  const SubscriptionSection({Key? key}) : super(key: key);
+  const SubscriptionSection({super.key});
 
   @override
   Widget build(BuildContext context) {

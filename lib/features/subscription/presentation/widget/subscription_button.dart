@@ -29,7 +29,7 @@ class SubscribeButton extends StatelessWidget {
 class RenewButton extends StatelessWidget {
   final Function()? onTap;
 
-  const RenewButton({Key? key, this.onTap}) : super(key: key);
+  const RenewButton({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {

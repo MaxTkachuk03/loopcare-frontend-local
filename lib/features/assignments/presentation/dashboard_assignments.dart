@@ -16,9 +16,9 @@ class DashboardAssignments extends StatelessWidget {
   final DateTime date;
 
   const DashboardAssignments({
-    Key? key,
+    super.key,
     required this.date,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
