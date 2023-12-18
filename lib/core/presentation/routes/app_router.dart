@@ -619,7 +619,6 @@ const groupLessonRoutes = [
       page: AssignmentsSavedPage,
     ),
     AutoRoute(
-      initial: true,
       path: AppRoutes.theme,
       page: ThemeComponentsPage,
     ),
