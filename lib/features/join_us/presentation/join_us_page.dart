@@ -41,7 +41,7 @@ class JoinUsPage extends StatelessWidget {
                     const SizedBox(height: 8.0),
                     Container(alignment: Alignment.center, child: const Image(image: AppImages.intro2)),
                     const SizedBox(height: 28.0),
-                    CustomText.bitter(
+                    CustomText.bitter600(
                       '${LocalizedTexts.intro2Title.tr()}!',
                       style: context.textTheme.displayLarge,
                       textAlign: TextAlign.center,
@@ -49,16 +49,16 @@ class JoinUsPage extends StatelessWidget {
                     const SizedBox(height: 20.0),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 45.0),
-                      child: CustomText(
+                      child: CustomText.w600(
                         '${LocalizedTexts.intro2BodyTextFirst.tr()}.',
-                        style: context.textTheme.bodyLarge,
+                        style: context.textTheme.bodyMedium,
                         textAlign: TextAlign.center,
                       ),
                     ),
                     const SizedBox(height: 20.0),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 22.0),
-                      child: CustomText(
+                      child: CustomText.w400(
                         '${LocalizedTexts.intro2BodyTextSecond.tr()}.',
                         style: context.textTheme.bodyMedium,
                         textAlign: TextAlign.center,

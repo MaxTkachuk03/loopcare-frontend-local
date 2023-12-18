@@ -42,7 +42,7 @@ class IntroPage extends StatelessWidget {
                     const SizedBox(height: 8.0),
                     Container(alignment: Alignment.center, child: const Image(image: AppImages.intro)),
                     const SizedBox(height: 28.0),
-                    CustomText.bitter(
+                    CustomText.bitter600(
                       '${LocalizedTexts.introTitle.tr(namedArgs: {'projectName': appConfig.projectName})}!',
                       style: context.textTheme.displayLarge,
                       textAlign: TextAlign.center,
@@ -50,7 +50,7 @@ class IntroPage extends StatelessWidget {
                     const SizedBox(height: 20.0),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                      child: CustomText(
+                      child: CustomText.w400(
                         '${LocalizedTexts.introBodyTextFirst.tr()}.',
                         style: context.textTheme.bodyMedium,
                         textAlign: TextAlign.center,
@@ -59,9 +59,9 @@ class IntroPage extends StatelessWidget {
                     const SizedBox(height: 20.0),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 57.0),
-                      child: CustomText(
+                      child: CustomText.w600(
                         '${LocalizedTexts.introBodyTextSecond.tr()}.',
-                        style: context.textTheme.bodyLarge,
+                        style: context.textTheme.bodyMedium,
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -83,7 +83,7 @@ class IntroPage extends StatelessWidget {
                           TextSpan(text: '${LocalizedTexts.haveAnAccount.tr()} '),
                           TextSpan(
                             text: LocalizedTexts.logIn.tr(),
-                            style: context.textTheme.bodyLarge,
+                            style: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
                             recognizer: TapGestureRecognizer()..onTap = () => _onLoginTap(context),
                           ),
                         ],

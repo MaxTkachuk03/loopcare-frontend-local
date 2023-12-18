@@ -140,28 +140,25 @@ CheckboxThemeData _getCheckboxTheme() {
 
 TextTheme _getTextTheme() {
   return const TextTheme(
-    bodyLarge: TextStyle(
+    bodySmall: TextStyle(
       // Restyled
       color: AppColors.blueDarker,
-      fontSize: ThemeConstants.fontSize16,
-      fontWeight: FontWeight.w600,
+      fontSize: ThemeConstants.fontSize14,
     ),
     bodyMedium: TextStyle(
       // Restyled
       color: AppColors.blueDarker,
       fontSize: ThemeConstants.fontSize16,
-      fontWeight: FontWeight.w400,
     ),
-    bodySmall: TextStyle(
-      color: AppColors.darkGreen,
-      fontSize: ThemeConstants.fontSize14,
-      fontWeight: FontWeight.w400,
+    bodyLarge: TextStyle(
+      // Restyled
+      color: AppColors.blueDarker,
+      fontSize: ThemeConstants.fontSize18,
     ),
     displayLarge: TextStyle(
       // Restyled
       color: AppColors.blueDarker,
       fontSize: ThemeConstants.fontSize28,
-      fontWeight: FontWeight.w600,
     ),
     displayMedium: TextStyle(
       color: AppColors.darkGreen,
