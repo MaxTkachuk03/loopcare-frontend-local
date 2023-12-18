@@ -11,14 +11,14 @@ class EmojiChoiceChip<T> extends StatelessWidget {
   final Widget icon;
 
   const EmojiChoiceChip({
-    Key? key,
+    super.key,
     required this.label,
     required this.selected,
     required this.value,
     required this.onSelected,
     required this.icon,
     this.available = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class EmojiChoiceChip<T> extends StatelessWidget {
                 : AppColors.greyMid,
           ),
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
-      side: const BorderSide(width: 1.0, color: AppColors.FF404040),
+      side: const BorderSide(width: 1.0, color: AppColors.ff404040),
     );
   }
 }

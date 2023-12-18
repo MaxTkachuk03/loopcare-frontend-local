@@ -17,7 +17,7 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/suppor
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 
 class SupportGroup extends StatefulWidget {
-  const SupportGroup({Key? key}) : super(key: key);
+  const SupportGroup({super.key});
 
   @override
   State<SupportGroup> createState() => _SupportGroupState();
@@ -91,7 +91,7 @@ class _SupportGroupState extends State<SupportGroup> {
                   case UserGroupingState.locked:
                     return const LessonsUncompleted();
                   case UserGroupingState.refused:
-                  case UserGroupingState.notGrouped:
+                  case UserGroupingState.unlockedPreferences:
                   case UserGroupingState.left:
                     return const NotGrouped();
                   case UserGroupingState.waitingInPool:

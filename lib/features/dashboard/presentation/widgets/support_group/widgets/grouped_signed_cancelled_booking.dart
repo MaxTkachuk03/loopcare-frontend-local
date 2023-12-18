@@ -9,9 +9,9 @@ class GroupedSignedCancelledBooking extends StatelessWidget {
   final bool isTimeslotsAvailable;
 
   const GroupedSignedCancelledBooking({
-    Key? key,
+    super.key,
     required this.isTimeslotsAvailable,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

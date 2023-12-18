@@ -1,3 +1,5 @@
+import 'dart:io' as i;
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,10 +20,8 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
-import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/audio_block.dart';
 import 'package:loopcare_frontend/features/education/domain/subtitle/image_subtitle_controller.dart';
-import 'dart:io';
-
+import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/audio_block.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 // TODO refactor _subtitleController
@@ -30,10 +30,10 @@ class LessonAudioPage extends StatefulWidget {
   final void Function() onPrevPressed;
 
   const LessonAudioPage({
-    Key? key,
+    super.key,
     required this.onNextPressed,
     required this.onPrevPressed,
-  }) : super(key: key);
+  });
 
   @override
   State<LessonAudioPage> createState() => _LessonAudioPageState();
@@ -64,7 +64,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
   }
 
   prepareSubtitleController(String path) async {
-    final File file = File(path);
+    final i.File file = i.File(path);
     final subtitleFile = await file.readAsString();
 
     _subtitleController = SubtitleController.string(subtitleFile);
@@ -210,7 +210,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
                                   child: imageUrl != null && imageUrl != ''
                                       ? isSvg
                                           ? state.data.isSvgLoaded
-                                              ? SvgPicture.file(File(state.data.svgFile))
+                                              ? SvgPicture.file(i.File(state.data.svgFile))
                                               : null
                                           : NetworkImageWithCache(
                                               withPlaceholder: false,

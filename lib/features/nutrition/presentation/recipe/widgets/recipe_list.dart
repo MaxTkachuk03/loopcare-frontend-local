@@ -15,11 +15,11 @@ class RecipeList extends StatelessWidget {
   final List<RecipeFoodItem> list;
 
   const RecipeList({
-    Key? key,
+    super.key,
     required this.isMealRecipe,
     required this.list,
     required this.nutritionKey,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +56,8 @@ class RecipeList extends StatelessWidget {
     final mealId = mealState.getCurrentMealId;
     final recipeId = !isMealRecipe
         ? mealState.currentFoodItems
-            .firstWhere((element) =>
-                element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
+            .firstWhere(
+                (element) => element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
             .id
         : recipeState.recipeId;
 
@@ -92,8 +92,7 @@ class RecipeList extends StatelessWidget {
           final recipeId = !isMealRecipe
               ? mealState.currentFoodItems
                   .firstWhere((element) =>
-                      element.type == MealItemType.recipe &&
-                      element.externalId == recipeState.externalRecipeId)
+                      element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
                   .id
               : recipeState.recipeId;
 

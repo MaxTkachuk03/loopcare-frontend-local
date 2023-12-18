@@ -46,6 +46,10 @@ extension DateTimeExtension on DateTime {
     return DateFormat('EEEE d MMM', 'en_EN').format(this);
   }
 
+  String get dayWithMonthWithoutLeadingZero {
+    return DateFormat('EEEE d MMMM', 'en_EN').format(this);
+  }
+
   String get dayWithMonth {
     return DateFormat('EEEE dd MMMM', 'en_EN').format(this);
   }
@@ -86,15 +90,16 @@ extension DateTimeExtension on DateTime {
     return DateFormat('d', 'en_EN').format(this);
   }
 
+  String get plusWeekShortVersion {
+    return add(const Duration(days: 7)).dayWithMonthWithoutLeadingZero;
+  }
+
   int get secondNextWeekNumber {
-    final now = this;
-    return now.add(const Duration(days: 14)).weekNumber;
+    return add(const Duration(days: 14)).weekNumber;
   }
 
   int get nextWeekNumber {
-    final now = this;
-
-    return now.add(const Duration(days: 7)).weekNumber;
+    return add(const Duration(days: 7)).weekNumber;
   }
 
   int get nextWeekYear {
@@ -206,5 +211,9 @@ extension DateTimeExtension on DateTime {
     final now = this;
 
     return DateTime(now.year, now.month, now.day, 23, 59, 59);
+  }
+
+  bool inRange(DateTime startDate, DateTime endTime) {
+    return (isBefore(endTime) || isSameDate(endTime)) && (isAfter(startDate) || (isSameDate(startDate)));
   }
 }

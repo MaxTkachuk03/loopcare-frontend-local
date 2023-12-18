@@ -3,7 +3,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scoring_scale.dart';
 
 class CompleteReflectionSection extends StatelessWidget {
-  const CompleteReflectionSection({Key? key}) : super(key: key);
+  const CompleteReflectionSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +44,9 @@ class CompleteReflectionSection extends StatelessWidget {
           const SizedBox(
             height: 4.0,
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
                 'Not at all helpful',
                 style: TextStyle(fontSize: ThemeConstants.fontSize13, color: AppColors.greyLabel),

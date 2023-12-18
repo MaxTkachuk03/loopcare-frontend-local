@@ -15,12 +15,12 @@ class FoodListItem extends StatelessWidget {
   final void Function(BuildContext context, FoodItem item)? onDeletePressed;
 
   const FoodListItem({
-    Key? key,
+    super.key,
     required this.nutritionKey,
     required this.foodItem,
     this.onDeletePressed,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -132,8 +132,7 @@ class FoodListItem extends StatelessWidget {
                       const SizedBox(
                         width: 4.0,
                       ),
-                      Text(currentNutritionFact.value.toStringAsFixed(2),
-                          style: Theme.of(context).textTheme.bodySmall),
+                      Text(currentNutritionFact.value.toStringAsFixed(2), style: Theme.of(context).textTheme.bodySmall),
                       const SizedBox(
                         width: 4.0,
                       ),

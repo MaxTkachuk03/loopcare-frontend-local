@@ -9,12 +9,12 @@ class SummaryItem extends StatelessWidget {
   final String? quantityLabel;
 
   const SummaryItem({
-    Key? key,
+    super.key,
     required this.label,
     required this.icon,
     required this.quantity,
     this.quantityLabel,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

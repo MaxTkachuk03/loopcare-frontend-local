@@ -6,9 +6,9 @@ class RecommendationsCarousel extends StatefulWidget {
   final List<RecommendationRecipe> recommendations;
 
   const RecommendationsCarousel({
-    Key? key,
+    super.key,
     required this.recommendations,
-  }) : super(key: key);
+  });
 
   @override
   State<RecommendationsCarousel> createState() => _RecommendationsCarouselState();

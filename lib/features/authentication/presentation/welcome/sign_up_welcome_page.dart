@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 
 class SignUpWelcomePage extends StatelessWidget {
-  const SignUpWelcomePage({Key? key}) : super(key: key);
+  const SignUpWelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +45,7 @@ class SignUpWelcomePage extends StatelessWidget {
                         children: [
                           Text(
                             LocalizedTexts.signUpWelcomeTitle.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium
-                                ?.copyWith(
+                            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                   fontSize: 30.0,
                                   fontFamily: ThemeConstants.bitterFontFamily,
                                 ),

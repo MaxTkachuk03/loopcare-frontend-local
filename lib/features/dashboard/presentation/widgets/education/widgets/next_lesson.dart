@@ -16,17 +16,16 @@ class NextLesson extends StatelessWidget {
   final EducationLesson lesson;
 
   const NextLesson({
-    Key? key,
+    super.key,
     required this.lesson,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<EducationProgramBloc, EducationProgramState>(
       builder: (context, state) {
         final lessonWithCountdown = state.data.lessonWithCountdown;
-        final isLessonWithCountDown =
-            lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
+        final isLessonWithCountDown = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
 
         return GestureDetector(
           onTap: isLessonWithCountDown ? null : () => _onTapHandler(context),
@@ -42,8 +41,7 @@ class NextLesson extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             fontSize: ThemeConstants.fontSize12,
                             fontWeight: isLessonWithCountDown ? FontWeight.w400 : FontWeight.w700,
-                            color:
-                                isLessonWithCountDown ? AppColors.greyLabel : AppColors.orangeDarkWithBlack,
+                            color: isLessonWithCountDown ? AppColors.greyLabel : AppColors.orangeDarkWithBlack,
                           ),
                     ),
                     const SizedBox(height: 4.0),

@@ -14,7 +14,7 @@ class CalendarWeek extends StatelessWidget {
   final bool isFutureDate;
 
   const CalendarWeek({
-    Key? key,
+    super.key,
     required this.onPressHandler,
     required this.weekNumber,
     required this.fromDate,
@@ -23,14 +23,14 @@ class CalendarWeek extends StatelessWidget {
     required this.date,
     required this.isSelected,
     required this.isFutureDate,
-  }) : super(key: key);
+  });
 
   Color _getDayColor() {
     return isSelected
         ? AppColors.bgGreen
         : isFutureDate
             ? AppColors.blueAppBar
-            : AppColors.E3E5DE;
+            : AppColors.e3e5de;
   }
 
   Color _getTextColor() {

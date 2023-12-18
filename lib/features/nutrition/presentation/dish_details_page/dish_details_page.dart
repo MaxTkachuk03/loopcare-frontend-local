@@ -9,8 +9,9 @@ import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
@@ -18,8 +19,6 @@ import 'package:loopcare_frontend/features/nutrition/application/search/dto/sear
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_food_item/dish_food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dish_details_page/widgets/dish_list/dish_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
@@ -33,11 +32,11 @@ class DishDetailsPage extends StatefulWidget {
   final bool? isMealDish;
 
   const DishDetailsPage({
-    Key? key,
+    super.key,
     required this.dishId,
     required this.canEditDish,
     this.isMealDish,
-  }) : super(key: key);
+  });
 
   @override
   State<DishDetailsPage> createState() => _DishDetailsPageState();
@@ -98,12 +97,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
           ),
         );
 
-    showAppSnackBar(
-      context: context,
-      background: AppColors.white,
-      text: LocalizedTexts.foodItemWasAddedToDish.translation,
-    );
-
+    context.showSuccessBar(content: Text(LocalizedTexts.foodItemWasAddedToDish.translation));
     context.router.popUntilRouteWithName(SearchRoute.name);
   }
 
@@ -119,7 +113,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
           final mealId = mealBloc.state.getCurrentMealId;
 
           if (mealId == null) {
-            print('Search item click freezed DishDetailsPage mealId == null');
+            debugPrint('Search item click freezed DishDetailsPage mealId == null');
             return;
           }
 
@@ -178,12 +172,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
           dishId: dishId,
           internalFoodItemId: int.parse(item.id),
         ));
-
-    showAppSnackBar(
-      context: context,
-      background: AppColors.white,
-      text: LocalizedTexts.foodItemWasDeletedFromDish.translation,
-    );
+    context.showSuccessBar(content: Text(LocalizedTexts.foodItemWasDeletedFromDish.translation));
   }
 
   void _onFoodItemPressed(BuildContext context, DishFoodItem item) {

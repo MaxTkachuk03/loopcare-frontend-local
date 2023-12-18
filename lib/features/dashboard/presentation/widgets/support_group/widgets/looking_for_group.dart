@@ -11,7 +11,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 
 class LookingForGroup extends StatelessWidget {
-  const LookingForGroup({Key? key}) : super(key: key);
+  const LookingForGroup({super.key});
 
   @override
   Widget build(BuildContext context) {

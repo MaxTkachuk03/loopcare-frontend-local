@@ -8,10 +8,10 @@ class DefaultListItem extends StatelessWidget {
   final void Function(ServingSize item) onPressed;
 
   const DefaultListItem({
-    Key? key,
+    super.key,
     required this.item,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

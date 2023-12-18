@@ -12,12 +12,12 @@ class ProgressItem extends StatelessWidget {
   final EducationLesson lesson;
 
   const ProgressItem({
-    Key? key,
+    super.key,
     required this.lesson,
     required this.isLast,
     required this.isFirst,
     required this.nextIsLocked,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +57,7 @@ class ProgressItem extends StatelessWidget {
                     sides: 6,
                     rotate: 30.0,
                     borderRadius: 10,
-                    side: BorderSide(
-                        color: isAvailable
-                            ? AppColors.darkGreen
-                            : AppColors.yellowLight,
-                        width: 3),
+                    side: BorderSide(color: isAvailable ? AppColors.darkGreen : AppColors.yellowLight, width: 3),
                   ),
                 ),
               ),
@@ -72,9 +68,7 @@ class ProgressItem extends StatelessWidget {
             : Expanded(
                 child: Container(
                   width: 4,
-                  color: nextIsLocked
-                      ? AppColors.yellowLight
-                      : AppColors.darkGreen,
+                  color: nextIsLocked ? AppColors.yellowLight : AppColors.darkGreen,
                 ),
               ),
       ],

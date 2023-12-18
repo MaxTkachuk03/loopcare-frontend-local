@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/progress_item.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_card.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/progress_item.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class EducationFullList extends StatefulWidget {
   final List<EducationLesson> lessons;
 
-  const EducationFullList({Key? key, required this.lessons}) : super(key: key);
+  const EducationFullList({super.key, required this.lessons});
 
   @override
   State<EducationFullList> createState() => _EducationFullListState();

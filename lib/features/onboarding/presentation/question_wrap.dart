@@ -11,19 +11,18 @@ class QuestionWrap extends StatelessWidget {
   final Future<bool> Function() onPreviousPage;
 
   const QuestionWrap({
-    Key? key,
+    super.key,
     required this.child,
     required this.onPreviousPage,
     this.isWithOnWillPop,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     final isWithOnWillPop = this.isWithOnWillPop;
 
     return WillPopScope(
-      onWillPop:
-          isWithOnWillPop != null && !isWithOnWillPop ? null : onPreviousPage,
+      onWillPop: isWithOnWillPop != null && !isWithOnWillPop ? null : onPreviousPage,
       child: Scaffold(
         appBar: AppBar(
           title: Text(LocalizedTexts.bodyAndMind.tr()),

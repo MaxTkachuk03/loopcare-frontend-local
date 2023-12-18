@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 
 class PreIntroPage extends StatelessWidget {
-  const PreIntroPage({Key? key}) : super(key: key);
+  const PreIntroPage({super.key});
 
   @override
   Widget build(BuildContext context) {

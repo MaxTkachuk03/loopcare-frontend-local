@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class Reflection extends StatelessWidget {
-  const Reflection({Key? key}) : super(key: key);
+  const Reflection({super.key});
 
   void onPressHandler(BuildContext context) {
     context.router.pushNamed(AppRoutes.reflection);

@@ -8,12 +8,12 @@ class ServingInputField extends StatefulWidget {
   final FocusNode? focusNode;
 
   const ServingInputField({
-    Key? key,
+    super.key,
     required this.controller,
     required this.fillColor,
     required this.onChange,
     this.focusNode,
-  }) : super(key: key);
+  });
 
   @override
   State<ServingInputField> createState() => _ServingInputFieldState();
@@ -65,9 +65,10 @@ class _ServingInputFieldState extends State<ServingInputField> {
           contentPadding: const EdgeInsets.symmetric(horizontal: 4),
         ),
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
-        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            fontWeight: FontWeight.w600,
-            fontSize: _fontSizeDependsOnValueLength),
+        style: Theme.of(context)
+            .textTheme
+            .bodySmall
+            ?.copyWith(fontWeight: FontWeight.w600, fontSize: _fontSizeDependsOnValueLength),
       ),
     );
   }

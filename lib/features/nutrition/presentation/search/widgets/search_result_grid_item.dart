@@ -9,10 +9,10 @@ class SearchResultGridItem extends StatelessWidget {
   final Function(SearchItem item) onTap;
 
   const SearchResultGridItem({
-    Key? key,
+    super.key,
     required this.item,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

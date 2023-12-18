@@ -5,8 +5,8 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class NoTimeslots extends StatelessWidget {
   const NoTimeslots({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

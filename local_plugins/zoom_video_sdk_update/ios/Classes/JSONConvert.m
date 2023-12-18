@@ -165,7 +165,7 @@ RCT_ENUM_CONVERTER_WITH_REVERSED(
        @"ZoomVideoSDKError_JoinSession_Token_UserIdentity_TooLong": @(Errors_JoinSession_Token_UserIdentity_TooLong),
        @"ZoomVideoSDKError_Session_Base": @(Errors_Session_Base),
        @"ZoomVideoSDKError_Session_Module_Not_Found": @(Errors_Session_Module_Not_Found),
-       @"ZoomVideoSDKError_Session_Service_Invaild": @(Errors_Session_Service_Invaild),
+       @"ZoomVideoSDKError_Session_Service_Invaild": @(Errors_Session_Service_Invalid),
        @"ZoomVideoSDKError_Session_Join_Failed": @(Errors_Session_Join_Failed),
        @"ZoomVideoSDKError_Session_No_Rights": @(Errors_Session_No_Rights),
        @"ZoomVideoSDKError_Session_Already_In_Progress": @(Errors_Session_Already_In_Progress),

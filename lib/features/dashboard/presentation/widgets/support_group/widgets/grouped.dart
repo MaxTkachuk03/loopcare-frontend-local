@@ -13,8 +13,8 @@ import 'package:loopcare_frontend/features/group_sessions/application/topics_blo
 
 class Grouped extends StatelessWidget {
   const Grouped({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +53,7 @@ class Grouped extends StatelessWidget {
                     ),
                   ),
                 const SizedBox(height: 16.0),
-                if (!state.data.timeSlotsAvailable &&
-                    !state.data.isSigned &&
-                    state.data.isGroupsOnWeekAvailable)
+                if (!state.data.timeSlotsAvailable && !state.data.isSigned && state.data.isGroupsOnWeekAvailable)
                   const GroupedNoTimeslots(),
                 if (state.data.timeSlotsAvailable && !state.data.isSigned)
                   GroupedNotSigned(topicName: state.data.weekTopicName),

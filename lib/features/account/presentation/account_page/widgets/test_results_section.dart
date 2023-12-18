@@ -5,7 +5,7 @@ import 'package:loopcare_frontend/features/account/presentation/account_page/wid
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
 
 class TestResultsSection extends StatelessWidget {
-  const TestResultsSection({Key? key}) : super(key: key);
+  const TestResultsSection({super.key});
 
   @override
   Widget build(BuildContext context) {

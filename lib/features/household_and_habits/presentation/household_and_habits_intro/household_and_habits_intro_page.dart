@@ -11,15 +11,13 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/core/presentation/widgets/survey_image_clipper.dart';
 
 class HouseholdAndHabitsIntroPage extends StatefulWidget {
-  const HouseholdAndHabitsIntroPage({Key? key}) : super(key: key);
+  const HouseholdAndHabitsIntroPage({super.key});
 
   @override
-  State<HouseholdAndHabitsIntroPage> createState() =>
-      _HouseholdAndHabitsIntroPageState();
+  State<HouseholdAndHabitsIntroPage> createState() => _HouseholdAndHabitsIntroPageState();
 }
 
-class _HouseholdAndHabitsIntroPageState
-    extends State<HouseholdAndHabitsIntroPage> {
+class _HouseholdAndHabitsIntroPageState extends State<HouseholdAndHabitsIntroPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,20 +52,16 @@ class _HouseholdAndHabitsIntroPageState
                         children: [
                           Text(
                             LocalizedTexts.survey.tr().toUpperCase(),
-                            style:
-                                Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
                           ),
                           const SizedBox(
                             height: 16.0,
                           ),
                           Text(
                             LocalizedTexts.householdAndEatingHabits.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .displaySmall
-                                ?.copyWith(
+                            style: Theme.of(context).textTheme.displaySmall?.copyWith(
                                   fontFamily: ThemeConstants.bitterFontFamily,
                                   color: AppColors.blueDark,
                                 ),
@@ -127,12 +121,8 @@ class _HouseholdAndHabitsIntroPageState
                   padding: const EdgeInsets.only(bottom: 53.0),
                   child: ElevatedButton(
                     onPressed: () => _onStart(context),
-                    style: Theme.of(context)
-                        .elevatedButtonTheme
-                        .style
-                        ?.copyWith(
-                          backgroundColor:
-                              MaterialStateProperty.all(AppColors.orangeDark),
+                    style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                          backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
                         ),
                     child: Text(LocalizedTexts.start.tr()),
                   ),

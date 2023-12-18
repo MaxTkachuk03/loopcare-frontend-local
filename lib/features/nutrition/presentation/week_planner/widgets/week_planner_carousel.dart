@@ -10,8 +10,8 @@ import 'package:loopcare_frontend/features/nutrition/presentation/week_planner/w
 
 class WeekPlannerCarousel extends StatefulWidget {
   const WeekPlannerCarousel({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State createState() => _WeekPlannerCarouselState();

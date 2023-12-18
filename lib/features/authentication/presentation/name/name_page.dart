@@ -13,7 +13,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/domain/name/name.dart';
 
 class NamePage extends StatefulWidget {
-  const NamePage({Key? key}) : super(key: key);
+  const NamePage({super.key});
 
   @override
   State<NamePage> createState() => _NamePageState();

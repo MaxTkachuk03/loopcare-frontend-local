@@ -10,10 +10,10 @@ class NutritionTabs extends StatefulWidget {
   final List<Widget> tabBarViewChildren;
 
   const NutritionTabs({
-    Key? key,
+    super.key,
     required this.tabBarViewChildren,
     required this.initialIndex,
-  }) : super(key: key);
+  });
 
   @override
   State<NutritionTabs> createState() => _NutritionTabsState();
@@ -36,13 +36,13 @@ class _NutritionTabsState extends State<NutritionTabs> with TickerProviderStateM
   @override
   void initState() {
     super.initState();
+
     _tabController = TabController(
       vsync: this,
       length: tabs.length,
       animationDuration: Duration.zero,
       initialIndex: widget.initialIndex,
-    );
-    _tabController.addListener(_onTabsChanged);
+    )..addListener(_onTabsChanged);
   }
 
   void _onTabsChanged() {

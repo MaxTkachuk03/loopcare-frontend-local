@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/features/physical_activities/application/physi
 import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/widgets/custom_exercise_field.dart';
 
 class CustomActivityTab extends StatefulWidget {
-  const CustomActivityTab({Key? key}) : super(key: key);
+  const CustomActivityTab({super.key});
 
   @override
   State<CustomActivityTab> createState() => _CustomActivityTabState();

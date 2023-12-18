@@ -3,7 +3,7 @@ import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
 
 class HealthierFoodChips extends StatefulWidget {
-  const HealthierFoodChips({Key? key}) : super(key: key);
+  const HealthierFoodChips({super.key});
 
   @override
   State<HealthierFoodChips> createState() => _HealthierFoodChipsState();

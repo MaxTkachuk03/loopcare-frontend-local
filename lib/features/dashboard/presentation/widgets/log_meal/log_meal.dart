@@ -10,16 +10,16 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/logged_list.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_block/calorie_nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
-import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 class LogMeal extends StatelessWidget {
-  const LogMeal({Key? key}) : super(key: key);
+  const LogMeal({super.key});
 
   void onPressHandler(BuildContext context) {
     ModalBottomSheet.selectAMealDialog(
@@ -102,9 +102,7 @@ class LogMeal extends StatelessWidget {
                                 LocalizedTexts.logYourMeals.translation,
                                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                                       fontFamily: ThemeConstants.bitterFontFamily,
-                                      color: mealsState.isEnableOnDashboard
-                                          ? AppColors.darkGreen
-                                          : AppColors.greyLabel,
+                                      color: mealsState.isEnableOnDashboard ? AppColors.darkGreen : AppColors.greyLabel,
                                     ),
                               ),
                               if (mealsState.filledCategories.isEmpty)
@@ -113,9 +111,8 @@ class LogMeal extends StatelessWidget {
                                       ? LocalizedTexts.noMealsLoggedYet.translation
                                       : LocalizedTexts.noMealsLogged.translation,
                                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                        color: mealsState.isEnableOnDashboard
-                                            ? AppColors.darkGreen
-                                            : AppColors.greyLabel,
+                                        color:
+                                            mealsState.isEnableOnDashboard ? AppColors.darkGreen : AppColors.greyLabel,
                                       ),
                                 ),
                             ],
@@ -183,8 +180,7 @@ class LogMeal extends StatelessWidget {
                                         categoryList: MealCategory.values
                                             .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
                                             .toList(),
-                                        categoryListRaw:
-                                            MealCategory.values.map((e) => e.label ?? '').toList(),
+                                        categoryListRaw: MealCategory.values.map((e) => e.label ?? '').toList(),
                                         filledList: mealsState.filledCategories,
                                       ),
                                     ],

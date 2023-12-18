@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
-import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/widgets/preferences_list.dart';
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/survey_item_image_clipper.dart';
+import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/widgets/preferences_list.dart';
 
 class PreferencesListItem extends StatelessWidget {
   final Pref item;
@@ -12,11 +12,11 @@ class PreferencesListItem extends StatelessWidget {
   final Color imageOverlayColor;
 
   const PreferencesListItem({
-    Key? key,
+    super.key,
     required this.item,
     required this.routePath,
     required this.imageOverlayColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +29,7 @@ class PreferencesListItem extends StatelessWidget {
             height: 96.0,
             padding: const EdgeInsets.only(right: 26.0),
             decoration: BoxDecoration(
-              color: item.isCompleted
-                  ? AppColors.white.withOpacity(0.0)
-                  : AppColors.white,
+              color: item.isCompleted ? AppColors.white.withOpacity(0.0) : AppColors.white,
               border: Border.all(
                 width: 1,
                 color: AppColors.yellowLight,
@@ -65,20 +63,14 @@ class PreferencesListItem extends StatelessWidget {
                       children: [
                         Text(
                           item.title,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(fontWeight: FontWeight.w600),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
                         ),
                         const SizedBox(
                           height: 8.0,
                         ),
                         Text(
                           item.completionTime,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
-                              ?.copyWith(fontWeight: FontWeight.w600),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
@@ -90,13 +82,9 @@ class PreferencesListItem extends StatelessWidget {
                   borderRadius: 15.0,
                   innerWidget: Container(
                     decoration: BoxDecoration(
-                      color: item.isCompleted
-                          ? AppColors.yellowLight
-                          : AppColors.bgGreen,
+                      color: item.isCompleted ? AppColors.yellowLight : AppColors.bgGreen,
                       image: DecorationImage(
-                        image: item.isCompleted
-                            ? AppIcons.checkmark
-                            : AppIcons.arrow,
+                        image: item.isCompleted ? AppIcons.checkmark : AppIcons.arrow,
                       ),
                       shape: BoxShape.circle,
                     ),

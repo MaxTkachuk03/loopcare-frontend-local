@@ -11,12 +11,12 @@ class NetworkImageWithCache extends StatelessWidget {
   final bool withPlaceholder;
 
   const NetworkImageWithCache({
-    Key? key,
+    super.key,
     required this.url,
     this.imageBoxFit,
     this.alignment,
     this.withPlaceholder = true,
-  }) : super(key: key);
+  });
 
   _getAuthToken() {
     final authManager = getIt<AuthTokenManager>();

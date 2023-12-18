@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.d
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
@@ -19,16 +19,17 @@ import 'package:loopcare_frontend/features/education/domain/education_lesson_pag
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_audio_body.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_text_body.dart';
+import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_type.dart';
 
 class LessonPage extends StatefulWidget {
   final int lessonId;
   final int pageIndex;
 
   const LessonPage({
-    Key? key,
+    super.key,
     @PathParam('lessonId') required this.lessonId,
     @PathParam('pageIndex') required this.pageIndex,
-  }) : super(key: key);
+  });
 
   @override
   State<LessonPage> createState() => _LessonPageState();
@@ -67,7 +68,20 @@ class _LessonPageState extends State<LessonPage> {
         return;
       }
 
-      context.router.pushNamed(AppRoutes.lessonComplete);
+      if (extraAction == ExtraActionTypes.unlockAssignments) {
+        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.assignments);
+      }
+
+      if (lessonBloc.state.data.questions.isEmpty ||
+          lessonBloc.state.data.questions.first.type != LessonQuestionType.quiz) {
+        context.router.pushNamed(AppRoutes.lessonComplete);
+      } else {
+        context.router.push(
+          QuizzesIntroRoute(
+            lessonId: widget.lessonId,
+          ),
+        );
+      }
 
       return;
     }
@@ -86,14 +100,7 @@ class _LessonPageState extends State<LessonPage> {
 
   _errorListener(BuildContext context, EducationLessonState state) {
     final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
-
-    showAppSnackBar(
-      context: context,
-      text: errorMessage,
-      background: AppColors.red,
-      textColor: Colors.white,
-    );
-
+    context.showError(content: Text(errorMessage));
     context.router.pop();
   }
 
@@ -152,8 +159,7 @@ class _LessonPageState extends State<LessonPage> {
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadSubtitlesFile(
-                            state.data.currentPage.content.subtitlesImages!),
+                        EducationLessonEvent.downloadSubtitlesFile(state.data.currentPage.content.subtitlesImages!),
                       );
                 }
                 return LessonAudioPage(
@@ -197,8 +203,7 @@ class _LessonPageState extends State<LessonPage> {
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadSubtitlesFile(
-                            state.data.currentPage.content.subtitlesImages!),
+                        EducationLessonEvent.downloadSubtitlesFile(state.data.currentPage.content.subtitlesImages!),
                       );
                 }
                 return LessonAudioPage(
@@ -234,8 +239,7 @@ class _LessonPageState extends State<LessonPage> {
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadSubtitlesFile(
-                            state.data.currentPage.content.subtitlesImages!),
+                        EducationLessonEvent.downloadSubtitlesFile(state.data.currentPage.content.subtitlesImages!),
                       );
                 }
                 return LessonAudioPage(

@@ -13,7 +13,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/medical_
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 
 class MedicalCheckPassedPage extends StatelessWidget {
-  const MedicalCheckPassedPage({Key? key}) : super(key: key);
+  const MedicalCheckPassedPage({super.key});
 
   @override
   Widget build(BuildContext context) {

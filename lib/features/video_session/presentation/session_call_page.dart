@@ -38,7 +38,7 @@ import 'package:loopcare_frontend/features/video_session/presentation/widgets/us
 import 'package:wakelock/wakelock.dart';
 
 class SessionCallPage extends StatefulWidget {
-  const SessionCallPage({Key? key}) : super(key: key);
+  const SessionCallPage({super.key});
 
   @override
   State<SessionCallPage> createState() => _SessionCallPageState();
@@ -151,16 +151,13 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   void _showToggleMicPopup({String status = '', bool isOn = false}) {
     final micState = isOn ? LocalizedTexts.on : LocalizedTexts.off;
 
-    final message = status == Errors.Success
-        ? LocalizedTexts.micState.tr(namedArgs: {"micState": micState})
-        : LocalizedTexts.somethingWentWrong.tr();
-
-    showAppSnackBar(
-      context: context,
-      text: message,
-      background: Colors.white,
-      textColor: Colors.black,
-    );
+    status == Errors.Success
+        ? context.showSuccessBar(
+            content: Text(
+              LocalizedTexts.micState.tr(namedArgs: {"micState": micState}),
+            ),
+          )
+        : context.showError(content: Text(LocalizedTexts.somethingWentWrong.translation));
   }
 
   void _setInactivityTimer() {
@@ -185,8 +182,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
       log('session token = $token', name: 'zoomSessionLog');
 
-      final String userName = context.read<AuthenticationCubit>().state.nickname ??
-          context.read<AuthenticationCubit>().state.name;
+      final String userName =
+          context.read<AuthenticationCubit>().state.nickname ?? context.read<AuthenticationCubit>().state.name;
 
       JoinSessionConfig joinSession = JoinSessionConfig(
         sessionName: sessionKey,
@@ -305,10 +302,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       var userListJson = jsonDecode(data['remoteUsers']) as List;
 
       setState(() {
-        _sessionParticipants = [
-          mySelf!,
-          ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))
-        ];
+        _sessionParticipants = [mySelf!, ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))];
       });
     });
 
@@ -386,7 +380,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       log('_networkStatusChangeListener - $networkUser ${data['status']}', name: 'zoomSessionLog');
 
       if (data['status'] == NetworkStatus.Bad) {
-        showAppSnackBar(context: context, text: LocalizedTexts.badConnectionMessage.tr());
+        context.showError(content: Text(LocalizedTexts.badConnectionMessage.translation));
       }
     });
 
@@ -506,13 +500,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
     if (context.mounted) {
       context.router.popUntilRouteWithPath(AppRoutes.home);
-
-      showAppSnackBar(
-        context: context,
-        text: LocalizedTexts.sessionEndDialogText.tr(),
-        background: Colors.white,
-        textColor: Colors.black,
-      );
+      context.showSuccessBar(content: Text(LocalizedTexts.sessionEndDialogText.translation));
     }
   }
 
@@ -566,14 +554,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     });
   }
 
-  void _showNotSupportSnack() {
-    showAppSnackBar(
-      context: context,
-      text: LocalizedTexts.toggleSpeakerError.tr(),
-      background: AppColors.red,
-      textColor: Colors.white,
-    );
-  }
+  void _showNotSupportSnack() => context.showError(content: Text(LocalizedTexts.toggleSpeakerError.translation));
 
   void onSettingsHandler() {
     showDialog(
@@ -630,7 +611,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                 if (!_isVideoPlaying)
                   if (userJoinedToSession)
                     Container(
-                      color: AppColors.FF313030,
+                      color: AppColors.ff313030,
                       child: CustomScrollView(
                         physics: const NeverScrollableScrollPhysics(),
                         slivers: [
@@ -642,10 +623,9 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                           SliverFillRemaining(child: BlocBuilder<SessionCallBloc, SessionCallState>(
                             builder: (context, state) {
                               final textEvents = context.read<TopicsBloc>().state.data.textEvents;
-                              final text = textEvents
-                                      .lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)
-                                      ?.text ??
-                                  '';
+
+                              final text =
+                                  textEvents.lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)?.text ?? '';
 
                               return PromptsContainer(text: text);
                             },

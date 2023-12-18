@@ -13,18 +13,16 @@ class SelectedListItem extends StatelessWidget {
   final void Function(ServingSize item) onPressed;
 
   const SelectedListItem({
-    Key? key,
+    super.key,
     required this.item,
     required this.onPressed,
     required this.inputController,
-  }) : super(key: key);
+  });
 
   void _onAmountChange(BuildContext context, String value) {
     final String amount = value.isEmpty ? '0' : value;
 
-    context
-        .read<FoodItemServingsBloc>()
-        .add(FoodItemServingsEvent.setSelectedServingAmount(amount));
+    context.read<FoodItemServingsBloc>().add(FoodItemServingsEvent.setSelectedServingAmount(amount));
   }
 
   @override
@@ -75,17 +73,11 @@ class SelectedListItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(LocalizedTexts.amount.translation,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                     fontSize: 12.0,
                                   )),
                           Text(LocalizedTexts.calories.translation,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                     fontSize: 12.0,
                                   )),
                         ],
@@ -98,21 +90,16 @@ class SelectedListItem extends StatelessWidget {
                             child: ServingInputField(
                               controller: inputController,
                               fillColor: AppColors.bgGreen,
-                              onChange: (value) =>
-                                  _onAmountChange(context, value),
+                              onChange: (value) => _onAmountChange(context, value),
                             ),
                           ),
-                          BlocBuilder<FoodItemServingsBloc,
-                                  FoodItemServingsState>(
+                          BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(
                               builder: (BuildContext context, state) {
                             return Flexible(
                               child: AutoSizeText(
                                 '${state.selectedServingCalories}',
                                 maxLines: 1,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                       fontWeight: FontWeight.w600,
                                       color: AppColors.darkGreen,
                                     ),

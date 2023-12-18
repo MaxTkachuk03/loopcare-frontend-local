@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/features/physical_fitness/presentation/biologi
 import 'package:loopcare_frontend/features/physical_fitness/presentation/physical_question_wrap.dart';
 
 class BiologicalGenderPage extends StatelessWidget {
-  const BiologicalGenderPage({Key? key}) : super(key: key);
+  const BiologicalGenderPage({super.key});
 
   @override
   Widget build(BuildContext context) {

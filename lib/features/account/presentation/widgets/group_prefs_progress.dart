@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart'
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 
 class GroupPrefsProgress extends StatelessWidget {
-  const GroupPrefsProgress({Key? key}) : super(key: key);
+  const GroupPrefsProgress({super.key});
 
   @override
   Widget build(BuildContext context) {

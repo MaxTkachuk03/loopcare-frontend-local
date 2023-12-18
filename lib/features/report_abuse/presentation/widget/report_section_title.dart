@@ -7,16 +7,14 @@ class ReportSectionTitle extends StatelessWidget {
   final double? fontSize;
   final FontWeight? fontWeight;
   final Color? color;
-  final TextAlign? textAlign;
 
   const ReportSectionTitle({
-    Key? key,
+    super.key,
     required this.title,
     this.fontSize = 24,
     this.fontWeight = FontWeight.w400,
     this.color = AppColors.orangeDark,
-    this.textAlign,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,6 @@ class ReportSectionTitle extends StatelessWidget {
       children: [
         Text(
           title,
-          textAlign: textAlign,
           style: TextStyle(
             fontSize: fontSize,
             fontWeight: fontWeight,

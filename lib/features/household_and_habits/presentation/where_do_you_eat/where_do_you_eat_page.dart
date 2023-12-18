@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/features/household_and_habits/presentation/hou
 import 'package:loopcare_frontend/features/household_and_habits/presentation/where_do_you_eat/widgets/where_do_you_eat_item.dart';
 
 class WhereDoYouEatPage extends StatelessWidget {
-  const WhereDoYouEatPage({Key? key}) : super(key: key);
+  const WhereDoYouEatPage({super.key});
 
   @override
   Widget build(BuildContext context) {

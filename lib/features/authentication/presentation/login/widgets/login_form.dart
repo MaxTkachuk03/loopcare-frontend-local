@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
-import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
 import 'package:loopcare_frontend/core/presentation/validators/login_password_validator.dart';
@@ -21,7 +20,7 @@ const accountNotFound = 'account_not_found';
 const emailOrPasswordAreIncorrect = 'email_or_password_are_incorrect';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+  const LoginForm({super.key});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -46,33 +45,18 @@ class _LoginFormState extends State<LoginForm> {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: _navigationListener,
       builder: (BuildContext context, AuthenticationState state) {
-        return Form(
+        return  Form(
           key: _formKey,
           onChanged: _onChangedForm,
           child: Column(
             children: [
-              Field(
-                controller: _emailController,
-                hintText: LocalizedTexts.yourEmail.tr(),
-                validator: emailValidator(),
-                prefixIcon: AppIcons.iconMail,
-                keyboardType: TextInputType.emailAddress,
-                contentPadding: const EdgeInsets.only(bottom: 0.0, top: 15.0),
-              ),
-              const SizedBox(height: 10.0),
-              Field(
-                hintText: LocalizedTexts.yourPassword.tr(),
-                prefixIcon: AppIcons.iconLock,
-                isToggleEye: true,
-                obscureText: true,
-                controller: _passwordController,
-                validator: loginPasswordValidator(),
-                contentPadding: const EdgeInsets.only(bottom: 0.0, top: 15.0),
-              ),
-              const SizedBox(height: 32.0),
-              ElevatedButton(
+              CustomTextField.email(controller: _emailController),
+              const SizedBox(height: 12.0),
+              CustomTextField.password(controller: _passwordController),
+              const SizedBox(height: 40.0),
+              CustomElevatedButton.blueFullWidth(
                 onPressed: _isDisabled ? null : _onLogin,
-                child: Text(LocalizedTexts.loginBtn.tr()),
+                label: LocalizedTexts.loginBtn,
               ),
             ],
           ),
@@ -82,8 +66,9 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   _onChangedForm() {
-    final isValidForm =
-        Email.create(_emailController.text).isRight() && LoginPassword.create(_passwordController.text).isRight();
+    final isValidForm = Email.create(_emailController.text).isRight() &&
+        LoginPassword.create(_passwordController.text).isRight();
+
     setState(() {
       _isDisabled = !isValidForm;
     });
@@ -139,13 +124,7 @@ class _LoginFormState extends State<LoginForm> {
             },
             orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
           );
-
-          showAppSnackBar(
-            context: context,
-            text: errorMessage,
-            background: AppColors.red,
-            textColor: Colors.white,
-          );
+          context.showError(content: Text(errorMessage));
           MixpanelEventService.instance.track(
             AppMixpanelEvents.loginFail,
             {

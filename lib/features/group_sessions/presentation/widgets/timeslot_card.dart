@@ -18,6 +18,8 @@ class TimeslotCardType with _$TimeslotCardType {
   const factory TimeslotCardType.passed() = Passed;
 
   const factory TimeslotCardType.full() = Full;
+
+  const factory TimeslotCardType.cancelled() = Cancelled;
 }
 
 class TimeslotCard extends StatefulWidget {
@@ -25,10 +27,10 @@ class TimeslotCard extends StatefulWidget {
   final int duration;
 
   const TimeslotCard({
-    Key? key,
+    super.key,
     required this.groupSession,
     required this.duration,
-  }) : super(key: key);
+  });
 
   @override
   State<TimeslotCard> createState() => _TimeslotCardState();
@@ -40,12 +42,17 @@ class _TimeslotCardState extends State<TimeslotCard> {
   @override
   void initState() {
     final isFullSession = widget.groupSession.memberCount == widget.groupSession.maxMemberCount;
+    final isPassed = widget.groupSession.status == GroupSessionStatus.finished ||
+        widget.groupSession.startDate.toLocal().isBefore(DateTime.now());
+
+    final isCancelled = widget.groupSession.status == GroupSessionStatus.cancelled;
 
     if (isFullSession) {
       _type = const TimeslotCardType.full();
-    } else if (widget.groupSession.status == GroupSessionStatus.finished ||
-        widget.groupSession.startDate.toLocal().isBefore(DateTime.now())) {
+    } else if (isPassed) {
       _type = const TimeslotCardType.passed();
+    } else if (isCancelled) {
+      _type = const TimeslotCardType.cancelled();
     } else {
       _type = const TimeslotCardType.available();
     }
@@ -69,6 +76,7 @@ class _TimeslotCardState extends State<TimeslotCard> {
           'totalNumber': '${widget.groupSession.maxMemberCount}',
         }),
         passed: (_) => LocalizedTexts.passedSession.translation,
+        cancelled: (_) => LocalizedTexts.cancelledSession.translation,
         full: (_) => LocalizedTexts.noMoreSeatAvailable.translation,
       );
 

@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/reflection/presentation/widgets/details_button.dart';
 
 class NutritionSection extends StatelessWidget {
-  const NutritionSection({Key? key}) : super(key: key);
+  const NutritionSection({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -12,7 +12,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 
 class PartOfGroup extends StatelessWidget {
-  const PartOfGroup({Key? key}) : super(key: key);
+  const PartOfGroup({super.key});
 
   @override
   Widget build(BuildContext context) {

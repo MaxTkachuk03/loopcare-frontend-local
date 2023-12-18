@@ -13,18 +13,16 @@ class FavoriteListItem extends StatelessWidget {
   final FavoritesItem foodItem;
 
   const FavoriteListItem({
-    Key? key,
+    super.key,
     required this.foodItem,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SelectFoodBloc, SelectFoodState>(
       builder: (BuildContext context, state) {
-        final isSelected = state.mapOrNull(
-                selectFood: (state) =>
-                    state.selectedFavoritesItems.contains(foodItem)) ??
-            false;
+        final isSelected =
+            state.mapOrNull(selectFood: (state) => state.selectedFavoritesItems.contains(foodItem)) ?? false;
 
         return Material(
           child: Row(
@@ -36,34 +34,26 @@ class FavoriteListItem extends StatelessWidget {
                     children: [
                       CheckboxBlue(
                         value: isSelected,
-                        onChanged: (bool? value) =>
-                            _onChanged(value, foodItem, context),
+                        onChanged: (bool? value) => _onChanged(value, foodItem, context),
                       ),
                       const SizedBox(width: 14.0),
                       Expanded(
                         child: Padding(
-                          padding:
-                              const EdgeInsets.only(top: 12.0, bottom: 12.0),
+                          padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               AutoSizeText(
                                 foodItem.foodName,
                                 maxLines: 2,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                       fontWeight: FontWeight.w600,
                                     ),
                               ),
                               AutoSizeText(
                                 '${foodItem.brandName} | ${foodItem.serving.servingDescription}',
                                 maxLines: 1,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                       color: AppColors.greyLabel,
                                     ),
                               ),

@@ -32,6 +32,7 @@ class ProxyGuard extends AutoRouteGuard {
           userId: authenticationCubit.state.id,
         );
         router.replaceNamed(route);
+
         return;
       } else {
         router.replaceNamed(AppRoutes.preIntro);

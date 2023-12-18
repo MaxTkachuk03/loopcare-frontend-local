@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
@@ -8,7 +9,7 @@ import 'package:loopcare_frontend/features/education/presentation/utils/format_d
 class EducationCountDown extends StatefulWidget {
   final int seconds;
 
-  const EducationCountDown({Key? key, required this.seconds}) : super(key: key);
+  const EducationCountDown({super.key, required this.seconds});
 
   @override
   State<EducationCountDown> createState() => _EducationCountDownState();
@@ -56,8 +57,7 @@ class _EducationCountDownState extends State<EducationCountDown> {
             } else {
               context
                 ..read<EducationProgramBloc>().add(const EducationProgramEvent.resetLessonWithCountdown())
-                ..read<EducationProgramBloc>()
-                    .add(const EducationProgramEvent.getLessons(LessonCategory.all));
+                ..read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons(LessonCategory.all));
               _timer?.cancel();
             }
           },

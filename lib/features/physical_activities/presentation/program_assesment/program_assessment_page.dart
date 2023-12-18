@@ -19,7 +19,7 @@ const physicalProgramAlreadyLogged = 'physical_program_already_logged';
 class ProgramAssessmentPage extends StatefulWidget {
   final VoidCallback onDisposeCb;
 
-  const ProgramAssessmentPage({Key? key, required this.onDisposeCb}) : super(key: key);
+  const ProgramAssessmentPage({super.key, required this.onDisposeCb});
 
   @override
   State<ProgramAssessmentPage> createState() => _ProgramAssessmentPageState();
@@ -193,7 +193,7 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
     if (assessmentScoreValue == null || assessmentLikeValue == null) return;
 
     AnalyticsEventService.instance
-        .logProgramAssessmentEvent('program_assessment_screen', assessmentScore! , '${assessmentLike!}');
+        .logProgramAssessmentEvent('program_assessment_screen', assessmentScore!, '${assessmentLike!}');
     context.read<PhysicalProgramsBloc>().add(
           PhysicalProgramsEvent.logAssessment(
             assessmentScoreValue,
@@ -226,13 +226,7 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
         },
         orElse: () => LocalizedTexts.somethingIsIncorrect.translation,
       );
-
-      showAppSnackBar(
-        context: context,
-        text: errorMessage,
-        background: AppColors.red,
-        textColor: Colors.white,
-      );
+      context.showError(content: Text(errorMessage));
     }
   }
 

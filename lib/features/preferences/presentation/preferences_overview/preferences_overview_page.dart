@@ -15,7 +15,7 @@ import 'package:loopcare_frontend/features/preferences/presentation/preferences_
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 class PreferencesOverviewPage extends StatelessWidget {
-  const PreferencesOverviewPage({Key? key}) : super(key: key);
+  const PreferencesOverviewPage({super.key});
 
   @override
   Widget build(BuildContext context) {

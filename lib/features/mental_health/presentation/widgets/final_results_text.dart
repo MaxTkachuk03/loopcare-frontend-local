@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/features/mental_health/domain/interpretation_t
 import 'package:loopcare_frontend/features/mental_health/domain/mental_health_test_type.dart';
 
 class FinalResultsText extends StatelessWidget {
-  const FinalResultsText({Key? key}) : super(key: key);
+  const FinalResultsText({super.key});
 
   @override
   Widget build(BuildContext context) {

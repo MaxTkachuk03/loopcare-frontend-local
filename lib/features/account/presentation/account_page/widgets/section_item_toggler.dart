@@ -9,11 +9,11 @@ class SectionItemToggler extends StatelessWidget {
   final void Function(bool?) onPressHandler;
 
   const SectionItemToggler({
-    Key? key,
+    super.key,
     required this.title,
     required this.value,
     required this.onPressHandler,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

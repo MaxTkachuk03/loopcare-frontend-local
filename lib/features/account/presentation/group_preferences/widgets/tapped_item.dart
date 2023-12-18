@@ -9,11 +9,11 @@ class TappedItem extends StatelessWidget {
   final void Function() onPressHandler;
 
   const TappedItem({
-    Key? key,
+    super.key,
     required this.subTitle,
     required this.title,
     required this.onPressHandler,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +35,8 @@ class TappedItem extends StatelessWidget {
           ),
           Text(subTitle,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-              )),
+                    fontWeight: FontWeight.w600,
+                  )),
         ],
       ),
     );

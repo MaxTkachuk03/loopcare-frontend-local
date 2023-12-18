@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/features/physical_fitness/presentation/physica
 import 'package:loopcare_frontend/features/physical_fitness/presentation/sex/widgets/sex_chips.dart';
 
 class SexPage extends StatelessWidget {
-  const SexPage({Key? key}) : super(key: key);
+  const SexPage({super.key});
 
   @override
   Widget build(BuildContext context) {

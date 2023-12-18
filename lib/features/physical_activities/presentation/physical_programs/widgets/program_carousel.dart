@@ -1,14 +1,14 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/widgets/program_card.dart';
-import 'package:collection/collection.dart';
 
 class ProgramCarousel extends StatefulWidget {
   final List<PhysicalProgram> programs;
 
-  const ProgramCarousel({Key? key, required this.programs}) : super(key: key);
+  const ProgramCarousel({super.key, required this.programs});
 
   @override
   State<ProgramCarousel> createState() => _ProgramCarouselState();

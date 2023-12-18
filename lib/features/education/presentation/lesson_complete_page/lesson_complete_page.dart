@@ -11,13 +11,15 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
+import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/lesson_questions_added_to_calendar.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_block.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 
 class LessonCompletePage extends StatefulWidget {
-  const LessonCompletePage({Key? key}) : super(key: key);
+  const LessonCompletePage({super.key});
 
   @override
   State<LessonCompletePage> createState() => _LessonCompletePageState();
@@ -40,13 +42,30 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
   _onErrorListener(BuildContext context, EducationLessonState state) {
     final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
+    context.showError(content: Text(errorMessage));
+  }
 
-    showAppSnackBar(
-      context: context,
-      text: errorMessage,
-      background: AppColors.red,
-      textColor: Colors.white,
+  _startLessonQuestion(BuildContext context, int lessonId) {
+    context.router.push(
+      AssignmentsIntroRoute(
+        lessonId: lessonId,
+        fromDashboard: false,
+      ),
     );
+  }
+
+  bool get _isGroupSessionsDisabled => context.read<AuthenticationCubit>().state.disableGroupSessions;
+
+  String _savedComplitedText(EducationLessonState state) {
+    if (state.data.assignmentsQuestions.isNotEmpty) {
+      if (state.data.assignmentsQuestionsWithAnswers.isNotEmpty) {
+        return '${LocalizedTexts.saved.translation}!'.capitalize();
+      } else {
+        return '${LocalizedTexts.completed.translation}!'.capitalize();
+      }
+    }
+
+    return '${LocalizedTexts.completed.translation}!'.capitalize();
   }
 
   @override
@@ -85,7 +104,10 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                               Text(
                                 lesson.lessonCategory.toUpperCase(),
                                 style: const TextStyle(
-                                    color: AppColors.orangeDark, fontSize: 12.0, fontWeight: FontWeight.w600),
+                                  color: AppColors.orangeDark,
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                               const SizedBox(height: 14.0),
                               Text(
@@ -102,28 +124,37 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                       const SizedBox(height: 36.0),
                       const Image(image: AppImages.lessonComplete),
                       const SizedBox(height: 32.0),
-                      Text(
-                        '${LocalizedTexts.completed.translation}!'.capitalize(),
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600),
-                        textAlign: TextAlign.center,
+                      BlocBuilder<EducationLessonBloc, EducationLessonState>(
+                        builder: (BuildContext context, state) {
+                          return Text(
+                            _savedComplitedText(state),
+                            style:
+                                Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600),
+                            textAlign: TextAlign.center,
+                          );
+                        },
                       ),
                       BlocBuilder<EducationLessonBloc, EducationLessonState>(
                         builder: (BuildContext context, state) {
-                          if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences) {
+                          if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
+                              !_isGroupSessionsDisabled) {
                             return Column(
                               children: [
                                 const Text(
                                   LocalizedTexts.completedLessonDesc,
                                   textAlign: TextAlign.center,
                                 ).tr(),
-                                const SizedBox(
-                                  height: 40,
-                                ),
+                                const SizedBox(height: 40),
                                 const UnlockBloc(),
-                                const SizedBox(
-                                  height: 30,
-                                ),
+                                const SizedBox(height: 30),
                               ],
+                            );
+                          }
+                          if (state.data.assignmentsQuestions.isNotEmpty &&
+                              state.data.assignmentsQuestionsWithAnswers.isEmpty) {
+                            return LessonQuestionsAddedToCalendar(
+                              completedAt: state.data.lessonCompletedDate ?? DateTime.now(),
+                              onBtnPressed: () => _startLessonQuestion(context, state.data.lessonId),
                             );
                           }
 

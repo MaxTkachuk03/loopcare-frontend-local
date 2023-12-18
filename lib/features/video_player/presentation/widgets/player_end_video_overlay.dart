@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
+import 'package:loopcare_frontend/features/video_player/infrastructure/video_page_controller.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/countdown.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/program_difficulty_chip.dart';
 import 'package:video_player/video_player.dart';
@@ -20,11 +21,10 @@ class PlayerEndVideoOverlay extends StatelessWidget {
   final bool isLastVideo;
   final String programDifficulty;
   final int programLength;
-  final int duration;
-  final Function(Duration value) onDurationChange;
+  final VideoPageController videoPageController;
 
   const PlayerEndVideoOverlay({
-    Key? key,
+    super.key,
     required this.controller,
     required this.orientation,
     required this.exercise,
@@ -34,20 +34,19 @@ class PlayerEndVideoOverlay extends StatelessWidget {
     required this.programDifficulty,
     required this.programLength,
     required this.isLastVideo,
-    required this.duration,
-    required this.onDurationChange,
-  }) : super(key: key);
+    required this.videoPageController,
+  });
 
   bool get _isPortraitOrientation {
     return orientation == Orientation.portrait;
   }
 
   void _onRepeatHandler() {
+    videoPageController.setCountDownTimer(exercise.delayBeforeNext);
     controller.play();
   }
 
   void _onNextHandler() {
-    countDownController.pause();
     onVideoEnds();
   }
 
@@ -167,10 +166,10 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                       const SizedBox(height: 20.0),
                       CountDown(
                         controller: countDownController,
-                        duration: duration,
-                        onDurationChange: onDurationChange,
+                        duration: exercise.delayBeforeNext,
                         onComplete: onVideoEnds,
                         isPortraitOrientation: _isPortraitOrientation,
+                        videoPageController: videoPageController,
                       ),
                     ],
                   ),

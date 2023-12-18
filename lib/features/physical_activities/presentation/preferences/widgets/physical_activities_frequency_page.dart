@@ -1,22 +1,22 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/frequency_chips.dart';
 
 class PhysicalActivitiesFrequencyPage extends StatefulWidget {
-  const PhysicalActivitiesFrequencyPage({Key? key}) : super(key: key);
+  const PhysicalActivitiesFrequencyPage({super.key});
 
   @override
   State<PhysicalActivitiesFrequencyPage> createState() => _PhysicalActivitiesFrequencyPageState();
@@ -25,19 +25,13 @@ class PhysicalActivitiesFrequencyPage extends StatefulWidget {
 class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFrequencyPage> {
   @override
   void initState() {
-    context
-        .read<PhysicalActivitiesPreferencesBloc>()
-        .add(const PhysicalActivitiesPreferencesEvent.getPreferences());
+    context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.getPreferences());
 
     super.initState();
   }
 
-  void _onErrorHandler(PhysicalActivitiesPreferencesState state) {
-    context.showErrorBar(
-      content: Text(state.data.error?.error.toString() ?? ''),
-      position: FlashPosition.top,
-    );
-  }
+  void _onErrorHandler(PhysicalActivitiesPreferencesState state) =>
+      context.showError(content: Text(state.data.error?.error.toString() ?? ''));
 
   void _onChangeListener(BuildContext context, PhysicalActivitiesPreferencesState state) {
     state.maybeMap(
@@ -62,16 +56,13 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
   }
 
   void _onNext(BuildContext context) {
-    context
-        .read<PhysicalActivitiesPreferencesBloc>()
-        .add(const PhysicalActivitiesPreferencesEvent.savePreferences());
+    context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.savePreferences());
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
-      listenWhen: (prev, cur) =>
-          prev is Saving && context.router.current.name == PhysicalActivitiesFrequencyRoute.name,
+      listenWhen: (prev, cur) => prev is Saving && context.router.current.name == PhysicalActivitiesFrequencyRoute.name,
       listener: _onChangeListener,
       child: Scaffold(
         appBar: AppBar(
@@ -131,8 +122,7 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
                   child: MainContainer(
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 53.0),
-                      child:
-                          BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
+                      child: BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
                         builder: (context, state) {
                           return ElevatedButton(
                             onPressed: () => state.data.isFrequencySet ? _onNext(context) : null,

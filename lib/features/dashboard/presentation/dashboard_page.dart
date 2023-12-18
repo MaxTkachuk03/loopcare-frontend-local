@@ -7,6 +7,8 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
+import 'package:loopcare_frontend/features/assignments/presentation/dashboard_assignments.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/education.dart';
@@ -38,11 +40,11 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
   @override
   void initState() {
+    super.initState();
+
     WidgetsBinding.instance.addObserver(this);
 
     _loadInitialData();
-
-    super.initState();
   }
 
   @override
@@ -75,6 +77,15 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
         .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
 
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons(LessonCategory.all));
+
+    if (context.read<AuthenticationCubit>().state.isAssignmentsUnlocked) {
+      context.read<AssignmentsBloc>().add(
+            AssignmentsEvent.getAllLessonQuestions(
+              _selectedDay.firstDayOfCurrentWeek.subtract(const Duration(days: 7)),
+              _selectedDay.lastDayOfCurrentWeek,
+            ),
+          );
+    }
   }
 
   Future<void> _onRefresh() async {
@@ -93,6 +104,15 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     if (context.read<AuthenticationCubit>().state.isGroupSessionsUnlocked) {
       context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
     }
+
+    if (context.read<AuthenticationCubit>().state.isAssignmentsUnlocked) {
+      context.read<AssignmentsBloc>().add(
+            AssignmentsEvent.getAllLessonQuestions(
+              _selectedDay.firstDayOfCurrentWeek.subtract(const Duration(days: 7)),
+              _selectedDay.lastDayOfCurrentWeek,
+            ),
+          );
+    }
   }
 
   void _onDaySelected(DateTime day) {
@@ -104,6 +124,15 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
       context
           .read<DashboardEducationBloc>()
           .add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
+
+      if (context.read<AuthenticationCubit>().state.isAssignmentsUnlocked) {
+        context.read<AssignmentsBloc>().add(
+              AssignmentsEvent.getAllLessonQuestions(
+                _selectedDay.beginDay,
+                _selectedDay.endDay,
+              ),
+            );
+      }
     });
   }
 
@@ -157,8 +186,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                                         : const LogMeal();
                                   },
                                 ),
-                                const SizedBox(height: 10.0),
-                                const PlanMeal(),
+                                // const SizedBox(height: 10.0), //TODO: LOOPCARE-1798: Hide Meal planning block
+                                // const PlanMeal(),
                               ],
                             );
                           },
@@ -174,7 +203,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                         // const Reflection(),
                         BlocBuilder<AuthenticationCubit, AuthenticationState>(
                           builder: (BuildContext context, state) {
-                            if (!state.isGroupSessionsUnlocked) {
+                            if (!state.isPhysicalActivitiesUnlocked) {
                               return const SizedBox.shrink();
                             }
 
@@ -193,9 +222,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               return const SizedBox.shrink();
                             }
 
-                            return Column(
+                            return const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
+                              children: [
                                 SizedBox(height: 10.0),
                                 SupportGroup(),
                               ],
@@ -221,6 +250,17 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               orElse: () => state.isVisibleOnDashboard(_selectedDay)
                                   ? Education(date: _selectedDay)
                                   : const SizedBox.shrink(),
+                            );
+                          },
+                        ),
+                        BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                          builder: (context, state) {
+                            if (!state.isAssignmentsUnlocked) {
+                              return const SizedBox.shrink();
+                            }
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 10.0),
+                              child: DashboardAssignments(date: _selectedDay),
                             );
                           },
                         ),

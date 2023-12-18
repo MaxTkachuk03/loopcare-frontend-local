@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/features/medical_fitness/domain/weight_loss_me
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 
 class WeightLossMedicationChips extends StatefulWidget {
-  const WeightLossMedicationChips({Key? key}) : super(key: key);
+  const WeightLossMedicationChips({super.key});
 
   @override
   State<WeightLossMedicationChips> createState() => _WeightLossMedicationChipsState();

@@ -35,8 +35,7 @@ class MoodOptions extends StatelessWidget {
             ValueListenableBuilder<DateTime?>(
               valueListenable: controller.timeValue,
               builder: (context, timeValue, _) {
-                final subTitle =
-                    timeValue != null ? timeValue.timeHoursMinutes12 : LocalizedTexts.makeChoice.tr();
+                final subTitle = timeValue != null ? timeValue.timeHoursMinutes12 : LocalizedTexts.makeChoice.tr();
 
                 return MoodOptionItem(
                   title: LocalizedTexts.time.tr(),
@@ -45,7 +44,7 @@ class MoodOptions extends StatelessWidget {
                 );
               },
             ),
-            const Divider(height: 1.0, color: AppColors.FF404040),
+            const Divider(height: 1.0, color: AppColors.ff404040),
             ValueListenableBuilder<List<MoodEmotion>>(
               valueListenable: controller.emotionValues,
               builder: (context, emotionValues, _) {
@@ -60,7 +59,7 @@ class MoodOptions extends StatelessWidget {
                 );
               },
             ),
-            const Divider(height: 1.0, color: AppColors.FF404040),
+            const Divider(height: 1.0, color: AppColors.ff404040),
             ValueListenableBuilder<List<MoodWithWho>>(
               valueListenable: controller.withWhoValues,
               builder: (context, withWhoValue, _) {
@@ -75,7 +74,7 @@ class MoodOptions extends StatelessWidget {
                 );
               },
             ),
-            const Divider(height: 1.0, color: AppColors.FF404040),
+            const Divider(height: 1.0, color: AppColors.ff404040),
             ValueListenableBuilder<List<MoodWhere>>(
               valueListenable: controller.whereValues,
               builder: (context, whereValues, _) {
@@ -90,7 +89,7 @@ class MoodOptions extends StatelessWidget {
                 );
               },
             ),
-            const Divider(height: 1.0, color: AppColors.FF404040),
+            const Divider(height: 1.0, color: AppColors.ff404040),
             ValueListenableBuilder<List<MoodFood>>(
               valueListenable: controller.foodValues,
               builder: (context, foodValues, _) {

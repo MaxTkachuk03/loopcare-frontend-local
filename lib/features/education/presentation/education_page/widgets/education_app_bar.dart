@@ -5,7 +5,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 class EducationAppBar extends StatelessWidget {
   final Key containerKey;
 
-  const EducationAppBar({Key? key, required this.containerKey}) : super(key: key);
+  const EducationAppBar({super.key, required this.containerKey});
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +14,8 @@ class EducationAppBar extends StatelessWidget {
         key: containerKey,
         color: AppColors.orange,
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 36),
-        child: Column(
-          children: const [
+        child: const Column(
+          children: [
             Text(
               'Taking one step at a time will have a huge impact',
               style: TextStyle(

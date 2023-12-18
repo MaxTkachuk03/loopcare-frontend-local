@@ -6,12 +6,12 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_image_header.dart';
 
 class PhysicalActivitiesPreferencesPage extends StatefulWidget {
-  const PhysicalActivitiesPreferencesPage({Key? key}) : super(key: key);
+  const PhysicalActivitiesPreferencesPage({super.key});
 
   @override
   State<PhysicalActivitiesPreferencesPage> createState() => _PhysicalActivitiesPreferencesPageState();

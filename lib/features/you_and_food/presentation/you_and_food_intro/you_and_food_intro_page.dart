@@ -11,7 +11,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/core/presentation/widgets/survey_image_clipper.dart';
 
 class YouAndFoodIntroPage extends StatefulWidget {
-  const YouAndFoodIntroPage({Key? key}) : super(key: key);
+  const YouAndFoodIntroPage({super.key});
 
   @override
   State<YouAndFoodIntroPage> createState() => _YouAndFoodIntroPageState();
@@ -52,20 +52,16 @@ class _YouAndFoodIntroPageState extends State<YouAndFoodIntroPage> {
                         children: [
                           Text(
                             LocalizedTexts.survey.tr().toUpperCase(),
-                            style:
-                                Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
                           ),
                           const SizedBox(
                             height: 16.0,
                           ),
                           Text(
                             LocalizedTexts.youAndFood.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .displaySmall
-                                ?.copyWith(
+                            style: Theme.of(context).textTheme.displaySmall?.copyWith(
                                   fontFamily: ThemeConstants.bitterFontFamily,
                                   color: AppColors.blueDark,
                                 ),
@@ -125,12 +121,8 @@ class _YouAndFoodIntroPageState extends State<YouAndFoodIntroPage> {
                   padding: const EdgeInsets.only(bottom: 53.0),
                   child: ElevatedButton(
                     onPressed: () => _onStart(context),
-                    style: Theme.of(context)
-                        .elevatedButtonTheme
-                        .style
-                        ?.copyWith(
-                          backgroundColor:
-                              MaterialStateProperty.all(AppColors.orangeDark),
+                    style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                          backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
                         ),
                     child: Text(LocalizedTexts.start.tr()),
                   ),

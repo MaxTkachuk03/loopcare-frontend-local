@@ -6,10 +6,10 @@ class BirthDatePicker extends StatelessWidget {
   final void Function(DateTime selected) selectedDate;
 
   const BirthDatePicker({
-    Key? key,
+    super.key,
     required this.value,
     required this.selectedDate,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

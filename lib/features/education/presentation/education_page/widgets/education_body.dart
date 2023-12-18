@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/features/education/presentation/education_page
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_full_list.dart';
 
 class EducationBody extends StatefulWidget {
-  const EducationBody({Key? key}) : super(key: key);
+  const EducationBody({super.key});
 
   @override
   State<EducationBody> createState() => _EducationBodyState();

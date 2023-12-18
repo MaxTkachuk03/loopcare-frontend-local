@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/medical_
 import 'package:loopcare_frontend/features/medical_fitness/presentation/stomach_reduction/widgets/stomach_reduction_chips.dart';
 
 class StomachReductionPage extends StatelessWidget {
-  const StomachReductionPage({Key? key}) : super(key: key);
+  const StomachReductionPage({super.key});
 
   @override
   Widget build(BuildContext context) {

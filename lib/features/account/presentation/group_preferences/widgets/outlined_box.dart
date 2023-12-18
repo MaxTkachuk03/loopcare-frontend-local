@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 class OutlinedBox extends StatelessWidget {
   final Widget child;
 
-  const OutlinedBox({Key? key, required this.child}) : super(key: key);
+  const OutlinedBox({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

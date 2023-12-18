@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class DividerLight extends StatelessWidget {
-  const DividerLight({Key? key}) : super(key: key);
+  const DividerLight({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -40,7 +40,7 @@ class FoodItemServingsState with _$FoodItemServingsState {
         final calories = state.selectedServing?.calories ?? 0;
         final units = state.selectedServing?.numberOfUnits ?? 1;
 
-        print("-- selectedServingCalories: ($calories * " +
+        debugPrint("-- selectedServingCalories: ($calories * " +
             double.parse(state.selectedServingAmount).toString() +
             " / $units) = " +
             (calories * double.parse(state.selectedServingAmount) / units).toString());
@@ -76,8 +76,7 @@ class FoodItemServingsState with _$FoodItemServingsState {
 
           return MealCategoryFilter(
             name: f.name.toLowerCase(),
-            selected:
-                selectedFiltersValues == null ? false : selectedFiltersValues.contains(f.name.toLowerCase()),
+            selected: selectedFiltersValues == null ? false : selectedFiltersValues.contains(f.name.toLowerCase()),
           );
         }).toList();
       },

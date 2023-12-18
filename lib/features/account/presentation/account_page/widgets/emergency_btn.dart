@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 class EmergencyBtn extends StatelessWidget {
   final void Function() onPressHandler;
 
-  const EmergencyBtn({Key? key, required this.onPressHandler}) : super(key: key);
+  const EmergencyBtn({super.key, required this.onPressHandler});
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +18,10 @@ class EmergencyBtn extends StatelessWidget {
         onPressed: () {},
         style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
               backgroundColor: MaterialStateProperty.all(Colors.transparent),
-              padding:
-                  MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0)),
+              padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0)),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    side: const BorderSide(color: AppColors.darkGreen)),
+                    borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: AppColors.darkGreen)),
               ),
             ),
         child: InkWell(

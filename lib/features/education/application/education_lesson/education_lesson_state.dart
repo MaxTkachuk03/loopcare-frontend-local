@@ -39,6 +39,7 @@ class EducationLessonData with _$EducationLessonData {
     @Default('') String svgFile,
     @Default(false) bool isSvgLoaded,
     RequestError? error,
+    @Default([]) List<LessonQuestion> questions,
   }) = _EducationLessonData;
 
   LessonPage get currentPage {
@@ -59,4 +60,10 @@ class EducationLessonData with _$EducationLessonData {
   bool get isFirstPage => currentPageIndex == 0;
 
   String? get errorMessage => error?.maybeMap(conflict: (s) => s.error.message, orElse: () => null);
+
+  List<LessonQuestion> get assignmentsQuestions =>
+      questions.where((element) => element.type == LessonQuestionType.assignment).toList();
+
+  List<LessonQuestion> get assignmentsQuestionsWithAnswers =>
+      assignmentsQuestions.where((element) => element.lessonQuestionAnswers.isNotEmpty).toList();
 }

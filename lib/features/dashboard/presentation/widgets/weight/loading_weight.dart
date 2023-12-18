@@ -4,8 +4,8 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class LoadingWeight extends StatelessWidget {
   const LoadingWeight({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,7 @@ class LoadingWeight extends StatelessWidget {
           ),
           Text(
             LocalizedTexts.preferableInTheMorning.translation,
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall!
-                .copyWith(color: AppColors.greyLabel),
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.greyLabel),
           )
         ],
       ),

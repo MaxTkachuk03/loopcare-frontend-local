@@ -175,5 +175,10 @@ class AppIcons {
 
   static const AssetImage hexaDone = AssetImage('$iconsFilePath/hexa_done.png');
 
+  static SvgPicture crossOutlined = SvgPicture.asset('$iconsFilePath/cross_outlined.svg');
+
+  static SvgPicture dashboardAssignments =
+      SvgPicture.asset('$iconsFilePath/dashboard_assignments.svg', width: 44, height: 42);
+
   AppIcons._();
 }

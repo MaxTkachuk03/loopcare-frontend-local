@@ -2,7 +2,6 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
-import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
@@ -110,7 +109,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
             );
 
             if (feature == UnlockedFeatureType.grouping) {
-              changeAccountGroupStatus(UserGroupingState.notGrouped);
+              changeAccountGroupStatus(UserGroupingState.unlockedPreferences);
             }
           },
         );
@@ -119,42 +118,47 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
   }
 
   void getAccount() async {
-    await state.mapOrNull(authenticated: (state) async {
-      final response = await _authenticationService.fetchAccount();
-      response.fold(
-        (l) => null,
-        (r) {
-          emit(state.copyWith(
-            account: Account(
-              id: r.id,
-              name: r.name,
-              email: r.email,
-              country: r.country,
-              isPreferencesComplete: r.isPreferencesComplete,
-              gender: r.gender,
-              bioGender: r.bioGender,
-              height: r.physicalFitness.height,
-              weight: r.physicalFitness.weight,
-              bmi: r.physicalFitness.bmi,
-              birthDate: r.physicalFitness.birthDate,
-              groupingState: r.groupingState,
-              groupingStartedAt: r.groupingStartedAt,
-              nickname: r.groupingPreferences?.nickname,
-              genderPreference: r.groupingPreferences?.genderPreference,
-              timezone: r.groupingPreferences?.timezone,
-              diabetes: r.diabetes.name,
-              foodPreferencesHates: r.foodPreferences.hates,
-              foodPreferencesDislikes: r.foodPreferences.dislike,
-              foodPreferencesAllergic: r.foodPreferences.allergic,
-              unlockedFeatures: r.unlockedFeatures,
-              physicalActivitiesPreferences: r.physicalActivitiesPreferences,
-              emailApproveDate: r.emailApproveDate,
-              subscription: r.subscription,
-            ),
-          ));
-        },
-      );
-    });
+    await state.mapOrNull(
+      authenticated: (state) async {
+        final response = await _authenticationService.fetchAccount();
+        response.fold(
+          (l) => null,
+          (r) {
+            emit(
+              state.copyWith(
+                account: Account(
+                  id: r.id,
+                  name: r.name,
+                  email: r.email,
+                  country: r.country,
+                  isPreferencesComplete: r.isPreferencesComplete,
+                  gender: r.gender,
+                  bioGender: r.bioGender,
+                  height: r.physicalFitness.height,
+                  weight: r.physicalFitness.weight,
+                  bmi: r.physicalFitness.bmi,
+                  birthDate: r.physicalFitness.birthDate,
+                  groupingState: r.groupingState,
+                  groupingStartedAt: r.groupingStartedAt,
+                  nickname: r.groupingPreferences?.nickname,
+                  genderPreference: r.groupingPreferences?.genderPreference,
+                  timezone: r.groupingPreferences?.timezone,
+                  diabetes: r.diabetes.name,
+                  foodPreferencesHates: r.foodPreferences.hates,
+                  foodPreferencesDislikes: r.foodPreferences.dislike,
+                  foodPreferencesAllergic: r.foodPreferences.allergic,
+                  unlockedFeatures: r.unlockedFeatures,
+                  physicalActivitiesPreferences: r.physicalActivitiesPreferences,
+                  emailApproveDate: r.emailApproveDate,
+                  subscription: r.subscription,
+                  mentalHealthTests: r.mentalHealthTests,
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   void deleteAccount() async {

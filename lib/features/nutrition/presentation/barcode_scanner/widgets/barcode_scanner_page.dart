@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanne
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class BarcodeScannerPage extends StatefulWidget {
-  const BarcodeScannerPage({Key? key}) : super(key: key);
+  const BarcodeScannerPage({super.key});
 
   @override
   State<BarcodeScannerPage> createState() => _BarcodeScannerPageState();

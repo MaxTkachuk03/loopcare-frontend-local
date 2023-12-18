@@ -11,11 +11,11 @@ class PasswordWithIndicator extends StatefulWidget {
   final Function(String password, double passwordStrength)? onChange;
 
   const PasswordWithIndicator({
-    Key? key,
+    super.key,
     this.controller,
     this.prefixIcon,
     this.onChange,
-  }) : super(key: key);
+  });
 
   @override
   State<PasswordWithIndicator> createState() => _PasswordWithIndicatorState();

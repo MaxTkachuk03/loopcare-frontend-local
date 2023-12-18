@@ -25,7 +25,7 @@ class PlayerOverlay extends StatefulWidget {
   static const double _defaultVideoHeight = 720.0;
 
   const PlayerOverlay({
-    Key? key,
+    super.key,
     required this.controller,
     required this.orientation,
     required this.exercise,
@@ -33,7 +33,7 @@ class PlayerOverlay extends StatefulWidget {
     required this.programDifficulty,
     required this.onNextPressed,
     this.onPrevPressed,
-  }) : super(key: key);
+  });
 
   @override
   State<PlayerOverlay> createState() => _PlayerOverlayState();
@@ -98,9 +98,7 @@ class _PlayerOverlayState extends State<PlayerOverlay> {
   double get _videoHeight {
     final height = widget.controller.value.size.height;
 
-    return height != 0 || height < PlayerOverlay._defaultVideoHeight
-        ? PlayerOverlay._defaultVideoHeight
-        : height;
+    return height != 0 || height < PlayerOverlay._defaultVideoHeight ? PlayerOverlay._defaultVideoHeight : height;
   }
 
   @override
@@ -128,8 +126,7 @@ class _PlayerOverlayState extends State<PlayerOverlay> {
                 height: _videoHeight,
                 color: Colors.black45,
                 padding: EdgeInsets.symmetric(
-                    horizontal: _isPortraitOrientation ? 20.0 : 40.0,
-                    vertical: _isPortraitOrientation ? 10.0 : 30.0),
+                    horizontal: _isPortraitOrientation ? 20.0 : 40.0, vertical: _isPortraitOrientation ? 10.0 : 30.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

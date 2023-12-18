@@ -17,7 +17,7 @@ class BlueAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool isPlanningMeals;
 
   const BlueAppBar({
-    Key? key,
+    super.key,
     this.title,
     this.subtitle,
     this.italicSubtitle,
@@ -28,7 +28,7 @@ class BlueAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.onCustomTap,
     this.onClose,
     this.isPlanningMeals = false,
-  }) : super(key: key);
+  });
 
   @override
   State<BlueAppBar> createState() => _BlueAppBarState();
@@ -88,11 +88,10 @@ class _Title extends StatelessWidget {
   final bool? italicSubtitle;
 
   const _Title({
-    Key? key,
     required this.title,
     this.subtitle,
     this.italicSubtitle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

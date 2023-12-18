@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class HaveToAsk extends StatefulWidget {
-  const HaveToAsk({Key? key}) : super(key: key);
+  const HaveToAsk({super.key});
 
   @override
   State<HaveToAsk> createState() => _HaveToAskState();
@@ -65,8 +65,7 @@ class _HaveToAskState extends State<HaveToAsk> with SingleTickerProviderStateMix
             const SizedBox(
               height: 16.0,
             ),
-            Text(LocalizedTexts.youCanDownloadTheInstruction.tr(),
-                style: Theme.of(context).textTheme.bodyLarge),
+            Text(LocalizedTexts.youCanDownloadTheInstruction.tr(), style: Theme.of(context).textTheme.bodyLarge),
             const SizedBox(
               height: 20.0,
             ),
@@ -88,12 +87,5 @@ class _HaveToAskState extends State<HaveToAsk> with SingleTickerProviderStateMix
     InstructionsService.downloadInstructions(onErrorCb: _showError(context));
   }
 
-  _showError(BuildContext context) => () {
-        showAppSnackBar(
-          context: context,
-          text: LocalizedTexts.openLinkErrorMessage.tr(),
-          background: AppColors.red,
-          textColor: Colors.white,
-        );
-      };
+  _showError(BuildContext context) => context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.translation));
 }

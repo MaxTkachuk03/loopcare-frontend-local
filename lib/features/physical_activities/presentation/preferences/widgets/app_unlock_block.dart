@@ -1,17 +1,22 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class AppUnlockBlock extends StatelessWidget {
   final String title;
   final String text;
+  final VoidCallback? onBtnPressed;
+  final String? btnText;
 
   const AppUnlockBlock({
-    Key? key,
+    super.key,
     required this.title,
     required this.text,
-  }) : super(key: key);
+    this.onBtnPressed,
+    this.btnText,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +41,16 @@ class AppUnlockBlock extends StatelessWidget {
                 ).tr(),
                 const SizedBox(height: 4.0),
                 Text(text),
+                if (onBtnPressed != null) const SizedBox(height: 16.0),
+                if (onBtnPressed != null)
+                  SizedBox(
+                    width: 120,
+                    height: 34,
+                    child: OutlinedButton(
+                      onPressed: onBtnPressed,
+                      child: Text(btnText ?? LocalizedTexts.start.translation),
+                    ),
+                  )
               ],
             ),
           ),

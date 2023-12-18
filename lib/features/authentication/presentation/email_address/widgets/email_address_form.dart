@@ -1,26 +1,25 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_form_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
-import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 
 const accountAlreadyExists = 'account_with_this_email_already_exists';
 
 class EmailAddressForm extends StatefulWidget {
-  const EmailAddressForm({Key? key}) : super(key: key);
+  const EmailAddressForm({super.key});
 
   @override
   State<EmailAddressForm> createState() => _EmailAddressFormState();
@@ -113,8 +112,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
     setState(() {
       emailErrorText = null;
     });
-    final registrationPhysicalFitnessData =
-        context.read<PhysicalFitnessBloc>().state.registrationPhysicalFitnessData;
+    final registrationPhysicalFitnessData = context.read<PhysicalFitnessBloc>().state.registrationPhysicalFitnessData;
 
     final mentalHealthTest = context.read<MentalHealthBloc>().state.data.answers;
 
@@ -162,13 +160,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
                 },
                 orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
               );
-
-              showAppSnackBar(
-                context: context,
-                text: errorMessage,
-                background: AppColors.red,
-                textColor: Colors.white,
-              );
+              context.showError(content: Text(errorMessage));
             },
           );
         }

@@ -25,9 +25,9 @@ class RecipeDetailsPage extends StatefulWidget {
   final bool fromRecommendation;
 
   const RecipeDetailsPage({
-    Key? key,
+    super.key,
     this.fromRecommendation = false,
-  }) : super(key: key);
+  });
 
   @override
   State<RecipeDetailsPage> createState() => _RecipeDetailsPageState();
@@ -126,19 +126,14 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory =
-        DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
-            ? state.currentMealCategory
-            : MealCategory.breakfast.originalValue;
+    final mealCategory = DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
+        ? state.currentMealCategory
+        : MealCategory.breakfast.originalValue;
 
     if (mealCategory == null) return;
 
     if (state.isContainsRecipeOrDish) {
-      showAppSnackBar(
-        context: context,
-        background: AppColors.white,
-        text: LocalizedTexts.invalidCreateDishFromMealMessage.translation,
-      );
+      context.showError(content: Text(LocalizedTexts.invalidCreateDishFromMealMessage.translation));
       return;
     }
 

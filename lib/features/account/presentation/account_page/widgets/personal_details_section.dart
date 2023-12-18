@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 
 class PersonalDetailsSection extends StatelessWidget {
-  const PersonalDetailsSection({Key? key}) : super(key: key);
+  const PersonalDetailsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +24,7 @@ class PersonalDetailsSection extends StatelessWidget {
             SectionItem(title: LocalizedTexts.height, subTitle: '${state.height}', onPressHandler: () {}),
             const Divider(height: 1.0, color: AppColors.yellowLight),
             SectionItem(
-                title: LocalizedTexts.yourSex,
-                subTitle: state.gender?.name.capitalize(),
-                onPressHandler: () {}),
+                title: LocalizedTexts.yourSex, subTitle: state.gender?.name.capitalize(), onPressHandler: () {}),
           ]),
         );
       },

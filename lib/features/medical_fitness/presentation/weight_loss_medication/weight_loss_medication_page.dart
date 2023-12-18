@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/medical_
 import 'package:loopcare_frontend/features/medical_fitness/presentation/weight_loss_medication/widgets/weight_loss_medication_chips.dart';
 
 class WeightLossMedicationPage extends StatelessWidget {
-  const WeightLossMedicationPage({Key? key}) : super(key: key);
+  const WeightLossMedicationPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/cardiova
 import 'package:loopcare_frontend/features/medical_fitness/presentation/medical_question_wrap.dart';
 
 class CardiovascularDiseasePage extends StatelessWidget {
-  const CardiovascularDiseasePage({Key? key}) : super(key: key);
+  const CardiovascularDiseasePage({super.key});
 
   @override
   Widget build(BuildContext context) {

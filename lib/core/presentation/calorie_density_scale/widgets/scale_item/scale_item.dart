@@ -12,14 +12,14 @@ class ScaleItem extends StatelessWidget {
   final bool isLastElement;
 
   const ScaleItem({
-    Key? key,
+    super.key,
     required this.range,
     this.density,
     required this.useHorizontalLayout,
     required this.separatorColor,
     this.separatorSize,
     required this.isLastElement,
-  }) : super(key: key);
+  });
 
   Widget _renderSeparator() {
     return Container(

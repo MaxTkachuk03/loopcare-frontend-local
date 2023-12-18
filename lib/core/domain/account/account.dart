@@ -7,12 +7,7 @@ import 'package:loopcare_frontend/features/physical_fitness/domain/gender_prefer
 import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preference.dart';
 
-part 'account.freezed.dart';
-
-part 'account.g.dart';
-
-@freezed
-abstract class Account implements _$Account {
+part 'account.freezed.dart';unt {
   const Account._();
 
   const factory Account({
@@ -23,7 +18,6 @@ abstract class Account implements _$Account {
     required bool isPreferencesComplete,
     required SexType gender,
     required String bioGender,
-    required Subscription subscription,
     @Default(null) UserGroupingState? groupingState,
     @Default(null) int? groupId,
     @Default(null) DateTime? groupingStartedAt,
@@ -40,6 +34,7 @@ abstract class Account implements _$Account {
     @Default([]) List<FoodPreference>? foodPreferencesAllergic,
     @Default([]) List<UnlockedFeatureType> unlockedFeatures,
     PhysicalActivitiesPreferences? physicalActivitiesPreferences,
+    @Default(null) MentalHealthTests? mentalHealthTests,
     @Default(null) DateTime? emailApproveDate,
   }) = _Account;
 
@@ -51,6 +46,22 @@ abstract class Account implements _$Account {
 
     return match != null ? int.parse(match[0] ?? '0') : 0;
   }
+
+  bool get disableGroupSessions {
+    final bool disableGroupSessions = _oneTestHasHighValues || _allTestsAreModerate;
+
+    return mentalHealthTests != null && disableGroupSessions ? true : false;
+  }
+
+  bool get _oneTestHasHighValues =>
+      mentalHealthTests?.phq8 == InterpretationType.high.name ||
+      mentalHealthTests?.phq15 == InterpretationType.high.name ||
+      mentalHealthTests?.gad7 == InterpretationType.high.name;
+
+  bool get _allTestsAreModerate =>
+      mentalHealthTests?.phq8 == InterpretationType.moderate.name &&
+      mentalHealthTests?.phq15 == InterpretationType.moderate.name &&
+      mentalHealthTests?.gad7 == InterpretationType.moderate.name;
 
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 }

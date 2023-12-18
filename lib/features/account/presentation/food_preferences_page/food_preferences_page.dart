@@ -15,7 +15,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_b
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 class FoodPreferencesPage extends StatefulWidget {
-  const FoodPreferencesPage({Key? key}) : super(key: key);
+  const FoodPreferencesPage({super.key});
 
   @override
   State<FoodPreferencesPage> createState() => _FoodPreferencesPageState();

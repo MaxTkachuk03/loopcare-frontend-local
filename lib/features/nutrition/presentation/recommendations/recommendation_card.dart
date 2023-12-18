@@ -17,9 +17,9 @@ class RecommendationCard extends StatelessWidget {
   final RecommendationRecipe recommendation;
 
   const RecommendationCard({
-    Key? key,
+    super.key,
     required this.recommendation,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

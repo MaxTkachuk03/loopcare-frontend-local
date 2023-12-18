@@ -9,9 +9,9 @@ class ProteinDegree extends StatelessWidget {
   final double? value;
 
   const ProteinDegree({
-    Key? key,
+    super.key,
     this.value,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

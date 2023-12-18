@@ -1,6 +1,7 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
+import 'package:loopcare_frontend/features/video_player/infrastructure/video_page_controller.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/player_end_video_overlay.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/player_overlay.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/video_block.dart';
@@ -18,8 +19,7 @@ class VideoPlayerWidget extends StatelessWidget {
   final String programType;
   final String programDifficulty;
   final int programLength;
-  final int duration;
-  final Function(Duration value) onDurationChange;
+  final VideoPageController videoPageController;
 
   const VideoPlayerWidget({
     super.key,
@@ -32,9 +32,8 @@ class VideoPlayerWidget extends StatelessWidget {
     required this.programDifficulty,
     required this.programLength,
     required this.isLastVideo,
+    required this.videoPageController,
     this.onPrevPressed,
-    required this.duration,
-    required this.onDurationChange,
   });
 
   Widget _errorWidgetCb(double width, double height, String? error) =>
@@ -63,8 +62,7 @@ class VideoPlayerWidget extends StatelessWidget {
                       programType: programType,
                       programDifficulty: programDifficulty,
                       programLength: programLength,
-                      duration: duration,
-                      onDurationChange: onDurationChange,
+                      videoPageController: videoPageController,
                     )
                   : PlayerOverlay(
                       controller: controller!,

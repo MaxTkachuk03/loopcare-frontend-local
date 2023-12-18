@@ -11,7 +11,7 @@ import 'package:loopcare_frontend/features/mental_health/domain/mental_health_an
 import 'package:loopcare_frontend/features/mental_health/domain/mental_health_option.dart';
 
 class MentalHealthQuestionForm extends StatelessWidget {
-  const MentalHealthQuestionForm({Key? key}) : super(key: key);
+  const MentalHealthQuestionForm({super.key});
 
   @override
   Widget build(BuildContext context) {

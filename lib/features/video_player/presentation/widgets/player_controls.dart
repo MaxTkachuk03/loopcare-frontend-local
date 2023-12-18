@@ -8,11 +8,11 @@ class PlayerControls extends StatelessWidget {
   final VoidCallback? onPrevPressed;
 
   const PlayerControls({
-    Key? key,
+    super.key,
     required this.controller,
     this.onPrevPressed,
     required this.onNextPressed,
-  }) : super(key: key);
+  });
 
   void _muteAudio() {
     controller.setVolume(0);

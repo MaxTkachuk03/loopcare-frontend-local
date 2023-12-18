@@ -11,10 +11,10 @@ class SearchPage extends StatefulWidget {
   final SearchMode? mode;
 
   const SearchPage({
-    Key? key,
+    super.key,
     required this.onItemTap,
     this.mode,
-  }) : super(key: key);
+  });
 
   @override
   State<SearchPage> createState() => _SearchPageState();

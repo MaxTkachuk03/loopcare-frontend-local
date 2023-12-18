@@ -5,9 +5,9 @@ class RiveAnimationRenderer extends StatelessWidget {
   final String? url;
 
   const RiveAnimationRenderer({
-    Key? key,
+    super.key,
     this.url,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

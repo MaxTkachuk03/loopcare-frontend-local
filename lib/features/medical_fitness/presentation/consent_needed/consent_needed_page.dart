@@ -11,7 +11,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/medical_
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 
 class ConsentNeededPage extends StatelessWidget {
-  const ConsentNeededPage({Key? key}) : super(key: key);
+  const ConsentNeededPage({super.key});
 
   final double hexagonSize = 65.0;
 
@@ -92,8 +92,8 @@ class ConsentNeededPage extends StatelessWidget {
                 ),
               ],
             ),
-            Column(
-              children: const [
+            const Column(
+              children: [
                 _NextButton(),
                 SizedBox(height: 30.0),
               ],
@@ -108,18 +108,11 @@ class ConsentNeededPage extends StatelessWidget {
     InstructionsService.downloadInstructions(onErrorCb: _showError(context));
   }
 
-  _showError(BuildContext context) => () {
-        showAppSnackBar(
-          context: context,
-          text: LocalizedTexts.openLinkErrorMessage.tr(),
-          background: AppColors.red,
-          textColor: Colors.white,
-        );
-      };
+  _showError(BuildContext context) => context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.translation));
 }
 
 class _NextButton extends StatelessWidget {
-  const _NextButton({Key? key}) : super(key: key);
+  const _NextButton();
 
   @override
   Widget build(BuildContext context) {
