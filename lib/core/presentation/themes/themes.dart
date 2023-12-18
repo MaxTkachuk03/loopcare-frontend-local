@@ -161,9 +161,9 @@ TextTheme _getTextTheme() {
       fontSize: ThemeConstants.fontSize28,
     ),
     displayMedium: TextStyle(
-      color: AppColors.darkGreen,
-      fontSize: ThemeConstants.fontSize48,
-      fontWeight: FontWeight.w600,
+      // Restyled
+      color: AppColors.blueDarker,
+      fontSize: ThemeConstants.fontSize24,
     ),
     displaySmall: TextStyle(
       color: AppColors.darkGreen,
