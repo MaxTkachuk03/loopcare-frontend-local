@@ -712,5 +712,6 @@
   "subscriptionVia": "Subscription via",
   "memberSince": "Member since",
   "automaticRenewalOn": "Automatic renewal on",
-  "serviceUnavailable": "Service is unavailable,\nplease try later."
+  "serviceUnavailable": "Service is unavailable,\nplease try later.",
+  "otherPurchaseVendor" : "Sorry You purchase was made from another Store, You are not able to manage subscription"
 }

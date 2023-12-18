@@ -86,11 +86,15 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
                       height: 14,
                     ),
                     _ManageButton(
-                      onTap: () {
-                        Platform.isIOS
-                            ? launchUrl(Uri.parse(appConfig.appStoreSettingsLink))
-                            : launchUrl(Uri.parse(appConfig.playMarketSettingsLink));
-                      },
+                      onTap: isVendorPlatform(state)
+                          ? () {
+                              Platform.isIOS
+                                  ? launchUrl(Uri.parse(appConfig.appStoreSettingsLink),
+                                      mode: LaunchMode.externalApplication)
+                                  : launchUrl(Uri.parse(appConfig.playMarketSettingsLink),
+                                      mode: LaunchMode.externalApplication);
+                            }
+                          : () => _showPopover(),
                     ),
                   ],
                 ),
@@ -101,6 +105,27 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
       },
     );
   }
+
+  bool isVendorPlatform(SubscriptionState state) {
+    if (Platform.isIOS && (state.data.subscription!.vendor == 'ios') ||
+        Platform.isAndroid && (state.data.subscription!.vendor == 'android')) {
+      return true;
+    }
+    return false;
+  }
+
+  void _showPopover() => showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          content: Text(LocalizedTexts.otherPurchaseVendor.tr()),
+          actions: [
+            TextButton(
+              onPressed: () => context.router.pop(),
+              child: const Text(LocalizedTexts.ok),
+            ),
+          ],
+        ),
+      );
 
   String? _getDate(String? timeStamp) {
     if (timeStamp == null) {
