@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/report_abuse/presentation/widget/report_section_title.dart';
 
 enum SubscriptionTypeState { trial, expiredTrial, endedSubscription, cancelledSubscription, notRenewSubscription }
@@ -22,9 +23,8 @@ class SubscriptionHeaderState extends StatelessWidget {
           Center(
             child: ReportSectionTitle(
               title: title,
+              style: context.textTheme.displayLarge,
               textAlign: TextAlign.center,
-              fontSize: 28,
-              fontWeight: FontWeight.w600,
               color: AppColors.darkGreen,
             ),
           ),

@@ -1,13 +1,19 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/domain/account/subscription.dart';
+import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
+import 'package:loopcare_frontend/features/mental_health/domain/interpretation_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_activities_preferences.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preference.dart';
 
-part 'account.freezed.dart';unt {
+part 'account.freezed.dart';
+part 'account.g.dart';
+
+@freezed
+abstract class Account implements _$Account {
   const Account._();
 
   const factory Account({
@@ -18,6 +24,7 @@ part 'account.freezed.dart';unt {
     required bool isPreferencesComplete,
     required SexType gender,
     required String bioGender,
+    required Subscription subscription,
     @Default(null) UserGroupingState? groupingState,
     @Default(null) int? groupId,
     @Default(null) DateTime? groupingStartedAt,
@@ -41,8 +48,7 @@ part 'account.freezed.dart';unt {
   bool get isMixedGender => gender != SexType.female && gender != SexType.male;
 
   int get trainingFrequency {
-    final RegExpMatch? match =
-        RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
+    final RegExpMatch? match = RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
 
     return match != null ? int.parse(match[0] ?? '0') : 0;
   }

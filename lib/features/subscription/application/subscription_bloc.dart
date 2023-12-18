@@ -41,6 +41,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   final SocketService _socketService = SocketService.instance;
   bool isValidatePastIOSPurchase = false;
   ProductDetails? buyingProduct;
+  final errorMessage = 'Something went wrong with service, please try again';
 
   SubscriptionBloc(this._authenticationService, this._purchaseService, this.authTokenManager, this.inAppPurchaseService)
       : super(const SubscriptionState.initial(SubscriptionStateData())) {
@@ -86,7 +87,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     final purchased = await inAppPurchaseService.buyItemInStore(event.product);
     if (!purchased) {
       emit(SubscriptionState.error(state.data.copyWith(
-        error: const RequestError.streamSubscription('Something went wrong with service, please try again'),
+        error: RequestError.streamSubscription(errorMessage),
         isLoading: false,
       )));
     }
@@ -109,10 +110,16 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       add(SubscriptionEvent.errorVerifyPurchase(error));
     }, (r) async {
       await inAppPurchaseService.instance.completePurchase(purchaseDetails);
-      add(SubscriptionEvent.purchasedSubscription(PurchasedProduct(
-        purchaseDetails: purchaseDetails,
-        memberSince: SubscriptionDateUtils.getTransactionDate(r.purchasedAt),
-      )));
+      final accessTokenUpdated = await authTokenManager.updateAccessToken();
+      final refreshTokenUpdated = await authTokenManager.updateRefreshToken();
+      if (accessTokenUpdated && refreshTokenUpdated) {
+        add(SubscriptionEvent.purchasedSubscription(PurchasedProduct(
+          purchaseDetails: purchaseDetails,
+          memberSince: SubscriptionDateUtils.getTransactionDate(r.purchasedAt),
+        )));
+      } else {
+        add(SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(errorMessage)));
+      }
     });
   }
 
@@ -145,8 +152,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     }, (r) {
       r.valid ?? true
           ? add(SubscriptionEvent.buySubscription(product))
-          : add(const SubscriptionEvent.errorVerifyPurchase(
-              RequestError.streamSubscription('Something went wrong with service, please try again')));
+          : add(SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(errorMessage)));
     });
   }
 

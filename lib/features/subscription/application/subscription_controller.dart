@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -21,7 +20,6 @@ class SubscriptionController {
       return;
     }
     for (var plan in data.plans) {
-      if (Platform.isAndroid) {}
       products.add(PurchasableProduct(
         details: plan,
         offer: _getPricePerMonth(plan.rawPrice),

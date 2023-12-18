@@ -9,6 +9,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:loopcare_frontend/core/app.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/app_lifecycle_observer.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_manager.dart';
@@ -70,7 +71,7 @@ Future<void> main() async {
       path: LocalizationConstants.translationsPath,
       fallbackLocale: LocalizationConstants.localeEnglish,
       saveLocale: false,
-      child: const App(),
+      child: const AppLifeCycleStateListener(child: App()),
     ),
   );
 }

@@ -1,18 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class ReportSectionTitle extends StatelessWidget {
   final String title;
-  final double? fontSize;
-  final FontWeight? fontWeight;
+  final TextStyle? style;
+  final TextAlign? textAlign;
   final Color? color;
 
   const ReportSectionTitle({
     super.key,
     required this.title,
-    this.fontSize = 24,
-    this.fontWeight = FontWeight.w400,
+    this.style,
+    this.textAlign,
     this.color = AppColors.orangeDark,
   });
 
@@ -21,15 +22,11 @@ class ReportSectionTitle extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: fontSize,
-            fontWeight: fontWeight,
-            color: color,
-            fontFamily: ThemeConstants.bitterFontFamily,
-          ),
-        ).tr(),
+        CustomText.bitter600(
+          title.tr(),
+          textAlign: textAlign,
+          style: style,
+        ),
         const SizedBox(height: 16.0),
       ],
     );

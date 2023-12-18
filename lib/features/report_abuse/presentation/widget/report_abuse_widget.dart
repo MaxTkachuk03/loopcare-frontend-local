@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_session_report.dart';
 import 'package:loopcare_frontend/features/report_abuse/application/report_abuse_bloc.dart';
 import 'package:loopcare_frontend/features/report_abuse/presentation/report_abuse_controller.dart';
@@ -96,10 +97,9 @@ class _ReportFormWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const ReportSectionTitle(
+                      ReportSectionTitle(
                         title: LocalizedTexts.reportSubTitle,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                        style: context.textTheme.bodyMedium,
                         color: AppColors.darkGreen,
                       ),
                       SubjectAbuseFormInputField.subject(controller),

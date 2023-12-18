@@ -4,13 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
-import 'package:loopcare_frontend/core/presentation/validators/login_password_validator.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
@@ -45,7 +43,7 @@ class _LoginFormState extends State<LoginForm> {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: _navigationListener,
       builder: (BuildContext context, AuthenticationState state) {
-        return  Form(
+        return Form(
           key: _formKey,
           onChanged: _onChangedForm,
           child: Column(
@@ -66,8 +64,8 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   _onChangedForm() {
-    final isValidForm = Email.create(_emailController.text).isRight() &&
-        LoginPassword.create(_passwordController.text).isRight();
+    final isValidForm =
+        Email.create(_emailController.text).isRight() && LoginPassword.create(_passwordController.text).isRight();
 
     setState(() {
       _isDisabled = !isValidForm;

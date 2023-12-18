@@ -2,10 +2,11 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flash/flash.dart';
+import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
-import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -107,8 +108,8 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
   }
 
   bool isVendorPlatform(SubscriptionState state) {
-    if (Platform.isIOS && (state.data.subscription!.vendor == 'ios') ||
-        Platform.isAndroid && (state.data.subscription!.vendor == 'android')) {
+    if (Platform.isIOS && (state.data.subscription?.vendor == 'ios') ||
+        Platform.isAndroid && (state.data.subscription?.vendor == 'android')) {
       return true;
     }
     return false;
@@ -121,7 +122,7 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
           actions: [
             TextButton(
               onPressed: () => context.router.pop(),
-              child: const Text(LocalizedTexts.ok),
+              child: Text(LocalizedTexts.ok.toUpperCase()),
             ),
           ],
         ),
@@ -137,12 +138,9 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
 
   _errorListener(BuildContext context, SubscriptionState state) {
     final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
-
-    showAppSnackBar(
-      context: context,
-      text: errorMessage,
-      background: AppColors.red,
-      textColor: Colors.white,
+    context.showErrorBar(
+      content: Text(errorMessage),
+      position: FlashPosition.top,
     );
     context.router.pop();
   }

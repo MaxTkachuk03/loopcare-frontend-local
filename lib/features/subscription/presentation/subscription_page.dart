@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flash/flash.dart';
+import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -46,20 +48,18 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              IconButton(
-                icon: const Icon(
-                  Icons.logout,
-                  color: AppColors.orange,
-                  size: 24,
-                ),
-                onPressed: () => context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout()),
-              )
-            ],
-          ),
+        appBar: CustomAppBar.transparent(
+          leading: const SizedBox.shrink(),
+          actions: [
+            IconButton(
+              icon: const Icon(
+                Icons.logout,
+                color: AppColors.orange,
+                size: 24,
+              ),
+              onPressed: () => context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout()),
+            ),
+          ],
         ),
         body: Stack(
           children: [
@@ -159,17 +159,10 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
 
   _errorListener(BuildContext context, SubscriptionState state) {
     final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
-    // if (state.data.error?.error is ServerErrorData) {
-    //   if ((state.data.error?.error as ServerErrorData).statusCode == HttpStatus.unauthorized) {
-    //     context.router.replaceNamed(AppRoutes.login);
-    //   }
-    // }
     controller.resetState();
-    showAppSnackBar(
-      context: context,
-      text: errorMessage,
-      background: AppColors.red,
-      textColor: Colors.white,
+    context.showErrorBar(
+      content: Text(errorMessage),
+      position: FlashPosition.top,
     );
   }
 }

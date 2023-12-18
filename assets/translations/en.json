@@ -647,6 +647,7 @@
   "fromToLower": "from {startTime} to {endTime}",
   "numberOfAvailableSeats": "{number} of {totalNumber} seats available",
   "passedSession": "Passed session",
+  "cancelledSession": "Cancelled session",
   "noMoreSeatAvailable": "No more seat available",
   "bookedForYou": "Booked for you",
   "cancelBooking": "Cancel booking",
@@ -737,5 +738,5 @@
   "memberSince": "Member since",
   "automaticRenewalOn": "Automatic renewal on",
   "serviceUnavailable": "Service is unavailable,\nplease try later.",
-  "otherPurchaseVendor" : "Sorry You purchase was made from another Store, You are not able to manage subscription"
+  "otherPurchaseVendor" : "Sorry, your subscription seems to be purchased from a different store."
 }
