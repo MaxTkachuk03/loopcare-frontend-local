@@ -13,7 +13,7 @@ class AnswerText extends StatelessWidget {
   final QuestionsPageMode mode;
   final QuizzesController controller;
   final LessonQuestion question;
-  final VoidCallback onNextPressed;
+  final Function(int lessonId) onNextPressed;
   final VoidCallback onAnswerPressed;
   final bool isEditable;
 
@@ -67,17 +67,22 @@ class AnswerText extends StatelessWidget {
             Column(
               children: [
                 const SizedBox(height: 32),
-                ValueListenableBuilder<bool>(
-                  valueListenable: controller.isEnableSend,
-                  builder: (context, isEnableSend, _) {
-                    return ElevatedButton(
-                      onPressed: onNextPressed,
-                      style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                            backgroundColor: MaterialStateProperty.all(AppColors.blueDark),
-                          ),
-                      child: const Text(LocalizedTexts.next).tr(),
-                    );
-                  },
+                // ValueListenableBuilder<bool>(
+                //   valueListenable: controller.isEnableSend ,
+                //   builder: (context, isEnableSend, _) {
+                //     return
+                ElevatedButton(
+                  onPressed: () => isEditable
+                      ? controller.isOpenTextValid
+                          ? onNextPressed(question.lessonId)
+                          : null
+                      : onNextPressed(question.lessonId),
+                  style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                        backgroundColor: MaterialStateProperty.all(AppColors.blueDark),
+                      ),
+                  child: const Text(LocalizedTexts.next).tr(),
+                  //   );
+                  // },
                 ),
               ],
             )
