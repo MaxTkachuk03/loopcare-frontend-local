@@ -4,184 +4,222 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 typedef OnPressed = void Function();
 
-class CustomOutlinedButton extends StatelessWidget {
-  final OnPressed? onPressed;
+class CustomOutlinedButtonWithIcon extends StatelessWidget {
+  final String label;
+  final Widget icon;
   final Color? color;
   final ButtonStyle? styles;
-  final String label;
+  final void Function()? onPressed;
 
-  const CustomOutlinedButton({
-    super.key,
-    required this.label,
-    this.onPressed,
-    this.color,
-    this.styles,
-  });
+  const CustomOutlinedButtonWithIcon(
+      {super.key, required this.label, required this.icon, this.onPressed, this.color, this.styles});
 
-  factory CustomOutlinedButton.coralFullWidth({OnPressed? onPressed, required String label}) =>
-      CustomOutlinedButton(
+  factory CustomOutlinedButtonWithIcon.coralFullWidth(
+          {OnPressed? onPressed, required String label, required Widget icon}) =>
+      CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         label: label,
+        icon: icon,
         styles: ButtonStyle(
           minimumSize: MaterialStateProperty.all(ButtonStyles.fullWidthSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderCoral),
         ),
       );
 
-  factory CustomOutlinedButton.coral({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButtonWithIcon.coral(
+          {OnPressed? onPressed, required String label, required Widget icon}) =>
+      CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         label: label,
+        icon: icon,
         styles: ButtonStyle(
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderCoral),
         ),
       );
 
-  factory CustomOutlinedButton.coralSmall({OnPressed? onPressed, required String label}) =>
-      CustomOutlinedButton(
+  factory CustomOutlinedButtonWithIcon.coralSmall(
+          {OnPressed? onPressed, required String label, required Widget icon}) =>
+      CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         label: label,
+        icon: icon,
         styles: ButtonStyle(
           minimumSize: MaterialStateProperty.all(ButtonStyles.smallSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderCoral),
         ),
       );
 
-  factory CustomOutlinedButton.orangeFullWidth({OnPressed? onPressed, required String label}) =>
-      CustomOutlinedButton(
+  factory CustomOutlinedButtonWithIcon.orangeFullWidth(
+          {OnPressed? onPressed, required String label, required Widget icon}) =>
+      CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         label: label,
+        icon: icon,
         styles: ButtonStyle(
           minimumSize: MaterialStateProperty.all(ButtonStyles.fullWidthSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderOrange),
         ),
       );
 
-  factory CustomOutlinedButton.orange({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButtonWithIcon.orange(
+          {OnPressed? onPressed, required String label, required Widget icon}) =>
+      CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         label: label,
+        icon: icon,
         styles: ButtonStyle(
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderOrange),
         ),
       );
-  factory CustomOutlinedButton.orangeSmall({OnPressed? onPressed, required String label}) =>
-      CustomOutlinedButton(
+  factory CustomOutlinedButtonWithIcon.orangeSmall(
+          {OnPressed? onPressed, required String label, required Widget icon}) =>
+      CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         label: label,
+        icon: icon,
         styles: ButtonStyle(
           minimumSize: MaterialStateProperty.all(ButtonStyles.smallSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderOrange),
         ),
       );
 
-  factory CustomOutlinedButton.yellowFullWidth({OnPressed? onPressed, required String label}) =>
-      CustomOutlinedButton(
+  factory CustomOutlinedButtonWithIcon.yellowFullWidth(
+          {OnPressed? onPressed, required String label, required Widget icon}) =>
+      CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         color: AppColors.blueDarker,
         label: label,
+        icon: icon,
         styles: ButtonStyle(
           minimumSize: MaterialStateProperty.all(ButtonStyles.fullWidthSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderYellow),
         ),
       );
 
-  factory CustomOutlinedButton.yellow({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButtonWithIcon.yellow(
+          {OnPressed? onPressed, required String label, required Widget icon}) =>
+      CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         color: AppColors.blueDarker,
         label: label,
+        icon: icon,
         styles: ButtonStyle(
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderYellow),
         ),
       );
 
-  factory CustomOutlinedButton.yellowSmall({OnPressed? onPressed, required String label}) =>
-      CustomOutlinedButton(
+  factory CustomOutlinedButtonWithIcon.yellowSmall(
+          {OnPressed? onPressed, required String label, required Widget icon}) =>
+      CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         color: AppColors.blueDarker,
         label: label,
+        icon: icon,
         styles: ButtonStyle(
           minimumSize: MaterialStateProperty.all(ButtonStyles.smallSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderYellow),
         ),
       );
 
-  factory CustomOutlinedButton.greenFullWidth({OnPressed? onPressed, required String label}) =>
-      CustomOutlinedButton(
+  factory CustomOutlinedButtonWithIcon.greenFullWidth(
+          {OnPressed? onPressed, required String label, required Widget icon}) =>
+      CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         label: label,
+        icon: icon,
         styles: ButtonStyle(
           minimumSize: MaterialStateProperty.all(ButtonStyles.fullWidthSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderGreen),
         ),
       );
 
-  factory CustomOutlinedButton.green({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButtonWithIcon.green(
+          {OnPressed? onPressed, required String label, required Widget icon}) =>
+      CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         label: label,
+        icon: icon,
         styles: ButtonStyle(
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderGreen),
         ),
       );
 
-  factory CustomOutlinedButton.greenSmall({OnPressed? onPressed, required String label}) =>
-      CustomOutlinedButton(
+  factory CustomOutlinedButtonWithIcon.greenSmall(
+          {OnPressed? onPressed, required String label, required Widget icon}) =>
+      CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         label: label,
+        icon: icon,
         styles: ButtonStyle(
           minimumSize: MaterialStateProperty.all(ButtonStyles.smallSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderGreen),
         ),
       );
 
-  factory CustomOutlinedButton.petrolFullWidth({OnPressed? onPressed, required String label}) =>
-      CustomOutlinedButton(
+  factory CustomOutlinedButtonWithIcon.petrolFullWidth(
+          {OnPressed? onPressed, required String label, required Widget icon}) =>
+      CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         label: label,
+        icon: icon,
         styles: ButtonStyle(
           minimumSize: MaterialStateProperty.all(ButtonStyles.fullWidthSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderPetrol),
         ),
       );
 
-  factory CustomOutlinedButton.petrol({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButtonWithIcon.petrol(
+          {OnPressed? onPressed, required String label, required Widget icon}) =>
+      CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         label: label,
+        icon: icon,
         styles: ButtonStyle(
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderPetrol),
         ),
       );
 
-  factory CustomOutlinedButton.petrolSmall({OnPressed? onPressed, required String label}) =>
-      CustomOutlinedButton(
+  factory CustomOutlinedButtonWithIcon.petrolSmall(
+          {OnPressed? onPressed, required String label, required Widget icon}) =>
+      CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         label: label,
+        icon: icon,
         styles: ButtonStyle(
           minimumSize: MaterialStateProperty.all(ButtonStyles.smallSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderPetrol),
         ),
       );
 
-  factory CustomOutlinedButton.blueFullWidth({OnPressed? onPressed, required String label}) =>
-      CustomOutlinedButton(
+  factory CustomOutlinedButtonWithIcon.blueFullWidth(
+          {OnPressed? onPressed, required String label, required Widget icon}) =>
+      CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         label: label,
+        icon: icon,
         styles: ButtonStyle(
           minimumSize: MaterialStateProperty.all(ButtonStyles.fullWidthSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
         ),
       );
 
-  factory CustomOutlinedButton.blue({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButtonWithIcon.blue(
+          {OnPressed? onPressed, required String label, required Widget icon}) =>
+      CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         label: label,
+        icon: icon,
         styles: ButtonStyle(
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
         ),
       );
 
-  factory CustomOutlinedButton.blueSmall({OnPressed? onPressed, required String label}) =>
-      CustomOutlinedButton(
+  factory CustomOutlinedButtonWithIcon.blueSmall(
+          {OnPressed? onPressed, required String label, required Widget icon}) =>
+      CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         label: label,
+        icon: icon,
         styles: ButtonStyle(
           minimumSize: MaterialStateProperty.all(ButtonStyles.smallSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
@@ -190,10 +228,11 @@ class CustomOutlinedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
+    return OutlinedButton.icon(
       onPressed: onPressed,
+      icon: icon,
       style: styles,
-      child: Text(label).tr(),
+      label: Text(label).tr(),
     );
   }
 }

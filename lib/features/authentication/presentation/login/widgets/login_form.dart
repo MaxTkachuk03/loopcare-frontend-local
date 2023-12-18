@@ -5,12 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
-import 'package:loopcare_frontend/core/presentation/validators/login_password_validator.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
+import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
@@ -56,28 +54,13 @@ class _LoginFormState extends State<LoginForm> {
         onChanged: _onChangedForm,
         child: Column(
           children: [
-            Field(
-              controller: _emailController,
-              hintText: LocalizedTexts.yourEmail.tr(),
-              validator: emailValidator(),
-              prefixIcon: AppIcons.iconMail,
-              keyboardType: TextInputType.emailAddress,
-              contentPadding: const EdgeInsets.only(bottom: 0.0, top: 15.0),
-            ),
-            const SizedBox(height: 10.0),
-            Field(
-              hintText: LocalizedTexts.yourPassword.tr(),
-              prefixIcon: AppIcons.iconLock,
-              isToggleEye: true,
-              obscureText: true,
-              controller: _passwordController,
-              validator: loginPasswordValidator(),
-              contentPadding: const EdgeInsets.only(bottom: 0.0, top: 15.0),
-            ),
-            const SizedBox(height: 32.0),
-            ElevatedButton(
+            CustomTextField.email(controller: _emailController),
+            const SizedBox(height: 12.0),
+            CustomTextField.password(controller: _passwordController),
+            const SizedBox(height: 40.0),
+            CustomElevatedButton.blueFullWidth(
               onPressed: _isDisabled ? null : _onLogin,
-              child: Text(LocalizedTexts.loginBtn.tr()),
+              label: LocalizedTexts.loginBtn,
             ),
           ],
         ),
@@ -86,8 +69,8 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   _onChangedForm() {
-    final isValidForm =
-        Email.create(_emailController.text).isRight() && LoginPassword.create(_passwordController.text).isRight();
+    final isValidForm = Email.create(_emailController.text).isRight() &&
+        LoginPassword.create(_passwordController.text).isRight();
 
     setState(() {
       _isDisabled = !isValidForm;

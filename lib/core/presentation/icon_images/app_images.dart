@@ -100,5 +100,10 @@ class AppImages {
     height: 50,
   );
 
+  // TODO new assets go under this comment
+
+  static const AssetImage intro = AssetImage('$imagesFilePath/new_intro.png');
+  static const AssetImage intro2 = AssetImage('$imagesFilePath/new_intro2.png');
+
   AppImages._();
 }
