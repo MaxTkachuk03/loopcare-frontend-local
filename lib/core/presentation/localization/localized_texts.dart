@@ -47,10 +47,8 @@ class LocalizedTexts {
   static const String needConsentBodyText1 = 'needConsentBodyText1';
   static const String needConsentBodyText2 = 'needConsentBodyText2';
   static const String downloadInstructions = 'downloadInstructions';
-  static const String forgotYourPasswordTitle = 'forgotYourPasswordTitle';
-  static const String forgotYourPasswordText = 'forgotYourPasswordText';
+
   static const String yourEmail = 'yourEmail';
-  static const String returnToLoginScreen = 'returnToLoginScreen';
 
   static const String yourPassword = 'yourPassword';
   static const String loginBtn = 'login';
@@ -795,6 +793,11 @@ class LocalizedTexts {
   // Login
   static const String loginTitle = 'loginTitle';
   static const String forgotPassword = 'forgotPassword';
+
+  // Forgot password
+  static const String forgotPasswordTitle = 'forgotPasswordTitle';
+  static const String forgotPasswordSubTitle = 'forgotPasswordSubTitle';
+  static const String forgotPasswordBody = 'forgotPasswordBody';
 }
 
 extension StringX on String {
