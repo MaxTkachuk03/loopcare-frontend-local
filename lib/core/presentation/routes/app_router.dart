@@ -26,7 +26,6 @@ import 'package:loopcare_frontend/features/authentication/presentation/forgot_pa
 import 'package:loopcare_frontend/features/authentication/presentation/login/login_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/name/name_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/password/password_page.dart';
-import 'package:loopcare_frontend/features/authentication/presentation/reset_password/reset_password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/waiting_for_confirmation/waiting_for_confirmation_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/consent_confirmation_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/no_consent_page.dart';
@@ -274,10 +273,11 @@ const groupLessonRoutes = [
       path: AppRoutes.forgotPassword,
       page: ForgotPasswordPage,
     ),
-    AutoRoute(
-      path: AppRoutes.resetPassword,
-      page: ResetPasswordPage,
-    ),
+    // TODO dead code
+    // AutoRoute(
+    //   path: AppRoutes.resetPassword,
+    //   page: ResetPasswordPage,
+    // ),
     AutoRoute(
       path: AppRoutes.signUpWelcome,
       page: SignUpWelcomePage,

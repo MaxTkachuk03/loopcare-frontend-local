@@ -28,8 +28,9 @@ class AppRoutes {
   static const String medicationFuturePeriod = '/medication-future-period'; // added
   static const String physicalCheckResult = '/physical-check-result'; // added
   static const String consentNeeded = '/consent-needed'; // added
-  static const String forgotPassword = '/forgot-password'; // added
-  static const String resetPassword = '/reset-password'; // added
+  static const String forgotPassword = '/forgot-password';
+  // TODO dead code
+  // static const String resetPassword = '/reset-password';
   static const String name = '/name'; // added
   static const String password = '/password'; // added
   static const String emailAddress = '/email-address'; // added
