@@ -95,6 +95,7 @@ class _SearchResultListState extends State<SearchResultList> {
         final item = itemsState.data.items[index];
 
         return SearchResultListItem(
+          showLeading: false,
           item: item,
           onTap: widget.onItemTap,
         );
@@ -156,7 +157,9 @@ class _SearchResultListState extends State<SearchResultList> {
                   padding: const EdgeInsets.all(0.0),
                   icon: ImageIcon(
                     AppIcons.detailsLayout,
-                    color: (selectedLayout == SearchListLayout.detailed) ? AppColors.blueMid : AppColors.yellowLight,
+                    color: (selectedLayout == SearchListLayout.detailed)
+                        ? AppColors.blueRegular
+                        : AppColors.yellowLight,
                   ),
                 ),
               ),
@@ -171,7 +174,9 @@ class _SearchResultListState extends State<SearchResultList> {
                   padding: const EdgeInsets.all(0.0),
                   icon: ImageIcon(
                     AppIcons.listLayout,
-                    color: (selectedLayout == SearchListLayout.list) ? AppColors.blueMid : AppColors.yellowLight,
+                    color: (selectedLayout == SearchListLayout.list)
+                        ? AppColors.blueRegular
+                        : AppColors.yellowLight,
                   ),
                 ),
               ),

@@ -718,5 +718,6 @@
   "doneToday": "Done today",
   "completeBefore": "Complete before {date}",
   "completedOn": "Completed on {date}",
-  "pastAssignments": "Past assignments"
+  "pastAssignments": "Past assignments",
+  "iWantToLogMy": "I want to log my"
 }

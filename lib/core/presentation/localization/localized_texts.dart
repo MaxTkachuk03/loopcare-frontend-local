@@ -798,6 +798,9 @@ class LocalizedTexts {
   static const String forgotPasswordTitle = 'forgotPasswordTitle';
   static const String forgotPasswordSubTitle = 'forgotPasswordSubTitle';
   static const String forgotPasswordBody = 'forgotPasswordBody';
+
+  //Log meal
+  static const String iWantToLogMy = 'iWantToLogMy';
 }
 
 extension StringX on String {

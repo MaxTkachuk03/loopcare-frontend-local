@@ -10,7 +10,9 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -27,7 +29,6 @@ import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
-import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/report_abuse/presentation/widget/report_abuse_widget.dart';
 import 'package:loopcare_frontend/injection.dart';
@@ -1016,7 +1017,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return ConstrainedBox(
           constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height - 100,
+            maxHeight: MediaQuery.of(context).size.height - 400,
           ),
           child: SafeArea(
             child: Container(
@@ -1042,28 +1043,26 @@ class ModalBottomSheet {
                     ),
                   ),
                   const SizedBox(height: 2.0),
-                  Text(
-                    LocalizedTexts.selectAMeal.translation,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontFamily: ThemeConstants.bitterFontFamily,
-                          color: AppColors.blueDark,
-                        ),
+
+                  CustomText.bitter600(
+                    '${LocalizedTexts.iWantToLogMy.tr()}...',
+                    style: context.textTheme.displayMedium,
                   ),
-                  Text(
-                    currentDate.isSameDate(DateTime.now())
-                        ? LocalizedTexts.today.translation
-                        : currentDate.shortDate,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: AppColors.blueDark,
-                        ),
-                  ),
+
+                  // Text(
+                  //   currentDate.isSameDate(DateTime.now())
+                  //       ? LocalizedTexts.today.translation
+                  //       : currentDate.shortDate,
+                  //   style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  //         color: AppColors.blueDark,
+                  //       ),
+                  // ),
                   const SizedBox(height: 24.0),
-                  const Divider(
-                    height: 2,
-                    thickness: 2,
-                    color: AppColors.bgGreen,
-                  ),
+                  // const Divider(
+                  //   height: 2,
+                  //   thickness: 2,
+                  //   color: AppColors.black,
+                  // ),
                   Expanded(
                     child: ListView.builder(
                       itemCount: list.length,
