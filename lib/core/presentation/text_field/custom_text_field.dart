@@ -50,7 +50,6 @@ class CustomTextField extends StatefulWidget {
       CustomTextField(
         hintText: LocalizedTexts.searchHint,
         controller: controller,
-        // validator: emailValidator(),
         prefixIcon: const Icon(Icons.search, size: 24),
         onChanged: onChanged,
         onCleared: onCleared,
