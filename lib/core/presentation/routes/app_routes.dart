@@ -1,16 +1,23 @@
 part of 'app_router.dart';
 
 class AppRoutes {
+  static const String proxy = '/proxy'; // added
   static const String preIntro = '/pre-intro'; //added
   static const String intro = '/intro'; // added
-  static const String proxy = '/proxy'; // added
   static const String joinUs = '/join-us'; // added
   static const String login = '/login'; //added
-  static const String height = '/height'; // added
-  static const String weight = '/weight'; // added
+  static const String forgotPassword = '/forgot-password';
+
+  // Onboarding Physical
+  static const String physicalIntro = '/physical-intro';
   static const String birthday = '/birthday'; // added
   static const String sex = '/sex'; // added
   static const String biologicalGender = '/biological-gender'; // added
+  static const String height = '/height'; // added
+  static const String weight = '/weight'; // added
+  static const String physicalCheckResult = '/physical-check-result'; // added
+
+  // Onboarding Medical
   static const String medicalIntro = '/medical-fitness-intro'; // added
   static const String pregnancy = '/pregnancy'; // added
   static const String pregnancyFailed = '/pregnancy-failed'; // added
@@ -26,9 +33,8 @@ class AppRoutes {
   static const String weightLossMedication = '/weight-loss-medication'; // added
   static const String medicationPastPeriod = '/medication-past-period'; // added
   static const String medicationFuturePeriod = '/medication-future-period'; // added
-  static const String physicalCheckResult = '/physical-check-result'; // added
   static const String consentNeeded = '/consent-needed'; // added
-  static const String forgotPassword = '/forgot-password';
+
   // TODO dead code
   // static const String resetPassword = '/reset-password';
   static const String name = '/name'; // added

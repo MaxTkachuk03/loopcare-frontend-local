@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -13,24 +12,16 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 
-class JoinUsPage extends StatelessWidget {
-  const JoinUsPage({super.key});
+class PhysicalIntroPage extends StatelessWidget {
+  const PhysicalIntroPage({super.key});
 
-  void _onStartPressed(BuildContext context) {
-    context.read<OnboardingBloc>().add(const OnboardingEvent.started());
-    // TODO previous implementation, maybe make sense
-    // context.router.pushAll(const [PhysicalIntroRoute()]);
-    context.router.pushNamed(AppRoutes.physicalIntro);
-  }
+  void _onNextPressedHandler(BuildContext context) => context.router.pushNamed(AppRoutes.birthday);
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.green(
-      appBar: CustomAppBar.transparent(
-        leading: CustomFilledIconButton.leadingGreenLighter(),
-      ),
+    return CustomScaffold.yellow(
+      appBar: CustomAppBar.transparent(leading: CustomFilledIconButton.leadingYellowLighter()),
       body: SafeArea(
         child: ScrollableContainer(
           child: MainContainer(
@@ -41,39 +32,40 @@ class JoinUsPage extends StatelessWidget {
                 Column(
                   children: [
                     const SizedBox(height: 8.0),
-                    Container(alignment: Alignment.center, child: const Image(image: AppImages.intro2)),
-                    const SizedBox(height: 28.0),
-                    CustomText.bitter600(
-                      '${LocalizedTexts.intro2Title.tr()}!',
-                      style: context.textTheme.displayLarge,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 20.0),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 45.0),
-                      child: CustomText.w600(
-                        '${LocalizedTexts.intro2BodyTextFirst.tr()}.',
-                        style: context.textTheme.bodyMedium,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    const SizedBox(height: 20.0),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 22.0),
-                      child: CustomText.w400(
-                        '${LocalizedTexts.intro2BodyTextSecond.tr()}.',
-                        style: context.textTheme.bodyMedium,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    const SizedBox(height: 36.0),
+                    Container(
+                        alignment: Alignment.center, child: const Image(image: AppImages.physicalIntro)),
                   ],
                 ),
                 Column(
                   children: [
+                    CustomText.bitter600(
+                      LocalizedTexts.physicalIntroTitle.tr(),
+                      style: context.textTheme.displayLarge,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 20.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.watch_later_outlined),
+                        const SizedBox(width: 10),
+                        CustomText.w600(
+                          '5 ${LocalizedTexts.minutes.tr()}',
+                          style: context.textTheme.bodyMedium,
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20.0),
+                    CustomText.w400(
+                      '${LocalizedTexts.physicalIntroBody.tr()}.',
+                      style: context.textTheme.bodyMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 20.0),
                     CustomElevatedButton.blueFullWidth(
-                      label: LocalizedTexts.start,
-                      onPressed: () => _onStartPressed(context),
+                      label: LocalizedTexts.next,
+                      onPressed: () => _onNextPressedHandler(context),
                     ),
                   ],
                 ),

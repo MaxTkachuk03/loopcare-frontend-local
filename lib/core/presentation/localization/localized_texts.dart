@@ -198,7 +198,7 @@ class LocalizedTexts {
   static const String of = 'of';
   static const String meat = 'meat';
   static const String fish = 'fish';
-  static const String minutes = 'minutes';
+
   static const String foodTemptations = 'foodTemptations';
 
   // Self Help
@@ -798,6 +798,11 @@ class LocalizedTexts {
   static const String forgotPasswordTitle = 'forgotPasswordTitle';
   static const String forgotPasswordSubTitle = 'forgotPasswordSubTitle';
   static const String forgotPasswordBody = 'forgotPasswordBody';
+
+  // Onboarding Physical
+  static const String physicalIntroTitle = 'physicalIntroTitle';
+  static const String physicalIntroBody = 'physicalIntroBody';
+  static const String minutes = 'minutes';
 }
 
 extension StringX on String {

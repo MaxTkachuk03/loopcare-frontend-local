@@ -10,6 +10,10 @@
   "forgotPasswordTitle": "Forgot your password",
   "forgotPasswordSubTitle": "Your email address",
   "forgotPasswordBody": "Enter your email address and we will send you instructions to reset your password",
+  "physicalIntroTitle": "Basics first",
+  "physicalIntroBody": "Please answer the following basic questions first before we start the other sections",
+  "minutes": "minutes",
+
 
 
   "getStarted": "Get started",
@@ -193,7 +197,7 @@
   "doYou": "Do you",
   "likeAnyOfTheFollowing": "like any of the following?",
   "of": "of",
-  "minutes": "minutes",
+
   "foodTemptations": "Food temptations",
   "selfHelp": "Self-Help",
   "selfHelpDesc": "Part of the program is to discuss and share experiences with people like you.\nWe like to understand if you have any preferences for this.",

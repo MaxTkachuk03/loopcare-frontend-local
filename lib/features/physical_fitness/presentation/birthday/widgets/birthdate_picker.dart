@@ -13,7 +13,8 @@ class BirthDatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      color: AppColors.datePickerBg,
       height: 262,
       child: CupertinoTheme(
         data: const CupertinoThemeData(

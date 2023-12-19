@@ -180,6 +180,11 @@ TextTheme _getTextTheme() {
       fontSize: ThemeConstants.fontSize18,
       fontWeight: FontWeight.w600,
     ),
+    headlineLarge: TextStyle(
+      // Restyled
+      color: AppColors.blueDarker,
+      fontSize: ThemeConstants.fontSize38,
+    ),
     titleLarge: TextStyle(
       color: AppColors.darkGreen,
       fontSize: ThemeConstants.fontSize16,

@@ -1,8 +1,9 @@
 part of 'physical_fitness_bloc.dart';
 
 enum PhysicalFitnessQuestions {
-  height,
+  intro,
   birthday,
+  height,
   weight,
   sex,
   result,
@@ -11,10 +12,12 @@ enum PhysicalFitnessQuestions {
 extension PhysicalFitnessQuestionsX on PhysicalFitnessQuestions {
   PageRouteInfo get route {
     switch (this) {
-      case PhysicalFitnessQuestions.height:
-        return const HeightRoute();
+      case PhysicalFitnessQuestions.intro:
+        return const PhysicalIntroRoute();
       case PhysicalFitnessQuestions.birthday:
         return const BirthdayRoute();
+      case PhysicalFitnessQuestions.height:
+        return const HeightRoute();
       case PhysicalFitnessQuestions.weight:
         return const WeightRoute();
       case PhysicalFitnessQuestions.sex:
@@ -25,8 +28,8 @@ extension PhysicalFitnessQuestionsX on PhysicalFitnessQuestions {
   }
 
   int get percentage {
-    final valuesWithExclude = PhysicalFitnessQuestions.values
-        .where((element) => element != PhysicalFitnessQuestions.result);
+    final valuesWithExclude =
+        PhysicalFitnessQuestions.values.where((element) => element != PhysicalFitnessQuestions.result);
 
     final value = (index * 100) / valuesWithExclude.length;
 
