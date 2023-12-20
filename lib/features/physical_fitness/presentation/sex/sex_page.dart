@@ -1,7 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/physical_question_wrap.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/sex/widgets/sex_chips.dart';
@@ -15,20 +16,13 @@ class SexPage extends StatelessWidget {
       child: MainContainer(
         child: Column(
           children: [
-            const SizedBox(
-              height: 80,
-            ),
-            Text(
+            const SizedBox(height: 80),
+            CustomText.bitter600(
               LocalizedTexts.yourSex.tr(),
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    fontSize: ThemeConstants.fontSize18,
-                  ),
+              style: context.textTheme.displayMedium,
             ),
-            const SizedBox(
-              height: 16,
-            ),
+            const SizedBox(height: 36),
             const SexChips(),
           ],
         ),

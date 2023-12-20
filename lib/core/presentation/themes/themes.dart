@@ -18,6 +18,7 @@ final ThemeData appThemeData = ThemeData(
   textTheme: _getTextTheme(),
   textSelectionTheme: const TextSelectionThemeData(cursorColor: AppColors.black),
   checkboxTheme: _getCheckboxTheme(),
+  chipTheme: _chipTheme(),
   highlightColor: Colors.transparent,
   disabledColor: AppColors.greyMid,
 );
@@ -83,6 +84,26 @@ TabBarTheme _getTabBarTheme() {
       borderRadius: BorderRadius.circular(50.0),
       color: AppColors.white,
     ),
+  );
+}
+
+ChipThemeData _chipTheme() {
+  return const ChipThemeData(
+    showCheckmark: false,
+    labelStyle: TextStyle(
+      fontSize: ThemeConstants.fontSize14,
+      fontWeight: FontWeight.w400,
+      color: AppColors.blueDarker,
+    ),
+    secondaryLabelStyle: TextStyle(
+      fontSize: ThemeConstants.fontSize14,
+      fontWeight: FontWeight.w600,
+      color: AppColors.blueDarker,
+    ),
+    side: BorderSide(width: 2),
+    secondarySelectedColor: AppColors.transparent,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+    padding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 25.0),
   );
 }
 
@@ -166,19 +187,17 @@ TextTheme _getTextTheme() {
       fontSize: ThemeConstants.fontSize24,
     ),
     displaySmall: TextStyle(
-      color: AppColors.darkGreen,
+      color: AppColors.blueDarker,
       fontSize: ThemeConstants.fontSize32,
-      fontWeight: FontWeight.w700,
     ),
     headlineMedium: TextStyle(
-      color: AppColors.darkGreen,
+      color: AppColors.blueDarker,
       fontSize: ThemeConstants.fontSize28,
       fontWeight: FontWeight.w700,
     ),
     headlineSmall: TextStyle(
-      color: AppColors.darkGreen,
+      color: AppColors.blueDarker,
       fontSize: ThemeConstants.fontSize18,
-      fontWeight: FontWeight.w600,
     ),
     headlineLarge: TextStyle(
       // Restyled
@@ -186,14 +205,12 @@ TextTheme _getTextTheme() {
       fontSize: ThemeConstants.fontSize38,
     ),
     titleLarge: TextStyle(
-      color: AppColors.darkGreen,
+      color: AppColors.blueDarker,
       fontSize: ThemeConstants.fontSize16,
-      fontWeight: FontWeight.w700,
     ),
     titleMedium: TextStyle(
-      color: AppColors.black,
+      color: AppColors.blueDarker,
       fontSize: ThemeConstants.fontSize16,
-      fontWeight: FontWeight.w400,
     ),
   );
 }

@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/validators/age_validator.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
@@ -44,7 +45,7 @@ class _BirthdayFieldState extends State<BirthdayField> {
                 child: CustomText.bitter500(
                   // TODO DateFormat.yMMMMd(Intl.getCurrentLocale()).format(value), - return when localization translations will be finished
                   DateFormat.yMMMMd('en_EN').format(value),
-                  style: Theme.of(context).textTheme.headlineLarge,
+                  style: context.textTheme.headlineLarge,
                 ),
               ),
               const SizedBox(height: 100.0),
@@ -67,6 +68,7 @@ class _BirthdayFieldState extends State<BirthdayField> {
 
   _onNextPressed(BuildContext context) {
     final age = DateHelpers.calculateAge(value);
+
     if (!ageValidator(age)) {
       context.router.pushNamed(AppRoutes.checkFailedByAge);
       return;

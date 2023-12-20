@@ -11,6 +11,7 @@ class AppRoutes {
   // Onboarding Physical
   static const String physicalIntro = '/physical-intro';
   static const String birthday = '/birthday'; // added
+  static const String checkFailedByAge = '/failed-age'; // added
   static const String sex = '/sex'; // added
   static const String biologicalGender = '/biological-gender'; // added
   static const String height = '/height'; // added
@@ -42,7 +43,7 @@ class AppRoutes {
   static const String emailAddress = '/email-address'; // added
   static const String signUpWelcome = '/sign-up-welcome'; // added
   static const String waitingForConfirmation = '/waiting-for-confirmation'; // added
-  static const String checkFailedByAge = '/failed-age'; // added
+
   static const String consentConfirmation = '/consent-confirmation'; // added
   static const String noConsent = '/no-consent'; // added
   static const String legalStatement = '/legal-statement'; // added

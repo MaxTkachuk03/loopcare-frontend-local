@@ -1,10 +1,10 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/get_measurement_system.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
@@ -78,15 +78,13 @@ class _HeightPageState extends State<HeightPage> {
       child: MainContainer(
         child: Column(
           children: [
-            const SizedBox(height: 70.0),
-            Text(
-              LocalizedTexts.yourHeight.tr(),
+            const SizedBox(height: 80.0),
+            CustomText.bitter600(
+              LocalizedTexts.yourHeight,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: context.textTheme.displayMedium,
             ),
-            const SizedBox(height: 48),
+            const SizedBox(height: 36.0),
             UnitTabs(
               tabBarViewChildren: [
                 UnitField(
@@ -122,12 +120,7 @@ class _HeightPageState extends State<HeightPage> {
               ],
               onTabChanged: _onTabChanged,
             ),
-            const SizedBox(height: 16.0),
-            // UnderlinedClickableText(
-            //   text: LocalizedTexts.needHelpWithThis.tr(),
-            //   onTap: _onHelpTap,
-            // ),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: 52.0),
             _NextButton(
               measurementSystemType: activeMeasurementType,
               getHeight: getHeight,
@@ -167,8 +160,6 @@ class _HeightPageState extends State<HeightPage> {
     });
   }
 
-  // void _onHelpTap() {}
-
   String getHeight() => heightInCm.toString();
 
   void _onTabChanged(MeasurementSystemType unitType) {
@@ -194,21 +185,15 @@ class _NextButton extends StatelessWidget {
   final String Function() getHeight;
 
   const _NextButton({
-    super.key,
     required this.measurementSystemType,
     required this.getHeight,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return CustomElevatedButton.blueFullWidth(
       onPressed: () => _onNextPressed(context),
-      style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-            backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
-          ),
-      child: Text(
-        LocalizedTexts.next.tr(),
-      ),
+      label: LocalizedTexts.next,
     );
   }
 
@@ -220,12 +205,7 @@ class _NextButton extends StatelessWidget {
     final validationMessage = validator!(getHeight());
 
     if (validationMessage != null) {
-      ModalBottomSheet.physicalInvalidMessage(
-        context: context,
-        message: validationMessage,
-        btnText: LocalizedTexts.changeYourHeight.tr(),
-        onBtnPress: () => context.router.pop(),
-      );
+      ModalBottomSheet.physicalInvalidMessage(context: context, message: validationMessage);
     } else {
       bloc.add(
         PhysicalFitnessEvent.heightChanged(

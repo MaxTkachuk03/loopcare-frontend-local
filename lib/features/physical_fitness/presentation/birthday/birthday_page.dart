@@ -18,6 +18,7 @@ class BirthdayPage extends StatelessWidget {
           MainContainer(
             child: Column(
               children: [
+                const SizedBox(height: 45),
                 CustomText.bitter600(
                   LocalizedTexts.yourBirthday.tr(),
                   textAlign: TextAlign.center,

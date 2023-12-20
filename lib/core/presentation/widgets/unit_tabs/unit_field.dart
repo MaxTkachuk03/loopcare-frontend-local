@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/reg_exp_utils.dart';
 
 class UnitField extends StatelessWidget {
@@ -35,16 +37,15 @@ class UnitField extends StatelessWidget {
               maxLength: maxLength,
               focusNode: focusNode,
               controller: controller,
-              keyboardType: TextInputType.numberWithOptions(
-                decimal: isDecimal ?? false,
-              ),
-              inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.allow(RegExp(_getRegexString()))],
-              style: Theme.of(context).textTheme.displayLarge,
+              keyboardType: TextInputType.numberWithOptions(decimal: isDecimal ?? false),
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(RegExp(_getRegexString()))
+              ],
+              style: context.textTheme.headlineLarge?.copyWith(fontFamily: ThemeConstants.bitterFontFamily),
               decoration: InputDecoration(
                 counterText: counterText,
                 contentPadding: EdgeInsets.zero,
-                filled: true,
-                fillColor: Colors.transparent,
+                filled: false,
                 enabledBorder: InputBorder.none,
                 focusedBorder: InputBorder.none,
               ),

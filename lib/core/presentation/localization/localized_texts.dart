@@ -6,15 +6,11 @@ class LocalizedTexts {
   static const String logIn = 'logIn';
   static const String bodyAndMind = 'bodyAndMind';
   static const String mentalHealth = 'mentalHealth';
-  static const String yourHeight = 'yourHeight';
-  static const String yourSex = 'yourSex';
-  static const String biologicalGenderPageTitle = 'biologicalGenderPageTitle';
-  static const String metric = 'metric';
-  static const String imperial = 'imperial';
+
   static const String needHelpWithThis = 'needHelpWithThis';
-  static const String next = 'next';
+
   static const String finish = 'finish';
-  static const String yourWeight = 'yourWeight';
+
   static const String introPage = 'introPage';
 
   static const String joinUsStepTwoDesc = 'joinUsStepTwoDesc';
@@ -24,12 +20,9 @@ class LocalizedTexts {
   static const String joinUsNote = 'joinUsNote';
 
   static const String yourBirthday = 'yourBirthday';
-  static const String fitnessCheckPassedTitle = 'fitnessCheckPassedTitle';
+
   static const String fitnessCheckPassedText = 'fitnessCheckPassedText';
-  static const String age = 'age';
-  static const String height = 'height';
-  static const String weight = 'weight';
-  static const String bmi = 'bmi';
+
   static const String continueBtn = 'continueBtn';
   static const String checkYourMedicalCondition = 'checkYourMedicalCondition';
   static const String medicalIntroTitle = 'medicalIntroTitle';
@@ -37,9 +30,6 @@ class LocalizedTexts {
   static const String medicalIntroInstructionSecond = 'medicalIntroInstructionSecond';
   static const String medicalIntroInstructionThird = 'medicalIntroInstructionThird';
 
-  static const String yourBodyMassIndex = 'yourBodyMassIndex';
-  static const String ageCheckFailedText = 'ageCheckFailedText';
-  static const String fitnessCheckFailedInformationsText = 'fitnessCheckFailedInformationsText';
   static const String fitnessCheckFailedAdviceText = 'fitnessCheckFailedAdviceText';
   static const String areYouPregnant = 'areYouPregnant';
   static const String yes = 'yes';
@@ -100,9 +90,7 @@ class LocalizedTexts {
   static const String pleaseEnterValidEmailAddress = 'pleaseEnterValidEmailAddress';
   static const String pleaseEnterYourName = 'pleaseEnterYourName';
   static const String enterYourHeight = 'enterYourHeight';
-  static const String heightSmall = 'heightSmall';
-  static const String heightLarge = 'heightLarge';
-  static const String changeYourHeight = 'changeYourHeight';
+
   static const String emailOrPasswordAreIncorrect = 'emailOrPasswordAreIncorrect';
   static const String forgotEmailSuccessMessage = 'forgotEmailSuccessMessage';
 
@@ -800,9 +788,47 @@ class LocalizedTexts {
   static const String forgotPasswordBody = 'forgotPasswordBody';
 
   // Onboarding Physical
+  // Intro
   static const String physicalIntroTitle = 'physicalIntroTitle';
   static const String physicalIntroBody = 'physicalIntroBody';
   static const String minutes = 'minutes';
+
+  // Age check failed
+  static const String ageCheckFailedTitle = 'ageCheckFailedTitle';
+  static const String ageCheckFailedBody = 'ageCheckFailedBody';
+
+  // Sex
+  static const String yourSex = 'yourSex';
+
+  // Bio gender
+  static const String biologicalGenderPageTitle = 'biologicalGenderPageTitle';
+
+  // Height
+  static const String yourHeight = 'yourHeight';
+  static const String metric = 'metric';
+  static const String imperial = 'imperial';
+  static const String next = 'next';
+  static const String changeYourHeight = 'changeYourHeight';
+  static const String heightSmall = 'heightSmall';
+  static const String heightLarge = 'heightLarge';
+  static const String correctHeight = 'correctHeight';
+
+  // Weight
+  static const String yourWeight = 'yourWeight';
+
+  // Bmi failed
+  static const String yourBodyMassIndex = 'yourBodyMassIndex';
+  static const String fitnessCheckFailedInformationText = 'fitnessCheckFailedInformationText';
+  static const String fitnessCheckFailedInformationText2 = 'fitnessCheckFailedInformationText2';
+
+  // Physical check completed
+  static const String physicalCheckPassedTitle = 'physicalCheckPassedTitle';
+  static const String age = 'age';
+  static const String height = 'height';
+  static const String weight = 'weight';
+  static const String bmi = 'bmi';
+  static const String years = 'years';
+  static const String bmiDescription = 'bmiDescription';
 }
 
 extension StringX on String {

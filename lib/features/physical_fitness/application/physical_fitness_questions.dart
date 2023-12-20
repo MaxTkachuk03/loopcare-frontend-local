@@ -3,9 +3,9 @@ part of 'physical_fitness_bloc.dart';
 enum PhysicalFitnessQuestions {
   intro,
   birthday,
+  sex,
   height,
   weight,
-  sex,
   result,
 }
 
@@ -16,12 +16,12 @@ extension PhysicalFitnessQuestionsX on PhysicalFitnessQuestions {
         return const PhysicalIntroRoute();
       case PhysicalFitnessQuestions.birthday:
         return const BirthdayRoute();
+      case PhysicalFitnessQuestions.sex:
+        return const SexRoute();
       case PhysicalFitnessQuestions.height:
         return const HeightRoute();
       case PhysicalFitnessQuestions.weight:
         return const WeightRoute();
-      case PhysicalFitnessQuestions.sex:
-        return const SexRoute();
       case PhysicalFitnessQuestions.result:
         return const PhysicalCheckResultRoute();
     }

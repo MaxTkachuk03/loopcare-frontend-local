@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_b
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -21,8 +22,8 @@ class JoinUsPage extends StatelessWidget {
   void _onStartPressed(BuildContext context) {
     context.read<OnboardingBloc>().add(const OnboardingEvent.started());
     // TODO previous implementation, maybe make sense
-    // context.router.pushAll(const [PhysicalIntroRoute()]);
-    context.router.pushNamed(AppRoutes.physicalIntro);
+    context.router.pushAll(const [PhysicalIntroRoute()]);
+    // context.router.pushNamed(AppRoutes.physicalIntro);
   }
 
   @override

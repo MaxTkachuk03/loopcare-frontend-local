@@ -172,16 +172,12 @@ const groupLessonRoutes = [
       page: PhysicalIntroPage,
     ),
     AutoRoute(
-      path: AppRoutes.height,
-      page: HeightPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.weight,
-      page: WeightPage,
-    ),
-    AutoRoute(
       path: AppRoutes.birthday,
       page: BirthdayPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.checkFailedByAge,
+      page: CheckFailedAgePage,
     ),
     AutoRoute(
       path: AppRoutes.sex,
@@ -190,6 +186,14 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.biologicalGender,
       page: BiologicalGenderPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.height,
+      page: HeightPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.weight,
+      page: WeightPage,
     ),
     AutoRoute(
       path: AppRoutes.physicalCheckResult,
@@ -306,10 +310,6 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.waitingForConfirmation,
       page: WaitingForConfirmationPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.checkFailedByAge,
-      page: CheckFailedAgePage,
     ),
     AutoRoute(
       path: AppRoutes.consentConfirmation,

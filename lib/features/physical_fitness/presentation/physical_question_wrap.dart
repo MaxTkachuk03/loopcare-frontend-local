@@ -34,17 +34,15 @@ class PhysicalQuestionWrap extends StatelessWidget {
       onNextPage: () => _onNextPage(context),
       onPreviousPage: () => _onPreviousPage(context),
       child: WillPopScope(
-        onWillPop: () => _onWillPopHandler(context),
+        onWillPop: () => _onPreviousPage(context),
         child: CustomScaffold(
           appBar: CustomAppBar.yellow(
             title: LocalizedTexts.physicalIntroTitle.tr(),
             leading: CustomFilledIconButton.leadingYellowLighter(),
           ),
           body: SafeArea(
-            bottom: false,
             child: ScrollableContainer(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const MainContainer(child: ProgressBar()),
                   child,
@@ -67,6 +65,12 @@ class PhysicalQuestionWrap extends StatelessWidget {
   }
 
   Future<bool> _onPreviousPage(BuildContext context) {
+    final isWithOnWillPop = this.isWithOnWillPop;
+
+    if (isWithOnWillPop != null && !isWithOnWillPop) {
+      return Future.value(false);
+    }
+
     context.read<PhysicalFitnessBloc>().add(
           const PhysicalFitnessEvent.previousQuestion(),
         );

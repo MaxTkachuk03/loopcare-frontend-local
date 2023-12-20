@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/get_measurement_system.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
@@ -60,15 +62,13 @@ class _WeightPageState extends State<WeightPage> {
       child: MainContainer(
         child: Column(
           children: [
-            const SizedBox(height: 70),
-            Text(
+            const SizedBox(height: 80.0),
+            CustomText.bitter600(
               LocalizedTexts.yourWeight.tr(),
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: context.textTheme.displayMedium,
             ),
-            const SizedBox(height: 48),
+            const SizedBox(height: 36.0),
             UnitTabs(
               tabBarViewChildren: [
                 UnitField(
@@ -92,13 +92,7 @@ class _WeightPageState extends State<WeightPage> {
               ],
               onTabChanged: _onTabChanged,
             ),
-            const SizedBox(height: 16.0),
-            // UnderlinedClickableText(
-            //   text: LocalizedTexts.needHelpWithThis.tr(),
-            //   onTap: _onHelpTap,
-            // ),
-            const SizedBox(height: 20.0),
-
+            const SizedBox(height: 52.0),
             ValueListenableBuilder<bool>(
               valueListenable: valueNotifier,
               builder: (context, enable, _) {
@@ -169,14 +163,9 @@ class _NextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return CustomElevatedButton.blueFullWidth(
       onPressed: enable ? () => _onNextPressed(context) : null,
-      style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-            backgroundColor: MaterialStateProperty.all(enable ? AppColors.orangeDark : AppColors.greyLight),
-          ),
-      child: Text(
-        LocalizedTexts.next.tr(),
-      ),
+      label: LocalizedTexts.next,
     );
   }
 
