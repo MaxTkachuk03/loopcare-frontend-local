@@ -50,5 +50,5 @@ class SubscriptionStateData with _$SubscriptionStateData {
     Subscription? subscription,
   }) = _SubscriptionStateData;
 
-  String? get errorMessage => error?.maybeMap(conflict: (s) => s.error.message, orElse: () => null);
+  String? get errorMessage => error?.maybeMap(conflict: (s) => s.error.error, orElse: () => null);
 }

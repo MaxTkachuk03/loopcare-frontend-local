@@ -75,7 +75,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
               name: response.name,
               email: response.email,
               country: response.country,
-              isPreferencesComplete: response.isPreferencesComplete,
+              isPreferencesComplete: true,
               gender: response.gender,
               bioGender: response.bioGender,
               emailApproveDate: response.emailApproveDate,

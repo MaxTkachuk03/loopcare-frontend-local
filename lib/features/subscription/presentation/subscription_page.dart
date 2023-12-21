@@ -158,7 +158,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
       cur is LogoutState;
 
   _errorListener(BuildContext context, SubscriptionState state) {
-    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
+    final errorMessage = state.data.error?.error ?? LocalizedTexts.somethingWentWrong.tr();
+    debugPrint('devcpp  _errorListener  ERROR: ${state.data.error?.toString()}');
     controller.resetState();
     context.showErrorBar(
       content: Text(errorMessage),

@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
 import 'package:loopcare_frontend/features/subscription/application/purchase_details_subscriptions.dart';
 import 'package:loopcare_frontend/features/subscription/application/purchase_service.dart';
+import 'package:loopcare_frontend/features/subscription/application/subscription_error.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_service.dart';
 import 'package:loopcare_frontend/features/subscription/donain/purchased_product.dart';
 import 'package:loopcare_frontend/features/subscription/donain/server_product.dart';
@@ -41,7 +42,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   final SocketService _socketService = SocketService.instance;
   bool isValidatePastIOSPurchase = false;
   ProductDetails? buyingProduct;
-  final errorMessage = 'Something went wrong with service, please try again';
 
   SubscriptionBloc(this._authenticationService, this._purchaseService, this.authTokenManager, this.inAppPurchaseService)
       : super(const SubscriptionState.initial(SubscriptionStateData())) {
@@ -83,13 +83,30 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     emit(
       SubscriptionState.loading(state.data.copyWith(isLoading: true)),
     );
+
     final inAppPurchaseService = getIt<AppSubscriptionService>();
-    final purchased = await inAppPurchaseService.buyItemInStore(event.product);
-    if (!purchased) {
-      emit(SubscriptionState.error(state.data.copyWith(
-        error: RequestError.streamSubscription(errorMessage),
-        isLoading: false,
-      )));
+
+    try {
+      final purchased = await inAppPurchaseService.buyItemInStore(event.product);
+      if (!purchased) {
+        emit(
+          SubscriptionState.error(
+            state.data.copyWith(
+              error: const RequestError.streamSubscription(purchaseErrorMessage),
+              isLoading: false,
+            ),
+          ),
+        );
+      }
+    } catch (e) {
+      emit(
+        SubscriptionState.error(
+          state.data.copyWith(
+            error: const RequestError.streamSubscription(purchaseErrorMessage),
+            isLoading: false,
+          ),
+        ),
+      );
     }
   }
 
@@ -118,7 +135,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
           memberSince: SubscriptionDateUtils.getTransactionDate(r.purchasedAt),
         )));
       } else {
-        add(SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(errorMessage)));
+        add(SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(generalMessage)));
       }
     });
   }
@@ -150,9 +167,12 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     response.fold((error) {
       add(SubscriptionEvent.errorVerifyPurchase(error));
     }, (r) {
+      if (oldPurchaseDetails != null) {
+        inAppPurchaseService.completePurchase(oldPurchaseDetails);
+      }
       r.valid ?? true
           ? add(SubscriptionEvent.buySubscription(product))
-          : add(SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(errorMessage)));
+          : add(SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(generalMessage)));
     });
   }
 

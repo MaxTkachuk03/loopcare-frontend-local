@@ -46,7 +46,10 @@ class AppSubscriptionService {
       await Future.wait(transactions.map((transaction) => paymentWrapper.finishTransaction(transaction)));
     }
     final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
-    return instance.buyNonConsumable(purchaseParam: purchaseParam);
+    debugPrint('devcpp start buyItemInStore ');
+    final isBought = await instance.buyNonConsumable(purchaseParam: purchaseParam);
+    debugPrint('devcpp start isBought: $isBought ');
+    return isBought;
   }
 
   Future<void> completePurchase(PurchaseDetails purchaseDetails) async {

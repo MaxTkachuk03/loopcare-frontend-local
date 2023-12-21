@@ -6,6 +6,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/subscription/application/subscription_error.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_service.dart';
 import 'package:loopcare_frontend/features/subscription/utils/date_utils.dart';
 
@@ -38,7 +39,7 @@ class PurchaseDetailsStreamSubscription {
     _streamSubscription = inAppPurchaseService.storeSubscription.listen(
       (List<PurchaseDetails> events) {
         if (events.isEmpty) {
-          onError?.call(const RequestError.streamSubscription('Something went wrong with service, please try again'));
+          onError?.call(const RequestError.streamSubscription(purchaseServiceErrorMessage));
           return;
         }
         if (events.every((element) => element.status == PurchaseStatus.restored)) {
@@ -64,8 +65,7 @@ class PurchaseDetailsStreamSubscription {
                 case PurchaseStatus.restored:
                   break;
                 case PurchaseStatus.error:
-                  debugPrint('devcpp  Service ERROR: ${purchaseDetails.error?.toString()}');
-                  onError?.call(const RequestError.streamSubscription('Something went wrong, please try again'));
+                  onError?.call(const RequestError.streamSubscription(purchaseServiceErrorMessage));
                   break;
               }
             },
@@ -74,6 +74,7 @@ class PurchaseDetailsStreamSubscription {
       },
       onDone: () => close(),
       onError: (e) {
+        onError?.call(const RequestError.streamSubscription(purchaseServiceErrorMessage));
         close();
       },
     );
