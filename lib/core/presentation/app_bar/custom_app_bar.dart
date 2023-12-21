@@ -12,6 +12,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? leading;
   final List<Widget>? actions;
   final Color? backgroundColor;
+  final PreferredSizeWidget? bottom;
 
   const CustomAppBar({
     super.key,
@@ -22,6 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leading,
     this.actions,
     this.backgroundColor,
+    this.bottom,
   });
 
   factory CustomAppBar.transparent({
@@ -93,6 +95,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     String? subtitle,
     Widget? leading,
     List<Widget>? actions,
+    PreferredSizeWidget? bottom,
   }) =>
       CustomAppBar(
         systemOverlayStyle: SystemUiOverlayStyle.dark,
@@ -102,6 +105,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         subtitle: subtitle,
         leading: leading,
         actions: actions,
+        bottom: bottom,
       );
 
   factory CustomAppBar.petrol({
@@ -164,6 +168,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       leading: Padding(padding: const EdgeInsets.all(6.0), child: leading ?? const BackButton()),
       actions: actions,
+      bottom: bottom,
     );
   }
 

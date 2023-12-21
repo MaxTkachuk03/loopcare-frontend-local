@@ -78,6 +78,10 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons(LessonCategory.all));
 
+    if (context.read<AuthenticationCubit>().state.isFoodLoggingUnlocked) {
+      context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
+    }
+
     if (context.read<AuthenticationCubit>().state.isAssignmentsUnlocked) {
       context.read<AssignmentsBloc>().add(
             AssignmentsEvent.getAllLessonQuestions(

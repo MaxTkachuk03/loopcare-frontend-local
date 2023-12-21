@@ -719,6 +719,7 @@
   "completeBefore": "Complete before {date}",
   "completedOn": "Completed on {date}",
   "pastAssignments": "Past assignments",
+  "iWantToLogMy": "I want to log my",
   "foodLoggingUnlocked": "Food logging unlocked",
   "youCanStartLogging": "You can start logging your meals right now"
 }
