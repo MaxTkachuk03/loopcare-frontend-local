@@ -10,14 +10,16 @@ class AssignmentListItem extends StatelessWidget {
   final LessonQuestion item;
   final Function(int lessonId) onBtnPressed;
   final bool onDashboard;
-  final bool isDone;
+  final bool isOpen;
+  final bool isComplete;
 
   const AssignmentListItem({
     super.key,
     required this.item,
     required this.onBtnPressed,
     required this.onDashboard,
-    required this.isDone,
+    required this.isOpen,
+    required this.isComplete,
   });
 
   @override
@@ -34,7 +36,7 @@ class AssignmentListItem extends StatelessWidget {
                 height: 20,
                 child: ImageIcon(
                   AppIcons.iconCheckmark,
-                  color: isDone ? AppColors.greenMid : AppColors.greyMid,
+                  color: isComplete ? AppColors.greenMid : AppColors.greyMid,
                   size: 14,
                 ),
               ),
@@ -49,16 +51,16 @@ class AssignmentListItem extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           ),
                     ),
-                    if (isDone)
+                    if (isComplete)
                       Text(
                         LocalizedTexts.completedOn,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: onDashboard ? AppColors.greyLabel : AppColors.darkGreen,
                             ),
                       ).tr(
-                        namedArgs: {'date': item.answeredAt?.dayWithMonthWithoutLeadingZero ?? ''},
+                        namedArgs: {'date': item.completedAt?.dayWithMonthWithoutLeadingZero ?? ''},
                       ),
-                    if (!isDone)
+                    if (!isComplete && isOpen)
                       Text(
                         LocalizedTexts.completeBefore,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
