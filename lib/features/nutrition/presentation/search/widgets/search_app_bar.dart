@@ -99,6 +99,8 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
               tabs: tabs.map((e) => Tab(text: e)).toList(),
               tabController: _tabController,
               tabAlignment: TabAlignment.center,
+              labelColor: AppColors.blueDarker,
+              unselectedLabelColor: AppColors.blueDarker,
             ),
           ),
         ),
