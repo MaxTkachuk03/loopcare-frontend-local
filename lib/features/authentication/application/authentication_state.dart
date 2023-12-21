@@ -52,13 +52,6 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
-  bool get isPreferencesComplete {
-    return maybeWhen(
-      orElse: () => false,
-      authenticated: (state) => state.isPreferencesComplete,
-    );
-  }
-
   List<UnlockedFeatureType> get unlockedFeatures {
     return maybeWhen(
       orElse: () => [],

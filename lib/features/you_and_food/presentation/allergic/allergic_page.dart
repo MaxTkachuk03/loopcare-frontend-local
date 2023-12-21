@@ -13,11 +13,14 @@ class AllergicPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return YouAndFoodQuestion(
       subtitle: '2 ${LocalizedTexts.of.tr()} 3',
-      question: Text(
-        LocalizedTexts.allergicQuestion.tr(),
-        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+      question: Align(
+        alignment: AlignmentDirectional.centerStart,
+        child: Text(
+          LocalizedTexts.iAmAllergicTo.tr(),
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+        ),
       ),
       questionList: const AllergicChips(),
       onNextPressed: () => _onNextPressed(context),

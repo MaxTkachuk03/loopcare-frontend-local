@@ -127,7 +127,7 @@ class _LoginFormState extends State<LoginForm> {
   void _navigationListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(
       authenticated: (state) {
-        final route = state.isPreferencesComplete ? const HomeRoute() : const PreferencesOverviewRoute();
+        const route = HomeRoute();
         MixpanelEventService.instance.track(
           AppMixpanelEvents.loginSuccess,
           {

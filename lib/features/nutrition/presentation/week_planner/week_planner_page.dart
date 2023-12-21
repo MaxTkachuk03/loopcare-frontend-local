@@ -33,14 +33,15 @@ class _WeekPlannerPageState extends State<WeekPlannerPage> {
     setState(() {
       _selectedDay = day;
 
-      context.read<ChooseDateBloc>().add(
-            ChooseDateEvent.getPlannedMeals(
-              _selectedDay.firstDayOfCurrentWeek,
-              _selectedDay.firstDayOfCurrentWeek.add(
-                const Duration(days: 6),
-              ),
-            ),
-          );
+// TODO: LOOPCARE-1798 Hide Meal planning block
+      // context.read<ChooseDateBloc>().add(
+      //       ChooseDateEvent.getPlannedMeals(
+      //         _selectedDay.firstDayOfCurrentWeek,
+      //         _selectedDay.firstDayOfCurrentWeek.add(
+      //           const Duration(days: 6),
+      //         ),
+      //       ),
+      //     );
 
       context.read<ChooseDateBloc>().add(ChooseDateEvent.setCurrentDate(day));
     });

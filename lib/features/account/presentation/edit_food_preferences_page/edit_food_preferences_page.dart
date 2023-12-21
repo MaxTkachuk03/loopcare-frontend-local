@@ -40,6 +40,14 @@ class EditFoodPreferencesPage extends StatelessWidget {
     );
   }
 
+  get _header {
+    return mode.map(
+      hates: (_) => LocalizedTexts.iDoNotEatOrDrink,
+      allergies: (_) => LocalizedTexts.iAmAllergicTo,
+      dislikes: (_) => LocalizedTexts.iDoNotLike,
+    );
+  }
+
   get content {
     return mode.map(
         hates: (_) => const TypesOfFoodChips(),
@@ -49,6 +57,7 @@ class EditFoodPreferencesPage extends StatelessWidget {
 
   _onOkHandler(BuildContext context) {
     context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.saveFoodPreferences());
+
     context.router.pop();
   }
 
@@ -69,9 +78,14 @@ class EditFoodPreferencesPage extends StatelessWidget {
       body: SafeArea(
         child: MainContainer(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 32.0),
+              Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(_header, style: Theme.of(context).textTheme.headlineMedium).tr(),
+              ),
+              const SizedBox(height: 22.0),
               Expanded(child: ScrollableContainer(child: content)),
               Column(
                 children: [
