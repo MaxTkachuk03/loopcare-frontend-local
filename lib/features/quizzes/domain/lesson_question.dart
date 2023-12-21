@@ -33,11 +33,14 @@ class LessonQuestion with _$LessonQuestion {
     required List<LessonQuestionAnswer> lessonQuestionAnswers,
     required DateTime? openedAt,
     required DateTime? answeredAt,
+    required DateTime? completedAt,
     required int lessonId,
   }) = _LessonQuestion;
 
-  bool get isEditable =>
-      openedAt?.midnightTime.isAfter(DateTime.now().subtract(const Duration(days: 7)).midnightTime) ?? false;
+  bool get isEditable {
+    return openedAt?.midnightTime.isAfter(DateTime.now().subtract(const Duration(days: 7)).midnightTime) ??
+        false;
+  }
 
   LessonQuestionFeedback? lessonQuestionFeedback(int lessonQuestionId, int value) =>
       lessonQuestionFeedbacks.firstWhereOrNull(

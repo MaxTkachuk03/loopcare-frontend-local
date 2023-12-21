@@ -31,7 +31,7 @@ class AssignmentsStateData with _$AssignmentsStateData {
   LessonQuestion questionForStep(int step) => questions.get(step);
 
   List<LessonQuestion> pastQuestions(DateTime selectedDay) {
-    return questions
+    var pastQuestions = questions
         .where(
           (element) =>
               element.openedAt?.inRange(
@@ -41,6 +41,23 @@ class AssignmentsStateData with _$AssignmentsStateData {
               false,
         )
         .toList();
+
+    pastQuestions.addAll(
+      questions
+          .where(
+            (element) =>
+                element.openedAt?.inRange(
+                  DateTime.now().subtract(const Duration(days: 7)),
+                  DateTime.now(),
+                ) ??
+                false,
+          )
+          .toList()
+          .where((item) => item.completedAt != null)
+          .toList(),
+    );
+
+    return pastQuestions;
   }
 
   List<LessonQuestion> questionsForCurrentWeek(DateTime selectedDay) {

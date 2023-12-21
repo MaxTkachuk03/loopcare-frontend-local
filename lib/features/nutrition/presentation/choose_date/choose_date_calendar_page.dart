@@ -41,14 +41,15 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
   void initState() {
     super.initState();
 
-    context.read<ChooseDateBloc>().add(
-          ChooseDateEvent.getPlannedMeals(
-            DateTime.now(),
-            DateTime.now().add(
-              const Duration(days: 15),
-            ),
-          ),
-        );
+// TODO: LOOPCARE-1798 Hide Meal planning block
+    // context.read<ChooseDateBloc>().add(
+    //       ChooseDateEvent.getPlannedMeals(
+    //         DateTime.now(),
+    //         DateTime.now().add(
+    //           const Duration(days: 15),
+    //         ),
+    //       ),
+    //     );
 
     context.read<ChooseDateBloc>().add(
           ChooseDateEvent.setData(

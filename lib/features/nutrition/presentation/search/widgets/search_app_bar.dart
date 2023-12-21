@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/tab_bar/custom_underlined_tab_bar.dart';
+import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/underlined_tab_bar.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
 
@@ -66,7 +65,8 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: tabs.length,
-      child: BlueAppBar(
+      child: CustomAppBar.green(
+        leading: const SizedBox.shrink(),
         actions: [
           Expanded(
             child: Padding(
@@ -75,12 +75,8 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
                 listenWhen: (prev, cur) =>
                     prev.data.searchParameters.query != cur.data.searchParameters.query,
                 listener: _searchQueryListener,
-                child: Field(
-                  autofocus: true,
-                  contentPadding: const EdgeInsets.only(left: 12),
-                  hintText: LocalizedTexts.searchHint.translation,
+                child: CustomTextField.search(
                   controller: _searchTextController,
-                  isClearField: true,
                   onCleared: _onCleared,
                   onChanged: _onTextChange,
                 ),
@@ -90,34 +86,21 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
           Padding(
             padding: const EdgeInsets.only(right: 8),
             child: IconButton(
-              onPressed: () => {
-                Navigator.pop(context),
-              },
-              icon: const Icon(Icons.close, color: AppColors.white),
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.close, color: AppColors.blueDarker),
             ),
           )
         ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
           child: Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 25, right: 8),
-                  child: Text(
-                    LocalizedTexts.searchFilterIn.translation,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: AppColors.white,
-                        ),
-                  ),
-                ),
-                UnderlinedTabBar(
-                  tabs: tabs.map((e) => Tab(text: e)).toList(),
-                  tabController: _tabController,
-                  tabAlignment: TabAlignment.start,
-                ),
-              ],
+            padding: const EdgeInsets.only(bottom: 8, left: 25, right: 25),
+            child: CustomUnderlinedTabBar(
+              tabs: tabs.map((e) => Tab(text: e)).toList(),
+              tabController: _tabController,
+              tabAlignment: TabAlignment.center,
+              labelColor: AppColors.blueDarker,
+              unselectedLabelColor: AppColors.blueDarker,
             ),
           ),
         ),

@@ -102,7 +102,9 @@ class LogMeal extends StatelessWidget {
                                 LocalizedTexts.logYourMeals.translation,
                                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                                       fontFamily: ThemeConstants.bitterFontFamily,
-                                      color: mealsState.isEnableOnDashboard ? AppColors.darkGreen : AppColors.greyLabel,
+                                      color: mealsState.isEnableOnDashboard
+                                          ? AppColors.darkGreen
+                                          : AppColors.greyLabel,
                                     ),
                               ),
                               if (mealsState.filledCategories.isEmpty)
@@ -111,8 +113,9 @@ class LogMeal extends StatelessWidget {
                                       ? LocalizedTexts.noMealsLoggedYet.translation
                                       : LocalizedTexts.noMealsLogged.translation,
                                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                        color:
-                                            mealsState.isEnableOnDashboard ? AppColors.darkGreen : AppColors.greyLabel,
+                                        color: mealsState.isEnableOnDashboard
+                                            ? AppColors.darkGreen
+                                            : AppColors.greyLabel,
                                       ),
                                 ),
                             ],
@@ -180,7 +183,8 @@ class LogMeal extends StatelessWidget {
                                         categoryList: MealCategory.values
                                             .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
                                             .toList(),
-                                        categoryListRaw: MealCategory.values.map((e) => e.label ?? '').toList(),
+                                        categoryListRaw:
+                                            MealCategory.values.map((e) => e.label ?? '').toList(),
                                         filledList: mealsState.filledCategories,
                                       ),
                                     ],

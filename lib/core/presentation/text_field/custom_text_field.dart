@@ -41,6 +41,22 @@ class CustomTextField extends StatefulWidget {
     this.fillColor,
   });
 
+  factory CustomTextField.search({
+    Color? fillColor,
+    required TextEditingController controller,
+    ValueChanged<String>? onChanged,
+    VoidCallback? onCleared,
+  }) =>
+      CustomTextField(
+        hintText: LocalizedTexts.searchHint,
+        controller: controller,
+        prefixIcon: const Icon(Icons.search, size: 24),
+        onChanged: onChanged,
+        onCleared: onCleared,
+        isClearField: true,
+        fillColor: fillColor,
+      );
+
   factory CustomTextField.email({
     Color? fillColor,
     required TextEditingController controller,

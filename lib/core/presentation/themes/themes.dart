@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 part 'app_colors.dart';
 part 'theme_constants.dart';
@@ -205,12 +204,19 @@ TextTheme _getTextTheme() {
       fontSize: ThemeConstants.fontSize38,
     ),
     titleLarge: TextStyle(
+      // Restyled
+      color: AppColors.blueDarker,
+      fontSize: ThemeConstants.fontSize18,
+    ),
+    titleMedium: TextStyle(
+      // Restyled
       color: AppColors.blueDarker,
       fontSize: ThemeConstants.fontSize16,
     ),
-    titleMedium: TextStyle(
+    titleSmall: TextStyle(
+      // Restyled
       color: AppColors.blueDarker,
-      fontSize: ThemeConstants.fontSize16,
+      fontSize: ThemeConstants.fontSize14,
     ),
   );
 }

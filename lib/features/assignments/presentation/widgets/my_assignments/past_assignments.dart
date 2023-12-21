@@ -35,7 +35,8 @@ class PastAssignments extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             var question = questions[index];
             return AssignmentListItem(
-              isDone: question.answeredAt != null,
+              isComplete: question.completedAt != null,
+              isOpen: question.isEditable,
               onDashboard: false,
               item: question,
               onBtnPressed: (int lessonId) => onBtnPressed(lessonId),

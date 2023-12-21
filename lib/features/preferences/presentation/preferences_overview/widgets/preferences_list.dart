@@ -33,7 +33,7 @@ class PreferencesList extends StatefulWidget {
 class _PreferencesListState extends State<PreferencesList> {
   @override
   void initState() {
-    context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.fetchFoodPreferences());
+    // context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.fetchFoodPreferences());
 
     context.read<DiabetesBloc>().add(const DiabetesEvent.getAccountDiabetesType());
 
@@ -44,23 +44,23 @@ class _PreferencesListState extends State<PreferencesList> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        BlocBuilder<YouAndFoodBloc, YouAndFoodState>(builder: (BuildContext context, state) {
-          return Column(
-            children: [
-              PreferencesListItem(
-                item: Pref(
-                  title: LocalizedTexts.foodTemptations.tr(),
-                  completionTime: '10 ${LocalizedTexts.minutes.tr()}',
-                  isCompleted: state.isCompleted,
-                  imagePath: AppImages.youAndFoodIntro,
-                ),
-                imageOverlayColor: AppColors.blueLight.withOpacity(0.8),
-                routePath: AppRoutes.youAndFoodIntro,
-              ),
-              const SizedBox(height: 8.0),
-            ],
-          );
-        }),
+        // BlocBuilder<YouAndFoodBloc, YouAndFoodState>(builder: (BuildContext context, state) {
+        //   return Column(
+        //     children: [
+        //       PreferencesListItem(
+        //         item: Pref(
+        //           title: LocalizedTexts.foodTemptations.tr(),
+        //           completionTime: '10 ${LocalizedTexts.minutes.tr()}',
+        //           isCompleted: state.isCompleted,
+        //           imagePath: AppImages.youAndFoodIntro,
+        //         ),
+        //         imageOverlayColor: AppColors.blueLight.withOpacity(0.8),
+        //         routePath: AppRoutes.youAndFoodIntro,
+        //       ),
+        //       const SizedBox(height: 8.0),
+        //     ],
+        //   );
+        // }),
         BlocBuilder<DiabetesBloc, DiabetesState>(builder: (BuildContext context, state) {
           return Column(
             children: [

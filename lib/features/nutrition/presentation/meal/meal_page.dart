@@ -44,9 +44,10 @@ class _MealPageState extends State<MealPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory = DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
-        ? state.currentMealCategory
-        : MealCategory.breakfast.originalValue;
+    final mealCategory =
+        DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
+            ? state.currentMealCategory
+            : MealCategory.breakfast.originalValue;
 
     final mealId = state.getCurrentMealId;
 
@@ -307,11 +308,12 @@ class _MealPageState extends State<MealPage> {
                               proteinDegree: state.currentMealProteinDegree,
                               calorieDensity: state.currentMealCalorieDensity,
                             ),
-                            ChooseDateBlock(
-                              date: _mealDates(mealsState),
-                              onTap: (BuildContext context) =>
-                                  currentDate.isTodayOrFuture ? _onChooseDates(context) : null,
-                            ),
+                            // TODO: LOOPCARE-1798 Hide Meal planning block
+                            // ChooseDateBlock(
+                            //   date: _mealDates(mealsState),
+                            //   onTap: (BuildContext context) =>
+                            //       currentDate.isTodayOrFuture ? _onChooseDates(context) : null,
+                            // ),
                             const SizedBox(height: 26.0),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 24),

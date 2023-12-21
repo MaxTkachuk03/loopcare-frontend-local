@@ -39,9 +39,7 @@ class _YouAndFoodIntroPageState extends State<YouAndFoodIntroPage> {
                     colorBlendMode: BlendMode.multiply,
                   ),
                 ),
-                const SizedBox(
-                  height: 40.0,
-                ),
+                const SizedBox(height: 40.0),
                 MainContainer(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,37 +49,25 @@ class _YouAndFoodIntroPageState extends State<YouAndFoodIntroPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            LocalizedTexts.survey.tr().toUpperCase(),
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                          ),
-                          const SizedBox(
-                            height: 16.0,
-                          ),
-                          Text(
-                            LocalizedTexts.youAndFood.tr(),
+                            LocalizedTexts.foodPreferences.tr(),
                             style: Theme.of(context).textTheme.displaySmall?.copyWith(
                                   fontFamily: ThemeConstants.bitterFontFamily,
                                   color: AppColors.blueDark,
                                 ),
                           ),
-                          const SizedBox(
-                            height: 16.0,
-                          ),
+                          const SizedBox(height: 16.0),
                           Text(
                             LocalizedTexts.youAndFoodDesc.tr(),
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
-                          const SizedBox(
-                            height: 36.0,
-                          ),
+                          const SizedBox(height: 36.0),
                           BulletListItem(
                             text: Text(
                               LocalizedTexts.youAndFoodItemOne.tr(),
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
                             bulletSize: 18.0,
+                            centered: false,
                           ),
                           BulletListItem(
                             text: Text(
@@ -89,6 +75,7 @@ class _YouAndFoodIntroPageState extends State<YouAndFoodIntroPage> {
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
                             bulletSize: 18.0,
+                            centered: false,
                           ),
                           BulletListItem(
                             text: Text(
@@ -96,6 +83,7 @@ class _YouAndFoodIntroPageState extends State<YouAndFoodIntroPage> {
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
                             bulletSize: 18.0,
+                            centered: false,
                           ),
                           BulletListItem(
                             text: Text(
@@ -103,10 +91,9 @@ class _YouAndFoodIntroPageState extends State<YouAndFoodIntroPage> {
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
                             bulletSize: 18.0,
+                            centered: false,
                           ),
-                          const SizedBox(
-                            height: 16.0,
-                          ),
+                          const SizedBox(height: 16.0),
                         ],
                       ),
                     ],
