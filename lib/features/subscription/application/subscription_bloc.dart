@@ -172,7 +172,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       }
       r.valid ?? true
           ? add(SubscriptionEvent.buySubscription(product))
-          : add(SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(generalMessage)));
+          : add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(generalMessage)));
     });
   }
 

@@ -159,7 +159,6 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
 
   _errorListener(BuildContext context, SubscriptionState state) {
     final errorMessage = state.data.error?.error ?? LocalizedTexts.somethingWentWrong.tr();
-    debugPrint('devcpp  _errorListener  ERROR: ${state.data.error?.toString()}');
     controller.resetState();
     context.showErrorBar(
       content: Text(errorMessage),

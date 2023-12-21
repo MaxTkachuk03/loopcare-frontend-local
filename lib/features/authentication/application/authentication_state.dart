@@ -155,8 +155,7 @@ class AuthenticationState with _$AuthenticationState {
 
   bool get isFoodLoggingUnlocked => unlockedFeatures.contains(UnlockedFeatureType.meals);
 
-  bool get isGroupSessionsUnlocked =>
-      unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;
+  bool get isGroupSessionsUnlocked => unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;
 
   bool get isPhysicalActivitiesUnlocked => unlockedFeatures.contains(UnlockedFeatureType.physicalActivities);
 
