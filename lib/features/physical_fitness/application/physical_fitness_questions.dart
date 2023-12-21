@@ -1,7 +1,6 @@
 part of 'physical_fitness_bloc.dart';
 
 enum PhysicalFitnessQuestions {
-  intro,
   birthday,
   sex,
   height,
@@ -12,8 +11,6 @@ enum PhysicalFitnessQuestions {
 extension PhysicalFitnessQuestionsX on PhysicalFitnessQuestions {
   PageRouteInfo get route {
     switch (this) {
-      case PhysicalFitnessQuestions.intro:
-        return const PhysicalIntroRoute();
       case PhysicalFitnessQuestions.birthday:
         return const BirthdayRoute();
       case PhysicalFitnessQuestions.sex:

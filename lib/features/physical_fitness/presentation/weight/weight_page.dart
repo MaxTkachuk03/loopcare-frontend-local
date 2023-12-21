@@ -4,12 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/get_measurement_system.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_tabs.dart';
+import 'package:loopcare_frontend/features/onboarding/presentation/progress_bar.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/physical_question_wrap.dart';
@@ -59,52 +62,67 @@ class _WeightPageState extends State<WeightPage> {
   @override
   Widget build(BuildContext context) {
     return PhysicalQuestionWrap(
-      child: MainContainer(
-        child: Column(
-          children: [
-            const SizedBox(height: 80.0),
-            CustomText.bitter600(
-              LocalizedTexts.yourWeight.tr(),
-              textAlign: TextAlign.center,
-              style: context.textTheme.displayMedium,
-            ),
-            const SizedBox(height: 36.0),
-            UnitTabs(
-              tabBarViewChildren: [
-                UnitField(
-                  unit: kg,
-                  controller: kgController,
-                  focusNode: kgFieldFocusNode,
-                  maxLength: 3,
-                  isDecimal: true,
-                  counterText: '',
-                  onChanged: validateInput,
+      child: SafeArea(
+        child: ScrollableContainer(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ProgressBar.blue(backgroundColor: AppColors.yellowRegular),
+              MainContainer(
+                child: Column(
+                  children: [
+                    CustomText.bitter600(
+                      LocalizedTexts.yourWeight.tr(),
+                      textAlign: TextAlign.center,
+                      style: context.textTheme.displayMedium,
+                    ),
+                    const SizedBox(height: 36.0),
+                    UnitTabs(
+                      tabBarViewChildren: [
+                        UnitField(
+                          unit: kg,
+                          controller: kgController,
+                          focusNode: kgFieldFocusNode,
+                          maxLength: 3,
+                          isDecimal: true,
+                          counterText: '',
+                          onChanged: validateInput,
+                        ),
+                        UnitField(
+                          unit: lbs,
+                          isDecimal: true,
+                          controller: lbsController,
+                          focusNode: lbsFieldFocusNode,
+                          maxLength: 3,
+                          counterText: '',
+                          onChanged: validateInput,
+                        ),
+                      ],
+                      onTabChanged: _onTabChanged,
+                    ),
+                  ],
                 ),
-                UnitField(
-                  unit: lbs,
-                  isDecimal: true,
-                  controller: lbsController,
-                  focusNode: lbsFieldFocusNode,
-                  maxLength: 3,
-                  counterText: '',
-                  onChanged: validateInput,
+              ),
+              MainContainer(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 30.0),
+                    ValueListenableBuilder<bool>(
+                      valueListenable: valueNotifier,
+                      builder: (context, enable, _) {
+                        return _NextButton(
+                          measurementSystemType: activeMeasurementType,
+                          getWeight: getWeight,
+                          enable: enable,
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 30.0),
+                  ],
                 ),
-              ],
-              onTabChanged: _onTabChanged,
-            ),
-            const SizedBox(height: 52.0),
-            ValueListenableBuilder<bool>(
-              valueListenable: valueNotifier,
-              builder: (context, enable, _) {
-                return _NextButton(
-                  measurementSystemType: activeMeasurementType,
-                  getWeight: getWeight,
-                  enable: enable,
-                );
-              },
-            ),
-            const SizedBox(height: 30.0),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -6,9 +6,6 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/onboarding/presentation/progress_bar.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 
@@ -22,12 +19,6 @@ class PhysicalQuestionWrap extends StatelessWidget {
     this.isWithOnWillPop,
   });
 
-  _onWillPopHandler(BuildContext context) {
-    final isWithOnWillPop = this.isWithOnWillPop;
-
-    return isWithOnWillPop != null && !isWithOnWillPop ? null : _onPreviousPage(context);
-  }
-
   @override
   Widget build(BuildContext context) {
     return StepNavigationState(
@@ -40,16 +31,7 @@ class PhysicalQuestionWrap extends StatelessWidget {
             title: LocalizedTexts.physicalIntroTitle.tr(),
             leading: CustomFilledIconButton.leadingYellowLighter(),
           ),
-          body: SafeArea(
-            child: ScrollableContainer(
-              child: Column(
-                children: [
-                  const MainContainer(child: ProgressBar()),
-                  child,
-                ],
-              ),
-            ),
-          ),
+          body: child,
         ),
       ),
     );
@@ -66,14 +48,10 @@ class PhysicalQuestionWrap extends StatelessWidget {
 
   Future<bool> _onPreviousPage(BuildContext context) {
     final isWithOnWillPop = this.isWithOnWillPop;
-
     if (isWithOnWillPop != null && !isWithOnWillPop) {
-      return Future.value(false);
+    } else {
+      context.read<PhysicalFitnessBloc>().add(const PhysicalFitnessEvent.previousQuestion());
     }
-
-    context.read<PhysicalFitnessBloc>().add(
-          const PhysicalFitnessEvent.previousQuestion(),
-        );
 
     return Future.value(true);
   }
