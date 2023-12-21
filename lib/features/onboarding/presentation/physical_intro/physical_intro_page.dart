@@ -67,6 +67,7 @@ class PhysicalIntroPage extends StatelessWidget {
                       label: LocalizedTexts.next,
                       onPressed: () => _onNextPressedHandler(context),
                     ),
+                    const SizedBox(height: 30.0),
                   ],
                 ),
               ],

@@ -74,6 +74,7 @@ class JoinUsPage extends StatelessWidget {
                       label: LocalizedTexts.start,
                       onPressed: () => _onStartPressed(context),
                     ),
+                    const SizedBox(height: 30.0),
                   ],
                 ),
               ],
