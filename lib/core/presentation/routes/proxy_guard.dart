@@ -15,8 +15,7 @@ class ProxyGuard extends AutoRouteGuard {
       resolver.next(true);
     } else {
       if (authenticationCubit.state.isAuthenticated) {
-        final route =
-            authenticationCubit.state.isPreferencesComplete ? AppRoutes.home : AppRoutes.preferencesOverview;
+        const route = AppRoutes.home;
         MixpanelEventService.instance.trackVisit(
           "${AppMixpanelEvents.appRote}:  $route",
           userId: authenticationCubit.state.id,

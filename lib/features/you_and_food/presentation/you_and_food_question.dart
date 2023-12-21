@@ -25,13 +25,13 @@ class YouAndFoodQuestion extends StatelessWidget {
       appBar: AppBar(
         title: Column(
           children: [
-            Text(LocalizedTexts.youAndFood.tr()),
+            Text(
+              LocalizedTexts.youAndFood.tr(),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
+            ),
             Text(
               subtitle,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.copyWith(fontWeight: FontWeight.w700),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
             ),
           ],
         ),
@@ -39,15 +39,11 @@ class YouAndFoodQuestion extends StatelessWidget {
       body: SafeArea(
         child: MainContainer(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(
-                height: 48.0,
-              ),
+              const SizedBox(height: 48.0),
               question,
-              const SizedBox(
-                height: 26.0,
-              ),
+              const SizedBox(height: 26.0),
               Expanded(
                 child: ScrollableContainer(
                   child: questionList,
@@ -60,10 +56,8 @@ class YouAndFoodQuestion extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: onNextPressed,
-                    style:
-                        Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                      backgroundColor:
-                          MaterialStateProperty.resolveWith<Color?>(
+                    style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color?>(
                         (Set<MaterialState> states) {
                           if (states.contains(MaterialState.disabled)) {
                             return AppColors.greyMid;

@@ -26,7 +26,7 @@ class PreferencesOverviewPage extends StatelessWidget {
           listener: _logOutListener,
         ),
         BlocListener<AuthenticationCubit, AuthenticationState>(
-          listenWhen: (prev, current) => current is Authenticated && current.isPreferencesComplete,
+          listenWhen: (prev, current) => current is Authenticated,
           listener: _preferencesComplete,
         ),
         BlocListener<YouAndFoodBloc, YouAndFoodState>(

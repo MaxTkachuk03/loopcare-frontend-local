@@ -781,6 +781,10 @@ class LocalizedTexts {
   static const String completedOn = "completedOn";
   static const String pastAssignments = "pastAssignments";
 
+  // Food preferences
+  static const String foodLoggingUnlocked = "foodLoggingUnlocked";
+  static const String youCanStartLogging = "youCanStartLogging";
+
   // TODO new texts go under comment
   // Intro
   static const String introTitle = 'introTitle';

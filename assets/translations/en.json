@@ -185,7 +185,7 @@
   "fish": "fish",
   "allergicQuestion": "Are you allergic to any of the following?",
   "ready": "Ready",
-  "iDoNotEatOrDrink": "I do not eat/drink:",
+  "iDoNotEatOrDrink": "I do not eat or drink:",
   "iPreferToEatMeatOrFish": "I prefer to eat meat/fish:",
   "iAmAllergicTo": "I am allergic to:",
   "iDoNotLike": "I do not like:",
@@ -719,5 +719,7 @@
   "completeBefore": "Complete before {date}",
   "completedOn": "Completed on {date}",
   "pastAssignments": "Past assignments",
-  "iWantToLogMy": "I want to log my"
+  "iWantToLogMy": "I want to log my",
+  "foodLoggingUnlocked": "Food logging unlocked",
+  "youCanStartLogging": "You can start logging your meals right now"
 }
