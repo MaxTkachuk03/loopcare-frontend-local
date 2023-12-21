@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
+import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/food_logging_block.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/lesson_questions_added_to_calendar.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_block.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
@@ -155,6 +156,25 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                             return LessonQuestionsAddedToCalendar(
                               completedAt: state.data.lessonCompletedDate ?? DateTime.now(),
                               onBtnPressed: () => _startLessonQuestion(context, state.data.lessonId),
+                            );
+                          }
+
+                          return const SizedBox.shrink();
+                        },
+                      ),
+                      BlocBuilder<EducationLessonBloc, EducationLessonState>(
+                        builder: (BuildContext context, state) {
+                          if (state.data.extraAction == ExtraActionTypes.unlockMeals) {
+                            return Column(
+                              children: [
+                                const Text(
+                                  LocalizedTexts.completedLessonDesc,
+                                  textAlign: TextAlign.center,
+                                ).tr(),
+                                const SizedBox(height: 40),
+                                const FoodLoggingUnlockBloc(),
+                                const SizedBox(height: 30),
+                              ],
                             );
                           }
 

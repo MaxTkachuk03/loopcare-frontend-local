@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -23,7 +22,7 @@ class ProxyGuard extends AutoRouteGuard {
         if (!(accessTokenIsUpdated && refreshTokenIsUpdated)) {
           route = AppRoutes.login;
         } else if (authenticationCubit.state.hasActiveSubscription) {
-          route = authenticationCubit.state.isPreferencesComplete ? AppRoutes.home : AppRoutes.preferencesOverview;
+          route = AppRoutes.home;
         } else {
           route = AppRoutes.subscription;
         }

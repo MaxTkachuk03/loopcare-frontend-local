@@ -7,6 +7,10 @@
   "intro2BodyTextFirst": "You have just taken the first step to the “ME” you want to be",
   "intro2BodyTextSecond": "To check if the program is suitable for you and your needs, please answer the upcoming questions regarding your physical, medical and mental health",
   "loginTitle": "Welcome back to {projectName}",
+  "forgotPasswordTitle": "Forgot your password",
+  "forgotPasswordSubTitle": "Your email address",
+  "forgotPasswordBody": "Enter your email address and we will send you instructions to reset your password",
+
 
   "getStarted": "Get started",
   "haveAnAccount": "Have an account?",
@@ -61,10 +65,10 @@
   "forgotPassword": "Forgot password",
   "yourPassword": "Your password",
   "login": "Login",
-  "forgotYourPasswordTitle": "Forgot your password?",
-  "forgotYourPasswordText": "Enter your email address and we will send you instructions to reset your password",
+
+
   "yourEmail": "Your email",
-  "returnToLoginScreen": "Return to log in screen",
+
   "enterNewPassword": "Enter a new password below to\n change your password.",
   "repeatPassword": "Repeat Password",
   "passwordStrengthToShort": "Your password too short",
@@ -181,7 +185,7 @@
   "fish": "fish",
   "allergicQuestion": "Are you allergic to any of the following?",
   "ready": "Ready",
-  "iDoNotEatOrDrink": "I do not eat/drink:",
+  "iDoNotEatOrDrink": "I do not eat or drink:",
   "iPreferToEatMeatOrFish": "I prefer to eat meat/fish:",
   "iAmAllergicTo": "I am allergic to:",
   "iDoNotLike": "I do not like:",
@@ -713,6 +717,9 @@
   "doneToday": "Done today",
   "completeBefore": "Complete before {date}",
   "completedOn": "Completed on {date}",
+  "iWantToLogMy": "I want to log my",
+  "foodLoggingUnlocked": "Food logging unlocked",
+  "youCanStartLogging": "You can start logging your meals right now"
   "pastAssignments": "Past assignments",
   "existMealText": "You want to create a new meal or edit  existing?",
   "subscriptionTrialTitle": "First 4 weeks free",

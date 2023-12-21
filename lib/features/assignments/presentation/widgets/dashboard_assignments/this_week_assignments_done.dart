@@ -35,7 +35,8 @@ class ThisWeekAssignmentsDone extends StatelessWidget {
           itemCount: questions.length,
           itemBuilder: (BuildContext context, int index) {
             return AssignmentListItem(
-              isDone: true,
+              isOpen: questions[index].isEditable,
+              isComplete: questions[index].completedAt != null,
               onDashboard: onDashboard,
               item: questions[index],
               onBtnPressed: (int lessonId) => onBtnPressed(lessonId),

@@ -159,7 +159,8 @@ class _LessonPageState extends State<LessonPage> {
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadSubtitlesFile(state.data.currentPage.content.subtitlesImages!),
+                        EducationLessonEvent.downloadSubtitlesFile(
+                            state.data.currentPage.content.subtitlesImages!),
                       );
                 }
                 return LessonAudioPage(
@@ -203,7 +204,8 @@ class _LessonPageState extends State<LessonPage> {
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadSubtitlesFile(state.data.currentPage.content.subtitlesImages!),
+                        EducationLessonEvent.downloadSubtitlesFile(
+                            state.data.currentPage.content.subtitlesImages!),
                       );
                 }
                 return LessonAudioPage(
@@ -239,7 +241,8 @@ class _LessonPageState extends State<LessonPage> {
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadSubtitlesFile(state.data.currentPage.content.subtitlesImages!),
+                        EducationLessonEvent.downloadSubtitlesFile(
+                            state.data.currentPage.content.subtitlesImages!),
                       );
                 }
                 return LessonAudioPage(

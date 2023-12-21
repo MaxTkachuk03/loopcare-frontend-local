@@ -20,46 +20,39 @@ AppConfig appConfig = getIt<AppConfig>();
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
-  void _onForgotMyPassword(BuildContext context) {
-    context.router.pushNamed(AppRoutes.forgotPassword);
-  }
+  void _onForgotMyPassword(BuildContext context) => context.router.pushNamed(AppRoutes.forgotPassword);
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: CustomScaffold.green(
-        appBar: CustomAppBar.transparent(
-          leading: CustomFilledIconButton.leadingGreenLighter(),
-        ),
-        body: SafeArea(
-          child: ScrollableContainer(
-            child: MainContainer(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(height: 8.0),
-                  Container(alignment: Alignment.center, child: const Image(image: AppImages.intro)),
-                  const SizedBox(height: 24.0),
-                  CustomText.bitter600(
-                    '${LocalizedTexts.loginTitle.tr(namedArgs: {'projectName': appConfig.projectName})}!',
-                    style: context.textTheme.displayLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 38.0),
-                  const LoginForm(),
-                  TextButton(
-                    onPressed: () => _onForgotMyPassword(context),
-                    child: CustomText.w700(
-                      '${LocalizedTexts.forgotPassword.tr()}?',
-                      style: context.textTheme.bodySmall?.copyWith(
-                        decoration: TextDecoration.underline,
-                        decorationThickness: 3.0,
-                      ),
+    return CustomScaffold.green(
+      appBar: CustomAppBar.transparent(leading: CustomFilledIconButton.leadingGreenLighter()),
+      body: SafeArea(
+        child: ScrollableContainer(
+          child: MainContainer(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 8.0),
+                Container(alignment: Alignment.center, child: const Image(image: AppImages.intro)),
+                const SizedBox(height: 24.0),
+                CustomText.bitter600(
+                  '${LocalizedTexts.loginTitle.tr(namedArgs: {'projectName': appConfig.projectName})}!',
+                  style: context.textTheme.displayLarge,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 38.0),
+                const LoginForm(),
+                TextButton(
+                  onPressed: () => _onForgotMyPassword(context),
+                  child: CustomText.w700(
+                    '${LocalizedTexts.forgotPassword.tr()}?',
+                    style: context.textTheme.bodySmall?.copyWith(
+                      decoration: TextDecoration.underline,
+                      decorationThickness: 3.0,
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
           ),
         ),

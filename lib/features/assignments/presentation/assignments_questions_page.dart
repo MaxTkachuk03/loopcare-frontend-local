@@ -40,6 +40,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
   late AnswerWidgetType widgetType;
   int _totalSteps = 1;
   late LessonQuestion question;
+  bool isNotSaved = true;
 
   @override
   void initState() {
@@ -80,12 +81,16 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
     );
   }
 
-  void _onNextHandler() {
+  void _onNextHandler({bool isEditable = true}) {
     if (widget.step == (_totalSteps - 1)) {
-      if (widget.fromDashboard) {
-        context.router.pushNamed(AppRoutes.assignmentsSaved);
+      if (isEditable) {
+        if (widget.fromDashboard) {
+          context.router.pushNamed(AppRoutes.assignmentsSaved);
+        } else {
+          context.router.pushNamed(AppRoutes.lessonComplete);
+        }
       } else {
-        context.router.pushNamed(AppRoutes.lessonComplete);
+        context.router.popUntilRouteWithName(MyAssignmentsRoute.name);
       }
     } else {
       context.router.push(
@@ -198,11 +203,12 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
   }
 
   void _onUpdateHandler(AssignmentsState state) {
+    isNotSaved = false;
     _onNextHandler();
   }
 
   bool _nextStepListenWhen(AssignmentsState previous, AssignmentsState current) {
-    return previous is AssignmentsStateLoading && current is AssignmentsStateUpdated;
+    return previous is AssignmentsStateLoading && current is AssignmentsStateUpdated && isNotSaved;
   }
 
   void _onStepChangeListener(BuildContext context, AssignmentsState state) {
@@ -255,37 +261,50 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
           child: Text('multipleChoiceValidation'),
         ),
         scale: (_) => AnswerScale(
-          isEditable: state.data.questionForStep(widget.step).isEditable,
+          isEditable: question.isEditable,
           controller: _controller,
           question: question,
-          onNextPressed: () => _controller.isScaleChoiceValid ? _saveScaleField(state.data.lessonId) : null,
+          onNextPressed: () => question.isEditable
+              ? _controller.isScaleChoiceValid
+                  ? _saveScaleField(state.data.lessonId)
+                  : null
+              : _onNextHandler(isEditable: false),
           onSelectValue: _onSelectScaleHandler,
           selectedScore: _controller.selectScaleValue.value,
-          feedbackText:
-              _feedbackText(_controller.selectScaleValue.value, state.data.questionForStep(widget.step)),
+          feedbackText: _feedbackText(_controller.selectScaleValue.value, question),
         ),
         multipleChoiceMultiple: (_) => AnswerOption(
-          isEditable: state.data.questionForStep(widget.step).isEditable,
+          isEditable: question.isEditable,
           controller: _controller,
           question: question,
-          onNextPressed: () =>
-              _controller.isOptionChoiceValid ? _saveOptionsField(state.data.lessonId) : null,
+          onNextPressed: () => question.isEditable
+              ? _controller.isOptionChoiceValid
+                  ? _saveOptionsField(state.data.lessonId)
+                  : null
+              : _onNextHandler(isEditable: false),
           onSelectOptionValue: _onSelectOptionHandler,
         ),
         multipleChoiceSingle: (_) => AnswerOption(
-          isEditable: state.data.questionForStep(widget.step).isEditable,
+          isEditable: question.isEditable,
           controller: _controller,
           question: question,
-          onNextPressed: () =>
-              _controller.isOptionChoiceValid ? _saveOptionsField(state.data.lessonId) : null,
+          onNextPressed: () => question.isEditable
+              ? _controller.isOptionChoiceValid
+                  ? _saveOptionsField(state.data.lessonId)
+                  : null
+              : _onNextHandler(isEditable: false),
           onSelectOptionValue: _onSelectOptionHandler,
         ),
         text: (_) => AnswerText(
-          isEditable: state.data.questionForStep(widget.step).isEditable,
-          mode: mode,
+          isEditable: question.isEditable,
+          mode: question.isEditable ? mode : const QuestionsPageMode.showAnswer(),
           controller: _controller,
           question: question,
-          onNextPressed: () => _controller.isOpenTextValid ? _saveTextField(state.data.lessonId) : null,
+          onNextPressed: (int lessonId) => question.isEditable
+              ? _controller.isOpenTextValid
+                  ? _saveTextField(state.data.lessonId)
+                  : null
+              : _onNextHandler(isEditable: false),
           onAnswerPressed: () => setState(
             () {
               mode = const QuestionsPageMode.askQuestion();

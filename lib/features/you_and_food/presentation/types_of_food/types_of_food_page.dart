@@ -13,22 +13,37 @@ class TypesOfFoodPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return YouAndFoodQuestion(
       subtitle: '1 ${LocalizedTexts.of.tr()} 3',
-      question: RichText(
-        text: TextSpan(
-          text: '${LocalizedTexts.whichTypesOfFoodDoYou.tr()} ',
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
+      question: Align(
+        alignment: AlignmentDirectional.centerStart,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextSpan(
-              text: LocalizedTexts.not.tr().toUpperCase(),
+            RichText(
+              text: TextSpan(
+                text: '${LocalizedTexts.whichTypesOfFoodDoYou.tr()} ',
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                children: [
+                  TextSpan(
+                    text: LocalizedTexts.not.tr().toUpperCase(),
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.w800,
+                        ),
+                  ),
+                  TextSpan(
+                    text: ' ${LocalizedTexts.eatOrDrink.tr()}',
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 22.0),
+            Text(
+              LocalizedTexts.iDoNotEatOrDrink,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     fontWeight: FontWeight.w800,
                   ),
-            ),
-            TextSpan(
-              text: ' ${LocalizedTexts.eatOrDrink.tr()}',
-            ),
+            ).tr(),
           ],
         ),
       ),

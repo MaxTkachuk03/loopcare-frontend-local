@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class SearchEmptyResult extends StatelessWidget {
@@ -8,23 +10,19 @@ class SearchEmptyResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: AppColors.greenLightest,
       width: double.infinity,
       padding: const EdgeInsets.all(26.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            LocalizedTexts.searchEmptyResultTitle.translation,
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(color: AppColors.blueDark),
+          CustomText.w600(
+            LocalizedTexts.searchEmptyResultTitle.tr(),
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.blueRegular),
           ),
-          const SizedBox(
-            height: 8.0,
-          ),
-          Text(
-            LocalizedTexts.searchEmptyResultText.translation,
+          const SizedBox(height: 8.0),
+          CustomText.w500(
+            LocalizedTexts.searchEmptyResultText.tr(),
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ],

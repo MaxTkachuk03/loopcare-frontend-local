@@ -52,10 +52,10 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
-  bool get isPreferencesComplete {
+  List<UnlockedFeatureType> get unlockedFeatures {
     return maybeWhen(
-      orElse: () => false,
-      authenticated: (state) => state.isPreferencesComplete,
+      orElse: () => [],
+      authenticated: (state) => state.unlockedFeatures,
     );
   }
 
@@ -63,13 +63,6 @@ class AuthenticationState with _$AuthenticationState {
     return maybeWhen(
       orElse: () => false,
       authenticated: (state) => state.subscription.isActive && state.subscription.state == 'common',
-    );
-  }
-
-  List<UnlockedFeatureType> get unlockedFeatures {
-    return maybeWhen(
-      orElse: () => [],
-      authenticated: (state) => state.unlockedFeatures,
     );
   }
 

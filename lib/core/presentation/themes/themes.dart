@@ -160,9 +160,9 @@ TextTheme _getTextTheme() {
       fontSize: ThemeConstants.fontSize28,
     ),
     displayMedium: TextStyle(
-      color: AppColors.darkGreen,
-      fontSize: ThemeConstants.fontSize48,
-      fontWeight: FontWeight.w600,
+      // Restyled
+      color: AppColors.blueDarker,
+      fontSize: ThemeConstants.fontSize24,
     ),
     displaySmall: TextStyle(
       color: AppColors.darkGreen,
@@ -180,14 +180,19 @@ TextTheme _getTextTheme() {
       fontWeight: FontWeight.w600,
     ),
     titleLarge: TextStyle(
+      // Restyled
       color: AppColors.darkGreen,
-      fontSize: ThemeConstants.fontSize16,
-      fontWeight: FontWeight.w700,
+      fontSize: ThemeConstants.fontSize18,
     ),
     titleMedium: TextStyle(
+      // Restyled
       color: AppColors.black,
       fontSize: ThemeConstants.fontSize16,
-      fontWeight: FontWeight.w400,
+    ),
+    titleSmall: TextStyle(
+      // Restyled
+      color: AppColors.black,
+      fontSize: ThemeConstants.fontSize14,
     ),
   );
 }

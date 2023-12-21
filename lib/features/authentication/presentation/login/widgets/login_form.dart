@@ -84,7 +84,7 @@ class _LoginFormState extends State<LoginForm> {
       authenticated: (state) {
         String route;
         if (state.hasActiveSubscription) {
-          route = state.isPreferencesComplete ? AppRoutes.home : AppRoutes.preferencesOverview;
+          route = AppRoutes.home;
         } else {
           route = AppRoutes.subscription;
         }

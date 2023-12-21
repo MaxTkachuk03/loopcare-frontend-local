@@ -61,7 +61,7 @@ app.*.map.json
 *.gr.dart*
 *.config.dart*
 
-pubspec.lock
+# pubspec.lock
 
 # Flutter Version Manager
 .fvm/*

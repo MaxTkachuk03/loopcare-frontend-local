@@ -3,10 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
+import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
@@ -41,17 +40,11 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
         onChanged: _onChangedForm,
         child: Column(
           children: [
-            Field(
-              hintText: LocalizedTexts.yourEmail.tr(),
-              prefixIcon: AppIcons.iconMail,
-              controller: _emailController,
-              validator: emailValidator(),
-              keyboardType: TextInputType.emailAddress,
-            ),
-            const SizedBox(height: 32.0),
-            ElevatedButton(
+            CustomTextField.email(controller: _emailController),
+            const SizedBox(height: 28.0),
+            CustomElevatedButton.blueFullWidth(
               onPressed: _isDisabled ? null : () => _onContinuePressed(context),
-              child: Text(LocalizedTexts.continueBtn.tr()),
+              label: LocalizedTexts.continueBtn,
             ),
           ],
         ),
