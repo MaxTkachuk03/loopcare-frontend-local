@@ -5,13 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/survey_image_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/progress_bar.dart';
@@ -60,31 +60,25 @@ class CheckPassedPage extends StatelessWidget {
               Column(
                 children: [
                   ProgressBar.blue(backgroundColor: AppColors.yellowRegular),
-                  ClipPath(
-                    clipper: SurveyImageClipper2(),
-                    child: Container(
-                      width: double.infinity,
-                      height: 180,
-                      color: AppColors.yellowRegular,
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 120.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const CircleAvatar(
-                                radius: 22.0,
-                                backgroundColor: AppColors.blueDarker,
-                                child: Icon(Icons.check, size: 22),
-                              ),
-                              const SizedBox(height: 22.0),
-                              CustomText.bitter600(
-                                '${LocalizedTexts.physicalCheckPassedTitle.tr()}!',
-                                style: context.textTheme.displayMedium,
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
+                  UnderAppbar.yellow(
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 120.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const CircleAvatar(
+                              radius: 22.0,
+                              backgroundColor: AppColors.blueDarker,
+                              child: Icon(Icons.check, size: 22),
+                            ),
+                            const SizedBox(height: 22.0),
+                            CustomText.bitter600(
+                              '${LocalizedTexts.physicalCheckPassedTitle.tr()}!',
+                              style: context.textTheme.displayMedium,
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
                         ),
                       ),
                     ),

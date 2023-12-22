@@ -4,12 +4,12 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/survey_image_clipper.dart';
 
 class CheckFailedAgePage extends StatelessWidget {
   const CheckFailedAgePage({super.key});
@@ -25,20 +25,14 @@ class CheckFailedAgePage extends StatelessWidget {
         child: ScrollableContainer(
           child: Column(
             children: [
-              ClipPath(
-                clipper: SurveyImageClipper2(),
-                child: Container(
-                  width: double.infinity,
-                  height: 180,
-                  color: AppColors.yellowRegular,
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 65.0),
-                      child: CustomText.bitter600(
-                        LocalizedTexts.ageCheckFailedTitle.tr(),
-                        style: context.textTheme.displayMedium,
-                        textAlign: TextAlign.center,
-                      ),
+              UnderAppbar.yellow(
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 65.0),
+                    child: CustomText.bitter600(
+                      LocalizedTexts.ageCheckFailedTitle.tr(),
+                      style: context.textTheme.displayMedium,
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
