@@ -1,7 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 
@@ -10,54 +16,46 @@ class CheckFailedAgePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(LocalizedTexts.bodyAndMind.tr()),
+    return CustomScaffold.yellow(
+      appBar: CustomAppBar.yellow(
+        title: LocalizedTexts.physicalIntroTitle.tr(),
+        leading: CustomFilledIconButton.leadingYellowLighter(),
       ),
       body: SafeArea(
         child: ScrollableContainer(
-          child: MainContainer(
-            child: Column(
-              children: [
-                const SizedBox(height: 24),
-                Container(
-                  padding: const EdgeInsets.only(
-                    top: 35,
-                    bottom: 59,
-                    left: 32,
-                    right: 32,
-                  ),
-                  decoration: const BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16),
+          child: Column(
+            children: [
+              UnderAppbar.yellow(
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 65.0),
+                    child: CustomText.bitter600(
+                      LocalizedTexts.ageCheckFailedTitle.tr(),
+                      style: context.textTheme.displayMedium,
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        LocalizedTexts.ageCheckFailedText.tr(),
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      const SizedBox(height: 26),
-                      // Text(LocalizedTexts.fitnessCheckFailedAdviceText.tr()),
-                      // const SizedBox(height: 26),
-                      // SmallFilledButton(
-                      //   text: LocalizedTexts.moreInfo.tr(),
-                      //   onPressed: _onMoreInfoPressed,
-                      // ),
-                    ],
+                ),
+              ),
+              const SizedBox(height: 48),
+              MainContainer(
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                  decoration: const BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                  ),
+                  child: CustomText.w400(
+                    LocalizedTexts.ageCheckFailedBody.tr(),
+                    style: context.textTheme.bodyMedium,
                   ),
                 ),
-                const SizedBox(height: 30),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
-
-  // void _onMoreInfoPressed() {}
 }

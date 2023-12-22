@@ -5,15 +5,12 @@ class BirthDatePicker extends StatelessWidget {
   final DateTime value;
   final void Function(DateTime selected) selectedDate;
 
-  const BirthDatePicker({
-    super.key,
-    required this.value,
-    required this.selectedDate,
-  });
+  const BirthDatePicker({super.key, required this.value, required this.selectedDate});
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      color: AppColors.datePickerBg,
       height: 262,
       child: CupertinoTheme(
         data: const CupertinoThemeData(

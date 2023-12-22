@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_ship.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
 import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
@@ -51,23 +51,21 @@ class _SexChipsState extends State<SexChips> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: SexType.values
-          .map(
-            (SexType sex) => Column(
-              children: [
-                AppChoiceChip(
-                  label: sex.name.capitalize(),
-                  selected: sex == _selectedValue,
-                  value: sex,
-                  chipHeight: 50.0,
-                  onSelected: _onSelectedSexHandler,
-                ),
-                const SizedBox(height: 8.0),
-              ],
-            ),
-          )
-          .toList(),
+    return ListView.separated(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemBuilder: (BuildContext context, int i) {
+        final item = SexType.values[i];
+
+        return CustomChoiceChip.yellow(
+          label: item.name.capitalize(),
+          selected: item == _selectedValue,
+          onSelected: _onSelectedSexHandler,
+          value: item,
+        );
+      },
+      separatorBuilder: (_, __) => const SizedBox(height: 8.0),
+      itemCount: SexType.values.length,
     );
   }
 }

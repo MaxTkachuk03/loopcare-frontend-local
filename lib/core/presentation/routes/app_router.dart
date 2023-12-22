@@ -26,7 +26,6 @@ import 'package:loopcare_frontend/features/authentication/presentation/forgot_pa
 import 'package:loopcare_frontend/features/authentication/presentation/login/login_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/name/name_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/password/password_page.dart';
-import 'package:loopcare_frontend/features/authentication/presentation/reset_password/reset_password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/waiting_for_confirmation/waiting_for_confirmation_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/consent_confirmation_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/no_consent_page.dart';
@@ -86,6 +85,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanne
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/select_food_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/nutrition_instructions_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/week_planner/week_planner_page.dart';
+import 'package:loopcare_frontend/features/onboarding/presentation/physical_intro/physical_intro_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_activity_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_completed_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_frequency_page.dart';
@@ -154,17 +154,38 @@ const groupLessonRoutes = [
       page: IntroPage,
     ),
     AutoRoute(
-      path: AppRoutes.home,
-      page: HomePage,
-      children: [
-        AutoRoute(path: AppRoutes.dashboard, page: DashboardPage),
-        AutoRoute(path: AppRoutes.education, page: EducationPage),
-        AutoRoute(path: AppRoutes.account, page: AccountPage),
-      ],
-    ),
-    AutoRoute(
       path: AppRoutes.joinUs,
       page: JoinUsPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.login,
+      page: LoginPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.forgotPassword,
+      page: ForgotPasswordPage,
+    ),
+
+    // Onboarding Physical
+    AutoRoute(
+      path: AppRoutes.physicalIntro,
+      page: PhysicalIntroPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.birthday,
+      page: BirthdayPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.checkFailedByAge,
+      page: CheckFailedAgePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.sex,
+      page: SexPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.biologicalGender,
+      page: BiologicalGenderPage,
     ),
     AutoRoute(
       path: AppRoutes.height,
@@ -175,17 +196,11 @@ const groupLessonRoutes = [
       page: WeightPage,
     ),
     AutoRoute(
-      path: AppRoutes.birthday,
-      page: BirthdayPage,
+      path: AppRoutes.physicalCheckResult,
+      page: PhysicalCheckResultPage,
     ),
-    AutoRoute(
-      path: AppRoutes.sex,
-      page: SexPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.biologicalGender,
-      page: BiologicalGenderPage,
-    ),
+
+    // Onboarding Medical
     AutoRoute(
       path: AppRoutes.medicalIntro,
       page: MedicalIntroPage,
@@ -247,10 +262,6 @@ const groupLessonRoutes = [
       page: MedicationFuturePeriodPage,
     ),
     AutoRoute(
-      path: AppRoutes.physicalCheckResult,
-      page: PhysicalCheckResultPage,
-    ),
-    AutoRoute(
       path: AppRoutes.consentNeeded,
       page: ConsentNeededPage,
     ),
@@ -266,17 +277,19 @@ const groupLessonRoutes = [
       path: AppRoutes.mentalCheckResult,
       page: MentalCheckResultPage,
     ),
+    // TODO dead code
+    // AutoRoute(
+    //   path: AppRoutes.resetPassword,
+    //   page: ResetPasswordPage,
+    // ),
     AutoRoute(
-      path: AppRoutes.login,
-      page: LoginPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.forgotPassword,
-      page: ForgotPasswordPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.resetPassword,
-      page: ResetPasswordPage,
+      path: AppRoutes.home,
+      page: HomePage,
+      children: [
+        AutoRoute(path: AppRoutes.dashboard, page: DashboardPage),
+        AutoRoute(path: AppRoutes.education, page: EducationPage),
+        AutoRoute(path: AppRoutes.account, page: AccountPage),
+      ],
     ),
     AutoRoute(
       path: AppRoutes.signUpWelcome,
@@ -297,10 +310,6 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.waitingForConfirmation,
       page: WaitingForConfirmationPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.checkFailedByAge,
-      page: CheckFailedAgePage,
     ),
     AutoRoute(
       path: AppRoutes.consentConfirmation,

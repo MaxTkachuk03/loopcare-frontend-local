@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_numbers.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/widgets/already_planned_card.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/html_renderer/html_renderer.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
@@ -92,16 +93,9 @@ class ModalBottomSheet {
     });
   }
 
-  static void physicalInvalidMessage({
-    required BuildContext context,
-    required String message,
-    required String btnText,
-    required void Function() onBtnPress,
-  }) {
+  static void physicalInvalidMessage({required BuildContext context, required String message}) {
     showModalBottomSheet<void>(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
       builder: (BuildContext context) {
         return Container(
@@ -111,21 +105,18 @@ class ModalBottomSheet {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 32.0),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 22.0),
-                child: Text(
-                  message,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.orangeDark),
-                ),
+              CustomText.w500(
+                message,
+                style: context.textTheme.bodyMedium?.copyWith(color: AppColors.orangeDark),
               ),
-              const SizedBox(height: 27.0),
-              ElevatedButton(
-                onPressed: onBtnPress,
-                style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                      backgroundColor: MaterialStateProperty.all(AppColors.bgGreen),
-                      foregroundColor: MaterialStateProperty.all(AppColors.black),
-                    ),
-                child: Text(btnText),
+              CustomText.w400(
+                LocalizedTexts.correctHeight,
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 32.0),
+              CustomElevatedButton.blueFullWidth(
+                onPressed: context.router.pop,
+                label: LocalizedTexts.changeYourHeight,
               ),
             ],
           ),

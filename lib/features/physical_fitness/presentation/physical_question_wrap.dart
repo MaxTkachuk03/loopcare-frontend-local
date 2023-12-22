@@ -1,7 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding/presentation/question_wrap.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 
@@ -20,10 +24,15 @@ class PhysicalQuestionWrap extends StatelessWidget {
     return StepNavigationState(
       onNextPage: () => _onNextPage(context),
       onPreviousPage: () => _onPreviousPage(context),
-      child: QuestionWrap(
-        isWithOnWillPop: isWithOnWillPop,
-        onPreviousPage: () => _onPreviousPage(context),
-        child: child,
+      child: WillPopScope(
+        onWillPop: () => _onPreviousPage(context),
+        child: CustomScaffold(
+          appBar: CustomAppBar.yellow(
+            title: LocalizedTexts.physicalIntroTitle.tr(),
+            leading: CustomFilledIconButton.leadingYellowLighter(),
+          ),
+          body: child,
+        ),
       ),
     );
   }
@@ -38,9 +47,11 @@ class PhysicalQuestionWrap extends StatelessWidget {
   }
 
   Future<bool> _onPreviousPage(BuildContext context) {
-    context.read<PhysicalFitnessBloc>().add(
-          const PhysicalFitnessEvent.previousQuestion(),
-        );
+    final isWithOnWillPop = this.isWithOnWillPop;
+    if (isWithOnWillPop != null && !isWithOnWillPop) {
+    } else {
+      context.read<PhysicalFitnessBloc>().add(const PhysicalFitnessEvent.previousQuestion());
+    }
 
     return Future.value(true);
   }

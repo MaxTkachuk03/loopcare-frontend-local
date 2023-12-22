@@ -1,13 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/get_measurement_system.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_tabs.dart';
+import 'package:loopcare_frontend/features/onboarding/presentation/progress_bar.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/physical_question_wrap.dart';
@@ -57,60 +62,67 @@ class _WeightPageState extends State<WeightPage> {
   @override
   Widget build(BuildContext context) {
     return PhysicalQuestionWrap(
-      child: MainContainer(
-        child: Column(
-          children: [
-            const SizedBox(height: 70),
-            Text(
-              LocalizedTexts.yourWeight.tr(),
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-            const SizedBox(height: 48),
-            UnitTabs(
-              tabBarViewChildren: [
-                UnitField(
-                  unit: kg,
-                  controller: kgController,
-                  focusNode: kgFieldFocusNode,
-                  maxLength: 3,
-                  isDecimal: true,
-                  counterText: '',
-                  onChanged: validateInput,
+      child: SafeArea(
+        child: ScrollableContainer(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ProgressBar.blue(backgroundColor: AppColors.yellowRegular),
+              MainContainer(
+                child: Column(
+                  children: [
+                    CustomText.bitter600(
+                      LocalizedTexts.yourWeight.tr(),
+                      textAlign: TextAlign.center,
+                      style: context.textTheme.displayMedium,
+                    ),
+                    const SizedBox(height: 36.0),
+                    UnitTabs(
+                      tabBarViewChildren: [
+                        UnitField(
+                          unit: kg,
+                          controller: kgController,
+                          focusNode: kgFieldFocusNode,
+                          maxLength: 3,
+                          isDecimal: true,
+                          counterText: '',
+                          onChanged: validateInput,
+                        ),
+                        UnitField(
+                          unit: lbs,
+                          isDecimal: true,
+                          controller: lbsController,
+                          focusNode: lbsFieldFocusNode,
+                          maxLength: 3,
+                          counterText: '',
+                          onChanged: validateInput,
+                        ),
+                      ],
+                      onTabChanged: _onTabChanged,
+                    ),
+                  ],
                 ),
-                UnitField(
-                  unit: lbs,
-                  isDecimal: true,
-                  controller: lbsController,
-                  focusNode: lbsFieldFocusNode,
-                  maxLength: 3,
-                  counterText: '',
-                  onChanged: validateInput,
+              ),
+              MainContainer(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 30.0),
+                    ValueListenableBuilder<bool>(
+                      valueListenable: valueNotifier,
+                      builder: (context, enable, _) {
+                        return _NextButton(
+                          measurementSystemType: activeMeasurementType,
+                          getWeight: getWeight,
+                          enable: enable,
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 30.0),
+                  ],
                 ),
-              ],
-              onTabChanged: _onTabChanged,
-            ),
-            const SizedBox(height: 16.0),
-            // UnderlinedClickableText(
-            //   text: LocalizedTexts.needHelpWithThis.tr(),
-            //   onTap: _onHelpTap,
-            // ),
-            const SizedBox(height: 20.0),
-
-            ValueListenableBuilder<bool>(
-              valueListenable: valueNotifier,
-              builder: (context, enable, _) {
-                return _NextButton(
-                  measurementSystemType: activeMeasurementType,
-                  getWeight: getWeight,
-                  enable: enable,
-                );
-              },
-            ),
-            const SizedBox(height: 30.0),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -169,14 +181,9 @@ class _NextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return CustomElevatedButton.blueFullWidth(
       onPressed: enable ? () => _onNextPressed(context) : null,
-      style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-            backgroundColor: MaterialStateProperty.all(enable ? AppColors.orangeDark : AppColors.greyLight),
-          ),
-      child: Text(
-        LocalizedTexts.next.tr(),
-      ),
+      label: LocalizedTexts.next,
     );
   }
 

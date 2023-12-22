@@ -105,5 +105,7 @@ class AppImages {
   static const AssetImage intro = AssetImage('$imagesFilePath/new_intro.png');
   static const AssetImage intro2 = AssetImage('$imagesFilePath/new_intro2.png');
 
+  static const AssetImage physicalIntro = AssetImage('$imagesFilePath/new_physical_intro.png');
+
   AppImages._();
 }
