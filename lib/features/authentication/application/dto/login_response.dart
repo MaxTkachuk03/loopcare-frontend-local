@@ -13,7 +13,6 @@ class LoginResponse {
   final String name;
   final String email;
   final String? country;
-  final bool isPreferencesComplete;
   final SexType gender;
   final String bioGender;
   final DateTime emailApproveDate;
@@ -25,7 +24,6 @@ class LoginResponse {
     required this.name,
     required this.email,
     required this.country,
-    required this.isPreferencesComplete,
     required this.gender,
     required this.bioGender,
     required this.emailApproveDate,

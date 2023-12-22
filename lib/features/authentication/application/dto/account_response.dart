@@ -19,7 +19,6 @@ class AccountResponse {
   final String name;
   final String email;
   final String? country;
-  final bool isPreferencesComplete;
   final DateTime emailApproveDate;
   final String measurementSystem;
   final bool isConsentApproved;
@@ -42,7 +41,6 @@ class AccountResponse {
     required this.name,
     required this.email,
     required this.country,
-    required this.isPreferencesComplete,
     required this.emailApproveDate,
     required this.measurementSystem,
     required this.isConsentApproved,

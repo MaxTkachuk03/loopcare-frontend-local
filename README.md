@@ -95,3 +95,10 @@ To add new language:
 1. When run android build command you can face an error in the console `Runtime JAR files in the classpath should have the same version`
    - To fix it - move to the android folder in `cd android` and run `./gradlew` command, you can run both commands with `cd android && ./gradlew` command
    - Rerun build command
+
+### GIT Tags
+
+
+1. Update build version, push
+2. git tag 1.0.30+116 afc7d988         - where “1.0.30+116” - new tag with new version, and “afc7d988" commit ID 
+3. git push origin --tags                
