@@ -103,6 +103,13 @@ class AppImages {
 
   static const AssetImage physicalIntro = AssetImage('$imagesFilePath/new_physical_intro.png');
 
+  static SvgPicture oepsBig = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 120, height: 120);
+  static SvgPicture oepsSmall = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 60, height: 60);
+  static SvgPicture noConnectionBig =
+      SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 120, height: 120);
+  static SvgPicture noConnectionSmall =
+      SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 60, height: 60);
+
   static SvgPicture calorieDensityFoodA = SvgPicture.asset('$imagesFilePath/calorie_dencity_food_a.svg');
 
   static SvgPicture calorieDensityFoodB = SvgPicture.asset('$imagesFilePath/calorie_dencity_food_b.svg');
