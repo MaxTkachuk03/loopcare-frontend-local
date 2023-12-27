@@ -41,27 +41,21 @@ class _PasswordStrengthState extends State<PasswordStrengthIndicator> {
         Expanded(
           child: Container(
             height: 8,
-            color: widget.strength < 2 / 3
-                ? AppColors.greyMid
-                : AppColors.orangeDark,
+            color: widget.strength < 1 / 2 ? AppColors.greyMid : AppColors.orangeDark,
             margin: const EdgeInsets.only(right: 2),
           ),
         ),
         Expanded(
           child: Container(
             decoration: BoxDecoration(
-              color: widget.strength > 2 / 3
-                  ? AppColors.greenLight
-                  : AppColors.greyMid,
+              color: widget.strength > 1 / 2 ? AppColors.greenLight : AppColors.greyMid,
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(12),
                 bottomRight: Radius.circular(12),
               ),
               border: Border.all(
                 width: 3,
-                color: widget.strength > 2 / 3
-                    ? AppColors.greenLight
-                    : AppColors.greyMid,
+                color: widget.strength > 1 / 2 ? AppColors.greenLight : AppColors.greyMid,
                 style: BorderStyle.solid,
               ),
             ),
