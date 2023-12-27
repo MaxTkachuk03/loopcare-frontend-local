@@ -9,6 +9,8 @@ class RegExpUtils {
 
   static const letterReg = r".*[A-Za-z].*";
 
+  static const capitalLetterReg = r".*[A-Z].*";
+
   static const specialCharactersReg = r".*[/$&+,:;=?@#|'<>.^*()%!%~-].*";
 
   static const digitsWithDotOrComma = r"^\d+([.,]\d*)?$";
