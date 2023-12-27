@@ -34,10 +34,6 @@ class AppImages {
 
   static const AssetImage selfHelpIntro = AssetImage('$imagesFilePath/self_help_intro.png');
 
-  static const AssetImage calorieDensityFoodA = AssetImage('$imagesFilePath/calorie_dencity_food_a.png');
-
-  static const AssetImage calorieDensityFoodB = AssetImage('$imagesFilePath/calorie_dencity_food_b.png');
-
   static const AssetImage clock = AssetImage('$imagesFilePath/clock.png');
 
   static const AssetImage questionMark = AssetImage('$imagesFilePath/question.png');
@@ -106,6 +102,10 @@ class AppImages {
   static const AssetImage intro2 = AssetImage('$imagesFilePath/new_intro2.png');
 
   static const AssetImage physicalIntro = AssetImage('$imagesFilePath/new_physical_intro.png');
+
+  static SvgPicture calorieDensityFoodA = SvgPicture.asset('$imagesFilePath/calorie_dencity_food_a.svg');
+
+  static SvgPicture calorieDensityFoodB = SvgPicture.asset('$imagesFilePath/calorie_dencity_food_b.svg');
 
   AppImages._();
 }
