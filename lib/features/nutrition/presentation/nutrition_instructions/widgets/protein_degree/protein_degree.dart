@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/calorie_density_scale/custom_calorie_density_scale.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 
@@ -19,12 +22,8 @@ class ProteinDegree extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.all(30.0),
+            padding: const EdgeInsets.symmetric(vertical: 30.0),
             width: double.infinity,
-            decoration: const BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,28 +38,30 @@ class ProteinDegree extends StatelessWidget {
                           return const SizedBox();
                         }
 
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              '${LocalizedTexts.proteinDegree.translation}: ${value?.round()}%',
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.w600,
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  CustomCalorieDensityScale(
+                                    density: value,
+                                    label: '${value?.toStringAsFixed(0) ?? ''}%',
                                   ),
-                            ),
-                            const SizedBox(height: 8.0),
-                            Text(
-                              currentProteinDegreeItem.label.toUpperCase(),
-                              style: const TextStyle(
-                                fontSize: 16.0,
-                                color: AppColors.blueDark,
-                                fontWeight: FontWeight.w600,
+                                  const SizedBox(height: 8.0),
+                                  CustomText.w600(
+                                    currentProteinDegreeItem.label.capitalize(),
+                                    style: Theme.of(context).textTheme.bodyLarge,
+                                  ),
+                                ],
                               ),
                             ),
-                            const SizedBox(height: 8.0),
-                            Text(
-                              currentProteinDegreeItem.text,
-                              style: Theme.of(context).textTheme.bodyMedium,
+                            Expanded(
+                              child: CustomText.w400(
+                                currentProteinDegreeItem.text,
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
                             ),
                           ],
                         );
@@ -76,21 +77,19 @@ class ProteinDegree extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                LocalizedTexts.whatIsProtein.translation,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
+              CustomText.bitter600(
+                '${LocalizedTexts.whatIsProtein.translation}?',
+                style: Theme.of(context).textTheme.displayMedium,
               ),
               const SizedBox(height: 8.0),
-              Text(
+              CustomText.w400(
                 LocalizedTexts.calorieDensityExplanationOne.translation,
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
               const SizedBox(height: 16.0),
-              Text(
+              CustomText.w400(
                 LocalizedTexts.calorieDensityExplanationTwo.translation,
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
             ],
           ),

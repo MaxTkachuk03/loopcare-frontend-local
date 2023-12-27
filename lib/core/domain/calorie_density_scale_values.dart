@@ -1,4 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class Range {
   final double min;
@@ -20,3 +22,12 @@ final List<Range> calorieDensityScaleValues = [
   Range(min: 2.30, max: 2.60, color: const Color(0xFFC94032)),
   Range(min: 2.60, max: 2.61, color: const Color(0xFFB7131E)),
 ];
+
+Color calorieDensityScaleValuesColorForRange(double? density) {
+  if (density == null) return AppColors.transparent;
+
+  var retColor = calorieDensityScaleValues
+      .firstWhereOrNull((element) => (element.min <= density && density < element.max));
+
+  return retColor?.color ?? AppColors.transparent;
+}
