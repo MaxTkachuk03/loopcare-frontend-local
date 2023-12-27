@@ -3,9 +3,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -19,7 +24,6 @@ import 'package:loopcare_frontend/features/mood/presentation/widgets/delete_mood
 import 'package:loopcare_frontend/features/mood/presentation/widgets/mood_note_field.dart';
 import 'package:loopcare_frontend/features/mood/presentation/widgets/mood_options.dart';
 import 'package:loopcare_frontend/features/mood/presentation/widgets/mood_picker.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
 class CreateMoodPage extends StatefulWidget {
   final MoodPageMode mode;
@@ -117,10 +121,11 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: BlueAppBar(
-        title: '${LocalizedTexts.mood.tr()} ${widget.date.shortDateWithYear}',
-        leading: const BackButtonHexagon(),
+    return CustomScaffold.orangeLightest(
+      appBar: CustomAppBar.orange(
+        title: LocalizedTexts.mood.tr(),
+        subtitle: widget.date.shortDateWithYear,
+        leading: CustomFilledIconButton.leadingOrangeLighter(),
       ),
       body: SafeArea(
         child: ScrollableContainer(
@@ -140,17 +145,22 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(height: 34.0),
-                          Text(LocalizedTexts.selectMoodText, style: Theme.of(context).textTheme.headlineSmall).tr(),
+                          CustomText.bitter500(LocalizedTexts.selectMoodText.tr(),
+                              style: Theme.of(context).textTheme.displayMedium),
+                          CustomText.w400(LocalizedTexts.selectMoodSubtext.tr(),
+                              style: Theme.of(context).textTheme.bodyMedium),
                           const SizedBox(height: 12.0),
                           ValueListenableBuilder<MoodPickerListItem?>(
                             valueListenable: _moodPageController.moodValue,
                             builder: (context, moodValue, _) => MoodPicker(
-                                onItemPressed: isEditable ? _onMoodValueChangeHandler : null, value: moodValue),
+                                onItemPressed: isEditable ? _onMoodValueChangeHandler : null,
+                                value: moodValue),
                           ),
                           const SizedBox(height: 12.0),
                           MoodOptions(controller: _moodPageController, isEditable: isEditable),
                           const SizedBox(height: 12.0),
-                          Text(LocalizedTexts.personalNote, style: Theme.of(context).textTheme.headlineSmall).tr(),
+                          CustomText.bitter500(LocalizedTexts.personalNote.tr(),
+                              style: Theme.of(context).textTheme.displayMedium),
                           const SizedBox(height: 12.0),
                           MoodNoteField(_moodPageController, !isEditable),
                           const SizedBox(height: 24.0),
@@ -161,9 +171,9 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                           const SizedBox(height: 24.0),
                           ValueListenableBuilder<bool>(
                             valueListenable: _moodPageController.isValid,
-                            builder: (context, isValid, _) => ElevatedButton(
+                            builder: (context, isValid, _) => CustomElevatedButton.blueFullWidth(
                               onPressed: isValid && isEditable ? _onConfirmPressed : null,
-                              child: Text(_btnText).tr(),
+                              label: _btnText.tr(),
                             ),
                           ),
                           const SizedBox(height: 30.0),
