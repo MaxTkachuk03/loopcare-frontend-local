@@ -4,11 +4,13 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 class CustomRoundedContainer extends StatelessWidget {
   final Widget child;
   final Color? bgColor;
+  final double? borderRadius;
 
   const CustomRoundedContainer({
     super.key,
     required this.child,
     this.bgColor,
+    this.borderRadius,
   });
 
   @override
@@ -17,7 +19,7 @@ class CustomRoundedContainer extends StatelessWidget {
       padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
       decoration: BoxDecoration(
         color: bgColor ?? AppColors.white,
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
+        borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 8)),
       ),
       child: child,
     );
