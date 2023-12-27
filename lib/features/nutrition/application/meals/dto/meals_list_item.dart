@@ -29,7 +29,7 @@ class MealsListItem with _$MealsListItem {
     if (mealCategory == MealCategory.lunch.originalValue) return 2;
     if (mealCategory == MealCategory.dinner.originalValue) return 3;
     if (mealCategory == MealCategory.inbetweens.originalValue) return 4;
-    if (mealCategory == MealCategory.drinks.originalValue) return 5;
+    // if (mealCategory == MealCategory.drinks.originalValue) return 5;
     return 0;
   }
 

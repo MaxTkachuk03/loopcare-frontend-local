@@ -1,6 +1,7 @@
 // ignore_for_file: invalid_annotation_target
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'name_label.freezed.dart';
@@ -15,7 +16,7 @@ abstract class NameLabel implements _$NameLabel {
     required String name,
     required String label,
     required String shortValue,
-    @JsonKey(ignore: true) AssetImage? icon,
+    @JsonKey(ignore: true) SvgPicture? icon,
   }) = _NameLabel;
 
   factory NameLabel.fromJson(Map<String, dynamic> json) => _$NameLabelFromJson(json);

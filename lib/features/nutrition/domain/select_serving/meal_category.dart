@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 
@@ -7,24 +7,24 @@ enum MealCategory {
   lunch,
   dinner,
   inbetweens,
-  drinks,
+  // drinks,
 }
 
 extension MealCategoryExtension on MealCategory {
-  AssetImage get icon {
+  SvgPicture get icon {
     switch (this) {
       case MealCategory.breakfast:
-        return AppIcons.porkKnife;
+        return AppIcons.restaurant;
       case MealCategory.lunch:
-        return AppIcons.porkKnife;
+        return AppIcons.restaurant;
       case MealCategory.dinner:
-        return AppIcons.porkKnife;
+        return AppIcons.restaurant;
       case MealCategory.inbetweens:
-        return AppIcons.snack;
-      case MealCategory.drinks:
-        return AppIcons.drinks;
+        return AppIcons.fruit;
+      // case MealCategory.drinks:
+      //   return AppIcons.drinkSVG;
       default:
-        return AppIcons.iconCheckmark;
+        return AppIcons.checkmarkSVG;
     }
   }
 
@@ -38,8 +38,8 @@ extension MealCategoryExtension on MealCategory {
         return LocalizedTexts.dinner.translation;
       case MealCategory.inbetweens:
         return LocalizedTexts.inbetweens.translation;
-      case MealCategory.drinks:
-        return LocalizedTexts.drinks.translation;
+      // case MealCategory.drinks:
+      //   return LocalizedTexts.drinks.translation;
       default:
         return '';
     }
@@ -55,8 +55,8 @@ extension MealCategoryExtension on MealCategory {
         return LocalizedTexts.dinner.translation.toLowerCase();
       case MealCategory.inbetweens:
         return LocalizedTexts.inbetweens.translation.toLowerCase();
-      case MealCategory.drinks:
-        return LocalizedTexts.drinks.translation.toLowerCase();
+      // case MealCategory.drinks:
+      //   return LocalizedTexts.drinks.translation.toLowerCase();
       default:
         return null;
     }
@@ -72,8 +72,8 @@ extension MealCategoryExtension on MealCategory {
         return LocalizedTexts.dinner.translation.toLowerCase();
       case MealCategory.inbetweens:
         return LocalizedTexts.inbetweensShort.translation.toLowerCase();
-      case MealCategory.drinks:
-        return LocalizedTexts.drinks.translation.toLowerCase();
+      // case MealCategory.drinks:
+      //   return LocalizedTexts.drinks.translation.toLowerCase();
       default:
         return null;
     }
@@ -89,8 +89,8 @@ extension MealCategoryExtension on MealCategory {
         return 'dinner';
       case MealCategory.inbetweens:
         return 'inbetweens & snacks';
-      case MealCategory.drinks:
-        return 'drinks';
+      // case MealCategory.drinks:
+      //   return 'drinks';
       default:
         return null;
     }
@@ -106,8 +106,8 @@ extension MealCategoryExtension on MealCategory {
         return 'dinner';
       case MealCategory.inbetweens:
         return 'inbetweens';
-      case MealCategory.drinks:
-        return 'drinks';
+      // case MealCategory.drinks:
+      //   return 'drinks';
       default:
         return '';
     }
