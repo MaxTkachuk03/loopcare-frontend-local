@@ -1255,15 +1255,14 @@ class ModalBottomSheet {
   }) {
     showModalBottomSheet<void>(
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       context: context,
       builder: (BuildContext context) {
         return FractionallySizedBox(
-          heightFactor: 0.93,
+          heightFactor: 0.95,
           child: SafeArea(
             child: Container(
+              color: AppColors.white,
               padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 32.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1281,15 +1280,11 @@ class ModalBottomSheet {
                       ),
                     ),
                   ),
-                  Text(
-                    LocalizedTexts.inCaseOfEmergency.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall
-                        ?.copyWith(fontFamily: ThemeConstants.bitterFontFamily),
-                  ),
+                  CustomText.bitter500(LocalizedTexts.inCaseOfEmergency.tr(),
+                      style: Theme.of(context).textTheme.displayMedium),
                   const SizedBox(height: 12),
-                  Text(LocalizedTexts.emergencySubtitle.tr(), style: Theme.of(context).textTheme.bodySmall),
+                  CustomText.w400(LocalizedTexts.emergencySubtitle.tr(),
+                      style: Theme.of(context).textTheme.bodyMedium),
                   const SizedBox(height: 12),
                   Expanded(
                     child: ListView.separated(
@@ -1302,9 +1297,9 @@ class ModalBottomSheet {
                       },
                       separatorBuilder: (BuildContext context, int index) {
                         return const Divider(
-                          thickness: 2.0,
-                          height: 2.0,
-                          color: AppColors.bgGreen,
+                          thickness: 1.0,
+                          height: 1.0,
+                          color: AppColors.ff404040,
                         );
                       },
                     ),
