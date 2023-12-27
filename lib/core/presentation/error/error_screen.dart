@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 
 class ErrorScreen extends StatelessWidget {
   final RequestError? error;
@@ -39,37 +40,31 @@ class ErrorScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               if (errorType.isSomethingWentWrongType)
-                Image(image: AppImages.oeps, width: smallVersion ? 60 : 120, height: smallVersion ? 60 : 120)
+                smallVersion ? AppImages.oepsSmall : AppImages.oepsBig
               else
-                Image(image: AppImages.noConnection, width: smallVersion ? 60 : 120, height: smallVersion ? 60 : 120),
-              Text(
+                smallVersion ? AppImages.noConnectionSmall : AppImages.noConnectionBig,
+              CustomText.bitter600(
                 errorType.isSomethingWentWrongType
                     ? LocalizedTexts.oeps.translation
                     : LocalizedTexts.noConnectionTitle.translation,
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    color: errorType.isSomethingWentWrongType ? AppColors.orange : AppColors.blueMid,
-                    fontFamily: ThemeConstants.bitterFontFamily,
-                    fontSize: smallVersion ? ThemeConstants.fontSize18 : ThemeConstants.fontSize28),
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                      fontSize: smallVersion ? ThemeConstants.fontSize18 : ThemeConstants.fontSize28,
+                    ),
               ),
               const SizedBox(height: 8.0),
-              Text(
+              CustomText.w400(
                 errorType.isSomethingWentWrongType
                     ? LocalizedTexts.somethingWentWrong.translation
                     : LocalizedTexts.noConnectionText.translation,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: AppColors.black,
-                      fontSize: smallVersion ? ThemeConstants.fontSize10 : ThemeConstants.fontSize16,
-                    ),
+                style: Theme.of(context).textTheme.bodySmall,
               ),
               onButtonPressed == null
                   ? const SizedBox.shrink()
                   : Padding(
                       padding: const EdgeInsets.only(top: 12.0),
-                      child: OutlinedRoundedButton(
+                      child: CustomOutlinedButton.blue(
                         onPressed: onButtonPressed,
-                        text: buttonText ?? LocalizedTexts.retry.translation,
-                        radius: 20,
-                        textPadding: 40,
+                        label: buttonText ?? LocalizedTexts.retry.translation,
                       ),
                     ),
             ],
