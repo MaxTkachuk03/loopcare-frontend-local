@@ -1,12 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/dashboard_assignments/this_week_assignments_open.dart';
@@ -49,9 +50,8 @@ class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: BlueAppBar(
-        isCustomLeading: true,
+    return CustomScaffold.coral(
+      appBar: CustomAppBar.coral(
         title: LocalizedTexts.assignments.translation,
       ),
       body: BlocBuilder<AssignmentsBloc, AssignmentsState>(
@@ -64,28 +64,37 @@ class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
             loading: (_) => const Loader(),
             orElse: () {
               return SafeArea(
-                child: MainContainer(
-                  child: ScrollableContainer(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 24.0),
-                        if (thisWeekQuestions.isNotEmpty)
-                          ThisWeekAssignmentsOpen(
-                            onDashboard: false,
-                            questions: thisWeekQuestions,
-                            onBtnPressed: (int lessonId) => _startLessonQuestion(context, lessonId),
-                          ),
-                        if (thisWeekQuestions.isNotEmpty && pastQuestions.isNotEmpty)
-                          const Divider(color: AppColors.ff404040),
-                        if (pastQuestions.isNotEmpty)
-                          PastAssignments(
-                            questions: pastQuestions,
-                            onBtnPressed: (int lessonId) => _startLessonQuestion(context, lessonId),
-                          ),
-                      ],
-                    ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 28,
+                    horizontal: 20,
                   ),
+                  child: (thisWeekQuestions.isNotEmpty || pastQuestions.isNotEmpty)
+                      ? ScrollableContainer(
+                          child: CustomRoundedContainer(
+                            borderRadius: 16.0,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 24.0),
+                                if (thisWeekQuestions.isNotEmpty)
+                                  ThisWeekAssignmentsOpen(
+                                    onDashboard: false,
+                                    questions: thisWeekQuestions,
+                                    onBtnPressed: (int lessonId) => _startLessonQuestion(context, lessonId),
+                                  ),
+                                if (thisWeekQuestions.isNotEmpty && pastQuestions.isNotEmpty)
+                                  const Divider(color: AppColors.ff404040),
+                                if (pastQuestions.isNotEmpty)
+                                  PastAssignments(
+                                    questions: pastQuestions,
+                                    onBtnPressed: (int lessonId) => _startLessonQuestion(context, lessonId),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
                 ),
               );
             },

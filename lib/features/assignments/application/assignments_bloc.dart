@@ -23,7 +23,6 @@ class AssignmentsBloc extends Bloc<AssignmentsEvent, AssignmentsState> {
     this._educationService,
   ) : super(const AssignmentsState.initial(AssignmentsStateData())) {
     on<GetLessonQuestions>(_onGetLessonQuestions);
-
     on<SaveLessonAnswerText>(_onSaveLessonAnswerText);
     on<UpdateLessonAnswerText>(_onUpdateLessonAnswerText);
     on<SaveLessonAnswerOption>(_onSaveLessonAnswerOption);
@@ -43,23 +42,26 @@ class AssignmentsBloc extends Bloc<AssignmentsEvent, AssignmentsState> {
     );
 
     response.fold(
-        (l) => emit(AssignmentsState.error(state.data.copyWith(
-              error: l,
-              isLoading: false,
-            ))), (r) {
-      final questions = r.data;
-      questions.sort((a, b) => a.id.compareTo(b.id));
+      (l) => emit(
+        AssignmentsState.error(state.data.copyWith(
+          error: l,
+          isLoading: false,
+        )),
+      ),
+      (r) {
+        final questions = r.data;
+        questions.sort((a, b) => a.id.compareTo(b.id));
 
-      emit(
-        AssignmentsState.updated(
-          state.data.copyWith(
-            // lessonId: event.lessonId,
-            questions: questions,
-            isLoading: false,
+        emit(
+          AssignmentsState.updated(
+            state.data.copyWith(
+              questions: questions,
+              isLoading: false,
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 
   FutureOr<void> _onSaveLessonAnswerOption(
@@ -75,10 +77,12 @@ class AssignmentsBloc extends Bloc<AssignmentsEvent, AssignmentsState> {
     final response = await _educationService.saveLessonAnswerOption(event.lessonQuestionId, data);
 
     response.fold(
-      (l) => emit(AssignmentsState.error(state.data.copyWith(
-        error: l,
-        isLoading: false,
-      ))),
+      (l) => emit(
+        AssignmentsState.error(state.data.copyWith(
+          error: l,
+          isLoading: false,
+        )),
+      ),
       (r) {
         emit(
           AssignmentsState.updated(
@@ -105,10 +109,12 @@ class AssignmentsBloc extends Bloc<AssignmentsEvent, AssignmentsState> {
     final response = await _educationService.updateLessonAnswerOption(event.lessonQuestionId, data);
 
     response.fold(
-      (l) => emit(AssignmentsState.error(state.data.copyWith(
-        error: l,
-        isLoading: false,
-      ))),
+      (l) => emit(
+        AssignmentsState.error(state.data.copyWith(
+          error: l,
+          isLoading: false,
+        )),
+      ),
       (r) {
         emit(
           AssignmentsState.updated(
@@ -135,10 +141,12 @@ class AssignmentsBloc extends Bloc<AssignmentsEvent, AssignmentsState> {
     final response = await _educationService.saveLessonAnswerText(event.lessonQuestionId, data);
 
     response.fold(
-      (l) => emit(AssignmentsState.error(state.data.copyWith(
-        error: l,
-        isLoading: false,
-      ))),
+      (l) => emit(
+        AssignmentsState.error(state.data.copyWith(
+          error: l,
+          isLoading: false,
+        )),
+      ),
       (r) {
         emit(
           AssignmentsState.updated(
@@ -165,10 +173,12 @@ class AssignmentsBloc extends Bloc<AssignmentsEvent, AssignmentsState> {
     final response = await _educationService.updateLessonAnswerText(event.lessonQuestionId, data);
 
     response.fold(
-      (l) => emit(AssignmentsState.error(state.data.copyWith(
-        error: l,
-        isLoading: false,
-      ))),
+      (l) => emit(
+        AssignmentsState.error(state.data.copyWith(
+          error: l,
+          isLoading: false,
+        )),
+      ),
       (r) {
         emit(
           AssignmentsState.updated(
@@ -202,17 +212,23 @@ class AssignmentsBloc extends Bloc<AssignmentsEvent, AssignmentsState> {
     final response = await _educationService.getLessonContent(event.lessonId);
 
     response.fold(
-        (l) => emit(AssignmentsState.error(state.data.copyWith(
-              error: l,
-              isLoading: false,
-            ))), (r) {
-      final questions = r.questions;
-      questions.sort((a, b) => a.id.compareTo(b.id));
+      (l) => emit(
+        AssignmentsState.error(state.data.copyWith(
+          error: l,
+          isLoading: false,
+        )),
+      ),
+      (r) {
+        final questions = r.questions;
+        questions.sort((a, b) => a.id.compareTo(b.id));
 
-      emit(AssignmentsState.updated(state.data.copyWith(
-        lessonId: event.lessonId,
-        questions: questions,
-      )));
-    });
+        emit(
+          AssignmentsState.updated(state.data.copyWith(
+            lessonId: event.lessonId,
+            questions: questions,
+          )),
+        );
+      },
+    );
   }
 }

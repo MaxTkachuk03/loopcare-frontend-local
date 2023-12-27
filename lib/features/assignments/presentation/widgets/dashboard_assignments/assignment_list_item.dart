@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 
@@ -28,7 +30,7 @@ class AssignmentListItem extends StatelessWidget {
       child: InkWell(
         onTap: () => onBtnPressed(item.lessonId),
         child: Ink(
-          color: onDashboard ? AppColors.white : AppColors.bgGreen,
+          color: AppColors.white,
           padding: const EdgeInsets.symmetric(vertical: 12.0),
           child: Row(
             children: [
@@ -45,29 +47,20 @@ class AssignmentListItem extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      item.title,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
+                    CustomText.w600(item.title, style: context.textTheme.bodySmall),
                     if (isComplete)
-                      Text(
-                        LocalizedTexts.completedOn,
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: onDashboard ? AppColors.greyLabel : AppColors.darkGreen,
-                            ),
-                      ).tr(
-                        namedArgs: {'date': item.completedAt?.dayWithMonthWithoutLeadingZero ?? ''},
+                      CustomText.w400(
+                        LocalizedTexts.completedOn.tr(
+                          namedArgs: {'date': item.completedAt?.dayWithMonthWithoutLeadingZero ?? ''},
+                        ),
+                        style: context.textTheme.bodySmall,
                       ),
                     if (!isComplete && isOpen)
-                      Text(
-                        LocalizedTexts.completeBefore,
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: onDashboard ? AppColors.greyLabel : AppColors.darkGreen,
-                            ),
-                      ).tr(
-                        namedArgs: {'date': item.openedAt?.plusWeekShortVersion ?? ''},
+                      CustomText.w400(
+                        LocalizedTexts.completeBefore.tr(
+                          namedArgs: {'date': item.openedAt?.plusWeekShortVersion ?? ''},
+                        ),
+                        style: context.textTheme.bodySmall,
                       ),
                   ],
                 ),
