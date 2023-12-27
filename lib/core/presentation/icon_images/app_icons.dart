@@ -180,5 +180,10 @@ class AppIcons {
   static SvgPicture dashboardAssignments =
       SvgPicture.asset('$iconsFilePath/dashboard_assignments.svg', width: 44, height: 42);
 
+  static SvgPicture fruit = SvgPicture.asset('$iconsFilePath/fruit.svg', width: 24, height: 24);
+  static SvgPicture restaurant = SvgPicture.asset('$iconsFilePath/restaurant.svg', width: 24, height: 24);
+  static SvgPicture checkmarkSVG = SvgPicture.asset('$iconsFilePath/check_mark.svg', width: 24, height: 24);
+  static SvgPicture drinkSVG = SvgPicture.asset('$iconsFilePath/drink.svg', width: 24, height: 24);
+
   AppIcons._();
 }
