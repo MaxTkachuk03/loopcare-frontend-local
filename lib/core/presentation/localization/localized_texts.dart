@@ -737,6 +737,7 @@ class LocalizedTexts {
 
   // Mood
   static const String selectMoodText = "selectMoodText";
+  static const String selectMoodSubtext = "selectMoodSubtext";
   static const String time = "time";
   static const String specifyEmotion = "specifyEmotion";
   static const String withWho = "withWho";
@@ -794,6 +795,12 @@ class LocalizedTexts {
   //Log meal
   static const String iWantToLogMy = 'iWantToLogMy';
 
+  //Mood
+  static const String descriptionEmotions = 'descriptionEmotions';
+  static const String descriptionTime = 'descriptionTime';
+  static const String descriptionWithWhom = 'descriptionWithWhom';
+  static const String descriptionWhere = 'descriptionWhere';
+  static const String descriptionFood = 'descriptionFood';
   //Log weight
   static const String logWeight = 'logWeight';
 
