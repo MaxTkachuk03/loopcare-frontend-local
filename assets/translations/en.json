@@ -747,6 +747,7 @@
   "completedOn": "Completed on {date}",
   "pastAssignments": "Past assignments",
   "iWantToLogMy": "I want to log my",
+  "logWeight": "Log Weight",
   "foodLoggingUnlocked": "Food logging unlocked",
   "youCanStartLogging": "You can start logging your meals right now"
 }

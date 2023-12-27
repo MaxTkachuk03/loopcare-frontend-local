@@ -794,6 +794,9 @@ class LocalizedTexts {
   //Log meal
   static const String iWantToLogMy = 'iWantToLogMy';
 
+  //Log weight
+  static const String logWeight = 'logWeight';
+
   // Onboarding Physical
   // Intro
   static const String physicalIntroTitle = 'physicalIntroTitle';
