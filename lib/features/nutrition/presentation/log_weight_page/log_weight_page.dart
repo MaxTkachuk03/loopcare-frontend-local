@@ -3,7 +3,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/orange_button.dart';
@@ -89,9 +95,9 @@ class _LogWeightPageState extends State<LogWeightPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: BlueAppBar(
-        isCustomLeading: true,
+    return CustomScaffold.coralLightest(
+      appBar: CustomAppBar.coral(
+        leading: CustomFilledIconButton.leadingCoralLighter(),
         title: _isToday ? LocalizedTexts.todaysWeight.translation : LocalizedTexts.yourWeight.translation,
       ),
       body: SafeArea(
@@ -103,23 +109,20 @@ class _LogWeightPageState extends State<LogWeightPage> {
                 Column(
                   children: [
                     const SizedBox(height: 70.0),
-                    Text(
-                      LocalizedTexts.yourWeight.translation,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontWeight: FontWeight.w600,
-                          ),
+                    CustomText.bitter500(
+                      LocalizedTexts.yourWeight.tr(),
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
+                    if (!_isToday) const SizedBox(height: 12.0),
                     if (!_isToday)
-                      Text(
+                      CustomText.bitter500(
                         '${LocalizedTexts.on.tr()} ${widget.selectedDay.dayWithMonth} ${LocalizedTexts.was.tr()}',
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              fontWeight: FontWeight.w600,
-                            ),
+                        style: Theme.of(context).textTheme.displayMedium,
                       ),
                   ],
                 ),
-                BlocBuilder<DashboardWeightBloc, DashboardWeightState>(builder: (BuildContext context, state) {
+                BlocBuilder<DashboardWeightBloc, DashboardWeightState>(
+                    builder: (BuildContext context, state) {
                   return UnitField(
                     onChanged: _onWeightChangeHandler,
                     unit: state.userWeightUnits,
@@ -130,14 +133,12 @@ class _LogWeightPageState extends State<LogWeightPage> {
                     counterText: '',
                   );
                 }),
-                Column(
-                  children: [
-                    OrangeButton(
-                      onPressedHandler: _notEnableBtn ? null : _onOkPressed,
-                      child: Text(LocalizedTexts.ok.translation.toUpperCase()),
-                    ),
-                    const SizedBox(height: 30.0),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 30.0),
+                  child: CustomElevatedButton.blueFullWidth(
+                    onPressed: _notEnableBtn ? null : _onOkPressed,
+                    label: LocalizedTexts.logWeight.tr(),
+                  ),
                 ),
               ],
             ),

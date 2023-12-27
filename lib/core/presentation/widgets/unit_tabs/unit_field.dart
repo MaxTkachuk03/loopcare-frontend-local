@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/reg_exp_utils.dart';
@@ -33,15 +35,18 @@ class UnitField extends StatelessWidget {
         Container(
           constraints: const BoxConstraints(minWidth: 50),
           child: IntrinsicWidth(
-            child: TextFormField(
+            child: CustomTextField.unit(
+              controller: controller,
               maxLength: maxLength,
               focusNode: focusNode,
-              controller: controller,
-              keyboardType: TextInputType.numberWithOptions(decimal: isDecimal ?? false),
+              isDecimal: isDecimal,
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(RegExp(_getRegexString()))
               ],
-              style: context.textTheme.headlineLarge?.copyWith(fontFamily: ThemeConstants.bitterFontFamily),
+              style: context.textTheme.displayLarge?.copyWith(
+                fontSize: ThemeConstants.fontSize48,
+                fontFamily: ThemeConstants.bitterFontFamily,
+              ),
               decoration: InputDecoration(
                 counterText: counterText,
                 contentPadding: EdgeInsets.zero,
@@ -56,12 +61,7 @@ class UnitField extends StatelessWidget {
         const SizedBox(width: 6.0),
         Padding(
           padding: const EdgeInsets.only(bottom: 6.0),
-          child: Text(
-            unit,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-          ),
+          child: CustomText.w600(unit, style: Theme.of(context).textTheme.bodyLarge),
         ),
       ],
     );
