@@ -17,9 +17,7 @@ class AppRoutes {
   static const String birthday = '/birthday'; // added
   static const String checkFailedByAge = '/failed-age'; // added
   static const String sex = '/sex'; // added
-  static const String biologicalGender = '/biological-gender'; // added
-  static const String height = '/height'; // added
-  static const String weight = '/weight'; // added
+  static const String biologicalGender = '/biological-gender'; // added// added
   static const String physicalCheckResult = '/physical-check-result'; // added
 
   // Onboarding Medical
