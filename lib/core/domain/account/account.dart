@@ -21,7 +21,6 @@ abstract class Account implements _$Account {
     required String name,
     required String email,
     required String? country,
-    required bool isPreferencesComplete,
     required SexType gender,
     required String bioGender,
     required Subscription subscription,

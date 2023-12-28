@@ -15,7 +15,6 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/educat
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/log_meal.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/person_mood/person_mood.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/physical_activities.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/plan_meal/plan_meal.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/slider_calendar/slider_calendar.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/support_group.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/weight/weight_block.dart';

@@ -10,6 +10,42 @@
   "forgotPasswordTitle": "Forgot your password",
   "forgotPasswordSubTitle": "Your email address",
   "forgotPasswordBody": "Enter your email address and we will send you instructions to reset your password",
+  "physicalIntroTitle": "Basics first",
+  "physicalIntroBody": "Please answer the following basic questions first before we start the other sections",
+  "minutes": "minutes",
+  "ageCheckFailedTitle": "We are sorry! Unfortunately your enrollment is not possible now",
+  "ageCheckFailedBody": "Our program is not set up for people under the age of 18",
+  "yourSex": "Your sex",
+  "biologicalGenderPageTitle": "Do you consider yourself biologically mostly male or female",
+  "yourHeight": "Your height",
+  "metric": "Metric",
+  "imperial": "Imperial",
+  "next": "Next",
+  "changeYourHeight": "Change your height",
+  "heightSmall": "Are you sure this is correct height? Seems rather small. Please correct your input",
+  "heightLarge": "Are you sure this is correct height? Seems rather large. Please correct your input",
+  "correctHeight": "Please correct your answer",
+  "yourWeight": "Your weight",
+  "yourBodyMassIndex": "Your Body Mass Index is",
+  "fitnessCheckFailedInformationText": "We are sorry, but unfortunately our program is not set up for people with a BMI lower than {bmiMinIndex} and higher than {bmiMaxIndex}",
+  "fitnessCheckFailedInformationText2": "Please consult your doctor to find a suitable alternative",
+  "physicalCheckPassedTitle": "Basics completed",
+  "age": "Age",
+  "height": "Height",
+  "weight": "Weight",
+  "bmi": "BMI",
+  "years": "years",
+  "bmiDescription": "The Body Mass Index (BMI) is a measure that uses your height and weight to work out if your weight is healthy",
+
+
+
+
+
+
+
+
+
+
 
 
   "getStarted": "Get started",
@@ -17,15 +53,11 @@
   "logIn": "Log in",
   "bodyAndMind": "Body & Mind",
   "mentalHealth": "Mental Health",
-  "yourHeight": "Your height",
-  "yourSex": "Your sex",
-  "biologicalGenderPageTitle": "Do you consider yourself biologically mostly male or female? ",
-  "metric": "Metric",
-  "imperial": "Imperial",
+
   "needHelpWithThis": "Need help with this?",
-  "next": "Next",
+
   "finish": "Finish",
-  "yourWeight": "Your weight",
+
   "introPage": "Intro Page!",
 
 
@@ -38,21 +70,17 @@
   "joinUsNote": "you can take a break anytime and continue later.",
 
   "yourBirthday": "Your birthday",
-  "fitnessCheckPassedTitle": "Physical fitness check passed!",
+
   "fitnessCheckPassedText": "Your BMI is quite high and might be damaging for your health, we can help you with that",
-  "age": "Age",
-  "height": "Height",
-  "weight": "Weight",
-  "bmi": "BMI",
+
   "continueBtn": "Continue",
   "checkYourMedicalCondition": "Check on your medical condition",
   "medicalIntroTitle": "As the last part of the fitness check we continue with any medical conditions you might have.",
   "medicalIntroInstructionFirst": "We continue with a clinical questionnaire (53 questions) to assess your mental health",
   "medicalIntroInstructionSecond": "Explanation what we do with this. Exit or groups",
   "medicalIntroInstructionThird": "This will take 5 - 10 minutes. You will see the result after the questionnaire is completed",
-  "yourBodyMassIndex": "Your Body Mass Index is:",
-  "fitnessCheckFailedInformationsText": "We are sorry, but unfortunately our program is not set up for people with a BMI lower than {bmiMinIndex} and higher than {bmiMaxIndex}.",
-  "ageCheckFailedText": "We are sorry, but unfortunately our program is not set up for people younger than 18 years",
+
+
   "fitnessCheckFailedAdviceText": "[Also some advice where to turn next].",
   "areYouPregnant": "Are you pregnant?",
   "yes": "yes",
@@ -112,9 +140,8 @@
   "failedPregnancyTitle": "Unfortunately our program is not suitable for you if you are pregnant",
   "alsoSomeAdviceWhereToTurnNext": "[Also some advice where to turn next].",
   "enterYourHeight": "Please enter your height",
-  "heightSmall": "Are you sure this is correct height? Seems rather small. Please correct your input",
-  "heightLarge": "Are you sure this is correct height? Seems rather large. Please correct your input",
-  "changeYourHeight": "Change your height",
+
+
   "medicalCheckPassedTitle": "Medical check passed!",
   "painInChestQuestion": "Do you have pain in chest?",
   "emailOrPasswordAreIncorrect": "Email or password are incorrect",
@@ -193,7 +220,7 @@
   "doYou": "Do you",
   "likeAnyOfTheFollowing": "like any of the following?",
   "of": "of",
-  "minutes": "minutes",
+
   "foodTemptations": "Food temptations",
   "selfHelp": "Self-Help",
   "selfHelpDesc": "Part of the program is to discuss and share experiences with people like you.\nWe like to understand if you have any preferences for this.",
@@ -233,7 +260,7 @@
   "calorieDensity": "Calorie density",
   "proteinDegree": "Protein degree",
   "whatIsCalorieDensity": "What is calorie density",
-  "whatIsProtein": "What is protein",
+  "whatIsProtein": "What is protein degree",
   "calorieDensityExplanationOne": "Calorie density is  a measure of how many calories are in a given weight of food, most often expressed as calories per pound.",
   "calorieDensityExplanationTwo": "A food high in calorie density has a large number of calories relative to the weight of food (A) , whereas a food low in calorie density has much fewer calories in the same weight of food (B)",
   "calories": "Calories",
@@ -461,7 +488,7 @@
   "physicalProgramAlreadyLogged": "Physical program already logged",
   "noConnectionTitle": "No connection",
   "noConnectionText": "Your internet connection was interrupted. \nRestore the connection and try again",
-  "oeps": "Oeps!",
+  "oeps": "Oops!",
   "somethingWentWrong": "Something went wrong \nPlease try again later",
   "retry": "Retry",
   "inProgress": "in progress",
@@ -689,12 +716,13 @@
   "replaceWith": "Replace with?",
   "nothingOnTheMenu": "Nothing on the menu yet",
   "startPlanning": "Start planning",
-  "selectMoodText": "How do you feel? Fill what you like",
+  "selectMoodText": "How do you feel?",
+  "selectMoodSubtext": "You can choose what information to fill.",
   "time": "Time",
   "specifyEmotion": "Specify emotion(s)",
-  "withWho": "With who",
+  "withWho": "With whom",
   "where": "Where",
-  "makeChoice": "Make a choice",
+  "makeChoice": "Choose",
   "personalNote": "Personal note",
   "moodOptionPageEmotionTitle": "Choose up to 3 emotions",
   "deleteMood": "Delete this mood",
@@ -718,6 +746,12 @@
   "completeBefore": "Complete before {date}",
   "completedOn": "Completed on {date}",
   "iWantToLogMy": "I want to log my",
+  "descriptionEmotions": "Choose up to 3 emotions",
+  "descriptionTime": "Choose the time",
+  "descriptionWithWhom": "Choose with whom you were",
+  "descriptionWhere": "Choose where you were",
+  "descriptionFood": "",
+  "logWeight": "Log Weight",
   "foodLoggingUnlocked": "Food logging unlocked",
   "youCanStartLogging": "You can start logging your meals right now",
   "pastAssignments": "Past assignments",

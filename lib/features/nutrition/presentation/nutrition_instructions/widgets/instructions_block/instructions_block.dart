@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/domain/calorie_density_scale_layout.dart';
-import 'package:loopcare_frontend/core/presentation/calorie_density_scale/calorie_density_scale.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/calorie_density_scale/custom_calorie_density_scale.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 
 class InstructionsBlock extends StatelessWidget {
   const InstructionsBlock({super.key});
@@ -16,27 +18,43 @@ class InstructionsBlock extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(right: 15.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Stack(
+                Stack(
                   children: [
-                    Text('A'),
+                    CustomText.w700(
+                      'A',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                     Align(
-                      child: Image(
-                        image: AppImages.calorieDensityFoodA,
-                      ),
+                      child: AppImages.calorieDensityFoodA,
                     ),
                   ],
                 ),
                 const SizedBox(height: 24.0),
-                SizedBox(
-                  width: double.infinity,
-                  height: 8.0,
-                  child: CalorieDensityScale(
-                    density: 2.2,
-                    separatorColor: AppColors.bgGreen,
-                    layout: CalorieDensityScaleLayout.horizontal,
-                  ),
+                const CustomCalorieDensityScale(
+                  density: 2.1,
+                  label: '2.1',
+                  layoutSize: CustomCalorieDensityScaleLayoutSize.small,
+                ),
+                const SizedBox(height: 4.0),
+                BlocBuilder<NutritionInstructionsBloc, NutritionInstructionsState>(
+                  builder: (BuildContext context, state) {
+                    return state.maybeMap(
+                      loaded: (state) {
+                        final item = state.data.getCalorieDensityItem(2.1);
+
+                        if (state.data.calorieDensityValues.isEmpty || item == null) {
+                          return const SizedBox();
+                        }
+
+                        return CustomText.w400(
+                          item.label.capitalize(),
+                          style: Theme.of(context).textTheme.titleSmall,
+                        );
+                      },
+                      orElse: () => const SizedBox.shrink(),
+                    );
+                  },
                 ),
               ],
             ),
@@ -46,27 +64,43 @@ class InstructionsBlock extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(right: 15.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Stack(
+                Stack(
                   children: [
-                    Text('B'),
+                    CustomText.w700(
+                      'B',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                     Align(
-                      child: Image(
-                        image: AppImages.calorieDensityFoodB,
-                      ),
+                      child: AppImages.calorieDensityFoodB,
                     ),
                   ],
                 ),
                 const SizedBox(height: 24.0),
-                SizedBox(
-                  width: double.infinity,
-                  height: 8.0,
-                  child: CalorieDensityScale(
-                    density: 1.4,
-                    separatorColor: AppColors.bgGreen,
-                    layout: CalorieDensityScaleLayout.horizontal,
-                  ),
+                const CustomCalorieDensityScale(
+                  density: 1.4,
+                  label: '1.4',
+                  layoutSize: CustomCalorieDensityScaleLayoutSize.small,
+                ),
+                const SizedBox(height: 4.0),
+                BlocBuilder<NutritionInstructionsBloc, NutritionInstructionsState>(
+                  builder: (BuildContext context, state) {
+                    return state.maybeMap(
+                      loaded: (state) {
+                        final item = state.data.getCalorieDensityItem(1.4);
+
+                        if (state.data.calorieDensityValues.isEmpty || item == null) {
+                          return const SizedBox();
+                        }
+
+                        return CustomText.w400(
+                          item.label.capitalize(),
+                          style: Theme.of(context).textTheme.titleSmall,
+                        );
+                      },
+                      orElse: () => const SizedBox.shrink(),
+                    );
+                  },
                 ),
               ],
             ),

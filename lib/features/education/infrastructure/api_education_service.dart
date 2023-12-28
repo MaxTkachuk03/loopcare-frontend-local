@@ -86,7 +86,9 @@ class APIEducationService implements EducationService {
     LessonCategory category,
   ) async {
     final params = category == LessonCategory.all ? null : {'category': category.name};
-    return client.get('/education/lessons', queryParameters: params).then(parseResponse(GetLessonsResponse.fromJson));
+    return client
+        .get('/education/lessons', queryParameters: params)
+        .then(parseResponse(GetLessonsResponse.fromJson));
   }
 
   @override
@@ -128,7 +130,7 @@ class APIEducationService implements EducationService {
     };
 
     return client
-        .get('/education/lessons/calendar', queryParameters: queryParameters)
+        .get('/education/lessons/calendar2', queryParameters: queryParameters)
         .then(parseResponse(CalendarLessonsResponse.fromJson));
   }
 }

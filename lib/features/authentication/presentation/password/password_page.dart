@@ -97,7 +97,7 @@ class _PasswordPageState extends State<PasswordPage> {
 
   _onPasswordChanged(String password, double passwordStrength) {
     setState(() {
-      _isDisabled = passwordStrength != 1.0;
+      _isDisabled = passwordStrength < 3 / 4;
     });
   }
 }

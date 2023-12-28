@@ -1,6 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class MoodOptionItem extends StatelessWidget {
@@ -25,7 +25,7 @@ class MoodOptionItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: Theme.of(context).textTheme.bodyMedium).tr(),
+                  CustomText.w400(title, style: Theme.of(context).textTheme.bodyMedium),
                   const SizedBox(height: 10.0),
                   subTitle,
                 ],

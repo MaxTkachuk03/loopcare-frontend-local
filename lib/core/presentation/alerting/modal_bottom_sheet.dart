@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_numbers.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/widgets/already_planned_card.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/html_renderer/html_renderer.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
@@ -14,6 +15,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/oval_bottom_border_clipper.dart';
@@ -92,16 +94,9 @@ class ModalBottomSheet {
     });
   }
 
-  static void physicalInvalidMessage({
-    required BuildContext context,
-    required String message,
-    required String btnText,
-    required void Function() onBtnPress,
-  }) {
+  static void physicalInvalidMessage({required BuildContext context, required String message}) {
     showModalBottomSheet<void>(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
       builder: (BuildContext context) {
         return Container(
@@ -111,21 +106,18 @@ class ModalBottomSheet {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 32.0),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 22.0),
-                child: Text(
-                  message,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.orangeDark),
-                ),
+              CustomText.w500(
+                message,
+                style: context.textTheme.bodyMedium?.copyWith(color: AppColors.orangeDark),
               ),
-              const SizedBox(height: 27.0),
-              ElevatedButton(
-                onPressed: onBtnPress,
-                style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                      backgroundColor: MaterialStateProperty.all(AppColors.bgGreen),
-                      foregroundColor: MaterialStateProperty.all(AppColors.black),
-                    ),
-                child: Text(btnText),
+              CustomText.w400(
+                LocalizedTexts.correctHeight,
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 32.0),
+              CustomElevatedButton.blueFullWidth(
+                onPressed: context.router.pop,
+                label: LocalizedTexts.changeYourHeight,
               ),
             ],
           ),
@@ -1011,104 +1003,84 @@ class ModalBottomSheet {
     required void Function(NameLabel item) onSelect,
   }) {
     showModalBottomSheet<void>(
+      backgroundColor: AppColors.greenOffRegular,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       context: context,
       builder: (BuildContext context) {
-        return ConstrainedBox(
-          constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height - 400,
-          ),
+        return FractionallySizedBox(
+          heightFactor: 0.45,
           child: SafeArea(
             child: Container(
               padding: const EdgeInsets.only(
                 top: 32.0,
-                left: 40.0,
+                left: 24.0,
                 right: 24.0,
                 bottom: 20.0,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: SizedBox(
-                      width: 16.0,
-                      height: 16.0,
-                      child: IconButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: () => context.router.pop(),
-                        icon: const Icon(Icons.close),
+              child: CustomRoundedContainer(
+                bgColor: AppColors.greenLightest,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: SizedBox(
+                        width: 16.0,
+                        height: 16.0,
+                        child: IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () => context.router.pop(),
+                          icon: const Icon(Icons.close),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 2.0),
+                    const SizedBox(height: 2.0),
+                    CustomText.bitter600(
+                      '${LocalizedTexts.iWantToLogMy.tr()}...',
+                      style: context.textTheme.displayMedium,
+                    ),
+                    const SizedBox(height: 24.0),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: list.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final item = list[index];
+                          final isFilled = filledList.contains(item.shortValue.toLowerCase());
 
-                  CustomText.bitter600(
-                    '${LocalizedTexts.iWantToLogMy.tr()}...',
-                    style: context.textTheme.displayMedium,
-                  ),
-
-                  // Text(
-                  //   currentDate.isSameDate(DateTime.now())
-                  //       ? LocalizedTexts.today.translation
-                  //       : currentDate.shortDate,
-                  //   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  //         color: AppColors.blueDark,
-                  //       ),
-                  // ),
-                  const SizedBox(height: 24.0),
-                  // const Divider(
-                  //   height: 2,
-                  //   thickness: 2,
-                  //   color: AppColors.black,
-                  // ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: list.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final item = list[index];
-                        final isFilled = filledList.contains(item.shortValue.toLowerCase());
-
-                        return InkWell(
-                          onTap: () {
-                            context.router.pop();
-                            onSelect(item);
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 14.0),
-                            decoration: const BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  width: 2,
-                                  color: AppColors.bgGreen,
-                                ),
-                              ),
-                            ),
+                          return InkWell(
+                            onTap: () {
+                              context.router.pop();
+                              onSelect(item);
+                            },
                             child: Row(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                  child: ImageIcon(
-                                    isFilled ? AppIcons.iconCheckmark : item.icon,
-                                    color: isFilled ? AppColors.blueDark : AppColors.darkGreen,
+                                IconButton(
+                                  icon: isFilled ? AppIcons.checkmarkSVG : item.icon ?? AppIcons.checkmarkSVG,
+                                  color: isFilled ? AppColors.blueDarker : AppColors.darkGreen,
+                                  onPressed: () => {},
+                                  iconSize: 14.0,
+                                ),
+                                Expanded(
+                                  child: CustomText.w500(
+                                    item.name,
+                                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                                          color: isFilled ? AppColors.blueDarker : AppColors.darkGreen,
+                                        ),
                                   ),
                                 ),
-                                Text(
-                                  item.name,
-                                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                        color: isFilled ? AppColors.greyLabel : AppColors.darkGreen,
-                                      ),
+                                const ImageIcon(
+                                  AppIcons.arrow,
+                                  color: AppColors.blueDarker,
                                 ),
                               ],
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 56.0),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -1264,15 +1236,14 @@ class ModalBottomSheet {
   }) {
     showModalBottomSheet<void>(
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       context: context,
       builder: (BuildContext context) {
         return FractionallySizedBox(
-          heightFactor: 0.93,
+          heightFactor: 0.95,
           child: SafeArea(
             child: Container(
+              color: AppColors.white,
               padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 32.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1290,15 +1261,11 @@ class ModalBottomSheet {
                       ),
                     ),
                   ),
-                  Text(
-                    LocalizedTexts.inCaseOfEmergency.tr(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall
-                        ?.copyWith(fontFamily: ThemeConstants.bitterFontFamily),
-                  ),
+                  CustomText.bitter500(LocalizedTexts.inCaseOfEmergency.tr(),
+                      style: Theme.of(context).textTheme.displayMedium),
                   const SizedBox(height: 12),
-                  Text(LocalizedTexts.emergencySubtitle.tr(), style: Theme.of(context).textTheme.bodySmall),
+                  CustomText.w400(LocalizedTexts.emergencySubtitle.tr(),
+                      style: Theme.of(context).textTheme.bodyMedium),
                   const SizedBox(height: 12),
                   Expanded(
                     child: ListView.separated(
@@ -1311,9 +1278,9 @@ class ModalBottomSheet {
                       },
                       separatorBuilder: (BuildContext context, int index) {
                         return const Divider(
-                          thickness: 2.0,
-                          height: 2.0,
-                          color: AppColors.bgGreen,
+                          thickness: 1.0,
+                          height: 1.0,
+                          color: AppColors.ff404040,
                         );
                       },
                     ),

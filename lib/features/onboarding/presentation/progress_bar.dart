@@ -1,12 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_polygon/flutter_polygon.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 
 class ProgressBar extends StatelessWidget {
-  const ProgressBar({super.key});
+  final Color backgroundColor;
+  final Color? progressFillColor;
+  final Color? progressEmptyColor;
+
+  const ProgressBar({
+    super.key,
+    required this.backgroundColor,
+    this.progressFillColor,
+    this.progressEmptyColor,
+  });
+
+  factory ProgressBar.coral({required Color backgroundColor}) => ProgressBar(
+        backgroundColor: backgroundColor,
+        progressFillColor: AppColors.coralDarker,
+        progressEmptyColor: AppColors.white,
+      );
+
+  factory ProgressBar.orange({required Color backgroundColor}) => ProgressBar(
+        backgroundColor: backgroundColor,
+        progressFillColor: AppColors.orangeDarker,
+        progressEmptyColor: AppColors.white,
+      );
+
+  factory ProgressBar.yellow({required Color backgroundColor}) => ProgressBar(
+        backgroundColor: backgroundColor,
+        progressFillColor: AppColors.yellowDarker,
+        progressEmptyColor: AppColors.white,
+      );
+
+  factory ProgressBar.green({required Color backgroundColor}) => ProgressBar(
+        backgroundColor: backgroundColor,
+        progressFillColor: AppColors.greenDarker,
+        progressEmptyColor: AppColors.white,
+      );
+
+  factory ProgressBar.petrol({required Color backgroundColor}) => ProgressBar(
+        backgroundColor: backgroundColor,
+        progressFillColor: AppColors.petrolDarker,
+        progressEmptyColor: AppColors.white,
+      );
+
+  factory ProgressBar.blue({required Color backgroundColor}) => ProgressBar(
+        backgroundColor: backgroundColor,
+        progressFillColor: AppColors.blueDarker,
+        progressEmptyColor: AppColors.white,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -18,22 +61,33 @@ class ProgressBar extends StatelessWidget {
         for (var i = 0; i < stepsLength; i++) {
           final value = i < state.currentStep.index ? 100 : 0;
 
-          stepsList.add(Flexible(
+          stepsList.add(
+            Flexible(
               child: _Item(
-            progress: state.currentStep.index == i ? state.currentStepProgress : value,
-          )));
+                progress: state.currentStep.index == i ? state.currentStepProgress : value,
+                progressFillColor: progressFillColor ?? AppColors.blueDarker,
+                progressEmptyColor: progressEmptyColor ?? AppColors.white,
+              ),
+            ),
+          );
         }
 
-        return Row(children: stepsList);
+        return Container(
+          color: backgroundColor,
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12.0),
+          child: Row(children: stepsList),
+        );
       },
     );
   }
 }
 
 class _Item extends StatelessWidget {
+  final Color progressFillColor;
+  final Color progressEmptyColor;
   final int progress;
 
-  const _Item({required this.progress});
+  const _Item({required this.progress, required this.progressFillColor, required this.progressEmptyColor});
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +96,7 @@ class _Item extends StatelessWidget {
         Expanded(
           child: Stack(
             children: [
-              Container(
-                height: 4,
-                color: AppColors.yellowLight,
-              ),
+              Container(height: 4, color: progressEmptyColor),
               SizedBox(
                 height: 4,
                 child: LayoutBuilder(
@@ -53,7 +104,7 @@ class _Item extends StatelessWidget {
                     return Container(
                       height: 4,
                       width: constraints.maxWidth * progress / 100,
-                      color: AppColors.darkGreen,
+                      color: progressFillColor,
                     );
                   },
                 ),
@@ -61,40 +112,7 @@ class _Item extends StatelessWidget {
             ],
           ),
         ),
-        progress == 100
-            ? Row(
-                children: [
-                  const SizedBox(
-                    width: 3.0,
-                  ),
-                  SizedBox(
-                    width: 16.0,
-                    height: 16.0,
-                    child: Hexagon(
-                      width: 20.0,
-                      height: 20.0,
-                      borderRadius: 0,
-                      innerWidget: Container(
-                        color: AppColors.darkGreen,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 3.0,
-                  ),
-                ],
-              )
-            : Container(
-                height: 20,
-                width: 20,
-                decoration: const ShapeDecoration(
-                  shape: PolygonBorder(
-                    sides: 6,
-                    rotate: 30.0,
-                    side: BorderSide(color: AppColors.yellowLight, width: 4),
-                  ),
-                ),
-              ),
+        CircleAvatar(radius: 10, backgroundColor: progress == 100 ? progressFillColor : progressEmptyColor)
       ],
     );
   }

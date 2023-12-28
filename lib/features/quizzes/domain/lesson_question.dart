@@ -20,7 +20,7 @@ class LessonQuestion with _$LessonQuestion {
     required LessonQuestionAnswerType answerType,
     required LessonQuestionType type,
     required String title,
-    required String visual,
+    required String? visual,
     required String instruction,
     required String? introduction,
     required String? explanationCorrect,

@@ -1,8 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/mood/infrastructure/mood_picker_list.dart';
 import 'package:loopcare_frontend/features/mood/infrastructure/mood_picker_list_item.dart';
+import 'package:loopcare_frontend/features/mood/presentation/widgets/mood_picker_regular_cell.dart';
+import 'package:loopcare_frontend/features/mood/presentation/widgets/mood_picker_selected_cell.dart';
 
 class MoodPicker extends StatelessWidget {
   final MoodPickerListItem? value;
@@ -12,36 +13,29 @@ class MoodPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.ff404040),
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-      ),
-      height: 65,
+    return SizedBox(
+      height: 85,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: moodPickerList.mapIndexed((i, el) {
-          final bool isSelected = value == el;
+        children: moodPickerList.mapIndexed(
+          (i, el) {
+            final bool isSelected = value == el;
 
-          return Expanded(
-            child: InkWell(
-              onTap: () => onItemPressed?.call(el),
-              child: Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  border: i.isOdd
-                      ? const Border.symmetric(vertical: BorderSide(width: 1, color: AppColors.ff404040))
-                      : null,
-                ),
-                // padding: const EdgeInsets.symmetric(horizontal: 14.5),
-                child: Opacity(
-                  opacity: isSelected ? 1 : 0.3,
-                  child: el.icon,
-                ),
+            return Expanded(
+              child: InkWell(
+                onTap: () => onItemPressed?.call(el),
+                child: isSelected
+                    ? MoodPickerSelectedCell(child: el.icon)
+                    : MoodPickerRegularCell(
+                        isFirst: i == 0,
+                        isLast: i == (moodPickerList.length - 1),
+                        isOdd: i.isOdd,
+                        child: el.icon,
+                      ),
               ),
-            ),
-          );
-        }).toList(),
+            );
+          },
+        ).toList(),
       ),
     );
   }

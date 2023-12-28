@@ -1,9 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/birthday/widgets/birthday_field.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/physical_question_wrap.dart';
+import 'package:loopcare_frontend/features/onboarding/presentation/progress_bar.dart';
 
 class BirthdayPage extends StatelessWidget {
   const BirthdayPage({super.key});
@@ -11,31 +15,29 @@ class BirthdayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PhysicalQuestionWrap(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          MainContainer(
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 70,
+      child: SafeArea(
+        bottom: false,
+        child: ScrollableContainer(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ProgressBar.blue(backgroundColor: AppColors.yellowRegular),
+              MainContainer(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 45),
+                    CustomText.bitter600(
+                      LocalizedTexts.yourBirthday.tr(),
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                  ],
                 ),
-                Text(
-                  LocalizedTexts.yourBirthday.tr(),
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                ),
-                const SizedBox(
-                  height: 64,
-                ),
-              ],
-            ),
+              ),
+              const BirthdayField(),
+            ],
           ),
-          const BirthdayField(),
-        ],
+        ),
       ),
     );
   }

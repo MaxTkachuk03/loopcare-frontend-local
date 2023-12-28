@@ -20,7 +20,8 @@ class JoinUsPage extends StatelessWidget {
 
   void _onStartPressed(BuildContext context) {
     context.read<OnboardingBloc>().add(const OnboardingEvent.started());
-    context.router.pushAll(const [HeightRoute()]);
+
+    context.router.pushAll(const [PhysicalIntroRoute()]);
   }
 
   @override
@@ -73,6 +74,7 @@ class JoinUsPage extends StatelessWidget {
                       label: LocalizedTexts.start,
                       onPressed: () => _onStartPressed(context),
                     ),
+                    const SizedBox(height: 30.0),
                   ],
                 ),
               ],

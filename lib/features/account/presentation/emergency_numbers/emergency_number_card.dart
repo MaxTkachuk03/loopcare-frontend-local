@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_number_data.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button_with_icon.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -16,41 +18,19 @@ class EmergencyNumberCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Row(
         children: [
           Expanded(
-            child: Text(
-              number.title,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
+            child: CustomText.w700(number.title, style: Theme.of(context).textTheme.bodyMedium),
           ),
           Expanded(
-            child: OutlinedButton(
-              onPressed: () => _onPressed(context),
-              style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
-                    side: MaterialStateProperty.all(
-                      const BorderSide(
-                        width: 1.0,
-                        color: AppColors.blueDark,
-                      ),
-                    ),
-                    backgroundColor: MaterialStateProperty.all(AppColors.blueDark),
-                  ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: _getIcon() ?? const SizedBox.shrink(),
-                  ),
-                  Text(
-                    number.btnTxt,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.white),
-                  ),
-                ],
+            child: SizedBox(
+              height: 30.0,
+              child: CustomOutlinedButtonWithIcon.coralFullWidth(
+                onPressed: () => _onPressed(context),
+                label: number.btnTxt,
+                icon: _getIcon() ?? const SizedBox.shrink(),
               ),
             ),
           ),
@@ -61,9 +41,9 @@ class EmergencyNumberCard extends StatelessWidget {
 
   Icon? _getIcon() {
     if (number.type == EmergencyNumberType.phone) {
-      return const Icon(Icons.call, size: 16.0, color: Colors.white);
+      return const Icon(Icons.call, size: 16.0, color: AppColors.blueDarker);
     } else if (number.type == EmergencyNumberType.messenger) {
-      return const Icon(Icons.message, size: 16.0, color: Colors.white);
+      return const Icon(Icons.message, size: 16.0, color: AppColors.blueDarker);
     }
     return null;
   }

@@ -1,15 +1,18 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/get_measurement_system.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_tabs.dart';
+import 'package:loopcare_frontend/features/onboarding/presentation/progress_bar.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/height/height.dart';
@@ -75,65 +78,73 @@ class _HeightPageState extends State<HeightPage> {
   @override
   Widget build(BuildContext context) {
     return PhysicalQuestionWrap(
-      child: MainContainer(
-        child: Column(
-          children: [
-            const SizedBox(height: 70.0),
-            Text(
-              LocalizedTexts.yourHeight.tr(),
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-            const SizedBox(height: 48),
-            UnitTabs(
-              tabBarViewChildren: [
-                UnitField(
-                  unit: cm,
-                  controller: cmController,
-                  isDecimal: true,
-                  focusNode: cmFieldFocusNode,
-                  maxLength: Height.maxLengthMetric,
-                  counterText: '',
-                  onChanged: _setCM,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+      child: SafeArea(
+        child: ScrollableContainer(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ProgressBar.blue(backgroundColor: AppColors.yellowRegular),
+              MainContainer(
+                child: Column(
                   children: [
-                    UnitField(
-                      unit: ft,
-                      controller: ftController,
-                      focusNode: ftFieldFocusNode,
-                      maxLength: Height.maxLengthImperial,
-                      counterText: '',
-                      onChanged: _setFT,
+                    CustomText.bitter600(
+                      LocalizedTexts.yourHeight,
+                      textAlign: TextAlign.center,
+                      style: context.textTheme.displayMedium,
                     ),
-                    const SizedBox(width: 12.0),
-                    UnitField(
-                      unit: inches,
-                      controller: inController,
-                      maxLength: Height.maxLengthImperial,
-                      counterText: '',
-                      onChanged: _setIN,
+                    const SizedBox(height: 36.0),
+                    UnitTabs(
+                      tabBarViewChildren: [
+                        UnitField(
+                          unit: cm,
+                          controller: cmController,
+                          isDecimal: true,
+                          focusNode: cmFieldFocusNode,
+                          maxLength: Height.maxLengthMetric,
+                          counterText: '',
+                          onChanged: _setCM,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            UnitField(
+                              unit: ft,
+                              controller: ftController,
+                              focusNode: ftFieldFocusNode,
+                              maxLength: Height.maxLengthImperial,
+                              counterText: '',
+                              onChanged: _setFT,
+                            ),
+                            const SizedBox(width: 12.0),
+                            UnitField(
+                              unit: inches,
+                              controller: inController,
+                              maxLength: Height.maxLengthImperial,
+                              counterText: '',
+                              onChanged: _setIN,
+                            ),
+                          ],
+                        ),
+                      ],
+                      onTabChanged: _onTabChanged,
                     ),
                   ],
                 ),
-              ],
-              onTabChanged: _onTabChanged,
-            ),
-            const SizedBox(height: 16.0),
-            // UnderlinedClickableText(
-            //   text: LocalizedTexts.needHelpWithThis.tr(),
-            //   onTap: _onHelpTap,
-            // ),
-            const SizedBox(height: 20.0),
-            _NextButton(
-              measurementSystemType: activeMeasurementType,
-              getHeight: getHeight,
-            ),
-            const SizedBox(height: 30.0),
-          ],
+              ),
+              MainContainer(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 52.0),
+                    _NextButton(
+                      measurementSystemType: activeMeasurementType,
+                      getHeight: getHeight,
+                    ),
+                    const SizedBox(height: 30.0),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -167,8 +178,6 @@ class _HeightPageState extends State<HeightPage> {
     });
   }
 
-  // void _onHelpTap() {}
-
   String getHeight() => heightInCm.toString();
 
   void _onTabChanged(MeasurementSystemType unitType) {
@@ -194,21 +203,15 @@ class _NextButton extends StatelessWidget {
   final String Function() getHeight;
 
   const _NextButton({
-    super.key,
     required this.measurementSystemType,
     required this.getHeight,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return CustomElevatedButton.blueFullWidth(
       onPressed: () => _onNextPressed(context),
-      style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-            backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
-          ),
-      child: Text(
-        LocalizedTexts.next.tr(),
-      ),
+      label: LocalizedTexts.next,
     );
   }
 
@@ -220,12 +223,7 @@ class _NextButton extends StatelessWidget {
     final validationMessage = validator!(getHeight());
 
     if (validationMessage != null) {
-      ModalBottomSheet.physicalInvalidMessage(
-        context: context,
-        message: validationMessage,
-        btnText: LocalizedTexts.changeYourHeight.tr(),
-        onBtnPress: () => context.router.pop(),
-      );
+      ModalBottomSheet.physicalInvalidMessage(context: context, message: validationMessage);
     } else {
       bloc.add(
         PhysicalFitnessEvent.heightChanged(

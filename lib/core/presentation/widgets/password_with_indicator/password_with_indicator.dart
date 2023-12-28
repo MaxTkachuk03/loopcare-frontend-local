@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/password_with_indicator/password_strength_indicator.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/reg_exp_utils.dart';
@@ -29,18 +30,21 @@ class _PasswordWithIndicatorState extends State<PasswordWithIndicator> {
   double estimateBruteforceStrength(String password) {
     double strength = 0;
 
-    if (_password.length < 6 || password.isEmpty) {
+    if (_password.length < 8 || password.isEmpty) {
       return 0.0;
     }
 
     if (RegExp(RegExpUtils.digitsReg).hasMatch(password)) {
-      strength += 1 / 3;
+      strength += 1 / 4;
     }
     if (RegExp(RegExpUtils.letterReg).hasMatch(password)) {
-      strength += 1 / 3;
+      strength += 1 / 4;
+    }
+    if (RegExp(RegExpUtils.capitalLetterReg).hasMatch(password)) {
+      strength += 1 / 4;
     }
     if (RegExp(RegExpUtils.specialCharactersReg).hasMatch(password)) {
-      strength += 1 / 3;
+      strength += 1 / 4;
     }
 
     return strength;
@@ -101,7 +105,7 @@ class _PasswordWithIndicatorState extends State<PasswordWithIndicator> {
               const SizedBox(height: 16.0),
               PasswordStrengthIndicator(strength: _strength),
               const SizedBox(height: 8.0),
-              Text(_displayText!),
+              CustomText.w400(_displayText!),
             ],
           ),
       ],

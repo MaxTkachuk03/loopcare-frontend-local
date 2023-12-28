@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/tab_bar/custom_tab_bar.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/get_measurement_system.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
@@ -63,23 +63,11 @@ class _UnitTabsState extends State<UnitTabs> with SingleTickerProviderStateMixin
     return Column(
       children: [
         SizedBox(
-            height: 84,
-            child: TabBarView(
-              controller: _tabController,
-              children: widget.tabBarViewChildren,
-            )),
-        const SizedBox(
-          height: 26.0,
+          height: 84,
+          child: TabBarView(controller: _tabController, children: widget.tabBarViewChildren),
         ),
-        Container(
-          width: 240.0,
-          padding: const EdgeInsets.all(2.0),
-          decoration: BoxDecoration(color: AppColors.yellowLight, borderRadius: BorderRadius.circular(8.0)),
-          child: TabBar(
-            controller: _tabController,
-            tabs: tabs.map((e) => Tab(text: e.text)).toList(),
-          ),
-        ),
+        const SizedBox(height: 64.0),
+        CustomTabBar.yellow(tabs: tabs.map((e) => Tab(text: e.text)).toList(), tabController: _tabController),
       ],
     );
   }

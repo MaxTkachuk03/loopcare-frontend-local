@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
 import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/domain/biological_gender_type.dart';
@@ -40,29 +40,27 @@ class _BiologicalGenderChipsState extends State<BiologicalGenderChips> {
     physicalFitnessNavigationState.onNextPage();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: BiologicalGenderType.values
-          .map(
-            (BiologicalGenderType gender) => Column(
-              children: [
-                AppChoiceChip(
-                  label: _getLabelText(gender.name),
-                  selected: gender == _selectedValue,
-                  value: gender,
-                  chipHeight: 50.0,
-                  onSelected: _onSelectedBiologicalGenderHandler,
-                ),
-                const SizedBox(height: 8.0),
-              ],
-            ),
-          )
-          .toList(),
-    );
-  }
-
   String _getLabelText(String str) {
     return str.split(RegExp(RegExpUtils.upperCaseLetters)).join(' ').capitalize();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemBuilder: (BuildContext context, int i) {
+        final item = BiologicalGenderType.values[i];
+
+        return CustomChoiceChip.yellow(
+          label: _getLabelText(item.name),
+          selected: item == _selectedValue,
+          onSelected: _onSelectedBiologicalGenderHandler,
+          value: item,
+        );
+      },
+      separatorBuilder: (_, __) => const SizedBox(height: 8.0),
+      itemCount: BiologicalGenderType.values.length,
+    );
   }
 }

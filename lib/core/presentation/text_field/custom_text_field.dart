@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -22,6 +23,10 @@ class CustomTextField extends StatefulWidget {
   final VoidCallback? onCleared;
   final Color? fillColor;
   final bool? autofocus;
+  final FocusNode? focusNode;
+  final List<TextInputFormatter>? inputFormatters;
+  final InputDecoration? decoration;
+  final TextStyle? style;
 
   const CustomTextField({
     super.key,
@@ -39,6 +44,10 @@ class CustomTextField extends StatefulWidget {
     this.onChanged,
     this.autofocus,
     this.fillColor,
+    this.focusNode,
+    this.inputFormatters,
+    this.decoration,
+    this.style,
   });
 
   factory CustomTextField.search({
@@ -81,6 +90,30 @@ class CustomTextField extends StatefulWidget {
         prefixIcon: const Icon(Icons.lock, size: 24),
         isToggleEye: true,
         obscureText: true,
+      );
+
+  factory CustomTextField.unit({
+    Color? fillColor,
+    required TextEditingController controller,
+    FocusNode? focusNode,
+    required int maxLength,
+    bool? isDecimal,
+    final List<TextInputFormatter>? inputFormatters,
+    ValueChanged<String>? onChanged,
+    TextStyle? style,
+    InputDecoration? decoration,
+  }) =>
+      CustomTextField(
+        hintText: '',
+        controller: controller,
+        maxLength: maxLength,
+        focusNode: focusNode,
+        keyboardType: TextInputType.numberWithOptions(decimal: isDecimal ?? false),
+        fillColor: fillColor,
+        inputFormatters: inputFormatters,
+        onChanged: onChanged,
+        style: style,
+        decoration: decoration,
       );
 
   @override
@@ -136,21 +169,23 @@ class _CustomTextFieldState extends State<CustomTextField> {
       autocorrect: false,
       keyboardType: widget.keyboardType,
       obscureText: _isObscureText,
-      style: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+      style: widget.style ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
       maxLength: widget.maxLength,
-      decoration: InputDecoration(
-        isDense: true,
-        fillColor: widget.fillColor ?? AppColors.white.withOpacity(0.7),
-        errorText: widget.errorText,
-        counterText: '',
-        errorMaxLines: 2,
-        hintText: widget.hintText.tr(),
-        prefixIcon: widget.prefixIcon,
-        suffixIcon: _suffixIcon,
-      ),
+      decoration: widget.decoration ??
+          InputDecoration(
+            isDense: true,
+            fillColor: widget.fillColor ?? AppColors.white.withOpacity(0.7),
+            errorText: widget.errorText,
+            counterText: '',
+            errorMaxLines: 2,
+            hintText: widget.hintText.tr(),
+            prefixIcon: widget.prefixIcon,
+            suffixIcon: _suffixIcon,
+          ),
       validator: widget.validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       onChanged: widget.onChanged,
+      focusNode: widget.focusNode,
     );
   }
 }

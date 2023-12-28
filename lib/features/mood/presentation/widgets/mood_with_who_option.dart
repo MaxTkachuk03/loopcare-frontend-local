@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
+import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/features/mood/infrastructure/mood_with_who.dart';
 
 class MoodWithWhoOption extends StatelessWidget {
@@ -20,7 +20,7 @@ class MoodWithWhoOption extends StatelessWidget {
             .map(
               (e) => SizedBox(
                 width: width,
-                child: AppChoiceChip(
+                child: CustomChoiceChip.orange(
                   label: e.value,
                   selected: selectedValues.contains(e),
                   value: e,
