@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class SearchEmptyResult extends StatelessWidget {
   const SearchEmptyResult({super.key});
@@ -18,12 +19,12 @@ class SearchEmptyResult extends StatelessWidget {
         children: [
           CustomText.w600(
             LocalizedTexts.searchEmptyResultTitle.tr(),
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.blueRegular),
+            style: context.textTheme.titleLarge?.copyWith(color: AppColors.blueRegular),
           ),
           const SizedBox(height: 8.0),
           CustomText.w500(
             LocalizedTexts.searchEmptyResultText.tr(),
-            style: Theme.of(context).textTheme.titleMedium,
+            style: context.textTheme.titleMedium,
           ),
         ],
       ),

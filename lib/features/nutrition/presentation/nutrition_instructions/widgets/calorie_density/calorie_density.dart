@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/calorie_density_scale/custom_calorie_density_scale.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
@@ -51,7 +52,7 @@ class CalorieDensity extends StatelessWidget {
                                   const SizedBox(height: 8.0),
                                   CustomText.w600(
                                     currentCalorieDensityItem.label.capitalize(),
-                                    style: Theme.of(context).textTheme.bodyLarge,
+                                    style: context.textTheme.bodyLarge,
                                   ),
                                 ],
                               );
@@ -82,7 +83,7 @@ class CalorieDensity extends StatelessWidget {
 
                               return CustomText.w400(
                                 currentCalorieDensityItem.text,
-                                style: Theme.of(context).textTheme.bodySmall,
+                                style: context.textTheme.bodySmall,
                               );
                             },
                             orElse: () => const SizedBox.shrink(),
@@ -101,17 +102,17 @@ class CalorieDensity extends StatelessWidget {
             children: [
               CustomText.bitter600(
                 '${LocalizedTexts.whatIsCalorieDensity.translation}?',
-                style: Theme.of(context).textTheme.displayMedium,
+                style: context.textTheme.displayMedium,
               ),
               const SizedBox(height: 8.0),
               CustomText.w400(
                 LocalizedTexts.calorieDensityExplanationOne.translation,
-                style: Theme.of(context).textTheme.bodySmall,
+                style: context.textTheme.bodySmall,
               ),
               const SizedBox(height: 16.0),
               CustomText.w400(
                 LocalizedTexts.calorieDensityExplanationTwo.translation,
-                style: Theme.of(context).textTheme.bodySmall,
+                style: context.textTheme.bodySmall,
               ),
               const SizedBox(height: 52.0),
               const InstructionsBlock(),
