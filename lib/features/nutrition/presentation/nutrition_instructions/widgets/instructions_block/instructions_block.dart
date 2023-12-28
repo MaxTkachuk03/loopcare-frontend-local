@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/calorie_density_scale/custom_calorie_density_scale.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 
@@ -23,7 +24,7 @@ class InstructionsBlock extends StatelessWidget {
                   children: [
                     CustomText.w700(
                       'A',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: context.textTheme.bodyMedium,
                     ),
                     Align(
                       child: AppImages.calorieDensityFoodA,
@@ -49,7 +50,7 @@ class InstructionsBlock extends StatelessWidget {
 
                         return CustomText.w400(
                           item.label.capitalize(),
-                          style: Theme.of(context).textTheme.titleSmall,
+                          style: context.textTheme.titleSmall,
                         );
                       },
                       orElse: () => const SizedBox.shrink(),
@@ -69,7 +70,7 @@ class InstructionsBlock extends StatelessWidget {
                   children: [
                     CustomText.w700(
                       'B',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: context.textTheme.bodyMedium,
                     ),
                     Align(
                       child: AppImages.calorieDensityFoodB,
@@ -95,7 +96,7 @@ class InstructionsBlock extends StatelessWidget {
 
                         return CustomText.w400(
                           item.label.capitalize(),
-                          style: Theme.of(context).textTheme.titleSmall,
+                          style: context.textTheme.titleSmall,
                         );
                       },
                       orElse: () => const SizedBox.shrink(),

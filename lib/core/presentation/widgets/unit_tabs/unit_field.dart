@@ -61,7 +61,7 @@ class UnitField extends StatelessWidget {
         const SizedBox(width: 6.0),
         Padding(
           padding: const EdgeInsets.only(bottom: 6.0),
-          child: CustomText.w600(unit, style: Theme.of(context).textTheme.bodyLarge),
+          child: CustomText.w600(unit, style: context.textTheme.bodyLarge),
         ),
       ],
     );

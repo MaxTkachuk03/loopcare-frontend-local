@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_butt
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EmergencyNumberCard extends StatelessWidget {
@@ -22,7 +23,7 @@ class EmergencyNumberCard extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: CustomText.w700(number.title, style: Theme.of(context).textTheme.bodyMedium),
+            child: CustomText.w700(number.title, style: context.textTheme.bodyMedium),
           ),
           Expanded(
             child: SizedBox(

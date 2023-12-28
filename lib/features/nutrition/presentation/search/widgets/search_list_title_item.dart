@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class SearchListTitleItem extends StatelessWidget {
   final String text;
@@ -26,7 +27,7 @@ class SearchListTitleItem extends StatelessWidget {
             ),
             child: CustomText.w600(
               text,
-              style: Theme.of(context).textTheme.titleMedium,
+              style: context.textTheme.titleMedium,
             ),
           ),
           const Divider(
