@@ -8,7 +8,9 @@ import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
@@ -69,10 +71,11 @@ class PreferencesSection extends StatelessWidget {
 
   Future<void> _foodUpdatedListener(BuildContext context, YouAndFoodState state) async {
     context.showSuccessBar(
-      content: Text(
+      content: CustomText.w600(
         LocalizedTexts.yourPreferencesUpdated.tr(namedArgs: {
           'prefName': LocalizedTexts.food.tr(),
         }),
+        style: context.textTheme.bodySmall,
       ),
     );
   }
@@ -87,12 +90,13 @@ class PreferencesSection extends StatelessWidget {
   Future<void> _physicalActivitiesUpdatingListener(
       BuildContext context, PhysicalActivitiesPreferencesState state) async {
     context.showSuccessBar(
-      content: Text(
+      content: CustomText.w600(
         LocalizedTexts.yourPreferencesUpdated.tr(
           namedArgs: {
             'prefName': LocalizedTexts.physicalExercises.tr().toLowerCase(),
           },
         ),
+        style: context.textTheme.bodySmall,
       ),
     );
   }
@@ -106,12 +110,13 @@ class PreferencesSection extends StatelessWidget {
 
   Future<void> _groupUpdatingListener(BuildContext context, GroupPreferencesState state) async {
     context.showSuccessBar(
-      content: Text(
+      content: CustomText.w600(
         LocalizedTexts.yourPreferencesUpdated.tr(
           namedArgs: {
             'prefName': LocalizedTexts.group.tr().toLowerCase(),
           },
         ),
+        style: context.textTheme.bodySmall,
       ),
     );
   }
@@ -136,16 +141,16 @@ class PreferencesSection extends StatelessWidget {
       child: AccountContainer(
         child: Column(
           children: [
-            const SectionTitle(title: LocalizedTexts.preferences),
+            SectionTitle(title: LocalizedTexts.preferences.tr()),
             BlocBuilder<AuthenticationCubit, AuthenticationState>(
               builder: (context, state) {
                 return SectionItem(
-                  title: LocalizedTexts.food,
+                  title: LocalizedTexts.food.tr(),
                   onPressHandler: state.isFoodLoggingUnlocked ? () => _onFoodHandler(context) : null,
                 );
               },
             ),
-            const Divider(height: 1.0, color: AppColors.yellowLight),
+            const Divider(height: 1.0, color: AppColors.blueLighter),
             BlocBuilder<AuthenticationCubit, AuthenticationState>(
               builder: (context, state) {
                 return BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
@@ -161,7 +166,7 @@ class PreferencesSection extends StatelessWidget {
                 );
               },
             ),
-            const Divider(height: 1.0, color: AppColors.yellowLight),
+            const Divider(height: 1.0, color: AppColors.blueLighter),
             BlocBuilder<AuthenticationCubit, AuthenticationState>(
               builder: (context, state) {
                 return SectionItem(
@@ -173,9 +178,9 @@ class PreferencesSection extends StatelessWidget {
               },
             ),
             // const SizedBox(height: 16.0),
-            // const Divider(height: 1.0, color: AppColors.yellowLight),
+            // const Divider(height: 1.0, color: AppColors.blueLighter),
             // const SizedBox(height: 16.0),
-            // SectionItem(title: LocalizedTexts.diabetes, onPressHandler: () {}),
+            // SectionItem(title: LocalizedTexts.diabetes.tr(), onPressHandler: () {}),
           ],
         ),
       ),

@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class SectionItem extends StatelessWidget {
   final String title;
@@ -30,17 +32,15 @@ class SectionItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  CustomText.w400(
                     title,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ).tr(),
+                    style: context.textTheme.bodyMedium,
+                  ),
                   if (subTitle != null)
-                    Text(subTitle ?? '',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              fontSize: ThemeConstants.fontSize14,
-                              fontFamily: ThemeConstants.openSansFontFamily,
-                              color: AppColors.greyLabel,
-                            )).tr(),
+                    CustomText.w600(
+                      subTitle ?? '',
+                      style: context.textTheme.bodySmall,
+                    ),
                 ],
               ),
             ),

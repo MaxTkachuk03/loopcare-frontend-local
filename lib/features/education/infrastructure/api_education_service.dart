@@ -130,7 +130,7 @@ class APIEducationService implements EducationService {
     };
 
     return client
-        .get('/education/lessons/calendar2', queryParameters: queryParameters)
+        .get('/education/lessons/calendar', queryParameters: queryParameters)
         .then(parseResponse(CalendarLessonsResponse.fromJson));
   }
 }

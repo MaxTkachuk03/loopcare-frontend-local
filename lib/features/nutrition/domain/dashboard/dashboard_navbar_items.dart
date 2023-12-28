@@ -23,7 +23,7 @@ enum DashboardNavbarItems {
       case 'Education':
         return AppColors.orange;
       case 'Account':
-        return AppColors.blueDark;
+        return AppColors.blueRegular;
     }
   }
 

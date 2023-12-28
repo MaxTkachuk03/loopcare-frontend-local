@@ -755,5 +755,6 @@
   "descriptionFood": "",
   "logWeight": "Log Weight",
   "foodLoggingUnlocked": "Food logging unlocked",
-  "youCanStartLogging": "You can start logging your meals right now"
+  "youCanStartLogging": "You can start logging your meals right now",
+  "reportIssueAndEmergencyTitle": "Report issue & emergency"
 }

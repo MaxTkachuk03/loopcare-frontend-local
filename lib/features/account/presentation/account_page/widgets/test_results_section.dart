@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
@@ -12,7 +13,7 @@ class TestResultsSection extends StatelessWidget {
     return AccountContainer(
       child: Column(
         children: [
-          const SectionTitle(title: LocalizedTexts.testResults),
+          SectionTitle(title: LocalizedTexts.testResults.tr()),
           SectionItem(title: LocalizedTexts.mentalHealth, onPressHandler: () {}),
         ],
       ),

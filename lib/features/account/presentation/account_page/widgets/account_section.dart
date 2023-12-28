@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
@@ -56,17 +57,21 @@ class _AccountSectionState extends State<AccountSection> {
     return AccountContainer(
       child: Column(
         children: [
-          const SectionTitle(title: LocalizedTexts.account),
+          SectionTitle(title: LocalizedTexts.account.tr()),
           BlocBuilder<AuthenticationCubit, AuthenticationState>(
             builder: (BuildContext context, state) {
-              return SectionItem(title: LocalizedTexts.username, subTitle: state.email, onPressHandler: () {});
+              return SectionItem(
+                title: LocalizedTexts.username.tr(),
+                subTitle: state.email,
+                onPressHandler: () {},
+              );
             },
           ),
-          const Divider(height: 1.0, color: AppColors.yellowLight),
+          const Divider(height: 1.0, color: AppColors.blueLighter),
           const SizedBox(height: 16.0),
           // SectionItem(title: LocalizedTexts.changePassword, onPressHandler: () {}),
           // const SizedBox(height: 16.0),
-          // const Divider(height: 1.0, color: AppColors.yellowLight),
+          // const Divider(height: 1.0, color: AppColors.blueLighter),
           // const SizedBox(height: 16.0),
           // SectionItemToggler(
           //   title: LocalizedTexts.useFaceOrTouchId,
@@ -74,7 +79,7 @@ class _AccountSectionState extends State<AccountSection> {
           //   onPressHandler: _onUseFaceIdToggle,
           // ),
           // const SizedBox(height: 16.0),
-          // const Divider(height: 1.0, color: AppColors.yellowLight),
+          // const Divider(height: 1.0, color: AppColors.blueLighter),
           // const SizedBox(height: 16.0),
           // SectionItemToggler(
           //   title: LocalizedTexts.requireLoginEachTime,
@@ -82,14 +87,11 @@ class _AccountSectionState extends State<AccountSection> {
           //   onPressHandler: _onRequireLogin,
           // ),
           // const SizedBox(height: 16.0),
-          // const Divider(height: 1.0, color: AppColors.yellowLight),
+          // const Divider(height: 1.0, color: AppColors.blueLighter),
           // const SizedBox(height: 16.0),
-          ElevatedButton(
+          CustomElevatedButton.coralFullWidth(
             onPressed: _onLogOutPressed,
-            style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                  backgroundColor: MaterialStateProperty.all(AppColors.blueDark),
-                ),
-            child: const Text(LocalizedTexts.signOut).tr(),
+            label: LocalizedTexts.signOut.tr(),
           ),
           const SizedBox(height: 16.0),
           // TODO button removed for testing build 1.0.26+102
