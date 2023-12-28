@@ -28,8 +28,8 @@ class AccountResponse {
   final SexType gender;
   final String bioGender;
   final PhysicalFitness physicalFitness;
-  final DiabetesType diabetes;
-  final FoodPreferences foodPreferences;
+  final DiabetesType? diabetes;
+  final FoodPreferences? foodPreferences;
   final GroupingPreferences? groupingPreferences;
   @JsonKey(unknownEnumValue: UnlockedFeatureType.unknown)
   final List<UnlockedFeatureType> unlockedFeatures;
