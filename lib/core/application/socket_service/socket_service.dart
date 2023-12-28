@@ -6,12 +6,15 @@ import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/socket_service/events.dart';
 import 'package:loopcare_frontend/core/application/socket_service/socket_data.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
+import 'package:loopcare_frontend/features/chat/application/chat_watcher_bloc/chat_watcher_bloc.dart';
+import 'package:loopcare_frontend/features/chat/domain/group_message.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class SocketService {
   final AppConfig? _appConfig;
   final TopicsBloc? _topicsBloc;
+  final ChatWatcherBloc? _chatWatcherBloc;
   final AuthTokenManager? _tokenManager;
 
   String? _baseUrl;
@@ -23,7 +26,8 @@ class SocketService {
   SocketService._internal()
       : _appConfig = GetIt.instance<AppConfig>(),
         _tokenManager = GetIt.instance<AuthTokenManager>(),
-        _topicsBloc = GetIt.instance<TopicsBloc>() {
+        _topicsBloc = GetIt.instance<TopicsBloc>(),
+        _chatWatcherBloc = GetIt.instance<ChatWatcherBloc>() {
     _baseUrl = 'wss://${_appConfig?.baseHost}/group-session';
   }
 
@@ -95,6 +99,7 @@ class SocketService {
       ..on(SocketEvents.topicSlotFinished, _onTopicSlotFinished)
       ..on(SocketEvents.topicSlotStarted, _onTopicSlotStarted)
       ..on(SocketEvents.topicSlotStartedSoon, _onTopicSlotStartedSoon)
+      ..on(SocketEvents.chatNewMassage, _onNewMessage)
       ..on(SocketEvents.error, _onErrorHandler)
       ..onError(_onError);
 
@@ -143,6 +148,12 @@ class SocketService {
   void _onTopicSlotStartedSoon(dynamic data) {
     refreshTopics();
     _debug('on ${SocketEvents.topicSlotStartedSoon}: $data');
+  }
+
+  void _onNewMessage(dynamic data) {
+    //Todo update logic
+    final message = GroupMessage.fromJson(data as Map<String, dynamic>);
+    _chatWatcherBloc?.add(const ChatWatcherEvent.getNewMassage(1));
   }
 
   void _onErrorHandler(dynamic data) {

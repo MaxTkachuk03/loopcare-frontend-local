@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_bloc_provider.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_navigator_observer.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/routes/gender_prefs_guard.dart';
@@ -76,6 +77,7 @@ class _AppState extends State<_App> {
     _socketService.startListen();
 
     _appRouter = AppRouter(
+      navigatorKey: kNavigatorKey,
       proxyGuard: ProxyGuard(authBloc),
       introGuard: IntroGuard(
         authBloc,

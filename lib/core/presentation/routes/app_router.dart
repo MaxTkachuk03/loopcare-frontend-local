@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/theme_components_theme/theme
 import 'package:loopcare_frontend/features/account/presentation/account_page/account_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/edit_food_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/food_preferences_page/food_preferences_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/gender_preferences_page/gender_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/group_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_five_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_four_page.dart';
@@ -13,7 +14,6 @@ import 'package:loopcare_frontend/features/account/presentation/group_rules_page
 import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_six_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_three_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_two_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/gender_preferences_page/gender_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/join_group_preferences_page/join_group_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/nickname_preferences_page/nickname_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/timezone_preferences_page/timezone_preferences_page.dart';
@@ -27,6 +27,9 @@ import 'package:loopcare_frontend/features/authentication/presentation/login/log
 import 'package:loopcare_frontend/features/authentication/presentation/name/name_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/password/password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/waiting_for_confirmation/waiting_for_confirmation_page.dart';
+import 'package:loopcare_frontend/features/authentication/presentation/welcome/sign_up_welcome_page.dart';
+import 'package:loopcare_frontend/features/chat/presentation/group_chat_page.dart';
+import 'package:loopcare_frontend/features/chat/presentation/group_users_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/consent_confirmation_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/no_consent_page.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/dashboard_page.dart';
@@ -39,6 +42,7 @@ import 'package:loopcare_frontend/features/education/presentation/lesson_error_p
 import 'package:loopcare_frontend/features/education/presentation/lesson_page/lesson_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/support_group_intro/support_group_intro_page.dart';
 import 'package:loopcare_frontend/features/group_sessions/presentation/preparation_materials_page.dart';
+import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/cooking/cooking_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/healthier_food/healthier_food_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/household_and_habits_intro/household_and_habits_intro_page.dart';
@@ -57,8 +61,8 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/medicati
 import 'package:loopcare_frontend/features/medical_fitness/presentation/medication_past_period/medication_past_period_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/pain_in_chest/presentation/pain_in_chest_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/pain_in_chest_failled/presentation/pain_in_chest_failled_page.dart';
-import 'package:loopcare_frontend/features/medical_fitness/presentation/pregnancy_failed/presentation/pregnancy_failed.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/pregnancy/pregnancy_page.dart';
+import 'package:loopcare_frontend/features/medical_fitness/presentation/pregnancy_failed/presentation/pregnancy_failed.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/stomach_reduction/stomach_reduction_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/stomach_reduction_failed/presentation/stomach_reduction_failed_page.dart';
 import 'package:loopcare_frontend/features/medical_fitness/presentation/treatment_by_doctor/presentation/treatment_by_doctor_page.dart';
@@ -67,31 +71,31 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/weight_l
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_check_result_page.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_intro_page.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_question_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/choose_date/choose_date_calendar_page.dart';
 import 'package:loopcare_frontend/features/mood/presentation/create_mood_page.dart';
 import 'package:loopcare_frontend/features/mood/presentation/mood_option_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/barcode_scanner_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/choose_date/choose_date_calendar_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/daily_intake/daily_intake_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/dish_details_page/dish_details_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/log_planned_meals/log_planned_meals_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/log_weight_page/log_weight_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/meal/meal_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/nutrition_instructions_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/recipe/recipe_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/recipe_details_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recommendations/recommendations_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/search_page.dart';
-import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/dish_details_page/dish_details_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/log_weight_page/log_weight_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/recipe_details_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/meal/meal_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/recipe/recipe_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/barcode_scanner_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/select_food_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/nutrition_instructions_page.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/select_serving_page/select_serving_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/week_planner/week_planner_page.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/physical_intro/physical_intro_page.dart';
+import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/physical_programs_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_activity_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_completed_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_frequency_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_preferences_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/program_assessment_page.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/physical_programs_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_details/program_details_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/select_exercise_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/biological_gender/biological_gender_page.dart';
@@ -101,10 +105,8 @@ import 'package:loopcare_frontend/features/physical_fitness/presentation/height/
 import 'package:loopcare_frontend/features/physical_fitness/presentation/physical_check_result/presentation/physical_check_result_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/sex/sex_page.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/weight/weight_page.dart';
-import 'package:loopcare_frontend/features/authentication/presentation/welcome/sign_up_welcome_page.dart';
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/preferences_overview_page.dart';
 import 'package:loopcare_frontend/features/proxy/proxy_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/select_serving_page/select_serving_page.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/quizzes_intro_page.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/quizzes_questions_page.dart';
 import 'package:loopcare_frontend/features/reflection/presentation/nutrition_details_page.dart';
@@ -152,6 +154,16 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.intro,
       page: IntroPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.home,
+      page: HomePage,
+      children: [
+        AutoRoute(path: AppRoutes.dashboard, page: DashboardPage),
+        AutoRoute(path: AppRoutes.education, page: EducationPage),
+        AutoRoute(path: AppRoutes.groupChat, page: GroupChatPage),
+        AutoRoute(path: AppRoutes.account, page: AccountPage),
+      ],
     ),
     AutoRoute(
       path: AppRoutes.joinUs,
@@ -282,15 +294,6 @@ const groupLessonRoutes = [
     //   path: AppRoutes.resetPassword,
     //   page: ResetPasswordPage,
     // ),
-    AutoRoute(
-      path: AppRoutes.home,
-      page: HomePage,
-      children: [
-        AutoRoute(path: AppRoutes.dashboard, page: DashboardPage),
-        AutoRoute(path: AppRoutes.education, page: EducationPage),
-        AutoRoute(path: AppRoutes.account, page: AccountPage),
-      ],
-    ),
     AutoRoute(
       path: AppRoutes.signUpWelcome,
       page: SignUpWelcomePage,
@@ -630,6 +633,14 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.theme,
       page: ThemeComponentsPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.groupChat,
+      page: GroupChatPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.groupChatUsers,
+      page: GroupUsersPage,
     ),
   ],
 )

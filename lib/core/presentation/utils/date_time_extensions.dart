@@ -161,6 +161,10 @@ extension DateTimeExtension on DateTime {
     return -1;
   }
 
+  DateTime fromMilliseconds(int milliseconds) {
+    return DateTime.fromMillisecondsSinceEpoch(milliseconds);
+  }
+
   int daysBetween(DateTime from, DateTime to) {
     from = DateTime(from.year, from.month, from.day);
     to = DateTime(to.year, to.month, to.day);
@@ -217,3 +221,6 @@ extension DateTimeExtension on DateTime {
     return (isBefore(endTime) || isSameDate(endTime)) && (isAfter(startDate) || (isSameDate(startDate)));
   }
 }
+
+String getFormattedDateFromMilliseconds(int milliseconds) =>
+    DateFormat('HH:mm', 'en_EN').format(DateTime.fromMillisecondsSinceEpoch(milliseconds));

@@ -770,6 +770,15 @@ class LocalizedTexts {
   static const String completedOn = "completedOn";
   static const String pastAssignments = "pastAssignments";
 
+  //Group chat
+  static const String groupChat = 'groupChat';
+  static const String copyGroupMessage = 'copyGroupMessage';
+  static const String removeGroupMessage = 'removeGroupMessage';
+  static const String reportGroupMessage = 'reportGroupMessage';
+  static const String snackMassageCopy = 'snackMassageCopy';
+  static const String massageRemoved = 'massageRemoved';
+  static const String membersEmpty = 'membersEmpty';
+
   // Food preferences
   static const String foodLoggingUnlocked = "foodLoggingUnlocked";
   static const String youCanStartLogging = "youCanStartLogging";

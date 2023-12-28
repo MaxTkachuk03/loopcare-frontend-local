@@ -59,21 +59,17 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     context.read<AuthenticationCubit>().getAccount();
 
     if (!context.read<NutritionInstructionsBloc>().state.data.alreadyLoaded) {
-      context
-          .read<NutritionInstructionsBloc>()
-          .add(const NutritionInstructionsEvent.fetchValuesExplanation());
+      context.read<NutritionInstructionsBloc>().add(const NutritionInstructionsEvent.fetchValuesExplanation());
     }
 
     context
         .read<DashboardWeightBloc>()
         .add(DashboardWeightEvent.fetchWeights(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime));
 
-    context.read<MoodBloc>().add(MoodEvent.getMoods(
-        _selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime, DateTime.now().utcIsoStringFormat));
+    context.read<MoodBloc>().add(
+        MoodEvent.getMoods(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime, DateTime.now().utcIsoStringFormat));
 
-    context
-        .read<DashboardEducationBloc>()
-        .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
+    context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
 
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons(LessonCategory.all));
 
@@ -94,9 +90,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
   Future<void> _onRefresh() async {
     context.read<AuthenticationCubit>().getAccount();
 
-    context
-        .read<DashboardEducationBloc>()
-        .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
+    context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
 
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons(LessonCategory.all));
 
@@ -124,9 +118,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
       context.read<DashboardWeightBloc>().add(DashboardWeightEvent.setDate(day));
       context.read<MealsBloc>().add(MealsEvent.setCurrentDate(day, updateOrigin: true));
       context.read<MoodBloc>().add(MoodEvent.setDate(day));
-      context
-          .read<DashboardEducationBloc>()
-          .add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
+      context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
 
       if (context.read<AuthenticationCubit>().state.isAssignmentsUnlocked) {
         context.read<AssignmentsBloc>().add(

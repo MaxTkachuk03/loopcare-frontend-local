@@ -1,5 +1,6 @@
 // Firebase analytics screens names mapper, added comment means that screen added to confluence doc with the screenshot
 final screenNames = {
+  'GroupChatRoute': 'Group Chat Screen',
   'EducationRoute': 'Education Screen', // added
   'DashboardRoute': 'Calendar Screen', // added
   'HomeRoute': 'Calendar Screen', // added

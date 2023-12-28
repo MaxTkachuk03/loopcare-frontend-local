@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 part 'app_colors.dart';
-part 'theme_constants.dart';
 part 'button_styles.dart';
 part 'tab_bar_styles.dart';
+part 'theme_constants.dart';
 
 final ThemeData appThemeData = ThemeData(
   useMaterial3: true,
@@ -20,7 +20,28 @@ final ThemeData appThemeData = ThemeData(
   chipTheme: _chipTheme(),
   highlightColor: Colors.transparent,
   disabledColor: AppColors.greyMid,
+  bottomNavigationBarTheme: _bottomNavigationBarThemeData(),
+  dividerTheme: const DividerThemeData(
+    color: AppColors.white,
+  ),
+  popupMenuTheme: PopupMenuThemeData(
+    textStyle: _getPopupMenuTheme(),
+  ),
 );
+
+BottomNavigationBarThemeData _bottomNavigationBarThemeData() {
+  return BottomNavigationBarThemeData(
+    backgroundColor: AppColors.blueDarker,
+    type: BottomNavigationBarType.fixed,
+    unselectedLabelStyle: TextStyle(color: AppColors.white.withOpacity(0.5), fontSize: ThemeConstants.fontSize14),
+    selectedLabelStyle:
+        const TextStyle(color: AppColors.white, fontSize: ThemeConstants.fontSize14, fontWeight: FontWeight.bold),
+    unselectedIconTheme: IconThemeData(color: AppColors.white.withOpacity(0.5)),
+    selectedIconTheme: const IconThemeData(color: AppColors.white),
+    unselectedItemColor: AppColors.white.withOpacity(0.5),
+    selectedItemColor: AppColors.white,
+  );
+}
 
 ColorScheme _getColorScheme() {
   return const ColorScheme(
@@ -155,6 +176,14 @@ CheckboxThemeData _getCheckboxTheme() {
       ),
     ),
     side: const BorderSide(width: 1.0, color: AppColors.darkGreen),
+  );
+}
+
+TextStyle? _getPopupMenuTheme() {
+  return const TextStyle(
+    // Restyled
+    color: AppColors.white,
+    fontSize: ThemeConstants.fontSize16,
   );
 }
 

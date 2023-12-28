@@ -157,5 +157,9 @@ class AppRoutes {
   // New theme
   static const String theme = '/theme';
 
+  // Group chat
+  static const String groupChat = 'chat';
+  static const String groupChatUsers = '/chat_users';
+
   AppRoutes._();
 }

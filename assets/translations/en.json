@@ -36,51 +36,27 @@
   "bmi": "BMI",
   "years": "years",
   "bmiDescription": "The Body Mass Index (BMI) is a measure that uses your height and weight to work out if your weight is healthy",
-
-
-
-
-
-
-
-
-
-
-
-
   "getStarted": "Get started",
   "haveAnAccount": "Have an account?",
   "logIn": "Log in",
   "bodyAndMind": "Body & Mind",
   "mentalHealth": "Mental Health",
-
   "needHelpWithThis": "Need help with this?",
-
   "finish": "Finish",
-
   "introPage": "Intro Page!",
-
-
-
-
   "joinUsStepTwoDesc": "We ask you about your preferences so we can make relevant recommendations.",
   "moreInfo": "More info",
   "whyWeAreAsking": "Why we are asking",
   "testDuration": "30 minutes",
   "joinUsNote": "you can take a break anytime and continue later.",
-
   "yourBirthday": "Your birthday",
-
   "fitnessCheckPassedText": "Your BMI is quite high and might be damaging for your health, we can help you with that",
-
   "continueBtn": "Continue",
   "checkYourMedicalCondition": "Check on your medical condition",
   "medicalIntroTitle": "As the last part of the fitness check we continue with any medical conditions you might have.",
   "medicalIntroInstructionFirst": "We continue with a clinical questionnaire (53 questions) to assess your mental health",
   "medicalIntroInstructionSecond": "Explanation what we do with this. Exit or groups",
   "medicalIntroInstructionThird": "This will take 5 - 10 minutes. You will see the result after the questionnaire is completed",
-
-
   "fitnessCheckFailedAdviceText": "[Also some advice where to turn next].",
   "areYouPregnant": "Are you pregnant?",
   "yes": "yes",
@@ -88,15 +64,10 @@
   "needConsentBodyText1": "You need consent from your specialist to participate in the LeanOnMe pogram",
   "needConsentBodyText2": "Please download the instuctions what to ask your general practioner",
   "downloadInstructions": "Download instructions",
-
-
   "forgotPassword": "Forgot password",
   "yourPassword": "Your password",
   "login": "Login",
-
-
   "yourEmail": "Your email",
-
   "enterNewPassword": "Enter a new password below to\n change your password.",
   "repeatPassword": "Repeat Password",
   "passwordStrengthToShort": "Your password too short",
@@ -140,8 +111,6 @@
   "failedPregnancyTitle": "Unfortunately our program is not suitable for you if you are pregnant",
   "alsoSomeAdviceWhereToTurnNext": "[Also some advice where to turn next].",
   "enterYourHeight": "Please enter your height",
-
-
   "medicalCheckPassedTitle": "Medical check passed!",
   "painInChestQuestion": "Do you have pain in chest?",
   "emailOrPasswordAreIncorrect": "Email or password are incorrect",
@@ -220,7 +189,6 @@
   "doYou": "Do you",
   "likeAnyOfTheFollowing": "like any of the following?",
   "of": "of",
-
   "foodTemptations": "Food temptations",
   "selfHelp": "Self-Help",
   "selfHelpDesc": "Part of the program is to discuss and share experiences with people like you.\nWe like to understand if you have any preferences for this.",
@@ -756,5 +724,12 @@
   "logWeight": "Log Weight",
   "foodLoggingUnlocked": "Food logging unlocked",
   "youCanStartLogging": "You can start logging your meals right now",
-  "reportIssueAndEmergencyTitle": "Report issue & emergency"
+  "reportIssueAndEmergencyTitle": "Report issue & emergency",
+  "groupChat": "Group chat",
+  "copyGroupMessage": "Copy",
+  "removeGroupMessage": "Remove",
+  "reportGroupMessage": "Report",
+  "snackMassageCopy": "Message text has been copied to clipboard",
+  "massageRemoved": "This message was deleted",
+  "membersEmpty": "Group chat doesn’t have members "
 }

@@ -3,6 +3,8 @@ import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
+import 'package:loopcare_frontend/features/chat/application/chat_watcher_bloc/chat_watcher_bloc.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/application/physical_activities_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/application/programs_in_progress_bloc.dart';
@@ -152,6 +154,12 @@ class AppBlocProvider {
         ),
         BlocProvider<AssignmentsBloc>(
           create: (_) => getIt<AssignmentsBloc>(),
+        ),
+        BlocProvider<ChatWatcherBloc>(
+          create: (_) => getIt<ChatWatcherBloc>(),
+        ),
+        BlocProvider<GroupChatBloc>(
+          create: (_) => getIt<GroupChatBloc>(),
         ),
       ];
 }
