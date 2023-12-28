@@ -9,7 +9,6 @@ import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart
 import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preference.dart';
 
 part 'account.freezed.dart';
-
 part 'account.g.dart';
 
 @freezed
@@ -46,8 +45,7 @@ abstract class Account implements _$Account {
   bool get isMixedGender => gender != SexType.female && gender != SexType.male;
 
   int get trainingFrequency {
-    final RegExpMatch? match =
-        RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
+    final RegExpMatch? match = RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
 
     return match != null ? int.parse(match[0] ?? '0') : 0;
   }

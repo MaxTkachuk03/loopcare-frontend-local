@@ -21,12 +21,14 @@ class AppInputDecoration extends InputDecoration {
     super.errorText,
     EdgeInsetsGeometry? contentPadding,
     Color? focusedColor,
+    InputBorder? enableBorder,
   }) : super(
           border: const OutlineInputBorder(),
           focusColor: focusedColor ?? _kFocused,
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: state.color.withOpacity(0.5)),
-          ),
+          enabledBorder: enableBorder ??
+              OutlineInputBorder(
+                borderSide: BorderSide(color: state.color.withOpacity(0.5)),
+              ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: focusedColor ?? _kFocused),
           ),

@@ -9,4 +9,6 @@ class SocketEvents {
   static const String topicSlotStarted = 'SLOT_STARTED';
   static const String topicSlotStartedSoon = 'SLOT_STARTING_SOON';
   static const String error = 'ERROR';
+  //Todo update infor from be
+  static const String chatNewMassage = 'NEW_MESSAGE';
 }

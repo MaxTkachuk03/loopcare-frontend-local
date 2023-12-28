@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
@@ -123,6 +124,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
         response.fold(
           (l) => null,
           (r) {
+            debugPrint('devcpp Account: ${r.groupingState}');
             emit(
               state.copyWith(
                 account: Account(

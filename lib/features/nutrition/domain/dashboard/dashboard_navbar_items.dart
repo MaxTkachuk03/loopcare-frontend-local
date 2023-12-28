@@ -1,13 +1,18 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 enum DashboardNavbarItems {
   today(0, 'Today'),
   education(1, 'Education'),
-  account(2, 'Account');
+  chat(2, 'Group chat'),
+  account(3, 'Account');
 
   const DashboardNavbarItems(this.number, this.value);
+
+  bool get isGroupChat => value == chat.value;
 
   static DashboardNavbarItems getValueByString(String val) => values.firstWhere((e) => e.value == val);
 
@@ -21,7 +26,9 @@ enum DashboardNavbarItems {
       case 'Today':
         return AppColors.blueMid;
       case 'Education':
-        return AppColors.orange;
+        return AppColors.orangeRegular;
+      case 'Group chat':
+        return AppColors.orangeRegular;
       case 'Account':
         return AppColors.blueRegular;
     }
@@ -30,22 +37,26 @@ enum DashboardNavbarItems {
   get icon {
     switch (value) {
       case 'Today':
-        return AppIcons.calendar;
+        return AppIcons.dashboardCalendar;
       case 'Education':
-        return AppIcons.book;
+        return AppIcons.dashboardEducation;
+      case 'Group chat':
+        return AppIcons.dashboardChat;
       case 'Account':
-        return AppIcons.account;
+        return AppIcons.dashboardAccount;
     }
   }
 
   get activeIcon {
     switch (value) {
       case 'Today':
-        return AppIcons.calendarFull;
+        return AppIcons.dashboardCalendarActive;
       case 'Education':
-        return AppIcons.bookFull;
+        return AppIcons.dashboardEducationActive;
+      case 'Group chat':
+        return AppIcons.dashboardChatActive;
       case 'Account':
-        return AppIcons.accountFull;
+        return AppIcons.dashboardAccountActive;
     }
   }
 
@@ -55,6 +66,8 @@ enum DashboardNavbarItems {
         return value;
       case 'Education':
         return value;
+      case 'Group chat':
+        return value;
       case 'Account':
         return userName;
       default:
@@ -62,3 +75,25 @@ enum DashboardNavbarItems {
     }
   }
 }
+
+List<PageRouteInfo<dynamic>> dashboardContent({bool enableChat = false}) => enableChat
+    ? [
+        const DashboardRoute(),
+        const EducationRoute(),
+        const GroupChatRoute(),
+        const AccountRoute(),
+      ]
+    : [
+        const DashboardRoute(),
+        const EducationRoute(),
+        const AccountRoute(),
+      ];
+
+List<DashboardNavbarItems> bottomTabs({bool enableChat = false}) => enableChat
+    ? [
+        DashboardNavbarItems.today,
+        DashboardNavbarItems.education,
+        DashboardNavbarItems.chat,
+        DashboardNavbarItems.account
+      ]
+    : [DashboardNavbarItems.today, DashboardNavbarItems.education, DashboardNavbarItems.account];
