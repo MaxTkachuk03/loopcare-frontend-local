@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -53,6 +54,7 @@ class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
     return CustomScaffold.coral(
       appBar: CustomAppBar.coral(
         title: LocalizedTexts.assignments.translation,
+        leading: CustomFilledIconButton.leadingCoralLighter(),
       ),
       body: BlocBuilder<AssignmentsBloc, AssignmentsState>(
         builder: (context, state) {

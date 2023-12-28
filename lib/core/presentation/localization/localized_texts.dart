@@ -846,6 +846,9 @@ class LocalizedTexts {
   static const String bmi = 'bmi';
   static const String years = 'years';
   static const String bmiDescription = 'bmiDescription';
+
+  // Profile screen
+  static const String reportIssueAndEmergencyTitle = 'reportIssueAndEmergencyTitle';
 }
 
 extension StringX on String {
