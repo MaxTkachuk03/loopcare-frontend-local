@@ -35,6 +35,32 @@ extension SnackBarShortcuts on BuildContext {
   }
 
   /// Show a success flash bar.
+  Future<T?> showCustomSuccessBar<T>({
+    required Widget content,
+    FlashPosition position = FlashPosition.top,
+    Duration duration = const Duration(seconds: 3),
+    FlashBuilder<T>? primaryActionBuilder,
+    List<Widget>? actions,
+  }) {
+    return showFlash<T>(
+      context: this,
+      duration: duration,
+      builder: (context, controller) {
+        return FlashBar(
+          controller: controller,
+          position: position,
+          icon: AppIcons.greenCheckmark,
+          content: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: content,
+          ),
+          primaryAction: primaryActionBuilder?.call(context, controller),
+          actions: actions,
+        );
+      },
+    );
+  }
+
   Future<T?> showSuccessBar<T>({
     required Widget content,
     FlashPosition position = FlashPosition.top,

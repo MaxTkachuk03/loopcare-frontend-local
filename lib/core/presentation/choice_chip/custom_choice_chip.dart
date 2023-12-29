@@ -47,6 +47,23 @@ class CustomChoiceChip<T> extends StatelessWidget {
         borderColor: AppColors.coralRegular,
       );
 
+  factory CustomChoiceChip.coralBlueBorder({
+    required bool selected,
+    required OnSelected<T> onSelected,
+    required T value,
+    required String label,
+  }) =>
+      CustomChoiceChip<T>(
+        label: label,
+        selected: selected,
+        onSelected: onSelected,
+        value: value,
+        selectedColor: AppColors.coralRegular,
+        borderColor: selected ? AppColors.coralRegular : AppColors.blueRegular,
+        backgroundColor: AppColors.blueLightest,
+        borderRadius: 30,
+      );
+
   factory CustomChoiceChip.orange({
     required bool selected,
     required OnSelected<T> onSelected,
@@ -141,6 +158,11 @@ class CustomChoiceChip<T> extends StatelessWidget {
       backgroundColor: backgroundColor,
       avatar: avatar,
       showCheckmark: showCheckmark,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(borderRadius ?? 8),
+        ),
+      ),
     );
   }
 }
