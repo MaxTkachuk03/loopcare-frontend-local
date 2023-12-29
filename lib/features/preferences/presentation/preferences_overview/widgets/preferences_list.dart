@@ -7,7 +7,6 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/diabetes/application/diabetes_bloc.dart';
 import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/widgets/preferences_list_item.dart';
-import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 class Pref {
   final String title;

@@ -1064,9 +1064,9 @@ class ModalBottomSheet {
                                 Expanded(
                                   child: CustomText.w500(
                                     item.name,
-                                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                                          color: isFilled ? AppColors.blueDarker : AppColors.darkGreen,
-                                        ),
+                                    style: context.textTheme.titleSmall?.copyWith(
+                                      color: isFilled ? AppColors.blueDarker : AppColors.darkGreen,
+                                    ),
                                   ),
                                 ),
                                 const ImageIcon(
@@ -1262,10 +1262,9 @@ class ModalBottomSheet {
                     ),
                   ),
                   CustomText.bitter500(LocalizedTexts.inCaseOfEmergency.tr(),
-                      style: Theme.of(context).textTheme.displayMedium),
+                      style: context.textTheme.displayMedium),
                   const SizedBox(height: 12),
-                  CustomText.w400(LocalizedTexts.emergencySubtitle.tr(),
-                      style: Theme.of(context).textTheme.bodyMedium),
+                  CustomText.w400(LocalizedTexts.emergencySubtitle.tr(), style: context.textTheme.bodyMedium),
                   const SizedBox(height: 12),
                   Expanded(
                     child: ListView.separated(

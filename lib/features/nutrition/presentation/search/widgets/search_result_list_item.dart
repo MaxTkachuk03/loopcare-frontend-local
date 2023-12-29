@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
 
@@ -49,7 +50,7 @@ class SearchResultListItem extends StatelessWidget {
                           Expanded(
                             child: CustomText.w600(
                               item.name,
-                              style: Theme.of(context).textTheme.titleSmall,
+                              style: context.textTheme.titleSmall,
                             ),
                           ),
                           const ImageIcon(

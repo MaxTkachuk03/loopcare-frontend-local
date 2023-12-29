@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/emoji_choice_chip.dart';
 import 'package:loopcare_frontend/features/mood/infrastructure/mood_emotion.dart';
 
 class MoodEmotionOption extends StatelessWidget {

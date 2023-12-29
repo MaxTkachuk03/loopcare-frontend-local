@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_b
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/mood/infrastructure/mood_controller.dart';
@@ -140,8 +140,7 @@ class _MoodOptionPageState extends State<MoodOptionPage> {
                   alignment: AlignmentDirectional.topStart,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 28.0, bottom: 16),
-                    child:
-                        CustomText.bitter500(_description, style: Theme.of(context).textTheme.displayMedium),
+                    child: CustomText.bitter500(_description, style: context.textTheme.displayMedium),
                   ),
                 ),
                 Column(children: [const SizedBox(height: 30.0), content]),

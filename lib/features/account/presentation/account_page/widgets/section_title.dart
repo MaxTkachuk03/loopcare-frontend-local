@@ -1,6 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class SectionTitle extends StatelessWidget {
   final String title;
@@ -12,17 +13,12 @@ class SectionTitle extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(
+        CustomText.bitter500(
           title,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            color: AppColors.blueDark,
-            fontFamily: ThemeConstants.bitterFontFamily,
-          ),
-        ).tr(),
+          style: context.textTheme.displayMedium,
+        ),
         const SizedBox(height: 16.0),
-        const Divider(height: 1.0, color: AppColors.yellowLight),
+        const Divider(height: 1.0, color: AppColors.blueLighter),
       ],
     );
   }

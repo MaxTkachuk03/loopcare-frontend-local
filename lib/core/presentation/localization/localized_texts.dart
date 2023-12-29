@@ -773,6 +773,8 @@ class LocalizedTexts {
   static const String automaticRenewalOn = "automaticRenewalOn";
   static const String serviceUnavailable = "serviceUnavailable";
   static const String otherPurchaseVendor = "otherPurchaseVendor";
+  static const String appStore = "appStore";
+  static const String googleMarket = "googleMarket";
 
   // Quizes
   static const String quiz = "quiz";
@@ -872,6 +874,9 @@ class LocalizedTexts {
   static const String bmi = 'bmi';
   static const String years = 'years';
   static const String bmiDescription = 'bmiDescription';
+
+  // Profile screen
+  static const String reportIssueAndEmergencyTitle = 'reportIssueAndEmergencyTitle';
 }
 
 extension StringX on String {
