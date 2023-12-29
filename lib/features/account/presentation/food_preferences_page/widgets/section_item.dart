@@ -1,8 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 class SectionItem extends StatelessWidget {
@@ -25,10 +26,10 @@ class SectionItem extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            CustomText.w400(
               title,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600),
-            ).tr(),
+              style: context.textTheme.bodyMedium,
+            ),
             IconButton(
               onPressed: onPressHandler,
               icon: const ImageIcon(
@@ -46,16 +47,12 @@ class SectionItem extends StatelessWidget {
                 (o) => Container(
                   padding: const EdgeInsets.all(8.0),
                   decoration: const BoxDecoration(
-                    color: AppColors.bgGreen,
-                    borderRadius: BorderRadius.all(Radius.circular(3)),
+                    color: AppColors.blueLighter,
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
                   ),
-                  child: Text(
+                  child: CustomText.w600(
                     o.capitalizeOnlyFirstLetter(),
-                    style: const TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.darkGreen,
-                    ),
+                    style: context.textTheme.bodySmall,
                   ),
                 ),
               )

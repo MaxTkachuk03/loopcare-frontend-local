@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
+import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preference.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
@@ -20,32 +20,34 @@ class _TypesOfFoodChipsState extends State<TypesOfFoodChips> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-      final width = constraints.maxWidth / 2 - 5;
-      return BlocBuilder<YouAndFoodBloc, YouAndFoodState>(
-        builder: (BuildContext context, state) {
-          final selectedHates = state.selectedHates;
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final width = constraints.maxWidth / 2 - 5;
+        return BlocBuilder<YouAndFoodBloc, YouAndFoodState>(
+          builder: (BuildContext context, state) {
+            final selectedHates = state.selectedHates;
 
-          return Wrap(
-            spacing: 10.0,
-            runSpacing: 10.0,
-            children: state.foodTypes
-                .map(
-                  (e) => SizedBox(
-                    width: width,
-                    child: AppChoiceChip(
-                      label: e.name,
-                      selected: selectedHates.contains(e),
-                      value: e,
-                      onSelected: _onSelected,
+            return Wrap(
+              spacing: 10.0,
+              runSpacing: 10.0,
+              children: state.foodTypes
+                  .map(
+                    (e) => SizedBox(
+                      width: width,
+                      child: CustomChoiceChip.coralBlueBorder(
+                        label: e.name,
+                        selected: selectedHates.contains(e),
+                        value: e,
+                        onSelected: _onSelected,
+                      ),
                     ),
-                  ),
-                )
-                .toList(),
-          );
-        },
-      );
-    });
+                  )
+                  .toList(),
+            );
+          },
+        );
+      },
+    );
   }
 
   void _onSelected(FoodPreference value) {

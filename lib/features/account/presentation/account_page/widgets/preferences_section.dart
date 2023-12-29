@@ -50,6 +50,7 @@ class PreferencesSection extends StatelessWidget {
         perWeek = LocalizedTexts.perWeek.translation;
       }
     }
+    if (target.isEmpty && frequency.isEmpty && perWeek.isEmpty) return "";
 
     return "$target$frequency $perWeek";
   }
@@ -70,7 +71,7 @@ class PreferencesSection extends StatelessWidget {
   }
 
   Future<void> _foodUpdatedListener(BuildContext context, YouAndFoodState state) async {
-    context.showSuccessBar(
+    context.showCustomSuccessBar(
       content: CustomText.w600(
         LocalizedTexts.yourPreferencesUpdated.tr(namedArgs: {
           'prefName': LocalizedTexts.food.tr(),
@@ -89,7 +90,7 @@ class PreferencesSection extends StatelessWidget {
 
   Future<void> _physicalActivitiesUpdatingListener(
       BuildContext context, PhysicalActivitiesPreferencesState state) async {
-    context.showSuccessBar(
+    context.showCustomSuccessBar(
       content: CustomText.w600(
         LocalizedTexts.yourPreferencesUpdated.tr(
           namedArgs: {
@@ -109,7 +110,7 @@ class PreferencesSection extends StatelessWidget {
   }
 
   Future<void> _groupUpdatingListener(BuildContext context, GroupPreferencesState state) async {
-    context.showSuccessBar(
+    context.showCustomSuccessBar(
       content: CustomText.w600(
         LocalizedTexts.yourPreferencesUpdated.tr(
           namedArgs: {

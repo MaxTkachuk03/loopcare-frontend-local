@@ -211,5 +211,7 @@ class AppIcons {
   static SvgPicture checkmarkSVG = SvgPicture.asset('$iconsFilePath/check_mark.svg', width: 24, height: 24);
   static SvgPicture drinkSVG = SvgPicture.asset('$iconsFilePath/drink.svg', width: 24, height: 24);
 
+  static SvgPicture greenCheckmark = SvgPicture.asset('$iconsFilePath/green_checkmark.svg');
+
   AppIcons._();
 }

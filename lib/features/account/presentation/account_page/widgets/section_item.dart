@@ -35,7 +35,7 @@ class SectionItem extends StatelessWidget {
                     title,
                     style: context.textTheme.bodyMedium,
                   ),
-                  if (subTitle != null)
+                  if (subTitle != null && subTitle!.isNotEmpty)
                     CustomText.w600(
                       subTitle ?? '',
                       style: context.textTheme.bodySmall,

@@ -3,11 +3,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/allergic/widgets/allergic_chips.dart';
 import 'package:loopcare_frontend/features/you_and_food/presentation/do_not_like/widgets/do_not_like_chips.dart';
@@ -34,17 +38,17 @@ class EditFoodPreferencesPage extends StatelessWidget {
 
   get _title {
     return mode.map(
-      hates: (_) => LocalizedTexts.dontEat,
-      allergies: (_) => LocalizedTexts.youAndFoodItemThree,
-      dislikes: (_) => LocalizedTexts.dontLike,
+      hates: (_) => LocalizedTexts.dontEat.tr(),
+      allergies: (_) => LocalizedTexts.youAndFoodItemThree.tr(),
+      dislikes: (_) => LocalizedTexts.dontLike.tr(),
     );
   }
 
   get _header {
     return mode.map(
-      hates: (_) => LocalizedTexts.iDoNotEatOrDrink,
-      allergies: (_) => LocalizedTexts.iAmAllergicTo,
-      dislikes: (_) => LocalizedTexts.iDoNotLike,
+      hates: (_) => LocalizedTexts.iDoNotEatOrDrink.tr(),
+      allergies: (_) => LocalizedTexts.iAmAllergicTo.tr(),
+      dislikes: (_) => LocalizedTexts.iDoNotLike.tr(),
     );
   }
 
@@ -63,17 +67,10 @@ class EditFoodPreferencesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.blueAppBar,
-        leading: const BackButtonHexagon(),
-        title: Text(
-          _title,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                fontWeight: FontWeight.w700,
-                color: AppColors.white,
-              ),
-        ).tr(),
+    return CustomScaffold.blueLightest(
+      appBar: CustomAppBar.blue(
+        title: _title,
+        leading: CustomFilledIconButton.leadingBlueLighter(),
       ),
       body: SafeArea(
         child: MainContainer(
@@ -83,27 +80,21 @@ class EditFoodPreferencesPage extends StatelessWidget {
               const SizedBox(height: 32.0),
               Align(
                 alignment: AlignmentDirectional.centerStart,
-                child: Text(_header, style: Theme.of(context).textTheme.headlineMedium).tr(),
+                child: CustomText.bitter500(
+                  _header,
+                  style: context.textTheme.displayMedium,
+                ),
               ),
               const SizedBox(height: 22.0),
-              Expanded(child: ScrollableContainer(child: content)),
+              Expanded(
+                child: ScrollableContainer(child: content),
+              ),
               Column(
                 children: [
                   const SizedBox(height: 22.0),
-                  ElevatedButton(
+                  CustomElevatedButton.blueFullWidth(
                     onPressed: () => _onOkHandler(context),
-                    style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                      backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                        (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.disabled)) {
-                            return AppColors.greyMid;
-                          }
-
-                          return AppColors.orangeDark;
-                        },
-                      ),
-                    ),
-                    child: const Text(LocalizedTexts.confirm).tr(),
+                    label: LocalizedTexts.confirm.tr(),
                   ),
                   const SizedBox(height: 30.0),
                 ],
