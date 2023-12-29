@@ -1,25 +1,20 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class SubscriptionPlane extends SubscriptionPlaneItem {
   const SubscriptionPlane.general({
-    required String title,
-    String? offer,
-    String? regularPrice,
-    String? currency,
-    required bool selected,
-    Function()? onTap,
+    required super.title,
+    super.offer,
+    super.regularPrice,
+    super.currency,
+    required super.selected,
+    super.onTap,
     super.key,
-  }) : super(
-          title: title,
-          offer: offer,
-          regularPrice: regularPrice,
-          currency: currency,
-          selected: selected,
-          onTap: onTap,
-        );
+  });
 }
 
 class SubscriptionPlaneItem extends StatelessWidget {
@@ -61,26 +56,26 @@ class SubscriptionPlaneItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontSize: ThemeConstants.fontSize16,
-                        fontFamily: ThemeConstants.openSansFontFamily,
-                        color: AppColors.darkGreen,
-                        fontWeight: FontWeight.w700,
-                      ),
-                ).tr(),
+                CustomText(
+                  title.tr(),
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    fontSize: ThemeConstants.fontSize16,
+                    fontFamily: ThemeConstants.openSansFontFamily,
+                    color: AppColors.blueDarkest,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 if (regularPrice != null && currency != null)
-                  Text(
+                  CustomText(
                       LocalizedTexts.subscriptionPrice
                           .tr()
                           .replaceAll('{C}', currency!)
                           .replaceAll('{XX,XX}', regularPrice!),
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontSize: ThemeConstants.fontSize16,
-                            fontFamily: ThemeConstants.openSansFontFamily,
-                            color: AppColors.darkGreen,
-                          )),
+                      style: context.textTheme.bodyMedium?.copyWith(
+                        fontSize: ThemeConstants.fontSize16,
+                        fontFamily: ThemeConstants.openSansFontFamily,
+                        color: AppColors.blueDarkest,
+                      )),
               ],
             ),
           ),

@@ -23,6 +23,8 @@ class _FooterSubscriptionState extends State<FooterSubscription> {
         valueListenable: widget.controller.selectedPlan,
         builder: (context, selectedPlan, _) {
           return Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                   children: widget.controller.products
@@ -40,8 +42,9 @@ class _FooterSubscriptionState extends State<FooterSubscription> {
                         ),
                       )
                       .toList()),
-              const SizedBox(height: 16.0),
-              RestoreSubscriptionLink(onTap: () => widget.controller.restorePurchase()),
+              const SizedBox(height: 8.0),
+              RestoreSubscriptionLink(onRestoreTap: () => widget.controller.restorePurchase()),
+              const SizedBox(height: 8.0),
             ],
           );
         });
