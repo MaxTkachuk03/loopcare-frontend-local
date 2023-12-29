@@ -32,12 +32,12 @@ class SubscriptionHeaderState extends StatelessWidget {
           Text(
             label,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontSize: ThemeConstants.fontSize16,
-                  fontFamily: ThemeConstants.openSansFontFamily,
-                  color: AppColors.darkGreen,
-                  fontWeight: FontWeight.w400,
-                ),
+            style: context.textTheme.bodyMedium?.copyWith(
+              fontSize: ThemeConstants.fontSize16,
+              fontFamily: ThemeConstants.openSansFontFamily,
+              color: AppColors.darkGreen,
+              fontWeight: FontWeight.w400,
+            ),
           ).tr(),
         ],
       ),
@@ -52,33 +52,33 @@ class SubscriptionHeader extends SubscriptionHeaderState {
           label: LocalizedTexts.subscriptionTrialLabel,
         );
 
-  SubscriptionHeader.trialExpired({super.key})
+  const SubscriptionHeader.trialExpired({super.key})
       : super(
-          title: LocalizedTexts.subscriptionTrialExpiredTitle.tr(),
-          label: LocalizedTexts.subscriptionTrialExpiredLabel.tr(),
+          title: LocalizedTexts.subscriptionTrialExpiredTitle,
+          label: LocalizedTexts.subscriptionTrialExpiredLabel,
         );
 
-  SubscriptionHeader.endedSubscription({super.key})
+  const SubscriptionHeader.endedSubscription({super.key})
       : super(
-          title: LocalizedTexts.subscriptionEndedTitle.tr(),
-          label: LocalizedTexts.subscriptionEndedLabel.tr(),
+          title: LocalizedTexts.subscriptionEndedTitle,
+          label: LocalizedTexts.subscriptionEndedLabel,
         );
 
-  SubscriptionHeader.cancelledSubscription({super.key})
+  const SubscriptionHeader.cancelledSubscription({super.key})
       : super(
-          title: LocalizedTexts.subscriptionCancelledTitle.tr(),
-          label: LocalizedTexts.subscriptionCancelledLabel.tr(),
+          title: LocalizedTexts.subscriptionCancelledTitle,
+          label: LocalizedTexts.subscriptionCancelledLabel,
         );
 
-  SubscriptionHeader.notRenewSubscription({super.key})
+  const SubscriptionHeader.notRenewSubscription({super.key})
       : super(
-          title: LocalizedTexts.subscriptionRenewedTitle.tr(),
-          label: LocalizedTexts.subscriptionRenewedLabel.tr(),
+          title: LocalizedTexts.subscriptionRenewedTitle,
+          label: LocalizedTexts.subscriptionRenewedLabel,
         );
 
-  SubscriptionHeader.serviceUnavailable({super.key})
+  const SubscriptionHeader.serviceUnavailable({super.key})
       : super(
-          title: LocalizedTexts.serviceUnavailable.tr(),
+          title: LocalizedTexts.serviceUnavailable,
           label: '',
         );
 }

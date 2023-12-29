@@ -7,9 +7,15 @@ import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
@@ -41,66 +47,84 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
         orElse: () => null,
       ),
       builder: (context, state) {
-        return Scaffold(
-          appBar: BlueAppBar(
-            isCustomLeading: true,
+        return CustomScaffold.blue(
+          appBar: CustomAppBar.blue(
+            leading: CustomFilledIconButton.leadingBlueLighter(),
             title: LocalizedTexts.manageSubscription.tr(),
           ),
-          body: SafeArea(
-            child: ScrollableContainer(
-              child: MainContainer(
+          body: Stack(
+            children: [
+              Positioned(
+                bottom: 0,
+                child: AppIcons.bottomFrame,
+              ),
+              SafeArea(
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 32,
+                    Expanded(
+                      child: ScrollableContainer(
+                        child: MainContainer(
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 32,
+                              ),
+                              _DetailsSection(
+                                title: LocalizedTexts.subscriptionType,
+                                value: state.data.subscription?.subscriptionPlan?.title ?? '',
+                              ),
+                              const SizedBox(
+                                height: 14,
+                              ),
+                              _DetailsSection(
+                                title: LocalizedTexts.subscriptionVia,
+                                value: state.data.subscription == null
+                                    ? ''
+                                    : state.data.subscription!.vendor == 'ios'
+                                        ? LocalizedTexts.appStore
+                                        : LocalizedTexts.googleMarket,
+                              ),
+                              const SizedBox(
+                                height: 14,
+                              ),
+                              _DetailsSection(
+                                title: LocalizedTexts.memberSince,
+                                value: _getDate(state.data.subscription?.purchasedAt) ?? '',
+                              ),
+                              const SizedBox(
+                                height: 14,
+                              ),
+                              _DetailsSection(
+                                title: LocalizedTexts.automaticRenewalOn,
+                                value: _getDate(state.data.subscription?.expiresAt) ?? '',
+                              ),
+                              const SizedBox(
+                                height: 14,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
-                    _DetailsSection(
-                      title: LocalizedTexts.subscriptionType,
-                      value: state.data.subscription?.subscriptionPlan?.title ?? '',
-                    ),
-                    const SizedBox(
-                      height: 14,
-                    ),
-                    _DetailsSection(
-                      title: LocalizedTexts.subscriptionVia,
-                      value: state.data.subscription == null
-                          ? ''
-                          : state.data.subscription!.vendor == 'ios'
-                              ? 'App Store'
-                              : 'Play Market',
-                    ),
-                    const SizedBox(
-                      height: 14,
-                    ),
-                    _DetailsSection(
-                      title: LocalizedTexts.memberSince,
-                      value: _getDate(state.data.subscription?.purchasedAt) ?? '',
-                    ),
-                    const SizedBox(
-                      height: 14,
-                    ),
-                    _DetailsSection(
-                      title: LocalizedTexts.automaticRenewalOn,
-                      value: _getDate(state.data.subscription?.expiresAt) ?? '',
-                    ),
-                    const SizedBox(
-                      height: 14,
-                    ),
-                    _ManageButton(
-                      onTap: isVendorPlatform(state)
-                          ? () {
-                              Platform.isIOS
-                                  ? launchUrl(Uri.parse(appConfig.appStoreSettingsLink),
-                                      mode: LaunchMode.externalApplication)
-                                  : launchUrl(Uri.parse(appConfig.playMarketSettingsLink),
-                                      mode: LaunchMode.externalApplication);
-                            }
-                          : () => _showPopover(),
+                    Padding(
+                      padding: const EdgeInsets.all(24.0),
+                      child: CustomElevatedButton.coralFullWidth(
+                        onPressed: isVendorPlatform(state)
+                            ? () {
+                                Platform.isIOS
+                                    ? launchUrl(Uri.parse(appConfig.appStoreSettingsLink),
+                                        mode: LaunchMode.externalApplication)
+                                    : launchUrl(Uri.parse(appConfig.playMarketSettingsLink),
+                                        mode: LaunchMode.externalApplication);
+                              }
+                            : () => _showPopover(),
+                        label: LocalizedTexts.manageSubscription.tr(),
+                      ),
                     ),
                   ],
                 ),
               ),
-            ),
+            ],
           ),
         );
       },
@@ -118,7 +142,7 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
   void _showPopover() => showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          content: Text(LocalizedTexts.otherPurchaseVendor.tr()),
+          content: CustomText(LocalizedTexts.otherPurchaseVendor.tr()),
           actions: [
             TextButton(
               onPressed: () => context.router.pop(),
@@ -164,56 +188,25 @@ class _DetailsSection extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontSize: ThemeConstants.fontSize16,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: ThemeConstants.openSansFontFamily,
-                          color: AppColors.darkGreen,
-                        ),
-                  ).tr(),
-                  Text(value ?? '',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontSize: ThemeConstants.fontSize18,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: ThemeConstants.openSansFontFamily,
-                            color: AppColors.darkGreen,
-                          )).tr(),
+                  CustomText(
+                    title.tr(),
+                    style: context.textTheme.bodyMedium?.copyWith(
+                      color: AppColors.blueDarker,
+                    ),
+                  ),
+                  const SizedBox(height: 4.0),
+                  CustomText.w600(
+                    value?.tr() ?? '',
+                    style: context.textTheme.bodyMedium?.copyWith(
+                      fontSize: ThemeConstants.fontSize14,
+                      color: AppColors.blueDarker,
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _ManageButton extends StatelessWidget {
-  final Function()? onTap;
-
-  const _ManageButton({Key? key, this.onTap}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
-      child: ElevatedButton(
-        onPressed: onTap,
-        style: Theme.of(context)
-            .elevatedButtonTheme
-            .style
-            ?.copyWith(backgroundColor: MaterialStateProperty.all(AppColors.blueAppBar)),
-        child: Text(
-          LocalizedTexts.manageSubscription,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontSize: ThemeConstants.fontSize16,
-                fontFamily: ThemeConstants.openSansFontFamily,
-                fontWeight: FontWeight.w600,
-                color: AppColors.white,
-              ),
-        ).tr(),
       ),
     );
   }

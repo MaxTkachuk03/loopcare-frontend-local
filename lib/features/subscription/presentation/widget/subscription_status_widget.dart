@@ -25,7 +25,7 @@ class SubscriptionStatusWidget extends Column {
     required SubscriptionController controller,
   }) : super(
           children: [
-            SubscriptionHeader.trialExpired(),
+            const SubscriptionHeader.trialExpired(),
             Expanded(
               child: FooterSubscription(
                 controller: controller,
@@ -40,7 +40,7 @@ class SubscriptionStatusWidget extends Column {
     required SubscriptionController controller,
   }) : super(
           children: [
-            SubscriptionHeader.endedSubscription(),
+            const SubscriptionHeader.endedSubscription(),
             Expanded(
               child: FooterSubscription(
                 controller: controller,
@@ -55,7 +55,7 @@ class SubscriptionStatusWidget extends Column {
     required SubscriptionController controller,
   }) : super(
           children: [
-            SubscriptionHeader.cancelledSubscription(),
+            const SubscriptionHeader.cancelledSubscription(),
             Expanded(
               child: FooterSubscription(
                 controller: controller,
@@ -71,7 +71,7 @@ class SubscriptionStatusWidget extends Column {
   }) : super(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(child: SubscriptionHeader.notRenewSubscription()),
+            const Expanded(child: SubscriptionHeader.notRenewSubscription()),
             RenewButton(
               onTap: onTap,
             ),
@@ -82,7 +82,7 @@ class SubscriptionStatusWidget extends Column {
       : super(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(child: SubscriptionHeader.serviceUnavailable()),
+            const Expanded(child: SubscriptionHeader.serviceUnavailable()),
           ],
         );
 }

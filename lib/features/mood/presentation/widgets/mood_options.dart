@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/mood/infrastructure/mood_controller.dart';
 import 'package:loopcare_frontend/features/mood/infrastructure/mood_emotion.dart';
@@ -41,7 +42,7 @@ class MoodOptions extends StatelessWidget {
 
               return MoodOptionItem(
                 title: LocalizedTexts.time.tr(),
-                subTitle: CustomText.w600(subTitle, style: Theme.of(context).textTheme.bodySmall),
+                subTitle: CustomText.w600(subTitle, style: context.textTheme.bodySmall),
                 onPressed: _onPressHandler(context, const MoodOptionPageMode.time()),
               );
             },
@@ -51,8 +52,7 @@ class MoodOptions extends StatelessWidget {
             valueListenable: controller.emotionValues,
             builder: (context, emotionValues, _) {
               final subTitle = emotionValues.isEmpty
-                  ? CustomText.w600(LocalizedTexts.makeChoice.tr(),
-                      style: Theme.of(context).textTheme.bodySmall)
+                  ? CustomText.w600(LocalizedTexts.makeChoice.tr(), style: context.textTheme.bodySmall)
                   : EmotionsList(data: emotionValues);
 
               return MoodOptionItem(
@@ -72,7 +72,7 @@ class MoodOptions extends StatelessWidget {
 
               return MoodOptionItem(
                 title: LocalizedTexts.withWho.tr(),
-                subTitle: CustomText.w600(subTitle, style: Theme.of(context).textTheme.bodySmall),
+                subTitle: CustomText.w600(subTitle, style: context.textTheme.bodySmall),
                 onPressed: _onPressHandler(context, const MoodOptionPageMode.withWho()),
               );
             },
@@ -87,7 +87,7 @@ class MoodOptions extends StatelessWidget {
 
               return MoodOptionItem(
                 title: LocalizedTexts.where.tr(),
-                subTitle: CustomText.w600(subTitle, style: Theme.of(context).textTheme.bodySmall),
+                subTitle: CustomText.w600(subTitle, style: context.textTheme.bodySmall),
                 onPressed: _onPressHandler(context, const MoodOptionPageMode.where()),
               );
             },
@@ -102,7 +102,7 @@ class MoodOptions extends StatelessWidget {
 
               return MoodOptionItem(
                 title: LocalizedTexts.food.tr(),
-                subTitle: CustomText.w600(subTitle, style: Theme.of(context).textTheme.bodySmall),
+                subTitle: CustomText.w600(subTitle, style: context.textTheme.bodySmall),
                 onPressed: _onPressHandler(context, const MoodOptionPageMode.food()),
               );
             },

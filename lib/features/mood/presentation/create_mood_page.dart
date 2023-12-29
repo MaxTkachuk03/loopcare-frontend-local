@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -146,9 +146,9 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                         children: [
                           const SizedBox(height: 34.0),
                           CustomText.bitter500(LocalizedTexts.selectMoodText.tr(),
-                              style: Theme.of(context).textTheme.displayMedium),
+                              style: context.textTheme.displayMedium),
                           CustomText.w400(LocalizedTexts.selectMoodSubtext.tr(),
-                              style: Theme.of(context).textTheme.bodyMedium),
+                              style: context.textTheme.bodyMedium),
                           const SizedBox(height: 12.0),
                           ValueListenableBuilder<MoodPickerListItem?>(
                             valueListenable: _moodPageController.moodValue,
@@ -160,7 +160,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                           MoodOptions(controller: _moodPageController, isEditable: isEditable),
                           const SizedBox(height: 12.0),
                           CustomText.bitter500(LocalizedTexts.personalNote.tr(),
-                              style: Theme.of(context).textTheme.displayMedium),
+                              style: context.textTheme.displayMedium),
                           const SizedBox(height: 12.0),
                           MoodNoteField(_moodPageController, !isEditable),
                           const SizedBox(height: 24.0),

@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart'
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class ErrorScreen extends StatelessWidget {
   final RequestError? error;
@@ -47,16 +48,16 @@ class ErrorScreen extends StatelessWidget {
                 errorType.isSomethingWentWrongType
                     ? LocalizedTexts.oeps.translation
                     : LocalizedTexts.noConnectionTitle.translation,
-                style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                      fontSize: smallVersion ? ThemeConstants.fontSize18 : ThemeConstants.fontSize28,
-                    ),
+                style: context.textTheme.displayLarge?.copyWith(
+                  fontSize: smallVersion ? ThemeConstants.fontSize18 : ThemeConstants.fontSize28,
+                ),
               ),
               const SizedBox(height: 8.0),
               CustomText.w400(
                 errorType.isSomethingWentWrongType
                     ? LocalizedTexts.somethingWentWrong.translation
                     : LocalizedTexts.noConnectionText.translation,
-                style: Theme.of(context).textTheme.bodySmall,
+                style: context.textTheme.bodySmall,
               ),
               onButtonPressed == null
                   ? const SizedBox.shrink()

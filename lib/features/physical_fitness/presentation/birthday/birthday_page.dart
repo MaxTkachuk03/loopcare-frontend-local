@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/physical_fitness/presentation/birthday/widgets/birthday_field.dart';
@@ -29,7 +30,7 @@ class BirthdayPage extends StatelessWidget {
                     CustomText.bitter600(
                       LocalizedTexts.yourBirthday.tr(),
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.displayMedium,
+                      style: context.textTheme.displayMedium,
                     ),
                   ],
                 ),
