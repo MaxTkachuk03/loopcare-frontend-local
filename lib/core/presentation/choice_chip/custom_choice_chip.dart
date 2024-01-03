@@ -1,8 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 typedef OnSelected<T> = void Function(T val);
 
@@ -147,10 +145,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChoiceChip(
-      label: SizedBox(
-        width: double.infinity,
-        child: CustomText.w600(label.tr(), style: context.textTheme.bodyMedium),
-      ),
+      label: SizedBox(width: double.infinity, child: Text(label).tr()),
       selected: selected,
       onSelected: (_) => onSelected(value),
       selectedColor: selectedColor,
