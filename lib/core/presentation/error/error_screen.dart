@@ -48,9 +48,7 @@ class ErrorScreen extends StatelessWidget {
                 errorType.isSomethingWentWrongType
                     ? LocalizedTexts.oeps.translation
                     : LocalizedTexts.noConnectionTitle.translation,
-                style: context.textTheme.displayLarge?.copyWith(
-                  fontSize: smallVersion ? ThemeConstants.fontSize18 : ThemeConstants.fontSize28,
-                ),
+                style: smallVersion ? context.textTheme.bodyLarge : context.textTheme.displayLarge,
               ),
               const SizedBox(height: 8.0),
               CustomText.w400(
