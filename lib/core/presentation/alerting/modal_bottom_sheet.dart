@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_number
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/widgets/already_planned_card.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/html_renderer/html_renderer.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
@@ -1028,10 +1029,8 @@ class ModalBottomSheet {
                       child: SizedBox(
                         width: 16.0,
                         height: 16.0,
-                        child: IconButton(
-                          padding: EdgeInsets.zero,
+                        child: CustomIconButton.close(
                           onPressed: () => context.router.pop(),
-                          icon: const Icon(Icons.close),
                         ),
                       ),
                     ),
@@ -1279,7 +1278,7 @@ class ModalBottomSheet {
                         return const Divider(
                           thickness: 1.0,
                           height: 1.0,
-                          color: AppColors.ff404040,
+                          color: AppColors.greyRegular,
                         );
                       },
                     ),

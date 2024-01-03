@@ -4,6 +4,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/nutrition_tabs/nutrition_tabs.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/calorie_density/calorie_density.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/protein_degree/protein_degree.dart';
 
@@ -27,12 +28,14 @@ class NutritionInstructionsPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: MainContainer(
-          child: NutritionTabs(
-            initialIndex: tabIndex,
-            tabBarViewChildren: [
-              CalorieDensity(value: calorieDensity),
-              ProteinDegree(value: proteinDegree),
-            ],
+          child: ScrollableContainer(
+            child: NutritionTabs(
+              initialIndex: tabIndex,
+              tabBarViewChildren: [
+                CalorieDensity(value: calorieDensity),
+                ProteinDegree(value: proteinDegree),
+              ],
+            ),
           ),
         ),
       ),
