@@ -34,6 +34,10 @@ class _PasswordWithIndicatorState extends State<PasswordWithIndicator> {
       return 0.0;
     }
 
+    if (_password.length > 24) {
+      return 0.0;
+    }
+
     if (RegExp(RegExpUtils.digitsReg).hasMatch(password)) {
       strength += 1 / 4;
     }
