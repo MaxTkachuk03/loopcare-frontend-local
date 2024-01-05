@@ -16,7 +16,9 @@ class StepNavigationState extends InheritedWidget {
   }
 
   static StepNavigationState of(BuildContext context) {
+    print(context);
     final StepNavigationState? result = maybeOf(context);
+
     assert(result != null, 'No PhysicalFitnessNavigation found in context');
     return result!;
   }

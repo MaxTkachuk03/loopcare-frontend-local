@@ -34,7 +34,7 @@ class _AllergicChipsState extends State<AllergicChips> {
                   .map(
                     (e) => SizedBox(
                       width: width,
-                      child: CustomChoiceChip.coralBlueBorder(
+                      child: CustomChoiceChip.coral(
                         label: e.name,
                         selected: selectedAllergic.contains(e),
                         value: e,

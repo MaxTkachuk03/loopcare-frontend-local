@@ -34,7 +34,7 @@ class _DoYouLikeChipsState extends State<DoYouLikeChips> {
                   .map(
                     (e) => SizedBox(
                       width: width,
-                      child: CustomChoiceChip.coralBlueBorder(
+                      child: CustomChoiceChip.coral(
                         label: e.name,
                         selected: selectedDislike.contains(e),
                         value: e,

@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
 
 part 'group_preferences_body.g.dart';
 

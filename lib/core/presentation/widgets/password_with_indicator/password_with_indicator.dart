@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/password_with_indicator/password_strength_indicator.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/reg_exp_utils.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/reg_exp_utils.dart';
 
 class PasswordWithIndicator extends StatefulWidget {
   final TextEditingController? controller;

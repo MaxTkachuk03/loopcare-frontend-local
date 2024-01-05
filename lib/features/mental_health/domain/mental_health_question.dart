@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 
 part 'mental_health_question.freezed.dart';
 
@@ -15,6 +15,5 @@ abstract class MentalHealthQuestion implements _$MentalHealthQuestion {
     required SexType? excludeGender,
   }) = _MentalHealthQuestion;
 
-  factory MentalHealthQuestion.fromJson(Map<String, dynamic> json) =>
-      _$MentalHealthQuestionFromJson(json);
+  factory MentalHealthQuestion.fromJson(Map<String, dynamic> json) => _$MentalHealthQuestionFromJson(json);
 }

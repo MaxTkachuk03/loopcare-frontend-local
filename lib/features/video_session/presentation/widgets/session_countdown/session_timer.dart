@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_utils.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/date_time_utils.dart';
 
 class SessionTimer extends StatefulWidget {
   final int value;
