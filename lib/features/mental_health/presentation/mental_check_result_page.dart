@@ -8,8 +8,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/success_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/emergency_btn.dart';
-import 'package:loopcare_frontend/features/medical_fitness/application/medical_fitness_bloc.dart';
-import 'package:loopcare_frontend/features/medical_fitness/domain/cardiovascular_disease_answers.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/mental_health_test_type.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_wrap.dart';
@@ -53,7 +52,8 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
           return MentalHealthWrap(
             child: ErrorScreen(
               error: error,
-              onButtonPressed: () => context.read<MentalHealthBloc>().add(const MentalHealthEvent.getTestResults()),
+              onButtonPressed: () =>
+                  context.read<MentalHealthBloc>().add(const MentalHealthEvent.getTestResults()),
             ),
           );
         }
@@ -79,11 +79,14 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           if (isFinalResults) const FinalResultsText(),
-                          if (currentTest.type == MentalHealthTestType.who5 && !isFinalResults) const WHO5ResultText(),
+                          if (currentTest.type == MentalHealthTestType.who5 && !isFinalResults)
+                            const WHO5ResultText(),
                           if (currentTest.type == MentalHealthTestType.phq15 && !isFinalResults)
                             const PHQ15ResultText(),
-                          if (currentTest.type == MentalHealthTestType.gad7 && !isFinalResults) const GAD7ResultText(),
-                          if (currentTest.type == MentalHealthTestType.phq8 && !isFinalResults) const PHQ8ResultText(),
+                          if (currentTest.type == MentalHealthTestType.gad7 && !isFinalResults)
+                            const GAD7ResultText(),
+                          if (currentTest.type == MentalHealthTestType.phq8 && !isFinalResults)
+                            const PHQ8ResultText(),
                         ],
                       ),
                     ),
@@ -139,10 +142,8 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
     }
 
     if (state.isLastTest && state.isCompleted) {
-      final cardiovascularDisease = context.read<MedicalFitnessBloc>().state.cardiovascularDisease;
-      final nextRoute = cardiovascularDisease == CardiovascularDiseaseAnswers.noBut
-          ? AppRoutes.consentConfirmation
-          : AppRoutes.legalStatement;
+      final hasCardiovascularDisease = context.read<MedicalFitnessBloc>().state.data.hasCardiovascularDisease;
+      final nextRoute = hasCardiovascularDisease ? AppRoutes.consentConfirmation : AppRoutes.legalStatement;
 
       context
         ..read<OnboardingBloc>().add(const OnboardingEvent.nextStep())

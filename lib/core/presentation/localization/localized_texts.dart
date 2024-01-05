@@ -25,15 +25,13 @@ class LocalizedTexts {
 
   static const String continueBtn = 'continueBtn';
   static const String checkYourMedicalCondition = 'checkYourMedicalCondition';
-  static const String medicalIntroTitle = 'medicalIntroTitle';
+
   static const String medicalIntroInstructionFirst = 'medicalIntroInstructionFirst';
   static const String medicalIntroInstructionSecond = 'medicalIntroInstructionSecond';
   static const String medicalIntroInstructionThird = 'medicalIntroInstructionThird';
 
   static const String fitnessCheckFailedAdviceText = 'fitnessCheckFailedAdviceText';
-  static const String areYouPregnant = 'areYouPregnant';
-  static const String yes = 'yes';
-  static const String no = 'no';
+
   static const String needConsentBodyText1 = 'needConsentBodyText1';
   static const String needConsentBodyText2 = 'needConsentBodyText2';
   static const String downloadInstructions = 'downloadInstructions';
@@ -100,32 +98,14 @@ class LocalizedTexts {
   static const String desiredPassword = 'desiredPassword';
 
   // Medical fitness
-  static const String failedPregnancyTitle = 'failedPregnancyTitle';
+
   static const String alsoSomeAdviceWhereToTurnNext = 'alsoSomeAdviceWhereToTurnNext';
-  static const String cardiovascularDiseaseQuestion = 'cardiovascularDiseaseQuestion';
-  static const String stomachReductionQuestion = 'stomachReductionQuestion';
-  static const String failedStomachReductionTitle = 'failedStomachReductionTitle';
-  static const String medicalCheckPassedTitle = 'medicalCheckPassedTitle';
-  static const String medicalCheckPassedDescription = 'medicalCheckPassedDescription';
-  static const String painInChestQuestion = 'painInChestQuestion';
+
   static const String treatmentByTheDoctorQuestion = 'treatmentByTheDoctorQuestion';
-  static const String weightLossMedicationQuestion = 'weightLossMedicationQuestion';
-  static const String mounjaro = 'mounjaro';
-  static const String ozempic = 'ozempic';
-  static const String rybelsus = 'rybelsus';
-  static const String wegovy = 'wegovy';
-  static const String otherBrand = 'otherBrand';
-  static const String medicationPastPeriodQuestion = 'medicationPastPeriodQuestion';
-  static const String lessThanMonth = 'lessThanMonth';
-  static const String lessThanCertainMonths = 'lessThanCertainMonths';
+
   static const String twelveMonthsOrLonger = 'twelveMonthsOrLonger';
   static const String betweenSixAndTwelveMonths = 'betweenSixAndTwelveMonths';
-  static const String medicationFuturePeriodQuestion = 'medicationFuturePeriodQuestion';
-  static const String medicalCheckPassedDescriptionDetailed = 'medicalCheckPassedDescriptionDetailed';
-  static const String failedPainInChestTitle = 'failedPainInChestTitle';
-  static const String failedTreatmentByDoctorTitle = 'failedTreatmentByDoctorTitle';
   static const String noCardiovascularDiseaseBut = 'noCardiovascularDiseaseBut';
-  static const String failedCardiovascularDiseaseTitle = 'failedCardiovascularDiseaseTitle';
 
   // Consent confirmation
   static const String consentConfirmationTitle = 'consentConfirmationTitle';
@@ -221,7 +201,6 @@ class LocalizedTexts {
   static const String lateDinner = 'lateDinner';
 
   // Diabetes
-  static const String diabetes = 'diabetes';
   static const String doYouHaveDiabetesQuestion = 'doYouHaveDiabetesQuestion';
   static const String typeOne = 'typeOne';
   static const String typeTwo = 'typeTwo';
@@ -858,6 +837,73 @@ class LocalizedTexts {
 
   // Profile screen
   static const String reportIssueAndEmergencyTitle = 'reportIssueAndEmergencyTitle';
+
+  // Onboarding Medical
+  // Intro
+  static const String medicalIntroTitle = 'medicalIntroTitle';
+  static const String stepCounter = 'stepCounter';
+  static const String medicalIntroBody = 'medicalIntroBody';
+
+  // Pregnant
+  static const String areYouPregnant = 'areYouPregnant';
+  static const String yes = 'yes';
+  static const String no = 'no';
+
+  // Pregnant failed
+  static const String failedPregnancyTitle = 'failedPregnancyTitle';
+  static const String failedPregnancyBody1 = 'failedPregnancyTitle';
+  static const String failedPregnancyBody2 = 'failedPregnancyBody2';
+  static const String failedPregnancyBody3 = 'failedPregnancyBody3';
+  static const String failedPregnancyBody4 = 'failedPregnancyBody4';
+
+  static const String medicinesTitle = 'medicinesTitle';
+  static const String medicinesPlaceholder = 'medicinesPlaceholder';
+
+  // Taking medication
+  static const String weightLossMedicationQuestion = 'weightLossMedicationQuestion';
+  static const String medicationPastPeriodQuestion = 'medicationPastPeriodQuestion';
+  static const String medicationPastPeriodQuestion2 = 'medicationPastPeriodQuestion2';
+  static const String mounjaro = 'mounjaro';
+  static const String ozempic = 'ozempic';
+  static const String rybelsus = 'rybelsus';
+  static const String wegovy = 'wegovy';
+  static const String otherBrand = 'otherBrand';
+  static const String lessThanMonth = 'lessThanMonth';
+  static const String lessThanCertainMonths = 'lessThanCertainMonths';
+
+  static const String obesityQuestion = 'obesityQuestion';
+  static const String thyroidDiseaseQuestion = 'thyroidDiseaseQuestion';
+  static const String metabolicDiseaseQuestion = 'metabolicDiseaseQuestion';
+  static const String hypertensionQuestion = 'hypertensionQuestion';
+  static const String cardiovascularDiseaseQuestion = 'cardiovascularDiseaseQuestion';
+  static const String stomachReductionQuestion = 'stomachReductionQuestion';
+  static const String diabetesQuestion = 'diabetesQuestion';
+  static const String renalFailureQuestion = 'renalFailureQuestion';
+  static const String asthmaQuestion = 'asthmaQuestion';
+  static const String liverDiseaseQuestion = 'liverDiseaseQuestion';
+  static const String sleepApneaSyndromeQuestion = 'sleepApneaSyndromeQuestion';
+  static const String locomotorSystemDiseaseQuestion = 'locomotorSystemDiseaseQuestion';
+  static const String medicalCheckPassedTitle = 'medicalCheckPassedTitle';
+  static const String medicalCheckPassedBody = 'medicalCheckPassedBody';
+  static const String medicalCheckFailedTitle = 'medicalCheckFailedTitle';
+  static const String medicalCheckFailedBody = 'medicalCheckFailedBody';
+  static const String medicalCheckFailedBody2 = 'medicalCheckFailedBody2';
+
+  // Diseases
+  static const String cardioVascularDisease = 'cardioVascularDisease';
+  static const String stomachReductionDisease = 'stomachReductionDisease';
+  static const String obesity = 'obesity';
+  static const String thyroidDisease = 'thyroidDisease';
+  static const String metabolicDisease = 'metabolicDisease';
+  static const String hypertension = 'hypertension';
+  static const String diabetes = 'diabetes';
+  static const String diabetesTypeI = 'diabetesTypeI';
+  static const String diabetesTypeII = 'diabetesTypeII';
+  static const String renalFailure = 'renalFailure';
+  static const String asthma = 'asthma';
+  static const String liverDisease = 'liverDisease';
+  static const String sleepApneaSyndrome = 'sleepApneaSyndrome';
+  static const String locomotorSystemDisease = 'locomotorSystemDisease';
 }
 
 extension StringX on String {

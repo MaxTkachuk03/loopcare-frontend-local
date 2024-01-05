@@ -18,8 +18,8 @@ import 'package:loopcare_frontend/features/account/presentation/widgets/group_pr
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_progress.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 
 class GenderPreferencesPage extends StatefulWidget {
   const GenderPreferencesPage({super.key});
@@ -111,7 +111,8 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
                           children: GenderPreferences.values.map(
                             (GenderPreferences value) {
                               final gender = context.read<AuthenticationCubit>().state.gender;
-                              final shouldRemoveMale = gender == SexType.male && value == GenderPreferences.femaleOnly;
+                              final shouldRemoveMale =
+                                  gender == SexType.male && value == GenderPreferences.femaleOnly;
                               final shouldRemoveFemale =
                                   gender == SexType.female && value == GenderPreferences.maleOnly;
 

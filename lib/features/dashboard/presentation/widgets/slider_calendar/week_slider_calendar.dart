@@ -5,7 +5,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/dashboard/domain/slider_calendar/week_element.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/slider_calendar/calendar_week.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_utils.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/date_time_utils.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class WeekSliderCalendar extends StatefulWidget {

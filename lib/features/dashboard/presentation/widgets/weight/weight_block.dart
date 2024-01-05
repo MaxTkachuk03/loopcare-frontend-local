@@ -9,7 +9,7 @@ import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.d
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/weight/loading_weight.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/weight_conversion_utils.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/weight_conversion_utils.dart';
 
 class WeightBlock extends StatelessWidget {
   final DateTime date;
@@ -78,7 +78,8 @@ class WeightBlock extends StatelessWidget {
                           if (showSubText)
                             Text(
                               LocalizedTexts.preferableInTheMorning.translation,
-                              style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.greyLabel),
+                              style:
+                                  Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.greyLabel),
                             )
                         ],
                       ),

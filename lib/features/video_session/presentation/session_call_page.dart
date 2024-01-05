@@ -23,7 +23,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_session_report.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_utils.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/report_abuse/application/report_abuse_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/application/session_call_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
@@ -182,8 +182,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
       log('session token = $token', name: 'zoomSessionLog');
 
-      final String userName =
-          context.read<AuthenticationCubit>().state.nickname ?? context.read<AuthenticationCubit>().state.name;
+      final String userName = context.read<AuthenticationCubit>().state.nickname ??
+          context.read<AuthenticationCubit>().state.name;
 
       JoinSessionConfig joinSession = JoinSessionConfig(
         sessionName: sessionKey,
@@ -302,7 +302,10 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       var userListJson = jsonDecode(data['remoteUsers']) as List;
 
       setState(() {
-        _sessionParticipants = [mySelf!, ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))];
+        _sessionParticipants = [
+          mySelf!,
+          ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))
+        ];
       });
     });
 
@@ -554,7 +557,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     });
   }
 
-  void _showNotSupportSnack() => context.showError(content: Text(LocalizedTexts.toggleSpeakerError.translation));
+  void _showNotSupportSnack() =>
+      context.showError(content: Text(LocalizedTexts.toggleSpeakerError.translation));
 
   void onSettingsHandler() {
     showDialog(
@@ -624,8 +628,10 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                             builder: (context, state) {
                               final textEvents = context.read<TopicsBloc>().state.data.textEvents;
 
-                              final text =
-                                  textEvents.lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)?.text ?? '';
+                              final text = textEvents
+                                      .lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)
+                                      ?.text ??
+                                  '';
 
                               return PromptsContainer(text: text);
                             },
