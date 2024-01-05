@@ -53,7 +53,8 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
           return MentalHealthWrap(
             child: ErrorScreen(
               error: error,
-              onButtonPressed: () => context.read<MentalHealthBloc>().add(const MentalHealthEvent.getTestResults()),
+              onButtonPressed: () =>
+                  context.read<MentalHealthBloc>().add(const MentalHealthEvent.getTestResults()),
             ),
           );
         }
@@ -79,16 +80,19 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           if (isFinalResults) const FinalResultsText(),
-                          if (currentTest.type == MentalHealthTestType.who5 && !isFinalResults) const WHO5ResultText(),
+                          if (currentTest.type == MentalHealthTestType.who5 && !isFinalResults)
+                            const WHO5ResultText(),
                           if (currentTest.type == MentalHealthTestType.phq15 && !isFinalResults)
                             const PHQ15ResultText(),
-                          if (currentTest.type == MentalHealthTestType.gad7 && !isFinalResults) const GAD7ResultText(),
-                          if (currentTest.type == MentalHealthTestType.phq8 && !isFinalResults) const PHQ8ResultText(),
+                          if (currentTest.type == MentalHealthTestType.gad7 && !isFinalResults)
+                            const GAD7ResultText(),
+                          if (currentTest.type == MentalHealthTestType.phq8 && !isFinalResults)
+                            const PHQ8ResultText(),
                         ],
                       ),
                     ),
                     const SizedBox(height: 34.0),
-                    if (state.data.showEmergencyBtn) EmergencyBtn(onPressHandler: () {}),
+                    if (state.data.showEmergencyBtn) EmergencyBtn(),
                   ],
                 ),
                 Column(

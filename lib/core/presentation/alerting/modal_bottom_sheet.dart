@@ -1232,7 +1232,6 @@ class ModalBottomSheet {
 
   static void emergencyNumbers({
     required BuildContext context,
-    required void Function() onBtnPress,
   }) {
     showModalBottomSheet<void>(
       isScrollControlled: true,

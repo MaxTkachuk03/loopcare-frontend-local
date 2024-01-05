@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/emergency_btn.dart';
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/dashboard_assignments.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
@@ -252,6 +253,10 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               child: DashboardAssignments(date: _selectedDay),
                             );
                           },
+                        ),
+                        const SizedBox(height: 19.0),
+                        EmergencyBtn(
+                          needBackgroundColor: true,
                         ),
                         const SizedBox(height: 19.0),
                       ],
