@@ -1,16 +1,23 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
+import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
+import 'package:loopcare_frontend/core/presentation/clippers/hexagon_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/survey_image_clipper.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_countdown.dart';
 import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
+import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/survey_item_image_clipper.dart';
 
 class NextLesson extends StatelessWidget {
   final EducationLesson lesson;
@@ -25,82 +32,98 @@ class NextLesson extends StatelessWidget {
     return BlocBuilder<EducationProgramBloc, EducationProgramState>(
       builder: (context, state) {
         final lessonWithCountdown = state.data.lessonWithCountdown;
-        final isLessonWithCountDown = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
+        final isLessonWithCountDown =
+            lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
 
         return GestureDetector(
           onTap: isLessonWithCountDown ? null : () => _onTapHandler(context),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 10.0),
-                    Text(
-                      lesson.category.toUpperCase(),
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontSize: ThemeConstants.fontSize12,
-                            fontWeight: isLessonWithCountDown ? FontWeight.w400 : FontWeight.w700,
-                            color: isLessonWithCountDown ? AppColors.greyLabel : AppColors.orangeDarkWithBlack,
-                          ),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 1,
+                color: AppColors.blueLighter,
+                style: BorderStyle.solid,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+            ),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 200.0,
+                  height: 220.0,
+                  child: ClipPath(
+                    clipper: EducationClipper(),
+                    child: NetworkImageWithCache(
+                      url: lesson.image,
                     ),
-                    const SizedBox(height: 4.0),
-                    Text(
-                      lesson.title,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.darkGreen,
-                          ),
-                    ),
-                    const SizedBox(height: 6.0),
-                    if (lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id)
-                      Wrap(
-                        children: [
-                          const Image(
-                            image: AppImages.iconAttention,
-                            height: 15.0,
-                          ),
-                          const SizedBox(width: 4.0),
-                          Text(
-                            '${LocalizedTexts.availableIn.translation}: ',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                          EducationCountDown(
-                            seconds: lessonWithCountdown.timeRemaining,
-                          ),
-                        ],
-                      ),
-                    if (lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id)
-                      const SizedBox(height: 6.0),
-                    Row(
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        isLessonWithCountDown
-                            ? const ImageIcon(
-                                AppIcons.iconLock,
-                                color: AppColors.darkGreen,
-                              )
-                            : const Image(image: AppImages.arrowHexagon),
-                        const SizedBox(width: 12.0),
-                        AppIcons.clock,
-                        const SizedBox(width: 6.0),
-                        Text(
-                          formatDuration(lesson.duration),
-                          style: Theme.of(context).textTheme.bodySmall,
+                        const SizedBox(height: 10.0),
+                        Container(
+                          padding: const EdgeInsets.all(6.0),
+                          decoration: const BoxDecoration(
+                            color: AppColors.petrolRegular,
+                            borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                          ),
+                          child: CustomText.w600(
+                            lesson.category.toUpperCase(),
+                            style: context.textTheme.bodySmall?.copyWith(
+                              color: AppColors.white,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10.0),
+                        CustomText.w700(
+                          lesson.title,
+                          style: context.textTheme.bodySmall,
+                        ),
+                        const SizedBox(height: 10.0),
+                        if (lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id)
+                          Wrap(
+                            children: [
+                              const Image(
+                                image: AppImages.iconAttention,
+                                height: 15.0,
+                              ),
+                              const SizedBox(width: 4.0),
+                              CustomText.w600(
+                                '${LocalizedTexts.availableIn.translation}: ',
+                                style: context.textTheme.bodySmall,
+                              ),
+                              EducationCountDown(
+                                seconds: lessonWithCountdown.timeRemaining,
+                              ),
+                            ],
+                          ),
+                        if (lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id)
+                          const SizedBox(height: 10.0),
+                        Row(
+                          children: [
+                            AppIcons.clock,
+                            const SizedBox(width: 6.0),
+                            CustomText.w600(
+                              formatDuration(lesson.duration),
+                              style: context.textTheme.bodySmall,
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 10.0),
+                        CustomOutlinedButton.coral(
+                          label: LocalizedTexts.start.translation,
+                          onPressed: () => {},
                         )
                       ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: 114.0,
-                height: 98.0,
-                child: SizedBox(
-                  width: 144.0,
-                  child: NetworkImageWithCache(url: lesson.image, alignment: Alignment.centerLeft),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

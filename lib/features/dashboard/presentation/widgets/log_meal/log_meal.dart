@@ -8,10 +8,12 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_button_with_icon.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/logged_list.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_block/calorie_nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
@@ -92,52 +94,39 @@ class LogMeal extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const Image(image: AppIcons.dashboardLogMeals),
+                          AppIcons.customDashboardLogMeals,
                           const SizedBox(width: 24.0),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
+                              CustomText.bitter600(
                                 LocalizedTexts.logYourMeals.translation,
-                                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                      fontFamily: ThemeConstants.bitterFontFamily,
-                                      color: mealsState.isEnableOnDashboard
-                                          ? AppColors.darkGreen
-                                          : AppColors.greyLabel,
-                                    ),
+                                style: context.textTheme.headlineSmall?.copyWith(
+                                  color: mealsState.isEnableOnDashboard
+                                      ? AppColors.blueDarker
+                                      : AppColors.greyLabel,
+                                ),
                               ),
                               if (mealsState.filledCategories.isEmpty)
-                                Text(
+                                CustomText.w400(
                                   mealsState.isEnableOnDashboard
                                       ? LocalizedTexts.noMealsLoggedYet.translation
                                       : LocalizedTexts.noMealsLogged.translation,
-                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                        color: mealsState.isEnableOnDashboard
-                                            ? AppColors.darkGreen
-                                            : AppColors.greyLabel,
-                                      ),
+                                  style: context.textTheme.bodySmall?.copyWith(
+                                    color: mealsState.isEnableOnDashboard
+                                        ? AppColors.blueDarker
+                                        : AppColors.greyLabel,
+                                  ),
                                 ),
                             ],
                           ),
                         ],
                       ),
                       mealsState.isEnableOnDashboard
-                          ? Hexagon(
-                              width: 42,
-                              height: 42,
-                              borderRadius: 16,
-                              innerWidget: Container(
-                                color: AppColors.bgGreen,
-                                child: IconButton(
-                                  icon: ImageIcon(
-                                    mealsState.filledCategories.isNotEmpty ? AppIcons.edit : AppIcons.plus,
-                                    color: AppColors.darkGreen,
-                                    size: 12,
-                                  ),
-                                  onPressed: () => onPressHandler(context),
-                                ),
-                              ),
+                          ? CustomOutlinedRoundedButtonWithIcon(
+                              onPressed: () => onPressHandler(context),
+                              icon: mealsState.filledCategories.isNotEmpty ? AppIcons.edit : AppIcons.plus,
                             )
                           : const SizedBox(),
                     ],
@@ -146,7 +135,7 @@ class LogMeal extends StatelessWidget {
                       ? Column(
                           children: [
                             const SizedBox(height: 8.0),
-                            const Divider(color: AppColors.yellowLight),
+                            const Divider(color: AppColors.blueLighter),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -159,20 +148,14 @@ class LogMeal extends StatelessWidget {
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(
-                                              LocalizedTexts.logged.translation.toUpperCase(),
-                                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                                    fontSize: ThemeConstants.fontSize12,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: AppColors.greyLabel,
-                                                  ),
+                                            CustomText.w600(
+                                              LocalizedTexts.loggedMeals.translation.capitalize(),
+                                              style: context.textTheme.bodySmall,
                                             ),
-                                            const SizedBox(
-                                              width: 4.0,
-                                            ),
+                                            const SizedBox(width: 4.0),
                                             const ImageIcon(
                                               AppIcons.arrow,
-                                              color: AppColors.greyLabel,
+                                              color: AppColors.blueDarker,
                                               size: 10,
                                             ),
                                           ],

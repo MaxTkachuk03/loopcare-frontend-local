@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -59,17 +62,21 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     context.read<AuthenticationCubit>().getAccount();
 
     if (!context.read<NutritionInstructionsBloc>().state.data.alreadyLoaded) {
-      context.read<NutritionInstructionsBloc>().add(const NutritionInstructionsEvent.fetchValuesExplanation());
+      context
+          .read<NutritionInstructionsBloc>()
+          .add(const NutritionInstructionsEvent.fetchValuesExplanation());
     }
 
     context
         .read<DashboardWeightBloc>()
         .add(DashboardWeightEvent.fetchWeights(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime));
 
-    context.read<MoodBloc>().add(
-        MoodEvent.getMoods(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime, DateTime.now().utcIsoStringFormat));
+    context.read<MoodBloc>().add(MoodEvent.getMoods(
+        _selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime, DateTime.now().utcIsoStringFormat));
 
-    context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
+    context
+        .read<DashboardEducationBloc>()
+        .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
 
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons(LessonCategory.all));
 
@@ -90,7 +97,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
   Future<void> _onRefresh() async {
     context.read<AuthenticationCubit>().getAccount();
 
-    context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
+    context
+        .read<DashboardEducationBloc>()
+        .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
 
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons(LessonCategory.all));
 
@@ -118,7 +127,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
       context.read<DashboardWeightBloc>().add(DashboardWeightEvent.setDate(day));
       context.read<MealsBloc>().add(MealsEvent.setCurrentDate(day, updateOrigin: true));
       context.read<MoodBloc>().add(MoodEvent.setDate(day));
-      context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
+      context
+          .read<DashboardEducationBloc>()
+          .add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
 
       if (context.read<AuthenticationCubit>().state.isAssignmentsUnlocked) {
         context.read<AssignmentsBloc>().add(
@@ -133,19 +144,12 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: [
-          SliderCalendar(onSelectDay: _onDaySelected),
-          Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  alignment: Alignment.bottomRight,
-                  scale: 1.03,
-                  image: AppImages.dashboardBg,
-                ),
-              ),
+    return CustomScaffold.blue(
+      body: SafeArea(
+        child: Column(
+          children: [
+            SliderCalendar(onSelectDay: _onDaySelected),
+            Expanded(
               child: RefreshIndicator(
                 onRefresh: _onRefresh,
                 child: ScrollableContainer(
@@ -157,13 +161,13 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                         const SizedBox(height: 28),
                         BlocBuilder<AuthenticationCubit, AuthenticationState>(
                           builder: (BuildContext context, state) {
-                            return Text(
+                            return CustomText.bitter600(
                               '${LocalizedTexts.goodMorning.translation} ${state.name}',
-                              style: Theme.of(context).textTheme.bodyMedium,
+                              style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
                             );
                           },
                         ),
-                        const SizedBox(height: 16.0),
+                        const SizedBox(height: 26.0),
                         WeightBlock(date: _selectedDay),
                         BlocBuilder<AuthenticationCubit, AuthenticationState>(
                           builder: (BuildContext context, state) {
@@ -187,13 +191,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                             );
                           },
                         ),
-                        const SizedBox(height: 10.0),
+                        const SizedBox(height: 19.0),
                         PersonMood(date: _selectedDay),
-                        const SizedBox(height: 16.0),
-                        Text(
-                          LocalizedTexts.activities.translation,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
+
                         // const SizedBox(height: 16.0),
                         // const Reflection(),
                         BlocBuilder<AuthenticationCubit, AuthenticationState>(
@@ -202,13 +202,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               return const SizedBox.shrink();
                             }
 
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 10.0),
-                                PhysicalActivities(selectedDay: _selectedDay),
-                              ],
-                            );
+                            return PhysicalActivities(selectedDay: _selectedDay);
                           },
                         ),
                         BlocBuilder<AuthenticationCubit, AuthenticationState>(
@@ -220,13 +214,13 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                             return const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(height: 10.0),
+                                SizedBox(height: 19.0),
                                 SupportGroup(),
                               ],
                             );
                           },
                         ),
-                        const SizedBox(height: 10.0),
+                        const SizedBox(height: 19.0),
                         BlocBuilder<DashboardEducationBloc, DashboardEducationState>(
                           builder: (BuildContext context, state) {
                             return state.maybeMap(
@@ -254,20 +248,20 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               return const SizedBox.shrink();
                             }
                             return Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
+                              padding: const EdgeInsets.only(top: 19.0),
                               child: DashboardAssignments(date: _selectedDay),
                             );
                           },
                         ),
-                        const SizedBox(height: 10.0),
+                        const SizedBox(height: 19.0),
                       ],
                     ),
                   ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

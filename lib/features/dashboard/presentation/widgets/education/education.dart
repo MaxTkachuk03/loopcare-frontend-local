@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/widgets/completed_lesson.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/widgets/next_lesson.dart';
@@ -37,8 +38,9 @@ class Education extends StatelessWidget {
 
             return ErrorScreen(
               error: error,
-              onButtonPressed: () =>
-                  context.read<DashboardEducationBloc>().add(const DashboardEducationEvent.getDashboardLessons()),
+              onButtonPressed: () => context
+                  .read<DashboardEducationBloc>()
+                  .add(const DashboardEducationEvent.getDashboardLessons()),
             );
           },
           loading: (_) => const Loader(),
@@ -61,21 +63,18 @@ class Education extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            const Image(image: AppImages.educationDashboard),
+                            AppIcons.customEducationDashboard,
                             const SizedBox(width: 24.0),
-                            Text(
+                            CustomText.bitter600(
                               LocalizedTexts.education.translation,
-                              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                    fontFamily: ThemeConstants.bitterFontFamily,
-                                    color: state.data.isLoading ? AppColors.greyLabel : AppColors.darkGreen,
-                                  ),
+                              style: context.textTheme.headlineSmall,
                             ),
                           ],
                         ),
                         if (!state.data.isLoading)
                           const ImageIcon(
                             AppIcons.arrow,
-                            color: AppColors.greyLabel,
+                            color: AppColors.blueDarker,
                           ),
                       ],
                     ),
@@ -88,16 +87,12 @@ class Education extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Divider(color: AppColors.yellowLight),
+                            const Divider(color: AppColors.blueLighter),
                             const SizedBox(height: 6.0),
-                            Text(
-                              LocalizedTexts.todo,
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontSize: ThemeConstants.fontSize12,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.greyLabel,
-                                  ),
-                            ).tr(),
+                            CustomText.bitter600(
+                              LocalizedTexts.todo.tr(),
+                              style: context.textTheme.titleLarge,
+                            ),
                             const SizedBox(height: 12.0),
                             NextLesson(
                               lesson: nextLesson,
@@ -109,17 +104,11 @@ class Education extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Divider(color: AppColors.yellowLight),
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-                            Text(
+                            const Divider(color: AppColors.blueLighter),
+                            const SizedBox(height: 10.0),
+                            CustomText.bitter600(
                               '${LocalizedTexts.done.translation} ${_getDate(date).toUpperCase()}',
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontSize: ThemeConstants.fontSize12,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.greyLabel,
-                                  ),
+                              style: context.textTheme.titleLarge,
                             ),
                             const SizedBox(height: 20.0),
                             ListView.separated(
@@ -127,9 +116,7 @@ class Education extends StatelessWidget {
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (BuildContext context, index) {
-                                return CompletedLesson(
-                                  lesson: completedLessons[index],
-                                );
+                                return CompletedLesson(lesson: completedLessons[index]);
                               },
                               separatorBuilder: (BuildContext context, int index) {
                                 return const SizedBox(height: 20.0);

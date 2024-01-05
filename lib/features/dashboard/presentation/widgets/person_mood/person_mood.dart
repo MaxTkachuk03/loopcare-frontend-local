@@ -6,9 +6,11 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_button_with_icon.dart';
 import 'package:loopcare_frontend/features/dashboard/domain/dashboard_utils.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/person_mood/mood_list.dart';
 import 'package:loopcare_frontend/features/mood/application/mood_bloc.dart';
@@ -52,37 +54,23 @@ class PersonMood extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          AppIcons.dashboardMood,
+                          AppIcons.customDashboardMood,
                           const SizedBox(width: 24.0),
-                          Text(
-                            LocalizedTexts.mood,
-                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                  fontFamily: ThemeConstants.bitterFontFamily,
-                                ),
-                          ).tr(),
+                          CustomText.bitter600(
+                            LocalizedTexts.mood.tr(),
+                            style: context.textTheme.headlineSmall,
+                          ),
                         ],
                       ),
                       if (isEditable)
-                        Hexagon(
-                          width: 42,
-                          height: 42,
-                          borderRadius: 16,
-                          innerWidget: Container(
-                            color: AppColors.bgGreen,
-                            child: IconButton(
-                              icon: const ImageIcon(
-                                AppIcons.plus,
-                                color: AppColors.darkGreen,
-                                size: 12,
-                              ),
-                              onPressed: () => onPressHandler(context),
-                            ),
-                          ),
-                        )
+                        CustomOutlinedRoundedButtonWithIcon(
+                          onPressed: () => onPressHandler(context),
+                          icon: AppIcons.plus,
+                        ),
                     ],
                   ),
                   const SizedBox(height: 8.0),
-                  const Divider(color: AppColors.yellowLight),
+                  const Divider(color: AppColors.blueLighter),
                   MoodList(
                     list: moodValues,
                     onPressItem: (Mood item) => _onMoodItemPressedHandler(context, item),

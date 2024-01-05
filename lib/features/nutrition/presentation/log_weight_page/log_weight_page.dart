@@ -108,13 +108,13 @@ class _LogWeightPageState extends State<LogWeightPage> {
                   children: [
                     const SizedBox(height: 70.0),
                     CustomText.bitter500(
-                      LocalizedTexts.yourWeight.tr(),
+                      '${LocalizedTexts.yourWeight.tr()} ${LocalizedTexts.on.tr()}',
                       style: context.textTheme.displayMedium,
                     ),
                     if (!_isToday) const SizedBox(height: 12.0),
                     if (!_isToday)
                       CustomText.bitter500(
-                        '${LocalizedTexts.on.tr()} ${widget.selectedDay.dayWithMonth} ${LocalizedTexts.was.tr()}',
+                        ' ${widget.selectedDay.dayWithMonth}', // ${LocalizedTexts.was.tr()}
                         style: context.textTheme.displayMedium,
                       ),
                   ],

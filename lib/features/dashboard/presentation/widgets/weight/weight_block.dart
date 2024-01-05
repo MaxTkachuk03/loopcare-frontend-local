@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_button_with_icon.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/weight/loading_weight.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/physical_fitness/utils/weight_conversion_utils.dart';
@@ -63,44 +65,33 @@ class WeightBlock extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Image(image: AppIcons.dashboardWeight),
+                      AppIcons.customDashboardWeight,
                       const SizedBox(width: 24.0),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          CustomText.bitter600(
                             text,
-                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                  fontFamily: ThemeConstants.bitterFontFamily,
-                                  color: isEditable ? AppColors.darkGreen : AppColors.greyLabel,
-                                ),
+                            style: context.textTheme.headlineSmall!.copyWith(
+                              color: isEditable ? AppColors.blueDarker : AppColors.greyLabel,
+                            ),
                           ),
                           if (showSubText)
-                            Text(
+                            CustomText.w400(
                               LocalizedTexts.preferableInTheMorning.translation,
-                              style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.greyLabel),
+                              style: context.textTheme.bodySmall!.copyWith(
+                                color: isEditable ? AppColors.blueDarker : AppColors.greyLabel,
+                              ),
                             )
                         ],
                       ),
                     ],
                   ),
                   if (isEditable)
-                    Hexagon(
-                      width: 42,
-                      height: 42,
-                      borderRadius: 16,
-                      innerWidget: Container(
-                        color: AppColors.bgGreen,
-                        child: IconButton(
-                          icon: ImageIcon(
-                            hasLog ? AppIcons.edit : AppIcons.plus,
-                            color: AppColors.darkGreen,
-                            size: 12,
-                          ),
-                          onPressed: () => onPressHandler(context),
-                        ),
-                      ),
-                    )
+                    CustomOutlinedRoundedButtonWithIcon(
+                      onPressed: () => onPressHandler(context),
+                      icon: hasLog ? AppIcons.edit : AppIcons.plus,
+                    ),
                 ],
               );
             },

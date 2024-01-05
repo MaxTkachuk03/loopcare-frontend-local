@@ -45,7 +45,7 @@ class ProteinBlock extends StatelessWidget {
                       const SizedBox(width: 4.0),
                       const ImageIcon(
                         AppIcons.arrow,
-                        color: AppColors.greyLabel,
+                        color: AppColors.blueDarker,
                         size: 10,
                       ),
                     ],
