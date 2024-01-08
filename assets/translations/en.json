@@ -748,7 +748,7 @@
   "memberSince": "Member since",
   "automaticRenewalOn": "Automatic renewal on",
   "serviceUnavailable": "Service is unavailable,\nplease try later.",
-  "otherPurchaseVendor": "Sorry, your subscription seems to be purchased from a different store."
+  "otherPurchaseVendor": "Sorry, your subscription seems to be purchased from a different store.",
   "appStore": "App Store",
   "googleMarket": "Play Market"
 }
