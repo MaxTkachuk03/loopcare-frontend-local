@@ -18,14 +18,10 @@ class GroupPrefsProgress extends StatelessWidget {
               return Center(
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 14.0,
-                    ),
+                    const SizedBox(height: 14.0),
                     SizedBox(
                       width: 96.0,
-                      child: ProgressBar(
-                        progress: state.data.lessonProgress,
-                      ),
+                      child: ProgressBar(progress: state.data.lessonProgress),
                     ),
                   ],
                 ),

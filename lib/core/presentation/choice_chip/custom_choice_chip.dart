@@ -43,6 +43,9 @@ class CustomChoiceChip<T> extends StatelessWidget {
         value: value,
         selectedColor: AppColors.coralRegular,
         borderColor: AppColors.coralRegular,
+        // TODO: need check with Artur
+        backgroundColor: AppColors.blueLightest,
+        borderRadius: 30,
       );
 
   factory CustomChoiceChip.orange({
