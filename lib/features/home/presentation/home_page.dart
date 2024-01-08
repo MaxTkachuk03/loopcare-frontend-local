@@ -18,11 +18,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final ValueNotifier<bool> isChatEnable = ValueNotifier(false);
+
   @override
   void initState() {
     super.initState();
     isChatEnable.value = context.read<AuthenticationCubit>().state.isUserGrouped;
-    debugPrint('devcpp initState isUserGrouped: ${isChatEnable.value}');
   }
 
   @override
@@ -59,12 +59,7 @@ class _HomePageState extends State<HomePage> {
         });
   }
 
-  void _chatEnable(AuthenticationState state) {
-    debugPrint('devcpp _chatEnable: ${state.isUserGrouped}');
-    //Todo change impl
-
-    isChatEnable.value = state.isUserGrouped;
-  }
+  void _chatEnable(AuthenticationState state) => isChatEnable.value = state.isUserGrouped;
 
   void _logoutListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(

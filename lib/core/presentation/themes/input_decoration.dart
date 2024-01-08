@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 const Color _kEnabledText = AppColors.darkGreen;
 const Color _kFocused = AppColors.redFocus;
@@ -22,41 +23,46 @@ class AppInputDecoration extends InputDecoration {
     EdgeInsetsGeometry? contentPadding,
     Color? focusedColor,
     InputBorder? enableBorder,
+    double? radius,
   }) : super(
-          border: const OutlineInputBorder(),
+          border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(radius ?? 4.0))),
           focusColor: focusedColor ?? _kFocused,
           enabledBorder: enableBorder ??
               OutlineInputBorder(
                 borderSide: BorderSide(color: state.color.withOpacity(0.5)),
               ),
           focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(radius ?? 4.0)),
             borderSide: BorderSide(color: focusedColor ?? _kFocused),
           ),
-          errorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: _kError),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(radius ?? 4.0)),
+            borderSide: const BorderSide(color: _kError),
           ),
-          focusedErrorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(radius ?? 4.0)),
+            borderSide: const BorderSide(
               color: _kError,
               width: 2.0,
             ),
           ),
-          disabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: _kDisabled),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(radius ?? 4.0)),
+            borderSide: const BorderSide(color: _kDisabled),
           ),
           filled: true,
-          hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: _kHint,
-                fontSize: ThemeConstants.fontSize16,
-              ),
-          labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: state.color,
-                fontSize: ThemeConstants.fontSize16,
-              ),
-          errorStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: _kError,
-                fontSize: ThemeConstants.fontSize12,
-              ),
+          hintStyle: context.textTheme.bodyMedium?.copyWith(
+            color: _kHint,
+            fontSize: ThemeConstants.fontSize16,
+          ),
+          labelStyle: context.textTheme.bodyMedium?.copyWith(
+            color: state.color,
+            fontSize: ThemeConstants.fontSize16,
+          ),
+          errorStyle: context.textTheme.bodyMedium?.copyWith(
+            color: _kError,
+            fontSize: ThemeConstants.fontSize12,
+          ),
           contentPadding: contentPadding ?? const EdgeInsets.symmetric(horizontal: 16),
           counterText: '',
           alignLabelWithHint: true,
@@ -95,18 +101,18 @@ class AppInputDecoration extends InputDecoration {
             borderSide: BorderSide(color: _kDisabled),
           ),
           filled: true,
-          hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: _kHint,
-                fontSize: ThemeConstants.fontSize16,
-              ),
-          labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: state.color,
-                fontSize: ThemeConstants.fontSize16,
-              ),
-          errorStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: _kError,
-                fontSize: ThemeConstants.fontSize12,
-              ),
+          hintStyle: context.textTheme.bodyMedium?.copyWith(
+            color: _kHint,
+            fontSize: ThemeConstants.fontSize16,
+          ),
+          labelStyle: context.textTheme.bodyMedium?.copyWith(
+            color: state.color,
+            fontSize: ThemeConstants.fontSize16,
+          ),
+          errorStyle: context.textTheme.bodyMedium?.copyWith(
+            color: _kError,
+            fontSize: ThemeConstants.fontSize12,
+          ),
           contentPadding: contentPadding ?? const EdgeInsets.symmetric(vertical: 19.0, horizontal: 16.0),
         );
 }
