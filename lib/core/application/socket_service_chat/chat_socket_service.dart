@@ -4,27 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/socket_service/events.dart';
-import 'package:loopcare_frontend/core/application/socket_service/socket_data.dart';
+import 'package:loopcare_frontend/core/application/socket_service_chat/chat_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
-import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
+import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
+import 'package:loopcare_frontend/features/chat/domain/group_message.dart';
+import 'package:loopcare_frontend/features/chat/domain/socket_remove_data.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
-class SocketService {
+class ChatSocketService {
   final AppConfig? _appConfig;
-  final TopicsBloc? _topicsBloc;
+  final GroupChatBloc? _chatBloc;
   final AuthTokenManager? _tokenManager;
 
   String? _baseUrl;
   io.Socket? _socket;
-  static final SocketService _instance = SocketService._internal();
+  static final ChatSocketService _instance = ChatSocketService._internal();
 
-  static SocketService get instance => _instance;
+  static ChatSocketService get instance => _instance;
 
-  SocketService._internal()
+  ChatSocketService._internal()
       : _appConfig = GetIt.instance<AppConfig>(),
         _tokenManager = GetIt.instance<AuthTokenManager>(),
-        _topicsBloc = GetIt.instance<TopicsBloc>() {
-    _baseUrl = 'wss://${_appConfig?.baseHost}/group-session';
+        _chatBloc = GetIt.instance<GroupChatBloc>() {
+    _baseUrl = 'wss://${_appConfig?.baseHost}/chat';
   }
 
   Future<void> startListen() async {
@@ -50,12 +52,6 @@ class SocketService {
   }
 
   bool get isConnected => _socket?.connected ?? false;
-
-  void sendData(SocketData data) {
-    // Example how to send data to server
-    // var data = const SocketData(qwerty: '12345');
-    // _socket?.emit(kEventTest1, data.toJson());
-  }
 
   void disconnect() {
     _socket?.disconnect();
@@ -88,14 +84,9 @@ class SocketService {
       ..onConnect(_onConnect)
       ..onDisconnect(_onDisconnect)
       ..onConnectTimeout(_onConnectTimeout)
-      ..on(SocketEvents.slotCancelled, _onSlotCancelled)
-      ..on(SocketEvents.topicAvailable, _onTopicAvailable)
-      ..on(SocketEvents.topicUnavailable, _onTopicUnavailable)
-      ..on(SocketEvents.newTopicAvailable, _onNewTopicAvailable)
-      ..on(SocketEvents.topicSlotFinished, _onTopicSlotFinished)
-      ..on(SocketEvents.topicSlotStarted, _onTopicSlotStarted)
-      ..on(SocketEvents.topicSlotStartedSoon, _onTopicSlotStartedSoon)
-      ..on(SocketEvents.error, _onErrorHandler)
+      ..on(ChatSocketEvents.chatNewMassage, _onNewMessage)
+      ..on(ChatSocketEvents.deleteMassage, _onRemoveMessage)
+      ..on(ChatSocketEvents.error, _onErrorHandler)
       ..onError(_onError);
 
     _socket!.connect();
@@ -105,44 +96,15 @@ class SocketService {
     _debug('socket is connected ${_socket!.connected} ${_socket!.id}');
   }
 
-  void refreshTopics() {
-    _topicsBloc?.add(const TopicsEvent.fetchTopics());
-    _debug('refreshTopics BLoC event');
+  void _onNewMessage(dynamic data) async {
+    final message = GroupMessage.fromJson(data as Map<String, dynamic>);
+    _chatBloc?.add(GroupChatEvent.newMessage(message: message));
+    _chatBloc?.add(const GroupChatEvent.getUnreadCount());
   }
 
-  void _onSlotCancelled(dynamic data) {
-    refreshTopics();
-    _debug('on ${SocketEvents.slotCancelled}: $data');
-  }
-
-  void _onTopicAvailable(dynamic data) {
-    refreshTopics();
-    _debug('on ${SocketEvents.topicAvailable}: $data');
-  }
-
-  void _onTopicUnavailable(dynamic data) {
-    refreshTopics();
-    _debug('on ${SocketEvents.topicUnavailable}: $data');
-  }
-
-  void _onNewTopicAvailable(dynamic data) {
-    refreshTopics();
-    _debug('on ${SocketEvents.newTopicAvailable}: $data');
-  }
-
-  void _onTopicSlotFinished(dynamic data) {
-    refreshTopics();
-    _debug('on ${SocketEvents.topicSlotFinished}: $data');
-  }
-
-  void _onTopicSlotStarted(dynamic data) {
-    refreshTopics();
-    _debug('on ${SocketEvents.topicSlotStarted}: $data');
-  }
-
-  void _onTopicSlotStartedSoon(dynamic data) {
-    refreshTopics();
-    _debug('on ${SocketEvents.topicSlotStartedSoon}: $data');
+  void _onRemoveMessage(dynamic data) {
+    final removeData = SocketRemoveData.fromJson(data as Map<String, dynamic>);
+    _chatBloc?.add(GroupChatEvent.removeMessageFromSocket(fromMessageId: removeData.id));
   }
 
   void _onErrorHandler(dynamic data) {

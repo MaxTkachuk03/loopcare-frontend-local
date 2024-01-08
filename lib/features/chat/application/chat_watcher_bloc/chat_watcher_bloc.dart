@@ -39,7 +39,6 @@ class ChatWatcherBloc extends Bloc<ChatWatcherEvent, ChatWatcherState> {
   FutureOr<void> _onGetNewMassage(
     GetNewMassage event,
     Emitter<ChatWatcherState> emit,
-  ) async {
-    emit(ChatWatcherState.gotNewMessage(state.data.copyWith(amount: 1)));
-  }
+  ) async =>
+      emit(ChatWatcherState.gotNewMessage(state.data.copyWith(amount: event.count)));
 }

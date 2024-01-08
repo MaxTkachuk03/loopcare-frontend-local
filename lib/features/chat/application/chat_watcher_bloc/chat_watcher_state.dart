@@ -19,7 +19,7 @@ class ChatWatcherStateData with _$ChatWatcherStateData {
 
   const factory ChatWatcherStateData({
     RequestError? error,
-    @Default(3) int amount,
+    @Default(0) int amount,
     @Default(true) lockChat,
   }) = _ChatWatcherStateData;
 }

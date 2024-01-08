@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
+import 'package:flutter_polygon/flutter_polygon.dart';
 
 class HexagonUserAvatar extends StatelessWidget {
   const HexagonUserAvatar({
@@ -138,14 +138,21 @@ class HexagonUserAvatar extends StatelessWidget {
               ),
       );
     } else {
-      avatar = Hexagon(
-        width: 45,
-        height: 45,
-        borderRadius: 16,
-        innerWidget: Container(
-          padding: EdgeInsets.zero,
-          color: effectiveBackgroundColor,
-          child: Center(child: innerWidget),
+      avatar = IntrinsicWidth(
+        child: SizedBox(
+          width: 30,
+          height: 30,
+          child: ClipPolygon(
+            sides: 6,
+            borderRadius: 2,
+            rotate: 90.0,
+            child: Container(
+              padding: EdgeInsets.zero,
+              margin: EdgeInsets.zero,
+              color: effectiveBackgroundColor,
+              child: Center(child: innerWidget),
+            ),
+          ),
         ),
       );
     }

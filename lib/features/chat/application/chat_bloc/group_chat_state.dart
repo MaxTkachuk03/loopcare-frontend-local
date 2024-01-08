@@ -4,7 +4,13 @@ part of 'group_chat_bloc.dart';
 class GroupChatState with _$GroupChatState {
   const factory GroupChatState.initial(GroupChatStateData data) = _Initial;
 
+  const factory GroupChatState.gotUnreadCount(GroupChatStateData data) = _GotUnreadCount;
+
+  const factory GroupChatState.pointedSuccess(GroupChatStateData data) = _PointedSuccess;
+
   const factory GroupChatState.sentSuccess(GroupChatStateData data) = _SentSuccess;
+
+  const factory GroupChatState.gotMessageFromSocket(GroupChatStateData data) = _GotMessageFromSocket;
 
   const factory GroupChatState.uploadSuccess(GroupChatStateData data) = _UploadSuccess;
 
@@ -29,5 +35,6 @@ class GroupChatStateData with _$GroupChatStateData {
     @Default([]) List<GroupMember> members,
     @Default(false) bool hasReachedMessagesMax,
     @Default(false) bool hasReachedMembersMax,
+    @Default(0) int counter,
   }) = _GroupChatStateData;
 }
