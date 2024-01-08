@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/application/dto/updated_refresh_token_res
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart' as dioClient;
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 
 class AppLifeCycleStateListener extends StatefulWidget {
   final Widget child;
@@ -19,10 +20,12 @@ class AppLifeCycleStateListener extends StatefulWidget {
 class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
   late final AppLifecycleListener lifeCycleListener;
   late AuthTokenManager authTokenManager;
+  late AuthenticationCubit? _authenticationCubit;
 
   @override
   void initState() {
     authTokenManager = GetIt.instance<AuthTokenManager>();
+    _authenticationCubit = GetIt.instance<AuthenticationCubit>();
     lifeCycleListener = AppLifecycleListener(
       onStateChange: _onLifeCycleChanged,
       onDetach: _onDetach,
@@ -59,7 +62,7 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
 
   _onResume() {
     debugPrint('devcpp on Resume');
-    _refreshToken();
+    _authenticationCubit?.state.mapOrNull(authenticated: (_) => _refreshToken());
   }
 
   @override
@@ -110,6 +113,7 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
   Future<bool> _refreshToken() async {
     final accessTokenIsUpdated = await updateAccessToken();
     final refreshTokenIsUpdated = await updateRefreshToken();
-    return accessTokenIsUpdated && refreshTokenIsUpdated;
+    final isRefreshed = accessTokenIsUpdated && refreshTokenIsUpdated;
+    return isRefreshed;
   }
 }
