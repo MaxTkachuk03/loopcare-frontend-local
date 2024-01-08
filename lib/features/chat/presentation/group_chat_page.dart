@@ -160,8 +160,6 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
               user: controller.user,
               customDateHeaderText: (date) => date.isToday ? LocalizedTexts.today.translation : date.dayWithMonth,
               theme: chatTheme,
-              // bubbleRtlAlignment: BubbleRtlAlignment.right,
-              // bubbleRtlAlignment: BubbleRtlAlignment.left,
             ),
           );
         },

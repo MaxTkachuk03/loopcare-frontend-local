@@ -33,7 +33,6 @@ class _BubbleWidgetState extends State<BubbleWidget> {
   @override
   Widget build(BuildContext context) {
     return Bubble(
-      alignment: Alignment.centerLeft,
       color: _getBgColor,
       borderColor: _getBgColor,
       radius: const Radius.circular(10),
