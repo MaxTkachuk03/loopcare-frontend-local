@@ -729,10 +729,12 @@
   "subscriptionTrialLabel": "After your trial period you are enrolled and \nyou can cancel on a monthly basis.",
 
   "subscriptionTrialExpiredTitle": "Your trial has expired",
-  "subscriptionTrialExpiredLabel": "We hope you enjoyed our program. If you want to continue choose one of the following:",
+  "subscriptionTrialExpiredLabel1": "We hope you enjoyed our program.",
+  "subscriptionTrialExpiredLabel2": "If you want to continue,\nrefresh your subscription here:",
 
   "subscriptionEndedTitle": "Your subscription \nhas ended",
-  "subscriptionEndedLabel": "We hope you enjoyed our program. If you want to continue choose one of following:",
+  "subscriptionEndedLabel1": "We hope you enjoyed our program.",
+  "subscriptionEndedLabel2": "If you want to continue,\nrefresh your subscription here:",
 
   "subscriptionCancelledTitle": "Your subscription \nwas cancelled",
   "subscriptionCancelledLabel1": "We hope you enjoyed our program.",

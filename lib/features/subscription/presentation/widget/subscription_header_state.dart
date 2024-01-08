@@ -104,12 +104,14 @@ class SubscriptionLabel extends SubscriptionHeaderLabel {
 
   const SubscriptionLabel.trialExpired({super.key})
       : super(
-          label: LocalizedTexts.subscriptionTrialExpiredLabel,
+          subTitle: LocalizedTexts.subscriptionTrialExpiredLabel1,
+          label: LocalizedTexts.subscriptionTrialExpiredLabel2,
         );
 
   const SubscriptionLabel.endedSubscription({super.key})
       : super(
-          label: LocalizedTexts.subscriptionEndedLabel,
+          subTitle: LocalizedTexts.subscriptionEndedLabel1,
+          label: LocalizedTexts.subscriptionEndedLabel2,
         );
 
   const SubscriptionLabel.cancelledSubscription({super.key})
