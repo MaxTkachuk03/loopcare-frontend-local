@@ -56,26 +56,22 @@ class SubscriptionPlaneItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CustomText(
+                CustomText.w600(
                   title.tr(),
                   style: context.textTheme.bodyMedium?.copyWith(
-                    fontSize: ThemeConstants.fontSize16,
-                    fontFamily: ThemeConstants.openSansFontFamily,
                     color: AppColors.blueDarkest,
-                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 if (regularPrice != null && currency != null)
-                  CustomText(
-                      LocalizedTexts.subscriptionPrice
-                          .tr()
-                          .replaceAll('{C}', currency!)
-                          .replaceAll('{XX,XX}', regularPrice!),
-                      style: context.textTheme.bodyMedium?.copyWith(
-                        fontSize: ThemeConstants.fontSize16,
-                        fontFamily: ThemeConstants.openSansFontFamily,
-                        color: AppColors.blueDarkest,
-                      )),
+                  CustomText.w400(
+                    LocalizedTexts.subscriptionPrice
+                        .tr()
+                        .replaceAll('{C}', currency!)
+                        .replaceAll('{XX,XX}', regularPrice!),
+                    style: context.textTheme.bodyMedium?.copyWith(
+                      color: AppColors.blueDarkest,
+                    ),
+                  ),
               ],
             ),
           ),

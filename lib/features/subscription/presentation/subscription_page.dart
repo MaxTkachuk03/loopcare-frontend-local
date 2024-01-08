@@ -9,7 +9,6 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_controller.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/widget/subscription_status_widget.dart';
@@ -46,8 +45,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: CustomScaffold(
-        color: AppColors.yellowMid,
+      child: CustomScaffold.yellow(
         appBar: null,
         body: BlocConsumer<SubscriptionBloc, SubscriptionState>(
           listenWhen: _listenerStates,
