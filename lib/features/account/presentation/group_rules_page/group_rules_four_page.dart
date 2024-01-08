@@ -1,11 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -31,17 +35,10 @@ class GroupRulesFourPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GroupLessonWrap(
-      child: Scaffold(
-        appBar: AppBar(
-          systemOverlayStyle: SystemUiOverlayStyle.dark,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: context.router.pop,
-          ),
-          title: Text(
-            LocalizedTexts.supportGroupPreferences,
-            style: Theme.of(context).textTheme.titleMedium,
-          ).tr(),
+      child: CustomScaffold.blueLightest(
+        appBar: CustomAppBar.blue(
+          leading: CustomFilledIconButton.leadingBlueLighter(),
+          title: LocalizedTexts.supportGroupPreferences.tr(),
         ),
         body: SafeArea(
           child: MainContainer(
@@ -55,21 +52,14 @@ class GroupRulesFourPage extends StatelessWidget {
                     children: [
                       const GroupPrefsProgress(),
                       const SizedBox(height: 28.0),
-                      const Text(
-                        LocalizedTexts.groupRulesAttencion,
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                      ).tr(),
+                      CustomText.w600(LocalizedTexts.groupRulesAttencion.tr()),
                       const SizedBox(height: 32.0),
                       BulletListItem(
                         text: RichText(
                           // TODO used to scale properly when user change font size in settings
                           textScaleFactor: MediaQuery.of(context).textScaleFactor,
                           text: TextSpan(
-                            style: const TextStyle(
-                                fontFamily: ThemeConstants.openSansFontFamily,
-                                fontSize: 21,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.darkGreen),
+                            style: context.textTheme.bodyLarge,
                             children: [
                               TextSpan(text: '${LocalizedTexts.groupRulesFourParagraphOnePartOne.tr()} '),
                               TextSpan(
@@ -90,16 +80,16 @@ class GroupRulesFourPage extends StatelessWidget {
                           ),
                         ),
                         bulletSign: '7.',
-                        bulletSize: 21.0,
+                        bulletSize: 18.0,
                       ),
                       const SizedBox(height: 32.0),
                       BulletListItem(
-                        text: const Text(
-                          LocalizedTexts.groupRulesFourParagraphTwo,
-                          style: TextStyle(fontSize: 21, fontWeight: FontWeight.w400),
-                        ).tr(),
+                        text: CustomText.w400(
+                          LocalizedTexts.groupRulesFourParagraphTwo.tr(),
+                          style: context.textTheme.bodyLarge,
+                        ),
                         bulletSign: '8.',
-                        bulletSize: 21.0,
+                        bulletSize: 18.0,
                       ),
                       const SizedBox(height: 32.0),
                     ],
@@ -107,9 +97,9 @@ class GroupRulesFourPage extends StatelessWidget {
                   const SizedBox(height: 30.0),
                   Column(
                     children: [
-                      OutlinedButton(
+                      CustomOutlinedButton.blueFullWidth(
                         onPressed: () => _onIAgreePressHandler(context),
-                        child: const Text(LocalizedTexts.yesIAgree).tr(),
+                        label: LocalizedTexts.yesIAgree.tr(),
                       ),
                       const SizedBox(height: 30.0),
                     ],

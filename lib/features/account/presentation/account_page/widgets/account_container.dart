@@ -9,7 +9,7 @@ class AccountContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.white,
+      color: AppColors.blueLightest,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),

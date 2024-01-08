@@ -560,7 +560,6 @@ class LocalizedTexts {
   static const String iNoLongerWantToJoin = 'iNoLongerWantToJoin';
   static const String update = 'update';
   static const String weHaveNotYetFound = 'weHaveNotYetFound';
-  static const String toSpeedUpTheProcess = 'toSpeedUpTheProcess';
   static const String goodNews = 'goodNews';
   static const String youHaveBeenAddedToGroup = 'youHaveBeenAddedToGroup';
   static const String readTheGroupRules = 'readTheGroupRules';

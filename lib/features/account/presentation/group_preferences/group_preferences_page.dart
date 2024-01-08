@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
@@ -15,7 +17,6 @@ import 'package:loopcare_frontend/features/account/presentation/group_preference
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/waiting_in_pool.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
 class GroupPreferencesPage extends StatefulWidget {
   const GroupPreferencesPage({super.key});
@@ -43,9 +44,9 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: BlueAppBar(
-        leading: const BackButtonHexagon(),
+    return CustomScaffold.blue(
+      appBar: CustomAppBar.blue(
+        leading: CustomFilledIconButton.leadingBlueLighter(),
         title: LocalizedTexts.groupPreferences.translation,
       ),
       body: SafeArea(
@@ -71,8 +72,9 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
                   return BlocBuilder<AuthenticationCubit, AuthenticationState>(
                       builder: (BuildContext context, state) {
                     if (state.groupingState == null) return const SizedBox.shrink();
-                    if (state.groupingState == UserGroupingState.unlockedPreferences)
+                    if (state.groupingState == UserGroupingState.unlockedPreferences) {
                       return const NotGrouped();
+                    }
                     if (state.groupingState == UserGroupingState.refused) return const NotGrouped();
                     if (state.groupingState == UserGroupingState.left) return const NotGrouped();
                     if (state.groupingState == UserGroupingState.waitingInPool) return const WaitingInPool();
