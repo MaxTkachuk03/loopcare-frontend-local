@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/group_preferences_form.dart';
@@ -20,10 +21,10 @@ class WaitingInPool extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                LocalizedTexts.weAreLookingForAMatch,
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: AppColors.blueDark),
-              ).tr(),
+              CustomText.bitter600(
+                LocalizedTexts.weAreLookingForAMatch.tr(),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: ThemeConstants.fontSize20),
+              ),
               BlocBuilder<AuthenticationCubit, AuthenticationState>(builder: (BuildContext context, state) {
                 final groupingStartedAt = state.groupingStartedAt;
 
@@ -36,7 +37,8 @@ class WaitingInPool extends StatelessWidget {
                     children: <TextSpan>[
                       TextSpan(
                           text: '${groupingStartedAt.fullDateWithYear}.',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
                     ],
                   ),
                 );

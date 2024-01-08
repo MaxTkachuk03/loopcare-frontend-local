@@ -4,7 +4,6 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_butt
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class ErrorScreen extends StatelessWidget {
@@ -48,9 +47,7 @@ class ErrorScreen extends StatelessWidget {
                 errorType.isSomethingWentWrongType
                     ? LocalizedTexts.oeps.translation
                     : LocalizedTexts.noConnectionTitle.translation,
-                style: context.textTheme.displayLarge?.copyWith(
-                  fontSize: smallVersion ? ThemeConstants.fontSize18 : ThemeConstants.fontSize28,
-                ),
+                style: smallVersion ? context.textTheme.bodyLarge : context.textTheme.displayLarge,
               ),
               const SizedBox(height: 8.0),
               CustomText.w400(

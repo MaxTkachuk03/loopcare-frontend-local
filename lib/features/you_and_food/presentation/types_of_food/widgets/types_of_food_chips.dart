@@ -34,7 +34,7 @@ class _TypesOfFoodChipsState extends State<TypesOfFoodChips> {
                   .map(
                     (e) => SizedBox(
                       width: width,
-                      child: CustomChoiceChip.coralBlueBorder(
+                      child: CustomChoiceChip.coral(
                         label: e.name,
                         selected: selectedHates.contains(e),
                         value: e,

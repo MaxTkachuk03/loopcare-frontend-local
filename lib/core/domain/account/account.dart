@@ -3,9 +3,9 @@ import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/interpretation_type.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_activities_preferences.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preference.dart';
 
 part 'account.freezed.dart';

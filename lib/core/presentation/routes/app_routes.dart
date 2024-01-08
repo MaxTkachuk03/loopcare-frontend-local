@@ -22,19 +22,27 @@ class AppRoutes {
   static const String medicalIntro = '/medical-fitness-intro'; // added
   static const String pregnancy = '/pregnancy'; // added
   static const String pregnancyFailed = '/pregnancy-failed'; // added
+  static const String medicines = '/medicines';
+  static const String weightLossMedication = '/weight-loss-medication'; // added
+  static const String medicationPastPeriod = '/medication-past-period'; // added
+  static const String medicationFuturePeriod = '/medication-future-period'; // added
+  static const String obesity = '/obesity';
+  static const String thyroidDisease = '/thyroid-disease';
+  static const String metabolicDisease = '/metabolic-disease';
+  static const String hypertension = '/hypertension';
   static const String cardiovascularDisease = '/cardiovascular-disease'; // added
   static const String cardiovascularDiseaseFailed = '/cardiovascular-disease-failed'; // added
   static const String stomachReduction = '/stomach-reduction'; // added
   static const String stomachReductionFailed = '/stomach-reduction-failed'; // added
-  static const String medicalCheckPassed = '/medical-check-passed'; // added
-  static const String painInChest = '/pain-in-chest'; // added
-  static const String painInChestFailed = '/pain-in-chest-failed'; // added
+  static const String diabetesDisease = '/diabetes-disease';
+  static const String renalFailure = '/renal-failure';
+  static const String asthma = '/asthma';
+  static const String liverDisease = '/liver-disease';
+  static const String sleepApneaSyndrome = '/sleep-apnea-syndrome';
+  static const String locomotorSystemDisease = '/locomotor-system-disease';
   static const String treatmentByDoctor = '/treatment-by-doctor'; // added
-  static const String treatmentByDoctorFailed = '/treatment-by-doctor-failed'; // added
-  static const String weightLossMedication = '/weight-loss-medication'; // added
-  static const String medicationPastPeriod = '/medication-past-period'; // added
-  static const String medicationFuturePeriod = '/medication-future-period'; // added
-  static const String consentNeeded = '/consent-needed'; // added
+  static const String medicalCheckPassed = '/medical-check-passed'; // added
+  static const String medicalCheckFailed = '/medical-check-failed';
 
   // TODO dead code
   // static const String resetPassword = '/reset-password';

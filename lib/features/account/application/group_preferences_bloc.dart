@@ -9,7 +9,7 @@ import 'package:loopcare_frontend/features/account/application/dto/group_prefere
 import 'package:loopcare_frontend/features/account/application/group_preferences_service.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
 
 part 'group_preferences_bloc.freezed.dart';
 part 'group_preferences_event.dart';
@@ -176,7 +176,8 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
   FutureOr<void> _onAcceptRules(event, Emitter<GroupPreferencesState> emit) async {
     emit(GroupPreferencesState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _groupPreferencesService.savePreferences(const GroupPreferencesBody(rulesAccepted: true));
+    final response =
+        await _groupPreferencesService.savePreferences(const GroupPreferencesBody(rulesAccepted: true));
 
     response.fold(
       (l) => emit(GroupPreferencesState.error(state.data.copyWith(error: l, isLoading: false))),

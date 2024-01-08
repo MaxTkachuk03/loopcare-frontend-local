@@ -17,37 +17,37 @@ class ProgressBar extends StatelessWidget {
 
   factory ProgressBar.coral({required Color backgroundColor}) => ProgressBar(
         backgroundColor: backgroundColor,
-        progressFillColor: AppColors.coralDarker,
+        progressFillColor: AppColors.coralRegular,
         progressEmptyColor: AppColors.white,
       );
 
   factory ProgressBar.orange({required Color backgroundColor}) => ProgressBar(
         backgroundColor: backgroundColor,
-        progressFillColor: AppColors.orangeDarker,
+        progressFillColor: AppColors.orangeRegular,
         progressEmptyColor: AppColors.white,
       );
 
   factory ProgressBar.yellow({required Color backgroundColor}) => ProgressBar(
         backgroundColor: backgroundColor,
-        progressFillColor: AppColors.yellowDarker,
+        progressFillColor: AppColors.yellowRegular,
         progressEmptyColor: AppColors.white,
       );
 
   factory ProgressBar.green({required Color backgroundColor}) => ProgressBar(
         backgroundColor: backgroundColor,
-        progressFillColor: AppColors.greenDarker,
+        progressFillColor: AppColors.greenRegular,
         progressEmptyColor: AppColors.white,
       );
 
   factory ProgressBar.petrol({required Color backgroundColor}) => ProgressBar(
         backgroundColor: backgroundColor,
-        progressFillColor: AppColors.petrolDarker,
+        progressFillColor: AppColors.petrolRegular,
         progressEmptyColor: AppColors.white,
       );
 
   factory ProgressBar.blue({required Color backgroundColor}) => ProgressBar(
         backgroundColor: backgroundColor,
-        progressFillColor: AppColors.blueDarker,
+        progressFillColor: AppColors.blueRegular,
         progressEmptyColor: AppColors.white,
       );
 

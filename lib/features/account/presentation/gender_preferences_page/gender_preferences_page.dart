@@ -4,12 +4,14 @@ import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/orange_button.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
@@ -18,8 +20,8 @@ import 'package:loopcare_frontend/features/account/presentation/widgets/group_pr
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_progress.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 
 class GenderPreferencesPage extends StatefulWidget {
   const GenderPreferencesPage({super.key});
@@ -99,19 +101,17 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
                       children: [
                         const GroupPrefsProgress(),
                         const SizedBox(height: 28.0),
-                        const Text(
-                          LocalizedTexts.genderPreferencesQuestion,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ).tr(),
+                        CustomText.bitter500(
+                          LocalizedTexts.genderPreferencesQuestion.tr(),
+                          style: context.textTheme.displayMedium,
+                        ),
                         const SizedBox(height: 24.0),
                         Column(
                           children: GenderPreferences.values.map(
                             (GenderPreferences value) {
                               final gender = context.read<AuthenticationCubit>().state.gender;
-                              final shouldRemoveMale = gender == SexType.male && value == GenderPreferences.femaleOnly;
+                              final shouldRemoveMale =
+                                  gender == SexType.male && value == GenderPreferences.femaleOnly;
                               final shouldRemoveFemale =
                                   gender == SexType.female && value == GenderPreferences.maleOnly;
 
@@ -119,12 +119,11 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
 
                               return Column(
                                 children: [
-                                  AppChoiceChip(
+                                  CustomChoiceChip.coral(
                                     label: value.label,
                                     selected: value == _selectedValue,
                                     value: value,
                                     onSelected: _onSelected,
-                                    textAlign: TextAlign.left,
                                   ),
                                   const SizedBox(height: 8.0),
                                 ],
@@ -136,9 +135,9 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
                     ),
                     Column(
                       children: [
-                        OrangeButton(
-                          onPressedHandler: _selectedValue == null ? null : _onNextPressedHandler,
-                          child: const Text(LocalizedTexts.next).tr(),
+                        CustomElevatedButton.blueFullWidth(
+                          onPressed: _selectedValue == null ? null : _onNextPressedHandler,
+                          label: LocalizedTexts.next.tr(),
                         ),
                         const SizedBox(height: 30.0),
                       ],
