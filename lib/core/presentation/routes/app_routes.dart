@@ -62,6 +62,7 @@ class AppRoutes {
   static const String allergic = '/allergic'; // added
   static const String youAndFoodReady = '/you-and-food-ready'; // added
   static const String doNotLike = '/do-not-like'; // added
+  static const String mentalHealthPreIntro = '/mental-health-pre-intro';
   static const String mentalHealthIntro = '/mental-health-intro'; // added
   static const String mentalHealthQuestion = '/mental-health-question'; // added
   static const String mentalCheckResult = '/mental-check-result'; // added

@@ -52,6 +52,7 @@ import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/pre_intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
 import 'package:loopcare_frontend/features/legal_statement/presentation/legal_statement_page.dart';
+import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_pre_intro_page.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/asthma/asthma_page.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/cardiovascular_disease/cardiovascular_disease_page.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/diabetes_disease/diabetes_disease_page.dart';
@@ -309,6 +310,10 @@ const groupLessonRoutes = [
     ),
 
     // Onboarding Mental
+    AutoRoute(
+      path: AppRoutes.mentalHealthPreIntro,
+      page: MentalHealthPreIntroPage,
+    ),
     AutoRoute(
       path: AppRoutes.mentalHealthIntro,
       page: MentalHealthIntroPage,
