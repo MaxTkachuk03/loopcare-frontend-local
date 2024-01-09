@@ -108,32 +108,45 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
                           ),
                           const SizedBox(height: 35.0),
                           MainContainer(
-                            child: Container(
-                              width: double.infinity,
-                              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                              decoration: const BoxDecoration(
-                                color: AppColors.white,
-                                borderRadius: BorderRadius.all(Radius.circular(16)),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  if (isFinalResults) const FinalResultsText(),
-                                  if (currentTest.type == MentalHealthTestType.who5 && !isFinalResults)
-                                    const WHO5ResultText(),
-                                  if (currentTest.type == MentalHealthTestType.phq15 && !isFinalResults)
-                                    const PHQ15ResultText(),
-                                  if (currentTest.type == MentalHealthTestType.gad7 && !isFinalResults)
-                                    const GAD7ResultText(),
-                                  if (currentTest.type == MentalHealthTestType.phq8 && !isFinalResults)
-                                    const PHQ8ResultText(),
-                                ],
-                              ),
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                                  decoration: const BoxDecoration(
+                                    color: AppColors.white,
+                                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    children: [
+                                      if (isFinalResults) const FinalResultsText(),
+                                      if (currentTest.type == MentalHealthTestType.who5 && !isFinalResults)
+                                        const WHO5ResultText(),
+                                      if (currentTest.type == MentalHealthTestType.phq15 && !isFinalResults)
+                                        const PHQ15ResultText(),
+                                      if (currentTest.type == MentalHealthTestType.gad7 && !isFinalResults)
+                                        const GAD7ResultText(),
+                                      if (currentTest.type == MentalHealthTestType.phq8 && !isFinalResults)
+                                        const PHQ8ResultText(),
+                                      const SizedBox(height: 30.0),
+                                      if (state.data.showEmergencyBtn) EmergencyBtn(onPressHandler: () {})
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 24.0),
+                                Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                                  decoration: const BoxDecoration(
+                                    color: AppColors.white,
+                                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                                  ),
+                                  child: CustomText.w400(_subText(), style: context.textTheme.bodyMedium),
+                                )
+                              ],
                             ),
                           ),
-                          const SizedBox(height: 30.0),
-                          if (state.data.showEmergencyBtn)
-                            MainContainer(child: EmergencyBtn(onPressHandler: () {})),
                         ],
                       ),
                       MainContainer(
@@ -159,6 +172,22 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
     );
   }
 
+  String _subText() {
+    final state = context.read<MentalHealthBloc>().state;
+    final currentTest = state.data.currentTest;
+
+    switch (currentTest?.type) {
+      case MentalHealthTestType.who5:
+        return '${LocalizedTexts.who5SubText.tr()}!';
+      case MentalHealthTestType.phq15:
+        return '${LocalizedTexts.phq15SubText.tr()}!';
+      case MentalHealthTestType.gad7:
+        return '${LocalizedTexts.gad75SubText.tr()}!';
+      default:
+        return '';
+    }
+  }
+
   String _getSuccessContainerTitle() {
     final state = context.read<MentalHealthBloc>().state;
     final currentTest = state.data.currentTest;
@@ -168,9 +197,17 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
       return '${LocalizedTexts.mentalHealth.tr()}\n${LocalizedTexts.checkCompleted.tr()}';
     }
 
-    return currentTest?.type == MentalHealthTestType.who5
-        ? LocalizedTexts.generalWellBeingConclusions.tr()
-        : LocalizedTexts.partialConclusion.tr();
+    switch (currentTest?.type) {
+      case MentalHealthTestType.who5:
+        return LocalizedTexts.generalWellBeingSummary.tr();
+      case MentalHealthTestType.phq15:
+        return LocalizedTexts.bodyAndMindBalanceSummary.tr();
+      case MentalHealthTestType.gad7:
+      case MentalHealthTestType.phq8:
+        return LocalizedTexts.stateOfMindSummary.tr();
+      default:
+        return '';
+    }
   }
 
   _onNextPressed(BuildContext context) {

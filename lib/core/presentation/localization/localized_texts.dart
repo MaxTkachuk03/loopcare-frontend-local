@@ -910,9 +910,13 @@ class LocalizedTexts {
   static const String phq8ResultMedium = "phq8ResultMedium";
   static const String phq8ResultHigh = "phq8ResultHigh";
   static const String phq8ResultHighest = "phq8ResultHighest";
-  static const String generalWellBeingConclusions = "generalWellBeingConclusions";
-  static const String partialConclusion = "partialConclusion";
+  static const String generalWellBeingSummary = "generalWellBeingSummary";
+  static const String bodyAndMindBalanceSummary = "bodyAndMindBalanceSummary";
+  static const String stateOfMindSummary = "stateOfMindSummary";
   static const String checkCompleted = "checkCompleted";
+  static const String who5SubText = "who5SubText";
+  static const String phq15SubText = "phq15SubText";
+  static const String gad75SubText = "gad75SubText";
 
   // Time ends message
   static const String youExceededTimeMessage = "youExceededTimeMessage";

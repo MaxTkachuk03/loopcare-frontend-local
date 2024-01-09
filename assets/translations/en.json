@@ -109,7 +109,6 @@
   "phq15Question": "how much have you been bothered by any of the following problems",
   "overThe": "Over the",
   "phq8Question": "how often have you been bothered by any of the following problems",
-
   "who5ResultTestMinimal": "Regarding your general well-being, you have indicated that in the last two weeks your well-being has been severely limited, and you have felt unwell most of the time. If you feel unwell for a longer period, we recommend that you consult a psychologist or your doctor to check these symptoms. You can find psychologists here:",
   "who5ResultTestHigh": "In terms of your general well-being, you indicated that you have generally felt balanced, joyful, and relaxed over the past two weeks. This result indicates a good state of well-being.",
   "phq15ResultMinimal": "You have stated that you have had no or few physical symptoms in the last four weeks. That’s great.",
@@ -126,11 +125,16 @@
   "phq8ResultMedium": "You have stated that you have been depressed more than half the days in the last two weeks. You may also have had feelings of hopelessness or have felt down. Throughout the LeanOnMe program, you will learn about the connection between thoughts and feelings and what you can do to improve your mental health. If the symptoms persist or worsen, we recommend a consultation with a psychologist.",
   "phq8ResultHigh": "You have stated that your mood has often been significantly effected in the last two weeks. You have indicated that you have felt depressed and have often suffered from listlessness or dejection in the last few weeks. The symptoms indicate current psychological distress with emotional impairment. These may be indications of a temporary depressive episode. This program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting a psychologist. You can find addresses here:",
   "phq8ResultHighest": "You have stated that your mood has been significantly effected almost every day for the past two weeks. You have indicated that you have felt depressed and have often or constantly suffered from listlessness or dejection in the last few weeks. These symptoms currently indicate a  high level of psychological distress with emotional impairment and could be an indication of depression.\n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend the clarification by a psychologist. You can find addresses here:",
-  "generalWellBeingConclusions": "General Well-being Conclusions",
-  "partialConclusion": "Partial Conclusion",
+  "generalWellBeingSummary": "General well-being summary",
+  "bodyAndMindBalanceSummary": "Body and mind balance summary",
+  "stateOfMindSummary": "State of mind summary",
   "checkCompleted": "Check Completed!",
   "youExceededTimeMessage": "Sorry, but you exceeded the time limit of one hour",
   "noWorriesYouCanDoItLater": "But don’t worry, you can start over",
+  "who5SubText": "You’ve completed the first part! Keep going! You’re doing great",
+  "phq15SubText": "You're breezing through these questions! Nicely done! You’ve reached the halfway point",
+  "gad75SubText": "Three down, one to go! Just a few last questions",
+
 
 
 

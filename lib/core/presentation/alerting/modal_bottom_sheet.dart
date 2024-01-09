@@ -566,9 +566,9 @@ class ModalBottomSheet {
                 ),
                 MainContainer(
                   child: CustomText.w400(
-                    LocalizedTexts.mentalHealthMoreInfo.tr(namedArgs: {
-                      'appName': appConfig.projectName,
-                    }),
+                    '${LocalizedTexts.mentalHealthMoreInfo.tr(namedArgs: {
+                          'appName': appConfig.projectName,
+                        })}.',
                     style: context.textTheme.bodyMedium,
                   ),
                 )
