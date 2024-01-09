@@ -4,8 +4,11 @@ import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/html_renderer/html_renderer.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
@@ -19,7 +22,9 @@ class PreparationMaterialsPage extends StatelessWidget {
     final userId = context.read<AuthenticationCubit>().state.id;
     final sessionId = context.read<TopicsBloc>().state.data.signedGroupSessionId ?? 0;
 
-    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.closedSessionPreparationMaterials, {
+    context
+        .read<AnalyticsBloc>()
+        .add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.closedSessionPreparationMaterials, {
           "timestamp": DateTime.now().toIso8601String(),
         }));
 
@@ -36,28 +41,23 @@ class PreparationMaterialsPage extends StatelessWidget {
 
         return WillPopScope(
           onWillPop: () => _onWillPop(context),
-          child: Scaffold(
-            appBar: BlueAppBar(
-              leading: const BackButtonHexagon(),
+          child: CustomScaffold.orangeLightest(
+            appBar: CustomAppBar.orange(
               title: LocalizedTexts.preparation.translation,
-              italicSubtitle: false,
               subtitle: state.data.weekTopicName,
+              leading: CustomFilledIconButton.leadingOrangeLighter(),
             ),
             body: SafeArea(
               child: ScrollableContainer(
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 48.0,
-                    ),
+                    const SizedBox(height: 48.0),
                     if (content != null)
                       HtmlRenderer(
                         content: content,
                         textStyle: const TextStyle(fontSize: ThemeConstants.fontSize18),
                       ),
-                    const SizedBox(
-                      height: 65.0,
-                    ),
+                    const SizedBox(height: 65.0),
                   ],
                 ),
               ),

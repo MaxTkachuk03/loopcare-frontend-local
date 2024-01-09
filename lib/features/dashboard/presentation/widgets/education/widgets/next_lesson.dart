@@ -113,7 +113,7 @@ class NextLesson extends StatelessWidget {
                         const SizedBox(height: 10.0),
                         CustomOutlinedButton.coral(
                           label: LocalizedTexts.start.translation,
-                          onPressed: () => {},
+                          onPressed: () => _onTapHandler(context),
                         )
                       ],
                     ),

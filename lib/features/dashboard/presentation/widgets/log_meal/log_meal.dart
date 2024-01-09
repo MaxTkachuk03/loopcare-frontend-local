@@ -135,7 +135,7 @@ class LogMeal extends StatelessWidget {
                       ? Column(
                           children: [
                             const SizedBox(height: 8.0),
-                            const Divider(color: AppColors.blueLighter),
+                            const Divider(color: AppColors.blueOffRegular),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,

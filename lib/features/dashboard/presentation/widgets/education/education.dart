@@ -87,7 +87,7 @@ class Education extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Divider(color: AppColors.blueLighter),
+                            const Divider(color: AppColors.blueOffRegular),
                             const SizedBox(height: 6.0),
                             CustomText.bitter600(
                               LocalizedTexts.todo.tr(),
@@ -104,7 +104,7 @@ class Education extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Divider(color: AppColors.blueLighter),
+                            const Divider(color: AppColors.blueOffRegular),
                             const SizedBox(height: 10.0),
                             CustomText.bitter600(
                               '${LocalizedTexts.done.translation} ${_getDate(date).toUpperCase()}',

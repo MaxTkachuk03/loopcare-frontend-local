@@ -82,7 +82,7 @@ class _SupportGroupState extends State<SupportGroup> {
               ),
             ),
             const SizedBox(height: 8.0),
-            const Divider(color: AppColors.blueLighter),
+            const Divider(color: AppColors.blueOffRegular),
             BlocBuilder<AuthenticationCubit, AuthenticationState>(
               builder: (context, state) {
                 switch (state.groupingState) {

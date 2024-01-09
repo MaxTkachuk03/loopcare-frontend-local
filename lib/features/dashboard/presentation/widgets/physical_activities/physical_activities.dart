@@ -103,7 +103,7 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                   ),
                 ),
                 const SizedBox(height: 8.0),
-                const Divider(color: AppColors.blueLighter),
+                const Divider(color: AppColors.blueOffRegular),
                 const SizedBox(height: 6.0),
                 BlocBuilder<ProgramsInProgressBloc, ProgramsInProgressState>(
                   builder: (BuildContext context, state) {

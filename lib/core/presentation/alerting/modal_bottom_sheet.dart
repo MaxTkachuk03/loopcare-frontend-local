@@ -721,13 +721,9 @@ class ModalBottomSheet {
                         ),
                       ),
                       const SizedBox(height: 16.0),
-                      Text(
+                      CustomText.bitter600(
                         state.data.weekTopicName,
-                        style: const TextStyle(
-                          fontSize: ThemeConstants.fontSize24,
-                          fontFamily: ThemeConstants.bitterFontFamily,
-                          color: AppColors.blueDark,
-                        ),
+                        style: context.textTheme.headlineSmall,
                       ),
                       const SizedBox(height: 16.0),
                       state.data.isSigned && state.data.isGroupsOnWeekAvailable

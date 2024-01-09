@@ -70,7 +70,7 @@ class PersonMood extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8.0),
-                  const Divider(color: AppColors.blueLighter),
+                  const Divider(color: AppColors.blueOffRegular),
                   MoodList(
                     list: moodValues,
                     onPressItem: (Mood item) => _onMoodItemPressedHandler(context, item),
