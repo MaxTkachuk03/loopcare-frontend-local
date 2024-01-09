@@ -6,16 +6,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/small_filled_button.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_wrap.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/presentation/progress_bar.dart';
 
 class MentalHealthIntroPage extends StatefulWidget {
   const MentalHealthIntroPage({super.key});
@@ -49,77 +58,113 @@ class _MentalHealthIntroPageState extends State<MentalHealthIntroPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => _onWillPop(context),
-      child: BlocBuilder<MentalHealthBloc, MentalHealthState>(
-        builder: (context, state) {
-          if (state.data.isLoading) return const MentalHealthWrap(child: Loader());
+      child: MentalHealthWrap(
+        child: CustomScaffold.orangeLightest(
+          appBar: CustomAppBar.orange(
+            title: LocalizedTexts.mentalHealth.tr(),
+            leading: CustomFilledIconButton.leadingOrangeLighter(),
+          ),
+          body: SafeArea(
+            child: ScrollableContainer(
+              child: BlocBuilder<MentalHealthBloc, MentalHealthState>(builder: (context, state) {
+                if (state.data.isLoading) return const Loader();
 
-          final error = state.data.error;
+                final error = state.data.error;
 
-          if (error != null) {
-            return MentalHealthWrap(
-              child: ErrorScreen(
-                error: error,
-                onButtonPressed: _onLoadTests,
-              ),
-            );
-          }
+                if (error != null) {
+                  return ErrorScreen(
+                    error: error,
+                    onButtonPressed: _onLoadTests,
+                  );
+                }
 
-          return MentalHealthWrap(
-            withoutPagination: true,
-            child: MultiBlocListener(
-              listeners: [
-                BlocListener<MentalHealthBloc, MentalHealthState>(
-                  listenWhen: (prev, cur) => prev.data.startTestTime == null && cur.data.startTestTime != null,
-                  listener: _listenerTestWasStarted,
-                ),
-                BlocListener<MentalHealthBloc, MentalHealthState>(
-                  listenWhen: (prev, cur) => !prev.data.isCompleted && cur.data.isCompleted,
-                  listener: _listenerTestWasCompleted,
-                ),
-              ],
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 24.0),
-                  Text(
-                    LocalizedTexts.yourMentalHealth,
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                          fontFamily: ThemeConstants.bitterFontFamily,
-                          color: AppColors.blueDark,
+                return MultiBlocListener(
+                  listeners: [
+                    BlocListener<MentalHealthBloc, MentalHealthState>(
+                      listenWhen: (prev, cur) =>
+                          prev.data.startTestTime == null && cur.data.startTestTime != null,
+                      listener: _listenerTestWasStarted,
+                    ),
+                    BlocListener<MentalHealthBloc, MentalHealthState>(
+                      listenWhen: (prev, cur) => !prev.data.isCompleted && cur.data.isCompleted,
+                      listener: _listenerTestWasCompleted,
+                    ),
+                  ],
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ProgressBar.blue(backgroundColor: AppColors.orangeRegular),
+                          MainContainer(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 24.0),
+                                CustomText.w600(
+                                  LocalizedTexts.yourMentalHealth,
+                                  style: context.textTheme.displayMedium,
+                                ),
+                                const SizedBox(height: 28.0),
+                                CustomText.w600(
+                                  '${LocalizedTexts.mentalHealthIntroTextOne.tr()}.',
+                                  style: context.textTheme.bodyMedium,
+                                ),
+                                const SizedBox(height: 20.0),
+                                CustomText.w400(
+                                  '${LocalizedTexts.mentalHealthIntroTextTwo.tr()}.',
+                                  style: context.textTheme.bodyMedium,
+                                ),
+                                const SizedBox(height: 20.0),
+                                CustomText.w400(
+                                  '${LocalizedTexts.mentalHealthIntroTextThree.tr()}.',
+                                  style: context.textTheme.bodyMedium,
+                                ),
+                                const SizedBox(height: 20.0),
+                                CustomText.w400(
+                                  '${LocalizedTexts.mentalHealthIntroTextFour.tr()}.',
+                                  style: context.textTheme.bodyMedium,
+                                ),
+                                const SizedBox(height: 20.0),
+                                CustomText.w400(
+                                  '${LocalizedTexts.mentalHealthIntroTextFive.tr()}.',
+                                  style: context.textTheme.bodyMedium,
+                                ),
+                                const SizedBox(height: 20.0),
+                                CustomText.w400(
+                                  '${LocalizedTexts.mentalHealthIntroTextSix.tr()}.',
+                                  style: context.textTheme.bodyMedium,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      MainContainer(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomOutlinedButton.orangeSmall(
+                              label: LocalizedTexts.moreInfo.tr(),
+                              onPressed: () => _onMoreInfoPressed(context),
+                            ),
+                            const SizedBox(height: 26.0),
+                            CustomElevatedButton.blueFullWidth(
+                              onPressed: () => _onNextPressed(context),
+                              label: LocalizedTexts.next.tr(),
+                            ),
+                            const SizedBox(height: 30.0),
+                          ],
                         ),
-                  ).tr(),
-                  const SizedBox(height: 16.0),
-                  Text(
-                    LocalizedTexts.mentalHealthIntroTextOne,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ).tr(),
-                  const SizedBox(height: 20.0),
-                  Text(
-                    LocalizedTexts.mentalHealthIntroTextTwo,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ).tr(),
-                  const SizedBox(height: 20.0),
-                  Text(
-                    LocalizedTexts.mentalHealthIntroTextThree,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ).tr(),
-                  const SizedBox(height: 20.0),
-                  SmallFilledButton(
-                    backgroundColor: AppColors.greyLight,
-                    text: LocalizedTexts.moreInfo.tr(),
-                    onPressed: () => _onMoreInfoPressed(context),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 45.0),
-                  ElevatedButton(
-                    onPressed: () => _onNextPressed(context),
-                    child: const Text(LocalizedTexts.next).tr(),
-                  ),
-                  const SizedBox(height: 25.0),
-                ],
-              ),
+                );
+              }),
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }
@@ -138,7 +183,8 @@ class _MentalHealthIntroPageState extends State<MentalHealthIntroPage> {
       const Duration(seconds: 1),
       (timer) {
         final mentalHealthTime = int.parse(dotenv.env['MENTAL_HEALTH_TEST_TIME_IN_MINUTES']!);
-        final timeWasExceededCheck = DateTime.now().isAfter(startTestTime.add(Duration(minutes: mentalHealthTime)));
+        final timeWasExceededCheck =
+            DateTime.now().isAfter(startTestTime.add(Duration(minutes: mentalHealthTime)));
 
         if (timeWasExceededCheck) {
           timer.cancel();

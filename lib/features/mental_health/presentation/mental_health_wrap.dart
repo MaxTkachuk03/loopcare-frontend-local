@@ -2,11 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding/presentation/progress_bar.dart';
 
 class MentalHealthWrap extends StatelessWidget {
   final Widget child;
@@ -16,6 +12,11 @@ class MentalHealthWrap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () => _onWillPop(context),
+      child: child,
+    );
+
     return WillPopScope(
       onWillPop: () => _onWillPop(context),
       child: Scaffold(
@@ -53,22 +54,7 @@ class MentalHealthWrap extends StatelessWidget {
             ],
           ),
         ),
-        body: SafeArea(
-          child: MainContainer(
-            child: Column(
-              children: <Widget>[
-                ProgressBar.blue(backgroundColor: AppColors.yellowRegular),
-                Expanded(
-                  child: ScrollableContainer(
-                    child: IntrinsicHeight(
-                      child: child,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        body: child,
       ),
     );
   }

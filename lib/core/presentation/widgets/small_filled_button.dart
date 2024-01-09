@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
+// TODO dead code
 class SmallFilledButton extends StatelessWidget {
   final String text;
   final Color? backgroundColor;

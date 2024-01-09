@@ -5,7 +5,6 @@ class LocalizedTexts {
   static const String haveAnAccount = 'haveAnAccount';
   static const String logIn = 'logIn';
   static const String bodyAndMind = 'bodyAndMind';
-  static const String mentalHealth = 'mentalHealth';
 
   static const String needHelpWithThis = 'needHelpWithThis';
 
@@ -652,11 +651,7 @@ class LocalizedTexts {
   static const String badConnectionMessage = "badConnectionMessage";
 
   // Mental Health
-  static const String yourMentalHealth = "yourMentalHealth";
-  static const String mentalHealthMoreInfo = "mentalHealthMoreInfo";
-  static const String mentalHealthIntroTextOne = "mentalHealthIntroTextOne";
-  static const String mentalHealthIntroTextTwo = "mentalHealthIntroTextTwo";
-  static const String mentalHealthIntroTextThree = "mentalHealthIntroTextThree";
+
   static const String who5ResultTestMinimal = "who5ResultTestMinimal";
   static const String who5ResultTestHigh = "who5ResultTestHigh";
   static const String phq15ResultMinimal = "phq15ResultMinimal";
@@ -693,8 +688,7 @@ class LocalizedTexts {
   static const String youExceededTimeMessage = "youExceededTimeMessage";
   static const String noWorriesYouCanDoItLater = "noWorriesYouCanDoItLater";
   static const String startAgain = "startAgain";
-  static const String who8Question = "who8Question";
-  static const String lastTwoWeeks = "lastTwoWeeks";
+
   static const String duringThe = "duringThe";
   static const String pastFourWeeks = "pastFourWeeks";
   static const String phq15Question = "phq15Question";
@@ -903,6 +897,19 @@ class LocalizedTexts {
   static const String liverDisease = 'liverDisease';
   static const String sleepApneaSyndrome = 'sleepApneaSyndrome';
   static const String locomotorSystemDisease = 'locomotorSystemDisease';
+
+  // Onboarding mental
+  static const String mentalHealth = 'mentalHealth';
+  static const String yourMentalHealth = "yourMentalHealth";
+  static const String mentalHealthMoreInfo = "mentalHealthMoreInfo";
+  static const String mentalHealthIntroTextOne = "mentalHealthIntroTextOne";
+  static const String mentalHealthIntroTextTwo = "mentalHealthIntroTextTwo";
+  static const String mentalHealthIntroTextThree = "mentalHealthIntroTextThree";
+  static const String mentalHealthIntroTextFour = "mentalHealthIntroTextFour";
+  static const String mentalHealthIntroTextFive = "mentalHealthIntroTextFive";
+  static const String mentalHealthIntroTextSix = "mentalHealthIntroTextSix";
+  static const String who8Question = "who8Question";
+  static const String lastTwoWeeks = "lastTwoWeeks";
 }
 
 extension StringX on String {

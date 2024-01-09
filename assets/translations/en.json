@@ -91,10 +91,22 @@
   "liverDisease": "Liver disease",
   "sleepApneaSyndrome": "Sleep apnea syndrome",
   "locomotorSystemDisease": "Locomotor system disease",
-
-
-
-
+  "mentalHealth": "Mental Health",
+  "yourMentalHealth": "Your mental health",
+  "mentalHealthIntroTextOne": "A good mental health is vital to successfully improve your lifestyle",
+  "mentalHealthIntroTextTwo": "This section will take around 15 minutes",
+  "mentalHealthIntroTextThree": "You can take a break in between as long as you finish this section within one hour",
+  "mentalHealthIntroTextFour": "If you do take more than an hour you need to start this section over again",
+  "mentalHealthIntroTextFive": "You will receive your results immediately after the questions",
+  "mentalHealthIntroTextSix": "Please note that these test results are not a diagnosis. A diagnosis can only be made by a doctor or psychologist",
+  "mentalHealthMoreInfo": "In this section you will be asked questions from scientifically validated questionnaires. If you would like to get more information on the questionnaires that are used, please contact {appName}",
+  "who8Question": "Please indicate for each of the given statements which is closest to how you have been feeling over the",
+  "lastTwoWeeks": "last two weeks",
+  "duringThe": "During the",
+  "pastFourWeeks": "past four weeks",
+  "phq15Question": "how much have you been bothered by any of the following problems",
+  "overThe": "Over the",
+  "phq8Question": "how often have you been bothered by any of the following problems",
 
 
 
@@ -103,7 +115,7 @@
   "haveAnAccount": "Have an account?",
   "logIn": "Log in",
   "bodyAndMind": "Body & Mind",
-  "mentalHealth": "Mental Health",
+
   "needHelpWithThis": "Need help with this?",
   "finish": "Finish",
   "introPage": "Intro Page!",
@@ -633,10 +645,7 @@
   "sessionAlreadyEnded": "Your session already ended, you can't join",
   "duration": "Duration",
   "badConnectionMessage": "Your connection is bad",
-  "yourMentalHealth": "Your mental health",
-  "mentalHealthIntroTextOne": "A good mental health is vital to successfully improve your lifestyle.",
-  "mentalHealthIntroTextTwo": "To tailor the program to suit your needs you will be asked questions in the next section regarding your current well-being, physiological symptoms, possible anxiety symptoms and mood. This should take around 10 minutes.",
-  "mentalHealthIntroTextThree": "You can take a break inbetween. If you do take more than an hour to complete all questions you will be asked to start this section again. You will receive your results immediately after the questions. Please note that these test results are not a diagnosis. A diagnosis can only be made by a doctor or psychologist.",
+
   "who5ResultTestMinimal": "Regarding your general well-being, you have indicated that in the last two weeks your well-being has been severely limited, and you have felt unwell most of the time. If you feel unwell for a longer period, we recommend that you consult a psychologist or your doctor to check these symptoms. You can find psychologists here:",
   "who5ResultTestHigh": "In terms of your general well-being, you indicated that you have generally felt balanced, joyful, and relaxed over the past two weeks. This result indicates a good state of well-being.",
   "phq15ResultMinimal": "You have stated that you have had no or few physical symptoms in the last four weeks. That’s great.",
@@ -681,15 +690,13 @@
   "sessionWillStartIn": "The session will start in",
   "sessionStartedMessage": "The session already started. You can only join it within 15 minutes since its start",
   "enterSession": "Enter session",
-  "mentalHealthMoreInfo": "In this section you will be asked questions from validated questionnaires. If you would like to get more information on the questionnaires that are used, please contact {appName}.",
-  "who8Question": "Please indicate for each of give statements which is closest to how you have been feeling over the",
-  "lastTwoWeeks": "last two weeks",
-  "duringThe": "During the",
-  "pastFourWeeks": "past four weeks",
-  "phq15Question": "how much have you been bothered by any of the following problems?",
-  "gad7Question": "Over the last 2 weeks, how often have you been bothered by the following problems?",
-  "overThe": "Over the",
-  "phq8Question": "how often have you been bothered by any of the following problems?",
+
+
+
+
+
+
+
   "pickADateAndTime": "Pick a date and time",
   "fromTo": "From {startTime} to {endTime}",
   "fromToLower": "from {startTime} to {endTime}",
