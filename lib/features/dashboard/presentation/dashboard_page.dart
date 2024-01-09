@@ -53,7 +53,6 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-
     if (state == AppLifecycleState.resumed) {
       context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
     }
@@ -274,7 +273,6 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-
     super.dispose();
   }
 }

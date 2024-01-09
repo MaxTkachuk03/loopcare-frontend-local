@@ -4,6 +4,8 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_service.dart';
+import 'package:loopcare_frontend/features/chat/domain/chat_counter.dart';
+import 'package:loopcare_frontend/features/chat/domain/chat_read_pointer.dart';
 import 'package:loopcare_frontend/features/chat/domain/group_message.dart';
 import 'package:loopcare_frontend/features/chat/domain/list_chat_messages.dart';
 import 'package:loopcare_frontend/features/chat/domain/list_group_members.dart';
@@ -37,6 +39,17 @@ class APIChatService implements ChatService {
   @override
   Future<Either<RequestError, GroupMessage>> removeMessage({required String fromMessageId}) {
     return client.delete('/chats/messages/$fromMessageId').then(parseResponse(GroupMessage.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, ChatReadPointer>> readPointer({required String fromMessageId}) {
+    return client
+        .post('/chats/messages/read-pointer/$fromMessageId', data: {}).then(parseResponse(ChatReadPointer.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, ChatCounter>> unreadCount() {
+    return client.get('/chats/messages/count/unread').then(parseResponse(ChatCounter.fromJson));
   }
 
   @override
