@@ -28,23 +28,18 @@ class GroupChatUserAvatar extends UserAvatar {
     final hasImage = author.imageUrl != null;
     final initials = getUserInitials(author);
 
-    return Container(
-      margin: bubbleRtlAlignment == BubbleRtlAlignment.left
-          ? const EdgeInsetsDirectional.only(end: 4)
-          : const EdgeInsets.only(right: 4),
-      child: GestureDetector(
-        onTap: () => onAvatarTap?.call(author),
-        child: HexagonUserAvatar(
-          backgroundColor: hasImage ? InheritedChatTheme.of(context).theme.userAvatarImageBackgroundColor : color,
-          backgroundImage: hasImage ? NetworkImage(author.imageUrl!, headers: imageHeaders) : null,
-          radius: 16,
-          child: !hasImage
-              ? CustomText.bitter600(
-                  initials,
-                  style: context.textTheme.bodySmall?.copyWith(color: AppColors.white),
-                )
-              : null,
-        ),
+    return GestureDetector(
+      onTap: () => onAvatarTap?.call(author),
+      child: HexagonUserAvatar(
+        backgroundColor: hasImage ? InheritedChatTheme.of(context).theme.userAvatarImageBackgroundColor : color,
+        backgroundImage: hasImage ? NetworkImage(author.imageUrl!, headers: imageHeaders) : null,
+        // radius: 16,
+        child: !hasImage
+            ? CustomText.bitter600(
+                initials,
+                style: context.textTheme.bodySmall?.copyWith(color: AppColors.white),
+              )
+            : null,
       ),
     );
   }

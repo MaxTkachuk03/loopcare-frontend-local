@@ -3,6 +3,7 @@ import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_watcher_bloc/chat_watcher_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
 
@@ -10,6 +11,7 @@ class AppNavigationBar extends StatelessWidget {
   final TabsRouter tabsRouter;
   final ValueNotifier<bool> isChatEnable;
   final String userName;
+
   const AppNavigationBar({super.key, required this.tabsRouter, required this.isChatEnable, required this.userName});
 
   @override
@@ -74,7 +76,17 @@ class AppNavigationBar extends StatelessWidget {
           tabIndex = index;
       }
     }
+    _syncChatState(enable, tabIndex, context);
     context.tabsRouter.setActiveIndex(tabIndex);
+  }
+
+  void _syncChatState(bool enable, int tabIndex, BuildContext context) {
+    if (enable && tabIndex == 2) {
+      final messages = context.read<GroupChatBloc>().state.data.messages;
+      if (messages.isNotEmpty) {
+        context.read<GroupChatBloc>().add(GroupChatEvent.setReadPointer(fromMessageId: messages.first.id!));
+      }
+    }
   }
 
   int getEffectiveTabIndex(bool enable) {

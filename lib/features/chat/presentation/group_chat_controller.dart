@@ -6,13 +6,9 @@ import 'package:loopcare_frontend/features/chat/domain/group_message.dart';
 
 class GroupChatController {
   final GroupChatBloc bloc;
-  late types.User user;
+  final types.User user;
 
-  GroupChatController({required this.bloc}) {
-    user = types.User(
-      id: '${bloc.authBloc.state.id}',
-    );
-  }
+  GroupChatController({required this.bloc, required this.user}) {}
 
   String getNames(GroupChatState state) => state.data.members.map((item) => item.nickname).toList().join(",");
 
@@ -31,6 +27,11 @@ class GroupChatController {
 
   void removedMessage({required String fromMessageId}) =>
       bloc.add(GroupChatEvent.removeMessage(fromMessageId: fromMessageId));
+
+  void setReadPointer({required String fromMessageId}) =>
+      bloc.add(GroupChatEvent.setReadPointer(fromMessageId: fromMessageId));
+
+  void getUnreadCount() => bloc.add(const GroupChatEvent.getUnreadCount());
 
   Future<void> handleEndReached() async => loadMessages();
 
