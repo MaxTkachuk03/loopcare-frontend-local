@@ -1308,26 +1308,25 @@ class ModalBottomSheet {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
-                LocalizedTexts.sessionLeaveDialogText,
+              AppIcons.orangeExclamationMark,
+              const SizedBox(height: 16.0),
+              CustomText.w400(
+                LocalizedTexts.sessionLeaveDialogText.tr(),
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ).tr(),
+                style: context.textTheme.bodyMedium,
+              ),
               const SizedBox(height: 48.0),
-              ElevatedButton(
+              CustomElevatedButton.blueFullWidth(
                 onPressed: () {
                   context.router.pop();
                   onLeavePressed();
                 },
-                child: const Text(LocalizedTexts.leaveSession).tr(),
+                label: LocalizedTexts.leaveSession.tr(),
               ),
               const SizedBox(height: 12.0),
-              ElevatedButton(
+              CustomElevatedButton.blueFullWidth(
                 onPressed: onStayPressed,
-                child: const Text(LocalizedTexts.stayInTheSession).tr(),
+                label: LocalizedTexts.stayInTheSession.tr(),
               )
             ],
           ),

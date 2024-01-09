@@ -29,8 +29,8 @@ class ReportAbuseSection extends StatelessWidget {
             onPressHandler: () => _onPressHandler(context),
           ),
           const Divider(height: 1.0, color: AppColors.blueLighter),
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0),
+          const Padding(
+            padding: EdgeInsets.only(top: 16.0),
             child: EmergencyBtn(),
           ),
         ],

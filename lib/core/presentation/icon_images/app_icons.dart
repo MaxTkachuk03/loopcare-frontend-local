@@ -79,10 +79,6 @@ class AppIcons {
 
   static SvgPicture person = SvgPicture.asset('$iconsFilePath/person.svg');
 
-  static SvgPicture cameraOff = SvgPicture.asset('$iconsFilePath/camera_off.svg');
-
-  static SvgPicture microphone = SvgPicture.asset('$iconsFilePath/microphone.svg');
-
   static SvgPicture settings = SvgPicture.asset('$iconsFilePath/settings.svg');
 
   static SvgPicture introReflection = SvgPicture.asset('$iconsFilePath/intro_reflection.svg');
@@ -233,6 +229,13 @@ class AppIcons {
       SvgPicture.asset('$iconsFilePath/custom_education_dashboard.svg', width: 44, height: 44);
   static SvgPicture customDashboardMood =
       SvgPicture.asset('$iconsFilePath/custom_education_dashboard.svg', width: 44, height: 44);
+
+  static SvgPicture customRedPhone = SvgPicture.asset('$iconsFilePath/custom_red_phone.svg');
+  static SvgPicture microphoneOn = SvgPicture.asset('$iconsFilePath/icon_microphone_on.svg');
+  static SvgPicture microphoneOff = SvgPicture.asset('$iconsFilePath/icon_microphone_off.svg');
+  static SvgPicture cameraOn = SvgPicture.asset('$iconsFilePath/icon_camera_on.svg');
+  static SvgPicture cameraOff = SvgPicture.asset('$iconsFilePath/icon_camera_off.svg');
+  static SvgPicture orangeExclamationMark = SvgPicture.asset('$iconsFilePath/orange_exclamation_mark.svg');
 
   AppIcons._();
 }

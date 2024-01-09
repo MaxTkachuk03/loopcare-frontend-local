@@ -91,7 +91,7 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
                       ),
                     ),
                     const SizedBox(height: 34.0),
-                    if (state.data.showEmergencyBtn) EmergencyBtn(),
+                    if (state.data.showEmergencyBtn) const EmergencyBtn(),
                   ],
                 ),
                 Column(

@@ -255,9 +255,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                           },
                         ),
                         const SizedBox(height: 19.0),
-                        EmergencyBtn(
-                          needBackgroundColor: true,
-                        ),
+                        const EmergencyBtn(needBackgroundColor: true),
                         const SizedBox(height: 19.0),
                       ],
                     ),

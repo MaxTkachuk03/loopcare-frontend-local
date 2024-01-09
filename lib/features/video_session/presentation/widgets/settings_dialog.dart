@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 
 class SettingsDialog extends StatelessWidget {
   final void Function() onToggleSpeaker;
@@ -28,7 +29,7 @@ class SettingsDialog extends StatelessWidget {
                 context: context,
                 tiles: [
                   ListTile(
-                    title: Text('Toggle speaker ${isSpeakerOn ? 'off' : 'on'}'),
+                    title: CustomText.w400('Toggle speaker ${isSpeakerOn ? 'off' : 'on'}'),
                     onTap: () {
                       onToggleSpeaker();
                       context.router.pop();

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_zoom_videosdk/flutter_zoom_view.dart' as zoom;
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_user.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/user_default_avatar.dart';
 
 class UserGridItem extends StatelessWidget {
@@ -52,16 +54,11 @@ class UserGridItem extends StatelessWidget {
         Align(
           alignment: Alignment.bottomLeft,
           child: Padding(
-            padding: const EdgeInsets.all(11.0),
-            child: Text(
-              user.userName,
-              style: const TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.w400,
-                color: AppColors.white,
-              ),
-            ),
-          ),
+              padding: const EdgeInsets.all(11.0),
+              child: CustomText.w400(
+                user.userName,
+                style: context.textTheme.bodySmall?.copyWith(color: Colors.white),
+              )),
         )
       ],
     );
