@@ -129,6 +129,8 @@
   "generalWellBeingConclusions": "General Well-being Conclusions",
   "partialConclusion": "Partial Conclusion",
   "checkCompleted": "Check Completed!",
+  "youExceededTimeMessage": "Sorry, but you exceeded the time limit of one hour",
+  "noWorriesYouCanDoItLater": "But don’t worry, you can start over",
 
 
 
@@ -682,8 +684,7 @@
   "weWillGuideYou": "We will guide you step by step in your weight loss journey.\n\nHave fun with your first discovery tour!",
   "findBuddyAndGetIntoSupportGroup": "Find a Buddy and get into a Support Group",
   "exercise": "Exercise",
-  "youExceededTimeMessage": "We sorry, but you exceeded the timelimit of 1 hour for filling the mental health questions.",
-  "noWorriesYouCanDoItLater": "But no worries, you can do it again.",
+
   "startAgain": "Start again",
   "sessionGreeting": "Great to see that you are going to be joining the session",
   "goodToKnow": "Good to know",

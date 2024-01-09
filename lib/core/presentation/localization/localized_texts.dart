@@ -666,8 +666,6 @@ class LocalizedTexts {
   static const String weWillGuideYou = "weWillGuideYou";
   static const String findBuddyAndGetIntoSupportGroup = "findBuddyAndGetIntoSupportGroup";
   static const String exercise = "exercise";
-  static const String youExceededTimeMessage = "youExceededTimeMessage";
-  static const String noWorriesYouCanDoItLater = "noWorriesYouCanDoItLater";
 
   // Book a seat
   static const String pickADateAndTime = "pickADateAndTime";
@@ -915,6 +913,10 @@ class LocalizedTexts {
   static const String generalWellBeingConclusions = "generalWellBeingConclusions";
   static const String partialConclusion = "partialConclusion";
   static const String checkCompleted = "checkCompleted";
+
+  // Time ends message
+  static const String youExceededTimeMessage = "youExceededTimeMessage";
+  static const String noWorriesYouCanDoItLater = "noWorriesYouCanDoItLater";
 }
 
 extension StringX on String {
