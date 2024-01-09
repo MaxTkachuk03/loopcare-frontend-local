@@ -178,7 +178,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const SizedBox(height: 10.0),
+                                const SizedBox(height: 19.0),
                                 BlocBuilder<MealsBloc, MealsState>(
                                   builder: (BuildContext context, state) {
                                     return state.isNeedToHideOnDashboard
@@ -203,7 +203,10 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               return const SizedBox.shrink();
                             }
 
-                            return PhysicalActivities(selectedDay: _selectedDay);
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 19.0),
+                              child: PhysicalActivities(selectedDay: _selectedDay),
+                            );
                           },
                         ),
                         BlocBuilder<AuthenticationCubit, AuthenticationState>(
