@@ -92,6 +92,8 @@
   "sleepApneaSyndrome": "Sleep apnea syndrome",
   "locomotorSystemDisease": "Locomotor system disease",
   "mentalHealth": "Mental Health",
+  "mentalIntroBody1": "In this section you will be asked questions regarding your current well-being, physiological symptoms and mood",
+  "mentalIntroBody2": "Based on these results, the program will be adjusted to suit your needs",
   "yourMentalHealth": "Your mental health",
   "mentalHealthIntroTextOne": "A good mental health is vital to successfully improve your lifestyle",
   "mentalHealthIntroTextTwo": "This section will take around 15 minutes",

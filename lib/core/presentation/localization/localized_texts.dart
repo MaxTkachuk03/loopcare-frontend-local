@@ -872,7 +872,11 @@ class LocalizedTexts {
   static const String locomotorSystemDisease = 'locomotorSystemDisease';
 
   // Onboarding mental
+  // Intro
   static const String mentalHealth = 'mentalHealth';
+  static const String mentalIntroBody1 = "mentalIntroBody1";
+  static const String mentalIntroBody2 = "mentalIntroBody2";
+
   static const String yourMentalHealth = "yourMentalHealth";
   static const String mentalHealthMoreInfo = "mentalHealthMoreInfo";
   static const String mentalHealthIntroTextOne = "mentalHealthIntroTextOne";

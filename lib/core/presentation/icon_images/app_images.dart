@@ -103,6 +103,7 @@ class AppImages {
 
   static const AssetImage physicalIntro = AssetImage('$imagesFilePath/new_physical_intro.png');
   static const AssetImage medicalIntro = AssetImage('$imagesFilePath/new_medical_intro.png');
+  static const AssetImage mentalIntro = AssetImage('$imagesFilePath/new_mental_intro.png');
 
   static SvgPicture oepsBig = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 120, height: 120);
   static SvgPicture oepsSmall = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 60, height: 60);
