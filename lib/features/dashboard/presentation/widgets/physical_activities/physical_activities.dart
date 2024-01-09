@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/dashboard/application/physical_activities_bloc.dart';
@@ -91,10 +92,9 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                           const SizedBox(width: 24.0),
                           CustomText.bitter600(
                             LocalizedTexts.physicalActivities.tr(),
-                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                  color:
-                                      _isActive && isAvailable ? AppColors.blueDarker : AppColors.greyLabel,
-                                ),
+                            style: context.textTheme.headlineSmall!.copyWith(
+                              color: _isActive && isAvailable ? AppColors.blueDarker : AppColors.greyLabel,
+                            ),
                           ),
                         ],
                       ),

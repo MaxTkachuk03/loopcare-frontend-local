@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class NoTimeslots extends StatelessWidget {
   const NoTimeslots({
@@ -16,12 +17,12 @@ class NoTimeslots extends StatelessWidget {
       children: [
         CustomText.w400(
           LocalizedTexts.comingUpThisWeek.tr().toUpperCase(),
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize12),
+          style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize12),
         ),
         const SizedBox(height: 16.0),
         CustomText.w600(
           LocalizedTexts.noOtherTimeslotsAvailable.tr(),
-          style: Theme.of(context).textTheme.bodySmall,
+          style: context.textTheme.bodySmall,
         ),
         const SizedBox(height: 8.0),
       ],
