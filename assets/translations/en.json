@@ -726,7 +726,7 @@
   "descriptionReport": "Description",
   "reportTitle": "Report issue",
   "reportSubTitle": "Please describe the matter",
-  "reportSuccessTitle": "Thanks for reporting your issue",
+  "reportSuccessTitle": "We received your report and will act accordingly on it",
   "reportSuccessSubTitle": "If relevant, we will get in touch via email as soon as possible.",
   "errorReportMessage": "Text message must be at least 1 symbol and less than 500 symbols",
   "errorMoodNoteMessage": "Note text must be at least 1 symbol and less than 300 symbols",
