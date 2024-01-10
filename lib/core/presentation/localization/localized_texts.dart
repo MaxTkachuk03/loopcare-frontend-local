@@ -75,11 +75,6 @@ class LocalizedTexts {
   static const String emailConfirmedBottomSheetTitle = 'emailConfirmedBottomSheetTitle';
   static const String emailConfirmedBottomSheetContent = 'emailConfirmedBottomSheetContent';
 
-  //Sign up welcome page
-  static const String signUpWelcomeTitle = 'signUpWelcomeTitle';
-  static const String signYouUp = 'signYouUp';
-  static const String needName = 'needName';
-
   //Connection
   static const String connectionLost = 'connectionLost';
 
@@ -921,6 +916,10 @@ class LocalizedTexts {
   static const String legalStatementCheckboxItemOne = 'legalStatementCheckboxItemOne';
   static const String confirm = 'confirm';
   static const String openLinkErrorMessage = 'openLinkErrorMessage';
+
+  // Create account
+  static const String signUpWelcomeTitle = 'signUpWelcomeTitle';
+  static const String signUpWelcomeBody = 'signUpWelcomeBody';
 }
 
 extension StringX on String {

@@ -142,7 +142,8 @@
   "legalStatementCheckboxItemOne": "My answers are true to the best of my knowledge and I will continue to answer questions in future truthfully",
   "confirm": "Confirm",
   "openLinkErrorMessage": "Can't open the link",
-
+  "signUpWelcomeTitle": "Hurray,\n you can now start the LeanOnMe program",
+  "signUpWelcomeBody": "It's great to have you on board! Create an account to embark on your new journey",
 
 
 
@@ -198,9 +199,8 @@
   "iHaveReadAndAcceptThe": "I have read & accept the",
   "termsAndConditions": "terms & conditions",
   "pleaseAcceptTOC": "Please accept Terms of Service and Privacy Policy",
-  "signUpWelcomeTitle": "Welcome to the LeanOnMe program",
-  "signYouUp": "Lets sign you up!",
-  "needName": "First we need your name",
+
+
   "connectionLost": "Internet connection lost, please check your internet connection or try later",
   "somethingIsIncorrect": "Something is incorrect or missing",
   "emailAlreadyTaken": "Email already taken",
