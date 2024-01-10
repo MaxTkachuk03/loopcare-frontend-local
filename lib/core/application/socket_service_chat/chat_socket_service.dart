@@ -105,6 +105,7 @@ class ChatSocketService {
   void _onRemoveMessage(dynamic data) {
     final removeData = SocketRemoveData.fromJson(data as Map<String, dynamic>);
     _chatBloc?.add(GroupChatEvent.removeMessageFromSocket(fromMessageId: removeData.id));
+    _chatBloc?.add(const GroupChatEvent.getUnreadCount());
   }
 
   void _onErrorHandler(dynamic data) {

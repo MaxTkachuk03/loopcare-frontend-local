@@ -26,6 +26,7 @@ import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat
 import 'package:loopcare_frontend/features/chat/presentation/group_chat_controller.dart';
 import 'package:loopcare_frontend/features/chat/presentation/widget/bubble_widget.dart';
 import 'package:loopcare_frontend/features/chat/presentation/widget/group_chat_user_avatar.dart';
+import 'package:loopcare_frontend/features/chat/presentation/widget/hexagon_avatar.dart';
 import 'package:loopcare_frontend/features/report_abuse/application/report_abuse_bloc.dart';
 
 class GroupChatPage extends StatefulWidget {
@@ -221,9 +222,16 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
     required nextMessageInGroup,
   }) =>
       message.text.isEmpty
-          ? CustomText.w400(
-              LocalizedTexts.massageRemoved.tr(),
-              style: context.textTheme.bodySmall,
+          ? Container(
+              height: avatarSize,
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: CustomText.w400(
+                LocalizedTexts.massageRemoved.tr(),
+                style: context.textTheme.bodySmall?.copyWith(
+                  fontSize: ThemeConstants.fontSize12,
+                ),
+              ),
             )
           : BubbleWidget(
               message: message,
