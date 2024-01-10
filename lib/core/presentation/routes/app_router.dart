@@ -332,6 +332,10 @@ const groupLessonRoutes = [
     //   page: ResetPasswordPage,
     // ),
     AutoRoute(
+      path: AppRoutes.legalStatement,
+      page: LegalStatementPage,
+    ),
+    AutoRoute(
       path: AppRoutes.signUpWelcome,
       page: SignUpWelcomePage,
     ),
@@ -359,10 +363,7 @@ const groupLessonRoutes = [
       path: AppRoutes.noConsent,
       page: NoConsentPage,
     ),
-    AutoRoute(
-      path: AppRoutes.legalStatement,
-      page: LegalStatementPage,
-    ),
+
     AutoRoute(
       path: AppRoutes.preferencesOverview,
       page: PreferencesOverviewPage,

@@ -124,16 +124,6 @@ class LocalizedTexts {
   static const String downloadInstructionWhatToAsk = 'downloadInstructionWhatToAsk';
   static const String close = 'close';
 
-  // Legal Statement
-  static const String legalStatement = 'legalStatement';
-  static const String legalStatementTextOne = 'legalStatementTextOne';
-  static const String legalStatementTextTwo = 'legalStatementTextTwo';
-  static const String readLegalStatement = 'readLegalStatement';
-  static const String legalStatementCheckboxTitle = 'legalStatementCheckboxTitle';
-  static const String legalStatementCheckboxItemOne = 'legalStatementCheckboxItemOne';
-  static const String legalStatementCheckboxItemTwo = 'legalStatementCheckboxItemTwo';
-  static const String confirm = 'confirm';
-
   // Preferences overview
   static const String preferencesOverview = 'preferencesOverview';
   static const String preferencesOverviewDescription = 'preferencesOverviewDescription';
@@ -503,7 +493,6 @@ class LocalizedTexts {
 
   // Emergency Numbers
   static const String emergencySubtitle = 'emergencySubtitle';
-  static const String openLinkErrorMessage = 'openLinkErrorMessage';
 
   // Video
   static const String rotateDevice = 'rotateDevice';
@@ -922,6 +911,16 @@ class LocalizedTexts {
   // Time ends message
   static const String youExceededTimeMessage = "youExceededTimeMessage";
   static const String noWorriesYouCanDoItLater = "noWorriesYouCanDoItLater";
+
+  // Legal Statement
+  static const String legalStatement = 'legalStatement';
+  static const String legalStatementTextOne = 'legalStatementTextOne';
+  static const String legalStatementTextTwo = 'legalStatementTextTwo';
+  static const String readLegalStatement = 'readLegalStatement';
+  static const String legalStatementCheckboxTitle = 'legalStatementCheckboxTitle';
+  static const String legalStatementCheckboxItemOne = 'legalStatementCheckboxItemOne';
+  static const String confirm = 'confirm';
+  static const String openLinkErrorMessage = 'openLinkErrorMessage';
 }
 
 extension StringX on String {

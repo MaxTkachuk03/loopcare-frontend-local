@@ -134,6 +134,16 @@
   "who5SubText": "You’ve completed the first part! Keep going! You’re doing great",
   "phq15SubText": "You're breezing through these questions! Nicely done! You’ve reached the halfway point",
   "gad75SubText": "Three down, one to go! Just a few last questions",
+  "legalStatement": "Legal statement",
+  "legalStatementTextOne": "For your own health and safety, it is important that you have answered all questions truthfully",
+  "legalStatementTextTwo": "To continue, please read and accept our legal statement",
+  "readLegalStatement": "Read legal statement",
+  "legalStatementCheckboxTitle": "I hereby declare, that",
+  "legalStatementCheckboxItemOne": "My answers are true to the best of my knowledge and I will continue to answer questions in future truthfully",
+  "confirm": "Confirm",
+  "openLinkErrorMessage": "Can't open the link",
+
+
 
 
 
@@ -247,14 +257,7 @@
   "preferencesOverviewLeftSurveys": "Surveys to do:",
   "surveyFinishedBottomSheetTitle": "Great you finished all",
   "surveyFinishedBottomSheetMain": "Bases on your answers we have set up a board with recommendations for you. You can always update your preferences if needed",
-  "legalStatement": "Legal statement",
-  "legalStatementTextOne": "Is it important for your own health and safety that you truthfully answered all questions.",
-  "legalStatementTextTwo": "Please read our legal statement carrefully before you agree and then continue with confriming that you agree",
-  "readLegalStatement": "Read legal statement",
-  "legalStatementCheckboxTitle": "I hereby declare, that: ",
-  "legalStatementCheckboxItemOne": "I answered all questions to the best of knowlegde and will do so in the future",
-  "legalStatementCheckboxItemTwo": "I have read and do understand and agree with the here dispayed legal statement",
-  "confirm": "Confirm",
+
   "survey": "survey",
   "youAndFood": "You and Food",
   "youAndFoodDesc": "We love to offer you personal and relevant food recommendations.",
@@ -718,7 +721,7 @@
   "sessionWarning_1": "If less than 4 seats will be booked the session will be canceled ",
   "sessionWarning_2": "If you cant make it please be sure to cancel your booking",
   "emergencySubtitle": "This program is not psychotherapy and cannot replace psychotherapy. \n\nIf you have an acute mental health crisis or feel you need psychological support or are having suicidal thoughts, please seek medical or psychological help immediately.\n\nIn an emergency, you can also contact the following numbers, which you can reach 24h/day toll-free:",
-  "openLinkErrorMessage": "Can't open the link",
+
   "subjectReport": "Subject",
   "descriptionReport": "Description",
   "reportTitle": "Report issue",
