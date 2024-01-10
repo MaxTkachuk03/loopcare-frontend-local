@@ -27,8 +27,6 @@ class BookedSessionCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        // color: AppColors.bgGreen,
-
         borderRadius: const BorderRadius.all(Radius.circular(3)),
         border: Border.all(
           width: 1,
@@ -42,7 +40,7 @@ class BookedSessionCard extends StatelessWidget {
           Row(
             children: [
               const SizedBox(
-                width: 42,
+                width: 42.0,
                 height: 42.0,
                 child: ImageIcon(
                   AppIcons.checkmark,
@@ -70,10 +68,12 @@ class BookedSessionCard extends StatelessWidget {
                     style: context.textTheme.titleLarge,
                   ),
                   CustomText.w400(
-                    LocalizedTexts.numberOfAvailableSeats.translateWithNamedArgs({
-                      'number': '${groupSession.availableSeatsAmount}',
-                      'totalNumber': '${groupSession.maxMemberCount}',
-                    }),
+                    LocalizedTexts.numberOfAvailableSeats.translateWithNamedArgs(
+                      {
+                        'number': '${groupSession.availableSeatsAmount}',
+                        'totalNumber': '${groupSession.maxMemberCount}',
+                      },
+                    ),
                     style: context.textTheme.titleSmall,
                   ),
                 ],

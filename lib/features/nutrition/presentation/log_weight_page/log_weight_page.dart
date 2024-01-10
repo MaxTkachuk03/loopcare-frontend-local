@@ -114,7 +114,7 @@ class _LogWeightPageState extends State<LogWeightPage> {
                     if (!_isToday) const SizedBox(height: 12.0),
                     if (!_isToday)
                       CustomText.bitter500(
-                        ' ${widget.selectedDay.dayWithMonth}', // ${LocalizedTexts.was.tr()}
+                        ' ${widget.selectedDay.dayWithMonth}',
                         style: context.textTheme.displayMedium,
                       ),
                   ],
