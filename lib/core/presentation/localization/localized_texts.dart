@@ -124,16 +124,6 @@ class LocalizedTexts {
   static const String downloadInstructionWhatToAsk = 'downloadInstructionWhatToAsk';
   static const String close = 'close';
 
-  // Legal Statement
-  static const String legalStatement = 'legalStatement';
-  static const String legalStatementTextOne = 'legalStatementTextOne';
-  static const String legalStatementTextTwo = 'legalStatementTextTwo';
-  static const String readLegalStatement = 'readLegalStatement';
-  static const String legalStatementCheckboxTitle = 'legalStatementCheckboxTitle';
-  static const String legalStatementCheckboxItemOne = 'legalStatementCheckboxItemOne';
-  static const String legalStatementCheckboxItemTwo = 'legalStatementCheckboxItemTwo';
-  static const String confirm = 'confirm';
-
   // Preferences overview
   static const String preferencesOverview = 'preferencesOverview';
   static const String preferencesOverviewDescription = 'preferencesOverviewDescription';
@@ -922,6 +912,15 @@ class LocalizedTexts {
   // Time ends message
   static const String youExceededTimeMessage = "youExceededTimeMessage";
   static const String noWorriesYouCanDoItLater = "noWorriesYouCanDoItLater";
+
+  // Legal Statement
+  static const String legalStatement = 'legalStatement';
+  static const String legalStatementTextOne = 'legalStatementTextOne';
+  static const String legalStatementTextTwo = 'legalStatementTextTwo';
+  static const String readLegalStatement = 'readLegalStatement';
+  static const String legalStatementCheckboxTitle = 'legalStatementCheckboxTitle';
+  static const String legalStatementCheckboxItemOne = 'legalStatementCheckboxItemOne';
+  static const String confirm = 'confirm';
 }
 
 extension StringX on String {

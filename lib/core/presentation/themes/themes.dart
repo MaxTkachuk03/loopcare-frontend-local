@@ -165,18 +165,23 @@ InputDecorationTheme _getInputDecorationTheme() {
 
 CheckboxThemeData _getCheckboxTheme() {
   return CheckboxThemeData(
-    fillColor: MaterialStateProperty.all(
-      AppColors.greenLight,
-    ),
-    checkColor: MaterialStateProperty.all(
-      AppColors.white,
-    ),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(4.0),
-      ),
-    ),
-    side: const BorderSide(width: 1.0, color: AppColors.darkGreen),
+    checkColor: MaterialStateProperty.all(AppColors.white),
+    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4.0))),
+    side: const BorderSide(width: 1.5, color: AppColors.blueRegular),
+    materialTapTargetSize: MaterialTapTargetSize.padded,
+    fillColor: MaterialStateProperty.resolveWith((Set<MaterialState> states) {
+      const Set<MaterialState> interactiveStates = <MaterialState>{
+        MaterialState.pressed,
+        MaterialState.hovered,
+        MaterialState.focused,
+        MaterialState.selected,
+      };
+
+      if (states.any(interactiveStates.contains)) {
+        return AppColors.greenRegular;
+      }
+      return AppColors.transparent;
+    }),
   );
 }
 
