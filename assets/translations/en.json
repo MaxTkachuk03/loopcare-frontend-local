@@ -513,6 +513,7 @@
   "preferences": "Preferences",
   "name": "Name",
   "username": "User name",
+  "emailAddress": "Email-address",
   "changePassword": "Change password",
   "useFaceOrTouchId": "Use Face or touch ID",
   "requireLoginEachTime": "Require login each time app is used",

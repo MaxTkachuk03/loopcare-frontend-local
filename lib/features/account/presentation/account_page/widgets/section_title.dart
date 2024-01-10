@@ -13,7 +13,7 @@ class SectionTitle extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        CustomText.bitter500(
+        CustomText.bitter600(
           title,
           style: context.textTheme.displayMedium,
         ),
