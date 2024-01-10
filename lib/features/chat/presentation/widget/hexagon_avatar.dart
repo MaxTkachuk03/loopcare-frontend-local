@@ -5,6 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_polygon/flutter_polygon.dart';
 
+const double avatarSize = 30;
+
 class HexagonUserAvatar extends StatelessWidget {
   const HexagonUserAvatar({
     super.key,
@@ -140,8 +142,8 @@ class HexagonUserAvatar extends StatelessWidget {
     } else {
       avatar = IntrinsicWidth(
         child: SizedBox(
-          width: 30,
-          height: 30,
+          width: avatarSize,
+          height: avatarSize,
           child: ClipPolygon(
             sides: 6,
             borderRadius: 2,
