@@ -4,11 +4,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
+import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_form_field.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
@@ -57,32 +58,27 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
         onChanged: _onChangedForm,
         child: Column(
           children: [
-            Field(
+            CustomTextField.email(
               controller: _emailController,
-              hintText: LocalizedTexts.yourEmail.tr(),
-              validator: emailValidator(),
               errorText: emailErrorText,
-              keyboardType: TextInputType.emailAddress,
               onChanged: _onEmailChanged,
             ),
-            const SizedBox(
-              height: 22.0,
-            ),
+            const SizedBox(height: 8.0),
             CheckboxFormField(
-              errorText: LocalizedTexts.pleaseAcceptTOC.translation,
+              errorText: '${LocalizedTexts.pleaseAcceptTOC.tr()}.',
               text: RichText(
                 maxLines: 2,
                 overflow: TextOverflow.visible,
                 text: TextSpan(
                   text: '${LocalizedTexts.iHaveReadAndAcceptThe.tr()} ',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: context.textTheme.bodyMedium,
                   children: [
                     TextSpan(
                       recognizer: TapGestureRecognizer()..onTap = _onTermsAndConditionsTap,
                       text: LocalizedTexts.termsAndConditions.tr(),
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            decoration: TextDecoration.underline,
-                          ),
+                      style: context.textTheme.bodyMedium?.copyWith(
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ],
                 ),
@@ -90,9 +86,9 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
               onChanged: _onTermsAndConditionsChanged,
             ),
             const SizedBox(height: 16.0),
-            ElevatedButton(
+            CustomElevatedButton.blueFullWidth(
               onPressed: _isDisabled ? null : () => _onRegisterPressed(context),
-              child: Text(LocalizedTexts.register.tr()),
+              label: LocalizedTexts.register,
             ),
           ],
         ),

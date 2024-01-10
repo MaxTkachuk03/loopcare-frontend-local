@@ -6,9 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
@@ -62,99 +70,86 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
       listener: _authenticatedListener,
       child: WillPopScope(
         onWillPop: _onWillPop,
-        child: Scaffold(
+        child: CustomScaffold.green(
+          appBar: CustomAppBar.green(
+            title: LocalizedTexts.createAccount.tr(),
+            leading: CustomFilledIconButton.leadingGreenLighter(),
+          ),
           body: SafeArea(
             child: ScrollableContainer(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    children: [
-                      const SizedBox(height: 100.0),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                        child: Text(
-                          LocalizedTexts.waitingForConfirmationTitle.tr(),
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                fontFamily: ThemeConstants.bitterFontFamily,
-                              ),
+                  UnderAppbar.green(
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.mail, size: 44, color: AppColors.white),
+                            const SizedBox(height: 22.0),
+                            CustomText.bitter600(
+                              '${LocalizedTexts.waitingForConfirmationTitle.tr()}!',
+                              style: context.textTheme.displayMedium,
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 50.0,
-                      horizontal: 45.0,
-                    ),
-                    decoration: const BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(16.0),
-                        topRight: Radius.circular(16.0),
+                  const SizedBox(height: 8.0),
+                  MainContainer(
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                      decoration: const BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
                       ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 15.0),
-                          child: Text(
-                            LocalizedTexts.confirmYourAddress.tr(),
-                            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                  color: AppColors.blueDark,
-                                  fontSize: 20.0,
-                                ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          CustomText.w400(
+                            '${LocalizedTexts.waitingForConfirmationBody1.tr()}:',
+                            style: context.textTheme.bodyMedium,
                           ),
-                        ),
-                        const SizedBox(height: 20.0),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 15.0),
-                          child: Text(
-                            LocalizedTexts.checkSpam.tr(),
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
-                          ),
-                        ),
-                        const SizedBox(height: 20.0),
-                        BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                          builder: (BuildContext context, state) {
-                            final email =
-                                state.mapOrNull(waitedForConfirmation: (state) => state.email) ?? '';
+                          const SizedBox(height: 20.0),
+                          BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                            builder: (BuildContext context, state) {
+                              final email =
+                                  state.mapOrNull(waitedForConfirmation: (state) => state.email) ?? '';
 
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 15.0),
-                              child: Text(
-                                '${LocalizedTexts.address.tr()}: $email',
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
-                              ),
-                            );
-                          },
-                        ),
-                        const SizedBox(height: 50.0),
-                        ElevatedButton(
-                          onPressed: _onResendPressed,
-                          style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                                backgroundColor: MaterialStateProperty.all(AppColors.bgGreen),
-                                foregroundColor: MaterialStateProperty.all(AppColors.darkGreen),
-                              ),
-                          child: Text(
-                            LocalizedTexts.resend.tr(),
+                              return CustomText.w600(email, style: context.textTheme.bodyMedium);
+                            },
                           ),
-                        ),
-                        const SizedBox(height: 12.0),
-                        ElevatedButton(
-                          onPressed: () => _onChangeAddressPressed(context),
-                          style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                                backgroundColor: MaterialStateProperty.all(AppColors.bgGreen),
-                                foregroundColor: MaterialStateProperty.all(AppColors.darkGreen),
-                              ),
-                          child: Text(
-                            LocalizedTexts.changeAddress.tr(),
+                          const SizedBox(height: 20.0),
+                          CustomText.w400(
+                            '${LocalizedTexts.waitingForConfirmationBody2.tr()}.',
+                            style: context.textTheme.bodyMedium,
                           ),
-                        ),
-                        const SizedBox(height: 80.0),
-                      ],
+                          const SizedBox(height: 20.0),
+                          CustomText.w400(
+                            '${LocalizedTexts.waitingForConfirmationBody3.tr()}.',
+                            style: context.textTheme.bodyMedium,
+                          ),
+                          const SizedBox(height: 20.0),
+                          CustomText.w400(
+                            '${LocalizedTexts.waitingForConfirmationBody4.tr()}.',
+                            style: context.textTheme.bodyMedium,
+                          ),
+                          const SizedBox(height: 50.0),
+                          CustomOutlinedButton.blueFullWidth(
+                            onPressed: _onResendPressed,
+                            label: LocalizedTexts.resend,
+                          ),
+                          const SizedBox(height: 12.0),
+                          CustomOutlinedButton.blueFullWidth(
+                            onPressed: () => _onChangeAddressPressed(context),
+                            label: LocalizedTexts.changeAddress,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -174,7 +169,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
 
   void _onResendPressed() {
     context.read<AuthenticationCubit>().resendEmail();
-    context.showSuccessBar(content: Text(LocalizedTexts.resendConfirmationMessage.translation));
+    context.showSuccessBar(content: CustomText.w400(LocalizedTexts.resendConfirmationMessage.tr()));
   }
 
   void _onChangeAddressPressed(BuildContext context) {

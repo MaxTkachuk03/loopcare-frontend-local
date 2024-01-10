@@ -144,6 +144,50 @@
   "openLinkErrorMessage": "Can't open the link",
   "signUpWelcomeTitle": "Hurray,\n you can now start the LeanOnMe program",
   "signUpWelcomeBody": "It's great to have you on board! Create an account to embark on your new journey",
+  "createAccount": "Create account",
+  "whatIsYourName": "What name would you like to use",
+  "enterPasswordTitle": "Nice to meet you",
+  "enterPasswordSubTitle": "What password would you like to use",
+  "confirmPassword": "Confirm password",
+  "passwordStrengthToShort": "Your password too short",
+  "passwordStrengthToLong": "Your password too long",
+  "passwordStrengthNotSecure": "Note secure enough yet...",
+  "passwordStrengthMiddle": "Better, but need some",
+  "passwordStrengthNice": "That looks nice and secure!",
+  "passwordValidationRule1": "minimum 8 characters",
+  "passwordValidationRule2": "at least 1 number",
+  "passwordValidationRule3": "at least 1 special character",
+  "emailTitle": "What’s your email address",
+  "emailBody": "You will receive an email to confirm your address",
+  "termsAndConditions": "terms & conditions",
+  "iHaveReadAndAcceptThe": "I have read & accept the",
+  "pleaseAcceptTOC": "Accept the terms and conditions",
+  "register": "Register",
+  "emailAlreadyTaken": "Email already taken",
+  "somethingIsIncorrect": "Something is incorrect or missing",
+  "waitingForConfirmationTitle": "You’ve got mail",
+  "resendConfirmationMessage": "We've just sent another email to you",
+  "waitingForConfirmationBody1": "You signed-up with the following email address",
+  "waitingForConfirmationBody2": "Please check your inbox to confirm your email address",
+  "waitingForConfirmationBody3": "If you haven't received anything, make sure to check your spam folder",
+  "waitingForConfirmationBody4": "No message in your inbox? Please click the button below",
+  "resend": "Resend confirmation email",
+  "changeAddress": "Change email address",
+  "emailConfirmedBottomSheetTitle": "Email address is confirmed",
+  "emailConfirmedBottomSheetContent": "Thanks for confirming your email address. You can now start using the app",
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -182,44 +226,24 @@
   "yourEmail": "Your email",
   "enterNewPassword": "Enter a new password below to\n change your password.",
   "repeatPassword": "Repeat Password",
-  "passwordStrengthToShort": "Your password too short",
-  "passwordStrengthToLong": "Your password too long",
-  "passwordStrengthNotSecure": "Note secure enough yet...",
-  "passwordStrengthMiddle": "Better, but need some",
-  "passwordsNotMatch": "Make sure the passwords match",
-  "passwordStrengthNice": "That looks nice and secure!",
+
   "resetPassword": "Reset password",
-  "createAccount": "Create account",
-  "whatIsYourName": "What’s your name?",
-  "namePageDescription": "You always can change your name later on",
+
   "yourName": "Your name",
-  "whatIsYourEmailAddress": "What’s your email address?",
-  "emailPageDescription": "On this address you will receive a mail from us in which we ask you to confirm your address",
-  "register": "Register",
-  "iHaveReadAndAcceptThe": "I have read & accept the",
-  "termsAndConditions": "terms & conditions",
-  "pleaseAcceptTOC": "Please accept Terms of Service and Privacy Policy",
+
+
+
 
 
   "connectionLost": "Internet connection lost, please check your internet connection or try later",
-  "somethingIsIncorrect": "Something is incorrect or missing",
-  "emailAlreadyTaken": "Email already taken",
+
+
   "pleaseEnterYourEmailAddress": "Please enter your email address",
   "pleaseEnterYourName": "Please enter your name",
   "pleaseEnterValidEmailAddress": "Please enter a valid email address",
   "pleaseEnterYourPassword": "Please enter your password",
-  "enterPasswordTitle": "So {name}, now create your password",
-  "confirmPassword": "Confirm password",
-  "desiredPassword": "Desired password",
-  "waitingForConfirmationTitle": "We have send you a message, you need to confirm",
-  "resendConfirmationMessage": "We've just sent another email to you",
-  "confirmYourAddress": "Please open your email (outlook or another) and confirm your address",
-  "checkSpam": "No message in your inbox? Make sure you check your spam folder",
-  "address": "The address you gave us",
-  "resend": "Resend",
-  "changeAddress": "Change address",
-  "emailConfirmedBottomSheetTitle": "Email address is confirmed",
-  "emailConfirmedBottomSheetContent": "Please continue to the Your preferences overview so we can make sure we are aware of your preferences and needs",
+
+
 
   "alsoSomeAdviceWhereToTurnNext": "[Also some advice where to turn next].",
   "enterYourHeight": "Please enter your height",
