@@ -40,12 +40,12 @@ class LegalStatementPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 32.0),
                   CustomText.w400(
-                    LocalizedTexts.legalStatementTextOne.tr(),
+                    '${LocalizedTexts.legalStatementTextOne.tr()}.',
                     style: context.textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 16.0),
                   CustomText.w400(
-                    LocalizedTexts.legalStatementTextTwo.tr(),
+                    '${LocalizedTexts.legalStatementTextTwo.tr()}.',
                     style: context.textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 38.0),
