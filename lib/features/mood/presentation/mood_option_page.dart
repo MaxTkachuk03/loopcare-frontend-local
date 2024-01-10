@@ -139,13 +139,22 @@ class _MoodOptionPageState extends State<MoodOptionPage> {
                 Align(
                   alignment: AlignmentDirectional.topStart,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 28.0, bottom: 16),
+                    padding: const EdgeInsets.only(top: 20),
                     child: CustomText.bitter500(_description, style: context.textTheme.displayMedium),
                   ),
                 ),
-                Column(children: [const SizedBox(height: 30.0), content]),
+                Align(
+                  alignment: AlignmentDirectional.topStart,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 20.0),
+                      content,
+                    ],
+                  ),
+                ),
                 Column(
                   children: [
+                    const SizedBox(height: 20.0),
                     CustomElevatedButton.blueFullWidth(
                       onPressed: _onConfirmHandler,
                       label: LocalizedTexts.confirm.tr(),
