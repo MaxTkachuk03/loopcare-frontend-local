@@ -46,6 +46,7 @@ class LocalizedTexts {
   static const String resetPassword = 'resetPassword';
 
   static const String passwordStrengthToShort = 'passwordStrengthToShort';
+  static const String passwordStrengthToLong = 'passwordStrengthToLong';
   static const String passwordStrengthNotSecure = 'passwordStrengthNotSecure';
   static const String passwordStrengthNice = 'passwordStrengthNice';
   static const String passwordStrengthMiddle = 'passwordStrengthMiddle';
