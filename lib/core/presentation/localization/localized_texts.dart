@@ -5,7 +5,6 @@ class LocalizedTexts {
   static const String haveAnAccount = 'haveAnAccount';
   static const String logIn = 'logIn';
   static const String bodyAndMind = 'bodyAndMind';
-  static const String mentalHealth = 'mentalHealth';
 
   static const String needHelpWithThis = 'needHelpWithThis';
 
@@ -47,6 +46,7 @@ class LocalizedTexts {
   static const String resetPassword = 'resetPassword';
 
   static const String passwordStrengthToShort = 'passwordStrengthToShort';
+  static const String passwordStrengthToLong = 'passwordStrengthToLong';
   static const String passwordStrengthNotSecure = 'passwordStrengthNotSecure';
   static const String passwordStrengthNice = 'passwordStrengthNice';
   static const String passwordStrengthMiddle = 'passwordStrengthMiddle';
@@ -123,16 +123,6 @@ class LocalizedTexts {
   static const String consentConfirmationMoreInfoTextTwo = 'consentConfirmationMoreInfoTextTwo';
   static const String downloadInstructionWhatToAsk = 'downloadInstructionWhatToAsk';
   static const String close = 'close';
-
-  // Legal Statement
-  static const String legalStatement = 'legalStatement';
-  static const String legalStatementTextOne = 'legalStatementTextOne';
-  static const String legalStatementTextTwo = 'legalStatementTextTwo';
-  static const String readLegalStatement = 'readLegalStatement';
-  static const String legalStatementCheckboxTitle = 'legalStatementCheckboxTitle';
-  static const String legalStatementCheckboxItemOne = 'legalStatementCheckboxItemOne';
-  static const String legalStatementCheckboxItemTwo = 'legalStatementCheckboxItemTwo';
-  static const String confirm = 'confirm';
 
   // Preferences overview
   static const String preferencesOverview = 'preferencesOverview';
@@ -503,7 +493,6 @@ class LocalizedTexts {
 
   // Emergency Numbers
   static const String emergencySubtitle = 'emergencySubtitle';
-  static const String openLinkErrorMessage = 'openLinkErrorMessage';
 
   // Video
   static const String rotateDevice = 'rotateDevice';
@@ -652,30 +641,7 @@ class LocalizedTexts {
   static const String badConnectionMessage = "badConnectionMessage";
 
   // Mental Health
-  static const String yourMentalHealth = "yourMentalHealth";
-  static const String mentalHealthMoreInfo = "mentalHealthMoreInfo";
-  static const String mentalHealthIntroTextOne = "mentalHealthIntroTextOne";
-  static const String mentalHealthIntroTextTwo = "mentalHealthIntroTextTwo";
-  static const String mentalHealthIntroTextThree = "mentalHealthIntroTextThree";
-  static const String who5ResultTestMinimal = "who5ResultTestMinimal";
-  static const String who5ResultTestHigh = "who5ResultTestHigh";
-  static const String phq15ResultMinimal = "phq15ResultMinimal";
-  static const String phq15ResultMild = "phq15ResultMild";
-  static const String phq15ResultMedium = "phq15ResultMedium";
-  static const String phq15ResultHigh = "phq15ResultHigh";
-  static const String gad7ResultMinimal = "gad7ResultMinimal";
-  static const String gad7ResultMild = "gad7ResultMild";
-  static const String gad7ResultMedium = "gad7ResultMedium";
-  static const String gad7ResultHigh = "gad7ResultHigh";
-  static const String ifYouHaveSuicidalThoughts = "ifYouHaveSuicidalThoughts";
-  static const String phq8ResultMinimal = "phq8ResultMinimal";
-  static const String phq8ResultMild = "phq8ResultMild";
-  static const String phq8ResultMedium = "phq8ResultMedium";
-  static const String phq8ResultHigh = "phq8ResultHigh";
-  static const String phq8ResultHighest = "phq8ResultHighest";
-  static const String generalWellBeingConclusions = "generalWellBeingConclusions";
-  static const String partialConclusion = "partialConclusion";
-  static const String checkCompleted = "checkCompleted";
+
   static const String weWouldLikeToSupportYou = "weWouldLikeToSupportYou";
   static const String feelLimitedByMentalOrPhysicalSymptoms = "feelLimitedByMentalOrPhysicalSymptoms";
   static const String feelLimitedByAnxietyOrPhysicalSymptoms = "feelLimitedByAnxietyOrPhysicalSymptoms";
@@ -690,17 +656,6 @@ class LocalizedTexts {
   static const String weWillGuideYou = "weWillGuideYou";
   static const String findBuddyAndGetIntoSupportGroup = "findBuddyAndGetIntoSupportGroup";
   static const String exercise = "exercise";
-  static const String youExceededTimeMessage = "youExceededTimeMessage";
-  static const String noWorriesYouCanDoItLater = "noWorriesYouCanDoItLater";
-  static const String startAgain = "startAgain";
-  static const String who8Question = "who8Question";
-  static const String lastTwoWeeks = "lastTwoWeeks";
-  static const String duringThe = "duringThe";
-  static const String pastFourWeeks = "pastFourWeeks";
-  static const String phq15Question = "phq15Question";
-  static const String gad7Question = "gad7Question";
-  static const String overThe = "overThe";
-  static const String phq8Question = "phq8Question";
 
   // Book a seat
   static const String pickADateAndTime = "pickADateAndTime";
@@ -903,6 +858,69 @@ class LocalizedTexts {
   static const String liverDisease = 'liverDisease';
   static const String sleepApneaSyndrome = 'sleepApneaSyndrome';
   static const String locomotorSystemDisease = 'locomotorSystemDisease';
+
+  // Onboarding mental
+  // Intro
+  static const String mentalHealth = 'mentalHealth';
+  static const String mentalIntroBody1 = "mentalIntroBody1";
+  static const String mentalIntroBody2 = "mentalIntroBody2";
+
+  static const String yourMentalHealth = "yourMentalHealth";
+  static const String mentalHealthMoreInfo = "mentalHealthMoreInfo";
+  static const String mentalHealthIntroTextOne = "mentalHealthIntroTextOne";
+  static const String mentalHealthIntroTextTwo = "mentalHealthIntroTextTwo";
+  static const String mentalHealthIntroTextThree = "mentalHealthIntroTextThree";
+  static const String mentalHealthIntroTextFour = "mentalHealthIntroTextFour";
+  static const String mentalHealthIntroTextFive = "mentalHealthIntroTextFive";
+  static const String mentalHealthIntroTextSix = "mentalHealthIntroTextSix";
+  static const String who8Question = "who8Question";
+  static const String lastTwoWeeks = "lastTwoWeeks";
+  static const String duringThe = "duringThe";
+  static const String pastFourWeeks = "pastFourWeeks";
+  static const String phq15Question = "phq15Question";
+  static const String gad7Question = "gad7Question";
+  static const String overThe = "overThe";
+  static const String phq8Question = "phq8Question";
+  static const String startAgain = "startAgain";
+
+  // Mental texts results
+  static const String who5ResultTestMinimal = "who5ResultTestMinimal";
+  static const String who5ResultTestHigh = "who5ResultTestHigh";
+  static const String phq15ResultMinimal = "phq15ResultMinimal";
+  static const String phq15ResultMild = "phq15ResultMild";
+  static const String phq15ResultMedium = "phq15ResultMedium";
+  static const String phq15ResultHigh = "phq15ResultHigh";
+  static const String gad7ResultMinimal = "gad7ResultMinimal";
+  static const String gad7ResultMild = "gad7ResultMild";
+  static const String gad7ResultMedium = "gad7ResultMedium";
+  static const String gad7ResultHigh = "gad7ResultHigh";
+  static const String ifYouHaveSuicidalThoughts = "ifYouHaveSuicidalThoughts";
+  static const String phq8ResultMinimal = "phq8ResultMinimal";
+  static const String phq8ResultMild = "phq8ResultMild";
+  static const String phq8ResultMedium = "phq8ResultMedium";
+  static const String phq8ResultHigh = "phq8ResultHigh";
+  static const String phq8ResultHighest = "phq8ResultHighest";
+  static const String generalWellBeingSummary = "generalWellBeingSummary";
+  static const String bodyAndMindBalanceSummary = "bodyAndMindBalanceSummary";
+  static const String stateOfMindSummary = "stateOfMindSummary";
+  static const String checkCompleted = "checkCompleted";
+  static const String who5SubText = "who5SubText";
+  static const String phq15SubText = "phq15SubText";
+  static const String gad75SubText = "gad75SubText";
+
+  // Time ends message
+  static const String youExceededTimeMessage = "youExceededTimeMessage";
+  static const String noWorriesYouCanDoItLater = "noWorriesYouCanDoItLater";
+
+  // Legal Statement
+  static const String legalStatement = 'legalStatement';
+  static const String legalStatementTextOne = 'legalStatementTextOne';
+  static const String legalStatementTextTwo = 'legalStatementTextTwo';
+  static const String readLegalStatement = 'readLegalStatement';
+  static const String legalStatementCheckboxTitle = 'legalStatementCheckboxTitle';
+  static const String legalStatementCheckboxItemOne = 'legalStatementCheckboxItemOne';
+  static const String confirm = 'confirm';
+  static const String openLinkErrorMessage = 'openLinkErrorMessage';
 }
 
 extension StringX on String {

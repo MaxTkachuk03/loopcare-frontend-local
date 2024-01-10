@@ -3,7 +3,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 const Color _kEnabledText = AppColors.darkGreen;
-const Color _kFocused = AppColors.redFocus;
+const Color _kFocused = AppColors.grey;
 const Color _kDisabledText = AppColors.grey;
 const Color _kDisabled = AppColors.greyDisable;
 const Color _kError = AppColors.redFocus;
@@ -25,15 +25,20 @@ class AppInputDecoration extends InputDecoration {
     InputBorder? enableBorder,
     double? radius,
   }) : super(
+          fillColor: AppColors.white,
           border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(radius ?? 4.0))),
           focusColor: focusedColor ?? _kFocused,
           enabledBorder: enableBorder ??
               OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(radius ?? 4.0)),
                 borderSide: BorderSide(color: state.color.withOpacity(0.5)),
               ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(radius ?? 4.0)),
-            borderSide: BorderSide(color: focusedColor ?? _kFocused),
+            borderSide: BorderSide(
+              color: focusedColor ?? _kFocused,
+              width: 2.0,
+            ),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(radius ?? 4.0)),
@@ -79,26 +84,36 @@ class AppInputDecoration extends InputDecoration {
     EdgeInsetsGeometry? contentPadding,
     String super.counterText = "",
     Color? focusedColor,
+    double? radius,
   }) : super(
+          fillColor: AppColors.white,
           border: const OutlineInputBorder(),
           focusColor: focusedColor ?? _kFocused,
           enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(radius ?? 4.0)),
             borderSide: BorderSide(color: state.color.withOpacity(0.5)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: focusedColor ?? _kFocused),
-          ),
-          errorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: _kError),
-          ),
-          focusedErrorBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(radius ?? 4.0)),
             borderSide: BorderSide(
+              color: focusedColor ?? _kFocused,
+              width: 2.0,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(radius ?? 4.0)),
+            borderSide: const BorderSide(color: _kError),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(radius ?? 4.0)),
+            borderSide: const BorderSide(
               color: _kError,
               width: 2.0,
             ),
           ),
-          disabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: _kDisabled),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(radius ?? 4.0)),
+            borderSide: const BorderSide(color: _kDisabled),
           ),
           filled: true,
           hintStyle: context.textTheme.bodyMedium?.copyWith(

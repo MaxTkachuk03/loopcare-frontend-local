@@ -16,5 +16,6 @@ class MoodNoteField extends AppLimitTextField {
           minLines: 8,
           linesCount: 50,
           readOnly: readOnly,
+          hintText: '',
         );
 }

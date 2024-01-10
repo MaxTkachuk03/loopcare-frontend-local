@@ -1,74 +1,71 @@
 // Flutter imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/themes/input_decoration.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
-class AppTextField extends StatefulWidget {
+class AppInputTextField extends CustomTextField {
   final TextStyle? helperStyle;
   final String? helperText;
-  final String? hintText;
   final String? labelText;
   final int? errorMaxLines;
   final IconButton? suffixIcon;
-  final void Function(String)? onChanged;
+
   final void Function(String)? onSubmitted;
-  final TextEditingController controller;
   final bool readOnly;
   final Key? fieldKey;
-  final FocusNode? focusNode;
-  final FormFieldValidator<String>? validator;
-  final bool obscureText;
   final AutovalidateMode? autovalidateMode;
-  final TextInputType? keyboardType;
   final String? errorCallback;
   final Color focusColor;
-  final List<TextInputFormatter>? inputFormatters;
   final Iterable<String>? autofillHints;
   final MaxLengthEnforcement enforcedLimitCount;
   final TextInputAction? textInputAction;
-  final int? maxLength;
   final int? linesCount;
   final bool enabled;
   final bool? enableInteractiveSelection;
   final TextCapitalization textCapitalization;
+  final double? radius;
 
-  const AppTextField({
+  const AppInputTextField({
     super.key,
-    required this.controller,
+    required super.controller,
     this.helperText,
-    this.hintText,
+    required super.hintText,
     this.labelText,
     this.helperStyle,
-    this.errorMaxLines = 4,
+    this.errorMaxLines = 2,
     this.suffixIcon,
     this.fieldKey,
-    this.focusNode,
-    this.validator,
+    super.focusNode,
+    super.validator,
     this.autovalidateMode,
     this.textInputAction,
-    this.keyboardType,
-    this.onChanged,
+    super.keyboardType,
+    super.onChanged,
     this.onSubmitted,
-    this.obscureText = false,
+    super.obscureText = false,
     this.readOnly = false,
     this.errorCallback,
     this.focusColor = AppColors.grey,
-    this.inputFormatters = const [],
+    super.inputFormatters = const [],
     this.autofillHints,
-    this.maxLength,
+    super.maxLength,
     this.linesCount = 1,
     this.enforcedLimitCount = MaxLengthEnforcement.enforced,
     this.textCapitalization = TextCapitalization.none,
     this.enabled = true,
     this.enableInteractiveSelection,
+    this.radius = 8,
   });
 
   @override
-  State<AppTextField> createState() => _AppTextFieldState();
+  State<AppInputTextField> createState() => _AppTextFieldState();
 }
 
-class _AppTextFieldState extends State<AppTextField> {
+class _AppTextFieldState extends State<AppInputTextField> {
   late FocusNode _focusNode;
 
   @override
@@ -130,7 +127,7 @@ class _AppTextFieldState extends State<AppTextField> {
 
         return UnmanagedRestorationScope(
           bucket: field.bucket,
-          child: TextField(
+          child: TextFormField(
             enabled: widget.enabled,
             focusNode: widget.focusNode,
             controller: widget.controller,
@@ -140,15 +137,12 @@ class _AppTextFieldState extends State<AppTextField> {
             maxLengthEnforcement: widget.enforcedLimitCount,
             cursorColor: AppColors.redFocus,
             onChanged: onChangedHandler,
-            obscureText: widget.obscureText,
+            obscureText: widget.obscureText ?? false,
             autofillHints: widget.autofillHints,
             keyboardType: widget.keyboardType,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppColors.black,
-                  fontSize: ThemeConstants.fontSize16,
-                ),
+            style: widget.style ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
             textInputAction: widget.textInputAction ?? TextInputAction.next,
-            onSubmitted: widget.onSubmitted,
+            // onSubmitted: widget.onSubmitted,
             inputFormatters: widget.inputFormatters,
             textCapitalization: widget.textCapitalization,
             enableInteractiveSelection: widget.enableInteractiveSelection,
@@ -159,8 +153,9 @@ class _AppTextFieldState extends State<AppTextField> {
               errorMaxLines: widget.errorMaxLines,
               errorText: errorText,
               labelText: widget.labelText,
-              hintText: widget.hintText,
+              hintText: widget.hintText.tr(),
               suffixIcon: widget.suffixIcon,
+              radius: widget.radius,
             ),
           ),
         );

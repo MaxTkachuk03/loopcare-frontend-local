@@ -24,7 +24,7 @@ class MedicalCheckPassedPage extends StatelessWidget {
   void _onNextPressed(BuildContext context) {
     context
       ..read<OnboardingBloc>().add(const OnboardingEvent.nextStep())
-      ..router.pushNamed(AppRoutes.mentalHealthIntro);
+      ..router.pushNamed(AppRoutes.mentalHealthPreIntro);
   }
 
   @override

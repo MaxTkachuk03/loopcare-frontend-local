@@ -35,7 +35,7 @@ class _PasswordWithIndicatorState extends State<PasswordWithIndicator> {
     }
 
     if (_password.length > 24) {
-      return 0.0;
+      return -0.0;
     }
 
     if (RegExp(RegExpUtils.digitsReg).hasMatch(password)) {
@@ -58,7 +58,11 @@ class _PasswordWithIndicatorState extends State<PasswordWithIndicator> {
     String retText = '';
 
     if (strength == 0) {
-      retText = LocalizedTexts.passwordStrengthToShort.tr();
+      if (_password.length < 8 || _password.isEmpty) {
+        retText = LocalizedTexts.passwordStrengthToShort.tr();
+      } else if (_password.length > 24) {
+        retText = LocalizedTexts.passwordStrengthToLong.tr();
+      }
     } else if (strength <= 1 / 3) {
       retText = LocalizedTexts.passwordStrengthNotSecure.tr();
     } else if (strength <= 2 / 3) {
