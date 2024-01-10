@@ -57,7 +57,11 @@ class NextLesson extends StatelessWidget {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(18.0),
+                    padding: const EdgeInsets.only(
+                      top: 6.0,
+                      bottom: 6.0,
+                      right: 6.0,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -72,11 +76,12 @@ class NextLesson extends StatelessWidget {
                             lesson.category.toUpperCase(),
                             style: context.textTheme.bodySmall?.copyWith(
                               color: AppColors.white,
+                              fontSize: ThemeConstants.fontSize10,
                             ),
                           ),
                         ),
                         const SizedBox(height: 10.0),
-                        CustomText.w700(
+                        CustomText.bitter700(
                           lesson.title,
                           style: context.textTheme.bodySmall,
                         ),
