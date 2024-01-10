@@ -21,6 +21,7 @@ final ThemeData appThemeData = ThemeData(
   highlightColor: Colors.transparent,
   disabledColor: AppColors.greyMid,
   bottomNavigationBarTheme: _bottomNavigationBarThemeData(),
+  bottomSheetTheme: _bottomSheetTheme(),
   dividerTheme: const DividerThemeData(
     color: AppColors.white,
   ),
@@ -28,6 +29,14 @@ final ThemeData appThemeData = ThemeData(
     textStyle: _getPopupMenuTheme(),
   ),
 );
+
+BottomSheetThemeData _bottomSheetTheme() {
+  return const BottomSheetThemeData(
+    backgroundColor: AppColors.white,
+    modalBackgroundColor: AppColors.white,
+    surfaceTintColor: AppColors.white,
+  );
+}
 
 BottomNavigationBarThemeData _bottomNavigationBarThemeData() {
   return BottomNavigationBarThemeData(

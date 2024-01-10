@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/core/presentation/network_image_with_cache/net
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
@@ -32,7 +33,6 @@ import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
-import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/report_abuse/presentation/widget/report_abuse_widget.dart';
 import 'package:loopcare_frontend/injection.dart';
 
@@ -1170,6 +1170,7 @@ class ModalBottomSheet {
       showModalBottomSheet<void>(
           context: context,
           isScrollControlled: true,
+          barrierColor: AppColors.blueDarkest,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24.0),
           ),
@@ -1178,28 +1179,11 @@ class ModalBottomSheet {
               heightFactor: 0.93,
               child: KeyboardContainerListener(
                 child: SafeArea(
-                  child: Container(
+                  child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-                    child: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: SizedBox(
-                            width: 30.0,
-                            height: 30.0,
-                            child: IconButton(
-                              iconSize: 30,
-                              padding: EdgeInsets.zero,
-                              onPressed: () => context.router.pop(),
-                              icon: const Icon(Icons.close),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                            child: ReportAbuseWidget(
-                          groupSession: groupSession,
-                        )),
-                      ],
+                    child: ReportAbuseWidget(
+                      groupSession: groupSession,
+                      close: () => Navigator.of(context).pop(),
                     ),
                   ),
                 ),
@@ -1238,8 +1222,7 @@ class ModalBottomSheet {
                       ),
                     ),
                   ),
-                  CustomText.bitter500(LocalizedTexts.inCaseOfEmergency.tr(),
-                      style: context.textTheme.displayMedium),
+                  CustomText.bitter500(LocalizedTexts.inCaseOfEmergency.tr(), style: context.textTheme.displayMedium),
                   const SizedBox(height: 12),
                   CustomText.w400(LocalizedTexts.emergencySubtitle.tr(), style: context.textTheme.bodyMedium),
                   const SizedBox(height: 12),
