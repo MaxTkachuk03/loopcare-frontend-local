@@ -6,8 +6,9 @@ class CustomScaffold extends StatelessWidget {
   final CustomAppBar? appBar;
   final Widget? body;
   final Color? color;
+  final bool? resizeToAvoidBottomInset;
 
-  const CustomScaffold({super.key, required this.appBar, this.body, this.color});
+  const CustomScaffold({super.key, required this.appBar, this.body, this.color, this.resizeToAvoidBottomInset});
 
   factory CustomScaffold.coralLightest({CustomAppBar? appBar, Widget? body}) =>
       CustomScaffold(appBar: appBar, body: body, color: AppColors.coralLightest);
@@ -51,10 +52,18 @@ class CustomScaffold extends StatelessWidget {
   factory CustomScaffold.blueDarkest({CustomAppBar? appBar, Widget? body}) =>
       CustomScaffold(appBar: appBar, body: body, color: AppColors.blueDarkest);
 
+  factory CustomScaffold.white({CustomAppBar? appBar, Widget? body, bool? resizeToAvoidBottomInset}) => CustomScaffold(
+        appBar: appBar,
+        body: body,
+        color: AppColors.white,
+        resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+      );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: color,
+      resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       appBar: appBar,
       body: body,
     );

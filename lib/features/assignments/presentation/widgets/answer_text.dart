@@ -104,5 +104,6 @@ class AnswerTextFormLimitTextField extends AppLimitTextField {
           linesCount: 50,
           focusedColor: AppColors.blueMid,
           cursorColor: AppColors.darkGreen,
+          hintText: '',
         );
 }

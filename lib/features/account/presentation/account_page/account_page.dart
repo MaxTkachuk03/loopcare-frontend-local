@@ -34,7 +34,7 @@ class _AccountPageState extends State<AccountPage> {
     return CustomScaffold.blue(
       appBar: CustomAppBar.blue(
         title: LocalizedTexts.yourProfile.tr(),
-        leading: CustomFilledIconButton.leadingBlueLighter(),
+        leading: const SizedBox.shrink(),
       ),
       body: const SafeArea(
         child: ScrollableContainer(

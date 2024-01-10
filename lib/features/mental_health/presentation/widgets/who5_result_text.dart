@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/interpretation_type.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_check_result_page.dart';
@@ -41,12 +42,9 @@ class WHO5ResultText extends StatelessWidget {
 
         return RichText(
           text: TextSpan(children: [
+            TextSpan(text: '$text \n', style: context.textTheme.bodyMedium),
             TextSpan(
-              text: '$text \n',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            TextSpan(
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.blueAppBar),
+              style: context.textTheme.bodyMedium?.copyWith(color: AppColors.blueAppBar),
               text: '$psychologistConsultingLink \n\n',
               recognizer: TapGestureRecognizer()..onTap = () => _onUrlHandler(context),
             ),

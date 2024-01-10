@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/instructions_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
@@ -17,54 +22,38 @@ class LegalStatementPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => _onWillPop(context),
-      child: Scaffold(
-        appBar: AppBar(),
+      child: CustomScaffold.blueLightest(
+        appBar: CustomAppBar.blue(
+          title: LocalizedTexts.legalStatement.tr(),
+          leading: CustomFilledIconButton.leadingBlueLighter(),
+        ),
         body: SafeArea(
           child: ScrollableContainer(
             child: MainContainer(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const SizedBox(height: 32.0),
+                  CustomText.bitter600(
                     LocalizedTexts.legalStatement.tr(),
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                          fontFamily: ThemeConstants.bitterFontFamily,
-                          color: AppColors.blueDark,
-                        ),
+                    style: context.textTheme.displayMedium,
                   ),
-                  const SizedBox(
-                    height: 8.0,
+                  const SizedBox(height: 32.0),
+                  CustomText.w400(
+                    '${LocalizedTexts.legalStatementTextOne.tr()}.',
+                    style: context.textTheme.bodyMedium,
                   ),
-                  Text(
-                    LocalizedTexts.legalStatementTextOne.tr(),
-                    style: Theme.of(context).textTheme.bodyLarge,
+                  const SizedBox(height: 16.0),
+                  CustomText.w400(
+                    '${LocalizedTexts.legalStatementTextTwo.tr()}.',
+                    style: context.textTheme.bodyMedium,
                   ),
-                  const SizedBox(
-                    height: 16.0,
-                  ),
-                  Text(
-                    LocalizedTexts.legalStatementTextTwo.tr(),
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                  const SizedBox(
-                    height: 16.0,
-                  ),
-                  ElevatedButton(
+                  const SizedBox(height: 38.0),
+                  CustomElevatedButton.coralSmall(
                     onPressed: () => _onReadLegalStatement(context),
-                    style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                          minimumSize: MaterialStateProperty.all(
-                            const Size(
-                              0,
-                              38,
-                            ),
-                          ),
-                          textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.bodyMedium),
-                        ),
-                    child: Text(LocalizedTexts.readLegalStatement.tr()),
+                    label: LocalizedTexts.readLegalStatement,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 27.0),
                   const LegalStatementConfirmationBox(),
                 ],
               ),
@@ -79,7 +68,8 @@ class LegalStatementPage extends StatelessWidget {
     InstructionsService.downloadInstructions(onErrorCb: _showError(context));
   }
 
-  _showError(BuildContext context) => context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.translation));
+  _showError(BuildContext context) =>
+      context.showError(content: CustomText.w400(LocalizedTexts.openLinkErrorMessage.tr()));
 
   Future<bool> _onWillPop(BuildContext context) async {
     context.read<ConsentConfirmationBloc>().add(const ConsentConfirmationEvent.passageChanged(false));

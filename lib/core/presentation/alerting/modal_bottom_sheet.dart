@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/core/presentation/network_image_with_cache/net
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
@@ -32,7 +33,6 @@ import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
-import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/report_abuse/presentation/widget/report_abuse_widget.dart';
 import 'package:loopcare_frontend/injection.dart';
 
@@ -189,39 +189,35 @@ class ModalBottomSheet {
     showModalBottomSheet<void>(
       isScrollControlled: true,
       isDismissible: false,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
       builder: (BuildContext context) {
-        return Wrap(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 58.0, horizontal: 40.0),
-              child: SafeArea(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      LocalizedTexts.youExceededTimeMessage,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
-                    ).tr(),
-                    Text(
-                      LocalizedTexts.noWorriesYouCanDoItLater,
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ).tr(),
-                    const SizedBox(
-                      height: 40.0,
-                    ),
-                    ElevatedButton(
-                      onPressed: onStartAgain,
-                      child: const Text(LocalizedTexts.startAgain).tr(),
-                    ),
-                  ],
-                ),
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 58.0, horizontal: 40.0),
+          child: FractionallySizedBox(
+            heightFactor: 0.32,
+            child: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomText.w600(
+                    LocalizedTexts.youExceededTimeMessage,
+                    style: context.textTheme.bodyMedium?.copyWith(color: AppColors.orangeRegular),
+                  ),
+                  const SizedBox(height: 26.0),
+                  CustomText.w400(
+                    LocalizedTexts.noWorriesYouCanDoItLater,
+                    style: context.textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 40.0),
+                  CustomElevatedButton.blueFullWidth(
+                    onPressed: onStartAgain,
+                    label: LocalizedTexts.startAgain,
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         );
       },
     );
@@ -553,48 +549,30 @@ class ModalBottomSheet {
     required BuildContext context,
   }) {
     showModalBottomSheet<void>(
-      isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
       builder: (BuildContext context) {
         return SafeArea(
           child: FractionallySizedBox(
-            heightFactor: 0.9,
-            child: MainContainer(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 8.0, top: 32.0),
-                      child: SizedBox(
-                        width: 30.0,
-                        height: 30.0,
-                        child: IconButton(
-                          iconSize: 30,
-                          padding: EdgeInsets.zero,
-                          onPressed: () => context.router.pop(),
-                          icon: const Icon(Icons.close),
-                        ),
-                      ),
-                    ),
+            heightFactor: 0.5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: CustomIconButton.close(
+                    onPressed: () => context.router.pop(),
                   ),
-                  const SizedBox(
-                    height: 26.0,
+                ),
+                MainContainer(
+                  child: CustomText.w400(
+                    '${LocalizedTexts.mentalHealthMoreInfo.tr(namedArgs: {
+                          'appName': appConfig.projectName,
+                        })}.',
+                    style: context.textTheme.bodyMedium,
                   ),
-                  Text(LocalizedTexts.mentalHealthMoreInfo,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontWeight: FontWeight.w700,
-                          )).tr(
-                    namedArgs: {
-                      'appName': appConfig.projectName,
-                    },
-                  )
-                ],
-              ),
+                )
+              ],
             ),
           ),
         );
@@ -1192,6 +1170,7 @@ class ModalBottomSheet {
       showModalBottomSheet<void>(
           context: context,
           isScrollControlled: true,
+          barrierColor: AppColors.blueDarkest,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24.0),
           ),
@@ -1200,28 +1179,11 @@ class ModalBottomSheet {
               heightFactor: 0.93,
               child: KeyboardContainerListener(
                 child: SafeArea(
-                  child: Container(
+                  child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-                    child: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: SizedBox(
-                            width: 30.0,
-                            height: 30.0,
-                            child: IconButton(
-                              iconSize: 30,
-                              padding: EdgeInsets.zero,
-                              onPressed: () => context.router.pop(),
-                              icon: const Icon(Icons.close),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                            child: ReportAbuseWidget(
-                          groupSession: groupSession,
-                        )),
-                      ],
+                    child: ReportAbuseWidget(
+                      groupSession: groupSession,
+                      close: () => Navigator.of(context).pop(),
                     ),
                   ),
                 ),
@@ -1259,8 +1221,7 @@ class ModalBottomSheet {
                       ),
                     ),
                   ),
-                  CustomText.bitter500(LocalizedTexts.inCaseOfEmergency.tr(),
-                      style: context.textTheme.displayMedium),
+                  CustomText.bitter500(LocalizedTexts.inCaseOfEmergency.tr(), style: context.textTheme.displayMedium),
                   const SizedBox(height: 12),
                   CustomText.w400(LocalizedTexts.emergencySubtitle.tr(), style: context.textTheme.bodyMedium),
                   const SizedBox(height: 12),
