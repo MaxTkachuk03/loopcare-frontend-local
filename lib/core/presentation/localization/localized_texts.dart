@@ -493,7 +493,6 @@ class LocalizedTexts {
 
   // Emergency Numbers
   static const String emergencySubtitle = 'emergencySubtitle';
-  static const String openLinkErrorMessage = 'openLinkErrorMessage';
 
   // Video
   static const String rotateDevice = 'rotateDevice';
@@ -921,6 +920,7 @@ class LocalizedTexts {
   static const String legalStatementCheckboxTitle = 'legalStatementCheckboxTitle';
   static const String legalStatementCheckboxItemOne = 'legalStatementCheckboxItemOne';
   static const String confirm = 'confirm';
+  static const String openLinkErrorMessage = 'openLinkErrorMessage';
 }
 
 extension StringX on String {

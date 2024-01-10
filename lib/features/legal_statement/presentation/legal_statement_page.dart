@@ -69,7 +69,7 @@ class LegalStatementPage extends StatelessWidget {
   }
 
   _showError(BuildContext context) =>
-      context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.translation));
+      context.showError(content: CustomText.w400(LocalizedTexts.openLinkErrorMessage.tr()));
 
   Future<bool> _onWillPop(BuildContext context) async {
     context.read<ConsentConfirmationBloc>().add(const ConsentConfirmationEvent.passageChanged(false));
