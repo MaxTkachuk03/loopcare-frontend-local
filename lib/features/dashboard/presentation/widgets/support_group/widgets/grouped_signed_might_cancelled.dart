@@ -4,6 +4,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class GroupedSignedMightBeCancelled extends StatelessWidget {
   final int number;
@@ -28,7 +29,7 @@ class GroupedSignedMightBeCancelled extends StatelessWidget {
                   'number': number.toString(),
                 },
               ),
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.orangeRegular),
+              style: context.textTheme.bodySmall?.copyWith(color: AppColors.orangeRegular),
             ),
           ),
         ],

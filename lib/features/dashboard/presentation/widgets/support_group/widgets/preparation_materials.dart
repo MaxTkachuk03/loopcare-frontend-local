@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 
@@ -40,13 +41,13 @@ class PreparationMaterials extends StatelessWidget {
               children: [
                 CustomText.w700(
                   LocalizedTexts.prepareForSession.tr(),
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: context.textTheme.bodySmall,
                 ),
                 CustomText.w400(
                   LocalizedTexts.prepareTakes.tr(
                     namedArgs: {'times': '10 min'},
                   ),
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: context.textTheme.bodySmall,
                 ),
               ],
             ),

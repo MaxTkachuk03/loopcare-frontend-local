@@ -19,6 +19,7 @@ class WeekPlannerPage extends StatefulWidget {
 }
 
 class _WeekPlannerPageState extends State<WeekPlannerPage> {
+  // TODO: LOOPCARE-1798 Hide Meal planning block
   // DateTime _selectedDay = DateTime.now();
 
   @override
