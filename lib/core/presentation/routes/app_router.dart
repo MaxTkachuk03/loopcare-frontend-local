@@ -325,15 +325,14 @@ const groupLessonRoutes = [
       path: AppRoutes.mentalCheckResult,
       page: MentalCheckResultPage,
     ),
-    // TODO dead code
-    // AutoRoute(
-    //   path: AppRoutes.resetPassword,
-    //   page: ResetPasswordPage,
-    // ),
+
+    // Legal statement
     AutoRoute(
       path: AppRoutes.legalStatement,
       page: LegalStatementPage,
     ),
+
+    // Create account
     AutoRoute(
       path: AppRoutes.signUpWelcome,
       page: SignUpWelcomePage,
@@ -362,7 +361,7 @@ const groupLessonRoutes = [
       path: AppRoutes.noConsent,
       page: NoConsentPage,
     ),
-
+    // Preferences
     AutoRoute(
       path: AppRoutes.preferencesOverview,
       page: PreferencesOverviewPage,

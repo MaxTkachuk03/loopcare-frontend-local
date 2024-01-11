@@ -49,43 +49,37 @@ class ModalBottomSheet {
     Size size = MediaQuery.of(context).size;
 
     showModalBottomSheet<void>(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
       builder: (BuildContext context) {
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
-          height: size.height * 0.5,
+          height: size.height * 0.45,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 50.0),
-              Align(
-                alignment: AlignmentDirectional.topCenter,
-                child: AppImages.checkMarkGreen,
+              const CircleAvatar(
+                radius: 22.0,
+                backgroundColor: AppColors.greenRegular,
+                child: Icon(Icons.check, size: 30),
               ),
-              const SizedBox(height: 24.0),
-              Text(
-                LocalizedTexts.emailConfirmedBottomSheetTitle.tr(),
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w900),
+              const SizedBox(height: 26.0),
+              CustomText.w600(
+                '${LocalizedTexts.emailConfirmedBottomSheetTitle.tr()}!',
+                style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),
-              Text(
-                LocalizedTexts.emailConfirmedBottomSheetContent.tr(),
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(),
+              CustomText.w400(
+                '${LocalizedTexts.emailConfirmedBottomSheetContent.tr()}.',
+                style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 40.0),
-              ElevatedButton(
+              CustomElevatedButton.blueFullWidth(
+                label: LocalizedTexts.continueBtn,
                 onPressed: () {
                   context.router.pop();
                 },
-                style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                      backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
-                    ),
-                child: Text(
-                  LocalizedTexts.continueBtn.tr(),
-                ),
               ),
             ],
           ),
@@ -1220,7 +1214,8 @@ class ModalBottomSheet {
                       ),
                     ),
                   ),
-                  CustomText.bitter500(LocalizedTexts.inCaseOfEmergency.tr(), style: context.textTheme.displayMedium),
+                  CustomText.bitter500(LocalizedTexts.inCaseOfEmergency.tr(),
+                      style: context.textTheme.displayMedium),
                   const SizedBox(height: 12),
                   CustomText.w400(LocalizedTexts.emergencySubtitle.tr(), style: context.textTheme.bodyMedium),
                   const SizedBox(height: 12),

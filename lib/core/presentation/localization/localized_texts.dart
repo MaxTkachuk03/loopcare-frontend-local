@@ -45,40 +45,7 @@ class LocalizedTexts {
   static const String repeatPassword = 'repeatPassword';
   static const String resetPassword = 'resetPassword';
 
-  static const String passwordStrengthToShort = 'passwordStrengthToShort';
-  static const String passwordStrengthToLong = 'passwordStrengthToLong';
-  static const String passwordStrengthNotSecure = 'passwordStrengthNotSecure';
-  static const String passwordStrengthNice = 'passwordStrengthNice';
-  static const String passwordStrengthMiddle = 'passwordStrengthMiddle';
-  static const String passwordsNotMatch = 'passwordsNotMatch';
-  static const String createAccount = 'createAccount';
-  static const String whatIsYourName = 'whatIsYourName';
-  static const String namePageDescription = 'namePageDescription';
   static const String yourName = 'yourName';
-  static const String whatIsYourEmailAddress = 'whatIsYourEmailAddress';
-  static const String emailPageDescription = 'emailPageDescription';
-  static const String register = 'register';
-  static const String iHaveReadAndAcceptThe = 'iHaveReadAndAcceptThe';
-  static const String termsAndConditions = 'termsAndConditions';
-  static const String pleaseAcceptTOC = 'pleaseAcceptTOC';
-  static const String somethingIsIncorrect = 'somethingIsIncorrect';
-  static const String emailAlreadyTaken = 'emailAlreadyTaken';
-
-  //Waiting for confirmation page
-  static const String waitingForConfirmationTitle = 'waitingForConfirmationTitle';
-  static const String resendConfirmationMessage = 'resendConfirmationMessage';
-  static const String confirmYourAddress = 'confirmYourAddress';
-  static const String checkSpam = 'checkSpam';
-  static const String address = 'address';
-  static const String resend = 'resend';
-  static const String changeAddress = 'changeAddress';
-  static const String emailConfirmedBottomSheetTitle = 'emailConfirmedBottomSheetTitle';
-  static const String emailConfirmedBottomSheetContent = 'emailConfirmedBottomSheetContent';
-
-  //Sign up welcome page
-  static const String signUpWelcomeTitle = 'signUpWelcomeTitle';
-  static const String signYouUp = 'signYouUp';
-  static const String needName = 'needName';
 
   //Connection
   static const String connectionLost = 'connectionLost';
@@ -91,11 +58,6 @@ class LocalizedTexts {
 
   static const String emailOrPasswordAreIncorrect = 'emailOrPasswordAreIncorrect';
   static const String forgotEmailSuccessMessage = 'forgotEmailSuccessMessage';
-
-  // Password page
-  static const String enterPasswordTitle = 'enterPasswordTitle';
-  static const String confirmPassword = 'confirmPassword';
-  static const String desiredPassword = 'desiredPassword';
 
   // Medical fitness
 
@@ -926,6 +888,51 @@ class LocalizedTexts {
   static const String legalStatementCheckboxItemOne = 'legalStatementCheckboxItemOne';
   static const String confirm = 'confirm';
   static const String openLinkErrorMessage = 'openLinkErrorMessage';
+
+  // Create account
+  static const String signUpWelcomeTitle = 'signUpWelcomeTitle';
+  static const String signUpWelcomeBody = 'signUpWelcomeBody';
+  static const String createAccount = 'createAccount';
+
+  // Name screen
+  static const String whatIsYourName = 'whatIsYourName';
+
+  // Password screen
+  static const String enterPasswordTitle = 'enterPasswordTitle';
+  static const String enterPasswordSubTitle = 'enterPasswordSubTitle';
+  static const String confirmPassword = 'confirmPassword';
+  static const String passwordStrengthToShort = 'passwordStrengthToShort';
+  static const String passwordStrengthToLong = 'passwordStrengthToLong';
+  static const String passwordStrengthNotSecure = 'passwordStrengthNotSecure';
+  static const String passwordStrengthNice = 'passwordStrengthNice';
+  static const String passwordStrengthMiddle = 'passwordStrengthMiddle';
+  static const String passwordValidationRule1 = 'passwordValidationRule1';
+  static const String passwordValidationRule2 = 'passwordValidationRule2';
+  static const String passwordValidationRule3 = 'passwordValidationRule3';
+
+  // Email screen
+  static const String emailTitle = 'emailTitle';
+  static const String emailBody = 'emailBody';
+  static const String termsAndConditions = 'termsAndConditions';
+  static const String privacyPolicy = 'privacyPolicy';
+  static const String iAcceptThe = 'iAcceptThe';
+  static const String pleaseAcceptTOC = 'pleaseAcceptTOC';
+  static const String pleaseAcceptPrivacyPolicy = 'pleaseAcceptPrivacyPolicy';
+  static const String register = 'register';
+  static const String emailAlreadyTaken = 'emailAlreadyTaken';
+  static const String somethingIsIncorrect = 'somethingIsIncorrect';
+
+  //Waiting for confirmation page
+  static const String waitingForConfirmationTitle = 'waitingForConfirmationTitle';
+  static const String resendConfirmationMessage = 'resendConfirmationMessage';
+  static const String waitingForConfirmationBody1 = 'waitingForConfirmationBody1';
+  static const String waitingForConfirmationBody2 = 'waitingForConfirmationBody2';
+  static const String waitingForConfirmationBody3 = 'waitingForConfirmationBody3';
+  static const String waitingForConfirmationBody4 = 'waitingForConfirmationBody4';
+  static const String resend = 'resend';
+  static const String changeAddress = 'changeAddress';
+  static const String emailConfirmedBottomSheetTitle = 'emailConfirmedBottomSheetTitle';
+  static const String emailConfirmedBottomSheetContent = 'emailConfirmedBottomSheetContent';
 }
 
 extension StringX on String {

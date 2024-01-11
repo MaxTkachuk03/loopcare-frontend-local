@@ -44,12 +44,17 @@ class AppRoutes {
   static const String medicalCheckPassed = '/medical-check-passed'; // added
   static const String medicalCheckFailed = '/medical-check-failed';
 
-  // TODO dead code
-  // static const String resetPassword = '/reset-password';
+  // Onboarding Mental
+  static const String mentalHealthPreIntro = '/mental-health-pre-intro';
+  static const String mentalHealthIntro = '/mental-health-intro'; // added
+  static const String mentalHealthQuestion = '/mental-health-question'; // added
+  static const String mentalCheckResult = '/mental-check-result'; // added
+
+  // Create account
+  static const String signUpWelcome = '/sign-up-welcome'; // added
   static const String name = '/name'; // added
   static const String password = '/password'; // added
   static const String emailAddress = '/email-address'; // added
-  static const String signUpWelcome = '/sign-up-welcome'; // added
   static const String waitingForConfirmation = '/waiting-for-confirmation'; // added
 
   static const String consentConfirmation = '/consent-confirmation'; // added
@@ -62,10 +67,7 @@ class AppRoutes {
   static const String allergic = '/allergic'; // added
   static const String youAndFoodReady = '/you-and-food-ready'; // added
   static const String doNotLike = '/do-not-like'; // added
-  static const String mentalHealthPreIntro = '/mental-health-pre-intro';
-  static const String mentalHealthIntro = '/mental-health-intro'; // added
-  static const String mentalHealthQuestion = '/mental-health-question'; // added
-  static const String mentalCheckResult = '/mental-check-result'; // added
+
   static const String preparationMaterials = '/preparation-materials'; // added
 
   // Self Help maybe deleted screens

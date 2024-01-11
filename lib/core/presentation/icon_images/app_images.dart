@@ -9,7 +9,6 @@ class AppImages {
   static const AssetImage introTwo = AssetImage('$imagesFilePath/intro_two.png');
   static const AssetImage introThree = AssetImage('$imagesFilePath/intro_three.png');
   static const AssetImage coffee = AssetImage('$imagesFilePath/coffee.png');
-  static const AssetImage signUpWelcome = AssetImage('$imagesFilePath/sign_up_welcome.png');
   static const AssetImage preferencesDiabetes = AssetImage('$imagesFilePath/diabetes.png');
   static const AssetImage editButton = AssetImage('$imagesFilePath/edit_button.png');
   static const AssetImage reflectionActivities = AssetImage('$imagesFilePath/reflection_activities.png');
@@ -69,12 +68,6 @@ class AppImages {
 
   static SvgPicture logoSvgMedium = SvgPicture.asset('$imagesFilePath/logo.svg', width: 77, height: 71);
 
-  static SvgPicture logoSvgGreenBig = SvgPicture.asset(
-    '$imagesFilePath/logo_green.svg',
-    width: 114,
-    height: 107,
-  );
-
   static SvgPicture checkMarkGreen = SvgPicture.asset(
     '$imagesFilePath/check_mark_green.svg',
     width: 50,
@@ -106,6 +99,7 @@ class AppImages {
   static const AssetImage physicalIntro = AssetImage('$imagesFilePath/new_physical_intro.png');
   static const AssetImage medicalIntro = AssetImage('$imagesFilePath/new_medical_intro.png');
   static const AssetImage mentalIntro = AssetImage('$imagesFilePath/new_mental_intro.png');
+  static const AssetImage welcome = AssetImage('$imagesFilePath/new_welcome.png');
 
   static SvgPicture oepsBig = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 120, height: 120);
   static SvgPicture oepsSmall = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 60, height: 60);

@@ -68,6 +68,8 @@ class CustomTextField extends StatefulWidget {
 
   factory CustomTextField.email({
     Color? fillColor,
+    String? errorText,
+    ValueChanged<String>? onChanged,
     required TextEditingController controller,
   }) =>
       CustomTextField(
@@ -77,6 +79,8 @@ class CustomTextField extends StatefulWidget {
         prefixIcon: const Icon(Icons.mail, size: 24),
         keyboardType: TextInputType.emailAddress,
         fillColor: fillColor,
+        errorText: errorText,
+        onChanged: onChanged,
       );
 
   factory CustomTextField.password({
@@ -90,6 +94,19 @@ class CustomTextField extends StatefulWidget {
         prefixIcon: const Icon(Icons.lock, size: 24),
         isToggleEye: true,
         obscureText: true,
+      );
+
+  factory CustomTextField.createPassword({
+    Color? fillColor,
+    ValueChanged<String>? onChanged,
+    required TextEditingController controller,
+  }) =>
+      CustomTextField(
+        hintText: LocalizedTexts.yourPassword,
+        controller: controller,
+        isToggleEye: true,
+        obscureText: true,
+        onChanged: onChanged,
       );
 
   factory CustomTextField.unit({
