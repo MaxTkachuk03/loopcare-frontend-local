@@ -151,6 +151,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
                   bmi: r.physicalFitness.bmi,
                   birthDate: r.physicalFitness.birthDate,
                   groupingState: r.groupingState,
+                  groupId: r.groupId,
                   groupingStartedAt: r.groupingStartedAt,
                   nickname: r.groupingPreferences?.nickname,
                   genderPreference: r.groupingPreferences?.genderPreference,

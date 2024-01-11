@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/group_chat_report.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_session_report.dart';
 import 'package:loopcare_frontend/features/report_abuse/application/report_abuse_bloc.dart';
 import 'package:loopcare_frontend/features/report_abuse/presentation/report_abuse_controller.dart';
@@ -15,9 +16,10 @@ import 'package:loopcare_frontend/features/report_abuse/presentation/report_abus
 
 class ReportAbuseWidget extends StatefulWidget {
   final GroupSessionReport? groupSession;
+  final GroupChatReport? chatReport;
   final VoidCallback close;
 
-  const ReportAbuseWidget({super.key, this.groupSession, required this.close});
+  const ReportAbuseWidget({super.key, this.groupSession, this.chatReport, required this.close});
 
   @override
   State<ReportAbuseWidget> createState() => _ReportAbuseWidgetState();
@@ -65,6 +67,7 @@ class _ReportAbuseWidgetState extends State<ReportAbuseWidget> {
           controller.subjectController.value.text,
           controller.reportController.value.text,
           groupSession: widget.groupSession,
+          chatReport: widget.chatReport,
         ));
   }
 
