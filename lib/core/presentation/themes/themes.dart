@@ -131,7 +131,6 @@ ChipThemeData _chipTheme() {
       color: AppColors.blueDarker,
     ),
     side: BorderSide(width: 2),
-    secondarySelectedColor: AppColors.transparent,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
     padding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 25.0),
   );
