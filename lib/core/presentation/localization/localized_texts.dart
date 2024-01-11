@@ -706,6 +706,8 @@ class LocalizedTexts {
 
   //Group chat
   static const String groupChat = 'groupChat';
+  static const String groupChatTitle = 'groupChatTitle';
+  static const String groupChatLabel = "groupChatLabel";
   static const String copyGroupMessage = 'copyGroupMessage';
   static const String removeGroupMessage = 'removeGroupMessage';
   static const String reportGroupMessage = 'reportGroupMessage';
@@ -744,6 +746,7 @@ class LocalizedTexts {
   static const String descriptionWithWhom = 'descriptionWithWhom';
   static const String descriptionWhere = 'descriptionWhere';
   static const String descriptionFood = 'descriptionFood';
+
   //Log weight
   static const String logWeight = 'logWeight';
 

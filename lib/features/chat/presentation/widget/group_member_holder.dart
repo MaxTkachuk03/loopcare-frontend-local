@@ -22,7 +22,7 @@ class GroupMemberHolder extends StatelessWidget {
           child: CustomText.w400(
             member.nickname!,
             textAlign: TextAlign.start,
-            style: context.textTheme.bodyMedium?.copyWith(color: AppColors.darkGreen),
+            style: context.textTheme.bodyLarge?.copyWith(color: AppColors.greenDarkest),
           ),
         ),
       ],

@@ -795,6 +795,8 @@
   "youCanStartLogging": "You can start logging your meals right now",
   "reportIssueAndEmergencyTitle": "Report issue & emergency",
   "groupChat": "Group chat",
+  "groupChatTitle": "Group participants",
+  "groupChatLabel": "There are currently {users} participants in your support group",
   "copyGroupMessage": "Copy",
   "removeGroupMessage": "Remove",
   "reportGroupMessage": "Report",
