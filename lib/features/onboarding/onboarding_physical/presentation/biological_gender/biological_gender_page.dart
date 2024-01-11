@@ -1,6 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -17,26 +20,32 @@ class BiologicalGenderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PhysicalQuestionWrap(
       isWithOnWillPop: false,
-      child: SafeArea(
-        child: ScrollableContainer(
-          child: Column(
-            children: [
-              ProgressBar.blue(backgroundColor: AppColors.yellowRegular),
-              MainContainer(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 80),
-                    CustomText.bitter600(
-                      '${LocalizedTexts.biologicalGenderPageTitle.tr()}?',
-                      textAlign: TextAlign.center,
-                      style: context.textTheme.displayMedium,
-                    ),
-                    const SizedBox(height: 36),
-                    const BiologicalGenderChips(),
-                  ],
-                ),
-              )
-            ],
+      child: CustomScaffold.yellowLightest(
+        appBar: CustomAppBar.yellow(
+          title: LocalizedTexts.physicalIntroTitle.tr(),
+          leading: CustomFilledIconButton.leadingYellowLighter(),
+        ),
+        body: SafeArea(
+          child: ScrollableContainer(
+            child: Column(
+              children: [
+                ProgressBar.blue(backgroundColor: AppColors.yellowRegular),
+                MainContainer(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 80),
+                      CustomText.bitter600(
+                        '${LocalizedTexts.biologicalGenderPageTitle.tr()}?',
+                        textAlign: TextAlign.center,
+                        style: context.textTheme.displayMedium,
+                      ),
+                      const SizedBox(height: 36),
+                      const BiologicalGenderChips(),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

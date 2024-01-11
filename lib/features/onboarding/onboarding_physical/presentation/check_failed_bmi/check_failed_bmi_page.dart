@@ -47,7 +47,7 @@ class CheckFailedBmiPage extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                   decoration: const BoxDecoration(
-                    color: AppColors.white,
+                    color: AppColors.yellowLightest,
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                   ),
                   child: Column(
