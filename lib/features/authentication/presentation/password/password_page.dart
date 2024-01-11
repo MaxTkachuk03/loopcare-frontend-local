@@ -100,8 +100,8 @@ class _PasswordPageState extends State<PasswordPage> {
 
   @override
   void dispose() {
-    super.dispose();
-
     _passwordController.dispose();
+
+    super.dispose();
   }
 }
