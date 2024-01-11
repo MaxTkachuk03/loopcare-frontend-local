@@ -24,12 +24,6 @@ class PersonalDetailsSection extends StatelessWidget {
                 title: LocalizedTexts.personalDetails.tr(),
               ),
               SectionItem(
-                title: LocalizedTexts.name.tr(),
-                subTitle: state.name,
-                onPressHandler: () {},
-              ),
-              const Divider(height: 1.0, color: AppColors.blueLighter),
-              SectionItem(
                 title: LocalizedTexts.height.tr(),
                 subTitle: '${state.height}',
                 onPressHandler: () {},

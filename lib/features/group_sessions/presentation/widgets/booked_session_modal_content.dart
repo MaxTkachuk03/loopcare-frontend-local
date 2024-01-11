@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
@@ -24,10 +25,10 @@ class BookedSessionModalContent extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                LocalizedTexts.bookedForYou,
+              CustomText.w400(
+                LocalizedTexts.bookedForYou.tr(),
                 style: Theme.of(context).textTheme.headlineSmall,
-              ).tr(),
+              ),
               const SizedBox(height: 16.0),
               BookedSessionCard(
                 duration: state.data.topics[DateTime.now().weekNumber]?.duration ?? 0,

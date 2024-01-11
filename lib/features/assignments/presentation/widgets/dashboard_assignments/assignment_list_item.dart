@@ -38,7 +38,7 @@ class AssignmentListItem extends StatelessWidget {
                 height: 20,
                 child: ImageIcon(
                   AppIcons.iconCheckmark,
-                  color: isComplete ? AppColors.greenMid : AppColors.greyMid,
+                  color: isComplete ? AppColors.greenRegular : AppColors.greyMid,
                   size: 14,
                 ),
               ),
@@ -66,10 +66,7 @@ class AssignmentListItem extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 14.0),
-              const ImageIcon(
-                AppIcons.arrow,
-                color: AppColors.greyLabel,
-              ),
+              const ImageIcon(AppIcons.arrow, color: AppColors.blueDarker),
             ],
           ),
         ),

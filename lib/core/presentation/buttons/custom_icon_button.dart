@@ -20,6 +20,12 @@ class CustomIconButton extends StatelessWidget {
         onPressed: onPressed,
       );
 
+  factory CustomIconButton.custom({required Widget icon, OnPressed? onPressed}) => CustomIconButton(
+        padding: EdgeInsets.zero,
+        icon: icon,
+        onPressed: onPressed,
+      );
+
   @override
   Widget build(BuildContext context) {
     return IconButton(

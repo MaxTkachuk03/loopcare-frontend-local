@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
@@ -18,13 +20,10 @@ class LookingForGroup extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          LocalizedTexts.weWillNotifyYouAboutGroup,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: AppColors.blueDark,
-                fontWeight: FontWeight.w600,
-              ),
-        ).tr(),
+        CustomText.w600(
+          LocalizedTexts.weWillNotifyYouAboutGroup.tr(),
+          style: context.textTheme.bodySmall,
+        ),
         BlocBuilder<AuthenticationCubit, AuthenticationState>(
           builder: (context, state) {
             final groupingStartedAt = state.groupingStartedAt;
@@ -33,13 +32,13 @@ class LookingForGroup extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                CustomText.w400(
                   LocalizedTexts.weAreLookingForAGroupSince.translation,
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: context.textTheme.bodySmall,
                 ),
-                Text(
+                CustomText.w400(
                   '${groupingStartedAt.fullDateWithYear}.',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
+                  style: context.textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
                 ),
               ],
             );
@@ -63,15 +62,13 @@ class LookingForGroup extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  LocalizedTexts.moreInformationInPreferences,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                ).tr(),
+                CustomText.w600(
+                  LocalizedTexts.moreInformationInPreferences.tr(),
+                  style: context.textTheme.bodySmall,
+                ),
                 const ImageIcon(
                   AppIcons.arrow,
-                  color: AppColors.greyLabel,
+                  color: AppColors.blueDarker,
                 ),
               ],
             ),

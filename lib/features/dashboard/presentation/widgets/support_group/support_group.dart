@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
@@ -40,9 +42,7 @@ class _SupportGroupState extends State<SupportGroup> {
     return Container(
       decoration: const BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.all(
-          Radius.circular(8),
-        ),
+        borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       child: Padding(
         padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
@@ -58,17 +58,15 @@ class _SupportGroupState extends State<SupportGroup> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Image(image: AppIcons.supportGroup),
+                        AppIcons.customSupportGroup,
                         const SizedBox(width: 24.0),
                         Flexible(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              CustomText.bitter600(
                                 LocalizedTexts.supportGroup.translation,
-                                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                      fontFamily: ThemeConstants.bitterFontFamily,
-                                    ),
+                                style: context.textTheme.headlineSmall,
                               ),
                             ],
                           ),
@@ -78,13 +76,13 @@ class _SupportGroupState extends State<SupportGroup> {
                   ),
                   const ImageIcon(
                     AppIcons.arrow,
-                    color: AppColors.greyLabel,
+                    color: AppColors.blueDarker,
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 8.0),
-            const Divider(color: AppColors.yellowLight),
+            const Divider(color: AppColors.blueOffRegular),
             BlocBuilder<AuthenticationCubit, AuthenticationState>(
               builder: (context, state) {
                 switch (state.groupingState) {

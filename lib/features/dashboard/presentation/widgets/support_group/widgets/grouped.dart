@@ -4,11 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped_no_timeslots.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped_not_signed.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped_signed.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/no_group.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/session_card.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 
 class Grouped extends StatelessWidget {
@@ -43,24 +45,22 @@ class Grouped extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (state.data.isGroupsOnWeekAvailable)
-                  Text(
+                  CustomText.bitter600(
                     state.data.isHappeningNow
-                        ? LocalizedTexts.happeningNow.tr().toUpperCase()
-                        : LocalizedTexts.comingUpThisWeek.tr().toUpperCase(),
-                    style: const TextStyle(
-                      fontSize: ThemeConstants.fontSize12,
-                      color: AppColors.greyLabel,
-                    ),
+                        ? LocalizedTexts.happeningNow.tr()
+                        : LocalizedTexts.comingUpThisWeek.tr(),
+                    style: context.textTheme.bodyLarge,
                   ),
                 const SizedBox(height: 16.0),
-                if (!state.data.timeSlotsAvailable && !state.data.isSigned && state.data.isGroupsOnWeekAvailable)
+                if (!state.data.timeSlotsAvailable &&
+                    !state.data.isSigned &&
+                    state.data.isGroupsOnWeekAvailable)
                   const GroupedNoTimeslots(),
                 if (state.data.timeSlotsAvailable && !state.data.isSigned)
                   GroupedNotSigned(topicName: state.data.weekTopicName),
                 if (!state.data.isGroupsOnWeekAvailable) const NoGroup(),
                 if (state.data.isSigned && state.data.isGroupsOnWeekAvailable)
-                  GroupedSigned(
-                    signedGroupSessions: state.data.signedGroupSession!,
+                  SessionCard(
                     topicName: state.data.weekTopicName,
                     startDate: state.data.signedGroupSessionStartTime ?? DateTime.now(),
                     endDate: state.data.signedGroupSessionsEndTime ?? DateTime.now(),
@@ -72,6 +72,7 @@ class Grouped extends StatelessWidget {
                     sessionMightBeCancelled: state.data.signedGroupSessionsMightBeCancelled,
                     isHappeningNow: state.data.isHappeningNow,
                     isCanJoin: state.data.isCanJoin,
+                    minMemberCount: state.data.signedGroupSession?.minMemberCount ?? 0,
                   ),
               ],
             );

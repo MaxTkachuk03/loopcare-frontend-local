@@ -17,10 +17,10 @@ class SessionRulesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.blueLightest(
-      appBar: CustomAppBar.blue(
-        leading: CustomFilledIconButton.leadingBlueLighter(),
+    return CustomScaffold.orange(
+      appBar: CustomAppBar.orange(
         title: LocalizedTexts.groupRules.translation,
+        leading: CustomFilledIconButton.leadingOrangeLighter(),
       ),
       body: SafeArea(
         child: MainContainer(
