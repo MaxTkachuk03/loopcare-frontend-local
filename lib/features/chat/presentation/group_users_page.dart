@@ -74,7 +74,6 @@ class _GroupUsersPageState extends State<GroupUsersPage> with WidgetsBindingObse
                 member: item,
               ),
               onRefresh: () => widget.controller.refreshMembers(),
-              onLoadMore: () => widget.controller.loadMembers(),
               isLoading: state.data.isLoadingMembers,
             ),
           );

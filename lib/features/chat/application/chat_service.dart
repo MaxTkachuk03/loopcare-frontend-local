@@ -10,7 +10,7 @@ abstract class ChatService {
   Future<Either<RequestError, ListChatMessages>> getMessages(
       {String? fromMessageId, required int limit, String order = 'ASC'});
 
-  Future<Either<RequestError, ListGroupMembers>> getMembers({int? id, required int limit});
+  Future<Either<RequestError, ListGroupMembers>> getMembers();
 
   Future<Either<RequestError, GroupMessage>> sendMessages(GroupMessage message);
 

@@ -90,29 +90,25 @@ class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
     GetMembers event,
     Emitter<GroupChatState> emit,
   ) async {
-    if (!_hasReachedMembersMax || (event.refresh ?? false)) {
-      emit(GroupChatState.loading(state.data.copyWith(isLoadingMembers: true)));
-      final response = await chatService.getMembers(id: (event.refresh ?? false) ? null : _fromMemberId, limit: _limit);
-      response.fold(
-        (error) => emit(
-          GroupChatState.error(
-            GroupChatStateData(error: error, isLoadingMembers: false),
-          ),
+    emit(GroupChatState.loading(state.data.copyWith(isLoadingMembers: true)));
+    final response = await chatService.getMembers();
+    response.fold(
+      (error) => emit(
+        GroupChatState.error(
+          GroupChatStateData(error: error, isLoadingMembers: false),
         ),
-        (r) {
-          final List<GroupMember> result = (event.refresh ?? false) ? r.data : [..._currentMembers, ...r.data];
-          emit(
-            GroupChatState.uploadedMembers(
-              state.data.copyWith(
-                hasReachedMembersMax: r.data.isEmpty || r.data.length < _limit,
-                members: result,
-              ),
+      ),
+      (r) {
+        emit(
+          GroupChatState.uploadedMembers(
+            state.data.copyWith(
+              members: r.data,
             ),
-          );
-          emit(GroupChatState.loading(state.data.copyWith(isLoadingMembers: false)));
-        },
-      );
-    }
+          ),
+        );
+        emit(GroupChatState.loading(state.data.copyWith(isLoadingMembers: false)));
+      },
+    );
   }
 
   FutureOr<void> _onRemoveMessageFromSocket(
@@ -219,9 +215,6 @@ class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
           r.data.sort((a, b) {
             return b.createdAt!.compareTo(a.createdAt!);
           });
-          // for (final message in r.data) {
-          //   debugPrint('devcpp Message: ${message.id}');
-          // }
           final List<GroupMessage> result = (event.refresh ?? false) ? r.data : [..._currentMessages, ...r.data];
           final uniqueData = unique(result);
           emit(
@@ -247,15 +240,9 @@ class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
 
   List<GroupMessage> get _currentMessages => state.data.messages;
 
-  List<GroupMember> get _currentMembers => state.data.members;
-
   String? get _fromMessageId => _currentMessages.isNotEmpty ? '${_currentMessages.last.id}' : null;
 
-  int? get _fromMemberId => _currentMembers.isNotEmpty ? _currentMembers.last.accountId : null;
-
   bool get _hasReachedMessagesMax => state.data.hasReachedMessagesMax;
-
-  bool get _hasReachedMembersMax => state.data.hasReachedMembersMax;
 
   int get _limit => 20;
 
