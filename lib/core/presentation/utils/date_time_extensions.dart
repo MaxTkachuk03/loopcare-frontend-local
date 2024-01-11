@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import "package:moment_dart/moment_dart.dart";
 
 extension DateTimeExtension on DateTime {
   bool isSameDate(DateTime other) {
@@ -40,6 +41,10 @@ extension DateTimeExtension on DateTime {
 
   String get shortDateWithYear {
     return DateFormat('d MMMM y', 'en_EN').format(this);
+  }
+
+  String get americanShortDateWithYear {
+    return Moment(this).format('MMMM Do YYYY');
   }
 
   String get fullDate {
