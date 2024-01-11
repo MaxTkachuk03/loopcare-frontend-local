@@ -25,10 +25,8 @@ class APIChatService implements ChatService {
   }
 
   @override
-  Future<Either<RequestError, ListGroupMembers>> getMembers({int? id, required int limit}) {
-    return client.get('/chats/members', queryParameters: {
-      ..._qpPg(id, limit),
-    }).then(parseResponse(ListGroupMembers.fromJson));
+  Future<Either<RequestError, ListGroupMembers>> getMembers() {
+    return client.get('/chats/members').then(parseResponse(ListGroupMembers.fromJson));
   }
 
   @override

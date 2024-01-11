@@ -8,7 +8,7 @@ class GroupChatController {
   final GroupChatBloc bloc;
   final types.User user;
 
-  GroupChatController({required this.bloc, required this.user}) {}
+  GroupChatController({required this.bloc, required this.user});
 
   String getNames(GroupChatState state) => state.data.members.map((item) => item.nickname).toList().join(",");
 
