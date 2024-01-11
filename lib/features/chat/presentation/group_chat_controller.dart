@@ -10,7 +10,7 @@ class GroupChatController {
 
   GroupChatController({required this.bloc, required this.user});
 
-  String getNames(GroupChatState state) => state.data.members.map((item) => item.nickname).toList().join(",");
+  String getNames(GroupChatState state) => state.data.members.map((item) => item.nickname).toList().join(", ");
 
   void handleSendPressed(types.PartialText message) {
     GroupMessage groupMessage = MapperChatMessage.groupMessageMapper(message, user.id);

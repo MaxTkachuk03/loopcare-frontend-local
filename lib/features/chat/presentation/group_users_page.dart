@@ -7,6 +7,8 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_list/app_list.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
 import 'package:loopcare_frontend/features/chat/domain/group_member.dart';
@@ -63,18 +65,44 @@ class _GroupUsersPageState extends State<GroupUsersPage> with WidgetsBindingObse
                 subtitle: _getNames(state),
                 leading: CustomFilledIconButton.leadingOrangeLighter(),
                 actions: const [
-                  SizedBox(
-                    width: 30,
-                  ),
+                  SizedBox(width: 30),
                 ]),
-            body: AppList<GroupMember>(
-              items: state.data.members,
-              holderText: LocalizedTexts.membersEmpty.tr(),
-              itemBuilder: (context, item) => GroupMemberHolder(
-                member: item,
-              ),
-              onRefresh: () => widget.controller.refreshMembers(),
-              isLoading: state.data.isLoadingMembers,
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0, right: 16, top: 37, bottom: 20),
+                  child: CustomText.bitter600(
+                    LocalizedTexts.groupChatTitle.tr(),
+                    style: context.textTheme.displayMedium,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: CustomText.w400(
+                    '${LocalizedTexts.groupChatLabel.tr(
+                      namedArgs: {'users': '${state.data.members.length}'},
+                    )}.',
+                    style: context.textTheme.bodyMedium,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                const SizedBox(height: 13),
+                Expanded(
+                  child: AppList<GroupMember>(
+                    items: state.data.members,
+                    holderText: LocalizedTexts.membersEmpty.tr(),
+                    itemBuilder: (context, item) => GroupMemberHolder(
+                      member: item,
+                    ),
+                    onRefresh: () => widget.controller.refreshMembers(),
+                    onLoadMore: () => widget.controller.loadMembers(),
+                    isLoading: state.data.isLoadingMembers,
+                  ),
+                ),
+              ],
             ),
           );
         },
@@ -82,7 +110,7 @@ class _GroupUsersPageState extends State<GroupUsersPage> with WidgetsBindingObse
     );
   }
 
-  String _getNames(GroupChatState state) => state.data.members.map((item) => item.nickname).toList().join(",");
+  String _getNames(GroupChatState state) => state.data.members.map((item) => item.nickname).toList().join(", ");
 
   void _onChangeListener(BuildContext context, GroupChatState state) {
     state.maybeMap(
