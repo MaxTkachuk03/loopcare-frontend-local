@@ -68,7 +68,7 @@ class _PasswordPageState extends State<PasswordPage> {
                     BlocBuilder<AuthenticationCubit, AuthenticationState>(
                       builder: (BuildContext context, state) {
                         return CustomText.bitter700(
-                          '${LocalizedTexts.enterPasswordTitle.tr()}, ${state.maybeMap(password: (state) => state.name.capitalize(), orElse: () => '')}',
+                          '${LocalizedTexts.enterPasswordTitle.tr()}, ${state.maybeMap(password: (state) => state.name.capitalize(), orElse: () => '')}!',
                           style: context.textTheme.displayMedium,
                         );
                       },

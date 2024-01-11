@@ -27,10 +27,13 @@ class EmailAddressForm extends StatefulWidget {
 }
 
 class _EmailAddressFormState extends State<EmailAddressForm> {
-  String? emailErrorText;
-  bool termsAndConditionsAreChecked = false;
-  bool _isDisabled = true;
   final _formKey = GlobalKey<FormState>();
+
+  String? emailErrorText;
+  bool _isDisabled = true;
+
+  bool termsAndConditionsAreChecked = false;
+  bool privatePolicyAccepted = false;
 
   final TextEditingController _emailController = TextEditingController();
 
@@ -70,7 +73,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
                 maxLines: 2,
                 overflow: TextOverflow.visible,
                 text: TextSpan(
-                  text: '${LocalizedTexts.iHaveReadAndAcceptThe.tr()} ',
+                  text: '${LocalizedTexts.iAcceptThe.tr()} ',
                   style: context.textTheme.bodyMedium,
                   children: [
                     TextSpan(
@@ -85,6 +88,28 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
               ),
               onChanged: _onTermsAndConditionsChanged,
             ),
+            const SizedBox(height: 10),
+            CheckboxFormField(
+              errorText: '${LocalizedTexts.pleaseAcceptPrivacyPolicy.tr()}.',
+              text: RichText(
+                maxLines: 2,
+                overflow: TextOverflow.visible,
+                text: TextSpan(
+                  text: '${LocalizedTexts.iAcceptThe.tr()} ',
+                  style: context.textTheme.bodyMedium,
+                  children: [
+                    TextSpan(
+                      recognizer: TapGestureRecognizer()..onTap = _onPrivacyPolicyTap,
+                      text: LocalizedTexts.privacyPolicy.tr(),
+                      style: context.textTheme.bodyMedium?.copyWith(
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              onChanged: _onPrivacyPolicyChanged,
+            ),
             const SizedBox(height: 16.0),
             CustomElevatedButton.blueFullWidth(
               onPressed: _isDisabled ? null : () => _onRegisterPressed(context),
@@ -97,7 +122,9 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
   }
 
   _onChangedForm() {
-    final isValidForm = Email.create(_emailController.text).isRight() && termsAndConditionsAreChecked;
+    final isValidForm = Email.create(_emailController.text).isRight() &&
+        termsAndConditionsAreChecked &&
+        privatePolicyAccepted;
 
     setState(() {
       _isDisabled = !isValidForm;
@@ -122,9 +149,17 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
 
   void _onTermsAndConditionsTap() {}
 
+  void _onPrivacyPolicyTap() {}
+
   void _onTermsAndConditionsChanged(bool? value) {
     setState(() {
-      termsAndConditionsAreChecked = value ?? false;
+      termsAndConditionsAreChecked = value!;
+    });
+  }
+
+  void _onPrivacyPolicyChanged(bool? value) {
+    setState(() {
+      privatePolicyAccepted = value!;
     });
   }
 

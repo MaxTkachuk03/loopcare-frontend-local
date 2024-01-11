@@ -914,8 +914,10 @@ class LocalizedTexts {
   static const String emailTitle = 'emailTitle';
   static const String emailBody = 'emailBody';
   static const String termsAndConditions = 'termsAndConditions';
-  static const String iHaveReadAndAcceptThe = 'iHaveReadAndAcceptThe';
+  static const String privacyPolicy = 'privacyPolicy';
+  static const String iAcceptThe = 'iAcceptThe';
   static const String pleaseAcceptTOC = 'pleaseAcceptTOC';
+  static const String pleaseAcceptPrivacyPolicy = 'pleaseAcceptPrivacyPolicy';
   static const String register = 'register';
   static const String emailAlreadyTaken = 'emailAlreadyTaken';
   static const String somethingIsIncorrect = 'somethingIsIncorrect';
