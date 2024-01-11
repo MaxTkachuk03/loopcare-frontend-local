@@ -85,6 +85,7 @@ class _MedicinesPageState extends State<MedicinesPage> {
                               itemBuilder: (BuildContext context, int i) => CustomTextField(
                                 controller: controllers[i],
                                 hintText: LocalizedTexts.medicinesPlaceholder.tr(),
+                                maxLength: 30,
                               ),
                               separatorBuilder: (_, __) => const SizedBox(height: 28),
                             ),
