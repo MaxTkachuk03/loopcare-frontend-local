@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class NoTimeslots extends StatelessWidget {
   const NoTimeslots({
@@ -13,25 +15,16 @@ class NoTimeslots extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        CustomText.w400(
           LocalizedTexts.comingUpThisWeek.tr().toUpperCase(),
-          style: const TextStyle(
-            fontSize: ThemeConstants.fontSize12,
-            color: AppColors.greyLabel,
-          ),
+          style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize12),
         ),
-        const SizedBox(
-          height: 16.0,
+        const SizedBox(height: 16.0),
+        CustomText.w600(
+          LocalizedTexts.noOtherTimeslotsAvailable.tr(),
+          style: context.textTheme.bodySmall,
         ),
-        Text(
-          LocalizedTexts.noOtherTimeslotsAvailable,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-        ).tr(),
-        const SizedBox(
-          height: 8.0,
-        ),
+        const SizedBox(height: 8.0),
       ],
     );
   }

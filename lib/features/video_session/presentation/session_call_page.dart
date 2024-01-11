@@ -600,6 +600,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       final hideAppBar = _isVideoPlaying && orientation == Orientation.landscape;
 
       return Scaffold(
+        backgroundColor: AppColors.orangeOffRegular,
         appBar: hideAppBar
             ? null
             : SessionAppBar(
@@ -624,18 +625,20 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                             talkingUsers: _talkingUsers,
                             usersWithCameraOff: _usersWithCameraOff,
                           ),
-                          SliverFillRemaining(child: BlocBuilder<SessionCallBloc, SessionCallState>(
-                            builder: (context, state) {
-                              final textEvents = context.read<TopicsBloc>().state.data.textEvents;
+                          SliverFillRemaining(
+                            child: BlocBuilder<SessionCallBloc, SessionCallState>(
+                              builder: (context, state) {
+                                final textEvents = context.read<TopicsBloc>().state.data.textEvents;
 
-                              final text = textEvents
-                                      .lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)
-                                      ?.text ??
-                                  '';
+                                final text = textEvents
+                                        .lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)
+                                        ?.text ??
+                                    '';
 
-                              return PromptsContainer(text: text);
-                            },
-                          )),
+                                return PromptsContainer(text: text);
+                              },
+                            ),
+                          ),
                         ],
                       ),
                     ),

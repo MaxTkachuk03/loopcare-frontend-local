@@ -5,7 +5,9 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson.dart';
@@ -30,7 +32,7 @@ class EducationCard extends StatelessWidget {
     Widget? icon = isCategoryItem ?? false
         ? const ImageIcon(
             AppIcons.iconCheckmark,
-            color: AppColors.greenMid,
+            color: AppColors.greenRegular,
             size: 18,
           )
         : null;
@@ -61,7 +63,8 @@ class EducationCard extends StatelessWidget {
           child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
             builder: (BuildContext context, state) {
               final lessonWithCountdown = state.data.lessonWithCountdown;
-              final isLessonWithCountDown = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
+              final isLessonWithCountDown =
+                  lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
               final isLocked = lesson.isLocked || isLessonWithCountDown;
 
               return GestureDetector(
@@ -80,25 +83,22 @@ class EducationCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 10.0),
-                            Text(
+                            CustomText.w700(
                               lesson.category.toUpperCase(),
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontSize: ThemeConstants.fontSize12,
-                                    fontWeight: isLocked ? FontWeight.w400 : FontWeight.w700,
-                                    color: isAvailable && !isLessonWithCountDown
-                                        ? AppColors.orangeDark
-                                        : AppColors.greyLabel,
-                                  ),
+                              style: context.textTheme.bodyMedium?.copyWith(
+                                color: isAvailable && !isLessonWithCountDown
+                                    ? AppColors.orangeDark
+                                    : AppColors.greyLabel,
+                              ),
                             ),
                             const SizedBox(height: 14.0),
-                            Text(
+                            CustomText.w600(
                               lesson.title,
-                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: isAvailable && !isLessonWithCountDown
-                                        ? AppColors.orangeDark
-                                        : AppColors.darkGreen,
-                                  ),
+                              style: context.textTheme.bodySmall?.copyWith(
+                                color: isAvailable && !isLessonWithCountDown
+                                    ? AppColors.orangeDark
+                                    : AppColors.blueDarker,
+                              ),
                             ),
                             const SizedBox(height: 14.0),
                             if (lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id)
@@ -109,9 +109,9 @@ class EducationCard extends StatelessWidget {
                                     height: 16.0,
                                   ),
                                   const SizedBox(width: 6.0),
-                                  Text(
+                                  CustomText.w600(
                                     '${LocalizedTexts.availableIn.translation}: ',
-                                    style: Theme.of(context).textTheme.bodySmall,
+                                    style: context.textTheme.bodySmall,
                                   ),
                                   EducationCountDown(
                                     seconds: lessonWithCountdown.timeRemaining,
@@ -128,7 +128,7 @@ class EducationCard extends StatelessWidget {
                                       isLessonWithCountDown
                                           ? const ImageIcon(
                                               AppIcons.iconLock,
-                                              color: AppColors.darkGreen,
+                                              color: AppColors.blueDarker,
                                             )
                                           : icon,
                                       const SizedBox(width: 8.0),
@@ -136,9 +136,9 @@ class EducationCard extends StatelessWidget {
                                   ),
                                 AppIcons.clock,
                                 const SizedBox(width: 6.0),
-                                Text(
+                                CustomText.w600(
                                   formatDuration(lesson.duration),
-                                  style: Theme.of(context).textTheme.bodySmall,
+                                  style: context.textTheme.bodySmall,
                                 )
                               ],
                             ),

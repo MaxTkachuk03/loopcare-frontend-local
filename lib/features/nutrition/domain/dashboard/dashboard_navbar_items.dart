@@ -24,7 +24,7 @@ enum DashboardNavbarItems {
   get color {
     switch (value) {
       case 'Today':
-        return AppColors.blueMid;
+        return AppColors.blueRegular;
       case 'Education':
         return AppColors.orangeRegular;
       case 'Group chat':

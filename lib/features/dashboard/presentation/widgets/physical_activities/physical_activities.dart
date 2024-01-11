@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
@@ -43,7 +44,9 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
   }
 
   void _updateData() {
-    context.read<PhysicalActivitiesBloc>().add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
+    context
+        .read<PhysicalActivitiesBloc>()
+        .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
 
     context.read<ProgramsInProgressBloc>().add(const ProgramsInProgressEvent.removeExpiredPrograms());
   }
@@ -55,7 +58,9 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
   get _isActive => widget.selectedDay.midnightTime == DateTime.now().midnightTime;
 
   void _programLogged(BuildContext context, PhysicalProgramsState state) {
-    context.read<PhysicalActivitiesBloc>().add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
+    context
+        .read<PhysicalActivitiesBloc>()
+        .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
   }
 
   @override
@@ -82,23 +87,23 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                     children: [
                       Row(
                         children: [
-                          const Image(image: AppIcons.physicalExercise),
+                          AppIcons.customPhysicalExercise,
                           const SizedBox(width: 24.0),
-                          Text(
-                            LocalizedTexts.physicalActivities,
+                          CustomText.bitter600(
+                            LocalizedTexts.physicalActivities.tr(),
                             style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                  fontFamily: ThemeConstants.bitterFontFamily,
-                                  color: _isActive && isAvailable ? AppColors.darkGreen : AppColors.greyLabel,
+                                  color:
+                                      _isActive && isAvailable ? AppColors.blueDarker : AppColors.greyLabel,
                                 ),
-                          ).tr(),
+                          ),
                         ],
                       ),
-                      if (isAvailable) const ImageIcon(AppIcons.arrow, color: AppColors.greyLabel),
+                      if (isAvailable) const ImageIcon(AppIcons.arrow, color: AppColors.blueDarker),
                     ],
                   ),
                 ),
                 const SizedBox(height: 8.0),
-                const Divider(color: AppColors.yellowLight),
+                const Divider(color: AppColors.blueOffRegular),
                 const SizedBox(height: 6.0),
                 BlocBuilder<ProgramsInProgressBloc, ProgramsInProgressState>(
                   builder: (BuildContext context, state) {
@@ -113,15 +118,15 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                             return ErrorScreen(
                               smallVersion: true,
                               error: error,
-                              onButtonPressed: () => context
-                                  .read<PhysicalActivitiesBloc>()
-                                  .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay)),
+                              onButtonPressed: () => context.read<PhysicalActivitiesBloc>().add(
+                                  PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay)),
                             );
                           },
                           loading: (_) => const Loader(),
                           orElse: () => const SizedBox.shrink(),
                           activitiesLoaded: (s) {
-                            final int timesPerWeek = context.read<AuthenticationCubit>().state.trainingFrequency!;
+                            final int timesPerWeek =
+                                context.read<AuthenticationCubit>().state.trainingFrequency!;
 
                             return isAvailable
                                 ? FilledActivitiesList(

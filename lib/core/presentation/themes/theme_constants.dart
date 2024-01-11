@@ -9,8 +9,8 @@ class ThemeConstants {
   static const double fontSize16 = 16.0;
   static const double fontSize18 = 18.0;
   static const double fontSize20 = 20.0;
-  static const double fontSize28 = 28.0;
   static const double fontSize24 = 24.0;
+  static const double fontSize28 = 28.0;
   static const double fontSize30 = 30.0;
   static const double fontSize32 = 32.0;
   static const double fontSize38 = 38.0;

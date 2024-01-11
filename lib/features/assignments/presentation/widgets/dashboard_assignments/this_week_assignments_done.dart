@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/dashboard_assignments/assignment_list_item.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 
@@ -21,13 +23,9 @@ class ThisWeekAssignmentsDone extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          LocalizedTexts.doneToday.translation.toUpperCase(),
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontSize: ThemeConstants.fontSize12,
-                fontWeight: FontWeight.w600,
-                color: AppColors.greyLabel,
-              ),
+        CustomText.w600(
+          LocalizedTexts.doneToday.translation.capitalize(),
+          style: context.textTheme.bodyLarge,
         ),
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),

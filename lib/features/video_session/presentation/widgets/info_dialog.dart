@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 
 class InformationDialog extends StatelessWidget {
   final String content;
@@ -21,13 +22,13 @@ class InformationDialog extends StatelessWidget {
     return AlertDialog(
       content: Text(content),
       actions: [
-        TextButton(
+        CustomElevatedButton.blueFullWidth(
           onPressed: onOkHandler,
-          child: Text(okText),
+          label: okText,
         ),
-        TextButton(
+        CustomElevatedButton.blueFullWidth(
           onPressed: onCancelHandler,
-          child: Text(cancelText),
+          label: cancelText,
         ),
       ],
     );

@@ -5,16 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:loopcare_frontend/core/domain/aws_cookies_type.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_countdown/session_countdown.dart';
@@ -54,11 +56,11 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
   Widget build(BuildContext context) {
     final sessionTopic = context.read<TopicsBloc>().state.data.weekTopicName;
 
-    return Scaffold(
-      appBar: BlueAppBar(
+    return CustomScaffold.orange(
+      appBar: CustomAppBar.orange(
         title: LocalizedTexts.groupSession.tr(),
         subtitle: sessionTopic,
-        leading: const BackButtonHexagon(),
+        leading: CustomFilledIconButton.leadingOrangeLighter(),
       ),
       body: SafeArea(
         child: MainContainer(
@@ -72,46 +74,30 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       const SizedBox(height: 35.0),
-                      Text(
+                      CustomText.w600(
                         '${LocalizedTexts.hi.tr()} ${context.read<AuthenticationCubit>().state.name},',
-                        style: const TextStyle(
-                          color: AppColors.darkGreen,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style: context.textTheme.bodyLarge,
                       ),
-                      Text(
+                      CustomText.w400(
                         '${LocalizedTexts.sessionGreeting.tr()}:',
-                        style: const TextStyle(
-                          color: AppColors.darkGreen,
-                          fontSize: 18,
-                        ),
+                        style: context.textTheme.bodyLarge,
                       ),
                       const SizedBox(height: 16.0),
-                      Text(
+                      CustomText.bitter600(
                         sessionTopic,
-                        style: const TextStyle(
-                          color: AppColors.darkGreen,
-                          fontSize: 32,
-                          fontFamily: ThemeConstants.bitterFontFamily,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style: context.textTheme.headlineMedium,
                       ),
                       const SizedBox(height: 16.0),
-                      const Text(
-                        LocalizedTexts.goodToKnow,
-                        style: TextStyle(
-                          color: AppColors.darkGreen,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ).tr(),
+                      CustomText.w600(
+                        LocalizedTexts.goodToKnow.tr(),
+                        style: context.textTheme.bodyLarge,
+                      ),
                       const SizedBox(height: 16.0),
                       BulletListItem(
-                        text: const Text(
-                          LocalizedTexts.warningOne,
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                        ).tr(),
+                        text: CustomText.w400(
+                          LocalizedTexts.warningOne.tr(),
+                          style: context.textTheme.bodyLarge,
+                        ),
                         bulletSize: 21.0,
                       ),
                       const SizedBox(height: 8.0),
@@ -122,19 +108,11 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
                             children: [
                               TextSpan(
                                 text: '${LocalizedTexts.warningTwo.tr()} ',
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.darkGreen,
-                                ),
+                                style: context.textTheme.bodyLarge,
                               ),
                               TextSpan(
                                 text: LocalizedTexts.groupRules.tr().toLowerCase(),
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.ballBlue,
-                                ),
+                                style: context.textTheme.bodyLarge,
                                 recognizer: _groupRulesTapRecognizer,
                               ),
                             ],

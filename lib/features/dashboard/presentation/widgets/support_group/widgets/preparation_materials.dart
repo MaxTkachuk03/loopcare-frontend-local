@@ -8,7 +8,9 @@ import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_se
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 
@@ -26,7 +28,7 @@ class PreparationMaterials extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(
             width: 1,
-            color: AppColors.yellowLight,
+            color: AppColors.blueLighter,
             style: BorderStyle.solid,
           ),
         ),
@@ -37,15 +39,15 @@ class PreparationMaterials extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  LocalizedTexts.prepareForSession,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
-                ).tr(),
-                Text(
+                CustomText.w700(
+                  LocalizedTexts.prepareForSession.tr(),
+                  style: context.textTheme.bodySmall,
+                ),
+                CustomText.w400(
                   LocalizedTexts.prepareTakes.tr(
                     namedArgs: {'times': '10 min'},
                   ),
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: context.textTheme.bodySmall,
                 ),
               ],
             ),
@@ -63,7 +65,9 @@ class PreparationMaterials extends StatelessWidget {
     final userId = context.read<AuthenticationCubit>().state.id;
     final sessionId = context.read<TopicsBloc>().state.data.signedGroupSessionId ?? 0;
 
-    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.openedSessionPreparationMaterials, {
+    context
+        .read<AnalyticsBloc>()
+        .add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.openedSessionPreparationMaterials, {
           "timestamp": DateTime.now().toIso8601String(),
         }));
 
