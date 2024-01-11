@@ -73,7 +73,7 @@
   "locomotorSystemDiseaseQuestion": "Have you been diagnosed with any disease of the locomotor system (e.g. arthritis, osteoporosis, back / neck pains or inflammatory disease)",
   "treatmentByTheDoctorQuestion": "Are you currently being treated by a psychologist or psychiatrist",
   "medicalCheckPassedTitle": "Medical check completed",
-  "medicalCheckPassedBody": "Great, you already completed 2 out of 3 sections",
+  "medicalCheckPassedBody": "Great, you already completed 2 out of 3 sections. Great, you’re nearly done",
   "medicalCheckFailedTitle": "Please check with your doctor or specialist",
   "medicalCheckFailedBody": "Please ask your doctor, specialist or psychologist before you use this app if it fits to your medical condition and / or treatment of",
   "medicalCheckFailedBody2": "Please note, we additionally offer support groups. If you want to take part in one of these groups later on in the program, you will need permission from your psychologist/psychiatrist first",

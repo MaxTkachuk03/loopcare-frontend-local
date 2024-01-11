@@ -52,7 +52,7 @@ class _MedicinesPageState extends State<MedicinesPage> {
   @override
   Widget build(BuildContext context) {
     return MedicalQuestionWrap(
-      child: CustomScaffold(
+      child: CustomScaffold.blueLightest(
         appBar: CustomAppBar.blue(
           title: LocalizedTexts.medicalIntroTitle.tr(),
           subtitle: LocalizedTexts.stepCounter.tr(args: ['2', '16']),

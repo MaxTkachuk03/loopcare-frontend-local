@@ -20,7 +20,7 @@ class MedicationPastPeriodPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MedicalQuestionWrap(
       isWithOnWillPop: false,
-      child: CustomScaffold(
+      child: CustomScaffold.blueLightest(
         appBar: CustomAppBar.blue(
           title: LocalizedTexts.medicalIntroTitle.tr(),
           subtitle: LocalizedTexts.stepCounter.tr(args: ['3', '16']),
