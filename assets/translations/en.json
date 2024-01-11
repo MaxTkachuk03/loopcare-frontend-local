@@ -819,10 +819,13 @@
   "youCanStartLogging": "You can start logging your meals right now",
   "reportIssueAndEmergencyTitle": "Report issue & emergency",
   "groupChat": "Group chat",
+  "groupChatTitle": "Group participants",
+  "groupChatLabel": "There are currently {users} participants in your support group",
   "copyGroupMessage": "Copy",
   "removeGroupMessage": "Remove",
   "reportGroupMessage": "Report",
   "snackMassageCopy": "Message text has been copied to clipboard",
-  "massageRemoved": "This message was deleted",
-  "membersEmpty": "Group chat doesn’t have members "
+  "messageRemoved": "This message was deleted",
+  "membersEmpty": "Group chat doesn’t have members ",
+  "messageLengthRestriction": "A text message may contain up to 1024 characters. Please, make your message shorter"
 }

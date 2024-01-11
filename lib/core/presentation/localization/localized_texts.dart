@@ -668,12 +668,15 @@ class LocalizedTexts {
 
   //Group chat
   static const String groupChat = 'groupChat';
+  static const String groupChatTitle = 'groupChatTitle';
+  static const String groupChatLabel = "groupChatLabel";
   static const String copyGroupMessage = 'copyGroupMessage';
   static const String removeGroupMessage = 'removeGroupMessage';
   static const String reportGroupMessage = 'reportGroupMessage';
   static const String snackMassageCopy = 'snackMassageCopy';
-  static const String massageRemoved = 'massageRemoved';
+  static const String messageRemoved = 'messageRemoved';
   static const String membersEmpty = 'membersEmpty';
+  static const String messageLengthRestriction = 'messageLengthRestriction';
 
   // Food preferences
   static const String foodLoggingUnlocked = "foodLoggingUnlocked";
@@ -706,6 +709,7 @@ class LocalizedTexts {
   static const String descriptionWithWhom = 'descriptionWithWhom';
   static const String descriptionWhere = 'descriptionWhere';
   static const String descriptionFood = 'descriptionFood';
+
   //Log weight
   static const String logWeight = 'logWeight';
 

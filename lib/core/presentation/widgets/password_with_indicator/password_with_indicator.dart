@@ -41,16 +41,15 @@ class _PasswordWithIndicatorState extends State<PasswordWithIndicator> {
     }
 
     if (RegExp(RegExpUtils.digitsReg).hasMatch(password)) {
-      strength += 1 / 4;
+      strength += 1 / 3;
     }
-    if (RegExp(RegExpUtils.letterReg).hasMatch(password)) {
-      strength += 1 / 4;
-    }
+
     if (RegExp(RegExpUtils.capitalLetterReg).hasMatch(password)) {
-      strength += 1 / 4;
+      strength += 1 / 3;
     }
+
     if (RegExp(RegExpUtils.specialCharactersReg).hasMatch(password)) {
-      strength += 1 / 4;
+      strength += 1 / 3;
     }
 
     return strength;
