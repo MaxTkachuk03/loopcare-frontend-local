@@ -2,9 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/mental_health_answer.dart';
@@ -44,16 +42,6 @@ class MentalHealthQuestionForm extends StatelessWidget {
               separatorBuilder: (_, __) => const SizedBox(height: 8.0),
               itemCount: currentTest.options.length,
             ),
-            Column(
-              children: [
-                const SizedBox(height: 30.0),
-                CustomElevatedButton.blueFullWidth(
-                  onPressed: currentAnswer != null ? () => _onNextPressed(context) : null,
-                  label: LocalizedTexts.next,
-                ),
-                const SizedBox(height: 30.0),
-              ],
-            )
           ],
         );
       },
@@ -62,16 +50,9 @@ class MentalHealthQuestionForm extends StatelessWidget {
 
   void _onSelected(int value, int currentQuestionId, BuildContext context) {
     context.read<MentalHealthBloc>().add(
-          MentalHealthEvent.setAnswer(
-            MentalHealthAnswer(
-              questionId: currentQuestionId,
-              optionId: value,
-            ),
-          ),
+          MentalHealthEvent.setAnswer(MentalHealthAnswer(questionId: currentQuestionId, optionId: value)),
         );
-  }
 
-  void _onNextPressed(BuildContext context) {
     final isLastQuestion = context.read<MentalHealthBloc>().state.data.isLastQuestionInTest;
 
     context
