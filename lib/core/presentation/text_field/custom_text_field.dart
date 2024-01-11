@@ -62,7 +62,7 @@ class CustomTextField extends StatefulWidget {
         prefixIcon: const Icon(Icons.search, size: 24),
         onChanged: onChanged,
         onCleared: onCleared,
-        isClearField: true,
+        isClearField: onCleared != null,
         fillColor: fillColor,
       );
 

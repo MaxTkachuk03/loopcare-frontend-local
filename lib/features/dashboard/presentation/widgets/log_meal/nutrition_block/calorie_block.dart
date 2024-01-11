@@ -28,8 +28,9 @@ class CalorieBlock extends StatelessWidget {
 
               if (state.data.calorieDensityValues.isEmpty) return const SizedBox();
 
-              final label =
-                  currentCalorieDensityItem != null ? currentCalorieDensityItem.label.capitalizeOnlyFirstLetter() : '-';
+              final label = currentCalorieDensityItem != null
+                  ? currentCalorieDensityItem.label.capitalizeOnlyFirstLetter()
+                  : '-';
 
               return GestureDetector(
                 onTap: _onItemPressed,
@@ -50,7 +51,7 @@ class CalorieBlock extends StatelessWidget {
                         const SizedBox(width: 4.0),
                         const ImageIcon(
                           AppIcons.arrow,
-                          color: AppColors.greyLabel,
+                          color: AppColors.blueDarker,
                           size: 10,
                         ),
                       ],

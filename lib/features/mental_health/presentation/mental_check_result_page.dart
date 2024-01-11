@@ -130,7 +130,7 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
                                       if (currentTest.type == MentalHealthTestType.phq8 && !isFinalResults)
                                         const PHQ8ResultText(),
                                       const SizedBox(height: 30.0),
-                                      if (state.data.showEmergencyBtn) EmergencyBtn(onPressHandler: () {})
+                                      if (state.data.showEmergencyBtn) const EmergencyBtn()
                                     ],
                                   ),
                                 ),

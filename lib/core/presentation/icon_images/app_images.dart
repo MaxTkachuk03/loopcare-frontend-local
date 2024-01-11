@@ -62,6 +62,8 @@ class AppImages {
 
   static const AssetImage noConnection = AssetImage('$imagesFilePath/no_connection.png');
 
+  static const AssetImage sessionPlaceholder = AssetImage('$imagesFilePath/session_placeholder.png');
+
   static SvgPicture logoSvgBig = SvgPicture.asset('$imagesFilePath/logo.svg', width: 114, height: 107);
 
   static SvgPicture logoSvgMedium = SvgPicture.asset('$imagesFilePath/logo.svg', width: 77, height: 71);

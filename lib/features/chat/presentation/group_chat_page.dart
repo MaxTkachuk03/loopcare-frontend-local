@@ -22,10 +22,12 @@ import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.d
 import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/overlay_popup/overlay_service_mode.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/group_chat_report.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
 import 'package:loopcare_frontend/features/chat/presentation/group_chat_controller.dart';
 import 'package:loopcare_frontend/features/chat/presentation/widget/bubble_widget.dart';
 import 'package:loopcare_frontend/features/chat/presentation/widget/group_chat_user_avatar.dart';
+import 'package:loopcare_frontend/features/chat/presentation/widget/hexagon_avatar.dart';
 import 'package:loopcare_frontend/features/report_abuse/application/report_abuse_bloc.dart';
 
 class GroupChatPage extends StatefulWidget {
@@ -124,6 +126,8 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
     return user;
   }
 
+  int get _getGroupId => context.read<AuthenticationCubit>().state.groupId!;
+
   @override
   Widget build(BuildContext context) {
     return KeyboardContainerListener(
@@ -149,7 +153,14 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
                       mode: OverlayServiceMode.chat(
                         canRemove: controller.user.id == message.author.id,
                         onCopy: () => _copy(context, message.text),
-                        onReport: () => _onPressHandler(context),
+                        onReport: () => _onPressHandler(
+                            context,
+                            GroupChatReport(
+                              accountId: int.parse(message.author.id),
+                              groupId: _getGroupId,
+                              messageId: int.parse(message.id),
+                              text: message.text,
+                            )),
                         onRemove: () => controller.removedMessage(fromMessageId: message.id),
                       ),
                     ),
@@ -167,9 +178,9 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
     );
   }
 
-  void _onPressHandler(BuildContext context) {
+  void _onPressHandler(BuildContext context, GroupChatReport groupChatReport) {
     context.read<ReportAbuseBloc>().add(const ReportAbuseEvent.init());
-    ModalBottomSheet.reportAbuse(context: context);
+    ModalBottomSheet.reportAbuse(context: context, chatReport: groupChatReport);
   }
 
   void _copy(BuildContext context, String message) {
@@ -221,9 +232,16 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
     required nextMessageInGroup,
   }) =>
       message.text.isEmpty
-          ? CustomText.w400(
-              LocalizedTexts.massageRemoved.tr(),
-              style: context.textTheme.bodySmall,
+          ? Container(
+              height: avatarSize,
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: CustomText.w400(
+                LocalizedTexts.massageRemoved.tr(),
+                style: context.textTheme.bodySmall?.copyWith(
+                  fontSize: ThemeConstants.fontSize12,
+                ),
+              ),
             )
           : BubbleWidget(
               message: message,

@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/group_chat_report.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_session_report.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/report_abuse_data.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -41,6 +42,7 @@ class ReportAbuseBloc extends Bloc<ReportAbuseEvent, ReportAbuseState> {
       message: event.message,
       appVersion: packageInfo.version,
       groupSession: event.groupSession,
+      groupChat: event.chatReport,
     );
     final response = await _authenticationService.reportAbuse(report);
 

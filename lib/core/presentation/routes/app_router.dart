@@ -117,7 +117,6 @@ import 'package:loopcare_frontend/features/proxy/proxy_page.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/quizzes_intro_page.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/quizzes_questions_page.dart';
 import 'package:loopcare_frontend/features/reflection/presentation/nutrition_details_page.dart';
-import 'package:loopcare_frontend/features/reflection/presentation/reflection_page.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/video_page.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/session_call_page.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/session_rules_page.dart';
@@ -552,10 +551,10 @@ const groupLessonRoutes = [
       path: AppRoutes.video,
       page: VideoPage,
     ),
-    AutoRoute(
-      path: AppRoutes.reflection,
-      page: ReflectionPage,
-    ),
+    // AutoRoute(
+    //   path: AppRoutes.reflection,
+    //   page: ReflectionPage,
+    // ),
     AutoRoute(
       path: AppRoutes.reflectionNutritionDetails,
       page: NutritionDetailsPage,

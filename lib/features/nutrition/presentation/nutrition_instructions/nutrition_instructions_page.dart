@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -25,16 +26,20 @@ class NutritionInstructionsPage extends StatelessWidget {
     return CustomScaffold.greenLightest(
       appBar: CustomAppBar.green(
         title: LocalizedTexts.nutritionValues.translation,
+        leading: CustomFilledIconButton.leadingGreenLighter(),
       ),
       body: SafeArea(
         child: MainContainer(
           child: ScrollableContainer(
-            child: NutritionTabs(
-              initialIndex: tabIndex,
-              tabBarViewChildren: [
-                CalorieDensity(value: calorieDensity),
-                ProteinDegree(value: proteinDegree),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.only(top: 24.0),
+              child: NutritionTabs(
+                initialIndex: tabIndex,
+                tabBarViewChildren: [
+                  CalorieDensity(value: calorieDensity),
+                  ProteinDegree(value: proteinDegree),
+                ],
+              ),
             ),
           ),
         ),

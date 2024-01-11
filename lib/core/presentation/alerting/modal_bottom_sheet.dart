@@ -23,6 +23,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/oval_bottom_border_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/emergency_numbers/emergency_number_card.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/group_chat_report.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_session_report.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
@@ -693,13 +694,9 @@ class ModalBottomSheet {
                         ),
                       ),
                       const SizedBox(height: 16.0),
-                      Text(
+                      CustomText.bitter600(
                         state.data.weekTopicName,
-                        style: const TextStyle(
-                          fontSize: ThemeConstants.fontSize24,
-                          fontFamily: ThemeConstants.bitterFontFamily,
-                          color: AppColors.blueDark,
-                        ),
+                        style: context.textTheme.headlineSmall,
                       ),
                       const SizedBox(height: 16.0),
                       state.data.isSigned && state.data.isGroupsOnWeekAvailable
@@ -1160,6 +1157,7 @@ class ModalBottomSheet {
   static void reportAbuse({
     required BuildContext context,
     GroupSessionReport? groupSession,
+    GroupChatReport? chatReport,
   }) =>
       showModalBottomSheet<void>(
           context: context,
@@ -1177,6 +1175,7 @@ class ModalBottomSheet {
                     padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
                     child: ReportAbuseWidget(
                       groupSession: groupSession,
+                      chatReport: chatReport,
                       close: () => Navigator.of(context).pop(),
                     ),
                   ),
@@ -1187,7 +1186,6 @@ class ModalBottomSheet {
 
   static void emergencyNumbers({
     required BuildContext context,
-    required void Function() onBtnPress,
   }) {
     showModalBottomSheet<void>(
       isScrollControlled: true,
@@ -1265,26 +1263,25 @@ class ModalBottomSheet {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
-                LocalizedTexts.sessionLeaveDialogText,
+              AppIcons.orangeExclamationMark,
+              const SizedBox(height: 16.0),
+              CustomText.w400(
+                LocalizedTexts.sessionLeaveDialogText.tr(),
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ).tr(),
+                style: context.textTheme.bodyMedium,
+              ),
               const SizedBox(height: 48.0),
-              ElevatedButton(
+              CustomElevatedButton.blueFullWidth(
                 onPressed: () {
                   context.router.pop();
                   onLeavePressed();
                 },
-                child: const Text(LocalizedTexts.leaveSession).tr(),
+                label: LocalizedTexts.leaveSession.tr(),
               ),
               const SizedBox(height: 12.0),
-              ElevatedButton(
+              CustomElevatedButton.blueFullWidth(
                 onPressed: onStayPressed,
-                child: const Text(LocalizedTexts.stayInTheSession).tr(),
+                label: LocalizedTexts.stayInTheSession.tr(),
               )
             ],
           ),

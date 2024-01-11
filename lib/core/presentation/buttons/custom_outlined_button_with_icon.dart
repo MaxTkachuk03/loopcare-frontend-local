@@ -203,14 +203,21 @@ class CustomOutlinedButtonWithIcon extends StatelessWidget {
         ),
       );
 
-  factory CustomOutlinedButtonWithIcon.blue(
-          {OnPressed? onPressed, required String label, required Widget icon}) =>
+  factory CustomOutlinedButtonWithIcon.blue({
+    OnPressed? onPressed,
+    required String label,
+    required Widget icon,
+    bool? needBackgroundColor,
+  }) =>
       CustomOutlinedButtonWithIcon(
         onPressed: onPressed,
         label: label,
         icon: icon,
         styles: ButtonStyle(
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
+          backgroundColor: MaterialStateProperty.all(
+            needBackgroundColor ?? false ? AppColors.blueLightest : AppColors.transparent,
+          ),
         ),
       );
 

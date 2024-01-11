@@ -6,8 +6,15 @@ class CustomText extends StatelessWidget {
   final String text;
   final TextStyle? style;
   final TextAlign? textAlign;
+  final int? maxLines;
 
-  const CustomText(this.text, {super.key, this.style, this.textAlign});
+  const CustomText(
+    this.text, {
+    super.key,
+    this.style,
+    this.textAlign,
+    this.maxLines,
+  });
 
   factory CustomText.bitter400(
     String text, {
@@ -76,6 +83,21 @@ class CustomText extends StatelessWidget {
         style: style?.copyWith(fontWeight: FontWeight.w400),
       );
 
+  factory CustomText.w400twoLineItalic(
+    String text, {
+    TextStyle? style,
+    TextAlign? textAlign,
+  }) =>
+      CustomText(
+        text,
+        textAlign: textAlign,
+        maxLines: 2,
+        style: style?.copyWith(
+          fontWeight: FontWeight.w400,
+          overflow: TextOverflow.ellipsis,
+        ),
+      );
+
   factory CustomText.w500(
     String text, {
     TextStyle? style,
@@ -111,6 +133,11 @@ class CustomText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text, textAlign: textAlign, style: style).tr();
+    return Text(
+      text,
+      textAlign: textAlign,
+      style: style,
+      maxLines: maxLines,
+    ).tr();
   }
 }

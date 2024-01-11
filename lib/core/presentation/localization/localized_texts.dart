@@ -425,6 +425,7 @@ class LocalizedTexts {
   static const String preferences = 'preferences';
   static const String name = 'name';
   static const String username = 'username';
+  static const String emailAddress = 'emailAddress';
   static const String changePassword = 'changePassword';
   static const String useFaceOrTouchId = 'useFaceOrTouchId';
   static const String requireLoginEachTime = 'requireLoginEachTime';

@@ -233,19 +233,21 @@ TextTheme _getTextTheme() {
       color: AppColors.blueDarker,
       fontSize: ThemeConstants.fontSize32,
     ),
-    headlineMedium: TextStyle(
-      color: AppColors.blueDarker,
-      fontSize: ThemeConstants.fontSize28,
-      fontWeight: FontWeight.w700,
-    ),
-    headlineSmall: TextStyle(
-      color: AppColors.blueDarker,
-      fontSize: ThemeConstants.fontSize18,
-    ),
     headlineLarge: TextStyle(
       // Restyled
       color: AppColors.blueDarker,
       fontSize: ThemeConstants.fontSize38,
+    ),
+    headlineMedium: TextStyle(
+      // Restyled
+      color: AppColors.blueDarker,
+      fontSize: ThemeConstants.fontSize32,
+      fontWeight: FontWeight.w700,
+    ),
+    headlineSmall: TextStyle(
+      // Restyled
+      color: AppColors.blueDarker,
+      fontSize: ThemeConstants.fontSize20,
     ),
     titleLarge: TextStyle(
       // Restyled

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_zoom_videosdk/flutter_zoom_view.dart' as zoom;
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_user.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class UserGridItemAndroid extends StatelessWidget {
   final ZoomVideoSdkUser user;
@@ -25,13 +27,9 @@ class UserGridItemAndroid extends StatelessWidget {
               "fullScreen": false,
             }),
           ),
-          Text(
+          CustomText.w400(
             user.userName,
-            style: const TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.w400,
-              color: Colors.white,
-            ),
+            style: context.textTheme.bodySmall?.copyWith(color: Colors.white),
           )
         ],
       ),

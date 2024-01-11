@@ -18,9 +18,9 @@ class ProgramTab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               ProgramTypeQuestion(),
               SizedBox(height: 24.0),
               ProgramPlaceQuestion(),
