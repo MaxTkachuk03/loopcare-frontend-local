@@ -39,6 +39,7 @@ class GroupChatPage extends StatefulWidget {
 
 class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserver {
   late GroupChatController controller;
+  final _maxMessageLength = 1024;
 
   @override
   void initState() {
@@ -146,7 +147,9 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
               messages: controller.getMessages(state.data.messages, state.data.members),
               bubbleBuilder: _bubbleBuilder,
               avatarBuilder: (user) => GroupChatUserAvatar(author: user),
-              onSendPressed: controller.handleSendPressed,
+              onSendPressed: (message) {
+                return message.text.length > _maxMessageLength ? _showPopover() : controller.handleSendPressed(message);
+              },
               onMessageLongPress: (BuildContext context, dynamic message) => serviceLocator.get<OverlayService>().show(
                     OverlayEvent.chatPopCard(
                       context: context,
@@ -177,6 +180,19 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
       ),
     );
   }
+
+  void _showPopover() => showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          content: CustomText('${LocalizedTexts.messageLengthRestriction.tr()}.'),
+          actions: [
+            TextButton(
+              onPressed: () => context.router.pop(),
+              child: Text(LocalizedTexts.ok.toUpperCase()),
+            ),
+          ],
+        ),
+      );
 
   void _onPressHandler(BuildContext context, GroupChatReport groupChatReport) {
     context.read<ReportAbuseBloc>().add(const ReportAbuseEvent.init());
@@ -237,7 +253,7 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: CustomText.w400(
-                LocalizedTexts.massageRemoved.tr(),
+                LocalizedTexts.messageRemoved.tr(),
                 style: context.textTheme.bodySmall?.copyWith(
                   fontSize: ThemeConstants.fontSize12,
                 ),
