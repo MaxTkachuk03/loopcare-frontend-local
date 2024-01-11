@@ -772,7 +772,7 @@ class LocalizedTexts {
 
   // Pregnant failed
   static const String failedPregnancyTitle = 'failedPregnancyTitle';
-  static const String failedPregnancyBody1 = 'failedPregnancyTitle';
+  static const String failedPregnancyBody1 = 'failedPregnancyBody1';
   static const String failedPregnancyBody2 = 'failedPregnancyBody2';
   static const String failedPregnancyBody3 = 'failedPregnancyBody3';
   static const String failedPregnancyBody4 = 'failedPregnancyBody4';
