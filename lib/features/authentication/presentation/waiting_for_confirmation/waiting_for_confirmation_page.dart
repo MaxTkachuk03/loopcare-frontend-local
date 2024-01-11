@@ -102,7 +102,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                   MainContainer(
                     child: Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                      padding: const EdgeInsets.all(32),
                       decoration: const BoxDecoration(
                         color: AppColors.white,
                         borderRadius: BorderRadius.all(Radius.circular(16)),
