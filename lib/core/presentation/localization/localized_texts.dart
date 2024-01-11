@@ -710,8 +710,9 @@ class LocalizedTexts {
   static const String removeGroupMessage = 'removeGroupMessage';
   static const String reportGroupMessage = 'reportGroupMessage';
   static const String snackMassageCopy = 'snackMassageCopy';
-  static const String massageRemoved = 'massageRemoved';
+  static const String messageRemoved = 'messageRemoved';
   static const String membersEmpty = 'membersEmpty';
+  static const String messageLengthRestriction = 'messageLengthRestriction';
 
   // Food preferences
   static const String foodLoggingUnlocked = "foodLoggingUnlocked";

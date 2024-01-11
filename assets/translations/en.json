@@ -799,6 +799,7 @@
   "removeGroupMessage": "Remove",
   "reportGroupMessage": "Report",
   "snackMassageCopy": "Message text has been copied to clipboard",
-  "massageRemoved": "This message was deleted",
-  "membersEmpty": "Group chat doesn’t have members "
+  "messageRemoved": "This message was deleted",
+  "membersEmpty": "Group chat doesn’t have members ",
+  "messageLengthRestriction": "A text message may contain up to 1024 characters. Please, make your message shorter"
 }
