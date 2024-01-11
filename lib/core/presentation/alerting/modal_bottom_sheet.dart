@@ -23,6 +23,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/oval_bottom_border_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/emergency_numbers/emergency_number_card.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/group_chat_report.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_session_report.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
@@ -1162,6 +1163,7 @@ class ModalBottomSheet {
   static void reportAbuse({
     required BuildContext context,
     GroupSessionReport? groupSession,
+    GroupChatReport? chatReport,
   }) =>
       showModalBottomSheet<void>(
           context: context,
@@ -1179,6 +1181,7 @@ class ModalBottomSheet {
                     padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
                     child: ReportAbuseWidget(
                       groupSession: groupSession,
+                      chatReport: chatReport,
                       close: () => Navigator.of(context).pop(),
                     ),
                   ),
