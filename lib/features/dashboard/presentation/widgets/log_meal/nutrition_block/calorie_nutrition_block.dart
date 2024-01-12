@@ -7,11 +7,13 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_me
 class CalorieNutritionBlock extends StatelessWidget {
   final double? calorieDensity;
   final double? proteinDegree;
+  final String? subtitle;
 
   const CalorieNutritionBlock({
     super.key,
     this.calorieDensity,
     this.proteinDegree,
+    this.subtitle,
   });
 
   void _onPressHandler(BuildContext context, {required int tabIndex}) {
@@ -19,6 +21,7 @@ class CalorieNutritionBlock extends StatelessWidget {
       tabIndex: tabIndex,
       calorieDensity: calorieDensity,
       proteinDegree: proteinDegree,
+      subtitle: subtitle,
     ));
   }
 

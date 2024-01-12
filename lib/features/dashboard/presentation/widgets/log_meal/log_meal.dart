@@ -103,9 +103,7 @@ class LogMeal extends StatelessWidget {
                               CustomText.bitter600(
                                 LocalizedTexts.logYourMeals.translation,
                                 style: context.textTheme.headlineSmall?.copyWith(
-                                  color: mealsState.isEnableOnDashboard
-                                      ? AppColors.blueDarker
-                                      : AppColors.greyLabel,
+                                  color: AppColors.blueDarker,
                                 ),
                               ),
                               if (mealsState.filledCategories.isEmpty)
@@ -114,9 +112,7 @@ class LogMeal extends StatelessWidget {
                                       ? LocalizedTexts.noMealsLoggedYet.translation
                                       : LocalizedTexts.noMealsLogged.translation,
                                   style: context.textTheme.bodySmall?.copyWith(
-                                    color: mealsState.isEnableOnDashboard
-                                        ? AppColors.blueDarker
-                                        : AppColors.greyLabel,
+                                    color: AppColors.blueDarker,
                                   ),
                                 ),
                             ],
@@ -177,6 +173,11 @@ class LogMeal extends StatelessWidget {
                                 CalorieNutritionBlock(
                                   proteinDegree: mealsState.selectedDayMealProteinDegreeSum,
                                   calorieDensity: mealsState.selectedDayMealCalorieDensitySum,
+                                  subtitle: context
+                                      .read<MealsBloc>()
+                                      .state
+                                      .getCurrentDate
+                                      .americanShortDateWithYear,
                                 ),
                               ],
                             ),
