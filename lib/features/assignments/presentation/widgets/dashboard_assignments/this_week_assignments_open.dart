@@ -23,10 +23,10 @@ class ThisWeekAssignmentsOpen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomText.w600(
+        CustomText.bitter600(
           onDashboard
               ? LocalizedTexts.thisWeek.translation.toUpperCase()
-              : LocalizedTexts.thisWeek.translation.capitalize(),
+              : LocalizedTexts.todo.translation.capitalize(),
           style: context.textTheme.bodyLarge,
         ),
         ListView.builder(

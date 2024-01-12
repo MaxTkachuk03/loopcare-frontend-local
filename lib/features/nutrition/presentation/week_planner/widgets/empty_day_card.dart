@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
@@ -28,26 +27,26 @@ class EmptyDayCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           DayCardHeader(date: date, onPressHandler: onPressHandler),
-          const Gap(6.0),
+          const SizedBox(height: 6.0),
           Text(
             date.shortDate,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.darkGreen),
           ),
-          const Gap(18.0),
+          const SizedBox(height: 18.0),
           const Divider(
             color: AppColors.bgGreen,
             thickness: 2.0,
             height: 2.0,
           ),
-          const Gap(6.0),
+          const SizedBox(height: 6.0),
           EmptyMeal(message: LocalizedTexts.nothingOnTheMenu.translation),
-          const Gap(20.0),
+          const SizedBox(height: 20.0),
           const Divider(
             color: AppColors.bgGreen,
             thickness: 2.0,
             height: 2.0,
           ),
-          const Gap(30.0),
+          const SizedBox(height: 30.0),
         ],
       ),
     );

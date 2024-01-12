@@ -67,7 +67,6 @@ dependencies:
     sdk: flutter
   flutter_zoom_videosdk: 
     path: ./local_plugins/zoom_video_sdk_update
-  gap: ^3.0.1
   bubble: ^1.2.1
   moment_dart: ^1.1.0
 
