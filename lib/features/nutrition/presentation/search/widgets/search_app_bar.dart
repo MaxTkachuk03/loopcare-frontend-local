@@ -78,6 +78,7 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
                 listener: _searchQueryListener,
                 child: CustomTextField.search(
                   controller: _searchTextController,
+                  onCleared: _onCleared,
                   onChanged: _onTextChange,
                 ),
               ),
@@ -134,6 +135,8 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
           ),
         );
   }
+
+  void _onCleared() => context.read<SearchBloc>().add(SearchEvent.resetData(mode: searchType));
 
   void _searchQueryListener(BuildContext context, SearchState state) {
     _searchTextController.text = state.data.searchParameters.query ?? '';
