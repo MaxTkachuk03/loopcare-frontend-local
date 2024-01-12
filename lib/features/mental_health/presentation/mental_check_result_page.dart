@@ -135,15 +135,16 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 24.0),
-                                Container(
-                                  width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                                  decoration: const BoxDecoration(
-                                    color: AppColors.white,
-                                    borderRadius: BorderRadius.all(Radius.circular(16)),
-                                  ),
-                                  child: CustomText.w400(_subText(), style: context.textTheme.bodyMedium),
-                                )
+                                if (_subText.isNotEmpty)
+                                  Container(
+                                    width: double.infinity,
+                                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                                    decoration: const BoxDecoration(
+                                      color: AppColors.white,
+                                      borderRadius: BorderRadius.all(Radius.circular(16)),
+                                    ),
+                                    child: CustomText.w400(_subText, style: context.textTheme.bodyMedium),
+                                  )
                               ],
                             ),
                           ),
@@ -172,17 +173,17 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
     );
   }
 
-  String _subText() {
+  String get _subText {
     final state = context.read<MentalHealthBloc>().state;
     final currentTest = state.data.currentTest;
 
     switch (currentTest?.type) {
       case MentalHealthTestType.who5:
-        return '${LocalizedTexts.who5SubText.tr()}!';
+        return '${LocalizedTexts.mentalResultSubText1.tr()}!';
+      case MentalHealthTestType.phq8:
+        return '${LocalizedTexts.mentalResultSubText2.tr()}!';
       case MentalHealthTestType.phq15:
-        return '${LocalizedTexts.phq15SubText.tr()}!';
-      case MentalHealthTestType.gad7:
-        return '${LocalizedTexts.gad75SubText.tr()}!';
+        return '${LocalizedTexts.mentalResultSubText3.tr()}!';
       default:
         return '';
     }

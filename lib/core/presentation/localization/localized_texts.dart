@@ -874,9 +874,9 @@ class LocalizedTexts {
   static const String bodyAndMindBalanceSummary = "bodyAndMindBalanceSummary";
   static const String stateOfMindSummary = "stateOfMindSummary";
   static const String checkCompleted = "checkCompleted";
-  static const String who5SubText = "who5SubText";
-  static const String phq15SubText = "phq15SubText";
-  static const String gad75SubText = "gad75SubText";
+  static const String mentalResultSubText1 = "mentalResultSubText1";
+  static const String mentalResultSubText2 = "mentalResultSubText2";
+  static const String mentalResultSubText3 = "mentalResultSubText3";
 
   // Time ends message
   static const String youExceededTimeMessage = "youExceededTimeMessage";
