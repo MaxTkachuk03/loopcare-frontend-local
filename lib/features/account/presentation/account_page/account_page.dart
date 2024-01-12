@@ -44,8 +44,9 @@ class _AccountPageState extends State<AccountPage> {
                 SizedBox(height: 32.0),
                 AccountSection(),
                 SizedBox(height: 24.0),
-                PersonalDetailsSection(),
-                SizedBox(height: 24.0),
+                // TODO: LOOPCARE-1999: Remove "Personal details" section from user profile screen.
+                // PersonalDetailsSection(),
+                // SizedBox(height: 24.0),
                 // const TestResultsSection(),
                 // const SizedBox(height: 24.0),
                 PreferencesSection(),
