@@ -99,10 +99,14 @@ class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
         ),
       ),
       (r) {
+        final list = List<GroupMember>.from(r.data);
+        list.sort((a, b) {
+          return a.nickname!.toLowerCase().compareTo(b.nickname!.toLowerCase());
+        });
         emit(
           GroupChatState.uploadedMembers(
             state.data.copyWith(
-              members: r.data,
+              members: list,
             ),
           ),
         );
