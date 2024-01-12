@@ -37,12 +37,10 @@ class ErrorScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(top: 24.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              if (errorType.isSomethingWentWrongType)
-                smallVersion ? AppImages.oepsSmall : AppImages.oepsBig
-              else
-                smallVersion ? AppImages.noConnectionSmall : AppImages.noConnectionBig,
+              if (errorType.isSomethingWentWrongType) AppImages.oepsSmall else AppImages.noConnectionSmall,
               CustomText.bitter600(
                 errorType.isSomethingWentWrongType
                     ? LocalizedTexts.oeps.translation
