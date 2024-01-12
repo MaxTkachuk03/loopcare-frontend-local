@@ -163,6 +163,7 @@ class LocalizedTexts {
 
   //Nutrition
   static const String nutritionValues = 'nutritionValues';
+  static const String nutritionSummary = 'nutritionSummary';
   static const String calorieDensity = 'calorieDensity';
   static const String proteinDegree = 'proteinDegree';
   static const String whatIsCalorieDensity = 'whatIsCalorieDensity';

@@ -31,6 +31,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
     required OnSelected<T> onSelected,
     required T value,
     required String label,
+    Color? backgroundColor,
   }) =>
       CustomChoiceChip<T>(
         label: label,
@@ -39,6 +40,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
         value: value,
         selectedColor: AppColors.coralRegular,
         borderColor: AppColors.coralRegular,
+        backgroundColor: backgroundColor,
       );
 
   factory CustomChoiceChip.orange({

@@ -21,7 +21,12 @@ class NutritionBlock extends StatelessWidget {
 
   void _onPressHandler({required BuildContext context, required int tabIndex}) {
     context.router.push(
-        NutritionInstructionsRoute(tabIndex: tabIndex, calorieDensity: calorieDensity, proteinDegree: proteinDegree));
+      NutritionInstructionsRoute(
+        tabIndex: tabIndex,
+        calorieDensity: calorieDensity,
+        proteinDegree: proteinDegree,
+      ),
+    );
   }
 
   @override

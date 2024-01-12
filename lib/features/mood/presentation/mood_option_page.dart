@@ -131,11 +131,11 @@ class _MoodOptionPageState extends State<MoodOptionPage> {
         leading: CustomFilledIconButton.leadingOrangeLighter(),
       ),
       body: SafeArea(
-        child: ScrollableContainer(
-          child: MainContainer(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+        child: MainContainer(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              if (_description.isNotEmpty)
                 Align(
                   alignment: AlignmentDirectional.topStart,
                   child: Padding(
@@ -143,27 +143,23 @@ class _MoodOptionPageState extends State<MoodOptionPage> {
                     child: CustomText.bitter500(_description, style: context.textTheme.displayMedium),
                   ),
                 ),
-                Align(
-                  alignment: AlignmentDirectional.topStart,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 20.0),
-                      content,
-                    ],
-                  ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: ScrollableContainer(child: content),
                 ),
-                Column(
-                  children: [
-                    const SizedBox(height: 20.0),
-                    CustomElevatedButton.blueFullWidth(
-                      onPressed: _onConfirmHandler,
-                      label: LocalizedTexts.confirm.tr(),
-                    ),
-                    const SizedBox(height: 30.0),
-                  ],
-                )
-              ],
-            ),
+              ),
+              Column(
+                children: [
+                  const SizedBox(height: 20.0),
+                  CustomElevatedButton.blueFullWidth(
+                    onPressed: _onConfirmHandler,
+                    label: LocalizedTexts.confirm.tr(),
+                  ),
+                  const SizedBox(height: 30.0),
+                ],
+              )
+            ],
           ),
         ),
       ),
