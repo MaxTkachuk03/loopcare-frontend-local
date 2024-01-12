@@ -16,6 +16,7 @@ class OverlayEvent with _$OverlayEvent {
   const factory OverlayEvent.chatPopCard({
     required BuildContext context,
     required OverlayServiceMode mode,
+    bool? needOffset,
   }) = _ChatPopCard;
 }
 
@@ -33,8 +34,8 @@ class OverlayService {
     _behaviorSubject.listen(
       (event) {
         event.when(
-            chatPopCard: (BuildContext context, OverlayServiceMode mode) =>
-                PopoverCardSheet.showMenuPopup(context, mode, withSeparator: true));
+            chatPopCard: (BuildContext context, OverlayServiceMode mode, needOffset) =>
+                PopoverCardSheet.showMenuPopup(context, mode, withSeparator: true, needOffset: needOffset));
       },
     );
   }

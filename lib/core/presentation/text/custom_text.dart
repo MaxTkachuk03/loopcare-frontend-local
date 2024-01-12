@@ -7,6 +7,7 @@ class CustomText extends StatelessWidget {
   final TextStyle? style;
   final TextAlign? textAlign;
   final int? maxLines;
+  final TextOverflow? overflow;
 
   const CustomText(
     this.text, {
@@ -14,16 +15,19 @@ class CustomText extends StatelessWidget {
     this.style,
     this.textAlign,
     this.maxLines,
+    this.overflow,
   });
 
   factory CustomText.bitter400(
     String text, {
     TextStyle? style,
     TextAlign? textAlign,
+    TextOverflow? overflow,
   }) =>
       CustomText(
         text,
         textAlign: textAlign,
+        overflow: overflow,
         style: style?.copyWith(
           fontFamily: ThemeConstants.bitterFontFamily,
           fontWeight: FontWeight.w400,
@@ -34,10 +38,12 @@ class CustomText extends StatelessWidget {
     String text, {
     TextStyle? style,
     TextAlign? textAlign,
+    TextOverflow? overflow,
   }) =>
       CustomText(
         text,
         textAlign: textAlign,
+        overflow: overflow,
         style: style?.copyWith(
           fontFamily: ThemeConstants.bitterFontFamily,
           fontWeight: FontWeight.w500,
@@ -48,10 +54,12 @@ class CustomText extends StatelessWidget {
     String text, {
     TextStyle? style,
     TextAlign? textAlign,
+    TextOverflow? overflow,
   }) =>
       CustomText(
         text,
         textAlign: textAlign,
+        overflow: overflow,
         style: style?.copyWith(
           fontFamily: ThemeConstants.bitterFontFamily,
           fontWeight: FontWeight.w600,
@@ -61,11 +69,13 @@ class CustomText extends StatelessWidget {
   factory CustomText.bitter700(
     String text, {
     TextStyle? style,
+    TextOverflow? overflow,
     TextAlign? textAlign,
   }) =>
       CustomText(
         text,
         textAlign: textAlign,
+        overflow: overflow,
         style: style?.copyWith(
           fontFamily: ThemeConstants.bitterFontFamily,
           fontWeight: FontWeight.w700,
@@ -75,22 +85,28 @@ class CustomText extends StatelessWidget {
   factory CustomText.w400(
     String text, {
     TextStyle? style,
+    TextOverflow? overflow,
     TextAlign? textAlign,
+    int? maxLines,
   }) =>
       CustomText(
         text,
         textAlign: textAlign,
+        overflow: overflow,
+        maxLines: maxLines,
         style: style?.copyWith(fontWeight: FontWeight.w400),
       );
 
   factory CustomText.w400twoLineItalic(
     String text, {
     TextStyle? style,
+    TextOverflow? overflow,
     TextAlign? textAlign,
   }) =>
       CustomText(
         text,
         textAlign: textAlign,
+        overflow: overflow,
         maxLines: 2,
         style: style?.copyWith(
           fontWeight: FontWeight.w400,
@@ -101,11 +117,13 @@ class CustomText extends StatelessWidget {
   factory CustomText.w500(
     String text, {
     TextStyle? style,
+    TextOverflow? overflow,
     TextAlign? textAlign,
   }) =>
       CustomText(
         text,
         textAlign: textAlign,
+        overflow: overflow,
         style: style?.copyWith(fontWeight: FontWeight.w500),
       );
 
@@ -113,10 +131,12 @@ class CustomText extends StatelessWidget {
     String text, {
     TextStyle? style,
     TextAlign? textAlign,
+    TextOverflow? overflow,
   }) =>
       CustomText(
         text,
         textAlign: textAlign,
+        overflow: overflow,
         style: style?.copyWith(fontWeight: FontWeight.w600),
       );
 
@@ -124,10 +144,12 @@ class CustomText extends StatelessWidget {
     String text, {
     TextStyle? style,
     TextAlign? textAlign,
+    TextOverflow? overflow,
   }) =>
       CustomText(
         text,
         textAlign: textAlign,
+        overflow: overflow,
         style: style?.copyWith(fontWeight: FontWeight.w700),
       );
 
@@ -136,6 +158,7 @@ class CustomText extends StatelessWidget {
     return Text(
       text,
       textAlign: textAlign,
+      overflow: overflow,
       style: style,
       maxLines: maxLines,
     ).tr();

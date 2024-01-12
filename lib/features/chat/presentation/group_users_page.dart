@@ -96,6 +96,7 @@ class _GroupUsersPageState extends State<GroupUsersPage> with WidgetsBindingObse
                     holderText: LocalizedTexts.membersEmpty.tr(),
                     itemBuilder: (context, item) => GroupMemberHolder(
                       member: item,
+                      isNotYou: int.parse(widget.controller.user.id) != item.accountId,
                     ),
                     onRefresh: () => widget.controller.refreshMembers(),
                     onLoadMore: () => widget.controller.loadMembers(),

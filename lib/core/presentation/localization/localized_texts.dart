@@ -714,6 +714,7 @@ class LocalizedTexts {
   static const String snackMassageCopy = 'snackMassageCopy';
   static const String messageRemoved = 'messageRemoved';
   static const String membersEmpty = 'membersEmpty';
+  static const String yourUser = 'yourUser';
   static const String messageLengthRestriction = 'messageLengthRestriction';
 
   // Food preferences
@@ -747,7 +748,6 @@ class LocalizedTexts {
   static const String descriptionWithWhom = 'descriptionWithWhom';
   static const String descriptionWhere = 'descriptionWhere';
   static const String descriptionFood = 'descriptionFood';
-
   //Log weight
   static const String logWeight = 'logWeight';
 
