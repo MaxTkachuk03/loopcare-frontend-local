@@ -76,7 +76,7 @@ class MedicalCheckPassedPage extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(16)),
                         ),
                         child: CustomText.w600(
-                          LocalizedTexts.medicalCheckPassedBody,
+                          '${LocalizedTexts.medicalCheckPassedBody.tr()}!',
                           style: context.textTheme.bodyMedium,
                         ),
                       ),

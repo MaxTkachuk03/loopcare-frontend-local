@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preference.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
@@ -36,7 +35,6 @@ class _AllergicChipsState extends State<AllergicChips> {
                     (e) => SizedBox(
                       width: width,
                       child: CustomChoiceChip.coral(
-                        backgroundColor: AppColors.blueLightest,
                         label: e.name,
                         selected: selectedAllergic.contains(e),
                         value: e,

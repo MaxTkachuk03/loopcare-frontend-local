@@ -1,8 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -78,72 +82,78 @@ class _HeightPageState extends State<HeightPage> {
   @override
   Widget build(BuildContext context) {
     return PhysicalQuestionWrap(
-      child: SafeArea(
-        child: ScrollableContainer(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ProgressBar.blue(backgroundColor: AppColors.yellowRegular),
-              MainContainer(
-                child: Column(
-                  children: [
-                    CustomText.bitter600(
-                      LocalizedTexts.yourHeight,
-                      textAlign: TextAlign.center,
-                      style: context.textTheme.displayMedium,
-                    ),
-                    const SizedBox(height: 36.0),
-                    UnitTabs(
-                      tabBarViewChildren: [
-                        UnitField(
-                          unit: cm,
-                          controller: cmController,
-                          isDecimal: true,
-                          focusNode: cmFieldFocusNode,
-                          maxLength: Height.maxLengthMetric,
-                          counterText: '',
-                          onChanged: _setCM,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            UnitField(
-                              unit: ft,
-                              controller: ftController,
-                              focusNode: ftFieldFocusNode,
-                              maxLength: Height.maxLengthImperial,
-                              counterText: '',
-                              onChanged: _setFT,
-                            ),
-                            const SizedBox(width: 12.0),
-                            UnitField(
-                              unit: inches,
-                              controller: inController,
-                              maxLength: Height.maxLengthImperial,
-                              counterText: '',
-                              onChanged: _setIN,
-                            ),
-                          ],
-                        ),
-                      ],
-                      onTabChanged: _onTabChanged,
-                    ),
-                  ],
+      child: CustomScaffold.yellowLightest(
+        appBar: CustomAppBar.yellow(
+          title: LocalizedTexts.physicalIntroTitle.tr(),
+          leading: CustomFilledIconButton.leadingYellowLighter(),
+        ),
+        body: SafeArea(
+          child: ScrollableContainer(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ProgressBar.blue(backgroundColor: AppColors.yellowRegular),
+                MainContainer(
+                  child: Column(
+                    children: [
+                      CustomText.bitter600(
+                        LocalizedTexts.yourHeight,
+                        textAlign: TextAlign.center,
+                        style: context.textTheme.displayMedium,
+                      ),
+                      const SizedBox(height: 36.0),
+                      UnitTabs(
+                        tabBarViewChildren: [
+                          UnitField(
+                            unit: cm,
+                            controller: cmController,
+                            isDecimal: true,
+                            focusNode: cmFieldFocusNode,
+                            maxLength: Height.maxLengthMetric,
+                            counterText: '',
+                            onChanged: _setCM,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              UnitField(
+                                unit: ft,
+                                controller: ftController,
+                                focusNode: ftFieldFocusNode,
+                                maxLength: Height.maxLengthImperial,
+                                counterText: '',
+                                onChanged: _setFT,
+                              ),
+                              const SizedBox(width: 12.0),
+                              UnitField(
+                                unit: inches,
+                                controller: inController,
+                                maxLength: Height.maxLengthImperial,
+                                counterText: '',
+                                onChanged: _setIN,
+                              ),
+                            ],
+                          ),
+                        ],
+                        onTabChanged: _onTabChanged,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              MainContainer(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 52.0),
-                    _NextButton(
-                      measurementSystemType: activeMeasurementType,
-                      getHeight: getHeight,
-                    ),
-                    const SizedBox(height: 30.0),
-                  ],
+                MainContainer(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 52.0),
+                      _NextButton(
+                        measurementSystemType: activeMeasurementType,
+                        getHeight: getHeight,
+                      ),
+                      const SizedBox(height: 30.0),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

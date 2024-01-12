@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/onboarding/presentation/progress_bar.dart';
 
 class PregnancyFailedPage extends StatelessWidget {
   const PregnancyFailedPage({super.key});
@@ -18,13 +19,14 @@ class PregnancyFailedPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScaffold.blue(
       appBar: CustomAppBar.blue(
-        title: LocalizedTexts.bodyAndMind.tr(),
+        title: LocalizedTexts.medicalIntroTitle.tr(),
         leading: CustomFilledIconButton.leadingBlueLighter(),
       ),
       body: SafeArea(
         child: ScrollableContainer(
           child: Column(
             children: [
+              ProgressBar.coral(backgroundColor: AppColors.blueRegular),
               UnderAppbar.blue(
                 child: Center(
                   child: Padding(
@@ -43,10 +45,11 @@ class PregnancyFailedPage extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                     decoration: const BoxDecoration(
-                      color: AppColors.white,
+                      color: AppColors.blueLightest,
                       borderRadius: BorderRadius.all(Radius.circular(16)),
                     ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         CustomText.w600(
                           LocalizedTexts.failedPregnancyBody1.tr(),
