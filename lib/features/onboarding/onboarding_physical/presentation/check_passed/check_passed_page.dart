@@ -112,7 +112,7 @@ class CheckPassedPage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     CustomText.w400(LocalizedTexts.age),
-                                    CustomText.w400('Sex'),
+                                    CustomText.w400(LocalizedTexts.sex),
                                     CustomText.w400(LocalizedTexts.height),
                                     CustomText.w400(LocalizedTexts.weight),
                                     CustomText.w400(LocalizedTexts.bmi),

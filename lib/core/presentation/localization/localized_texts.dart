@@ -726,6 +726,7 @@ class LocalizedTexts {
 
   // Sex
   static const String yourSex = 'yourSex';
+  static const String sex = 'sex';
 
   // Bio gender
   static const String biologicalGenderPageTitle = 'biologicalGenderPageTitle';
