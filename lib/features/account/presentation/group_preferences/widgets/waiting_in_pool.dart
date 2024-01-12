@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/group_preferences_form.dart';
-import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/outlined_box.dart';
+import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/white_box.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 
@@ -17,7 +17,7 @@ class WaitingInPool extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        OutlinedBox(
+        WhiteBox(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

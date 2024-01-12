@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
 import 'package:loopcare_frontend/core/presentation/validators/login_password_validator.dart';
+import 'package:loopcare_frontend/core/presentation/validators/name_validator.dart';
 
 class CustomTextField extends StatefulWidget {
   final TextInputType? keyboardType;
@@ -64,6 +65,23 @@ class CustomTextField extends StatefulWidget {
         onCleared: onCleared,
         isClearField: onCleared != null,
         fillColor: fillColor,
+      );
+
+  factory CustomTextField.nickname({
+    Color? fillColor,
+    String? errorText,
+    ValueChanged<String>? onChanged,
+    required TextEditingController controller,
+  }) =>
+      CustomTextField(
+        maxLength: 64,
+        hintText: LocalizedTexts.nicknamePlaceholder,
+        controller: controller,
+        validator: nameValidator(),
+        keyboardType: TextInputType.name,
+        fillColor: fillColor,
+        errorText: errorText,
+        onChanged: onChanged,
       );
 
   factory CustomTextField.email({
