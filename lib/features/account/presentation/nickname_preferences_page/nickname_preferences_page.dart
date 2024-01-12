@@ -100,6 +100,7 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
                           const SizedBox(height: 24.0),
                           // TODO: Need custom TextField for text
                           TextField(
+                            maxLength: 64,
                             autofocus: context.router.current.name == NicknamePreferencesRoute.name,
                             keyboardType: TextInputType.name,
                             onChanged: _onNicknameChangeHandler,
