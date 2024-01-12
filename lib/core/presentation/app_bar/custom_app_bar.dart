@@ -200,6 +200,7 @@ class _Title extends StatelessWidget {
         if (subtitle != null)
           InkWell(
             onTap: onTap,
+            highlightColor: AppColors.transparent,
             child: Text(
               subtitle!,
               style: const TextStyle(fontSize: ThemeConstants.fontSize14, fontWeight: FontWeight.w400),

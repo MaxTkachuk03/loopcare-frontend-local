@@ -153,6 +153,7 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
               onMessageLongPress: (BuildContext context, dynamic message) => serviceLocator.get<OverlayService>().show(
                     OverlayEvent.chatPopCard(
                       context: context,
+                      needOffset: controller.user.id == message.author.id,
                       mode: OverlayServiceMode.chat(
                         canRemove: controller.user.id == message.author.id,
                         onCopy: () => _copy(context, message.text),
@@ -250,7 +251,7 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
       message.text.isEmpty
           ? Container(
               height: avatarSize,
-              alignment: Alignment.centerLeft,
+              alignment: controller.user.id != message.author.id ? Alignment.centerLeft : Alignment.centerRight,
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: CustomText.w400(
                 LocalizedTexts.messageRemoved.tr(),
