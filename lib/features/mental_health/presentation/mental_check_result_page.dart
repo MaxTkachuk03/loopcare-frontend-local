@@ -228,7 +228,9 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
 
     if (state.isLastTest && state.isCompleted) {
       final hasCardiovascularDisease = context.read<MedicalFitnessBloc>().state.data.hasCardiovascularDisease;
-      final nextRoute = hasCardiovascularDisease ? AppRoutes.consentConfirmation : AppRoutes.legalStatement;
+      // TODO old logic, check do we still need it
+      // final nextRoute = hasCardiovascularDisease ? AppRoutes.consentConfirmation : AppRoutes.legalStatement;
+      const nextRoute = AppRoutes.legalStatement;
 
       context
         ..read<OnboardingBloc>().add(const OnboardingEvent.nextStep())
