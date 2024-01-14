@@ -936,6 +936,10 @@ class LocalizedTexts {
   static const String changeAddress = 'changeAddress';
   static const String emailConfirmedBottomSheetTitle = 'emailConfirmedBottomSheetTitle';
   static const String emailConfirmedBottomSheetContent = 'emailConfirmedBottomSheetContent';
+
+  // Mood
+  static const String logMood = 'logMood';
+  static const String yourNote = 'yourNote';
 }
 
 extension StringX on String {

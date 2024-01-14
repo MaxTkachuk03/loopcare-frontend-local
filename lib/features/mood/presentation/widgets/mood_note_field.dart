@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_input_limit_field.dart';
 import 'package:loopcare_frontend/features/mood/infrastructure/mood_controller.dart';
 
@@ -16,6 +18,6 @@ class MoodNoteField extends AppLimitTextField {
           minLines: 8,
           linesCount: 50,
           readOnly: readOnly,
-          hintText: '',
+          hintText: LocalizedTexts.yourNote.tr(),
         );
 }
