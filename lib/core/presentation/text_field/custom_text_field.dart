@@ -60,6 +60,7 @@ class CustomTextField extends StatefulWidget {
       CustomTextField(
         hintText: LocalizedTexts.searchHint,
         controller: controller,
+        prefixIcon: const Icon(Icons.search, size: 22),
         onChanged: onChanged,
         onCleared: onCleared,
         isClearField: onCleared != null,
@@ -186,7 +187,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           )
         : widget.isClearField ?? false
             ? IconButton(
-                icon: const Icon(CupertinoIcons.clear_thick_circled, size: 22),
+                icon: const Icon(CupertinoIcons.clear_thick_circled, size: 24),
                 color: AppColors.greyRegular,
                 onPressed: _clearField,
               )
