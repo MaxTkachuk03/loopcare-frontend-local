@@ -940,6 +940,10 @@ class LocalizedTexts {
   // Mood
   static const String logMood = 'logMood';
   static const String yourNote = 'yourNote';
+
+  // Education
+  static const String educationTitle = 'educationTitle';
+  static const String locked = 'locked';
 }
 
 extension StringX on String {

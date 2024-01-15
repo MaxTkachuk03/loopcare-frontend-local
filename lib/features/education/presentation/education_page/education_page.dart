@@ -13,7 +13,7 @@ import 'package:loopcare_frontend/features/education/presentation/education_page
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
-const double _lessonCardHeight = 175;
+const double _lessonCardHeight = 180;
 
 class EducationPage extends StatefulWidget {
   const EducationPage({super.key});
@@ -115,46 +115,43 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
               key: _listKey,
               controller: _scrollController,
               slivers: [
-                EducationTabBar(
-                  controller: _tabController,
-                  tabs: categories,
-                ),
-                if (state.data.currentCategory == LessonCategory.all) EducationAppBar(containerKey: _introContainerKey),
+                EducationTabBar(controller: _tabController, tabs: categories),
+                EducationAppBar(containerKey: _introContainerKey),
                 state.maybeMap(
-                    loading: (_) =>
-                        const SliverToBoxAdapter(child: SizedBox(height: 500, child: Center(child: Loader()))),
-                    orElse: () {
-                      return SliverList(
-                          delegate: SliverChildBuilderDelegate(childCount: lessons.length, (
-                        BuildContext context,
-                        int i,
-                      ) {
-                        final isLastElement = i + 1 == lessons.length;
-                        final isFirstElement = i == 0;
-                        final nextIsLocked = isLastElement ? true : lessons[i + 1].isLocked;
+                  loading: (_) =>
+                      const SliverToBoxAdapter(child: SizedBox(height: 500, child: Center(child: Loader()))),
+                  orElse: () {
+                    return SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        childCount: lessons.length,
+                        (BuildContext context, int i) {
+                          final isLastElement = i + 1 == lessons.length;
+                          final isFirstElement = i == 0;
+                          final nextIsLocked = isLastElement ? true : lessons[i + 1].isLocked;
 
-                        return Container(
-                          key: PageStorageKey(lessons[i].id),
-                          padding: const EdgeInsets.only(right: 22.0, left: 22.0),
-                          height: _lessonCardHeight,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              ProgressItem(
-                                isFirst: isFirstElement,
-                                isLast: isLastElement,
-                                lesson: lessons[i],
-                                nextIsLocked: nextIsLocked,
-                              ),
-                              const SizedBox(width: 4.0),
-                              Expanded(
-                                child: EducationCard(lesson: lessons[i]),
-                              ),
-                            ],
-                          ),
-                        );
-                      }));
-                    }),
+                          return Container(
+                            key: PageStorageKey(lessons[i].id),
+                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                            height: _lessonCardHeight,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                ProgressItem(
+                                  isFirst: isFirstElement,
+                                  isLast: isLastElement,
+                                  lesson: lessons[i],
+                                  nextIsLocked: nextIsLocked,
+                                ),
+                                const SizedBox(width: 20.0),
+                                Expanded(child: EducationCard(lesson: lessons[i])),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
               ],
             );
           },
