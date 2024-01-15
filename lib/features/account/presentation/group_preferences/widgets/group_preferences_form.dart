@@ -102,7 +102,7 @@ class GroupPreferencesForm extends StatelessWidget {
                       const SizedBox(height: 16.0),
                       const DividerLight(),
                       const SizedBox(height: 16.0),
-                      CustomOutlinedButton.blue(
+                      CustomOutlinedButton.blueFullWidth(
                         label: LocalizedTexts.iNoLongerWantToJoin.tr(),
                         onPressed: () => _onCancelProcessingPressed(context),
                       )
