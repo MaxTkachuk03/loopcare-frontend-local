@@ -25,24 +25,28 @@ class WaitingInPool extends StatelessWidget {
                 LocalizedTexts.weAreLookingForAMatch.tr(),
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: ThemeConstants.fontSize20),
               ),
-              BlocBuilder<AuthenticationCubit, AuthenticationState>(builder: (BuildContext context, state) {
-                final groupingStartedAt = state.groupingStartedAt;
+              BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                builder: (BuildContext context, state) {
+                  final groupingStartedAt = state.groupingStartedAt;
 
-                if (groupingStartedAt == null) return const SizedBox.shrink();
+                  if (groupingStartedAt == null) return const SizedBox.shrink();
 
-                return RichText(
-                  text: TextSpan(
-                    text: '${LocalizedTexts.weAreLookingForAGroupSince.translation}\n',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: '${groupingStartedAt.fullDateWithYear}.',
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
-                    ],
-                  ),
-                );
-              }),
+                  return RichText(
+                    text: TextSpan(
+                      text: '${LocalizedTexts.weAreLookingForAGroupSince.translation}\n',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: '${groupingStartedAt.fullDateWithYear}.',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(fontWeight: FontWeight.w600)),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),
