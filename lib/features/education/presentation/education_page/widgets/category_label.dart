@@ -1,0 +1,34 @@
+import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+
+class CategoryLabel extends StatelessWidget {
+  final String label;
+  final Color color;
+
+  const CategoryLabel({super.key, required this.label, required this.color});
+
+  factory CategoryLabel.general() => CategoryLabel(label: 'general', color: AppColors.petrolRegular);
+
+  factory CategoryLabel.nutrition() => CategoryLabel(label: 'nutrition', color: AppColors.greenRegular);
+
+  factory CategoryLabel.mind() => CategoryLabel(label: 'mind', color: AppColors.petrolRegular);
+
+  factory CategoryLabel.activity() => CategoryLabel(label: 'activity', color: AppColors.petrolRegular);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(3.0), color: color),
+      padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 6.0),
+      child: CustomText.w600(
+        label.toUpperCase(),
+        style: context.textTheme.bodyMedium?.copyWith(
+          fontSize: ThemeConstants.fontSize10,
+          color: AppColors.white,
+        ),
+      ),
+    );
+  }
+}
