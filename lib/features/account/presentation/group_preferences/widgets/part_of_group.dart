@@ -29,7 +29,7 @@ class PartOfGroup extends StatelessWidget {
               CustomText.w400(LocalizedTexts.partOfGroup.tr(), style: context.textTheme.bodyMedium),
               CustomText.w600(LocalizedTexts.yes.tr().capitalize(), style: context.textTheme.bodySmall),
               const SizedBox(height: 16.0),
-              CustomOutlinedButton.blue(
+              CustomOutlinedButton.blueFullWidth(
                 label: LocalizedTexts.readTheGroupRules.tr(),
                 onPressed: () => _onPressed(context),
               )
