@@ -137,7 +137,7 @@ class _LessonPageState extends State<LessonPage> {
               final currentPage = s.data.currentPage;
 
               if (currentPage.type == EducationLessonPageType.text) {
-                return LessonTextPage(
+                return LessonTextBody(
                   onNextPressed: _onNextPressed,
                   onPrevPressed: _onPrevPressed,
                   content: currentPage.content,
@@ -182,7 +182,7 @@ class _LessonPageState extends State<LessonPage> {
               );
 
               if (currentPage.type == EducationLessonPageType.text) {
-                return LessonTextPage(
+                return LessonTextBody(
                   onNextPressed: _onNextPressed,
                   onPrevPressed: _onPrevPressed,
                   content: currentPage.content,
@@ -219,7 +219,7 @@ class _LessonPageState extends State<LessonPage> {
               final currentPage = s.data.currentPage;
 
               if (currentPage.type == EducationLessonPageType.text) {
-                return LessonTextPage(
+                return LessonTextBody(
                   onNextPressed: _onNextPressed,
                   onPrevPressed: _onPrevPressed,
                   content: currentPage.content,

@@ -944,6 +944,7 @@ class LocalizedTexts {
   // Education
   static const String educationTitle = 'educationTitle';
   static const String locked = 'locked';
+  static const String lesson = 'lesson';
 }
 
 extension StringX on String {
