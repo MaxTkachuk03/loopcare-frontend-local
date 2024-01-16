@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/tab_bar/custom_underlined_tab_bar.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/underlined_tab_bar.dart';
 
 const _padding = 16.0;
 
 class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  SliverAppBarDelegate(this._tabBar);
+  final TabBar tabBar;
 
-  final TabBar _tabBar;
-
-  @override
-  double get minExtent => _tabBar.preferredSize.height + _padding;
+  SliverAppBarDelegate(this.tabBar);
 
   @override
-  double get maxExtent => _tabBar.preferredSize.height + _padding;
+  double get minExtent => tabBar.preferredSize.height + _padding;
+
+  @override
+  double get maxExtent => tabBar.preferredSize.height + _padding;
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      color: AppColors.orange,
+      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      color: AppColors.petrolRegular,
       child: Column(
         children: [
-          UnderlinedTabBar(
+          CustomUnderlinedTabBar(
             tabAlignment: TabAlignment.center,
-            tabs: _tabBar.tabs,
-            tabController: _tabBar.controller,
+            tabs: tabBar.tabs,
+            tabController: tabBar.controller,
           )
         ],
       ),

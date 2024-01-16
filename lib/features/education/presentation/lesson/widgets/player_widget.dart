@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,11 +6,11 @@ import 'package:just_audio/just_audio.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
-import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/common.dart';
+import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/seek_bar.dart';
 import 'package:rxdart/rxdart.dart';
 
 class PlayerWidget extends StatefulWidget {
@@ -60,36 +59,36 @@ class _PlayerWidgetState extends State<PlayerWidget> with WidgetsBindingObserver
 
   /// Collects the data useful for displaying in a seek bar, using a handy
   /// feature of rx_dart to combine the 3 streams of interest into one.
-  Stream<PositionData> get _positionDataStream => Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
-      widget.player.positionStream,
-      widget.player.bufferedPositionStream,
-      widget.player.durationStream,
-      (position, bufferedPosition, duration) => PositionData(position, bufferedPosition, duration ?? Duration.zero));
+  Stream<PositionData> get _positionDataStream =>
+      Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
+          widget.player.positionStream,
+          widget.player.bufferedPositionStream,
+          widget.player.durationStream,
+          (position, bufferedPosition, duration) =>
+              PositionData(position, bufferedPosition, duration ?? Duration.zero));
 
   @override
   Widget build(BuildContext context) {
-    return MainContainer(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          // Display seek bar. Using StreamBuilder, this widget rebuilds
-          // each time the position, buffered position or duration changes.
-          StreamBuilder<PositionData>(
-            stream: _positionDataStream,
-            builder: (context, snapshot) {
-              final positionData = snapshot.data;
-              return SeekBar(
-                duration: positionData?.duration ?? Duration.zero,
-                position: positionData?.position ?? Duration.zero,
-                bufferedPosition: positionData?.bufferedPosition ?? Duration.zero,
-                onChangeEnd: widget.player.seek,
-              );
-            },
-          ),
-          ControlButtons(widget.player, _muteNotifier),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        // Display seek bar. Using StreamBuilder, this widget rebuilds
+        // each time the position, buffered position or duration changes.
+        StreamBuilder<PositionData>(
+          stream: _positionDataStream,
+          builder: (context, snapshot) {
+            final positionData = snapshot.data;
+            return SeekBar(
+              duration: positionData?.duration ?? Duration.zero,
+              position: positionData?.position ?? Duration.zero,
+              bufferedPosition: positionData?.bufferedPosition ?? Duration.zero,
+              onChangeEnd: widget.player.seek,
+            );
+          },
+        ),
+        ControlButtons(widget.player, _muteNotifier),
+      ],
     );
   }
 }
@@ -130,68 +129,61 @@ class ControlButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         /// This StreamBuilder rebuilds whenever the player state changes, which
         /// includes the playing/paused state and also the
         /// loading/buffering/ready state. Depending on the state we show the
         /// appropriate button or loading indicator.
-        Center(
-          child: StreamBuilder<PlayerState>(
-            stream: player.playerStateStream,
-            builder: (context, snapshot) {
-              final playerState = snapshot.data;
-              final processingState = playerState?.processingState;
-              final playing = playerState?.playing;
-              if (processingState == ProcessingState.loading || processingState == ProcessingState.buffering) {
-                return Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10.0),
-                  width: 30.0,
-                  height: 30.0,
-                  child: const CircularProgressIndicator(
-                    color: AppColors.darkGreen,
-                  ),
-                );
-              } else if (playing != true) {
-                return IconButton(
-                  icon: const Icon(Icons.play_arrow),
+        const SizedBox(width: 50),
+        StreamBuilder<PlayerState>(
+          stream: player.playerStateStream,
+          builder: (context, snapshot) {
+            final playerState = snapshot.data;
+            final processingState = playerState?.processingState;
+            final playing = playerState?.playing;
+            if (processingState == ProcessingState.loading || processingState == ProcessingState.buffering) {
+              return Container(
+                margin: const EdgeInsets.symmetric(vertical: 10.0),
+                width: 30.0,
+                height: 30.0,
+                child: const CircularProgressIndicator(
                   color: AppColors.darkGreen,
-                  iconSize: 35.0,
-                  onPressed: () => _onPlayPressed(context),
-                );
-              } else if (processingState != ProcessingState.completed) {
-                return IconButton(
-                  icon: const Icon(Icons.pause),
-                  iconSize: 35.0,
-                  color: AppColors.darkGreen,
-                  onPressed: () => _onPlayPaused(context),
-                );
-              } else {
-                return IconButton(
-                  icon: const Icon(Icons.replay),
-                  iconSize: 35.0,
-                  color: AppColors.darkGreen,
-                  onPressed: () => player.seek(Duration.zero),
-                );
-              }
-            },
-          ),
+                ),
+              );
+            } else if (playing != true) {
+              return CustomIconButton(
+                icon: const Icon(Icons.play_arrow, size: 35, color: AppColors.blueRegular),
+                onPressed: () => _onPlayPressed(context),
+              );
+            } else if (processingState != ProcessingState.completed) {
+              return CustomIconButton(
+                icon: const Icon(Icons.pause, size: 35, color: AppColors.blueRegular),
+                onPressed: () => _onPlayPaused(context),
+              );
+            } else {
+              return CustomIconButton(
+                icon: const Icon(Icons.replay, size: 35, color: AppColors.blueRegular),
+                onPressed: () => player.seek(Duration.zero),
+              );
+            }
+          },
         ),
 
-        Positioned(
-          right: 16,
-          child: ValueListenableBuilder<bool>(
-            valueListenable: muteNotifier,
-            builder: (context, isMute, _) {
-              return IconButton(
-                key: const Key('mute_button'),
-                onPressed: _handleMute,
-                iconSize: 30.0,
-                icon: Icon(isMute ? Icons.volume_off : Icons.volume_up),
-                color: AppColors.darkGreen,
-              );
-            },
-          ),
+        ValueListenableBuilder<bool>(
+          valueListenable: muteNotifier,
+          builder: (context, isMute, _) {
+            return CustomIconButton(
+              key: const Key('mute_button'),
+              onPressed: _handleMute,
+              icon: Icon(
+                isMute ? Icons.volume_off : Icons.volume_up,
+                size: 30,
+                color: AppColors.blueRegular,
+              ),
+            );
+          },
         ),
         // Opens speed slider dialog
       ],
@@ -199,11 +191,8 @@ class ControlButtons extends StatelessWidget {
   }
 
   void _handleMute() {
-    if (muteNotifier.value) {
-      player.setVolume(1);
-    } else {
-      player.setVolume(0);
-    }
+    player.setVolume(muteNotifier.value ? 1 : 0);
+
     muteNotifier.value = !muteNotifier.value;
   }
 }

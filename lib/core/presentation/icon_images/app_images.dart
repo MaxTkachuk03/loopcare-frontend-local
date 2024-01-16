@@ -51,8 +51,6 @@ class AppImages {
 
   static const AssetImage iconAttention = AssetImage('$imagesFilePath/attention.png');
 
-  static const AssetImage educationVideoPreview = AssetImage('$imagesFilePath/education_video_preview.png');
-
   static const AssetImage recipePlaceholder = AssetImage('$imagesFilePath/recipe_placeholder.png');
 
   static const AssetImage lessonComplete = AssetImage('$imagesFilePath/lesson_complete.png');
@@ -111,6 +109,10 @@ class AppImages {
   static SvgPicture calorieDensityFoodA = SvgPicture.asset('$imagesFilePath/calorie_dencity_food_a.svg');
 
   static SvgPicture calorieDensityFoodB = SvgPicture.asset('$imagesFilePath/calorie_dencity_food_b.svg');
+
+  static const AssetImage educationPreview = AssetImage('$imagesFilePath/new_education_preview.png');
+
+  static const AssetImage educationLessonTest = AssetImage('$imagesFilePath/new_education_lesson_test.png');
 
   AppImages._();
 }
