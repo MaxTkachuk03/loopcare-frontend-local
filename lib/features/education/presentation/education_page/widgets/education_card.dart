@@ -5,14 +5,13 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_butt
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-// import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/lesson_state.dart';
 import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 
@@ -22,21 +21,6 @@ class EducationCard extends StatelessWidget {
   final EducationLesson lesson;
 
   const EducationCard({super.key, required this.lesson});
-
-  Widget _getLabelByCategory(String category) {
-    switch (category) {
-      case 'general':
-        return CategoryLabel.general();
-      case 'nutrition':
-        return CategoryLabel.nutrition();
-      case 'mind':
-        return CategoryLabel.mind();
-      case 'activity':
-        return CategoryLabel.activity();
-    }
-
-    return CategoryLabel.general();
-  }
 
   Widget _getLessonAction(BuildContext context) {
     final isAvailable = !lesson.isCompleted && !lesson.isLocked;
@@ -129,7 +113,7 @@ class EducationCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            _getLabelByCategory(lesson.category),
+                            getLabelByCategory(lesson.category),
                             const SizedBox(height: 10.0),
                             CustomText.bitter700(lesson.title, style: context.textTheme.bodySmall),
                             const SizedBox(height: 10.0),

@@ -20,12 +20,12 @@ import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/oval_bottom_border_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/emergency_numbers/emergency_number_card.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_chat_report.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_session_report.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/presentation/widgets/booked_session_modal_content.dart';
 import 'package:loopcare_frontend/features/group_sessions/presentation/widgets/not_booked_sessions_modal_content.dart';
@@ -1064,87 +1064,54 @@ class ModalBottomSheet {
   }) {
     showModalBottomSheet<void>(
       isScrollControlled: true,
+      showDragHandle: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       context: context,
       builder: (BuildContext context) {
         return FractionallySizedBox(
-          heightFactor: 0.9,
+          heightFactor: 0.95,
           child: BlocBuilder<EducationLessonBloc, EducationLessonState>(
             builder: (context, state) {
-              return Scaffold(
-                appBar: AppBar(backgroundColor: AppColors.white),
-                body: SafeArea(
-                  child: ScrollableContainer(
-                    child: Column(
+              return ScrollableContainer(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 32.0),
+                    SizedBox(
+                      width: 234,
+                      height: 182,
+                      child: NetworkImageWithCache(url: state.data.lessonImage),
+                    ),
+                    const SizedBox(height: 28.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Stack(
-                          clipBehavior: Clip.none,
-                          children: [
-                            ClipPath(
-                              clipper: OvalBottomBorderClipper(),
-                              child: Container(
-                                height: 90,
-                                width: double.infinity,
-                                color: AppColors.white,
-                              ),
-                            ),
-                            Positioned(
-                              bottom: -95,
-                              left: 1,
-                              right: 1,
-                              child: SizedBox(
-                                width: 234,
-                                height: 182,
-                                child: NetworkImageWithCache(url: state.data.lessonImage),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 60.0),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            const SizedBox(height: 20.0),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                              child: Text(
-                                state.data.lessonCategory.toUpperCase(),
-                                style: const TextStyle(
-                                  color: AppColors.orangeDark,
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w600,
+                        MainContainer(child: getLabelByCategory(state.data.lessonCategory)),
+                        const SizedBox(height: 14),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                          child: Text(
+                            state.data.lessonTitle,
+                            style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                                  fontFamily: ThemeConstants.bitterFontFamily,
                                 ),
-                              ),
-                            ),
-                            const SizedBox(height: 14),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                              child: Text(
-                                state.data.lessonTitle,
-                                style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                                      fontFamily: ThemeConstants.bitterFontFamily,
-                                    ),
-                              ),
-                            ),
-                            const SizedBox(height: 24.0),
-                            HtmlRenderer(content: state.data.currentPage.content.html),
-                            const SizedBox(height: 24.0),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  context.router.pop();
-                                  onBtnPress();
-                                },
-                                child: Text(LocalizedTexts.next.translation),
-                              ),
-                            ),
-                            const SizedBox(height: 40.0),
-                          ],
+                          ),
                         ),
+                        const SizedBox(height: 18.0),
+                        HtmlRenderer(content: state.data.currentPage.content.html),
+                        const SizedBox(height: 18.0),
+                        MainContainer(
+                          child: CustomElevatedButton.blueFullWidth(
+                            onPressed: () {
+                              context.router.pop();
+                              onBtnPress();
+                            },
+                            label: LocalizedTexts.next,
+                          ),
+                        ),
+                        const SizedBox(height: 30.0),
                       ],
                     ),
-                  ),
+                  ],
                 ),
               );
             },

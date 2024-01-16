@@ -7,10 +7,13 @@ import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
@@ -132,7 +135,13 @@ class _LessonPageState extends State<LessonPage> {
         listener: _errorListener,
         builder: (BuildContext context, state) {
           return state.maybeMap(
-            loading: (_) => const Loader(),
+            loading: (_) => CustomScaffold.petrolLightest(
+              appBar: CustomAppBar.petrol(
+                title: LocalizedTexts.lesson.tr(),
+                leading: CustomFilledIconButton.leadingPetrolLighter(),
+              ),
+              body: const Loader(),
+            ),
             lessonCompleted: (s) {
               final currentPage = s.data.currentPage;
 
@@ -158,12 +167,10 @@ class _LessonPageState extends State<LessonPage> {
                     state.data.currentPage.type == EducationLessonPageType.audio &&
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {
-                  context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadSubtitlesFile(
-                            state.data.currentPage.content.subtitlesImages!),
-                      );
+                  context.read<EducationLessonBloc>().add(EducationLessonEvent.downloadSubtitlesFile(
+                      state.data.currentPage.content.subtitlesImages!));
                 }
-                return LessonAudioPage(
+                return LessonAudioBody(
                   onNextPressed: _onNextPressed,
                   onPrevPressed: _onPrevPressed,
                 );
@@ -208,7 +215,7 @@ class _LessonPageState extends State<LessonPage> {
                             state.data.currentPage.content.subtitlesImages!),
                       );
                 }
-                return LessonAudioPage(
+                return LessonAudioBody(
                   onNextPressed: _onNextPressed,
                   onPrevPressed: _onPrevPressed,
                 );
@@ -245,7 +252,7 @@ class _LessonPageState extends State<LessonPage> {
                             state.data.currentPage.content.subtitlesImages!),
                       );
                 }
-                return LessonAudioPage(
+                return LessonAudioBody(
                   onNextPressed: _onNextPressed,
                   onPrevPressed: _onPrevPressed,
                 );

@@ -17,7 +17,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/education/application/dto/lesson_content.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
 import 'package:loopcare_frontend/features/education/presentation/widgets/lesson_image_header.dart';
 
 class LessonTextBody extends StatelessWidget {
@@ -31,21 +31,6 @@ class LessonTextBody extends StatelessWidget {
     required this.onNextPressed,
     required this.onPrevPressed,
   });
-
-  Widget _getLabelByCategory(String category) {
-    switch (category) {
-      case 'general':
-        return CategoryLabel.general();
-      case 'nutrition':
-        return CategoryLabel.nutrition();
-      case 'mind':
-        return CategoryLabel.mind();
-      case 'activity':
-        return CategoryLabel.activity();
-    }
-
-    return CategoryLabel.general();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +72,7 @@ class LessonTextBody extends StatelessWidget {
 
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                        child: _getLabelByCategory(lesson.lessonCategory),
+                        child: getLabelByCategory(lesson.lessonCategory),
                       );
                     },
                   ),
