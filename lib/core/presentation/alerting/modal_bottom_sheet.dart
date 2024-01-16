@@ -1089,11 +1089,9 @@ class ModalBottomSheet {
                         const SizedBox(height: 14),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                          child: Text(
+                          child: CustomText.bitter600(
                             state.data.lessonTitle,
-                            style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                                  fontFamily: ThemeConstants.bitterFontFamily,
-                                ),
+                            style: context.textTheme.displayLarge,
                           ),
                         ),
                         const SizedBox(height: 18.0),
