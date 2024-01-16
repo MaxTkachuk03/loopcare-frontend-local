@@ -663,7 +663,7 @@
   "bookedFromTo": "Booked {day} from {startTime} to {endTime}",
   "dayFromTo": "{day}\nfrom {startTime} to {endTime}",
   "prepareForSession": "Prepare for this session",
-  "prepareTakes": "Takes {times}",
+  "prepareTakes": "Prepare for this lesson ({times} min)",
   "timeslotCancelled": "Sorry, this timeslot is canceled",
   "timeslotMissed": "Sorry, you missed this timeslot",
   "chooseAnotherTimeslot": "Choose another timeslot",
@@ -734,12 +734,6 @@
   "sessionWillStartIn": "The session will start in",
   "sessionStartedMessage": "The session already started. You can only join it within 15 minutes since its start",
   "enterSession": "Enter session",
-
-
-
-
-
-
 
   "pickADateAndTime": "Pick a date and time",
   "fromTo": "From {startTime} to {endTime}",

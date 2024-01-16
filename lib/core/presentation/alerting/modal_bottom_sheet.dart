@@ -694,11 +694,17 @@ class ModalBottomSheet {
                         ),
                       ),
                       const SizedBox(height: 16.0),
-                      CustomText.bitter600(
+                      CustomText.bitter500(
                         state.data.weekTopicName,
-                        style: context.textTheme.headlineSmall,
+                        style: context.textTheme.displayMedium,
                       ),
-                      const SizedBox(height: 16.0),
+                      const SizedBox(height: 12.0),
+                      const Divider(
+                        thickness: 1.0,
+                        height: 1.0,
+                        color: AppColors.greyDarker,
+                      ),
+                      const SizedBox(height: 12.0),
                       state.data.isSigned && state.data.isGroupsOnWeekAvailable
                           ? const BookedSessionModalContent()
                           : const NotBookedSessionsModalContent()

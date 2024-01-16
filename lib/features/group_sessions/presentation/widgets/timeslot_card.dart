@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
@@ -61,13 +63,13 @@ class _TimeslotCardState extends State<TimeslotCard> {
   }
 
   Color get textColor => _type.maybeMap(
-        available: (_) => AppColors.darkGreen,
-        orElse: () => AppColors.greyLabel,
+        available: (_) => AppColors.blueDarker,
+        orElse: () => AppColors.greyLight,
       );
 
   Color get borderColor => _type.maybeMap(
-        available: (_) => AppColors.darkGreen,
-        orElse: () => AppColors.greyMid,
+        available: (_) => AppColors.blueDarker,
+        orElse: () => AppColors.greyLight,
       );
 
   String get description => _type.map(
@@ -99,23 +101,23 @@ class _TimeslotCardState extends State<TimeslotCard> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                CustomText.w600(
                   widget.groupSession.startDate.toLocal().weekdayString,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(color: textColor),
+                  style: context.textTheme.titleMedium?.copyWith(color: textColor),
                 ),
-                Text(
+                CustomText.w600(
                   widget.groupSession.startDate.toLocal().fullDateWithHyphen,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(color: textColor),
+                  style: context.textTheme.titleMedium?.copyWith(color: textColor),
                 ),
               ],
             ),
             const SizedBox(width: 22.0),
             Container(
               padding: const EdgeInsets.only(left: 16.0),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 border: Border(
                   left: BorderSide(
-                    color: AppColors.yellowLight,
+                    color: borderColor,
                     width: 1.0,
                   ),
                 ),
@@ -123,18 +125,18 @@ class _TimeslotCardState extends State<TimeslotCard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    LocalizedTexts.fromTo,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(color: textColor),
-                  ).tr(
-                    namedArgs: {
-                      'startTime': widget.groupSession.localStartTime.timeHoursMinutes24,
-                      'endTime': widget.groupSession.localEndTime.timeHoursMinutes24,
-                    },
+                  CustomText.w600(
+                    LocalizedTexts.fromTo.tr(
+                      namedArgs: {
+                        'startTime': widget.groupSession.localStartTime.timeHoursMinutes24,
+                        'endTime': widget.groupSession.localEndTime.timeHoursMinutes24,
+                      },
+                    ),
+                    style: context.textTheme.titleMedium?.copyWith(color: textColor),
                   ),
-                  Text(
+                  CustomText.w600(
                     description,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: textColor),
+                    style: context.textTheme.bodySmall?.copyWith(color: textColor),
                   ),
                 ],
               ),
