@@ -102,11 +102,7 @@ class SessionCard extends StatelessWidget {
                               style: context.textTheme.bodySmall,
                             ),
                             const SizedBox(height: 10.0),
-                            Wrap(
-                              children: [
-                                _dateText(context),
-                              ],
-                            ),
+                            _dateText(context),
                             const SizedBox(height: 10.0),
                             if (preparationMaterialsAvailable && !isCanJoin)
                               CustomOutlinedButton.coral(
@@ -148,13 +144,6 @@ class SessionCard extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Row(
                     children: [
-                      const Image(
-                        image: AppIcons.exclamationPoint,
-                        width: 16,
-                        height: 16,
-                        color: AppColors.orangeRegular,
-                      ),
-                      const SizedBox(width: 8.0),
                       if (isCancelled)
                         CustomText.w400(
                           LocalizedTexts.timeslotCancelled.translation,

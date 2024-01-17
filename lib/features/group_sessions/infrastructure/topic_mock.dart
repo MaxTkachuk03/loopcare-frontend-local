@@ -6,7 +6,7 @@ var topics = [
         "minMemberCount": 4,
         "maxMemberCount": 9,
         "status": "planned",
-        "signed": true,
+        "signed": false,
         "groupSessionMembers": [],
         "id": 78,
         "topic": "Mindfulness",

@@ -739,12 +739,6 @@
   "sessionStartedMessage": "The session already started. You can only join it within 15 minutes since its start",
   "enterSession": "Enter session",
 
-
-
-
-
-
-
   "pickADateAndTime": "Pick a date and time",
   "fromTo": "From {startTime} to {endTime}",
   "fromToLower": "from {startTime} to {endTime}",

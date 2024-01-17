@@ -1,7 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class GroupedNoTimeslots extends StatelessWidget {
   const GroupedNoTimeslots({
@@ -10,12 +11,9 @@ class GroupedNoTimeslots extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
+    return CustomText.w600(
       LocalizedTexts.noOtherTimeslotsAvailable.tr(),
-      style: const TextStyle(
-        fontSize: ThemeConstants.fontSize12,
-        color: AppColors.darkGreen,
-      ),
+      style: context.textTheme.bodySmall,
     );
   }
 }

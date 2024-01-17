@@ -8,7 +8,6 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_section.dart';
-import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/personal_details_section.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/preferences_section.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/report_abuse_section.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
