@@ -629,6 +629,9 @@ class LocalizedTexts {
   static const String numberOfAvailableSeats = "numberOfAvailableSeats";
   static const String passedSession = "passedSession";
   static const String cancelledSession = "cancelledSession";
+  static const String cancelled = "cancelled";
+  static const String missed = "missed";
+  static const String minimumNotReached = "minimumNotReached";
   static const String noMoreSeatAvailable = "noMoreSeatAvailable";
   static const String sessionWarning_1 = "sessionWarning_1";
   static const String sessionWarning_2 = "sessionWarning_2";
@@ -705,6 +708,7 @@ class LocalizedTexts {
 
   //Log meal
   static const String iWantToLogMy = 'iWantToLogMy';
+  static const String logMealServingTitle = 'logMealServingTitle';
   static const String kcal = "kcal";
 
   //Mood

@@ -29,5 +29,7 @@ Color calorieDensityScaleValuesColorForRange(double? density) {
   var retColor = calorieDensityScaleValues
       .firstWhereOrNull((element) => (element.min <= density && density < element.max));
 
+  retColor ??= calorieDensityScaleValues.lastWhereOrNull((element) => (element.max <= density));
+
   return retColor?.color ?? AppColors.transparent;
 }

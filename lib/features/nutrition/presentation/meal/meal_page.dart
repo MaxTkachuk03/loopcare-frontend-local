@@ -118,7 +118,8 @@ class _MealPageState extends State<MealPage> {
     if (state.currentMeal == null) {
       context.router.popUntilRouteWithName(HomeRoute.name);
     }
-    context.read<ChooseDateBloc>().add(ChooseDateEvent.fetchMealById(state.getCurrentMealId ?? -1));
+// TODO: LOOPCARE-1798 Hide Meal planning block
+    // context.read<ChooseDateBloc>().add(ChooseDateEvent.fetchMealById(state.getCurrentMealId ?? -1));
   }
 
   void _onChooseDates(BuildContext context) {

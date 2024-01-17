@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped_signed_might_cancelled.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 
 class SessionCard extends StatelessWidget {
   final String topicName;
@@ -47,6 +48,13 @@ class SessionCard extends StatelessWidget {
     required this.minMemberCount,
     // required this.image,
   });
+  String? _categoryLabel() {
+    if (isCancelled) return LocalizedTexts.cancelled.translation;
+    if (isMissed) return LocalizedTexts.missed.translation;
+    if (sessionMightBeCancelled) return LocalizedTexts.minimumNotReached.translation;
+
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,90 +62,102 @@ class SessionCard extends StatelessWidget {
       builder: (context, state) {
         return GestureDetector(
           onTap: () => _onBookSeatPressed(context),
-          child: Container(
-            padding: EdgeInsets.zero,
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 1,
-                color: AppColors.blueLighter,
-                style: BorderStyle.solid,
-              ),
-              borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-            ),
-            child: Row(
-              children: [
-                SizedBox(
-                  height: 180.0,
-                  child: ClipPath(
-                    clipper: EducationClipper(),
-                    child: const Image(image: AppImages.sessionPlaceholder),
-                    // TODO: Need update after all images will be provided
-                    // NetworkImageWithCache(
-                    //   url: image,
-                    // ),
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.zero,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: AppColors.blueLighter,
+                    style: BorderStyle.solid,
                   ),
+                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 10.0),
-                        Container(
-                          padding: const EdgeInsets.all(6.0),
-                          decoration: const BoxDecoration(
-                            color: AppColors.coralRegular,
-                            borderRadius: BorderRadius.all(Radius.circular(6.0)),
-                          ),
-                          child: CustomText.w600(
-                            topicName.toUpperCase(),
-                            style: context.textTheme.bodySmall?.copyWith(
-                              color: AppColors.white,
-                              fontSize: ThemeConstants.fontSize10,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 10.0),
-                        CustomText.w700(
-                          topicName,
-                          style: context.textTheme.bodySmall,
-                        ),
-                        const SizedBox(height: 10.0),
-                        Wrap(
+                child: Row(
+                  children: [
+                    SizedBox(
+                      height: 180.0,
+                      child: ClipPath(
+                        clipper: EducationClipper(),
+                        child: const Image(image: AppImages.sessionPlaceholder),
+                        // TODO: Need update after all images will be provided
+                        // NetworkImageWithCache(
+                        //   url: image,
+                        // ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 12.0, bottom: 12.0, right: 12.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            const SizedBox(height: 10.0),
+                            if (_categoryLabel() != null)
+                              CategoryLabel(label: _categoryLabel() ?? '', color: AppColors.coralRegular),
+                            const SizedBox(height: 10.0),
+                            CustomText.w700(
+                              topicName,
+                              style: context.textTheme.bodySmall,
+                            ),
+                            const SizedBox(height: 10.0),
                             _dateText(context),
+                            const SizedBox(height: 10.0),
+                            if (preparationMaterialsAvailable && !isCanJoin)
+                              CustomOutlinedButton.coral(
+                                label: LocalizedTexts.prepareForSession.translation,
+                                onPressed: () => _onBookSeatPressed(context),
+                              ),
+                            if (isCanJoin && !isCancelledOrMissed)
+                              CustomOutlinedButton.coral(
+                                label: LocalizedTexts.joinSession.translation,
+                                onPressed: () => _onJoinPressed(context),
+                              ),
+                            if (isCancelledOrMissed && timeSlotsAvailable)
+                              CustomOutlinedButton.coral(
+                                label: LocalizedTexts.chooseAnotherTimeslot.translation,
+                                onPressed: () => _onBookSeatPressed(context),
+                              ),
                           ],
                         ),
-                        const SizedBox(height: 10.0),
-                        if (preparationMaterialsAvailable && !isCanJoin)
-                          CustomOutlinedButton.coral(
-                            label: LocalizedTexts.prepareForSession.translation,
-                            onPressed: () => _onBookSeatPressed(context),
-                          ),
-                        if (isCanJoin && !isCancelledOrMissed)
-                          CustomOutlinedButton.coral(
-                            label: LocalizedTexts.joinSession.translation,
-                            onPressed: () => _onJoinPressed(context),
-                          ),
-                        if (isCancelledOrMissed && timeSlotsAvailable)
-                          CustomOutlinedButton.coral(
-                            label: LocalizedTexts.chooseAnotherTimeslot.translation,
-                            onPressed: () => _onBookSeatPressed(context),
-                          ),
-                        if (isCancelledOrMissed && !timeSlotsAvailable)
-                          CustomText.w400(
-                            LocalizedTexts.noTimeslotsOnthisWeek.tr(),
-                            style: context.textTheme.bodySmall,
-                          ),
-                        if (!isCancelled && sessionMightBeCancelled)
-                          GroupedSignedMightBeCancelled(number: minMemberCount),
-                      ],
+                      ),
                     ),
+                  ],
+                ),
+              ),
+              if (isCancelledOrMissed && !timeSlotsAvailable)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: CustomText.w400(
+                    LocalizedTexts.noTimeslotsOnthisWeek.tr(),
+                    style: context.textTheme.bodySmall,
                   ),
                 ),
-              ],
-            ),
+              if (!isCancelled && sessionMightBeCancelled)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: GroupedSignedMightBeCancelled(number: minMemberCount),
+                ),
+              if (isCancelledOrMissed)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Row(
+                    children: [
+                      if (isCancelled)
+                        CustomText.w400(
+                          LocalizedTexts.timeslotCancelled.translation,
+                          style: context.textTheme.bodySmall?.copyWith(color: AppColors.orangeRegular),
+                        ),
+                      if (!isCancelled && isMissed)
+                        CustomText.w400(
+                          LocalizedTexts.timeslotMissed.translation,
+                          style: context.textTheme.bodySmall?.copyWith(color: AppColors.orangeRegular),
+                        ),
+                    ],
+                  ),
+                ),
+            ],
           ),
         );
       },
@@ -171,24 +191,6 @@ class SessionCard extends StatelessWidget {
         style: context.textTheme.bodySmall?.copyWith(
           fontSize: ThemeConstants.fontSize12,
         ),
-      );
-    }
-    if (isCancelledOrMissed) {
-      return Row(
-        children: [
-          const Image(image: AppIcons.exclamationPoint, width: 16, height: 16),
-          const SizedBox(width: 8.0),
-          if (isCancelled)
-            CustomText.w400(
-              LocalizedTexts.timeslotCancelled.translation,
-              style: context.textTheme.bodySmall?.copyWith(color: AppColors.orangeDark),
-            ),
-          if (!isCancelled && isMissed)
-            CustomText.w400(
-              LocalizedTexts.timeslotMissed.translation,
-              style: context.textTheme.bodySmall?.copyWith(color: AppColors.orangeDark),
-            ),
-        ],
       );
     }
 

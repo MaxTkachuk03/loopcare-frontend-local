@@ -39,11 +39,11 @@ class PreparationMaterialsPage extends StatelessWidget {
 
         return WillPopScope(
           onWillPop: () => _onWillPop(context),
-          child: CustomScaffold.orangeLightest(
-            appBar: CustomAppBar.orange(
+          child: CustomScaffold.blueLightest(
+            appBar: CustomAppBar.blue(
               title: LocalizedTexts.preparation.translation,
               subtitle: state.data.weekTopicName,
-              leading: CustomFilledIconButton.leadingOrangeLighter(),
+              leading: CustomFilledIconButton.leadingBlueLighter(),
             ),
             body: SafeArea(
               child: ScrollableContainer(

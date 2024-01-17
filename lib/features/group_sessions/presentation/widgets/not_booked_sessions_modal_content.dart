@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/presentation/widgets/timeslot_card.dart';
@@ -30,10 +31,10 @@ class NotBookedSessionsModalContent extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  LocalizedTexts.pickADateAndTime,
+                CustomText.w600(
+                  LocalizedTexts.pickADateAndTime.tr(),
                   style: Theme.of(context).textTheme.headlineSmall,
-                ).tr(),
+                ),
                 const SizedBox(height: 16.0),
                 Expanded(
                   child: ListView.separated(

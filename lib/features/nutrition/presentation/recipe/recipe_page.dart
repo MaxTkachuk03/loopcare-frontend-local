@@ -82,8 +82,8 @@ class _RecipePageState extends State<RecipePage> {
 
     final recipeId = !isMealRecipe
         ? mealState.currentFoodItems
-            .firstWhere(
-                (element) => element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
+            .firstWhere((element) =>
+                element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
             .id
         : recipeState.recipeId;
 
@@ -268,13 +268,18 @@ class _RecipePageState extends State<RecipePage> {
 
     final recipeId = _currentRecipeId;
 
-    if (mealId == null || val.isEmpty || recipeId == null) return;
+    if (mealId == null || val.isEmpty || recipeId == null || val == '0' || val == '0.' || val == '0.0') {
+      return;
+    }
+    if (double.parse(val) == 0 || double.parse(val) < 0.1) return;
 
-    context.read<RecipeBloc>().add(RecipeEvent.servingChanged(
-          mealId: mealId,
-          servingAmount: int.parse(val),
-          recipeId: recipeId,
-        ));
+    context.read<RecipeBloc>().add(
+          RecipeEvent.servingChanged(
+            mealId: mealId,
+            servingAmount: double.parse(val),
+            recipeId: recipeId,
+          ),
+        );
   }
 
   void _recipeListener(BuildContext context, RecipeState state) {
@@ -350,7 +355,8 @@ class _RecipePageState extends State<RecipePage> {
           final recipeId = !isMealRecipe
               ? mealState.currentFoodItems
                   .firstWhere((element) =>
-                      element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
+                      element.type == MealItemType.recipe &&
+                      element.externalId == recipeState.externalRecipeId)
                   .id
               : recipeState.recipeId;
 
