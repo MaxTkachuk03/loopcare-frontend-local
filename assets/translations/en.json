@@ -184,8 +184,13 @@
   "educationTitle": "Taking one step at a time will have a huge impact",
   "locked": "Locked",
   "lesson": "Lesson",
-
-
+  "lessonCompleted": "Lesson completed",
+  "groupSessionsUnlocked": "Group sessions unlocked",
+  "waitingForGroupCompletedLesson": "We will notify you once we found a group based on your preferences",
+  "notJoinedToGroupCompletedLesson": "If you want to join group sessions in the future you can indicate this in the preferences",
+  "unlockFeatureDescription": "Your preferences have been added to your profile. You can update them later",
+  "lessonCompleteDescription": "Well done! You can proceed to the next lesson",
+  "assignmentCompleted": "Assignment completed",
 
 
 
@@ -684,10 +689,10 @@
   "joinLater": "I may join later",
   "theSupportGroup": "The Support Group",
   "introduction": "Introduction",
-  "groupSessionsUnlocked": "Group sessions unlocked.",
-  "waitingForGroupCompletedLesson": "We will notify you once we found a group based on your preferences.",
-  "notJoinedToGroupCompletedLesson": "If you want to join group sessions in the future you can indicate this in the preferences.",
-  "completedLessonDesc": "Your preference have been added to your profile. You can update them later.",
+
+
+
+
   "reportIssue": "Report Issue",
   "discussion": "Discussion",
   "left": "left",

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class RegularCell extends StatelessWidget {
   final int index;
@@ -26,16 +28,12 @@ class RegularCell extends StatelessWidget {
         child: Container(
           height: 56,
           decoration: BoxDecoration(
-            color: AppColors.bgGreen,
             border: _getBorders(index, scaleSize ?? 9),
           ),
           child: Center(
-            child: Text(
+            child: CustomText.w600(
               label ?? '${index + 1}',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: context.textTheme.bodyMedium,
             ),
           ),
         ),
@@ -46,13 +44,13 @@ class RegularCell extends StatelessWidget {
   BorderRadiusGeometry _getBorderRadius(int index, int maxIndex) {
     if (index == 0) {
       return const BorderRadius.only(
-        topLeft: Radius.circular(5.0),
-        bottomLeft: Radius.circular(5.0),
+        topLeft: Radius.circular(8.0),
+        bottomLeft: Radius.circular(8.0),
       );
     } else if (index == (maxIndex - 1)) {
       return const BorderRadius.only(
-        topRight: Radius.circular(5.0),
-        bottomRight: Radius.circular(5.0),
+        topRight: Radius.circular(8.0),
+        bottomRight: Radius.circular(8.0),
       );
     }
 
@@ -62,60 +60,24 @@ class RegularCell extends StatelessWidget {
   BoxBorder _getBorders(int index, int maxIndex) {
     if (index == 0) {
       return Border(
-        left: BorderSide(
-          width: 3,
-          color: borderColor ?? AppColors.yellowLight,
-        ),
-        right: BorderSide(
-          width: 1,
-          color: borderColor ?? AppColors.yellowLight,
-        ),
-        top: BorderSide(
-          width: 3,
-          color: borderColor ?? AppColors.yellowLight,
-        ),
-        bottom: BorderSide(
-          width: 3,
-          color: borderColor ?? AppColors.yellowLight,
-        ),
+        left: BorderSide(width: 2, color: borderColor ?? AppColors.blueDarker),
+        right: const BorderSide(width: 0.5, color: AppColors.blueLighter),
+        top: BorderSide(width: 2, color: borderColor ?? AppColors.blueDarker),
+        bottom: BorderSide(width: 2, color: borderColor ?? AppColors.blueDarker),
       );
     } else if (index == (maxIndex - 1)) {
       return Border(
-        left: BorderSide(
-          width: 1,
-          color: borderColor ?? AppColors.yellowLight,
-        ),
-        right: BorderSide(
-          width: 3,
-          color: borderColor ?? AppColors.yellowLight,
-        ),
-        top: BorderSide(
-          width: 3,
-          color: borderColor ?? AppColors.yellowLight,
-        ),
-        bottom: BorderSide(
-          width: 3,
-          color: borderColor ?? AppColors.yellowLight,
-        ),
+        left: const BorderSide(width: 0.5, color: AppColors.blueLighter),
+        right: BorderSide(width: 2, color: borderColor ?? AppColors.blueDarker),
+        top: BorderSide(width: 2, color: borderColor ?? AppColors.blueDarker),
+        bottom: BorderSide(width: 2, color: borderColor ?? AppColors.blueDarker),
       );
     } else {
       return Border(
-        left: BorderSide(
-          width: 1,
-          color: borderColor ?? AppColors.yellowLight,
-        ),
-        right: BorderSide(
-          width: 1,
-          color: borderColor ?? AppColors.yellowLight,
-        ),
-        top: BorderSide(
-          width: 3,
-          color: borderColor ?? AppColors.yellowLight,
-        ),
-        bottom: BorderSide(
-          width: 3,
-          color: borderColor ?? AppColors.yellowLight,
-        ),
+        left: const BorderSide(width: 0.5, color: AppColors.blueLighter),
+        right: const BorderSide(width: 0.5, color: AppColors.blueLighter),
+        top: BorderSide(width: 2, color: borderColor ?? AppColors.blueDarker),
+        bottom: BorderSide(width: 2, color: borderColor ?? AppColors.blueDarker),
       );
     }
   }

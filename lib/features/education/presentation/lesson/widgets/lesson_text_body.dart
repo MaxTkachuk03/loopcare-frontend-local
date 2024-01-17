@@ -9,7 +9,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
@@ -49,7 +49,7 @@ class LessonTextBody extends StatelessWidget {
                     builder: (context, state) {
                       if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
                           accountState.groupingState == UserGroupingState.locked) {
-                        return ProgressBar(
+                        return SimpleProgressBar(
                           progress: state.data.lessonProgress,
                           backgroundColor: AppColors.white,
                         );
