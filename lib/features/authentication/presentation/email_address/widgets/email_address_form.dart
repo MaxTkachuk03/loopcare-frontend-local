@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -16,6 +17,7 @@ import 'package:loopcare_frontend/features/authentication/application/dto/mental
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/application/physical_fitness_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const accountAlreadyExists = 'account_with_this_email_already_exists';
 
@@ -147,9 +149,26 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
         );
   }
 
-  void _onTermsAndConditionsTap() {}
+  void _onTermsAndConditionsTap() {
+    _launchInBrowser(termsAndConditionsUrl);
+  }
 
-  void _onPrivacyPolicyTap() {}
+  void _onPrivacyPolicyTap() {
+    _launchInBrowser(privacyPolicyUrl);
+  }
+
+  void _showError(BuildContext context) =>
+      context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.translation));
+
+  Future<void> _launchInBrowser(String url) async {
+    final Uri launchUri = Uri.parse(url);
+
+    try {
+      await launchUrl(launchUri, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      _showError(context);
+    }
+  }
 
   void _onTermsAndConditionsChanged(bool? value) {
     setState(() {
