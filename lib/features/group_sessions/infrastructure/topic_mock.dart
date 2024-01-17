@@ -10,8 +10,8 @@ var topics = [
         "groupSessionMembers": [],
         "id": 78,
         "topic": "Mindfulness",
-        "startDate": "2024-01-16T17:40:00.000Z",
-        "endDate": "2024-01-16T18:30:00.000Z",
+        "startDate": "2024-01-15T16:00:00.000Z",
+        "endDate": "2024-01-15T17:30:00.000Z",
         "password": "f73d4ef553",
         "groupSessionKey": "78-ENV:develop-GROUP_ID:13809"
       },
