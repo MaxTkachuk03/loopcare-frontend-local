@@ -1,8 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_input_limit_field.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/validators/answer_text_field_validator.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
@@ -33,19 +35,14 @@ class AnswerText extends StatelessWidget {
       key: controller.formKey,
       onChanged: () => controller.isAnswerTextValid,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 24.0),
+        padding: const EdgeInsets.symmetric(vertical: 30.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  question.question ?? '',
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 30.0),
+                CustomText.bitter600(question.question ?? '', style: context.textTheme.displayMedium),
+                const SizedBox(height: 28.0),
                 mode.map(
                   askQuestion: (_) => SizedBox(
                     height: 200,
@@ -53,12 +50,9 @@ class AnswerText extends StatelessWidget {
                   ),
                   showAnswer: (_) => InkWell(
                     onTap: isEditable ? onAnswerPressed : null,
-                    child: Text(
+                    child: CustomText.w600(
                       question.questionAnswer?.text ?? '',
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blueDark,
-                          ),
+                      style: context.textTheme.bodyLarge,
                     ),
                   ),
                 ),
@@ -67,16 +61,13 @@ class AnswerText extends StatelessWidget {
             Column(
               children: [
                 const SizedBox(height: 32),
-                ElevatedButton(
+                CustomElevatedButton.blueFullWidth(
                   onPressed: () => isEditable
                       ? controller.isOpenTextValid
                           ? onNextPressed(question.lessonId)
                           : null
                       : onNextPressed(question.lessonId),
-                  style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                        backgroundColor: MaterialStateProperty.all(AppColors.blueDark),
-                      ),
-                  child: const Text(LocalizedTexts.next).tr(),
+                  label: LocalizedTexts.next,
                 ),
               ],
             )

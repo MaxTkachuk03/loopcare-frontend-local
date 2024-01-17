@@ -117,6 +117,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     String? subtitle,
     Widget? leading,
     List<Widget>? actions,
+    PreferredSizeWidget? bottom,
   }) =>
       CustomAppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -126,6 +127,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         subtitle: subtitle,
         leading: leading,
         actions: actions,
+        bottom: bottom,
       );
 
   factory CustomAppBar.blue({

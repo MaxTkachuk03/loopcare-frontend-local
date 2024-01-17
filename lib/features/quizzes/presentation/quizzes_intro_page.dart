@@ -2,22 +2,24 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_image_header.dart';
 import 'package:loopcare_frontend/features/quizzes/application/quizzes_bloc.dart';
 
 class QuizzesIntroPage extends StatefulWidget {
   final int lessonId;
 
-  const QuizzesIntroPage({
-    super.key,
-    required this.lessonId,
-  });
+  const QuizzesIntroPage({super.key, required this.lessonId});
 
   @override
   State<QuizzesIntroPage> createState() => _QuizzesIntroPageState();
@@ -31,94 +33,57 @@ class _QuizzesIntroPageState extends State<QuizzesIntroPage> {
     context.read<QuizzesBloc>().add(QuizzesEvent.getLessonQuizzes(widget.lessonId));
   }
 
+  void _onStart() {
+    context.router.push(QuizzesQuestionsRoute(step: 0));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        title: Column(
-          children: [
-            Text(
-              LocalizedTexts.quiz.translation,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-            Text(
-              LocalizedTexts.introduction.translation,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
-            ),
-          ],
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.router.pop(),
-        ),
+    return CustomScaffold.petrolLightest(
+      appBar: CustomAppBar.petrol(
+        title: LocalizedTexts.quiz.tr(),
+        subtitle: LocalizedTexts.introduction.tr(),
+        leading: CustomFilledIconButton.leadingPetrolLighter(),
       ),
       body: SafeArea(
         child: ScrollableContainer(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                children: [
-                  const ProgressBar(
-                    progress: 33,
-                    backgroundColor: AppColors.white,
-                  ),
-                  const PhysicalActivitiesImageHeader(),
-                  const SizedBox(height: 30.0),
-                  MainContainer(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                LocalizedTexts.quiz.translation.toUpperCase(),
-                                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                      fontSize: ThemeConstants.fontSize12,
-                                      color: AppColors.orangeDark,
-                                    ),
-                              ),
-                            ),
-                            const SizedBox(height: 32.0),
-                            BlocBuilder<QuizzesBloc, QuizzesState>(
-                              builder: (context, state) {
-                                var quizzes = state.data.quizzes;
-                                return Text(
-                                  quizzes.isNotEmpty ? quizzes.first.instruction : '',
-                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                );
-                              },
-                            ),
-                            const SizedBox(height: 16.0),
-                          ],
-                        ),
-                      ],
+              SimpleProgressBar.petrol(progress: 33),
+              MainContainer(
+                child: Column(
+                  children: [
+                    const PhysicalActivitiesImageHeader(),
+                    const SizedBox(height: 34.0),
+                    CustomText.bitter600(
+                      LocalizedTexts.quiz.tr().toUpperCase(),
+                      style: context.textTheme.headlineSmall,
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 20.0),
+                    BlocBuilder<QuizzesBloc, QuizzesState>(
+                      builder: (context, state) {
+                        var quizzes = state.data.quizzes;
+                        return CustomText.w400(
+                          quizzes.isNotEmpty ? quizzes.first.instruction : '',
+                          style: context.textTheme.bodyMedium,
+                          textAlign: TextAlign.center,
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 16.0),
+                  ],
+                ),
               ),
-              SafeArea(
-                top: false,
-                child: MainContainer(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 53.0),
-                    child: ElevatedButton(
-                      onPressed: () => _onStart(context),
-                      style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                            backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
-                          ),
-                      child: Text(LocalizedTexts.letsGo.tr()),
+              MainContainer(
+                child: Column(
+                  children: [
+                    CustomElevatedButton.blueFullWidth(
+                      onPressed: _onStart,
+                      label: LocalizedTexts.letsGo,
                     ),
-                  ),
+                    const SizedBox(height: 30),
+                  ],
                 ),
               ),
             ],
@@ -126,9 +91,5 @@ class _QuizzesIntroPageState extends State<QuizzesIntroPage> {
         ),
       ),
     );
-  }
-
-  void _onStart(BuildContext context) {
-    context.router.push(QuizzesQuestionsRoute(step: 0));
   }
 }
