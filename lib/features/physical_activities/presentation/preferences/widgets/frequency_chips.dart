@@ -1,7 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/physical_activities_frequency.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
+import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 
 class FrequencyChips extends StatefulWidget {
@@ -40,12 +44,19 @@ class _FrequencyChipsState extends State<FrequencyChips> {
           .map(
             (PhysicalActivitiesFrequency value) => Column(
               children: [
-                AppChoiceChip(
-                  textAlign: TextAlign.start,
+                CustomChoiceChip.coral(
                   label: value.label,
-                  recommended: value.recommended,
                   selected: value == _selectedValue,
                   value: value,
+                  action: value.recommended
+                      ? AutoSizeText(
+                          LocalizedTexts.recommended.tr(),
+                          textAlign: TextAlign.end,
+                          style: context.textTheme.bodySmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                        )
+                      : null,
                   onSelected: _onSelectedHandler,
                 ),
                 const SizedBox(height: 8.0),

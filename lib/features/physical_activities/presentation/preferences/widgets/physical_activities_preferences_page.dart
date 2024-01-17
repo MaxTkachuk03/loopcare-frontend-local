@@ -31,7 +31,7 @@ class _PhysicalActivitiesPreferencesPageState extends State<PhysicalActivitiesPr
         title: Column(
           children: [
             Text(
-              LocalizedTexts.physicalActivitiesPreferences.translation,
+              LocalizedTexts.trainingFocus.translation,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
