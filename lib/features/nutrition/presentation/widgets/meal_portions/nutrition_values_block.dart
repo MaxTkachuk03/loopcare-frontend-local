@@ -98,7 +98,7 @@ class NutritionValuesBlock extends StatelessWidget {
                       height: 16,
                       child: ImageIcon(
                         AppIcons.arrow,
-                        color: AppColors.darkGreen,
+                        color: AppColors.blueDarker,
                       ),
                     ),
                   ],

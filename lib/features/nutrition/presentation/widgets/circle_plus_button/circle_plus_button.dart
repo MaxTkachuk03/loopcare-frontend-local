@@ -5,35 +5,24 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_button_with_icon.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_food_item_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
 
-class PlusButtonHexagon extends StatelessWidget {
-  const PlusButtonHexagon({super.key});
+class CirclePlusButton extends StatelessWidget {
+  const CirclePlusButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Hexagon(
-          width: 54,
-          height: 54,
-          borderRadius: 18,
-          innerWidget: Container(
-            color: AppColors.white,
-            child: IconButton(
-              icon: const ImageIcon(
-                AppIcons.plus,
-                color: AppColors.blueMid,
-                size: 18,
-              ),
-              onPressed: () => _onSearchTap(context),
-            ),
-          ),
+        CustomOutlinedRoundedButtonWithIcon(
+          onPressed: () => _onSearchTap(context),
+          icon: AppIcons.plus,
+          bgColor: AppColors.greenLighter,
         ),
         const SizedBox(width: 16.0),
       ],

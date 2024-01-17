@@ -23,21 +23,17 @@ class AppImages {
 
   static const AssetImage reflectionWeight = AssetImage('$imagesFilePath/reflection_weight.png');
 
-  static const AssetImage reflectionActivitiesTable =
-      AssetImage('$imagesFilePath/reflection_activities_table.png');
+  static const AssetImage reflectionActivitiesTable = AssetImage('$imagesFilePath/reflection_activities_table.png');
 
   static const AssetImage youAndFoodIntro = AssetImage('$imagesFilePath/you_and_food_intro.png');
 
-  static const AssetImage physicalActivitiesIntro =
-      AssetImage('$imagesFilePath/physical_activities_intro.png');
+  static const AssetImage physicalActivitiesIntro = AssetImage('$imagesFilePath/physical_activities_intro.png');
 
   static const AssetImage selfHelpIntro = AssetImage('$imagesFilePath/self_help_intro.png');
 
   static const AssetImage clock = AssetImage('$imagesFilePath/clock.png');
 
   static const AssetImage questionMark = AssetImage('$imagesFilePath/question.png');
-
-  static const AssetImage emptyMeal = AssetImage('$imagesFilePath/empty_meal.png');
 
   static const AssetImage dashboardBg = AssetImage('$imagesFilePath/dashboard_bg.png');
 
@@ -101,10 +97,8 @@ class AppImages {
 
   static SvgPicture oepsBig = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 120, height: 120);
   static SvgPicture oepsSmall = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 60, height: 60);
-  static SvgPicture noConnectionBig =
-      SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 120, height: 120);
-  static SvgPicture noConnectionSmall =
-      SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 60, height: 60);
+  static SvgPicture noConnectionBig = SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 120, height: 120);
+  static SvgPicture noConnectionSmall = SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 60, height: 60);
 
   static SvgPicture calorieDensityFoodA = SvgPicture.asset('$imagesFilePath/calorie_dencity_food_a.svg');
 

@@ -1,19 +1,24 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/choose_date/choose_date_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
@@ -26,8 +31,8 @@ import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/meal/widgets/meals_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/widgets/circle_plus_button/circle_plus_button.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/plus_button_hexagon/plus_button_hexagon.dart';
 
 class MealPage extends StatefulWidget {
   const MealPage({super.key});
@@ -43,10 +48,9 @@ class _MealPageState extends State<MealPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory =
-        DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
-            ? state.currentMealCategory
-            : MealCategory.breakfast.originalValue;
+    final mealCategory = DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
+        ? state.currentMealCategory
+        : MealCategory.breakfast.originalValue;
 
     final mealId = state.getCurrentMealId;
 
@@ -83,24 +87,20 @@ class _MealPageState extends State<MealPage> {
 
     if (currentMealCategory == null) return '';
 
-    final date = state.getCurrentDate.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
-        ? state.getCurrentDate.shortDate
-        : 'today';
-
     AnalyticsEventService.instance
         .logEvent('meal_screen_type_${currentMealCategory.replaceAll(' ', '_').replaceFirst('&', 'and')}');
 
-    return '${currentMealCategory.capitalizeOnlyFirstLetter()}${state.isPlanningMeals ? '' : ' ${LocalizedTexts.logList.translation}'} $date';
+    return '${currentMealCategory.capitalizeOnlyFirstLetter()}${state.isPlanningMeals ? '' : ' ${LocalizedTexts.logList.translation}'}';
   }
 
   String get _appBarSubTitle {
     final state = context.read<MealsBloc>().state;
     final dates = state.currentMealDates;
 
-    if (dates != null) {
-      return dates.length > 1 ? '(and ${dates.length - 1} other dates)' : '';
-    }
-    return '';
+    final date = state.getCurrentDate.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
+        ? state.getCurrentDate.shortDate
+        : LocalizedTexts.today.tr();
+    return date;
   }
 
   String _mealDates(MealsState state, {bool needNewLine = false}) {
@@ -226,17 +226,14 @@ class _MealPageState extends State<MealPage> {
 
   @override
   void initState() {
+    super.initState();
     final mealState = context.read<MealsBloc>().state;
     final mealCategory = mealState.currentMealCategory;
-
     if (mealCategory != null) {
       context.read<RecipeBloc>().add(RecipeEvent.getRecommendations(mealCategory));
     }
-
     final state = context.read<MealsBloc>().state;
     currentDate = state.getCurrentDate;
-
-    super.initState();
   }
 
   @override
@@ -247,13 +244,12 @@ class _MealPageState extends State<MealPage> {
       builder: (BuildContext context, state) {
         return WillPopScope(
           onWillPop: () => _onWillPop(context),
-          child: Scaffold(
-            appBar: BlueAppBar(
-              isCustomLeading: true,
+          child: CustomScaffold.greenLightest(
+            appBar: CustomAppBar.green(
               title: _appBarTitle,
               subtitle: _appBarSubTitle,
-              italicSubtitle: false,
-              actions: currentDate.isTodayOrFuture ? const [PlusButtonHexagon()] : null,
+              leading: CustomFilledIconButton.leadingGreenLighter(),
+              actions: currentDate.isTodayOrFuture ? const [CirclePlusButton()] : null,
             ),
             body: SafeArea(
               child: ScrollableContainer(
@@ -261,7 +257,6 @@ class _MealPageState extends State<MealPage> {
                   loading: (_) => const Loader(),
                   error: (errorState) {
                     final error = errorState.fetchError;
-
                     return ErrorScreen(
                       error: error,
                       //TODO: need to check
@@ -277,9 +272,7 @@ class _MealPageState extends State<MealPage> {
                     if (mealsState.isLoading) {
                       return const Loader();
                     }
-
                     final error = mealsState.error;
-
                     if (error != null) {
                       return SizedBox(
                         width: double.infinity,
@@ -314,37 +307,57 @@ class _MealPageState extends State<MealPage> {
                             //       currentDate.isTodayOrFuture ? _onChooseDates(context) : null,
                             // ),
                             const SizedBox(height: 26.0),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 24),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  OutlinedRoundedButton(
-                                    text: LocalizedTexts.saveToMyDishes.translation,
-                                    icon: AppIcons.dish,
-                                    onPressed: _onSaveToMyDishesHandler,
-                                  ),
-                                  const SizedBox(height: 16.0),
-                                  if (mealsState.isPlanningMeals && currentDate.isTodayOrFuture)
-                                    BlocBuilder<RecipeBloc, RecipeState>(
-                                      builder: (BuildContext context, recipeState) {
-                                        return OutlinedRoundedButton(
-                                          text: LocalizedTexts.recommendations.translation,
-                                          icon: AppIcons.recommendations,
-                                          onPressed: () => recipeState.data.recommendationRecipe.isEmpty
-                                              ? null
-                                              : _onRecommendationsPressed(context),
-                                          active: recipeState.data.recommendationRecipe.isNotEmpty,
-                                        );
-                                      },
+                            MainContainer(
+                              child: SizedBox(
+                                height: 35,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(right: 10.0),
+                                        child: CustomOutlinedButton(
+                                          label: LocalizedTexts.saveToMyDishes,
+                                          onPressed: _onSaveToMyDishesHandler,
+                                          styles: ButtonStyle(
+                                            side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
+                                            textStyle: MaterialStateProperty.all(context.textTheme.bodySmall
+                                                ?.copyWith(fontSize: ThemeConstants.fontSize12)),
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                  if (mealsState.isPlanningMeals) const SizedBox(height: 16.0),
-                                  OutlinedRoundedButton(
-                                    text: LocalizedTexts.deleteMeal.translation,
-                                    icon: AppIcons.delete,
-                                    onPressed: () => _onDeleteMealPressed(context),
-                                  )
-                                ],
+                                    if (mealsState.isPlanningMeals && currentDate.isTodayOrFuture)
+                                      Expanded(
+                                        child: BlocBuilder<RecipeBloc, RecipeState>(
+                                          builder: (BuildContext context, recipeState) {
+                                            return Padding(
+                                              padding: const EdgeInsets.only(right: 10.0),
+                                              child: CustomOutlinedButton(
+                                                label: LocalizedTexts.recommendations,
+                                                onPressed: () => recipeState.data.recommendationRecipe.isEmpty
+                                                    ? null
+                                                    : _onRecommendationsPressed(context),
+                                                styles: ButtonStyle(
+                                                  side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
+                                                  textStyle: MaterialStateProperty.all(context.textTheme.bodySmall),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    Expanded(
+                                      child: CustomOutlinedButton(
+                                        label: LocalizedTexts.clearMealList,
+                                        onPressed: () => _onDeleteMealPressed(context),
+                                        styles: ButtonStyle(
+                                          side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
+                                          textStyle: MaterialStateProperty.all(context.textTheme.bodySmall),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -353,9 +366,10 @@ class _MealPageState extends State<MealPage> {
                           children: [
                             const SizedBox(height: 26.0),
                             MainContainer(
-                              child: ElevatedButton(
+                              child: CustomElevatedButton.blueFullWidth(
                                 onPressed: () => _onBackToDashboardPressed(context),
-                                child: Text(LocalizedTexts.backToDashboard.translation),
+                                //TODO confirm label text for back btn
+                                label: LocalizedTexts.backToTodayLogging,
                               ),
                             ),
                             const SizedBox(height: 20.0)

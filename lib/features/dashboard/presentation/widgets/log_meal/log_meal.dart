@@ -162,8 +162,7 @@ class LogMeal extends StatelessWidget {
                                         categoryList: MealCategory.values
                                             .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
                                             .toList(),
-                                        categoryListRaw:
-                                            MealCategory.values.map((e) => e.label ?? '').toList(),
+                                        categoryListRaw: MealCategory.values.map((e) => e.label ?? '').toList(),
                                         filledList: mealsState.filledCategories,
                                       ),
                                     ],
@@ -173,11 +172,7 @@ class LogMeal extends StatelessWidget {
                                 CalorieNutritionBlock(
                                   proteinDegree: mealsState.selectedDayMealProteinDegreeSum,
                                   calorieDensity: mealsState.selectedDayMealCalorieDensitySum,
-                                  subtitle: context
-                                      .read<MealsBloc>()
-                                      .state
-                                      .getCurrentDate
-                                      .americanShortDateWithYear,
+                                  subtitle: context.read<MealsBloc>().state.getCurrentDate.americanShortDateWithYear,
                                 ),
                               ],
                             ),

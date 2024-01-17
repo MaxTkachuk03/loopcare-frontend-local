@@ -4,20 +4,15 @@ part of 'nutrition_instructions_bloc.dart';
 class NutritionInstructionsState with _$NutritionInstructionsState {
   const NutritionInstructionsState._();
 
-  const factory NutritionInstructionsState.initial(NutritionInstructionsData data) =
-      NutritionInstructionsStateInitial;
+  const factory NutritionInstructionsState.initial(NutritionInstructionsData data) = NutritionInstructionsStateInitial;
 
-  const factory NutritionInstructionsState.loading(NutritionInstructionsData data) =
-      NutritionInstructionsStateLoading;
+  const factory NutritionInstructionsState.loading(NutritionInstructionsData data) = NutritionInstructionsStateLoading;
 
-  const factory NutritionInstructionsState.error(NutritionInstructionsData data) =
-      NutritionInstructionsStateError;
+  const factory NutritionInstructionsState.error(NutritionInstructionsData data) = NutritionInstructionsStateError;
 
-  const factory NutritionInstructionsState.loaded(NutritionInstructionsData data) =
-      NutritionInstructionsStateLoaded;
+  const factory NutritionInstructionsState.loaded(NutritionInstructionsData data) = NutritionInstructionsStateLoaded;
 
-  factory NutritionInstructionsState.fromJson(Map<String, dynamic> json) =>
-      _$NutritionInstructionsStateFromJson(json);
+  factory NutritionInstructionsState.fromJson(Map<String, dynamic> json) => _$NutritionInstructionsStateFromJson(json);
 }
 
 @freezed
@@ -64,6 +59,5 @@ class NutritionInstructionsData with _$NutritionInstructionsData {
     return proteinDegreeValues.firstWhere(_filter(value));
   }
 
-  factory NutritionInstructionsData.fromJson(Map<String, dynamic> json) =>
-      _$NutritionInstructionsDataFromJson(json);
+  factory NutritionInstructionsData.fromJson(Map<String, dynamic> json) => _$NutritionInstructionsDataFromJson(json);
 }
