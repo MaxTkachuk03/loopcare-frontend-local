@@ -189,6 +189,7 @@ class LocalizedTexts {
   static const String addAsFavourite = 'addAsFavourite';
   static const String addFoodItem = 'addFoodItem';
   static const String saveToMyDishes = 'saveToMyDishes';
+  static const String addToDishes = 'addToDishes';
   static const String viewRecipe = 'viewRecipe';
   static const String ingredientsBasedOn = 'ingredientsBasedOn';
   static const String portionMeal = 'portionMeal';

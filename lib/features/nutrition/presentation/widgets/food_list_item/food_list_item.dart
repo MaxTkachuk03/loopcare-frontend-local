@@ -71,7 +71,7 @@ class FoodListItem extends StatelessWidget {
                             ),
                           ),
                           CircleAvatar(
-                            radius: 7,
+                            radius: 5,
                             backgroundColor: getCalorieDensityColor(foodItem.calorieDensity),
                           ),
                         ],
@@ -84,18 +84,18 @@ class FoodListItem extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 13.0),
+                          padding: const EdgeInsets.only(top: 13.0, bottom: 13),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               CustomText.w600(
                                 foodItem.foodName,
-                                maxLines: 2,
+                                maxLines: 1,
                                 style: context.textTheme.bodySmall?.copyWith(overflow: TextOverflow.ellipsis),
                               ),
                               CustomText.w400(
                                 '${foodItem.serving.servingSizeLabel} | $label',
-                                maxLines: 2,
+                                maxLines: 1,
                                 style: context.textTheme.bodySmall?.copyWith(
                                   overflow: TextOverflow.ellipsis,
                                 ),

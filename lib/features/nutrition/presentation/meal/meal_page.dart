@@ -20,7 +20,6 @@ import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.d
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/nutrition/application/choose_date/choose_date_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
@@ -309,56 +308,62 @@ class _MealPageState extends State<MealPage> {
                             // ),
                             const SizedBox(height: 26.0),
                             MainContainer(
-                              child: SizedBox(
-                                height: 35,
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(right: 10.0),
-                                        child: CustomOutlinedButton(
-                                          label: LocalizedTexts.saveToMyDishes,
-                                          onPressed: _onSaveToMyDishesHandler,
-                                          styles: ButtonStyle(
-                                            side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
-                                            textStyle: MaterialStateProperty.all(context.textTheme.bodySmall
-                                                ?.copyWith(fontSize: ThemeConstants.fontSize12)),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 35,
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 10.0),
+                                          child: CustomOutlinedButton(
+                                            label: LocalizedTexts.saveToMyDishes,
+                                            onPressed: _onSaveToMyDishesHandler,
+                                            styles: ButtonStyle(
+                                              side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
+                                              textStyle: MaterialStateProperty.all(context.textTheme.bodySmall),
+                                            ),
                                           ),
                                         ),
+                                        CustomOutlinedButton(
+                                          label: LocalizedTexts.clearMealList,
+                                          onPressed: () => _onDeleteMealPressed(context),
+                                          styles: ButtonStyle(
+                                            side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
+                                            textStyle: MaterialStateProperty.all(context.textTheme.bodySmall),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  if (mealsState.isPlanningMeals && currentDate.isTodayOrFuture)
+                                    SizedBox(
+                                      height: 35,
+                                      child: BlocBuilder<RecipeBloc, RecipeState>(
+                                        builder: (BuildContext context, recipeState) {
+                                          return Padding(
+                                            padding: const EdgeInsets.only(right: 10.0),
+                                            child: CustomOutlinedButton(
+                                              label: LocalizedTexts.recommendations,
+                                              onPressed: () => recipeState.data.recommendationRecipe.isEmpty
+                                                  ? null
+                                                  : _onRecommendationsPressed(context),
+                                              styles: ButtonStyle(
+                                                side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
+                                                textStyle: MaterialStateProperty.all(context.textTheme.bodySmall),
+                                              ),
+                                            ),
+                                          );
+                                        },
                                       ),
                                     ),
-                                    if (mealsState.isPlanningMeals && currentDate.isTodayOrFuture)
-                                      Expanded(
-                                        child: BlocBuilder<RecipeBloc, RecipeState>(
-                                          builder: (BuildContext context, recipeState) {
-                                            return Padding(
-                                              padding: const EdgeInsets.only(right: 10.0),
-                                              child: CustomOutlinedButton(
-                                                label: LocalizedTexts.recommendations,
-                                                onPressed: () => recipeState.data.recommendationRecipe.isEmpty
-                                                    ? null
-                                                    : _onRecommendationsPressed(context),
-                                                styles: ButtonStyle(
-                                                  side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
-                                                  textStyle: MaterialStateProperty.all(context.textTheme.bodySmall),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    Expanded(
-                                      child: CustomOutlinedButton(
-                                        label: LocalizedTexts.clearMealList,
-                                        onPressed: () => _onDeleteMealPressed(context),
-                                        styles: ButtonStyle(
-                                          side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
-                                          textStyle: MaterialStateProperty.all(context.textTheme.bodySmall),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                ],
                               ),
                             ),
                           ],

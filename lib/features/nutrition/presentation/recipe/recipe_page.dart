@@ -1,15 +1,19 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
@@ -24,6 +28,8 @@ import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_inst
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe/widgets/recipe_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_amount/servings_amount.dart';
+
+import '../../../../core/presentation/themes/themes.dart';
 
 class RecipePage extends StatefulWidget {
   final bool? isMealRecipe;
@@ -82,8 +88,8 @@ class _RecipePageState extends State<RecipePage> {
 
     final recipeId = !isMealRecipe
         ? mealState.currentFoodItems
-            .firstWhere((element) =>
-                element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
+            .firstWhere(
+                (element) => element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
             .id
         : recipeState.recipeId;
 
@@ -128,6 +134,11 @@ class _RecipePageState extends State<RecipePage> {
     return defaultMealCategories;
   }
 
+  ButtonStyle get buttonStyle => ButtonStyle(
+        side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
+        textStyle: MaterialStateProperty.all(context.textTheme.bodySmall),
+      );
+
   @override
   Widget build(BuildContext context) {
     final isMealRecipe = widget.isMealRecipe ?? false;
@@ -149,11 +160,16 @@ class _RecipePageState extends State<RecipePage> {
             listener: _mealsUpdatingListener,
           )
         ],
-        child: Scaffold(
-          appBar: BlueAppBar(
-            isCustomLeading: true,
+        child: CustomScaffold.greenLightest(
+          appBar: CustomAppBar.green(
+            leading: CustomFilledIconButton.leadingGreenLighter(),
             title: widget.name,
             subtitle: LocalizedTexts.recipe.translation,
+            actions: const [
+              SizedBox(
+                width: 44,
+              )
+            ],
           ),
           body: SafeArea(
             child: ScrollableContainer(
@@ -197,57 +213,62 @@ class _RecipePageState extends State<RecipePage> {
                                 calorieDensity: recipeState.data.recipe.calorieDensity,
                               ),
                               const SizedBox(
-                                height: 26.0,
+                                height: 15.0,
                               ),
-                              MainContainer(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        OutlinedRoundedButton(
-                                          text: LocalizedTexts.addFoodItem.translation,
-                                          icon: AppIcons.plus,
-                                          onPressed: _addFoodItemPressed,
-                                        ),
-                                        OutlinedRoundedButton(
-                                          text: LocalizedTexts.saveToMyDishes.translation,
-                                          icon: AppIcons.dish,
-                                          onPressed: _onSaveToMyDishesHandler,
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 16.0,
-                                    ),
-                                    OutlinedRoundedButton(
-                                      text: LocalizedTexts.viewRecipe.translation,
-                                      icon: AppIcons.chef,
-                                      onPressed: _onViewRecipePressed,
-                                    ),
-                                    const SizedBox(
-                                      height: 24.0,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              if (!isMealRecipe)
-                                MainContainer(
-                                  child: Column(
+                            ],
+                          ),
+                          MainContainer(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 35,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      ElevatedButton(
-                                        onPressed: _onLogRecipePressed,
-                                        child: Text(
-                                          LocalizedTexts.logItem.translation,
-                                        ),
+                                      CustomOutlinedButton(
+                                        label: LocalizedTexts.addToDishes.tr(),
+                                        onPressed: _onSaveToMyDishesHandler,
+                                        styles: buttonStyle,
                                       ),
-                                      const SizedBox(height: 30.0),
+                                      CustomOutlinedButton(
+                                        label: LocalizedTexts.addFoodItem.tr(),
+                                        onPressed: _addFoodItemPressed,
+                                        styles: buttonStyle,
+                                      ),
                                     ],
                                   ),
                                 ),
-                            ],
+                                const SizedBox(
+                                  height: 10.0,
+                                ),
+                                SizedBox(
+                                  height: 35,
+                                  child: CustomOutlinedButton(
+                                    label: LocalizedTexts.viewRecipe.tr(),
+                                    onPressed: _onViewRecipePressed,
+                                    styles: buttonStyle,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 15.0,
+                                ),
+                              ],
+                            ),
                           ),
+                          if (!isMealRecipe)
+                            MainContainer(
+                              child: Column(
+                                children: [
+                                  const SizedBox(height: 26.0),
+                                  CustomElevatedButton.blueFullWidth(
+                                    onPressed: _onLogRecipePressed,
+                                    label: LocalizedTexts.logItem.translation.tr(),
+                                  ),
+                                  const SizedBox(height: 20.0),
+                                ],
+                              ),
+                            )
                         ],
                       );
                     },
@@ -355,8 +376,7 @@ class _RecipePageState extends State<RecipePage> {
           final recipeId = !isMealRecipe
               ? mealState.currentFoodItems
                   .firstWhere((element) =>
-                      element.type == MealItemType.recipe &&
-                      element.externalId == recipeState.externalRecipeId)
+                      element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
                   .id
               : recipeState.recipeId;
 

@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions_input/meal_portions_input.dart';
@@ -37,24 +41,24 @@ class NutritionValuesBlock extends StatelessWidget {
 
     return Container(
       decoration: const BoxDecoration(
-          color: AppColors.white,
+          color: AppColors.greenLightest,
           border: Border(
               bottom: BorderSide(
             width: 1,
-            color: AppColors.yellowLight,
+            color: AppColors.greenLight,
           ))),
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 14.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              CustomText.w400(
                 LocalizedTexts.ingredientsBasedOn.translation.toUpperCase(),
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontSize: 12.0,
-                    ),
+                style: context.textTheme.bodySmall?.copyWith(
+                  fontSize: 12.0,
+                ),
               ),
               if (isPortionsEditable != null)
                 MealPortionsInput(
@@ -62,11 +66,11 @@ class NutritionValuesBlock extends StatelessWidget {
                   focusNode: portionsFocusNode,
                 ),
               if (isPortionsEditable == null)
-                Text(
+                CustomText.w600(
                   LocalizedTexts.portionMeal.translateWithNamedArgs({'numberOfPortion': '$numberOfPortions'}),
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                  style: context.textTheme.bodySmall?.copyWith(
+                    fontSize: 12.0,
+                  ),
                 ),
             ],
           ),
@@ -75,30 +79,33 @@ class NutritionValuesBlock extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(
+                CustomText.w400(
                   '${LocalizedTexts.total.translation.toUpperCase()} ${selectedNutritionType.name.toUpperCase()}',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontSize: 12.0,
-                      ),
+                  style: context.textTheme.bodySmall?.copyWith(
+                    fontSize: 12.0,
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
+                    CustomText.w600(
                       '$totalValue ${selectedNutritionType.unitLabel}',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.w600,
-                          ),
+                      style: context.textTheme.bodySmall?.copyWith(
+                        fontSize: 12.0,
+                      ),
                     ),
                     const SizedBox(
-                      width: 8.0,
+                      width: 6.0,
                     ),
-                    const SizedBox(
-                      width: 12,
-                      height: 16,
-                      child: ImageIcon(
-                        AppIcons.arrow,
-                        color: AppColors.blueDarker,
+                    Transform.rotate(
+                      angle: 0.5 * pi, // radians
+                      child: const SizedBox(
+                        width: 14,
+                        height: 16,
+                        child: ImageIcon(
+                          AppIcons.arrow,
+                          color: AppColors.blueDarker,
+                        ),
                       ),
                     ),
                   ],

@@ -37,28 +37,32 @@ class NutritionBlock extends StatelessWidget {
         color: AppColors.greenLighter,
       ),
       child: IntrinsicHeight(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Stack(
           children: [
-            Expanded(
-              child: CalorieDensityBlock(
-                value: calorieDensity,
-                onPress: ({required int tabIndex}) => _onPressHandler(
-                  tabIndex: tabIndex,
-                  context: context,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: CalorieDensityBlock(
+                    value: calorieDensity,
+                    onPress: ({required int tabIndex}) => _onPressHandler(
+                      tabIndex: tabIndex,
+                      context: context,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            Expanded(
-              child: ProteinDegreeBlock(
-                showArrow: showArrow,
-                value: proteinDegree,
-                onPress: ({required int tabIndex}) => _onPressHandler(
-                  tabIndex: tabIndex,
-                  context: context,
+                Expanded(
+                  child: ProteinDegreeBlock(
+                    showArrow: showArrow,
+                    value: proteinDegree,
+                    onPress: ({required int tabIndex}) => _onPressHandler(
+                      tabIndex: tabIndex,
+                      context: context,
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
             const Align(
               alignment: Alignment.topRight,

@@ -2,16 +2,19 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
@@ -210,9 +213,9 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
     return BlocListener<DishBloc, DishState>(
       listenWhen: _updateMealListenWhen,
       listener: _updateMealListener,
-      child: Scaffold(
-        appBar: BlueAppBar(
-          isCustomLeading: true,
+      child: CustomScaffold.greenLightest(
+        appBar: CustomAppBar.green(
+          leading: CustomFilledIconButton.leadingGreenLighter(),
           title: context.watch<DishBloc>().state.mapOrNull(
                 dish: (s) => s.selectedDish.name,
               ),
@@ -221,30 +224,30 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
         body: SafeArea(
           child: BlocBuilder<DishBloc, DishState>(
             builder: (BuildContext context, state) {
-              return state.maybeMap(
-                  loading: (_) => const Loader(),
-                  error: (errorState) {
-                    final error = errorState.fetchError;
-
-                    return ErrorScreen(
-                      error: error,
-                      onButtonPressed: () {
-                        final dishBloc = context.read<DishBloc>();
-
-                        if (widget.isMealDish ?? false) {
-                          dishBloc.add(DishEvent.getDishById(widget.dishId));
-                        } else {
-                          dishBloc.add(DishEvent.getClonedDish(widget.dishId));
-                        }
-                      },
-                    );
-                  },
-                  dish: (dishState) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Column(
+              return ScrollableContainer(
+                child: state.maybeMap(
+                    loading: (_) => const Loader(),
+                    error: (errorState) {
+                      final error = errorState.fetchError;
+                      return ErrorScreen(
+                        error: error,
+                        onButtonPressed: () {
+                          final dishBloc = context.read<DishBloc>();
+                          if (widget.isMealDish ?? false) {
+                            dishBloc.add(DishEvent.getDishById(widget.dishId));
+                          } else {
+                            dishBloc.add(DishEvent.getClonedDish(widget.dishId));
+                          }
+                        },
+                      );
+                    },
+                    dish: (dishState) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ServingsAmount(
                                 inputController: _servingController,
@@ -256,14 +259,12 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                                 selectedNutritionType: dishState.currentNutritionType,
                                 onNutritionFactSelect: _onNutritionFactSelect,
                               ),
-                              Expanded(
-                                child: DishList(
-                                  list: dishState.selectedDish.foodItems,
-                                  nutritionKey: dishState.currentNutritionType.name,
-                                  onDeleteHandler: _onDeleteFoodItemPressed,
-                                  onListItemTapHandler: _onFoodItemPressed,
-                                  isScrollable: true,
-                                ),
+                              DishList(
+                                list: dishState.selectedDish.foodItems,
+                                nutritionKey: dishState.currentNutritionType.name,
+                                onDeleteHandler: _onDeleteFoodItemPressed,
+                                onListItemTapHandler: _onFoodItemPressed,
+                                isScrollable: false,
                               ),
                               NutritionBlock(
                                 calorieDensity: dishState.selectedDish.calorieDensity,
@@ -271,59 +272,59 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                               ),
                               const SizedBox(height: 26.0),
                               MainContainer(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        OutlinedRoundedButton(
-                                          text: LocalizedTexts.addFoodItem.translation,
-                                          icon: AppIcons.plus,
+                                child: SizedBox(
+                                  height: 35,
+                                  width: double.infinity,
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: CustomOutlinedButton.blueFullWidth(
+                                          label: LocalizedTexts.addFoodItem.translation,
                                           onPressed: _onAddFoodItemHandler,
                                         ),
-                                        const SizedBox(width: 16.0),
-                                        if (widget.canEditDish)
-                                          OutlinedRoundedButton(
-                                              text: LocalizedTexts.editMyDish.translation,
-                                              icon: AppIcons.edit,
-                                              onPressed: _onEditDishHandler // disable for now,
-                                              )
-                                      ],
-                                    ),
-                                    const SizedBox(height: 16),
-                                  ],
+                                      ),
+                                      if (widget.canEditDish)
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(left: 10.0),
+                                            child: CustomOutlinedButton.blueFullWidth(
+                                                label: LocalizedTexts.editMyDish.translation,
+                                                onPressed: _onEditDishHandler // disable for now,
+                                                ),
+                                          ),
+                                        )
+                                    ],
+                                  ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
-                        ),
-                        if (!(widget.isMealDish ?? false))
-                          MainContainer(
-                            child: Column(
+                          if (!(widget.isMealDish ?? false))
+                            Column(
                               children: [
-                                BlocBuilder<DishBloc, DishState>(
-                                  builder: (BuildContext context, state) {
-                                    return state.maybeMap(
-                                        dish: (dishState) {
-                                          return ElevatedButton(
-                                            onPressed: dishState.hasFoodItems ? _onLogDishHandler : null,
-                                            child: Text(
-                                              LocalizedTexts.logItem.translation,
-                                            ),
-                                          );
-                                        },
-                                        orElse: () => const SizedBox.shrink());
-                                  },
+                                const SizedBox(height: 26.0),
+                                MainContainer(
+                                  child: BlocBuilder<DishBloc, DishState>(
+                                    builder: (BuildContext context, state) {
+                                      return state.maybeMap(
+                                          dish: (dishState) {
+                                            return CustomElevatedButton.blueFullWidth(
+                                              onPressed: dishState.hasFoodItems ? _onLogDishHandler : null,
+                                              label: LocalizedTexts.logItem.translation,
+                                            );
+                                          },
+                                          orElse: () => const SizedBox.shrink());
+                                    },
+                                  ),
                                 ),
-                                const SizedBox(height: 30.0),
+                                const SizedBox(height: 20.0),
                               ],
                             ),
-                          ),
-                      ],
-                    );
-                  },
-                  orElse: () => const SizedBox.shrink());
+                        ],
+                      );
+                    },
+                    orElse: () => const SizedBox.shrink()),
+              );
             },
           ),
         ),
