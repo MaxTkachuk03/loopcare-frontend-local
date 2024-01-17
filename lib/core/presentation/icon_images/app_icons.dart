@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -211,6 +212,12 @@ class AppIcons {
   static SvgPicture fruit = SvgPicture.asset('$iconsFilePath/fruit.svg', width: 24, height: 24);
   static SvgPicture restaurant = SvgPicture.asset('$iconsFilePath/restaurant.svg', width: 24, height: 24);
   static SvgPicture checkmarkSVG = SvgPicture.asset('$iconsFilePath/check_mark.svg', width: 24, height: 24);
+
+  static SvgPicture checkmarkCircle(bool selected, Color selectedColor, Color regularColor) =>
+      SvgPicture.asset('$iconsFilePath/checkmark_circle.svg',
+          width: 22,
+          height: 22,
+          colorFilter: ColorFilter.mode(selected ? selectedColor : regularColor, BlendMode.srcIn));
   static SvgPicture drinkSVG = SvgPicture.asset('$iconsFilePath/drink.svg', width: 24, height: 24);
 
   static SvgPicture greenCheckmark = SvgPicture.asset('$iconsFilePath/green_checkmark.svg');

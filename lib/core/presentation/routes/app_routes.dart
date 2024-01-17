@@ -126,6 +126,7 @@ class AppRoutes {
 
   // User profile
   static const String foodPreferences = '/food-preferences'; // added
+  static const String physicalPreferences = '/physical-preferences';
   static const String editFoodPreferences = '/edit-food-preferences'; // added
   static const String joinGroupPreferences = '/join-group-preferences'; // added
   static const String genderPreferences = '/gender-preferences'; // added

@@ -51,31 +51,9 @@ import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/pre_intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
 import 'package:loopcare_frontend/features/legal_statement/presentation/legal_statement_page.dart';
-import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_pre_intro_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/asthma/asthma_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/cardiovascular_disease/cardiovascular_disease_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/diabetes_disease/diabetes_disease_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/hypertension/hypertension_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/liver_disease/liver_disease_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/locomotor_system_disease/locomotor_system_disease_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medical_check_failed/medical_check_failed_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medical_check_passed/medical_check_passed_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medical_intro/medical_intro_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medication_future_period/medication_future_period_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medication_past_period/medication_past_period_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medicines/medicines_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/metabolic_disease/metabolic_disease_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/obesity/obesity_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/pregnancy_failed/pregnancy_failed.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/pregnancy/pregnancy_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/renal_failure/renal_failure_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/sleep_apnea_syndrome/sleep_apnea_syndrome_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/stomach_reduction/stomach_reduction_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/thyroid_disease/thyroid_disease_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/treatment_by_doctor/treatment_by_doctor_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/weight_loss_medication/weight_loss_medication_page.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_check_result_page.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_intro_page.dart';
+import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_pre_intro_page.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_question_page.dart';
 import 'package:loopcare_frontend/features/mood/presentation/create_mood_page.dart';
 import 'package:loopcare_frontend/features/mood/presentation/mood_option_page.dart';
@@ -95,6 +73,28 @@ import 'package:loopcare_frontend/features/nutrition/presentation/search/search_
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/select_food_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_serving_page/select_serving_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/week_planner/week_planner_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/asthma/asthma_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/cardiovascular_disease/cardiovascular_disease_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/diabetes_disease/diabetes_disease_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/hypertension/hypertension_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/liver_disease/liver_disease_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/locomotor_system_disease/locomotor_system_disease_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medical_check_failed/medical_check_failed_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medical_check_passed/medical_check_passed_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medical_intro/medical_intro_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medication_future_period/medication_future_period_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medication_past_period/medication_past_period_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medicines/medicines_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/metabolic_disease/metabolic_disease_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/obesity/obesity_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/pregnancy/pregnancy_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/pregnancy_failed/pregnancy_failed.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/renal_failure/renal_failure_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/sleep_apnea_syndrome/sleep_apnea_syndrome_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/stomach_reduction/stomach_reduction_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/thyroid_disease/thyroid_disease_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/treatment_by_doctor/treatment_by_doctor_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/weight_loss_medication/weight_loss_medication_page.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/presentation/biological_gender/biological_gender_page.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/presentation/birthday/birthday_page.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/presentation/check_failed_age/check_failed_age.dart';
@@ -108,6 +108,7 @@ import 'package:loopcare_frontend/features/physical_activities/presentation/pref
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_completed_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_frequency_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_preferences_page.dart';
+import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_preferences_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/program_assessment_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_details/program_details_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/select_exercise_page.dart';
@@ -531,6 +532,10 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.foodPreferences,
       page: FoodPreferencesPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.physicalPreferences,
+      page: PhysicalPreferencesPage,
     ),
     AutoRoute(
       path: AppRoutes.editFoodPreferences,

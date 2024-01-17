@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 typedef OnSelected<T> = void Function(T val);
 
@@ -13,6 +15,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
   final Color? borderColor;
   final Widget? avatar;
   final bool? showCheckmark;
+  final Widget? action;
 
   const CustomChoiceChip({
     super.key,
@@ -24,6 +27,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
     this.borderColor,
     this.avatar,
     this.showCheckmark,
+    this.action,
   });
 
   factory CustomChoiceChip.coral({
@@ -31,6 +35,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
     required OnSelected<T> onSelected,
     required T value,
     required String label,
+    Widget? action,
   }) =>
       CustomChoiceChip<T>(
         label: label,
@@ -39,6 +44,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
         value: value,
         selectedColor: AppColors.coralRegular,
         borderColor: AppColors.coralRegular,
+        action: action,
       );
 
   factory CustomChoiceChip.orange({
@@ -124,7 +130,16 @@ class CustomChoiceChip<T> extends StatelessWidget {
     return Theme(
       data: Theme.of(context).copyWith(canvasColor: AppColors.transparent),
       child: ChoiceChip(
-        label: SizedBox(width: double.infinity, child: Text(label).tr()),
+        label: SizedBox(
+            width: double.infinity,
+            child: Row(
+              children: [
+                selected
+                    ? Expanded(child: CustomText.w600(label.tr(), style: context.textTheme.bodySmall))
+                    : Expanded(child: CustomText.w400(label.tr(), style: context.textTheme.bodySmall)),
+                if (action != null) action!,
+              ],
+            )),
         selected: selected,
         onSelected: (_) => onSelected(value),
         selectedColor: selectedColor,
@@ -138,7 +153,6 @@ class CustomChoiceChip<T> extends StatelessWidget {
           if (states.any(interactiveStates.contains)) {
             return selectedColor;
           }
-
           return AppColors.transparent;
         }),
         avatar: avatar,

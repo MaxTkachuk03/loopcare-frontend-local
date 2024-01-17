@@ -287,6 +287,9 @@ class LocalizedTexts {
   static const String today = 'today';
   static const String physicalActivities = 'physicalActivities';
   static const String physicalActivitiesPreferences = 'physicalActivitiesPreferences';
+  static const String trainingFrequency = 'trainingFrequency';
+  static const String trainingFocus = 'trainingFocus';
+
   static const String physicalActivitiesPreferencesDesc = 'physicalActivitiesPreferencesDesc';
   static const String physicalActivitiesPreferencesItemOne = 'physicalActivitiesPreferencesItemOne';
   static const String physicalActivitiesPreferencesItemTwo = 'physicalActivitiesPreferencesItemTwo';
