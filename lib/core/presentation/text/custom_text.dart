@@ -55,11 +55,13 @@ class CustomText extends StatelessWidget {
     TextStyle? style,
     TextAlign? textAlign,
     TextOverflow? overflow,
+    int? maxLines,
   }) =>
       CustomText(
         text,
         textAlign: textAlign,
         overflow: overflow,
+        maxLines: maxLines,
         style: style?.copyWith(
           fontFamily: ThemeConstants.bitterFontFamily,
           fontWeight: FontWeight.w600,
@@ -132,11 +134,13 @@ class CustomText extends StatelessWidget {
     TextStyle? style,
     TextAlign? textAlign,
     TextOverflow? overflow,
+    int? maxLines,
   }) =>
       CustomText(
         text,
         textAlign: textAlign,
         overflow: overflow,
+        maxLines: maxLines,
         style: style?.copyWith(fontWeight: FontWeight.w600),
       );
 

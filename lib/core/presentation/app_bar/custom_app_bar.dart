@@ -176,8 +176,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
+  double get getBottomPreferredSize => bottom?.preferredSize.height ?? 0;
+
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(kToolbarHeight + getBottomPreferredSize);
 }
 
 class _Title extends StatelessWidget {

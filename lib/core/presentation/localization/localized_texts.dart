@@ -707,6 +707,8 @@ class LocalizedTexts {
 
   //Log meal
   static const String iWantToLogMy = 'iWantToLogMy';
+  static const String logMealServingTitle = 'logMealServingTitle';
+  static const String kcal = "kcal";
 
   //Mood
   static const String descriptionEmotions = 'descriptionEmotions';
