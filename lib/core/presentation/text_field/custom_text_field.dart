@@ -28,6 +28,7 @@ class CustomTextField extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final InputDecoration? decoration;
   final TextStyle? style;
+  final TextAlign textAlign;
 
   const CustomTextField({
     super.key,
@@ -49,6 +50,7 @@ class CustomTextField extends StatefulWidget {
     this.inputFormatters,
     this.decoration,
     this.style,
+    this.textAlign = TextAlign.start,
   });
 
   factory CustomTextField.search({
@@ -204,6 +206,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       autocorrect: false,
       keyboardType: widget.keyboardType,
       obscureText: _isObscureText,
+      textAlign: widget.textAlign,
       style: widget.style ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
       maxLength: widget.maxLength,
       decoration: widget.decoration ??

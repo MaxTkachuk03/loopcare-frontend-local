@@ -42,10 +42,9 @@ BottomNavigationBarThemeData _bottomNavigationBarThemeData() {
   return BottomNavigationBarThemeData(
     backgroundColor: AppColors.blueDarker,
     type: BottomNavigationBarType.fixed,
-    unselectedLabelStyle:
-        TextStyle(color: AppColors.white.withOpacity(0.5), fontSize: ThemeConstants.fontSize14),
-    selectedLabelStyle: const TextStyle(
-        color: AppColors.white, fontSize: ThemeConstants.fontSize14, fontWeight: FontWeight.bold),
+    unselectedLabelStyle: TextStyle(color: AppColors.white.withOpacity(0.5), fontSize: ThemeConstants.fontSize14),
+    selectedLabelStyle:
+        const TextStyle(color: AppColors.white, fontSize: ThemeConstants.fontSize14, fontWeight: FontWeight.bold),
     unselectedIconTheme: IconThemeData(color: AppColors.white.withOpacity(0.5)),
     selectedIconTheme: const IconThemeData(color: AppColors.white),
     unselectedItemColor: AppColors.white.withOpacity(0.5),
