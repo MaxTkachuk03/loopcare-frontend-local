@@ -374,10 +374,6 @@ class LocalizedTexts {
   static const String backToToday = 'backToToday';
   static const String backToEducation = 'backToEducation';
   static const String completed = 'completed';
-  static const String waitingForGroupCompletedLesson = 'waitingForGroupCompletedLesson';
-  static const String notJoinedToGroupCompletedLesson = 'notJoinedToGroupCompletedLesson';
-  static const String groupSessionsUnlocked = 'groupSessionsUnlocked';
-  static const String completedLessonDesc = 'completedLessonDesc';
 
   // Physical exercise
   static const String physicalActivity = 'physicalActivity';
@@ -951,6 +947,13 @@ class LocalizedTexts {
   static const String educationTitle = 'educationTitle';
   static const String locked = 'locked';
   static const String lesson = 'lesson';
+  static const String lessonCompleted = 'lessonCompleted';
+  static const String groupSessionsUnlocked = 'groupSessionsUnlocked';
+  static const String waitingForGroupCompletedLesson = 'waitingForGroupCompletedLesson';
+  static const String notJoinedToGroupCompletedLesson = 'notJoinedToGroupCompletedLesson';
+  static const String unlockFeatureDescription = 'unlockFeatureDescription';
+  static const String lessonCompleteDescription = 'lessonCompleteDescription';
+  static const String assignmentCompleted = 'assignmentCompleted';
 }
 
 extension StringX on String {

@@ -38,7 +38,6 @@ import 'package:loopcare_frontend/features/diabetes/presentation/disclaimer/disc
 import 'package:loopcare_frontend/features/diabetes/presentation/summary/summary_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/education_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/lesson_complete_page.dart';
-import 'package:loopcare_frontend/features/education/presentation/lesson_error_page/lesson_error_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_page/lesson_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/support_group_intro/support_group_intro_page.dart';
 import 'package:loopcare_frontend/features/group_sessions/presentation/preparation_materials_page.dart';
@@ -361,6 +360,7 @@ const groupLessonRoutes = [
       path: AppRoutes.noConsent,
       page: NoConsentPage,
     ),
+
     // Preferences
     AutoRoute(
       path: AppRoutes.preferencesOverview,
@@ -481,6 +481,21 @@ const groupLessonRoutes = [
       page: RecommendationsPage,
     ),
 
+    // Education
+    AutoRoute(
+      path: AppRoutes.lesson,
+      page: LessonPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.lessonComplete,
+      page: LessonCompletePage,
+    ),
+    // TODO dead route
+    // AutoRoute(
+    //   path: AppRoutes.lessonError,
+    //   page: LessonErrorPage,
+    // ),
+
     // Dish
     AutoRoute(
       path: AppRoutes.dishDetails,
@@ -490,18 +505,7 @@ const groupLessonRoutes = [
       path: AppRoutes.editDish,
       page: EditDishPage,
     ),
-    AutoRoute(
-      path: AppRoutes.lesson,
-      page: LessonPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.lessonComplete,
-      page: LessonCompletePage,
-    ),
-    AutoRoute(
-      path: AppRoutes.lessonError,
-      page: LessonErrorPage,
-    ),
+
     AutoRoute(
       path: AppRoutes.selectExercise,
       page: SelectExercisePage,

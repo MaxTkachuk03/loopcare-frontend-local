@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_option.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/widgets/quizzes_question_chip.dart';
@@ -25,11 +26,8 @@ class AnswerOptionsBlock extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          question.question ?? '',
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(height: 30.0),
+        CustomText.bitter600(question.question ?? '', style: context.textTheme.displayMedium),
+        const SizedBox(height: 28.0),
         ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -43,7 +41,6 @@ class AnswerOptionsBlock extends StatelessWidget {
               label: el.label,
               selected: selectedValues.contains(el.id),
               onSelected: _onSelectedHandler,
-              borderColor: AppColors.ff404040,
             );
           },
         ),

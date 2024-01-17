@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
@@ -21,7 +21,7 @@ class GroupPrefsProgress extends StatelessWidget {
                     const SizedBox(height: 14.0),
                     SizedBox(
                       width: 96.0,
-                      child: ProgressBar(progress: state.data.lessonProgress),
+                      child: SimpleProgressBar(progress: state.data.lessonProgress),
                     ),
                   ],
                 ),

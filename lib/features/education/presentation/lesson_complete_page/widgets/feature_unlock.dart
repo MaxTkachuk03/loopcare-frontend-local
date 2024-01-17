@@ -1,24 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
-class AppUnlockBlock extends StatelessWidget {
+class FeatureUnlock extends StatelessWidget {
   final String title;
-  final String text;
-  final VoidCallback? onBtnPressed;
-  final String? btnText;
+  final String body;
+  final Widget? action;
 
-  const AppUnlockBlock({
-    super.key,
-    required this.title,
-    required this.text,
-    this.onBtnPressed,
-    this.btnText,
-  });
+  const FeatureUnlock({super.key, required this.title, required this.body, this.action});
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +31,9 @@ class AppUnlockBlock extends StatelessWidget {
               children: [
                 CustomText.w700(title, style: context.textTheme.bodyMedium),
                 const SizedBox(height: 4.0),
-                CustomText.w400(text, style: context.textTheme.bodyMedium),
+                CustomText.w400(body, style: context.textTheme.bodyMedium),
                 const SizedBox(height: 16.0),
-                if (onBtnPressed != null)
-                  CustomOutlinedButton.blueSmall(
-                    onPressed: onBtnPressed,
-                    label: btnText ?? LocalizedTexts.start,
-                  )
+                if (action != null) action!,
               ],
             ),
           ),

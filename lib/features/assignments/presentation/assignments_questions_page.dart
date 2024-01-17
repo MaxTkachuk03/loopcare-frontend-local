@@ -3,13 +3,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/assignments/infrastructure/answer_widget_type.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_option.dart';
@@ -24,11 +28,7 @@ class AssignmentsQuestionsPage extends StatefulWidget {
   final int step;
   final bool fromDashboard;
 
-  const AssignmentsQuestionsPage({
-    super.key,
-    required this.step,
-    required this.fromDashboard,
-  });
+  const AssignmentsQuestionsPage({super.key, required this.step, required this.fromDashboard});
 
   @override
   State<AssignmentsQuestionsPage> createState() => _AssignmentsQuestionsPageState();
@@ -56,14 +56,8 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
     super.initState();
   }
 
-  String get _title => LocalizedTexts.questionOf.tr(
-        namedArgs: {
-          'step': (widget.step + 1).toString(),
-          'total': _totalSteps.toString(),
-        },
-      );
-
-  int get _percent => ((widget.step + 1) * 100 / _totalSteps).round();
+  String get _title =>
+      LocalizedTexts.stepCounter.tr(args: [(widget.step + 1).toString(), _totalSteps.toString()]);
 
   void _onSelectOptionHandler(int id) {
     setState(() {
@@ -72,13 +66,6 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
         multiSelect: widgetType == const AnswerWidgetType.multipleChoiceMultiple(),
       );
     });
-  }
-
-  get _mainContainerBgColor {
-    return mode.map(
-      askQuestion: (_) => AppColors.bgGreen,
-      showAnswer: (_) => AppColors.bgGreen,
-    );
   }
 
   void _onNextHandler({bool isEditable = true}) {
@@ -258,7 +245,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
 
   Widget content(AssignmentsState state) => widgetType.map(
         multipleChoiceValidation: (_) => const SizedBox(
-          child: Text('multipleChoiceValidation'),
+          child: CustomText('multipleChoiceValidation'),
         ),
         scale: (_) => AnswerScale(
           isEditable: question.isEditable,
@@ -313,47 +300,23 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
         ),
       );
 
+  int get _percent => ((widget.step + 1) * 100 / _totalSteps).round();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        titleSpacing: 0,
-        automaticallyImplyLeading: false,
-        backgroundColor: AppColors.bgGreen,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: _onPrevHandler,
-            ),
-            Column(
-              children: [
-                Text(
-                  LocalizedTexts.assignment.translation,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                ),
-                Text(
-                  _title,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
-                ),
-                ProgressBar(
-                  progress: _percent,
-                  backgroundColor: AppColors.bgGreen,
-                ),
-              ],
-            ),
-            const SizedBox(width: 48),
-          ],
+    return CustomScaffold.petrolLightest(
+      appBar: CustomAppBar.petrol(
+        title: LocalizedTexts.assignment.tr(),
+        subtitle: _title,
+        leading: CustomFilledIconButton.leadingPetrolLighter(onPressed: _onPrevHandler),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(72),
+          child: SimpleProgressBar.petrol(progress: _percent),
         ),
       ),
-      body: Container(
-        color: _mainContainerBgColor,
-        child: SafeArea(
-          child: ScrollableContainer(
+      body: SafeArea(
+        child: ScrollableContainer(
+          child: MainContainer(
             child: BlocListener<AssignmentsBloc, AssignmentsState>(
               listenWhen: _nextStepListenWhen,
               listener: _onStepChangeListener,
@@ -361,10 +324,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
                 builder: (context, state) {
                   return state.maybeMap(
                     loading: (_) => const Loader(),
-                    orElse: () => Container(
-                      color: AppColors.bgGreen,
-                      child: content(state),
-                    ),
+                    orElse: () => content(state),
                   );
                 },
               ),

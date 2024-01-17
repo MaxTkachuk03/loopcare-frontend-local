@@ -9,7 +9,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
@@ -46,7 +46,9 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
   }
 
   void _onNext(BuildContext context) {
-    context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.savePreferences());
+    context
+        .read<PhysicalActivitiesPreferencesBloc>()
+        .add(const PhysicalActivitiesPreferencesEvent.savePreferences());
   }
 
   @override
@@ -86,7 +88,7 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
               children: [
                 Column(
                   children: [
-                    const ProgressBar(
+                    const SimpleProgressBar(
                       progress: 90,
                     ),
                     const SizedBox(height: 30.0),
@@ -124,7 +126,8 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
                   child: MainContainer(
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 53.0),
-                      child: BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
+                      child:
+                          BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
                         builder: (context, state) {
                           return ElevatedButton(
                             onPressed: () => state.data.isTargetsSet ? _onNext(context) : null,

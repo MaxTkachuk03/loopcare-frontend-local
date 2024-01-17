@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
@@ -52,7 +52,7 @@ class SupportGroupIntroPage extends StatelessWidget {
                 BlocBuilder<EducationLessonBloc, EducationLessonState>(
                   builder: (context, state) {
                     if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences) {
-                      return ProgressBar(
+                      return SimpleProgressBar(
                         progress: state.data.lessonProgress,
                         backgroundColor: AppColors.white,
                       );
