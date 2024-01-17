@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
 
 class CategoryLabel extends StatelessWidget {
   final String label;
@@ -9,13 +10,17 @@ class CategoryLabel extends StatelessWidget {
 
   const CategoryLabel({super.key, required this.label, required this.color});
 
-  factory CategoryLabel.general() => CategoryLabel(label: 'general', color: AppColors.petrolRegular);
+  factory CategoryLabel.general() =>
+      CategoryLabel(label: LessonCategory.general.label, color: AppColors.petrolRegular);
 
-  factory CategoryLabel.nutrition() => CategoryLabel(label: 'nutrition', color: AppColors.greenRegular);
+  factory CategoryLabel.nutrition() =>
+      CategoryLabel(label: LessonCategory.nutrition.label, color: AppColors.greenRegular);
 
-  factory CategoryLabel.mind() => CategoryLabel(label: 'mind', color: AppColors.petrolRegular);
+  factory CategoryLabel.mind() =>
+      CategoryLabel(label: LessonCategory.mind.label, color: AppColors.orangeRegular);
 
-  factory CategoryLabel.activity() => CategoryLabel(label: 'activity', color: AppColors.petrolRegular);
+  factory CategoryLabel.activity() =>
+      CategoryLabel(label: LessonCategory.activity.label, color: AppColors.yellowRegular);
 
   @override
   Widget build(BuildContext context) {

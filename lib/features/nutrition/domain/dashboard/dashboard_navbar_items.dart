@@ -26,7 +26,7 @@ enum DashboardNavbarItems {
       case 'Today':
         return AppColors.blueRegular;
       case 'Education':
-        return AppColors.orangeRegular;
+        return AppColors.petrolRegular;
       case 'Group chat':
         return AppColors.orangeRegular;
       case 'Account':

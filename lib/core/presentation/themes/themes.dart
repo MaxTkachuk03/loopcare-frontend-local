@@ -110,6 +110,7 @@ TabBarTheme _getTabBarTheme() {
   return TabBarTheme(
     labelStyle: TabBarStyles.label,
     unselectedLabelStyle: TabBarStyles.unselectedLabel,
+    labelPadding: const EdgeInsets.symmetric(horizontal: 8),
     indicator: BoxDecoration(
       borderRadius: BorderRadius.circular(50.0),
       color: AppColors.white,

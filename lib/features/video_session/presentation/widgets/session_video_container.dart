@@ -309,7 +309,7 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
                                   ),
                                   const SizedBox(width: 10),
                                   CustomText.w400(
-                                    (value.duration - value.position).toVideoDurationString,
+                                    (value.duration - value.position).toDurationString,
                                     style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
                                   ),
                                 ],

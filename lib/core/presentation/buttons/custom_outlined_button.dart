@@ -63,6 +63,7 @@ class CustomOutlinedButton extends StatelessWidget {
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderOrange),
         ),
       );
+
   factory CustomOutlinedButton.orangeSmall({OnPressed? onPressed, required String label}) =>
       CustomOutlinedButton(
         onPressed: onPressed,

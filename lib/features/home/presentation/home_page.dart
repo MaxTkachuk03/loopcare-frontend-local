@@ -32,11 +32,13 @@ class _HomePageState extends State<HomePage> {
         buildWhen: (context, state) => isChatEnable.value != state.isUserGrouped,
         builder: (context, state) {
           _chatEnable(state);
-          return MaterialApp(
-            theme: appThemeData.copyWith(
-                bottomNavigationBarTheme:
-                    appThemeData.bottomNavigationBarTheme.copyWith(backgroundColor: AppColors.blueDarker)),
-            home: AutoTabsScaffold(
+          return Theme(
+            data: Theme.of(context).copyWith(
+              bottomNavigationBarTheme: appThemeData.bottomNavigationBarTheme.copyWith(
+                backgroundColor: AppColors.blueDarker,
+              ),
+            ),
+            child: AutoTabsScaffold(
               animationDuration: Duration.zero,
               routes: const [
                 DashboardRoute(),

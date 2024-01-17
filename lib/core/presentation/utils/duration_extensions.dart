@@ -1,5 +1,5 @@
 extension DurationExtension on Duration {
-  String get toVideoDurationString {
+  String get toDurationString {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final hours = twoDigits(inHours);
     final minutes = twoDigits(inMinutes.remainder(60));

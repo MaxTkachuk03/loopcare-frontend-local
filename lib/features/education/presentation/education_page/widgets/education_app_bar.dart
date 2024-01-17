@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class EducationAppBar extends StatelessWidget {
   final Key containerKey;
@@ -12,28 +15,17 @@ class EducationAppBar extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Container(
         key: containerKey,
-        color: AppColors.orange,
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 36),
-        child: const Column(
+        color: AppColors.petrolRegular,
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
           children: [
-            Text(
-              'Taking one step at a time will have a huge impact',
-              style: TextStyle(
-                fontFamily: ThemeConstants.bitterFontFamily,
-                color: AppColors.white,
-                fontSize: 30.0,
-                fontWeight: FontWeight.w600,
-              ),
+            CustomText.bitter600(
+              LocalizedTexts.educationTitle,
+              textAlign: TextAlign.center,
+              style: context.textTheme.displayLarge?.copyWith(color: AppColors.white),
             ),
-            SizedBox(
-              height: 16.0,
-            ),
-            AspectRatio(
-              aspectRatio: 1.5,
-              child: Image(
-                image: AppImages.educationVideoPreview,
-              ),
-            ),
+            const SizedBox(height: 28.0),
+            const Image(image: AppImages.educationPreview),
           ],
         ),
       ),

@@ -45,11 +45,12 @@ class ProgressBar extends StatelessWidget {
                         min: 0,
                         max: _durationToDouble(value.duration),
                         value: _durationToDouble(value.position),
-                        secondaryTrackValue: value.buffered.isEmpty ? 0.0 : _durationToDouble(value.buffered[0].end),
+                        secondaryTrackValue:
+                            value.buffered.isEmpty ? 0.0 : _durationToDouble(value.buffered[0].end),
                       ),
                     ),
                     Text(
-                      (value.duration - value.position).toVideoDurationString,
+                      (value.duration - value.position).toDurationString,
                       style: const TextStyle(color: AppColors.white),
                     ),
                   ],
