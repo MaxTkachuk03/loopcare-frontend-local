@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/presentation/clippers/activity_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/widgets/difficulty_label.dart';
 
 part 'program_card.freezed.dart';
 
@@ -26,19 +29,24 @@ class ProgramCardSize with _$ProgramCardSize {
 class ProgramCard extends StatelessWidget {
   final ProgramCardSize size;
   final PhysicalProgram program;
+  final Color? bgColor;
+  final Color? borderColor;
+  final EdgeInsetsGeometry? padding;
 
-  const ProgramCard({super.key, required this.size, required this.program});
+  const ProgramCard({
+    super.key,
+    required this.size,
+    required this.program,
+    this.bgColor,
+    this.borderColor,
+    this.padding,
+  });
 
-  double get _imageWidth {
-    return size.map(
-      small: (_) => 104,
-      large: (_) => 130,
-    );
-  }
+  double get _imageWidth => 200;
 
   double get _cardHeight {
     return size.map(
-      small: (_) => 190,
+      small: (_) => 200,
       large: (_) => 270,
     );
   }
@@ -51,97 +59,108 @@ class ProgramCard extends StatelessWidget {
       onTap: () => _onTap(context),
       child: SizedBox(
         height: _cardHeight,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(8.0),
-          child: Container(
-            padding: const EdgeInsets.only(right: 34.0),
-            color: AppColors.white,
-            child: Row(
-              children: [
-                if (image != null)
-                  SizedBox(
-                    width: _imageWidth,
-                    child: NetworkImageWithCache(
-                      url: image,
-                      imageBoxFit: BoxFit.fitHeight,
+        child: Card(
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+            side: BorderSide(
+              color: borderColor ?? AppColors.white,
+              width: 2.0,
+            ),
+          ),
+          color: bgColor ?? AppColors.white,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              if (image != null)
+                Expanded(
+                  child: ClipPath(
+                    clipper: ActivityClipper(),
+                    child: Container(
+                      padding: padding,
+                      width: _imageWidth,
+                      alignment: Alignment.centerLeft,
+                      child: NetworkImageWithCache(
+                        url: image,
+                        imageBoxFit: BoxFit.fitHeight,
+                      ),
                     ),
                   ),
-                const SizedBox(
-                  width: 24.0,
                 ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        program.name,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                              fontFamily: ThemeConstants.bitterFontFamily,
-                            ),
-                      ),
-                      const SizedBox(
-                        height: 8.0,
-                      ),
-                      Row(
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomText.bitter700(
+                      program.name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: context.textTheme.bodyMedium,
+                    ),
+                    const SizedBox(
+                      height: 15.0,
+                    ),
+                    Row(
+                      children: [
+                        CategoryLabel.difficulty(
+                          label: program.difficultyName,
+                        ),
+                        const SizedBox(
+                          width: 16.0,
+                        ),
+                        AppIcons.clock,
+                        const SizedBox(
+                          width: 4.0,
+                        ),
+                        CustomText.w600(
+                          formatDuration(program.duration),
+                          style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize10),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 15.0,
+                    ),
+                    IntrinsicHeight(
+                      child: Row(
                         children: [
-                          DifficultyLabel(
-                            text: program.difficultyName,
+                          CustomText.w700(
+                            program.placeName.toUpperCase(),
+                            style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize12),
                           ),
-                          const SizedBox(
-                            width: 16.0,
+                          const VerticalDivider(
+                            color: AppColors.blueDarker,
+                            thickness: 1.0,
                           ),
-                          AppIcons.clock,
-                          const SizedBox(
-                            width: 4.0,
+                          CustomText.w700(
+                            program.typeName.toUpperCase(),
+                            style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize12),
                           ),
-                          Text(
-                            formatDuration(program.duration),
-                            style: Theme.of(context).textTheme.bodySmall,
-                          )
                         ],
                       ),
-                      const SizedBox(
-                        height: 8.0,
-                      ),
-                      Text(
-                        program.placeName.toUpperCase(),
-                        style: const TextStyle(
-                          fontSize: ThemeConstants.fontSize12,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Text(
-                        program.typeName.toUpperCase(),
-                        style: const TextStyle(
-                          fontSize: ThemeConstants.fontSize12,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 8.0,
-                      ),
-                      Text(
-                        LocalizedTexts.equipment,
-                        maxLines: 1,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ).tr(namedArgs: {
+                    ),
+                    CustomText.w400(
+                      LocalizedTexts.equipment.tr(namedArgs: {
                         'equipment': program.equipment,
                       }),
-                      Text(
-                        LocalizedTexts.targetMuscles,
-                        maxLines: 1,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ).tr(namedArgs: {
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize12),
+                    ),
+                    CustomText.w400(
+                      LocalizedTexts.targetMuscles.tr(namedArgs: {
                         'targetMuscles': program.targetMuscles,
                       }),
-                    ],
-                  ),
-                )
-              ],
-            ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize12),
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
         ),
       ),

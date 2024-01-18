@@ -3,12 +3,15 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
+const _kRegularHeight = 50.0;
+
 class RegularCell extends StatelessWidget {
   final int index;
   final void Function(int tabIndex) onPress;
   final int? scaleSize;
   final String? label;
   final Color? borderColor;
+  final Color? divColor;
 
   const RegularCell({
     super.key,
@@ -17,24 +20,24 @@ class RegularCell extends StatelessWidget {
     this.scaleSize,
     this.label,
     this.borderColor,
+    this.divColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => onPress(index),
-      child: ClipRRect(
-        borderRadius: _getBorderRadius(index, scaleSize ?? 9),
-        child: Container(
-          height: 56,
-          decoration: BoxDecoration(
-            border: _getBorders(index, scaleSize ?? 9),
-          ),
-          child: Center(
-            child: CustomText.w600(
-              label ?? '${index + 1}',
-              style: context.textTheme.bodyMedium,
-            ),
+      child: Container(
+        height: _kRegularHeight,
+        width: 40,
+        decoration: BoxDecoration(
+          border: _getBorders(index, scaleSize ?? 9),
+          borderRadius: _getBorderRadius(index, scaleSize ?? 9),
+        ),
+        child: Center(
+          child: CustomText.w600(
+            label ?? '${index + 1}',
+            style: context.textTheme.bodyMedium,
           ),
         ),
       ),
@@ -44,40 +47,67 @@ class RegularCell extends StatelessWidget {
   BorderRadiusGeometry _getBorderRadius(int index, int maxIndex) {
     if (index == 0) {
       return const BorderRadius.only(
-        topLeft: Radius.circular(8.0),
-        bottomLeft: Radius.circular(8.0),
+        topLeft: Radius.circular(10.0),
+        bottomLeft: Radius.circular(10.0),
       );
     } else if (index == (maxIndex - 1)) {
       return const BorderRadius.only(
-        topRight: Radius.circular(8.0),
-        bottomRight: Radius.circular(8.0),
+        topRight: Radius.circular(10.0),
+        bottomRight: Radius.circular(10.0),
       );
     }
-
     return BorderRadius.zero;
   }
 
   BoxBorder _getBorders(int index, int maxIndex) {
     if (index == 0) {
       return Border(
-        left: BorderSide(width: 2, color: borderColor ?? AppColors.blueDarker),
-        right: const BorderSide(width: 0.5, color: AppColors.blueLighter),
-        top: BorderSide(width: 2, color: borderColor ?? AppColors.blueDarker),
-        bottom: BorderSide(width: 2, color: borderColor ?? AppColors.blueDarker),
+        left: BorderSide(
+          width: 2,
+          color: borderColor ?? AppColors.yellowLight,
+        ),
+        top: BorderSide(
+          width: 2,
+          color: borderColor ?? AppColors.yellowLight,
+        ),
+        bottom: BorderSide(
+          width: 2,
+          color: borderColor ?? AppColors.yellowLight,
+        ),
       );
     } else if (index == (maxIndex - 1)) {
       return Border(
-        left: const BorderSide(width: 0.5, color: AppColors.blueLighter),
-        right: BorderSide(width: 2, color: borderColor ?? AppColors.blueDarker),
-        top: BorderSide(width: 2, color: borderColor ?? AppColors.blueDarker),
-        bottom: BorderSide(width: 2, color: borderColor ?? AppColors.blueDarker),
+        right: BorderSide(
+          width: 2,
+          color: borderColor ?? AppColors.yellowLight,
+        ),
+        top: BorderSide(
+          width: 2,
+          color: borderColor ?? AppColors.yellowLight,
+        ),
+        bottom: BorderSide(
+          width: 2,
+          color: borderColor ?? AppColors.yellowLight,
+        ),
       );
     } else {
       return Border(
-        left: const BorderSide(width: 0.5, color: AppColors.blueLighter),
-        right: const BorderSide(width: 0.5, color: AppColors.blueLighter),
-        top: BorderSide(width: 2, color: borderColor ?? AppColors.blueDarker),
-        bottom: BorderSide(width: 2, color: borderColor ?? AppColors.blueDarker),
+        left: BorderSide(
+          width: 0.5,
+          color: divColor ?? AppColors.yellowLight,
+        ),
+        right: BorderSide(
+          width: 0.5,
+          color: divColor ?? AppColors.yellowLight,
+        ),
+        top: BorderSide(
+          width: 2,
+          color: borderColor ?? AppColors.yellowLight,
+        ),
+        bottom: BorderSide(
+          width: 2,
+          color: borderColor ?? AppColors.yellowLight,
+        ),
       );
     }
   }

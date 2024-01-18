@@ -332,20 +332,20 @@ class _MealPageState extends State<MealPage> {
                                     ),
                                   ),
                                   const SizedBox(height: 10.0),
-                                  // if (mealsState.isPlanningMeals && currentDate.isTodayOrFuture)
-                                  SizedBox(
-                                    height: 35,
-                                    child: BlocBuilder<RecipeBloc, RecipeState>(
-                                      builder: (BuildContext context, recipeState) {
-                                        return CustomOutlinedButton.blue(
-                                          label: LocalizedTexts.recommendations,
-                                          onPressed: () => recipeState.data.recommendationRecipe.isEmpty
-                                              ? null
-                                              : _onRecommendationsPressed(context),
-                                        );
-                                      },
+                                  if (mealsState.isPlanningMeals && currentDate.isTodayOrFuture)
+                                    SizedBox(
+                                      height: 35,
+                                      child: BlocBuilder<RecipeBloc, RecipeState>(
+                                        builder: (BuildContext context, recipeState) {
+                                          return CustomOutlinedButton.blue(
+                                            label: LocalizedTexts.recommendations,
+                                            onPressed: () => recipeState.data.recommendationRecipe.isEmpty
+                                                ? null
+                                                : _onRecommendationsPressed(context),
+                                          );
+                                        },
+                                      ),
                                     ),
-                                  ),
                                 ],
                               ),
                             ),

@@ -381,14 +381,18 @@ class LocalizedTexts {
 
   // Physical exercise
   static const String physicalActivity = 'physicalActivity';
-  static const String selectYourExercise = 'selectYourExercise';
+  static const String selectYourProgram = 'selectYourProgram';
+  static const String selectExerciseType = 'selectExerciseType';
+  static const String countExercises = 'countExercises';
   static const String program = 'program';
   static const String yourOwnActivity = 'yourOwnActivity';
   static const String whatWouldYouLikeToWorkOn = 'whatWouldYouLikeToWorkOn';
+  static const String didItWorkOutForYou = 'didItWorkOutForYou';
+  static const String strengthPrograms = 'strengthPrograms';
   static const String strength = 'strength';
   static const String endurance = 'endurance';
   static const String mobility = 'mobility';
-  static const String whereAreYou = 'whereAreYou';
+  static const String yourLocation = 'yourLocation';
   static const String home = 'home';
   static const String office = 'office';
   static const String outdoor = 'outdoor';
@@ -397,6 +401,7 @@ class LocalizedTexts {
   static const String medium = 'medium';
   static const String hard = 'hard';
   static const String whatPhysicalActivityDidYouDo = 'whatPhysicalActivityDidYouDo';
+  static const String errorActivityMessage = 'errorActivityMessage';
   static const String logActivity = 'logActivity';
   static const String howHard = 'howHard';
   static const String veryEasy = 'veryEasy';
@@ -717,6 +722,7 @@ class LocalizedTexts {
   static const String descriptionWithWhom = 'descriptionWithWhom';
   static const String descriptionWhere = 'descriptionWhere';
   static const String descriptionFood = 'descriptionFood';
+
   //Log weight
   static const String logWeight = 'logWeight';
 

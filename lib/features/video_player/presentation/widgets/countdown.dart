@@ -1,6 +1,7 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/video_player/infrastructure/video_page_controller.dart';
 
 class CountDown extends StatelessWidget {
@@ -35,20 +36,20 @@ class CountDown extends StatelessWidget {
       duration: duration,
       initialDuration: initialDuration,
       controller: controller,
-      width: isPortraitOrientation ? 40 : 60,
-      height: isPortraitOrientation ? 40 : 60,
+      width: isPortraitOrientation ? 40 : 54,
+      height: isPortraitOrientation ? 40 : 54,
       ringColor: AppColors.d9d9d9,
       ringGradient: null,
-      fillColor: AppColors.blueMid,
+      fillColor: AppColors.petrolRegular,
       fillGradient: null,
       backgroundColor: Colors.transparent,
       backgroundGradient: null,
       strokeWidth: isPortraitOrientation ? 5.0 : 7.0,
       strokeCap: StrokeCap.round,
-      textStyle: TextStyle(
+      textStyle: context.textTheme.bodyMedium?.copyWith(
         fontSize: isPortraitOrientation ? 12.0 : 16.0,
         color: Colors.white,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w600,
         fontFamily: ThemeConstants.bitterFontFamily,
       ),
       textFormat: CountdownTextFormat.SS,

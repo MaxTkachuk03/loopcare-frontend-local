@@ -18,6 +18,22 @@ class CustomText extends StatelessWidget {
     this.overflow,
   });
 
+  factory CustomText.bitter300(
+    String text, {
+    TextStyle? style,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+  }) =>
+      CustomText(
+        text,
+        textAlign: textAlign,
+        overflow: overflow,
+        style: style?.copyWith(
+          fontFamily: ThemeConstants.bitterFontFamily,
+          fontWeight: FontWeight.w300,
+        ),
+      );
+
   factory CustomText.bitter400(
     String text, {
     TextStyle? style,
@@ -73,11 +89,13 @@ class CustomText extends StatelessWidget {
     TextStyle? style,
     TextOverflow? overflow,
     TextAlign? textAlign,
+    int? maxLines,
   }) =>
       CustomText(
         text,
         textAlign: textAlign,
         overflow: overflow,
+        maxLines: maxLines,
         style: style?.copyWith(
           fontFamily: ThemeConstants.bitterFontFamily,
           fontWeight: FontWeight.w700,
@@ -121,11 +139,13 @@ class CustomText extends StatelessWidget {
     TextStyle? style,
     TextOverflow? overflow,
     TextAlign? textAlign,
+    int? maxLines,
   }) =>
       CustomText(
         text,
         textAlign: textAlign,
         overflow: overflow,
+        maxLines: maxLines,
         style: style?.copyWith(fontWeight: FontWeight.w500),
       );
 

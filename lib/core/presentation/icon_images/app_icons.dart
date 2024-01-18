@@ -267,6 +267,10 @@ class AppIcons {
   );
 
   static SvgPicture infoQuestion = SvgPicture.asset('$iconsFilePath/icon_info_question.svg');
+  static SvgPicture yesScore = SvgPicture.asset('$iconsFilePath/yes_score.svg', width: 22, height: 22);
+  static SvgPicture noScore = SvgPicture.asset('$iconsFilePath/no_score.svg', width: 22, height: 22);
+  static SvgPicture yesScoreFilled =
+      SvgPicture.asset('$iconsFilePath/yes_score_filled.svg', width: 22, height: 22);
 
   AppIcons._();
 }

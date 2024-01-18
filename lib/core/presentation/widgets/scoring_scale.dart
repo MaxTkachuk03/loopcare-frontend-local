@@ -8,6 +8,7 @@ class ScoringScale extends StatelessWidget {
   final int? scaleSize;
   final List<String>? labels;
   final Color? borderColor;
+  final Color? divColor;
 
   const ScoringScale({
     super.key,
@@ -16,6 +17,7 @@ class ScoringScale extends StatelessWidget {
     this.scaleSize,
     this.labels,
     this.borderColor,
+    this.divColor,
   });
 
   @override
@@ -38,6 +40,7 @@ class ScoringScale extends StatelessWidget {
                   scaleSize: scaleSize,
                   label: labels?.elementAt(index),
                   borderColor: borderColor,
+                  divColor: divColor,
                 ),
               ),
       ),

@@ -119,21 +119,22 @@ TabBarTheme _getTabBarTheme() {
 
 ChipThemeData _chipTheme() {
   return const ChipThemeData(
-    showCheckmark: false,
-    labelStyle: TextStyle(
-      fontSize: ThemeConstants.fontSize14,
-      fontWeight: FontWeight.w400,
-      color: AppColors.blueDarker,
-    ),
-    secondaryLabelStyle: TextStyle(
-      fontSize: ThemeConstants.fontSize14,
-      fontWeight: FontWeight.w600,
-      color: AppColors.blueDarker,
-    ),
-    side: BorderSide(width: 2),
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
-    padding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 25.0),
-  );
+      showCheckmark: false,
+      labelStyle: TextStyle(
+        fontSize: ThemeConstants.fontSize14,
+        fontWeight: FontWeight.w400,
+        color: AppColors.blueDarker,
+      ),
+      secondaryLabelStyle: TextStyle(
+        fontSize: ThemeConstants.fontSize14,
+        fontWeight: FontWeight.w600,
+        color: AppColors.blueDarker,
+      ),
+      side: BorderSide(width: 2),
+      disabledColor: AppColors.greyLight,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+      padding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 25.0),
+      deleteIconColor: AppColors.greenLightest);
 }
 
 InputDecorationTheme _getInputDecorationTheme() {

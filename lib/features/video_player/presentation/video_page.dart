@@ -8,10 +8,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
 import 'package:loopcare_frontend/core/domain/aws_cookies_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
@@ -156,19 +159,9 @@ class _VideoPageState extends State<VideoPage> {
 
               _videoPageController.setOrientation(orientation);
 
-              return Scaffold(
-                backgroundColor: AppColors.black,
-                appBar: isPortrait
-                    ? AppBar(
-                        backgroundColor: AppColors.black,
-                        leading: IconButton(
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: AppColors.white,
-                          ),
-                          onPressed: context.router.pop,
-                        ))
-                    : null,
+              return CustomScaffold.blueDarkest(
+                appBar:
+                    isPortrait ? CustomAppBar.transparent(leading: CustomFilledIconButton.leadingBlueLighter()) : null,
                 body: SafeArea(
                   bottom: isPortrait,
                   child: Column(
@@ -205,13 +198,9 @@ class _VideoPageState extends State<VideoPage> {
                                       children: [
                                         Visibility(
                                           visible: isVisible,
-                                          child: ElevatedButton(
+                                          child: CustomElevatedButton.yellow(
                                             onPressed: _onSkipExplanationHandler,
-                                            style: ButtonStyle(
-                                              minimumSize: MaterialStateProperty.all(const Size(186, 52.0)),
-                                              backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
-                                            ),
-                                            child: const Text(LocalizedTexts.skipExplanation).tr(),
+                                            label: LocalizedTexts.skipExplanation.tr(),
                                           ),
                                         ),
                                         const SizedBox(height: 30.0),
