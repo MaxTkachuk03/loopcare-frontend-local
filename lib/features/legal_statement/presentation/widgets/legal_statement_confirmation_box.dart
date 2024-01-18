@@ -35,7 +35,7 @@ class _LegalStatementConfirmationBoxState extends State<LegalStatementConfirmati
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomCheckbox(value: isChecked, onChanged: _onCheckboxChanged),
+              CustomCheckbox.green(value: isChecked, onChanged: _onCheckboxChanged),
               const SizedBox(width: 10.0),
               Expanded(
                 child: Column(

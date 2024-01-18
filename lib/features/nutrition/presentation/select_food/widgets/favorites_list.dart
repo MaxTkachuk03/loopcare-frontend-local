@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,15 +66,16 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
                   child: ErrorScreen(
                     smallVersion: false,
                     error: error,
-                    onButtonPressed: () =>
-                        context.read<SelectFoodBloc>().add(SelectFoodEvent.fetchFavorites(_defaultMealCategory)),
+                    onButtonPressed: () => context
+                        .read<SelectFoodBloc>()
+                        .add(SelectFoodEvent.fetchFavorites(_defaultMealCategory)),
                   ),
                 );
               },
               selectFood: (selectFoodState) {
                 final String title = selectFoodState.hasOneSelectedMealCategory
-                    ? '${LocalizedTexts.my.translation} ${selectFoodState.selectedMealCategories[0].name}'
-                    : LocalizedTexts.myFavorites.translation;
+                    ? '${LocalizedTexts.my.tr()} ${selectFoodState.selectedMealCategories[0].name}'
+                    : LocalizedTexts.myFavorites.tr();
 
                 return Expanded(
                   child: Column(
@@ -85,9 +87,12 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
                         onConfirmed: (list) => _onConfirmed(context, list),
                       ),
                       selectFoodState.favorites.isEmpty
-                          ? EmptyListWidget(
-                              type: EmptyListType.myFavorites,
-                              typeText: title,
+                          ? Padding(
+                              padding: const EdgeInsets.only(top: 16.0),
+                              child: EmptyListWidget(
+                                type: EmptyListType.myFavorites,
+                                typeText: title,
+                              ),
                             )
                           : Expanded(
                               child: RefreshIndicator(

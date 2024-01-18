@@ -60,7 +60,7 @@ class CustomTextField extends StatefulWidget {
     VoidCallback? onCleared,
   }) =>
       CustomTextField(
-        hintText: LocalizedTexts.searchHint,
+        hintText: LocalizedTexts.searchHint.tr(),
         controller: controller,
         prefixIcon: const Icon(Icons.search, size: 22),
         onChanged: onChanged,
