@@ -1153,51 +1153,30 @@ class ModalBottomSheet {
       isScrollControlled: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       context: context,
+      showDragHandle: true,
       builder: (BuildContext context) {
         return FractionallySizedBox(
           heightFactor: 0.95,
-          child: SafeArea(
-            child: Container(
-              color: AppColors.white,
-              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 32.0),
+          child: ScrollableContainer(
+            child: MainContainer(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: SizedBox(
-                      width: 30.0,
-                      height: 30.0,
-                      child: IconButton(
-                        iconSize: 30,
-                        padding: EdgeInsets.zero,
-                        onPressed: () => context.router.pop(),
-                        icon: const Icon(Icons.close),
-                      ),
-                    ),
+                  CustomText.bitter500(
+                    LocalizedTexts.inCaseOfEmergency.tr(),
+                    style: context.textTheme.displayMedium,
                   ),
-                  CustomText.bitter500(LocalizedTexts.inCaseOfEmergency.tr(),
-                      style: context.textTheme.displayMedium),
                   const SizedBox(height: 12),
                   CustomText.w400(LocalizedTexts.emergencySubtitle.tr(), style: context.textTheme.bodyMedium),
                   const SizedBox(height: 12),
-                  Expanded(
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      itemCount: emergencyNumbersList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return EmergencyNumberCard(
-                          number: emergencyNumbersList[index],
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const Divider(
-                          thickness: 1.0,
-                          height: 1.0,
-                          color: AppColors.greyRegular,
-                        );
-                      },
-                    ),
+                  ListView.separated(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: emergencyNumbersList.length,
+                    itemBuilder: (context, index) => EmergencyNumberCard(number: emergencyNumbersList[index]),
+                    separatorBuilder: (_, __) {
+                      return const Divider(thickness: 1.0, height: 1.0, color: AppColors.greyRegular);
+                    },
                   ),
                 ],
               ),

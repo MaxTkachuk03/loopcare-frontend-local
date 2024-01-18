@@ -22,17 +22,13 @@ class EmergencyNumberCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Row(
         children: [
+          Expanded(child: CustomText.w700(number.title, style: context.textTheme.bodyMedium)),
+          const SizedBox(width: 10),
           Expanded(
-            child: CustomText.w700(number.title, style: context.textTheme.bodyMedium),
-          ),
-          Expanded(
-            child: SizedBox(
-              height: 30.0,
-              child: CustomOutlinedButtonWithIcon.coralFullWidth(
-                onPressed: () => _onPressed(context),
-                label: number.btnTxt,
-                icon: _getIcon() ?? const SizedBox.shrink(),
-              ),
+            child: CustomOutlinedButtonWithIcon.coralSmall(
+              onPressed: () => _onPressed(context),
+              label: number.btnTxt,
+              icon: _getIcon() ?? const SizedBox.shrink(),
             ),
           ),
         ],
