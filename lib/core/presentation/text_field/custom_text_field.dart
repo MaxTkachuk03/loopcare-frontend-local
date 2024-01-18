@@ -219,7 +219,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
             hintText: widget.hintText.tr(),
             prefixIcon: widget.prefixIcon,
             suffixIcon: _suffixIcon,
-            contentPadding: const EdgeInsets.all(0.0),
           ),
       validator: widget.validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
