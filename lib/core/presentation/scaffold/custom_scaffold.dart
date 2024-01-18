@@ -31,8 +31,13 @@ class CustomScaffold extends StatelessWidget {
   factory CustomScaffold.orange({CustomAppBar? appBar, Widget? body}) =>
       CustomScaffold(appBar: appBar, body: body, color: AppColors.orangeOffRegular);
 
-  factory CustomScaffold.yellowLightest({CustomAppBar? appBar, Widget? body}) =>
-      CustomScaffold(appBar: appBar, body: body, color: AppColors.yellowLightest);
+  factory CustomScaffold.yellowLightest({CustomAppBar? appBar, Widget? body, bool? resizeToAvoidBottomInset}) =>
+      CustomScaffold(
+        appBar: appBar,
+        body: body,
+        color: AppColors.yellowLightest,
+        resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+      );
 
   factory CustomScaffold.yellow({CustomAppBar? appBar, Widget? body}) =>
       CustomScaffold(appBar: appBar, body: body, color: AppColors.yellowOffRegular);
@@ -60,13 +65,6 @@ class CustomScaffold extends StatelessWidget {
 
   factory CustomScaffold.blueDarkest({CustomAppBar? appBar, Widget? body}) =>
       CustomScaffold(appBar: appBar, body: body, color: AppColors.blueDarkest);
-
-  factory CustomScaffold.white({CustomAppBar? appBar, Widget? body, bool? resizeToAvoidBottomInset}) => CustomScaffold(
-        appBar: appBar,
-        body: body,
-        color: AppColors.white,
-        resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-      );
 
   @override
   Widget build(BuildContext context) {
