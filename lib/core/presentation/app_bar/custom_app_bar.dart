@@ -199,7 +199,7 @@ class _Title extends StatelessWidget {
       children: [
         Text(
           title ?? '',
-          maxLines: 1,
+          maxLines: subtitle != null ? 1 : 2,
           overflow: TextOverflow.ellipsis,
         ),
         if (subtitle != null)

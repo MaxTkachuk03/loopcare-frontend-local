@@ -1,8 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -94,18 +91,13 @@ class NutritionValuesBlock extends StatelessWidget {
                         fontSize: 12.0,
                       ),
                     ),
+                    const SizedBox(width: 6.0),
                     const SizedBox(
-                      width: 6.0,
-                    ),
-                    Transform.rotate(
-                      angle: 0.5 * pi, // radians
-                      child: const SizedBox(
-                        width: 14,
-                        height: 16,
-                        child: ImageIcon(
-                          AppIcons.arrow,
-                          color: AppColors.blueDarker,
-                        ),
+                      width: 14,
+                      height: 16,
+                      child: Icon(
+                        Icons.keyboard_arrow_down,
+                        color: AppColors.blueDarker,
                       ),
                     ),
                   ],

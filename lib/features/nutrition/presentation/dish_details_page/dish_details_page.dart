@@ -276,6 +276,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                                   height: 35,
                                   width: double.infinity,
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Expanded(
                                         child: CustomOutlinedButton.blueFullWidth(
@@ -283,15 +284,13 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                                           onPressed: _onAddFoodItemHandler,
                                         ),
                                       ),
+                                      const SizedBox(width: 10.0),
                                       if (widget.canEditDish)
                                         Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(left: 10.0),
-                                            child: CustomOutlinedButton.blueFullWidth(
-                                                label: LocalizedTexts.editMyDish.translation,
-                                                onPressed: _onEditDishHandler // disable for now,
-                                                ),
-                                          ),
+                                          child: CustomOutlinedButton.blueFullWidth(
+                                              label: LocalizedTexts.editMyDish.translation,
+                                              onPressed: _onEditDishHandler // disable for now,
+                                              ),
                                         )
                                     ],
                                   ),

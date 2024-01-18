@@ -12,7 +12,6 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
-import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
@@ -28,8 +27,6 @@ import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_inst
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe/widgets/recipe_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_amount/servings_amount.dart';
-
-import '../../../../core/presentation/themes/themes.dart';
 
 class RecipePage extends StatefulWidget {
   final bool? isMealRecipe;
@@ -134,11 +131,6 @@ class _RecipePageState extends State<RecipePage> {
     return defaultMealCategories;
   }
 
-  ButtonStyle get buttonStyle => ButtonStyle(
-        side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
-        textStyle: MaterialStateProperty.all(context.textTheme.bodySmall),
-      );
-
   @override
   Widget build(BuildContext context) {
     final isMealRecipe = widget.isMealRecipe ?? false;
@@ -189,6 +181,7 @@ class _RecipePageState extends State<RecipePage> {
                     },
                     recipeInfo: (recipeState) {
                       return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(
@@ -212,42 +205,36 @@ class _RecipePageState extends State<RecipePage> {
                                 proteinDegree: recipeState.data.recipe.proteinDegree,
                                 calorieDensity: recipeState.data.recipe.calorieDensity,
                               ),
-                              const SizedBox(
-                                height: 15.0,
-                              ),
+                              const SizedBox(height: 15.0),
                             ],
                           ),
                           MainContainer(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
                                   height: 35,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      CustomOutlinedButton(
+                                      CustomOutlinedButton.blue(
                                         label: LocalizedTexts.addToDishes.tr(),
                                         onPressed: _onSaveToMyDishesHandler,
-                                        styles: buttonStyle,
                                       ),
-                                      CustomOutlinedButton(
+                                      CustomOutlinedButton.blue(
                                         label: LocalizedTexts.addFoodItem.tr(),
                                         onPressed: _addFoodItemPressed,
-                                        styles: buttonStyle,
                                       ),
                                     ],
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10.0,
-                                ),
+                                const SizedBox(height: 10.0),
                                 SizedBox(
                                   height: 35,
-                                  child: CustomOutlinedButton(
+                                  child: CustomOutlinedButton.blue(
                                     label: LocalizedTexts.viewRecipe.tr(),
                                     onPressed: _onViewRecipePressed,
-                                    styles: buttonStyle,
                                   ),
                                 ),
                                 const SizedBox(
