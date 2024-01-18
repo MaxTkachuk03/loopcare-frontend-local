@@ -1,138 +1,107 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_image_header.dart';
+import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 
-class PhysicalActivitiesPreferencesPage extends StatefulWidget {
+class PhysicalActivitiesPreferencesPage extends StatelessWidget {
   const PhysicalActivitiesPreferencesPage({super.key});
 
-  @override
-  State<PhysicalActivitiesPreferencesPage> createState() => _PhysicalActivitiesPreferencesPageState();
-}
-
-class _PhysicalActivitiesPreferencesPageState extends State<PhysicalActivitiesPreferencesPage> {
-  @override
-  void initState() {
-    super.initState();
+  void _onStart(BuildContext context) {
+    context.router.pushNamed(AppRoutes.physicalActivitiesFrequency);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        title: Column(
-          children: [
-            Text(
-              LocalizedTexts.trainingFocus.translation,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-            Text(
-              LocalizedTexts.introduction.translation,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
-            ),
-          ],
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.router.pop(),
-        ),
+    return CustomScaffold.petrolLightest(
+      appBar: CustomAppBar.petrol(
+        title: LocalizedTexts.trainingFocus.tr(),
+        subtitle: LocalizedTexts.introduction.tr(),
+        leading: CustomFilledIconButton.leadingPetrolLighter(),
       ),
       body: SafeArea(
         child: ScrollableContainer(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                children: [
-                  const SimpleProgressBar(
-                    progress: 33,
-                    backgroundColor: AppColors.white,
-                  ),
-                  const PhysicalActivitiesImageHeader(),
-                  const SizedBox(height: 30.0),
-                  MainContainer(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              LocalizedTexts.physicalActivitiesPreferences.tr(),
-                              style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                                    fontFamily: ThemeConstants.bitterFontFamily,
-                                    color: AppColors.blueDark,
-                                  ),
-                            ),
-                            const SizedBox(height: 32.0),
-                            Text(
-                              LocalizedTexts.physicalActivitiesPreferencesDesc.tr(),
-                              style: Theme.of(context).textTheme.bodyLarge,
-                            ),
-                            const SizedBox(height: 16.0),
-                            BulletListItem(
-                              text: Text(
-                                LocalizedTexts.physicalActivitiesPreferencesItemOne.tr(),
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
-                              bulletSize: 18.0,
-                            ),
-                            BulletListItem(
-                              text: Text(
-                                LocalizedTexts.physicalActivitiesPreferencesItemTwo.tr(),
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
-                              bulletSize: 18.0,
-                            ),
-                            BulletListItem(
-                              text: Text(
-                                LocalizedTexts.physicalActivitiesPreferencesItemThree.tr(),
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
-                              bulletSize: 18.0,
-                            ),
-                            const SizedBox(height: 16.0),
-                          ],
-                        ),
-                      ],
+          child: MainContainer(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    const SizedBox(height: 30.0),
+                    BlocBuilder<EducationLessonBloc, EducationLessonState>(
+                      builder: (context, state) {
+                        final lesson = state.data;
+
+                        return SizedBox(height: 265, child: NetworkImageWithCache(url: lesson.lessonImage));
+                      },
                     ),
-                  ),
-                ],
-              ),
-              SafeArea(
-                top: false,
-                child: MainContainer(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 53.0),
-                    child: ElevatedButton(
-                      onPressed: () => _onStart(context),
-                      style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                            backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
-                          ),
-                      child: Text(LocalizedTexts.start.tr()),
+                    const SizedBox(height: 28.0),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CategoryLabel.physicalActivity(),
+                    const SizedBox(height: 18.0),
+                    CustomText.bitter600(
+                      LocalizedTexts.physicalActivitiesPreferences.tr(),
+                      style: context.textTheme.displayLarge,
                     ),
+                    const SizedBox(height: 18.0),
+                    CustomText.w400(
+                      LocalizedTexts.physicalActivitiesPreferencesDesc.tr(),
+                      style: context.textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: 24.0),
+                    BulletListItem(
+                      text: CustomText.w400(
+                        LocalizedTexts.physicalActivitiesPreferencesItemOne.tr(),
+                        style: context.textTheme.bodyMedium,
+                      ),
+                      bulletSize: 18.0,
+                    ),
+                    BulletListItem(
+                      text: CustomText.w400(
+                        LocalizedTexts.physicalActivitiesPreferencesItemTwo.tr(),
+                        style: context.textTheme.bodyMedium,
+                      ),
+                      bulletSize: 18.0,
+                    ),
+                    BulletListItem(
+                      text: CustomText.w400(
+                        LocalizedTexts.physicalActivitiesPreferencesItemThree.tr(),
+                        style: context.textTheme.bodyMedium,
+                      ),
+                      bulletSize: 18.0,
+                    ),
+                    const SizedBox(height: 30.0),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 30.0),
+                  child: CustomElevatedButton.blueFullWidth(
+                    onPressed: () => _onStart(context),
+                    label: LocalizedTexts.start,
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
-  }
-
-  void _onStart(BuildContext context) {
-    context.router.pushNamed(AppRoutes.physicalActivitiesFrequency);
   }
 }

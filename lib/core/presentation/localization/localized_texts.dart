@@ -439,7 +439,7 @@ class LocalizedTexts {
   static const String food = 'food';
   static const String group = 'group';
   static const String groupSessions = 'groupSessions';
-  static const String groupSession = 'groupSession';
+
   static const String signOut = 'signOut';
   static const String foodPreferences = 'foodPreferences';
   static const String dislikeFoodMessage = 'dislikeFoodMessage';
@@ -964,6 +964,9 @@ class LocalizedTexts {
   static const String unlockFeatureDescription = 'unlockFeatureDescription';
   static const String lessonCompleteDescription = 'lessonCompleteDescription';
   static const String assignmentCompleted = 'assignmentCompleted';
+
+  // Group session
+  static const String groupSession = 'groupSession';
 }
 
 extension StringX on String {

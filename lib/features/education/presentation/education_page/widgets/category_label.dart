@@ -12,12 +12,14 @@ class CategoryLabel extends StatelessWidget {
 
   const CategoryLabel({super.key, required this.label, required this.color});
 
-  factory CategoryLabel.general() => CategoryLabel(label: LessonCategory.general.label, color: AppColors.petrolRegular);
+  factory CategoryLabel.general() =>
+      CategoryLabel(label: LessonCategory.general.label, color: AppColors.petrolRegular);
 
   factory CategoryLabel.nutrition() =>
       CategoryLabel(label: LessonCategory.nutrition.label, color: AppColors.greenRegular);
 
-  factory CategoryLabel.mind() => CategoryLabel(label: LessonCategory.mind.label, color: AppColors.orangeRegular);
+  factory CategoryLabel.mind() =>
+      CategoryLabel(label: LessonCategory.mind.label, color: AppColors.orangeRegular);
 
   factory CategoryLabel.activity() =>
       CategoryLabel(label: LessonCategory.activity.label, color: AppColors.yellowRegular);
@@ -27,6 +29,12 @@ class CategoryLabel extends StatelessWidget {
 
   factory CategoryLabel.difficulty({required String label}) =>
       CategoryLabel(label: label, color: AppColors.petrolRegular);
+
+  factory CategoryLabel.groupSession() =>
+      CategoryLabel(label: LocalizedTexts.groupSession.tr(), color: AppColors.petrolRegular);
+
+  factory CategoryLabel.physicalActivity() =>
+      CategoryLabel(label: LocalizedTexts.physicalActivity.tr(), color: AppColors.yellowRegular);
 
   @override
   Widget build(BuildContext context) {

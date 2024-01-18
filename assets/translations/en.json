@@ -191,7 +191,7 @@
   "unlockFeatureDescription": "Your preferences have been added to your profile. You can update them later",
   "lessonCompleteDescription": "Well done! You can proceed to the next lesson",
   "assignmentCompleted": "Assignment completed",
-
+  "groupSession": "Group Session",
 
 
 
@@ -567,7 +567,7 @@
   "food": "Food",
   "group": "Group",
   "groupSessions": "Group Sessions",
-  "groupSession": "Group Session",
+
   "foodPreferences": "Food preferences",
   "dontEatFoodMessage": "Which types of food do you NOT eat or drink for religious or personal reasons?",
   "dislikeFoodMessage": "Do you NOT like any of the following?",
@@ -829,7 +829,6 @@
   "pastAssignments": "Past assignments",
   "iWantToLogMy": "I want to log my",
   "logMealServingTitle": "Select serving size",
-  "kcal": "kcal",
   "descriptionTime": "Choose the time",
   "descriptionWithWhom": "Choose with whom you were",
   "descriptionWhere": "Choose where you were",

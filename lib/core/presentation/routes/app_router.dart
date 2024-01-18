@@ -44,7 +44,6 @@ import 'package:loopcare_frontend/features/group_sessions/presentation/preparati
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/cooking/cooking_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/healthier_food/healthier_food_page.dart';
-import 'package:loopcare_frontend/features/household_and_habits/presentation/household_and_habits_intro/household_and_habits_intro_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/share_meal_with/share_meal_with_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/where_do_you_eat/where_do_you_eat_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
@@ -392,11 +391,11 @@ const groupLessonRoutes = [
       page: DoNotLikePage,
     ),
 
-    // TODO check house hold screens seems they could be deleted
-    AutoRoute(
-      path: AppRoutes.householdIntro,
-      page: HouseholdAndHabitsIntroPage,
-    ),
+    // TODO dead route
+    // AutoRoute(
+    //   path: AppRoutes.householdIntro,
+    //   page: HouseholdAndHabitsIntroPage,
+    // ),
     AutoRoute(
       path: AppRoutes.shareMealWith,
       page: ShareMealPage,
