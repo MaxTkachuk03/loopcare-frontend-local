@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/widgets/already_planned_card.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/checkbox/custom_checkbox.dart';
 import 'package:loopcare_frontend/core/presentation/html_renderer/html_renderer.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
@@ -16,7 +17,6 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -756,73 +756,64 @@ class ModalBottomSheet {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(
+                      CustomText.w700(
                         title,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.w600,
-                            ),
+                        style: context.textTheme.bodyMedium,
                       ),
                       if (subtitle != null)
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
-                              height: 14.0,
-                            ),
-                            Text(
+                            const SizedBox(height: 14.0),
+                            CustomText.w400(
                               subtitle,
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontStyle: FontStyle.italic,
-                                  ),
+                              style: context.textTheme.bodyMedium?.copyWith(
+                                fontStyle: FontStyle.italic,
+                              ),
                             ),
                           ],
                         ),
-                      const SizedBox(height: 24.0),
-                      const Divider(
-                        height: 2,
-                        thickness: 2,
-                        color: AppColors.bgGreen,
-                      ),
+                      const SizedBox(height: 8.0),
                       ...updatedList.map(
                         (item) => Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          decoration: const BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(width: 2, color: AppColors.bgGreen),
-                            ),
-                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 1.0),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               SizedBox(
                                 height: 32.0,
                                 width: 32.0,
-                                child: CheckboxBlue(
+                                child: CustomCheckbox.blue(
                                   onChanged: (bool? value) {
                                     final index = updatedList.indexOf(item);
 
-                                    setState(() {
-                                      updatedList[index] = item.copyWith(selected: value ?? false);
-                                    });
+                                    setState(
+                                      () {
+                                        updatedList[index] = item.copyWith(selected: value ?? false);
+                                      },
+                                    );
                                   },
                                   value: item.selected,
                                 ),
                               ),
                               const SizedBox(width: 16.0),
-                              Expanded(child: Text(item.name.capitalizeOnlyFirstLetter()))
+                              Expanded(
+                                child: CustomText.w400(
+                                  item.name.capitalizeOnlyFirstLetter(),
+                                  style: context.textTheme.bodyMedium,
+                                ),
+                              )
                             ],
                           ),
                         ),
                       ),
                       const SizedBox(height: 26.0),
-                      ElevatedButton(
+                      CustomElevatedButton.blueFullWidth(
                         onPressed: () {
                           context.router.pop();
                           onConfirmed?.call(updatedList);
                         },
-                        child: Text(
-                          LocalizedTexts.continueBtn.tr(),
-                        ),
+                        label: LocalizedTexts.continueBtn.tr(),
                       ),
                     ],
                   ),

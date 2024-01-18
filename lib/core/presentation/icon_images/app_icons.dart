@@ -247,5 +247,24 @@ class AppIcons {
 
   static SvgPicture lock = SvgPicture.asset('$iconsFilePath/new_lock.svg');
 
+  static SvgPicture customPan = SvgPicture.asset(
+    '$iconsFilePath/icon_pan.svg',
+    width: 16,
+    height: 16,
+    colorFilter: const ColorFilter.mode(AppColors.petrolRegular, BlendMode.srcIn),
+  );
+  static SvgPicture customStar = SvgPicture.asset(
+    '$iconsFilePath/icon_star_filled.svg',
+    width: 24,
+    height: 24,
+    colorFilter: const ColorFilter.mode(AppColors.petrolRegular, BlendMode.srcIn),
+  );
+  static SvgPicture customCutlery = SvgPicture.asset(
+    '$iconsFilePath/icon_cutlery.svg',
+    width: 16,
+    height: 16,
+    colorFilter: const ColorFilter.mode(AppColors.petrolRegular, BlendMode.srcIn),
+  );
+
   AppIcons._();
 }

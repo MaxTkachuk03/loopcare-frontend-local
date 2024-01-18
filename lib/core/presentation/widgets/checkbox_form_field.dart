@@ -40,7 +40,7 @@ class _CheckboxFormFieldState extends State<CheckboxFormField> {
                 SizedBox(
                   height: 22,
                   width: 22,
-                  child: CustomCheckbox(
+                  child: CustomCheckbox.green(
                     value: value,
                     onChanged: (newValue) {
                       setState(() {

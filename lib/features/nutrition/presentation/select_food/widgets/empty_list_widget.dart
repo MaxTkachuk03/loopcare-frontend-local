@@ -1,8 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 
 class EmptyListWidget extends StatelessWidget {
   final EmptyListType type;
@@ -15,49 +18,41 @@ class EmptyListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(26.0),
+    return MainContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Divider(height: 2, thickness: 2, color: AppColors.bgGreen),
-          Text(
-            LocalizedTexts.youHaveNo,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.blueDark),
-          ).tr(namedArgs: {
-            'text': typeText,
-          }),
-          const SizedBox(
-            height: 8.0,
+          const SizedBox(height: 8.0),
+          CustomText.bitter600(
+            LocalizedTexts.youHaveNo.tr(namedArgs: {
+              'text': typeText,
+            }),
+            style: context.textTheme.titleLarge,
           ),
+          const SizedBox(height: 24.0),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image(
-                image: _getIcon(type),
-                width: 16.0,
-              ),
+              _getIcon(type),
               const SizedBox(width: 12.0),
               Expanded(
-                child: Text(
+                child: CustomText.w400(
                   type == EmptyListType.myFavorites
-                      ? LocalizedTexts.favoritesExplain.translation
-                      : LocalizedTexts.dishesExplain.translation,
+                      ? LocalizedTexts.favoritesExplain.tr()
+                      : LocalizedTexts.dishesExplain.tr(),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
+                  style: context.textTheme.titleMedium,
                 ),
               )
             ],
           ),
-          const SizedBox(
-            height: 8.0,
-          ),
-          Text(
+          const SizedBox(height: 8.0),
+          CustomText.w400(
             type == EmptyListType.myFavorites
-                ? LocalizedTexts.favoritesList.translation
-                : LocalizedTexts.dishesList.translation,
-            style: Theme.of(context).textTheme.titleMedium,
+                ? LocalizedTexts.favoritesList.tr()
+                : LocalizedTexts.dishesList.tr(),
+            style: context.textTheme.titleSmall,
           ),
         ],
       ),
@@ -70,13 +65,13 @@ enum EmptyListType {
   myDishes,
 }
 
-AssetImage _getIcon(EmptyListType type) {
+SvgPicture _getIcon(EmptyListType type) {
   if (type == EmptyListType.myFavorites) {
-    return AppIcons.starFilled;
+    return AppIcons.customStar;
   }
   if (type == EmptyListType.myDishes) {
-    return AppIcons.pan;
+    return AppIcons.customPan;
   }
 
-  return AppIcons.cutlery;
+  return AppIcons.customCutlery;
 }
