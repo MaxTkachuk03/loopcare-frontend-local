@@ -54,7 +54,7 @@ class NutritionValuesBlock extends StatelessWidget {
               CustomText.w400(
                 LocalizedTexts.ingredientsBasedOn.translation.toUpperCase(),
                 style: context.textTheme.bodySmall?.copyWith(
-                  fontSize: 12.0,
+                  fontSize: ThemeConstants.fontSize12,
                 ),
               ),
               if (isPortionsEditable != null)
@@ -66,7 +66,7 @@ class NutritionValuesBlock extends StatelessWidget {
                 CustomText.w600(
                   LocalizedTexts.portionMeal.translateWithNamedArgs({'numberOfPortion': '$numberOfPortions'}),
                   style: context.textTheme.bodySmall?.copyWith(
-                    fontSize: 12.0,
+                    fontSize: ThemeConstants.fontSize12,
                   ),
                 ),
             ],
@@ -79,7 +79,7 @@ class NutritionValuesBlock extends StatelessWidget {
                 CustomText.w400(
                   '${LocalizedTexts.total.translation.toUpperCase()} ${selectedNutritionType.name.toUpperCase()}',
                   style: context.textTheme.bodySmall?.copyWith(
-                    fontSize: 12.0,
+                    fontSize: ThemeConstants.fontSize12,
                   ),
                 ),
                 Row(
@@ -88,7 +88,7 @@ class NutritionValuesBlock extends StatelessWidget {
                     CustomText.w600(
                       '$totalValue ${selectedNutritionType.unitLabel}',
                       style: context.textTheme.bodySmall?.copyWith(
-                        fontSize: 12.0,
+                        fontSize: ThemeConstants.fontSize12,
                       ),
                     ),
                     const SizedBox(width: 6.0),

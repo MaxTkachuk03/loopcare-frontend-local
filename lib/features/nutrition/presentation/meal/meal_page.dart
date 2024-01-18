@@ -45,10 +45,9 @@ class _MealPageState extends State<MealPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory =
-        DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
-            ? state.currentMealCategory
-            : MealCategory.breakfast.originalValue;
+    final mealCategory = DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
+        ? state.currentMealCategory
+        : MealCategory.breakfast.originalValue;
 
     final mealId = state.getCurrentMealId;
 
@@ -312,39 +311,33 @@ class _MealPageState extends State<MealPage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(
-                                    height: 35,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        CustomOutlinedButton.blue(
-                                          label: LocalizedTexts.saveToMyDishes,
-                                          onPressed: _onSaveToMyDishesHandler,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      CustomOutlinedButton.blueSmall(
+                                        label: LocalizedTexts.saveToMyDishes,
+                                        onPressed: _onSaveToMyDishesHandler,
+                                      ),
+                                      const SizedBox(width: 10.0),
+                                      Expanded(
+                                        child: CustomOutlinedButton.blueSmall(
+                                          label: LocalizedTexts.clearMealList,
+                                          onPressed: () => _onDeleteMealPressed(context),
                                         ),
-                                        const SizedBox(width: 10.0),
-                                        Expanded(
-                                          child: CustomOutlinedButton.blue(
-                                            label: LocalizedTexts.clearMealList,
-                                            onPressed: () => _onDeleteMealPressed(context),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                   const SizedBox(height: 10.0),
                                   if (mealsState.isPlanningMeals && currentDate.isTodayOrFuture)
-                                    SizedBox(
-                                      height: 35,
-                                      child: BlocBuilder<RecipeBloc, RecipeState>(
-                                        builder: (BuildContext context, recipeState) {
-                                          return CustomOutlinedButton.blue(
-                                            label: LocalizedTexts.recommendations,
-                                            onPressed: () => recipeState.data.recommendationRecipe.isEmpty
-                                                ? null
-                                                : _onRecommendationsPressed(context),
-                                          );
-                                        },
-                                      ),
+                                    BlocBuilder<RecipeBloc, RecipeState>(
+                                      builder: (BuildContext context, recipeState) {
+                                        return CustomOutlinedButton.blueSmall(
+                                          label: LocalizedTexts.recommendations,
+                                          onPressed: () => recipeState.data.recommendationRecipe.isEmpty
+                                              ? null
+                                              : _onRecommendationsPressed(context),
+                                        );
+                                      },
                                     ),
                                 ],
                               ),
