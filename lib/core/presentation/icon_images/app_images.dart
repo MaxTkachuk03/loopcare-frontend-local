@@ -36,8 +36,6 @@ class AppImages {
 
   static const AssetImage questionMark = AssetImage('$imagesFilePath/question.png');
 
-  static const AssetImage emptyMeal = AssetImage('$imagesFilePath/empty_meal.png');
-
   static const AssetImage dashboardBg = AssetImage('$imagesFilePath/dashboard_bg.png');
 
   static const AssetImage exploreFaces = AssetImage('$imagesFilePath/explore_faces.png');

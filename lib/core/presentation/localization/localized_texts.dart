@@ -189,6 +189,7 @@ class LocalizedTexts {
   static const String addAsFavourite = 'addAsFavourite';
   static const String addFoodItem = 'addFoodItem';
   static const String saveToMyDishes = 'saveToMyDishes';
+  static const String addToDishes = 'addToDishes';
   static const String viewRecipe = 'viewRecipe';
   static const String ingredientsBasedOn = 'ingredientsBasedOn';
   static const String portionMeal = 'portionMeal';
@@ -208,7 +209,7 @@ class LocalizedTexts {
   static const String editMyDish = 'editMyDish';
   static const String serving = 'serving';
   static const String logList = 'logList';
-  static const String deleteMeal = 'deleteMeal';
+  static const String clearMealList = 'clearMealList';
   static const String recommendations = 'recommendations';
   static const String logListEmptyMessage = 'logListEmptyMessage';
   static const String backToDashboard = 'backToDashboard';
@@ -246,6 +247,7 @@ class LocalizedTexts {
   static const String replaceWith = 'replaceWith';
   static const String nothingOnTheMenu = 'nothingOnTheMenu';
   static const String startPlanning = 'startPlanning';
+  static const String backToTodayLogging = 'backToTodayLogging';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';

@@ -6,19 +6,23 @@ class CustomOutlinedRoundedButtonWithIcon extends StatelessWidget {
   final AssetImage? icon;
   final VoidCallback? onPressed;
   final double? radius;
+  final Color? bgColor;
+  final Color? iconColor;
 
   const CustomOutlinedRoundedButtonWithIcon({
     super.key,
     this.icon,
     this.onPressed,
     this.radius,
+    this.bgColor,
+    this.iconColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.blueLightest,
+        color: bgColor ?? AppColors.blueLightest,
         borderRadius: BorderRadius.all(Radius.circular(radius ?? 32.0)),
       ),
       width: 44.0,
@@ -26,7 +30,7 @@ class CustomOutlinedRoundedButtonWithIcon extends StatelessWidget {
       child: IconButton(
         icon: ImageIcon(
           icon ?? AppIcons.plus,
-          color: onPressed == null ? AppColors.greyLight : AppColors.blueDarker,
+          color: onPressed == null ? AppColors.greyLight : iconColor ?? AppColors.blueDarker,
           size: 22,
         ),
         onPressed: onPressed,

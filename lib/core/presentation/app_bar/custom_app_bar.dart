@@ -199,7 +199,8 @@ class _Title extends StatelessWidget {
       children: [
         Text(
           title ?? '',
-          maxLines: 2,
+          maxLines: subtitle != null ? 1 : 2,
+          overflow: TextOverflow.ellipsis,
         ),
         if (subtitle != null)
           InkWell(

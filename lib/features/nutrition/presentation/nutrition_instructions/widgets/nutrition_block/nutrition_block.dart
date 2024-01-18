@@ -33,40 +33,42 @@ class NutritionBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: bottomBorder ? const BorderSide(width: 1, color: AppColors.yellowLight) : BorderSide.none,
-          top: bottomBorder ? BorderSide.none : const BorderSide(width: 1, color: AppColors.yellowLight),
-        ),
+      decoration: const BoxDecoration(
+        color: AppColors.greenLighter,
       ),
       child: IntrinsicHeight(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Stack(
           children: [
-            Expanded(
-              child: CalorieDensityBlock(
-                showArrow: showArrow,
-                value: calorieDensity,
-                onPress: ({required int tabIndex}) => _onPressHandler(
-                  tabIndex: tabIndex,
-                  context: context,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: CalorieDensityBlock(
+                    value: calorieDensity,
+                    onPress: ({required int tabIndex}) => _onPressHandler(
+                      tabIndex: tabIndex,
+                      context: context,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            const VerticalDivider(
-              color: AppColors.yellowLight,
-              width: 1.0,
-              thickness: 1.0,
-            ),
-            Expanded(
-              child: ProteinDegreeBlock(
-                showArrow: showArrow,
-                value: proteinDegree,
-                onPress: ({required int tabIndex}) => _onPressHandler(
-                  tabIndex: tabIndex,
-                  context: context,
+                Expanded(
+                  child: ProteinDegreeBlock(
+                    showArrow: showArrow,
+                    value: proteinDegree,
+                    onPress: ({required int tabIndex}) => _onPressHandler(
+                      tabIndex: tabIndex,
+                      context: context,
+                    ),
+                  ),
                 ),
+              ],
+            ),
+            const Align(
+              alignment: Alignment.topRight,
+              child: Icon(
+                Icons.error_outline,
+                color: AppColors.blueDarker,
               ),
             ),
           ],

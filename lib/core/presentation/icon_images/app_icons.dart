@@ -243,6 +243,7 @@ class AppIcons {
   static SvgPicture cameraOn = SvgPicture.asset('$iconsFilePath/icon_camera_on.svg');
   static SvgPicture cameraOff = SvgPicture.asset('$iconsFilePath/icon_camera_off.svg');
   static SvgPicture orangeExclamationMark = SvgPicture.asset('$iconsFilePath/orange_exclamation_mark.svg');
+  static SvgPicture mealEmpty = SvgPicture.asset('$iconsFilePath/meal_empty.svg', width: 44, height: 44);
 
   static SvgPicture lock = SvgPicture.asset('$iconsFilePath/new_lock.svg');
 
