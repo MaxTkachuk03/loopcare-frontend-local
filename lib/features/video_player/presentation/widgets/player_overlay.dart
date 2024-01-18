@@ -4,7 +4,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/player_controls.dart';
@@ -134,13 +136,12 @@ class _PlayerOverlayState extends State<PlayerOverlay> {
                       children: [
                         Row(
                           children: [
-                            Text(
+                            CustomText.bitter600(
                               '${widget.exercise.order}. ${widget.exercise.name}',
-                              style: TextStyle(
+                              style: context.textTheme.bodyMedium?.copyWith(
                                 color: AppColors.white,
-                                fontSize: _isPortraitOrientation ? 16.0 : 32.0,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: ThemeConstants.bitterFontFamily,
+                                fontSize:
+                                    _isPortraitOrientation ? ThemeConstants.fontSize16 : ThemeConstants.fontSize32,
                               ),
                             ),
                             const SizedBox(width: 16.0),
@@ -150,23 +151,25 @@ class _PlayerOverlayState extends State<PlayerOverlay> {
                         const SizedBox(height: 12.0),
                         Row(
                           children: [
-                            Text(
+                            CustomText.w600(
                               widget.programType.toUpperCase(),
-                              style: TextStyle(
+                              style: context.textTheme.bodySmall?.copyWith(
                                 color: AppColors.white,
-                                fontSize: _isPortraitOrientation ? 10.0 : 12.0,
-                                fontWeight: FontWeight.w600,
+                                fontSize:
+                                    _isPortraitOrientation ? ThemeConstants.fontSize10 : ThemeConstants.fontSize12,
                               ),
                             ),
                             const SizedBox(width: 16.0),
                             AppIcons.clockWhite,
                             const SizedBox(width: 6.0),
-                            Text(formatDuration(widget.exercise.duration),
-                                style: TextStyle(
-                                  color: AppColors.white,
-                                  fontSize: _isPortraitOrientation ? 10.0 : 12.0,
-                                  fontWeight: FontWeight.w600,
-                                )),
+                            CustomText.w600(
+                              formatDuration(widget.exercise.duration),
+                              style: context.textTheme.bodySmall?.copyWith(
+                                color: AppColors.white,
+                                fontSize:
+                                    _isPortraitOrientation ? ThemeConstants.fontSize10 : ThemeConstants.fontSize12,
+                              ),
+                            ),
                           ],
                         ),
                         if (!_isPortraitOrientation) const SizedBox(height: 24.0),

@@ -3,6 +3,8 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
+const _kSelectedHeight = 66.0;
+
 class SelectedCell extends StatelessWidget {
   final int index;
   final String? label;
@@ -16,9 +18,9 @@ class SelectedCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 66,
+      height: _kSelectedHeight,
       decoration: const BoxDecoration(
-        color: AppColors.greenRegular,
+        color: AppColors.yellowRegular,
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       child: Center(

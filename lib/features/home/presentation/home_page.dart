@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/home/presentation/widget/app_navigation_bar.dart';
@@ -32,30 +31,23 @@ class _HomePageState extends State<HomePage> {
         buildWhen: (context, state) => isChatEnable.value != state.isUserGrouped,
         builder: (context, state) {
           _chatEnable(state);
-          return Theme(
-            data: Theme.of(context).copyWith(
-              bottomNavigationBarTheme: appThemeData.bottomNavigationBarTheme.copyWith(
-                backgroundColor: AppColors.blueDarker,
-              ),
+          return AutoTabsScaffold(
+            animationDuration: Duration.zero,
+            routes: const [
+              DashboardRoute(),
+              EducationRoute(),
+              GroupChatRoute(),
+              AccountRoute(),
+            ],
+            appBarBuilder: (_, tabsRouter) => AppBar(
+              systemOverlayStyle: SystemUiOverlayStyle.light,
+              toolbarHeight: 0.0,
+              backgroundColor: DashboardNavbarItems.getColorByIndex(tabsRouter.activeIndex),
             ),
-            child: AutoTabsScaffold(
-              animationDuration: Duration.zero,
-              routes: const [
-                DashboardRoute(),
-                EducationRoute(),
-                GroupChatRoute(),
-                AccountRoute(),
-              ],
-              appBarBuilder: (_, tabsRouter) => AppBar(
-                systemOverlayStyle: SystemUiOverlayStyle.light,
-                toolbarHeight: 0.0,
-                backgroundColor: DashboardNavbarItems.getColorByIndex(tabsRouter.activeIndex),
-              ),
-              bottomNavigationBuilder: (_, tabsRouter) => AppNavigationBar(
-                tabsRouter: tabsRouter,
-                userName: state.name,
-                isChatEnable: isChatEnable,
-              ),
+            bottomNavigationBuilder: (_, tabsRouter) => AppNavigationBar(
+              tabsRouter: tabsRouter,
+              userName: state.name,
+              isChatEnable: isChatEnable,
             ),
           );
         });
