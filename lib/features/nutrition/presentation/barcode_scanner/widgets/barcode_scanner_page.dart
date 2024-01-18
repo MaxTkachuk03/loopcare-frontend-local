@@ -3,9 +3,14 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/barcode_scanner_app_bar.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/info/info_widget.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -20,6 +25,7 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
   Barcode? barCodeResult;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  bool isFlashOn = false;
 
   @override
   void reassemble() {
@@ -58,17 +64,37 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
             builder: (BuildContext context) {
               return QRCodeInfoWidget(code: barCodeResult?.code ?? '');
             },
-          ).whenComplete(() {
-            controller?.resumeCamera();
-          }),
+          ).whenComplete(
+            () {
+              controller?.resumeCamera();
+            },
+          ),
         );
+  }
+
+  void _flashPressed() async {
+    await controller?.toggleFlash();
+    setState(() {
+      isFlashOn = !isFlashOn;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: BarcodeScannerAppBar(controller: controller),
+      child: CustomScaffold.greenLightest(
+        appBar: CustomAppBar.green(
+          title: LocalizedTexts.scanYourProduct.tr(),
+          leading: CustomFilledIconButton.leadingGreenLighter(),
+          actions: [
+            IconButton(
+              onPressed: _flashPressed,
+              icon: isFlashOn
+                  ? const Icon(Icons.flash_off, color: AppColors.blueDarker)
+                  : const Icon(Icons.flash_on, color: AppColors.blueDarker),
+            )
+          ],
+        ),
         body: Stack(
           children: <Widget>[
             Column(
@@ -95,23 +121,23 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
                     child: Column(
                       children: [
                         BulletListItem(
-                          text: Text(
+                          text: CustomText.w400(
                             LocalizedTexts.qrCodeSubtext_1.tr(),
-                            style: Theme.of(context).textTheme.bodyLarge,
+                            style: context.textTheme.bodyMedium,
                           ),
                           bulletSize: 18.0,
                         ),
                         BulletListItem(
-                          text: Text(
+                          text: CustomText.w400(
                             LocalizedTexts.qrCodeSubtext_2.tr(),
-                            style: Theme.of(context).textTheme.bodyLarge,
+                            style: context.textTheme.bodyMedium,
                           ),
                           bulletSize: 18.0,
                         ),
                         BulletListItem(
-                          text: Text(
+                          text: CustomText.w400(
                             LocalizedTexts.qrCodeSubtext_3.tr(),
-                            style: Theme.of(context).textTheme.bodyLarge,
+                            style: context.textTheme.bodyMedium,
                           ),
                           bulletSize: 18.0,
                         ),
