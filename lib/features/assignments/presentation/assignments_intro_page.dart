@@ -6,7 +6,9 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -16,7 +18,6 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_image_header.dart';
 
 class AssignmentsIntroPage extends StatefulWidget {
   final int lessonId;
@@ -37,21 +38,15 @@ class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
   }
 
   _seeLessonBtnPressed(BuildContext context) {
-    context.read<EducationLessonBloc>().add(
-          EducationLessonEvent.getLessonContent(
-            lessonId: widget.lessonId,
-            pageIndex: 0,
-          ),
-        );
+    context
+        .read<EducationLessonBloc>()
+        .add(EducationLessonEvent.getLessonContent(lessonId: widget.lessonId, pageIndex: 0));
 
     context.router.pushNamed('/lesson/${widget.lessonId}/page/0');
   }
 
   void _onStart(BuildContext context) {
-    context.router.push(AssignmentsQuestionsRoute(
-      step: 0,
-      fromDashboard: widget.fromDashboard,
-    ));
+    context.router.push(AssignmentsQuestionsRoute(step: 0, fromDashboard: widget.fromDashboard));
   }
 
   @override
@@ -64,62 +59,68 @@ class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
       ),
       body: SafeArea(
         child: ScrollableContainer(
-          child: MainContainer(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Column(
-                  children: [
-                    SizedBox(height: 30.0),
-                    // TODO check with Diana what image should be there
-                    PhysicalActivitiesImageHeader(),
-                    SizedBox(height: 30.0),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CategoryLabel.assignment(),
-                    const SizedBox(height: 18.0),
-                    BlocBuilder<AssignmentsBloc, AssignmentsState>(
-                      builder: (context, state) {
-                        var questions = state.data.questions;
-
-                        return Column(
+          child: BlocBuilder<AssignmentsBloc, AssignmentsState>(
+            builder: (context, state) {
+              return state.maybeMap(
+                loading: (_) => const Loader(),
+                orElse: () => const SizedBox.shrink(),
+                updated: (s) {
+                  return MainContainer(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            const SizedBox(height: 30.0),
+                            SizedBox(
+                              height: 365,
+                              child: NetworkImageWithCache(url: s.data.questions.first.visual ?? ''),
+                            ),
+                            const SizedBox(height: 30.0),
+                          ],
+                        ),
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CustomText.bitter600(
-                              questions.isNotEmpty ? questions.first.title : '',
-                              style: context.textTheme.displayLarge,
+                            CategoryLabel.assignment(),
+                            const SizedBox(height: 18.0),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CustomText.bitter600(
+                                  s.data.questions.isNotEmpty ? s.data.questions.first.title : '',
+                                  style: context.textTheme.displayLarge,
+                                ),
+                                const SizedBox(height: 18.0),
+                                CustomText.w400(
+                                  s.data.questions.isNotEmpty ? s.data.questions.first.instruction : '',
+                                  style: context.textTheme.bodyMedium,
+                                ),
+                              ],
                             ),
                             const SizedBox(height: 18.0),
-                            CustomText.w400(
-                              questions.isNotEmpty ? questions.first.instruction : '',
-                              style: context.textTheme.bodyMedium,
+                            CustomOutlinedButton.blueSmall(
+                              onPressed: () => _seeLessonBtnPressed(context),
+                              label: LocalizedTexts.seeLesson,
                             ),
+                            const SizedBox(height: 18.0),
                           ],
-                        );
-                      },
+                        ),
+                        Column(
+                          children: [
+                            CustomElevatedButton.blueFullWidth(
+                              onPressed: () => _onStart(context),
+                              label: LocalizedTexts.letsGo,
+                            ),
+                            const SizedBox(height: 30),
+                          ],
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 18.0),
-                    CustomOutlinedButton.blueSmall(
-                      onPressed: () => _seeLessonBtnPressed(context),
-                      label: LocalizedTexts.seeLesson,
-                    ),
-                    const SizedBox(height: 18.0),
-                  ],
-                ),
-                Column(
-                  children: [
-                    CustomElevatedButton.blueFullWidth(
-                      onPressed: () => _onStart(context),
-                      label: LocalizedTexts.letsGo,
-                    ),
-                    const SizedBox(height: 30),
-                  ],
-                ),
-              ],
-            ),
+                  );
+                },
+              );
+            },
           ),
         ),
       ),

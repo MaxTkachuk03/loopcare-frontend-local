@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -13,7 +15,6 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_image_header.dart';
 import 'package:loopcare_frontend/features/quizzes/application/quizzes_bloc.dart';
 
 class QuizzesIntroPage extends StatefulWidget {
@@ -44,49 +45,66 @@ class _QuizzesIntroPageState extends State<QuizzesIntroPage> {
         title: LocalizedTexts.quiz.tr(),
         subtitle: LocalizedTexts.introduction.tr(),
         leading: CustomFilledIconButton.leadingPetrolLighter(),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(72),
+          child: SimpleProgressBar.petrol(progress: 33),
+        ),
       ),
       body: SafeArea(
         child: ScrollableContainer(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SimpleProgressBar.petrol(progress: 33),
-              MainContainer(
-                child: Column(
-                  children: [
-                    const PhysicalActivitiesImageHeader(),
-                    const SizedBox(height: 34.0),
-                    CustomText.bitter600(
-                      LocalizedTexts.quiz.tr().toUpperCase(),
-                      style: context.textTheme.headlineSmall,
-                    ),
-                    const SizedBox(height: 20.0),
-                    BlocBuilder<QuizzesBloc, QuizzesState>(
-                      builder: (context, state) {
-                        var quizzes = state.data.quizzes;
-                        return CustomText.w400(
-                          quizzes.isNotEmpty ? quizzes.first.instruction : '',
-                          style: context.textTheme.bodyMedium,
-                          textAlign: TextAlign.center,
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 16.0),
-                  ],
-                ),
-              ),
-              MainContainer(
-                child: Column(
-                  children: [
-                    CustomElevatedButton.blueFullWidth(
-                      onPressed: _onStart,
-                      label: LocalizedTexts.letsGo,
-                    ),
-                    const SizedBox(height: 30),
-                  ],
-                ),
-              ),
-            ],
+          child: BlocBuilder<QuizzesBloc, QuizzesState>(
+            builder: (context, state) {
+              return state.maybeMap(
+                loading: (_) => const Loader(),
+                orElse: () => const SizedBox.shrink(),
+                updated: (s) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      MainContainer(
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 30.0),
+                            SizedBox(
+                              height: 365,
+                              child: NetworkImageWithCache(url: s.data.quizzes.first.visual ?? ''),
+                            ),
+                            const SizedBox(height: 34.0),
+                            CustomText.bitter600(
+                              LocalizedTexts.quiz.tr().toUpperCase(),
+                              style: context.textTheme.headlineSmall,
+                            ),
+                            const SizedBox(height: 20.0),
+                            BlocBuilder<QuizzesBloc, QuizzesState>(
+                              builder: (context, state) {
+                                var quizzes = state.data.quizzes;
+                                return CustomText.w400(
+                                  quizzes.isNotEmpty ? quizzes.first.instruction : '',
+                                  style: context.textTheme.bodyMedium,
+                                  textAlign: TextAlign.center,
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 16.0),
+                          ],
+                        ),
+                      ),
+                      MainContainer(
+                        child: Column(
+                          children: [
+                            CustomElevatedButton.blueFullWidth(
+                              onPressed: _onStart,
+                              label: LocalizedTexts.letsGo,
+                            ),
+                            const SizedBox(height: 30),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
           ),
         ),
       ),

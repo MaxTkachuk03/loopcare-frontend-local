@@ -3,7 +3,6 @@ import 'dart:io' as i;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
@@ -181,34 +180,39 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
                         const SizedBox(height: 50),
                         Stack(
                           children: [
-                            // TODO check new images when backend will be ready
+                            // TODO 18.01.2024 sync with Diana, decided to remove subtitle images logic for now
+                            // AnimatedOpacity(
+                            //   opacity: isPlay ? 0.0 : 1.0,
+                            //   duration: const Duration(milliseconds: 300),
+                            //   child: SizedBox(
+                            //     height: 410,
+                            //     child: imageUrl != null && imageUrl != ''
+                            //         ? isSvg
+                            //             ? state.data.isSvgLoaded
+                            //                 ? SvgPicture.file(i.File(state.data.svgFile))
+                            //                 : null
+                            //             : NetworkImageWithCache(
+                            //                 withPlaceholder: false,
+                            //                 url: imageUrl!,
+                            //                 imageBoxFit: BoxFit.contain,
+                            //               )
+                            //         : null,
+                            //   ),
+                            // ),
+
                             AnimatedOpacity(
                               opacity: isPlay ? 0.0 : 1.0,
                               duration: const Duration(milliseconds: 300),
-                              child: Center(
-                                child: Center(
-                                  child: SizedBox(
-                                    height: 410,
-                                    child: imageUrl != null && imageUrl != ''
-                                        ? isSvg
-                                            ? state.data.isSvgLoaded
-                                                ? SvgPicture.file(i.File(state.data.svgFile))
-                                                : null
-                                            : NetworkImageWithCache(
-                                                withPlaceholder: false,
-                                                url: imageUrl!,
-                                                imageBoxFit: BoxFit.contain,
-                                              )
-                                        : null,
-                                  ),
-                                ),
+                              child: SizedBox(
+                                height: 420,
+                                child: NetworkImageWithCache(url: state.data.lessonImage),
                               ),
                             ),
                             AnimatedOpacity(
-                              opacity: isPlay || imageUrl == null || imageUrl == '' ? 1.0 : 0.0,
+                              opacity: isPlay ? 1.0 : 0.0,
                               duration: const Duration(milliseconds: 300),
                               child: const SizedBox(
-                                height: 410,
+                                height: 420,
                                 width: double.infinity,
                                 child: RiveAnimationRenderer(),
                               ),
