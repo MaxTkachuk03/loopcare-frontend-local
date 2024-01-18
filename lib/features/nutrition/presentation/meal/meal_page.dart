@@ -93,6 +93,7 @@ class _MealPageState extends State<MealPage> {
 
   String get _appBarSubTitle {
     final state = context.read<MealsBloc>().state;
+    // TODO: LOOPCARE-1798 Hide Meal planning block
     // final dates = state.currentMealDates;
 
     final date = state.getCurrentDate.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
