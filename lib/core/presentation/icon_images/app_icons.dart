@@ -235,7 +235,7 @@ class AppIcons {
   static SvgPicture customEducationDashboard =
       SvgPicture.asset('$iconsFilePath/custom_education_dashboard.svg', width: 44, height: 44);
   static SvgPicture customDashboardMood =
-      SvgPicture.asset('$iconsFilePath/custom_education_dashboard.svg', width: 44, height: 44);
+      SvgPicture.asset('$iconsFilePath/custom_dashboard_mood.svg', width: 44, height: 44);
 
   static SvgPicture customRedPhone = SvgPicture.asset('$iconsFilePath/custom_red_phone.svg');
   static SvgPicture microphoneOn = SvgPicture.asset('$iconsFilePath/icon_microphone_on.svg');
@@ -265,6 +265,8 @@ class AppIcons {
     height: 16,
     colorFilter: const ColorFilter.mode(AppColors.petrolRegular, BlendMode.srcIn),
   );
+
+  static SvgPicture infoQuestion = SvgPicture.asset('$iconsFilePath/icon_info_question.svg');
 
   AppIcons._();
 }

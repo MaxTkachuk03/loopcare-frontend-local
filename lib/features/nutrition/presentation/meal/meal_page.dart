@@ -45,9 +45,10 @@ class _MealPageState extends State<MealPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory = DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
-        ? state.currentMealCategory
-        : MealCategory.breakfast.originalValue;
+    final mealCategory =
+        DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
+            ? state.currentMealCategory
+            : MealCategory.breakfast.originalValue;
 
     final mealId = state.getCurrentMealId;
 
@@ -92,24 +93,24 @@ class _MealPageState extends State<MealPage> {
 
   String get _appBarSubTitle {
     final state = context.read<MealsBloc>().state;
-    final dates = state.currentMealDates;
+    // final dates = state.currentMealDates;
 
     final date = state.getCurrentDate.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
         ? state.getCurrentDate.shortDate
         : LocalizedTexts.today.tr();
     return date;
   }
+// TODO: LOOPCARE-1798 Hide Meal planning block
+  // String _mealDates(MealsState state, {bool needNewLine = false}) {
+  //   final dates = state.currentMealDates;
+  //   String newLine = needNewLine ? '\n' : '';
+  //   if (dates != null) {
+  //     final addString = dates.length > 1 ? '$newLine(and ${dates.length - 1} other dates)' : '';
 
-  String _mealDates(MealsState state, {bool needNewLine = false}) {
-    final dates = state.currentMealDates;
-    String newLine = needNewLine ? '\n' : '';
-    if (dates != null) {
-      final addString = dates.length > 1 ? '$newLine(and ${dates.length - 1} other dates)' : '';
-
-      return '${state.getCurrentDate.shortDate} $addString';
-    }
-    return state.getCurrentDate.shortDate;
-  }
+  //     return '${state.getCurrentDate.shortDate} $addString';
+  //   }
+  //   return state.getCurrentDate.shortDate;
+  // }
 
   void _onFilledListener(BuildContext context, MealsState state) {
     if (state.currentMeal == null) {

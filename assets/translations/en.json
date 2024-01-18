@@ -784,7 +784,6 @@
   "changesSaved": "Changes have been saved",
   "thisMealPlannedFor": "This meal is planned for",
   "saveDateError": "You first have to select another date before you can deslect this one",
-  "kcal": "kcal",
   "yesReplace": "Yes replace",
   "youAlreadyPlanned": "You already planned a {mealCategory} for this day:",
   "andOtherDates": "and {number} other dates",
