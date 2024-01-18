@@ -45,13 +45,17 @@ class NextLesson extends StatelessWidget {
             ),
             child: Row(
               children: [
-                SizedBox(
-                  width: 200.0,
-                  height: 220.0,
-                  child: ClipPath(
-                    clipper: EducationClipper(),
-                    child: NetworkImageWithCache(
-                      url: lesson.image,
+                ClipPath(
+                  clipper: EducationClipper(),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                    ),
+                    child: SizedBox(
+                      width: 130.0,
+                      height: 180,
+                      child: NetworkImageWithCache(url: lesson.cardImage),
                     ),
                   ),
                 ),
