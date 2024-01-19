@@ -29,6 +29,9 @@ import 'package:loopcare_frontend/features/authentication/presentation/name/name
 import 'package:loopcare_frontend/features/authentication/presentation/password/password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/waiting_for_confirmation/waiting_for_confirmation_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/welcome/sign_up_welcome_page.dart';
+import 'package:loopcare_frontend/features/chat/presentation/group_chat_page.dart';
+import 'package:loopcare_frontend/features/chat/presentation/group_users_page.dart';
+import 'package:loopcare_frontend/features/authentication/presentation/welcome/sign_up_welcome_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/consent_confirmation_page.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/presentation/no_consent_page.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/dashboard_page.dart';
@@ -37,14 +40,12 @@ import 'package:loopcare_frontend/features/diabetes/presentation/disclaimer/disc
 import 'package:loopcare_frontend/features/diabetes/presentation/summary/summary_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/education_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/lesson_complete_page.dart';
-import 'package:loopcare_frontend/features/education/presentation/lesson_error_page/lesson_error_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_page/lesson_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/support_group_intro/support_group_intro_page.dart';
 import 'package:loopcare_frontend/features/group_sessions/presentation/preparation_materials_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/cooking/cooking_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/healthier_food/healthier_food_page.dart';
-import 'package:loopcare_frontend/features/household_and_habits/presentation/household_and_habits_intro/household_and_habits_intro_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/share_meal_with/share_meal_with_page.dart';
 import 'package:loopcare_frontend/features/household_and_habits/presentation/where_do_you_eat/where_do_you_eat_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
@@ -69,6 +70,7 @@ import 'package:loopcare_frontend/features/medical_fitness/presentation/treatmen
 import 'package:loopcare_frontend/features/medical_fitness/presentation/weight_loss_medication/weight_loss_medication_page.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_check_result_page.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_intro_page.dart';
+import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_pre_intro_page.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_question_page.dart';
 import 'package:loopcare_frontend/features/mood/presentation/create_mood_page.dart';
 import 'package:loopcare_frontend/features/mood/presentation/mood_option_page.dart';
@@ -88,12 +90,42 @@ import 'package:loopcare_frontend/features/nutrition/presentation/search/search_
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/select_food_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_serving_page/select_serving_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/week_planner/week_planner_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/asthma/asthma_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/cardiovascular_disease/cardiovascular_disease_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/diabetes_disease/diabetes_disease_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/hypertension/hypertension_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/liver_disease/liver_disease_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/locomotor_system_disease/locomotor_system_disease_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medical_check_failed/medical_check_failed_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medical_check_passed/medical_check_passed_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medical_intro/medical_intro_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medication_future_period/medication_future_period_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medication_past_period/medication_past_period_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medicines/medicines_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/metabolic_disease/metabolic_disease_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/obesity/obesity_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/pregnancy/pregnancy_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/pregnancy_failed/pregnancy_failed.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/renal_failure/renal_failure_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/sleep_apnea_syndrome/sleep_apnea_syndrome_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/stomach_reduction/stomach_reduction_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/thyroid_disease/thyroid_disease_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/treatment_by_doctor/treatment_by_doctor_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/weight_loss_medication/weight_loss_medication_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/presentation/biological_gender/biological_gender_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/presentation/birthday/birthday_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/presentation/check_failed_age/check_failed_age.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/presentation/height/height_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/presentation/physical_check_result/presentation/physical_check_result_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/presentation/sex/sex_page.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/presentation/weight/weight_page.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/physical_intro/physical_intro_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/physical_programs_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_activity_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_completed_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_frequency_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_preferences_page.dart';
+import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_preferences_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/program_assessment_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_details/program_details_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/select_exercise_page.dart';
@@ -156,6 +188,16 @@ const groupLessonRoutes = [
       page: IntroPage,
     ),
     AutoRoute(
+      path: AppRoutes.home,
+      page: HomePage,
+      children: [
+        AutoRoute(path: AppRoutes.dashboard, page: DashboardPage),
+        AutoRoute(path: AppRoutes.education, page: EducationPage),
+        AutoRoute(path: AppRoutes.groupChat, page: GroupChatPage),
+        AutoRoute(path: AppRoutes.account, page: AccountPage),
+      ],
+    ),
+    AutoRoute(
       path: AppRoutes.joinUs,
       page: JoinUsPage,
     ),
@@ -216,40 +258,8 @@ const groupLessonRoutes = [
       page: PregnancyFailedPage,
     ),
     AutoRoute(
-      path: AppRoutes.cardiovascularDisease,
-      page: CardiovascularDiseasePage,
-    ),
-    AutoRoute(
-      path: AppRoutes.cardiovascularDiseaseFailed,
-      page: CardiovascularDiseaseFailedPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.stomachReduction,
-      page: StomachReductionPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.stomachReductionFailed,
-      page: StomachReductionFailedPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.medicalCheckPassed,
-      page: MedicalCheckPassedPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.painInChest,
-      page: PainInChestPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.painInChestFailed,
-      page: PainInChestFailedPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.treatmentByDoctor,
-      page: TreatmentByDoctorPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.treatmentByDoctorFailed,
-      page: TreatmentByDoctorFailedPage,
+      path: AppRoutes.medicines,
+      page: MedicinesPage,
     ),
     AutoRoute(
       path: AppRoutes.weightLossMedication,
@@ -264,8 +274,70 @@ const groupLessonRoutes = [
       page: MedicationFuturePeriodPage,
     ),
     AutoRoute(
-      path: AppRoutes.consentNeeded,
-      page: ConsentNeededPage,
+      path: AppRoutes.obesity,
+      page: ObesityPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.thyroidDisease,
+      page: ThyroidDiseasePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.metabolicDisease,
+      page: MetabolicDiseasePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.hypertension,
+      page: HypertensionPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.cardiovascularDisease,
+      page: CardiovascularDiseasePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.stomachReduction,
+      page: StomachReductionPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.diabetesDisease,
+      page: DiabetesDiseasePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.renalFailure,
+      page: RenalFailurePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.asthma,
+      page: AsthmaPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.liverDisease,
+      page: LiverDiseasePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.sleepApneaSyndrome,
+      page: SleepApneaSyndromePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.locomotorSystemDisease,
+      page: LocomotorSystemDiseasePage,
+    ),
+    AutoRoute(
+      path: AppRoutes.treatmentByDoctor,
+      page: TreatmentByDoctorPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.medicalCheckPassed,
+      page: MedicalCheckPassedPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.medicalCheckFailed,
+      page: MedicalCheckFailedPage,
+    ),
+
+    // Onboarding Mental
+    AutoRoute(
+      path: AppRoutes.mentalHealthPreIntro,
+      page: MentalHealthPreIntroPage,
     ),
     AutoRoute(
       path: AppRoutes.mentalHealthIntro,
@@ -279,20 +351,14 @@ const groupLessonRoutes = [
       path: AppRoutes.mentalCheckResult,
       page: MentalCheckResultPage,
     ),
-    // TODO dead code
-    // AutoRoute(
-    //   path: AppRoutes.resetPassword,
-    //   page: ResetPasswordPage,
-    // ),
+
+    // Legal statement
     AutoRoute(
-      path: AppRoutes.home,
-      page: HomePage,
-      children: [
-        AutoRoute(path: AppRoutes.dashboard, page: DashboardPage),
-        AutoRoute(path: AppRoutes.education, page: EducationPage),
-        AutoRoute(path: AppRoutes.account, page: AccountPage),
-      ],
+      path: AppRoutes.legalStatement,
+      page: LegalStatementPage,
     ),
+
+    // Create account
     AutoRoute(
       path: AppRoutes.signUpWelcome,
       page: SignUpWelcomePage,
@@ -321,10 +387,8 @@ const groupLessonRoutes = [
       path: AppRoutes.noConsent,
       page: NoConsentPage,
     ),
-    AutoRoute(
-      path: AppRoutes.legalStatement,
-      page: LegalStatementPage,
-    ),
+
+    // Preferences
     AutoRoute(
       path: AppRoutes.preferencesOverview,
       page: PreferencesOverviewPage,
@@ -354,11 +418,11 @@ const groupLessonRoutes = [
       page: DoNotLikePage,
     ),
 
-    // TODO check house hold screens seems they could be deleted
-    AutoRoute(
-      path: AppRoutes.householdIntro,
-      page: HouseholdAndHabitsIntroPage,
-    ),
+    // TODO dead route
+    // AutoRoute(
+    //   path: AppRoutes.householdIntro,
+    //   page: HouseholdAndHabitsIntroPage,
+    // ),
     AutoRoute(
       path: AppRoutes.shareMealWith,
       page: ShareMealPage,
@@ -444,6 +508,21 @@ const groupLessonRoutes = [
       page: RecommendationsPage,
     ),
 
+    // Education
+    AutoRoute(
+      path: AppRoutes.lesson,
+      page: LessonPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.lessonComplete,
+      page: LessonCompletePage,
+    ),
+    // TODO dead route
+    // AutoRoute(
+    //   path: AppRoutes.lessonError,
+    //   page: LessonErrorPage,
+    // ),
+
     // Dish
     AutoRoute(
       path: AppRoutes.dishDetails,
@@ -453,18 +532,7 @@ const groupLessonRoutes = [
       path: AppRoutes.editDish,
       page: EditDishPage,
     ),
-    AutoRoute(
-      path: AppRoutes.lesson,
-      page: LessonPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.lessonComplete,
-      page: LessonCompletePage,
-    ),
-    AutoRoute(
-      path: AppRoutes.lessonError,
-      page: LessonErrorPage,
-    ),
+
     AutoRoute(
       path: AppRoutes.selectExercise,
       page: SelectExercisePage,
@@ -492,6 +560,10 @@ const groupLessonRoutes = [
       page: FoodPreferencesPage,
     ),
     AutoRoute(
+      path: AppRoutes.physicalPreferences,
+      page: PhysicalPreferencesPage,
+    ),
+    AutoRoute(
       path: AppRoutes.editFoodPreferences,
       page: EditFoodPreferencesPage,
     ),
@@ -514,10 +586,10 @@ const groupLessonRoutes = [
       path: AppRoutes.video,
       page: VideoPage,
     ),
-    AutoRoute(
-      path: AppRoutes.reflection,
-      page: ReflectionPage,
-    ),
+    // AutoRoute(
+    //   path: AppRoutes.reflection,
+    //   page: ReflectionPage,
+    // ),
     AutoRoute(
       path: AppRoutes.reflectionNutritionDetails,
       page: NutritionDetailsPage,
@@ -632,6 +704,14 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.theme,
       page: ThemeComponentsPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.groupChat,
+      page: GroupChatPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.groupChatUsers,
+      page: GroupUsersPage,
     ),
     AutoRoute(
       path: AppRoutes.subscription,

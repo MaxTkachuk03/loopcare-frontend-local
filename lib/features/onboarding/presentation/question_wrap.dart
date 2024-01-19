@@ -8,7 +8,7 @@
 // import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 // import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 // import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-// import 'package:loopcare_frontend/features/onboarding/presentation/progress_bar.dart';
+// import 'package:loopcare_frontend/features/onboarding/presentation/simple_progress_bar.dart';
 //
 // class QuestionWrap extends StatelessWidget {
 //   final Widget child;

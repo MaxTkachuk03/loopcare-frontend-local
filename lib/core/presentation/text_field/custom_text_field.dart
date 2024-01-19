@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
 import 'package:loopcare_frontend/core/presentation/validators/login_password_validator.dart';
+import 'package:loopcare_frontend/core/presentation/validators/name_validator.dart';
 
 class CustomTextField extends StatefulWidget {
   final TextInputType? keyboardType;
@@ -27,6 +28,7 @@ class CustomTextField extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final InputDecoration? decoration;
   final TextStyle? style;
+  final TextAlign textAlign;
 
   const CustomTextField({
     super.key,
@@ -48,6 +50,7 @@ class CustomTextField extends StatefulWidget {
     this.inputFormatters,
     this.decoration,
     this.style,
+    this.textAlign = TextAlign.start,
   });
 
   factory CustomTextField.search({
@@ -57,17 +60,36 @@ class CustomTextField extends StatefulWidget {
     VoidCallback? onCleared,
   }) =>
       CustomTextField(
-        hintText: LocalizedTexts.searchHint,
+        hintText: LocalizedTexts.searchHint.tr(),
         controller: controller,
-        prefixIcon: const Icon(Icons.search, size: 24),
+        prefixIcon: const Icon(Icons.search, size: 22),
         onChanged: onChanged,
         onCleared: onCleared,
-        isClearField: true,
+        isClearField: onCleared != null,
         fillColor: fillColor,
+      );
+
+  factory CustomTextField.nickname({
+    Color? fillColor,
+    String? errorText,
+    ValueChanged<String>? onChanged,
+    required TextEditingController controller,
+  }) =>
+      CustomTextField(
+        maxLength: 64,
+        hintText: LocalizedTexts.nicknamePlaceholder,
+        controller: controller,
+        validator: nameValidator(),
+        keyboardType: TextInputType.name,
+        fillColor: fillColor,
+        errorText: errorText,
+        onChanged: onChanged,
       );
 
   factory CustomTextField.email({
     Color? fillColor,
+    String? errorText,
+    ValueChanged<String>? onChanged,
     required TextEditingController controller,
   }) =>
       CustomTextField(
@@ -77,6 +99,8 @@ class CustomTextField extends StatefulWidget {
         prefixIcon: const Icon(Icons.mail, size: 24),
         keyboardType: TextInputType.emailAddress,
         fillColor: fillColor,
+        errorText: errorText,
+        onChanged: onChanged,
       );
 
   factory CustomTextField.password({
@@ -90,6 +114,19 @@ class CustomTextField extends StatefulWidget {
         prefixIcon: const Icon(Icons.lock, size: 24),
         isToggleEye: true,
         obscureText: true,
+      );
+
+  factory CustomTextField.createPassword({
+    Color? fillColor,
+    ValueChanged<String>? onChanged,
+    required TextEditingController controller,
+  }) =>
+      CustomTextField(
+        hintText: LocalizedTexts.yourPassword,
+        controller: controller,
+        isToggleEye: true,
+        obscureText: true,
+        onChanged: onChanged,
       );
 
   factory CustomTextField.unit({
@@ -169,6 +206,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       autocorrect: false,
       keyboardType: widget.keyboardType,
       obscureText: _isObscureText,
+      textAlign: widget.textAlign,
       style: widget.style ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
       maxLength: widget.maxLength,
       decoration: widget.decoration ??

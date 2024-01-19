@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/checkbox/custom_checkbox.dart';
 
 class CheckboxFormField extends StatefulWidget {
   final Widget text;
@@ -39,7 +40,7 @@ class _CheckboxFormFieldState extends State<CheckboxFormField> {
                 SizedBox(
                   height: 22,
                   width: 22,
-                  child: Checkbox(
+                  child: CustomCheckbox.green(
                     value: value,
                     onChanged: (newValue) {
                       setState(() {
@@ -50,20 +51,14 @@ class _CheckboxFormFieldState extends State<CheckboxFormField> {
                     },
                   ),
                 ),
-                const SizedBox(
-                  width: 16.0,
-                ),
-                Expanded(
-                  child: widget.text,
-                )
+                const SizedBox(width: 16.0),
+                Expanded(child: widget.text)
               ],
             ),
             if (errorText != null)
               Column(
                 children: [
-                  const SizedBox(
-                    height: 6.0,
-                  ),
+                  const SizedBox(height: 6.0),
                   Text(
                     errorText,
                     style: Theme.of(context).inputDecorationTheme.errorStyle,

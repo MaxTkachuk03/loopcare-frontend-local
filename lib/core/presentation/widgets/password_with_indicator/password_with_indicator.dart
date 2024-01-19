@@ -2,18 +2,20 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/field.dart';
+import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/password_with_indicator/password_strength_indicator.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/reg_exp_utils.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/reg_exp_utils.dart';
 
 class PasswordWithIndicator extends StatefulWidget {
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final AssetImage? prefixIcon;
   final Function(String password, double passwordStrength)? onChange;
 
   const PasswordWithIndicator({
     super.key,
-    this.controller,
+    required this.controller,
     this.prefixIcon,
     this.onChange,
   });
@@ -34,17 +36,20 @@ class _PasswordWithIndicatorState extends State<PasswordWithIndicator> {
       return 0.0;
     }
 
+    if (_password.length > 24) {
+      return -0.0;
+    }
+
     if (RegExp(RegExpUtils.digitsReg).hasMatch(password)) {
-      strength += 1 / 4;
+      strength += 1 / 3;
     }
-    if (RegExp(RegExpUtils.letterReg).hasMatch(password)) {
-      strength += 1 / 4;
-    }
+
     if (RegExp(RegExpUtils.capitalLetterReg).hasMatch(password)) {
-      strength += 1 / 4;
+      strength += 1 / 3;
     }
+
     if (RegExp(RegExpUtils.specialCharactersReg).hasMatch(password)) {
-      strength += 1 / 4;
+      strength += 1 / 3;
     }
 
     return strength;
@@ -54,7 +59,11 @@ class _PasswordWithIndicatorState extends State<PasswordWithIndicator> {
     String retText = '';
 
     if (strength == 0) {
-      retText = LocalizedTexts.passwordStrengthToShort.tr();
+      if (_password.length < 8 || _password.isEmpty) {
+        retText = LocalizedTexts.passwordStrengthToShort.tr();
+      } else if (_password.length > 24) {
+        retText = LocalizedTexts.passwordStrengthToLong.tr();
+      }
     } else if (strength <= 1 / 3) {
       retText = LocalizedTexts.passwordStrengthNotSecure.tr();
     } else if (strength <= 2 / 3) {
@@ -90,12 +99,8 @@ class _PasswordWithIndicatorState extends State<PasswordWithIndicator> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Field(
+        CustomTextField.createPassword(
           controller: widget.controller,
-          hintText: LocalizedTexts.yourPassword.tr(),
-          prefixIcon: widget.prefixIcon,
-          isToggleEye: true,
-          obscureText: true,
           onChanged: _checkPassword,
         ),
         if (_displayText != null)
@@ -105,9 +110,29 @@ class _PasswordWithIndicatorState extends State<PasswordWithIndicator> {
               const SizedBox(height: 16.0),
               PasswordStrengthIndicator(strength: _strength),
               const SizedBox(height: 8.0),
-              CustomText.w400(_displayText!),
+              CustomText.w600(_displayText!, style: context.textTheme.bodySmall),
             ],
           ),
+        const SizedBox(height: 8.0),
+        Column(
+          children: [
+            BulletListItem(
+              text:
+                  CustomText.w400(LocalizedTexts.passwordValidationRule1, style: context.textTheme.bodySmall),
+              bulletSize: 18,
+            ),
+            BulletListItem(
+              text:
+                  CustomText.w400(LocalizedTexts.passwordValidationRule2, style: context.textTheme.bodySmall),
+              bulletSize: 18,
+            ),
+            BulletListItem(
+              text:
+                  CustomText.w400(LocalizedTexts.passwordValidationRule3, style: context.textTheme.bodySmall),
+              bulletSize: 18,
+            )
+          ],
+        ),
       ],
     );
   }

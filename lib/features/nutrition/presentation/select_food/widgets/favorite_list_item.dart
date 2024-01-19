@@ -2,10 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/checkbox/custom_checkbox.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/favorites_item/favorites_item.dart';
 
@@ -32,7 +33,7 @@ class FavoriteListItem extends StatelessWidget {
                   onTap: () => _onChanged(!isSelected, foodItem, context),
                   child: Row(
                     children: [
-                      CheckboxBlue(
+                      CustomCheckbox.blue(
                         value: isSelected,
                         onChanged: (bool? value) => _onChanged(value, foodItem, context),
                       ),
@@ -46,16 +47,17 @@ class FavoriteListItem extends StatelessWidget {
                               AutoSizeText(
                                 foodItem.foodName,
                                 maxLines: 2,
-                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                style: context.textTheme.bodySmall?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.blueDarker,
+                                ),
                               ),
                               AutoSizeText(
                                 '${foodItem.brandName} | ${foodItem.serving.servingDescription}',
                                 maxLines: 1,
-                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: AppColors.greyLabel,
-                                    ),
+                                style: context.textTheme.bodySmall?.copyWith(
+                                  color: AppColors.blueDarker,
+                                ),
                               ),
                             ],
                           ),
@@ -70,7 +72,7 @@ class FavoriteListItem extends StatelessWidget {
                   onPressed: isSelected ? null : () => _onTap(context),
                   icon: const ImageIcon(
                     AppIcons.arrow,
-                    color: AppColors.greyLabel,
+                    color: AppColors.blueDarker,
                   ),
                 ),
             ],

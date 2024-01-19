@@ -62,6 +62,7 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
 
   _onResume() {
     _refreshTokenState();
+    _syncChatState();
   }
 
   @override
@@ -113,7 +114,10 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
     final accessTokenIsUpdated = await updateAccessToken();
     final refreshTokenIsUpdated = await updateRefreshToken();
     return accessTokenIsUpdated && refreshTokenIsUpdated;
+
   }
+
+  void _syncChatState() => _authenticationCubit?.syncChatState();
 
   void _refreshTokenState() => _authenticationCubit?.state.mapOrNull(authenticated: (_) => _refreshToken());
 }

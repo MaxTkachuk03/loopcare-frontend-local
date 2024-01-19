@@ -43,13 +43,9 @@ class AppColors {
 
   static const Color redFocus = Color(0xFFFF5247);
 
-  static const Color red = Color(0xFFC20000);
-
   static const Color bgGreen = Color(0xFFF0F2E6);
 
   static const Color dirtyWhite = Color(0xFFF9FAF5);
-
-  // static const Color greyLight = Color(0xFFE6E8DC);
 
   static const Color greyMid = Color(0xFFCDCFD0);
 
@@ -104,6 +100,8 @@ class AppColors {
   static const Color white = Color(0xFFFFFFFF);
   static const Color greyLight = Color(0xFF9F9F9F);
   static const Color greyRegular = Color(0xFF707070);
+  static const Color red = Color(0xFFC20000);
+  static const Color greyDarker = Color(0xFF404040);
 
   // Coral
   static const Color coralLightest = Color(0xFFFFE9E7);

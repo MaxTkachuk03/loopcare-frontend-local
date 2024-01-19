@@ -31,7 +31,10 @@ class MoodOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(24.0),
-      decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(8.0)),
+      decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(16.0),
+          border: Border.all(color: AppColors.orangeRegular, width: 2)),
       child: Column(
         children: [
           ValueListenableBuilder<DateTime?>(

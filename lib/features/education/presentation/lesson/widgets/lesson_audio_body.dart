@@ -1,45 +1,47 @@
 import 'dart:io' as i;
 
-import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/rive_animation_renderer/rive_animation_renderer.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
-import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
-import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/domain/subtitle/image_subtitle_controller.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/audio_block.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 // TODO refactor _subtitleController
-class LessonAudioPage extends StatefulWidget {
+class LessonAudioBody extends StatefulWidget {
   final void Function() onNextPressed;
   final void Function() onPrevPressed;
 
-  const LessonAudioPage({
+  const LessonAudioBody({
     super.key,
     required this.onNextPressed,
     required this.onPrevPressed,
   });
 
   @override
-  State<LessonAudioPage> createState() => _LessonAudioPageState();
+  State<LessonAudioBody> createState() => _LessonAudioBodyState();
 }
 
-class _LessonAudioPageState extends State<LessonAudioPage> {
+class _LessonAudioBodyState extends State<LessonAudioBody> {
   AppConfig appConfig = getIt<AppConfig>();
   late SubtitleController _subtitleController;
   bool _subtitleControllerInitialized = false;
@@ -125,7 +127,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
     });
   }
 
-  void onCompleteModelHandler() {
+  void onCompleteModalHandler() {
     final userId = context.read<AuthenticationCubit>().state.id;
 
     context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.closedTextLessonVersion, {
@@ -149,7 +151,7 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
     ModalBottomSheet.readTextVersion(
       context: context,
       onBtnPress: widget.onNextPressed,
-      onCompleteModal: onCompleteModelHandler,
+      onCompleteModal: onCompleteModalHandler,
     );
   }
 
@@ -162,153 +164,94 @@ class _LessonAudioPageState extends State<LessonAudioPage> {
         }
         lessonId = state.data.lessonId;
 
-        return Scaffold(
-          appBar: AppBar(
-            systemOverlayStyle: SystemUiOverlayStyle.dark,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: widget.onPrevPressed,
-            ),
+        return CustomScaffold.petrolLightest(
+          appBar: CustomAppBar.petrol(
+            title: LocalizedTexts.lesson.tr(),
+            leading: CustomFilledIconButton.leadingPetrolLighter(onPressed: widget.onPrevPressed),
           ),
-          body: Stack(
-            children: [
-              const SizedBox(
-                height: double.infinity,
-                width: double.infinity,
-                child: RiveAnimationRenderer(),
-              ),
-              SafeArea(
+          body: SafeArea(
+            child: ScrollableContainer(
+              child: MainContainer(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                      builder: (context, accountState) {
-                        return BlocBuilder<EducationLessonBloc, EducationLessonState>(
-                          builder: (context, state) {
-                            if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
-                                accountState.groupingState == UserGroupingState.locked) {
-                              return ProgressBar(
-                                progress: state.data.lessonProgress,
-                              );
-                            }
+                    Column(
+                      children: [
+                        const SizedBox(height: 50),
+                        Stack(
+                          children: [
+                            // TODO 18.01.2024 sync with Diana, decided to remove subtitle images logic for now
+                            // AnimatedOpacity(
+                            //   opacity: isPlay ? 0.0 : 1.0,
+                            //   duration: const Duration(milliseconds: 300),
+                            //   child: SizedBox(
+                            //     height: 410,
+                            //     child: imageUrl != null && imageUrl != ''
+                            //         ? isSvg
+                            //             ? state.data.isSvgLoaded
+                            //                 ? SvgPicture.file(i.File(state.data.svgFile))
+                            //                 : null
+                            //             : NetworkImageWithCache(
+                            //                 withPlaceholder: false,
+                            //                 url: imageUrl!,
+                            //                 imageBoxFit: BoxFit.contain,
+                            //               )
+                            //         : null,
+                            //   ),
+                            // ),
 
-                            return const SizedBox.shrink();
-                          },
-                        );
-                      },
-                    ),
-                    Expanded(
-                      child: Stack(
-                        children: [
-                          AnimatedOpacity(
-                            opacity: isPlay ? 1.0 : 0.0,
-                            duration: const Duration(milliseconds: 300),
-                            child: Center(
-                              child: Center(
-                                child: SizedBox(
-                                  height: 600,
-                                  child: imageUrl != null && imageUrl != ''
-                                      ? isSvg
-                                          ? state.data.isSvgLoaded
-                                              ? SvgPicture.file(i.File(state.data.svgFile))
-                                              : null
-                                          : NetworkImageWithCache(
-                                              withPlaceholder: false,
-                                              url: imageUrl!,
-                                              imageBoxFit: BoxFit.contain,
-                                            )
-                                      : null,
-                                ),
+                            AnimatedOpacity(
+                              opacity: isPlay ? 0.0 : 1.0,
+                              duration: const Duration(milliseconds: 300),
+                              child: SizedBox(
+                                height: 420,
+                                child: NetworkImageWithCache(url: state.data.lessonImage),
                               ),
                             ),
-                          ),
-                          AnimatedOpacity(
-                            opacity: isPlay ? 0.0 : 1.0,
-                            duration: const Duration(milliseconds: 300),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 270,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                                    child: NetworkImageWithCache(
-                                      imageBoxFit: BoxFit.contain,
-                                      url: state.data.lessonImage,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 14),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 24.0,
-                                  ),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      LocalizedTexts.general.translation.toUpperCase(),
-                                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                            fontSize: ThemeConstants.fontSize12,
-                                            color: AppColors.orangeDark,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 14),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 24.0,
-                                  ),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: AutoSizeText(
-                                      state.data.lessonTitle,
-                                      maxLines: 2,
-                                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                                            fontFamily: ThemeConstants.bitterFontFamily,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 20),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 24.0,
-                                    ),
-                                    width: 250,
-                                    child: OutlinedButton(
-                                      onPressed: _onReadText,
-                                      child: Center(
-                                        child: AutoSizeText(
-                                          LocalizedTexts.readText.translation,
-                                          minFontSize: 6,
-                                          maxLines: 1,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                            AnimatedOpacity(
+                              opacity: isPlay ? 1.0 : 0.0,
+                              duration: const Duration(milliseconds: 300),
+                              child: const SizedBox(
+                                height: 420,
+                                width: double.infinity,
+                                child: RiveAnimationRenderer(),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
+                      ],
                     ),
-                    if (state.data.currentPage.content.audioFilePath.isNotEmpty)
-                      AudioBlock(
-                        url: state.data.currentPage.content.audioFilePath,
-                        duration: state.data.lessonDuration,
-                        onDurationChanged: _setDuration,
-                        onPositionChanged: _setPosition,
-                        onPlayingChanged: _setIsPlay,
-                        onPlayerComplete: _setIsComplete,
-                      ),
-                    const SizedBox(height: 14),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 24),
+                        getLabelByCategory(state.data.lessonCategory),
+                        const SizedBox(height: 16),
+                        CustomText.bitter600(
+                          state.data.lessonTitle,
+                          style: context.textTheme.displayLarge,
+                        ),
+                        const SizedBox(height: 16),
+                        CustomOutlinedButton.blueSmall(
+                          onPressed: _onReadText,
+                          label: LocalizedTexts.readText,
+                        ),
+                        if (state.data.currentPage.content.audioFilePath.isNotEmpty)
+                          AudioBlock(
+                            url: state.data.currentPage.content.audioFilePath,
+                            duration: state.data.lessonDuration,
+                            onDurationChanged: _setDuration,
+                            onPositionChanged: _setPosition,
+                            onPlayingChanged: _setIsPlay,
+                            onPlayerComplete: _setIsComplete,
+                          ),
+                        const SizedBox(height: 14),
+                      ],
+                    ),
                   ],
                 ),
               ),
-            ],
+            ),
           ),
         );
       },

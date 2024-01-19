@@ -2,7 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
 
 class DishListItem extends StatelessWidget {
@@ -24,17 +26,13 @@ class DishListItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              CustomText.w600(
                 dishItem.name,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
+                style: context.textTheme.bodySmall,
               ),
-              Text(
+              CustomText.w400(
                 '${dishItem.numberOfServings} ${LocalizedTexts.serving.translation}',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppColors.greyLabel,
-                    ),
+                style: context.textTheme.bodySmall,
               ),
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_option.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page_mode.dart';
@@ -33,16 +34,16 @@ class _QuizzesQuestionState extends State<QuizzesQuestion> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        CustomText.bitter600(
           widget.question.question ?? '',
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+          style: context.textTheme.displayMedium,
         ),
-        const SizedBox(height: 30.0),
+        const SizedBox(height: 28.0),
         ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: widget.question.lessonQuestionOptions.length,
-          separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 10),
+          separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 8),
           itemBuilder: (BuildContext context, int i) {
             final el = widget.question.lessonQuestionOptions[i];
 
@@ -51,7 +52,6 @@ class _QuizzesQuestionState extends State<QuizzesQuestion> {
                 label: el.label,
                 selected: widget.selectedValue?.id == el.id,
                 onSelected: _onSelectedHandler,
-                borderColor: AppColors.ff404040,
               ),
               showAnswer: (_) {
                 var isCorrect = el.isCorrect ?? false;
@@ -59,7 +59,6 @@ class _QuizzesQuestionState extends State<QuizzesQuestion> {
                   label: el.label,
                   selected: widget.selectedValue?.id == el.id,
                   onSelected: (String value) {},
-                  borderColor: AppColors.ff404040,
                   correct: (!isCorrect && widget.selectedValue?.id == el.id) || isCorrect ? isCorrect : null,
                   active: (!isCorrect && widget.selectedValue?.id == el.id) || isCorrect ? true : false,
                 );

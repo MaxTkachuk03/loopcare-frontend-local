@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+
+const _kRegularHeight = 68.0;
+const _kSelectedHeight = 74.0;
+const _kSelectedWidth = 64.0;
+const _kRegularWidth = 66.0;
+const _kBorderThick = 2.0;
+const _kBorderRadius = 10.0;
 
 class LikeUnlikeBlock extends StatefulWidget {
   final void Function(bool like) onLikeChange;
@@ -17,68 +27,39 @@ class LikeUnlikeBlock extends StatefulWidget {
 class _LikeUnlikeBlockState extends State<LikeUnlikeBlock> {
   int selectedThumb = 0;
 
+  Color get borderColor => AppColors.blueDarker;
+
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: AppColors.yellowLight),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(8.0),
-          ),
-        ),
+      child: SizedBox(
+        height: _kSelectedHeight,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20.0),
-              child: SizedBox(
-                width: 101,
-                child: Column(
-                  children: [
-                    IconButton(
-                      onPressed: () => _onThumbsTap(-1),
-                      icon: Icon(
-                        Icons.thumb_down_rounded,
-                        color: (selectedThumb == -1) ? AppColors.blueMid : AppColors.yellowLight,
-                        size: 34,
-                      ),
-                    ),
-                    Text(
-                      LocalizedTexts.notReally.translation,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontWeight: (selectedThumb == -1) ? FontWeight.w700 : FontWeight.w400,
-                          ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20.0),
-              child: SizedBox(
-                width: 101,
-                child: Column(
-                  children: [
-                    IconButton(
-                      onPressed: () => _onThumbsTap(1),
-                      icon: Icon(
-                        Icons.thumb_up_rounded,
-                        color: (selectedThumb == 1) ? AppColors.blueMid : AppColors.yellowLight,
-                        size: 34,
-                      ),
-                    ),
-                    Text(
-                      LocalizedTexts.yesYes.translation,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontWeight: (selectedThumb == 1) ? FontWeight.w700 : FontWeight.w400,
-                          ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            (selectedThumb == -1)
+                ? _SelectedButton(
+                    icon: AppIcons.noScore,
+                    label: LocalizedTexts.notReally.translation,
+                  )
+                : _RegularButton(
+                    label: LocalizedTexts.notReally.translation,
+                    icon: AppIcons.noScore,
+                    onTap: () => _onThumbsTap(-1),
+                  ),
+            if (selectedThumb == 0) _Divider(),
+            (selectedThumb == 1)
+                ? _SelectedButton(
+                    icon: AppIcons.yesScoreFilled,
+                    label: LocalizedTexts.yesYes.translation,
+                  )
+                : _RegularButton(
+                    isLeft: false,
+                    label: LocalizedTexts.yesYes.translation,
+                    icon: AppIcons.yesScore,
+                    onTap: () => _onThumbsTap(1),
+                  ),
           ],
         ),
       ),
@@ -90,5 +71,128 @@ class _LikeUnlikeBlockState extends State<LikeUnlikeBlock> {
       selectedThumb = like;
       widget.onLikeChange(like == 1);
     });
+  }
+}
+
+class _SelectedButton extends StatelessWidget {
+  final Widget icon;
+  final String label;
+
+  const _SelectedButton({
+    required this.icon,
+    required this.label,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: _kSelectedWidth,
+      height: _kSelectedHeight,
+      alignment: Alignment.center,
+      decoration: const BoxDecoration(
+        color: AppColors.yellowRegular,
+        borderRadius: BorderRadius.all(Radius.circular(_kBorderRadius)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          icon,
+          const SizedBox(height: 8.0),
+          CustomText.w700(
+            label,
+            style: context.textTheme.bodySmall?.copyWith(
+              fontSize: ThemeConstants.fontSize12,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RegularButton extends StatelessWidget {
+  final Widget icon;
+  final Function() onTap;
+  final String label;
+  final bool isLeft;
+
+  const _RegularButton({
+    required this.icon,
+    required this.onTap,
+    required this.label,
+    this.isLeft = true,
+  });
+
+  Color get borderColor => AppColors.blueDarker;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: _kRegularWidth,
+        height: _kRegularHeight,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            borderRadius: isLeft
+                ? const BorderRadius.only(
+                    topLeft: Radius.circular(_kBorderRadius),
+                    bottomLeft: Radius.circular(_kBorderRadius),
+                  )
+                : const BorderRadius.only(
+                    topRight: Radius.circular(_kBorderRadius),
+                    bottomRight: Radius.circular(_kBorderRadius),
+                  ),
+            border: isLeft
+                ? Border(
+                    left: BorderSide(width: _kBorderThick, color: borderColor),
+                    top: BorderSide(width: _kBorderThick, color: borderColor),
+                    bottom: BorderSide(width: _kBorderThick, color: borderColor),
+                  )
+                : Border(
+                    right: BorderSide(width: _kBorderThick, color: borderColor),
+                    top: BorderSide(width: _kBorderThick, color: borderColor),
+                    bottom: BorderSide(width: _kBorderThick, color: borderColor),
+                  )),
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              icon,
+              const SizedBox(height: 8.0),
+              CustomText.w700(
+                label,
+                style: context.textTheme.bodySmall?.copyWith(
+                  fontSize: ThemeConstants.fontSize12,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _Divider extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: _kRegularHeight,
+      width: 1,
+      decoration: const BoxDecoration(
+        border: Border(
+          top: BorderSide(width: _kBorderThick, color: AppColors.blueDarker),
+          bottom: BorderSide(width: _kBorderThick, color: AppColors.blueDarker),
+        ),
+      ),
+      child: const VerticalDivider(
+        thickness: 1,
+        color: AppColors.blueLighter,
+      ),
+    );
   }
 }

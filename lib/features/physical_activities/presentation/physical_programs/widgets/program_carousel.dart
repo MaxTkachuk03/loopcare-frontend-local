@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/widgets/program_card.dart';
 
+@Deprecated("Not used")
 class ProgramCarousel extends StatefulWidget {
   final List<PhysicalProgram> programs;
 

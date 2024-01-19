@@ -4,7 +4,6 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_butt
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class ErrorScreen extends StatelessWidget {
@@ -38,19 +37,15 @@ class ErrorScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(top: 24.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              if (errorType.isSomethingWentWrongType)
-                smallVersion ? AppImages.oepsSmall : AppImages.oepsBig
-              else
-                smallVersion ? AppImages.noConnectionSmall : AppImages.noConnectionBig,
+              if (errorType.isSomethingWentWrongType) AppImages.oepsSmall else AppImages.noConnectionSmall,
               CustomText.bitter600(
                 errorType.isSomethingWentWrongType
                     ? LocalizedTexts.oeps.translation
                     : LocalizedTexts.noConnectionTitle.translation,
-                style: context.textTheme.displayLarge?.copyWith(
-                  fontSize: smallVersion ? ThemeConstants.fontSize18 : ThemeConstants.fontSize28,
-                ),
+                style: smallVersion ? context.textTheme.bodyLarge : context.textTheme.displayLarge,
               ),
               const SizedBox(height: 8.0),
               CustomText.w400(

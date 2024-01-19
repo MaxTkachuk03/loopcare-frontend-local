@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class AppImages {
   static const String imagesFilePath = 'assets/images';
@@ -9,7 +10,6 @@ class AppImages {
   static const AssetImage introTwo = AssetImage('$imagesFilePath/intro_two.png');
   static const AssetImage introThree = AssetImage('$imagesFilePath/intro_three.png');
   static const AssetImage coffee = AssetImage('$imagesFilePath/coffee.png');
-  static const AssetImage signUpWelcome = AssetImage('$imagesFilePath/sign_up_welcome.png');
   static const AssetImage preferencesDiabetes = AssetImage('$imagesFilePath/diabetes.png');
   static const AssetImage editButton = AssetImage('$imagesFilePath/edit_button.png');
   static const AssetImage reflectionActivities = AssetImage('$imagesFilePath/reflection_activities.png');
@@ -24,19 +24,17 @@ class AppImages {
 
   static const AssetImage reflectionWeight = AssetImage('$imagesFilePath/reflection_weight.png');
 
-  static const AssetImage reflectionActivitiesTable = AssetImage('$imagesFilePath/reflection_activities_table.png');
+  static const AssetImage reflectionActivitiesTable =
+      AssetImage('$imagesFilePath/reflection_activities_table.png');
 
-  static const AssetImage youAndFoodIntro = AssetImage('$imagesFilePath/you_and_food_intro.png');
-
-  static const AssetImage physicalActivitiesIntro = AssetImage('$imagesFilePath/physical_activities_intro.png');
+  static const AssetImage physicalActivitiesIntro =
+      AssetImage('$imagesFilePath/physical_activities_intro.png');
 
   static const AssetImage selfHelpIntro = AssetImage('$imagesFilePath/self_help_intro.png');
 
   static const AssetImage clock = AssetImage('$imagesFilePath/clock.png');
 
   static const AssetImage questionMark = AssetImage('$imagesFilePath/question.png');
-
-  static const AssetImage emptyMeal = AssetImage('$imagesFilePath/empty_meal.png');
 
   static const AssetImage dashboardBg = AssetImage('$imagesFilePath/dashboard_bg.png');
 
@@ -50,26 +48,18 @@ class AppImages {
 
   static const AssetImage iconAttention = AssetImage('$imagesFilePath/attention.png');
 
-  static const AssetImage educationVideoPreview = AssetImage('$imagesFilePath/education_video_preview.png');
-
   static const AssetImage recipePlaceholder = AssetImage('$imagesFilePath/recipe_placeholder.png');
-
-  static const AssetImage lessonComplete = AssetImage('$imagesFilePath/lesson_complete.png');
 
   static const AssetImage oeps = AssetImage('$imagesFilePath/oeps.png');
   static const AssetImage reflectionGradient = AssetImage('$imagesFilePath/reflection_gradient.png');
 
   static const AssetImage noConnection = AssetImage('$imagesFilePath/no_connection.png');
 
+  static const AssetImage sessionPlaceholder = AssetImage('$imagesFilePath/session_placeholder.png');
+
   static SvgPicture logoSvgBig = SvgPicture.asset('$imagesFilePath/logo.svg', width: 114, height: 107);
 
   static SvgPicture logoSvgMedium = SvgPicture.asset('$imagesFilePath/logo.svg', width: 77, height: 71);
-
-  static SvgPicture logoSvgGreenBig = SvgPicture.asset(
-    '$imagesFilePath/logo_green.svg',
-    width: 114,
-    height: 107,
-  );
 
   static SvgPicture checkMarkGreen = SvgPicture.asset(
     '$imagesFilePath/check_mark_green.svg',
@@ -100,15 +90,26 @@ class AppImages {
   static const AssetImage intro2 = AssetImage('$imagesFilePath/new_intro2.png');
 
   static const AssetImage physicalIntro = AssetImage('$imagesFilePath/new_physical_intro.png');
+  static const AssetImage medicalIntro = AssetImage('$imagesFilePath/new_medical_intro.png');
+  static const AssetImage mentalIntro = AssetImage('$imagesFilePath/new_mental_intro.png');
+  static const AssetImage welcome = AssetImage('$imagesFilePath/new_welcome.png');
 
   static SvgPicture oepsBig = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 120, height: 120);
   static SvgPicture oepsSmall = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 60, height: 60);
-  static SvgPicture noConnectionBig = SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 120, height: 120);
-  static SvgPicture noConnectionSmall = SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 60, height: 60);
+  static SvgPicture noConnectionBig =
+      SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 120, height: 120);
+  static SvgPicture noConnectionSmall =
+      SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 60, height: 60);
 
   static SvgPicture calorieDensityFoodA = SvgPicture.asset('$imagesFilePath/calorie_dencity_food_a.svg');
 
   static SvgPicture calorieDensityFoodB = SvgPicture.asset('$imagesFilePath/calorie_dencity_food_b.svg');
+  static SvgPicture bottomFrame = SvgPicture.asset('$imagesFilePath/bottom_frame.svg',
+      colorFilter: const ColorFilter.mode(AppColors.blueOffRegular, BlendMode.modulate));
+
+  static const AssetImage educationPreview = AssetImage('$imagesFilePath/new_education_preview.png');
+
+  static const AssetImage educationLessonTest = AssetImage('$imagesFilePath/new_education_lesson_test.png');
 
   static SvgPicture subscriptionTrialSVG = SvgPicture.asset('$imagesFilePath/subscription_trial.svg');
   static SvgPicture subscriptionCancelledSVG = SvgPicture.asset(

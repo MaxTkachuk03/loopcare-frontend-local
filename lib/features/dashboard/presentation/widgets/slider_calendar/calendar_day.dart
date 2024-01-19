@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class CalendarDay extends StatelessWidget {
   final Function(DateTime day) onPressHandler;
@@ -18,10 +20,10 @@ class CalendarDay extends StatelessWidget {
 
   Color _getDayColor() {
     return isSelected
-        ? AppColors.bgGreen
+        ? AppColors.blueOffRegular
         : isFutureDate
-            ? AppColors.blueAppBar
-            : AppColors.blueMid;
+            ? AppColors.blueDarker
+            : AppColors.blueDarker;
   }
 
   @override
@@ -32,10 +34,10 @@ class CalendarDay extends StatelessWidget {
         width: 68,
         decoration: BoxDecoration(
           color: _getDayColor(),
-          borderRadius: const BorderRadius.all(Radius.circular(6)),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
           boxShadow: const [
             BoxShadow(
-              color: AppColors.blueAppBar,
+              color: AppColors.blueRegular,
               spreadRadius: 1,
               blurRadius: 1,
               offset: Offset(1, -3),
@@ -45,27 +47,27 @@ class CalendarDay extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            CustomText.w600(
               DateFormat.E('en_EN').format(day),
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    color: isSelected ? AppColors.darkGreen : AppColors.white,
-                    decoration: isSelected ? TextDecoration.underline : TextDecoration.none,
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: context.textTheme.bodySmall!.copyWith(
+                color: isSelected ? AppColors.white : AppColors.blueLighter,
+                decoration: isSelected ? TextDecoration.underline : TextDecoration.none,
+                fontSize: isSelected ? 16.0 : 14.0,
+              ),
             ),
-            Text(
+            CustomText.w400(
               DateFormat.d('en_EN').format(day),
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(color: isSelected ? AppColors.darkGreen : AppColors.white, fontSize: 12.0),
+              style: context.textTheme.titleMedium!.copyWith(
+                color: isSelected ? AppColors.white : AppColors.blueLighter,
+                fontSize: isSelected ? 16.0 : 12.0,
+              ),
             ),
-            Text(
+            CustomText.w400(
               DateFormat.MMM('en_EN').format(day),
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(color: isSelected ? AppColors.darkGreen : AppColors.white, fontSize: 12.0),
+              style: context.textTheme.titleMedium!.copyWith(
+                color: isSelected ? AppColors.white : AppColors.blueLighter,
+                fontSize: isSelected ? 16.0 : 12.0,
+              ),
             ),
           ],
         ),

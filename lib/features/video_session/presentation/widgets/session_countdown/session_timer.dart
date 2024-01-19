@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_utils.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/date_time_utils.dart';
 
 class SessionTimer extends StatefulWidget {
   final int value;
@@ -67,18 +69,9 @@ class _SessionTimerState extends State<SessionTimer> with WidgetsBindingObserver
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      decoration: const BoxDecoration(
-        color: AppColors.darkGreen,
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-      ),
-      child: Text(
+      child: CustomText.bitter600(
         formatSecondsToDurationString(_timeBeforeStart),
-        style: const TextStyle(
-          color: AppColors.white,
-          fontSize: 28,
-          fontFamily: 'Bitter',
-          fontWeight: FontWeight.w600,
-        ),
+        style: context.textTheme.displayLarge?.copyWith(color: AppColors.white),
       ),
     );
   }

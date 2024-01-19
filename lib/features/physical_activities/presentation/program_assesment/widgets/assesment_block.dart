@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scoring_scale.dart';
 
 class AssesmentBlock extends StatefulWidget {
@@ -20,49 +23,37 @@ class _AssesmentBlockState extends State<AssesmentBlock> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 27.0,
-        horizontal: 24.0,
-      ),
-      decoration: const BoxDecoration(
-        color: AppColors.white,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            LocalizedTexts.howHard.translation,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-          ),
-          const SizedBox(height: 20.0),
-          ScoringScale(
-            selectedScore: selectedScore,
-            onScoreTap: _onCellTap,
-          ),
-          const SizedBox(height: 14.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                LocalizedTexts.veryEasy.translation,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppColors.greyMid,
-                    ),
-              ),
-              Text(
-                LocalizedTexts.veryHard.translation,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppColors.greyMid,
-                    ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 14.0),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CustomText.bitter600(
+          '${LocalizedTexts.howHard.tr()}?',
+          style: context.textTheme.bodyLarge,
+        ),
+        const SizedBox(height: 25.0),
+        ScoringScale(
+          selectedScore: selectedScore,
+          scaleSize: 10,
+          borderColor: AppColors.blueDarker,
+          divColor: AppColors.blueLighter,
+          onScoreTap: _onCellTap,
+        ),
+        const SizedBox(height: 14.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CustomText.w600(
+              LocalizedTexts.veryEasy.translation,
+              style: context.textTheme.bodySmall,
+            ),
+            CustomText.w600(
+              LocalizedTexts.veryHard.translation,
+              style: context.textTheme.bodySmall,
+            ),
+          ],
+        ),
+      ],
     );
   }
 

@@ -1,7 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+
+const _kHeightContainer = 212.0;
 
 class EmptyMeal extends StatelessWidget {
   final String? message;
@@ -13,31 +18,29 @@ class EmptyMeal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          color: AppColors.white,
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 58.0, horizontal: 24.0),
-          child: Column(
+    return Container(
+      height: _kHeightContainer,
+      color: AppColors.greenLightest,
+      alignment: Alignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(
-                width: 100,
-                height: 64,
-                child: Image(
-                  image: AppImages.emptyMeal,
-                ),
-              ),
+              AppIcons.mealEmpty,
               const SizedBox(height: 16.0),
-              Text(
-                message ?? LocalizedTexts.logListEmptyMessage.translation,
+              CustomText.w400(
+                message ?? LocalizedTexts.logListEmptyMessage.tr(),
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.orangeDark),
+                style: context.textTheme.bodySmall,
               ),
             ],
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

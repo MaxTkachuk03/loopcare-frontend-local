@@ -15,7 +15,7 @@ class RecipeEvent with _$RecipeEvent {
 
   const factory RecipeEvent.servingChanged({
     required int mealId,
-    required int servingAmount,
+    required double servingAmount,
     required int recipeId,
   }) = ServingChanged;
 

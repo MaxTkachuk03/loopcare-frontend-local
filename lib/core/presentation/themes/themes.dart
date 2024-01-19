@@ -20,7 +20,37 @@ final ThemeData appThemeData = ThemeData(
   chipTheme: _chipTheme(),
   highlightColor: Colors.transparent,
   disabledColor: AppColors.greyMid,
+  bottomNavigationBarTheme: _bottomNavigationBarThemeData(),
+  bottomSheetTheme: _bottomSheetTheme(),
+  dividerTheme: const DividerThemeData(
+    color: AppColors.white,
+  ),
+  popupMenuTheme: PopupMenuThemeData(
+    textStyle: _getPopupMenuTheme(),
+  ),
 );
+
+BottomSheetThemeData _bottomSheetTheme() {
+  return const BottomSheetThemeData(
+    backgroundColor: AppColors.white,
+    modalBackgroundColor: AppColors.white,
+    surfaceTintColor: AppColors.white,
+  );
+}
+
+BottomNavigationBarThemeData _bottomNavigationBarThemeData() {
+  return BottomNavigationBarThemeData(
+    backgroundColor: AppColors.blueDarker,
+    type: BottomNavigationBarType.fixed,
+    unselectedLabelStyle: TextStyle(color: AppColors.white.withOpacity(0.5), fontSize: ThemeConstants.fontSize14),
+    selectedLabelStyle:
+        const TextStyle(color: AppColors.white, fontSize: ThemeConstants.fontSize14, fontWeight: FontWeight.bold),
+    unselectedIconTheme: IconThemeData(color: AppColors.white.withOpacity(0.5)),
+    selectedIconTheme: const IconThemeData(color: AppColors.white),
+    unselectedItemColor: AppColors.white.withOpacity(0.5),
+    selectedItemColor: AppColors.white,
+  );
+}
 
 ColorScheme _getColorScheme() {
   return const ColorScheme(
@@ -79,6 +109,7 @@ TabBarTheme _getTabBarTheme() {
   return TabBarTheme(
     labelStyle: TabBarStyles.label,
     unselectedLabelStyle: TabBarStyles.unselectedLabel,
+    labelPadding: const EdgeInsets.symmetric(horizontal: 8),
     indicator: BoxDecoration(
       borderRadius: BorderRadius.circular(50.0),
       color: AppColors.white,
@@ -88,22 +119,22 @@ TabBarTheme _getTabBarTheme() {
 
 ChipThemeData _chipTheme() {
   return const ChipThemeData(
-    showCheckmark: false,
-    labelStyle: TextStyle(
-      fontSize: ThemeConstants.fontSize14,
-      fontWeight: FontWeight.w400,
-      color: AppColors.blueDarker,
-    ),
-    secondaryLabelStyle: TextStyle(
-      fontSize: ThemeConstants.fontSize14,
-      fontWeight: FontWeight.w600,
-      color: AppColors.blueDarker,
-    ),
-    side: BorderSide(width: 2),
-    secondarySelectedColor: AppColors.transparent,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
-    padding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 25.0),
-  );
+      showCheckmark: false,
+      labelStyle: TextStyle(
+        fontSize: ThemeConstants.fontSize14,
+        fontWeight: FontWeight.w400,
+        color: AppColors.blueDarker,
+      ),
+      secondaryLabelStyle: TextStyle(
+        fontSize: ThemeConstants.fontSize14,
+        fontWeight: FontWeight.w600,
+        color: AppColors.blueDarker,
+      ),
+      side: BorderSide(width: 2),
+      disabledColor: AppColors.greyLight,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+      padding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 25.0),
+      deleteIconColor: AppColors.greenLightest);
 }
 
 InputDecorationTheme _getInputDecorationTheme() {
@@ -143,18 +174,18 @@ InputDecorationTheme _getInputDecorationTheme() {
 
 CheckboxThemeData _getCheckboxTheme() {
   return CheckboxThemeData(
-    fillColor: MaterialStateProperty.all(
-      AppColors.greenLight,
-    ),
-    checkColor: MaterialStateProperty.all(
-      AppColors.white,
-    ),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(4.0),
-      ),
-    ),
-    side: const BorderSide(width: 1.0, color: AppColors.darkGreen),
+    checkColor: MaterialStateProperty.all(AppColors.white),
+    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4.0))),
+    side: const BorderSide(width: 1.5, color: AppColors.blueRegular),
+    materialTapTargetSize: MaterialTapTargetSize.padded,
+  );
+}
+
+TextStyle? _getPopupMenuTheme() {
+  return const TextStyle(
+    // Restyled
+    color: AppColors.white,
+    fontSize: ThemeConstants.fontSize16,
   );
 }
 
@@ -189,19 +220,21 @@ TextTheme _getTextTheme() {
       color: AppColors.blueDarker,
       fontSize: ThemeConstants.fontSize32,
     ),
-    headlineMedium: TextStyle(
-      color: AppColors.blueDarker,
-      fontSize: ThemeConstants.fontSize28,
-      fontWeight: FontWeight.w700,
-    ),
-    headlineSmall: TextStyle(
-      color: AppColors.blueDarker,
-      fontSize: ThemeConstants.fontSize18,
-    ),
     headlineLarge: TextStyle(
       // Restyled
       color: AppColors.blueDarker,
       fontSize: ThemeConstants.fontSize38,
+    ),
+    headlineMedium: TextStyle(
+      // Restyled
+      color: AppColors.blueDarker,
+      fontSize: ThemeConstants.fontSize32,
+      fontWeight: FontWeight.w700,
+    ),
+    headlineSmall: TextStyle(
+      // Restyled
+      color: AppColors.blueDarker,
+      fontSize: ThemeConstants.fontSize20,
     ),
     titleLarge: TextStyle(
       // Restyled

@@ -1,5 +1,6 @@
 // Firebase analytics screens names mapper, added comment means that screen added to confluence doc with the screenshot
 final screenNames = {
+  'GroupChatRoute': 'Group Chat Screen',
   'EducationRoute': 'Education Screen', // added
   'DashboardRoute': 'Calendar Screen', // added
   'HomeRoute': 'Calendar Screen', // added
@@ -26,15 +27,11 @@ final screenNames = {
   'StomachReductionRoute': 'Stomach Reduction Screen', // added
   'StomachReductionFailedRoute': 'Stomach Reduction Failed Screen', // added
   'MedicalCheckPassedRoute': 'Medical Check Passed Screen', // added
-  'PainInChestRoute': 'Pain In Chest Screen', // added
-  'PainInChestFailedRoute': 'Pain In Chest Failed Screen', // added
   'TreatmentByDoctorRoute': 'Treatment By Doctor Screen', // added
-  'TreatmentByDoctorFailedRoute': 'Treatment By Doctor Failed Screen', // added
   'WeightLossMedicationRoute': 'Weight Loss Medication Screen', // added
   'MedicationPastPeriodRoute': 'Medication Past Period Screen', // added
   'MedicationFuturePeriodRoute': 'Medication Future Period Screen', // added
   'PhysicalCheckResultRoute': 'Physical Check Result Screen', //added
-  'ConsentNeededRoute': 'Consent Needed Screen', //added
   'LoginRoute': 'Login Screen', //added
   'ForgotPasswordRoute': 'Forgot Password Screen', //added
   'ResetPasswordRoute': 'Reset Password Screen',

@@ -2,11 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/divider_light.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
@@ -16,7 +16,7 @@ import 'package:loopcare_frontend/features/account/presentation/group_preference
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/white_box.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
 
 class GroupPreferencesForm extends StatelessWidget {
   const GroupPreferencesForm({super.key});
@@ -63,20 +63,9 @@ class GroupPreferencesForm extends StatelessWidget {
                         const SizedBox(height: 16.0),
                         const DividerLight(),
                         const SizedBox(height: 16.0),
-                        OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(5.0),
-                              ),
-                            ),
-                            side: const BorderSide(width: 1.0, color: AppColors.greyLabel),
-                            minimumSize: const Size(0, 38.0),
-                            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0.0),
-                            textStyle: Theme.of(context).textTheme.bodyMedium,
-                          ),
+                        CustomOutlinedButton.coralFullWidth(
+                          label: LocalizedTexts.leaveGroup.tr(),
                           onPressed: () => _onLeaveGroupPressed(context),
-                          child: const Text(LocalizedTexts.leaveGroup).tr(),
                         )
                       ],
                     );
@@ -86,7 +75,7 @@ class GroupPreferencesForm extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TappedItem(
-                        title: LocalizedTexts.genderPreference,
+                        title: LocalizedTexts.genderPreference.tr(),
                         subTitle: preferences != null ? preferences.label : '',
                         onPressHandler: () => _onGenderPreferencesTap(context),
                       ),
@@ -113,20 +102,9 @@ class GroupPreferencesForm extends StatelessWidget {
                       const SizedBox(height: 16.0),
                       const DividerLight(),
                       const SizedBox(height: 16.0),
-                      OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(5.0),
-                            ),
-                          ),
-                          side: const BorderSide(width: 1.0, color: AppColors.greyLabel),
-                          minimumSize: const Size(0, 38.0),
-                          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0.0),
-                          textStyle: Theme.of(context).textTheme.bodyMedium,
-                        ),
+                      CustomOutlinedButton.blueFullWidth(
+                        label: LocalizedTexts.iNoLongerWantToJoin.tr(),
                         onPressed: () => _onCancelProcessingPressed(context),
-                        child: const Text(LocalizedTexts.iNoLongerWantToJoin).tr(),
                       )
                     ],
                   );
@@ -141,19 +119,22 @@ class GroupPreferencesForm extends StatelessWidget {
 
   void _onGenderPreferencesTap(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..read<GroupPreferencesBloc>()
+          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
       ..router.pushNamed(AppRoutes.genderPreferences);
   }
 
   void _onTimezoneTap(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..read<GroupPreferencesBloc>()
+          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
       ..router.pushNamed(AppRoutes.timezone);
   }
 
   void _onNicknamePreferencesTap(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..read<GroupPreferencesBloc>()
+          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
       ..router.pushNamed(AppRoutes.nicknamePreferences);
   }
 

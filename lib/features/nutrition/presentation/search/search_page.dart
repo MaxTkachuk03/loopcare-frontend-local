@@ -32,9 +32,8 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: Need rework for using customAppBar
     return Scaffold(
-      backgroundColor: AppColors.greenDarker,
+      backgroundColor: AppColors.greenOffRegular,
       appBar: SearchAppBar(
         mode: widget.mode,
         onTabChanged: (value) => _onTabChanged(value),

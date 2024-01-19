@@ -2,9 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/password_with_indicator/password_with_indicator.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -23,66 +29,6 @@ class _PasswordPageState extends State<PasswordPage> {
 
   bool _isDisabled = true;
 
-  @override
-  void dispose() {
-    super.dispose();
-
-    _passwordController.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text(LocalizedTexts.createAccount.tr()),
-          ),
-          body: SafeArea(
-            child: ScrollableContainer(
-              child: MainContainer(
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                      builder: (BuildContext context, state) {
-                        return Text(
-                          LocalizedTexts.enterPasswordTitle.tr(namedArgs: {
-                            'name': state.maybeMap(password: (state) => state.name, orElse: () => ''),
-                          }),
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                fontFamily: ThemeConstants.bitterFontFamily,
-                              ),
-                        );
-                      },
-                    ),
-                    const SizedBox(
-                      height: 100.0,
-                    ),
-                    PasswordWithIndicator(
-                      controller: _passwordController,
-                      onChange: _onPasswordChanged,
-                    ),
-                    const SizedBox(height: 16.0),
-                    ElevatedButton(
-                      onPressed: _isDisabled ? null : _onNextPressed,
-                      child: Text(LocalizedTexts.confirmPassword.tr()),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   Future<bool> _onWillPop() {
     context.read<AuthenticationCubit>().previousStep();
 
@@ -99,5 +45,63 @@ class _PasswordPageState extends State<PasswordPage> {
     setState(() {
       _isDisabled = passwordStrength < 3 / 4;
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: CustomScaffold.greenLightest(
+          appBar: CustomAppBar.green(
+            title: LocalizedTexts.createAccount.tr(),
+            leading: CustomFilledIconButton.leadingGreenLighter(),
+          ),
+          body: SafeArea(
+            child: ScrollableContainer(
+              child: MainContainer(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const SizedBox(height: 35.0),
+                    BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                      builder: (BuildContext context, state) {
+                        return CustomText.bitter700(
+                          '${LocalizedTexts.enterPasswordTitle.tr()}, ${state.maybeMap(password: (state) => state.name.capitalize(), orElse: () => '')}!',
+                          style: context.textTheme.displayMedium,
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 27.0),
+                    CustomText.bitter600(
+                      '${LocalizedTexts.enterPasswordSubTitle.tr()}?',
+                      style: context.textTheme.displayMedium,
+                    ),
+                    const SizedBox(height: 100.0),
+                    PasswordWithIndicator(
+                      controller: _passwordController,
+                      onChange: _onPasswordChanged,
+                    ),
+                    const SizedBox(height: 24.0),
+                    CustomElevatedButton.blueFullWidth(
+                      onPressed: _isDisabled ? null : _onNextPressed,
+                      label: LocalizedTexts.confirmPassword,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+
+    super.dispose();
   }
 }

@@ -1,49 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/tab_bar/custom_tab_bar.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 
-class MealCategoryChips extends StatelessWidget {
-  final List<MealCategory> data;
-  final List<MealCategory> selectedChips;
+class MealCategoryChips extends StatefulWidget {
+  final List<MealCategory> categories;
+  final MealCategory selectedChips;
   final Function onItemPressHandler;
 
   const MealCategoryChips({
     super.key,
-    required this.data,
+    required this.categories,
     required this.selectedChips,
     required this.onItemPressHandler,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: data.map((item) {
-        final isSelected = selectedChips.contains(item);
+  State<MealCategoryChips> createState() => _MealCategoryChipsState();
+}
 
-        return ActionChip(
-          labelPadding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
-          labelStyle: const TextStyle(
-            color: Colors.white,
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-          ),
-          side: BorderSide(
-            color: isSelected ? Colors.white : Colors.transparent,
-            width: 1.0,
-          ),
-          shape: ContinuousRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          backgroundColor: isSelected ? AppColors.blueDark : AppColors.blueMid,
-          avatar: Icon(
-            Icons.check,
-            color: isSelected ? AppColors.white : AppColors.blueLight,
-          ),
-          label: Text(item.name),
-          onPressed: () => onItemPressHandler(item),
-        );
-      }).toList(),
+class _MealCategoryChipsState extends State<MealCategoryChips> with TickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(
+      vsync: this,
+      length: widget.categories.length,
+      animationDuration: Duration.zero,
+      initialIndex: widget.selectedChips.index,
+    )..addListener(_onTabsChanged);
+  }
+
+  void _onTabsChanged() => widget.onItemPressHandler(widget.categories[_tabController.index]);
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _tabController.removeListener(_onTabsChanged);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomTabBar.blue(
+      tabs: widget.categories.map((e) => Tab(text: e.name)).toList(),
+      tabController: _tabController,
     );
   }
 }

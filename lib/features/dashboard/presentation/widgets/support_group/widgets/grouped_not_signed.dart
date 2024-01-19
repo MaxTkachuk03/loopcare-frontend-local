@@ -1,9 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class GroupedNotSigned extends StatelessWidget {
   final String topicName;
@@ -22,42 +22,18 @@ class GroupedNotSigned extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Flexible(
-              child: Text(
+              child: CustomText.w600(
                 topicName,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
+                style: context.textTheme.bodySmall,
               ),
             ),
           ],
         ),
         const SizedBox(height: 8.0),
-        InkWell(
-          onTap: () => _onBookSeatPressed(context),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-            decoration: BoxDecoration(
-              color: AppColors.blueDark,
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  LocalizedTexts.bookYourSeatNow,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: AppColors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
-                ).tr(),
-                const ImageIcon(
-                  AppIcons.arrow,
-                  color: AppColors.white,
-                ),
-              ],
-            ),
-          ),
-        )
+        CustomOutlinedButton.coralFullWidth(
+          label: LocalizedTexts.bookYourSeatNow,
+          onPressed: () => _onBookSeatPressed(context),
+        ),
       ],
     );
   }

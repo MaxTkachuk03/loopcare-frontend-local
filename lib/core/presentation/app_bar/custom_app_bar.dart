@@ -13,6 +13,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final Color? backgroundColor;
   final PreferredSizeWidget? bottom;
+  final GestureTapCallback? onTap;
 
   const CustomAppBar({
     super.key,
@@ -24,6 +25,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.backgroundColor,
     this.bottom,
+    this.onTap,
   });
 
   factory CustomAppBar.transparent({
@@ -63,6 +65,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     String? subtitle,
     Widget? leading,
     List<Widget>? actions,
+    GestureTapCallback? onTap,
   }) =>
       CustomAppBar(
         systemOverlayStyle: SystemUiOverlayStyle.dark,
@@ -72,6 +75,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         subtitle: subtitle,
         leading: leading,
         actions: actions,
+        onTap: onTap,
       );
 
   factory CustomAppBar.yellow({
@@ -113,6 +117,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     String? subtitle,
     Widget? leading,
     List<Widget>? actions,
+    PreferredSizeWidget? bottom,
   }) =>
       CustomAppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -122,6 +127,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         subtitle: subtitle,
         leading: leading,
         actions: actions,
+        bottom: bottom,
       );
 
   factory CustomAppBar.blue({
@@ -161,7 +167,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: _Title(title: title, subtitle: subtitle),
+      title: _Title(title: title, subtitle: subtitle, onTap: onTap),
       titleTextStyle: AppBarTheme.of(context).titleTextStyle?.copyWith(color: _titleColor),
       backgroundColor: backgroundColor,
       forceMaterialTransparency: backgroundColor == AppColors.transparent,
@@ -172,15 +178,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
+  double get getBottomPreferredSize => bottom?.preferredSize.height ?? 0;
+
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(kToolbarHeight + getBottomPreferredSize);
 }
 
 class _Title extends StatelessWidget {
   final String? title;
   final String? subtitle;
+  final GestureTapCallback? onTap;
 
-  const _Title({required this.title, this.subtitle});
+  const _Title({required this.title, this.subtitle, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -188,11 +197,19 @@ class _Title extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(title ?? '', maxLines: 2),
+        Text(
+          title ?? '',
+          maxLines: subtitle != null ? 1 : 2,
+          overflow: TextOverflow.ellipsis,
+        ),
         if (subtitle != null)
-          Text(
-            subtitle!,
-            style: const TextStyle(fontSize: ThemeConstants.fontSize14, fontWeight: FontWeight.w400),
+          InkWell(
+            onTap: onTap,
+            highlightColor: AppColors.transparent,
+            child: Text(
+              subtitle!,
+              style: const TextStyle(fontSize: ThemeConstants.fontSize14, fontWeight: FontWeight.w400),
+            ),
           ),
       ],
     );

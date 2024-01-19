@@ -1,12 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_countdown/session_countdown.dart';
 
 class SessionRulesPage extends StatelessWidget {
@@ -14,10 +17,10 @@ class SessionRulesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: BlueAppBar(
-        title: LocalizedTexts.groupRules.tr(),
-        leading: const BackButtonHexagon(),
+    return CustomScaffold.orange(
+      appBar: CustomAppBar.orange(
+        title: LocalizedTexts.groupRules.translation,
+        leading: CustomFilledIconButton.leadingOrangeLighter(),
       ),
       body: SafeArea(
         child: MainContainer(
@@ -29,69 +32,65 @@ class SessionRulesPage extends StatelessWidget {
                   child: Column(
                     children: [
                       const SizedBox(height: 24.0),
-                      const Text(
-                        '${LocalizedTexts.groupRulesAttencion}.',
-                        style: TextStyle(
-                          color: AppColors.darkGreen,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ).tr(),
+                      CustomText.bitter600(
+                        LocalizedTexts.groupRulesAttencion.tr(),
+                        style: context.textTheme.bodyLarge?.copyWith(fontSize: ThemeConstants.fontSize20),
+                      ),
                       const SizedBox(height: 24.0),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 11.0),
                         child: Column(
                           children: [
                             BulletListItem(
-                              text: const Text(
-                                LocalizedTexts.groupRulesTwoParagraphOne,
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                              ).tr(),
+                              text: CustomText.w400(
+                                LocalizedTexts.groupRulesTwoParagraphOne.tr(),
+                                style: context.textTheme.bodyLarge,
+                              ),
                               bulletSize: 18.0,
                               bulletSign: '1.',
                             ),
                             const SizedBox(height: 16.0),
                             BulletListItem(
-                              text: const Text(
-                                LocalizedTexts.groupRulesTwoParagraphTwo,
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                              ).tr(),
+                              text: CustomText.w400(
+                                LocalizedTexts.groupRulesTwoParagraphTwo.tr(),
+                                style: context.textTheme.bodyLarge,
+                              ),
                               bulletSize: 18.0,
                               bulletSign: '2.',
                             ),
                             const SizedBox(height: 16.0),
                             BulletListItem(
-                              text: const Text(
-                                LocalizedTexts.groupRulesTwoParagraphThree,
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                              ).tr(),
+                              text: CustomText.w400(
+                                LocalizedTexts.groupRulesTwoParagraphThree.tr(),
+                                style: context.textTheme.bodyLarge,
+                              ),
                               bulletSize: 18.0,
                               bulletSign: '3.',
                             ),
                             const SizedBox(height: 16.0),
                             BulletListItem(
-                              text: const Text(
-                                LocalizedTexts.groupRulesThreeParagraphOne,
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                              ).tr(),
+                              text: CustomText.w400(
+                                LocalizedTexts.groupRulesThreeParagraphOne.tr(),
+                                style: context.textTheme.bodyLarge,
+                              ),
                               bulletSize: 18.0,
                               bulletSign: '4.',
                             ),
                             const SizedBox(height: 16.0),
                             BulletListItem(
-                              text: const Text(
-                                LocalizedTexts.groupRulesThreeParagraphTwo,
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                              ).tr(),
+                              text: CustomText.w400(
+                                LocalizedTexts.groupRulesThreeParagraphTwo.tr(),
+                                style: context.textTheme.bodyLarge,
+                              ),
                               bulletSize: 18.0,
                               bulletSign: '5.',
                             ),
                             const SizedBox(height: 16.0),
                             BulletListItem(
-                              text: const Text(
-                                LocalizedTexts.groupRulesThreeParagraphThree,
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                              ).tr(),
+                              text: CustomText.w400(
+                                LocalizedTexts.groupRulesThreeParagraphThree.tr(),
+                                style: context.textTheme.bodyLarge,
+                              ),
                               bulletSize: 18.0,
                               bulletSign: '6.',
                             ),
@@ -101,11 +100,7 @@ class SessionRulesPage extends StatelessWidget {
                                 // TODO used to scale properly when user change font size in settings
                                 textScaleFactor: MediaQuery.of(context).textScaleFactor,
                                 text: TextSpan(
-                                  style: const TextStyle(
-                                      fontFamily: ThemeConstants.openSansFontFamily,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.darkGreen),
+                                  style: context.textTheme.bodyLarge,
                                   children: [
                                     TextSpan(
                                         text: '${LocalizedTexts.groupRulesFourParagraphOnePartOne.tr()} '),
@@ -133,19 +128,19 @@ class SessionRulesPage extends StatelessWidget {
                             ),
                             const SizedBox(height: 16.0),
                             BulletListItem(
-                              text: const Text(
-                                LocalizedTexts.groupRulesFourParagraphTwo,
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                              ).tr(),
+                              text: CustomText.w400(
+                                LocalizedTexts.groupRulesFourParagraphTwo.tr(),
+                                style: context.textTheme.bodyLarge,
+                              ),
                               bulletSign: '8.',
                               bulletSize: 18.0,
                             ),
                             const SizedBox(height: 16.0),
                             BulletListItem(
-                              text: const Text(
-                                LocalizedTexts.groupRulesFiveParagraphOne,
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                              ).tr(),
+                              text: CustomText.w400(
+                                LocalizedTexts.groupRulesFiveParagraphOne.tr(),
+                                style: context.textTheme.bodyLarge,
+                              ),
                               bulletSign: '9.',
                               bulletSize: 18.0,
                             ),
@@ -154,46 +149,46 @@ class SessionRulesPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 16.0),
                       BulletListItem(
-                        text: const Text(
-                          LocalizedTexts.groupRulesFiveParagraphTwo,
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                        ).tr(),
+                        text: CustomText.w400(
+                          LocalizedTexts.groupRulesFiveParagraphTwo.tr(),
+                          style: context.textTheme.bodyLarge,
+                        ),
                         bulletSign: '10.',
                         bulletSize: 18.0,
                       ),
                       const SizedBox(height: 16.0),
                       BulletListItem(
-                        text: const Text(
-                          LocalizedTexts.groupRulesSixParagraphOne,
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                        ).tr(),
+                        text: CustomText.w400(
+                          LocalizedTexts.groupRulesSixParagraphOne.tr(),
+                          style: context.textTheme.bodyLarge,
+                        ),
                         bulletSign: '11.',
                         bulletSize: 18.0,
                       ),
                       const SizedBox(height: 16.0),
                       BulletListItem(
-                        text: const Text(
-                          LocalizedTexts.groupRulesSixParagraphTwo,
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                        ).tr(),
+                        text: CustomText.w400(
+                          LocalizedTexts.groupRulesSixParagraphTwo.tr(),
+                          style: context.textTheme.bodyLarge,
+                        ),
                         bulletSign: '12.',
                         bulletSize: 18.0,
                       ),
                       const SizedBox(height: 16.0),
                       BulletListItem(
-                        text: const Text(
-                          LocalizedTexts.groupRulesSixParagraphThree,
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                        ).tr(),
+                        text: CustomText.w400(
+                          LocalizedTexts.groupRulesSixParagraphThree.tr(),
+                          style: context.textTheme.bodyLarge,
+                        ),
                         bulletSign: '13.',
                         bulletSize: 18.0,
                       ),
                       const SizedBox(height: 16.0),
                       BulletListItem(
-                        text: const Text(
-                          LocalizedTexts.groupRulesSixParagraphFour,
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                        ).tr(),
+                        text: CustomText.w400(
+                          LocalizedTexts.groupRulesSixParagraphFour.tr(),
+                          style: context.textTheme.bodyLarge,
+                        ),
                         bulletSign: '14.',
                         bulletSize: 18.0,
                       ),

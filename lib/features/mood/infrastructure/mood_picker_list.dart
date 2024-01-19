@@ -5,6 +5,6 @@ final List<MoodPickerListItem> moodPickerList = [
   MoodPickerListItem(icon: AppIcons.moodEmotionAngry, value: 1),
   MoodPickerListItem(icon: AppIcons.moodEmotionSad, value: 2),
   MoodPickerListItem(icon: AppIcons.moodEmotionNeutral, value: 3),
-  MoodPickerListItem(icon: AppIcons.moodEmotionJoy, value: 4),
   MoodPickerListItem(icon: AppIcons.moodEmotionHappy, value: 5),
+  MoodPickerListItem(icon: AppIcons.moodEmotionJoy, value: 4),
 ];

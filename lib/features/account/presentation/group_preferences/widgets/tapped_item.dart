@@ -1,7 +1,8 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class TappedItem extends StatelessWidget {
   final String title;
@@ -26,17 +27,14 @@ class TappedItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title).tr(),
+              CustomText.w400(title, style: context.textTheme.bodyMedium),
               const ImageIcon(
                 AppIcons.arrow,
                 color: AppColors.greyLabel,
               ),
             ],
           ),
-          Text(subTitle,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  )),
+          CustomText.w600(subTitle, style: context.textTheme.bodySmall),
         ],
       ),
     );

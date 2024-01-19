@@ -58,7 +58,8 @@ class AppIcons {
 
   static const AssetImage dashboardReflection = AssetImage('$iconsFilePath/dashboard_reflection.png');
 
-  static const AssetImage dashboardReflectionDone = AssetImage('$iconsFilePath/dashboard_reflection_done.png');
+  static const AssetImage dashboardReflectionDone =
+      AssetImage('$iconsFilePath/dashboard_reflection_done.png');
 
   static const AssetImage physicalExercise = AssetImage('$iconsFilePath/physical_exercise.png');
 
@@ -78,10 +79,6 @@ class AppIcons {
 
   static SvgPicture person = SvgPicture.asset('$iconsFilePath/person.svg');
 
-  static SvgPicture cameraOff = SvgPicture.asset('$iconsFilePath/camera_off.svg');
-
-  static SvgPicture microphone = SvgPicture.asset('$iconsFilePath/microphone.svg');
-
   static SvgPicture settings = SvgPicture.asset('$iconsFilePath/settings.svg');
 
   static SvgPicture introReflection = SvgPicture.asset('$iconsFilePath/intro_reflection.svg');
@@ -95,7 +92,8 @@ class AppIcons {
 
   static SvgPicture clockGrey = SvgPicture.asset('$iconsFilePath/clock.svg', width: 21, height: 21);
 
-  static SvgPicture dashboardMood = SvgPicture.asset('$iconsFilePath/dashboard_mood.svg', width: 44, height: 42);
+  static SvgPicture dashboardMood =
+      SvgPicture.asset('$iconsFilePath/dashboard_mood.svg', width: 44, height: 42);
 
   static SvgPicture moodEmotionHappy = SvgPicture.asset('$iconsFilePath/mood_emotion_happy.svg');
 
@@ -111,7 +109,8 @@ class AppIcons {
 
   static SvgPicture emojiWorried = SvgPicture.asset('$iconsFilePath/worried.svg', width: 30, height: 30);
 
-  static SvgPicture emojiEmbarrassed = SvgPicture.asset('$iconsFilePath/embarrassed.svg', width: 30, height: 30);
+  static SvgPicture emojiEmbarrassed =
+      SvgPicture.asset('$iconsFilePath/embarrassed.svg', width: 30, height: 30);
 
   static SvgPicture emojiBored = SvgPicture.asset('$iconsFilePath/bored.svg', width: 30, height: 30);
 
@@ -133,7 +132,8 @@ class AppIcons {
 
   static SvgPicture emojiContent = SvgPicture.asset('$iconsFilePath/content.svg', width: 30, height: 30);
 
-  static SvgPicture emojiOverwhelmed = SvgPicture.asset('$iconsFilePath/overwhelmed.svg', width: 30, height: 30);
+  static SvgPicture emojiOverwhelmed =
+      SvgPicture.asset('$iconsFilePath/overwhelmed.svg', width: 30, height: 30);
 
   static SvgPicture emojiHungry = SvgPicture.asset('$iconsFilePath/hungry.svg', width: 30, height: 30);
 
@@ -141,18 +141,6 @@ class AppIcons {
 
   static SvgPicture calendarWarning = SvgPicture.asset('$iconsFilePath/calendar.svg',
       colorFilter: const ColorFilter.mode(AppColors.darkGreen, BlendMode.srcIn));
-
-  static SvgPicture calendar = SvgPicture.asset('$iconsFilePath/calendar.svg');
-
-  static SvgPicture calendarFull = SvgPicture.asset('$iconsFilePath/calendar_full.svg');
-
-  static SvgPicture book = SvgPicture.asset('$iconsFilePath/book.svg');
-
-  static SvgPicture bookFull = SvgPicture.asset('$iconsFilePath/book_full.svg');
-
-  static SvgPicture account = SvgPicture.asset('$iconsFilePath/account.svg');
-
-  static SvgPicture accountFull = SvgPicture.asset('$iconsFilePath/account_full.svg');
 
   static SvgPicture telephone = SvgPicture.asset('$iconsFilePath/telephone.svg');
 
@@ -164,7 +152,8 @@ class AppIcons {
 
   static SvgPicture greenPhone = SvgPicture.asset('$iconsFilePath/green_phone.svg');
 
-  static SvgPicture sessionUserDefaultAvatar = SvgPicture.asset('$iconsFilePath/session_user_default_avatar.svg');
+  static SvgPicture sessionUserDefaultAvatar =
+      SvgPicture.asset('$iconsFilePath/session_user_default_avatar.svg');
 
   static const AssetImage exclamationPoint = AssetImage('$iconsFilePath/exclamation_point.png');
 
@@ -174,11 +163,107 @@ class AppIcons {
 
   static SvgPicture dashboardAssignments =
       SvgPicture.asset('$iconsFilePath/dashboard_assignments.svg', width: 44, height: 42);
+  static SvgPicture copy = SvgPicture.asset('$iconsFilePath/new_copy.svg', width: 24, height: 24);
+
+  static SvgPicture reply = SvgPicture.asset('$iconsFilePath/new_reply.svg', width: 24, height: 24);
+
+  static SvgPicture report = SvgPicture.asset('$iconsFilePath/new_report.svg', width: 17, height: 17);
+
+  static SvgPicture remove = SvgPicture.asset('$iconsFilePath/new_remove.svg', width: 17, height: 17);
+
+  static SvgPicture send = SvgPicture.asset(
+    '$iconsFilePath/send.svg',
+    width: 24.0,
+    height: 24.0,
+  );
+
+  static SvgPicture dashboardCalendar = SvgPicture.asset(
+    '$iconsFilePath/dashboard_calendar.svg',
+    colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.5), BlendMode.srcIn),
+  );
+
+  static SvgPicture dashboardEducation = SvgPicture.asset(
+    '$iconsFilePath/dashboard_education.svg',
+    colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.5), BlendMode.srcIn),
+  );
+
+  static SvgPicture dashboardChat = SvgPicture.asset(
+    '$iconsFilePath/dashboard_chat.svg',
+    colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.5), BlendMode.srcIn),
+  );
+
+  static SvgPicture dashboardAccount = SvgPicture.asset(
+    '$iconsFilePath/dashboard_account.svg',
+    colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.5), BlendMode.srcIn),
+  );
+
+  static SvgPicture dashboardCalendarActive = SvgPicture.asset('$iconsFilePath/dashboard_calendar.svg');
+
+  static SvgPicture dashboardEducationActive = SvgPicture.asset('$iconsFilePath/dashboard_education.svg');
+
+  static SvgPicture dashboardChatActive = SvgPicture.asset('$iconsFilePath/dashboard_chat.svg');
+
+  static SvgPicture dashboardAccountActive = SvgPicture.asset('$iconsFilePath/dashboard_account.svg');
+
+  static SvgPicture holderAvatar =
+      SvgPicture.asset('$iconsFilePath/holder_avatar.svg', width: 30.0, height: 30.0);
 
   static SvgPicture fruit = SvgPicture.asset('$iconsFilePath/fruit.svg', width: 24, height: 24);
   static SvgPicture restaurant = SvgPicture.asset('$iconsFilePath/restaurant.svg', width: 24, height: 24);
   static SvgPicture checkmarkSVG = SvgPicture.asset('$iconsFilePath/check_mark.svg', width: 24, height: 24);
   static SvgPicture drinkSVG = SvgPicture.asset('$iconsFilePath/drink.svg', width: 24, height: 24);
+
+  static SvgPicture greenCheckmark = SvgPicture.asset('$iconsFilePath/green_checkmark.svg');
+
+  static SvgPicture customDashboardAssignments =
+      SvgPicture.asset('$iconsFilePath/custom_dashboard_assignments.svg', width: 44, height: 44);
+  static SvgPicture customSupportGroup =
+      SvgPicture.asset('$iconsFilePath/custom_support_group.svg', width: 44, height: 44);
+  static SvgPicture customPhysicalExercise =
+      SvgPicture.asset('$iconsFilePath/custom_physical_exercise.svg', width: 44, height: 44);
+  static SvgPicture customDashboardLogMeals =
+      SvgPicture.asset('$iconsFilePath/custom_dashboard_log_meals.svg', width: 44, height: 44);
+  static SvgPicture customDashboardWeight =
+      SvgPicture.asset('$iconsFilePath/custom_dashboard_weight.svg', width: 44, height: 44);
+  static SvgPicture customEducationDashboard =
+      SvgPicture.asset('$iconsFilePath/custom_education_dashboard.svg', width: 44, height: 44);
+  static SvgPicture customDashboardMood =
+      SvgPicture.asset('$iconsFilePath/custom_dashboard_mood.svg', width: 44, height: 44);
+
+  static SvgPicture customRedPhone = SvgPicture.asset('$iconsFilePath/custom_red_phone.svg');
+  static SvgPicture microphoneOn = SvgPicture.asset('$iconsFilePath/icon_microphone_on.svg');
+  static SvgPicture microphoneOff = SvgPicture.asset('$iconsFilePath/icon_microphone_off.svg');
+  static SvgPicture cameraOn = SvgPicture.asset('$iconsFilePath/icon_camera_on.svg');
+  static SvgPicture cameraOff = SvgPicture.asset('$iconsFilePath/icon_camera_off.svg');
+  static SvgPicture orangeExclamationMark = SvgPicture.asset('$iconsFilePath/orange_exclamation_mark.svg');
+  static SvgPicture mealEmpty = SvgPicture.asset('$iconsFilePath/meal_empty.svg', width: 44, height: 44);
+
+  static SvgPicture lock = SvgPicture.asset('$iconsFilePath/new_lock.svg');
+
+  static SvgPicture customPan = SvgPicture.asset(
+    '$iconsFilePath/icon_pan.svg',
+    width: 16,
+    height: 16,
+    colorFilter: const ColorFilter.mode(AppColors.petrolRegular, BlendMode.srcIn),
+  );
+  static SvgPicture customStar = SvgPicture.asset(
+    '$iconsFilePath/icon_star_filled.svg',
+    width: 24,
+    height: 24,
+    colorFilter: const ColorFilter.mode(AppColors.petrolRegular, BlendMode.srcIn),
+  );
+  static SvgPicture customCutlery = SvgPicture.asset(
+    '$iconsFilePath/icon_cutlery.svg',
+    width: 16,
+    height: 16,
+    colorFilter: const ColorFilter.mode(AppColors.petrolRegular, BlendMode.srcIn),
+  );
+
+  static SvgPicture infoQuestion = SvgPicture.asset('$iconsFilePath/icon_info_question.svg');
+  static SvgPicture yesScore = SvgPicture.asset('$iconsFilePath/yes_score.svg', width: 22, height: 22);
+  static SvgPicture noScore = SvgPicture.asset('$iconsFilePath/no_score.svg', width: 22, height: 22);
+  static SvgPicture yesScoreFilled =
+      SvgPicture.asset('$iconsFilePath/yes_score_filled.svg', width: 22, height: 22);
 
   static const AssetImage subscriptionBottomBg = AssetImage('$iconsFilePath/subscription_bottom_bg.png');
   static SvgPicture bottomFrame = SvgPicture.asset('$iconsFilePath/bottom_frame.svg',

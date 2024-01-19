@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/domain/input_formatters/serving_formatter.dart';
+import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class ServingInputField extends StatefulWidget {
   final TextEditingController controller;
@@ -51,12 +53,12 @@ class _ServingInputFieldState extends State<ServingInputField> {
     return SizedBox(
       width: 45.0,
       height: 34.0,
-      child: TextField(
+      child: CustomTextField(
         controller: widget.controller,
         focusNode: widget.focusNode,
         maxLength: 7,
-        onChanged: _onValueChangeHandler,
         textAlign: TextAlign.center,
+        onChanged: _onValueChangeHandler,
         inputFormatters: [ServingFormatter()],
         decoration: InputDecoration(
           counterText: '',
@@ -65,10 +67,11 @@ class _ServingInputFieldState extends State<ServingInputField> {
           contentPadding: const EdgeInsets.symmetric(horizontal: 4),
         ),
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
-        style: Theme.of(context)
-            .textTheme
-            .bodySmall
-            ?.copyWith(fontWeight: FontWeight.w600, fontSize: _fontSizeDependsOnValueLength),
+        style: context.textTheme.bodySmall?.copyWith(
+          fontWeight: FontWeight.w600,
+          fontSize: _fontSizeDependsOnValueLength,
+        ),
+        hintText: '',
       ),
     );
   }

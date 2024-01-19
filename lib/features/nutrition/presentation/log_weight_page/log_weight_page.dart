@@ -16,7 +16,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/get_measur
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_field.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/weight_conversion_utils.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/weight_conversion_utils.dart';
 
 class LogWeightPage extends StatefulWidget {
   final DateTime selectedDay;
@@ -108,13 +108,13 @@ class _LogWeightPageState extends State<LogWeightPage> {
                   children: [
                     const SizedBox(height: 70.0),
                     CustomText.bitter500(
-                      LocalizedTexts.yourWeight.tr(),
+                      '${LocalizedTexts.yourWeight.tr()} ${LocalizedTexts.on.tr()}',
                       style: context.textTheme.displayMedium,
                     ),
                     if (!_isToday) const SizedBox(height: 12.0),
                     if (!_isToday)
                       CustomText.bitter500(
-                        '${LocalizedTexts.on.tr()} ${widget.selectedDay.dayWithMonth} ${LocalizedTexts.was.tr()}',
+                        widget.selectedDay.americanShortDateWithYear,
                         style: context.textTheme.displayMedium,
                       ),
                   ],

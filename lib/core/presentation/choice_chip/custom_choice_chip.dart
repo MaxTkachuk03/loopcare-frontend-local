@@ -1,6 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
@@ -10,13 +9,15 @@ class CustomChoiceChip<T> extends StatelessWidget {
   final String label;
   final bool selected;
   final T value;
-  final void Function(T val) onSelected;
+  final void Function(T val)? onSelected;
   final Color? selectedColor;
   final Color? borderColor;
-  final Color? backgroundColor;
   final Widget? avatar;
-  final double? borderRadius;
+  final Widget? action;
   final bool? showCheckmark;
+  final double? labelWidth;
+  final EdgeInsetsGeometry? padding;
+  final TextAlign? textAlign;
 
   const CustomChoiceChip({
     super.key,
@@ -26,17 +27,20 @@ class CustomChoiceChip<T> extends StatelessWidget {
     required this.value,
     this.selectedColor,
     this.borderColor,
-    this.backgroundColor,
     this.avatar,
-    this.borderRadius,
     this.showCheckmark,
+    this.action,
+    this.labelWidth,
+    this.padding,
+    this.textAlign,
   });
 
   factory CustomChoiceChip.coral({
     required bool selected,
-    required OnSelected<T> onSelected,
+    required OnSelected<T>? onSelected,
     required T value,
     required String label,
+    Widget? action,
   }) =>
       CustomChoiceChip<T>(
         label: label,
@@ -45,14 +49,18 @@ class CustomChoiceChip<T> extends StatelessWidget {
         value: value,
         selectedColor: AppColors.coralRegular,
         borderColor: AppColors.coralRegular,
+        action: action,
       );
 
   factory CustomChoiceChip.orange({
     required bool selected,
-    required OnSelected<T> onSelected,
+    required OnSelected<T>? onSelected,
     required T value,
     required String label,
     Widget? avatar,
+    bool? available,
+    final EdgeInsetsGeometry? padding,
+    final TextAlign? textAlign,
   }) =>
       CustomChoiceChip<T>(
         label: label,
@@ -61,17 +69,19 @@ class CustomChoiceChip<T> extends StatelessWidget {
         value: value,
         selectedColor: AppColors.orangeRegular,
         borderColor: AppColors.orangeRegular,
-        backgroundColor: AppColors.orangeLightest,
         avatar: avatar,
-        borderRadius: 20,
         showCheckmark: false,
+        padding: padding,
+        textAlign: textAlign,
       );
 
   factory CustomChoiceChip.yellow({
     required bool selected,
-    required OnSelected<T> onSelected,
+    required OnSelected<T>? onSelected,
     required T value,
     required String label,
+    final EdgeInsetsGeometry? padding,
+    final TextAlign? textAlign,
   }) =>
       CustomChoiceChip<T>(
         label: label,
@@ -80,11 +90,13 @@ class CustomChoiceChip<T> extends StatelessWidget {
         value: value,
         selectedColor: AppColors.yellowRegular,
         borderColor: AppColors.yellowRegular,
+        padding: padding,
+        textAlign: textAlign,
       );
 
   factory CustomChoiceChip.green({
     required bool selected,
-    required OnSelected<T> onSelected,
+    required OnSelected<T>? onSelected,
     required T value,
     required String label,
   }) =>
@@ -99,7 +111,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
 
   factory CustomChoiceChip.petrol({
     required bool selected,
-    required OnSelected<T> onSelected,
+    required OnSelected<T>? onSelected,
     required T value,
     required String label,
   }) =>
@@ -114,7 +126,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
 
   factory CustomChoiceChip.blue({
     required bool selected,
-    required OnSelected<T> onSelected,
+    required OnSelected<T>? onSelected,
     required T value,
     required String label,
   }) =>
@@ -129,18 +141,45 @@ class CustomChoiceChip<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChoiceChip(
-      label: SizedBox(
-        width: double.infinity,
-        child: CustomText.w600(label.tr(), style: context.textTheme.bodyMedium),
+    return Theme(
+      data: Theme.of(context).copyWith(canvasColor: AppColors.transparent),
+      child: ChoiceChip(
+        padding: padding ?? const EdgeInsets.symmetric(horizontal: 25.0, vertical: 14.0),
+        label: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(
+              child: AutoSizeText(
+                label,
+                textAlign: textAlign ?? TextAlign.start,
+                style: selected
+                    ? context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600)
+                    : context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400),
+              ),
+            ),
+            if (action != null) action!,
+          ],
+        ),
+        selected: selected,
+        onSelected: (_) => onSelected?.call(value),
+        selectedColor: selectedColor,
+        disabledColor: AppColors.greyLight,
+        side: ChipTheme.of(context).side?.copyWith(color: onSelected == null ? AppColors.greyLight : borderColor),
+        color: MaterialStateProperty.resolveWith((states) {
+          const Set<MaterialState> interactiveStates = <MaterialState>{
+            MaterialState.pressed,
+            MaterialState.selected,
+          };
+
+          if (states.any(interactiveStates.contains)) {
+            return selectedColor;
+          }
+
+          return AppColors.transparent;
+        }),
+        avatar: avatar,
+        showCheckmark: showCheckmark,
       ),
-      selected: selected,
-      onSelected: (_) => onSelected(value),
-      selectedColor: selectedColor,
-      side: ChipTheme.of(context).side?.copyWith(color: borderColor),
-      backgroundColor: backgroundColor,
-      avatar: avatar,
-      showCheckmark: showCheckmark,
     );
   }
 }

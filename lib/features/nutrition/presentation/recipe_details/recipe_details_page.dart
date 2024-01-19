@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
@@ -15,11 +17,10 @@ import 'package:loopcare_frontend/features/nutrition/domain/dish_favorites_categ
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/sliver_recipe_app_bar_delegate.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/flexibile_header.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/ingredients.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/instructions.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/recipe_details_app_bar.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/summary.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
 class RecipeDetailsPage extends StatefulWidget {
   final bool fromRecommendation;
@@ -54,11 +55,9 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
       builder: (BuildContext context, state) {
         return state.maybeMap(
           loading: (_) {
-            return Scaffold(
-              appBar: AppBar(
-                leading: BackButtonHexagon(
-                  background: AppColors.white.withOpacity(0.2),
-                ),
+            return CustomScaffold.greenLightest(
+              appBar: CustomAppBar.green(
+                leading: CustomFilledIconButton.leadingGreenLighter(),
               ),
               body: const Loader(),
             );
@@ -69,13 +68,12 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
               child: Builder(builder: (context) {
                 final tabController = DefaultTabController.of(context);
                 tabController.addListener(() => _logAnalytics(tabController));
-
-                return Scaffold(
+                return CustomScaffold.greenLightest(
                   body: NestedScrollView(
                     physics: const AlwaysScrollableScrollPhysics(),
                     headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                       return <Widget>[
-                        const RecipeDetailsAppBar(),
+                        FlexibleHeader(innerBoxIsScrolled: false, tabController: tabController),
                         SliverPersistentHeader(
                           pinned: true,
                           delegate: SliverRecipeAppBarDelegate(
@@ -88,29 +86,32 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                             ),
                           ),
                         ),
+                        // const RecipeDetailsAppBar(),
                       ];
                     },
-                    body: SafeArea(
-                      top: false,
-                      child: TabBarView(
-                        children: [
-                          Summary(
-                            onAddToDishPress: () => _onSaveToMyDishesHandler(),
-                            fromRecommendation: widget.fromRecommendation,
+                    body: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Flexible(
+                          child: TabBarView(
+                            children: [
+                              Summary(
+                                onAddToDishPress: () => _onSaveToMyDishesHandler(),
+                                fromRecommendation: widget.fromRecommendation,
+                              ),
+                              const Instructions(),
+                              const Ingredients(),
+                            ],
                           ),
-                          const Instructions(),
-                          const Ingredients(),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 );
               }),
             );
           },
-          orElse: () => const Scaffold(
-            body: SizedBox.shrink(),
-          ),
+          orElse: () => const SizedBox.shrink(),
         );
       },
     );

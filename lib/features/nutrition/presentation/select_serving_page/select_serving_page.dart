@@ -1,15 +1,23 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/food_item_servings_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/favourite_btn/favourite_btn.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_category_filters_list/meal_category_filters_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_list/servings_list.dart';
+
+const double _kBottomPreferredHeight = 72;
 
 class SelectServingPage extends StatefulWidget {
   final String foodItemId;
@@ -50,57 +58,52 @@ class _SelectServingPageState extends State<SelectServingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: const BackButtonHexagon(),
-        titleTextStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              color: AppColors.white,
-            ),
-        backgroundColor: AppColors.blueAppBar,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(64.0),
-          child: SizedBox(
-            width: double.infinity,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          widget.foodItemName,
-                          maxLines: 2,
-                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
-                        ),
-                      ),
-                      const SizedBox(width: 21.0),
-                      BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(
-                        builder: (BuildContext context, state) {
-                          return state.maybeMap(
-                            orElse: () => const SizedBox(
-                              height: 48.0,
-                              width: 32.0,
-                            ),
-                            foodItemServings: (foodItemServingsState) {
-                              if (foodItemServingsState.selectedServing == null) {
-                                return const SizedBox.shrink();
-                              }
+    return CustomScaffold.greenLightest(
+      appBar: CustomAppBar.green(
+        title: LocalizedTexts.logMealServingTitle.tr(),
+        leading: CustomFilledIconButton.leadingGreenLighter(),
+        actions: [
+          BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(
+            builder: (BuildContext context, state) {
+              return state.maybeMap(
+                orElse: () => const SizedBox(
+                  height: 48.0,
+                  width: 32.0,
+                ),
+                foodItemServings: (foodItemServingsState) {
+                  if (foodItemServingsState.selectedServing == null) {
+                    return const SizedBox.shrink();
+                  }
 
-                              return FavouriteBtn(
-                                isActive: foodItemServingsState.selectedServing?.isSelectedFavorite ?? false,
-                                onPress: _onFavouritePressed,
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ],
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: FavouriteBtn(
+                      isActive: foodItemServingsState.selectedServing?.isSelectedFavorite ?? false,
+                      onPress: _onFavouritePressed,
+                    ),
+                  );
+                },
+              );
+            },
+          ),
+        ],
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(72),
+          child: Container(
+            height: _kBottomPreferredHeight,
+            color: AppColors.greenLighter,
+            padding: const EdgeInsets.symmetric(horizontal: 18.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: CustomText.bitter600(
+                    widget.foodItemName,
+                    maxLines: 2,
+                    style: context.textTheme.titleLarge,
                   ),
                 ),
-                const SizedBox(height: 12.0),
               ],
             ),
           ),
@@ -112,14 +115,11 @@ class _SelectServingPageState extends State<SelectServingPage> {
             child: ServingList(),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
-            child: ElevatedButton(
-              onPressed: () => _onConfirmPressed(context),
-              child: Text(
-                LocalizedTexts.confirm.translation,
-              ),
-            ),
-          ),
+              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
+              child: CustomElevatedButton.blueFullWidth(
+                onPressed: () => _onConfirmPressed(context),
+                label: LocalizedTexts.confirm,
+              )),
         ],
       ),
     );

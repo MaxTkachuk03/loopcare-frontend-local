@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/tab_bar/custom_underlined_tab_bar.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -66,11 +67,11 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
     return DefaultTabController(
       length: tabs.length,
       child: CustomAppBar.green(
-        leading: const SizedBox.shrink(),
+        leading: CustomFilledIconButton.leadingGreenLighter(),
         actions: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(25, 8, 0, 8),
+              padding: const EdgeInsets.fromLTRB(56, 8, 8, 8),
               child: BlocListener<SearchBloc, SearchState>(
                 listenWhen: (prev, cur) =>
                     prev.data.searchParameters.query != cur.data.searchParameters.query,
@@ -83,13 +84,6 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.close, color: AppColors.blueDarker),
-            ),
-          )
         ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),

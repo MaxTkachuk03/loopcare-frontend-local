@@ -1,44 +1,48 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/physical_fitness/utils/date_time_utils.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_container.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/video_session/application/session_call_bloc.dart';
 
 class SessionAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String sessionName;
   final void Function() onEndSessionHandler;
 
-  const SessionAppBar({super.key, required this.sessionName, required this.onEndSessionHandler});
+  const SessionAppBar({
+    super.key,
+    required this.sessionName,
+    required this.onEndSessionHandler,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.blueAppBar,
+      backgroundColor: AppColors.orangeRegular,
       title: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
+          CustomText.w600(
             sessionName,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.white,
-                ),
+            style: context.textTheme.bodyLarge,
           ),
           BlocBuilder<SessionCallBloc, SessionCallState>(
             builder: (context, state) {
-              return Text(
-                '${LocalizedTexts.duration.tr()} ${formatSecondsToDurationString(state.data.sessionTime)}',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.white,
-                    ),
+              return CustomRoundedContainer(
+                borderRadius: 5.0,
+                bgColor: AppColors.orangeLighter,
+                child: CustomText.w600(
+                  '${LocalizedTexts.duration.tr()} ${formatSecondsToDurationString(state.data.sessionTime)}',
+                  style: context.textTheme.bodySmall,
+                ),
               );
             },
           ),
@@ -46,11 +50,10 @@ class SessionAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       automaticallyImplyLeading: false,
       actions: [
-        IconButton(
-          iconSize: 45.0,
+        CustomIconButton(
+          icon: AppIcons.customRedPhone,
           onPressed: onEndSessionHandler,
-          icon: AppIcons.greenPhone,
-        )
+        ),
       ],
     );
   }

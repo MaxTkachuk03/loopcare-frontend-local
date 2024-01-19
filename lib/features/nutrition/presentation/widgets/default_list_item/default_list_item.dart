@@ -1,6 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 
 class DefaultListItem extends StatelessWidget {
@@ -18,9 +22,9 @@ class DefaultListItem extends StatelessWidget {
     return InkWell(
       onTap: () => onPressed(item),
       child: Container(
-        color: Colors.transparent,
+        color: AppColors.greenLightest,
         padding: const EdgeInsets.symmetric(
-          horizontal: 24.0,
+          horizontal: 16.0,
           vertical: 16.0,
         ),
         child: Row(
@@ -31,29 +35,29 @@ class DefaultListItem extends StatelessWidget {
                 children: [
                   const Icon(
                     Icons.check,
-                    color: AppColors.greyMid,
+                    color: AppColors.greyLight,
                   ),
-                  const SizedBox(width: 8.0),
+                  const SizedBox(width: 6.0),
                   Expanded(
-                    child: Text(
+                    child: CustomText.w600(
                       item.servingLabel,
                       maxLines: 2,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.w600,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                      style: context.textTheme.bodySmall?.copyWith(
+                        overflow: TextOverflow.ellipsis,
+                        color: AppColors.greyRegular,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
             AutoSizeText(
-              '${item.calories}',
+              '${item.calories} ${LocalizedTexts.kcal.tr()}',
               maxLines: 1,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.greyLabel,
-                  ),
+              style: context.textTheme.bodySmall?.copyWith(
+                fontWeight: FontWeight.w400,
+                color: AppColors.greyRegular,
+              ),
             ),
           ],
         ),

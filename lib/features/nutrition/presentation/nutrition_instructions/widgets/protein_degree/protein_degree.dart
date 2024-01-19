@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/protein_degree_scale_values.dart';
 import 'package:loopcare_frontend/core/presentation/calorie_density_scale/custom_calorie_density_scale.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -48,6 +49,7 @@ class ProteinDegree extends StatelessWidget {
                                   CustomCalorieDensityScale(
                                     density: value,
                                     label: '${value?.toStringAsFixed(0) ?? ''}%',
+                                    color: proteinDegreeScaleValuesColorForRange(value),
                                   ),
                                   const SizedBox(height: 8.0),
                                   CustomText.w600(
