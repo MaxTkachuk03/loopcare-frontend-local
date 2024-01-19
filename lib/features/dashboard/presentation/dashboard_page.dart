@@ -80,9 +80,10 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons(LessonCategory.all));
 
-    if (context.read<AuthenticationCubit>().state.isFoodLoggingUnlocked) {
-      context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
-    }
+// TODO: /LOOPCARE-1893
+    // if (context.read<AuthenticationCubit>().state.isFoodLoggingUnlocked) {
+    context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
+    // }
 
     if (context.read<AuthenticationCubit>().state.isAssignmentsUnlocked) {
       context.read<AssignmentsBloc>().add(
@@ -96,6 +97,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
   Future<void> _onRefresh() async {
     context.read<AuthenticationCubit>().getAccount();
+    // TODO: /LOOPCARE-1893
+    //Need wait result this request
 
     context
         .read<DashboardEducationBloc>()
