@@ -725,16 +725,24 @@
   "foodLoggingUnlocked": "Food logging unlocked",
   "youCanStartLogging": "You can start logging your meals right now",
   "reportIssueAndEmergencyTitle": "Report issue & emergency",
-  "subscriptionTrialTitle": "First 2 weeks free",
-  "subscriptionTrialLabel": "You can try out LeanOnMe for 4 weeks before deciding to purchase",
+  "subscriptionTrialTitle": "First 2 weeks for free",
+  "subscriptionTrialLabel": "After your trial period you are enrolled and \nyou can cancel on a monthly basis.",
+
   "subscriptionTrialExpiredTitle": "Your trial has expired",
-  "subscriptionTrialExpiredLabel": "We hope you enjoyed our program. If you want to continue choose one of the following:",
+  "subscriptionTrialExpiredLabel1": "We hope you enjoyed our program.",
+  "subscriptionTrialExpiredLabel2": "If you want to continue,\nrefresh your subscription here:",
+
   "subscriptionEndedTitle": "Your subscription \nhas ended",
-  "subscriptionEndedLabel": "We hope you enjoyed our program. If you want to continue choose one of following:",
+  "subscriptionEndedLabel1": "We hope you enjoyed our program.",
+  "subscriptionEndedLabel2": "If you want to continue,\nrefresh your subscription here:",
+
   "subscriptionCancelledTitle": "Your subscription \nwas cancelled",
-  "subscriptionCancelledLabel": "We are sorry that you cancelled your subscription. If you want to continue choose one of following:",
+  "subscriptionCancelledLabel1": "We hope you enjoyed our program.",
+  "subscriptionCancelledLabel2": "If you want to continue,\nrefresh your subscription here:",
+
   "subscriptionRenewedTitle": "Your subscription \ncould not be renewed",
-  "subscriptionRenewedLabel": "We want to let you know that your\nsubscription could not be automatically\nrenewed. \n\nYou will get a couple of days grace to look\ninto this while you can still continue use the\napp.",
+  "subscriptionRenewedLabel": "We want to let you know that your\nsubscription could not be automatically\nrenewed. \n\nYou will get a couple of days to look into this.\nDuring this time you can still use the app.",
+
   "subscriptionRestoreLabel": "Restore Purchase",
   "subscriptionTermsLabel": "Terms & Conditions",
   "subscriptionAnnual": "Annual",

@@ -61,8 +61,7 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
   _onPause() => debugPrint('devcpp on Pause');
 
   _onResume() {
-    debugPrint('devcpp on Resume');
-    _authenticationCubit?.state.mapOrNull(authenticated: (_) => _refreshToken());
+    _refreshTokenState();
   }
 
   @override
@@ -113,7 +112,8 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
   Future<bool> _refreshToken() async {
     final accessTokenIsUpdated = await updateAccessToken();
     final refreshTokenIsUpdated = await updateRefreshToken();
-    final isRefreshed = accessTokenIsUpdated && refreshTokenIsUpdated;
-    return isRefreshed;
+    return accessTokenIsUpdated && refreshTokenIsUpdated;
   }
+
+  void _refreshTokenState() => _authenticationCubit?.state.mapOrNull(authenticated: (_) => _refreshToken());
 }

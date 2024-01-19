@@ -24,13 +24,11 @@ class AppImages {
 
   static const AssetImage reflectionWeight = AssetImage('$imagesFilePath/reflection_weight.png');
 
-  static const AssetImage reflectionActivitiesTable =
-      AssetImage('$imagesFilePath/reflection_activities_table.png');
+  static const AssetImage reflectionActivitiesTable = AssetImage('$imagesFilePath/reflection_activities_table.png');
 
   static const AssetImage youAndFoodIntro = AssetImage('$imagesFilePath/you_and_food_intro.png');
 
-  static const AssetImage physicalActivitiesIntro =
-      AssetImage('$imagesFilePath/physical_activities_intro.png');
+  static const AssetImage physicalActivitiesIntro = AssetImage('$imagesFilePath/physical_activities_intro.png');
 
   static const AssetImage selfHelpIntro = AssetImage('$imagesFilePath/self_help_intro.png');
 
@@ -105,14 +103,21 @@ class AppImages {
 
   static SvgPicture oepsBig = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 120, height: 120);
   static SvgPicture oepsSmall = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 60, height: 60);
-  static SvgPicture noConnectionBig =
-      SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 120, height: 120);
-  static SvgPicture noConnectionSmall =
-      SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 60, height: 60);
+  static SvgPicture noConnectionBig = SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 120, height: 120);
+  static SvgPicture noConnectionSmall = SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 60, height: 60);
 
   static SvgPicture calorieDensityFoodA = SvgPicture.asset('$imagesFilePath/calorie_dencity_food_a.svg');
 
   static SvgPicture calorieDensityFoodB = SvgPicture.asset('$imagesFilePath/calorie_dencity_food_b.svg');
+
+  static SvgPicture subscriptionTrialSVG = SvgPicture.asset('$imagesFilePath/subscription_trial.svg');
+  static SvgPicture subscriptionCancelledSVG = SvgPicture.asset(
+    '$imagesFilePath/subscription_trial.svg',
+  );
+  static SvgPicture trialClipperSVG = SvgPicture.asset('$imagesFilePath/trial_clipper.svg');
+  static SvgPicture cancelledClipperSVG = SvgPicture.asset('$imagesFilePath/cancelled_clipper.svg');
+  static const AssetImage trial = AssetImage('$imagesFilePath/trial.png');
+  static const AssetImage ended = AssetImage('$imagesFilePath/ended.png');
 
   AppImages._();
 }
