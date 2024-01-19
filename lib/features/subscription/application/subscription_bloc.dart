@@ -128,14 +128,13 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     }, (r) async {
       await inAppPurchaseService.instance.completePurchase(purchaseDetails);
       final accessTokenUpdated = await authTokenManager.updateAccessToken();
-      final refreshTokenUpdated = await authTokenManager.updateRefreshToken();
-      if (accessTokenUpdated && refreshTokenUpdated) {
+      if (accessTokenUpdated) {
         add(SubscriptionEvent.purchasedSubscription(PurchasedProduct(
           purchaseDetails: purchaseDetails,
           memberSince: SubscriptionDateUtils.getTransactionDate(r.purchasedAt),
         )));
       } else {
-        add(SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(generalMessage)));
+        add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(generalMessage)));
       }
     });
   }

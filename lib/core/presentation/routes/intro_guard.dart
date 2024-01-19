@@ -52,10 +52,10 @@ class IntroGuard extends AutoRouteGuard {
   Future<void> onNavigation(NavigationResolver resolver, StackRouter router) async {
     String route;
     if (authenticationCubit.state.isAuthenticated) {
-      final accessTokenIsUpdated = await authTokenManager.updateAccessToken();
-      final refreshTokenIsUpdated = await authTokenManager.updateRefreshToken();
+      final accessTokenPresent = await authTokenManager.getAccessToken();
+      final refreshTokenPresent = await authTokenManager.getRefreshToken();
 
-      if (!(accessTokenIsUpdated && refreshTokenIsUpdated)) {
+      if (!((accessTokenPresent?.isNotEmpty ?? false) && (refreshTokenPresent?.isNotEmpty ?? false))) {
         route = AppRoutes.login;
       } else if (authenticationCubit.state.hasActiveSubscription) {
         route = AppRoutes.home;

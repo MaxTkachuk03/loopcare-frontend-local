@@ -10,7 +10,6 @@ import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -48,83 +47,76 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
       ),
       builder: (context, state) {
         return CustomScaffold.blue(
+          needBottomFacture: true,
           appBar: CustomAppBar.blue(
             leading: CustomFilledIconButton.leadingBlueLighter(),
             title: LocalizedTexts.manageSubscription.tr(),
           ),
-          body: Stack(
-            children: [
-              Positioned(
-                bottom: 0,
-                child: AppIcons.bottomFrame,
-              ),
-              SafeArea(
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ScrollableContainer(
-                        child: MainContainer(
-                          child: Column(
-                            children: [
-                              const SizedBox(
-                                height: 32,
-                              ),
-                              _DetailsSection(
-                                title: LocalizedTexts.subscriptionType,
-                                value: state.data.subscription?.subscriptionPlan?.title ?? '',
-                              ),
-                              const SizedBox(
-                                height: 14,
-                              ),
-                              _DetailsSection(
-                                title: LocalizedTexts.subscriptionVia,
-                                value: state.data.subscription == null
-                                    ? ''
-                                    : state.data.subscription!.vendor == 'ios'
-                                        ? LocalizedTexts.appStore
-                                        : LocalizedTexts.googleMarket,
-                              ),
-                              const SizedBox(
-                                height: 14,
-                              ),
-                              _DetailsSection(
-                                title: LocalizedTexts.memberSince,
-                                value: _getDate(state.data.subscription?.purchasedAt) ?? '',
-                              ),
-                              const SizedBox(
-                                height: 14,
-                              ),
-                              _DetailsSection(
-                                title: LocalizedTexts.automaticRenewalOn,
-                                value: _getDate(state.data.subscription?.expiresAt) ?? '',
-                              ),
-                              const SizedBox(
-                                height: 14,
-                              ),
-                            ],
+          body: SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: ScrollableContainer(
+                    child: MainContainer(
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 32,
                           ),
-                        ),
+                          _DetailsSection(
+                            title: LocalizedTexts.subscriptionType,
+                            value: state.data.subscription?.subscriptionPlan?.title ?? '',
+                          ),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          _DetailsSection(
+                            title: LocalizedTexts.subscriptionVia,
+                            value: state.data.subscription == null
+                                ? ''
+                                : state.data.subscription!.vendor == 'ios'
+                                    ? LocalizedTexts.appStore
+                                    : LocalizedTexts.googleMarket,
+                          ),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          _DetailsSection(
+                            title: LocalizedTexts.memberSince,
+                            value: _getDate(state.data.subscription?.purchasedAt) ?? '',
+                          ),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          _DetailsSection(
+                            title: LocalizedTexts.automaticRenewalOn,
+                            value: _getDate(state.data.subscription?.expiresAt) ?? '',
+                          ),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                        ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(24.0),
-                      child: CustomElevatedButton.coralFullWidth(
-                        onPressed: isVendorPlatform(state)
-                            ? () {
-                                Platform.isIOS
-                                    ? launchUrl(Uri.parse(appConfig.appStoreSettingsLink),
-                                        mode: LaunchMode.externalApplication)
-                                    : launchUrl(Uri.parse(appConfig.playMarketSettingsLink),
-                                        mode: LaunchMode.externalApplication);
-                              }
-                            : () => _showPopover(),
-                        label: LocalizedTexts.manageSubscription.tr(),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: CustomElevatedButton.coralFullWidth(
+                    onPressed: isVendorPlatform(state)
+                        ? () {
+                            Platform.isIOS
+                                ? launchUrl(Uri.parse(appConfig.appStoreSettingsLink),
+                                    mode: LaunchMode.externalApplication)
+                                : launchUrl(Uri.parse(appConfig.playMarketSettingsLink),
+                                    mode: LaunchMode.externalApplication);
+                          }
+                        : () => _showPopover(),
+                    label: LocalizedTexts.manageSubscription.tr(),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
