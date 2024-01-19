@@ -679,7 +679,7 @@
   "bookedFromTo": "Booked {day} from {startTime} to {endTime}",
   "dayFromTo": "{day}\nfrom {startTime} to {endTime}",
   "prepareForSession": "Prepare for this session",
-  "prepareTakes": "Takes {times}",
+  "prepareTakes": "Prepare for this session {times}",
   "timeslotCancelled": "Sorry, this timeslot is canceled",
   "timeslotMissed": "Sorry, you missed this timeslot",
   "chooseAnotherTimeslot": "Choose another timeslot",
