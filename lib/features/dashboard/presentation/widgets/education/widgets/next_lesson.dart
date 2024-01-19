@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_countdown.dart';
 import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 
@@ -70,20 +71,7 @@ class NextLesson extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 10.0),
-                        Container(
-                          padding: const EdgeInsets.all(6.0),
-                          decoration: const BoxDecoration(
-                            color: AppColors.petrolRegular,
-                            borderRadius: BorderRadius.all(Radius.circular(6.0)),
-                          ),
-                          child: CustomText.w600(
-                            lesson.category.toUpperCase(),
-                            style: context.textTheme.bodySmall?.copyWith(
-                              color: AppColors.white,
-                              fontSize: ThemeConstants.fontSize10,
-                            ),
-                          ),
-                        ),
+                        CategoryLabel(label: lesson.category.toUpperCase(), color: AppColors.orangeRegular),
                         const SizedBox(height: 10.0),
                         CustomText.bitter700(
                           lesson.title,
