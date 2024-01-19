@@ -153,14 +153,8 @@ class CustomChoiceChip<T> extends StatelessWidget {
                 label,
                 textAlign: textAlign ?? TextAlign.start,
                 style: selected
-                    ? context.textTheme.bodySmall?.copyWith(
-                        // color: (available ?? true) ? AppColors.blueDarker : AppColors.greyLight,
-                        fontWeight: FontWeight.w600,
-                      )
-                    : context.textTheme.bodySmall?.copyWith(
-                        // color: (available ?? true) ? AppColors.blueDarker : AppColors.greyLight,
-                        fontWeight: FontWeight.w400,
-                      ),
+                    ? context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600)
+                    : context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400),
               ),
             ),
             if (action != null) action!,
