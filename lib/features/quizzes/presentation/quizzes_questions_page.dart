@@ -126,6 +126,8 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
           lessonQuestionOptionIds: selectLessonValueId != null ? [selectLessonValueId] : [],
         ),
       );
+    } else {
+      _onNextHandler();
     }
   }
 

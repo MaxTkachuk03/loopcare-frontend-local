@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/widgets/completed_lesson.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/widgets/next_lesson.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
@@ -107,7 +108,7 @@ class Education extends StatelessWidget {
                             const Divider(color: AppColors.blueOffRegular),
                             const SizedBox(height: 10.0),
                             CustomText.bitter600(
-                              '${LocalizedTexts.done.translation} ${_getDate(date).toUpperCase()}',
+                              '${LocalizedTexts.done.tr()} ${_getDate(date)}',
                               style: context.textTheme.titleLarge,
                             ),
                             const SizedBox(height: 20.0),
@@ -138,7 +139,7 @@ class Education extends StatelessWidget {
 
   String _getDate(DateTime date) {
     return date.isoStringWithoutTime == DateTime.now().isoStringWithoutTime
-        ? LocalizedTexts.today.translation
+        ? LocalizedTexts.today.tr()
         : date.shortDate;
   }
 }

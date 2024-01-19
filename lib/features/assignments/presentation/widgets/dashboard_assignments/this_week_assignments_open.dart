@@ -25,7 +25,7 @@ class ThisWeekAssignmentsOpen extends StatelessWidget {
       children: [
         CustomText.bitter600(
           onDashboard
-              ? LocalizedTexts.thisWeek.translation.toUpperCase()
+              ? LocalizedTexts.thisWeek.translation.capitalize()
               : LocalizedTexts.todo.translation.capitalize(),
           style: context.textTheme.bodyLarge,
         ),
