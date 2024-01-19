@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_section.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/preferences_section.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/report_abuse_section.dart';
+import 'package:loopcare_frontend/features/account/presentation/subscription_page/widgets/subscription_sactions.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
@@ -44,11 +45,13 @@ class _AccountPageState extends State<AccountPage> {
                 SizedBox(height: 32.0),
                 AccountSection(),
                 SizedBox(height: 24.0),
+                SubscriptionSection(),
+                SizedBox(height: 24.0),
                 // TODO: LOOPCARE-1999: Remove "Personal details" section from user profile screen.
                 // PersonalDetailsSection(),
                 // SizedBox(height: 24.0),
                 // const TestResultsSection(),
-                // const SizedBox(height: 24.0),
+                // SizedBox(height: 24.0),
                 PreferencesSection(),
                 SizedBox(height: 24.0),
                 ReportAbuseSection(),

@@ -114,7 +114,6 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
     final accessTokenIsUpdated = await updateAccessToken();
     final refreshTokenIsUpdated = await updateRefreshToken();
     return accessTokenIsUpdated && refreshTokenIsUpdated;
-
   }
 
   void _syncChatState() => _authenticationCubit?.syncChatState();

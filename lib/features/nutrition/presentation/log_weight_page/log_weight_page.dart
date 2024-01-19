@@ -119,8 +119,7 @@ class _LogWeightPageState extends State<LogWeightPage> {
                       ),
                   ],
                 ),
-                BlocBuilder<DashboardWeightBloc, DashboardWeightState>(
-                    builder: (BuildContext context, state) {
+                BlocBuilder<DashboardWeightBloc, DashboardWeightState>(builder: (BuildContext context, state) {
                   return UnitField(
                     onChanged: _onWeightChangeHandler,
                     unit: state.userWeightUnits,
