@@ -50,8 +50,6 @@ class AppImages {
 
   static const AssetImage recipePlaceholder = AssetImage('$imagesFilePath/recipe_placeholder.png');
 
-  static const AssetImage lessonComplete = AssetImage('$imagesFilePath/lesson_complete.png');
-
   static const AssetImage oeps = AssetImage('$imagesFilePath/oeps.png');
   static const AssetImage reflectionGradient = AssetImage('$imagesFilePath/reflection_gradient.png');
 
