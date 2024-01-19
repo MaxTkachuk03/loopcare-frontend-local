@@ -21,12 +21,9 @@ class GroupPrefsPageWrap extends StatelessWidget {
       builder: (context, state) {
         if (state.data.groupPrefsMode == GroupPrefsMode.groupingLesson) {
           return KeyboardContainerListener(
-            child: Scaffold(
-              appBar: AppBar(
-                title: Text(
-                  title ?? LocalizedTexts.supportGroupPreferences,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ).tr(),
+            child: CustomScaffold.blueLightest(
+              appBar: CustomAppBar.blue(
+                title: title ?? LocalizedTexts.supportGroupPreferences.tr(),
               ),
               body: child,
             ),
@@ -37,7 +34,7 @@ class GroupPrefsPageWrap extends StatelessWidget {
           child: CustomScaffold.blueLightest(
             appBar: CustomAppBar.blue(
               leading: CustomFilledIconButton.leadingBlueLighter(),
-              title: title ?? LocalizedTexts.groupPreferences.translation,
+              title: title ?? LocalizedTexts.groupPreferences.tr(),
             ),
             body: child,
           ),
