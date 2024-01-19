@@ -21,6 +21,8 @@ class AppColors {
 
   static const Color yellowish = Color(0xFFD7BD64);
 
+  static const Color yellowMid = Color(0xFFFEC10D);
+
   static const Color yellowLight = Color(0xFFDDD8C7);
 
   static const Color yellowTrans = Color(0xFFF0F3E7);

@@ -3,11 +3,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class RestoreSubscriptionLink extends StatelessWidget {
-  final Function onTap;
+  final Function onRestoreTap;
 
-  const RestoreSubscriptionLink({super.key, required this.onTap});
+  const RestoreSubscriptionLink({super.key, required this.onRestoreTap});
 
   @override
   Widget build(BuildContext context) {
@@ -18,31 +19,29 @@ class RestoreSubscriptionLink extends StatelessWidget {
           TextSpan(
             recognizer: TapGestureRecognizer()..onTap = () => _navigate(context, isTerms: false),
             text: LocalizedTexts.subscriptionRestoreLabel.tr(),
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontSize: ThemeConstants.fontSize14,
-                  fontFamily: ThemeConstants.openSansFontFamily,
-                  color: AppColors.blueLink,
-                  fontWeight: FontWeight.w400,
-                ),
+            style: context.textTheme.bodyMedium?.copyWith(
+              fontSize: ThemeConstants.fontSize14,
+              fontFamily: ThemeConstants.openSansFontFamily,
+              color: AppColors.blueDarker,
+              decoration: TextDecoration.underline,
+              fontWeight: FontWeight.w700,
+            ),
           ),
-          TextSpan(
-            text: '-',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontSize: ThemeConstants.fontSize14,
-                  fontFamily: ThemeConstants.openSansFontFamily,
-                  color: AppColors.darkGreen,
-                  fontWeight: FontWeight.w400,
-                ),
+          const WidgetSpan(
+            child: Padding(
+              padding: EdgeInsets.only(left: 16.0),
+            ),
           ),
           TextSpan(
             recognizer: TapGestureRecognizer()..onTap = () => _navigate(context, isTerms: true),
             text: LocalizedTexts.subscriptionTermsLabel.tr(),
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontSize: ThemeConstants.fontSize14,
-                  fontFamily: ThemeConstants.openSansFontFamily,
-                  color: AppColors.blueLink,
-                  fontWeight: FontWeight.w400,
-                ),
+            style: context.textTheme.bodyMedium?.copyWith(
+              fontSize: ThemeConstants.fontSize14,
+              fontFamily: ThemeConstants.openSansFontFamily,
+              color: AppColors.blueDarker,
+              decoration: TextDecoration.underline,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ],
       ),
@@ -50,7 +49,9 @@ class RestoreSubscriptionLink extends StatelessWidget {
   }
 
   void _navigate(BuildContext context, {required bool isTerms}) {
-    onTap();
+    if (!isTerms) {
+      onRestoreTap();
+    }
     // WebViewScreenRoute(
     //   url: url,
     //   title: title,

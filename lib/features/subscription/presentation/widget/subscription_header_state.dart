@@ -1,17 +1,36 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/features/report_abuse/presentation/widget/report_section_title.dart';
 
-enum SubscriptionTypeState { trial, expiredTrial, endedSubscription, cancelledSubscription, notRenewSubscription }
-
-class SubscriptionHeaderState extends StatelessWidget {
+class SubscriptionHeaderTitle extends StatelessWidget {
   final String title;
-  final String label;
 
-  const SubscriptionHeaderState({super.key, required this.title, required this.label});
+  const SubscriptionHeaderTitle({
+    super.key,
+    required this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: CustomText.bitter600(
+        title.tr(),
+        textAlign: TextAlign.center,
+        style: context.textTheme.displayLarge?.copyWith(color: AppColors.white),
+      ),
+    );
+  }
+}
+
+class SubscriptionHeaderLabel extends StatelessWidget {
+  final String label;
+  final String? subTitle;
+
+  const SubscriptionHeaderLabel({super.key, required this.label, this.subTitle});
 
   @override
   Widget build(BuildContext context) {
@@ -20,65 +39,94 @@ class SubscriptionHeaderState extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-            child: ReportSectionTitle(
-              title: title,
-              style: context.textTheme.displayLarge,
+          const SizedBox(height: 16.0),
+          if (subTitle != null)
+            CustomText(
+              subTitle!.tr(),
               textAlign: TextAlign.center,
-              color: AppColors.darkGreen,
+              style: context.textTheme.bodyMedium?.copyWith(
+                color: AppColors.white,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-          const SizedBox(height: 8.0),
-          Text(
-            label,
+          SizedBox(height: subTitle != null ? 27 : 16.0),
+          CustomText(
+            label.tr(),
             textAlign: TextAlign.center,
             style: context.textTheme.bodyMedium?.copyWith(
-              fontSize: ThemeConstants.fontSize16,
-              fontFamily: ThemeConstants.openSansFontFamily,
-              color: AppColors.darkGreen,
-              fontWeight: FontWeight.w400,
+              color: AppColors.white,
             ),
-          ).tr(),
+          ),
+          const SizedBox(height: 16.0),
         ],
       ),
     );
   }
 }
 
-class SubscriptionHeader extends SubscriptionHeaderState {
-  const SubscriptionHeader.trial({super.key})
+class SubscriptionTitle extends SubscriptionHeaderTitle {
+  const SubscriptionTitle.trial({super.key})
       : super(
-          title: LocalizedTexts.subscriptionTrialTitle,
+          title: '${LocalizedTexts.subscriptionTrialTitle}!',
+        );
+
+  const SubscriptionTitle.trialExpired({super.key})
+      : super(
+          title: LocalizedTexts.subscriptionTrialExpiredTitle,
+        );
+
+  const SubscriptionTitle.endedSubscription({super.key})
+      : super(
+          title: LocalizedTexts.subscriptionEndedTitle,
+        );
+
+  const SubscriptionTitle.cancelledSubscription({super.key})
+      : super(
+          title: LocalizedTexts.subscriptionCancelledTitle,
+        );
+
+  const SubscriptionTitle.notRenewSubscription({super.key})
+      : super(
+          title: LocalizedTexts.subscriptionRenewedTitle,
+        );
+
+  const SubscriptionTitle.serviceUnavailable({super.key})
+      : super(
+          title: LocalizedTexts.serviceUnavailable,
+        );
+}
+
+class SubscriptionLabel extends SubscriptionHeaderLabel {
+  const SubscriptionLabel.trial({super.key})
+      : super(
           label: LocalizedTexts.subscriptionTrialLabel,
         );
 
-  const SubscriptionHeader.trialExpired({super.key})
+  const SubscriptionLabel.trialExpired({super.key})
       : super(
-          title: LocalizedTexts.subscriptionTrialExpiredTitle,
-          label: LocalizedTexts.subscriptionTrialExpiredLabel,
+          subTitle: LocalizedTexts.subscriptionTrialExpiredLabel1,
+          label: LocalizedTexts.subscriptionTrialExpiredLabel2,
         );
 
-  const SubscriptionHeader.endedSubscription({super.key})
+  const SubscriptionLabel.endedSubscription({super.key})
       : super(
-          title: LocalizedTexts.subscriptionEndedTitle,
-          label: LocalizedTexts.subscriptionEndedLabel,
+          subTitle: LocalizedTexts.subscriptionEndedLabel1,
+          label: LocalizedTexts.subscriptionEndedLabel2,
         );
 
-  const SubscriptionHeader.cancelledSubscription({super.key})
+  const SubscriptionLabel.cancelledSubscription({super.key})
       : super(
-          title: LocalizedTexts.subscriptionCancelledTitle,
-          label: LocalizedTexts.subscriptionCancelledLabel,
+          subTitle: LocalizedTexts.subscriptionCancelledLabel1,
+          label: LocalizedTexts.subscriptionCancelledLabel2,
         );
 
-  const SubscriptionHeader.notRenewSubscription({super.key})
+  const SubscriptionLabel.notRenewSubscription({super.key})
       : super(
-          title: LocalizedTexts.subscriptionRenewedTitle,
           label: LocalizedTexts.subscriptionRenewedLabel,
         );
 
-  const SubscriptionHeader.serviceUnavailable({super.key})
+  const SubscriptionLabel.serviceUnavailable({super.key})
       : super(
-          title: LocalizedTexts.serviceUnavailable,
           label: '',
         );
 }
