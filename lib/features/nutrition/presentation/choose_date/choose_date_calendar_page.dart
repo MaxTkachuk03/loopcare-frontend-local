@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/green_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -130,12 +130,10 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
                 child: ScrollableContainer(
                   child: Column(
                     children: [
-                      GreenAppBar(
-                        title: LocalizedTexts.chooseDateFor.tr(
-                          namedArgs: {'mealCategory': widget.mealCategory},
-                        ),
-                        darkGreen: true,
-                      ),
+                      CustomAppBar.green(
+                          title: LocalizedTexts.chooseDateFor.tr(
+                        namedArgs: {'mealCategory': widget.mealCategory},
+                      )),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 24.0),
                         child: Column(

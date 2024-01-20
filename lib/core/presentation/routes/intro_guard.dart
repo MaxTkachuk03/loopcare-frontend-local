@@ -95,14 +95,6 @@ class IntroGuard extends AutoRouteGuard {
       return;
     }
 
-    // final consentConfirmationWasPassed = consentConfirmationBloc.state.pageWasPassed;
-    //
-    // if (onboardingState.isCompleted && !consentConfirmationWasPassed) {
-    //   router.replaceNamed(AppRoutes.consentConfirmation);
-    //
-    //   return;
-    // }
-
     final legalStatementWasPassed = legalStatementBloc.state.pageWasPassed;
 
     if (onboardingState.isCompleted && !legalStatementWasPassed) {

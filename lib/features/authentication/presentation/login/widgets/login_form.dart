@@ -60,7 +60,7 @@ class _LoginFormState extends State<LoginForm> {
             const SizedBox(height: 40.0),
             CustomElevatedButton.blueFullWidth(
               onPressed: _isDisabled ? null : _onLogin,
-              label: LocalizedTexts.loginBtn,
+              label: LocalizedTexts.login,
             ),
           ],
         ),
@@ -69,8 +69,8 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   _onChangedForm() {
-    final isValidForm =
-        Email.create(_emailController.text).isRight() && LoginPassword.create(_passwordController.text).isRight();
+    final isValidForm = Email.create(_emailController.text).isRight() &&
+        LoginPassword.create(_passwordController.text).isRight();
 
     setState(() {
       _isDisabled = !isValidForm;

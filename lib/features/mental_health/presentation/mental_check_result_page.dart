@@ -17,7 +17,6 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/emergency_btn.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/mental_health_test_type.dart';
 import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_wrap.dart';
@@ -227,14 +226,9 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
     }
 
     if (state.isLastTest && state.isCompleted) {
-      final hasCardiovascularDisease = context.read<MedicalFitnessBloc>().state.data.hasCardiovascularDisease;
-      // TODO old logic, check do we still need it
-      // final nextRoute = hasCardiovascularDisease ? AppRoutes.consentConfirmation : AppRoutes.legalStatement;
-      const nextRoute = AppRoutes.legalStatement;
-
       context
         ..read<OnboardingBloc>().add(const OnboardingEvent.nextStep())
-        ..router.pushNamed(nextRoute);
+        ..router.pushNamed(AppRoutes.legalStatement);
 
       return;
     }

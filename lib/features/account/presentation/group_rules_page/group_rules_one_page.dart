@@ -47,7 +47,7 @@ class GroupRulesOnePage extends StatelessWidget {
                       const SizedBox(height: 28.0),
                       CustomText.bitter700(LocalizedTexts.groupRulesOneTitle.tr()),
                       const SizedBox(height: 8.0),
-                      CustomText.w600(LocalizedTexts.groupRulesAttencion.tr()),
+                      CustomText.w600(LocalizedTexts.groupRulesAttention.tr()),
                       const SizedBox(height: 16.0),
                       CustomText.w400(LocalizedTexts.groupRulesOneParagraphOne.tr()),
                       const SizedBox(height: 32.0),

@@ -30,22 +30,13 @@ import 'package:loopcare_frontend/features/authentication/presentation/waiting_f
 import 'package:loopcare_frontend/features/authentication/presentation/welcome/sign_up_welcome_page.dart';
 import 'package:loopcare_frontend/features/chat/presentation/group_chat_page.dart';
 import 'package:loopcare_frontend/features/chat/presentation/group_users_page.dart';
-import 'package:loopcare_frontend/features/consent_confirmation/presentation/consent_confirmation_page.dart';
-import 'package:loopcare_frontend/features/consent_confirmation/presentation/no_consent_page.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/dashboard_page.dart';
-import 'package:loopcare_frontend/features/diabetes/presentation/diabetes/diabetes_page.dart';
-import 'package:loopcare_frontend/features/diabetes/presentation/disclaimer/disclaimer_page.dart';
-import 'package:loopcare_frontend/features/diabetes/presentation/summary/summary_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/education_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/lesson_complete_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_page/lesson_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/support_group_intro/support_group_intro_page.dart';
 import 'package:loopcare_frontend/features/group_sessions/presentation/preparation_materials_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
-import 'package:loopcare_frontend/features/household_and_habits/presentation/cooking/cooking_page.dart';
-import 'package:loopcare_frontend/features/household_and_habits/presentation/healthier_food/healthier_food_page.dart';
-import 'package:loopcare_frontend/features/household_and_habits/presentation/share_meal_with/share_meal_with_page.dart';
-import 'package:loopcare_frontend/features/household_and_habits/presentation/where_do_you_eat/where_do_you_eat_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/pre_intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
@@ -111,21 +102,13 @@ import 'package:loopcare_frontend/features/physical_activities/presentation/pref
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/program_assessment_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_details/program_details_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/select_exercise_page.dart';
-import 'package:loopcare_frontend/features/preferences/presentation/preferences_overview/preferences_overview_page.dart';
 import 'package:loopcare_frontend/features/proxy/proxy_page.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/quizzes_intro_page.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/quizzes_questions_page.dart';
-import 'package:loopcare_frontend/features/reflection/presentation/nutrition_details_page.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/video_page.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/session_call_page.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/session_rules_page.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/session_waiting_page.dart';
-import 'package:loopcare_frontend/features/you_and_food/presentation/allergic/allergic_page.dart';
-import 'package:loopcare_frontend/features/you_and_food/presentation/do_not_like/do_not_like_page.dart';
-import 'package:loopcare_frontend/features/you_and_food/presentation/meat_preferences/meat_preferences_page.dart';
-import 'package:loopcare_frontend/features/you_and_food/presentation/types_of_food/types_of_food_page.dart';
-import 'package:loopcare_frontend/features/you_and_food/presentation/you_and_food_intro/you_and_food_intro_page.dart';
-import 'package:loopcare_frontend/features/you_and_food/presentation/you_and_food_ready/you_and_food_ready_page.dart';
 
 part 'app_routes.dart';
 
@@ -353,80 +336,6 @@ const groupLessonRoutes = [
       page: WaitingForConfirmationPage,
     ),
     AutoRoute(
-      path: AppRoutes.consentConfirmation,
-      page: ConsentConfirmationPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.noConsent,
-      page: NoConsentPage,
-    ),
-
-    // Preferences
-    AutoRoute(
-      path: AppRoutes.preferencesOverview,
-      page: PreferencesOverviewPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.youAndFoodIntro,
-      page: YouAndFoodIntroPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.typesOfFood,
-      page: TypesOfFoodPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.meatPreferences,
-      page: MeatPreferencesPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.allergic,
-      page: AllergicPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.youAndFoodReady,
-      page: YouAndFoodReadyPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.doNotLike,
-      page: DoNotLikePage,
-    ),
-
-    // TODO dead route
-    // AutoRoute(
-    //   path: AppRoutes.householdIntro,
-    //   page: HouseholdAndHabitsIntroPage,
-    // ),
-    AutoRoute(
-      path: AppRoutes.shareMealWith,
-      page: ShareMealPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.cooking,
-      page: CookingPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.healthierFood,
-      page: HealthierFoodPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.whereDoYouEat,
-      page: WhereDoYouEatPage,
-    ),
-
-    //Diabetes
-    AutoRoute(
-      path: AppRoutes.diabetes,
-      page: DiabetesPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.diabetesDisclaimer,
-      page: DisclaimerPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.diabetesSummary,
-      page: SummaryPage,
-    ),
-    AutoRoute(
       path: AppRoutes.barcodeScanner,
       page: BarcodeScannerPage,
     ),
@@ -490,11 +399,6 @@ const groupLessonRoutes = [
       path: AppRoutes.lessonComplete,
       page: LessonCompletePage,
     ),
-    // TODO dead route
-    // AutoRoute(
-    //   path: AppRoutes.lessonError,
-    //   page: LessonErrorPage,
-    // ),
 
     // Dish
     AutoRoute(
@@ -558,14 +462,6 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.video,
       page: VideoPage,
-    ),
-    // AutoRoute(
-    //   path: AppRoutes.reflection,
-    //   page: ReflectionPage,
-    // ),
-    AutoRoute(
-      path: AppRoutes.reflectionNutritionDetails,
-      page: NutritionDetailsPage,
     ),
 
     AutoRoute(

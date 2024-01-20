@@ -33,7 +33,7 @@ class SessionRulesPage extends StatelessWidget {
                     children: [
                       const SizedBox(height: 24.0),
                       CustomText.bitter600(
-                        LocalizedTexts.groupRulesAttencion.tr(),
+                        LocalizedTexts.groupRulesAttention.tr(),
                         style: context.textTheme.bodyLarge?.copyWith(fontSize: ThemeConstants.fontSize20),
                       ),
                       const SizedBox(height: 24.0),
