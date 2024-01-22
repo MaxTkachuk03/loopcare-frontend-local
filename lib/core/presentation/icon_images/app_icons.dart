@@ -50,12 +50,14 @@ class AppIcons {
   static SvgPicture settings = SvgPicture.asset('$iconsFilePath/settings.svg');
 
   // TODO replace with svg version
+  // <--
   static const AssetImage cutlery = AssetImage('$iconsFilePath/cutlery.png');
   static const AssetImage dashboardPlanMeals = AssetImage('$iconsFilePath/dashboard_plan_meals.png');
   static const AssetImage exclamationMark = AssetImage('$iconsFilePath/exclamation_mark.png');
   static const AssetImage exclamationPoint = AssetImage('$iconsFilePath/exclamation_point.png');
   static const AssetImage cook = AssetImage('$iconsFilePath/icon_cook.png');
   static const AssetImage pan = AssetImage('$iconsFilePath/icon_pan.png');
+  // -->
 
   static SvgPicture moodEmotionHappy = SvgPicture.asset('$iconsFilePath/mood_emotion_happy.svg');
 

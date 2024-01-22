@@ -6,19 +6,18 @@ part 'dish_food_item.freezed.dart';
 part 'dish_food_item.g.dart';
 
 @freezed
-abstract class DishFoodItem implements _$DishFoodItem {
+class DishFoodItem with _$DishFoodItem {
   const DishFoodItem._();
 
   const factory DishFoodItem({
     required int id,
     required String externalId,
     required String foodName,
-    required String brandName,
+    @Default('') String? brandName,
     required double calorieDensity,
     required double proteinDegree,
     required ServingSize serving,
   }) = _DishFoodItem;
 
-  factory DishFoodItem.fromJson(Map<String, dynamic> json) =>
-      _$DishFoodItemFromJson(json);
+  factory DishFoodItem.fromJson(Map<String, dynamic> json) => _$DishFoodItemFromJson(json);
 }
