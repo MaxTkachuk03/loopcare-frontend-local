@@ -101,7 +101,7 @@ class _MedicinesPageState extends State<MedicinesPage> {
                     children: [
                       Builder(
                         builder: (context) => CustomElevatedButton.coralFullWidth(
-                          label: LocalizedTexts.next,
+                          label: LocalizedTexts.next.tr(),
                           onPressed: () => _onNextPressed(context),
                         ),
                       ),

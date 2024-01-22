@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -32,7 +33,7 @@ class ProgramTab extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 24.0),
             child: CustomElevatedButton.blueFullWidth(
               onPressed: () => _onNextPressed(context),
-              label: LocalizedTexts.next.translation,
+              label: LocalizedTexts.next.tr(),
             ),
           ),
         ],

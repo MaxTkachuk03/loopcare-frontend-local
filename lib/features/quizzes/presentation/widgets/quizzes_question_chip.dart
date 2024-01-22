@@ -36,6 +36,7 @@ class QuizzesQuestionChip extends StatelessWidget {
   }
 
   _getBorderColor() {
+    if (selected) return AppColors.greenRegular;
     final c = correct;
 
     if (c == null) return AppColors.blueRegular;
@@ -52,7 +53,7 @@ class QuizzesQuestionChip extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 14.0),
         decoration: BoxDecoration(
-          color: AppColors.transparent,
+          color: selected ? AppColors.greenRegular : AppColors.transparent,
           borderRadius: const BorderRadius.all(Radius.circular(25.0)),
           border: Border.all(width: 2, color: _getBorderColor()),
         ),
@@ -61,7 +62,12 @@ class QuizzesQuestionChip extends StatelessWidget {
           children: [
             if (correct != null)
               Padding(padding: const EdgeInsets.only(right: 8.0), child: _icon(correct ?? false)),
-            Expanded(child: CustomText.w400(label, style: context.textTheme.bodyMedium)),
+            Expanded(
+              child: CustomText.w400(
+                label,
+                style: context.textTheme.bodyMedium,
+              ),
+            ),
           ],
         ),
       ),

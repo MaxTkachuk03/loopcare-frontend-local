@@ -76,7 +76,7 @@ class MedicalIntroPage extends StatelessWidget {
                       const SizedBox(height: 20.0),
                       Builder(
                         builder: (context) => CustomElevatedButton.coralFullWidth(
-                          label: LocalizedTexts.next,
+                          label: LocalizedTexts.next.tr(),
                           onPressed: () => _onPressedHandler(context),
                         ),
                       ),

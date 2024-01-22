@@ -221,7 +221,7 @@ class _NextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomElevatedButton.blueFullWidth(
       onPressed: () => _onNextPressed(context),
-      label: LocalizedTexts.next,
+      label: LocalizedTexts.next.tr(),
     );
   }
 
