@@ -34,15 +34,11 @@ class UnderAppBarContainer extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             children: [
-              const SizedBox(height: 8.0),
-              SizedBox(
-                height: 38,
-                child: InkWell(
-                  onTap: () => _onSearchTap(context),
-                  child: IgnorePointer(
-                    child: CustomTextField.search(
-                      controller: TextEditingController(),
-                    ),
+              InkWell(
+                onTap: () => _onSearchTap(context),
+                child: IgnorePointer(
+                  child: CustomTextField.search(
+                    controller: TextEditingController(),
                   ),
                 ),
               ),

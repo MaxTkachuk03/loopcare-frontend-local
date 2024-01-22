@@ -51,7 +51,7 @@ class _BirthdayFieldState extends State<BirthdayField> {
               const SizedBox(height: 100.0),
               CustomElevatedButton.blueFullWidth(
                 onPressed: () => _onNextPressed(context),
-                label: LocalizedTexts.next,
+                label: LocalizedTexts.next.tr(),
               ),
               const SizedBox(height: 70.0),
             ],

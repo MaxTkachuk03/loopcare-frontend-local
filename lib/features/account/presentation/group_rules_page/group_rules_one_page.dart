@@ -31,6 +31,7 @@ class GroupRulesOnePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GroupLessonWrap(
+      // TODO: need check
       child: GroupPrefsPageWrap(
         title: LocalizedTexts.groupRules.translation,
         child: SafeArea(

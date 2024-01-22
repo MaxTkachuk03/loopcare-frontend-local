@@ -75,7 +75,7 @@ class ModalBottomSheet {
               ),
               const SizedBox(height: 40.0),
               CustomElevatedButton.blueFullWidth(
-                label: LocalizedTexts.continueBtn,
+                label: LocalizedTexts.continueBtn.tr(),
                 onPressed: () {
                   context.router.pop();
                 },
@@ -715,6 +715,7 @@ class ModalBottomSheet {
     required String title,
     required Widget listWidget,
     String? subtitle,
+    String? serving,
     VoidCallback? onConfirmed,
   }) {
     showModalBottomSheet<void>(
@@ -739,40 +740,39 @@ class ModalBottomSheet {
                     child: SizedBox(
                       width: 16.0,
                       height: 16.0,
-                      child: IconButton(
-                        padding: EdgeInsets.zero,
+                      child: CustomIconButton.close(
                         onPressed: () => context.router.pop(),
-                        icon: const Icon(Icons.close),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 2.0,
-                  ),
-                  Text(
+                  const SizedBox(height: 2.0),
+                  CustomText.w700(
                     title,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+                    style: context.textTheme.bodyMedium,
                   ),
                   if (subtitle != null)
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(
-                          height: 14.0,
-                        ),
-                        Text(
+                        const SizedBox(height: 9.0),
+                        CustomText.bitter600(
                           subtitle,
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                fontStyle: FontStyle.italic,
-                              ),
+                          style: context.textTheme.displayMedium,
                         ),
                       ],
                     ),
-                  const SizedBox(
-                    height: 24.0,
-                  ),
+                  if (serving != null)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 9.0),
+                        CustomText.w400(
+                          serving,
+                          style: context.textTheme.displayMedium,
+                        ),
+                      ],
+                    ),
+                  const SizedBox(height: 24.0),
                   const Divider(height: 2, thickness: 2, color: AppColors.bgGreen),
                   listWidget,
                   const SizedBox(
@@ -780,11 +780,9 @@ class ModalBottomSheet {
                   ),
                 ],
               ),
-              ElevatedButton(
+              CustomElevatedButton.blueFullWidth(
                 onPressed: onConfirmed,
-                child: Text(
-                  LocalizedTexts.continueBtn.tr(),
-                ),
+                label: LocalizedTexts.confirm.tr(),
               ),
             ],
           ),
@@ -931,7 +929,7 @@ class ModalBottomSheet {
                               context.router.pop();
                               onBtnPress();
                             },
-                            label: LocalizedTexts.next,
+                            label: LocalizedTexts.next.tr(),
                           ),
                         ),
                         const SizedBox(height: 30.0),

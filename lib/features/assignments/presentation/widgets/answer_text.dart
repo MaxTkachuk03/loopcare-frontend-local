@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -67,7 +68,7 @@ class AnswerText extends StatelessWidget {
                           ? onNextPressed(question.lessonId)
                           : null
                       : onNextPressed(question.lessonId),
-                  label: LocalizedTexts.next,
+                  label: LocalizedTexts.next.tr(),
                 ),
               ],
             )

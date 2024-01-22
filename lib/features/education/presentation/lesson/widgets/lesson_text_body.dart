@@ -82,7 +82,7 @@ class LessonTextBody extends StatelessWidget {
                   MainContainer(
                     child: CustomElevatedButton.blueFullWidth(
                       onPressed: onNextPressed,
-                      label: LocalizedTexts.next,
+                      label: LocalizedTexts.next.tr(),
                     ),
                   ),
                   const SizedBox(height: 30.0),

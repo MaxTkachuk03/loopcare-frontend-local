@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/tab_bar/custom_underlined_tab_bar.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
@@ -66,25 +66,22 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: tabs.length,
-      child: CustomAppBar.green(
-        leading: CustomFilledIconButton.leadingGreenLighter(),
-        actions: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(56, 8, 8, 8),
-              child: BlocListener<SearchBloc, SearchState>(
-                listenWhen: (prev, cur) =>
-                    prev.data.searchParameters.query != cur.data.searchParameters.query,
-                listener: _searchQueryListener,
-                child: CustomTextField.search(
-                  controller: _searchTextController,
-                  onCleared: _onCleared,
-                  onChanged: _onTextChange,
-                ),
-              ),
-            ),
+      child: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: CustomFilledIconButton.leadingGreenLighter(),
+        ),
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
+        backgroundColor: AppColors.greenRegular,
+        title: BlocListener<SearchBloc, SearchState>(
+          listenWhen: (prev, cur) => prev.data.searchParameters.query != cur.data.searchParameters.query,
+          listener: _searchQueryListener,
+          child: CustomTextField.search(
+            controller: _searchTextController,
+            onCleared: _onCleared,
+            onChanged: _onTextChange,
           ),
-        ],
+        ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
           child: Padding(

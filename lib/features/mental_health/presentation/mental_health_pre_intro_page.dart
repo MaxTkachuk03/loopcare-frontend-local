@@ -88,7 +88,7 @@ class _MentalHealthPreIntroPageState extends State<MentalHealthPreIntroPage> {
                       const SizedBox(height: 20.0),
                       Builder(
                         builder: (context) => CustomElevatedButton.blueFullWidth(
-                          label: LocalizedTexts.next,
+                          label: LocalizedTexts.next.tr(),
                           onPressed: () => _onPressedHandler(context),
                         ),
                       ),

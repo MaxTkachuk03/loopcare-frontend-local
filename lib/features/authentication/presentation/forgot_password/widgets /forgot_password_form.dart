@@ -45,7 +45,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
             const SizedBox(height: 28.0),
             CustomElevatedButton.blueFullWidth(
               onPressed: _isDisabled ? null : () => _onContinuePressed(context),
-              label: LocalizedTexts.continueBtn,
+              label: LocalizedTexts.continueBtn.tr(),
             ),
           ],
         ),

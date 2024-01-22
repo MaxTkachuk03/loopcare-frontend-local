@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
@@ -14,6 +16,7 @@ import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
@@ -227,7 +230,9 @@ class _EditDishPageState extends State<EditDishPage> {
   }
 
   _deleteDishListener(BuildContext context, state) {
-    widget.fromRecommendation ? context.router.pop() : context.router.popUntilRouteWithName(SelectFoodRoute.name);
+    widget.fromRecommendation
+        ? context.router.pop()
+        : context.router.popUntilRouteWithName(SelectFoodRoute.name);
   }
 
   Future<bool> _onWillPop() {
@@ -263,13 +268,9 @@ class _EditDishPageState extends State<EditDishPage> {
           onTap: _unfocusAllTextFields,
           child: CustomScaffold.greenLightest(
             appBar: CustomAppBar.green(
-              title: '${LocalizedTexts.addToMyDishedAs.translation}...',
-              actions: const [
-                CloseAction(),
-                SizedBox(
-                  width: 16.0,
-                )
-              ],
+              title: '${LocalizedTexts.addToMyDishedAs.tr()}...',
+              leading: CustomFilledIconButton.leadingGreenLighter(),
+              actions: const [CloseAction(), SizedBox(width: 16.0)],
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(150),
                 child: Column(
@@ -314,32 +315,33 @@ class _EditDishPageState extends State<EditDishPage> {
               ),
             ),
             body: SafeArea(
-              child: BlocBuilder<EditDishBloc, EditDishState>(
-                builder: (BuildContext context, state) {
-                  return state.maybeMap(
-                      loading: (_) => const Expanded(child: Loader()),
-                      error: (errorState) {
-                        final error = errorState.fetchError;
+              child: ScrollableContainer(
+                child: BlocBuilder<EditDishBloc, EditDishState>(
+                  builder: (BuildContext context, state) {
+                    return state.maybeMap(
+                        loading: (_) => const Expanded(child: Loader()),
+                        orElse: () => const SizedBox.shrink(),
+                        error: (errorState) {
+                          final error = errorState.fetchError;
 
-                        return ErrorScreen(
-                          error: error,
-                          onButtonPressed: () {
-                            //TODO: Need to check
-                            final editDishBloc = context.read<EditDishBloc>();
-                            editDishBloc.add(widget.event);
-                          },
-                        );
-                      },
-                      dishInfo: (dishState) {
-                        _servingController.text = dishState.numberOfServings;
-                        _portionsController.text = dishState.numberOfPortions;
+                          return ErrorScreen(
+                            error: error,
+                            onButtonPressed: () {
+                              //TODO: Need to check
+                              final editDishBloc = context.read<EditDishBloc>();
+                              editDishBloc.add(widget.event);
+                            },
+                          );
+                        },
+                        dishInfo: (dishState) {
+                          _servingController.text = dishState.numberOfServings;
+                          _portionsController.text = dishState.numberOfPortions;
 
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Column(
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
                                 children: [
                                   ServingsAmount(
                                     focusNode: _servingFocusNode,
@@ -355,14 +357,12 @@ class _EditDishPageState extends State<EditDishPage> {
                                     selectedNutritionType: dishState.currentNutritionType,
                                     onNutritionFactSelect: _onNutritionFactSelect,
                                   ),
-                                  Expanded(
-                                    child: DishList(
-                                      list: dishState.currentDish.foodItems,
-                                      nutritionKey: dishState.currentNutritionType.name,
-                                      onDeleteHandler: _onDeleteFoodItem,
-                                      onListItemTapHandler: _onTapFoodItem,
-                                      isScrollable: false,
-                                    ),
+                                  DishList(
+                                    list: dishState.currentDish.foodItems,
+                                    nutritionKey: dishState.currentNutritionType.name,
+                                    onDeleteHandler: _onDeleteFoodItem,
+                                    onListItemTapHandler: _onTapFoodItem,
+                                    isScrollable: false,
                                   ),
                                   NutritionBlock(
                                     calorieDensity: dishState.currentDish.calorieDensity,
@@ -389,31 +389,30 @@ class _EditDishPageState extends State<EditDishPage> {
                                   const SizedBox(height: 15.0),
                                 ],
                               ),
-                            ),
-                            Column(
-                              children: [
-                                MainContainer(
-                                  child: BlocBuilder<EditDishBloc, EditDishState>(
-                                    builder: (BuildContext context, state) {
-                                      return state.maybeMap(
-                                          dishInfo: (dishState) {
-                                            return CustomOutlinedButton.blueFullWidth(
-                                              onPressed: dishState.hasFoodItems ? _onSaveDishHandler : null,
-                                              label: LocalizedTexts.save.tr(),
-                                            );
-                                          },
-                                          orElse: () => const SizedBox.shrink());
-                                    },
+                              Column(
+                                children: [
+                                  MainContainer(
+                                    child: BlocBuilder<EditDishBloc, EditDishState>(
+                                      builder: (BuildContext context, state) {
+                                        return state.maybeMap(
+                                            dishInfo: (dishState) {
+                                              return CustomElevatedButton.blueFullWidth(
+                                                onPressed: dishState.hasFoodItems ? _onSaveDishHandler : null,
+                                                label: LocalizedTexts.save.tr(),
+                                              );
+                                            },
+                                            orElse: () => const SizedBox.shrink());
+                                      },
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(height: 20.0),
-                              ],
-                            ),
-                          ],
-                        );
-                      },
-                      orElse: () => const SizedBox.shrink());
-                },
+                                  const SizedBox(height: 30.0),
+                                ],
+                              ),
+                            ],
+                          );
+                        });
+                  },
+                ),
               ),
             ),
           ),
