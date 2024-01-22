@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -39,9 +40,10 @@ class AnswerOption extends StatelessWidget {
             ),
             Column(
               children: [
+                const SizedBox(height: 32),
                 CustomElevatedButton.blueFullWidth(
                   onPressed: onNextPressed,
-                  label: LocalizedTexts.next,
+                  label: LocalizedTexts.next.tr(),
                 ),
               ],
             ),

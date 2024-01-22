@@ -88,7 +88,7 @@ class MedicalCheckPassedPage extends StatelessWidget {
                     children: [
                       CustomElevatedButton.coralFullWidth(
                         onPressed: () => _onNextPressed(context),
-                        label: LocalizedTexts.next,
+                        label: LocalizedTexts.next.tr(),
                       ),
                       const SizedBox(height: 30.0),
                     ],

@@ -931,7 +931,7 @@ class ModalBottomSheet {
                               context.router.pop();
                               onBtnPress();
                             },
-                            label: LocalizedTexts.next,
+                            label: LocalizedTexts.next.tr(),
                           ),
                         ),
                         const SizedBox(height: 30.0),

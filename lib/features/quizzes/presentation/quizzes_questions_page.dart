@@ -206,7 +206,7 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
                                   const SizedBox(height: 24),
                                   CustomElevatedButton.blueFullWidth(
                                     onPressed: () => _saveOptionsField(state.data.lessonId),
-                                    label: LocalizedTexts.next,
+                                    label: LocalizedTexts.next.tr(),
                                   ),
                                 ],
                               );

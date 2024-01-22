@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -84,7 +85,7 @@ class AnswerScale extends StatelessWidget {
                   builder: (context, isEnableSend, _) {
                     return CustomElevatedButton.blueFullWidth(
                       onPressed: onNextPressed,
-                      label: LocalizedTexts.next,
+                      label: LocalizedTexts.next.tr(),
                     );
                   },
                 ),
