@@ -271,6 +271,8 @@ class AppIcons {
   static SvgPicture noScore = SvgPicture.asset('$iconsFilePath/no_score.svg', width: 22, height: 22);
   static SvgPicture yesScoreFilled =
       SvgPicture.asset('$iconsFilePath/yes_score_filled.svg', width: 22, height: 22);
+  static SvgPicture customInfo =
+      SvgPicture.asset('$iconsFilePath/custom_icon_info.svg', width: 44, height: 44);
 
   AppIcons._();
 }
