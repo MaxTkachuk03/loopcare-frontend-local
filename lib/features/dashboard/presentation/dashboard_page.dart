@@ -196,9 +196,6 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                         ),
                         const SizedBox(height: 19.0),
                         PersonMood(date: _selectedDay),
-
-                        // const SizedBox(height: 19.0),
-                        // const Reflection(),
                         BlocBuilder<AuthenticationCubit, AuthenticationState>(
                           builder: (BuildContext context, state) {
                             if (!state.isPhysicalActivitiesUnlocked) {
