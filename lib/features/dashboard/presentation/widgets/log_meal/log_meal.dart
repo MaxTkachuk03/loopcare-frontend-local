@@ -122,7 +122,7 @@ class LogMeal extends StatelessWidget {
                       mealsState.isEnableOnDashboard
                           ? CustomOutlinedRoundedButtonWithIcon(
                               onPressed: () => onPressHandler(context),
-                              icon: mealsState.filledCategories.isNotEmpty ? AppIcons.edit : AppIcons.plus,
+                              icon: AppIcons.plus,
                             )
                           : const SizedBox(),
                     ],
@@ -132,49 +132,38 @@ class LogMeal extends StatelessWidget {
                           children: [
                             const SizedBox(height: 8.0),
                             const Divider(color: AppColors.blueOffRegular),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () => _onIntakePressed(context),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            CustomText.w600(
-                                              LocalizedTexts.loggedMeals.translation.capitalize(),
-                                              style: context.textTheme.bodySmall,
-                                            ),
-                                            const SizedBox(width: 4.0),
-                                            const ImageIcon(
-                                              AppIcons.arrow,
-                                              color: AppColors.blueDarker,
-                                              size: 10,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(height: 5),
-                                      LoggedList(
-                                        categoryList: MealCategory.values
-                                            .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
-                                            .toList(),
-                                        categoryListRaw: MealCategory.values.map((e) => e.label ?? '').toList(),
-                                        filledList: mealsState.filledCategories,
-                                      ),
-                                    ],
+                            GestureDetector(
+                              onTap: () => _onIntakePressed(context),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CustomText.w600(
+                                    LocalizedTexts.loggedMeals.translation.capitalize(),
+                                    style: context.textTheme.bodySmall,
                                   ),
-                                ),
-                                const SizedBox(width: 40),
-                                CalorieNutritionBlock(
-                                  proteinDegree: mealsState.selectedDayMealProteinDegreeSum,
-                                  calorieDensity: mealsState.selectedDayMealCalorieDensitySum,
-                                  subtitle: context.read<MealsBloc>().state.getCurrentDate.americanShortDateWithYear,
-                                ),
-                              ],
+                                  const SizedBox(width: 4.0),
+                                  if (mealsState.filledCategories.isNotEmpty)
+                                    CustomOutlinedRoundedButtonWithIcon(
+                                      onPressed: () => onPressHandler(context),
+                                      icon: AppIcons.edit,
+                                    )
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 8.0),
+                            LoggedList(
+                              categoryList: MealCategory.values
+                                  .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
+                                  .toList(),
+                              categoryListRaw: MealCategory.values.map((e) => e.label ?? '').toList(),
+                              filledList: mealsState.filledCategories,
+                            ),
+                            const SizedBox(height: 16.0),
+                            CalorieNutritionBlock(
+                              proteinDegree: mealsState.selectedDayMealProteinDegreeSum,
+                              calorieDensity: mealsState.selectedDayMealCalorieDensitySum,
+                              subtitle:
+                                  context.read<MealsBloc>().state.getCurrentDate.americanShortDateWithYear,
                             ),
                           ],
                         )

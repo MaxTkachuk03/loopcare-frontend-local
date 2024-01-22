@@ -19,6 +19,7 @@ class GroupPrefsPageWrap extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GroupPreferencesBloc, GroupPreferencesState>(
       builder: (context, state) {
+        // TODO: Need rework
         if (state.data.groupPrefsMode == GroupPrefsMode.groupingLesson) {
           return KeyboardContainerListener(
             child: CustomScaffold.blueLightest(
