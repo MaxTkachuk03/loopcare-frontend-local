@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -201,13 +202,9 @@ class _PlayerOverlayState extends State<PlayerOverlay> {
 
                 return Visibility(
                   visible: isVisible,
-                  child: ElevatedButton(
+                  child: CustomElevatedButton.yellow(
+                    label: LocalizedTexts.skipExplanation.tr(),
                     onPressed: _onSkipExplanation,
-                    style: ButtonStyle(
-                      minimumSize: MaterialStateProperty.all(const Size(186, 52.0)),
-                      backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
-                    ),
-                    child: const Text(LocalizedTexts.skipExplanation).tr(),
                   ),
                 );
               },
