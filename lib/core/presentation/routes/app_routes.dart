@@ -59,30 +59,8 @@ class AppRoutes {
   static const String emailAddress = '/email-address'; // added
   static const String waitingForConfirmation = '/waiting-for-confirmation'; // added
 
-  static const String consentConfirmation = '/consent-confirmation'; // added
-  static const String noConsent = '/no-consent'; // added
   static const String legalStatement = '/legal-statement'; // added
-  static const String preferencesOverview = '/preferences-overview'; // added
-  static const String youAndFoodIntro = '/you-and-food-intro'; // added
-  static const String typesOfFood = '/types-of-food'; // added
-  static const String meatPreferences = '/meat-preferences'; // added
-  static const String allergic = '/allergic'; // added
-  static const String youAndFoodReady = '/you-and-food-ready'; // added
-  static const String doNotLike = '/do-not-like'; // added
-
   static const String preparationMaterials = '/preparation-materials'; // added
-
-  // Self Help maybe deleted screens
-  static const String householdIntro = '/household-intro';
-  static const String shareMealWith = '/share-meal-with';
-  static const String cooking = '/cooking';
-  static const String healthierFood = '/healthier-food';
-  static const String whereDoYouEat = '/where-do-you-eat';
-
-  // Diabetes
-  static const String diabetes = '/diabetes'; // added
-  static const String diabetesDisclaimer = '/diabetes-disclaimer'; // added
-  static const String diabetesSummary = '/diabetes-summary'; // added
 
   // Barcode Scanner
   static const String barcodeScanner = '/barcode-scanner'; // added
@@ -114,7 +92,6 @@ class AppRoutes {
   static const String lesson = '/lesson/:lessonId/page/:pageIndex'; // added
   static const String supportGroupIntro = '/support-group-intro'; // added
   static const String lessonComplete = '/lesson-complete'; // added
-  static const String lessonError = '/lesson-error'; // added
 
   // Physical activities
   static const String selectExercise = '/select-exercise'; // added
@@ -136,10 +113,6 @@ class AppRoutes {
 
   // Video
   static const String video = '/video'; // added
-
-  // Reflection
-  static const String reflection = '/reflection'; // added
-  static const String reflectionNutritionDetails = '/reflection-nutrition-details'; // added
 
   // Video session
   static const String sessionWaitingRoom = '/session-waiting-room'; // added

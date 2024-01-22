@@ -41,27 +41,17 @@ final screenNames = {
   'EmailAddressRoute': 'User Email Address Screen', //added
   'WaitingForConfirmationRoute': 'User Confirmation Screen',
   'CheckFailedAgeRoute': 'Check Failed Age Screen',
-  'ConsentConfirmationRoute': 'Consent Confirmation Screen',
-  'NoConsentRoute': 'No Consent Screen',
   'LegalStatementRoute': 'Legal Statement Screen', //added
   'PreferencesOverviewRoute': 'Preferences Overview Screen',
   'ChooseDateCalendarRoute': 'Plan Meal Choose Date Screen', //added
   ' WeekPlannerRoute': 'Week Planner  Screen', //added
 
-  'YouAndFoodIntroRoute': 'You and Food Screen',
-  'TypesOfFoodRoute': 'Types of Food Screen',
-  'MeatPreferencesRoute': 'Meat Preferences Screen',
-  'AllergicRoute': 'Allergic Screen',
-  'YouAndFoodReadyRoute': 'You and Food Ready Screen',
-  'DoNotLikeRoute': 'Do not Like Screen',
   'MentalHealthIntroRoute': 'Mental Health Screen',
   'MentalHealthQuestionRoute': 'Mental Health Question Screen',
   'MentalCheckResultRoute': 'Mental Check Result Screen',
 
   // Diabetes
-  'DiabetesRoute': 'Diabetes Screen',
   'DisclaimerRoute': 'Disclaimer Screen',
-  'SummaryRoute': 'Summary Screen',
 
   'NutritionInstructionsRoute': 'Nutrition Instructions Screen', //added
   'MealRoute': 'Meal Screen', //added
@@ -71,7 +61,6 @@ final screenNames = {
   'EditDishRoute': 'Edit Dish Screen', // added
   'LessonRoute': 'Lesson Screen', // added
   'LessonCompleteRoute': 'Lesson Complete Screen', // added
-  'LessonErrorRoute': 'Lesson Error Screen',
 
   // Physical activities
   'ChooseProgramRoute': 'Choose Physical Program Screen',
@@ -93,10 +82,8 @@ final screenNames = {
   'VideoRoute': 'Video Screen', // added
 
   // Reflection
-  'ReflectionRoute': 'Reflection Screen', // added
   'reflectionNutritionDetailsRoute': 'Reflection Nutrition Details Screen',
 
-  'NutritionDetailsRoute': 'Nutrition Details Screen',
   'VideoSessionRoute': 'Video Session Screen',
   'GroupPreferencesRoute': 'Group Preferences Screen', // added
   'TimezonePreferencesRoute': 'Timezone Preferences Screen', // added

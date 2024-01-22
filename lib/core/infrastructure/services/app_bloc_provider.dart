@@ -8,7 +8,6 @@ import 'package:loopcare_frontend/features/chat/application/chat_watcher_bloc/ch
 import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/application/physical_activities_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/application/programs_in_progress_bloc.dart';
-import 'package:loopcare_frontend/features/diabetes/application/diabetes_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
@@ -65,9 +64,6 @@ class AppBlocProvider {
         ),
         BlocProvider<YouAndFoodBloc>(
           create: (_) => getIt<YouAndFoodBloc>(),
-        ),
-        BlocProvider<DiabetesBloc>(
-          create: (_) => getIt<DiabetesBloc>(),
         ),
         BlocProvider<NutritionInstructionsBloc>(
           create: (_) => getIt<NutritionInstructionsBloc>(),
