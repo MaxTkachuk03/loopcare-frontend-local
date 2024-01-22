@@ -20,7 +20,9 @@ import 'package:loopcare_frontend/features/physical_activities/application/physi
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/frequency_chips.dart';
 
 class PhysicalActivitiesFrequencyPage extends StatefulWidget {
-  const PhysicalActivitiesFrequencyPage({super.key});
+  final bool profileInvoke;
+
+  const PhysicalActivitiesFrequencyPage({super.key, this.profileInvoke = false});
 
   @override
   State<PhysicalActivitiesFrequencyPage> createState() => _PhysicalActivitiesFrequencyPageState();
@@ -45,12 +47,16 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
   }
 
   void _onUpdateHandler(PhysicalActivitiesPreferencesState state) {
-    final bloc = context.read<AuthenticationCubit>();
-    bloc.getAccount();
-    if (!bloc.state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {
-      context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
+    if (!widget.profileInvoke && state.data.needActivitiesType) {
+      context.router.pushNamed(AppRoutes.physicalActivitiesActivityType);
     } else {
-      context.router.pop();
+      final bloc = context.read<AuthenticationCubit>();
+      bloc.getAccount();
+      if (!bloc.state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {
+        context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
+      } else {
+        context.router.pop();
+      }
     }
   }
 
