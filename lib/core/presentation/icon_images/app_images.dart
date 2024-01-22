@@ -11,8 +11,7 @@ class AppImages {
 
   static const AssetImage sessionPlaceholder = AssetImage('$imagesFilePath/session_placeholder.png');
 
-  static SvgPicture exclamationMark =
-      SvgPicture.asset('$imagesFilePath/exclamation_mark.svg', fit: BoxFit.scaleDown);
+  static SvgPicture exclamationMark = SvgPicture.asset('$imagesFilePath/exclamation_mark.svg', fit: BoxFit.scaleDown);
 
   static const AssetImage intro = AssetImage('$imagesFilePath/new_intro.png');
 
@@ -30,11 +29,9 @@ class AppImages {
 
   static SvgPicture oepsSmall = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 60, height: 60);
 
-  static SvgPicture noConnectionBig =
-      SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 120, height: 120);
+  static SvgPicture noConnectionBig = SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 120, height: 120);
 
-  static SvgPicture noConnectionSmall =
-      SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 60, height: 60);
+  static SvgPicture noConnectionSmall = SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 60, height: 60);
 
   static SvgPicture calorieDensityFoodA = SvgPicture.asset('$imagesFilePath/calorie_dencity_food_a.svg');
 

@@ -525,8 +525,6 @@ class LocalizedTexts {
   static const String appStore = "appStore";
   static const String googleMarket = "googleMarket";
 
-
-
   // Quizzes
   static const String quiz = "quiz";
   static const String letsGo = "letsGo";

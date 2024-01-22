@@ -70,6 +70,9 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     Emitter<SubscriptionState> emit,
   ) async {
     emit(
+      const SubscriptionState.initial(SubscriptionStateData()),
+    );
+    emit(
       SubscriptionState.loading(state.data.copyWith(isLoading: true)),
     );
     isValidatePastIOSPurchase = true;

@@ -71,8 +71,7 @@ class AppIcons {
 
   static SvgPicture emojiWorried = SvgPicture.asset('$iconsFilePath/worried.svg', width: 30, height: 30);
 
-  static SvgPicture emojiEmbarrassed =
-      SvgPicture.asset('$iconsFilePath/embarrassed.svg', width: 30, height: 30);
+  static SvgPicture emojiEmbarrassed = SvgPicture.asset('$iconsFilePath/embarrassed.svg', width: 30, height: 30);
 
   static SvgPicture emojiBored = SvgPicture.asset('$iconsFilePath/bored.svg', width: 30, height: 30);
 
@@ -94,8 +93,7 @@ class AppIcons {
 
   static SvgPicture emojiContent = SvgPicture.asset('$iconsFilePath/content.svg', width: 30, height: 30);
 
-  static SvgPicture emojiOverwhelmed =
-      SvgPicture.asset('$iconsFilePath/overwhelmed.svg', width: 30, height: 30);
+  static SvgPicture emojiOverwhelmed = SvgPicture.asset('$iconsFilePath/overwhelmed.svg', width: 30, height: 30);
 
   static SvgPicture emojiHungry = SvgPicture.asset('$iconsFilePath/hungry.svg', width: 30, height: 30);
 
@@ -108,8 +106,7 @@ class AppIcons {
 
   static SvgPicture sos = SvgPicture.asset('$iconsFilePath/sos.svg');
 
-  static SvgPicture sessionUserDefaultAvatar =
-      SvgPicture.asset('$iconsFilePath/session_user_default_avatar.svg');
+  static SvgPicture sessionUserDefaultAvatar = SvgPicture.asset('$iconsFilePath/session_user_default_avatar.svg');
 
   static SvgPicture copy = SvgPicture.asset('$iconsFilePath/new_copy.svg', width: 24, height: 24);
 
@@ -136,8 +133,7 @@ class AppIcons {
 
   static SvgPicture dashboardChatActive = SvgPicture.asset('$iconsFilePath/dashboard_chat.svg');
 
-  static SvgPicture holderAvatar =
-      SvgPicture.asset('$iconsFilePath/holder_avatar.svg', width: 30.0, height: 30.0);
+  static SvgPicture holderAvatar = SvgPicture.asset('$iconsFilePath/holder_avatar.svg', width: 30.0, height: 30.0);
 
   static SvgPicture fruit = SvgPicture.asset('$iconsFilePath/fruit.svg', width: 24, height: 24);
   static SvgPicture restaurant = SvgPicture.asset('$iconsFilePath/restaurant.svg', width: 24, height: 24);
@@ -190,8 +186,7 @@ class AppIcons {
 
   static SvgPicture yesScore = SvgPicture.asset('$iconsFilePath/yes_score.svg', width: 22, height: 22);
   static SvgPicture noScore = SvgPicture.asset('$iconsFilePath/no_score.svg', width: 22, height: 22);
-  static SvgPicture yesScoreFilled =
-      SvgPicture.asset('$iconsFilePath/yes_score_filled.svg', width: 22, height: 22);
+  static SvgPicture yesScoreFilled = SvgPicture.asset('$iconsFilePath/yes_score_filled.svg', width: 22, height: 22);
 
   static const AssetImage subscriptionBottomBg = AssetImage('$iconsFilePath/subscription_bottom_bg.png');
   static SvgPicture bottomFrame = SvgPicture.asset('$iconsFilePath/bottom_frame.svg',
