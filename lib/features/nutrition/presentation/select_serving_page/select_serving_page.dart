@@ -209,7 +209,8 @@ class _SelectServingPageState extends State<SelectServingPage> {
         ? LocalizedTexts.removeFromFavorites.translation
         : LocalizedTexts.addAsFavourite.translation;
 
-    final subTitle = '${widget.foodItemName} serving: ${state.selectedServingItem?.servingLabel}';
+    final subTitle = widget.foodItemName;
+    final serving = state.selectedServingItem?.servingLabel;
 
     context.read<FoodItemServingsBloc>().add(FoodItemServingsEvent.setMealCategoryFilters(
           state.filtersForSelectedServing,
@@ -219,6 +220,7 @@ class _SelectServingPageState extends State<SelectServingPage> {
       context: context,
       title: title,
       subtitle: subTitle,
+      serving: serving,
       onConfirmed: _onAddAsFavouriteConfirmedPressed,
       listWidget: MealCategoryFiltersList(
         onFilterPressed: _onFavouriteFilterPressed,
