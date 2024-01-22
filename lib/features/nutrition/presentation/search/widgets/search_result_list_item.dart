@@ -1,5 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -18,6 +19,9 @@ class SearchResultListItem extends StatelessWidget {
     this.showLeading = true,
   });
 
+  String get _subTitle =>
+      '${item.brandName != null ? '${item.brandName} | ' : ''}${item.servingDescription != null ? '${item.servingDescription} | ' : ''}${item.calories != null ? '${item.calories} ${LocalizedTexts.kcal.tr()}' : ''}';
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -25,46 +29,35 @@ class SearchResultListItem extends StatelessWidget {
         onTap: () => onTap(item),
         child: Ink(
           color: AppColors.greenLightest,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 25),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (showLeading)
-                            Padding(
-                              padding: const EdgeInsets.only(left: 9, right: 15),
-                              child: SizedBox(
-                                width: 24,
-                                height: 24,
-                                child: ImageIcon(
-                                  item.type.icon,
-                                  color: AppColors.blueDarker,
-                                ),
-                              ),
-                            ),
-                          Expanded(
-                            child: CustomText.w600(
-                              item.name,
-                              style: context.textTheme.titleSmall,
-                            ),
-                          ),
-                          const ImageIcon(
-                            AppIcons.arrow,
-                            color: AppColors.blueDarker,
-                          ),
-                        ],
-                      ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 7.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (showLeading)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: ImageIcon(
+                      item.type.icon,
+                      color: AppColors.blueDarker,
                     ),
-                  ],
+                  ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomText.w600(item.name, style: context.textTheme.titleSmall),
+                      CustomText.w400(
+                        _subTitle,
+                        style: context.textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const Divider(color: AppColors.blueLighter, height: 1, thickness: 1),
-            ],
+                const Icon(Icons.arrow_forward_ios, color: AppColors.blueDarker, size: 16),
+              ],
+            ),
           ),
         ),
       ),
