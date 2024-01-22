@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/dto/updated_access_token_response.dart';
@@ -7,6 +10,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 
 class AppLifeCycleStateListener extends StatefulWidget {
   final Widget child;
@@ -63,6 +67,9 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
   _onResume() {
     _refreshTokenState();
     _syncChatState();
+    if (Platform.isIOS) {
+      context.read<SubscriptionBloc>().add(const SubscriptionEvent.restorePurchased());
+    }
   }
 
   @override

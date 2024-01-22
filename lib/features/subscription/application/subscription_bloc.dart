@@ -101,6 +101,9 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
           ),
         );
       }
+      emit(
+        SubscriptionState.loading(state.data.copyWith(isLoading: false)),
+      );
     } catch (e) {
       emit(
         SubscriptionState.error(
@@ -114,6 +117,9 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   }
 
   Future<void> _handlePurchase(PurchaseDetails purchaseDetails) async {
+    emit(
+      SubscriptionState.loading(state.data.copyWith(isLoading: true)),
+    );
     try {
       if (purchaseDetails.pendingCompletePurchase) {
         await inAppPurchaseService.instance.completePurchase(purchaseDetails);
@@ -126,20 +132,27 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
 
   Future<void> _verifyPurchasedOrRestore(PurchaseDetails purchaseDetails) async {
     final response = await _apiPurchaseOrRestore(purchaseDetails);
-    response.fold((error) {
-      add(SubscriptionEvent.errorVerifyPurchase(error));
-    }, (r) async {
-      await inAppPurchaseService.instance.completePurchase(purchaseDetails);
-      final accessTokenUpdated = await authTokenManager.updateAccessToken();
-      if (accessTokenUpdated) {
-        add(SubscriptionEvent.purchasedSubscription(PurchasedProduct(
-          purchaseDetails: purchaseDetails,
-          memberSince: SubscriptionDateUtils.getTransactionDate(r.purchasedAt),
-        )));
-      } else {
-        add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(generalMessage)));
-      }
-    });
+    response.fold(
+      (error) {
+        add(SubscriptionEvent.errorVerifyPurchase(error));
+      },
+      (r) async {
+        await inAppPurchaseService.instance.completePurchase(purchaseDetails);
+        final accessTokenUpdated = await authTokenManager.updateAccessToken();
+        if (accessTokenUpdated) {
+          add(
+            SubscriptionEvent.purchasedSubscription(
+              PurchasedProduct(
+                purchaseDetails: purchaseDetails,
+                memberSince: SubscriptionDateUtils.getTransactionDate(r.purchasedAt),
+              ),
+            ),
+          );
+        } else {
+          add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(generalMessage)));
+        }
+      },
+    );
   }
 
   Future<Either<RequestError, Subscription>> _apiPurchaseOrRestore(PurchaseDetails purchaseDetails) async {
