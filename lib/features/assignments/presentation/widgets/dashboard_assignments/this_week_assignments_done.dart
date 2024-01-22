@@ -23,7 +23,7 @@ class ThisWeekAssignmentsDone extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomText.w600(
+        CustomText.bitter600(
           LocalizedTexts.doneToday.translation.capitalize(),
           style: context.textTheme.bodyLarge,
         ),
