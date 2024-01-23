@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,9 +12,10 @@ import 'package:loopcare_frontend/features/nutrition/application/search/search_b
 
 class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
   final SearchMode? mode;
+  final TextEditingController searchController;
   final void Function(String? tabName)? onTabChanged;
 
-  const SearchAppBar({super.key, this.mode, this.onTabChanged});
+  const SearchAppBar({super.key, this.mode, this.onTabChanged, required this.searchController});
 
   @override
   State<SearchAppBar> createState() => _SearchAppBarState();
@@ -26,7 +26,6 @@ class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
 
 class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMixin {
   String? searchMode = '';
-  final TextEditingController _searchTextController = TextEditingController();
   late TabController _tabController;
   late List<String> tabs;
   Timer? _debounce;
@@ -45,9 +44,17 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
           SearchMode.values.where((e) => e.label != SearchMode.favorite.label).map((e) => e.label).toList();
     }
 
-    _tabController = TabController(length: tabs.length, vsync: this);
+    _tabController = TabController(length: tabs.length, vsync: this)..addListener(_tabsChangeListener);
 
-    _tabController.addListener(_tabsChangeListener);
+    if (mode == null) searchMode = searchType.searchModeValue;
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        if (widget.onTabChanged != null) {
+          widget.onTabChanged!(searchMode);
+        }
+      },
+    );
   }
 
   @override
@@ -56,7 +63,6 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
 
     _tabController.removeListener(_tabsChangeListener);
     _tabController.dispose();
-    _searchTextController.dispose();
     _debounce?.cancel();
   }
 
@@ -72,7 +78,7 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         backgroundColor: AppColors.greenRegular,
         title: CustomTextField.search(
-          controller: _searchTextController,
+          controller: widget.searchController,
           onCleared: _onCleared,
           onChanged: _onTextChange.withDebounce(const Duration(milliseconds: 500)),
         ),
@@ -104,7 +110,7 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
 
       context.read<SearchBloc>().add(
             SearchEvent.search(
-              _searchTextController.text,
+              widget.searchController.text,
               mode: searchMode,
               filteredMode: widget.mode?.searchModeValue,
             ),

@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/core/domain/recent_search_user/recent_search_u
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/local_storage.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 
-class SharedStorageService  {
+class SharedStorageService {
   late LocalStorage _prefs;
   final maxRecentSearchListSize = 10;
 
@@ -30,7 +30,6 @@ class SharedStorageService  {
 
   Future<bool> remove(String key) => _prefs.remove(key);
 
-
   set recentSearches(RecentSearchUserList list) {
     _prefs.setValue<String>('recent_search', json.encode(list));
   }
@@ -49,7 +48,7 @@ class SharedStorageService  {
     final list = <String>[];
     if (hasRecentSearchUser(userId)) {
       final searchUser = recentSearches.users.firstWhere((entity) => entity.id == userId);
-      if (type == null || type == SearchMode.all) {
+      if (type == null) {
         for (var e in searchUser.data.list) {
           list.add(e.query);
         }

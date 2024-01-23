@@ -82,7 +82,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     var eventLimit = limit ?? searchLimit;
     var searchMode = <String>[];
 
-    if (mode != null && mode.isNotEmpty && mode != 'all') {
+    if (mode != null && mode.isNotEmpty) {
       searchMode = <String>[mode];
     }
     if (filteredMode != null) {
