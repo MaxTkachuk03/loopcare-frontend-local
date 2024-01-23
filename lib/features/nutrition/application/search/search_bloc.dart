@@ -12,7 +12,6 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:dartz/dartz.dart' as dartz;
 
 import 'dto/search_response.dart';
@@ -40,11 +39,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     this._authenticationCubit,
     this._sharedStorageService,
   ) : super(const SearchState.initial(SearchData())) {
-    on<Search>(
-      _onSearch,
-      transformer: (events, mapper) =>
-          events.distinct().debounceTime(const Duration(milliseconds: 300)).switchMap(mapper),
-    );
+    on<Search>(_onSearch);
     on<PaginatedSearch>(
       _onPaginatedSearch,
       transformer: droppable(),
