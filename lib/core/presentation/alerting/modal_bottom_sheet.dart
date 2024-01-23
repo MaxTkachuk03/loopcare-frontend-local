@@ -775,9 +775,7 @@ class ModalBottomSheet {
                   const SizedBox(height: 24.0),
                   const Divider(height: 2, thickness: 2, color: AppColors.bgGreen),
                   listWidget,
-                  const SizedBox(
-                    height: 26.0,
-                  ),
+                  const SizedBox(height: 26.0),
                 ],
               ),
               CustomElevatedButton.blueFullWidth(
