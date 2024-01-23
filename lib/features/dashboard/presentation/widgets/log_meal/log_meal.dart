@@ -150,7 +150,6 @@ class LogMeal extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 8.0),
                             LoggedList(
                               categoryList: MealCategory.values
                                   .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
