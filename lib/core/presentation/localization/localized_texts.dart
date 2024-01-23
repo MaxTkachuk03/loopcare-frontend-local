@@ -762,6 +762,7 @@ class LocalizedTexts {
   static const String passwordValidationRule1 = 'passwordValidationRule1';
   static const String passwordValidationRule2 = 'passwordValidationRule2';
   static const String passwordValidationRule3 = 'passwordValidationRule3';
+  static const String passwordValidationRule4 = 'passwordValidationRule4';
 
   // Email screen
   static const String emailTitle = 'emailTitle';
