@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/protein_degree_scale_values.dart';
 import 'package:loopcare_frontend/core/presentation/calorie_density_scale/custom_calorie_density_scale.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -48,6 +49,9 @@ class CalorieNutritionBlock extends StatelessWidget {
             if (state.data.proteinDegreeValues.isEmpty || currentProteinDegreeItem == null) {
               return const SizedBox();
             }
+            final proteinDegreeValue =
+                proteinDegree == null || proteinDegree == 0 ? '-' : '${proteinDegree?.round()}%';
+
             return Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,7 +67,7 @@ class CalorieNutritionBlock extends StatelessWidget {
                     const SizedBox(height: 4.0),
                     CustomCalorieDensityScale(
                       density: calorieDensity,
-                      label: calorieDensity?.toStringAsFixed(2) ?? '',
+                      label: calorieDensity?.toStringAsFixed(1) ?? '-',
                       layoutSize: CustomCalorieDensityScaleLayoutSize.small,
                     ),
                     const SizedBox(height: 4.0),
@@ -85,7 +89,8 @@ class CalorieNutritionBlock extends StatelessWidget {
                     const SizedBox(height: 4.0),
                     CustomCalorieDensityScale(
                       density: proteinDegree,
-                      label: proteinDegree?.toStringAsFixed(2) ?? '',
+                      label: proteinDegreeValue,
+                      color: proteinDegreeScaleValuesColorForRange(proteinDegree),
                       layoutSize: CustomCalorieDensityScaleLayoutSize.small,
                     ),
                     const SizedBox(height: 4.0),
