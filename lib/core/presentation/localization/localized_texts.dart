@@ -143,6 +143,7 @@ class LocalizedTexts {
   static const String searchHint = 'searchHint';
   static const String searchFilterAll = 'searchFilterAll';
   static const String searchFilterProducts = 'searchFilterProducts';
+  static const String favorite = 'favorite';
   static const String searchFilterRecipes = 'searchFilterRecipes';
   static const String searchFilterMy = 'searchFilterMy';
   static const String searchEmptyResultTitle = 'searchEmptyResultTitle';

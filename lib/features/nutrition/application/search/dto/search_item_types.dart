@@ -38,7 +38,6 @@ extension SearchItemTypesX on SearchItemTypes {
     }
   }
 
-
   SearchMode get searchModeValue {
     switch (this) {
       case SearchItemTypes.food:
@@ -47,10 +46,10 @@ extension SearchItemTypesX on SearchItemTypes {
         return SearchMode.dish;
       case SearchItemTypes.recipe:
         return SearchMode.recipe;
-       case SearchItemTypes.favorite:
+      case SearchItemTypes.favorite:
         return SearchMode.favorite;
       default:
-        return SearchMode.all;
+        return SearchMode.recipe;
     }
   }
 }
