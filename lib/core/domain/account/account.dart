@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
+import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/interpretation_type.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
@@ -22,6 +23,7 @@ abstract class Account implements _$Account {
     required String? country,
     required SexType gender,
     required String bioGender,
+    required Subscription subscription,
     @Default(null) UserGroupingState? groupingState,
     @Default(null) int? groupId,
     @Default(null) DateTime? groupingStartedAt,
@@ -45,7 +47,8 @@ abstract class Account implements _$Account {
   bool get isMixedGender => gender != SexType.female && gender != SexType.male;
 
   int get trainingFrequency {
-    final RegExpMatch? match = RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
+    final RegExpMatch? match =
+        RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
 
     return match != null ? int.parse(match[0] ?? '0') : 0;
   }
