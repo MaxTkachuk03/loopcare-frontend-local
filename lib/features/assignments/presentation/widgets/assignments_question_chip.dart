@@ -3,7 +3,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
-class QuizzesQuestionChip extends StatelessWidget {
+class AssignmentsQuestionChip extends StatelessWidget {
   final String label;
   final bool selected;
   final void Function(String value) onSelected;
@@ -11,7 +11,7 @@ class QuizzesQuestionChip extends StatelessWidget {
   final bool? active;
   final bool? quiz;
 
-  const QuizzesQuestionChip({
+  const AssignmentsQuestionChip({
     super.key,
     required this.label,
     required this.selected,
@@ -36,6 +36,7 @@ class QuizzesQuestionChip extends StatelessWidget {
   }
 
   _getBorderColor() {
+    if (selected) return AppColors.greenRegular;
     final c = correct;
 
     if (c == null) return AppColors.blueRegular;
@@ -52,7 +53,7 @@ class QuizzesQuestionChip extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 14.0),
         decoration: BoxDecoration(
-          color: AppColors.transparent,
+          color: selected ? AppColors.greenRegular : AppColors.transparent,
           borderRadius: const BorderRadius.all(Radius.circular(25.0)),
           border: Border.all(width: 2, color: _getBorderColor()),
         ),
