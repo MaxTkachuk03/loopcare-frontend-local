@@ -25,46 +25,37 @@ class FavoriteListItem extends StatelessWidget {
         final isSelected =
             state.mapOrNull(selectFood: (state) => state.selectedFavoritesItems.contains(foodItem)) ?? false;
 
-        return Material(
-          child: Row(
+        return ListTile(
+          contentPadding: EdgeInsets.zero,
+          onTap: () => _onChanged(!isSelected, foodItem, context),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              CustomCheckbox.blue(
+                value: isSelected,
+                onChanged: (bool? value) => _onChanged(value, foodItem, context),
+              ),
+              const SizedBox(width: 14.0),
               Expanded(
-                child: InkWell(
-                  onTap: () => _onChanged(!isSelected, foodItem, context),
-                  child: Row(
-                    children: [
-                      CustomCheckbox.blue(
-                        value: isSelected,
-                        onChanged: (bool? value) => _onChanged(value, foodItem, context),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AutoSizeText(
+                      foodItem.foodName,
+                      maxLines: 2,
+                      style: context.textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blueDarker,
                       ),
-                      const SizedBox(width: 14.0),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              AutoSizeText(
-                                foodItem.foodName,
-                                maxLines: 2,
-                                style: context.textTheme.bodySmall?.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.blueDarker,
-                                ),
-                              ),
-                              AutoSizeText(
-                                '${foodItem.brandName} | ${foodItem.serving.servingDescription}',
-                                maxLines: 1,
-                                style: context.textTheme.bodySmall?.copyWith(
-                                  color: AppColors.blueDarker,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                    AutoSizeText(
+                      '${foodItem.brandName} | ${foodItem.serving.servingDescription}',
+                      maxLines: 1,
+                      style: context.textTheme.bodySmall?.copyWith(
+                        color: AppColors.greyLight,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               if (!isSelected)
@@ -72,7 +63,7 @@ class FavoriteListItem extends StatelessWidget {
                   onPressed: isSelected ? null : () => _onTap(context),
                   icon: const ImageIcon(
                     AppIcons.arrow,
-                    color: AppColors.blueDarker,
+                    color: AppColors.greyLight,
                   ),
                 ),
             ],
