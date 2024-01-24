@@ -70,6 +70,7 @@ class PhysicalProgramsPage extends StatelessWidget {
                               borderColor: AppColors.yellowRegular,
                               padding: const EdgeInsets.all(4.0),
                               size: const ProgramCardSize.small(),
+                              onlyView: false,
                             ),
                             const SizedBox(height: 16.0),
                             if (state.data.getAlternativePrograms.isNotEmpty)

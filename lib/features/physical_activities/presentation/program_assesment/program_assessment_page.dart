@@ -80,7 +80,7 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
                       children: [
                         const SizedBox(height: 20.0),
                         if (state.data.currentProgram != null)
-                          ProgramCard(
+                          ProgramCard.onlyView(
                             program: state.data.currentProgram!,
                             bgColor: AppColors.white,
                             borderColor: AppColors.yellowRegular,
