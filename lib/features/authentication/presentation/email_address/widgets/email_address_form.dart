@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
+import 'package:loopcare_frontend/features/authentication/domain/registration_code/registration_code.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/application/physical_fitness_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -32,18 +33,22 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
   final _formKey = GlobalKey<FormState>();
 
   String? emailErrorText;
+  String? codeErrorText;
   bool _isDisabled = true;
 
   bool termsAndConditionsAreChecked = false;
   bool privatePolicyAccepted = false;
 
   final TextEditingController _emailController = TextEditingController();
+  //TODO remove for MMP RELEASE
+  final TextEditingController _codeController = TextEditingController();
 
   @override
   void dispose() {
-    super.dispose();
-
     _emailController.dispose();
+    //TODO remove for MMP RELEASE
+    _codeController.dispose();
+    super.dispose();
   }
 
   @override
@@ -67,6 +72,13 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
               controller: _emailController,
               errorText: emailErrorText,
               onChanged: _onEmailChanged,
+            ),
+            //TODO remove for MMP RELEASE
+            const SizedBox(height: 8.0),
+            CustomTextField.registrationCode(
+              controller: _codeController,
+              errorText: codeErrorText,
+              onChanged: _onCodeChanged,
             ),
             const SizedBox(height: 8.0),
             CheckboxFormField(
@@ -125,6 +137,8 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
 
   _onChangedForm() {
     final isValidForm = Email.create(_emailController.text).isRight() &&
+        //TODO remove for MMP RELEASE
+        RegistrationCode.create(_codeController.text).isRight() &&
         termsAndConditionsAreChecked &&
         privatePolicyAccepted;
 
@@ -136,9 +150,10 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
   void _onRegisterPressed(BuildContext context) {
     setState(() {
       emailErrorText = null;
+      //TODO remove for MMP RELEASE
+      codeErrorText = null;
     });
-    final registrationPhysicalFitnessData =
-        context.read<PhysicalFitnessBloc>().state.registrationPhysicalFitnessData;
+    final registrationPhysicalFitnessData = context.read<PhysicalFitnessBloc>().state.registrationPhysicalFitnessData;
 
     final mentalHealthTest = context.read<MentalHealthBloc>().state.data.answers;
 
@@ -187,6 +202,15 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
 
     setState(() {
       emailErrorText = null;
+    });
+  }
+
+  //TODO remove for MMP RELEASE
+  void _onCodeChanged(String value) {
+    if (codeErrorText == null) return;
+
+    setState(() {
+      codeErrorText = null;
     });
   }
 

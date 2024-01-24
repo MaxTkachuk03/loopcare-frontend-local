@@ -28,6 +28,8 @@ class LocalizedTexts {
   static const String enterYourHeight = 'enterYourHeight';
   static const String emailOrPasswordAreIncorrect = 'emailOrPasswordAreIncorrect';
   static const String forgotEmailSuccessMessage = 'forgotEmailSuccessMessage';
+  static const String pleaseEnterRegistrationCode = 'pleaseEnterRegistrationCode';
+  static const String pleaseEnterValidRegistrationCode = 'pleaseEnterValidRegistrationCode';
 
   // Food and You
   static const String youAndFoodItemThree = 'youAndFoodItemThree';
@@ -364,6 +366,7 @@ class LocalizedTexts {
   static const String genderPreferencesQuestion = 'genderPreferencesQuestion';
   static const String nicknamePreferencesQuestion = 'nicknamePreferencesQuestion';
   static const String nicknamePlaceholder = 'nicknamePlaceholder';
+  static const String registrationCodePlaceholder = 'registrationCodePlaceholder';
   static const String at = 'at';
   static const String joinAGroup = 'joinAGroup';
   static const String unavailableGroupPrefsLabel = 'unavailableGroupPrefsLabel';
