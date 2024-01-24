@@ -807,6 +807,8 @@ class LocalizedTexts {
 
   // Group session
   static const String groupSession = 'groupSession';
+  static const String supportGroupPainSubscriptionNotGrouped = 'supportGroupPainSubscriptionNotGrouped';
+  static const String supportGroupTrialSubscriptionNotGrouped = 'supportGroupTrialSubscriptionNotGrouped';
 }
 
 extension StringX on String {

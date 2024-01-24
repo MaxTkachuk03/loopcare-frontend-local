@@ -672,5 +672,7 @@
   "messageRemoved": "This message was deleted",
   "membersEmpty": "Group chat does not have members ",
   "messageLengthRestriction": "A text message may contain up to 1024 characters. Please, make your message shorter",
-  "yourUser": "You"
+  "yourUser": "You",
+  "supportGroupPainSubscriptionNotGrouped": "You have a paid subscription, but are currently not enrolled in a group",
+  "supportGroupTrialSubscriptionNotGrouped": "You are currently in your free trial period. This feature will be available with a paid subscription. Once your free trial is over, you can enrol here or in your profile"
 }
