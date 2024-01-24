@@ -161,7 +161,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
           ],
         ),
         selected: selected,
-        onSelected: (_) => onSelected?.call(value),
+        onSelected: onSelected == null ? null : (_) => onSelected?.call(value),
         selectedColor: selectedColor,
         disabledColor: AppColors.greyLight,
         side: ChipTheme.of(context).side?.copyWith(color: onSelected == null ? AppColors.greyLight : borderColor),
