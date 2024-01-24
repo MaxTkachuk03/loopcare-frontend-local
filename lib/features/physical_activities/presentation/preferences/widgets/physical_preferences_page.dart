@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -91,7 +92,7 @@ class _PhysicalPreferencesPageState extends State<PhysicalPreferencesPage> {
   }
 
   void _onPhysicalActivitiesFrequencyHandler(BuildContext context) =>
-      context.router.pushNamed(AppRoutes.physicalActivitiesFrequency);
+      context.router.push(PhysicalActivitiesFrequencyRoute(profileInvoke: true));
 
   void _onPhysicalActivitiesHandler(BuildContext context, PhysicalActivitiesPreferencesState state) {
     if (state.data.needActivitiesType) {

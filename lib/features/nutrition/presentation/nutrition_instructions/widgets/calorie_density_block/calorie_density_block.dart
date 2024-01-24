@@ -31,7 +31,7 @@ class CalorieDensityBlock extends StatelessWidget {
               if (state.data.calorieDensityValues.isEmpty || currentCalorieDensityItem == null) {
                 return const SizedBox();
               }
-              final calorieDegreeValue = value == null || value == 0 ? '-' : value!.toStringAsFixed(2);
+              final calorieDegreeValue = value == null || value == 0 ? '-' : value!.toStringAsFixed(1);
               return GestureDetector(
                 onTap: () => _onItemPressed(context),
                 child: Column(
@@ -44,12 +44,13 @@ class CalorieDensityBlock extends StatelessWidget {
                     ),
                     const SizedBox(height: 8.0),
                     CustomCalorieDensityScale(
-                        density: value,
-                        label: calorieDegreeValue,
-                        color: value == null || value == 0
-                            ? AppColors.white
-                            : calorieDensityScaleValuesColorForRange(value),
-                        layoutSize: CustomCalorieDensityScaleLayoutSize.small),
+                      density: value,
+                      label: calorieDegreeValue,
+                      color: value == null || value == 0
+                          ? AppColors.white
+                          : calorieDensityScaleValuesColorForRange(value),
+                      layoutSize: CustomCalorieDensityScaleLayoutSize.small,
+                    ),
                     const SizedBox(height: 8.0),
                     if (value != null && value! > 0)
                       CustomText.w600(

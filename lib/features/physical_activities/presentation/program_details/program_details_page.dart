@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/widgets/program_card.dart';
@@ -35,79 +36,75 @@ class ProgramDetailsPage extends StatelessWidget {
           leading: CustomFilledIconButton.leadingYellowLighter(),
         ),
         body: SafeArea(
-          child: CustomScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            slivers: [
-              SliverToBoxAdapter(
-                child: MainContainer(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 28.0,
-                          ),
-                          CustomText.bitter600(
-                            LocalizedTexts.selectYourProgram.tr(),
-                            style: context.textTheme.bodyMedium,
-                          ),
-                          const SizedBox(
-                            height: 20.0,
-                          ),
-                          ProgramCard(
-                            program: program,
-                            bgColor: AppColors.yellowRegular,
-                            borderColor: AppColors.yellowRegular,
-                            padding: const EdgeInsets.all(4.0),
-                            size: const ProgramCardSize.small(),
-                          ),
-                          const SizedBox(
-                            height: 20.0,
-                          ),
-                          CustomText(
-                            LocalizedTexts.countExercises.tr(
-                              namedArgs: {
-                                'count': '$exercisesLength',
-                              },
+          child: Column(
+            children: [
+              Expanded(
+                child: ScrollableContainer(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: MainContainer(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 28.0,
                             ),
-                            style: context.textTheme.bodySmall,
-                          ),
-                          const SizedBox(
-                            height: 20.0,
-                          ),
-                        ],
-                      ),
-                      Card(
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          side: const BorderSide(
-                            color: AppColors.yellowRegular,
-                            width: 2.0,
-                          ),
+                            CustomText.bitter600(
+                              LocalizedTexts.selectYourProgram.tr(),
+                              style: context.textTheme.bodyMedium,
+                            ),
+                            const SizedBox(
+                              height: 20.0,
+                            ),
+                            ProgramCard(
+                              program: program,
+                              bgColor: AppColors.yellowRegular,
+                              borderColor: AppColors.yellowRegular,
+                              padding: const EdgeInsets.all(4.0),
+                              size: const ProgramCardSize.small(),
+                            ),
+                            const SizedBox(height: 20.0),
+                            CustomText(
+                              LocalizedTexts.countExercises.tr(
+                                namedArgs: {
+                                  'count': '$exercisesLength',
+                                },
+                              ),
+                              style: context.textTheme.bodySmall,
+                            ),
+                            const SizedBox(height: 20.0),
+                          ],
                         ),
-                        color: AppColors.white,
-                        child: ListView.builder(
-                            padding: EdgeInsets.zero,
-                            itemCount: exercisesLength,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (BuildContext context, index) => ExerciseCard(
-                                  index: index,
-                                  exercise: program.exercises[index],
-                                )),
-                      ),
-                    ],
+                        Card(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            side: const BorderSide(
+                              color: AppColors.yellowRegular,
+                              width: 2.0,
+                            ),
+                          ),
+                          color: AppColors.white,
+                          child: ListView.builder(
+                              padding: EdgeInsets.zero,
+                              itemCount: exercisesLength,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (BuildContext context, index) => ExerciseCard(
+                                    index: index,
+                                    exercise: program.exercises[index],
+                                  )),
+                        ),
+                        const SizedBox(height: 8.0),
+                      ],
+                    ),
                   ),
                 ),
               ),
-              const SliverFillRemaining(
-                hasScrollBody: false,
-                child: ProgramFooterOverlay(),
-              ),
+              const ProgramFooterOverlay(),
             ],
           ),
         ),

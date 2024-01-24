@@ -38,6 +38,7 @@ class ProteinDegree extends StatelessWidget {
                         if (state.data.proteinDegreeValues.isEmpty || currentProteinDegreeItem == null) {
                           return const SizedBox();
                         }
+                        final proteinDegreeValue = value == null || value == 0 ? '-' : '${value?.round()}%';
 
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,7 +49,7 @@ class ProteinDegree extends StatelessWidget {
                                 children: [
                                   CustomCalorieDensityScale(
                                     density: value,
-                                    label: '${value?.toStringAsFixed(0) ?? ''}%',
+                                    label: proteinDegreeValue,
                                     color: proteinDegreeScaleValuesColorForRange(value),
                                   ),
                                   const SizedBox(height: 8.0),

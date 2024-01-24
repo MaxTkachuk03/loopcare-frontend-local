@@ -143,6 +143,7 @@ class LocalizedTexts {
   static const String searchHint = 'searchHint';
   static const String searchFilterAll = 'searchFilterAll';
   static const String searchFilterProducts = 'searchFilterProducts';
+  static const String favorite = 'favorite';
   static const String searchFilterRecipes = 'searchFilterRecipes';
   static const String searchFilterMy = 'searchFilterMy';
   static const String searchEmptyResultTitle = 'searchEmptyResultTitle';
@@ -793,6 +794,7 @@ class LocalizedTexts {
   static const String passwordValidationRule1 = 'passwordValidationRule1';
   static const String passwordValidationRule2 = 'passwordValidationRule2';
   static const String passwordValidationRule3 = 'passwordValidationRule3';
+  static const String passwordValidationRule4 = 'passwordValidationRule4';
 
   // Email screen
   static const String emailTitle = 'emailTitle';

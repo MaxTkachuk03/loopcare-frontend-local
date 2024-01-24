@@ -117,18 +117,19 @@ class _PasswordWithIndicatorState extends State<PasswordWithIndicator> {
         Column(
           children: [
             BulletListItem(
-              text:
-                  CustomText.w400(LocalizedTexts.passwordValidationRule1, style: context.textTheme.bodySmall),
+              text: CustomText.w400(LocalizedTexts.passwordValidationRule1, style: context.textTheme.bodySmall),
               bulletSize: 18,
             ),
             BulletListItem(
-              text:
-                  CustomText.w400(LocalizedTexts.passwordValidationRule2, style: context.textTheme.bodySmall),
+              text: CustomText.w400(LocalizedTexts.passwordValidationRule2, style: context.textTheme.bodySmall),
               bulletSize: 18,
             ),
             BulletListItem(
-              text:
-                  CustomText.w400(LocalizedTexts.passwordValidationRule3, style: context.textTheme.bodySmall),
+              text: CustomText.w400(LocalizedTexts.passwordValidationRule3, style: context.textTheme.bodySmall),
+              bulletSize: 18,
+            ),
+            BulletListItem(
+              text: CustomText.w400(LocalizedTexts.passwordValidationRule4, style: context.textTheme.bodySmall),
               bulletSize: 18,
             )
           ],

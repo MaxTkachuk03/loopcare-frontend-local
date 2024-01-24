@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
@@ -56,6 +57,10 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
   _startLessonQuestion(BuildContext context, int lessonId) {
     context.router.push(AssignmentsIntroRoute(lessonId: lessonId, fromDashboard: false));
+  }
+
+  _startFoodPreferences(BuildContext context) {
+    context.router.pushNamed(AppRoutes.foodPreferences);
   }
 
   bool get _isGroupSessionsDisabled => context.read<AuthenticationCubit>().state.disableGroupSessions;
@@ -153,7 +158,9 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                       child: BlocBuilder<EducationLessonBloc, EducationLessonState>(
                         builder: (BuildContext context, state) {
                           if (state.data.extraAction == ExtraActionTypes.unlockMeals) {
-                            return const UnlockFoodLoggingFeature();
+                            return UnlockFoodLoggingFeature(
+                              onBtnPressed: () => _startFoodPreferences(context),
+                            );
                           }
 
                           if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&

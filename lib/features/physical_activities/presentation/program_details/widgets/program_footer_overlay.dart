@@ -19,7 +19,7 @@ class ProgramFooterOverlay extends StatelessWidget {
         color: AppColors.yellowRegular,
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 20.0),
+        padding: const EdgeInsets.fromLTRB(20.0, 16.0, 20.0, 30.0),
         child: CustomElevatedButton.blueFullWidth(
           onPressed: () => _onGetStarted(context),
           label: LocalizedTexts.getStarted.translation,
