@@ -239,7 +239,7 @@ class CustomOutlinedButtonWithIcon extends StatelessWidget {
       onPressed: onPressed,
       icon: icon,
       style: styles,
-      label: Text(label).tr(),
+      label: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis).tr(),
     );
   }
 }

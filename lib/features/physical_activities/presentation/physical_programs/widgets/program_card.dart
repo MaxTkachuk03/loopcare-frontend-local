@@ -32,6 +32,7 @@ class ProgramCard extends StatelessWidget {
   final Color? bgColor;
   final Color? borderColor;
   final EdgeInsetsGeometry? padding;
+  final bool onlyView;
 
   const ProgramCard({
     super.key,
@@ -40,7 +41,24 @@ class ProgramCard extends StatelessWidget {
     this.bgColor,
     this.borderColor,
     this.padding,
+    this.onlyView = false,
   });
+
+  factory ProgramCard.onlyView({
+    required ProgramCardSize size,
+    required PhysicalProgram program,
+    Color? bgColor,
+    Color? borderColor,
+    EdgeInsetsGeometry? padding,
+  }) =>
+      ProgramCard(
+        size: size,
+        program: program,
+        bgColor: bgColor,
+        borderColor: borderColor,
+        padding: padding,
+        onlyView: true,
+      );
 
   double get _imageWidth => 200;
 
@@ -56,7 +74,7 @@ class ProgramCard extends StatelessWidget {
     final image = program.image;
 
     return InkWell(
-      onTap: () => _onTap(context),
+      onTap: onlyView ? null : () => _onTap(context),
       child: SizedBox(
         height: _cardHeight,
         child: Card(
