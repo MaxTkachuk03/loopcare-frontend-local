@@ -698,6 +698,7 @@
   "subscriptionAnnual": "Annual",
   "subscriptionMonthly": "Monthly",
   "subscriptionSubscribe": "Subscribe",
+  "subscriptionRedeem": "Redeem",
   "subscriptionPrice": "{C} {XX,XX} / month after 2 week trial",
   "subscription": "Subscription",
   "manageSubscription": "Manage subscription",
