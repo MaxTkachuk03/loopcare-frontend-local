@@ -97,9 +97,10 @@ class _MealPageState extends State<MealPage> {
 
     final date = state.getCurrentDate.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
         ? state.getCurrentDate.shortDate
-        : LocalizedTexts.today.tr();
+        : LocalizedTexts.today.tr().capitalize();
     return date;
   }
+
 // TODO: LOOPCARE-1798 Hide Meal planning block
   // String _mealDates(MealsState state, {bool needNewLine = false}) {
   //   final dates = state.currentMealDates;
@@ -287,6 +288,7 @@ class _MealPageState extends State<MealPage> {
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             NutritionValuesBlock(
                               numberOfPortions: mealsState.currentMeal?.serving.numberOfUnits.toInt() ?? 0,
@@ -311,51 +313,74 @@ class _MealPageState extends State<MealPage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      CustomOutlinedButton.blueSmall(
-                                        label: LocalizedTexts.saveToMyDishes,
-                                        onPressed: _onSaveToMyDishesHandler,
-                                      ),
-                                      const SizedBox(width: 10.0),
-                                      Expanded(
-                                        child: CustomOutlinedButton.blueSmall(
-                                          label: LocalizedTexts.clearMealList,
-                                          onPressed: () => _onDeleteMealPressed(context),
+                                  SizedBox(
+                                    height: 35,
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(right: 5.0),
+                                            child: CustomOutlinedButton.blue(
+                                              label: LocalizedTexts.saveToMyDishes,
+                                              onPressed: _onSaveToMyDishesHandler,
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(left: 5.0),
+                                            child: CustomOutlinedButton.blue(
+                                              label: LocalizedTexts.clearMealList,
+                                              onPressed: () => _onDeleteMealPressed(context),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   const SizedBox(height: 10.0),
-                                  if (mealsState.isPlanningMeals && currentDate.isTodayOrFuture)
-                                    BlocBuilder<RecipeBloc, RecipeState>(
-                                      builder: (BuildContext context, recipeState) {
-                                        return CustomOutlinedButton.blueSmall(
-                                          label: LocalizedTexts.recommendations,
-                                          onPressed: () => recipeState.data.recommendationRecipe.isEmpty
-                                              ? null
-                                              : _onRecommendationsPressed(context),
-                                        );
-                                      },
-                                    ),
+                                  //  if (mealsState.isPlanningMeals && currentDate.isTodayOrFuture)
+                                  BlocBuilder<RecipeBloc, RecipeState>(
+                                    builder: (BuildContext context, recipeState) {
+                                      return SizedBox(
+                                        height: 35,
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(right: 10.0),
+                                                child: CustomOutlinedButton.blue(
+                                                  label: LocalizedTexts.recommendations,
+                                                  onPressed: () => recipeState.data.recommendationRecipe.isEmpty
+                                                      ? null
+                                                      : _onRecommendationsPressed(context),
+                                                ),
+                                              ),
+                                            ),
+                                            const Expanded(child: SizedBox(height: 10.0)),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ],
                               ),
                             ),
                           ],
                         ),
-                        Column(
-                          children: [
-                            const SizedBox(height: 26.0),
-                            MainContainer(
-                              child: CustomElevatedButton.blueFullWidth(
+                        MainContainer(
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 26.0),
+                              CustomElevatedButton.blueFullWidth(
                                 onPressed: () => _onBackToDashboardPressed(context),
                                 //TODO confirm label text for back btn
                                 label: LocalizedTexts.backToTodayLogging,
                               ),
-                            ),
-                            const SizedBox(height: 20.0)
-                          ],
+                              const SizedBox(height: 20.0)
+                            ],
+                          ),
                         )
                       ],
                     );
