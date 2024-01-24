@@ -65,6 +65,7 @@ class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
                 loading: (_) => const Loader(),
                 orElse: () => const SizedBox.shrink(),
                 updated: (s) {
+                  final questions = s.data.questionsForLesson(widget.lessonId);
                   return MainContainer(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,7 +75,7 @@ class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
                             const SizedBox(height: 30.0),
                             SizedBox(
                               height: 365,
-                              child: NetworkImageWithCache(url: s.data.questions.first.visual ?? ''),
+                              child: NetworkImageWithCache(url: questions.first.visual ?? ''),
                             ),
                             const SizedBox(height: 30.0),
                           ],
@@ -88,12 +89,12 @@ class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomText.bitter600(
-                                  s.data.questions.isNotEmpty ? s.data.questions.first.title : '',
+                                  questions.isNotEmpty ? questions.first.title : '',
                                   style: context.textTheme.displayLarge,
                                 ),
                                 const SizedBox(height: 18.0),
                                 CustomText.w400(
-                                  s.data.questions.isNotEmpty ? s.data.questions.first.instruction : '',
+                                  questions.isNotEmpty ? questions.first.instruction : '',
                                   style: context.textTheme.bodyMedium,
                                 ),
                               ],

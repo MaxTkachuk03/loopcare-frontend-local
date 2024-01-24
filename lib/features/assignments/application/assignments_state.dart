@@ -28,7 +28,15 @@ class AssignmentsStateData with _$AssignmentsStateData {
         orElse: () => null,
       );
 
-  LessonQuestion questionForStep(int step) => questions.get(step);
+  List<LessonQuestion> questionsForLesson(int lessonId) {
+    return questions
+        .where(
+          (element) => element.lessonId == lessonId,
+        )
+        .toList();
+  }
+
+  LessonQuestion questionForStep(int lessonId, int step) => questionsForLesson(lessonId).get(step);
 
   List<LessonQuestion> pastQuestions(DateTime selectedDay) {
     var pastQuestions = questions
