@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
@@ -230,9 +231,7 @@ class _EditDishPageState extends State<EditDishPage> {
   }
 
   _deleteDishListener(BuildContext context, state) {
-    widget.fromRecommendation
-        ? context.router.pop()
-        : context.router.popUntilRouteWithName(SelectFoodRoute.name);
+    context.router.pop();
   }
 
   Future<bool> _onWillPop() {
@@ -241,12 +240,6 @@ class _EditDishPageState extends State<EditDishPage> {
     }
 
     return Future.value(true);
-  }
-
-  _unfocusAllTextFields() {
-    _dishNameFocusNode.unfocus();
-    _servingFocusNode.unfocus();
-    _portionsFocusNode.unfocus();
   }
 
   @override
@@ -264,8 +257,7 @@ class _EditDishPageState extends State<EditDishPage> {
             listenWhen: (previous, current) => previous is DishInfo && current is Deleted,
           )
         ],
-        child: GestureDetector(
-          onTap: _unfocusAllTextFields,
+        child: KeyboardContainerListener(
           child: CustomScaffold.greenLightest(
             appBar: CustomAppBar.green(
               title: '${LocalizedTexts.addToMyDishedAs.tr()}...',
@@ -319,7 +311,7 @@ class _EditDishPageState extends State<EditDishPage> {
                 child: BlocBuilder<EditDishBloc, EditDishState>(
                   builder: (BuildContext context, state) {
                     return state.maybeMap(
-                        loading: (_) => const Expanded(child: Loader()),
+                        loading: (_) => const Loader(),
                         orElse: () => const SizedBox.shrink(),
                         error: (errorState) {
                           final error = errorState.fetchError;
