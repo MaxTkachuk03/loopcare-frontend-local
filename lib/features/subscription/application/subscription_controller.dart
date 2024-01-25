@@ -1,9 +1,12 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/donain/purchasable_product.dart';
+import 'package:loopcare_frontend/features/subscription/utils/mapper_utils.dart';
 
 class SubscriptionController {
   final SubscriptionBloc bloc;
@@ -15,11 +18,26 @@ class SubscriptionController {
 
   SubscriptionController({required this.bloc});
 
+  List<ProductDetails> _getUniquePlans() {
+    if (data.plans.isEmpty) {
+      return [];
+    }
+
+    final map = data.plans.groupBy((plan) => plan.id);
+
+    final list = map.entries
+        .map((list) => list.value.reduce((curr, next) => curr.rawPrice < next.rawPrice ? curr : next))
+        .toList();
+    return list;
+  }
+
   void _setupPlansPrices() {
     if (data.plans.isEmpty) {
       return;
     }
-    for (var plan in data.plans) {
+    List<ProductDetails> list = Platform.isAndroid ? _getUniquePlans() : data.plans;
+
+    for (var plan in list) {
       products.add(PurchasableProduct(
         details: plan,
         offer: _getPricePerMonth(plan.rawPrice),

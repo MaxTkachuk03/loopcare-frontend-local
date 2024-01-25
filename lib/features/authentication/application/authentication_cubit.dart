@@ -164,7 +164,6 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
                   unlockedFeatures: r.unlockedFeatures,
                   physicalActivitiesPreferences: r.physicalActivitiesPreferences,
                   emailApproveDate: r.emailApproveDate,
-                  subscription: r.subscription,
                   mentalHealthTests: r.mentalHealthTests,
                   subscription: r.subscription,
                 ),

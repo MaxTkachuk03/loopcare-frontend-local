@@ -1,11 +1,11 @@
 name: loopcare_frontend
-version: 1.0.30+125
+version: 1.0.28+107
 publish_to: none
 description: Lean on me
 environment:
   sdk: '>=2.18.4 <4.0.0'
 
-dependencies: 
+dependencies:
   auto_route: 5.0.4
   auto_size_text: ^3.0.0
   badges: ^3.1.2
@@ -64,9 +64,9 @@ dependencies:
   url_launcher: ^6.2.1
   video_player: ^2.8.1
   wakelock: ^0.6.2
-  flutter: 
+  flutter:
     sdk: flutter
-  flutter_zoom_videosdk: 
+  flutter_zoom_videosdk:
     path: ./local_plugins/zoom_video_sdk_update
   bubble: ^1.2.1
   moment_dart: ^1.1.0
@@ -85,8 +85,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-flutter: 
-  assets: 
+flutter:
+  assets:
     - assets/
     - assets/icons/
     - assets/audio/
@@ -97,34 +97,24 @@ flutter:
     - .env.prod
     - .env.stag
   fonts:
-    - 
-      family: OpenSans
-      fonts: 
-        - 
-          asset: assets/fonts/OpenSans-Regular.ttf
-        - 
-          asset: assets/fonts/OpenSans-Italic.ttf
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/OpenSans-Regular.ttf
+        - asset: assets/fonts/OpenSans-Italic.ttf
           style: italic
-        - 
-          asset: assets/fonts/OpenSans-SemiBold.ttf
+        - asset: assets/fonts/OpenSans-SemiBold.ttf
           weight: 600
-        - 
-          asset: assets/fonts/OpenSans-SemiBoldItalic.ttf
+        - asset: assets/fonts/OpenSans-SemiBoldItalic.ttf
           style: italic
           weight: 600
-    - 
-      family: Bitter
-      fonts: 
-        - 
-          asset: assets/fonts/Bitter-Regular.ttf
-        - 
-          asset: assets/fonts/Bitter-Italic.ttf
+    - family: Bitter
+      fonts:
+        - asset: assets/fonts/Bitter-Regular.ttf
+        - asset: assets/fonts/Bitter-Italic.ttf
           style: italic
-        - 
-          asset: assets/fonts/Bitter-SemiBold.ttf
+        - asset: assets/fonts/Bitter-SemiBold.ttf
           weight: 600
-        - 
-          asset: assets/fonts/Bitter-SemiBoldItalic.ttf
+        - asset: assets/fonts/Bitter-SemiBoldItalic.ttf
           style: italic
           weight: 600
   uses-material-design: true

@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:loopcare_frontend/core/domain/account/subscription.dart';
 import 'package:loopcare_frontend/core/domain/food_preferences/food_preferences.dart';
 import 'package:loopcare_frontend/core/domain/grouping_preferences.dart';
 import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
@@ -39,7 +38,6 @@ class AccountResponse {
   final List<UnlockedFeatureType> unlockedFeatures;
   final MentalHealthTests? mentalHealthTests;
   final PhysicalActivitiesPreferences? physicalActivitiesPreferences;
-  final Subscription subscription;
 
   const AccountResponse({
     required this.id,

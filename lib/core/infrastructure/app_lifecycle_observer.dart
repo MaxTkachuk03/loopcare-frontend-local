@@ -63,9 +63,6 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
   _onResume() {
     _refreshTokenState();
     _syncChatState();
-    // if (Platform.isIOS) {
-    //   context.read<SubscriptionBloc>().add(const SubscriptionEvent.restorePurchased());
-    // }
   }
 
   @override
@@ -79,7 +76,6 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
     final request = await dioClient
         .handleProcess(dioOptions.post('/auth/accessToken', data: {'refreshToken': token}))
         .then(parseResponse(UpdatedAccessTokenResponse.fromJson));
-    debugPrint('devcpp onResume updateAccessToken: ${request.toString()}');
     request.fold(
       (error) {
         authTokenManager.removeRefreshToken();
@@ -100,7 +96,6 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
     final request = await dioClient
         .handleProcess(dioOptions.post('/auth/refreshToken', data: {'refreshToken': token}))
         .then(parseResponse(UpdatedRefreshTokenResponse.fromJson));
-    debugPrint('devcpp onResume updateRefreshToken: ${request.toString()}');
     request.fold(
       (error) {
         authTokenManager.removeRefreshToken();

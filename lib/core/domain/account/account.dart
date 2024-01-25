@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/core/domain/account/subscription.dart';
 import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
@@ -48,8 +47,7 @@ abstract class Account implements _$Account {
   bool get isMixedGender => gender != SexType.female && gender != SexType.male;
 
   int get trainingFrequency {
-    final RegExpMatch? match =
-        RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
+    final RegExpMatch? match = RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
 
     return match != null ? int.parse(match[0] ?? '0') : 0;
   }
