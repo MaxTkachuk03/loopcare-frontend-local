@@ -1,10 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/calorie_density_scale_values.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/calorie_density_color.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
@@ -38,9 +41,7 @@ class MealCard extends StatelessWidget {
           InkWell(
             onTap: mealId != null
                 ? () {
-                    context.read<MealsBloc>().add(
-                          MealsEvent.setMealId(mealId, title),
-                        );
+                    context.read<MealsBloc>().add(MealsEvent.setMealId(mealId, title));
                     context.router.pushNamed(AppRoutes.meal);
                   }
                 : null,
@@ -49,29 +50,20 @@ class MealCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Hexagon(
-                      width: 20,
-                      height: 20,
-                      borderRadius: 10,
-                      innerWidget: Container(
-                        color: calorieDensity != null
-                            ? getCalorieDensityColor(calorieDensity)
-                            : AppColors.greyMid,
-                      ),
+                    CircleAvatar(
+                      radius: 5,
+                      backgroundColor: calorieDensityScaleValuesColorForRange(calorieDensity),
                     ),
                     const SizedBox(width: 10.0),
-                    Text(
-                      title.toUpperCase(),
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: AppColors.greyLabel,
-                            fontWeight: FontWeight.w600,
-                          ),
+                    CustomText.bitter600(
+                      title.capitalize(),
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ],
                 ),
                 const ImageIcon(
                   AppIcons.arrow,
-                  color: AppColors.greyLabel,
+                  color: AppColors.blueDarker,
                 )
               ],
             ),
@@ -82,7 +74,7 @@ class MealCard extends StatelessWidget {
               children: [
                 const SizedBox(height: 8.0),
                 Padding(
-                  padding: const EdgeInsets.only(left: 30.0),
+                  padding: const EdgeInsets.only(left: 20.0),
                   child: GroupedMealList(
                     mealItems: mealItems,
                   ),

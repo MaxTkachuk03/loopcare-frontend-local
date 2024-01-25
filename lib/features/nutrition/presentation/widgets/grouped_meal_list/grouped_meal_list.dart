@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/meal_item_type/meal_item_type.dart';
@@ -24,29 +25,26 @@ class GroupedMealList extends StatelessWidget {
       itemBuilder: (BuildContext context, index) {
         final item = mealItems[index];
         final type = item.type;
-        final prevType = index > 0 ? mealItems[index - 1].type : null;
+        // final prevType = index > 0 ? mealItems[index - 1].type : null;
         final recipeNotation = type == MealItemType.recipe ? ' (${LocalizedTexts.recipe.translation})' : '';
 
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (type != prevType)
-              Image(
-                image: _getIcon(type),
-                width: 16.0,
-                color: active ? AppColors.anotherBlue : AppColors.darkGreen,
-              ),
-            if (type == prevType) const SizedBox(width: 16.0),
-            const SizedBox(width: 12.0),
+            // if (type != prevType)
+            //   Image(
+            //     image: _getIcon(type),
+            //     width: 16.0,
+            //     color: active ? AppColors.anotherBlue : AppColors.darkGreen,
+            //   ),
+            // if (type == prevType) const SizedBox(width: 16.0),
+            // const SizedBox(width: 12.0),
             Expanded(
-              child: Text(
+              child: CustomText.w400(
                 '${item.name}$recipeNotation',
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.darkGreen,
-                    ),
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
           ],

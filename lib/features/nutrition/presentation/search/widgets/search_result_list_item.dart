@@ -30,7 +30,7 @@ class SearchResultListItem extends StatelessWidget {
         child: Ink(
           color: AppColors.greenLightest,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 7.0),
+            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: _subTitle.isNotEmpty ? 7.0 : 14.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,10 +48,8 @@ class SearchResultListItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomText.w600(item.name, style: context.textTheme.titleSmall),
-                      CustomText.w400(
-                        _subTitle,
-                        style: context.textTheme.bodySmall,
-                      ),
+                      if (_subTitle.isNotEmpty)
+                        CustomText.w400(_subTitle, style: context.textTheme.bodySmall),
                     ],
                   ),
                 ),

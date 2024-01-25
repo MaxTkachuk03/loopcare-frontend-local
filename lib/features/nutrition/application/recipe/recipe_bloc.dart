@@ -51,7 +51,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
       ),
     );
 
-    final response = await nutritionService.getRecommendations([event.mealCategory]);
+    final response = await nutritionService.getRecommendations([event.mealCategory.toLowerCase()]);
 
     response.fold(
       (error) => emit(
