@@ -24,9 +24,7 @@ class PreferencesSection extends StatelessWidget {
   const PreferencesSection({super.key});
 
   void _onFoodHandler(BuildContext context) {
-    context.router.push(FoodPreferencesRoute(fromLessonComplete: true));
-
-    ///!!!!!!!!!
+    context.router.push(FoodPreferencesRoute(fromLessonComplete: false));
   }
 
   void _onPhysicalActivitiesHandler(BuildContext context) {
