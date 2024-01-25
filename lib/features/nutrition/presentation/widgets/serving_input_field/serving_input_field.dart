@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:loopcare_frontend/core/domain/input_formatters/serving_formatter.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -56,10 +57,13 @@ class _ServingInputFieldState extends State<ServingInputField> {
       child: CustomTextField(
         controller: widget.controller,
         focusNode: widget.focusNode,
-        maxLength: 7,
+        maxLength: 5,
         textAlign: TextAlign.center,
         onChanged: _onValueChangeHandler,
-        inputFormatters: [ServingFormatter()],
+        inputFormatters: [
+          ServingFormatter(),
+          ServingRangeFormatter(),
+        ],
         decoration: InputDecoration(
           counterText: '',
           filled: true,
