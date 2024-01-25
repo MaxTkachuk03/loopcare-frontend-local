@@ -8,8 +8,8 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -62,6 +62,8 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
       context.read<TopicsBloc>().state.data.signedGroupSessionStartTime ?? DateTime.now();
 
   DateTime get endDate => context.read<TopicsBloc>().state.data.signedGroupSessionsEndTime ?? DateTime.now();
+
+  String get image => context.read<TopicsBloc>().state.data.thisWeekTopicsImage;
 
   @override
   Widget build(BuildContext context) {
@@ -121,15 +123,18 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
                               ),
                               child: Row(
                                 children: [
-                                  SizedBox(
-                                    height: 180.0,
-                                    child: ClipPath(
-                                      clipper: EducationClipper(),
-                                      child: const Image(image: AppImages.sessionPlaceholder),
-                                      // TODO: Need update after all images will be provided
-                                      // NetworkImageWithCache(
-                                      //   url: image,
-                                      // ),
+                                  ClipPath(
+                                    clipper: EducationClipper(),
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        bottomLeft: Radius.circular(10),
+                                      ),
+                                      child: SizedBox(
+                                        width: 135,
+                                        height: 180,
+                                        child: NetworkImageWithCache(url: image),
+                                      ),
                                     ),
                                   ),
                                   Expanded(
