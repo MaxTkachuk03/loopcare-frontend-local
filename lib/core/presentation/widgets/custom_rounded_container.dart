@@ -16,7 +16,7 @@ class CustomRoundedContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
       decoration: BoxDecoration(
         color: bgColor ?? AppColors.white,
         borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 8)),

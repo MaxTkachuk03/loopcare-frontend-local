@@ -669,25 +669,28 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
           ),
         ),
         bottomNavigationBar: !_isVideoPlaying && userJoinedToSession
-            ? SizedBox(
-                height: Platform.isIOS ? 160 : 100,
-                child: Column(
-                  children: [
-                    if (Platform.isIOS)
-                      ReportIssue(
-                        minutesLeft: context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inMinutes,
-                        onReportIssueHandler: _onReportIssueHandler,
+            ? Container(
+                color: AppColors.white,
+                child: SizedBox(
+                  height: Platform.isIOS ? 160 : 100,
+                  child: Column(
+                    children: [
+                      if (Platform.isIOS)
+                        ReportIssue(
+                          minutesLeft: context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inMinutes,
+                          onReportIssueHandler: _onReportIssueHandler,
+                        ),
+                      Expanded(
+                        child: CallControls(
+                          onMuteHandler: onPressAudio,
+                          onStopVideoHandler: onPressVideo,
+                          isMuted: isMuted,
+                          isCameraOn: isVideoOn,
+                          onSettingsHandler: onSettingsHandler,
+                        ),
                       ),
-                    Expanded(
-                      child: CallControls(
-                        onMuteHandler: onPressAudio,
-                        onStopVideoHandler: onPressVideo,
-                        isMuted: isMuted,
-                        isCameraOn: isVideoOn,
-                        onSettingsHandler: onSettingsHandler,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               )
             : const SizedBox.shrink(),

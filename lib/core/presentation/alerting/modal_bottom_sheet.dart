@@ -1027,7 +1027,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 42.0, horizontal: 39.0),
-          height: size.height * 0.35,
+          height: size.height * 0.45,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
