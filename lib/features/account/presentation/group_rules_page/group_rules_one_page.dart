@@ -53,7 +53,7 @@ class GroupRulesOnePage extends StatelessWidget {
                       const SizedBox(height: 28.0),
                       CustomText.bitter500(
                         LocalizedTexts.groupRulesOneTitle.tr(),
-                        style: context.textTheme.bodyLarge,
+                        style: context.textTheme.displayMedium,
                       ),
                       const SizedBox(height: 8.0),
                       CustomText.w600(
