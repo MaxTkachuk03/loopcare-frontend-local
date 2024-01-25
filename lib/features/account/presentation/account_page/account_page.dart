@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_section.dart';
+import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/delete_account_section.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/preferences_section.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/report_abuse_section.dart';
 import 'package:loopcare_frontend/features/account/presentation/subscription_page/widgets/subscription_sactions.dart';
@@ -26,7 +27,9 @@ class _AccountPageState extends State<AccountPage> {
   void initState() {
     super.initState();
     context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.fetchFoodPreferences());
-    context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.getPreferences());
+    context
+        .read<PhysicalActivitiesPreferencesBloc>()
+        .add(const PhysicalActivitiesPreferencesEvent.getPreferences());
   }
 
   @override
@@ -56,7 +59,7 @@ class _AccountPageState extends State<AccountPage> {
                 SizedBox(height: 24.0),
                 ReportAbuseSection(),
                 SizedBox(height: 24.0),
-                // EmergencyBtn(onPressHandler: () {}),
+                DeleteAccountSection(),
                 SizedBox(height: 32.0),
                 Center(child: AppVersion()),
                 SizedBox(height: 32.0),

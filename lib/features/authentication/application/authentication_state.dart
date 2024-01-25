@@ -170,5 +170,8 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
+  bool get hasSubscription =>
+      maybeWhen(orElse: () => false, authenticated: (state) => state.subscription.isActive);
+
   factory AuthenticationState.fromJson(Map<String, dynamic> json) => _$AuthenticationStateFromJson(json);
 }
