@@ -68,6 +68,7 @@ class Grouped extends StatelessWidget {
                     isCancelledOrMissed: state.data.signedGroupSessionsCancelledOrMissed,
                     isCancelled: state.data.signedGroupSessionsCancelled,
                     isMissed: state.data.signedGroupSessionsMissed,
+                    isFinished: state.data.signedGroupSessionFinished,
                     timeSlotsAvailable: state.data.timeSlotsAvailable,
                     sessionMightBeCancelled: state.data.signedGroupSessionsMightBeCancelled,
                     isHappeningNow: state.data.isHappeningNow,

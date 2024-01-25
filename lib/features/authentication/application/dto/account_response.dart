@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
 import 'package:loopcare_frontend/core/domain/physical_fitness/physical_fitness.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
+import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/diabetes/application/dto/diabetes_type.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_activities_preferences.dart';
@@ -36,6 +37,7 @@ class AccountResponse {
   final List<UnlockedFeatureType> unlockedFeatures;
   final MentalHealthTests? mentalHealthTests;
   final PhysicalActivitiesPreferences? physicalActivitiesPreferences;
+  final Subscription subscription;
 
   const AccountResponse({
     required this.id,
@@ -58,6 +60,7 @@ class AccountResponse {
     required this.unlockedFeatures,
     required this.mentalHealthTests,
     required this.physicalActivitiesPreferences,
+    required this.subscription,
   });
 
   factory AccountResponse.fromJson(Map<String, dynamic> json) => _$AccountResponseFromJson(json);

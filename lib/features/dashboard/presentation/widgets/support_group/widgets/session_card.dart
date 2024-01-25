@@ -24,6 +24,7 @@ class SessionCard extends StatelessWidget {
   final bool isCancelledOrMissed;
   final bool isCancelled;
   final bool isMissed;
+  final bool isFinished;
   final bool timeSlotsAvailable;
   final bool sessionMightBeCancelled;
   final bool isHappeningNow;
@@ -40,6 +41,7 @@ class SessionCard extends StatelessWidget {
     required this.isCancelledOrMissed,
     required this.isCancelled,
     required this.isMissed,
+    required this.isFinished,
     required this.timeSlotsAvailable,
     required this.sessionMightBeCancelled,
     required this.isHappeningNow,
@@ -51,6 +53,7 @@ class SessionCard extends StatelessWidget {
     if (isCancelled) return LocalizedTexts.cancelled.translation;
     if (isMissed) return LocalizedTexts.missed.translation;
     if (sessionMightBeCancelled) return LocalizedTexts.minimumNotReached.translation;
+    if (isFinished) return LocalizedTexts.completed.translation;
 
     return null;
   }
