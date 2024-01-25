@@ -3,17 +3,17 @@ var topics = [
     "groupSessions": [
       {
         "memberCount": 1,
-        "minMemberCount": 4,
+        "minMemberCount": 1,
         "maxMemberCount": 9,
         "status": "planned",
-        "signed": false,
+        "signed": true,
         "groupSessionMembers": [],
         "id": 78,
         "topic": "Mindfulness",
-        "startDate": "2024-01-15T16:00:00.000Z",
-        "endDate": "2024-01-15T17:30:00.000Z",
+        "startDate": "2024-01-25T15:16:00.000Z",
+        "endDate": "2024-01-25T16:16:00.000Z",
         "password": "f73d4ef553",
-        "groupSessionKey": "78-ENV:develop-GROUP_ID:13809"
+        "groupSessionKey": "78-ENV:develop-GROUP_ID:13196"
       },
       {
         "memberCount": 0,

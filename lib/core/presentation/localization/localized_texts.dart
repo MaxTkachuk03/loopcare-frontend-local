@@ -427,6 +427,7 @@ class LocalizedTexts {
   static const String warningOne = "warningOne";
   static const String warningTwo = "warningTwo";
   static const String hi = "hi";
+  static const String hey = "hey";
   static const String sessionWillStartIn = "sessionWillStartIn";
   static const String sessionStartedMessage = "sessionStartedMessage";
   static const String enterSession = "enterSession";

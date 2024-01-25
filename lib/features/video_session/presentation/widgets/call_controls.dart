@@ -34,8 +34,6 @@ class CallControls extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                width: 60,
-                height: 60,
                 child: CustomIconButton.custom(
                   onPressed: onMuteHandler,
                   icon: Column(
@@ -53,8 +51,6 @@ class CallControls extends StatelessWidget {
               ),
               const SizedBox(width: 24.0),
               SizedBox(
-                width: 60,
-                height: 60,
                 child: CustomIconButton.custom(
                   onPressed: onStopVideoHandler,
                   icon: Column(
@@ -73,8 +69,6 @@ class CallControls extends StatelessWidget {
             ],
           ),
           SizedBox(
-            width: 60,
-            height: 60,
             child: CustomIconButton.custom(
               onPressed: onSettingsHandler,
               icon: Column(
