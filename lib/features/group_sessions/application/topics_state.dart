@@ -149,6 +149,8 @@ class TopicsData with _$TopicsData {
 
   List<GroupSessionProgramEvent> get thisWeekTopicsEvents => _thisWeekTopic?.groupSessionProgramEvents ?? [];
 
+  String get thisWeekTopicsImage => _thisWeekTopic?.image ?? '';
+
   // TODO move to the GroupSession model
   Duration get timePassedSinceSessionStart {
     final startTime = signedGroupSessionStartTime;

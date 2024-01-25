@@ -16,6 +16,7 @@ class Topic with _$Topic {
     required String topic,
     required int duration,
     required List<Material> materials,
+    required String image,
     required List<GroupSessionProgramEvent> groupSessionProgramEvents,
   }) = _Topic;
 
