@@ -43,15 +43,6 @@ class _AccountSectionState extends State<AccountSection> {
     context.read<AuthenticationCubit>().logout();
   }
 
-  // _onDeleteAccountPressed() {
-  //   ModalBottomSheet.deleteAccount(
-  //     context: context,
-  //     onDeleted: () {
-  //       context.read<AuthenticationCubit>().deleteAccount();
-  //     },
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthenticationCubit, AuthenticationState>(
@@ -98,15 +89,6 @@ class _AccountSectionState extends State<AccountSection> {
                 label: LocalizedTexts.signOut.tr(),
               ),
               const SizedBox(height: 16.0),
-              // TODO button removed for testing build 1.0.26+102
-              // TextButton(
-              //   onPressed: _onDeleteAccountPressed,
-              //   style: TextButton.styleFrom(
-              //     foregroundColor: AppColors.red,
-              //     textStyle: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
-              //   ),
-              //   child: const Text(LocalizedTexts.deleteAccount).tr(),
-              // ),
             ],
           ),
         );
