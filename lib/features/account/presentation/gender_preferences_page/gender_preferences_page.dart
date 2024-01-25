@@ -24,7 +24,12 @@ import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 
 class GenderPreferencesPage extends StatefulWidget {
-  const GenderPreferencesPage({super.key});
+  final bool fromLessonComplete;
+
+  const GenderPreferencesPage({
+    super.key,
+    required this.fromLessonComplete,
+  });
 
   @override
   State<GenderPreferencesPage> createState() => _GenderPreferencesPageState();
