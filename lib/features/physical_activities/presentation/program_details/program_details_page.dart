@@ -35,78 +35,76 @@ class ProgramDetailsPage extends StatelessWidget {
           title: program.name,
           leading: CustomFilledIconButton.leadingYellowLighter(),
         ),
-        body: SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                child: ScrollableContainer(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  child: MainContainer(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              height: 28.0,
-                            ),
-                            CustomText.bitter600(
-                              LocalizedTexts.selectYourProgram.tr(),
-                              style: context.textTheme.bodyMedium,
-                            ),
-                            const SizedBox(
-                              height: 20.0,
-                            ),
-                            ProgramCard(
-                              program: program,
-                              bgColor: AppColors.yellowRegular,
-                              borderColor: AppColors.yellowRegular,
-                              padding: const EdgeInsets.all(4.0),
-                              size: const ProgramCardSize.small(),
-                            ),
-                            const SizedBox(height: 20.0),
-                            CustomText(
-                              LocalizedTexts.countExercises.tr(
-                                namedArgs: {
-                                  'count': '$exercisesLength',
-                                },
-                              ),
-                              style: context.textTheme.bodySmall,
-                            ),
-                            const SizedBox(height: 20.0),
-                          ],
-                        ),
-                        Card(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            side: const BorderSide(
-                              color: AppColors.yellowRegular,
-                              width: 2.0,
-                            ),
+        body: Column(
+          children: [
+            Expanded(
+              child: ScrollableContainer(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: MainContainer(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 28.0,
                           ),
-                          color: AppColors.white,
-                          child: ListView.builder(
-                              padding: EdgeInsets.zero,
-                              itemCount: exercisesLength,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (BuildContext context, index) => ExerciseCard(
-                                    index: index,
-                                    exercise: program.exercises[index],
-                                  )),
+                          CustomText.bitter600(
+                            LocalizedTexts.selectYourProgram.tr(),
+                            style: context.textTheme.bodyMedium,
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          ProgramCard.onlyView(
+                            program: program,
+                            bgColor: AppColors.yellowRegular,
+                            borderColor: AppColors.yellowRegular,
+                            padding: const EdgeInsets.all(4.0),
+                            size: const ProgramCardSize.small(),
+                          ),
+                          const SizedBox(height: 20.0),
+                          CustomText(
+                            LocalizedTexts.countExercises.tr(
+                              namedArgs: {
+                                'count': '$exercisesLength',
+                              },
+                            ),
+                            style: context.textTheme.bodySmall,
+                          ),
+                          const SizedBox(height: 20.0),
+                        ],
+                      ),
+                      Card(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          side: const BorderSide(
+                            color: AppColors.yellowRegular,
+                            width: 2.0,
+                          ),
                         ),
-                        const SizedBox(height: 8.0),
-                      ],
-                    ),
+                        color: AppColors.white,
+                        child: ListView.builder(
+                            padding: EdgeInsets.zero,
+                            itemCount: exercisesLength,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, index) => ExerciseCard(
+                                  index: index,
+                                  exercise: program.exercises[index],
+                                )),
+                      ),
+                      const SizedBox(height: 8.0),
+                    ],
                   ),
                 ),
               ),
-              const ProgramFooterOverlay(),
-            ],
-          ),
+            ),
+            const ProgramFooterOverlay(),
+          ],
         ),
       ),
     );

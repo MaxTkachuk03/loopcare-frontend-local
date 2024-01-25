@@ -103,7 +103,6 @@ class _DishesListState extends State<DishesList> with AutomaticKeepAliveClientMi
                   return Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ListFilters(
                           title: title,
