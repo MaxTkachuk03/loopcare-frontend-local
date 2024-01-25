@@ -70,7 +70,7 @@ class SupportGroupIntroPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 18.0),
                       CustomText.w400(
-                        LocalizedTexts.supportGroupIntroDesc,
+                        LocalizedTexts.supportGroupIntroDesc.tr(),
                         style: context.textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 30),
@@ -80,12 +80,12 @@ class SupportGroupIntroPage extends StatelessWidget {
                     children: [
                       CustomElevatedButton.blueFullWidth(
                         onPressed: () => _onJoinPressed(context),
-                        label: LocalizedTexts.yesILikeToJoin,
+                        label: LocalizedTexts.yesILikeToJoin.tr(),
                       ),
                       const SizedBox(height: 12.0),
                       CustomOutlinedButton.blueFullWidth(
                         onPressed: () => _onDoNotJoinPressed(context),
-                        label: LocalizedTexts.joinLater,
+                        label: LocalizedTexts.joinLater.tr(),
                       ),
                       const SizedBox(height: 30),
                     ],
