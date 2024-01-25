@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -23,7 +24,9 @@ class PreferencesSection extends StatelessWidget {
   const PreferencesSection({super.key});
 
   void _onFoodHandler(BuildContext context) {
-    context.router.pushNamed(AppRoutes.foodPreferences);
+    context.router.push(FoodPreferencesRoute(fromLessonComplete: true));
+
+    ///!!!!!!!!!
   }
 
   void _onPhysicalActivitiesHandler(BuildContext context) {
@@ -35,8 +38,9 @@ class PreferencesSection extends StatelessWidget {
   }
 
   String _groupSessionsSubtitle(AuthenticationState state) {
-    var grouped =
-        state.isUserGrouped ? LocalizedTexts.yes.translation.capitalize() : LocalizedTexts.no.translation.capitalize();
+    var grouped = state.isUserGrouped
+        ? LocalizedTexts.yes.translation.capitalize()
+        : LocalizedTexts.no.translation.capitalize();
 
     return "${LocalizedTexts.partOfGroup.translation}: $grouped";
   }
@@ -146,7 +150,8 @@ class PreferencesSection extends StatelessWidget {
                 return SectionItem(
                   title: LocalizedTexts.groupSessions.tr(),
                   subTitle: _groupSessionsSubtitle(state),
-                  onPressHandler: state.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
+                  onPressHandler:
+                      state.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
                 );
               },
             ),

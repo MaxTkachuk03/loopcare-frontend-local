@@ -5,7 +5,12 @@ import 'package:loopcare_frontend/features/you_and_food/application/dto/food_pre
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 class AllergicChips extends StatefulWidget {
-  const AllergicChips({super.key});
+  final bool fromLessonComplete;
+
+  const AllergicChips({
+    super.key,
+    required this.fromLessonComplete,
+  });
 
   @override
   State<AllergicChips> createState() => _AllergicChipsState();
@@ -16,6 +21,27 @@ class _AllergicChipsState extends State<AllergicChips> {
   void initState() {
     context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.foodPrefsAllergens());
     super.initState();
+  }
+
+  Widget _getCustomChoiceChip({
+    required String label,
+    required bool selected,
+    required FoodPreference value,
+  }) {
+    if (widget.fromLessonComplete) {
+      return CustomChoiceChip.green(
+        label: label,
+        selected: selected,
+        value: value,
+        onSelected: _onSelected,
+      );
+    }
+    return CustomChoiceChip.coral(
+      label: label,
+      selected: selected,
+      value: value,
+      onSelected: _onSelected,
+    );
   }
 
   @override
@@ -34,11 +60,10 @@ class _AllergicChipsState extends State<AllergicChips> {
                   .map(
                     (e) => SizedBox(
                       width: width,
-                      child: CustomChoiceChip.coral(
+                      child: _getCustomChoiceChip(
                         label: e.name,
                         selected: selectedAllergic.contains(e),
                         value: e,
-                        onSelected: _onSelected,
                       ),
                     ),
                   )
