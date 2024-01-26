@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/theme_components_theme/theme
 import 'package:loopcare_frontend/features/account/presentation/account_page/account_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/edit_food_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/food_preferences_page/food_preferences_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/food_preferences_page/lesson_complete_food_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/gender_preferences_page/gender_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/group_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_five_page.dart';
@@ -435,6 +436,10 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.foodPreferences,
       page: FoodPreferencesPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.lessonCompleteFoodPreferences,
+      page: LessonCompleteFoodPreferencesPage,
     ),
     AutoRoute(
       path: AppRoutes.physicalPreferences,
