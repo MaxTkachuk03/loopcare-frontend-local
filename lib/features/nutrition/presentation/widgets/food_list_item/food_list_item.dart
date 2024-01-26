@@ -40,92 +40,72 @@ class FoodListItem extends StatelessWidget {
       label = foodItem.brandName ?? '';
     }
 
-    return SizedBox(
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
       height: 70,
       child: InkWell(
         onTap: onTap == null ? null : () => onTap?.call(context),
         child: Ink(
           decoration: const BoxDecoration(
-            border: Border(
-              bottom: BorderSide(width: 1, color: AppColors.greenLighter),
-            ),
+            border: Border(bottom: BorderSide(width: 1, color: AppColors.greenLighter)),
             color: AppColors.white,
           ),
-          child: (onDeletePressed != null)
-              ? Row(
-                  children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 44,
-                            child: CustomIconButton.close(
-                              onPressed: () => onDeletePressed?.call(context, foodItem),
-                            ),
-                          ),
-                          CircleAvatar(
-                            radius: 5,
-                            backgroundColor: getCalorieDensityColor(foodItem.calorieDensity),
-                          ),
-                        ],
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  if (onDeletePressed != null)
+                    CustomIconButton.close(
+                      onPressed: () => onDeletePressed?.call(context, foodItem),
+                    ),
+                  CircleAvatar(
+                    radius: 5,
+                    backgroundColor: getCalorieDensityColor(foodItem.calorieDensity),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 10.0),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 13.0, bottom: 13),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomText.w600(
+                        foodItem.foodName,
+                        maxLines: 1,
+                        style: context.textTheme.bodySmall?.copyWith(overflow: TextOverflow.ellipsis),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 10.0,
-                    ),
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 13.0, bottom: 13),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CustomText.w600(
-                                foodItem.foodName,
-                                maxLines: 1,
-                                style: context.textTheme.bodySmall?.copyWith(overflow: TextOverflow.ellipsis),
-                              ),
-                              CustomText.w400(
-                                '${foodItem.serving.servingSizeLabel} | $label',
-                                maxLines: 1,
-                                style: context.textTheme.bodySmall?.copyWith(
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              )
-                            ],
-                          ),
+                      CustomText.w400(
+                        '${foodItem.serving.servingSizeLabel} | $label',
+                        maxLines: 1,
+                        style: context.textTheme.bodySmall?.copyWith(
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                    ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(width: 6.0),
+              Row(
+                children: [
+                  CustomText.w400(
+                      '${currentNutritionFact.value.toStringAsFixed(2)} ${LocalizedTexts.kcal.tr()}',
+                      style: context.textTheme.bodySmall),
+                  if (onTap != null)
                     const SizedBox(
-                      width: 6.0,
-                    ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 13.0),
-                        child: Row(
-                          children: [
-                            CustomText.w400(
-                                '${currentNutritionFact.value.toStringAsFixed(2)} ${LocalizedTexts.kcal.tr()}',
-                                style: context.textTheme.bodySmall),
-                            if (onTap != null)
-                              const SizedBox(
-                                width: 44,
-                                child: ImageIcon(
-                                  AppIcons.arrow,
-                                  color: AppColors.blueDarker,
-                                ),
-                              ),
-                          ],
-                        ),
+                      width: 44,
+                      child: ImageIcon(
+                        AppIcons.arrow,
+                        color: AppColors.blueDarker,
                       ),
                     ),
-                  ],
-                )
-              : const SizedBox.shrink(),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
