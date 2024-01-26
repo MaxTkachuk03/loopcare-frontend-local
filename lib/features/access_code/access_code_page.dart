@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/authentication/domain/registration_code/registration_code.dart';
@@ -41,88 +42,90 @@ class _AccessCodePageState extends State<AccessCodePage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.green(
-      appBar: CustomAppBar.transparent(
-        leading: CustomFilledIconButton.leadingGreenLighter(),
-      ),
-      body: SafeArea(
-        child: ScrollableContainer(
-          child: MainContainer(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    const SizedBox(height: 8.0),
-                    Container(alignment: Alignment.center, child: const Image(image: AppImages.intro3)),
-                    const SizedBox(height: 28.0),
-                    CustomText.bitter600(
-                      LocalizedTexts.registrationCodeTitle,
-                      style: context.textTheme.displayLarge,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 20.0),
-                    CustomText.w400(
-                      LocalizedTexts.registrationCodeLabel,
-                      style: context.textTheme.bodyMedium,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 23.0),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                      child: Form(
-                        key: _formKey,
-                        onChanged: _onChangedForm,
-                        child: Column(
+    return KeyboardContainerListener(
+      child: CustomScaffold.green(
+        appBar: CustomAppBar.transparent(
+          leading: CustomFilledIconButton.leadingGreenLighter(),
+        ),
+        body: SafeArea(
+          child: ScrollableContainer(
+            child: MainContainer(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      const SizedBox(height: 8.0),
+                      Container(alignment: Alignment.center, child: const Image(image: AppImages.intro3)),
+                      const SizedBox(height: 28.0),
+                      CustomText.bitter600(
+                        LocalizedTexts.registrationCodeTitle,
+                        style: context.textTheme.displayLarge,
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 20.0),
+                      CustomText.w400(
+                        LocalizedTexts.registrationCodeLabel,
+                        style: context.textTheme.bodyMedium,
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 23.0),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        child: Form(
+                          key: _formKey,
+                          onChanged: _onChangedForm,
+                          child: Column(
+                            children: [
+                              ValueListenableBuilder<String?>(
+                                valueListenable: _codeErrorText,
+                                builder: (context, errorText, _) {
+                                  return CustomTextField.registrationCode(
+                                    controller: _codeController,
+                                    errorText: errorText,
+                                    onChanged: _onCodeChanged,
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      ValueListenableBuilder<bool>(
+                        valueListenable: _isDisabled,
+                        builder: (context, disable, _) {
+                          return CustomElevatedButton.blueFullWidth(
+                            onPressed: disable ? null : () => _onRegisterPressed(context),
+                            label: LocalizedTexts.checkAccessCode,
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 21.0),
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          style: context.textTheme.bodyMedium,
                           children: [
-                            ValueListenableBuilder<String?>(
-                              valueListenable: _codeErrorText,
-                              builder: (context, errorText, _) {
-                                return CustomTextField.registrationCode(
-                                  controller: _codeController,
-                                  errorText: errorText,
-                                  onChanged: _onCodeChanged,
-                                );
-                              },
+                            TextSpan(text: '${LocalizedTexts.noAccessCodeYet.tr()} '),
+                            TextSpan(
+                              text: LocalizedTexts.requestCode.tr(),
+                              style: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+                              recognizer: TapGestureRecognizer()..onTap = _launchInBrowser,
                             ),
                           ],
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 16.0),
-                  ],
-                ),
-                Column(
-                  children: [
-                    ValueListenableBuilder<bool>(
-                      valueListenable: _isDisabled,
-                      builder: (context, disable, _) {
-                        return CustomElevatedButton.blueFullWidth(
-                          onPressed: disable ? null : () => _onRegisterPressed(context),
-                          label: LocalizedTexts.checkAccessCode,
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 21.0),
-                    RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        style: context.textTheme.bodyMedium,
-                        children: [
-                          TextSpan(text: '${LocalizedTexts.noAccessCodeYet.tr()} '),
-                          TextSpan(
-                            text: LocalizedTexts.requestCode.tr(),
-                            style: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
-                            recognizer: TapGestureRecognizer()..onTap = _launchInBrowser,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 30.0),
-                  ],
-                ),
-              ],
+                      const SizedBox(height: 30.0),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
