@@ -55,7 +55,7 @@ class _AccessCodePageState extends State<AccessCodePage> {
                 Column(
                   children: [
                     const SizedBox(height: 8.0),
-                    Container(alignment: Alignment.center, child: const Image(image: AppImages.intro)),
+                    Container(alignment: Alignment.center, child: const Image(image: AppImages.intro3)),
                     const SizedBox(height: 28.0),
                     CustomText.bitter600(
                       LocalizedTexts.registrationCodeTitle,

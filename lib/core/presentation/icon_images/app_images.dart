@@ -17,6 +17,8 @@ class AppImages {
 
   static const AssetImage intro2 = AssetImage('$imagesFilePath/new_intro2.png');
 
+  static const AssetImage intro3 = AssetImage('$imagesFilePath/new_intro3.png');
+
   static const AssetImage physicalIntro = AssetImage('$imagesFilePath/new_physical_intro.png');
 
   static const AssetImage medicalIntro = AssetImage('$imagesFilePath/new_medical_intro.png');
