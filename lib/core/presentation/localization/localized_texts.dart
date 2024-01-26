@@ -525,7 +525,8 @@ class LocalizedTexts {
   static const String subscriptionMonthly = "subscriptionMonthly";
   static const String subscriptionSubscribe = "subscriptionSubscribe";
   static const String subscriptionRedeem = "subscriptionRedeem";
-  static const String subscriptionPrice = "subscriptionPrice";
+  static const String subscriptionPrice1 = "subscriptionPrice1";
+  static const String subscriptionPrice2 = "subscriptionPrice2";
   static const String subscriptionType = "subscriptionType";
   static const String subscriptionVia = "subscriptionVia";
   static const String memberSince = "memberSince";

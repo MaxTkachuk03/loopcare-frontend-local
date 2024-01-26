@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loopcare_frontend/core/presentation/clippers/subscription_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_controller.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/widget/subscription_button.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/widget/subscription_footer.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/widget/subscription_header_state.dart';
-import 'package:provider/provider.dart';
 
 class _SubscriptionWrapperPage extends StatefulWidget {
   final Widget child;
   final AssetImage topCover;
-  final SvgPicture bottomCover;
+  final Color bottomCover;
   final SubscriptionController controller;
 
   const _SubscriptionWrapperPage({
@@ -37,41 +34,24 @@ class _SubscriptionWrapperPageState extends State<_SubscriptionWrapperPage> {
         Positioned.fill(
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
+            width: double.infinity,
           ),
         ),
         Positioned(
           top: 0.0,
-          child: Container(
-            padding: EdgeInsets.zero,
-            key: coverKey,
-            width: MediaQuery.of(context).size.width,
-            height: 400,
-            child: Image(image: widget.topCover),
-          ),
+          child: Image(image: widget.topCover),
         ),
         Positioned(
-          top: 0.0,
-          right: 0.0,
-          child: IconButton(
-            icon: const Icon(
-              Icons.logout,
-              color: AppColors.blueDarkest,
-              size: 24,
+          top: 250,
+          bottom: 0,
+          child: ClipPath(
+            clipper: SubscriptionClipper(),
+            child: Container(
+              padding: const EdgeInsets.only(top: 52),
+              color: widget.bottomCover,
+              width: MediaQuery.of(context).size.width,
+              child: widget.child,
             ),
-            onPressed: () => context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout()),
-          ),
-        ),
-        Positioned(
-          bottom: 0.0,
-          child: Stack(
-            children: [
-              widget.bottomCover,
-              Positioned.fill(
-                top: 57,
-                child: widget.child,
-              ),
-            ],
           ),
         ),
         Positioned.fill(
@@ -100,10 +80,8 @@ class _SubscriptionStatusWidget extends Column {
             _ScrollColumn(
               widgets: [
                 const SubscriptionLabel.trial(),
-                Expanded(
-                  child: FooterSubscription(
-                    controller: controller,
-                  ),
+                FooterSubscription(
+                  controller: controller,
                 ),
                 SubscribeButton(controller: controller),
               ],
@@ -120,10 +98,8 @@ class _SubscriptionStatusWidget extends Column {
             _ScrollColumn(
               widgets: [
                 const SubscriptionLabel.trialExpired(),
-                Expanded(
-                  child: FooterSubscription(
-                    controller: controller,
-                  ),
+                FooterSubscription(
+                  controller: controller,
                 ),
                 SubscribeButton(controller: controller),
               ],
@@ -140,10 +116,8 @@ class _SubscriptionStatusWidget extends Column {
             _ScrollColumn(
               widgets: [
                 const SubscriptionLabel.endedSubscription(),
-                Expanded(
-                  child: FooterSubscription(
-                    controller: controller,
-                  ),
+                FooterSubscription(
+                  controller: controller,
                 ),
                 SubscribeButton(controller: controller),
               ],
@@ -159,10 +133,8 @@ class _SubscriptionStatusWidget extends Column {
             _ScrollColumn(
               widgets: [
                 const SubscriptionLabel.cancelledSubscription(),
-                Expanded(
-                  child: FooterSubscription(
-                    controller: controller,
-                  ),
+                FooterSubscription(
+                  controller: controller,
                 ),
                 SubscribeButton(controller: controller),
               ],
@@ -176,9 +148,7 @@ class _SubscriptionStatusWidget extends Column {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const SubscriptionTitle.notRenewSubscription(),
-            const Expanded(
-              child: SubscriptionLabel.notRenewSubscription(),
-            ),
+            const SubscriptionLabel.notRenewSubscription(),
             RenewButton(
               onTap: onTap,
             ),
@@ -204,16 +174,17 @@ class _ScrollColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: CustomScrollView(slivers: [
-        SliverFillRemaining(
-          hasScrollBody: false,
-          child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: widgets),
-        ),
-      ]),
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: widgets),
+          ),
+        ],
+      ),
     );
   }
 }

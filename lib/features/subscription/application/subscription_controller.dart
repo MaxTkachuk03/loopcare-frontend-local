@@ -42,7 +42,7 @@ class SubscriptionController {
         details: plan,
         offer: _getPricePerMonth(plan.rawPrice),
         regularPrice: plan.rawPrice,
-        currency: plan.currencySymbol,
+        currency: plan.price,
       ));
     }
   }

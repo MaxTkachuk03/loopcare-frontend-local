@@ -15,18 +15,12 @@ class AppSubscriptionService {
 
   Future<List<ProductDetails>> getSubscriptionPlans(Set<String> main) async {
     final bool isAvailable = await _inAppPurchase.isAvailable();
-
-    debugPrint('devcpp Get isAvailable: $isAvailable');
     if (!isAvailable) {
       return [];
     }
     final ProductDetailsResponse productDetailResponse = await _inAppPurchase.queryProductDetails(main);
-    debugPrint('devcpp  productDetails response: ${productDetailResponse.toString()}');
-    debugPrint('devcpp  productDetails notFoundIDs: ${productDetailResponse.notFoundIDs}');
-    debugPrint('devcpp  productDetails ERRROR: ${productDetailResponse.error}');
 
     if (productDetailResponse.error != null || productDetailResponse.productDetails.isEmpty) {
-      debugPrint('devcpp  productDetails: ${productDetailResponse.productDetails}');
       return [];
     }
     for (final detail in productDetailResponse.productDetails) {
@@ -34,6 +28,7 @@ class AppSubscriptionService {
       debugPrint('devcpp  title: ${detail.title}');
       debugPrint('devcpp  description: ${detail.description}');
       debugPrint('devcpp  price: ${detail.price}');
+      debugPrint('devcpp  currency: ${detail.currencySymbol}');
     }
 
     return productDetailResponse.productDetails;
