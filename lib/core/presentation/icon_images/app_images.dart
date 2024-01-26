@@ -26,6 +26,8 @@ class AppImages {
 
   static const AssetImage welcome = AssetImage('$imagesFilePath/new_welcome.png');
 
+  static const AssetImage foodPreferences = AssetImage('$imagesFilePath/new_food_preferences.png');
+
   static SvgPicture oepsBig = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 120, height: 120);
 
   static SvgPicture oepsSmall = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 60, height: 60);

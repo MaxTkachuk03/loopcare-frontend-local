@@ -60,7 +60,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
   }
 
   _startFoodPreferences(BuildContext context) {
-    context.router.pushNamed(AppRoutes.foodPreferences);
+    context.router.pushNamed(AppRoutes.lessonCompleteFoodPreferences);
   }
 
   bool get _isGroupSessionsDisabled => context.read<AuthenticationCubit>().state.disableGroupSessions;
