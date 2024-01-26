@@ -15,7 +15,12 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
 
 class JoinGroupPreferencesPage extends StatefulWidget {
-  const JoinGroupPreferencesPage({super.key});
+  final bool fromLessonComplete;
+
+  const JoinGroupPreferencesPage({
+    super.key,
+    required this.fromLessonComplete,
+  });
 
   @override
   State<JoinGroupPreferencesPage> createState() => _JoinGroupPreferencesPageState();
@@ -50,6 +55,7 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
   @override
   Widget build(BuildContext context) {
     return GroupPrefsPageWrap(
+      fromLessonComplete: widget.fromLessonComplete,
       child: SafeArea(
         child: MainContainer(
           child: ScrollableContainer(

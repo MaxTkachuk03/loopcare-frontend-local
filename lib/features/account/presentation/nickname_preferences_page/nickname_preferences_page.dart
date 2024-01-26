@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
@@ -17,11 +16,15 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
-import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_progress.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 
 class NicknamePreferencesPage extends StatefulWidget {
-  const NicknamePreferencesPage({super.key});
+  final bool fromLessonComplete;
+
+  const NicknamePreferencesPage({
+    super.key,
+    required this.fromLessonComplete,
+  });
 
   @override
   State<NicknamePreferencesPage> createState() => _NicknamePreferencesPageState();
@@ -71,7 +74,7 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
     if (groupPrefsMode == GroupPrefsMode.singlePage) {
       context.router.pop();
     } else {
-      context.router.pushNamed(AppRoutes.groupRulesOne);
+      context.router.push(GroupRulesOneRoute(fromLessonComplete: widget.fromLessonComplete));
     }
   }
 
@@ -82,7 +85,9 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
       listener: _onChangeListener,
       builder: (BuildContext context, GroupPreferencesState state) {
         return GroupLessonWrap(
+          fromLessonComplete: widget.fromLessonComplete,
           child: GroupPrefsPageWrap(
+            fromLessonComplete: widget.fromLessonComplete,
             child: SafeArea(
               child: MainContainer(
                 child: ScrollableContainer(
@@ -92,7 +97,7 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
                     children: [
                       Column(
                         children: [
-                          const GroupPrefsProgress(),
+                          // const GroupPrefsProgress(),
                           const SizedBox(height: 28.0),
                           CustomText.bitter500(
                             LocalizedTexts.nicknamePreferencesQuestion.tr(),

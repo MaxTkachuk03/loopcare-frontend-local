@@ -50,10 +50,8 @@ class _LessonPageState extends State<LessonPage> {
       final extraAction = lessonBloc.state.data.extraAction;
       final unlockedFeatures = context.read<AuthenticationCubit>().state.unlockedFeatures;
 
-      if (extraAction == ExtraActionTypes.setupGroupingPreferences
-          // &&
-          //     !unlockedFeatures.contains(UnlockedFeatureType.grouping)
-          ) {
+      if (extraAction == ExtraActionTypes.setupGroupingPreferences &&
+          !unlockedFeatures.contains(UnlockedFeatureType.grouping)) {
         context
           ..read<GroupPreferencesBloc>()
               .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupingLesson))
