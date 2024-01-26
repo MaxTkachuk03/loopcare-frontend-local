@@ -26,7 +26,7 @@ class SubscriptionController {
     final map = data.plans.groupBy((plan) => plan.id);
 
     final list = map.entries
-        .map((list) => list.value.reduce((curr, next) => curr.rawPrice < next.rawPrice ? curr : next))
+        .map((list) => list.value.reduce((curr, next) => curr.rawPrice.toInt() < next.rawPrice.toInt() ? curr : next))
         .toList();
     return list;
   }

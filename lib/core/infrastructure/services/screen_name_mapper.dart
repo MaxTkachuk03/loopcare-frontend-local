@@ -13,6 +13,7 @@ final screenNames = {
   'SelectServingRoute': 'Select Serving Screen', // added
   'ProxyRoute': 'Proxy Screen', // added
   'IntroRoute': 'Intro Screen', // added
+  'AccessCodeRoute': 'Access Code Screen', // added
   'JoinUsRoute': 'Join Us Screen', // added
   'HeightRoute': 'Height Screen', // added
   'WeightRoute': 'Weight Screen', // added

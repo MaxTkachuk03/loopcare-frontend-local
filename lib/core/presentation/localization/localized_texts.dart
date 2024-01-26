@@ -367,6 +367,11 @@ class LocalizedTexts {
   static const String nicknamePreferencesQuestion = 'nicknamePreferencesQuestion';
   static const String nicknamePlaceholder = 'nicknamePlaceholder';
   static const String registrationCodePlaceholder = 'registrationCodePlaceholder';
+  static const String registrationCodeTitle = 'registrationCodeTitle';
+  static const String registrationCodeLabel = 'registrationCodeLabel';
+  static const String checkAccessCode = 'checkAccessCode';
+  static const String noAccessCodeYet = 'checkAccessCode';
+  static const String requestCode = 'requestCode';
   static const String at = 'at';
   static const String joinAGroup = 'joinAGroup';
   static const String unavailableGroupPrefsLabel = 'unavailableGroupPrefsLabel';
