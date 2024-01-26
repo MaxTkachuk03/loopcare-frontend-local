@@ -4,6 +4,7 @@ class AppRoutes {
   static const String proxy = '/proxy'; // added
   static const String preIntro = '/pre-intro'; //added
   static const String intro = '/intro'; // added
+  static const String accessCode = '/access-code'; // added
   static const String joinUs = '/join-us'; // added
   static const String login = '/login'; //added
   static const String forgotPassword = '/forgot-password';

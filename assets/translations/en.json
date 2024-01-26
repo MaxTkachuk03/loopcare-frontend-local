@@ -682,18 +682,14 @@
   "subscriptionTrialExpiredTitle": "Your trial has expired",
   "subscriptionTrialExpiredLabel1": "We hope you enjoyed our program.",
   "subscriptionTrialExpiredLabel2": "If you want to continue,\nrefresh your subscription here:",
-
   "subscriptionEndedTitle": "Your subscription \nhas ended",
   "subscriptionEndedLabel1": "We hope you enjoyed our program.",
   "subscriptionEndedLabel2": "If you want to continue,\nrefresh your subscription here:",
-
   "subscriptionCancelledTitle": "Your subscription \nwas cancelled",
   "subscriptionCancelledLabel1": "We hope you enjoyed our program.",
   "subscriptionCancelledLabel2": "If you want to continue,\nrefresh your subscription here:",
-
   "subscriptionRenewedTitle": "Your subscription \ncould not be renewed",
   "subscriptionRenewedLabel": "We want to let you know that your\nsubscription could not be automatically\nrenewed. \n\nYou will get a couple of days to look into this.\nDuring this time you can still use the app.",
-
   "subscriptionRestoreLabel": "Restore Purchase",
   "subscriptionTermsLabel": "Terms & Conditions",
   "subscriptionAnnual": "Annual",
@@ -710,5 +706,11 @@
   "serviceUnavailable": "Service is unavailable,\nplease try later.",
   "otherPurchaseVendor": "Sorry, your subscription seems to be purchased from a different store.",
   "appStore": "App Store",
-  "googleMarket": "Play Market"
+  "googleMarket": "Play Market",
+  "registrationCodePlaceholder": "Your access code",
+  "registrationCodeTitle": "Enter access code",
+  "registrationCodeLabel": "Enter the access code you received via email.",
+  "checkAccessCode": "Check code",
+  "noAccessCodeYet": "No access code yet? ",
+  "requestCode": "Request code"
 }
