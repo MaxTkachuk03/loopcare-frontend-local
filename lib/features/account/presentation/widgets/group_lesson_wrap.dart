@@ -9,19 +9,28 @@ import 'package:loopcare_frontend/features/education/application/education_lesso
 
 class GroupLessonWrap extends StatelessWidget {
   final Widget child;
+  final bool fromLessonComplete;
 
-  const GroupLessonWrap({super.key, required this.child});
+  const GroupLessonWrap({
+    super.key,
+    required this.child,
+    required this.fromLessonComplete,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GroupPreferencesBloc, GroupPreferencesState>(
       builder: (context, state) {
         return state.maybeMap(
-          loading: (_) => const GroupPrefsPageWrap(child: Loader()),
+          loading: (_) => GroupPrefsPageWrap(
+            fromLessonComplete: fromLessonComplete,
+            child: const Loader(),
+          ),
           error: (errorState) {
             final error = errorState.data.error;
 
             return GroupPrefsPageWrap(
+              fromLessonComplete: fromLessonComplete,
               child: Center(
                 child: ErrorScreen(
                   error: error,

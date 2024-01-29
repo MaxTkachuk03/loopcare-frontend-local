@@ -34,6 +34,8 @@ class LessonCompletePage extends StatefulWidget {
 }
 
 class _LessonCompletePageState extends State<LessonCompletePage> {
+  bool showFoodPreferencesBtn = true;
+
   @override
   void initState() {
     super.initState();
@@ -61,6 +63,10 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
   _startFoodPreferences(BuildContext context) {
     context.router.pushNamed(AppRoutes.lessonCompleteFoodPreferences);
+
+    setState(() {
+      showFoodPreferencesBtn = false;
+    });
   }
 
   bool get _isGroupSessionsDisabled => context.read<AuthenticationCubit>().state.disableGroupSessions;
@@ -159,6 +165,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                         builder: (BuildContext context, state) {
                           if (state.data.extraAction == ExtraActionTypes.unlockMeals) {
                             return UnlockFoodLoggingFeature(
+                              showFoodPreferencesBtn: showFoodPreferencesBtn,
                               onBtnPressed: () => _startFoodPreferences(context),
                             );
                           }

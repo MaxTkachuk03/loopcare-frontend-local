@@ -132,6 +132,7 @@ class _LessonCompleteFoodPreferencesPageState extends State<LessonCompleteFoodPr
       ..router.push(
         EditFoodPreferencesRoute(
           mode: const EditFoodPreferencesPageMode.allergies(),
+          fromLessonComplete: true,
         ),
       );
   }

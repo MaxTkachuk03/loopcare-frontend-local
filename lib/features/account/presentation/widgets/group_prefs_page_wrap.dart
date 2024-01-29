@@ -7,36 +7,60 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
-import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 
 class GroupPrefsPageWrap extends StatelessWidget {
   final Widget child;
   final String? title;
+  final bool fromLessonComplete;
 
-  const GroupPrefsPageWrap({super.key, required this.child, this.title});
+  const GroupPrefsPageWrap({
+    super.key,
+    required this.child,
+    this.title,
+    required this.fromLessonComplete,
+  });
+  CustomAppBar _getCustomAppBar({
+    required String title,
+  }) {
+    if (fromLessonComplete) {
+      return CustomAppBar.petrol(
+        title: title,
+        leading: CustomFilledIconButton.leadingPetrolLighter(),
+      );
+    }
+    return CustomAppBar.blue(
+      title: title,
+      leading: CustomFilledIconButton.leadingBlueLighter(),
+    );
+  }
+
+  CustomScaffold _getCustomScaffold({
+    Widget? body,
+    required String title,
+  }) {
+    if (fromLessonComplete) {
+      return CustomScaffold.petrolLightest(
+        appBar: _getCustomAppBar(
+          title: title,
+        ),
+        body: body,
+      );
+    }
+    return CustomScaffold.blueLightest(
+      appBar: _getCustomAppBar(
+        title: title,
+      ),
+      body: body,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GroupPreferencesBloc, GroupPreferencesState>(
       builder: (context, state) {
-        // TODO: Need rework
-        if (state.data.groupPrefsMode == GroupPrefsMode.groupingLesson) {
-          return KeyboardContainerListener(
-            child: CustomScaffold.blueLightest(
-              appBar: CustomAppBar.blue(
-                title: title ?? LocalizedTexts.supportGroupPreferences.tr(),
-              ),
-              body: child,
-            ),
-          );
-        }
-
         return KeyboardContainerListener(
-          child: CustomScaffold.blueLightest(
-            appBar: CustomAppBar.blue(
-              leading: CustomFilledIconButton.leadingBlueLighter(),
-              title: title ?? LocalizedTexts.groupPreferences.tr(),
-            ),
+          child: _getCustomScaffold(
+            title: title ?? LocalizedTexts.supportGroupPreferences.tr(),
             body: child,
           ),
         );
