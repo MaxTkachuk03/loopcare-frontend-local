@@ -5,13 +5,13 @@ var topics = [
         "memberCount": 1,
         "minMemberCount": 1,
         "maxMemberCount": 9,
-        "status": "planned",
+        "status": "finished",
         "signed": true,
         "groupSessionMembers": [],
         "id": 78,
         "topic": "Mindfulness",
-        "startDate": "2024-01-25T15:16:00.000Z",
-        "endDate": "2024-01-25T16:16:00.000Z",
+        "startDate": "2024-01-26T17:16:00.000Z",
+        "endDate": "2024-01-26T18:16:00.000Z",
         "password": "f73d4ef553",
         "groupSessionKey": "78-ENV:develop-GROUP_ID:13196"
       },
@@ -27,7 +27,7 @@ var topics = [
         "startDate": "2024-01-17T13:00:00.866Z",
         "endDate": "2024-01-17T13:53:00.866Z",
         "password": "c6adc4c1e0",
-        "groupSessionKey": "92-ENV:develop-GROUP_ID:13809"
+        "groupSessionKey": "92-ENV:develop-GROUP_ID:13196"
       },
       {
         "memberCount": 0,
@@ -41,7 +41,7 @@ var topics = [
         "startDate": "2023-12-07T16:00:00.985Z",
         "endDate": "2023-12-07T16:53:00.985Z",
         "password": "4010423f99",
-        "groupSessionKey": "105-ENV:develop-GROUP_ID:13809"
+        "groupSessionKey": "105-ENV:develop-GROUP_ID:13196"
       }
     ],
     "materials": [

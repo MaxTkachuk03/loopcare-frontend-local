@@ -14,7 +14,7 @@ extension MedicationPastPeriodAnswerX on MedicationPastPeriodAnswer {
   String get label {
     switch (this) {
       case MedicationPastPeriodAnswer.lessThanMonth:
-        return LocalizedTexts.lessThanMonth.tr();
+        return LocalizedTexts.lessThanAMonth.tr();
       case MedicationPastPeriodAnswer.lessThanThreeMonths:
         return LocalizedTexts.lessThanCertainMonths.tr(namedArgs: {
           'number': '3',
