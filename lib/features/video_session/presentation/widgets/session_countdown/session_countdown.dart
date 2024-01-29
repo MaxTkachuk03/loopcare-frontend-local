@@ -150,38 +150,27 @@ class _SessionCountdownState extends State<SessionCountdown> {
     return BlocListener<TopicsBloc, TopicsState>(
       listenWhen: (prev, cur) => cur is TopicsStateError,
       listener: _onErrorListener,
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 32.0),
-        decoration: const BoxDecoration(
-          //TODO: rework this
-          border: Border.symmetric(horizontal: BorderSide(width: 1, color: AppColors.yellowLight)),
-        ),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: CustomText.w400(
-                text,
-                style: textStyles,
-                textAlign: TextAlign.center,
-              ),
+      child: Column(
+        children: [
+          CustomText.w400(
+            text,
+            style: textStyles,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 18.0),
+          _sessionTimerMode.map(
+            sessionStarted: (_) => CustomElevatedButton.orangeFullWidth(
+              onPressed: _onEnterSessionHandler,
+              label: LocalizedTexts.joinSession.tr(),
             ),
-            const SizedBox(height: 16.0),
-            _sessionTimerMode.map(
-              sessionStarted: (_) => CustomElevatedButton.orangeFullWidth(
-                onPressed: _onEnterSessionHandler,
-                label: LocalizedTexts.enterSession.tr(),
-              ),
-              sessionNotStarted: (_) => SessionTimer(
-                value: context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inSeconds,
-                onTimerEnds: _onTimerEndsHandler,
-              ),
-              sessionError: (_) => const SizedBox.shrink(),
-              sessionEnded: (_) => const SizedBox.shrink(),
-            )
-          ],
-        ),
+            sessionNotStarted: (_) => SessionTimer(
+              value: context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inSeconds,
+              onTimerEnds: _onTimerEndsHandler,
+            ),
+            sessionError: (_) => const SizedBox.shrink(),
+            sessionEnded: (_) => const SizedBox.shrink(),
+          )
+        ],
       ),
     );
   }

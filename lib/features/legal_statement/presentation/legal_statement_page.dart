@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/application/instructions_service.dart';
-import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+// import 'package:loopcare_frontend/core/application/instructions_service.dart';
+// import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
-import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+// import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
@@ -43,16 +43,17 @@ class LegalStatementPage extends StatelessWidget {
                     '${LocalizedTexts.legalStatementTextOne.tr()}.',
                     style: context.textTheme.bodyMedium,
                   ),
-                  const SizedBox(height: 16.0),
-                  CustomText.w400(
-                    '${LocalizedTexts.legalStatementTextTwo.tr()}.',
-                    style: context.textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: 38.0),
-                  CustomElevatedButton.coralSmall(
-                    onPressed: () => _onReadLegalStatement(context),
-                    label: LocalizedTexts.readLegalStatement,
-                  ),
+                  // TODO removed during LOOPCARE-2000 task 25.01.2024
+                  // const SizedBox(height: 16.0),
+                  // CustomText.w400(
+                  //   '${LocalizedTexts.legalStatementTextTwo.tr()}.',
+                  //   style: context.textTheme.bodyMedium,
+                  // ),
+                  // const SizedBox(height: 38.0),
+                  // CustomElevatedButton.coralSmall(
+                  //   onPressed: () => _onReadLegalStatement(context),
+                  //   label: LocalizedTexts.readLegalStatement,
+                  // ),
                   const SizedBox(height: 27.0),
                   const LegalStatementConfirmationBox(),
                 ],
@@ -64,12 +65,12 @@ class LegalStatementPage extends StatelessWidget {
     );
   }
 
-  Future<void> _onReadLegalStatement(BuildContext context) async {
-    InstructionsService.downloadInstructions(onErrorCb: _showError(context));
-  }
+  // Future<void> _onReadLegalStatement(BuildContext context) async {
+  //   InstructionsService.downloadInstructions(onErrorCb: _showError(context));
+  // }
 
-  _showError(BuildContext context) =>
-      context.showError(content: CustomText.w400(LocalizedTexts.openLinkErrorMessage.tr()));
+  // _showError(BuildContext context) =>
+  //     context.showError(content: CustomText.w400(LocalizedTexts.openLinkErrorMessage.tr()));
 
   Future<bool> _onWillPop(BuildContext context) async {
     context.read<ConsentConfirmationBloc>().add(const ConsentConfirmationEvent.passageChanged(false));

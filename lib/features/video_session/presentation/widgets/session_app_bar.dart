@@ -25,28 +25,32 @@ class SessionAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppColors.orangeRegular,
-      title: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          CustomText.w600(
-            sessionName,
-            textAlign: TextAlign.center,
-            style: context.textTheme.bodyLarge,
-          ),
-          BlocBuilder<SessionCallBloc, SessionCallState>(
-            builder: (context, state) {
-              return CustomRoundedContainer(
-                borderRadius: 5.0,
-                bgColor: AppColors.orangeLighter,
-                child: CustomText.w600(
-                  '${LocalizedTexts.duration.tr()} ${formatSecondsToDurationString(state.data.sessionTime)}',
-                  style: context.textTheme.bodySmall,
-                ),
-              );
-            },
-          ),
-        ],
+      title: Padding(
+        padding: const EdgeInsets.only(bottom: 18.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CustomText.w600(
+              sessionName,
+              textAlign: TextAlign.center,
+              style: context.textTheme.bodyLarge,
+            ),
+            BlocBuilder<SessionCallBloc, SessionCallState>(
+              builder: (context, state) {
+                return CustomRoundedContainer(
+                  borderRadius: 5.0,
+                  bgColor: AppColors.orangeLighter,
+                  child: CustomText.w600(
+                    '${LocalizedTexts.duration.tr()} ${formatSecondsToDurationString(state.data.sessionTime)}',
+                    style: context.textTheme.bodySmall,
+                  ),
+                );
+              },
+            ),
+            // SizedBox(height: 8.0)
+          ],
+        ),
       ),
       automaticallyImplyLeading: false,
       actions: [

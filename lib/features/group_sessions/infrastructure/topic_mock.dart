@@ -3,17 +3,17 @@ var topics = [
     "groupSessions": [
       {
         "memberCount": 1,
-        "minMemberCount": 4,
+        "minMemberCount": 1,
         "maxMemberCount": 9,
         "status": "planned",
-        "signed": false,
+        "signed": true,
         "groupSessionMembers": [],
         "id": 78,
         "topic": "Mindfulness",
-        "startDate": "2024-01-15T16:00:00.000Z",
-        "endDate": "2024-01-15T17:30:00.000Z",
+        "startDate": "2024-01-25T15:16:00.000Z",
+        "endDate": "2024-01-25T16:16:00.000Z",
         "password": "f73d4ef553",
-        "groupSessionKey": "78-ENV:develop-GROUP_ID:13809"
+        "groupSessionKey": "78-ENV:develop-GROUP_ID:13196"
       },
       {
         "memberCount": 0,
@@ -54,6 +54,8 @@ var topics = [
     "id": 2,
     "topic": "Mindfulness",
     "duration": 3180,
+    "image":
+        'https://d2vj8rd7b5s9sd.cloudfront.net/1/images/group-session-card.png?Key-Pair-Id=K36SJB3H7IKUDL&Signature=k5KnG7278SJ7ayWCIlU4h3cR~l~614Hp1ZILbV3jrMqTUEX-6EAskALlSeqEsJw8U40uG8TFj6vJW4415w6qJdn9cqAasVrcEaXAnelesuEdWQtpoqj0Q4r610e59xDf56qGP517N6blrb2SeZEqeIzUXJLXYGudQ3lDFbABGxpBOcGFcPV3gXtxruACzhhEwwSVUhOhusx1H~a24zMbMOVptxH7ww5u2DqmLUMvBZpMpZwhXCLz1b0HltTNywMg8tKz3tYb6CGu41T3bJezdCeV0e0io-fVb6k1VvSQXh9sHWo6Zjb4Wym3mQJ2qxLz9Df14bS9wm3pou5wm3eVdw__&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9kMnZqOHJkN2I1czlzZC5jbG91ZGZyb250Lm5ldC8qIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzA2MjgzNDg3fX19XX0_',
     "groupSessionProgramEvents": [
       {
         "id": 15,

@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/video_session/presentation/session_waiting_page.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_countdown/session_countdown.dart';
 
 class SessionRulesPage extends StatelessWidget {
@@ -22,16 +23,33 @@ class SessionRulesPage extends StatelessWidget {
         title: LocalizedTexts.groupRules.translation,
         leading: CustomFilledIconButton.leadingOrangeLighter(),
       ),
+      bottomSheet: Container(
+        width: double.infinity,
+        height: bottomSheetHeight,
+        color: AppColors.blueDarker,
+        padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 32),
+        child: const SessionCountdown(),
+      ),
       body: SafeArea(
-        child: MainContainer(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                child: ScrollableContainer(
+        child: ScrollableContainer(
+          child: MainContainer(
+            child: Column(
+              children: [
+                const SizedBox(height: 28.0),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 32.0),
+                  decoration: BoxDecoration(
+                    color: AppColors.orangeLightest,
+                    borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                    border: Border.all(
+                      width: 2,
+                      color: AppColors.petrolRegular,
+                      style: BorderStyle.solid,
+                    ),
+                  ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 24.0),
                       CustomText.bitter600(
                         LocalizedTexts.groupRulesAttention.tr(),
                         style: context.textTheme.bodyLarge?.copyWith(fontSize: ThemeConstants.fontSize20),
@@ -196,9 +214,9 @@ class SessionRulesPage extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
-              const SessionCountdown(),
-            ],
+                const SizedBox(height: bottomSheetHeight),
+              ],
+            ),
           ),
         ),
       ),

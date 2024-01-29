@@ -52,7 +52,10 @@ class GroupRulesThreePage extends StatelessWidget {
                     children: [
                       const GroupPrefsProgress(),
                       const SizedBox(height: 28.0),
-                      CustomText.w600(LocalizedTexts.groupRulesAttention.tr()),
+                      CustomText.w600(
+                        LocalizedTexts.groupRulesAttention.tr(),
+                        style: context.textTheme.bodyLarge,
+                      ),
                       const SizedBox(height: 32.0),
                       BulletListItem(
                         text: CustomText.w400(

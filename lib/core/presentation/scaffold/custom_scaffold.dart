@@ -9,6 +9,7 @@ class CustomScaffold extends StatelessWidget {
   final Color? color;
   final bool? resizeToAvoidBottomInset;
   final bool? needBottomFacture;
+  final Widget? bottomSheet;
 
   const CustomScaffold({
     super.key,
@@ -17,6 +18,7 @@ class CustomScaffold extends StatelessWidget {
     this.color,
     this.resizeToAvoidBottomInset,
     this.needBottomFacture,
+    this.bottomSheet,
   });
 
   factory CustomScaffold.coralLightest({CustomAppBar? appBar, Widget? body}) =>
@@ -28,10 +30,11 @@ class CustomScaffold extends StatelessWidget {
   factory CustomScaffold.orangeLightest({CustomAppBar? appBar, Widget? body}) =>
       CustomScaffold(appBar: appBar, body: body, color: AppColors.orangeLightest);
 
-  factory CustomScaffold.orange({CustomAppBar? appBar, Widget? body}) =>
-      CustomScaffold(appBar: appBar, body: body, color: AppColors.orangeOffRegular);
+  factory CustomScaffold.orange({CustomAppBar? appBar, Widget? body, Widget? bottomSheet}) =>
+      CustomScaffold(appBar: appBar, body: body, color: AppColors.orangeOffRegular, bottomSheet: bottomSheet);
 
-  factory CustomScaffold.yellowLightest({CustomAppBar? appBar, Widget? body, bool? resizeToAvoidBottomInset}) =>
+  factory CustomScaffold.yellowLightest(
+          {CustomAppBar? appBar, Widget? body, bool? resizeToAvoidBottomInset}) =>
       CustomScaffold(
         appBar: appBar,
         body: body,
@@ -61,7 +64,8 @@ class CustomScaffold extends StatelessWidget {
       CustomScaffold(appBar: appBar, body: body, color: AppColors.blueLightest);
 
   factory CustomScaffold.blue({CustomAppBar? appBar, Widget? body, bool? needBottomFacture}) =>
-      CustomScaffold(appBar: appBar, body: body, color: AppColors.blueOffRegular, needBottomFacture: needBottomFacture);
+      CustomScaffold(
+          appBar: appBar, body: body, color: AppColors.blueOffRegular, needBottomFacture: needBottomFacture);
 
   factory CustomScaffold.blueDarkest({CustomAppBar? appBar, Widget? body}) =>
       CustomScaffold(appBar: appBar, body: body, color: AppColors.blueDarkest);
@@ -72,6 +76,7 @@ class CustomScaffold extends StatelessWidget {
       backgroundColor: color,
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       appBar: appBar,
+      bottomSheet: bottomSheet,
       body: Stack(
         children: [
           if (needBottomFacture ?? false)

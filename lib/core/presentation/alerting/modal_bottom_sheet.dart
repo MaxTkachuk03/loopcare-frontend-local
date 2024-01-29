@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/widgets/already_planned_card.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/checkbox/custom_checkbox.dart';
 import 'package:loopcare_frontend/core/presentation/html_renderer/html_renderer.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
@@ -126,49 +127,33 @@ class ModalBottomSheet {
     required void Function() onDeleted,
   }) {
     showModalBottomSheet<void>(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24.0),
-      ),
+      showDragHandle: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
-          child: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    const SizedBox(height: 32.0),
-                    Text(
-                      LocalizedTexts.deleteModalMessage.translation,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    const SizedBox(height: 47.0),
-                  ],
-                ),
-                Column(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () => context.router.pop(),
-                      style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                            backgroundColor: MaterialStateProperty.all(AppColors.bgGreen),
-                            foregroundColor: MaterialStateProperty.all(AppColors.black),
-                          ),
-                      child: Text(LocalizedTexts.noCancel.translation),
-                    ),
-                    const SizedBox(
-                      height: 12.0,
-                    ),
-                    ElevatedButton(
-                      onPressed: onDeleted,
-                      child: Text(LocalizedTexts.yesDelete.translation),
-                    )
-                  ],
-                ),
-              ],
+        return FractionallySizedBox(
+          heightFactor: 0.5,
+          child: ScrollableContainer(
+            child: MainContainer(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CustomText.w400(
+                    '${LocalizedTexts.deleteModalMessage.tr()}.',
+                    style: context.textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 32.0),
+                  CustomElevatedButton.blueFullWidth(
+                    onPressed: context.router.pop,
+                    label: LocalizedTexts.noCancel.tr(),
+                  ),
+                  const SizedBox(height: 12.0),
+                  CustomOutlinedButton.blueFullWidth(
+                    onPressed: onDeleted,
+                    label: LocalizedTexts.yesDelete.tr(),
+                  )
+                ],
+              ),
             ),
           ),
         );
@@ -1027,7 +1012,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 42.0, horizontal: 39.0),
-          height: size.height * 0.35,
+          height: size.height * 0.45,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
