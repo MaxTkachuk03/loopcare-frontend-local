@@ -45,10 +45,9 @@ class _MealPageState extends State<MealPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory =
-        DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
-            ? state.currentMealCategory?.toLowerCase()
-            : MealCategory.breakfast.originalValue;
+    final mealCategory = DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
+        ? state.currentMealCategory?.toLowerCase()
+        : MealCategory.breakfast.originalValue;
 
     final mealId = state.getCurrentMealId;
 
@@ -98,9 +97,10 @@ class _MealPageState extends State<MealPage> {
 
     final date = state.getCurrentDate.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
         ? state.getCurrentDate.shortDate
-        : LocalizedTexts.today.tr();
+        : LocalizedTexts.today.tr().capitalize();
     return date;
   }
+
 // TODO: LOOPCARE-1798 Hide Meal planning block
   // String _mealDates(MealsState state, {bool needNewLine = false}) {
   //   final dates = state.currentMealDates;
@@ -288,6 +288,7 @@ class _MealPageState extends State<MealPage> {
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             NutritionValuesBlock(
                               numberOfPortions: mealsState.currentMeal?.serving.numberOfUnits.toInt() ?? 0,
@@ -313,11 +314,13 @@ class _MealPageState extends State<MealPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      CustomOutlinedButton.blueSmall(
-                                        label: LocalizedTexts.saveToMyDishes,
-                                        onPressed: _onSaveToMyDishesHandler,
+                                      Expanded(
+                                        child: CustomOutlinedButton.blueSmall(
+                                          label: LocalizedTexts.saveToMyDishes,
+                                          onPressed: _onSaveToMyDishesHandler,
+                                        ),
                                       ),
                                       const SizedBox(width: 10.0),
                                       Expanded(
@@ -332,11 +335,18 @@ class _MealPageState extends State<MealPage> {
                                   if (mealsState.isPlanningMeals && currentDate.isTodayOrFuture)
                                     BlocBuilder<RecipeBloc, RecipeState>(
                                       builder: (BuildContext context, recipeState) {
-                                        return CustomOutlinedButton.blueSmall(
-                                          label: LocalizedTexts.recommendations,
-                                          onPressed: () => recipeState.data.recommendationRecipe.isEmpty
-                                              ? null
-                                              : _onRecommendationsPressed(context),
+                                        return Row(
+                                          children: [
+                                            Expanded(
+                                              child: CustomOutlinedButton.blueSmall(
+                                                label: LocalizedTexts.recommendations,
+                                                onPressed: () => recipeState.data.recommendationRecipe.isEmpty
+                                                    ? null
+                                                    : _onRecommendationsPressed(context),
+                                              ),
+                                            ),
+                                            const Expanded(child: SizedBox(width: 10.0)),
+                                          ],
                                         );
                                       },
                                     ),
@@ -345,18 +355,18 @@ class _MealPageState extends State<MealPage> {
                             ),
                           ],
                         ),
-                        Column(
-                          children: [
-                            const SizedBox(height: 26.0),
-                            MainContainer(
-                              child: CustomElevatedButton.blueFullWidth(
+                        MainContainer(
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 26.0),
+                              CustomElevatedButton.blueFullWidth(
                                 onPressed: () => _onBackToDashboardPressed(context),
                                 //TODO confirm label text for back btn
                                 label: LocalizedTexts.backToTodayLogging,
                               ),
-                            ),
-                            const SizedBox(height: 20.0)
-                          ],
+                              const SizedBox(height: 20.0)
+                            ],
+                          ),
                         )
                       ],
                     );
