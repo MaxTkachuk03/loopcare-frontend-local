@@ -211,50 +211,44 @@ class _RecipePageState extends State<RecipePage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    SizedBox(
-                                      height: 35,
-                                      child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(right: 5.0),
-                                              child: CustomOutlinedButton.blue(
-                                                label: LocalizedTexts.addToDishes.tr(),
-                                                onPressed: _onSaveToMyDishesHandler,
-                                              ),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(right: 5.0),
+                                            child: CustomOutlinedButton.blueSmall(
+                                              label: LocalizedTexts.addToDishes.tr(),
+                                              onPressed: _onSaveToMyDishesHandler,
                                             ),
                                           ),
-                                          const SizedBox(height: 10.0),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(left: 5.0),
-                                              child: CustomOutlinedButton.blue(
-                                                label: LocalizedTexts.addFoodItem.tr(),
-                                                onPressed: _addFoodItemPressed,
-                                              ),
+                                        ),
+                                        const SizedBox(height: 10.0),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(left: 5.0),
+                                            child: CustomOutlinedButton.blueSmall(
+                                              label: LocalizedTexts.addFoodItem.tr(),
+                                              onPressed: _addFoodItemPressed,
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                     const SizedBox(height: 10.0),
-                                    SizedBox(
-                                      height: 35,
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(right: 10.0),
-                                              child: CustomOutlinedButton.blue(
-                                                label: LocalizedTexts.viewRecipe.tr(),
-                                                onPressed: _onViewRecipePressed,
-                                              ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(right: 10.0),
+                                            child: CustomOutlinedButton.blueSmall(
+                                              label: LocalizedTexts.viewRecipe.tr(),
+                                              onPressed: _onViewRecipePressed,
                                             ),
                                           ),
-                                          const Expanded(child: SizedBox(height: 10.0)),
-                                        ],
-                                      ),
+                                        ),
+                                        const Expanded(child: SizedBox(height: 10.0)),
+                                      ],
                                     ),
                                     const SizedBox(
                                       height: 15.0,

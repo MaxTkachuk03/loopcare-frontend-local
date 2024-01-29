@@ -45,10 +45,9 @@ class _MealPageState extends State<MealPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory =
-        DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
-            ? state.currentMealCategory?.toLowerCase()
-            : MealCategory.breakfast.originalValue;
+    final mealCategory = DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
+        ? state.currentMealCategory?.toLowerCase()
+        : MealCategory.breakfast.originalValue;
 
     final mealId = state.getCurrentMealId;
 
@@ -314,54 +313,48 @@ class _MealPageState extends State<MealPage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(
-                                    height: 35,
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(right: 5.0),
-                                            child: CustomOutlinedButton.blue(
-                                              label: LocalizedTexts.saveToMyDishes,
-                                              onPressed: _onSaveToMyDishesHandler,
-                                            ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(right: 5.0),
+                                          child: CustomOutlinedButton.blueSmall(
+                                            label: LocalizedTexts.saveToMyDishes,
+                                            onPressed: _onSaveToMyDishesHandler,
                                           ),
                                         ),
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(left: 5.0),
-                                            child: CustomOutlinedButton.blue(
-                                              label: LocalizedTexts.clearMealList,
-                                              onPressed: () => _onDeleteMealPressed(context),
-                                            ),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(left: 5.0),
+                                          child: CustomOutlinedButton.blueSmall(
+                                            label: LocalizedTexts.clearMealList,
+                                            onPressed: () => _onDeleteMealPressed(context),
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                   const SizedBox(height: 10.0),
                                   //  if (mealsState.isPlanningMeals && currentDate.isTodayOrFuture)
                                   BlocBuilder<RecipeBloc, RecipeState>(
                                     builder: (BuildContext context, recipeState) {
-                                      return SizedBox(
-                                        height: 35,
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(right: 10.0),
-                                                child: CustomOutlinedButton.blue(
-                                                  label: LocalizedTexts.recommendations,
-                                                  onPressed: () => recipeState.data.recommendationRecipe.isEmpty
-                                                      ? null
-                                                      : _onRecommendationsPressed(context),
-                                                ),
+                                      return Row(
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(right: 10.0),
+                                              child: CustomOutlinedButton.blueSmall(
+                                                label: LocalizedTexts.recommendations,
+                                                onPressed: () => recipeState.data.recommendationRecipe.isEmpty
+                                                    ? null
+                                                    : _onRecommendationsPressed(context),
                                               ),
                                             ),
-                                            const Expanded(child: SizedBox(height: 10.0)),
-                                          ],
-                                        ),
+                                          ),
+                                          const Expanded(child: SizedBox(height: 10.0)),
+                                        ],
                                       );
                                     },
                                   ),
