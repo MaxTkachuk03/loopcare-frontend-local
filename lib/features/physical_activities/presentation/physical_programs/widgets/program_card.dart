@@ -69,6 +69,19 @@ class ProgramCard extends StatelessWidget {
     );
   }
 
+  Widget _categoryLabel(String category) {
+    switch (category) {
+      case 'easy':
+        return CategoryLabel.difficultyEasy();
+      case 'medium':
+        return CategoryLabel.difficultyMedium();
+      case 'hard':
+        return CategoryLabel.difficultyHard();
+    }
+
+    return CategoryLabel.difficultyEasy();
+  }
+
   @override
   Widget build(BuildContext context) {
     final image = program.image;
@@ -95,13 +108,18 @@ class ProgramCard extends StatelessWidget {
                 Expanded(
                   child: ClipPath(
                     clipper: ActivityClipper(),
-                    child: Container(
-                      padding: padding,
-                      width: _imageWidth,
-                      alignment: Alignment.centerLeft,
-                      child: NetworkImageWithCache(
-                        url: image,
-                        imageBoxFit: BoxFit.fitHeight,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                      ),
+                      child: Container(
+                        width: _imageWidth,
+                        alignment: Alignment.centerLeft,
+                        child: NetworkImageWithCache(
+                          url: image,
+                          imageBoxFit: BoxFit.fitHeight,
+                        ),
                       ),
                     ),
                   ),
@@ -122,16 +140,10 @@ class ProgramCard extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        CategoryLabel.difficulty(
-                          label: program.difficultyName,
-                        ),
-                        const SizedBox(
-                          width: 16.0,
-                        ),
+                        _categoryLabel(program.difficultyName),
+                        const SizedBox(width: 16.0),
                         AppIcons.clock,
-                        const SizedBox(
-                          width: 4.0,
-                        ),
+                        const SizedBox(width: 4.0),
                         CustomText.w600(
                           formatDuration(program.duration),
                           style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize10),
@@ -163,7 +175,7 @@ class ProgramCard extends StatelessWidget {
                       LocalizedTexts.equipment.tr(namedArgs: {
                         'equipment': program.equipment,
                       }),
-                      maxLines: 1,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize12),
                     ),
