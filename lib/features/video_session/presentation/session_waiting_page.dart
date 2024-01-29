@@ -124,7 +124,7 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
                               child: Row(
                                 children: [
                                   ClipPath(
-                                    clipper: EducationClipper(),
+                                    clipper: ImageClipper(),
                                     child: ClipRRect(
                                       borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(10),
