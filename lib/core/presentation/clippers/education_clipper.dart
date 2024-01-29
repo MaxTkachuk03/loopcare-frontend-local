@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 
-class EducationClipper extends CustomClipper<Path> {
+class ImageClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
 
-    path.moveTo(size.width * 1.0, size.height * 0.0);
-    path.cubicTo(size.width * -0.7210000, size.height * -0.0386000, size.width * -0.0025200,
-        size.height * 0.0009600, size.width * -0.0078600, size.height * 0.5514400);
-    path.cubicTo(size.width * -0.0094000, size.height * 0.9892000, size.width * -0.7464600,
-        size.height * 1.0280400, size.width * 0.9966200, size.height * 0.9946000);
-    path.cubicTo(size.width * 0.8833800, size.height * 0.9007000, size.width * 0.6988800,
-        size.height * 0.6994600, size.width * 0.7010000, size.height * 0.4982200);
-    path.cubicTo(size.width * 0.6954600, size.height * 0.2986400, size.width * 0.8834000,
-        size.height * 0.1000200, size.width * 1.0, size.height * 0.0);
+    path.moveTo(size.width * 0.9998162, size.height);
+    path.cubicTo(size.width * 0.9915588, size.height * 0.9916354, size.width * 0.9837721,
+        size.height * 0.9829635, size.width * 0.9765000, size.height * 0.9740000);
+    path.lineTo(size.width * 0.7273765, size.height * 0.6858385);
+    path.cubicTo(size.width * 0.6398941, size.height * 0.5780156, size.width * 0.6398941,
+        size.height * 0.4446891, size.width * 0.7273772, size.height * 0.3368641);
+    path.lineTo(size.width * 0.9880441, size.height * 0.01558161);
+    path.cubicTo(size.width * 0.9918897, size.height * 0.01084510, size.width * 0.9958750,
+        size.height * 0.006189792, size.width, size.height * 0.001617807);
+    path.lineTo(size.width, 0);
+    path.lineTo(0, 0);
+    path.lineTo(0, size.height);
+    path.lineTo(size.width * 0.9998162, size.height);
 
     path.close();
 

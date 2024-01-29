@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
-import 'package:loopcare_frontend/core/presentation/clippers/activity_clipper.dart';
+import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
@@ -60,8 +60,6 @@ class ProgramCard extends StatelessWidget {
         onlyView: true,
       );
 
-  double get _imageWidth => 200;
-
   double get _cardHeight {
     return size.map(
       small: (_) => 200,
@@ -106,25 +104,20 @@ class ProgramCard extends StatelessWidget {
             children: [
               if (image != null)
                 Expanded(
+                  flex: 2,
                   child: ClipPath(
-                    clipper: ActivityClipper(),
+                    clipper: ImageClipper(),
                     child: ClipRRect(
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(10),
                         bottomLeft: Radius.circular(10),
                       ),
-                      child: Container(
-                        width: _imageWidth,
-                        alignment: Alignment.centerLeft,
-                        child: NetworkImageWithCache(
-                          url: image,
-                          imageBoxFit: BoxFit.fitHeight,
-                        ),
-                      ),
+                      child: NetworkImageWithCache(url: image),
                     ),
                   ),
                 ),
               Expanded(
+                flex: 3,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
