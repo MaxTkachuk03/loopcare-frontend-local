@@ -602,7 +602,12 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
               final updatedList = _deleteMealFromList(mealId);
               final newState = state.isPlanningMeals
                   ? state.copyWith(plannedMeals: updatedList)
-                  : state.copyWith(meals: updatedList);
+                  : state.copyWith(
+                      meals:
+                          updatedList, // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                      timeStamp: DateTime.now(),
+                      // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                    );
 
               emit(newState);
             },
@@ -612,7 +617,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     );
   }
 
-  Map<String, List<MealsListItem>> _deleteMealFromList(int mealItem) {
+  Map<String, List<MealsListItem>> _deleteMealFromList(int mealId) {
     return state.maybeMap(
       mealsInfo: (state) {
         final currentDate = state.currentDate ?? DateTime.now();
@@ -621,7 +626,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             state.mealsMap.map((key, value) => MapEntry(key, [...value]));
         var selectedDayMeals = meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
-        selectedDayMeals.removeWhere((e) => e.id == mealItem);
+        selectedDayMeals.removeWhere((e) => e.id == mealId);
 
         return meals;
       },
