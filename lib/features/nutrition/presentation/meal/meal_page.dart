@@ -338,17 +338,14 @@ class _MealPageState extends State<MealPage> {
                                         return Row(
                                           children: [
                                             Expanded(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(right: 10.0),
-                                                child: CustomOutlinedButton.blueSmall(
-                                                  label: LocalizedTexts.recommendations,
-                                                  onPressed: () => recipeState.data.recommendationRecipe.isEmpty
-                                                      ? null
-                                                      : _onRecommendationsPressed(context),
-                                                ),
+                                              child: CustomOutlinedButton.blueSmall(
+                                                label: LocalizedTexts.recommendations,
+                                                onPressed: () => recipeState.data.recommendationRecipe.isEmpty
+                                                    ? null
+                                                    : _onRecommendationsPressed(context),
                                               ),
                                             ),
-                                            const Expanded(child: SizedBox(height: 10.0)),
+                                            const Expanded(child: SizedBox(width: 10.0)),
                                           ],
                                         );
                                       },
