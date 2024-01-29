@@ -23,9 +23,9 @@ extension ProgramDifficultyX on ProgramDifficulty {
       case ProgramDifficulty.easy:
         return true;
       case ProgramDifficulty.medium:
-        return false;
+        return true;
       case ProgramDifficulty.hard:
-        return false;
+        return true;
     }
   }
 }
