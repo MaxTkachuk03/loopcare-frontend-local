@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -46,7 +47,7 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
     if (_selectedValue == YesNoAnswer.no) {
       context.router.pop();
     } else {
-      context.router.pushNamed(AppRoutes.genderPreferences);
+      context.router.push(GenderPreferencesRoute(fromLessonComplete: widget.fromLessonComplete));
     }
 
     context.read<GroupPreferencesBloc>().add(GroupPreferencesEvent.setWouldLikeJoinGroup(_selectedValue!));
