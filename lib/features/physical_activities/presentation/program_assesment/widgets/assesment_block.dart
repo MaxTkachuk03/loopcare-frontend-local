@@ -34,6 +34,7 @@ class _AssesmentBlockState extends State<AssesmentBlock> {
         const SizedBox(height: 25.0),
         ScoringScale(
           selectedScore: selectedScore,
+          selectedColor: AppColors.yellowRegular,
           scaleSize: 10,
           borderColor: AppColors.blueDarker,
           divColor: AppColors.blueLighter,
