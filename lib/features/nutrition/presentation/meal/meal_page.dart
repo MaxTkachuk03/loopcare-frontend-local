@@ -317,47 +317,42 @@ class _MealPageState extends State<MealPage> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(right: 5.0),
-                                          child: CustomOutlinedButton.blueSmall(
-                                            label: LocalizedTexts.saveToMyDishes,
-                                            onPressed: _onSaveToMyDishesHandler,
-                                          ),
+                                        child: CustomOutlinedButton.blueSmall(
+                                          label: LocalizedTexts.saveToMyDishes,
+                                          onPressed: _onSaveToMyDishesHandler,
                                         ),
                                       ),
+                                      const SizedBox(width: 10.0),
                                       Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(left: 5.0),
-                                          child: CustomOutlinedButton.blueSmall(
-                                            label: LocalizedTexts.clearMealList,
-                                            onPressed: () => _onDeleteMealPressed(context),
-                                          ),
+                                        child: CustomOutlinedButton.blueSmall(
+                                          label: LocalizedTexts.clearMealList,
+                                          onPressed: () => _onDeleteMealPressed(context),
                                         ),
                                       ),
                                     ],
                                   ),
                                   const SizedBox(height: 10.0),
-                                  //  if (mealsState.isPlanningMeals && currentDate.isTodayOrFuture)
-                                  BlocBuilder<RecipeBloc, RecipeState>(
-                                    builder: (BuildContext context, recipeState) {
-                                      return Row(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(right: 10.0),
-                                              child: CustomOutlinedButton.blueSmall(
-                                                label: LocalizedTexts.recommendations,
-                                                onPressed: () => recipeState.data.recommendationRecipe.isEmpty
-                                                    ? null
-                                                    : _onRecommendationsPressed(context),
+                                  if (mealsState.isPlanningMeals && currentDate.isTodayOrFuture)
+                                    BlocBuilder<RecipeBloc, RecipeState>(
+                                      builder: (BuildContext context, recipeState) {
+                                        return Row(
+                                          children: [
+                                            Expanded(
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(right: 10.0),
+                                                child: CustomOutlinedButton.blueSmall(
+                                                  label: LocalizedTexts.recommendations,
+                                                  onPressed: () => recipeState.data.recommendationRecipe.isEmpty
+                                                      ? null
+                                                      : _onRecommendationsPressed(context),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          const Expanded(child: SizedBox(height: 10.0)),
-                                        ],
-                                      );
-                                    },
-                                  ),
+                                            const Expanded(child: SizedBox(height: 10.0)),
+                                          ],
+                                        );
+                                      },
+                                    ),
                                 ],
                               ),
                             ),

@@ -215,22 +215,16 @@ class _RecipePageState extends State<RecipePage> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(right: 5.0),
-                                            child: CustomOutlinedButton.blueSmall(
-                                              label: LocalizedTexts.addToDishes.tr(),
-                                              onPressed: _onSaveToMyDishesHandler,
-                                            ),
+                                          child: CustomOutlinedButton.blueSmall(
+                                            label: LocalizedTexts.addToDishes.tr(),
+                                            onPressed: _onSaveToMyDishesHandler,
                                           ),
                                         ),
-                                        const SizedBox(height: 10.0),
+                                        const SizedBox(width: 10.0),
                                         Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(left: 5.0),
-                                            child: CustomOutlinedButton.blueSmall(
-                                              label: LocalizedTexts.addFoodItem.tr(),
-                                              onPressed: _addFoodItemPressed,
-                                            ),
+                                          child: CustomOutlinedButton.blueSmall(
+                                            label: LocalizedTexts.addFoodItem.tr(),
+                                            onPressed: _addFoodItemPressed,
                                           ),
                                         ),
                                       ],
