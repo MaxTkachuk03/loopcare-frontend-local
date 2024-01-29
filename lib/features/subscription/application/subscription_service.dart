@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:injectable/injectable.dart';
@@ -23,14 +22,6 @@ class AppSubscriptionService {
     if (productDetailResponse.error != null || productDetailResponse.productDetails.isEmpty) {
       return [];
     }
-    for (final detail in productDetailResponse.productDetails) {
-      debugPrint('devcpp  id: ${detail.id}');
-      debugPrint('devcpp  title: ${detail.title}');
-      debugPrint('devcpp  description: ${detail.description}');
-      debugPrint('devcpp  price: ${detail.price}');
-      debugPrint('devcpp  currency: ${detail.currencySymbol}');
-    }
-
     return productDetailResponse.productDetails;
   }
 
@@ -41,9 +32,7 @@ class AppSubscriptionService {
       await Future.wait(transactions.map((transaction) => paymentWrapper.finishTransaction(transaction)));
     }
     final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
-    debugPrint('devcpp start buyItemInStore ');
     final isBought = await instance.buyNonConsumable(purchaseParam: purchaseParam);
-    debugPrint('devcpp start isBought: $isBought ');
     return isBought;
   }
 
