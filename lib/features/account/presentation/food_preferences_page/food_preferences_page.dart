@@ -17,7 +17,11 @@ import 'package:loopcare_frontend/features/account/presentation/food_preferences
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 class FoodPreferencesPage extends StatefulWidget {
-  const FoodPreferencesPage({super.key});
+  final bool fromLessonComplete;
+  const FoodPreferencesPage({
+    super.key,
+    required this.fromLessonComplete,
+  });
 
   @override
   State<FoodPreferencesPage> createState() => _FoodPreferencesPageState();
@@ -36,13 +40,37 @@ class _FoodPreferencesPageState extends State<FoodPreferencesPage> {
     );
   }
 
+  CustomAppBar _getCustomAppBar() {
+    if (widget.fromLessonComplete) {
+      return CustomAppBar.petrol(
+        title: LocalizedTexts.foodPreferences.tr(),
+        leading: CustomFilledIconButton.leadingPetrolLighter(),
+      );
+    }
+    return CustomAppBar.blue(
+      title: LocalizedTexts.foodPreferences.tr(),
+      leading: CustomFilledIconButton.leadingBlueLighter(),
+    );
+  }
+
+  CustomScaffold _getCustomScaffold({
+    Widget? body,
+  }) {
+    if (widget.fromLessonComplete) {
+      return CustomScaffold.petrol(
+        appBar: _getCustomAppBar(),
+        body: body,
+      );
+    }
+    return CustomScaffold.blue(
+      appBar: _getCustomAppBar(),
+      body: body,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.blue(
-      appBar: CustomAppBar.blue(
-        title: LocalizedTexts.foodPreferences.tr(),
-        leading: CustomFilledIconButton.leadingBlueLighter(),
-      ),
+    return _getCustomScaffold(
       body: SafeArea(
         child: ScrollableContainer(
           child: MainContainer(
@@ -61,6 +89,7 @@ class _FoodPreferencesPageState extends State<FoodPreferencesPage> {
                             onPressHandler: () => context.router.push(
                               EditFoodPreferencesRoute(
                                 mode: const EditFoodPreferencesPageMode.hates(),
+                                fromLessonComplete: widget.fromLessonComplete,
                               ),
                             ),
                           ),
@@ -73,6 +102,7 @@ class _FoodPreferencesPageState extends State<FoodPreferencesPage> {
                             onPressHandler: () => context.router.push(
                               EditFoodPreferencesRoute(
                                 mode: const EditFoodPreferencesPageMode.allergies(),
+                                fromLessonComplete: widget.fromLessonComplete,
                               ),
                             ),
                           ),
@@ -85,6 +115,7 @@ class _FoodPreferencesPageState extends State<FoodPreferencesPage> {
                             onPressHandler: () => context.router.push(
                               EditFoodPreferencesRoute(
                                 mode: const EditFoodPreferencesPageMode.dislikes(),
+                                fromLessonComplete: widget.fromLessonComplete,
                               ),
                             ),
                           ),

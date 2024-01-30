@@ -8,7 +8,6 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
@@ -61,7 +60,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
   }
 
   _startFoodPreferences(BuildContext context) {
-    context.router.pushNamed(AppRoutes.foodPreferences);
+    context.router.push(FoodPreferencesRoute(fromLessonComplete: true));
   }
 
   bool get _isGroupSessionsDisabled => context.read<AuthenticationCubit>().state.disableGroupSessions;

@@ -30,10 +30,12 @@ class EditFoodPreferencesPageMode with _$EditFoodPreferencesPageMode {
 
 class EditFoodPreferencesPage extends StatelessWidget {
   final EditFoodPreferencesPageMode mode;
+  final bool fromLessonComplete;
 
   const EditFoodPreferencesPage({
     super.key,
     required this.mode,
+    required this.fromLessonComplete,
   });
 
   get _title {
@@ -54,9 +56,9 @@ class EditFoodPreferencesPage extends StatelessWidget {
 
   get content {
     return mode.map(
-        hates: (_) => const TypesOfFoodChips(),
-        allergies: (_) => const AllergicChips(),
-        dislikes: (_) => const DoYouLikeChips());
+        hates: (_) => TypesOfFoodChips(fromLessonComplete: fromLessonComplete),
+        allergies: (_) => AllergicChips(fromLessonComplete: fromLessonComplete),
+        dislikes: (_) => DoYouLikeChips(fromLessonComplete: fromLessonComplete));
   }
 
   _onOkHandler(BuildContext context) {
@@ -65,13 +67,37 @@ class EditFoodPreferencesPage extends StatelessWidget {
     context.router.pop();
   }
 
+  CustomAppBar _getCustomAppBar() {
+    if (fromLessonComplete) {
+      return CustomAppBar.petrol(
+        title: _title,
+        leading: CustomFilledIconButton.leadingPetrolLighter(),
+      );
+    }
+    return CustomAppBar.blue(
+      title: _title,
+      leading: CustomFilledIconButton.leadingBlueLighter(),
+    );
+  }
+
+  CustomScaffold _getCustomScaffold({
+    Widget? body,
+  }) {
+    if (fromLessonComplete) {
+      return CustomScaffold.petrolLightest(
+        appBar: _getCustomAppBar(),
+        body: body,
+      );
+    }
+    return CustomScaffold.blueLightest(
+      appBar: _getCustomAppBar(),
+      body: body,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.blueLightest(
-      appBar: CustomAppBar.blue(
-        title: _title,
-        leading: CustomFilledIconButton.leadingBlueLighter(),
-      ),
+    return _getCustomScaffold(
       body: SafeArea(
         child: MainContainer(
           child: Column(
