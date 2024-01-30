@@ -94,12 +94,6 @@ class _AppState extends State<_App> {
   }
 
   @override
-  void dispose() {
-    getIt<NetworkStatusService>().dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
@@ -115,5 +109,11 @@ class _AppState extends State<_App> {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
     );
+  }
+
+  @override
+  void dispose() {
+    getIt<NetworkStatusService>().dispose();
+    super.dispose();
   }
 }

@@ -811,6 +811,11 @@ class LocalizedTexts {
   static const String groupSession = 'groupSession';
   static const String supportGroupPainSubscriptionNotGrouped = 'supportGroupPainSubscriptionNotGrouped';
   static const String supportGroupTrialSubscriptionNotGrouped = 'supportGroupTrialSubscriptionNotGrouped';
+
+  // Update bottom sheet
+  static const String updateRequired = 'updateRequired';
+  static const String updateRequiredBodyText1 = 'updateRequiredBodyText1';
+  static const String updateRequiredBodyText2 = 'updateRequiredBodyText2';
 }
 
 extension StringX on String {
