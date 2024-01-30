@@ -25,20 +25,12 @@ class GroupedMealList extends StatelessWidget {
       itemBuilder: (BuildContext context, index) {
         final item = mealItems[index];
         final type = item.type;
-        // final prevType = index > 0 ? mealItems[index - 1].type : null;
+
         final recipeNotation = type == MealItemType.recipe ? ' (${LocalizedTexts.recipe.translation})' : '';
 
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // if (type != prevType)
-            //   Image(
-            //     image: _getIcon(type),
-            //     width: 16.0,
-            //     color: active ? AppColors.anotherBlue : AppColors.darkGreen,
-            //   ),
-            // if (type == prevType) const SizedBox(width: 16.0),
-            // const SizedBox(width: 12.0),
             Expanded(
               child: CustomText.w400(
                 '${item.name}$recipeNotation',
@@ -54,16 +46,5 @@ class GroupedMealList extends StatelessWidget {
         return const SizedBox(height: 2.0);
       },
     );
-  }
-
-  AssetImage _getIcon(MealItemType type) {
-    if (type == MealItemType.recipe) {
-      return AppIcons.cook;
-    }
-    if (type == MealItemType.dish) {
-      return AppIcons.pan;
-    }
-
-    return AppIcons.cutlery;
   }
 }
