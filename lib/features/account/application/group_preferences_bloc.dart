@@ -78,7 +78,12 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
     emit(GroupPreferencesState.loading(state.data.copyWith(isLoading: true)));
 
     emit(
-      GroupPreferencesState.updated(state.data.copyWith(wouldLikeJoinGroup: event.value, isLoading: false)),
+      GroupPreferencesState.updated(
+        state.data.copyWith(
+          wouldLikeJoinGroup: event.value,
+          isLoading: false,
+        ),
+      ),
     );
   }
 
