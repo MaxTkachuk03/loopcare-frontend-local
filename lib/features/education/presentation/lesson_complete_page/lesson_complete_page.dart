@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
@@ -170,6 +171,16 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
                           if (state.data.assignmentsQuestions.isNotEmpty &&
                               state.data.assignmentsQuestionsWithAnswers.isEmpty) {
+                            final authState = context.read<AuthenticationCubit>().state;
+                            var emailApproveDate = authState.emailApproveDate ?? DateTime.now();
+
+                            context.read<AssignmentsBloc>().add(
+                                  AssignmentsEvent.getAllLessonQuestions(
+                                    emailApproveDate,
+                                    DateTime.now(),
+                                  ),
+                                );
+
                             return UnlockAssignment(
                               completedAt: state.data.lessonCompletedDate ?? DateTime.now(),
                               onBtnPressed: () => _startLessonQuestion(context, state.data.lessonId),
