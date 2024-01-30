@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -17,14 +16,18 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
-import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_progress.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 
 class GenderPreferencesPage extends StatefulWidget {
-  const GenderPreferencesPage({super.key});
+  final bool fromLessonComplete;
+
+  const GenderPreferencesPage({
+    super.key,
+    required this.fromLessonComplete,
+  });
 
   @override
   State<GenderPreferencesPage> createState() => _GenderPreferencesPageState();
@@ -64,7 +67,7 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
     );
 
     context.showErrorBar(
-      content: Text(errorMessage ?? ''),
+      content: CustomText(errorMessage ?? ''),
       position: FlashPosition.top,
     );
   }
@@ -79,8 +82,29 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
     if (groupPrefsMode == GroupPrefsMode.singlePage) {
       context.router.pop();
     } else {
-      context.router.pushNamed(AppRoutes.timezone);
+      context.router.push(TimezonePreferencesRoute(fromLessonComplete: widget.fromLessonComplete));
     }
+  }
+
+  Widget _getCustomChoiceChip({
+    required String label,
+    required bool selected,
+    required GenderPreferences value,
+  }) {
+    if (widget.fromLessonComplete) {
+      return CustomChoiceChip.green(
+        label: label,
+        selected: selected,
+        value: value,
+        onSelected: _onSelected,
+      );
+    }
+    return CustomChoiceChip.coral(
+      label: label,
+      selected: selected,
+      value: value,
+      onSelected: _onSelected,
+    );
   }
 
   @override
@@ -89,7 +113,9 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
       listenWhen: (prev, cur) => context.router.current.name == GenderPreferencesRoute.name,
       listener: _onChangeListener,
       child: GroupLessonWrap(
+        fromLessonComplete: widget.fromLessonComplete,
         child: GroupPrefsPageWrap(
+          fromLessonComplete: widget.fromLessonComplete,
           child: SafeArea(
             child: MainContainer(
               child: ScrollableContainer(
@@ -99,7 +125,7 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
                   children: [
                     Column(
                       children: [
-                        const GroupPrefsProgress(),
+                        // const GroupPrefsProgress(),
                         const SizedBox(height: 28.0),
                         CustomText.bitter500(
                           LocalizedTexts.genderPreferencesQuestion.tr(),
@@ -119,11 +145,10 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
 
                               return Column(
                                 children: [
-                                  CustomChoiceChip.coral(
+                                  _getCustomChoiceChip(
                                     label: value.label,
                                     selected: value == _selectedValue,
                                     value: value,
-                                    onSelected: _onSelected,
                                   ),
                                   const SizedBox(height: 8.0),
                                 ],

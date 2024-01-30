@@ -7,7 +7,6 @@ import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.d
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -18,13 +17,17 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
-import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_progress.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:timezone/timezone.dart';
 
 class TimezonePreferencesPage extends StatefulWidget {
-  const TimezonePreferencesPage({super.key});
+  final bool fromLessonComplete;
+
+  const TimezonePreferencesPage({
+    super.key,
+    required this.fromLessonComplete,
+  });
 
   @override
   State<TimezonePreferencesPage> createState() => _TimezonePreferencesPageState();
@@ -85,7 +88,7 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
     if (groupPrefsMode == GroupPrefsMode.singlePage) {
       context.router.pop();
     } else {
-      context.router.pushNamed(AppRoutes.nicknamePreferences);
+      context.router.push(NicknamePreferencesRoute(fromLessonComplete: widget.fromLessonComplete));
     }
   }
 
@@ -97,18 +100,41 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
     );
   }
 
+  Widget _getCustomChoiceChip({
+    required String label,
+    required bool selected,
+    required String value,
+  }) {
+    if (widget.fromLessonComplete) {
+      return CustomChoiceChip.green(
+        label: label,
+        selected: selected,
+        value: value,
+        onSelected: onSelected,
+      );
+    }
+    return CustomChoiceChip.coral(
+      label: label,
+      selected: selected,
+      value: value,
+      onSelected: onSelected,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<GroupPreferencesBloc, GroupPreferencesState>(
       listenWhen: (prev, cur) => context.router.current.name == TimezonePreferencesRoute.name,
       listener: _onChangeListener,
       child: GroupLessonWrap(
+        fromLessonComplete: widget.fromLessonComplete,
         child: GroupPrefsPageWrap(
+          fromLessonComplete: widget.fromLessonComplete,
           child: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const GroupPrefsProgress(),
+                // const GroupPrefsProgress(),
                 const SizedBox(height: 28.0),
                 MainContainer(
                   child: Column(
@@ -140,11 +166,10 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
 
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                        child: CustomChoiceChip.coral(
+                        child: _getCustomChoiceChip(
                           label: item,
                           selected: _selectedLocation == item,
                           value: item,
-                          onSelected: onSelected,
                         ),
                       );
                     },
