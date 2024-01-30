@@ -154,15 +154,13 @@ class MealsState with _$MealsState {
         }
         final selectedDayMeals = state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
-        var ret = selectedDayMeals
+        return selectedDayMeals
             .where((item) => item.mealItems.isNotEmpty)
             .toList()
             .map((e) => categoryShortVersion(e.mealCategory))
             .toList()
             .toSet()
             .toList();
-
-        return ret;
       },
       orElse: () => <String>[],
     );
