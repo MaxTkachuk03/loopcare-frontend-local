@@ -197,8 +197,8 @@ class _MealPageState extends State<MealPage> {
                   context.read<MealsBloc>().state.getCurrentMealId,
                 ),
               );
-
-          _setOriginDate();
+          // Need  to observe behavior, and remove this after ~20 Feb 2024
+          // _setOriginDate();
 
           context.router.popUntilRouteWithName(HomeRoute.name);
         },
