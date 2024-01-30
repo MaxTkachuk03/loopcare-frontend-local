@@ -19,6 +19,7 @@ import 'package:loopcare_frontend/features/assignments/infrastructure/answer_wid
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_option.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_scale.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_text.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_answer_type.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page_mode.dart';
@@ -41,11 +42,16 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
   int _totalSteps = 1;
   late LessonQuestion question;
   bool isNotSaved = true;
+  late int lessonId;
 
   @override
   void initState() {
     final questionsState = context.read<AssignmentsBloc>().state;
-    _totalSteps = questionsState.data.questions.isNotEmpty ? questionsState.data.questions.length : 1;
+    lessonId = questionsState.data.lessonId;
+
+    _totalSteps = questionsState.data.questionsForLesson(lessonId).isNotEmpty
+        ? questionsState.data.questionsForLesson(lessonId).length
+        : 1;
 
     _controller = mode.map(
       askQuestion: (_) => QuizzesController()..addFocusNodeListeners(),
@@ -71,6 +77,15 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
   void _onNextHandler({bool isEditable = true}) {
     if (widget.step == (_totalSteps - 1)) {
       if (isEditable) {
+        final authState = context.read<AuthenticationCubit>().state;
+        var emailApproveDate = authState.emailApproveDate ?? DateTime.now();
+
+        context.read<AssignmentsBloc>().add(
+              AssignmentsEvent.getAllLessonQuestions(
+                emailApproveDate,
+                DateTime.now(),
+              ),
+            );
         if (widget.fromDashboard) {
           context.router.pushNamed(AppRoutes.assignmentsSaved);
         } else {
@@ -221,7 +236,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
   void setStep(int currStep) {
     setState(() {
       var questionsBloc = context.read<AssignmentsBloc>();
-      question = questionsBloc.state.data.questionForStep(widget.step);
+      question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
 
       mode = question.questionAnswer != null
           ? const QuestionsPageMode.showAnswer()
