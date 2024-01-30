@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
+import 'package:loopcare_frontend/core/application/app_update/app_update_bloc.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
@@ -156,6 +157,9 @@ class AppBlocProvider {
         ),
         BlocProvider<GroupChatBloc>(
           create: (_) => getIt<GroupChatBloc>(),
+        ),
+        BlocProvider<AppUpdateBloc>(
+          create: (_) => getIt<AppUpdateBloc>(),
         ),
       ];
 }

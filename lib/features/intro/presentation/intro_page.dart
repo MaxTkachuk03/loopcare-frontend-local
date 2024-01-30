@@ -1,8 +1,15 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/app_update/app_update_bloc.dart';
+import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -13,11 +20,53 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/injection.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 AppConfig appConfig = getIt<AppConfig>();
 
-class IntroPage extends StatelessWidget {
+class IntroPage extends StatefulWidget {
   const IntroPage({super.key});
+
+  @override
+  State<IntroPage> createState() => _IntroPageState();
+}
+
+class _IntroPageState extends State<IntroPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initPackageInfo();
+    });
+  }
+
+  Future<void> _initPackageInfo() async {
+    final info = await PackageInfo.fromPlatform();
+
+    if (!mounted) return;
+
+    int platformMinVersion = Platform.isAndroid
+        ? context.read<AppUpdateBloc>().state.data.androidMinVersion
+        : context.read<AppUpdateBloc>().state.data.iosMinVersion;
+
+    if (int.parse(info.buildNumber) > platformMinVersion) {
+      ModalBottomSheet.appUpdate(context: context, onUpdatePressed: launchInBrowser);
+    }
+  }
+
+  void _showError() => context.showError(content: CustomText(LocalizedTexts.openLinkErrorMessage.tr()));
+
+  Future<void> launchInBrowser() async {
+    final Uri launchUri = Uri.parse(Platform.isAndroid ? playStoreAppUrl : appStoreAppUrl);
+
+    try {
+      await launchUrl(launchUri, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      _showError();
+    }
+  }
 
   void _onGetStarted(BuildContext context) {
     context.router.pushNamed(AppRoutes.joinUs);
