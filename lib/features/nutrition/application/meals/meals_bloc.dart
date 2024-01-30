@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -79,7 +80,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         final plannedMeals = _getUpdatedPlannedMealsList(r);
         final currentMealCategory = state.mapOrNull(mealsInfo: (s) => s.currentMealCategory);
         final originCurrentDate = state.mapOrNull(mealsInfo: (s) => s.originCurrentDate);
-
         emit(
           MealsState.mealsInfo(
             currentMealCategory: currentMealCategory,
@@ -216,7 +216,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             startDate: event.currentDate.beginDay.toIso8601String(),
             endDate: event.currentDate.endDay.toIso8601String(),
           );
-
           response.fold(
             (l) => emit(MealsState.error(l)),
             (r) => emit(
@@ -231,30 +230,32 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           );
         }
 
-        if (state.isNeededToFetchMeal) {
-          final plannedMeals = state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
-          final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
+        //TODO: LOOPCARE-1798: Hide Meal planning block
 
-          emit(const MealsState.loading());
+        // if (state.isNeededToFetchMeal) {
+        //   final plannedMeals = state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
+        //   final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
 
-          final response = await nutritionService.getPlannedMeals(
-            startDate: event.currentDate.beginDay.toIso8601String(),
-            endDate: event.currentDate.endDay.toIso8601String(),
-          );
+        //   emit(const MealsState.loading());
 
-          response.fold(
-            (l) => emit(MealsState.error(l)),
-            (r) => emit(
-              MealsState.mealsInfo(
-                currentDate: event.currentDate,
-                originCurrentDate: event.updateOrigin ? event.currentDate : s.originCurrentDate,
-                meals: meals ?? {},
-                selectedServing: null,
-                plannedMeals: _combinePlannedMealsByDate(plannedMeals, r.data),
-              ),
-            ),
-          );
-        }
+        //   final response = await nutritionService.getPlannedMeals(
+        //     startDate: event.currentDate.beginDay.toIso8601String(),
+        //     endDate: event.currentDate.endDay.toIso8601String(),
+        //   );
+
+        //   response.fold(
+        //     (l) => emit(MealsState.error(l)),
+        //     (r) => emit(
+        //       MealsState.mealsInfo(
+        //         currentDate: event.currentDate,
+        //         originCurrentDate: event.updateOrigin ? event.currentDate : s.originCurrentDate,
+        //         meals: meals ?? {},
+        //         selectedServing: null,
+        //         plannedMeals: _combinePlannedMealsByDate(plannedMeals, r.data),
+        //       ),
+        //     ),
+        //   );
+        // }
       },
     );
   }
@@ -406,6 +407,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
                     // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
                   )
                 : state.copyWith(meals: _getUpdatedMealsList(r));
+
             emit(newState);
           },
         );
