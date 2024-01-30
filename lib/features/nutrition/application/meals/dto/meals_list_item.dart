@@ -43,6 +43,7 @@ class MealsListItem with _$MealsListItem {
       caloriesSum += mealItem.servingCalories;
       amountSum += mealItem.servingWeight;
     }
+    if (amountSum == 0) return 0;
 
     return caloriesSum / amountSum;
   }
