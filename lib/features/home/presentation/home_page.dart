@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
         ? context.read<AppUpdateBloc>().state.data.androidMinVersion
         : context.read<AppUpdateBloc>().state.data.iosMinVersion;
 
-    if (int.parse(info.buildNumber) > platformMinVersion) {
+    if (int.parse(info.buildNumber) < platformMinVersion) {
       ModalBottomSheet.appUpdate(context: context, onUpdatePressed: launchInBrowser);
     }
   }
