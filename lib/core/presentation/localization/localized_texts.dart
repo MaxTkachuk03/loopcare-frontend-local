@@ -531,6 +531,11 @@ class LocalizedTexts {
   // Food preferences
   static const String foodLoggingUnlocked = "foodLoggingUnlocked";
   static const String youCanStartLogging = "youCanStartLogging";
+  static const String foodPreferencesDesc = "foodPreferencesDesc";
+  static const String foodPreferencesItemOne = "foodPreferencesItemOne";
+  static const String foodPreferencesItemTwo = "foodPreferencesItemTwo";
+  static const String foodPreferencesItemThree = "foodPreferencesItemThree";
+  static const String foodPreferencesItemFour = "foodPreferencesItemFour";
 
   // Intro
   static const String introTitle = 'introTitle';

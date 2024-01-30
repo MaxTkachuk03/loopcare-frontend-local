@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -67,6 +68,48 @@ class EditFoodPreferencesPage extends StatelessWidget {
     context.router.pop();
   }
 
+  _onNextHandler(BuildContext context) {
+    context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.saveFoodPreferences());
+
+    mode.map(
+      allergies: (_) {
+        context.router.push(
+          EditFoodPreferencesRoute(
+            mode: const EditFoodPreferencesPageMode.hates(),
+            fromLessonComplete: true,
+          ),
+        );
+      },
+      hates: (_) {
+        context.router.push(
+          EditFoodPreferencesRoute(
+            mode: const EditFoodPreferencesPageMode.dislikes(),
+            fromLessonComplete: true,
+          ),
+        );
+      },
+      dislikes: (_) {
+        context.router.popUntilRouteWithName(LessonCompleteRoute.name);
+      },
+    );
+
+    // context.router.pop();
+  }
+
+  Widget _getCustomButton(BuildContext context) {
+    if (fromLessonComplete) {
+      return CustomElevatedButton.blueFullWidth(
+        onPressed: () => _onNextHandler(context),
+        label: LocalizedTexts.next.tr(),
+      );
+    }
+
+    return CustomElevatedButton.blueFullWidth(
+      onPressed: () => _onOkHandler(context),
+      label: LocalizedTexts.confirm.tr(),
+    );
+  }
+
   CustomAppBar _getCustomAppBar() {
     if (fromLessonComplete) {
       return CustomAppBar.petrol(
@@ -118,10 +161,7 @@ class EditFoodPreferencesPage extends StatelessWidget {
               Column(
                 children: [
                   const SizedBox(height: 22.0),
-                  CustomElevatedButton.blueFullWidth(
-                    onPressed: () => _onOkHandler(context),
-                    label: LocalizedTexts.confirm.tr(),
-                  ),
+                  _getCustomButton(context),
                   const SizedBox(height: 30.0),
                 ],
               ),
