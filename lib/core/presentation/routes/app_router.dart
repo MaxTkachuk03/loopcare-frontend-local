@@ -134,16 +134,16 @@ const groupLessonRoutes = [
       path: AppRoutes.proxy,
       page: ProxyPage,
       guards: [ProxyGuard],
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.preIntro,
       page: PreIntroPage,
       guards: [IntroGuard],
-    ),
+    ), // dont need to add to firebase mapper
     AutoRoute(
       path: AppRoutes.intro,
       page: IntroPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.home,
       page: HomePage,
@@ -153,19 +153,19 @@ const groupLessonRoutes = [
         AutoRoute(path: AppRoutes.groupChat, page: GroupChatPage),
         AutoRoute(path: AppRoutes.account, page: AccountPage),
       ],
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.joinUs,
       page: JoinUsPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.login,
       page: LoginPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.forgotPassword,
       page: ForgotPasswordPage,
-    ),
+    ), // added
 
     // Onboarding Physical
     AutoRoute(
@@ -175,418 +175,420 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.birthday,
       page: BirthdayPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.checkFailedByAge,
       page: CheckFailedAgePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.sex,
       page: SexPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.biologicalGender,
       page: BiologicalGenderPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.height,
       page: HeightPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.weight,
       page: WeightPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.physicalCheckResult,
       page: PhysicalCheckResultPage,
-    ),
+    ), // added
 
     // Onboarding Medical
     AutoRoute(
       path: AppRoutes.medicalIntro,
       page: MedicalIntroPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.pregnancy,
       page: PregnancyPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.pregnancyFailed,
       page: PregnancyFailedPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.medicines,
       page: MedicinesPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.weightLossMedication,
       page: WeightLossMedicationPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.medicationPastPeriod,
       page: MedicationPastPeriodPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.medicationFuturePeriod,
       page: MedicationFuturePeriodPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.obesity,
       page: ObesityPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.thyroidDisease,
       page: ThyroidDiseasePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.metabolicDisease,
       page: MetabolicDiseasePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.hypertension,
       page: HypertensionPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.cardiovascularDisease,
       page: CardiovascularDiseasePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.stomachReduction,
       page: StomachReductionPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.diabetesDisease,
       page: DiabetesDiseasePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.renalFailure,
       page: RenalFailurePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.asthma,
       page: AsthmaPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.liverDisease,
       page: LiverDiseasePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.sleepApneaSyndrome,
       page: SleepApneaSyndromePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.locomotorSystemDisease,
       page: LocomotorSystemDiseasePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.treatmentByDoctor,
       page: TreatmentByDoctorPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.medicalCheckPassed,
       page: MedicalCheckPassedPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.medicalCheckFailed,
       page: MedicalCheckFailedPage,
-    ),
+    ), // added
 
     // Onboarding Mental
     AutoRoute(
       path: AppRoutes.mentalHealthPreIntro,
       page: MentalHealthPreIntroPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.mentalHealthIntro,
       page: MentalHealthIntroPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.mentalHealthQuestion,
       page: MentalHealthQuestionPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.mentalCheckResult,
       page: MentalCheckResultPage,
-    ),
+    ), // added
 
     // Legal statement
     AutoRoute(
       path: AppRoutes.legalStatement,
       page: LegalStatementPage,
-    ),
+    ), // added
 
     // Create account
     AutoRoute(
       path: AppRoutes.signUpWelcome,
       page: SignUpWelcomePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.name,
       page: NamePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.password,
       page: PasswordPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.emailAddress,
       page: EmailAddressPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.waitingForConfirmation,
       page: WaitingForConfirmationPage,
-    ),
+    ), // added
+
+    // Barcode scanner
     AutoRoute(
       path: AppRoutes.barcodeScanner,
       page: BarcodeScannerPage,
-    ),
+    ), // added
 
     // Nutrition
     AutoRoute(
       path: AppRoutes.nutritionInstructions,
       page: NutritionInstructionsPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.selectFood,
       page: SelectFoodPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.selectServing,
       page: SelectServingPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.search,
       page: SearchPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.recipe,
       page: RecipePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.meal,
       page: MealPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.logPlannedMeals,
       page: LogPlannedMealsPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.logWeight,
       page: LogWeightPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.recipeDetails,
       page: RecipeDetailsPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.chooseDate,
       page: ChooseDateCalendarPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.weekPlanner,
       page: WeekPlannerPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.recommendations,
       page: RecommendationsPage,
-    ),
+    ), // added
 
     // Education
     AutoRoute(
       path: AppRoutes.lesson,
       page: LessonPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.lessonComplete,
       page: LessonCompletePage,
-    ),
+    ), // added
 
     // Dish
     AutoRoute(
       path: AppRoutes.dishDetails,
       page: DishDetailsPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.editDish,
       page: EditDishPage,
-    ),
+    ), // added
 
     AutoRoute(
       path: AppRoutes.selectExercise,
       page: SelectExercisePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.dailyIntake,
       page: DailyIntakePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.programAssessment,
       page: ProgramAssessmentPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.chooseProgram,
       page: PhysicalProgramsPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.programDetails,
       page: ProgramDetailsPage,
-    ),
+    ), // added
 
     // User profile
     AutoRoute(
       path: AppRoutes.foodPreferences,
       page: FoodPreferencesPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.lessonCompleteFoodPreferences,
       page: LessonCompleteFoodPreferencesPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.physicalPreferences,
       page: PhysicalPreferencesPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.editFoodPreferences,
       page: EditFoodPreferencesPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.joinGroupPreferences,
       page: JoinGroupPreferencesPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.genderPreferences,
       page: GenderPreferencesPage,
       guards: [GenderPrefsGuard],
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.nicknamePreferences,
       page: NicknamePreferencesPage,
-    ),
+    ), // added
 
     // Video
     AutoRoute(
       path: AppRoutes.video,
       page: VideoPage,
-    ),
+    ), // added
 
     AutoRoute(
       path: AppRoutes.groupPreferences,
       page: GroupPreferencesPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.timezone,
       page: TimezonePreferencesPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.groupRulesOne,
       page: GroupRulesOnePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.groupRulesTwo,
       page: GroupRulesTwoPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.groupRulesThree,
       page: GroupRulesThreePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.groupRulesFour,
       page: GroupRulesFourPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.groupRulesFive,
       page: GroupRulesFivePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.groupRulesSix,
       page: GroupRulesSixPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.supportGroupIntro,
       page: SupportGroupIntroPage,
-    ),
+    ), // added
 
     // Zoom video sessions
     AutoRoute(
       path: AppRoutes.sessionWaitingRoom,
       page: SessionWaitingPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.sessionCall,
       page: SessionCallPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.sessionRules,
       page: SessionRulesPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.preparationMaterials,
       page: PreparationMaterialsPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.physicalActivitiesPreferences,
       page: PhysicalActivitiesPreferencesPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.physicalActivitiesFrequency,
       page: PhysicalActivitiesFrequencyPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.physicalActivitiesActivityType,
       page: PhysicalActivitiesActivityTypePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.physicalActivitiesComplete,
       page: PhysicalActivitiesCompletePage,
-    ),
+    ), // added
 
     // Mood
     AutoRoute(
       path: AppRoutes.createMood,
       page: CreateMoodPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.moodOption,
       page: MoodOptionPage,
-    ),
+    ), // added
 
     // Quizzes
     AutoRoute(
       path: AppRoutes.quizzes,
       page: QuizzesIntroPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.quizesQuestions,
       page: QuizzesQuestionsPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.assignmentsIntro,
       page: AssignmentsIntroPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.assignmentsQuestions,
       page: AssignmentsQuestionsPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.myAssignments,
       page: MyAssignmentsPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.assignmentsSaved,
       page: AssignmentsSavedPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.theme,
       page: ThemeComponentsPage,
-    ),
+    ), // dont need to add to firebase mapper
     AutoRoute(
       path: AppRoutes.groupChat,
       page: GroupChatPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.groupChatUsers,
       page: GroupUsersPage,
-    ),
+    ), // added
   ],
 )
 class $AppRouter {}
