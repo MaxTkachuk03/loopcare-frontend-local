@@ -66,7 +66,7 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
                     return SizedBox(
                       width: double.infinity,
                       child: ErrorScreen(
-                        error: groupPrefsState.data.error,
+                        error: groupPrefsState.data.error!,
                       ),
                     );
                   }

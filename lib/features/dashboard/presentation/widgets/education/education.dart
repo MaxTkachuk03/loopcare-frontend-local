@@ -37,7 +37,7 @@ class Education extends StatelessWidget {
             final error = errorState.data.error;
 
             return ErrorScreen(
-              error: error,
+              error: error!,
               onButtonPressed: () => context
                   .read<DashboardEducationBloc>()
                   .add(const DashboardEducationEvent.getDashboardLessons()),

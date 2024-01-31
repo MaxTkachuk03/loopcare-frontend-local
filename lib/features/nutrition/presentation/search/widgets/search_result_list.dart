@@ -258,7 +258,7 @@ class _SearchResultListState extends State<SearchResultList> {
 
             return Center(
               child: ErrorScreen(
-                error: error,
+                error: error!,
               ),
             );
           },

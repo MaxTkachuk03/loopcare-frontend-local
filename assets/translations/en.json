@@ -452,6 +452,7 @@
   "physicalProgramAlreadyLogged": "Physical program already logged",
   "noConnectionTitle": "No connection",
   "noConnectionText": "Your internet connection was interrupted. \nRestore the connection and try again",
+  "invalidIngridientText": "Sorry, invalid ingredients data",
   "oeps": "Oops!",
   "somethingWentWrong": "Something went wrong \nPlease try again later",
   "retry": "Retry",

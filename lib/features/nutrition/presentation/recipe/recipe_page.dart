@@ -85,8 +85,8 @@ class _RecipePageState extends State<RecipePage> {
 
     final recipeId = !isMealRecipe
         ? mealState.currentFoodItems
-            .firstWhere(
-                (element) => element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
+            .firstWhere((element) =>
+                element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
             .id
         : recipeState.recipeId;
 
@@ -173,7 +173,7 @@ class _RecipePageState extends State<RecipePage> {
                       final error = errorState.data.error;
 
                       return ErrorScreen(
-                        error: error,
+                        error: error!,
                         //TODO: need to check
                         onButtonPressed: () =>
                             context.read<RecipeBloc>().add(RecipeEvent.fetchRecipe(_currentRecipeId)),
@@ -372,7 +372,8 @@ class _RecipePageState extends State<RecipePage> {
           final recipeId = !isMealRecipe
               ? mealState.currentFoodItems
                   .firstWhere((element) =>
-                      element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
+                      element.type == MealItemType.recipe &&
+                      element.externalId == recipeState.externalRecipeId)
                   .id
               : recipeState.recipeId;
 
