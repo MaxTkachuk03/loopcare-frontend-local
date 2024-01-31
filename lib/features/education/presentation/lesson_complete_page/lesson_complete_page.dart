@@ -65,9 +65,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
   _startFoodPreferences(BuildContext context) {
     context.router.pushNamed(AppRoutes.lessonCompleteFoodPreferences);
 
-    setState(() {
-      showFoodPreferencesBtn = false;
-    });
+    showFoodPreferencesBtn = false;
   }
 
   bool get _isGroupSessionsDisabled => context.read<AuthenticationCubit>().state.disableGroupSessions;
@@ -165,6 +163,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                       child: BlocBuilder<EducationLessonBloc, EducationLessonState>(
                         builder: (BuildContext context, state) {
                           if (state.data.extraAction == ExtraActionTypes.unlockMeals) {
+                            // _startFoodPreferences(context);
+                            // return const SizedBox(height: 20);
                             return UnlockFoodLoggingFeature(
                               showFoodPreferencesBtn: showFoodPreferencesBtn,
                               onBtnPressed: () => _startFoodPreferences(context),
