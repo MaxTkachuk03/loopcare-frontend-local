@@ -42,20 +42,34 @@ class ErrorScreen extends StatelessWidget {
       requestCancelled: (error) => LocalizedTexts.noConnectionText.tr(),
       orElse: () => LocalizedTexts.somethingWentWrong.tr(),
       socketException: (_) => LocalizedTexts.noConnectionText.tr(),
-      notFound: (_) => LocalizedTexts.invalidIngridientText.tr(),
+      notFound: (error) {
+        if (error.message == 'serving_id_is_not_found') {
+          return LocalizedTexts.invalidIngridientText.tr();
+        }
+        return LocalizedTexts.somethingWentWrong.tr();
+      },
+    );
+  }
+
+  Widget _getRetryButton() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 12.0),
+      child: CustomOutlinedButton.blue(
+        onPressed: onButtonPressed,
+        label: buttonText ?? LocalizedTexts.retry.tr(),
+      ),
     );
   }
 
   Widget _getButton() {
     return error.maybeWhen(
-      notFound: (_) => const SizedBox.shrink(),
-      orElse: () => Padding(
-        padding: const EdgeInsets.only(top: 12.0),
-        child: CustomOutlinedButton.blue(
-          onPressed: onButtonPressed,
-          label: buttonText ?? LocalizedTexts.retry.tr(),
-        ),
-      ),
+      notFound: (error) {
+        if (error.message == 'serving_id_is_not_found') {
+          return const SizedBox.shrink();
+        }
+        return _getRetryButton();
+      },
+      orElse: () => _getRetryButton(),
     );
   }
 
