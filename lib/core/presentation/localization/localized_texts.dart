@@ -331,6 +331,7 @@ class LocalizedTexts {
   static const String retry = 'retry';
   static const String noConnectionTitle = 'noConnectionTitle';
   static const String noConnectionText = 'noConnectionText';
+  static const String invalidIngridientText = 'invalidIngridientText';
   static const String oeps = 'oeps';
   static const String somethingWentWrong = 'somethingWentWrong';
 

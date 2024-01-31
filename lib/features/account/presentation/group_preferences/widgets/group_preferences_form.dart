@@ -40,7 +40,7 @@ class GroupPreferencesForm extends StatelessWidget {
 
                   return Center(
                     child: ErrorScreen(
-                      error: error,
+                      error: error!,
                       onButtonPressed: () => context.router.pop(),
                     ),
                   );

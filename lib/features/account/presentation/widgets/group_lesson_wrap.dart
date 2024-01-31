@@ -33,7 +33,7 @@ class GroupLessonWrap extends StatelessWidget {
               fromLessonComplete: fromLessonComplete,
               child: Center(
                 child: ErrorScreen(
-                  error: error,
+                  error: error!,
                 ),
               ),
             );

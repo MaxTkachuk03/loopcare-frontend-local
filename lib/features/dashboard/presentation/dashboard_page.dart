@@ -232,7 +232,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
                                 return ErrorScreen(
                                   smallVersion: true,
-                                  error: error,
+                                  error: error!,
                                   onButtonPressed: () => context
                                       .read<DashboardEducationBloc>()
                                       .add(const DashboardEducationEvent.getDashboardLessons()),

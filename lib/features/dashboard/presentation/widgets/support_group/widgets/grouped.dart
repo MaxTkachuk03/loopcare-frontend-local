@@ -34,7 +34,7 @@ class Grouped extends StatelessWidget {
               ),
               child: ErrorScreen(
                 smallVersion: true,
-                error: error,
+                error: error!,
                 onButtonPressed: () => context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics()),
               ),
             );

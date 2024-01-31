@@ -39,7 +39,7 @@ class DashboardAssignments extends StatelessWidget {
 
               return ErrorScreen(
                 smallVersion: true,
-                error: error,
+                error: error!,
                 onButtonPressed: () => context.read<AssignmentsBloc>().add(
                       AssignmentsEvent.getAllLessonQuestions(
                         date.beginDay,

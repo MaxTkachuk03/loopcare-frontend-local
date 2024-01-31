@@ -117,7 +117,7 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
 
                             return ErrorScreen(
                               smallVersion: true,
-                              error: error,
+                              error: error!,
                               onButtonPressed: () => context.read<PhysicalActivitiesBloc>().add(
                                   PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay)),
                             );
