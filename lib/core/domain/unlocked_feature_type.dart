@@ -3,5 +3,6 @@ enum UnlockedFeatureType {
   physicalActivities,
   meals,
   assignments,
+  allowGroupSessions,
   unknown,
 }

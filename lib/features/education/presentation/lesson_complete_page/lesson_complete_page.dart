@@ -35,8 +35,6 @@ class LessonCompletePage extends StatefulWidget {
 }
 
 class _LessonCompletePageState extends State<LessonCompletePage> {
-  bool showFoodPreferencesBtn = true;
-
   @override
   void initState() {
     super.initState();
@@ -58,16 +56,18 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
     context.showError(content: Text(errorMessage));
   }
 
+  _onAfterCompleteListener(BuildContext context, EducationLessonState state) {
+    if (state.data.extraAction == ExtraActionTypes.unlockMeals) {
+      _startFoodPreferences(context);
+    }
+  }
+
   _startLessonQuestion(BuildContext context, int lessonId) {
     context.router.push(AssignmentsIntroRoute(lessonId: lessonId, fromDashboard: false));
   }
 
   _startFoodPreferences(BuildContext context) {
     context.router.pushNamed(AppRoutes.lessonCompleteFoodPreferences);
-
-    setState(() {
-      showFoodPreferencesBtn = false;
-    });
   }
 
   bool get _isGroupSessionsDisabled => context.read<AuthenticationCubit>().state.disableGroupSessions;
@@ -83,9 +83,17 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<EducationLessonBloc, EducationLessonState>(
-      listenWhen: (prev, cur) => cur is ErrorCompleteLesson,
-      listener: _onErrorListener,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<EducationLessonBloc, EducationLessonState>(
+          listenWhen: (prev, cur) => cur is ErrorCompleteLesson,
+          listener: _onErrorListener,
+        ),
+        BlocListener<EducationLessonBloc, EducationLessonState>(
+          listenWhen: (prev, cur) => cur is LessonCompleted,
+          listener: _onAfterCompleteListener,
+        ),
+      ],
       child: CustomScaffold.petrol(
         appBar: CustomAppBar.petrol(
           title: LocalizedTexts.lesson.tr(),
@@ -165,10 +173,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                       child: BlocBuilder<EducationLessonBloc, EducationLessonState>(
                         builder: (BuildContext context, state) {
                           if (state.data.extraAction == ExtraActionTypes.unlockMeals) {
-                            return UnlockFoodLoggingFeature(
-                              showFoodPreferencesBtn: showFoodPreferencesBtn,
-                              onBtnPressed: () => _startFoodPreferences(context),
-                            );
+                            return const UnlockFoodLoggingFeature();
                           }
 
                           if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&

@@ -15,10 +15,15 @@ class UnlockAssignment extends StatelessWidget {
   Widget build(BuildContext context) {
     return FeatureUnlock(
       title: LocalizedTexts.assignmentAddedTitle.tr(),
-      body: LocalizedTexts.assignmentAddedText.tr(namedArgs: {
-        'date': completedAt.add(const Duration(days: 7)).dayWithMonthWithoutLeadingZero,
-      }),
-      action: CustomOutlinedButton.blueSmall(onPressed: onBtnPressed, label: LocalizedTexts.startNow.tr()),
+      body: LocalizedTexts.assignmentAddedText.tr(
+        namedArgs: {
+          'date': completedAt.add(const Duration(days: 7)).dayWithMonthWithoutLeadingZero,
+        },
+      ),
+      action: CustomOutlinedButton.blueSmall(
+        onPressed: onBtnPressed,
+        label: LocalizedTexts.startNow.tr(),
+      ),
     );
   }
 }
