@@ -29,7 +29,11 @@ class AssignmentsQuestionsPage extends StatefulWidget {
   final int step;
   final bool fromDashboard;
 
-  const AssignmentsQuestionsPage({super.key, required this.step, required this.fromDashboard});
+  const AssignmentsQuestionsPage({
+    super.key,
+    required this.step,
+    required this.fromDashboard,
+  });
 
   @override
   State<AssignmentsQuestionsPage> createState() => _AssignmentsQuestionsPageState();
@@ -86,11 +90,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
                 DateTime.now(),
               ),
             );
-        if (widget.fromDashboard) {
-          context.router.pushNamed(AppRoutes.assignmentsSaved);
-        } else {
-          context.router.pushNamed(AppRoutes.lessonComplete);
-        }
+        context.router.push(AssignmentsSavedRoute(fromDashboard: widget.fromDashboard));
       } else {
         context.router.popUntilRouteWithName(MyAssignmentsRoute.name);
       }
