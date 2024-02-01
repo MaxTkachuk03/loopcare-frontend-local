@@ -1,7 +1,11 @@
+import 'dart:io';
+
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
@@ -63,6 +67,7 @@ class _App extends StatefulWidget {
 
 class _AppState extends State<_App> {
   late final AppRouter _appRouter;
+  String _authStatus = 'Unknown';
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   final SocketService _socketService = SocketService.instance;
   final ChatSocketService _chatSocketService = ChatSocketService.instance;
@@ -80,6 +85,8 @@ class _AppState extends State<_App> {
 
     _socketService.startListen();
     _chatSocketService.startListen();
+
+    if (Platform.isIOS) WidgetsBinding.instance.addPostFrameCallback((_) => initPlugin());
 
     _appRouter = AppRouter(
       proxyGuard: ProxyGuard(authBloc, authTokenManager),
@@ -99,6 +106,23 @@ class _AppState extends State<_App> {
   void dispose() {
     getIt<NetworkStatusService>().dispose();
     super.dispose();
+  }
+
+  Future<void> initPlugin() async {
+    try {
+      final TrackingStatus status = await AppTrackingTransparency.trackingAuthorizationStatus;
+      _authStatus = '$status';
+      // If the system can show an authorization request dialog
+      if (status == TrackingStatus.notDetermined) {
+        final TrackingStatus status = await AppTrackingTransparency.requestTrackingAuthorization();
+        _authStatus = '$status';
+      }
+    } on PlatformException {
+      _authStatus = 'PlatformException was thrown';
+    }
+
+    final uuid = await AppTrackingTransparency.getAdvertisingIdentifier();
+    debugPrint("devcpp UUID: $uuid");
   }
 
   @override

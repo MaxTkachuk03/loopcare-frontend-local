@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
@@ -51,30 +50,30 @@ class AuthTokenInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
-    debugPrint(
-        ' devcpp ERROR[${err.response?.statusCode}] => URI: ${err.requestOptions.uri}, IS REFRESHING: ${isRefreshing.toString()}');
+    // debugPrint(
+    //     ' devcpp ERROR[${err.response?.statusCode}] => URI: ${err.requestOptions.uri}, IS REFRESHING: ${isRefreshing.toString()}');
 
     if (err.response?.statusCode == 401 || err.response?.statusCode == 402) {
-      debugPrint("devcpp ATTEMPT: ${err.requestOptions.retryAttempt}");
+      // debugPrint("devcpp ATTEMPT: ${err.requestOptions.retryAttempt}");
       if (err.requestOptions.retryAttempt == retries) {
-        debugPrint("devcpp LOGGING OUT: ATTEMPTS finished");
+        // debugPrint("devcpp LOGGING OUT: ATTEMPTS finished");
         _clearBeforeLogout();
         return handler.resolve(err.response!);
       }
       final token = await _getToken();
       if (token.isEmpty) {
-        debugPrint("devcpp LOGGING OUT: NO REFRESH TOKEN FOUND");
+        // debugPrint("devcpp LOGGING OUT: NO REFRESH TOKEN FOUND");
         _clearBeforeLogout();
         return handler.reject(err);
       }
       final attempt = err.requestOptions.retryAttempt + 1;
       err.requestOptions.retryAttempt = attempt;
       if (!isRefreshing) {
-        debugPrint("devcpp ACCESS TOKEN EXPIRED, GETTING NEW TOKEN PAIR");
+        // debugPrint("devcpp ACCESS TOKEN EXPIRED, GETTING NEW TOKEN PAIR");
         isRefreshing = true;
         await refreshToken(err, handler);
       } else {
-        debugPrint("devcpp ADDING  TO FAILED QUEUE => URI: ${err.requestOptions.uri}");
+        // debugPrint("devcpp ADDING  TO FAILED QUEUE => URI: ${err.requestOptions.uri}");
         failedRequests.add({'err': err, 'handler': handler});
         failedRequests = unique(failedRequests);
       }
@@ -92,16 +91,16 @@ class AuthTokenInterceptor extends Interceptor {
   FutureOr refreshToken(DioException err, ErrorInterceptorHandler handler) async {
     var refreshed = await _refreshToken();
     if (!refreshed) {
-      debugPrint("devcpp LOGGING OUT: EXPIRED REFRESH TOKEN");
+      // debugPrint("devcpp LOGGING OUT: EXPIRED REFRESH TOKEN");
       _clearBeforeLogout();
       return handler.reject(err);
     }
-    debugPrint("devcpp ADDING  TO QUEUE => URI: ${err.requestOptions.uri}");
+    // debugPrint("devcpp ADDING  TO QUEUE => URI: ${err.requestOptions.uri}");
     isRefreshing = false;
     failedRequests.add({'err': err, 'handler': handler});
     failedRequests = unique(failedRequests);
 
-    debugPrint("devcpp RETRYING ${failedRequests.length} FAILED REQUEST(s)");
+    // debugPrint("devcpp RETRYING ${failedRequests.length} FAILED REQUEST(s)");
     final token = await _getToken();
     retryRequests(token);
   }
@@ -109,7 +108,7 @@ class AuthTokenInterceptor extends Interceptor {
   Future retryRequests(token) async {
     for (var i = 0; i < failedRequests.length; i++) {
       RequestOptions requestOptions = failedRequests[i]['err'].requestOptions as RequestOptions;
-      debugPrint('devcpp RETRYING[$i] => Uri: ${requestOptions.uri}');
+      // debugPrint('devcpp RETRYING[$i] => Uri: ${requestOptions.uri}');
       requestOptions.headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
       await dioOptions.fetch(requestOptions).then(
         failedRequests[i]['handler'].resolve,

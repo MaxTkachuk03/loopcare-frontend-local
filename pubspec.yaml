@@ -1,5 +1,5 @@
 name: loopcare_frontend
-version: 1.0.28+108
+version: 1.0.0+109
 publish_to: none
 description: Lean on me
 environment:
@@ -8,6 +8,7 @@ environment:
 dependencies:
   auto_route: 5.0.4
   auto_size_text: ^3.0.0
+  app_tracking_transparency: ^2.0.4
   badges: ^3.1.2
   bloc_concurrency: ^0.2.2
   cached_network_image: ^3.3.0
