@@ -14,7 +14,7 @@ import 'package:loopcare_frontend/features/mental_health/domain/mental_health_te
 import 'package:loopcare_frontend/features/mental_health/domain/mental_health_test_type.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/test_result.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
-import 'package:loopcare_frontend/features/physical_fitness/application/physical_fitness_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/application/physical_fitness_bloc.dart';
 
 part 'mental_health_bloc.freezed.dart';
 

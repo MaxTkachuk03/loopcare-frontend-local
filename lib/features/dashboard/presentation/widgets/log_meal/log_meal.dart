@@ -8,10 +8,12 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_button_with_icon.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/logged_list.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_block/calorie_nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
@@ -92,52 +94,35 @@ class LogMeal extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const Image(image: AppIcons.dashboardLogMeals),
+                          AppIcons.customDashboardLogMeals,
                           const SizedBox(width: 24.0),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
+                              CustomText.bitter600(
                                 LocalizedTexts.logYourMeals.translation,
-                                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                      fontFamily: ThemeConstants.bitterFontFamily,
-                                      color: mealsState.isEnableOnDashboard
-                                          ? AppColors.darkGreen
-                                          : AppColors.greyLabel,
-                                    ),
+                                style: context.textTheme.headlineSmall?.copyWith(
+                                  color: AppColors.blueDarker,
+                                ),
                               ),
                               if (mealsState.filledCategories.isEmpty)
-                                Text(
+                                CustomText.w400(
                                   mealsState.isEnableOnDashboard
                                       ? LocalizedTexts.noMealsLoggedYet.translation
                                       : LocalizedTexts.noMealsLogged.translation,
-                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                        color: mealsState.isEnableOnDashboard
-                                            ? AppColors.darkGreen
-                                            : AppColors.greyLabel,
-                                      ),
+                                  style: context.textTheme.bodySmall?.copyWith(
+                                    color: AppColors.blueDarker,
+                                  ),
                                 ),
                             ],
                           ),
                         ],
                       ),
                       mealsState.isEnableOnDashboard
-                          ? Hexagon(
-                              width: 42,
-                              height: 42,
-                              borderRadius: 16,
-                              innerWidget: Container(
-                                color: AppColors.bgGreen,
-                                child: IconButton(
-                                  icon: ImageIcon(
-                                    mealsState.filledCategories.isNotEmpty ? AppIcons.edit : AppIcons.plus,
-                                    color: AppColors.darkGreen,
-                                    size: 12,
-                                  ),
-                                  onPressed: () => onPressHandler(context),
-                                ),
-                              ),
+                          ? CustomOutlinedRoundedButtonWithIcon(
+                              onPressed: () => onPressHandler(context),
+                              icon: AppIcons.plus,
                             )
                           : const SizedBox(),
                     ],
@@ -146,56 +131,38 @@ class LogMeal extends StatelessWidget {
                       ? Column(
                           children: [
                             const SizedBox(height: 8.0),
-                            const Divider(color: AppColors.yellowLight),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () => _onIntakePressed(context),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              LocalizedTexts.logged.translation.toUpperCase(),
-                                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                                    fontSize: ThemeConstants.fontSize12,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: AppColors.greyLabel,
-                                                  ),
-                                            ),
-                                            const SizedBox(
-                                              width: 4.0,
-                                            ),
-                                            const ImageIcon(
-                                              AppIcons.arrow,
-                                              color: AppColors.greyLabel,
-                                              size: 10,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(height: 5),
-                                      LoggedList(
-                                        categoryList: MealCategory.values
-                                            .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
-                                            .toList(),
-                                        categoryListRaw:
-                                            MealCategory.values.map((e) => e.label ?? '').toList(),
-                                        filledList: mealsState.filledCategories,
-                                      ),
-                                    ],
+                            const Divider(color: AppColors.blueOffRegular),
+                            GestureDetector(
+                              onTap: () => _onIntakePressed(context),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CustomText.w600(
+                                    LocalizedTexts.loggedMeals.translation.capitalize(),
+                                    style: context.textTheme.bodySmall,
                                   ),
-                                ),
-                                const SizedBox(width: 40),
-                                CalorieNutritionBlock(
-                                  proteinDegree: mealsState.selectedDayMealProteinDegreeSum,
-                                  calorieDensity: mealsState.selectedDayMealCalorieDensitySum,
-                                ),
-                              ],
+                                  const SizedBox(width: 4.0),
+                                  if (mealsState.filledCategories.isNotEmpty)
+                                    CustomOutlinedRoundedButtonWithIcon(
+                                      onPressed: () => onPressHandler(context),
+                                      icon: AppIcons.edit,
+                                    )
+                                ],
+                              ),
+                            ),
+                            LoggedList(
+                              categoryList: MealCategory.values
+                                  .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
+                                  .toList(),
+                              categoryListRaw: MealCategory.values.map((e) => e.label ?? '').toList(),
+                              filledList: mealsState.filledCategories,
+                            ),
+                            const SizedBox(height: 16.0),
+                            CalorieNutritionBlock(
+                              proteinDegree: mealsState.selectedDayMealProteinDegreeSum,
+                              calorieDensity: mealsState.selectedDayMealCalorieDensitySum,
+                              subtitle:
+                                  context.read<MealsBloc>().state.getCurrentDate.americanShortDateWithYear,
                             ),
                           ],
                         )

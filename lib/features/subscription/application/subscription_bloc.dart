@@ -11,9 +11,9 @@ import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
-import 'package:loopcare_frontend/core/domain/account/subscription.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
+import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/subscription/application/purchase_details_subscriptions.dart';
 import 'package:loopcare_frontend/features/subscription/application/purchase_service.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_error.dart';
@@ -70,6 +70,9 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     Emitter<SubscriptionState> emit,
   ) async {
     emit(
+      const SubscriptionState.initial(SubscriptionStateData()),
+    );
+    emit(
       SubscriptionState.loading(state.data.copyWith(isLoading: true)),
     );
     isValidatePastIOSPurchase = true;
@@ -98,6 +101,9 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
           ),
         );
       }
+      emit(
+        SubscriptionState.loading(state.data.copyWith(isLoading: false)),
+      );
     } catch (e) {
       emit(
         SubscriptionState.error(
@@ -111,6 +117,9 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   }
 
   Future<void> _handlePurchase(PurchaseDetails purchaseDetails) async {
+    emit(
+      SubscriptionState.loading(state.data.copyWith(isLoading: true)),
+    );
     try {
       if (purchaseDetails.pendingCompletePurchase) {
         await inAppPurchaseService.instance.completePurchase(purchaseDetails);
@@ -123,21 +132,27 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
 
   Future<void> _verifyPurchasedOrRestore(PurchaseDetails purchaseDetails) async {
     final response = await _apiPurchaseOrRestore(purchaseDetails);
-    response.fold((error) {
-      add(SubscriptionEvent.errorVerifyPurchase(error));
-    }, (r) async {
-      await inAppPurchaseService.instance.completePurchase(purchaseDetails);
-      final accessTokenUpdated = await authTokenManager.updateAccessToken();
-      final refreshTokenUpdated = await authTokenManager.updateRefreshToken();
-      if (accessTokenUpdated && refreshTokenUpdated) {
-        add(SubscriptionEvent.purchasedSubscription(PurchasedProduct(
-          purchaseDetails: purchaseDetails,
-          memberSince: SubscriptionDateUtils.getTransactionDate(r.purchasedAt),
-        )));
-      } else {
-        add(SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(generalMessage)));
-      }
-    });
+    response.fold(
+      (error) {
+        add(SubscriptionEvent.errorVerifyPurchase(error));
+      },
+      (r) async {
+        await inAppPurchaseService.instance.completePurchase(purchaseDetails);
+        final accessTokenUpdated = await authTokenManager.updateAccessToken();
+        if (accessTokenUpdated) {
+          add(
+            SubscriptionEvent.purchasedSubscription(
+              PurchasedProduct(
+                purchaseDetails: purchaseDetails,
+                memberSince: SubscriptionDateUtils.getTransactionDate(r.purchasedAt),
+              ),
+            ),
+          );
+        } else {
+          add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(generalMessage)));
+        }
+      },
+    );
   }
 
   Future<Either<RequestError, Subscription>> _apiPurchaseOrRestore(PurchaseDetails purchaseDetails) async {

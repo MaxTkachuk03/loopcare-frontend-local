@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -18,9 +19,9 @@ class ProgramTab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               ProgramTypeQuestion(),
               SizedBox(height: 24.0),
               ProgramPlaceQuestion(),
@@ -28,14 +29,12 @@ class ProgramTab extends StatelessWidget {
               ProgramDifficultyQuestion()
             ],
           ),
-          Column(
-            children: [
-              ElevatedButton(
-                onPressed: () => _onNextPressed(context),
-                child: const Text(LocalizedTexts.next).tr(),
-              ),
-              const SizedBox(height: 54.0),
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24.0),
+            child: CustomElevatedButton.blueFullWidth(
+              onPressed: () => _onNextPressed(context),
+              label: LocalizedTexts.next.tr(),
+            ),
           ),
         ],
       ),

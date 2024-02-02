@@ -18,8 +18,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.styles,
   });
 
-  factory CustomElevatedButton.coralFullWidth({OnPressed? onPressed, required String label}) =>
-      CustomElevatedButton(
+  factory CustomElevatedButton.coralFullWidth({OnPressed? onPressed, required String label}) => CustomElevatedButton(
         onPressed: onPressed,
         label: label,
         styles: ElevatedButton.styleFrom(
@@ -39,8 +38,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.coralSmall({OnPressed? onPressed, required String label}) =>
-      CustomElevatedButton(
+  factory CustomElevatedButton.coralSmall({OnPressed? onPressed, required String label}) => CustomElevatedButton(
         onPressed: onPressed,
         label: label,
         styles: ElevatedButton.styleFrom(
@@ -50,8 +48,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.orangeFullWidth(
-          {OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.orangeFullWidth({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
       CustomElevatedButton(
         onPressed: onPressed,
         label: label,
@@ -63,8 +60,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.orange(
-          {OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.orange({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
       CustomElevatedButton(
         onPressed: onPressed,
         label: label,
@@ -74,8 +70,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.orangeSmall(
-          {OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.orangeSmall({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
       CustomElevatedButton(
         onPressed: onPressed,
         label: label,
@@ -86,8 +81,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.yellowFullWidth(
-          {OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.yellowFullWidth({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
       CustomElevatedButton(
         onPressed: onPressed,
         color: AppColors.blueDarker,
@@ -100,8 +94,11 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.yellow(
-          {OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.yellow({
+    OnPressed? onPressed,
+    required String label,
+    bool fullWidth = false,
+  }) =>
       CustomElevatedButton(
         onPressed: onPressed,
         color: AppColors.blueDarker,
@@ -112,8 +109,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.yellowSmall(
-          {OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.yellowSmall({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
       CustomElevatedButton(
         onPressed: onPressed,
         color: AppColors.blueDarker,
@@ -124,8 +120,8 @@ class CustomElevatedButton extends StatelessWidget {
           minimumSize: ButtonStyles.smallSize,
         ),
       );
-  factory CustomElevatedButton.greenFullWidth(
-          {OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+
+  factory CustomElevatedButton.greenFullWidth({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
       CustomElevatedButton(
         onPressed: onPressed,
         label: label,
@@ -147,8 +143,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.greenSmall(
-          {OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.greenSmall({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
       CustomElevatedButton(
         onPressed: onPressed,
         label: label,
@@ -159,8 +154,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.petrolFullWidth(
-          {OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.petrolFullWidth({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
       CustomElevatedButton(
         onPressed: onPressed,
         label: label,
@@ -172,8 +166,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.petrol(
-          {OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.petrol({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
       CustomElevatedButton(
         onPressed: onPressed,
         label: label,
@@ -183,8 +176,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.petrolSmall(
-          {OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.petrolSmall({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
       CustomElevatedButton(
         onPressed: onPressed,
         label: label,
@@ -195,8 +187,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.blueFullWidth(
-          {OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.blueFullWidth({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
       CustomElevatedButton(
         onPressed: onPressed,
         label: label,
@@ -218,8 +209,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.blueSmall(
-          {OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.blueSmall({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
       CustomElevatedButton(
         onPressed: onPressed,
         label: label,

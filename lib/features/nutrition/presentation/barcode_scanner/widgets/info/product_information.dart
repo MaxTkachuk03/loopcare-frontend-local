@@ -2,10 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/barcode_scanner_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_food_item_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
@@ -37,12 +41,7 @@ class ProductInformation extends StatelessWidget {
               Expanded(
                 child: Container(),
               ),
-              IconButton(
-                onPressed: () => {
-                  context.router.pop(),
-                },
-                icon: const Icon(Icons.close),
-              )
+              CustomIconButton.close(onPressed: () => context.router.pop())
             ],
           ),
         ),
@@ -52,44 +51,32 @@ class ProductInformation extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               if (isReady)
-                Text(
+                CustomText.bitter600(
                   title,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                  style: context.textTheme.bodyLarge,
                 ),
               const SizedBox(height: 8),
               if (isReady)
-                Text('${LocalizedTexts.barCodeResultCalories.tr()} $calories',
-                    style: Theme.of(context).textTheme.bodyMedium),
+                CustomText.w400(
+                  '${LocalizedTexts.barCodeResultCalories.tr()} $calories',
+                  style: context.textTheme.bodyMedium,
+                ),
               if (isReady)
-                Text('${LocalizedTexts.barCodeResultPerServing.tr()} $perServing',
-                    style: Theme.of(context).textTheme.bodyMedium),
+                CustomText.w400(
+                  '${LocalizedTexts.barCodeResultPerServing.tr()} $perServing',
+                  style: context.textTheme.bodyMedium,
+                ),
             ],
           ),
         ),
-        OutlinedButton(
-          style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
-                side: MaterialStateProperty.all(
-                  const BorderSide(width: 1.0, color: AppColors.black),
-                ),
-              ),
+        CustomOutlinedButton.blueFullWidth(
           onPressed: () => context.router.pop(),
-          child: Text(
-            LocalizedTexts.scanOtherProduct.tr(),
-          ),
+          label: LocalizedTexts.scanOtherProduct.tr(),
         ),
         const SizedBox(height: 14),
-        OutlinedButton(
-          style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
-                side: MaterialStateProperty.all(const BorderSide(width: 1.0, color: AppColors.blueDark)),
-                backgroundColor: MaterialStateProperty.all(AppColors.blueDark),
-              ),
+        CustomElevatedButton.blueFullWidth(
           onPressed: () => _onContinue(context),
-          child: Text(
-            LocalizedTexts.continueBtn.tr(),
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.white),
-          ),
+          label: LocalizedTexts.continueBtn.tr(),
         ),
       ],
     );

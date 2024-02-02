@@ -37,42 +37,45 @@ class SubscriptionPlaneItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      highlightColor: AppColors.greenLight.withOpacity(0.5),
-      borderRadius: const BorderRadius.all(Radius.circular(12.0)),
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 18.0),
-        height: 80,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+      child: InkWell(
+        onTap: onTap,
+        highlightColor: AppColors.greenLight.withOpacity(0.5),
+        borderRadius: const BorderRadius.all(Radius.circular(12.0)),
         child: Card(
           color: selected ? AppColors.greenLight.withOpacity(0.5) : AppColors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
           elevation: 0,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                CustomText.w600(
-                  title.tr(),
-                  style: context.textTheme.bodyMedium?.copyWith(
-                    color: AppColors.blueDarkest,
-                  ),
-                ),
-                if (regularPrice != null && currency != null)
-                  CustomText.w400(
-                    LocalizedTexts.subscriptionPrice
-                        .tr()
-                        .replaceAll('{C}', currency!)
-                        .replaceAll('{XX,XX}', regularPrice!),
+          child: ListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  CustomText.w600(
+                    title.tr(),
+                    // overflow: TextOverflow.ellipsis,
+                    // maxLines: 1,
                     style: context.textTheme.bodyMedium?.copyWith(
                       color: AppColors.blueDarkest,
                     ),
                   ),
-              ],
+                  if (regularPrice != null && currency != null)
+                    CustomText.w400(
+                      LocalizedTexts.subscriptionPrice2.tr(
+                        namedArgs: {'C': currency!},
+                      ),
+                      style: context.textTheme.bodyMedium?.copyWith(
+                        color: AppColors.blueDarkest,
+                      ),
+                    ),
+                ],
+              ),
             ),
           ),
         ),

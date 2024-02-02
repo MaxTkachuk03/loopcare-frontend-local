@@ -14,12 +14,7 @@ class EducationTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverPersistentHeader(
-      delegate: SliverAppBarDelegate(
-        TabBar(
-          controller: controller,
-          tabs: tabs,
-        ),
-      ),
+      delegate: SliverAppBarDelegate(TabBar(controller: controller, tabs: tabs)),
       pinned: true,
     );
   }

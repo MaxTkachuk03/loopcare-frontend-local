@@ -3,8 +3,8 @@ import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/gender_preferences.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 
 part 'authentication_state.freezed.dart';
 part 'authentication_state.g.dart';
@@ -169,6 +169,9 @@ class AuthenticationState with _$AuthenticationState {
       authenticated: (state) => state.isMixedGender,
     );
   }
+
+  bool get hasSubscription =>
+      maybeWhen(orElse: () => false, authenticated: (state) => state.subscription.isActive);
 
   factory AuthenticationState.fromJson(Map<String, dynamic> json) => _$AuthenticationStateFromJson(json);
 }

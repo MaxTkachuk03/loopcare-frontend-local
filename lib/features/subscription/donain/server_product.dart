@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:loopcare_frontend/core/domain/account/subscription_plan.dart';
+import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription_plan.dart';
 
 part 'server_product.g.dart';
 

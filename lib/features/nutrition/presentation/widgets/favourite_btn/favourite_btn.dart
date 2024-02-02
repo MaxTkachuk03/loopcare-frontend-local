@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class FavouriteBtn extends StatefulWidget {
   final void Function() onPress;
@@ -52,13 +54,17 @@ class _FavouriteBtnState extends State<FavouriteBtn> with SingleTickerProviderSt
           child: child,
         );
       },
-      child: IconButton(
-        iconSize: 32,
-        icon: Icon(
-          widget.isActive ? Icons.star : Icons.star_border,
-          color: Colors.white,
+      child: CircleAvatar(
+        radius: 22,
+        backgroundColor: AppColors.greenLighter,
+        child: CustomIconButton(
+          icon: Icon(
+            widget.isActive ? Icons.star_rounded : Icons.star_outline_rounded,
+            size: 28,
+            color: AppColors.blueDarker,
+          ),
+          onPressed: widget.onPress,
         ),
-        onPressed: widget.onPress,
       ),
     );
   }

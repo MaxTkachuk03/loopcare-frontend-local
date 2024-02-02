@@ -28,12 +28,12 @@ class SearchField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: AppColors.greyLabel,
+              color: AppColors.greyLight,
             ),
         contentPadding: contentPadding,
         prefixIcon: prefixIcon,
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.greyMid, width: 1.0),
+          borderSide: BorderSide(color: AppColors.greyRegular, width: 1.0),
           borderRadius: BorderRadius.all(
             Radius.circular(8.0),
           ),

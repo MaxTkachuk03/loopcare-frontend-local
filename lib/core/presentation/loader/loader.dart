@@ -1,55 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/loader/loader_item.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
-class Loader extends StatelessWidget {
-  final double _loaderHeight = 56.0;
+const double _defaultSize = 50;
 
+class Loader extends StatefulWidget {
   const Loader({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+  State<Loader> createState() => _LoaderState();
+}
 
+class _LoaderState extends State<Loader> with TickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<Color?> _colorTween;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(vsync: this, duration: const Duration(seconds: 2));
+
+    _colorTween = controller
+        .drive(ColorTween(begin: AppColors.blueRegular.withOpacity(0.1), end: AppColors.blueRegular));
+
+    controller.repeat();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        height: _loaderHeight,
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Positioned(
-              top: 0,
-              left: size.width / 2 - 25,
-              child: const LoaderItem(
-                endColor: AppColors.orange,
-                delayBeforeStart: Duration(milliseconds: 0),
-              ),
-            ),
-            Positioned(
-              top: 15,
-              left: size.width / 2 - 50,
-              child: const LoaderItem(
-                endColor: AppColors.blueMid,
-                delayBeforeStart: Duration(milliseconds: 300),
-              ),
-            ),
-            Positioned(
-              left: size.width / 2 - 25,
-              top: 30,
-              child: const LoaderItem(
-                endColor: AppColors.yellowish,
-                delayBeforeStart: Duration(milliseconds: 600),
-              ),
-            ),
-            Positioned(
-              top: 15,
-              left: size.width / 2 - 0,
-              child: const LoaderItem(
-                endColor: AppColors.greenLight,
-                delayBeforeStart: Duration(milliseconds: 900),
-              ),
-            ),
-          ],
+        height: _defaultSize,
+        width: _defaultSize,
+        child: CircularProgressIndicator(
+          valueColor: _colorTween,
+          strokeWidth: 10,
+          strokeCap: StrokeCap.round,
         ),
       ),
     );

@@ -22,31 +22,26 @@ class _FooterSubscriptionState extends State<FooterSubscription> {
     return ValueListenableBuilder<PurchasableProduct?>(
         valueListenable: widget.controller.selectedPlan,
         builder: (context, selectedPlan, _) {
-          return Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                  children: widget.controller.products
-                      .map(
-                        (product) => Padding(
-                          padding: const EdgeInsets.only(top: 16.0),
-                          child: SubscriptionPlane.general(
-                            title: product.details?.title ?? '',
-                            regularPrice: '${product.regularPrice}',
-                            currency: product.currency,
-                            onTap: () => widget.controller.setPlans(product),
-                            selected: widget.controller.selectedPlan.value?.details?.id == product.details?.id &&
-                                widget.controller.selectedPlan.value?.details?.price == product.details?.price,
-                          ),
-                        ),
-                      )
-                      .toList()),
-              const SizedBox(height: 8.0),
-              RestoreSubscriptionLink(onRestoreTap: () => widget.controller.restorePurchase()),
-              const SizedBox(height: 8.0),
-            ],
-          );
+          return Column(children: [
+            ...widget.controller.products
+                .map(
+                  (product) => Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: SubscriptionPlane.general(
+                      title: product.details?.title ?? '',
+                      regularPrice: '${product.regularPrice}',
+                      currency: product.currency,
+                      onTap: () => widget.controller.setPlans(product),
+                      selected: widget.controller.selectedPlan.value?.details?.id == product.details?.id &&
+                          widget.controller.selectedPlan.value?.details?.price == product.details?.price,
+                    ),
+                  ),
+                )
+                .toList(),
+            const SizedBox(height: 8.0),
+            RestoreSubscriptionLink(onRestoreTap: () => widget.controller.restorePurchase()),
+            const SizedBox(height: 8.0),
+          ]);
         });
   }
 }

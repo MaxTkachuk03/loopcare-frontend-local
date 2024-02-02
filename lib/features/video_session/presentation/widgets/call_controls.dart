@@ -1,8 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class CallControls extends StatelessWidget {
   final void Function() onMuteHandler;
@@ -23,7 +26,7 @@ class CallControls extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.darkGreen,
+      color: AppColors.blueDarker,
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,22 +36,17 @@ class CallControls extends StatelessWidget {
               SizedBox(
                 width: 60,
                 height: 60,
-                child: ElevatedButton(
-                  style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                        backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                        padding: MaterialStateProperty.all(EdgeInsets.zero),
-                      ),
+                child: CustomIconButton.custom(
                   onPressed: onMuteHandler,
-                  child: Column(
+                  icon: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // TODO use AppIcons.microphone when the off icon will be provided
-                      isMuted ? const Icon(Icons.mic_off) : const Icon(Icons.mic),
+                      isMuted ? AppIcons.microphoneOff : AppIcons.microphoneOn,
                       const SizedBox(height: 8.0),
-                      const Text(
-                        LocalizedTexts.mute,
-                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.white),
-                      ).tr(),
+                      CustomText.w600(
+                        LocalizedTexts.mute.tr(),
+                        style: context.textTheme.bodySmall?.copyWith(color: AppColors.white),
+                      ),
                     ],
                   ),
                 ),
@@ -57,24 +55,17 @@ class CallControls extends StatelessWidget {
               SizedBox(
                 width: 60,
                 height: 60,
-                child: ElevatedButton(
-                  style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                        backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                        padding: MaterialStateProperty.all(EdgeInsets.zero),
-                      ),
+                child: CustomIconButton.custom(
                   onPressed: onStopVideoHandler,
-                  child: Column(
+                  icon: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // TODO use AppIcons.cameraOff when the on icon will be provided
-                      isCameraOn
-                          ? const Icon(Icons.videocam_rounded)
-                          : const Icon(Icons.videocam_off_rounded),
+                      isCameraOn ? AppIcons.cameraOn : AppIcons.cameraOff,
                       const SizedBox(height: 8.0),
-                      const Text(
-                        LocalizedTexts.stopVideo,
-                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.white),
-                      ).tr(),
+                      CustomText.w600(
+                        LocalizedTexts.stopVideo.tr(),
+                        style: context.textTheme.bodySmall?.copyWith(color: AppColors.white),
+                      ),
                     ],
                   ),
                 ),
@@ -84,21 +75,17 @@ class CallControls extends StatelessWidget {
           SizedBox(
             width: 60,
             height: 60,
-            child: ElevatedButton(
-              style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                    backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                    padding: MaterialStateProperty.all(EdgeInsets.zero),
-                  ),
+            child: CustomIconButton.custom(
               onPressed: onSettingsHandler,
-              child: Column(
+              icon: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AppIcons.settings,
                   const SizedBox(height: 8.0),
-                  const Text(
-                    LocalizedTexts.settings,
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.white),
-                  ).tr(),
+                  CustomText.w600(
+                    LocalizedTexts.settings.tr(),
+                    style: context.textTheme.bodySmall?.copyWith(color: AppColors.white),
+                  ),
                 ],
               ),
             ),

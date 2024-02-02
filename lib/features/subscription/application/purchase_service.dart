@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:loopcare_frontend/core/domain/account/subscription.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/subscription/donain/server_product_data.dart';
 import 'package:loopcare_frontend/features/subscription/donain/valid_status.dart';
 import 'package:loopcare_frontend/features/subscription/donain/verify_purchase_data_android.dart';

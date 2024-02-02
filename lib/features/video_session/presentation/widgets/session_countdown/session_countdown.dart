@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
@@ -22,8 +24,6 @@ class SessionTimerMode with _$SessionTimerMode {
   const factory SessionTimerMode.sessionStarted() = SessionStarted;
 
   const factory SessionTimerMode.sessionNotStarted() = SessionNotStarted;
-
-  const factory SessionTimerMode.sessionStartedMoreThanFifteenMinutesAgo() = SessionStartedMoreThanFifteenMinutesAgo;
 
   const factory SessionTimerMode.sessionEnded() = SessionEnded;
 
@@ -53,8 +53,6 @@ class _SessionCountdownState extends State<SessionCountdown> {
 
     if (signedSession == null) {
       _sessionTimerMode = const SessionTimerMode.sessionNotStarted();
-    } else if (!signedSession.isStartedLessThanFifteenMinutesAgo) {
-      _sessionTimerMode = const SessionTimerMode.sessionStartedMoreThanFifteenMinutesAgo();
     } else if (signedSession.isSessionAlreadyStarted) {
       _sessionTimerMode = const SessionTimerMode.sessionStarted();
     } else if (signedSession.isSessionEnded) {
@@ -70,35 +68,25 @@ class _SessionCountdownState extends State<SessionCountdown> {
         sessionStarted: (_) => LocalizedTexts.sessionStartedMessage,
         sessionNotStarted: (_) => LocalizedTexts.sessionWillStartIn,
         sessionError: (_) => LocalizedTexts.signatureErrorMessage,
-        sessionStartedMoreThanFifteenMinutesAgo: (_) => LocalizedTexts.sessionStartsMoreThanFifteenMinutesAgo,
         sessionEnded: (_) => LocalizedTexts.sessionAlreadyEnded,
       );
 
   TextStyle get textStyles => _sessionTimerMode.map(
         sessionStarted: (_) => const TextStyle(
-          color: AppColors.darkGreen,
+          color: AppColors.white,
           fontSize: 16,
-          fontWeight: FontWeight.w400,
         ),
         sessionNotStarted: (_) => const TextStyle(
-          color: AppColors.darkGreen,
+          color: AppColors.white,
           fontSize: 18,
-          fontWeight: FontWeight.w600,
         ),
         sessionError: (_) => const TextStyle(
           color: AppColors.red,
           fontSize: 18,
-          fontWeight: FontWeight.w600,
-        ),
-        sessionStartedMoreThanFifteenMinutesAgo: (_) => const TextStyle(
-          color: AppColors.red,
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
         ),
         sessionEnded: (_) => const TextStyle(
           color: AppColors.red,
           fontSize: 18,
-          fontWeight: FontWeight.w600,
         ),
       );
 
@@ -136,14 +124,6 @@ class _SessionCountdownState extends State<SessionCountdown> {
 
     if (signedSession == null) return;
 
-    if (!signedSession.isStartedLessThanFifteenMinutesAgo) {
-      setState(() {
-        _sessionTimerMode = const SessionTimerMode.sessionStartedMoreThanFifteenMinutesAgo();
-      });
-
-      return;
-    }
-
     final hasPermissions = await requestFilePermissions();
     if (!hasPermissions) return;
 
@@ -174,37 +154,30 @@ class _SessionCountdownState extends State<SessionCountdown> {
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 32.0),
         decoration: const BoxDecoration(
+          //TODO: rework this
           border: Border.symmetric(horizontal: BorderSide(width: 1, color: AppColors.yellowLight)),
         ),
         child: Column(
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
+              child: CustomText.w400(
                 text,
                 style: textStyles,
                 textAlign: TextAlign.center,
-              ).tr(),
+              ),
             ),
             const SizedBox(height: 16.0),
             _sessionTimerMode.map(
-              sessionStarted: (_) => ElevatedButton(
+              sessionStarted: (_) => CustomElevatedButton.orangeFullWidth(
                 onPressed: _onEnterSessionHandler,
-                child: const Text(
-                  LocalizedTexts.enterSession,
-                  style: TextStyle(
-                    color: AppColors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ).tr(),
+                label: LocalizedTexts.enterSession.tr(),
               ),
               sessionNotStarted: (_) => SessionTimer(
                 value: context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inSeconds,
                 onTimerEnds: _onTimerEndsHandler,
               ),
               sessionError: (_) => const SizedBox.shrink(),
-              sessionStartedMoreThanFifteenMinutesAgo: (_) => const SizedBox.shrink(),
               sessionEnded: (_) => const SizedBox.shrink(),
             )
           ],

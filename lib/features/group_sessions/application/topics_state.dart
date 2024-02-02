@@ -79,6 +79,10 @@ class TopicsData with _$TopicsData {
     return signedGroupSession?.status == GroupSessionStatus.cancelled;
   }
 
+  bool get signedGroupSessionFinished {
+    return signedGroupSession?.status == GroupSessionStatus.finished;
+  }
+
   bool get signedGroupSessionsCancelled {
     return signedGroupSession?.status == GroupSessionStatus.cancelled;
   }

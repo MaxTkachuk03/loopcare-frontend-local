@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/duration_extensions.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session_program_event.dart';
@@ -75,8 +77,8 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
 
     if (currentEvent == null) return;
 
-    final bool isVideoInProgress =
-        currentEvent.eventStartTime <= widget.sessionTimer && widget.sessionTimer <= currentEvent.eventEndTime;
+    final bool isVideoInProgress = currentEvent.eventStartTime <= widget.sessionTimer &&
+        widget.sessionTimer <= currentEvent.eventEndTime;
 
     final bool isVideoEnds = widget.sessionTimer > currentEvent.eventEndTime;
 
@@ -91,8 +93,8 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
 
   void _checkIfHasVideoForCurrentTime() {
     final List<GroupSessionProgramEvent> videoEvents = context.read<TopicsBloc>().state.data.videoEvents;
-    final videoEventForCurrentTime = videoEvents
-        .lastWhereOrNull((e) => e.eventStartTime <= widget.sessionTimer && widget.sessionTimer <= e.eventEndTime);
+    final videoEventForCurrentTime = videoEvents.lastWhereOrNull(
+        (e) => e.eventStartTime <= widget.sessionTimer && widget.sessionTimer <= e.eventEndTime);
     if (videoEventForCurrentTime == null || _completedEventsIds.contains(videoEventForCurrentTime.id)) return;
     setState(() {
       _currentVideoEvent = videoEventForCurrentTime;
@@ -306,9 +308,9 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
                                     ),
                                   ),
                                   const SizedBox(width: 10),
-                                  Text(
-                                    (value.duration - value.position).toVideoDurationString,
-                                    style: const TextStyle(color: AppColors.white),
+                                  CustomText.w400(
+                                    (value.duration - value.position).toDurationString,
+                                    style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
                                   ),
                                 ],
                               ),

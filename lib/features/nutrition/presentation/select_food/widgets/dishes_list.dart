@@ -1,15 +1,16 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/outlined_rounded_button.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_favorites_category/dish_favorites_category.dart';
@@ -44,6 +45,7 @@ class _DishesListState extends State<DishesList> with AutomaticKeepAliveClientMi
     context.read<SelectFoodBloc>().add(SelectFoodEvent.fetchDishes(_defaultMealCategory));
     super.initState();
   }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -88,21 +90,20 @@ class _DishesListState extends State<DishesList> with AutomaticKeepAliveClientMi
                     child: ErrorScreen(
                       smallVersion: false,
                       error: error,
-                      onButtonPressed: () => context
-                          .read<SelectFoodBloc>()
-                          .add(SelectFoodEvent.fetchFavorites(_defaultMealCategory)),
+                      onButtonPressed: () =>
+                          context.read<SelectFoodBloc>().add(SelectFoodEvent.fetchFavorites(_defaultMealCategory)),
                     ),
                   );
                 },
                 selectFood: (selectFoodState) {
                   final String title = selectFoodState.hasOneSelectedDishCategory
-                      ? '${LocalizedTexts.my.translation} ${selectFoodState.selectedDishCategories[0].name}'
-                      : LocalizedTexts.myDishes.translation;
+                      ? '${LocalizedTexts.my.tr()} ${selectFoodState.selectedDishCategories[0].name}'
+                      : LocalizedTexts.myDishes.tr();
 
                   return Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ListFilters(
                           title: title,
@@ -110,16 +111,34 @@ class _DishesListState extends State<DishesList> with AutomaticKeepAliveClientMi
                           onConfirmed: (list) => _onConfirmed(context, list),
                         ),
                         selectFoodState.dishes.isEmpty
-                            ? EmptyListWidget(
-                                type: EmptyListType.myDishes,
-                                typeText: title,
+                            ? Padding(
+                                padding: const EdgeInsets.only(top: 16.0),
+                                child: EmptyListWidget(
+                                  type: EmptyListType.myDishes,
+                                  typeText: title,
+                                ),
                               )
                             : Expanded(
                                 child: RefreshIndicator(
                                   onRefresh: _onRefresh,
                                   child: ListView.separated(
-                                    itemCount: selectFoodState.dishes.length,
+                                    itemCount: selectFoodState.dishes.length + 1,
                                     itemBuilder: (BuildContext context, int index) {
+                                      if (index == selectFoodState.dishes.length) {
+                                        return Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            const SizedBox(height: 8.0),
+                                            if (_canCreateDishWithSelectedMealCategory)
+                                              MainContainer(
+                                                child: CustomOutlinedButton.blueSmall(
+                                                  label: LocalizedTexts.createMyDish.tr(),
+                                                  onPressed: _onCreateDish,
+                                                ),
+                                              )
+                                          ],
+                                        );
+                                      }
                                       return DishListItem(
                                         dishItem: selectFoodState.dishes[index],
                                       );
@@ -127,21 +146,12 @@ class _DishesListState extends State<DishesList> with AutomaticKeepAliveClientMi
                                     separatorBuilder: (BuildContext context, int index) {
                                       return const Divider(
                                         height: 1,
-                                        color: Colors.transparent,
+                                        color: AppColors.blueLighter,
                                       );
                                     },
                                   ),
                                 ),
                               ),
-                        const SizedBox(height: 8.0),
-                        if (_canCreateDishWithSelectedMealCategory)
-                          MainContainer(
-                            child: OutlinedRoundedButton(
-                              text: LocalizedTexts.createMyDish.translation,
-                              icon: AppIcons.dish,
-                              onPressed: _onCreateDish,
-                            ),
-                          )
                       ],
                     ),
                   );

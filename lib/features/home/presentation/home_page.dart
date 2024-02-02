@@ -5,47 +5,55 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/home/presentation/widget/app_navigation_bar.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final ValueNotifier<bool> isChatEnable = ValueNotifier(false);
+
+  @override
+  void initState() {
+    super.initState();
+    isChatEnable.value = context.read<AuthenticationCubit>().state.isUserGrouped;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthenticationCubit, AuthenticationState>(
-      listener: _logoutListener,
-      child: AutoTabsScaffold(
-        animationDuration: Duration.zero,
-        routes: const [
-          DashboardRoute(),
-          EducationRoute(),
-          AccountRoute(),
-        ],
-        appBarBuilder: (_, tabsRouter) => AppBar(
-          systemOverlayStyle: SystemUiOverlayStyle.light,
-          toolbarHeight: 0.0,
-          backgroundColor: DashboardNavbarItems.getColorByIndex(tabsRouter.activeIndex),
-        ),
-        bottomNavigationBuilder: (_, tabsRouter) => BottomNavigationBar(
-          onTap: tabsRouter.setActiveIndex,
-          items: _getNavBarItems(context),
-          currentIndex: tabsRouter.activeIndex,
-        ),
-      ),
-    );
+    return BlocConsumer<AuthenticationCubit, AuthenticationState>(
+        listener: _logoutListener,
+        buildWhen: (context, state) => isChatEnable.value != state.isUserGrouped,
+        builder: (context, state) {
+          _chatEnable(state);
+          return AutoTabsScaffold(
+            animationDuration: Duration.zero,
+            routes: const [
+              DashboardRoute(),
+              EducationRoute(),
+              GroupChatRoute(),
+              AccountRoute(),
+            ],
+            appBarBuilder: (_, tabsRouter) => AppBar(
+              systemOverlayStyle: SystemUiOverlayStyle.light,
+              toolbarHeight: 0.0,
+              backgroundColor: DashboardNavbarItems.getColorByIndex(tabsRouter.activeIndex),
+            ),
+            bottomNavigationBuilder: (_, tabsRouter) => AppNavigationBar(
+              tabsRouter: tabsRouter,
+              userName: state.name,
+              isChatEnable: isChatEnable,
+            ),
+          );
+        });
   }
 
-  List<BottomNavigationBarItem> _getNavBarItems(BuildContext context) {
-    final userName = context.read<AuthenticationCubit>().state.name;
-
-    return DashboardNavbarItems.values
-        .map((e) => BottomNavigationBarItem(
-              icon: e.icon,
-              activeIcon: e.activeIcon,
-              label: e.label(userName),
-            ))
-        .toList();
-  }
+  void _chatEnable(AuthenticationState state) => isChatEnable.value = state.isUserGrouped;
 
   void _logoutListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(

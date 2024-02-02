@@ -73,27 +73,34 @@ class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
                   ),
                   child: (thisWeekQuestions.isNotEmpty || pastQuestions.isNotEmpty)
                       ? ScrollableContainer(
-                          child: CustomRoundedContainer(
-                            borderRadius: 16.0,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 24.0),
-                                if (thisWeekQuestions.isNotEmpty)
-                                  ThisWeekAssignmentsOpen(
-                                    onDashboard: false,
-                                    questions: thisWeekQuestions,
-                                    onBtnPressed: (int lessonId) => _startLessonQuestion(context, lessonId),
-                                  ),
-                                if (thisWeekQuestions.isNotEmpty && pastQuestions.isNotEmpty)
-                                  const Divider(color: AppColors.ff404040),
-                                if (pastQuestions.isNotEmpty)
-                                  PastAssignments(
-                                    questions: pastQuestions,
-                                    onBtnPressed: (int lessonId) => _startLessonQuestion(context, lessonId),
-                                  ),
-                              ],
-                            ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomRoundedContainer(
+                                borderRadius: 16.0,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(height: 24.0),
+                                    if (thisWeekQuestions.isNotEmpty)
+                                      ThisWeekAssignmentsOpen(
+                                        onDashboard: false,
+                                        questions: thisWeekQuestions,
+                                        onBtnPressed: (int lessonId) =>
+                                            _startLessonQuestion(context, lessonId),
+                                      ),
+                                    if (thisWeekQuestions.isNotEmpty && pastQuestions.isNotEmpty)
+                                      const Divider(color: AppColors.ff404040),
+                                    if (pastQuestions.isNotEmpty)
+                                      PastAssignments(
+                                        questions: pastQuestions,
+                                        onBtnPressed: (int lessonId) =>
+                                            _startLessonQuestion(context, lessonId),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         )
                       : const SizedBox.shrink(),

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
@@ -44,7 +45,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
             const SizedBox(height: 28.0),
             CustomElevatedButton.blueFullWidth(
               onPressed: _isDisabled ? null : () => _onContinuePressed(context),
-              label: LocalizedTexts.continueBtn,
+              label: LocalizedTexts.continueBtn.tr(),
             ),
           ],
         ),
@@ -67,14 +68,17 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   void _redirectListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(guest: (state) {
       context.showSuccessBar(
-          content: Text(
-            LocalizedTexts.forgotEmailSuccessMessage.tr(
-              namedArgs: {
-                'email': state.maybeMap(guest: (s) => s.email ?? '', orElse: () => ''),
-              },
-            ),
+        content: Text(
+          LocalizedTexts.forgotEmailSuccessMessage.tr(
+            namedArgs: {
+              'email': state.maybeMap(guest: (s) => s.email ?? '', orElse: () => ''),
+            },
           ),
-          actions: [TextButton(onPressed: () => context.router.pop(), child: const Text('Ok'))]);
+        ),
+        actions: [TextButton(onPressed: () => context.router.pop(), child: const Text('Ok'))],
+      );
+
+      context.router.pushNamed(AppRoutes.login);
     });
   }
 

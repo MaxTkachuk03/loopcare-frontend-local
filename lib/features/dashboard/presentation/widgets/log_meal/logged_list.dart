@@ -17,7 +17,11 @@ class LoggedList extends StatelessWidget {
   Widget build(BuildContext context) {
     return categoryList.isEmpty
         ? const SizedBox()
-        : Column(
+        : GridView.count(
+            childAspectRatio: 9,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
             children: categoryList.map(
               (category) {
                 return LoggedListItem(

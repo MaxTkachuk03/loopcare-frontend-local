@@ -1,8 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/domain/protein_degree_scale_values.dart';
+import 'package:loopcare_frontend/core/presentation/calorie_density_scale/custom_calorie_density_scale.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 
@@ -30,52 +34,34 @@ class ProteinDegreeBlock extends StatelessWidget {
               return const SizedBox();
             }
 
-            final proteinDegreeValue = value != null ? '${value?.round()}%' : '-';
+            final proteinDegreeValue = value == null || value == 0 ? '-' : '${value?.round()}%';
 
             return GestureDetector(
               onTap: () => _onItemPressed(context),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 18.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          LocalizedTexts.proteinDegree.translation.toUpperCase(),
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                fontSize: 12.0,
-                              ),
-                        ),
-                        Text(
-                          proteinDegreeValue,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        if (value != null)
-                          Text(
-                            currentProteinDegreeItem.label.capitalizeOnlyFirstLetter(),
-                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                  fontSize: 14.0,
-                                ),
-                          ),
-                      ],
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CustomText.w600(
+                    LocalizedTexts.proteinDegree.tr(),
+                    style: context.textTheme.bodySmall,
+                  ),
+                  const SizedBox(height: 8.0),
+                  CustomCalorieDensityScale(
+                    density: value,
+                    label: proteinDegreeValue,
+                    color: value == null || value == 0
+                        ? AppColors.white
+                        : proteinDegreeScaleValuesColorForRange(value),
+                    layoutSize: CustomCalorieDensityScaleLayoutSize.small,
+                  ),
+                  const SizedBox(height: 8.0),
+                  if (value != null && value! > 0)
+                    CustomText.w600(
+                      currentProteinDegreeItem.label.capitalize(),
+                      style: context.textTheme.bodySmall,
                     ),
-                    if (showArrow)
-                      const SizedBox(
-                        width: 8.0,
-                      ),
-                    if (showArrow)
-                      const SizedBox(
-                        width: 10,
-                        height: 14,
-                        child: ImageIcon(
-                          AppIcons.arrow,
-                          color: AppColors.darkGreen,
-                        ),
-                      ),
-                  ],
-                ),
+                ],
               ),
             );
           },

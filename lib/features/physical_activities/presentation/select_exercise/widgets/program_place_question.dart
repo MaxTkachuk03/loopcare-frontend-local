@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/program_place.dart';
 
@@ -14,10 +16,10 @@ class ProgramPlaceQuestion extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          LocalizedTexts.whereAreYou,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
-        ).tr(),
+        CustomText.bitter600(
+          LocalizedTexts.yourLocation.tr(),
+          style: context.textTheme.bodyMedium,
+        ),
         const SizedBox(
           height: 8.0,
         ),
@@ -27,14 +29,18 @@ class ProgramPlaceQuestion extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: ProgramPlace.values
                   .map(
-                    (e) => AppChoiceChip(
-                      label: e.label,
-                      selected: state.data.programPlace == e,
-                      value: e,
-                      padding: const EdgeInsets.all(0),
-                      labelWidth: 96,
-                      onSelected: (ProgramPlace value) => e.isAvailable ? _onSelected(context, value) : null,
-                      available: e.isAvailable,
+                    (e) => Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: CustomChoiceChip.yellow(
+                          label: e.label,
+                          textAlign: TextAlign.center,
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          selected: state.data.programPlace == e,
+                          value: e,
+                          onSelected: e.isAvailable ? (ProgramPlace value) => _onSelected(context, value) : null,
+                        ),
+                      ),
                     ),
                   )
                   .toList(),

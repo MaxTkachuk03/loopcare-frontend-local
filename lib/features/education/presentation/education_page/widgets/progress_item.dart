@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_polygon/flutter_polygon.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson.dart';
 
 class ProgressItem extends StatelessWidget {
@@ -26,49 +23,24 @@ class ProgressItem extends StatelessWidget {
     return Column(
       children: [
         isFirst
-            ? const Expanded(
-                child: SizedBox.shrink(),
-              )
+            ? const Expanded(child: SizedBox.shrink())
             : Expanded(
                 child: Container(
-                  width: 4,
-                  color: lesson.isLocked ? AppColors.yellowLight : AppColors.darkGreen,
+                  width: lesson.isLocked ? 4 : 6,
+                  color: lesson.isLocked ? AppColors.petrolLighter : AppColors.coralRegular,
                 ),
               ),
-        lesson.isCompleted
-            ? Hexagon(
-                width: 30.0,
-                height: 30.0,
-                borderRadius: 10,
-                innerWidget: Container(
-                  color: AppColors.darkGreen,
-                  padding: const EdgeInsets.all(10.0),
-                  child: const ImageIcon(
-                    AppIcons.checkmark,
-                    color: AppColors.bgGreen,
-                  ),
-                ),
-              )
-            : Container(
-                height: 30,
-                width: 30,
-                decoration: ShapeDecoration(
-                  shape: PolygonBorder(
-                    sides: 6,
-                    rotate: 30.0,
-                    borderRadius: 10,
-                    side: BorderSide(color: isAvailable ? AppColors.darkGreen : AppColors.yellowLight, width: 3),
-                  ),
-                ),
-              ),
+        CircleAvatar(
+          radius: 10,
+          backgroundColor:
+              lesson.isCompleted || isAvailable ? AppColors.coralRegular : AppColors.petrolLighter,
+        ),
         isLast
-            ? const Expanded(
-                child: SizedBox.shrink(),
-              )
+            ? const Expanded(child: SizedBox.shrink())
             : Expanded(
                 child: Container(
-                  width: 4,
-                  color: nextIsLocked ? AppColors.yellowLight : AppColors.darkGreen,
+                  width: nextIsLocked ? 4 : 6,
+                  color: nextIsLocked ? AppColors.petrolLighter : AppColors.coralRegular,
                 ),
               ),
       ],

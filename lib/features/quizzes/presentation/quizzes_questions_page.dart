@@ -3,10 +3,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/progress_bar.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -48,17 +53,13 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
     super.initState();
   }
 
-  String get _title => LocalizedTexts.questionOf.tr(
-        namedArgs: {
-          'step': (widget.step + 1).toString(),
-          'total': _totalSteps.toString(),
-        },
-      );
+  String get _title =>
+      LocalizedTexts.stepCounter.tr(args: [(widget.step + 1).toString(), _totalSteps.toString()]);
 
   int get _percent => ((widget.step + 1) * 100 / _totalSteps).round();
 
   _onErrorHandler(QuizzesState s) {
-    context.showError(content: Text(s.data.errorMessage ?? LocalizedTexts.somethingWentWrong.translation));
+    context.showError(content: Text(s.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr()));
   }
 
   void _onUpdateHandler(QuizzesState state) {
@@ -85,10 +86,6 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
 
     _controller.setLessonValue(item);
     _controller.isFormValid;
-  }
-
-  void _onPrevHandler() {
-    context.router.pop();
   }
 
   void setStep(int currStep) {
@@ -129,127 +126,98 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
           lessonQuestionOptionIds: selectLessonValueId != null ? [selectLessonValueId] : [],
         ),
       );
+    } else {
+      _onNextHandler();
     }
-  }
-
-  get _mainContainerBgColor {
-    return mode.map(
-      askQuestion: (_) => AppColors.bgGreen,
-      showAnswer: (_) => AppColors.white,
-    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        titleSpacing: 0,
-        automaticallyImplyLeading: false,
-        backgroundColor: AppColors.bgGreen,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: _onPrevHandler,
-            ),
-            Column(
-              children: [
-                Text(
-                  LocalizedTexts.quiz.translation,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-                Text(
-                  _title,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
-                ),
-                ProgressBar(
-                  progress: _percent,
-                  backgroundColor: AppColors.bgGreen,
-                ),
-              ],
-            ),
-            const SizedBox(width: 48),
-          ],
-        ),
+    return CustomScaffold.petrolLightest(
+      appBar: CustomAppBar.petrol(
+        title: LocalizedTexts.quiz.tr(),
+        subtitle: _title,
+        leading: CustomFilledIconButton.leadingPetrolLighter(),
       ),
-      body: Container(
-        color: _mainContainerBgColor,
-        child: SafeArea(
-          child: ScrollableContainer(
-            child: BlocListener<QuizzesBloc, QuizzesState>(
-              listenWhen: _nextStepListenWhen,
-              listener: _onStepChangeListener,
-              child: BlocBuilder<QuizzesBloc, QuizzesState>(
-                builder: (context, state) {
-                  return state.maybeMap(
-                    loading: (_) => const Loader(),
-                    orElse: () => Form(
-                      key: _controller.formKey,
-                      onChanged: () => _controller.isFormValid,
-                      child: Container(
-                        color: AppColors.bgGreen,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 24.0),
-                              child: QuizzesQuestion(
-                                selectedValue: _controller.selectLessonValue.value,
-                                mode: mode,
-                                question: state.data.questionForStep(widget.step),
-                                onSelected: (LessonQuestionOption value) {
-                                  _onSelectedHandler(value);
-                                },
-                              ),
-                            ),
-                            mode.map(
-                              askQuestion: (_) => const SizedBox.shrink(),
-                              showAnswer: (_) => Container(
-                                color: AppColors.white,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 24.0),
-                                  child: Column(
-                                    children: [
-                                      ValueListenableBuilder<bool>(
-                                          valueListenable: _controller.isCorrect,
-                                          builder: (context, isCorrect, _) {
-                                            return CorrectIncorrectExplanation(
-                                              isCorrect: _controller.isFormValid,
-                                              text: _controller.isFormValid
-                                                  ? state.data
-                                                          .questionForStep(widget.step)
-                                                          .explanationCorrect ??
-                                                      LocalizedTexts.correct.translation
-                                                  : state.data
-                                                          .questionForStep(widget.step)
-                                                          .explanationIncorrect ??
-                                                      LocalizedTexts.incorrect.translation,
-                                            );
-                                          }),
-                                      const SizedBox(height: 32),
-                                      ElevatedButton(
-                                        onPressed: () => _saveOptionsField(state.data.lessonId),
-                                        style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(AppColors.orangeDark),
-                                            ),
-                                        child: const Text(LocalizedTexts.next).tr(),
-                                      ),
-                                    ],
+      body: SafeArea(
+        child: ScrollableContainer(
+          child: BlocListener<QuizzesBloc, QuizzesState>(
+            listenWhen: _nextStepListenWhen,
+            listener: _onStepChangeListener,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    SimpleProgressBar.petrol(progress: _percent),
+                    const SizedBox(height: 32),
+                    MainContainer(
+                      child: BlocBuilder<QuizzesBloc, QuizzesState>(
+                        builder: (context, state) {
+                          return state.maybeMap(
+                            loading: (_) => const Loader(),
+                            orElse: () => Form(
+                              key: _controller.formKey,
+                              onChanged: () => _controller.isFormValid,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  QuizzesQuestion(
+                                    selectedValue: _controller.selectLessonValue.value,
+                                    mode: mode,
+                                    question: state.data.questionForStep(widget.step),
+                                    onSelected: _onSelectedHandler,
                                   ),
-                                ),
+                                ],
                               ),
                             ),
-                          ],
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                ),
+                Column(
+                  children: [
+                    mode.map(
+                      askQuestion: (_) => const SizedBox.shrink(),
+                      showAnswer: (_) => Container(
+                        color: AppColors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 24.0),
+                          child: BlocBuilder<QuizzesBloc, QuizzesState>(
+                            builder: (context, state) {
+                              return Column(
+                                children: [
+                                  ValueListenableBuilder<bool>(
+                                      valueListenable: _controller.isCorrect,
+                                      builder: (context, isCorrect, _) {
+                                        return CorrectIncorrectExplanation(
+                                          isCorrect: _controller.isFormValid,
+                                          text: _controller.isFormValid
+                                              ? state.data.questionForStep(widget.step).explanationCorrect ??
+                                                  LocalizedTexts.correct.tr()
+                                              : state.data
+                                                      .questionForStep(widget.step)
+                                                      .explanationIncorrect ??
+                                                  LocalizedTexts.incorrect.tr(),
+                                        );
+                                      }),
+                                  const SizedBox(height: 24),
+                                  CustomElevatedButton.blueFullWidth(
+                                    onPressed: () => _saveOptionsField(state.data.lessonId),
+                                    label: LocalizedTexts.next.tr(),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                },
-              ),
+                    )
+                  ],
+                ),
+              ],
             ),
           ),
         ),

@@ -23,9 +23,7 @@ class NetworkImageWithCache extends StatelessWidget {
     return authManager.getAccessToken();
   }
 
-  Future _deleteImageFromCache(String url) {
-    return CachedNetworkImage.evictFromCache(url);
-  }
+  Future _deleteImageFromCache(String url) => CachedNetworkImage.evictFromCache(url);
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +34,17 @@ class NetworkImageWithCache extends StatelessWidget {
           return CachedNetworkImage(
             imageUrl: url,
             cacheKey: url,
-            imageBuilder: (context, imageProvider) => Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: imageProvider,
-                  fit: imageBoxFit ?? BoxFit.fitHeight,
-                  alignment: alignment ?? Alignment.center,
+            imageBuilder: (context, imageProvider) {
+              return Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: imageBoxFit ?? BoxFit.fitHeight,
+                    alignment: alignment ?? Alignment.center,
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
             httpHeaders: {
               "Authorization": 'Bearer ${snapshot.data}',
             },

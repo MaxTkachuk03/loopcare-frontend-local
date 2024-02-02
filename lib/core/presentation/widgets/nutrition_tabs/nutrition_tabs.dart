@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/tab_bar/custom_tab_bar.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 import 'package:loopcare_frontend/core/presentation/widgets/nutrition_tabs/nutrition_value_tab.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/nutrition_tabs/nutrition_value_tab_type.dart';
@@ -61,26 +60,15 @@ class _NutritionTabsState extends State<NutritionTabs> with TickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.greenLightest,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50.0),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 10.0),
-          child: CustomTabBar.green(
-            onTap: () => {},
-            tabController: _tabController,
-            tabs: tabs.map((e) => Tab(text: e.text)).toList(),
-          ),
+    return Column(
+      children: [
+        const SizedBox(height: 10.0),
+        CustomTabBar.green(tabs: tabs.map((e) => Tab(text: e.text)).toList(), tabController: _tabController),
+        const SizedBox(height: 16.0),
+        Flexible(
+          child: TabBarView(controller: _tabController, children: widget.tabBarViewChildren),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 16.0),
-        child: TabBarView(
-          controller: _tabController,
-          children: widget.tabBarViewChildren,
-        ),
-      ),
+      ],
     );
   }
 }

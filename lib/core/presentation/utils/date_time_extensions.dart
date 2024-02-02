@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import "package:moment_dart/moment_dart.dart";
 
 extension DateTimeExtension on DateTime {
   bool isSameDate(DateTime other) {
@@ -40,6 +41,10 @@ extension DateTimeExtension on DateTime {
 
   String get shortDateWithYear {
     return DateFormat('d MMMM y', 'en_EN').format(this);
+  }
+
+  String get americanShortDateWithYear {
+    return Moment(this).format('MMMM Do YYYY');
   }
 
   String get fullDate {
@@ -161,6 +166,10 @@ extension DateTimeExtension on DateTime {
     return -1;
   }
 
+  DateTime fromMilliseconds(int milliseconds) {
+    return DateTime.fromMillisecondsSinceEpoch(milliseconds);
+  }
+
   int daysBetween(DateTime from, DateTime to) {
     from = DateTime(from.year, from.month, from.day);
     to = DateTime(to.year, to.month, to.day);
@@ -217,3 +226,6 @@ extension DateTimeExtension on DateTime {
     return (isBefore(endTime) || isSameDate(endTime)) && (isAfter(startDate) || (isSameDate(startDate)));
   }
 }
+
+String getFormattedDateFromMilliseconds(int milliseconds) =>
+    DateFormat('HH:mm', 'en_EN').format(DateTime.fromMillisecondsSinceEpoch(milliseconds));

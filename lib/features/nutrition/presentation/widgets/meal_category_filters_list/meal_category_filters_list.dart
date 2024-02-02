@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/checkbox/custom_checkbox.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
@@ -36,7 +37,7 @@ class MealCategoryFiltersList extends StatelessWidget {
                     SizedBox(
                       height: 16.0,
                       width: 16.0,
-                      child: CheckboxBlue(
+                      child: CustomCheckbox.blue(
                         value: filter.selected,
                         onChanged: (value) => onFilterPressed(
                           context,

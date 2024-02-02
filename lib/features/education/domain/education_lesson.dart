@@ -13,6 +13,7 @@ abstract class EducationLesson implements _$EducationLesson {
     required String category,
     required String title,
     required String image,
+    required String cardImage,
     required int duration,
     required int pageCounter,
     required int step,
@@ -25,6 +26,5 @@ abstract class EducationLesson implements _$EducationLesson {
     return completedAt != null;
   }
 
-  factory EducationLesson.fromJson(Map<String, dynamic> json) =>
-      _$EducationLessonFromJson(json);
+  factory EducationLesson.fromJson(Map<String, dynamic> json) => _$EducationLessonFromJson(json);
 }

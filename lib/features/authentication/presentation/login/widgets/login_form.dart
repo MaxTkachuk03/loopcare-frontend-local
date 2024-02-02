@@ -54,7 +54,7 @@ class _LoginFormState extends State<LoginForm> {
               const SizedBox(height: 40.0),
               CustomElevatedButton.blueFullWidth(
                 onPressed: _isDisabled ? null : _onLogin,
-                label: LocalizedTexts.loginBtn,
+                label: LocalizedTexts.login,
               ),
             ],
           ),

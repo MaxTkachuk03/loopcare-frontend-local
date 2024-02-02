@@ -20,7 +20,7 @@ class IntroPage extends StatelessWidget {
   const IntroPage({super.key});
 
   void _onGetStarted(BuildContext context) {
-    context.router.pushNamed(AppRoutes.joinUs);
+    context.router.pushNamed(AppRoutes.accessCode);
   }
 
   void _onLoginTap(BuildContext context) {

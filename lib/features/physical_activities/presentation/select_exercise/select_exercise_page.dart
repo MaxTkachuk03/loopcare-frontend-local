@@ -2,11 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/orange_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/tab_bar/custom_tab_bar.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/keyboard_state.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/chips_tab_bar.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/exercise_type.dart';
@@ -59,8 +62,11 @@ class _SelectExercisePageState extends State<SelectExercisePage> with TickerProv
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Scaffold(
-        appBar: OrangeAppBar(title: LocalizedTexts.physicalActivity.translation),
+      child: CustomScaffold.yellowLightest(
+        appBar: CustomAppBar.yellow(
+          title: LocalizedTexts.physicalActivity.translation,
+          leading: CustomFilledIconButton.leadingYellowLighter(),
+        ),
         body: SafeArea(
           child: MainContainer(
             child: Column(
@@ -68,25 +74,24 @@ class _SelectExercisePageState extends State<SelectExercisePage> with TickerProv
               mainAxisSize: MainAxisSize.min,
               children: [
                 const SizedBox(
-                  height: 32.0,
+                  height: 28.0,
                 ),
-                const Text(
-                  LocalizedTexts.selectYourExercise,
-                  style: TextStyle(
-                    fontSize: ThemeConstants.fontSize30,
-                    fontFamily: ThemeConstants.bitterFontFamily,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ).tr(),
+                CustomText.bitter600(
+                  LocalizedTexts.selectYourProgram.tr(),
+                  style: context.textTheme.displayMedium,
+                ),
                 const SizedBox(
-                  height: 16.0,
+                  height: 20.0,
                 ),
-                ChipsTabBar(
-                  tabController: _tabController,
-                  tabs: tabs.map((e) => Tab(text: e.text)).toList(),
-                  onTap: () => dismissKeyboard(context),
+                SizedBox(
+                  height: 36,
+                  child: CustomTabBar.yellow(
+                    tabController: _tabController,
+                    tabs: tabs.map((e) => Tab(text: e.text)).toList(),
+                    onTap: () => dismissKeyboard(context),
+                  ),
                 ),
-                const SizedBox(height: 32.0),
+                const SizedBox(height: 20.0),
                 Flexible(
                   child: TabBarView(
                     controller: _tabController,

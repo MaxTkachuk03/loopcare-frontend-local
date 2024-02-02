@@ -4,13 +4,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/orange_button.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/search_field.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
@@ -112,13 +114,11 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        LocalizedTexts.whatIsYourTimezone,
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ).tr(),
-                      const SizedBox(
-                        height: 20.0,
+                      CustomText.bitter500(
+                        LocalizedTexts.whatIsYourTimezone.tr(),
+                        style: context.textTheme.displayMedium,
                       ),
+                      const SizedBox(height: 20.0),
                       SearchField(
                           hintText: LocalizedTexts.searchTimezone.translation,
                           contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16.0),
@@ -130,9 +130,7 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 28.0,
-                ),
+                const SizedBox(height: 28.0),
                 Expanded(
                   child: ScrollablePositionedList.separated(
                     itemScrollController: _itemScrollController,
@@ -142,12 +140,11 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
 
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                        child: AppChoiceChip(
+                        child: CustomChoiceChip.coral(
                           label: item,
                           selected: _selectedLocation == item,
                           value: item,
                           onSelected: onSelected,
-                          textAlign: TextAlign.left,
                         ),
                       );
                     },
@@ -160,9 +157,9 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
                   child: Column(
                     children: [
                       const SizedBox(height: 24.0),
-                      OrangeButton(
-                        onPressedHandler: _selectedLocation == null ? null : _onNextPressedHandler,
-                        child: const Text(LocalizedTexts.next).tr(),
+                      CustomElevatedButton.blueFullWidth(
+                        onPressed: _selectedLocation == null ? null : _onNextPressedHandler,
+                        label: LocalizedTexts.next.tr(),
                       ),
                       const SizedBox(height: 30.0),
                     ],

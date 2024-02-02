@@ -2,8 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/physical_activities_frequency.dart';
-import 'package:loopcare_frontend/core/domain/physical_activities_type.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -29,35 +27,16 @@ class PreferencesSection extends StatelessWidget {
   }
 
   void _onPhysicalActivitiesHandler(BuildContext context) {
-    context.router.pushNamed(AppRoutes.physicalActivitiesFrequency);
+    context.router.pushNamed(AppRoutes.physicalPreferences);
   }
 
   void _onGroupSessionsHandler(BuildContext context) {
     context.router.pushNamed(AppRoutes.groupPreferences);
   }
 
-  String _physicalActivitiesPreferencesSubtitle(PhysicalActivitiesPreferencesState state) {
-    var target = "";
-    var perWeek = "";
-    var frequency = "";
-    if (state.data.currentTrainingFrequency != null) {
-      frequency = state.data.currentTrainingFrequency?.label ?? "";
-      if (state.data.currentTrainingFrequency != PhysicalActivitiesFrequency.notAble) {
-        target = state.data.currentTrainingTargets?.label ?? "";
-        if (target.isNotEmpty) {
-          target = "$target, ";
-        }
-        perWeek = LocalizedTexts.perWeek.translation;
-      }
-    }
-
-    return "$target$frequency $perWeek";
-  }
-
   String _groupSessionsSubtitle(AuthenticationState state) {
-    var grouped = state.isUserGrouped
-        ? LocalizedTexts.yes.translation.capitalize()
-        : LocalizedTexts.no.translation.capitalize();
+    var grouped =
+        state.isUserGrouped ? LocalizedTexts.yes.translation.capitalize() : LocalizedTexts.no.translation.capitalize();
 
     return "${LocalizedTexts.partOfGroup.translation}: $grouped";
   }
@@ -70,7 +49,7 @@ class PreferencesSection extends StatelessWidget {
   }
 
   Future<void> _foodUpdatedListener(BuildContext context, YouAndFoodState state) async {
-    context.showSuccessBar(
+    context.showCustomSuccessBar(
       content: CustomText.w600(
         LocalizedTexts.yourPreferencesUpdated.tr(namedArgs: {
           'prefName': LocalizedTexts.food.tr(),
@@ -89,7 +68,7 @@ class PreferencesSection extends StatelessWidget {
 
   Future<void> _physicalActivitiesUpdatingListener(
       BuildContext context, PhysicalActivitiesPreferencesState state) async {
-    context.showSuccessBar(
+    context.showCustomSuccessBar(
       content: CustomText.w600(
         LocalizedTexts.yourPreferencesUpdated.tr(
           namedArgs: {
@@ -109,7 +88,7 @@ class PreferencesSection extends StatelessWidget {
   }
 
   Future<void> _groupUpdatingListener(BuildContext context, GroupPreferencesState state) async {
-    context.showSuccessBar(
+    context.showCustomSuccessBar(
       content: CustomText.w600(
         LocalizedTexts.yourPreferencesUpdated.tr(
           namedArgs: {
@@ -153,16 +132,11 @@ class PreferencesSection extends StatelessWidget {
             const Divider(height: 1.0, color: AppColors.blueLighter),
             BlocBuilder<AuthenticationCubit, AuthenticationState>(
               builder: (context, state) {
-                return BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
-                  builder: (context, physicalActivitiesPreferencesState) {
-                    return SectionItem(
-                      title: LocalizedTexts.physicalExercises.tr(),
-                      subTitle: _physicalActivitiesPreferencesSubtitle(physicalActivitiesPreferencesState),
-                      onPressHandler: state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)
-                          ? () => _onPhysicalActivitiesHandler(context)
-                          : null,
-                    );
-                  },
+                return SectionItem(
+                  title: LocalizedTexts.physicalExercises.tr(),
+                  onPressHandler: state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)
+                      ? () => _onPhysicalActivitiesHandler(context)
+                      : null,
                 );
               },
             ),
@@ -172,11 +146,11 @@ class PreferencesSection extends StatelessWidget {
                 return SectionItem(
                   title: LocalizedTexts.groupSessions.tr(),
                   subTitle: _groupSessionsSubtitle(state),
-                  onPressHandler:
-                      state.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
+                  onPressHandler: state.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
                 );
               },
             ),
+            // Todo it's old part, need to check do we need it in future
             // const SizedBox(height: 16.0),
             // const Divider(height: 1.0, color: AppColors.blueLighter),
             // const SizedBox(height: 16.0),

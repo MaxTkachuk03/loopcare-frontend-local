@@ -2,9 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
@@ -30,6 +31,7 @@ class GroupRulesOnePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GroupLessonWrap(
+      // TODO: need check
       child: GroupPrefsPageWrap(
         title: LocalizedTexts.groupRules.translation,
         child: SafeArea(
@@ -44,37 +46,21 @@ class GroupRulesOnePage extends StatelessWidget {
                     children: [
                       const GroupPrefsProgress(),
                       const SizedBox(height: 28.0),
-                      const Text(
-                        LocalizedTexts.groupRulesOneTitle,
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: ThemeConstants.bitterFontFamily,
-                        ),
-                      ).tr(),
+                      CustomText.bitter700(LocalizedTexts.groupRulesOneTitle.tr()),
                       const SizedBox(height: 8.0),
-                      const Text(
-                        LocalizedTexts.groupRulesAttencion,
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                      ).tr(),
+                      CustomText.w600(LocalizedTexts.groupRulesAttention.tr()),
                       const SizedBox(height: 16.0),
-                      const Text(
-                        LocalizedTexts.groupRulesOneParagraphOne,
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                      ).tr(),
+                      CustomText.w400(LocalizedTexts.groupRulesOneParagraphOne.tr()),
                       const SizedBox(height: 32.0),
-                      const Text(
-                        LocalizedTexts.groupRulesOneParagraphTwo,
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                      ).tr(),
+                      CustomText.w400(LocalizedTexts.groupRulesOneParagraphTwo.tr()),
                     ],
                   ),
                   const SizedBox(height: 30.0),
                   Column(
                     children: [
-                      OutlinedButton(
+                      CustomOutlinedButton.blueFullWidth(
                         onPressed: () => _onContinuePressHandler(context),
-                        child: const Text(LocalizedTexts.continueToTheRules).tr(),
+                        label: LocalizedTexts.continueToTheRules.tr(),
                       ),
                       const SizedBox(height: 30.0),
                     ],

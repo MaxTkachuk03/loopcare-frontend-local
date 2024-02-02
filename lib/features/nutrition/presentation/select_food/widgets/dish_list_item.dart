@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
 
 class DishListItem extends StatelessWidget {
@@ -15,30 +18,33 @@ class DishListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: InkWell(
-        onTap: () => _onTap(context, dishItem),
-        child: Ink(
-          color: AppColors.white,
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                dishItem.name,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-              ),
-              Text(
-                '${dishItem.numberOfServings} ${LocalizedTexts.serving.translation}',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppColors.greyLabel,
-                    ),
-              ),
-            ],
+    return ListTile(
+      onTap: () => _onTap(context, dishItem),
+      title: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomText.w600(
+                  dishItem.name,
+                  style: context.textTheme.bodySmall,
+                ),
+                CustomText.w400(
+                  '${dishItem.numberOfServings} ${LocalizedTexts.serving.translation}',
+                  style: context.textTheme.bodySmall,
+                ),
+              ],
+            ),
           ),
-        ),
+          IconButton(
+            onPressed: () => _onTap(context, dishItem),
+            icon: const ImageIcon(
+              AppIcons.arrow,
+              color: AppColors.blueDarker,
+            ),
+          ),
+        ],
       ),
     );
   }

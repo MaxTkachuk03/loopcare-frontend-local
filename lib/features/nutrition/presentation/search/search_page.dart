@@ -11,11 +11,7 @@ class SearchPage extends StatefulWidget {
   final void Function(SearchItem item) onItemTap;
   final SearchMode? mode;
 
-  const SearchPage({
-    super.key,
-    required this.onItemTap,
-    this.mode,
-  });
+  const SearchPage({super.key, required this.onItemTap, this.mode});
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -23,6 +19,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   String? currentTab = '';
+  final TextEditingController _searchTextController = TextEditingController();
 
   @override
   void initState() {
@@ -32,24 +29,20 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: Need rework for using customAppBar
     return Scaffold(
-      backgroundColor: AppColors.greenDarker,
+      backgroundColor: AppColors.greenOffRegular,
       appBar: SearchAppBar(
         mode: widget.mode,
-        onTabChanged: (value) => _onTabChanged(value),
+        onTabChanged: _onTabChanged,
+        searchController: _searchTextController,
       ),
       body: SafeArea(
         child: SearchResultList(
           selectedTab: currentTab,
           onItemTap: widget.onItemTap,
           onRecentSearchItemTap: (item) {
-            context.read<SearchBloc>().add(
-                  SearchEvent.search(
-                    item,
-                    mode: currentTab,
-                  ),
-                );
+            context.read<SearchBloc>().add(SearchEvent.search(item, mode: currentTab));
+            _searchTextController.text = item;
           },
         ),
       ),
@@ -60,5 +53,11 @@ class _SearchPageState extends State<SearchPage> {
     setState(() {
       currentTab = value;
     });
+  }
+
+  @override
+  void dispose() {
+    _searchTextController.dispose();
+    super.dispose();
   }
 }
