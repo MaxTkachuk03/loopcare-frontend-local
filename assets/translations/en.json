@@ -691,5 +691,6 @@
   "supportGroupTrialSubscriptionNotGrouped": "You are currently in your free trial period. This feature will be available with a paid subscription. Once your free trial is over, you can enrol here or in your profile",
   "updateRequired": "Update required",
   "updateRequiredBodyText1": "To ensure a seamless experience and access to new features, It's essential to update to the latest version of LeanOnMe",
-  "updateRequiredBodyText2": "The previous version is no longer supported"
+  "updateRequiredBodyText2": "The previous version is no longer supported",
+  "nextWeekTopic": "The topic for next week’s session will be made available soon"
 }
