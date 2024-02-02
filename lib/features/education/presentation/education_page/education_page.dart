@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/scroll_controller_extensions.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
@@ -112,52 +113,55 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
           builder: (BuildContext context, state) {
             final lessons = state.data.lessons;
 
-            return CustomScrollView(
-              key: _listKey,
-              controller: _scrollController,
-              slivers: state.maybeMap(
-                loading: (_) => [
-                  EducationTabBar(controller: _tabController, tabs: categories),
-                  SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height / 1.3,
-                      child: const Loader(),
-                    ),
-                  )
-                ],
-                orElse: () => [
-                  EducationTabBar(controller: _tabController, tabs: categories),
-                  EducationAppBar(containerKey: _introContainerKey),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      childCount: lessons.length,
-                      (BuildContext context, int i) {
-                        final isLastElement = i + 1 == lessons.length;
-                        final isFirstElement = i == 0;
-                        final nextIsLocked = isLastElement ? true : lessons[i + 1].isLocked;
+            return Container(
+              color: AppColors.blueLightest,
+              child: CustomScrollView(
+                key: _listKey,
+                controller: _scrollController,
+                slivers: state.maybeMap(
+                  loading: (_) => [
+                    EducationTabBar(controller: _tabController, tabs: categories),
+                    SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height / 1.3,
+                        child: const Loader(),
+                      ),
+                    )
+                  ],
+                  orElse: () => [
+                    EducationTabBar(controller: _tabController, tabs: categories),
+                    EducationAppBar(containerKey: _introContainerKey),
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        childCount: lessons.length,
+                        (BuildContext context, int i) {
+                          final isLastElement = i + 1 == lessons.length;
+                          final isFirstElement = i == 0;
+                          final nextIsLocked = isLastElement ? true : lessons[i + 1].isLocked;
 
-                        return Container(
-                          key: PageStorageKey(lessons[i].id),
-                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                          height: _lessonCardHeight,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              ProgressItem(
-                                isFirst: isFirstElement,
-                                isLast: isLastElement,
-                                lesson: lessons[i],
-                                nextIsLocked: nextIsLocked,
-                              ),
-                              const SizedBox(width: 20.0),
-                              Expanded(child: EducationCard(lesson: lessons[i])),
-                            ],
-                          ),
-                        );
-                      },
+                          return Container(
+                            key: PageStorageKey(lessons[i].id),
+                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                            height: _lessonCardHeight,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                ProgressItem(
+                                  isFirst: isFirstElement,
+                                  isLast: isLastElement,
+                                  lesson: lessons[i],
+                                  nextIsLocked: nextIsLocked,
+                                ),
+                                const SizedBox(width: 20.0),
+                                Expanded(child: EducationCard(lesson: lessons[i])),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           },
