@@ -8,21 +8,18 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/diseases.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/weight_loss_medication_answers.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/diseases.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/diseases_state.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/weight_loss_medication_answers.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/date_helpers.dart';
 
 part 'medical_fitness_bloc.freezed.dart';
-
 part 'medical_fitness_bloc.g.dart';
-
 part 'medical_fitness_event.dart';
-
-part 'medical_fitness_state.dart';
-
 part 'medical_fitness_questions.dart';
+part 'medical_fitness_state.dart';
 
 @singleton
 class MedicalFitnessBloc extends HydratedBloc<MedicalFitnessEvent, MedicalFitnessState> {
@@ -191,8 +188,13 @@ class MedicalFitnessBloc extends HydratedBloc<MedicalFitnessEvent, MedicalFitnes
     AddDisease event,
     Emitter<MedicalFitnessState> emit,
   ) {
+    final isContains = state.data.containsDisease(event.value);
+    var set = Set.of(state.data.diseasesList);
+    if (isContains) {
+      set.removeWhere((element) => element.diseases == event.value);
+    }
     emit(MedicalFitnessState.updated(state.data.copyWith(
-      diseasesList: Set.of(state.data.diseasesList)..add(event.value),
+      diseasesList: set..add(DiseasesState(diseases: event.value, enable: true)),
     )));
   }
 
@@ -200,8 +202,13 @@ class MedicalFitnessBloc extends HydratedBloc<MedicalFitnessEvent, MedicalFitnes
     RemoveDisease event,
     Emitter<MedicalFitnessState> emit,
   ) {
+    final isContains = state.data.containsDisease(event.value);
+    var set = Set.of(state.data.diseasesList);
+    if (isContains) {
+      set.removeWhere((element) => element.diseases == event.value);
+    }
     emit(MedicalFitnessState.updated(state.data.copyWith(
-      diseasesList: Set.of(state.data.diseasesList)..remove(event.value),
+      diseasesList: set..add(DiseasesState(diseases: event.value, enable: false)),
     )));
   }
 

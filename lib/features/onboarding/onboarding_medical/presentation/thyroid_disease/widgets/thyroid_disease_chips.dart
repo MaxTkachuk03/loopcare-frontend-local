@@ -18,12 +18,13 @@ class _ThyroidDiseaseChipsState extends State<ThyroidDiseaseChips> {
 
   @override
   void initState() {
-    final bloc = context.read<MedicalFitnessBloc>();
-
-    _selectedValue =
-        bloc.state.data.diseasesList.contains(Diseases.thyroidDisease) ? YesNoAnswer.yes : YesNoAnswer.no;
-
     super.initState();
+    final bloc = context.read<MedicalFitnessBloc>();
+    _selectedValue = bloc.state.data.containsDisease(Diseases.thyroidDisease)
+        ? bloc.state.data.getContainedDisease(Diseases.thyroidDisease).enable
+            ? YesNoAnswer.yes
+            : YesNoAnswer.no
+        : null;
   }
 
   void _onSelected(YesNoAnswer value) {

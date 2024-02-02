@@ -18,12 +18,14 @@ class _AsthmaChipsState extends State<AsthmaChips> {
 
   @override
   void initState() {
+    super.initState();
     final bloc = context.read<MedicalFitnessBloc>();
 
-    _selectedValue =
-        bloc.state.data.diseasesList.contains(Diseases.asthma) ? YesNoAnswer.yes : YesNoAnswer.no;
-
-    super.initState();
+    _selectedValue = bloc.state.data.containsDisease(Diseases.asthma)
+        ? bloc.state.data.getContainedDisease(Diseases.asthma).enable
+            ? YesNoAnswer.yes
+            : YesNoAnswer.no
+        : null;
   }
 
   void _onSelected(YesNoAnswer value) {
