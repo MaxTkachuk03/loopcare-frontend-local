@@ -2,30 +2,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/interpretation_type.dart';
-import 'package:loopcare_frontend/features/mental_health/presentation/mental_check_result_page.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class WHO5ResultText extends StatelessWidget {
-  const WHO5ResultText({super.key});
+  final Function onLinkPressed;
 
-  void _onUrlHandler(BuildContext context) async {
-    final Uri launchUri = Uri.parse(psychologistConsultingLink);
-
-    try {
-      await launchUrl(launchUri);
-    } catch (e) {
-      _showError(context);
-    }
-  }
-
-  void _showError(BuildContext context) =>
-      context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.translation));
+  const WHO5ResultText({super.key, required this.onLinkPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +29,13 @@ class WHO5ResultText extends StatelessWidget {
 
         return RichText(
           text: TextSpan(children: [
-            TextSpan(text: '$text \n', style: context.textTheme.bodyMedium),
-            TextSpan(
-              style: context.textTheme.bodyMedium?.copyWith(color: AppColors.blueAppBar),
-              text: '$psychologistConsultingLink \n\n',
-              recognizer: TapGestureRecognizer()..onTap = () => _onUrlHandler(context),
-            ),
+            TextSpan(text: text, style: context.textTheme.bodyMedium),
+            if (interpretation == InterpretationType.minimal)
+              TextSpan(
+                style: context.textTheme.bodyMedium?.copyWith(color: AppColors.blueAppBar),
+                text: '\n$psychologistConsultingLink',
+                recognizer: TapGestureRecognizer()..onTap = () => onLinkPressed(context),
+              ),
           ]),
         );
       },
