@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/green_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -62,11 +62,9 @@ class RecommendationsPage extends StatelessWidget {
                 child: ScrollableContainer(
                   child: Column(
                     children: [
-                      GreenAppBar(
+                      CustomAppBar.green(
                         title: LocalizedTexts.recommended.translation,
                         subtitle: '${mealCategory.capitalize()} ${date.shortDate}',
-                        darkGreen: true,
-                        onClose: () => _onSkipPressed(context),
                       ),
                       SizedBox(
                         height: 600,
@@ -102,10 +100,9 @@ class RecommendationsPage extends StatelessWidget {
               child: ScrollableContainer(
                 child: Column(
                   children: [
-                    GreenAppBar(
+                    CustomAppBar.green(
                       title: LocalizedTexts.recommended.translation,
                       subtitle: '${mealCategory.capitalize()} ${date.shortDate}',
-                      darkGreen: true,
                     ),
                     Column(
                       children: [

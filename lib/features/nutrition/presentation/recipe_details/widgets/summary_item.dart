@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class SummaryItem extends StatelessWidget {
   final String label;
-  final SvgPicture icon;
+  final Widget icon;
   final String quantity;
   final String? quantityLabel;
 
@@ -21,10 +21,10 @@ class SummaryItem extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        CustomText.w400(
           label,
-          maxLines: 2,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.greyLabel),
+          maxLines: 1,
+          style: context.textTheme.bodySmall,
         ),
         const SizedBox(
           height: 6.0,
@@ -37,17 +37,20 @@ class SummaryItem extends StatelessWidget {
             ),
             RichText(
               text: TextSpan(
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.black),
+                style: context.textTheme.bodyMedium,
                 children: [
                   TextSpan(
                     text: quantity,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+                    style: context.textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   if (quantityLabel != null)
                     TextSpan(
                       text: ' $quantityLabel',
+                      style: context.textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                 ],
               ),

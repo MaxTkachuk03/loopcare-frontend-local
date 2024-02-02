@@ -65,9 +65,9 @@ class SubscriptionHeaderLabel extends StatelessWidget {
 }
 
 class SubscriptionTitle extends SubscriptionHeaderTitle {
-  const SubscriptionTitle.trial({super.key})
+ const SubscriptionTitle.trial({super.key})
       : super(
-          title: '${LocalizedTexts.subscriptionTrialTitle}!',
+          title: LocalizedTexts.subscriptionTrialTitle,
         );
 
   const SubscriptionTitle.trialExpired({super.key})

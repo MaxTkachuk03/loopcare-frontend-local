@@ -38,18 +38,19 @@ class ProgressBar extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Slider(
-                        activeColor: AppColors.blueMid,
-                        inactiveColor: AppColors.greyMid,
-                        secondaryActiveColor: AppColors.ballBlue,
+                        activeColor: AppColors.yellowRegular,
+                        inactiveColor: AppColors.greyLight,
+                        secondaryActiveColor: AppColors.yellowOffRegular,
                         onChanged: _onSeekHandler,
                         min: 0,
                         max: _durationToDouble(value.duration),
                         value: _durationToDouble(value.position),
-                        secondaryTrackValue: value.buffered.isEmpty ? 0.0 : _durationToDouble(value.buffered[0].end),
+                        secondaryTrackValue:
+                            value.buffered.isEmpty ? 0.0 : _durationToDouble(value.buffered[0].end),
                       ),
                     ),
                     Text(
-                      (value.duration - value.position).toVideoDurationString,
+                      (value.duration - value.position).toDurationString,
                       style: const TextStyle(color: AppColors.white),
                     ),
                   ],

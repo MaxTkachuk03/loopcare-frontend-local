@@ -1,7 +1,9 @@
 import 'package:just_audio/just_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/sounds/app_sounds.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 
 class PromptsContainer extends StatefulWidget {
@@ -52,9 +54,9 @@ class _PromptsContainerState extends State<PromptsContainer> {
         child: Center(
           child: AnimatedSwitcher(
             duration: PromptsContainer._animationDuration,
-            child: Text(
+            child: CustomText.w600(
               _text,
-              style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600, color: AppColors.darkGreen),
+              style: context.textTheme.bodyLarge,
               textAlign: TextAlign.center,
             ),
           ),

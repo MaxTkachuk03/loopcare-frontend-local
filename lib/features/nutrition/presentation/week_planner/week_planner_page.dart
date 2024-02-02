@@ -19,7 +19,8 @@ class WeekPlannerPage extends StatefulWidget {
 }
 
 class _WeekPlannerPageState extends State<WeekPlannerPage> {
-  DateTime _selectedDay = DateTime.now();
+  // TODO: LOOPCARE-1798 Hide Meal planning block
+  // DateTime _selectedDay = DateTime.now();
 
   @override
   void initState() {
@@ -30,7 +31,7 @@ class _WeekPlannerPageState extends State<WeekPlannerPage> {
 
   void _onSelectDay(DateTime day) {
     setState(() {
-      _selectedDay = day;
+      // _selectedDay = day;
 
 // TODO: LOOPCARE-1798 Hide Meal planning block
       // context.read<ChooseDateBloc>().add(

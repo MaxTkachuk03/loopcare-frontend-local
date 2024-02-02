@@ -1,17 +1,20 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/orange_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/program_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/widgets/program_card.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/widgets/program_carousel.dart';
 
 class PhysicalProgramsPage extends StatelessWidget {
   const PhysicalProgramsPage({super.key});
@@ -30,65 +33,68 @@ class PhysicalProgramsPage extends StatelessWidget {
                   context.read<PhysicalProgramsBloc>().add(const PhysicalProgramsEvent.getAllPrograms()),
             );
           },
-          loading: (_) => Scaffold(
-            appBar: OrangeAppBar(title: state.data.programType?.label ?? ''),
-            body: const SafeArea(
-              child: Loader(),
-            ),
+          loading: (_) => CustomScaffold.yellowLightest(
+            appBar: CustomAppBar.yellow(title: state.data.programType?.title ?? ''),
+            body: const Loader(),
           ),
-          orElse: () => Scaffold(
-            appBar: OrangeAppBar(title: state.data.programType?.label ?? ''),
+          orElse: () => CustomScaffold.yellowLightest(
+            appBar: CustomAppBar.yellow(
+              title: state.data.programType?.title ?? '',
+              leading: CustomFilledIconButton.leadingYellowLighter(),
+            ),
             body: SafeArea(
               child: ScrollableContainer(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    MainContainer(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const SizedBox(height: 32.0),
-                          const Text(
-                            LocalizedTexts.chooseYourProgram,
-                            style: TextStyle(
-                              fontSize: ThemeConstants.fontSize30,
-                              fontFamily: ThemeConstants.bitterFontFamily,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ).tr(),
-                          if (state.data.getSelectedPrograms.isNotEmpty)
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 24.0),
-                                Text(LocalizedTexts.recommended.toUpperCase()).tr(),
-                                const SizedBox(height: 16.0),
-                                ProgramCard(
-                                  program: state.data.getSelectedPrograms.first,
-                                  size: const ProgramCardSize.large(),
-                                ),
-                                const SizedBox(height: 16.0),
-                                if (state.data.getAlternativePrograms.isNotEmpty)
-                                  const Text(LocalizedTexts.alternatives).tr(),
-                                if (state.data.getAlternativePrograms.isNotEmpty) const SizedBox(height: 16.0),
-                              ],
-                            ),
-                        ],
+                child: MainContainer(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(height: 20.0),
+                      CustomText.bitter600(
+                        LocalizedTexts.selectYourProgram.tr(),
+                        style: context.textTheme.displayMedium,
                       ),
-                    ),
-                    if (state.data.getAlternativePrograms.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(left: 24),
-                        child: SizedBox(
-                          height: 220,
-                          child: ProgramCarousel(
-                            programs: state.data.getAlternativePrograms.toList(),
+                      const SizedBox(height: 20.0),
+                      if (state.data.getSelectedPrograms.isNotEmpty)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText.bitter600(
+                              LocalizedTexts.recommended.tr(),
+                              style: context.textTheme.bodyMedium,
+                            ),
+                            const SizedBox(height: 20.0),
+                            ProgramCard(
+                              program: state.data.getSelectedPrograms.first,
+                              bgColor: AppColors.yellowRegular,
+                              borderColor: AppColors.yellowRegular,
+                              padding: const EdgeInsets.all(4.0),
+                              size: const ProgramCardSize.small(),
+                              onlyView: false,
+                            ),
+                            const SizedBox(height: 16.0),
+                            if (state.data.getAlternativePrograms.isNotEmpty)
+                              CustomText(
+                                LocalizedTexts.alternatives.tr(),
+                                style: context.textTheme.bodySmall,
+                              ),
+                            if (state.data.getAlternativePrograms.isNotEmpty) const SizedBox(height: 16.0),
+                          ],
+                        ),
+                      if (state.data.getAlternativePrograms.isNotEmpty)
+                        ListView.builder(
+                          itemCount: state.data.getAlternativePrograms.toList().length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (BuildContext context, index) => ProgramCard(
+                            bgColor: AppColors.white,
+                            borderColor: AppColors.yellowRegular,
+                            program: state.data.getAlternativePrograms.toList()[index],
+                            size: const ProgramCardSize.small(),
                           ),
                         ),
-                      ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

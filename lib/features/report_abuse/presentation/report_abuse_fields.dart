@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/app_input_field.dart
 import 'package:loopcare_frontend/core/presentation/widgets/app_input_limit_field.dart';
 import 'package:loopcare_frontend/features/report_abuse/presentation/report_abuse_controller.dart';
 
-class SubjectAbuseFormInputField extends AppTextField {
+class SubjectAbuseFormInputField extends AppInputTextField {
   SubjectAbuseFormInputField.subject(ReportAbuseController controller, {super.key})
       : super(
           fieldKey: controller.subjectFieldKey,

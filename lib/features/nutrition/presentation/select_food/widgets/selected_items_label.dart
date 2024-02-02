@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
 class SelectedItemsLabel extends StatelessWidget {
@@ -25,7 +27,7 @@ class SelectedItemsLabel extends StatelessWidget {
                   height: 40.0,
                   padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
                   decoration: BoxDecoration(
-                    color: state.isPlanningMeals ? AppColors.blueMid : AppColors.darkGreen,
+                    color: state.isPlanningMeals ? AppColors.petrolLighter : AppColors.greenDarker,
                     borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                   ),
                   child: Row(
@@ -46,13 +48,12 @@ class SelectedItemsLabel extends StatelessWidget {
                         ),
                         child: BlocBuilder<MealsBloc, MealsState>(
                           builder: (BuildContext context, state) {
-                            return Text(
+                            return CustomText.w600(
                               '${state.currentFoodItems.length}',
                               textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    color: AppColors.darkGreen,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                              style: context.textTheme.bodySmall?.copyWith(
+                                color: AppColors.greenDarker,
+                              ),
                             );
                           },
                         ),

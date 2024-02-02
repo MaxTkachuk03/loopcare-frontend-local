@@ -11,7 +11,7 @@ class WhiteBox extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(24.0),
       decoration: const BoxDecoration(
-        color: AppColors.white,
+        color: AppColors.blueLightest,
         borderRadius: BorderRadius.all(
           Radius.circular(8.0),
         ),

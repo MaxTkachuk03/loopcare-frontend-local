@@ -67,11 +67,6 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
     });
   }
 
-  String get _btnText => widget.mode.map(
-        create: (_) => LocalizedTexts.confirm,
-        edit: (_) => LocalizedTexts.update,
-      );
-
   void _onMoodValueChangeHandler(MoodPickerListItem item) {
     _moodPageController.setMoodValue(item);
     _moodPageController.isFormValid;
@@ -145,22 +140,27 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(height: 34.0),
-                          CustomText.bitter500(LocalizedTexts.selectMoodText.tr(),
-                              style: context.textTheme.displayMedium),
-                          CustomText.w400(LocalizedTexts.selectMoodSubtext.tr(),
-                              style: context.textTheme.bodyMedium),
+                          CustomText.bitter500(
+                            LocalizedTexts.selectMoodText.tr(),
+                            style: context.textTheme.displayMedium,
+                          ),
+                          CustomText.w400(
+                            LocalizedTexts.selectMoodSubtext.tr(),
+                            style: context.textTheme.bodyMedium,
+                          ),
                           const SizedBox(height: 12.0),
                           ValueListenableBuilder<MoodPickerListItem?>(
                             valueListenable: _moodPageController.moodValue,
                             builder: (context, moodValue, _) => MoodPicker(
-                                onItemPressed: isEditable ? _onMoodValueChangeHandler : null,
-                                value: moodValue),
+                                onItemPressed: isEditable ? _onMoodValueChangeHandler : null, value: moodValue),
                           ),
                           const SizedBox(height: 12.0),
                           MoodOptions(controller: _moodPageController, isEditable: isEditable),
                           const SizedBox(height: 12.0),
-                          CustomText.bitter500(LocalizedTexts.personalNote.tr(),
-                              style: context.textTheme.displayMedium),
+                          CustomText.bitter500(
+                            LocalizedTexts.personalNote.tr(),
+                            style: context.textTheme.displayMedium,
+                          ),
                           const SizedBox(height: 12.0),
                           MoodNoteField(_moodPageController, !isEditable),
                           const SizedBox(height: 24.0),
@@ -173,7 +173,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                             valueListenable: _moodPageController.isValid,
                             builder: (context, isValid, _) => CustomElevatedButton.blueFullWidth(
                               onPressed: isValid && isEditable ? _onConfirmPressed : null,
-                              label: _btnText.tr(),
+                              label: LocalizedTexts.logMood,
                             ),
                           ),
                           const SizedBox(height: 30.0),

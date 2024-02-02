@@ -1,8 +1,7 @@
 import 'dart:io';
 
+import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-const instructionsUrl = 'https://loopcare-pdf-instructions.s3.eu-central-1.amazonaws.com/Dokument2-2.pdf';
 
 class InstructionsService {
   InstructionsService._();

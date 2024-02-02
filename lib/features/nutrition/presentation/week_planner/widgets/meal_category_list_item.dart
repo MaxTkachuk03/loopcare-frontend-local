@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gap/gap.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -26,8 +25,8 @@ class MealCategoryListItem extends StatelessWidget {
   void editPlannedMeal(BuildContext context) {
     final mealsBloc = context.read<MealsBloc>();
     final plannedMeals = mealsBloc.state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
-    final plannedMealForCurrentDate =
-        plannedMeals?[date.isoStringWithoutTime]?.firstWhereOrNull((element) => element.mealCategory == mealCategory);
+    final plannedMealForCurrentDate = plannedMeals?[date.isoStringWithoutTime]
+        ?.firstWhereOrNull((element) => element.mealCategory == mealCategory);
 
     context.read<MealsBloc>().add(MealsEvent.setPlannedMeal(plannedMealForCurrentDate!));
 
@@ -58,7 +57,7 @@ class MealCategoryListItem extends StatelessWidget {
                           mealCategory.toUpperCase(),
                           style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.greyLabel),
                         ),
-                        const Gap(16.0),
+                        const SizedBox(height: 16.0),
                         GroupedMealList(
                           mealItems: mealItems,
                           active: true,

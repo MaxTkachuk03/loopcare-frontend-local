@@ -25,4 +25,13 @@ extension PhysicalActivitiesTypeX on PhysicalActivitiesType {
         return 'Increase you stamina';
     }
   }
+
+  int get index {
+    switch (this) {
+      case PhysicalActivitiesType.buildUpMuscle:
+        return 0;
+      case PhysicalActivitiesType.inceaseYourStamina:
+        return 1;
+    }
+  }
 }

@@ -1,7 +1,6 @@
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 
 enum SearchMode {
-  all,
   recipe,
   food,
   dish,
@@ -17,10 +16,8 @@ extension SearchModeX on SearchMode {
         return LocalizedTexts.searchFilterProducts.translation;
       case SearchMode.dish:
         return LocalizedTexts.searchFilterMy.translation;
-      case SearchMode.all:
-        return LocalizedTexts.searchFilterAll.translation;
       case SearchMode.favorite:
-        return 'favorite';
+        return LocalizedTexts.favorite.translation;
     }
   }
 
@@ -32,8 +29,6 @@ extension SearchModeX on SearchMode {
         return SearchMode.food.name;
       case SearchMode.dish:
         return SearchMode.dish.name;
-      case SearchMode.all:
-        return SearchMode.all.name;
       case SearchMode.favorite:
         return SearchMode.favorite.name;
     }

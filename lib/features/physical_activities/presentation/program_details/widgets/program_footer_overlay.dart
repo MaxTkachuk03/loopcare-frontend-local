@@ -1,11 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/dashboard/application/programs_in_progress_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 
@@ -15,39 +14,15 @@ class ProgramFooterOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 16.0, bottom: 28.0),
-      decoration: BoxDecoration(
-        color: AppColors.bgGreen,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.black.withOpacity(0.1),
-            spreadRadius: 0,
-            blurRadius: 6,
-            offset: const Offset(0, -2),
-          ),
-        ],
+      padding: EdgeInsets.zero,
+      decoration: const BoxDecoration(
+        color: AppColors.yellowRegular,
       ),
-      child: SafeArea(
-        top: false,
-        child: MainContainer(
-          child: Column(
-            children: [
-              const Text(
-                LocalizedTexts.programNote,
-                textAlign: TextAlign.center,
-              ).tr(),
-              const SizedBox(
-                height: 12.0,
-              ),
-              ElevatedButton(
-                onPressed: () => _onGetStarted(context),
-                style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                      backgroundColor: MaterialStateProperty.all(AppColors.orangeDark),
-                    ),
-                child: const Text(LocalizedTexts.getStarted).tr(),
-              ),
-            ],
-          ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20.0, 16.0, 20.0, 30.0),
+        child: CustomElevatedButton.blueFullWidth(
+          onPressed: () => _onGetStarted(context),
+          label: LocalizedTexts.getStarted.translation,
         ),
       ),
     );

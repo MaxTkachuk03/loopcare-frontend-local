@@ -7,13 +7,10 @@ class ButtonStyles {
   static const Size fullWidthSize = Size(double.infinity, ThemeConstants.buttonHeight);
   static const Size smallSize = Size(0, ThemeConstants.buttonSmallHeight);
 
-  static const TextStyle primaryLabel =
-      TextStyle(fontSize: ThemeConstants.fontSize14, fontWeight: FontWeight.w600);
-  static const TextStyle fullWidthLabel =
-      TextStyle(fontSize: ThemeConstants.fontSize16, fontWeight: FontWeight.w600);
+  static const TextStyle primaryLabel = TextStyle(fontSize: ThemeConstants.fontSize14, fontWeight: FontWeight.w600);
+  static const TextStyle fullWidthLabel = TextStyle(fontSize: ThemeConstants.fontSize16, fontWeight: FontWeight.w600);
 
-  static const TextStyle outlinedLabel =
-      TextStyle(fontSize: ThemeConstants.fontSize14, fontWeight: FontWeight.w400);
+  static const TextStyle outlinedLabel = TextStyle(fontSize: ThemeConstants.fontSize14, fontWeight: FontWeight.w400);
 
   static const BorderSide borderCoral =
       BorderSide(width: ThemeConstants.outlinedButtonBorderWidth, color: AppColors.coralRegular);

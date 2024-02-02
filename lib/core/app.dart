@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
+import 'package:loopcare_frontend/core/application/socket_service_chat/chat_socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_bloc_provider.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_navigator_observer.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -64,6 +65,7 @@ class _AppState extends State<_App> {
   late final AppRouter _appRouter;
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   final SocketService _socketService = SocketService.instance;
+  final ChatSocketService _chatSocketService = ChatSocketService.instance;
   static final FirebaseAnalyticsObserver _analyticsObserver = FirebaseAnalyticsObserver(analytics: analytics);
 
   @override
@@ -77,6 +79,7 @@ class _AppState extends State<_App> {
     final authTokenManager = GetIt.instance<AuthTokenManager>();
 
     _socketService.startListen();
+    _chatSocketService.startListen();
 
     _appRouter = AppRouter(
       proxyGuard: ProxyGuard(authBloc, authTokenManager),

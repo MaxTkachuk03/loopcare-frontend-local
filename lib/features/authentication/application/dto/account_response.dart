@@ -1,15 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:loopcare_frontend/core/domain/account/subscription.dart';
 import 'package:loopcare_frontend/core/domain/food_preferences/food_preferences.dart';
 import 'package:loopcare_frontend/core/domain/grouping_preferences.dart';
 import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
 import 'package:loopcare_frontend/core/domain/physical_fitness/physical_fitness.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
+import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/diabetes/application/dto/diabetes_type.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_activities_preferences.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
 
 part 'account_response.g.dart';
 
@@ -17,6 +17,7 @@ part 'account_response.g.dart';
 @JsonSerializable()
 class AccountResponse {
   final int id;
+  final int? groupId;
   final String name;
   final String email;
   final String? country;
@@ -40,6 +41,7 @@ class AccountResponse {
 
   const AccountResponse({
     required this.id,
+    required this.groupId,
     required this.name,
     required this.email,
     required this.country,

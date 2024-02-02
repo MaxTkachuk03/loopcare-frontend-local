@@ -4,11 +4,14 @@ import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_controller.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/widget/subscription_status_widget.dart';
@@ -22,7 +25,7 @@ class SubscriptionPage extends StatefulWidget {
 
 class _SubscriptionPageState extends State<SubscriptionPage> {
   late SubscriptionController controller;
-  Widget content = const SizedBox.shrink();
+  Widget content = const Loader();
 
   @override
   void initState() {
@@ -46,7 +49,11 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: CustomScaffold.yellow(
-        appBar: null,
+        appBar: CustomAppBar.transparent(
+          leading: const SizedBox.shrink(),
+          actions: [_LogoutWidget()],
+          title: null,
+        ),
         body: BlocConsumer<SubscriptionBloc, SubscriptionState>(
           listenWhen: _listenerStates,
           listener: (BuildContext context, SubscriptionState state) => state.maybeWhen(
@@ -63,33 +70,33 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
             trial: (s) => content = SubscriptionStateView.trial(
               controller: controller,
               topCover: AppImages.trial,
-              bottomCover: AppImages.trialClipperSVG,
+              bottomCover: AppColors.coralRegular,
             ),
             trialExpired: (_) => content = SubscriptionStateView.trialExpired(
               controller: controller,
               topCover: AppImages.ended,
-              bottomCover: AppImages.cancelledClipperSVG,
+              bottomCover: AppColors.petrolRegular,
             ),
             subscriptionEnded: (_) => content = SubscriptionStateView.endedSubscription(
               controller: controller,
               topCover: AppImages.ended,
-              bottomCover: AppImages.cancelledClipperSVG,
+              bottomCover: AppColors.petrolRegular,
             ),
             subscriptionCancelled: (_) => content = SubscriptionStateView.cancelledSubscription(
               controller: controller,
               topCover: AppImages.ended,
-              bottomCover: AppImages.cancelledClipperSVG,
+              bottomCover: AppColors.petrolRegular,
             ),
             subscriptionUnRenewed: (_) => content = SubscriptionStateView.notRenewSubscription(
               controller: controller,
               onTap: () => context.router.replaceNamed(AppRoutes.home),
               topCover: AppImages.ended,
-              bottomCover: AppImages.cancelledClipperSVG,
+              bottomCover: AppColors.petrolRegular,
             ),
             serviceSubscriptionUnavailable: (_) => content = SubscriptionStateView.serviceUnavailable(
               controller: controller,
               topCover: AppImages.ended,
-              bottomCover: AppImages.cancelledClipperSVG,
+              bottomCover: AppColors.petrolRegular,
             ),
           ),
         ),
@@ -111,6 +118,26 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     context.showErrorBar(
       content: Text(errorMessage),
       position: FlashPosition.top,
+    );
+  }
+}
+
+class _LogoutWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: CircleAvatar(
+        radius: 22,
+        backgroundColor: AppColors.yellowLighter,
+        child: IconButton(
+          icon: const Icon(
+            Icons.logout,
+            color: AppColors.blueDarkest,
+          ),
+          onPressed: () => context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout()),
+        ),
+      ),
     );
   }
 }

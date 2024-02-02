@@ -80,7 +80,7 @@ class _SearchResultListState extends State<SearchResultList> {
   }
 
   Widget listLayout(SearchState itemsState) {
-    return ListView.builder(
+    return ListView.separated(
       itemCount: itemsState.data.items.length + 1,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -100,6 +100,7 @@ class _SearchResultListState extends State<SearchResultList> {
           onTap: widget.onItemTap,
         );
       },
+      separatorBuilder: (_, __) => const Divider(color: AppColors.blueLighter, height: 1, thickness: 1),
     );
   }
 

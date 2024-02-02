@@ -24,10 +24,12 @@ final List<Range> calorieDensityScaleValues = [
 ];
 
 Color calorieDensityScaleValuesColorForRange(double? density) {
-  if (density == null) return AppColors.transparent;
+  if (density == null) return AppColors.white;
 
   var retColor = calorieDensityScaleValues
       .firstWhereOrNull((element) => (element.min <= density && density < element.max));
 
-  return retColor?.color ?? AppColors.transparent;
+  retColor ??= calorieDensityScaleValues.lastWhereOrNull((element) => (element.max <= density));
+
+  return retColor?.color ?? AppColors.white;
 }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +6,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_se
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/empty_list_widget.dart';
@@ -72,8 +74,8 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
               },
               selectFood: (selectFoodState) {
                 final String title = selectFoodState.hasOneSelectedMealCategory
-                    ? '${LocalizedTexts.my.translation} ${selectFoodState.selectedMealCategories[0].name}'
-                    : LocalizedTexts.myFavorites.translation;
+                    ? '${LocalizedTexts.my.tr()} ${selectFoodState.selectedMealCategories[0].name}'
+                    : LocalizedTexts.myFavorites.tr();
 
                 return Expanded(
                   child: Column(
@@ -85,9 +87,12 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
                         onConfirmed: (list) => _onConfirmed(context, list),
                       ),
                       selectFoodState.favorites.isEmpty
-                          ? EmptyListWidget(
-                              type: EmptyListType.myFavorites,
-                              typeText: title,
+                          ? Padding(
+                              padding: const EdgeInsets.only(top: 16.0),
+                              child: EmptyListWidget(
+                                type: EmptyListType.myFavorites,
+                                typeText: title,
+                              ),
                             )
                           : Expanded(
                               child: RefreshIndicator(
@@ -102,7 +107,7 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
                                   separatorBuilder: (BuildContext context, int _) {
                                     return const Divider(
                                       height: 1,
-                                      color: Colors.transparent,
+                                      color: AppColors.blueLighter,
                                     );
                                   },
                                 ),

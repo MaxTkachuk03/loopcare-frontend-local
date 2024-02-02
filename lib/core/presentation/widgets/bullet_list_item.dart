@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 
 class BulletListItem extends StatelessWidget {
   final Widget text;
@@ -23,7 +24,7 @@ class BulletListItem extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.only(top: centered ?? true ? 0 : 3.0),
-          child: Text(_bulletSign, style: TextStyle(fontSize: bulletSize)),
+          child: CustomText.w400(_bulletSign, style: TextStyle(fontSize: bulletSize)),
         ),
         const SizedBox(width: 10.0),
         Expanded(child: text)

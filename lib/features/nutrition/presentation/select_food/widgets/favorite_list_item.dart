@@ -2,10 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/checkbox/custom_checkbox.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/checkbox_blue.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/favorites_item/favorites_item.dart';
 
@@ -24,45 +25,37 @@ class FavoriteListItem extends StatelessWidget {
         final isSelected =
             state.mapOrNull(selectFood: (state) => state.selectedFavoritesItems.contains(foodItem)) ?? false;
 
-        return Material(
-          child: Row(
+        return ListTile(
+          contentPadding: EdgeInsets.zero,
+          onTap: () => _onChanged(!isSelected, foodItem, context),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              CustomCheckbox.blue(
+                value: isSelected,
+                onChanged: (bool? value) => _onChanged(value, foodItem, context),
+              ),
+              const SizedBox(width: 14.0),
               Expanded(
-                child: InkWell(
-                  onTap: () => _onChanged(!isSelected, foodItem, context),
-                  child: Row(
-                    children: [
-                      CheckboxBlue(
-                        value: isSelected,
-                        onChanged: (bool? value) => _onChanged(value, foodItem, context),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AutoSizeText(
+                      foodItem.foodName,
+                      maxLines: 2,
+                      style: context.textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blueDarker,
                       ),
-                      const SizedBox(width: 14.0),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              AutoSizeText(
-                                foodItem.foodName,
-                                maxLines: 2,
-                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                              ),
-                              AutoSizeText(
-                                '${foodItem.brandName} | ${foodItem.serving.servingDescription}',
-                                maxLines: 1,
-                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: AppColors.greyLabel,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                    AutoSizeText(
+                      '${foodItem.brandName} | ${foodItem.serving.servingDescription}',
+                      maxLines: 1,
+                      style: context.textTheme.bodySmall?.copyWith(
+                        color: AppColors.greyLight,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               if (!isSelected)
@@ -70,7 +63,7 @@ class FavoriteListItem extends StatelessWidget {
                   onPressed: isSelected ? null : () => _onTap(context),
                   icon: const ImageIcon(
                     AppIcons.arrow,
-                    color: AppColors.greyLabel,
+                    color: AppColors.greyLight,
                   ),
                 ),
             ],

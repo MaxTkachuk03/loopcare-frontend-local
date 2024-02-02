@@ -47,7 +47,7 @@ class CalorieDensity extends StatelessWidget {
                                 children: [
                                   CustomCalorieDensityScale(
                                     density: value,
-                                    label: value?.toStringAsFixed(2) ?? '',
+                                    label: value?.toStringAsFixed(1) ?? '-',
                                   ),
                                   const SizedBox(height: 8.0),
                                   CustomText.w600(

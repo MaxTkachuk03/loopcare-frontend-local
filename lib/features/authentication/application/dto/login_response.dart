@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:loopcare_frontend/core/domain/account/subscription.dart';
-import 'package:loopcare_frontend/features/physical_fitness/domain/sex_type.dart';
+import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 
 part 'login_response.g.dart';
 

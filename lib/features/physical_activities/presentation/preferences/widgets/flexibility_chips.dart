@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/flexibility_option.dart';
-import 'package:loopcare_frontend/core/domain/multi_choice_type.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/app_choice_chip.dart';
+import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 
 class FlexibilityChips extends StatefulWidget {
@@ -42,13 +43,16 @@ class _FlexibilityChipsState extends State<FlexibilityChips> {
           .map(
             (FlexibilityOption value) => Column(
               children: [
-                AppChoiceChip(
-                  type: MultiChoiceType.checkbox,
-                  textAlign: TextAlign.start,
+                CustomChoiceChip.coral(
                   label: value.label,
                   selected: value == _selectedValue,
                   value: value,
                   onSelected: _onSelectedHandler,
+                  action: AppIcons.checkmarkCircle(
+                    value == _selectedValue,
+                    AppColors.white,
+                    AppColors.greyLight,
+                  ),
                 ),
                 const SizedBox(height: 8.0),
               ],

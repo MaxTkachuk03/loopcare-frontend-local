@@ -43,68 +43,56 @@ class _AccountSectionState extends State<AccountSection> {
     context.read<AuthenticationCubit>().logout();
   }
 
-  // _onDeleteAccountPressed() {
-  //   ModalBottomSheet.deleteAccount(
-  //     context: context,
-  //     onDeleted: () {
-  //       context.read<AuthenticationCubit>().deleteAccount();
-  //     },
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
-    return AccountContainer(
-      child: Column(
-        children: [
-          SectionTitle(title: LocalizedTexts.account.tr()),
-          BlocBuilder<AuthenticationCubit, AuthenticationState>(
-            builder: (BuildContext context, state) {
-              return SectionItem(
-                title: LocalizedTexts.username.tr(),
+    return BlocBuilder<AuthenticationCubit, AuthenticationState>(
+      builder: (BuildContext context, state) {
+        return AccountContainer(
+          child: Column(
+            children: [
+              SectionTitle(title: LocalizedTexts.account.tr()),
+              SectionItem(
+                title: LocalizedTexts.name.tr(),
+                subTitle: state.name,
+                onPressHandler: () {},
+              ),
+              const Divider(height: 1.0, color: AppColors.blueLighter),
+              SectionItem(
+                title: LocalizedTexts.emailAddress.tr(),
                 subTitle: state.email,
                 onPressHandler: () {},
-              );
-            },
+              ),
+              const Divider(height: 1.0, color: AppColors.blueLighter),
+              const SizedBox(height: 16.0),
+              // SectionItem(title: LocalizedTexts.changePassword, onPressHandler: () {}),
+              // const SizedBox(height: 16.0),
+              // const Divider(height: 1.0, color: AppColors.blueLighter),
+              // const SizedBox(height: 16.0),
+              // SectionItemToggler(
+              //   title: LocalizedTexts.useFaceOrTouchId,
+              //   value: _useFaceId,
+              //   onPressHandler: _onUseFaceIdToggle,
+              // ),
+              // const SizedBox(height: 16.0),
+              // const Divider(height: 1.0, color: AppColors.blueLighter),
+              // const SizedBox(height: 16.0),
+              // SectionItemToggler(
+              //   title: LocalizedTexts.requireLoginEachTime,
+              //   value: _requireLogin,
+              //   onPressHandler: _onRequireLogin,
+              // ),
+              // const SizedBox(height: 16.0),
+              // const Divider(height: 1.0, color: AppColors.blueLighter),
+              // const SizedBox(height: 16.0),
+              CustomElevatedButton.coralFullWidth(
+                onPressed: _onLogOutPressed,
+                label: LocalizedTexts.signOut.tr(),
+              ),
+              const SizedBox(height: 16.0),
+            ],
           ),
-          const Divider(height: 1.0, color: AppColors.blueLighter),
-          const SizedBox(height: 16.0),
-          // SectionItem(title: LocalizedTexts.changePassword, onPressHandler: () {}),
-          // const SizedBox(height: 16.0),
-          // const Divider(height: 1.0, color: AppColors.blueLighter),
-          // const SizedBox(height: 16.0),
-          // SectionItemToggler(
-          //   title: LocalizedTexts.useFaceOrTouchId,
-          //   value: _useFaceId,
-          //   onPressHandler: _onUseFaceIdToggle,
-          // ),
-          // const SizedBox(height: 16.0),
-          // const Divider(height: 1.0, color: AppColors.blueLighter),
-          // const SizedBox(height: 16.0),
-          // SectionItemToggler(
-          //   title: LocalizedTexts.requireLoginEachTime,
-          //   value: _requireLogin,
-          //   onPressHandler: _onRequireLogin,
-          // ),
-          // const SizedBox(height: 16.0),
-          // const Divider(height: 1.0, color: AppColors.blueLighter),
-          // const SizedBox(height: 16.0),
-          CustomElevatedButton.coralFullWidth(
-            onPressed: _onLogOutPressed,
-            label: LocalizedTexts.signOut.tr(),
-          ),
-          const SizedBox(height: 16.0),
-          // TODO button removed for testing build 1.0.26+102
-          // TextButton(
-          //   onPressed: _onDeleteAccountPressed,
-          //   style: TextButton.styleFrom(
-          //     foregroundColor: AppColors.red,
-          //     textStyle: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
-          //   ),
-          //   child: const Text(LocalizedTexts.deleteAccount).tr(),
-          // ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

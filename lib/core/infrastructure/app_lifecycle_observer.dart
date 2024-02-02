@@ -28,8 +28,6 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
     _authenticationCubit = GetIt.instance<AuthenticationCubit>();
     lifeCycleListener = AppLifecycleListener(
       onStateChange: _onLifeCycleChanged,
-      onDetach: _onDetach,
-      onPause: _onPause,
       onResume: _onResume,
     );
     super.initState();
@@ -56,12 +54,9 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
     }
   }
 
-  _onDetach() => debugPrint('devcpp on Detach');
-
-  _onPause() => debugPrint('devcpp on Pause');
-
   _onResume() {
     _refreshTokenState();
+    _syncChatState();
   }
 
   @override
@@ -75,7 +70,6 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
     final request = await dioClient
         .handleProcess(dioOptions.post('/auth/accessToken', data: {'refreshToken': token}))
         .then(parseResponse(UpdatedAccessTokenResponse.fromJson));
-    debugPrint('devcpp onResume updateAccessToken: ${request.toString()}');
     request.fold(
       (error) {
         authTokenManager.removeRefreshToken();
@@ -96,7 +90,6 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
     final request = await dioClient
         .handleProcess(dioOptions.post('/auth/refreshToken', data: {'refreshToken': token}))
         .then(parseResponse(UpdatedRefreshTokenResponse.fromJson));
-    debugPrint('devcpp onResume updateRefreshToken: ${request.toString()}');
     request.fold(
       (error) {
         authTokenManager.removeRefreshToken();
@@ -111,9 +104,10 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
 
   Future<bool> _refreshToken() async {
     final accessTokenIsUpdated = await updateAccessToken();
-    final refreshTokenIsUpdated = await updateRefreshToken();
-    return accessTokenIsUpdated && refreshTokenIsUpdated;
+    return accessTokenIsUpdated;
   }
+
+  void _syncChatState() => _authenticationCubit?.syncChatState();
 
   void _refreshTokenState() => _authenticationCubit?.state.mapOrNull(authenticated: (_) => _refreshToken());
 }

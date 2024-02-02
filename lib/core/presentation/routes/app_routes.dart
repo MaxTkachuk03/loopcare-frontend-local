@@ -4,6 +4,7 @@ class AppRoutes {
   static const String proxy = '/proxy'; // added
   static const String preIntro = '/pre-intro'; //added
   static const String intro = '/intro'; // added
+  static const String accessCode = '/access-code'; // added
   static const String joinUs = '/join-us'; // added
   static const String login = '/login'; //added
   static const String forgotPassword = '/forgot-password';
@@ -24,54 +25,43 @@ class AppRoutes {
   static const String medicalIntro = '/medical-fitness-intro'; // added
   static const String pregnancy = '/pregnancy'; // added
   static const String pregnancyFailed = '/pregnancy-failed'; // added
+  static const String medicines = '/medicines';
+  static const String weightLossMedication = '/weight-loss-medication'; // added
+  static const String medicationPastPeriod = '/medication-past-period'; // added
+  static const String medicationFuturePeriod = '/medication-future-period'; // added
+  static const String obesity = '/obesity';
+  static const String thyroidDisease = '/thyroid-disease';
+  static const String metabolicDisease = '/metabolic-disease';
+  static const String hypertension = '/hypertension';
   static const String cardiovascularDisease = '/cardiovascular-disease'; // added
   static const String cardiovascularDiseaseFailed = '/cardiovascular-disease-failed'; // added
   static const String stomachReduction = '/stomach-reduction'; // added
   static const String stomachReductionFailed = '/stomach-reduction-failed'; // added
-  static const String medicalCheckPassed = '/medical-check-passed'; // added
-  static const String painInChest = '/pain-in-chest'; // added
-  static const String painInChestFailed = '/pain-in-chest-failed'; // added
+  static const String diabetesDisease = '/diabetes-disease';
+  static const String renalFailure = '/renal-failure';
+  static const String asthma = '/asthma';
+  static const String liverDisease = '/liver-disease';
+  static const String sleepApneaSyndrome = '/sleep-apnea-syndrome';
+  static const String locomotorSystemDisease = '/locomotor-system-disease';
   static const String treatmentByDoctor = '/treatment-by-doctor'; // added
-  static const String treatmentByDoctorFailed = '/treatment-by-doctor-failed'; // added
-  static const String weightLossMedication = '/weight-loss-medication'; // added
-  static const String medicationPastPeriod = '/medication-past-period'; // added
-  static const String medicationFuturePeriod = '/medication-future-period'; // added
-  static const String consentNeeded = '/consent-needed'; // added
+  static const String medicalCheckPassed = '/medical-check-passed'; // added
+  static const String medicalCheckFailed = '/medical-check-failed';
 
-  // TODO dead code
-  // static const String resetPassword = '/reset-password';
-  static const String name = '/name'; // added
-  static const String password = '/password'; // added
-  static const String emailAddress = '/email-address'; // added
-  static const String signUpWelcome = '/sign-up-welcome'; // added
-  static const String waitingForConfirmation = '/waiting-for-confirmation'; // added
-
-  static const String consentConfirmation = '/consent-confirmation'; // added
-  static const String noConsent = '/no-consent'; // added
-  static const String legalStatement = '/legal-statement'; // added
-  static const String preferencesOverview = '/preferences-overview'; // added
-  static const String youAndFoodIntro = '/you-and-food-intro'; // added
-  static const String typesOfFood = '/types-of-food'; // added
-  static const String meatPreferences = '/meat-preferences'; // added
-  static const String allergic = '/allergic'; // added
-  static const String youAndFoodReady = '/you-and-food-ready'; // added
-  static const String doNotLike = '/do-not-like'; // added
+  // Onboarding Mental
+  static const String mentalHealthPreIntro = '/mental-health-pre-intro';
   static const String mentalHealthIntro = '/mental-health-intro'; // added
   static const String mentalHealthQuestion = '/mental-health-question'; // added
   static const String mentalCheckResult = '/mental-check-result'; // added
+
+  // Create account
+  static const String signUpWelcome = '/sign-up-welcome'; // added
+  static const String name = '/name'; // added
+  static const String password = '/password'; // added
+  static const String emailAddress = '/email-address'; // added
+  static const String waitingForConfirmation = '/waiting-for-confirmation'; // added
+
+  static const String legalStatement = '/legal-statement'; // added
   static const String preparationMaterials = '/preparation-materials'; // added
-
-  // Self Help maybe deleted screens
-  static const String householdIntro = '/household-intro';
-  static const String shareMealWith = '/share-meal-with';
-  static const String cooking = '/cooking';
-  static const String healthierFood = '/healthier-food';
-  static const String whereDoYouEat = '/where-do-you-eat';
-
-  // Diabetes
-  static const String diabetes = '/diabetes'; // added
-  static const String diabetesDisclaimer = '/diabetes-disclaimer'; // added
-  static const String diabetesSummary = '/diabetes-summary'; // added
 
   // Barcode Scanner
   static const String barcodeScanner = '/barcode-scanner'; // added
@@ -103,7 +93,6 @@ class AppRoutes {
   static const String lesson = '/lesson/:lessonId/page/:pageIndex'; // added
   static const String supportGroupIntro = '/support-group-intro'; // added
   static const String lessonComplete = '/lesson-complete'; // added
-  static const String lessonError = '/lesson-error'; // added
 
   // Physical activities
   static const String selectExercise = '/select-exercise'; // added
@@ -117,6 +106,7 @@ class AppRoutes {
 
   // User profile
   static const String foodPreferences = '/food-preferences'; // added
+  static const String physicalPreferences = '/physical-preferences';
   static const String editFoodPreferences = '/edit-food-preferences'; // added
   static const String joinGroupPreferences = '/join-group-preferences'; // added
   static const String genderPreferences = '/gender-preferences'; // added
@@ -124,10 +114,6 @@ class AppRoutes {
 
   // Video
   static const String video = '/video'; // added
-
-  // Reflection
-  static const String reflection = '/reflection'; // added
-  static const String reflectionNutritionDetails = '/reflection-nutrition-details'; // added
 
   // Video session
   static const String sessionWaitingRoom = '/session-waiting-room'; // added
@@ -158,6 +144,10 @@ class AppRoutes {
 
   // New theme
   static const String theme = '/theme';
+
+  // Group chat
+  static const String groupChat = 'chat';
+  static const String groupChatUsers = '/chat_users';
 
   AppRoutes._();
 }

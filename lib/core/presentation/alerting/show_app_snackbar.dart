@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart' as toast;
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 extension SnackBarShortcuts on BuildContext {
   /// Show a error flash bar.
@@ -35,11 +36,10 @@ extension SnackBarShortcuts on BuildContext {
   }
 
   /// Show a success flash bar.
-  Future<T?> showSuccessBar<T>({
+  Future<T?> showCustomSuccessBar<T>({
     required Widget content,
     FlashPosition position = FlashPosition.top,
     Duration duration = const Duration(seconds: 3),
-    Color? indicatorColor = const Color(0xFF81C784),
     FlashBuilder<T>? primaryActionBuilder,
     List<Widget>? actions,
   }) {
@@ -50,8 +50,42 @@ extension SnackBarShortcuts on BuildContext {
         return FlashBar(
           controller: controller,
           position: position,
-          indicatorColor: indicatorColor,
-          icon: const Image(image: AppIcons.hexaDone),
+          icon: AppIcons.greenCheckmark,
+          content: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: content,
+          ),
+          primaryAction: primaryActionBuilder?.call(context, controller),
+          actions: actions,
+        );
+      },
+    );
+  }
+
+  Future<T?> showSuccessBar<T>({
+    required Widget content,
+    FlashPosition position = FlashPosition.top,
+    Duration duration = const Duration(seconds: 3),
+    Color? indicatorColor = AppColors.greenRegular,
+    FlashBuilder<T>? primaryActionBuilder,
+    List<Widget>? actions,
+  }) {
+    return showFlash<T>(
+      context: this,
+      duration: duration,
+      builder: (context, controller) {
+        return FlashBar(
+          controller: controller,
+          position: position,
+          icon: CircleAvatar(
+            radius: 15,
+            backgroundColor: indicatorColor,
+            child: const Icon(
+              Icons.check,
+              color: AppColors.white,
+              size: 20,
+            ),
+          ),
           content: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: content,

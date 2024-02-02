@@ -64,7 +64,7 @@ class PhysicalIntroPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 20.0),
                     CustomElevatedButton.blueFullWidth(
-                      label: LocalizedTexts.next,
+                      label: LocalizedTexts.next.tr(),
                       onPressed: () => _onNextPressedHandler(context),
                     ),
                     const SizedBox(height: 30.0),

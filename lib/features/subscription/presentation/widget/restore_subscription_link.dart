@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RestoreSubscriptionLink extends StatelessWidget {
   final Function onRestoreTap;
@@ -17,7 +19,7 @@ class RestoreSubscriptionLink extends StatelessWidget {
       text: TextSpan(
         children: <InlineSpan>[
           TextSpan(
-            recognizer: TapGestureRecognizer()..onTap = () => _navigate(context, isTerms: false),
+            recognizer: TapGestureRecognizer()..onTap = () => onRestoreTap(),
             text: LocalizedTexts.subscriptionRestoreLabel.tr(),
             style: context.textTheme.bodyMedium?.copyWith(
               fontSize: ThemeConstants.fontSize14,
@@ -33,7 +35,8 @@ class RestoreSubscriptionLink extends StatelessWidget {
             ),
           ),
           TextSpan(
-            recognizer: TapGestureRecognizer()..onTap = () => _navigate(context, isTerms: true),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => launchUrl(Uri.parse(termsAndConditionsUrl), mode: LaunchMode.externalApplication),
             text: LocalizedTexts.subscriptionTermsLabel.tr(),
             style: context.textTheme.bodyMedium?.copyWith(
               fontSize: ThemeConstants.fontSize14,
@@ -46,15 +49,5 @@ class RestoreSubscriptionLink extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void _navigate(BuildContext context, {required bool isTerms}) {
-    if (!isTerms) {
-      onRestoreTap();
-    }
-    // WebViewScreenRoute(
-    //   url: url,
-    //   title: title,
-    // ).show(context);
   }
 }

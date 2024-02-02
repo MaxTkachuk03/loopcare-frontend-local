@@ -1,7 +1,9 @@
+import 'package:get_it/get_it.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
+import 'package:loopcare_frontend/core/application/socket_service_chat/chat_socket_service.dart';
 import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
@@ -13,7 +15,8 @@ import 'package:loopcare_frontend/features/authentication/application/dto/forgot
 import 'package:loopcare_frontend/features/authentication/application/dto/login_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
-import 'package:loopcare_frontend/features/physical_fitness/application/dto/registration_physical_fitness_data.dart';
+import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/application/dto/registration_physical_fitness_data.dart';
 
 @singleton
 class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
@@ -22,6 +25,8 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
   final AuthTokenManager authTokenManager;
   final SharedStorageService _sharedPref;
   final SocketService _socketService = SocketService.instance;
+  final ChatSocketService _chatSocketService = ChatSocketService.instance;
+  final GroupChatBloc _chatBloc = GetIt.instance<GroupChatBloc>();
   AccessTokenSubscription? _accessTokenSubscription;
 
   AuthenticationCubit(
@@ -52,6 +57,14 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     return authTokenManager.updateRefreshToken();
   }
 
+  void syncChatState() async {
+    if (!(state.isUserGrouped)) {
+      return;
+    }
+    _chatBloc.add(const GroupChatEvent.getUnreadCount());
+    _chatBloc.add(const GroupChatEvent.getMessages(refresh: true));
+  }
+
   void login(String email, String password) async {
     final data = LoginData(email: email, password: password);
 
@@ -67,6 +80,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
         authTokenManager.setRefreshToken(response.refreshToken);
 
         _socketService.startListen();
+        _chatSocketService.startListen();
 
         emit(
           AuthenticationState.authenticated(
@@ -138,6 +152,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
                   bmi: r.physicalFitness.bmi,
                   birthDate: r.physicalFitness.birthDate,
                   groupingState: r.groupingState,
+                  groupId: r.groupId,
                   groupingStartedAt: r.groupingStartedAt,
                   nickname: r.groupingPreferences?.nickname,
                   genderPreference: r.groupingPreferences?.genderPreference,
@@ -149,11 +164,12 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
                   unlockedFeatures: r.unlockedFeatures,
                   physicalActivitiesPreferences: r.physicalActivitiesPreferences,
                   emailApproveDate: r.emailApproveDate,
-                  subscription: r.subscription,
                   mentalHealthTests: r.mentalHealthTests,
+                  subscription: r.subscription,
                 ),
               ),
             );
+            syncChatState();
           },
         );
       },
@@ -182,6 +198,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     await authTokenManager.removeRefreshToken();
     emit(const AuthenticationState.guest());
     _socketService.disconnect();
+    _chatSocketService.disconnect();
   }
 
   Future<void> authenticatedCheck() async {

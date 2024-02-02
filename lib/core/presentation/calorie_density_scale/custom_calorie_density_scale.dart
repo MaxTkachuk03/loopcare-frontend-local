@@ -13,12 +13,14 @@ class CustomCalorieDensityScale extends StatelessWidget {
   final double? density;
   final String? label;
   final CustomCalorieDensityScaleLayoutSize layoutSize;
+  final Color? color;
 
   const CustomCalorieDensityScale({
     super.key,
     this.density,
     this.label,
     this.layoutSize = CustomCalorieDensityScaleLayoutSize.big,
+    this.color,
   });
 
   double _widgetSize() => layoutSize == CustomCalorieDensityScaleLayoutSize.big ? 90.0 : 50.0;
@@ -38,7 +40,7 @@ class CustomCalorieDensityScale extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(_widgetSize() / 2)),
           border: Border.all(
             width: _borderSize(),
-            color: calorieDensityScaleValuesColorForRange(density),
+            color: color ?? calorieDensityScaleValuesColorForRange(density),
             style: BorderStyle.solid,
           ),
         ),

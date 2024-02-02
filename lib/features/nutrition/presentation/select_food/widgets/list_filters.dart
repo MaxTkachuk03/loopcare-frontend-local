@@ -1,11 +1,10 @@
-import 'dart:math';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 
@@ -23,35 +22,22 @@ class ListFilters extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MainContainer(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20.0),
+    return Container(
+      color: AppColors.greenLighter,
+      child: MainContainer(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            CustomText.w600(
               title,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: context.textTheme.bodyMedium,
             ),
-            Hexagon(
-              width: 28.0,
-              height: 28.0,
-              borderRadius: 3,
-              innerWidget: Container(
-                color: AppColors.yellowLight,
-                child: Transform.rotate(
-                  angle: 90 * pi / 180,
-                  child: IconButton(
-                    icon: const ImageIcon(
-                      AppIcons.arrow,
-                      color: AppColors.darkGreen,
-                    ),
-                    onPressed: () => _onShowMy(context),
-                  ),
-                ),
+            IconButton(
+              icon: const Icon(
+                Icons.keyboard_arrow_down,
+                color: AppColors.blueDarker,
               ),
+              onPressed: () => _onShowMy(context),
             ),
           ],
         ),
@@ -62,7 +48,7 @@ class ListFilters extends StatelessWidget {
   void _onShowMy(BuildContext context) {
     ModalBottomSheet.filterDialog(
       context: context,
-      title: LocalizedTexts.showMy.translation,
+      title: LocalizedTexts.showMy.tr(),
       onConfirmed: onConfirmed,
       list: mealsList,
     );

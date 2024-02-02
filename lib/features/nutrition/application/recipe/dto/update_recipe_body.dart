@@ -9,9 +9,8 @@ abstract class UpdateRecipeBody implements _$UpdateRecipeBody {
   const UpdateRecipeBody._();
 
   const factory UpdateRecipeBody({
-    required int numberOfUnits,
+    required double numberOfUnits,
   }) = _UpdateRecipeBody;
 
-  factory UpdateRecipeBody.fromJson(Map<String, dynamic> json) =>
-      _$UpdateRecipeBodyFromJson(json);
+  factory UpdateRecipeBody.fromJson(Map<String, dynamic> json) => _$UpdateRecipeBodyFromJson(json);
 }

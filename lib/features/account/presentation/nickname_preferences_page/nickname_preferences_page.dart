@@ -3,12 +3,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/keyboard_state.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/orange_button.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
@@ -91,31 +94,22 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
                         children: [
                           const GroupPrefsProgress(),
                           const SizedBox(height: 28.0),
-                          const Text(
-                            LocalizedTexts.nicknamePreferencesQuestion,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ).tr(),
+                          CustomText.bitter500(
+                            LocalizedTexts.nicknamePreferencesQuestion.tr(),
+                            style: context.textTheme.displayMedium,
+                          ),
                           const SizedBox(height: 24.0),
-                          TextField(
-                            autofocus: context.router.current.name == NicknamePreferencesRoute.name,
-                            keyboardType: TextInputType.name,
+                          CustomTextField.nickname(
                             onChanged: _onNicknameChangeHandler,
                             controller: _nicknameController,
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              hintText: LocalizedTexts.nicknamePlaceholder.tr(),
-                            ),
                           )
                         ],
                       ),
                       Column(
                         children: [
-                          OrangeButton(
-                            onPressedHandler: _nicknameController.text.isEmpty ? null : _onNextPressedHandler,
-                            child: const Text(LocalizedTexts.next).tr(),
+                          CustomElevatedButton.blueFullWidth(
+                            onPressed: _nicknameController.text.isEmpty ? null : _onNextPressedHandler,
+                            label: LocalizedTexts.next.tr(),
                           ),
                           const SizedBox(height: 30.0),
                         ],
