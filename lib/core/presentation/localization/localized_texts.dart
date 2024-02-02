@@ -457,15 +457,10 @@ class LocalizedTexts {
 
   // Mental Health
   static const String weWouldLikeToSupportYou = "weWouldLikeToSupportYou";
-  static const String feelLimitedByMentalOrPhysicalSymptoms = "feelLimitedByMentalOrPhysicalSymptoms";
   static const String feelLimitedByAnxietyOrPhysicalSymptoms = "feelLimitedByAnxietyOrPhysicalSymptoms";
   static const String feelLimitedByPhysicalSymptoms = "feelLimitedByPhysicalSymptoms";
   static const String feelLimitedByAnxietySymptoms = "feelLimitedByAnxietySymptoms";
   static const String youHaveBurdenInSeveralFields = "youHaveBurdenInSeveralFields";
-  static const String youAreWelcomeToRepeatTests = "youAreWelcomeToRepeatTests";
-  static const String weAreNotOverloadYou = "weAreNotOverloadYou";
-  static const String pleaseAppreciateThat = "pleaseAppreciateThat";
-  static const String weTailorTheProgramToYouPersonally = "weTailorTheProgramToYouPersonally";
   static const String theFollowingAreasAreUnlocked = "theFollowingAreasAreUnlocked";
   static const String weWillGuideYou = "weWillGuideYou";
   static const String findBuddyAndGetIntoSupportGroup = "findBuddyAndGetIntoSupportGroup";
@@ -729,6 +724,15 @@ class LocalizedTexts {
   static const String phq8ResultMedium = "phq8ResultMedium";
   static const String phq8ResultHigh = "phq8ResultHigh";
   static const String phq8ResultHighest = "phq8ResultHighest";
+  static const String phq8ResultHighFinal1 = "phq8ResultHighFinal1";
+  static const String phq8ResultHighFinal2 = "phq8ResultHighFinal2";
+  static const String phq8ResultHighFinal3 = "phq8ResultHighFinal3";
+  static const String phq8ResultHighFinal4 = "phq8ResultHighFinal4";
+  static const String tailorProgramToYouPersonally = "tailorProgramToYouPersonally";
+  static const String learnManyThings = "learnManyThings";
+  static const String unlockAllSections = "unlockAllSections";
+  static const String notATherapy = "notATherapy";
+  static const String phq8Fail = "phq8Fail";
   static const String generalWellBeingSummary = "generalWellBeingSummary";
   static const String bodyAndMindBalanceSummary = "bodyAndMindBalanceSummary";
   static const String stateOfMindSummary = "stateOfMindSummary";
