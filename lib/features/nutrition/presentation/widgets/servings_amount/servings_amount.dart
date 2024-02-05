@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/domain/input_formatters/serving_formatter.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -38,6 +39,7 @@ class ServingsAmount extends StatelessWidget {
               controller: inputController,
               fillColor: AppColors.white,
               onChange: onValueChangeHandler,
+              inputFormatter: ServingRangeFormatter(),
             ),
             const SizedBox(width: 10),
             CustomText.w700(
