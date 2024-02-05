@@ -19,6 +19,7 @@ import 'package:loopcare_frontend/core/presentation/themes/input_decoration.dart
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/overlay_popup/overlay_service_mode.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
@@ -173,7 +174,7 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
               showUserAvatars: true,
               showUserNames: true,
               user: controller.user,
-              customDateHeaderText: (date) => date.isToday ? LocalizedTexts.today.translation : date.dayWithMonth,
+              customDateHeaderText: (date) => date.isToday ? LocalizedTexts.today.tr().capitalize() : date.dayWithMonth,
               theme: chatTheme,
             ),
           );
