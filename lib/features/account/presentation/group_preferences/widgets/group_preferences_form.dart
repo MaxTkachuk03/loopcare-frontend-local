@@ -129,14 +129,14 @@ class GroupPreferencesForm extends StatelessWidget {
     context
       ..read<GroupPreferencesBloc>()
           .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
-      ..router.pushNamed(AppRoutes.timezone);
+      ..router.push(TimezonePreferencesRoute(fromLessonComplete: false));
   }
 
   void _onNicknamePreferencesTap(BuildContext context) {
     context
       ..read<GroupPreferencesBloc>()
           .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
-      ..router.pushNamed(AppRoutes.nicknamePreferences);
+      ..router.push(NicknamePreferencesRoute(fromLessonComplete: false));
   }
 
   _onLeaveGroupPressed(BuildContext context) {

@@ -114,7 +114,9 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
                         children: [
                           CustomElevatedButton.blueFullWidth(
                             onPressed: _nicknameController.text.isEmpty ? null : _onNextPressedHandler,
-                            label: LocalizedTexts.next.tr(),
+                            label: widget.fromLessonComplete
+                                ? LocalizedTexts.next.tr()
+                                : LocalizedTexts.save.tr(),
                           ),
                           const SizedBox(height: 30.0),
                         ],
