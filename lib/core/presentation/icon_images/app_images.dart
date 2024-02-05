@@ -5,8 +5,6 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 class AppImages {
   static const String imagesFilePath = 'assets/images';
 
-  static const AssetImage iconAttention = AssetImage('$imagesFilePath/attention.png');
-
   static const AssetImage recipePlaceholder = AssetImage('$imagesFilePath/recipe_placeholder.png');
 
   static const AssetImage sessionPlaceholder = AssetImage('$imagesFilePath/session_placeholder.png');

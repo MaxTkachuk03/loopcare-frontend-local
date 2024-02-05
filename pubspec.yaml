@@ -63,6 +63,7 @@ dependencies:
   url_launcher: ^6.2.1
   video_player: ^2.8.1
   wakelock: ^0.6.2
+  ntp: ^2.0.0
   flutter: 
     sdk: flutter
   flutter_zoom_videosdk: 

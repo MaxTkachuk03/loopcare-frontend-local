@@ -85,6 +85,9 @@ class APIEducationService implements EducationService {
   Future<Either<RequestError, GetLessonsResponse>> getLessons(
     LessonCategory category,
   ) async {
+    // TODO lessons mock
+    // return right(GetLessonsResponse.fromJson({'lessons': lessons}));
+
     final params = category == LessonCategory.all ? null : {'category': category.name};
     return client
         .get('/education/lessons', queryParameters: params)

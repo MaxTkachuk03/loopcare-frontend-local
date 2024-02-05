@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -19,38 +17,27 @@ part 'education_program_state.dart';
 class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramState> {
   final EducationService _educationService;
 
-  EducationProgramBloc(this._educationService) : super(const EducationProgramState.initial(EducationProgramData())) {
+  EducationProgramBloc(this._educationService)
+      : super(const EducationProgramState.initial(EducationProgramData())) {
     on<_GetLessons>(_onGetLessons);
     on<_ResetLessonWithCountdown>(_onResetLessonWithCountdown);
   }
 
-  Future<void> _onGetLessons(
-    _GetLessons event,
-    Emitter<EducationProgramState> emit,
-  ) async {
+  Future<void> _onGetLessons(_GetLessons event, Emitter<EducationProgramState> emit) async {
     emit(
       EducationProgramState.loading(
-        state.data.copyWith(
-          currentCategory: event.category,
-          isLoading: true,
-          error: null,
-        ),
+        state.data.copyWith(currentCategory: event.category, isLoading: true, error: null),
       ),
     );
 
     final response = await _educationService.getLessons(event.category);
     response.fold(
-      (l) => emit(
-        EducationProgramState.error(
-          state.data.copyWith(
-            isLoading: false,
-            error: l,
-          ),
-        ),
-      ),
+      (l) => emit(EducationProgramState.error(state.data.copyWith(isLoading: false, error: l))),
       (r) {
-        final lessonWithCountdown =
-            event.category == LessonCategory.all ? _getLessonWithCountdown(r.lessons) : state.data.lessonWithCountdown;
+        final lessonWithCountdown = event.category == LessonCategory.all
+            ? _getLessonWithCountdown(r.lessons)
+            : state.data.lessonWithCountdown;
+
         emit(
           EducationProgramState.educationProgram(
             state.data.copyWith(
@@ -65,36 +52,28 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
     );
   }
 
-  FutureOr<void> _onResetLessonWithCountdown(event, Emitter<EducationProgramState> emit) {
-    emit(
-      EducationProgramState.educationProgram(
-        state.data.copyWith(
-          lessonWithCountdown: null,
-        ),
-      ),
-    );
+  FutureOr<void> _onResetLessonWithCountdown(event, Emitter<EducationProgramState> emit) async {
+    emit(EducationProgramState.educationProgram(state.data.copyWith(lessonWithCountdown: null)));
   }
 
   LessonWithCountdown? _getLessonWithCountdown(List<EducationLesson> lessons) {
-    final lastStartedStep = lessons.lastWhereOrNull((element) => element.completedAt != null)?.step;
+    final lastCompletedLesson = lessons.lastWhereOrNull((element) => element.completedAt != null);
+    final currentActiveStep = lastCompletedLesson?.step;
+    final startDate = lastCompletedLesson?.completedAt?.toLocal();
 
-    if (lastStartedStep == null) return null;
+    if (currentActiveStep == null || startDate == null) return null;
 
-    final startDate = lessons.firstWhereOrNull((element) => element.step == lastStartedStep)?.completedAt;
-
-    final endDate = DateTime.now();
-    final timeBeforeNextStepUnblock = int.parse(dotenv.env['EDUCATION_STEP_UNBLOCK_DELAY']!);
-    final currentDifference = timeBeforeNextStepUnblock - endDate.difference(startDate ?? DateTime.now()).inSeconds;
-
-    if (currentDifference <= 0) return null;
-
-    final lessonWithCountdown = lessons.firstWhereOrNull((element) => element.step == lastStartedStep + 1);
+    final lessonWithCountdown = lessons.firstWhereOrNull((element) => element.step == currentActiveStep + 1);
 
     if (lessonWithCountdown == null) return null;
 
+    final nextStepUnlockDelayInHours =
+        lessons.where((l) => l.step == currentActiveStep).last.nextStepUnlockDelay;
+
+    final dateTimeLessonShouldBeUnlocked =
+        startDate.toLocal().add(Duration(hours: nextStepUnlockDelayInHours));
+
     return LessonWithCountdown(
-      timeRemaining: currentDifference,
-      lesson: lessonWithCountdown,
-    );
+        dateTimeWhenUnlock: dateTimeLessonShouldBeUnlocked, lesson: lessonWithCountdown);
   }
 }

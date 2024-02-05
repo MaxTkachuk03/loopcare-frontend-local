@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/time_service/time_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -20,16 +20,14 @@ import 'package:loopcare_frontend/features/education/presentation/utils/format_d
 class NextLesson extends StatelessWidget {
   final EducationLesson lesson;
 
-  const NextLesson({
-    super.key,
-    required this.lesson,
-  });
+  const NextLesson({super.key, required this.lesson});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<EducationProgramBloc, EducationProgramState>(
       builder: (context, state) {
         final lessonWithCountdown = state.data.lessonWithCountdown;
+
         final isLessonWithCountDown =
             lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
 
@@ -81,22 +79,27 @@ class NextLesson extends StatelessWidget {
                         if (lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id)
                           Wrap(
                             children: [
-                              const Image(
-                                image: AppImages.iconAttention,
-                                height: 15.0,
-                              ),
-                              const SizedBox(width: 4.0),
                               CustomText.w600(
                                 '${LocalizedTexts.availableIn.translation}: ',
                                 style: context.textTheme.bodySmall,
                               ),
-                              EducationCountDown(
-                                seconds: lessonWithCountdown.timeRemaining,
+                              FutureBuilder<DateTime>(
+                                future: TimeService.now,
+                                builder: (context, snapshot) {
+                                  final data = snapshot.data;
+
+                                  if (snapshot.hasData && data != null) {
+                                    return EducationCountDown(
+                                        seconds: lessonWithCountdown.dateTimeWhenUnlock
+                                            .difference(data)
+                                            .inSeconds);
+                                  } else {
+                                    return const Text('');
+                                  }
+                                },
                               ),
                             ],
                           ),
-                        if (lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id)
-                          const SizedBox(height: 10.0),
                         Row(
                           children: [
                             AppIcons.clock,
@@ -110,7 +113,7 @@ class NextLesson extends StatelessWidget {
                         const SizedBox(height: 10.0),
                         CustomOutlinedButton.coral(
                           label: LocalizedTexts.start.translation,
-                          onPressed: () => _onTapHandler(context),
+                          onPressed: isLessonWithCountDown ? null : () => _onTapHandler(context),
                         )
                       ],
                     ),
