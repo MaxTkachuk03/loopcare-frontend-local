@@ -34,12 +34,14 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
     final nickname = context.read<GroupPreferencesBloc>().state.data.nickname;
     final genderPreferences = context.read<GroupPreferencesBloc>().state.data.genderPreferences;
 
-    context.read<GroupPreferencesBloc>().add(GroupPreferencesEvent.setInitialData(
-          value: authState.groupingState == UserGroupingState.unlockedPreferences ? YesNoAnswer.no : null,
-          gender: genderPreferences ?? authState.genderPreferences,
-          nickname: nickname ?? authState.nickname,
-          timezone: timezone ?? authState.timezone,
-        ));
+    context.read<GroupPreferencesBloc>().add(
+          GroupPreferencesEvent.setInitialData(
+            value: authState.groupingState == UserGroupingState.grouped ? YesNoAnswer.yes : YesNoAnswer.no,
+            gender: genderPreferences ?? authState.genderPreferences,
+            nickname: nickname ?? authState.nickname,
+            timezone: timezone ?? authState.timezone,
+          ),
+        );
   }
 
   @override
@@ -64,7 +66,7 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
                     return SizedBox(
                       width: double.infinity,
                       child: ErrorScreen(
-                        error: groupPrefsState.data.error,
+                        error: groupPrefsState.data.error!,
                       ),
                     );
                   }

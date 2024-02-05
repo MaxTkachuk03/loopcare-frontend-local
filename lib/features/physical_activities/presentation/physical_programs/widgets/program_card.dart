@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
-import 'package:loopcare_frontend/core/presentation/clippers/activity_clipper.dart';
+import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
@@ -60,13 +60,24 @@ class ProgramCard extends StatelessWidget {
         onlyView: true,
       );
 
-  double get _imageWidth => 200;
-
   double get _cardHeight {
     return size.map(
       small: (_) => 200,
       large: (_) => 270,
     );
+  }
+
+  Widget _categoryLabel(String category) {
+    switch (category) {
+      case 'easy':
+        return CategoryLabel.difficultyEasy();
+      case 'medium':
+        return CategoryLabel.difficultyMedium();
+      case 'hard':
+        return CategoryLabel.difficultyHard();
+    }
+
+    return CategoryLabel.difficultyEasy();
   }
 
   @override
@@ -93,20 +104,20 @@ class ProgramCard extends StatelessWidget {
             children: [
               if (image != null)
                 Expanded(
+                  flex: 2,
                   child: ClipPath(
-                    clipper: ActivityClipper(),
-                    child: Container(
-                      padding: padding,
-                      width: _imageWidth,
-                      alignment: Alignment.centerLeft,
-                      child: NetworkImageWithCache(
-                        url: image,
-                        imageBoxFit: BoxFit.fitHeight,
+                    clipper: ImageClipper(),
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
                       ),
+                      child: NetworkImageWithCache(url: image),
                     ),
                   ),
                 ),
               Expanded(
+                flex: 3,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -122,16 +133,10 @@ class ProgramCard extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        CategoryLabel.difficulty(
-                          label: program.difficultyName,
-                        ),
-                        const SizedBox(
-                          width: 16.0,
-                        ),
+                        _categoryLabel(program.difficultyName),
+                        const SizedBox(width: 16.0),
                         AppIcons.clock,
-                        const SizedBox(
-                          width: 4.0,
-                        ),
+                        const SizedBox(width: 4.0),
                         CustomText.w600(
                           formatDuration(program.duration),
                           style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize10),
@@ -163,7 +168,7 @@ class ProgramCard extends StatelessWidget {
                       LocalizedTexts.equipment.tr(namedArgs: {
                         'equipment': program.equipment,
                       }),
-                      maxLines: 1,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize12),
                     ),

@@ -111,7 +111,8 @@ class _GroupUsersPageState extends State<GroupUsersPage> with WidgetsBindingObse
     );
   }
 
-  String _getNames(GroupChatState state) => state.data.members.map((item) => item.nickname).toList().join(", ");
+  String _getNames(GroupChatState state) =>
+      state.data.members.map((item) => item.nickname).toList().join(", ");
 
   void _onChangeListener(BuildContext context, GroupChatState state) {
     state.maybeMap(
@@ -127,7 +128,7 @@ class _GroupUsersPageState extends State<GroupUsersPage> with WidgetsBindingObse
     );
 
     context.showErrorBar(
-      content: Text(errorMessage ?? ''),
+      content: CustomText(errorMessage ?? ''),
       position: FlashPosition.top,
     );
   }

@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/url_constants.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -27,8 +29,7 @@ import 'package:loopcare_frontend/features/mental_health/presentation/widgets/ph
 import 'package:loopcare_frontend/features/mental_health/presentation/widgets/who5_result_text.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/progress_bar.dart';
-
-const psychologistConsultingLink = 'https://locator.apa.org/';
+import 'package:url_launcher/url_launcher.dart';
 
 class MentalCheckResultPage extends StatefulWidget {
   final bool? calculationResultsNotNeeded;
@@ -48,6 +49,19 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
 
     super.initState();
   }
+
+  void onUrlHandler(BuildContext context) async {
+    final Uri launchUri = Uri.parse(psychologistConsultingLink);
+
+    try {
+      await launchUrl(launchUri);
+    } catch (e) {
+      _showError(context);
+    }
+  }
+
+  void _showError(BuildContext context) =>
+      context.showError(content: CustomText.w400(LocalizedTexts.openLinkErrorMessage.tr()));
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +95,8 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
 
                   final isFinalResults = state.data.isLastTest && state.data.isCompleted;
 
+                  print(isFinalResults);
+
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -91,17 +107,8 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
                           UnderAppbar.orange(
                             child: Center(
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 60.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    CustomText.bitter600(
-                                      _getSuccessContainerTitle(),
-                                      style: context.textTheme.displayMedium,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
+                                padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                                child: _getTitle(),
                               ),
                             ),
                           ),
@@ -119,17 +126,17 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.stretch,
                                     children: [
-                                      if (isFinalResults) const FinalResultsText(),
+                                      if (isFinalResults) FinalResultsText(onLinkPressed: onUrlHandler),
                                       if (currentTest.type == MentalHealthTestType.who5 && !isFinalResults)
-                                        const WHO5ResultText(),
+                                        WHO5ResultText(onLinkPressed: onUrlHandler),
                                       if (currentTest.type == MentalHealthTestType.phq15 && !isFinalResults)
-                                        const PHQ15ResultText(),
+                                        PHQ15ResultText(onLinkPressed: onUrlHandler),
                                       if (currentTest.type == MentalHealthTestType.gad7 && !isFinalResults)
-                                        const GAD7ResultText(),
+                                        GAD7ResultText(onLinkPressed: onUrlHandler),
                                       if (currentTest.type == MentalHealthTestType.phq8 && !isFinalResults)
-                                        const PHQ8ResultText(),
-                                      const SizedBox(height: 30.0),
-                                      if (state.data.showEmergencyBtn) const EmergencyBtn()
+                                        PHQ8ResultText(onLinkPressed: onUrlHandler),
+                                      if (state.data.showEmergencyBtn && !isFinalResults)
+                                        const Column(children: [SizedBox(height: 30.0), EmergencyBtn()])
                                     ],
                                   ),
                                 ),
@@ -149,18 +156,20 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
                           ),
                         ],
                       ),
-                      MainContainer(
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 30.0),
-                            CustomElevatedButton.blueFullWidth(
-                              onPressed: () => _onNextPressed(context),
-                              label: LocalizedTexts.continueBtn.tr(),
+                      isFinalResults && state.data.isPhq8TestHigh
+                          ? const SizedBox.shrink()
+                          : MainContainer(
+                              child: Column(
+                                children: [
+                                  const SizedBox(height: 30.0),
+                                  CustomElevatedButton.blueFullWidth(
+                                    onPressed: () => _onNextPressed(context),
+                                    label: LocalizedTexts.continueBtn.tr(),
+                                  ),
+                                  const SizedBox(height: 30.0),
+                                ],
+                              ),
                             ),
-                            const SizedBox(height: 30.0),
-                          ],
-                        ),
-                      ),
                     ],
                   );
                 },
@@ -179,22 +188,25 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
     switch (currentTest?.type) {
       case MentalHealthTestType.who5:
         return '${LocalizedTexts.mentalResultSubText1.tr()}!';
-      case MentalHealthTestType.phq8:
-        return '${LocalizedTexts.mentalResultSubText2.tr()}!';
       case MentalHealthTestType.phq15:
+        return '${LocalizedTexts.mentalResultSubText2.tr()}!';
+      case MentalHealthTestType.gad7:
         return '${LocalizedTexts.mentalResultSubText3.tr()}!';
       default:
         return '';
     }
   }
 
-  String _getSuccessContainerTitle() {
+  String _getTitleText() {
     final state = context.read<MentalHealthBloc>().state;
     final currentTest = state.data.currentTest;
     final isFinalResults = state.data.isLastTest && state.data.isCompleted;
+    final isPhq8High = state.data.isPhq8TestHigh;
 
     if (isFinalResults) {
-      return '${LocalizedTexts.mentalHealth.tr()}\n${LocalizedTexts.checkCompleted.tr()}';
+      return isPhq8High
+          ? LocalizedTexts.phq8Fail.tr()
+          : '${LocalizedTexts.mentalHealth.tr()}\n${LocalizedTexts.checkCompleted.tr()}';
     }
 
     switch (currentTest?.type) {
@@ -208,6 +220,30 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
       default:
         return '';
     }
+  }
+
+  Widget _getTitle() {
+    final state = context.read<MentalHealthBloc>().state;
+    final isFinalResults = state.data.isLastTest && state.data.isCompleted;
+    final isPhq8High = state.data.isPhq8TestHigh;
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        if (isFinalResults && !isPhq8High)
+          const CircleAvatar(
+            radius: 22,
+            backgroundColor: AppColors.blueDarker,
+            child: Icon(Icons.check, color: AppColors.white, size: 24),
+          ),
+        if (isFinalResults && !isPhq8High) const SizedBox(height: 22),
+        CustomText.bitter600(
+          _getTitleText(),
+          style: context.textTheme.displayMedium,
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
   }
 
   _onNextPressed(BuildContext context) {

@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -24,13 +24,13 @@ class SessionCard extends StatelessWidget {
   final bool isCancelledOrMissed;
   final bool isCancelled;
   final bool isMissed;
+  final String image;
   final bool isFinished;
   final bool timeSlotsAvailable;
   final bool sessionMightBeCancelled;
   final bool isHappeningNow;
   final bool isCanJoin;
   final int minMemberCount;
-  // final String image;
 
   const SessionCard({
     super.key,
@@ -47,8 +47,9 @@ class SessionCard extends StatelessWidget {
     required this.isHappeningNow,
     required this.isCanJoin,
     required this.minMemberCount,
-    // required this.image,
+    required this.image,
   });
+
   String? _categoryLabel() {
     if (isCancelled) return LocalizedTexts.cancelled.translation;
     if (isMissed) return LocalizedTexts.missed.translation;
@@ -67,26 +68,24 @@ class SessionCard extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.zero,
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 1,
-                    color: AppColors.blueLighter,
-                    style: BorderStyle.solid,
-                  ),
+                  border: Border.all(width: 1, color: AppColors.blueLighter, style: BorderStyle.solid),
                   borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                 ),
                 child: Row(
                   children: [
-                    SizedBox(
-                      height: 180.0,
-                      child: ClipPath(
-                        clipper: EducationClipper(),
-                        child: const Image(image: AppImages.sessionPlaceholder),
-                        // TODO: Need update after all images will be provided
-                        // NetworkImageWithCache(
-                        //   url: image,
-                        // ),
+                    ClipPath(
+                      clipper: ImageClipper(),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                        ),
+                        child: SizedBox(
+                          width: 135,
+                          height: 180,
+                          child: NetworkImageWithCache(url: image),
+                        ),
                       ),
                     ),
                     Expanded(

@@ -134,8 +134,7 @@ class AuthTokenInterceptor extends Interceptor {
         .then(parseResponse(UpdatedAccessTokenResponse.fromJson));
     request.fold(
       (error) {
-        authTokenManager.removeRefreshToken();
-        authTokenManager.removeAccessToken();
+        _clearBeforeLogout();
       },
       (response) {
         authTokenManager.setAccessToken(response.accessToken);

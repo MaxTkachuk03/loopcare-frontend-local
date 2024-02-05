@@ -27,6 +27,8 @@ class AppImages {
 
   static const AssetImage welcome = AssetImage('$imagesFilePath/new_welcome.png');
 
+  static const AssetImage foodPreferences = AssetImage('$imagesFilePath/new_food_preferences.png');
+
   static SvgPicture oepsBig = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 120, height: 120);
 
   static SvgPicture oepsSmall = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 60, height: 60);
@@ -43,8 +45,6 @@ class AppImages {
       colorFilter: const ColorFilter.mode(AppColors.blueOffRegular, BlendMode.modulate));
 
   static const AssetImage educationPreview = AssetImage('$imagesFilePath/new_education_preview.png');
-
-  static const AssetImage educationLessonTest = AssetImage('$imagesFilePath/new_education_lesson_test.png');
 
   static SvgPicture subscriptionTrialSVG = SvgPicture.asset('$imagesFilePath/subscription_trial.svg');
   static SvgPicture subscriptionCancelledSVG = SvgPicture.asset(

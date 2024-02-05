@@ -4,10 +4,12 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:loopcare_frontend/core/application/app_update/app_update_bloc.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/application/socket_service_chat/chat_socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_bloc_provider.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_navigator_observer.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/routes/gender_prefs_guard.dart';
@@ -78,10 +80,13 @@ class _AppState extends State<_App> {
     final mentalHealthBloc = context.read<MentalHealthBloc>();
     final authTokenManager = GetIt.instance<AuthTokenManager>();
 
+    context.read<AppUpdateBloc>().add(const AppUpdateEvent.getVersion());
+
     _socketService.startListen();
     _chatSocketService.startListen();
 
     _appRouter = AppRouter(
+      navigatorKey: kNavigatorKey,
       proxyGuard: ProxyGuard(authBloc, authTokenManager),
       introGuard: IntroGuard(
         authBloc,
@@ -96,12 +101,6 @@ class _AppState extends State<_App> {
   }
 
   @override
-  void dispose() {
-    getIt<NetworkStatusService>().dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
@@ -109,7 +108,7 @@ class _AppState extends State<_App> {
       theme: appThemeData,
       routerDelegate: _appRouter.delegate(
         navigatorObservers: () => [
-          FirebaseNavigatorObserver(analytics: analytics),
+          FirebaseNavigatorObserver(analytics: analytics, userId: context.read<AuthenticationCubit>().state.id),
         ],
       ),
       routeInformationParser: _appRouter.defaultRouteParser(),
@@ -117,5 +116,11 @@ class _AppState extends State<_App> {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
     );
+  }
+
+  @override
+  void dispose() {
+    getIt<NetworkStatusService>().dispose();
+    super.dispose();
   }
 }

@@ -11,12 +11,13 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_butt
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
@@ -36,8 +37,7 @@ class SupportGroupIntroPage extends StatelessWidget {
           leading: CustomFilledIconButton.leadingPetrolLighter(),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(60),
-            child: SimpleProgressBar.petrol(
-                progress: context.read<EducationLessonBloc>().state.data.lessonProgress),
+            child: SimpleProgressBar.petrol(progress: context.read<EducationLessonBloc>().state.data.lessonProgress),
           ),
         ),
         body: SafeArea(
@@ -70,7 +70,7 @@ class SupportGroupIntroPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 18.0),
                       CustomText.w400(
-                        LocalizedTexts.supportGroupIntroDesc,
+                        LocalizedTexts.supportGroupIntroDesc.tr(),
                         style: context.textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 30),
@@ -80,12 +80,12 @@ class SupportGroupIntroPage extends StatelessWidget {
                     children: [
                       CustomElevatedButton.blueFullWidth(
                         onPressed: () => _onJoinPressed(context),
-                        label: LocalizedTexts.yesILikeToJoin,
+                        label: LocalizedTexts.yesILikeToJoin.tr(),
                       ),
                       const SizedBox(height: 12.0),
                       CustomOutlinedButton.blueFullWidth(
                         onPressed: () => _onDoNotJoinPressed(context),
-                        label: LocalizedTexts.joinLater,
+                        label: LocalizedTexts.joinLater.tr(),
                       ),
                       const SizedBox(height: 30),
                     ],
@@ -104,7 +104,7 @@ class SupportGroupIntroPage extends StatelessWidget {
       ..read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.grouping)
       ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.setWouldLikeJoinGroup(YesNoAnswer.yes))
       ..read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward())
-      ..router.pushNamed(AppRoutes.genderPreferences);
+      ..router.push(GenderPreferencesRoute(fromLessonComplete: true));
   }
 
   _onDoNotJoinPressed(BuildContext context) {

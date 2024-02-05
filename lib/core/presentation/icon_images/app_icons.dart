@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -190,9 +189,5 @@ class AppIcons {
   static SvgPicture noScore = SvgPicture.asset('$iconsFilePath/no_score.svg', width: 22, height: 22);
   static SvgPicture yesScoreFilled = SvgPicture.asset('$iconsFilePath/yes_score_filled.svg', width: 22, height: 22);
   static SvgPicture customInfo = SvgPicture.asset('$iconsFilePath/custom_icon_info.svg', width: 44, height: 44);
-
-  static const AssetImage subscriptionBottomBg = AssetImage('$iconsFilePath/subscription_bottom_bg.png');
-  static SvgPicture bottomFrame = SvgPicture.asset('$iconsFilePath/bottom_frame.svg',
-      colorFilter: const ColorFilter.mode(AppColors.blueOffRegular, BlendMode.modulate));
   AppIcons._();
 }

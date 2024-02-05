@@ -231,30 +231,32 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
           );
         }
 
-        if (state.isNeededToFetchMeal) {
-          final plannedMeals = state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
-          final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
+        //TODO: LOOPCARE-1798: Hide Meal planning block
 
-          emit(const MealsState.loading());
+        // if (state.isNeededToFetchMeal) {
+        //   final plannedMeals = state.mapOrNull(mealsInfo: (s) => s.plannedMeals);
+        //   final meals = state.mapOrNull(mealsInfo: (s) => s.meals);
 
-          final response = await nutritionService.getPlannedMeals(
-            startDate: event.currentDate.beginDay.toIso8601String(),
-            endDate: event.currentDate.endDay.toIso8601String(),
-          );
+        //   emit(const MealsState.loading());
 
-          response.fold(
-            (l) => emit(MealsState.error(l)),
-            (r) => emit(
-              MealsState.mealsInfo(
-                currentDate: event.currentDate,
-                originCurrentDate: event.updateOrigin ? event.currentDate : s.originCurrentDate,
-                meals: meals ?? {},
-                selectedServing: null,
-                plannedMeals: _combinePlannedMealsByDate(plannedMeals, r.data),
-              ),
-            ),
-          );
-        }
+        //   final response = await nutritionService.getPlannedMeals(
+        //     startDate: event.currentDate.beginDay.toIso8601String(),
+        //     endDate: event.currentDate.endDay.toIso8601String(),
+        //   );
+
+        //   response.fold(
+        //     (l) => emit(MealsState.error(l)),
+        //     (r) => emit(
+        //       MealsState.mealsInfo(
+        //         currentDate: event.currentDate,
+        //         originCurrentDate: event.updateOrigin ? event.currentDate : s.originCurrentDate,
+        //         meals: meals ?? {},
+        //         selectedServing: null,
+        //         plannedMeals: _combinePlannedMealsByDate(plannedMeals, r.data),
+        //       ),
+        //     ),
+        //   );
+        // }
       },
     );
   }
@@ -406,6 +408,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
                     // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
                   )
                 : state.copyWith(meals: _getUpdatedMealsList(r));
+
             emit(newState);
           },
         );
@@ -602,7 +605,12 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
               final updatedList = _deleteMealFromList(mealId);
               final newState = state.isPlanningMeals
                   ? state.copyWith(plannedMeals: updatedList)
-                  : state.copyWith(meals: updatedList);
+                  : state.copyWith(
+                      meals:
+                          updatedList, // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                      timeStamp: DateTime.now(),
+                      // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
+                    );
 
               emit(newState);
             },
@@ -612,7 +620,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     );
   }
 
-  Map<String, List<MealsListItem>> _deleteMealFromList(int mealItem) {
+  Map<String, List<MealsListItem>> _deleteMealFromList(int mealId) {
     return state.maybeMap(
       mealsInfo: (state) {
         final currentDate = state.currentDate ?? DateTime.now();
@@ -621,7 +629,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
             state.mealsMap.map((key, value) => MapEntry(key, [...value]));
         var selectedDayMeals = meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
-        selectedDayMeals.removeWhere((e) => e.id == mealItem);
+        selectedDayMeals.removeWhere((e) => e.id == mealId);
 
         return meals;
       },

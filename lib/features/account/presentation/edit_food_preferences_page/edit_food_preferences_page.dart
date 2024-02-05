@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -30,10 +31,12 @@ class EditFoodPreferencesPageMode with _$EditFoodPreferencesPageMode {
 
 class EditFoodPreferencesPage extends StatelessWidget {
   final EditFoodPreferencesPageMode mode;
+  final bool fromLessonComplete;
 
   const EditFoodPreferencesPage({
     super.key,
     required this.mode,
+    required this.fromLessonComplete,
   });
 
   get _title {
@@ -54,9 +57,9 @@ class EditFoodPreferencesPage extends StatelessWidget {
 
   get content {
     return mode.map(
-        hates: (_) => const TypesOfFoodChips(),
-        allergies: (_) => const AllergicChips(),
-        dislikes: (_) => const DoYouLikeChips());
+        hates: (_) => TypesOfFoodChips(fromLessonComplete: fromLessonComplete),
+        allergies: (_) => AllergicChips(fromLessonComplete: fromLessonComplete),
+        dislikes: (_) => DoYouLikeChips(fromLessonComplete: fromLessonComplete));
   }
 
   _onOkHandler(BuildContext context) {
@@ -65,13 +68,79 @@ class EditFoodPreferencesPage extends StatelessWidget {
     context.router.pop();
   }
 
+  _onNextHandler(BuildContext context) {
+    context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.saveFoodPreferences());
+
+    mode.map(
+      allergies: (_) {
+        context.router.push(
+          EditFoodPreferencesRoute(
+            mode: const EditFoodPreferencesPageMode.hates(),
+            fromLessonComplete: true,
+          ),
+        );
+      },
+      hates: (_) {
+        context.router.push(
+          EditFoodPreferencesRoute(
+            mode: const EditFoodPreferencesPageMode.dislikes(),
+            fromLessonComplete: true,
+          ),
+        );
+      },
+      dislikes: (_) {
+        context.router.popUntilRouteWithName(LessonCompleteRoute.name);
+      },
+    );
+
+    // context.router.pop();
+  }
+
+  Widget _getCustomButton(BuildContext context) {
+    if (fromLessonComplete) {
+      return CustomElevatedButton.blueFullWidth(
+        onPressed: () => _onNextHandler(context),
+        label: LocalizedTexts.next.tr(),
+      );
+    }
+
+    return CustomElevatedButton.blueFullWidth(
+      onPressed: () => _onOkHandler(context),
+      label: LocalizedTexts.confirm.tr(),
+    );
+  }
+
+  CustomAppBar _getCustomAppBar() {
+    if (fromLessonComplete) {
+      return CustomAppBar.petrol(
+        title: _title,
+        leading: CustomFilledIconButton.leadingPetrolLighter(),
+      );
+    }
+    return CustomAppBar.blue(
+      title: _title,
+      leading: CustomFilledIconButton.leadingBlueLighter(),
+    );
+  }
+
+  CustomScaffold _getCustomScaffold({
+    Widget? body,
+  }) {
+    if (fromLessonComplete) {
+      return CustomScaffold.petrolLightest(
+        appBar: _getCustomAppBar(),
+        body: body,
+      );
+    }
+    return CustomScaffold.blueLightest(
+      appBar: _getCustomAppBar(),
+      body: body,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.blueLightest(
-      appBar: CustomAppBar.blue(
-        title: _title,
-        leading: CustomFilledIconButton.leadingBlueLighter(),
-      ),
+    return _getCustomScaffold(
       body: SafeArea(
         child: MainContainer(
           child: Column(
@@ -92,10 +161,7 @@ class EditFoodPreferencesPage extends StatelessWidget {
               Column(
                 children: [
                   const SizedBox(height: 22.0),
-                  CustomElevatedButton.blueFullWidth(
-                    onPressed: () => _onOkHandler(context),
-                    label: LocalizedTexts.confirm.tr(),
-                  ),
+                  _getCustomButton(context),
                   const SizedBox(height: 30.0),
                 ],
               ),

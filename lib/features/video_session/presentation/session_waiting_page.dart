@@ -1,17 +1,22 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:loopcare_frontend/core/domain/aws_cookies_type.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
+import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -20,6 +25,8 @@ import 'package:loopcare_frontend/features/group_sessions/application/topics_blo
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_countdown/session_countdown.dart';
+
+const double bottomSheetHeight = 167;
 
 class SessionWaitingPage extends StatefulWidget {
   // TODO pass session as a prop so we can get rid of check if we have session
@@ -31,15 +38,12 @@ class SessionWaitingPage extends StatefulWidget {
 
 class _SessionWaitingPageState extends State<SessionWaitingPage> {
   ZoomVideoSdk zoom = ZoomVideoSdk();
-  final TapGestureRecognizer _groupRulesTapRecognizer = TapGestureRecognizer();
 
   @override
   void initState() {
     InitConfig initConfig = InitConfig(domain: ZoomConfig.domain, enableLog: ZoomConfig.enableLog);
 
     zoom.initSdk(initConfig);
-
-    _groupRulesTapRecognizer.onTap = _onRulesTapHandler;
 
     context.read<VideoPlayerBloc>().add(const VideoPlayerEvent.getAwsCookies(AwsCookiesType.SESSION));
 
@@ -50,17 +54,31 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
     super.initState();
   }
 
-  _onRulesTapHandler() => context.router.pushNamed(AppRoutes.sessionRules);
+  void _onRulesTapHandler() => context.router.pushNamed(AppRoutes.sessionRules);
+
+  String get topic => context.read<TopicsBloc>().state.data.weekTopicName;
+
+  DateTime get startDate =>
+      context.read<TopicsBloc>().state.data.signedGroupSessionStartTime ?? DateTime.now();
+
+  DateTime get endDate => context.read<TopicsBloc>().state.data.signedGroupSessionsEndTime ?? DateTime.now();
+
+  String get image => context.read<TopicsBloc>().state.data.thisWeekTopicsImage;
 
   @override
   Widget build(BuildContext context) {
-    final sessionTopic = context.read<TopicsBloc>().state.data.weekTopicName;
-
     return CustomScaffold.orange(
       appBar: CustomAppBar.orange(
         title: LocalizedTexts.groupSession.tr(),
-        subtitle: sessionTopic,
+        subtitle: topic,
         leading: CustomFilledIconButton.leadingOrangeLighter(),
+      ),
+      bottomSheet: Container(
+        width: double.infinity,
+        height: bottomSheetHeight,
+        color: AppColors.blueDarker,
+        padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 32),
+        child: const SessionCountdown(),
       ),
       body: SafeArea(
         child: MainContainer(
@@ -73,58 +91,128 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const SizedBox(height: 35.0),
-                      CustomText.w600(
-                        '${LocalizedTexts.hi.tr()} ${context.read<AuthenticationCubit>().state.name},',
-                        style: context.textTheme.bodyLarge,
-                      ),
-                      CustomText.w400(
-                        '${LocalizedTexts.sessionGreeting.tr()}:',
-                        style: context.textTheme.bodyLarge,
-                      ),
-                      const SizedBox(height: 16.0),
-                      CustomText.bitter600(
-                        sessionTopic,
-                        style: context.textTheme.headlineMedium,
-                      ),
-                      const SizedBox(height: 16.0),
-                      CustomText.w600(
-                        LocalizedTexts.goodToKnow.tr(),
-                        style: context.textTheme.bodyLarge,
-                      ),
-                      const SizedBox(height: 16.0),
-                      BulletListItem(
-                        text: CustomText.w400(
-                          LocalizedTexts.warningOne.tr(),
-                          style: context.textTheme.bodyLarge,
+                      const SizedBox(height: 28.0),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 26.0, vertical: 32.0),
+                        decoration: const BoxDecoration(
+                          color: AppColors.orangeLightest,
+                          borderRadius: BorderRadius.all(Radius.circular(16.0)),
                         ),
-                        bulletSize: 21.0,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText.bitter600(
+                              '${LocalizedTexts.hey.tr()} ${context.read<AuthenticationCubit>().state.name.capitalizeOnlyFirstLetter()}',
+                              style: context.textTheme.headlineSmall,
+                            ),
+                            const SizedBox(height: 18.0),
+                            CustomText.w400(
+                              '${LocalizedTexts.sessionGreeting.tr()}:',
+                              style: context.textTheme.bodyLarge,
+                            ),
+                            const SizedBox(height: 18.0),
+                            Container(
+                              padding: EdgeInsets.zero,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 1,
+                                  color: AppColors.blueLighter,
+                                  style: BorderStyle.solid,
+                                ),
+                                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                              ),
+                              child: Row(
+                                children: [
+                                  ClipPath(
+                                    clipper: ImageClipper(),
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        bottomLeft: Radius.circular(10),
+                                      ),
+                                      child: SizedBox(
+                                        width: 135,
+                                        height: 180,
+                                        child: NetworkImageWithCache(url: image),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 12.0, bottom: 12.0, right: 12.0),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          const SizedBox(height: 10.0),
+                                          CustomText.w700(
+                                            topic,
+                                            style: context.textTheme.bodySmall,
+                                          ),
+                                          const SizedBox(height: 10.0),
+                                          CustomText.w400(
+                                            LocalizedTexts.dayFromTo.tr(
+                                              namedArgs: {
+                                                'day': '${startDate.weekdayString} ${startDate.shortDate}',
+                                                'startTime': startDate.timeHoursMinutes24,
+                                                'endTime': endDate.timeHoursMinutes24,
+                                              },
+                                            ),
+                                            style: context.textTheme.bodySmall?.copyWith(
+                                              fontSize: ThemeConstants.fontSize12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 8.0),
-                      BulletListItem(
-                        bulletSize: 21.0,
-                        text: RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: '${LocalizedTexts.warningTwo.tr()} ',
+                      const SizedBox(height: 20.0),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 26.0, vertical: 32.0),
+                        decoration: const BoxDecoration(
+                          color: AppColors.orangeLightest,
+                          borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText.w600(
+                              LocalizedTexts.goodToKnow.tr(),
+                              style: context.textTheme.bodyLarge,
+                            ),
+                            BulletListItem(
+                              bulletSize: 21.0,
+                              text: CustomText.w400(
+                                LocalizedTexts.warningOne.tr(),
                                 style: context.textTheme.bodyLarge,
                               ),
-                              TextSpan(
-                                text: LocalizedTexts.groupRules.tr().toLowerCase(),
+                            ),
+                            const SizedBox(height: 8.0),
+                            BulletListItem(
+                              bulletSize: 21.0,
+                              text: CustomText.w400(
+                                LocalizedTexts.warningTwo.tr(),
                                 style: context.textTheme.bodyLarge,
-                                recognizer: _groupRulesTapRecognizer,
                               ),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(height: 18.0),
+                            CustomOutlinedButton.blueFullWidth(
+                              label: LocalizedTexts.readTheGroupRules.tr(),
+                              onPressed: _onRulesTapHandler,
+                            )
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 16.0),
+                      const SizedBox(height: bottomSheetHeight),
                     ],
                   ),
                 ),
               ),
-              const SessionCountdown(),
             ],
           ),
         ),
@@ -135,8 +223,6 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
   @override
   void dispose() {
     zoom.cleanup();
-
-    _groupRulesTapRecognizer.dispose();
 
     super.dispose();
   }

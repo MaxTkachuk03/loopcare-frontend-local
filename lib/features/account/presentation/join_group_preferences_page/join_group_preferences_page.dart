@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -15,7 +15,12 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
 
 class JoinGroupPreferencesPage extends StatefulWidget {
-  const JoinGroupPreferencesPage({super.key});
+  final bool fromLessonComplete;
+
+  const JoinGroupPreferencesPage({
+    super.key,
+    required this.fromLessonComplete,
+  });
 
   @override
   State<JoinGroupPreferencesPage> createState() => _JoinGroupPreferencesPageState();
@@ -41,7 +46,7 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
     if (_selectedValue == YesNoAnswer.no) {
       context.router.pop();
     } else {
-      context.router.pushNamed(AppRoutes.genderPreferences);
+      context.router.push(GenderPreferencesRoute(fromLessonComplete: widget.fromLessonComplete));
     }
 
     context.read<GroupPreferencesBloc>().add(GroupPreferencesEvent.setWouldLikeJoinGroup(_selectedValue!));
@@ -50,6 +55,7 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
   @override
   Widget build(BuildContext context) {
     return GroupPrefsPageWrap(
+      fromLessonComplete: widget.fromLessonComplete,
       child: SafeArea(
         child: MainContainer(
           child: ScrollableContainer(

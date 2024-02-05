@@ -80,8 +80,12 @@ class MentalHealthData with _$MentalHealthData {
 
   bool get isPhq8Test => currentTest?.type == MentalHealthTestType.phq8;
 
+  bool get isWho5Test => currentTest?.type == MentalHealthTestType.who5;
+
+  bool get isPhq8TestHigh => results[MentalHealthTestType.phq8]?.interpretation == InterpretationType.high;
+
   bool get showEmergencyBtn {
-    if (!isGad7Test && !isPhq8Test) return false;
+    if (isWho5Test) return false;
 
     final currentTestType = currentTest?.type;
 

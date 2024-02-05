@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
+import 'package:loopcare_frontend/features/physical_activities/domain/program_difficulty.dart';
 
 class CategoryLabel extends StatelessWidget {
   final String label;
@@ -27,8 +28,14 @@ class CategoryLabel extends StatelessWidget {
   factory CategoryLabel.assignment() =>
       CategoryLabel(label: LocalizedTexts.assignment.tr(), color: AppColors.petrolRegular);
 
-  factory CategoryLabel.difficulty({required String label}) =>
-      CategoryLabel(label: label, color: AppColors.petrolRegular);
+  factory CategoryLabel.difficultyEasy() =>
+      CategoryLabel(label: ProgramDifficulty.easy.label, color: AppColors.petrolRegular);
+
+  factory CategoryLabel.difficultyMedium() =>
+      CategoryLabel(label: ProgramDifficulty.medium.label, color: AppColors.yellowRegular);
+
+  factory CategoryLabel.difficultyHard() =>
+      CategoryLabel(label: ProgramDifficulty.hard.label, color: AppColors.red);
 
   factory CategoryLabel.groupSession() =>
       CategoryLabel(label: LocalizedTexts.groupSession.tr(), color: AppColors.petrolRegular);

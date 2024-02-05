@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
@@ -55,12 +56,18 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
     context.showError(content: Text(errorMessage));
   }
 
+  _onAfterCompleteListener(BuildContext context, EducationLessonState state) {
+    if (state.data.extraAction == ExtraActionTypes.unlockMeals) {
+      _startFoodPreferences(context);
+    }
+  }
+
   _startLessonQuestion(BuildContext context, int lessonId) {
     context.router.push(AssignmentsIntroRoute(lessonId: lessonId, fromDashboard: false));
   }
 
   _startFoodPreferences(BuildContext context) {
-    context.router.pushNamed(AppRoutes.foodPreferences);
+    context.router.pushNamed(AppRoutes.lessonCompleteFoodPreferences);
   }
 
   bool get _isGroupSessionsDisabled => context.read<AuthenticationCubit>().state.disableGroupSessions;
@@ -76,9 +83,17 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<EducationLessonBloc, EducationLessonState>(
-      listenWhen: (prev, cur) => cur is ErrorCompleteLesson,
-      listener: _onErrorListener,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<EducationLessonBloc, EducationLessonState>(
+          listenWhen: (prev, cur) => cur is ErrorCompleteLesson,
+          listener: _onErrorListener,
+        ),
+        BlocListener<EducationLessonBloc, EducationLessonState>(
+          listenWhen: (prev, cur) => cur is LessonCompleted,
+          listener: _onAfterCompleteListener,
+        ),
+      ],
       child: CustomScaffold.petrol(
         appBar: CustomAppBar.petrol(
           title: LocalizedTexts.lesson.tr(),
@@ -158,9 +173,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                       child: BlocBuilder<EducationLessonBloc, EducationLessonState>(
                         builder: (BuildContext context, state) {
                           if (state.data.extraAction == ExtraActionTypes.unlockMeals) {
-                            return UnlockFoodLoggingFeature(
-                              onBtnPressed: () => _startFoodPreferences(context),
-                            );
+                            return const UnlockFoodLoggingFeature();
                           }
 
                           if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
@@ -170,6 +183,16 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
                           if (state.data.assignmentsQuestions.isNotEmpty &&
                               state.data.assignmentsQuestionsWithAnswers.isEmpty) {
+                            final authState = context.read<AuthenticationCubit>().state;
+                            var emailApproveDate = authState.emailApproveDate ?? DateTime.now();
+
+                            context.read<AssignmentsBloc>().add(
+                                  AssignmentsEvent.getAllLessonQuestions(
+                                    emailApproveDate,
+                                    DateTime.now(),
+                                  ),
+                                );
+
                             return UnlockAssignment(
                               completedAt: state.data.lessonCompletedDate ?? DateTime.now(),
                               onBtnPressed: () => _startLessonQuestion(context, state.data.lessonId),

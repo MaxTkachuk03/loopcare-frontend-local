@@ -242,6 +242,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       onChanged: widget.onChanged,
       focusNode: widget.focusNode,
+      inputFormatters: widget.inputFormatters,
     );
   }
 }

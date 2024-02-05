@@ -27,9 +27,7 @@ class _AccountPageState extends State<AccountPage> {
   void initState() {
     super.initState();
     context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.fetchFoodPreferences());
-    context
-        .read<PhysicalActivitiesPreferencesBloc>()
-        .add(const PhysicalActivitiesPreferencesEvent.getPreferences());
+    context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.getPreferences());
   }
 
   @override
@@ -54,7 +52,7 @@ class _AccountPageState extends State<AccountPage> {
                 // PersonalDetailsSection(),
                 // SizedBox(height: 24.0),
                 // const TestResultsSection(),
-                // SizedBox(height: 24.0),
+                // const SizedBox(height: 24.0),
                 PreferencesSection(),
                 SizedBox(height: 24.0),
                 ReportAbuseSection(),

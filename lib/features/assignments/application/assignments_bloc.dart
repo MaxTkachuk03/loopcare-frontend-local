@@ -208,27 +208,10 @@ class AssignmentsBloc extends Bloc<AssignmentsEvent, AssignmentsState> {
     Emitter<AssignmentsState> emit,
   ) async {
     emit(AssignmentsState.loading(state.data.copyWith(isLoading: true)));
-
-    final response = await _educationService.getLessonContent(event.lessonId);
-
-    response.fold(
-      (l) => emit(
-        AssignmentsState.error(state.data.copyWith(
-          error: l,
-          isLoading: false,
-        )),
-      ),
-      (r) {
-        final questions = r.questions;
-        questions.sort((a, b) => a.id.compareTo(b.id));
-
-        emit(
-          AssignmentsState.updated(state.data.copyWith(
-            lessonId: event.lessonId,
-            questions: questions,
-          )),
-        );
-      },
+    emit(
+      AssignmentsState.updated(state.data.copyWith(
+        lessonId: event.lessonId,
+      )),
     );
   }
 }

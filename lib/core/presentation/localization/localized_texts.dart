@@ -333,6 +333,7 @@ class LocalizedTexts {
   static const String retry = 'retry';
   static const String noConnectionTitle = 'noConnectionTitle';
   static const String noConnectionText = 'noConnectionText';
+  static const String invalidIngridientText = 'invalidIngridientText';
   static const String oeps = 'oeps';
   static const String somethingWentWrong = 'somethingWentWrong';
 
@@ -435,6 +436,7 @@ class LocalizedTexts {
   static const String warningOne = "warningOne";
   static const String warningTwo = "warningTwo";
   static const String hi = "hi";
+  static const String hey = "hey";
   static const String sessionWillStartIn = "sessionWillStartIn";
   static const String sessionStartedMessage = "sessionStartedMessage";
   static const String enterSession = "enterSession";
@@ -463,15 +465,10 @@ class LocalizedTexts {
 
   // Mental Health
   static const String weWouldLikeToSupportYou = "weWouldLikeToSupportYou";
-  static const String feelLimitedByMentalOrPhysicalSymptoms = "feelLimitedByMentalOrPhysicalSymptoms";
   static const String feelLimitedByAnxietyOrPhysicalSymptoms = "feelLimitedByAnxietyOrPhysicalSymptoms";
   static const String feelLimitedByPhysicalSymptoms = "feelLimitedByPhysicalSymptoms";
   static const String feelLimitedByAnxietySymptoms = "feelLimitedByAnxietySymptoms";
   static const String youHaveBurdenInSeveralFields = "youHaveBurdenInSeveralFields";
-  static const String youAreWelcomeToRepeatTests = "youAreWelcomeToRepeatTests";
-  static const String weAreNotOverloadYou = "weAreNotOverloadYou";
-  static const String pleaseAppreciateThat = "pleaseAppreciateThat";
-  static const String weTailorTheProgramToYouPersonally = "weTailorTheProgramToYouPersonally";
   static const String theFollowingAreasAreUnlocked = "theFollowingAreasAreUnlocked";
   static const String weWillGuideYou = "weWillGuideYou";
   static const String findBuddyAndGetIntoSupportGroup = "findBuddyAndGetIntoSupportGroup";
@@ -571,6 +568,11 @@ class LocalizedTexts {
   // Food preferences
   static const String foodLoggingUnlocked = "foodLoggingUnlocked";
   static const String youCanStartLogging = "youCanStartLogging";
+  static const String foodPreferencesDesc = "foodPreferencesDesc";
+  static const String foodPreferencesItemOne = "foodPreferencesItemOne";
+  static const String foodPreferencesItemTwo = "foodPreferencesItemTwo";
+  static const String foodPreferencesItemThree = "foodPreferencesItemThree";
+  static const String foodPreferencesItemFour = "foodPreferencesItemFour";
 
   // Intro
   static const String introTitle = 'introTitle';
@@ -683,6 +685,7 @@ class LocalizedTexts {
   static const String wegovy = 'wegovy';
   static const String otherBrand = 'otherBrand';
   static const String lessThanMonth = 'lessThanMonth';
+  static const String lessThanAMonth = 'lessThanAMonth';
   static const String lessThanCertainMonths = 'lessThanCertainMonths';
   static const String treatmentByTheDoctorQuestion = 'treatmentByTheDoctorQuestion';
   static const String twelveMonthsOrLonger = 'twelveMonthsOrLonger';
@@ -762,6 +765,15 @@ class LocalizedTexts {
   static const String phq8ResultMedium = "phq8ResultMedium";
   static const String phq8ResultHigh = "phq8ResultHigh";
   static const String phq8ResultHighest = "phq8ResultHighest";
+  static const String phq8ResultHighFinal1 = "phq8ResultHighFinal1";
+  static const String phq8ResultHighFinal2 = "phq8ResultHighFinal2";
+  static const String phq8ResultHighFinal3 = "phq8ResultHighFinal3";
+  static const String phq8ResultHighFinal4 = "phq8ResultHighFinal4";
+  static const String tailorProgramToYouPersonally = "tailorProgramToYouPersonally";
+  static const String learnManyThings = "learnManyThings";
+  static const String unlockAllSections = "unlockAllSections";
+  static const String notATherapy = "notATherapy";
+  static const String phq8Fail = "phq8Fail";
   static const String generalWellBeingSummary = "generalWellBeingSummary";
   static const String bodyAndMindBalanceSummary = "bodyAndMindBalanceSummary";
   static const String stateOfMindSummary = "stateOfMindSummary";
@@ -850,6 +862,12 @@ class LocalizedTexts {
   static const String groupSession = 'groupSession';
   static const String supportGroupPainSubscriptionNotGrouped = 'supportGroupPainSubscriptionNotGrouped';
   static const String supportGroupTrialSubscriptionNotGrouped = 'supportGroupTrialSubscriptionNotGrouped';
+  static const String nextWeekTopic = 'nextWeekTopic';
+
+  // Update bottom sheet
+  static const String updateRequired = 'updateRequired';
+  static const String updateRequiredBodyText1 = 'updateRequiredBodyText1';
+  static const String updateRequiredBodyText2 = 'updateRequiredBodyText2';
 }
 
 extension StringX on String {

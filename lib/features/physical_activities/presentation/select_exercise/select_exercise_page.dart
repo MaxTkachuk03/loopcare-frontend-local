@@ -73,26 +73,19 @@ class _SelectExercisePageState extends State<SelectExercisePage> with TickerProv
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const SizedBox(
-                  height: 28.0,
-                ),
+                const SizedBox(height: 28.0),
                 CustomText.bitter600(
                   LocalizedTexts.selectYourProgram.tr(),
                   style: context.textTheme.displayMedium,
                 ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                SizedBox(
-                  height: 36,
-                  child: CustomTabBar.yellow(
-                    tabController: _tabController,
-                    tabs: tabs.map((e) => Tab(text: e.text)).toList(),
-                    onTap: () => dismissKeyboard(context),
-                  ),
+                const SizedBox(height: 20.0),
+                CustomTabBar.yellow(
+                  tabController: _tabController,
+                  tabs: tabs.map((e) => Tab(text: e.text)).toList(),
+                  onTap: () => dismissKeyboard(context),
                 ),
                 const SizedBox(height: 20.0),
-                Flexible(
+                Expanded(
                   child: TabBarView(
                     controller: _tabController,
                     children: const [

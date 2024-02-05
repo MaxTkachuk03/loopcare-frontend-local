@@ -61,8 +61,6 @@ app.*.map.json
 *.gr.dart*
 *.config.dart*
 
-# pubspec.lock
-
 # Flutter Version Manager
 .fvm/*
 /ios/IAPTest.storekit

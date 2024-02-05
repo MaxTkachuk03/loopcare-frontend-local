@@ -30,8 +30,7 @@ class NextLesson extends StatelessWidget {
     return BlocBuilder<EducationProgramBloc, EducationProgramState>(
       builder: (context, state) {
         final lessonWithCountdown = state.data.lessonWithCountdown;
-        final isLessonWithCountDown =
-            lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
+        final isLessonWithCountDown = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
 
         return GestureDetector(
           onTap: isLessonWithCountDown ? null : () => _onTapHandler(context),
@@ -47,7 +46,7 @@ class NextLesson extends StatelessWidget {
             child: Row(
               children: [
                 ClipPath(
-                  clipper: EducationClipper(),
+                  clipper: ImageClipper(),
                   child: ClipRRect(
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10),

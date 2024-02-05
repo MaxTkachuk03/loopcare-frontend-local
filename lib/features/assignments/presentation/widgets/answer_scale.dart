@@ -52,6 +52,7 @@ class AnswerScale extends StatelessWidget {
                 CustomText.bitter600(question.question ?? '', style: context.textTheme.displayMedium),
                 const SizedBox(height: 20.0),
                 ScoringScale(
+                  selectedColor: AppColors.greenRegular,
                   selectedScore: selectedScore,
                   onScoreTap: (int value) => isEditable ? _onSelectedHandler(value) : null,
                   scaleSize: question.lessonQuestionOptions.length,
@@ -73,8 +74,7 @@ class AnswerScale extends StatelessWidget {
                   ],
                 ),
                 if (feedbackText != null) const SizedBox(height: 24.0),
-                if (feedbackText != null)
-                  CustomText.w600(feedbackText ?? '', style: context.textTheme.bodyLarge),
+                if (feedbackText != null) CustomText.w600(feedbackText ?? '', style: context.textTheme.bodyLarge),
               ],
             ),
             Column(

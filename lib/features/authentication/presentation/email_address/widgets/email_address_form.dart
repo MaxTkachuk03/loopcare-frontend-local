@@ -41,8 +41,9 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
 
   @override
   void dispose() {
-    _emailController.dispose();
     super.dispose();
+
+    _emailController.dispose();
   }
 
   @override

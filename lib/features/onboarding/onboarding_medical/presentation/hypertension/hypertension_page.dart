@@ -35,7 +35,7 @@ class HypertensionPage extends StatelessWidget {
                     children: [
                       const SizedBox(height: 80.0),
                       CustomText.bitter600(
-                        '${LocalizedTexts.hypertensionQuestion.tr()}?',
+                        LocalizedTexts.hypertensionQuestion.tr(),
                         textAlign: TextAlign.center,
                         style: context.textTheme.displayMedium,
                       ),

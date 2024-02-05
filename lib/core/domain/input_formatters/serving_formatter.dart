@@ -12,3 +12,19 @@ class ServingFormatter extends TextInputFormatter {
     return oldValue;
   }
 }
+
+class ServingRangeFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    if (newValue.text == '') {
+      return const TextEditingValue();
+    } else if (double.parse(newValue.text) <= 0) {
+      return const TextEditingValue().copyWith(text: '0.1');
+    }
+
+    return double.parse(newValue.text) > 100 ? oldValue : newValue;
+  }
+}

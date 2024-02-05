@@ -13,12 +13,12 @@ class AppRoutes {
   static const String physicalIntro = '/physical-intro';
   static const String subscription = '/subscription';
   static const String manageSubscription = '/manage-subscription';
-  static const String height = '/height'; // added
-  static const String weight = '/weight'; // added
   static const String birthday = '/birthday'; // added
   static const String checkFailedByAge = '/failed-age'; // added
   static const String sex = '/sex'; // added
-  static const String biologicalGender = '/biological-gender'; // added// added
+  static const String biologicalGender = '/biological-gender'; // added
+  static const String height = '/height'; // added
+  static const String weight = '/weight'; // added
   static const String physicalCheckResult = '/physical-check-result'; // added
 
   // Onboarding Medical
@@ -106,6 +106,8 @@ class AppRoutes {
 
   // User profile
   static const String foodPreferences = '/food-preferences'; // added
+  static const String lessonCompleteFoodPreferences = '/lesson-complete-food-preferences';
+
   static const String physicalPreferences = '/physical-preferences';
   static const String editFoodPreferences = '/edit-food-preferences'; // added
   static const String joinGroupPreferences = '/join-group-preferences'; // added

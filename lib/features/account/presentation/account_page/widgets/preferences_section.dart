@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -23,7 +24,7 @@ class PreferencesSection extends StatelessWidget {
   const PreferencesSection({super.key});
 
   void _onFoodHandler(BuildContext context) {
-    context.router.pushNamed(AppRoutes.foodPreferences);
+    context.router.push(FoodPreferencesRoute(fromLessonComplete: false));
   }
 
   void _onPhysicalActivitiesHandler(BuildContext context) {

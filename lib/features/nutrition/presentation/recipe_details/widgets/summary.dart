@@ -91,14 +91,13 @@ class Summary extends StatelessWidget {
                     calorieDensity: s.recipe.calorieDensity,
                     proteinDegree: s.recipe.proteinDegree,
                   ),
-                  if (fromRecommendation) const SizedBox(height: 20.0),
-                  if (fromRecommendation)
-                    MainContainer(
-                      child: CustomOutlinedButton.blueSmall(
-                        label: LocalizedTexts.addToMyDishes.translation,
-                        onPressed: onAddToDishPress,
-                      ),
+                  const SizedBox(height: 20.0),
+                  MainContainer(
+                    child: CustomOutlinedButton.blueSmall(
+                      label: LocalizedTexts.addToMyDishes.translation,
+                      onPressed: onAddToDishPress,
                     ),
+                  ),
                   const SizedBox(height: 20.0),
                   MainContainer(child: _getButton(context, fromRecommendation, s.recipe)),
                   const SizedBox(height: 20.0)

@@ -1,8 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
@@ -20,11 +22,10 @@ class DailyIntakePage extends StatelessWidget {
       builder: (BuildContext context, state) {
         return state.maybeMap(
           mealsInfo: (mealsState) {
-            return Scaffold(
-              appBar: BlueAppBar(
-                isCustomLeading: true,
+            return CustomScaffold.greenLightest(
+              appBar: CustomAppBar.green(
+                leading: CustomFilledIconButton.leadingGreenLighter(),
                 title: state.getCurrentDate.fullDate,
-                italicSubtitle: false,
                 subtitle: state.isPlanningMeals
                     ? LocalizedTexts.plannedMeals.translation.capitalizeOnlyFirstLetter()
                     : LocalizedTexts.loggedMeals.translation.capitalizeOnlyFirstLetter(),
@@ -36,11 +37,12 @@ class DailyIntakePage extends StatelessWidget {
                       child: ListView.separated(
                         itemCount: MealCategory.values.length,
                         itemBuilder: (BuildContext context, index) {
-                          final selectedDayMeals = mealsState.meals[mealsState.currentDate?.isoStringWithoutTime];
+                          final selectedDayMeals =
+                              mealsState.meals[mealsState.currentDate?.isoStringWithoutTime];
 
                           var category = MealCategory.values[index].name;
-                          var mealForCurrentCategory = selectedDayMeals
-                              ?.firstWhereOrNull((element) => element.mealCategory == MealCategory.values[index].label);
+                          var mealForCurrentCategory = selectedDayMeals?.firstWhereOrNull(
+                              (element) => element.mealCategory == MealCategory.values[index].label);
 
                           final mealItems = mealForCurrentCategory?.mealItems;
                           final isEnabled = mealItems != null && mealItems.isNotEmpty;
@@ -54,7 +56,7 @@ class DailyIntakePage extends StatelessWidget {
                         },
                         separatorBuilder: (BuildContext context, int index) {
                           return const Divider(
-                            color: AppColors.yellowLight,
+                            color: AppColors.blueLighter,
                             thickness: 1.0,
                             height: 1.0,
                           );
