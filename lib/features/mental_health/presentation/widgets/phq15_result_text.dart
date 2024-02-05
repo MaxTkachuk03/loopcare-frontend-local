@@ -1,14 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/interpretation_type.dart';
 
 class PHQ15ResultText extends StatelessWidget {
-  const PHQ15ResultText({super.key});
+  final Function onLinkPressed;
+
+  const PHQ15ResultText({super.key, required this.onLinkPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,27 @@ class PHQ15ResultText extends StatelessWidget {
 
         final interpretation = state.data.results[currentTestType]?.interpretation;
 
-        return CustomText.w400(_getText(interpretation), style: context.textTheme.bodyMedium);
+        final isHigh = interpretation == InterpretationType.high;
+
+        return RichText(
+          text: TextSpan(children: [
+            TextSpan(
+              text: _getText(interpretation),
+              style: context.textTheme.bodyMedium,
+            ),
+            if (isHigh)
+              TextSpan(
+                style: context.textTheme.bodyMedium?.copyWith(color: AppColors.blueAppBar),
+                text: '\n$psychologistConsultingLink \n\n',
+                recognizer: TapGestureRecognizer()..onTap = () => onLinkPressed(context),
+              ),
+            if (isHigh)
+              TextSpan(
+                text: LocalizedTexts.ifYouHaveSuicidalThoughts.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+          ]),
+        );
       },
     );
   }

@@ -52,12 +52,9 @@ class EducationCard extends StatelessWidget {
   }
 
   _onTapHandler(BuildContext context) {
-    context.read<EducationLessonBloc>().add(
-          EducationLessonEvent.getLessonContent(
-            lessonId: lesson.id,
-            pageIndex: _initialLessonPageIndex,
-          ),
-        );
+    context
+        .read<EducationLessonBloc>()
+        .add(EducationLessonEvent.getLessonContent(lessonId: lesson.id, pageIndex: _initialLessonPageIndex));
 
     context.router.pushNamed('/lesson/${lesson.id}/page/$_initialLessonPageIndex');
   }
@@ -79,79 +76,82 @@ class EducationCard extends StatelessWidget {
                 child: Container(
                   margin: const EdgeInsets.symmetric(vertical: 12.0),
                   decoration: BoxDecoration(
-                    color: AppColors.white.withOpacity(isLocked ? 0.5 : 1),
+                    color: AppColors.white,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(right: 10.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ClipPath(
-                          clipper: ImageClipper(),
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              bottomLeft: Radius.circular(10),
-                            ),
-                            child: SizedBox(
-                              width: 130.0,
-                              child: NetworkImageWithCache(url: lesson.cardImage),
+                    child: Stack(children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ClipPath(
+                            clipper: ImageClipper(),
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                              ),
+                              child: SizedBox(
+                                width: 130.0,
+                                child: NetworkImageWithCache(url: lesson.cardImage),
+                              ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              getLabelByCategory(lesson.category),
-                              const SizedBox(height: 10.0),
-                              CustomText.bitter700(
-                                lesson.title,
-                                style: context.textTheme.bodySmall,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              const SizedBox(height: 10.0),
-                              Row(
-                                children: [
-                                  const Icon(Icons.watch_later_outlined, size: 16),
-                                  const SizedBox(width: 6.0),
-                                  CustomText.w600(
-                                    formatDuration(lesson.duration),
-                                    style: context.textTheme.bodySmall,
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 10.0),
-                              _getLessonAction(context),
-                              // TODO removed logic with unlocking step after some period of time, maybe will be back if future
-                              // if (lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id)
-                              //   Wrap(
-                              //     children: [
-                              //       const Image(
-                              //         image: AppImages.iconAttention,
-                              //         height: 16.0,
-                              //       ),
-                              //       const SizedBox(width: 6.0),
-                              //       CustomText.w600(
-                              //         '${LocalizedTexts.availableIn.translation}: ',
-                              //         style: context.textTheme.bodySmall,
-                              //       ),
-                              //       EducationCountDown(
-                              //         seconds: lessonWithCountdown.timeRemaining,
-                              //       ),
-                              //     ],
-                              //   ),
-                              // if (lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id)
-                              //   const SizedBox(height: 6.0),
-                            ],
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                getLabelByCategory(lesson.category),
+                                const SizedBox(height: 10.0),
+                                CustomText.bitter700(
+                                  lesson.title,
+                                  style: context.textTheme.bodySmall,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                const SizedBox(height: 10.0),
+                                Row(
+                                  children: [
+                                    const Icon(Icons.watch_later_outlined, size: 16),
+                                    const SizedBox(width: 6.0),
+                                    CustomText.w600(
+                                      formatDuration(lesson.duration),
+                                      style: context.textTheme.bodySmall,
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 10.0),
+                                _getLessonAction(context),
+                                // TODO removed logic with unlocking step after some period of time, maybe will be back if future
+                                // if (lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id)
+                                //   Wrap(
+                                //     children: [
+                                //       const Image(
+                                //         image: AppImages.iconAttention,
+                                //         height: 16.0,
+                                //       ),
+                                //       const SizedBox(width: 6.0),
+                                //       CustomText.w600(
+                                //         '${LocalizedTexts.availableIn.translation}: ',
+                                //         style: context.textTheme.bodySmall,
+                                //       ),
+                                //       EducationCountDown(
+                                //         seconds: lessonWithCountdown.timeRemaining,
+                                //       ),
+                                //     ],
+                                //   ),
+                                // if (lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id)
+                                //   const SizedBox(height: 6.0),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                      if (isLocked) Container(color: AppColors.white.withOpacity(0.5)),
+                    ]),
                   ),
                 ),
               );

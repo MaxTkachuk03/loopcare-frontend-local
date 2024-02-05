@@ -6,33 +6,41 @@ import 'package:loopcare_frontend/core/infrastructure/services/screen_name_mappe
 
 /// Override [FirebaseAnalyticsObserver]
 class FirebaseNavigatorObserver extends AutoRouterObserver {
-  FirebaseNavigatorObserver({
-    required this.analytics,
-    this.nameExtractor = defaultNameExtractor,
-    this.routeFilter = defaultRouteFilter,
-    Function(PlatformException error)? onError,
-  }) : _onError = onError;
-
+  final int userId;
   final FirebaseAnalytics analytics;
   final ScreenNameExtractor nameExtractor;
   final RouteFilter routeFilter;
   final void Function(PlatformException error)? _onError;
 
+  FirebaseNavigatorObserver({
+    required this.analytics,
+    required this.userId,
+    this.nameExtractor = defaultNameExtractor,
+    this.routeFilter = defaultRouteFilter,
+    Function(PlatformException error)? onError,
+  }) : _onError = onError;
+
   void _sendScreenView(RouteSettings settings) {
     final String? screenName = screenNames[nameExtractor(settings)] ?? nameExtractor(settings);
 
     if (screenName != null) {
-      analytics.setCurrentScreen(screenName: screenName).catchError(
-        (Object error) {
-          final error = _onError;
-          if (error == null) {
-            debugPrint('$FirebaseAnalyticsObserver: $error');
-          } else {
-            error(error as PlatformException);
-          }
-        },
-        test: (Object error) => error is PlatformException,
-      );
+      // TODO new event to test every screen change with userID
+      analytics.logScreenView(screenName: screenName, parameters: {'userId': userId}).catchError(
+          catchErrorOnErrorCb,
+          test: (Object error) => error is PlatformException);
+
+      analytics
+          .setCurrentScreen(screenName: screenName)
+          .catchError(catchErrorOnErrorCb, test: (Object error) => error is PlatformException);
+    }
+  }
+
+  catchErrorOnErrorCb(Object error) {
+    final error = _onError;
+    if (error == null) {
+      debugPrint('$FirebaseAnalyticsObserver: $error');
+    } else {
+      error(error as PlatformException);
     }
   }
 
