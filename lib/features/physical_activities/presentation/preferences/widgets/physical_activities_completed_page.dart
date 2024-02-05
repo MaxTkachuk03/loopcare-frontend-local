@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -18,6 +18,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_physical_activities_feature.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 
 class PhysicalActivitiesCompletePage extends StatefulWidget {
   const PhysicalActivitiesCompletePage({super.key});
@@ -34,7 +35,8 @@ class _PhysicalActivitiesCompletePageState extends State<PhysicalActivitiesCompl
   }
 
   _onPressHandler(BuildContext context) {
-    context.router.pushNamed(AppRoutes.lessonComplete);
+    context.read<DashboardEducationBloc>().add(const DashboardEducationEvent.getDashboardLessons());
+    context.router.popUntilRouteWithName(HomeRoute.name);
   }
 
   @override
