@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_se
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
@@ -40,37 +40,32 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<AuthenticationCubit, AuthenticationState>(
-          listener: _errorListener,
-        ),
-        BlocListener<AuthenticationCubit, AuthenticationState>(
-          listener: _navigationListener,
-        ),
-      ],
-      child: Form(
-        key: _formKey,
-        onChanged: _onChangedForm,
-        child: Column(
-          children: [
-            CustomTextField.email(controller: _emailController),
-            const SizedBox(height: 12.0),
-            CustomTextField.password(controller: _passwordController),
-            const SizedBox(height: 40.0),
-            CustomElevatedButton.blueFullWidth(
-              onPressed: _isDisabled ? null : _onLogin,
-              label: LocalizedTexts.login,
-            ),
-          ],
-        ),
-      ),
+    return BlocConsumer<AuthenticationCubit, AuthenticationState>(
+      listener: _navigationListener,
+      builder: (BuildContext context, AuthenticationState state) {
+        return Form(
+          key: _formKey,
+          onChanged: _onChangedForm,
+          child: Column(
+            children: [
+              CustomTextField.email(controller: _emailController),
+              const SizedBox(height: 12.0),
+              CustomTextField.password(controller: _passwordController),
+              const SizedBox(height: 40.0),
+              CustomElevatedButton.blueFullWidth(
+                onPressed: _isDisabled ? null : _onLogin,
+                label: LocalizedTexts.login,
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
   _onChangedForm() {
-    final isValidForm = Email.create(_emailController.text).isRight() &&
-        LoginPassword.create(_passwordController.text).isRight();
+    final isValidForm =
+        Email.create(_emailController.text).isRight() && LoginPassword.create(_passwordController.text).isRight();
 
     setState(() {
       _isDisabled = !isValidForm;
@@ -84,8 +79,25 @@ class _LoginFormState extends State<LoginForm> {
         );
   }
 
-  void _errorListener(BuildContext context, AuthenticationState state) {
+  void _navigationListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(
+      authenticated: (state) {
+        String route;
+        if (state.hasActiveSubscription) {
+          route = AppRoutes.home;
+        } else {
+          route = AppRoutes.subscription;
+        }
+        MixpanelEventService.instance.track(
+          AppMixpanelEvents.loginSuccess,
+          {
+            'userId': state.account.id,
+            'email': state.account.email,
+            'nextRoute': route.toString(),
+          },
+        );
+        pushNamedAndClearStack(context, route);
+      },
       guest: (state) {
         final error = state.error;
         if (error != null) {
@@ -124,20 +136,8 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  void _navigationListener(BuildContext context, AuthenticationState state) {
-    state.mapOrNull(
-      authenticated: (state) {
-        const route = HomeRoute();
-        MixpanelEventService.instance.track(
-          AppMixpanelEvents.loginSuccess,
-          {
-            'userId': state.account.id,
-            'email': state.account.email,
-            'nextRoute': route.toString(),
-          },
-        );
-        context.router.replaceAll([route]);
-      },
-    );
+  Future<dynamic> pushNamedAndClearStack(BuildContext context, String path) {
+    context.router.popUntilRoot();
+    return context.router.replaceNamed(path);
   }
 }

@@ -70,8 +70,7 @@ class EducationCard extends StatelessWidget {
           child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
             builder: (BuildContext context, state) {
               final lessonWithCountdown = state.data.lessonWithCountdown;
-              final isLessonWithCountDown =
-                  lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
+              final isLessonWithCountDown = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
               final isLocked = lesson.isLocked || isLessonWithCountDown;
 
               final showCountdown = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;

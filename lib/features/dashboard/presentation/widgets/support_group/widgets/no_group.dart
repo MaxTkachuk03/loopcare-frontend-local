@@ -60,8 +60,7 @@ class NoGroup extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const SizedBox(height: 10.0),
-                              CategoryLabel(
-                                  label: LocalizedTexts.completed.tr(), color: AppColors.coralRegular),
+                              CategoryLabel(label: LocalizedTexts.completed.tr(), color: AppColors.coralRegular),
                               const SizedBox(height: 10.0),
                               CustomText.w700(
                                 state.data.weekTopicName,

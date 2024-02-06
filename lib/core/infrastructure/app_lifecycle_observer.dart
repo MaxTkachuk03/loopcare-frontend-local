@@ -28,8 +28,6 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
     _authenticationCubit = GetIt.instance<AuthenticationCubit>();
     lifeCycleListener = AppLifecycleListener(
       onStateChange: _onLifeCycleChanged,
-      onDetach: _onDetach,
-      onPause: _onPause,
       onResume: _onResume,
     );
     super.initState();
@@ -55,10 +53,6 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
       // TODO: Handle this case.
     }
   }
-
-  _onDetach() => debugPrint('devcpp on Detach');
-
-  _onPause() => debugPrint('devcpp on Pause');
 
   _onResume() {
     _refreshTokenState();
@@ -110,9 +104,7 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
 
   Future<bool> _refreshToken() async {
     final accessTokenIsUpdated = await updateAccessToken();
-    final refreshTokenIsUpdated = await updateRefreshToken();
-    final isRefreshed = accessTokenIsUpdated && refreshTokenIsUpdated;
-    return isRefreshed;
+    return accessTokenIsUpdated;
   }
 
   void _syncChatState() => _authenticationCubit?.syncChatState();

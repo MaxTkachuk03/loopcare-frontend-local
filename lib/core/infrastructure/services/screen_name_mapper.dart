@@ -106,4 +106,6 @@ final screenNames = {
   'AssignmentsSavedRoute': 'Assignments Saved Screen',
   'GroupChatRoute': 'Group Chat Screen', // added
   'GroupUsersRoute': 'Group Users Screen', // added
+  'SubscriptionRoute': 'Subscription Screen',
+  'ManageSubscriptionRoute': 'Manage Subscription Screen'
 };

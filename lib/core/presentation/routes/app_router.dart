@@ -3,6 +3,7 @@ import 'package:loopcare_frontend/core/presentation/routes/gender_prefs_guard.da
 import 'package:loopcare_frontend/core/presentation/routes/intro_guard.dart';
 import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
 import 'package:loopcare_frontend/core/presentation/theme_components_theme/theme_components_theme.dart';
+import 'package:loopcare_frontend/features/access_code/access_code_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/account_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/edit_food_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/food_preferences_page/food_preferences_page.dart';
@@ -17,6 +18,7 @@ import 'package:loopcare_frontend/features/account/presentation/group_rules_page
 import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_two_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/join_group_preferences_page/join_group_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/nickname_preferences_page/nickname_preferences_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/subscription_page/manage_subscription_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/timezone_preferences_page/timezone_preferences_page.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/assignments_intro_page.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/assignments_questions_page.dart';
@@ -106,6 +108,7 @@ import 'package:loopcare_frontend/features/physical_activities/presentation/sele
 import 'package:loopcare_frontend/features/proxy/proxy_page.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/quizzes_intro_page.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/quizzes_questions_page.dart';
+import 'package:loopcare_frontend/features/subscription/presentation/subscription_page.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/video_page.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/session_call_page.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/session_rules_page.dart';
@@ -143,7 +146,11 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.intro,
       page: IntroPage,
-    ), // added
+    ),
+    AutoRoute(
+      path: AppRoutes.accessCode,
+      page: AccessCodePage,
+    ),
     AutoRoute(
       path: AppRoutes.home,
       page: HomePage,
@@ -153,7 +160,7 @@ const groupLessonRoutes = [
         AutoRoute(path: AppRoutes.groupChat, page: GroupChatPage),
         AutoRoute(path: AppRoutes.account, page: AccountPage),
       ],
-    ), // added
+    ),
     AutoRoute(
       path: AppRoutes.joinUs,
       page: JoinUsPage,
@@ -588,6 +595,14 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.groupChatUsers,
       page: GroupUsersPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.subscription,
+      page: SubscriptionPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.manageSubscription,
+      page: ManageSubscriptionPage,
     ), // added
   ],
 )

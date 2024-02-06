@@ -29,10 +29,17 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'com.google.firebase.crashlytics'
 
+def keystorePropertiesFile = project.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+ext {
+    Java_Version = JavaVersion.VERSION_1_8
+    Kotlin_Language_Version = '1.7'
+    Kotlin_Plugin_Version = '1.7.10'
+}
 android {
     compileSdkVersion 33
     ndkVersion "25.1.8937393"
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -53,15 +60,39 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
+        ndk {
+            abiFilters 'x86', 'x86_64', 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+        }
+    }
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'armeabi-v7a', 'x86_64', 'armeabi', 'arm64-v8a'
+            universalApk true
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+        }
     }
 
     buildTypes {
         release {
             minifyEnabled true
+            debuggable false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+        }
+        debug {
+            minifyEnabled false
+            debuggable true
+            signingConfig signingConfigs.release
         }
     }
 
@@ -83,6 +114,7 @@ android {
             resValue "string", "app_name", "LeanOnMe"
         }
     }
+    namespace 'com.loopcare.leanonme.app'
 }
 
 flutter {
@@ -94,6 +126,8 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation "com.android.billingclient:billing:6.0.1"
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation "us.zoom.videosdk:ZoomVideoSDK:1.7.10"
 

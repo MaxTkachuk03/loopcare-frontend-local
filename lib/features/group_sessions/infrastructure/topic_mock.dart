@@ -138,8 +138,7 @@ var topics = [
         "id": 24,
         "event": "TEXT",
         "timestamp": 2100,
-        "text":
-            "If there is time left, discuss the following: For what could I use this exercise in my daily life?",
+        "text": "If there is time left, discuss the following: For what could I use this exercise in my daily life?",
         "videoPath": null,
         "duration": null
       },

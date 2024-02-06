@@ -47,8 +47,7 @@ abstract class Account implements _$Account {
   bool get isMixedGender => gender != SexType.female && gender != SexType.male;
 
   int get trainingFrequency {
-    final RegExpMatch? match =
-        RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
+    final RegExpMatch? match = RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
 
     return match != null ? int.parse(match[0] ?? '0') : 0;
   }

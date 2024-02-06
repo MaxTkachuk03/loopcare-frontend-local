@@ -152,8 +152,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                           ValueListenableBuilder<MoodPickerListItem?>(
                             valueListenable: _moodPageController.moodValue,
                             builder: (context, moodValue, _) => MoodPicker(
-                                onItemPressed: isEditable ? _onMoodValueChangeHandler : null,
-                                value: moodValue),
+                                onItemPressed: isEditable ? _onMoodValueChangeHandler : null, value: moodValue),
                           ),
                           const SizedBox(height: 12.0),
                           MoodOptions(controller: _moodPageController, isEditable: isEditable),
