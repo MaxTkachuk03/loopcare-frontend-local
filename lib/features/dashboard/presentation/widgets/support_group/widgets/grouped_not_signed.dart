@@ -65,28 +65,6 @@ class GroupedNotSigned extends StatelessWidget {
         ],
       ),
     );
-
-    // return Column(
-    //   crossAxisAlignment: CrossAxisAlignment.start,
-    //   children: [
-    //     Row(
-    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //       children: [
-    //         Flexible(
-    //           child: CustomText.w600(
-    //             topicName,
-    //             style: context.textTheme.bodySmall,
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //     const SizedBox(height: 8.0),
-    //     CustomOutlinedButton.coralFullWidth(
-    //       label: LocalizedTexts.bookYourSeatNow.tr(),
-    //       onPressed: () => _onBookSeatPressed(context),
-    //     ),
-    //   ],
-    // );
   }
 
   _onBookSeatPressed(BuildContext context) {
