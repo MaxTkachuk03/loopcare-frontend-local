@@ -41,7 +41,7 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
         Platform.isAndroid && (state.data.subscription?.vendor == 'android')) {
       return true;
     }
-    return true;
+    return false;
   }
 
   void _showPopover() => showDialog<String>(
