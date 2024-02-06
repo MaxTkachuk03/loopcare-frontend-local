@@ -22,20 +22,26 @@ class _DiabetesChipsState extends State<DiabetesChips> {
 
     final bloc = context.read<MedicalFitnessBloc>();
 
-    if (bloc.state.data.diseasesList.contains(Diseases.diabetesTypeI)) {
+    if (bloc.state.data.containsDisease(Diseases.diabetesTypeI) &&
+        bloc.state.data.getContainedDisease(Diseases.diabetesTypeI).enable) {
       _selectedValue = DiabetesTypes.typeOne;
       return;
     }
 
-    if (bloc.state.data.diseasesList.contains(Diseases.diabetesTypeII)) {
+    if (bloc.state.data.containsDisease(Diseases.diabetesTypeII) &&
+        bloc.state.data.getContainedDisease(Diseases.diabetesTypeII).enable) {
       _selectedValue = DiabetesTypes.typeTwo;
       return;
     }
 
-    if (!bloc.state.data.diseasesList.contains(Diseases.diabetesTypeI) &&
-        !bloc.state.data.diseasesList.contains(Diseases.diabetesTypeII)) {
+    if ((bloc.state.data.containsDisease(Diseases.diabetesTypeI) &&
+            !bloc.state.data.getContainedDisease(Diseases.diabetesTypeI).enable) &&
+        (bloc.state.data.containsDisease(Diseases.diabetesTypeII) &&
+            !bloc.state.data.getContainedDisease(Diseases.diabetesTypeII).enable)) {
       _selectedValue = DiabetesTypes.no;
       return;
+    } else {
+      _selectedValue = null;
     }
   }
 

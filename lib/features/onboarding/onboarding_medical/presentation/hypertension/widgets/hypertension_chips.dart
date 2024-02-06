@@ -18,12 +18,13 @@ class _HypertensionChipsState extends State<HypertensionChips> {
 
   @override
   void initState() {
-    final bloc = context.read<MedicalFitnessBloc>();
-
-    _selectedValue =
-        bloc.state.data.diseasesList.contains(Diseases.hypertension) ? YesNoAnswer.yes : YesNoAnswer.no;
-
     super.initState();
+    final bloc = context.read<MedicalFitnessBloc>();
+    _selectedValue = bloc.state.data.containsDisease(Diseases.hypertension)
+        ? bloc.state.data.getContainedDisease(Diseases.hypertension).enable
+            ? YesNoAnswer.yes
+            : YesNoAnswer.no
+        : null;
   }
 
   void _onSelected(YesNoAnswer value) {

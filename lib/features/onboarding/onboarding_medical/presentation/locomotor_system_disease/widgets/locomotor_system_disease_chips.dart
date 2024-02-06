@@ -18,13 +18,13 @@ class _LocomotorSystemDiseaseChipsState extends State<LocomotorSystemDiseaseChip
 
   @override
   void initState() {
-    final bloc = context.read<MedicalFitnessBloc>();
-
-    _selectedValue = bloc.state.data.diseasesList.contains(Diseases.locomotorSystemDisease)
-        ? YesNoAnswer.yes
-        : YesNoAnswer.no;
-
     super.initState();
+    final bloc = context.read<MedicalFitnessBloc>();
+    _selectedValue = bloc.state.data.containsDisease(Diseases.locomotorSystemDisease)
+        ? bloc.state.data.getContainedDisease(Diseases.locomotorSystemDisease).enable
+            ? YesNoAnswer.yes
+            : YesNoAnswer.no
+        : null;
   }
 
   void _onSelected(YesNoAnswer value) {

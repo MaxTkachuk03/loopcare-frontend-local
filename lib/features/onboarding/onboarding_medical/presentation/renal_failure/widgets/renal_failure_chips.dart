@@ -18,12 +18,13 @@ class _RenalFailureChipsState extends State<RenalFailureChips> {
 
   @override
   void initState() {
-    final bloc = context.read<MedicalFitnessBloc>();
-
-    _selectedValue =
-        bloc.state.data.diseasesList.contains(Diseases.renalFailure) ? YesNoAnswer.yes : YesNoAnswer.no;
-
     super.initState();
+    final bloc = context.read<MedicalFitnessBloc>();
+    _selectedValue = bloc.state.data.containsDisease(Diseases.renalFailure)
+        ? bloc.state.data.getContainedDisease(Diseases.renalFailure).enable
+            ? YesNoAnswer.yes
+            : YesNoAnswer.no
+        : null;
   }
 
   void _onSelected(YesNoAnswer value) {
