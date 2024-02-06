@@ -631,6 +631,7 @@
   "weekDates": "{from} to {to} {month}",
   "saveChanges": "Save changes",
   "changesSaved": "Changes have been saved",
+  "saved": "Saved!",
   "thisMealPlannedFor": "This meal is planned for",
   "saveDateError": "You first have to select another date before you can deselect this one",
   "kcal": "kcal",

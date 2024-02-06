@@ -21,7 +21,12 @@ import 'package:loopcare_frontend/features/education/presentation/education_page
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 
 class AssignmentsSavedPage extends StatelessWidget {
-  const AssignmentsSavedPage({super.key});
+  final bool fromDashboard;
+
+  const AssignmentsSavedPage({
+    super.key,
+    required this.fromDashboard,
+  });
 
   _onPressHandler(BuildContext context) {
     context.read<DashboardEducationBloc>().add(const DashboardEducationEvent.getDashboardLessons());

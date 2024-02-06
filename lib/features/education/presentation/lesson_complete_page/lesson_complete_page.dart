@@ -22,6 +22,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
+import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/save_assignment.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_assignment.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_food_logging_feature.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_group_session_feature.dart';
@@ -35,6 +36,7 @@ class LessonCompletePage extends StatefulWidget {
 }
 
 class _LessonCompletePageState extends State<LessonCompletePage> {
+  bool showedAssignment = false;
   @override
   void initState() {
     super.initState();
@@ -64,6 +66,10 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
   _startLessonQuestion(BuildContext context, int lessonId) {
     context.router.push(AssignmentsIntroRoute(lessonId: lessonId, fromDashboard: false));
+
+    setState(() {
+      showedAssignment = true;
+    });
   }
 
   _startFoodPreferences(BuildContext context) {
@@ -193,10 +199,12 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                                   ),
                                 );
 
-                            return UnlockAssignment(
-                              completedAt: state.data.lessonCompletedDate ?? DateTime.now(),
-                              onBtnPressed: () => _startLessonQuestion(context, state.data.lessonId),
-                            );
+                            return showedAssignment
+                                ? const SavedAssignment()
+                                : UnlockAssignment(
+                                    completedAt: state.data.lessonCompletedDate ?? DateTime.now(),
+                                    onBtnPressed: () => _startLessonQuestion(context, state.data.lessonId),
+                                  );
                           }
 
                           return const SizedBox.shrink();
