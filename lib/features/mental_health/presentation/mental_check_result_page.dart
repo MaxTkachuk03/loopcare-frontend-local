@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -94,8 +95,6 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
                   if (currentTest == null) return const SizedBox.shrink();
 
                   final isFinalResults = state.data.isLastTest && state.data.isCompleted;
-
-                  print(isFinalResults);
 
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -256,7 +255,7 @@ class _MentalCheckResultPageState extends State<MentalCheckResultPage> {
     if (state.isLastTest && !state.isCompleted) {
       context
         ..read<MentalHealthBloc>().add(const MentalHealthEvent.setCompleted(true))
-        ..router.pushNamed(AppRoutes.mentalCheckResult);
+        ..router.push(MentalCheckResultRoute(calculationResultsNotNeeded: true));
 
       return;
     }
