@@ -114,7 +114,7 @@ class ChatSocketService {
   }
 
   void _debug(String data) {
-    debugPrint('SocketIO -------: ${DateTime.now().toIso8601String()} on  $data');
+    debugPrint('devcpp ChatSocketIO -------: ${DateTime.now().toIso8601String()} on  $data');
   }
 
   void _onDisconnect(dynamic data) {
