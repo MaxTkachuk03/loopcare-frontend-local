@@ -51,10 +51,10 @@ class SessionCard extends StatelessWidget {
   });
 
   String? _categoryLabel() {
-    if (isCancelled) return LocalizedTexts.cancelled.translation;
-    if (isMissed) return LocalizedTexts.missed.translation;
-    if (sessionMightBeCancelled) return LocalizedTexts.minimumNotReached.translation;
-    if (isFinished) return LocalizedTexts.completed.translation;
+    if (isCancelled) return LocalizedTexts.cancelled.tr();
+    if (isMissed) return LocalizedTexts.missed.tr();
+    if (sessionMightBeCancelled) return LocalizedTexts.minimumNotReached.tr();
+    if (isFinished) return LocalizedTexts.completed.tr();
 
     return null;
   }
@@ -83,7 +83,7 @@ class SessionCard extends StatelessWidget {
                         ),
                         child: SizedBox(
                           width: 135,
-                          height: 180,
+                          height: 220,
                           child: NetworkImageWithCache(url: image),
                         ),
                       ),
@@ -107,17 +107,17 @@ class SessionCard extends StatelessWidget {
                             const SizedBox(height: 10.0),
                             if (preparationMaterialsAvailable && !isCanJoin)
                               CustomOutlinedButton.coral(
-                                label: LocalizedTexts.prepareForSession.translation,
+                                label: LocalizedTexts.prepareForSession.tr(),
                                 onPressed: () => _onBookSeatPressed(context),
                               ),
                             if (isCanJoin && !isCancelledOrMissed)
-                              CustomOutlinedButton.coral(
-                                label: LocalizedTexts.joinSession.translation,
+                              CustomOutlinedButton.coralSmall(
+                                label: LocalizedTexts.joinSession.tr(),
                                 onPressed: () => _onJoinPressed(context),
                               ),
                             if (isCancelledOrMissed && timeSlotsAvailable)
                               CustomOutlinedButton.coral(
-                                label: LocalizedTexts.chooseAnotherTimeslot.translation,
+                                label: LocalizedTexts.chooseAnotherTimeslot.tr(),
                                 onPressed: () => _onBookSeatPressed(context),
                               ),
                           ],
@@ -147,12 +147,12 @@ class SessionCard extends StatelessWidget {
                     children: [
                       if (isCancelled)
                         CustomText.w400(
-                          LocalizedTexts.timeslotCancelled.translation,
+                          LocalizedTexts.timeslotCancelled.tr(),
                           style: context.textTheme.bodySmall?.copyWith(color: AppColors.orangeRegular),
                         ),
                       if (!isCancelled && isMissed)
                         CustomText.w400(
-                          LocalizedTexts.timeslotMissed.translation,
+                          LocalizedTexts.timeslotMissed.tr(),
                           style: context.textTheme.bodySmall?.copyWith(color: AppColors.orangeRegular),
                         ),
                     ],
