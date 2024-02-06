@@ -21,7 +21,7 @@ class MoodEmotionOption extends StatelessWidget {
               .map(
                 (e) => SizedBox(
                   width: width,
-                  child: CustomChoiceChip.orange(
+                  child: CustomChoiceChip.emoji(
                     label: e.value,
                     avatar: e.icon,
                     selected: selectedValues.contains(e),
