@@ -20,11 +20,10 @@ abstract class EducationLesson implements _$EducationLesson {
     required int order,
     required bool isLocked,
     required DateTime? completedAt,
+    required int nextStepUnlockDelay,
   }) = _EducationLesson;
 
-  bool get isCompleted {
-    return completedAt != null;
-  }
+  bool get isCompleted => completedAt != null;
 
   factory EducationLesson.fromJson(Map<String, dynamic> json) => _$EducationLessonFromJson(json);
 }

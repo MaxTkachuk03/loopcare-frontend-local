@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/time_service/time_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -12,6 +14,7 @@ import 'package:loopcare_frontend/features/education/application/education_lesso
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_countdown.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/lesson_state.dart';
 import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 
@@ -70,6 +73,8 @@ class EducationCard extends StatelessWidget {
               final isLessonWithCountDown = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
               final isLocked = lesson.isLocked || isLessonWithCountDown;
 
+              final showCountdown = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
+
               return GestureDetector(
                 onTap: isLocked ? null : () => _onTapHandler(context),
                 child: Container(
@@ -122,28 +127,33 @@ class EducationCard extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                const SizedBox(height: 10.0),
+                                SizedBox(height: showCountdown ? 0 : 10.0),
                                 _getLessonAction(context),
-                                // TODO removed logic with unlocking step after some period of time, maybe will be back if future
-                                // if (lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id)
-                                //   Wrap(
-                                //     children: [
-                                //       const Image(
-                                //         image: AppImages.iconAttention,
-                                //         height: 16.0,
-                                //       ),
-                                //       const SizedBox(width: 6.0),
-                                //       CustomText.w600(
-                                //         '${LocalizedTexts.availableIn.translation}: ',
-                                //         style: context.textTheme.bodySmall,
-                                //       ),
-                                //       EducationCountDown(
-                                //         seconds: lessonWithCountdown.timeRemaining,
-                                //       ),
-                                //     ],
-                                //   ),
-                                // if (lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id)
-                                //   const SizedBox(height: 6.0),
+                                SizedBox(height: showCountdown ? 0 : 10.0),
+                                if (showCountdown)
+                                  Wrap(
+                                    children: [
+                                      CustomText.w600(
+                                        '${LocalizedTexts.availableIn.tr()}: ',
+                                        style: context.textTheme.bodySmall,
+                                      ),
+                                      FutureBuilder<DateTime>(
+                                        future: TimeService.now,
+                                        builder: (context, snapshot) {
+                                          final data = snapshot.data;
+
+                                          if (snapshot.hasData && data != null) {
+                                            return EducationCountDown(
+                                                seconds: lessonWithCountdown.dateTimeWhenUnlock
+                                                    .difference(data)
+                                                    .inSeconds);
+                                          } else {
+                                            return const Text('');
+                                          }
+                                        },
+                                      )
+                                    ],
+                                  ),
                               ],
                             ),
                           ),

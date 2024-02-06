@@ -10,10 +10,9 @@ abstract class LessonWithCountdown implements _$LessonWithCountdown {
   const LessonWithCountdown._();
 
   const factory LessonWithCountdown({
-    required int timeRemaining,
+    required DateTime dateTimeWhenUnlock,
     required EducationLesson lesson,
   }) = _LessonWithCountdown;
 
-  factory LessonWithCountdown.fromJson(Map<String, dynamic> json) =>
-      _$LessonWithCountdownFromJson(json);
+  factory LessonWithCountdown.fromJson(Map<String, dynamic> json) => _$LessonWithCountdownFromJson(json);
 }
