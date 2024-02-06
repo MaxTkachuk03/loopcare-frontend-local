@@ -483,6 +483,7 @@ class LocalizedTexts {
   static const String passedSession = "passedSession";
   static const String cancelledSession = "cancelledSession";
   static const String cancelled = "cancelled";
+  static const String cancel = "cancel";
   static const String missed = "missed";
   static const String minimumNotReached = "minimumNotReached";
   static const String noMoreSeatAvailable = "noMoreSeatAvailable";
@@ -533,6 +534,8 @@ class LocalizedTexts {
   static const String otherPurchaseVendor = "otherPurchaseVendor";
   static const String appStore = "appStore";
   static const String googleMarket = "googleMarket";
+  static const String cancelAccountSubscription = "cancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";

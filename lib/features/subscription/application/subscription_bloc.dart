@@ -55,6 +55,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     on<PurchasedSubscription>(_onPurchasedSubscription);
     on<ErrorVerifyPurchase>(_onErrorVerifyPurchase);
     on<GetActiveSubscription>(_onGetActiveSubscription);
+    on<GetAccountSubscription>(_onGetAccountSubscription);
     on<GetSubscriptionPlans>(_onGetSubscriptionPlans);
     purchaseDetailsStreamSubscription = PurchaseDetailsStreamSubscription(
       onError: (error) => isValidatePastIOSPurchase
@@ -334,6 +335,26 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       );
       add(const SubscriptionEvent.getActiveSubscription());
     }
+  }
+
+  FutureOr<void> _onGetAccountSubscription(
+    GetAccountSubscription event,
+    Emitter<SubscriptionState> emit,
+  ) async {
+    emit(
+      SubscriptionState.loading(state.data.copyWith(isLoading: true)),
+    );
+    final response = await _authenticationService.fetchAccount();
+    response.fold(
+      (error) {
+        emit(SubscriptionState.error(state.data.copyWith(error: error, isLoading: false)));
+      },
+      (r) {
+        emit(
+          SubscriptionState.gotAccountSubscription(state.data.copyWith(isLoading: false, subscription: r.subscription)),
+        );
+      },
+    );
   }
 
   FutureOr<void> _onGetActiveSubscription(

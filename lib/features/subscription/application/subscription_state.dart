@@ -34,6 +34,8 @@ class SubscriptionState with _$SubscriptionState {
   const factory SubscriptionState.gotPlansFromServer(SubscriptionStateData data) = GotPlansFromServer;
 
   const factory SubscriptionState.logout(SubscriptionStateData data) = LogoutState;
+
+  const factory SubscriptionState.gotAccountSubscription(SubscriptionStateData data) = GotAccountSubscription;
 }
 
 @freezed
@@ -51,4 +53,6 @@ class SubscriptionStateData with _$SubscriptionStateData {
   }) = _SubscriptionStateData;
 
   String? get errorMessage => error?.maybeMap(conflict: (s) => s.error.error, orElse: () => null);
+
+  bool get hasSubscription => (subscription?.isActive ?? false) && subscription?.state == 'common';
 }
