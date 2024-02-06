@@ -63,3 +63,6 @@ app.*.map.json
 
 # Flutter Version Manager
 .fvm/*
+/ios/IAPTest.storekit
+/ios/StoreKitTestCertificate.cer
+/env.stag

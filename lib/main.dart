@@ -33,7 +33,8 @@ Future<void> main() async {
     if (kDebugMode) {
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
     } else {
-      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+      //Todo enable = true
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
     }
   }
 

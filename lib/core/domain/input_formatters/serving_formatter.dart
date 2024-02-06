@@ -21,7 +21,7 @@ class ServingRangeFormatter extends TextInputFormatter {
   ) {
     if (newValue.text == '') {
       return const TextEditingValue();
-    } else if (double.parse(newValue.text) <= 0) {
+    } else if (double.parse(newValue.text) < 0) {
       return const TextEditingValue().copyWith(text: '0.1');
     }
 

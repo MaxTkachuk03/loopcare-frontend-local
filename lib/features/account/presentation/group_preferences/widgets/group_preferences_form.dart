@@ -6,7 +6,6 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_butt
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/divider_light.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';

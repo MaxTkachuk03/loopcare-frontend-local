@@ -151,7 +151,7 @@ class SocketService {
   }
 
   void _debug(String data) {
-    debugPrint('SocketIO -------: ${DateTime.now().toIso8601String()} on  $data');
+    debugPrint('devcpp SocketIO -------: ${DateTime.now().toIso8601String()} on  $data');
   }
 
   void _onDisconnect(dynamic data) {

@@ -6,7 +6,8 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/dto/updated_access_token_response.dart';
-import 'package:loopcare_frontend/core/application/dto/updated_refresh_token_response.dart';
+import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
+import 'package:loopcare_frontend/core/application/socket_service_chat/chat_socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart' as dioClient;
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
@@ -20,8 +21,18 @@ class AuthTokenInterceptor extends Interceptor {
   AuthTokenInterceptor(this.authTokenManager);
 
   List<Map<dynamic, dynamic>> failedRequests = [];
+
+  AuthenticationCubit? get _authenticationCubit => GetIt.instance<AuthenticationCubit>();
   bool isRefreshing = false;
-  int retries = 1;
+  int retries = 3;
+
+  List<Map<dynamic, dynamic>> unique(List<Map<dynamic, dynamic>> list) {
+    final paths = list.map<String>((e) => (e['err'].requestOptions as RequestOptions).uri.toString()).toSet();
+    list.retainWhere((Map x) {
+      return paths.remove((x['err'].requestOptions as RequestOptions).uri.toString());
+    });
+    return list;
+  }
 
   @override
   Future<void> onRequest(
@@ -44,51 +55,55 @@ class AuthTokenInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     debugPrint(
-        'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}, IS REFRESHING: ${isRefreshing.toString()}');
-    if (err.response?.statusCode == 401) {
+        ' devcpp ERROR[${err.response?.statusCode}] => URI: ${err.requestOptions.uri}, IS REFRESHING: ${isRefreshing.toString()}');
+
+    if (err.response?.statusCode == 401 || err.response?.statusCode == 402) {
+      debugPrint("devcpp ATTEMPT: ${err.requestOptions.retryAttempt}");
+      if (err.requestOptions.retryAttempt == retries) {
+        debugPrint("devcpp LOGGING OUT: ATTEMPTS finished");
+        _clearBeforeLogout();
+        return handler.resolve(err.response!);
+      }
       final token = await _getToken();
       if (token.isEmpty) {
         debugPrint("devcpp LOGGING OUT: NO REFRESH TOKEN FOUND");
-        // perform logout
-        GetIt.instance<AuthenticationCubit>().logout();
+        _clearBeforeLogout();
         return handler.reject(err);
       }
-
+      final attempt = err.requestOptions.retryAttempt + 1;
+      err.requestOptions.retryAttempt = attempt;
       if (!isRefreshing) {
         debugPrint("devcpp ACCESS TOKEN EXPIRED, GETTING NEW TOKEN PAIR");
         isRefreshing = true;
         await refreshToken(err, handler);
       } else {
-        debugPrint("devcpp ADDING ERRRORED REQUEST TO FAILED QUEUE");
+        debugPrint("devcpp ADDING  TO FAILED QUEUE => URI: ${err.requestOptions.uri}");
         failedRequests.add({'err': err, 'handler': handler});
+        failedRequests = unique(failedRequests);
       }
     } else {
       return handler.next(err);
     }
   }
 
+  void _clearBeforeLogout() {
+    isRefreshing = false;
+    failedRequests = [];
+    _authenticationCubit?.logout();
+  }
+
   FutureOr refreshToken(DioException err, ErrorInterceptorHandler handler) async {
-    // handle refresh token
-    if (err.requestOptions.retryAttempt == retries) {
-      debugPrint("devcpp LOGGING OUT: RETRY ATTEMPT FINISHED");
-      GetIt.instance<AuthenticationCubit>().logout();
-      return handler.reject(err);
-    }
-    final attempt = err.requestOptions.retryAttempt + 1;
-    err.requestOptions.retryAttempt = attempt;
-
-    var isRefreshed = await _refreshToken();
-    if (!isRefreshed) {
-      // handle logout
+    var refreshed = await _refreshToken();
+    if (!refreshed) {
       debugPrint("devcpp LOGGING OUT: EXPIRED REFRESH TOKEN");
-      GetIt.instance<AuthenticationCubit>().logout();
+      _clearBeforeLogout();
       return handler.reject(err);
     }
-
-    // handle setting tokens in your store for future requests
-
+    debugPrint("devcpp ADDING  TO QUEUE => URI: ${err.requestOptions.uri}");
     isRefreshing = false;
     failedRequests.add({'err': err, 'handler': handler});
+    failedRequests = unique(failedRequests);
+
     debugPrint("devcpp RETRYING ${failedRequests.length} FAILED REQUEST(s)");
     final token = await _getToken();
     retryRequests(token);
@@ -96,13 +111,15 @@ class AuthTokenInterceptor extends Interceptor {
 
   Future retryRequests(token) async {
     for (var i = 0; i < failedRequests.length; i++) {
-      debugPrint('devcpp RETRYING[$i] => PATH: ${failedRequests[i]['err'].requestOptions.path}');
       RequestOptions requestOptions = failedRequests[i]['err'].requestOptions as RequestOptions;
+      debugPrint('devcpp RETRYING[$i] => Uri: ${requestOptions.uri}');
       requestOptions.headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
       await dioOptions.fetch(requestOptions).then(
-            failedRequests[i]['handler'].resolve,
-            onError: (error) => failedRequests[i]['handler'].reject(error as DioException),
-          );
+        failedRequests[i]['handler'].resolve,
+        onError: (error) {
+          return failedRequests[i]['handler'].reject(error as DioException);
+        },
+      );
     }
     isRefreshing = false;
     failedRequests = [];
@@ -119,11 +136,9 @@ class AuthTokenInterceptor extends Interceptor {
     final request = await dioClient
         .handleProcess(dioOptions.post('/auth/accessToken', data: {'refreshToken': token}))
         .then(parseResponse(UpdatedAccessTokenResponse.fromJson));
-    debugPrint('devcpp updateAccessToken: ${request.toString()}');
     request.fold(
       (error) {
-        authTokenManager.removeRefreshToken();
-        authTokenManager.removeAccessToken();
+        _clearBeforeLogout();
       },
       (response) {
         authTokenManager.setAccessToken(response.accessToken);
@@ -132,31 +147,13 @@ class AuthTokenInterceptor extends Interceptor {
     return request.isRight();
   }
 
-  Future<bool> updateRefreshToken() async {
-    final token = await authTokenManager.getRefreshToken();
-
-    if (token == null) return false;
-
-    final request = await dioClient
-        .handleProcess(dioOptions.post('/auth/refreshToken', data: {'refreshToken': token}))
-        .then(parseResponse(UpdatedRefreshTokenResponse.fromJson));
-    debugPrint('devcpp updateRefreshToken: ${request.toString()}');
-    request.fold(
-      (error) {
-        authTokenManager.removeRefreshToken();
-        authTokenManager.removeAccessToken();
-      },
-      (response) {
-        authTokenManager.setRefreshToken(response.refreshToken);
-      },
-    );
-    return request.isRight();
-  }
-
   Future<bool> _refreshToken() async {
     final accessTokenIsUpdated = await updateAccessToken();
-    final refreshTokenIsUpdated = await updateRefreshToken();
-    return accessTokenIsUpdated && refreshTokenIsUpdated;
+    if (accessTokenIsUpdated) {
+      SocketService.instance.reconnect();
+      ChatSocketService.instance.reconnect();
+    }
+    return accessTokenIsUpdated;
   }
 }
 

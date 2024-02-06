@@ -4,12 +4,15 @@ class AppRoutes {
   static const String proxy = '/proxy'; // added
   static const String preIntro = '/pre-intro'; //added
   static const String intro = '/intro'; // added
+  static const String accessCode = '/access-code'; // added
   static const String joinUs = '/join-us'; // added
   static const String login = '/login'; //added
   static const String forgotPassword = '/forgot-password';
 
   // Onboarding Physical
   static const String physicalIntro = '/physical-intro';
+  static const String subscription = '/subscription';
+  static const String manageSubscription = '/manage-subscription';
   static const String birthday = '/birthday'; // added
   static const String checkFailedByAge = '/failed-age'; // added
   static const String sex = '/sex'; // added

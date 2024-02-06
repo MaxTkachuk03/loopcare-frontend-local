@@ -33,11 +33,11 @@ class AccountResponse {
   final DiabetesType? diabetes;
   final FoodPreferences? foodPreferences;
   final GroupingPreferences? groupingPreferences;
+  final Subscription subscription;
   @JsonKey(unknownEnumValue: UnlockedFeatureType.unknown)
   final List<UnlockedFeatureType> unlockedFeatures;
   final MentalHealthTests? mentalHealthTests;
   final PhysicalActivitiesPreferences? physicalActivitiesPreferences;
-  final Subscription subscription;
 
   const AccountResponse({
     required this.id,

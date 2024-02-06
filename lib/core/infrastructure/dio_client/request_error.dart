@@ -35,4 +35,6 @@ class RequestError with _$RequestError {
   const factory RequestError.connection(DioException error) = _Connection;
 
   const factory RequestError.unhandledError(dynamic error) = _Unhandled;
+
+  const factory RequestError.streamSubscription(dynamic error) = _StreamSubscription;
 }

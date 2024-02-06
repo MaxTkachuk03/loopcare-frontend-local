@@ -136,8 +136,7 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
                           children: GenderPreferences.values.map(
                             (GenderPreferences value) {
                               final gender = context.read<AuthenticationCubit>().state.gender;
-                              final shouldRemoveMale =
-                                  gender == SexType.male && value == GenderPreferences.femaleOnly;
+                              final shouldRemoveMale = gender == SexType.male && value == GenderPreferences.femaleOnly;
                               final shouldRemoveFemale =
                                   gender == SexType.female && value == GenderPreferences.maleOnly;
 

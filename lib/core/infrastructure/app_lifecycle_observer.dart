@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/dto/updated_access_token_response.dart';
-import 'package:loopcare_frontend/core/application/dto/updated_refresh_token_response.dart';
+import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
+import 'package:loopcare_frontend/core/application/socket_service_chat/chat_socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart' as dioClient;
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
@@ -20,16 +21,13 @@ class AppLifeCycleStateListener extends StatefulWidget {
 class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
   late final AppLifecycleListener lifeCycleListener;
   late AuthTokenManager authTokenManager;
-  late AuthenticationCubit? _authenticationCubit;
+  AuthenticationCubit? get _authenticationCubit => GetIt.instance<AuthenticationCubit>();
 
   @override
   void initState() {
     authTokenManager = GetIt.instance<AuthTokenManager>();
-    _authenticationCubit = GetIt.instance<AuthenticationCubit>();
     lifeCycleListener = AppLifecycleListener(
       onStateChange: _onLifeCycleChanged,
-      onDetach: _onDetach,
-      onPause: _onPause,
       onResume: _onResume,
     );
     super.initState();
@@ -56,10 +54,6 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
     }
   }
 
-  _onDetach() => debugPrint('devcpp on Detach');
-
-  _onPause() => debugPrint('devcpp on Pause');
-
   _onResume() {
     _refreshTokenState();
     _syncChatState();
@@ -78,8 +72,7 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
         .then(parseResponse(UpdatedAccessTokenResponse.fromJson));
     request.fold(
       (error) {
-        authTokenManager.removeRefreshToken();
-        authTokenManager.removeAccessToken();
+        _authenticationCubit?.logout();
       },
       (response) {
         authTokenManager.setAccessToken(response.accessToken);
@@ -88,31 +81,13 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
     return request.isRight();
   }
 
-  Future<bool> updateRefreshToken() async {
-    final token = await authTokenManager.getRefreshToken();
-
-    if (token == null) return false;
-
-    final request = await dioClient
-        .handleProcess(dioOptions.post('/auth/refreshToken', data: {'refreshToken': token}))
-        .then(parseResponse(UpdatedRefreshTokenResponse.fromJson));
-    request.fold(
-      (error) {
-        authTokenManager.removeRefreshToken();
-        authTokenManager.removeAccessToken();
-      },
-      (response) {
-        authTokenManager.setRefreshToken(response.refreshToken);
-      },
-    );
-    return request.isRight();
-  }
-
   Future<bool> _refreshToken() async {
     final accessTokenIsUpdated = await updateAccessToken();
-    final refreshTokenIsUpdated = await updateRefreshToken();
-    final isRefreshed = accessTokenIsUpdated && refreshTokenIsUpdated;
-    return isRefreshed;
+    if (accessTokenIsUpdated) {
+      SocketService.instance.reconnect();
+      ChatSocketService.instance.reconnect();
+    }
+    return accessTokenIsUpdated;
   }
 
   void _syncChatState() => _authenticationCubit?.syncChatState();

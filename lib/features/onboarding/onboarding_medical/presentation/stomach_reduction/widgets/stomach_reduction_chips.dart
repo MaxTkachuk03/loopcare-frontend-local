@@ -18,13 +18,13 @@ class _StomachReductionChipsState extends State<StomachReductionChips> {
 
   @override
   void initState() {
-    final bloc = context.read<MedicalFitnessBloc>();
-
-    _selectedValue = bloc.state.data.diseasesList.contains(Diseases.stomachReductionDisease)
-        ? YesNoAnswer.yes
-        : YesNoAnswer.no;
-
     super.initState();
+    final bloc = context.read<MedicalFitnessBloc>();
+    _selectedValue = bloc.state.data.containsDisease(Diseases.stomachReductionDisease)
+        ? bloc.state.data.getContainedDisease(Diseases.stomachReductionDisease).enable
+            ? YesNoAnswer.yes
+            : YesNoAnswer.no
+        : null;
   }
 
   void _onSelected(YesNoAnswer value) {
