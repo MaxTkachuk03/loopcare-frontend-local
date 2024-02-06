@@ -16,8 +16,8 @@ class LoginResponse {
   final String? country;
   final SexType gender;
   final String bioGender;
-  final DateTime emailApproveDate;
   final Subscription subscription;
+  final DateTime emailApproveDate;
 
   const LoginResponse({
     required this.accessToken,
@@ -28,8 +28,8 @@ class LoginResponse {
     required this.country,
     required this.gender,
     required this.bioGender,
-    required this.emailApproveDate,
     required this.subscription,
+    required this.emailApproveDate,
   });
 
   static LoginResponse fromJson(Map<String, dynamic> json) => _$LoginResponseFromJson(json);

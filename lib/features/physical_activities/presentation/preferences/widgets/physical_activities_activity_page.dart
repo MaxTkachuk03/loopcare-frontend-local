@@ -46,7 +46,7 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
     if (lessonBloc.state.data.questions.isEmpty ||
         lessonBloc.state.data.questions.first.type != LessonQuestionType.quiz) {
       final bloc = context.read<AuthenticationCubit>();
-      bloc.getAccount();
+
       if (!bloc.state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {
         context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
       } else {

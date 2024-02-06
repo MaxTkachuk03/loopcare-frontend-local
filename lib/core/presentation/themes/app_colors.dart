@@ -19,6 +19,8 @@ class AppColors {
 
   static const Color yellowish = Color(0xFFD7BD64);
 
+  static const Color yellowMid = Color(0xFFFEC10D);
+
   static const Color yellowLight = Color(0xFFDDD8C7);
 
   static const Color yellowTrans = Color(0xFFF0F3E7);
@@ -32,6 +34,8 @@ class AppColors {
   static const Color blueLight = Color(0xFFA2E1E4);
 
   static const Color ballBlue = Color(0xFF21ABCD);
+
+  static const Color blueLink = Color(0xFF108E95);
 
   static const Color purple = Color(0xFFBDBAE3);
 

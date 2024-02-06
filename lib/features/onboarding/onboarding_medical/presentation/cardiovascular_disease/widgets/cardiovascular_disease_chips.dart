@@ -18,13 +18,13 @@ class _CardiovascularDiseaseChipsState extends State<CardiovascularDiseaseChips>
 
   @override
   void initState() {
-    final bloc = context.read<MedicalFitnessBloc>();
-
-    _selectedValue = bloc.state.data.diseasesList.contains(Diseases.cardioVascularDisease)
-        ? YesNoAnswer.yes
-        : YesNoAnswer.no;
-
     super.initState();
+    final bloc = context.read<MedicalFitnessBloc>();
+    _selectedValue = bloc.state.data.containsDisease(Diseases.cardioVascularDisease)
+        ? bloc.state.data.getContainedDisease(Diseases.cardioVascularDisease).enable
+            ? YesNoAnswer.yes
+            : YesNoAnswer.no
+        : null;
   }
 
   void _onSelected(YesNoAnswer value) {

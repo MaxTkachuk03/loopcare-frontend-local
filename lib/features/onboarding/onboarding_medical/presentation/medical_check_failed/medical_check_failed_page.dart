@@ -88,7 +88,7 @@ class MedicalCheckFailedPage extends StatelessWidget {
                                   children: state.data.diseasesList
                                       .map((e) => BulletListItem(
                                           text: CustomText.w600(
-                                            e.label,
+                                            e.diseases.label,
                                             style: context.textTheme.bodyMedium,
                                           ),
                                           bulletSize: 18))

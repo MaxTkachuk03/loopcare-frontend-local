@@ -18,12 +18,14 @@ class _MetabolicDiseaseChipsState extends State<MetabolicDiseaseChips> {
 
   @override
   void initState() {
+    super.initState();
     final bloc = context.read<MedicalFitnessBloc>();
 
-    _selectedValue =
-        bloc.state.data.diseasesList.contains(Diseases.metabolicDisease) ? YesNoAnswer.yes : YesNoAnswer.no;
-
-    super.initState();
+    _selectedValue = bloc.state.data.containsDisease(Diseases.metabolicDisease)
+        ? bloc.state.data.getContainedDisease(Diseases.metabolicDisease).enable
+            ? YesNoAnswer.yes
+            : YesNoAnswer.no
+        : null;
   }
 
   void _onSelected(YesNoAnswer value) {

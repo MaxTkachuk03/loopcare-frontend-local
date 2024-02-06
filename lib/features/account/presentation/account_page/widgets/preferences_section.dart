@@ -36,9 +36,8 @@ class PreferencesSection extends StatelessWidget {
   }
 
   String _groupSessionsSubtitle(AuthenticationState state) {
-    var grouped = state.isUserGrouped
-        ? LocalizedTexts.yes.translation.capitalize()
-        : LocalizedTexts.no.translation.capitalize();
+    var grouped =
+        state.isUserGrouped ? LocalizedTexts.yes.translation.capitalize() : LocalizedTexts.no.translation.capitalize();
 
     return "${LocalizedTexts.partOfGroup.translation}: $grouped";
   }
@@ -148,8 +147,7 @@ class PreferencesSection extends StatelessWidget {
                 return SectionItem(
                   title: LocalizedTexts.groupSessions.tr(),
                   subTitle: _groupSessionsSubtitle(state),
-                  onPressHandler:
-                      state.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
+                  onPressHandler: state.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
                 );
               },
             ),

@@ -25,7 +25,13 @@ class NoGroup extends StatelessWidget {
             final endDate = state.data.signedGroupSessionsEndTime ?? DateTime.now();
 
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                CustomText.bitter600(
+                  LocalizedTexts.comingUpThisWeek.tr(),
+                  style: context.textTheme.bodyLarge,
+                ),
+                const SizedBox(height: 18),
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(width: 1, color: AppColors.blueLighter, style: BorderStyle.solid),
@@ -54,8 +60,7 @@ class NoGroup extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const SizedBox(height: 10.0),
-                              CategoryLabel(
-                                  label: LocalizedTexts.completed.tr(), color: AppColors.coralRegular),
+                              CategoryLabel(label: LocalizedTexts.completed.tr(), color: AppColors.coralRegular),
                               const SizedBox(height: 10.0),
                               CustomText.w700(
                                 state.data.weekTopicName,
@@ -82,6 +87,8 @@ class NoGroup extends StatelessWidget {
                     ],
                   ),
                 ),
+                const SizedBox(height: 18),
+                CustomText.w400(LocalizedTexts.nextWeekTopic.tr(), style: context.textTheme.bodyMedium),
               ],
             );
           },

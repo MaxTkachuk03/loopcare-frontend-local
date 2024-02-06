@@ -59,6 +59,13 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
+  bool get hasActiveSubscription {
+    return maybeWhen(
+      orElse: () => false,
+      authenticated: (state) => state.subscription.isActive && state.subscription.state == 'common',
+    );
+  }
+
   int get id {
     return maybeWhen(
       orElse: () => -1,
@@ -148,8 +155,7 @@ class AuthenticationState with _$AuthenticationState {
 
   bool get isFoodLoggingUnlocked => unlockedFeatures.contains(UnlockedFeatureType.meals);
 
-  bool get isGroupSessionsUnlocked =>
-      unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;
+  bool get isGroupSessionsUnlocked => unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;
 
   bool get isPhysicalActivitiesUnlocked => unlockedFeatures.contains(UnlockedFeatureType.physicalActivities);
 

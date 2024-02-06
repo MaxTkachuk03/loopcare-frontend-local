@@ -27,15 +27,17 @@ class ProgramTypeQuestion extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: ProgramType.values
                   .map(
-                    (e) => SizedBox(
-                      width: 96,
-                      child: CustomChoiceChip.yellow(
-                        label: e.label,
-                        textAlign: TextAlign.center,
-                        selected: state.data.programType == e,
-                        value: e,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        onSelected: e.isAvailable ? (ProgramType value) => _onSelected(context, value) : null,
+                    (e) => Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: CustomChoiceChip.yellow(
+                          label: e.label,
+                          textAlign: TextAlign.center,
+                          selected: state.data.programType == e,
+                          value: e,
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          onSelected: e.isAvailable ? (ProgramType value) => _onSelected(context, value) : null,
+                        ),
                       ),
                     ),
                   )

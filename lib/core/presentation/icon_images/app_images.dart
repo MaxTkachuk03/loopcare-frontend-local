@@ -11,12 +11,13 @@ class AppImages {
 
   static const AssetImage sessionPlaceholder = AssetImage('$imagesFilePath/session_placeholder.png');
 
-  static SvgPicture exclamationMark =
-      SvgPicture.asset('$imagesFilePath/exclamation_mark.svg', fit: BoxFit.scaleDown);
+  static SvgPicture exclamationMark = SvgPicture.asset('$imagesFilePath/exclamation_mark.svg', fit: BoxFit.scaleDown);
 
   static const AssetImage intro = AssetImage('$imagesFilePath/new_intro.png');
 
   static const AssetImage intro2 = AssetImage('$imagesFilePath/new_intro2.png');
+
+  static const AssetImage intro3 = AssetImage('$imagesFilePath/new_intro3.png');
 
   static const AssetImage physicalIntro = AssetImage('$imagesFilePath/new_physical_intro.png');
 
@@ -32,11 +33,9 @@ class AppImages {
 
   static SvgPicture oepsSmall = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 60, height: 60);
 
-  static SvgPicture noConnectionBig =
-      SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 120, height: 120);
+  static SvgPicture noConnectionBig = SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 120, height: 120);
 
-  static SvgPicture noConnectionSmall =
-      SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 60, height: 60);
+  static SvgPicture noConnectionSmall = SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 60, height: 60);
 
   static SvgPicture calorieDensityFoodA = SvgPicture.asset('$imagesFilePath/calorie_dencity_food_a.svg');
 
@@ -46,6 +45,15 @@ class AppImages {
       colorFilter: const ColorFilter.mode(AppColors.blueOffRegular, BlendMode.modulate));
 
   static const AssetImage educationPreview = AssetImage('$imagesFilePath/new_education_preview.png');
+
+  static SvgPicture subscriptionTrialSVG = SvgPicture.asset('$imagesFilePath/subscription_trial.svg');
+  static SvgPicture subscriptionCancelledSVG = SvgPicture.asset(
+    '$imagesFilePath/subscription_trial.svg',
+  );
+  static SvgPicture trialClipperSVG = SvgPicture.asset('$imagesFilePath/trial_clipper.svg');
+  static SvgPicture cancelledClipperSVG = SvgPicture.asset('$imagesFilePath/cancelled_clipper.svg');
+  static const AssetImage trial = AssetImage('$imagesFilePath/trial.png');
+  static const AssetImage ended = AssetImage('$imagesFilePath/ended.png');
 
   AppImages._();
 }

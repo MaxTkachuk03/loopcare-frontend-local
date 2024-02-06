@@ -120,20 +120,17 @@ class SessionRulesPage extends StatelessWidget {
                                 text: TextSpan(
                                   style: context.textTheme.bodyLarge,
                                   children: [
-                                    TextSpan(
-                                        text: '${LocalizedTexts.groupRulesFourParagraphOnePartOne.tr()} '),
+                                    TextSpan(text: '${LocalizedTexts.groupRulesFourParagraphOnePartOne.tr()} '),
                                     TextSpan(
                                       text: '${LocalizedTexts.groupRulesFourParagraphOneItalicOne.tr()} ',
                                       style: const TextStyle(fontStyle: FontStyle.italic),
                                     ),
-                                    TextSpan(
-                                        text: '${LocalizedTexts.groupRulesFourParagraphOnePartTwo.tr()} '),
+                                    TextSpan(text: '${LocalizedTexts.groupRulesFourParagraphOnePartTwo.tr()} '),
                                     TextSpan(
                                       text: '${LocalizedTexts.groupRulesFourParagraphOneItalicTwo.tr()} ',
                                       style: const TextStyle(fontStyle: FontStyle.italic),
                                     ),
-                                    TextSpan(
-                                        text: '${LocalizedTexts.groupRulesFourParagraphOnePartThree.tr()} '),
+                                    TextSpan(text: '${LocalizedTexts.groupRulesFourParagraphOnePartThree.tr()} '),
                                     TextSpan(
                                       text: LocalizedTexts.groupRulesFourParagraphOneItalicThree.tr(),
                                       style: const TextStyle(fontStyle: FontStyle.italic),

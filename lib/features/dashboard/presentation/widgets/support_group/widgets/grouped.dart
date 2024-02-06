@@ -46,15 +46,11 @@ class Grouped extends StatelessWidget {
               children: [
                 if (state.data.isGroupsOnWeekAvailable)
                   CustomText.bitter600(
-                    state.data.isHappeningNow
-                        ? LocalizedTexts.happeningNow.tr()
-                        : LocalizedTexts.comingUpThisWeek.tr(),
+                    state.data.isHappeningNow ? LocalizedTexts.happeningNow.tr() : LocalizedTexts.comingUpThisWeek.tr(),
                     style: context.textTheme.bodyLarge,
                   ),
                 const SizedBox(height: 16.0),
-                if (!state.data.timeSlotsAvailable &&
-                    !state.data.isSigned &&
-                    state.data.isGroupsOnWeekAvailable)
+                if (!state.data.timeSlotsAvailable && !state.data.isSigned && state.data.isGroupsOnWeekAvailable)
                   const GroupedNoTimeslots(),
                 if (state.data.timeSlotsAvailable && !state.data.isSigned)
                   GroupedNotSigned(topicName: state.data.weekTopicName),

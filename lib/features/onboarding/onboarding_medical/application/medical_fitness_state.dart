@@ -20,16 +20,21 @@ class MedicalFitnessData with _$MedicalFitnessData {
     @Default(null) WeightLossMedicationAnswer? weightLossMedication,
     @Default(null) YesNoAnswer? treatmentByTheDoctor,
     @Default([]) List<String> medicines,
-    @Default({}) Set<Diseases> diseasesList,
+    @Default({}) Set<DiseasesState> diseasesList,
     @Default(null) int? age,
     @Default(null) SexType? sexType,
   }) = _MedicalFitnessData;
 
-  bool get hasAtLeastOneDisease => diseasesList.isNotEmpty;
+  bool get hasAtLeastOneDisease => diseasesList.where((item) => item.enable).isNotEmpty;
 
   bool get isTreatedByPsychologist => treatmentByTheDoctor == YesNoAnswer.yes;
 
-  bool get hasCardiovascularDisease => diseasesList.contains(Diseases.cardioVascularDisease);
+  bool get hasCardiovascularDisease =>
+      diseasesList.where((item) => item.diseases == Diseases.cardioVascularDisease && item.enable).isNotEmpty;
+
+  bool containsDisease(Diseases diseases) => diseasesList.where((item) => item.diseases == diseases).isNotEmpty;
+
+  DiseasesState getContainedDisease(Diseases diseases) => diseasesList.where((item) => item.diseases == diseases).first;
 
   factory MedicalFitnessData.fromJson(Map<String, dynamic> json) => _$MedicalFitnessDataFromJson(json);
 }

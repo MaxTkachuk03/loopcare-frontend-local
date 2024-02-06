@@ -1,14 +1,22 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
+import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/emergency_btn.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/interpretation_type.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/mental_health_test_type.dart';
 
 class FinalResultsText extends StatelessWidget {
-  const FinalResultsText({super.key});
+  final Function onLinkPressed;
+
+  const FinalResultsText({super.key, required this.onLinkPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -18,41 +26,45 @@ class FinalResultsText extends StatelessWidget {
         final phq8Result = state.data.results[MentalHealthTestType.phq8]?.interpretation;
         final phq15Result = state.data.results[MentalHealthTestType.phq15]?.interpretation;
 
-        final allAreHigh = gad7Result == InterpretationType.high &&
-            phq8Result == InterpretationType.high &&
-            phq15Result == InterpretationType.high;
         final phq8IsHigh = phq8Result == InterpretationType.high;
-
-        if (allAreHigh || phq8IsHigh) {
+        if (phq8IsHigh) {
           return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                '${LocalizedTexts.weWouldLikeToSupportYou.translation}\n',
-                style: Theme.of(context).textTheme.bodyLarge,
+              CustomText.w400(
+                LocalizedTexts.phq8ResultHighFinal1.tr(),
+                style: context.textTheme.bodyMedium,
               ),
-              Text(
-                '${LocalizedTexts.feelLimitedByMentalOrPhysicalSymptoms.translation}\n',
-                style: Theme.of(context).textTheme.bodyLarge,
+              const SizedBox(height: 16),
+              CustomText.w400(
+                LocalizedTexts.phq8ResultHighFinal2.tr(),
+                style: context.textTheme.bodyMedium,
               ),
-              BulletListItem(
-                bulletSize: 14.0,
-                text: Text(
-                  LocalizedTexts.nutrition,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ).tr(),
+              const SizedBox(height: 16),
+              CustomText.w400(
+                LocalizedTexts.phq8ResultHighFinal3.tr(),
+                style: context.textTheme.bodyMedium,
               ),
-              BulletListItem(
-                bulletSize: 14.0,
-                text: Text(
-                  LocalizedTexts.exercise,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ).tr(),
+              const SizedBox(height: 16),
+              RichText(
+                text: TextSpan(
+                  style: context.textTheme.bodyMedium?.copyWith(color: AppColors.blueAppBar),
+                  text: psychologistConsultingLink,
+                  recognizer: TapGestureRecognizer()..onTap = () => onLinkPressed(context),
+                ),
               ),
-              Text(
-                '\n${LocalizedTexts.youAreWelcomeToRepeatTests.translation}',
-                style: Theme.of(context).textTheme.bodyLarge,
+              const SizedBox(height: 16),
+              CustomText.w400(
+                LocalizedTexts.phq8ResultHighFinal4.tr(),
+                style: context.textTheme.bodyMedium,
               ),
+              const SizedBox(height: 16),
+              CustomText.w400(
+                LocalizedTexts.ifYouHaveSuicidalThoughts.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              const EmergencyBtn()
             ],
           );
         }
@@ -64,43 +76,48 @@ class FinalResultsText extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '${LocalizedTexts.weWouldLikeToSupportYou.translation}\n',
-                style: Theme.of(context).textTheme.bodyLarge,
+              CustomText.w400(
+                LocalizedTexts.tailorProgramToYouPersonally.tr(),
+                style: context.textTheme.bodyMedium,
               ),
-              Text(
-                '${LocalizedTexts.feelLimitedByAnxietyOrPhysicalSymptoms.translation}\n',
-                style: Theme.of(context).textTheme.bodyLarge,
+              const SizedBox(height: 16),
+              CustomText.w400(
+                LocalizedTexts.feelLimitedByAnxietyOrPhysicalSymptoms.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              CustomText.w400(
+                LocalizedTexts.learnManyThings.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              CustomText.w400(
+                LocalizedTexts.unlockAllSections.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              BulletListItem(
+                bulletSize: 14.0,
+                text: CustomText.w400(LocalizedTexts.nutrition.tr(), style: context.textTheme.bodyMedium),
               ),
               BulletListItem(
                 bulletSize: 14.0,
-                text: Text(
-                  LocalizedTexts.nutrition,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ).tr(),
+                text: CustomText.w400(LocalizedTexts.exercise.tr(), style: context.textTheme.bodyMedium),
               ),
               BulletListItem(
                 bulletSize: 14.0,
-                text: Text(
-                  LocalizedTexts.exercise,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ).tr(),
+                text: CustomText.w400(LocalizedTexts.mentalHealth.tr(), style: context.textTheme.bodyMedium),
               ),
               BulletListItem(
                 bulletSize: 14.0,
-                text: Text(
-                  LocalizedTexts.mentalHealth,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ).tr(),
+                text: CustomText.w400(LocalizedTexts.findBuddyAndGetIntoSupportGroup.tr(),
+                    style: context.textTheme.bodyMedium),
               ),
-              Text(
-                '\n${LocalizedTexts.weAreNotOverloadYou.translation}\n',
-                style: Theme.of(context).textTheme.bodyLarge,
+              const SizedBox(height: 16),
+              CustomText.w400(
+                LocalizedTexts.weWillGuideYou.tr(),
+                style: context.textTheme.bodyMedium,
               ),
-              Text(
-                LocalizedTexts.pleaseAppreciateThat,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ).tr(),
             ],
           );
         }
@@ -109,43 +126,69 @@ class FinalResultsText extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '${LocalizedTexts.weWouldLikeToSupportYou.translation}\n',
-                style: Theme.of(context).textTheme.bodyLarge,
+              CustomText.w400(
+                LocalizedTexts.tailorProgramToYouPersonally.tr(),
+                style: context.textTheme.bodyMedium,
               ),
-              Text(
-                '${LocalizedTexts.feelLimitedByPhysicalSymptoms.translation}\n',
-                style: Theme.of(context).textTheme.bodyLarge,
+              const SizedBox(height: 16),
+              CustomText.w400(
+                LocalizedTexts.feelLimitedByPhysicalSymptoms.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              CustomText.w400(
+                LocalizedTexts.notATherapy.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              CustomText.w400(
+                LocalizedTexts.learnManyThings.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              CustomText.w400(
+                LocalizedTexts.unlockAllSections.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              CustomText.w400(
+                LocalizedTexts.theFollowingAreasAreUnlocked.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              BulletListItem(
+                bulletSize: 14.0,
+                text: CustomText.w400(
+                  LocalizedTexts.nutrition.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
               ),
               BulletListItem(
                 bulletSize: 14.0,
-                text: Text(
-                  LocalizedTexts.nutrition,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ).tr(),
+                text: CustomText.w400(
+                  LocalizedTexts.exercise.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
               ),
               BulletListItem(
                 bulletSize: 14.0,
-                text: Text(
-                  LocalizedTexts.exercise,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ).tr(),
+                text: CustomText.w400(
+                  LocalizedTexts.mentalHealth.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
               ),
               BulletListItem(
                 bulletSize: 14.0,
-                text: Text(
-                  LocalizedTexts.mentalHealth,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ).tr(),
+                text: CustomText.w400(
+                  LocalizedTexts.findBuddyAndGetIntoSupportGroup.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
               ),
-              Text(
-                '\n${LocalizedTexts.weAreNotOverloadYou.translation}\n',
-                style: Theme.of(context).textTheme.bodyLarge,
+              const SizedBox(height: 16),
+              CustomText.w400(
+                LocalizedTexts.weWillGuideYou.tr(),
+                style: context.textTheme.bodyMedium,
               ),
-              Text(
-                LocalizedTexts.pleaseAppreciateThat,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ).tr(),
             ],
           );
         }
@@ -154,43 +197,69 @@ class FinalResultsText extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '${LocalizedTexts.weWouldLikeToSupportYou.translation}\n',
-                style: Theme.of(context).textTheme.bodyLarge,
+              CustomText.w400(
+                LocalizedTexts.tailorProgramToYouPersonally.tr(),
+                style: context.textTheme.bodyMedium,
               ),
-              Text(
-                '${LocalizedTexts.feelLimitedByAnxietySymptoms.translation}\n',
-                style: Theme.of(context).textTheme.bodyLarge,
+              const SizedBox(height: 16),
+              CustomText(
+                LocalizedTexts.feelLimitedByAnxietySymptoms.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              CustomText(
+                LocalizedTexts.notATherapy.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              CustomText(
+                LocalizedTexts.learnManyThings.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              CustomText(
+                LocalizedTexts.unlockAllSections.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              CustomText(
+                LocalizedTexts.theFollowingAreasAreUnlocked.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              BulletListItem(
+                bulletSize: 14.0,
+                text: CustomText(
+                  LocalizedTexts.nutrition.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
               ),
               BulletListItem(
                 bulletSize: 14.0,
-                text: Text(
-                  LocalizedTexts.nutrition,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ).tr(),
+                text: CustomText(
+                  LocalizedTexts.exercise.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
               ),
               BulletListItem(
                 bulletSize: 14.0,
-                text: Text(
-                  LocalizedTexts.exercise,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ).tr(),
+                text: CustomText(
+                  LocalizedTexts.mentalHealth.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
               ),
               BulletListItem(
                 bulletSize: 14.0,
-                text: Text(
-                  LocalizedTexts.mentalHealth,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ).tr(),
+                text: CustomText(
+                  LocalizedTexts.findBuddyAndGetIntoSupportGroup.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
               ),
-              Text(
-                '\n${LocalizedTexts.weAreNotOverloadYou.translation}\n',
-                style: Theme.of(context).textTheme.bodyLarge,
+              const SizedBox(height: 16),
+              CustomText(
+                LocalizedTexts.weWillGuideYou.tr(),
+                style: context.textTheme.bodyMedium,
               ),
-              Text(
-                LocalizedTexts.pleaseAppreciateThat,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ).tr(),
             ],
           );
         }
@@ -203,43 +272,69 @@ class FinalResultsText extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '${LocalizedTexts.weWouldLikeToSupportYou.translation}\n',
-                style: Theme.of(context).textTheme.bodyLarge,
+              CustomText.w400(
+                LocalizedTexts.weWouldLikeToSupportYou.tr(),
+                style: context.textTheme.bodyMedium,
               ),
-              Text(
-                '${LocalizedTexts.youHaveBurdenInSeveralFields.translation}\n',
-                style: Theme.of(context).textTheme.bodyLarge,
+              const SizedBox(height: 16),
+              CustomText(
+                LocalizedTexts.youHaveBurdenInSeveralFields.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              CustomText(
+                LocalizedTexts.notATherapy.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              CustomText(
+                LocalizedTexts.learnManyThings.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              CustomText(
+                LocalizedTexts.unlockAllSections.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              CustomText(
+                LocalizedTexts.theFollowingAreasAreUnlocked.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              BulletListItem(
+                bulletSize: 14.0,
+                text: CustomText(
+                  LocalizedTexts.nutrition.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
               ),
               BulletListItem(
                 bulletSize: 14.0,
-                text: Text(
-                  LocalizedTexts.nutrition,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ).tr(),
+                text: CustomText(
+                  LocalizedTexts.exercise.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
               ),
               BulletListItem(
                 bulletSize: 14.0,
-                text: Text(
-                  LocalizedTexts.exercise,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ).tr(),
+                text: CustomText(
+                  LocalizedTexts.mentalHealth.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
               ),
               BulletListItem(
                 bulletSize: 14.0,
-                text: Text(
-                  LocalizedTexts.mentalHealth,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ).tr(),
+                text: CustomText(
+                  LocalizedTexts.findBuddyAndGetIntoSupportGroup.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
               ),
-              Text(
-                '\n${LocalizedTexts.weAreNotOverloadYou.translation}\n',
-                style: Theme.of(context).textTheme.bodyLarge,
+              const SizedBox(height: 16),
+              CustomText(
+                LocalizedTexts.weWillGuideYou.tr(),
+                style: context.textTheme.bodyMedium,
               ),
-              Text(
-                LocalizedTexts.pleaseAppreciateThat,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ).tr(),
             ],
           );
         }
@@ -247,45 +342,53 @@ class FinalResultsText extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              LocalizedTexts.weTailorTheProgramToYouPersonally,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ).tr(),
-            Text(
-              '\n${LocalizedTexts.theFollowingAreasAreUnlocked.translation}\n',
-              style: Theme.of(context).textTheme.bodyLarge,
+            CustomText.w400(
+              LocalizedTexts.tailorProgramToYouPersonally.tr(),
+              style: context.textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 16),
+            CustomText(
+              LocalizedTexts.unlockAllSections.tr(),
+              style: context.textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 16),
+            CustomText(
+              LocalizedTexts.theFollowingAreasAreUnlocked.tr(),
+              style: context.textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 16),
+            BulletListItem(
+              bulletSize: 14.0,
+              text: CustomText(
+                LocalizedTexts.nutrition.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
             ),
             BulletListItem(
               bulletSize: 14.0,
-              text: Text(
-                LocalizedTexts.nutrition,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ).tr(),
+              text: CustomText(
+                LocalizedTexts.exercise.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
             ),
             BulletListItem(
               bulletSize: 14.0,
-              text: Text(
-                LocalizedTexts.exercise,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ).tr(),
+              text: CustomText(
+                LocalizedTexts.mentalHealth.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
             ),
             BulletListItem(
               bulletSize: 14.0,
-              text: Text(
-                LocalizedTexts.mentalHealth,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ).tr(),
+              text: CustomText(
+                LocalizedTexts.findBuddyAndGetIntoSupportGroup.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
             ),
-            BulletListItem(
-              bulletSize: 14.0,
-              text: Text(
-                LocalizedTexts.findBuddyAndGetIntoSupportGroup,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ).tr(),
-            ),
-            Text(
-              '\n${LocalizedTexts.weWillGuideYou.translation}',
-              style: Theme.of(context).textTheme.bodyLarge,
+            const SizedBox(height: 16),
+            CustomText(
+              LocalizedTexts.weWillGuideYou.tr(),
+              style: context.textTheme.bodyMedium,
             ),
           ],
         );

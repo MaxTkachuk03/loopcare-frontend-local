@@ -28,6 +28,8 @@ class LocalizedTexts {
   static const String enterYourHeight = 'enterYourHeight';
   static const String emailOrPasswordAreIncorrect = 'emailOrPasswordAreIncorrect';
   static const String forgotEmailSuccessMessage = 'forgotEmailSuccessMessage';
+  static const String pleaseEnterRegistrationCode = 'pleaseEnterRegistrationCode';
+  static const String pleaseEnterValidRegistrationCode = 'pleaseEnterValidRegistrationCode';
 
   // Food and You
   static const String youAndFoodItemThree = 'youAndFoodItemThree';
@@ -119,6 +121,7 @@ class LocalizedTexts {
   static const String weekDates = 'weekDates';
   static const String saveChanges = 'saveChanges';
   static const String changesSaved = 'changesSaved';
+  static const String saved = 'saved';
   static const String thisMealPlannedFor = 'thisMealPlannedFor';
   static const String saveDateError = 'saveDateError';
   static const String yesReplace = 'yesReplace';
@@ -365,6 +368,12 @@ class LocalizedTexts {
   static const String genderPreferencesQuestion = 'genderPreferencesQuestion';
   static const String nicknamePreferencesQuestion = 'nicknamePreferencesQuestion';
   static const String nicknamePlaceholder = 'nicknamePlaceholder';
+  static const String registrationCodePlaceholder = 'registrationCodePlaceholder';
+  static const String registrationCodeTitle = 'registrationCodeTitle';
+  static const String registrationCodeLabel = 'registrationCodeLabel';
+  static const String checkAccessCode = 'checkAccessCode';
+  static const String noAccessCodeYet = 'checkAccessCode';
+  static const String requestCode = 'requestCode';
   static const String at = 'at';
   static const String joinAGroup = 'joinAGroup';
   static const String unavailableGroupPrefsLabel = 'unavailableGroupPrefsLabel';
@@ -457,15 +466,10 @@ class LocalizedTexts {
 
   // Mental Health
   static const String weWouldLikeToSupportYou = "weWouldLikeToSupportYou";
-  static const String feelLimitedByMentalOrPhysicalSymptoms = "feelLimitedByMentalOrPhysicalSymptoms";
   static const String feelLimitedByAnxietyOrPhysicalSymptoms = "feelLimitedByAnxietyOrPhysicalSymptoms";
   static const String feelLimitedByPhysicalSymptoms = "feelLimitedByPhysicalSymptoms";
   static const String feelLimitedByAnxietySymptoms = "feelLimitedByAnxietySymptoms";
   static const String youHaveBurdenInSeveralFields = "youHaveBurdenInSeveralFields";
-  static const String youAreWelcomeToRepeatTests = "youAreWelcomeToRepeatTests";
-  static const String weAreNotOverloadYou = "weAreNotOverloadYou";
-  static const String pleaseAppreciateThat = "pleaseAppreciateThat";
-  static const String weTailorTheProgramToYouPersonally = "weTailorTheProgramToYouPersonally";
   static const String theFollowingAreasAreUnlocked = "theFollowingAreasAreUnlocked";
   static const String weWillGuideYou = "weWillGuideYou";
   static const String findBuddyAndGetIntoSupportGroup = "findBuddyAndGetIntoSupportGroup";
@@ -496,6 +500,39 @@ class LocalizedTexts {
   static const String personalNote = "personalNote";
   static const String moodOptionPageEmotionTitle = "moodOptionPageEmotionTitle";
   static const String deleteMood = "deleteMood";
+
+  //Subscription
+  static const String subscription = "subscription";
+  static const String manageSubscription = "manageSubscription";
+  static const String subscriptionTrialTitle = "subscriptionTrialTitle";
+  static const String subscriptionTrialLabel = "subscriptionTrialLabel";
+  static const String subscriptionTrialExpiredTitle = "subscriptionTrialExpiredTitle";
+  static const String subscriptionTrialExpiredLabel1 = "subscriptionTrialExpiredLabel1";
+  static const String subscriptionTrialExpiredLabel2 = "subscriptionTrialExpiredLabel2";
+  static const String subscriptionEndedTitle = "subscriptionEndedTitle";
+  static const String subscriptionEndedLabel1 = "subscriptionEndedLabel1";
+  static const String subscriptionEndedLabel2 = "subscriptionEndedLabel2";
+  static const String subscriptionCancelledTitle = "subscriptionCancelledTitle";
+  static const String subscriptionCancelledLabel1 = "subscriptionCancelledLabel1";
+  static const String subscriptionCancelledLabel2 = "subscriptionCancelledLabel2";
+  static const String subscriptionRenewedTitle = "subscriptionRenewedTitle";
+  static const String subscriptionRenewedLabel = "subscriptionRenewedLabel";
+  static const String subscriptionRestoreLabel = "subscriptionRestoreLabel";
+  static const String subscriptionTermsLabel = "subscriptionTermsLabel";
+  static const String subscriptionAnnual = "subscriptionAnnual";
+  static const String subscriptionMonthly = "subscriptionMonthly";
+  static const String subscriptionSubscribe = "subscriptionSubscribe";
+  static const String subscriptionRedeem = "subscriptionRedeem";
+  static const String subscriptionPrice1 = "subscriptionPrice1";
+  static const String subscriptionPrice2 = "subscriptionPrice2";
+  static const String subscriptionType = "subscriptionType";
+  static const String subscriptionVia = "subscriptionVia";
+  static const String memberSince = "memberSince";
+  static const String automaticRenewalOn = "automaticRenewalOn";
+  static const String serviceUnavailable = "serviceUnavailable";
+  static const String otherPurchaseVendor = "otherPurchaseVendor";
+  static const String appStore = "appStore";
+  static const String googleMarket = "googleMarket";
 
   // Quizzes
   static const String quiz = "quiz";
@@ -729,6 +766,15 @@ class LocalizedTexts {
   static const String phq8ResultMedium = "phq8ResultMedium";
   static const String phq8ResultHigh = "phq8ResultHigh";
   static const String phq8ResultHighest = "phq8ResultHighest";
+  static const String phq8ResultHighFinal1 = "phq8ResultHighFinal1";
+  static const String phq8ResultHighFinal2 = "phq8ResultHighFinal2";
+  static const String phq8ResultHighFinal3 = "phq8ResultHighFinal3";
+  static const String phq8ResultHighFinal4 = "phq8ResultHighFinal4";
+  static const String tailorProgramToYouPersonally = "tailorProgramToYouPersonally";
+  static const String learnManyThings = "learnManyThings";
+  static const String unlockAllSections = "unlockAllSections";
+  static const String notATherapy = "notATherapy";
+  static const String phq8Fail = "phq8Fail";
   static const String generalWellBeingSummary = "generalWellBeingSummary";
   static const String bodyAndMindBalanceSummary = "bodyAndMindBalanceSummary";
   static const String stateOfMindSummary = "stateOfMindSummary";
@@ -817,6 +863,7 @@ class LocalizedTexts {
   static const String groupSession = 'groupSession';
   static const String supportGroupPainSubscriptionNotGrouped = 'supportGroupPainSubscriptionNotGrouped';
   static const String supportGroupTrialSubscriptionNotGrouped = 'supportGroupTrialSubscriptionNotGrouped';
+  static const String nextWeekTopic = 'nextWeekTopic';
 
   // Update bottom sheet
   static const String updateRequired = 'updateRequired';

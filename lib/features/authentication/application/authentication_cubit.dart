@@ -79,8 +79,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
         authTokenManager.setAccessToken(response.accessToken);
         authTokenManager.setRefreshToken(response.refreshToken);
 
-        _socketService.startListen();
-        _chatSocketService.startListen();
+        connectSockets();
 
         emit(
           AuthenticationState.authenticated(
@@ -199,6 +198,11 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     emit(const AuthenticationState.guest());
     _socketService.disconnect();
     _chatSocketService.disconnect();
+  }
+
+  void connectSockets() {
+    _socketService.startListen();
+    _chatSocketService.startListen();
   }
 
   Future<void> authenticatedCheck() async {

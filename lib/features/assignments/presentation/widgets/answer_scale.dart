@@ -74,8 +74,7 @@ class AnswerScale extends StatelessWidget {
                   ],
                 ),
                 if (feedbackText != null) const SizedBox(height: 24.0),
-                if (feedbackText != null)
-                  CustomText.w600(feedbackText ?? '', style: context.textTheme.bodyLarge),
+                if (feedbackText != null) CustomText.w600(feedbackText ?? '', style: context.textTheme.bodyLarge),
               ],
             ),
             Column(

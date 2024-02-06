@@ -18,12 +18,14 @@ class _SleepApneaSyndromeChipsState extends State<SleepApneaSyndromeChips> {
 
   @override
   void initState() {
+    super.initState();
     final bloc = context.read<MedicalFitnessBloc>();
 
-    _selectedValue =
-        bloc.state.data.diseasesList.contains(Diseases.sleepApneaSyndrome) ? YesNoAnswer.yes : YesNoAnswer.no;
-
-    super.initState();
+    _selectedValue = bloc.state.data.containsDisease(Diseases.sleepApneaSyndrome)
+        ? bloc.state.data.getContainedDisease(Diseases.sleepApneaSyndrome).enable
+            ? YesNoAnswer.yes
+            : YesNoAnswer.no
+        : null;
   }
 
   void _onSelected(YesNoAnswer value) {

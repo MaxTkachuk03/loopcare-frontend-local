@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -16,6 +17,7 @@ class IntroGuard extends AutoRouteGuard {
   ConsentConfirmationBloc consentConfirmationBloc;
   LegalStatementBloc legalStatementBloc;
   MentalHealthBloc mentalHealthBloc;
+  AuthTokenManager authTokenManager;
 
   IntroGuard(
     this.authenticationCubit,
@@ -23,6 +25,7 @@ class IntroGuard extends AutoRouteGuard {
     this.consentConfirmationBloc,
     this.legalStatementBloc,
     this.mentalHealthBloc,
+    this.authTokenManager,
   );
 
   List<PageRouteInfo> _getMentalHealthRoutes() {
@@ -33,10 +36,7 @@ class IntroGuard extends AutoRouteGuard {
         .map((e) {
           final questionRoutes = e.questions.map((e) => const MentalHealthQuestionRoute()).toList();
 
-          return [
-            ...questionRoutes,
-            MentalCheckResultRoute(calculationResultsNotNeeded: true) as PageRouteInfo<void>
-          ];
+          return [...questionRoutes, MentalCheckResultRoute(calculationResultsNotNeeded: true) as PageRouteInfo<void>];
         })
         .expand((element) => element)
         .toList();
@@ -50,9 +50,18 @@ class IntroGuard extends AutoRouteGuard {
 
   @override
   Future<void> onNavigation(NavigationResolver resolver, StackRouter router) async {
+    String route;
     if (authenticationCubit.state.isAuthenticated) {
-      const route = AppRoutes.home;
+      final accessTokenPresent = await authTokenManager.getAccessToken();
+      final refreshTokenPresent = await authTokenManager.getRefreshToken();
 
+      if (!((accessTokenPresent?.isNotEmpty ?? false) && (refreshTokenPresent?.isNotEmpty ?? false))) {
+        route = AppRoutes.login;
+      } else if (authenticationCubit.state.hasActiveSubscription) {
+        route = AppRoutes.home;
+      } else {
+        route = AppRoutes.subscription;
+      }
       MixpanelEventService.instance.trackVisit(
         "${AppMixpanelEvents.appRote}:  $route",
         userId: authenticationCubit.state.id,

@@ -9,6 +9,7 @@ class ServingInputField extends StatefulWidget {
   final Color fillColor;
   final void Function(String) onChange;
   final FocusNode? focusNode;
+  final TextInputFormatter? inputFormatter;
 
   const ServingInputField({
     super.key,
@@ -16,6 +17,7 @@ class ServingInputField extends StatefulWidget {
     required this.fillColor,
     required this.onChange,
     this.focusNode,
+    this.inputFormatter,
   });
 
   @override
@@ -57,12 +59,12 @@ class _ServingInputFieldState extends State<ServingInputField> {
       child: CustomTextField(
         controller: widget.controller,
         focusNode: widget.focusNode,
-        maxLength: 5,
+        maxLength: 7,
         textAlign: TextAlign.center,
         onChanged: _onValueChangeHandler,
         inputFormatters: [
           ServingFormatter(),
-          ServingRangeFormatter(),
+          if (widget.inputFormatter != null) widget.inputFormatter!,
         ],
         decoration: InputDecoration(
           counterText: '',

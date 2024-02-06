@@ -16,8 +16,8 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
@@ -37,8 +37,7 @@ class SupportGroupIntroPage extends StatelessWidget {
           leading: CustomFilledIconButton.leadingPetrolLighter(),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(60),
-            child: SimpleProgressBar.petrol(
-                progress: context.read<EducationLessonBloc>().state.data.lessonProgress),
+            child: SimpleProgressBar.petrol(progress: context.read<EducationLessonBloc>().state.data.lessonProgress),
           ),
         ),
         body: SafeArea(
