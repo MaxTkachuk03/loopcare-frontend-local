@@ -59,7 +59,10 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
 
     final lastCompletedLesson = state.data.lessons.lastWhereOrNull((element) => element.completedAt != null);
     final currentActiveStep = lastCompletedLesson?.step;
-    final startDate = lastCompletedLesson?.completedAt?.toLocal();
+
+    final lessonsWithSameStep = state.data.lessons.where((l) => l.step == currentActiveStep);
+
+    final startDate = lessonsWithSameStep.first.completedAt?.toLocal();
 
     if (currentActiveStep == null || startDate == null) {
       emit(EducationProgramState.educationProgram(state.data.copyWith(lessonWithCountdown: null)));
@@ -74,8 +77,7 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
       return;
     }
 
-    final nextStepUnlockDelayInHours =
-        state.data.lessons.where((l) => l.step == currentActiveStep).last.nextStepUnlockDelay;
+    final nextStepUnlockDelayInHours = lessonsWithSameStep.last.nextStepUnlockDelay;
 
     final currentNtpDate = await TimeService.now;
 
