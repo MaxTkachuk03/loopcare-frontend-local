@@ -161,7 +161,8 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
                       children: [
                         CustomElevatedButton.blueFullWidth(
                           onPressed: _selectedValue == null ? null : _onNextPressedHandler,
-                          label: LocalizedTexts.next.tr(),
+                          label:
+                              widget.fromLessonComplete ? LocalizedTexts.next.tr() : LocalizedTexts.save.tr(),
                         ),
                         const SizedBox(height: 30.0),
                       ],
