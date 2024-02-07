@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -86,10 +87,15 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
       listenWhen: (prev, cur) =>
           prev is Saving && context.router.current.name == PhysicalActivitiesFrequencyRoute.name,
       listener: _onChangeListener,
-      child: CustomScaffold.blueLightest(
-        appBar: CustomAppBar.blue(
+      child: CustomScaffold(
+        color: widget.profileInvoke ? AppColors.blueLightest : AppColors.petrolLightest,
+        appBar: CustomAppBar(
           title: LocalizedTexts.trainingFrequency.tr(),
-          leading: CustomFilledIconButton.leadingBlueLighter(),
+          textTheme: CustomAppBarTextTheme.light,
+          backgroundColor: widget.profileInvoke ? AppColors.blueRegular : AppColors.petrolRegular,
+          leading: widget.profileInvoke
+              ? CustomFilledIconButton.leadingBlueLighter()
+              : CustomFilledIconButton.leadingPetrolLighter(),
         ),
         body: SafeArea(
           child: ScrollableContainer(
@@ -106,7 +112,7 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
                         style: context.textTheme.displayMedium,
                       ),
                       const SizedBox(height: 28.0),
-                      const FrequencyChips(),
+                      widget.profileInvoke ? const FrequencyChips.coral() : const FrequencyChips.green(),
                       const SizedBox(height: 8.0),
                     ],
                   ),

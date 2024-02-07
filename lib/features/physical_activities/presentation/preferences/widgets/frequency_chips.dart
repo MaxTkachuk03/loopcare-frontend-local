@@ -9,7 +9,11 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 
 class FrequencyChips extends StatefulWidget {
-  const FrequencyChips({super.key});
+  final bool _profileInvoke;
+
+  const FrequencyChips.green({super.key}) : _profileInvoke = false;
+
+  const FrequencyChips.coral({super.key}) : _profileInvoke = true;
 
   @override
   State<FrequencyChips> createState() => _FrequencyChipsState();
@@ -21,7 +25,6 @@ class _FrequencyChipsState extends State<FrequencyChips> {
   @override
   void initState() {
     super.initState();
-
     final bloc = context.read<PhysicalActivitiesPreferencesBloc>();
     if (bloc.state.data.isFrequencySet) {
       _selectedValue = bloc.state.data.trainingFrequency;
@@ -44,21 +47,37 @@ class _FrequencyChipsState extends State<FrequencyChips> {
           .map(
             (PhysicalActivitiesFrequency value) => Column(
               children: [
-                CustomChoiceChip.coral(
-                  label: value.label,
-                  selected: value == _selectedValue,
-                  value: value,
-                  action: value.recommended
-                      ? AutoSizeText(
-                          LocalizedTexts.recommended.tr(),
-                          textAlign: TextAlign.end,
-                          style: context.textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
-                        )
-                      : null,
-                  onSelected: _onSelectedHandler,
-                ),
+                widget._profileInvoke
+                    ? CustomChoiceChip.coral(
+                        label: value.label,
+                        selected: value == _selectedValue,
+                        value: value,
+                        action: value.recommended
+                            ? AutoSizeText(
+                                LocalizedTexts.recommended.tr(),
+                                textAlign: TextAlign.end,
+                                style: context.textTheme.bodySmall?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              )
+                            : null,
+                        onSelected: _onSelectedHandler,
+                      )
+                    : CustomChoiceChip.green(
+                        label: value.label,
+                        selected: value == _selectedValue,
+                        value: value,
+                        action: value.recommended
+                            ? AutoSizeText(
+                                LocalizedTexts.recommended.tr(),
+                                textAlign: TextAlign.end,
+                                style: context.textTheme.bodySmall?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              )
+                            : null,
+                        onSelected: _onSelectedHandler,
+                      ),
                 const SizedBox(height: 8.0),
               ],
             ),

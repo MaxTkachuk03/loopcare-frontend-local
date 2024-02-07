@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -23,7 +24,9 @@ import 'package:loopcare_frontend/features/physical_activities/presentation/pref
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_type.dart';
 
 class PhysicalActivitiesActivityTypePage extends StatefulWidget {
-  const PhysicalActivitiesActivityTypePage({super.key});
+  final bool profileInvoke;
+
+  const PhysicalActivitiesActivityTypePage({super.key, this.profileInvoke = false});
 
   @override
   State<PhysicalActivitiesActivityTypePage> createState() => _PhysicalActivitiesActivityTypePageState();
@@ -62,9 +65,7 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
   }
 
   void _onNext(BuildContext context) {
-    context
-        .read<PhysicalActivitiesPreferencesBloc>()
-        .add(const PhysicalActivitiesPreferencesEvent.savePreferences());
+    context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.savePreferences());
   }
 
   @override
@@ -73,8 +74,11 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
       listenWhen: (prev, cur) =>
           prev is Saving && context.router.current.name == PhysicalActivitiesActivityTypeRoute.name,
       listener: _onChangeListener,
-      child: CustomScaffold.blueLightest(
-        appBar: CustomAppBar.blue(
+      child: CustomScaffold(
+        color: widget.profileInvoke ? AppColors.blueLightest : AppColors.petrolLightest,
+        appBar: CustomAppBar(
+          backgroundColor: widget.profileInvoke ? AppColors.blueRegular : AppColors.petrolRegular,
+          textTheme: CustomAppBarTextTheme.light,
           title: LocalizedTexts.trainingFocus.tr(),
           leading: CustomFilledIconButton.leadingBlueLighter(),
         ),
@@ -93,7 +97,7 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
                         style: context.textTheme.displayMedium,
                       ),
                       const SizedBox(height: 28.0),
-                      const ActivityTypeChips(),
+                      widget.profileInvoke ? const ActivityTypeChips.coral() : const ActivityTypeChips.green(),
                       const SizedBox(height: 28.0),
                       CustomText.w400(
                         LocalizedTexts.youCanAlsoOptionally.translation,
@@ -103,7 +107,9 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
                       BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
                         builder: (context, state) {
                           return state.data.needFlexibility
-                              ? const FlexibilityChips()
+                              ? widget.profileInvoke
+                                  ? const FlexibilityChips.coral()
+                                  : const FlexibilityChips.green()
                               : const SizedBox(height: 0.0);
                         },
                       ),
