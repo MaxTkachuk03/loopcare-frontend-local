@@ -53,7 +53,7 @@ class NextLesson extends StatelessWidget {
                     ),
                     child: SizedBox(
                       width: 130.0,
-                      height: 180,
+                      height: 200,
                       child: NetworkImageWithCache(url: lesson.cardImage),
                     ),
                   ),

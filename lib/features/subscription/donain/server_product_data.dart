@@ -1,6 +1,5 @@
 // Package imports:
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/subscription/donain/list_server_product.dart';
 import 'package:loopcare_frontend/features/subscription/donain/server_product.dart';
 
 part 'server_product_data.freezed.dart';

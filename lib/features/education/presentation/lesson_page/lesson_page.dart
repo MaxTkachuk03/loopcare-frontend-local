@@ -62,6 +62,9 @@ class _LessonPageState extends State<LessonPage> {
 
       if (extraAction == ExtraActionTypes.unlockMeals) {
         context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.meals);
+        context.router.pushNamed(AppRoutes.lessonCompleteFoodPreferences);
+
+        return;
       }
 
       if (extraAction == ExtraActionTypes.unlockPhysicalActivities &&

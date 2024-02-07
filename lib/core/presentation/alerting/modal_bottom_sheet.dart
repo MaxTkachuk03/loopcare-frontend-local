@@ -124,7 +124,9 @@ class ModalBottomSheet {
 
   static void deleteAccount({
     required BuildContext context,
+    required bool noActiveSubscription,
     required void Function() onDeleted,
+    required void Function() onSubscriptionPref,
   }) {
     showModalBottomSheet<void>(
       showDragHandle: true,
@@ -132,25 +134,28 @@ class ModalBottomSheet {
       context: context,
       builder: (BuildContext context) {
         return FractionallySizedBox(
-          heightFactor: 0.5,
+          heightFactor: 0.75,
           child: ScrollableContainer(
             child: MainContainer(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CustomText.w400(
-                    '${LocalizedTexts.deleteModalMessage.tr()}.',
+                    noActiveSubscription
+                        ? '${LocalizedTexts.deleteModalMessage.tr()}.'
+                        : '${LocalizedTexts.cancelAccountSubscription.tr()}.',
                     style: context.textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 32.0),
                   CustomElevatedButton.blueFullWidth(
                     onPressed: context.router.pop,
-                    label: LocalizedTexts.noCancel.tr(),
+                    label: LocalizedTexts.cancel.tr(),
                   ),
                   const SizedBox(height: 12.0),
                   CustomOutlinedButton.blueFullWidth(
-                    onPressed: onDeleted,
-                    label: LocalizedTexts.yesDelete.tr(),
+                    onPressed: noActiveSubscription ? onDeleted : onSubscriptionPref,
+                    label:
+                        noActiveSubscription ? LocalizedTexts.yesDelete.tr() : LocalizedTexts.manageSubscription.tr(),
                   )
                 ],
               ),

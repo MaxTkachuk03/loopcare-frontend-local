@@ -6,7 +6,6 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_butt
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/divider_light.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
@@ -120,20 +119,23 @@ class GroupPreferencesForm extends StatelessWidget {
 
   void _onGenderPreferencesTap(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..read<GroupPreferencesBloc>()
+          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
       ..router.push(GenderPreferencesRoute(fromLessonComplete: false));
   }
 
   void _onTimezoneTap(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
-      ..router.pushNamed(AppRoutes.timezone);
+      ..read<GroupPreferencesBloc>()
+          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..router.push(TimezonePreferencesRoute(fromLessonComplete: false));
   }
 
   void _onNicknamePreferencesTap(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
-      ..router.pushNamed(AppRoutes.nicknamePreferences);
+      ..read<GroupPreferencesBloc>()
+          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..router.push(NicknamePreferencesRoute(fromLessonComplete: false));
   }
 
   _onLeaveGroupPressed(BuildContext context) {

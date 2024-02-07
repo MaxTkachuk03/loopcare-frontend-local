@@ -18,13 +18,16 @@ class RetryOnConnectionChangeInterceptor extends Interceptor {
         final response = await requestRetrier.scheduleRequestRetry(err.requestOptions);
         handler.resolve(response);
       } catch (_) {}
+    } else {
+      return handler.next(err);
     }
   }
 
   bool _shouldRetry(DioException err) {
-    final shouldRetry = (err.type == DioExceptionType.unknown || err.type == DioExceptionType.connectionError) &&
-        err.error != null &&
-        err.error is SocketException;
+    final shouldRetry =
+        (err.type == DioExceptionType.unknown || err.type == DioExceptionType.connectionError) &&
+            err.error != null &&
+            err.error is SocketException;
     return shouldRetry;
   }
 }

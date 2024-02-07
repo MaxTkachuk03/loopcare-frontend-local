@@ -184,7 +184,8 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
                       const SizedBox(height: 24.0),
                       CustomElevatedButton.blueFullWidth(
                         onPressed: _selectedLocation == null ? null : _onNextPressedHandler,
-                        label: LocalizedTexts.next.tr(),
+                        label:
+                            widget.fromLessonComplete ? LocalizedTexts.next.tr() : LocalizedTexts.save.tr(),
                       ),
                       const SizedBox(height: 30.0),
                     ],
