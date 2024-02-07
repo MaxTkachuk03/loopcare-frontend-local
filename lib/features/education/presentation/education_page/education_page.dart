@@ -44,7 +44,9 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
 
     _tabController.addListener(_onTabsChanged);
 
-    context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons(LessonCategory.all));
+    context.read<EducationProgramBloc>()
+      ..add(const EducationProgramEvent.getLessons(LessonCategory.all))
+      ..add(const EducationProgramEvent.setLessonWithCountdown(LessonCategory.all));
 
     context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
   }
@@ -72,17 +74,13 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
   _lessonCompleteListener(BuildContext context, EducationLessonState state) {
     final currentDate = context.read<MealsBloc>().state.getCurrentDate;
 
+    context.read<EducationProgramBloc>()
+      ..add(EducationProgramEvent.getLessons(LessonCategory.values[_tabController.index]))
+      ..add(EducationProgramEvent.setLessonWithCountdown(LessonCategory.values[_tabController.index]));
+
     context
-      ..read<EducationProgramBloc>().add(
-        EducationProgramEvent.getLessons(
-          LessonCategory.values[_tabController.index],
-        ),
-      )
-      ..read<DashboardEducationBloc>().add(
-        DashboardEducationEvent.getDashboardLessons(
-          currentDate: currentDate,
-        ),
-      );
+        .read<DashboardEducationBloc>()
+        .add(DashboardEducationEvent.getDashboardLessons(currentDate: currentDate));
   }
 
   _lessonsListener(BuildContext context, EducationProgramState state) {
@@ -172,7 +170,9 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
 
   void _onTabsChanged() {
     final currentTab = LessonCategory.values[_tabController.index];
-    context.read<EducationProgramBloc>().add(EducationProgramEvent.getLessons(currentTab));
+    context.read<EducationProgramBloc>()
+      ..add(EducationProgramEvent.getLessons(currentTab))
+      ..add(EducationProgramEvent.setLessonWithCountdown(currentTab));
 
     AnalyticsEventService.instance.logEvent('education_screen_${currentTab.label.toLowerCase()}');
   }

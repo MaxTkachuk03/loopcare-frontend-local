@@ -1,8 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/time_service/time_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -27,8 +25,10 @@ class EducationCard extends StatelessWidget {
 
   Widget _getLessonAction(BuildContext context) {
     final isAvailable = !lesson.isCompleted && !lesson.isLocked;
+    final lessonWithCountdown = context.read<EducationProgramBloc>().state.data.lessonWithCountdown;
+    final showCountdown = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
 
-    if (lesson.isLocked) {
+    if (lesson.isLocked || showCountdown) {
       return Row(
         children: [
           LessonState.locked(),
@@ -70,7 +70,8 @@ class EducationCard extends StatelessWidget {
           child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
             builder: (BuildContext context, state) {
               final lessonWithCountdown = state.data.lessonWithCountdown;
-              final isLessonWithCountDown = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
+              final isLessonWithCountDown =
+                  lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
               final isLocked = lesson.isLocked || isLessonWithCountDown;
 
               final showCountdown = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
@@ -109,14 +110,14 @@ class EducationCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 getLabelByCategory(lesson.category),
-                                const SizedBox(height: 10.0),
+                                const SizedBox(height: 8.0),
                                 CustomText.bitter700(
                                   lesson.title,
                                   style: context.textTheme.bodySmall,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                                const SizedBox(height: 10.0),
+                                const SizedBox(height: 8.0),
                                 Row(
                                   children: [
                                     const Icon(Icons.watch_later_outlined, size: 16),
@@ -127,31 +128,17 @@ class EducationCard extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                SizedBox(height: showCountdown ? 0 : 10.0),
+                                SizedBox(height: showCountdown ? 6 : 8.0),
                                 _getLessonAction(context),
-                                SizedBox(height: showCountdown ? 0 : 10.0),
+                                SizedBox(height: showCountdown ? 6 : 8.0),
                                 if (showCountdown)
                                   Wrap(
                                     children: [
                                       CustomText.w600(
-                                        '${LocalizedTexts.availableIn.tr()}: ',
+                                        '${LocalizedTexts.availableIn.translation}: ',
                                         style: context.textTheme.bodySmall,
                                       ),
-                                      FutureBuilder<DateTime>(
-                                        future: TimeService.now,
-                                        builder: (context, snapshot) {
-                                          final data = snapshot.data;
-
-                                          if (snapshot.hasData && data != null) {
-                                            return EducationCountDown(
-                                                seconds: lessonWithCountdown.dateTimeWhenUnlock
-                                                    .difference(data)
-                                                    .inSeconds);
-                                          } else {
-                                            return const Text('');
-                                          }
-                                        },
-                                      )
+                                      EducationCountDown(seconds: lessonWithCountdown.timeRemaining),
                                     ],
                                   ),
                               ],

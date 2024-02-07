@@ -19,7 +19,7 @@ class EducationCountDown extends StatefulWidget {
 class _EducationCountDownState extends State<EducationCountDown> {
   Timer? _timer;
   int _remainingTimeInSeconds = 0;
-  int counterPeriodInSeconds = 60;
+  int counterPeriodInSeconds = 1;
 
   @override
   void initState() {
@@ -40,7 +40,7 @@ class _EducationCountDownState extends State<EducationCountDown> {
   @override
   Widget build(BuildContext context) {
     return CustomText.w600(
-      formatFullDuration(_remainingTimeInSeconds, withSeconds: false),
+      formatFullDuration(_remainingTimeInSeconds, withSeconds: true),
       style: context.textTheme.bodySmall,
     );
   }
@@ -56,10 +56,11 @@ class _EducationCountDownState extends State<EducationCountDown> {
             if (newRemainingTime > 0) {
               _remainingTimeInSeconds -= counterPeriodInSeconds;
             } else {
-              context
-                ..read<EducationProgramBloc>().add(const EducationProgramEvent.resetLessonWithCountdown())
-                ..read<EducationProgramBloc>()
-                    .add(const EducationProgramEvent.getLessons(LessonCategory.all));
+              context.read<EducationProgramBloc>()
+                ..add(const EducationProgramEvent.resetLessonWithCountdown())
+                ..add(const EducationProgramEvent.getLessons(LessonCategory.all))
+                ..add(const EducationProgramEvent.setLessonWithCountdown(LessonCategory.all));
+
               _timer?.cancel();
             }
           },

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/time_service/time_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/features/education/application/education_progr
 import 'package:loopcare_frontend/features/education/domain/education_lesson.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_countdown.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/lesson_state.dart';
 import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 
 class NextLesson extends StatelessWidget {
@@ -28,11 +29,10 @@ class NextLesson extends StatelessWidget {
       builder: (context, state) {
         final lessonWithCountdown = state.data.lessonWithCountdown;
 
-        final isLessonWithCountDown =
-            lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
+        final isBlocked = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
 
         return GestureDetector(
-          onTap: isLessonWithCountDown ? null : () => _onTapHandler(context),
+          onTap: isBlocked ? null : () => _onTapHandler(context),
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(
@@ -76,30 +76,6 @@ class NextLesson extends StatelessWidget {
                           style: context.textTheme.bodySmall,
                         ),
                         const SizedBox(height: 10.0),
-                        if (lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id)
-                          Wrap(
-                            children: [
-                              CustomText.w600(
-                                '${LocalizedTexts.availableIn.translation}: ',
-                                style: context.textTheme.bodySmall,
-                              ),
-                              FutureBuilder<DateTime>(
-                                future: TimeService.now,
-                                builder: (context, snapshot) {
-                                  final data = snapshot.data;
-
-                                  if (snapshot.hasData && data != null) {
-                                    return EducationCountDown(
-                                        seconds: lessonWithCountdown.dateTimeWhenUnlock
-                                            .difference(data)
-                                            .inSeconds);
-                                  } else {
-                                    return const Text('');
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
                         Row(
                           children: [
                             AppIcons.clock,
@@ -111,10 +87,30 @@ class NextLesson extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 10.0),
-                        CustomOutlinedButton.coral(
-                          label: LocalizedTexts.start.translation,
-                          onPressed: isLessonWithCountDown ? null : () => _onTapHandler(context),
-                        )
+                        if (isBlocked)
+                          Wrap(
+                            children: [
+                              CustomText.w600(
+                                '${LocalizedTexts.availableIn.translation}: ',
+                                style: context.textTheme.bodySmall,
+                              ),
+                              EducationCountDown(seconds: lessonWithCountdown.timeRemaining),
+                            ],
+                          ),
+                        const SizedBox(height: 10.0),
+                        if (isBlocked)
+                          Row(
+                            children: [
+                              LessonState.locked(),
+                              const SizedBox(width: 4.0),
+                              CustomText.w700(LocalizedTexts.locked, style: context.textTheme.bodySmall),
+                            ],
+                          ),
+                        if (!isBlocked)
+                          CustomOutlinedButton.coralSmall(
+                            label: LocalizedTexts.start.tr(),
+                            onPressed: isBlocked ? null : () => _onTapHandler(context),
+                          )
                       ],
                     ),
                   ),
