@@ -78,7 +78,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
         .read<DashboardEducationBloc>()
         .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
 
-    context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons(LessonCategory.all));
+    context.read<EducationProgramBloc>()
+      ..add(const EducationProgramEvent.getLessons(LessonCategory.all))
+      ..add(const EducationProgramEvent.setLessonWithCountdown(LessonCategory.all));
 
 // TODO: /LOOPCARE-1893
     // if (context.read<AuthenticationCubit>().state.isFoodLoggingUnlocked) {
@@ -104,7 +106,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
         .read<DashboardEducationBloc>()
         .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
 
-    context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons(LessonCategory.all));
+    context.read<EducationProgramBloc>()
+      ..add(const EducationProgramEvent.getLessons(LessonCategory.all))
+      ..add(const EducationProgramEvent.setLessonWithCountdown(LessonCategory.all));
 
     if (context.read<AuthenticationCubit>().state.isFoodLoggingUnlocked) {
       context.read<MealsBloc>().add(const MealsEvent.fetchMeals());

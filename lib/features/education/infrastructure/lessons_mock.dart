@@ -1,7 +1,7 @@
 var lessons = [
   {
     "extraAction": null,
-    "completedAt": "2024-02-05T12:54:48.200Z",
+    "completedAt": "2024-02-06T20:02:00.000Z",
     "isLocked": false,
     "nextStepUnlockDelay": 168,
     "questions": [
@@ -221,8 +221,8 @@ var lessons = [
   {
     "extraAction": null,
     "completedAt": null,
-    "isLocked": true,
-    "nextStepUnlockDelay": 168,
+    "isLocked": false,
+    "nextStepUnlockDelay": 2,
     "questions": [
       {
         "introduction": null,
@@ -311,7 +311,7 @@ var lessons = [
   {
     "extraAction": "unlockAssignments",
     "completedAt": null,
-    "isLocked": true,
+    "isLocked": false,
     "nextStepUnlockDelay": 168,
     "questions": [
       {

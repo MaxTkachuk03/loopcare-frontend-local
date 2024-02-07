@@ -18,9 +18,9 @@ String formatFullDuration(int durationInSeconds, {bool withSeconds = true}) {
   var strMinutes = minutes != 0 ? ' ${minutes}m' : '';
   var strSeconds = withSeconds
       ? seconds != 0
-          ? '${seconds}h'
+          ? '${seconds}s'
           : ''
       : '';
 
-  return "$strHours$strMinutes$strSeconds";
+  return "$strHours $strMinutes $strSeconds";
 }

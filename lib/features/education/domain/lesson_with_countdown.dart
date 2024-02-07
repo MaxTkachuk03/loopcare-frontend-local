@@ -10,7 +10,7 @@ abstract class LessonWithCountdown implements _$LessonWithCountdown {
   const LessonWithCountdown._();
 
   const factory LessonWithCountdown({
-    required DateTime dateTimeWhenUnlock,
+    required int timeRemaining,
     required EducationLesson lesson,
   }) = _LessonWithCountdown;
 
