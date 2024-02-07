@@ -7,7 +7,11 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 
 class FlexibilityChips extends StatefulWidget {
-  const FlexibilityChips({super.key});
+  final bool _profileInvoke;
+
+  const FlexibilityChips.green({super.key}) : _profileInvoke = false;
+
+  const FlexibilityChips.coral({super.key}) : _profileInvoke = true;
 
   @override
   State<FlexibilityChips> createState() => _FlexibilityChipsState();
@@ -43,17 +47,29 @@ class _FlexibilityChipsState extends State<FlexibilityChips> {
           .map(
             (FlexibilityOption value) => Column(
               children: [
-                CustomChoiceChip.coral(
-                  label: value.label,
-                  selected: value == _selectedValue,
-                  value: value,
-                  onSelected: _onSelectedHandler,
-                  action: AppIcons.checkmarkCircle(
-                    value == _selectedValue,
-                    AppColors.white,
-                    AppColors.greyLight,
-                  ),
-                ),
+                widget._profileInvoke
+                    ? CustomChoiceChip.coral(
+                        label: value.label,
+                        selected: value == _selectedValue,
+                        value: value,
+                        onSelected: _onSelectedHandler,
+                        action: AppIcons.checkmarkCircle(
+                          value == _selectedValue,
+                          AppColors.white,
+                          AppColors.greyLight,
+                        ),
+                      )
+                    : CustomChoiceChip.green(
+                        label: value.label,
+                        selected: value == _selectedValue,
+                        value: value,
+                        onSelected: _onSelectedHandler,
+                        action: AppIcons.checkmarkCircle(
+                          value == _selectedValue,
+                          AppColors.white,
+                          AppColors.greyLight,
+                        ),
+                      ),
                 const SizedBox(height: 8.0),
               ],
             ),

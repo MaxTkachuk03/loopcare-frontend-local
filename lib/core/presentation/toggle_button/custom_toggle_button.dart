@@ -48,6 +48,27 @@ class CustomToggleButton extends StatelessWidget {
         children: children,
       );
 
+  factory CustomToggleButton.green({
+    required List<String> children,
+    required int? initialIndex,
+    TextStyle? customActiveTextStyles,
+    Color? inactiveBgColor,
+    TextStyle? textStyle,
+    List<double>? customWidths,
+    Function(int)? onTap,
+  }) =>
+      CustomToggleButton(
+        textStyle: textStyle,
+        customActiveTextStyles: customActiveTextStyles,
+        selectedColor: AppColors.greenRegular,
+        borderColor: AppColors.greenRegular,
+        onTap: onTap,
+        initialIndex: initialIndex,
+        inactiveBgColor: inactiveBgColor,
+        customWidths: customWidths,
+        children: children,
+      );
+
   @override
   Widget build(BuildContext context) {
     return ToggleSwitch(

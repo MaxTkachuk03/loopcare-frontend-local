@@ -8,7 +8,11 @@ import 'package:loopcare_frontend/features/physical_activities/application/physi
 import 'package:loopcare_frontend/features/physical_activities/infrastructure/physical_activities_controller.dart';
 
 class ActivityTypeChips extends StatefulWidget {
-  const ActivityTypeChips({super.key});
+  final bool _profileInvoke;
+
+  const ActivityTypeChips.green({super.key}) : _profileInvoke = false;
+
+  const ActivityTypeChips.coral({super.key}) : _profileInvoke = true;
 
   @override
   State<ActivityTypeChips> createState() => _ActivityTypeChipsState();
@@ -36,19 +40,33 @@ class _ActivityTypeChipsState extends State<ActivityTypeChips> {
       valueListenable: controller.listener,
       builder: (context, type, _) {
         final width = MediaQuery.of(context).size.width - 55;
-        return CustomToggleButton.coral(
-          customWidths: [width / 2, width / 2],
-          inactiveBgColor: AppColors.blueLightest,
-          textStyle: context.textTheme.bodySmall,
-          customActiveTextStyles: context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
-          initialIndex: controller.selection,
-          onTap: (index) => controller.jumpToTab(index),
-          children: PhysicalActivitiesType.values
-              .map(
-                (PhysicalActivitiesType value) => value.label,
+        return widget._profileInvoke
+            ? CustomToggleButton.coral(
+                customWidths: [width / 2, width / 2],
+                inactiveBgColor: AppColors.blueLightest,
+                textStyle: context.textTheme.bodySmall,
+                customActiveTextStyles: context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
+                initialIndex: controller.selection,
+                onTap: (index) => controller.jumpToTab(index),
+                children: PhysicalActivitiesType.values
+                    .map(
+                      (PhysicalActivitiesType value) => value.label,
+                    )
+                    .toList(),
               )
-              .toList(),
-        );
+            : CustomToggleButton.green(
+                customWidths: [width / 2, width / 2],
+                inactiveBgColor: AppColors.blueLightest,
+                textStyle: context.textTheme.bodySmall,
+                customActiveTextStyles: context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
+                initialIndex: controller.selection,
+                onTap: (index) => controller.jumpToTab(index),
+                children: PhysicalActivitiesType.values
+                    .map(
+                      (PhysicalActivitiesType value) => value.label,
+                    )
+                    .toList(),
+              );
       },
     );
   }
