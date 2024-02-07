@@ -108,14 +108,15 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
   }
 
   void _saveTextField(int lessonId) {
+    var questionsBloc = context.read<AssignmentsBloc>();
+    question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
+
     if (!question.isEditable) {
       _onNextHandler();
       return;
     }
 
     _controller.isEnableSend.value = false;
-
-    var questionsBloc = context.read<AssignmentsBloc>();
 
     if (question.questionAnswer != null) {
       questionsBloc.add(
@@ -135,14 +136,15 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
   }
 
   void _saveOptionsField(int lessonId) {
+    var questionsBloc = context.read<AssignmentsBloc>();
+    question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
+
     if (!question.isEditable) {
       _onNextHandler();
       return;
     }
 
     _controller.isEnableSend.value = false;
-
-    var questionsBloc = context.read<AssignmentsBloc>();
 
     if (question.questionAnswer != null) {
       questionsBloc.add(
@@ -162,14 +164,15 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
   }
 
   void _saveScaleField(int lessonId) {
+    var questionsBloc = context.read<AssignmentsBloc>();
+    question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
+
     if (!question.isEditable) {
       _onNextHandler();
       return;
     }
 
     _controller.isEnableSend.value = false;
-
-    var questionsBloc = context.read<AssignmentsBloc>();
 
     var selectScaleIndex = _controller.selectScaleValue.value;
 
