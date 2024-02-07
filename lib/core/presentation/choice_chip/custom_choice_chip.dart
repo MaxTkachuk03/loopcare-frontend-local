@@ -18,6 +18,8 @@ class CustomChoiceChip<T> extends StatelessWidget {
   final double? labelWidth;
   final EdgeInsetsGeometry? padding;
   final TextAlign? textAlign;
+  final double? chipHeight;
+  final double? borderRadius;
 
   const CustomChoiceChip({
     super.key,
@@ -33,6 +35,8 @@ class CustomChoiceChip<T> extends StatelessWidget {
     this.labelWidth,
     this.padding,
     this.textAlign,
+    this.chipHeight,
+    this.borderRadius,
   });
 
   factory CustomChoiceChip.coral({
@@ -73,6 +77,27 @@ class CustomChoiceChip<T> extends StatelessWidget {
         showCheckmark: false,
         padding: padding,
         textAlign: textAlign,
+      );
+
+  factory CustomChoiceChip.emoji({
+    required String label,
+    Widget? avatar,
+    required bool selected,
+    required T value,
+    required OnSelected<T>? onSelected,
+  }) =>
+      CustomChoiceChip<T>(
+        label: label,
+        selected: selected,
+        onSelected: onSelected,
+        value: value,
+        selectedColor: AppColors.orangeRegular,
+        borderColor: AppColors.orangeRegular,
+        avatar: avatar,
+        showCheckmark: false,
+        padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
+        chipHeight: 57.0,
+        borderRadius: 30.0,
       );
 
   factory CustomChoiceChip.yellow({
@@ -145,26 +170,32 @@ class CustomChoiceChip<T> extends StatelessWidget {
       data: Theme.of(context).copyWith(canvasColor: AppColors.transparent),
       child: ChoiceChip(
         padding: padding ?? const EdgeInsets.symmetric(horizontal: 25.0, vertical: 14.0),
-        label: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              child: AutoSizeText(
-                label,
-                textAlign: textAlign ?? TextAlign.start,
-                style: selected
-                    ? context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600)
-                    : context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 25))),
+        label: SizedBox(
+          height: chipHeight,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                child: AutoSizeText(
+                  label,
+                  textAlign: textAlign ?? TextAlign.start,
+                  style: selected
+                      ? context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600)
+                      : context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400),
+                ),
               ),
-            ),
-            if (action != null) action!,
-          ],
+              if (action != null) action!,
+            ],
+          ),
         ),
         selected: selected,
         onSelected: onSelected == null ? null : (_) => onSelected?.call(value),
         selectedColor: selectedColor,
         disabledColor: AppColors.greyLight,
-        side: ChipTheme.of(context).side?.copyWith(color: onSelected == null ? AppColors.greyLight : borderColor),
+        side: ChipTheme.of(context)
+            .side
+            ?.copyWith(color: onSelected == null ? AppColors.greyLight : borderColor),
         color: MaterialStateProperty.resolveWith((states) {
           const Set<MaterialState> interactiveStates = <MaterialState>{
             MaterialState.pressed,
