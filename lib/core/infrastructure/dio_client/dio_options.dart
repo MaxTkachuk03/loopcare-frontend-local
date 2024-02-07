@@ -7,6 +7,7 @@ const String applicationJson = Headers.jsonContentType;
 const String contentType = Headers.contentTypeHeader;
 const String accept = Headers.acceptHeader;
 const String defaultLanguage = "language";
+const int timeoutDuration = 30000;
 
 Map<String, String> headers = {
   contentType: applicationJson,
@@ -18,8 +19,8 @@ final dioOptions = Dio(
   BaseOptions(
     baseUrl: appConfig.baseUrl,
     headers: headers,
-    connectTimeout: const Duration(milliseconds: 30000),
-    receiveTimeout: const Duration(milliseconds: 30000),
+    connectTimeout: const Duration(milliseconds: timeoutDuration),
+    receiveTimeout: const Duration(milliseconds: timeoutDuration),
     receiveDataWhenStatusError: true,
     followRedirects: true,
     validateStatus: (statusCode) => statusCode == 401 || statusCode == 402 ? false : true,
