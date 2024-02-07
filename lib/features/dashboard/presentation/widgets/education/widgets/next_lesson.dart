@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/time_service/time_service.dart';
@@ -53,7 +54,7 @@ class NextLesson extends StatelessWidget {
                     ),
                     child: SizedBox(
                       width: 130.0,
-                      height: 180,
+                      height: 200,
                       child: NetworkImageWithCache(url: lesson.cardImage),
                     ),
                   ),
@@ -80,7 +81,7 @@ class NextLesson extends StatelessWidget {
                           Wrap(
                             children: [
                               CustomText.w600(
-                                '${LocalizedTexts.availableIn.translation}: ',
+                                '${LocalizedTexts.availableIn.tr()}: ',
                                 style: context.textTheme.bodySmall,
                               ),
                               FutureBuilder<DateTime>(
@@ -111,8 +112,8 @@ class NextLesson extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 10.0),
-                        CustomOutlinedButton.coral(
-                          label: LocalizedTexts.start.translation,
+                        CustomOutlinedButton.coralSmall(
+                          label: LocalizedTexts.start.tr(),
                           onPressed: isLessonWithCountDown ? null : () => _onTapHandler(context),
                         )
                       ],
