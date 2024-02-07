@@ -334,7 +334,7 @@ class LocalizedTexts {
   static const String retry = 'retry';
   static const String noConnectionTitle = 'noConnectionTitle';
   static const String noConnectionText = 'noConnectionText';
-  static const String invalidIngridientText = 'invalidIngridientText';
+  static const String invalidIngredientText = 'invalidIngredientText';
   static const String oeps = 'oeps';
   static const String somethingWentWrong = 'somethingWentWrong';
 
@@ -535,7 +535,8 @@ class LocalizedTexts {
   static const String appStore = "appStore";
   static const String googleMarket = "googleMarket";
   static const String cancelAccountSubscription = "cancelAccountSubscription";
-  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription =
+      "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";
@@ -864,7 +865,7 @@ class LocalizedTexts {
 
   // Group session
   static const String groupSession = 'groupSession';
-  static const String supportGroupPainSubscriptionNotGrouped = 'supportGroupPainSubscriptionNotGrouped';
+  static const String supportGroupPaidSubscriptionNotGrouped = 'supportGroupPaidSubscriptionNotGrouped';
   static const String supportGroupTrialSubscriptionNotGrouped = 'supportGroupTrialSubscriptionNotGrouped';
   static const String nextWeekTopic = 'nextWeekTopic';
 

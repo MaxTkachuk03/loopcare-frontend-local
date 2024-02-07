@@ -44,7 +44,7 @@ class ErrorScreen extends StatelessWidget {
       socketException: (_) => LocalizedTexts.noConnectionText.tr(),
       notFound: (error) {
         if (error.message == 'serving_id_is_not_found') {
-          return LocalizedTexts.invalidIngridientText.tr();
+          return LocalizedTexts.invalidIngredientText.tr();
         }
         return LocalizedTexts.somethingWentWrong.tr();
       },

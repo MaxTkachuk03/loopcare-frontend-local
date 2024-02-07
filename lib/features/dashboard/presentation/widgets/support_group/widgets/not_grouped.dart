@@ -22,7 +22,7 @@ class NotGrouped extends StatelessWidget {
         final hasSubscription = state.hasSubscription;
 
         final String title = hasSubscription
-            ? LocalizedTexts.supportGroupPainSubscriptionNotGrouped
+            ? LocalizedTexts.supportGroupPaidSubscriptionNotGrouped
             : LocalizedTexts.supportGroupTrialSubscriptionNotGrouped;
 
         return Column(
