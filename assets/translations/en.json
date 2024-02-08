@@ -692,6 +692,7 @@
   "subscriptionRenewedLabel": "We want to let you know that your\nsubscription could not be automatically\nrenewed. \n\nYou will get a couple of days to look into this.\nDuring this time you can still use the app.",
   "subscriptionRestoreLabel": "Restore Purchase",
   "subscriptionTermsLabel": "Terms & Conditions",
+  "subscriptionPrivacyLabel": "Privacy policy",
   "subscriptionAnnual": "Annual",
   "subscriptionMonthly": "Monthly",
   "subscriptionSubscribe": "Subscribe",
