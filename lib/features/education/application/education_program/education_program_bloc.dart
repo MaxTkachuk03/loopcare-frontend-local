@@ -58,6 +58,7 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
     }
 
     final lastCompletedLesson = state.data.lessons.lastWhereOrNull((element) => element.completedAt != null);
+    // TODO: currentActiveStep can be nuul on this step
     final currentActiveStep = lastCompletedLesson?.step;
 
     final lessonsWithSameStep = state.data.lessons.where((l) => l.step == currentActiveStep);
