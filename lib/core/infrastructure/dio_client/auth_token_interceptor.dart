@@ -5,7 +5,8 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/dto/updated_access_token_response.dart';
-import 'package:loopcare_frontend/core/application/dto/updated_refresh_token_response.dart';
+import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
+import 'package:loopcare_frontend/core/application/socket_service_chat/chat_socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart' as dioClient;
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
@@ -19,6 +20,8 @@ class AuthTokenInterceptor extends Interceptor {
   AuthTokenInterceptor(this.authTokenManager);
 
   List<Map<dynamic, dynamic>> failedRequests = [];
+
+  AuthenticationCubit? get _authenticationCubit => GetIt.instance<AuthenticationCubit>();
   bool isRefreshing = false;
   int retries = 3;
 
@@ -85,7 +88,7 @@ class AuthTokenInterceptor extends Interceptor {
   void _clearBeforeLogout() {
     isRefreshing = false;
     failedRequests = [];
-    GetIt.instance<AuthenticationCubit>().logout();
+    _authenticationCubit?.logout();
   }
 
   FutureOr refreshToken(DioException err, ErrorInterceptorHandler handler) async {
@@ -134,8 +137,7 @@ class AuthTokenInterceptor extends Interceptor {
         .then(parseResponse(UpdatedAccessTokenResponse.fromJson));
     request.fold(
       (error) {
-        authTokenManager.removeRefreshToken();
-        authTokenManager.removeAccessToken();
+        _clearBeforeLogout();
       },
       (response) {
         authTokenManager.setAccessToken(response.accessToken);
@@ -144,30 +146,13 @@ class AuthTokenInterceptor extends Interceptor {
     return request.isRight();
   }
 
-  Future<bool> updateRefreshToken() async {
-    final token = await authTokenManager.getRefreshToken();
-
-    if (token == null) return false;
-
-    final request = await dioClient
-        .handleProcess(dioOptions.post('/auth/refreshToken', data: {'refreshToken': token}))
-        .then(parseResponse(UpdatedRefreshTokenResponse.fromJson));
-    request.fold(
-      (error) {
-        authTokenManager.removeRefreshToken();
-        authTokenManager.removeAccessToken();
-      },
-      (response) {
-        authTokenManager.setRefreshToken(response.refreshToken);
-      },
-    );
-    return request.isRight();
-  }
-
   Future<bool> _refreshToken() async {
     final accessTokenIsUpdated = await updateAccessToken();
-    final refreshTokenIsUpdated = await updateRefreshToken();
-    return accessTokenIsUpdated && refreshTokenIsUpdated;
+    if (accessTokenIsUpdated) {
+      SocketService.instance.reconnect();
+      ChatSocketService.instance.reconnect();
+    }
+    return accessTokenIsUpdated;
   }
 }
 
