@@ -58,14 +58,19 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
     }
 
     final lastCompletedLesson = state.data.lessons.lastWhereOrNull((element) => element.completedAt != null);
-    // TODO: currentActiveStep can be nuul on this step
+
     final currentActiveStep = lastCompletedLesson?.step;
+
+    if (currentActiveStep == null) {
+      emit(EducationProgramState.educationProgram(state.data.copyWith(lessonWithCountdown: null)));
+      return;
+    }
 
     final lessonsWithSameStep = state.data.lessons.where((l) => l.step == currentActiveStep);
 
     final startDate = lessonsWithSameStep.first.completedAt?.toLocal();
 
-    if (currentActiveStep == null || startDate == null) {
+    if (startDate == null) {
       emit(EducationProgramState.educationProgram(state.data.copyWith(lessonWithCountdown: null)));
       return;
     }
