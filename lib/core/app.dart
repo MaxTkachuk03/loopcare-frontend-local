@@ -101,7 +101,10 @@ class _AppState extends State<_App> {
       theme: appThemeData,
       routerDelegate: _appRouter.delegate(
         navigatorObservers: () => [
-          FirebaseNavigatorObserver(analytics: analytics, userId: context.read<AuthenticationCubit>().state.id),
+          FirebaseNavigatorObserver(
+            analytics: analytics,
+            userId: context.read<AuthenticationCubit>().state.id,
+          ),
         ],
       ),
       routeInformationParser: _appRouter.defaultRouteParser(),

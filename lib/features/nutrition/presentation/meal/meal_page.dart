@@ -45,9 +45,10 @@ class _MealPageState extends State<MealPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory = DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
-        ? state.currentMealCategory?.toLowerCase()
-        : MealCategory.breakfast.originalValue;
+    final mealCategory =
+        DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
+            ? state.currentMealCategory?.toLowerCase()
+            : MealCategory.breakfast.originalValue;
 
     final mealId = state.getCurrentMealId;
 
@@ -84,8 +85,9 @@ class _MealPageState extends State<MealPage> {
 
     if (currentMealCategory == null) return '';
 
-    AnalyticsEventService.instance
-        .logEvent('meal_screen_type_${currentMealCategory.replaceAll(' ', '_').replaceFirst('&', 'and')}');
+    AnalyticsEventService.instance.logEvent(
+      'meal_screen_type_${currentMealCategory.replaceAll(' ', '_').replaceFirst('&', 'and')}',
+    );
 
     return '${currentMealCategory.capitalizeOnlyFirstLetter()}${state.isPlanningMeals ? '' : ' ${LocalizedTexts.logList.translation}'}';
   }

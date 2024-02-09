@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
 import 'package:loopcare_frontend/core/domain/aws_cookies_type.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -59,11 +60,17 @@ class _VideoPageState extends State<VideoPage> {
   void _initController(PhysicalProgramExercise exercise) async {
     final headers = context.read<VideoPlayerBloc>().state.data.videoHttpHeaders;
 
-    _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(exercise.video ?? ''), httpHeaders: headers)
-      ..initialize().then((value) {
+    _videoPlayerController = VideoPlayerController.networkUrl(
+      Uri.parse(exercise.video ?? ''),
+      httpHeaders: headers,
+    )..initialize().then((value) {
         _videoPlayerController?.play();
 
-        AnalyticsEventService.instance.logPhysicalActivityVideoEvent('video_screen', widget.program, exercise);
+        AnalyticsEventService.instance.logPhysicalActivityVideoEvent(
+          FirebaseEvents.videoScreen,
+          widget.program,
+          exercise,
+        );
       }).whenComplete(() {
         setState(() {});
       });
@@ -160,8 +167,9 @@ class _VideoPageState extends State<VideoPage> {
               _videoPageController.setOrientation(orientation);
 
               return CustomScaffold.blueDarkest(
-                appBar:
-                    isPortrait ? CustomAppBar.transparent(leading: CustomFilledIconButton.leadingBlueLighter()) : null,
+                appBar: isPortrait
+                    ? CustomAppBar.transparent(leading: CustomFilledIconButton.leadingBlueLighter())
+                    : null,
                 body: SafeArea(
                   bottom: isPortrait,
                   child: Column(

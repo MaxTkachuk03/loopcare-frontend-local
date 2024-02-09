@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -127,9 +128,10 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory = DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
-        ? state.currentMealCategory
-        : MealCategory.breakfast.originalValue;
+    final mealCategory =
+        DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
+            ? state.currentMealCategory
+            : MealCategory.breakfast.originalValue;
 
     if (mealCategory == null) return;
 
@@ -171,13 +173,13 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
   void _logAnalytics(TabController tabController) {
     switch (tabController.index) {
       case 1:
-        AnalyticsEventService.instance.logEvent('recipe_details_screen_instructions');
+        AnalyticsEventService.instance.logEvent(FirebaseEvents.recipeDetailsScreenInstructions);
         break;
       case 2:
-        AnalyticsEventService.instance.logEvent('recipe_details_screen_ingredients');
+        AnalyticsEventService.instance.logEvent(FirebaseEvents.recipeDetailsScreenIngredients);
         break;
       default:
-        AnalyticsEventService.instance.logEvent('recipe_details_screen_summary');
+        AnalyticsEventService.instance.logEvent(FirebaseEvents.recipeDetailsScreenSummary);
         break;
     }
   }
