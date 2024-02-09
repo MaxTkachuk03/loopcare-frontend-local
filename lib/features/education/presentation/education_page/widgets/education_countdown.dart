@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
-import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/date_time_utils.dart';
 
 class EducationCountDown extends StatefulWidget {
   final int seconds;
@@ -39,7 +39,7 @@ class _EducationCountDownState extends State<EducationCountDown> {
   @override
   Widget build(BuildContext context) {
     return CustomText.w600(
-      formatFullDuration(_remainingTimeInSeconds, withSeconds: true),
+      formatSecondsToEducationDurationString(_remainingTimeInSeconds),
       style: context.textTheme.bodySmall,
     );
   }
