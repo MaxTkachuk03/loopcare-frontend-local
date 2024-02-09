@@ -2,6 +2,24 @@ import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/
 import 'package:test/test.dart';
 
 void main() {
+  // num convertMetricToImperial(int heightInCm) {
+  //   var heightFT = HeightConversionUtils.convertCMtoFT(heightInCm);
+  //   var heightIN = HeightConversionUtils.convertCMtoFtIn(heightInCm);
+
+  //   var heightInCmRet = HeightConversionUtils.convertFeetAndInchesToCM(heightFT, heightIN);
+
+  //   return heightInCmRet;
+  // }
+
+  // String convertImperialToMetric(int heightFT, int heightIN) {
+  //   var heightInCm = HeightConversionUtils.convertFeetAndInchesToCM(heightFT, heightIN);
+
+  //   var heightFTret = HeightConversionUtils.convertCMtoFT(heightInCm);
+  //   var heightINret = HeightConversionUtils.convertCMtoFtIn(heightInCm);
+
+  //   return "$heightFTret $heightINret";
+  // }
+
   String doubleConvertImperialToMetric(double heightFT, double heightIN) {
     var heightInCm = HeightConversionUtils.doubleConvertFeetAndInchesToCM(heightFT, heightIN);
 

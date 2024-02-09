@@ -22,5 +22,16 @@ class HeightConversionUtils {
     return inches;
   }
 
+  static int convertINtoFT(int inches) => inches ~/ inchesInFoot;
+
+  static double convertFTtoCM(int foot) => foot * cmInFoot;
+
+  static int convertFTtoIN(int foot) => foot * inchesInFoot;
+
+  static double convertINtoCM(int inches) => inches * cmInInch;
+
+  static int convertFeetAndInchesToCM(int foot, int inches) =>
+      (convertFTtoCM(foot) + convertINtoCM(inches)).round();
+
   HeightConversionUtils._();
 }
