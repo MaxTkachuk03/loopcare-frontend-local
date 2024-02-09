@@ -405,7 +405,7 @@
   "warningTwo": "You are expected to be aware and follow the",
   "hi": "Hi",
   "sessionWillStartIn": "The session will start in",
-  "sessionStartedMessage": "The session has already started. You can only join it within 15 minutes of its start",
+  "sessionStartedMessage": "The session has already started",
   "enterSession": "Enter session",
   "pickADateAndTime": "Pick a date and time",
   "fromTo": "From {startTime} to {endTime}",
