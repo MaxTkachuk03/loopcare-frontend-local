@@ -39,7 +39,7 @@ class Grouped extends StatelessWidget {
               ),
             );
           },
-          loading: (_) => const Loader(),
+          loading: (_) => const SizedBox(height: 100, child: Loader()),
           orElse: () {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
