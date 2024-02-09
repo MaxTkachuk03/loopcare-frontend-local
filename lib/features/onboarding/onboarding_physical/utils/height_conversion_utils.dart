@@ -23,7 +23,25 @@ class HeightConversionUtils {
 
   static double convertINtoCM(int inches) => inches * cmInInch;
 
-  static int convertFeetAndInchesToCM(int foot, int inches) => (convertFTtoCM(foot) + convertINtoCM(inches)).round();
+  static int convertFeetAndInchesToCM(int foot, int inches) =>
+      (convertFTtoCM(foot) + convertINtoCM(inches)).round();
+
+  static double doubleConvertFeetAndInchesToCM(double foot, double inches) =>
+      doubleConvertFTtoCM(foot) + doubleConvertINtoCM(inches);
+
+  static double doubleConvertFTtoCM(double foot) => foot * cmInFoot;
+
+  static double doubleConvertINtoCM(double inches) => inches * cmInInch;
+
+  static double doubleConvertCMtoFT(double lengthInCm) => (lengthInCm / cmInInch ~/ inchesInFoot).toDouble();
+
+  static double doubleConvertFTtoIN(double foot) => foot * inchesInFoot;
+
+  static double doubleConvertCMtoFtIn(double lengthInCm) {
+    var foot = doubleConvertCMtoFT(lengthInCm);
+    var inches = (lengthInCm / cmInInch) - doubleConvertFTtoIN(foot);
+    return inches;
+  }
 
   HeightConversionUtils._();
 }
