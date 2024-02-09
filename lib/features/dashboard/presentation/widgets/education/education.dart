@@ -18,10 +18,7 @@ import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_
 class Education extends StatelessWidget {
   final DateTime date;
 
-  const Education({
-    super.key,
-    required this.date,
-  });
+  const Education({super.key, required this.date});
 
   void onPressHandler(BuildContext context) {
     var tabsRouter = AutoTabsRouter.of(context);
@@ -30,65 +27,62 @@ class Education extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DashboardEducationBloc, DashboardEducationState>(
-      builder: (BuildContext context, state) {
-        return state.maybeMap(
-          error: (errorState) {
-            final error = errorState.data.error;
-
-            return ErrorScreen(
-              error: error!,
-              onButtonPressed: () => context
-                  .read<DashboardEducationBloc>()
-                  .add(const DashboardEducationEvent.getDashboardLessons()),
-            );
-          },
-          loading: (_) => const Loader(),
-          orElse: () {
-            final nextLesson = state.data.nextLesson;
-            final completedLessons = state.data.completedLessons[date.isoStringWithoutTime];
-
-            return Container(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
-              decoration: const BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-              ),
-              child: Column(
-                children: [
-                  InkWell(
-                    onTap: () => onPressHandler(context),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            AppIcons.customEducationDashboard,
-                            const SizedBox(width: 24.0),
-                            CustomText.bitter600(
-                              LocalizedTexts.education.translation,
-                              style: context.textTheme.headlineSmall,
-                            ),
-                          ],
-                        ),
-                        if (!state.data.isLoading)
-                          const ImageIcon(
-                            AppIcons.arrow,
-                            color: AppColors.blueDarker,
-                          ),
-                      ],
+    return Container(
+      padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
+      decoration: const BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+      ),
+      child: Column(
+        children: [
+          InkWell(
+            onTap: () => onPressHandler(context),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    AppIcons.customEducationDashboard,
+                    const SizedBox(width: 24.0),
+                    CustomText.bitter600(
+                      LocalizedTexts.education.translation,
+                      style: context.textTheme.headlineSmall,
                     ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (nextLesson != null)
-                        Column(
+                  ],
+                ),
+                const ImageIcon(
+                  AppIcons.arrow,
+                  color: AppColors.blueDarker,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 8.0),
+          BlocBuilder<DashboardEducationBloc, DashboardEducationState>(
+            builder: (BuildContext context, state) {
+              final nextLesson = state.data.nextLesson;
+              final completedLessons = state.data.completedLessons[date.isoStringWithoutTime];
+
+              return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                const Divider(color: AppColors.blueOffRegular),
+                const SizedBox(height: 10.0),
+                state.maybeMap(
+                    error: (errorState) {
+                      final error = errorState.data.error;
+
+                      return ErrorScreen(
+                        error: error!,
+                        onButtonPressed: () => context
+                            .read<DashboardEducationBloc>()
+                            .add(const DashboardEducationEvent.getDashboardLessons()),
+                      );
+                    },
+                    loading: (_) => const SizedBox(height: 100.0, child: Loader()),
+                    orElse: () {
+                      if (nextLesson != null) {
+                        return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Divider(color: AppColors.blueOffRegular),
-                            const SizedBox(height: 6.0),
                             CustomText.bitter600(
                               LocalizedTexts.todo.tr(),
                               style: context.textTheme.titleLarge,
@@ -99,13 +93,12 @@ class Education extends StatelessWidget {
                             ),
                             const SizedBox(height: 14.0),
                           ],
-                        ),
-                      if (completedLessons != null && completedLessons.isNotEmpty)
-                        Column(
+                        );
+                      }
+                      if (completedLessons != null && completedLessons.isNotEmpty) {
+                        return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Divider(color: AppColors.blueOffRegular),
-                            const SizedBox(height: 10.0),
                             CustomText.bitter600(
                               '${LocalizedTexts.done.tr()} ${_getDate(date)}',
                               style: context.textTheme.titleLarge,
@@ -124,15 +117,16 @@ class Education extends StatelessWidget {
                             ),
                             const SizedBox(height: 16.0),
                           ],
-                        ),
-                    ],
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      },
+                        );
+                      }
+
+                      return const SizedBox.shrink();
+                    }),
+              ]);
+            },
+          ),
+        ],
+      ),
     );
   }
 
