@@ -3,9 +3,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_list.dart';
+
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -114,11 +115,16 @@ class _LessonPageState extends State<LessonPage> {
   Future<bool> _onWillPop() {
     final currentPage = context.read<EducationLessonBloc>().state.data.currentPage;
 
-    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.leaveLessonScreen, {
-          "lessonId": widget.lessonId.toString(),
-          "lessonType": currentPage.type.name,
-          "timestamp": DateTime.now().toIso8601String(),
-        }));
+    context.read<AnalyticsBloc>().add(
+          AnalyticsEvent.sendAnalytics(
+            FirebaseEvents.leaveLessonScreen,
+            {
+              CustomDefinitions.lessonId: widget.lessonId.toString(),
+              CustomDefinitions.lessonType: currentPage.type.name,
+              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+            },
+          ),
+        );
 
     AnalyticsEventService.instance.logLessonEvent(
       FirebaseEvents.leaveLessonScreen,

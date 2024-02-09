@@ -1,8 +1,8 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get_it/get_it.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
@@ -15,7 +15,10 @@ class AnalyticsEventService {
 
   AnalyticsEventService._();
 
-  void logEvent(String eventName, {Map<String, dynamic>? parameters}) async {
+  void logEvent(
+    String eventName, {
+    Map<String, dynamic>? parameters,
+  }) async {
     final userId = _authenticationCubit?.state.id ?? -1;
 
     if (parameters != null) {
@@ -83,7 +86,10 @@ class AnalyticsEventService {
     }
   }
 
-  void logLessonCompletedEvent(String eventName, int lessonId) async {
+  void logLessonCompletedEvent(
+    String eventName,
+    int lessonId,
+  ) async {
     FirebaseAnalytics.instance.logEvent(
       name: eventName,
       parameters: {
@@ -107,7 +113,7 @@ class AnalyticsEventService {
     );
   }
 
-  void openedTextLessonVersionEvent(int lessonId, int userId) async {
+  void openedTextLessonVersionEvent(int lessonId) async {
     logEvent(
       FirebaseEvents.openedTextLessonVersion,
       parameters: {
@@ -117,7 +123,7 @@ class AnalyticsEventService {
     );
   }
 
-  void closedTextLessonVersionEvent(int lessonId, int userId) async {
+  void closedTextLessonVersionEvent(int lessonId) async {
     logEvent(
       FirebaseEvents.closedTextLessonVersion,
       parameters: {
@@ -127,7 +133,7 @@ class AnalyticsEventService {
     );
   }
 
-  void lessonAudioPlayEvent(int lessonId, int userId) async {
+  void lessonAudioPlayEvent(int lessonId) async {
     logEvent(
       FirebaseEvents.lessonAudioPlay,
       parameters: {
@@ -137,7 +143,7 @@ class AnalyticsEventService {
     );
   }
 
-  void lessonAudioStopEvent(int lessonId, int userId) async {
+  void lessonAudioStopEvent(int lessonId) async {
     logEvent(
       FirebaseEvents.lessonAudioStop,
       parameters: {
@@ -147,7 +153,7 @@ class AnalyticsEventService {
     );
   }
 
-  void lessonAudioFinishedEvent(int lessonId, int userId) async {
+  void lessonAudioFinishedEvent(int lessonId) async {
     logEvent(
       FirebaseEvents.lessonAudioFinished,
       parameters: {
@@ -205,7 +211,7 @@ class AnalyticsEventService {
     );
   }
 
-  void openedSessionPreparationMaterialsEvent(int userId, int sessionId) async {
+  void openedSessionPreparationMaterialsEvent(int sessionId) async {
     logEvent(
       FirebaseEvents.openedSessionPreparationMaterials,
       parameters: {
@@ -215,7 +221,7 @@ class AnalyticsEventService {
     );
   }
 
-  void closedSessionPreparationMaterialsEvent(int userId, int sessionId) async {
+  void closedSessionPreparationMaterialsEvent(int sessionId) async {
     logEvent(
       FirebaseEvents.closedSessionPreparationMaterials,
       parameters: {

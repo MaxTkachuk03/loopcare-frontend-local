@@ -21,4 +21,5 @@ class FirebaseEvents {
   static String get lessonAudioFinished => 'lesson_audio_finished';
   static String get openedSessionPreparationMaterials => 'opened_session_preparation_materials';
   static String get closedSessionPreparationMaterials => 'closed_session_preparation_materials';
+  static String get lessonCompletedScreen => 'lesson_completed_screen';
 }
