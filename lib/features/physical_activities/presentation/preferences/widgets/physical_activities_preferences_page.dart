@@ -28,8 +28,7 @@ class PhysicalActivitiesPreferencesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScaffold.petrolLightest(
       appBar: CustomAppBar.petrol(
-        title: LocalizedTexts.trainingFocus.tr(),
-        subtitle: LocalizedTexts.introduction.tr(),
+        title: LocalizedTexts.preferences.tr(),
         leading: CustomFilledIconButton.leadingPetrolLighter(),
       ),
       body: SafeArea(
@@ -57,7 +56,7 @@ class PhysicalActivitiesPreferencesPage extends StatelessWidget {
                     CategoryLabel.physicalActivity(),
                     const SizedBox(height: 18.0),
                     CustomText.bitter600(
-                      LocalizedTexts.physicalActivitiesPreferences.tr(),
+                      LocalizedTexts.physicalActivitiesPreferencesLabel.tr(),
                       style: context.textTheme.displayLarge,
                     ),
                     const SizedBox(height: 18.0),
