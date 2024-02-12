@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/features/account/presentation/group_preference
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 
 class GroupPreferencesForm extends StatelessWidget {
   const GroupPreferencesForm({super.key});
@@ -46,6 +47,8 @@ class GroupPreferencesForm extends StatelessWidget {
                 },
                 updated: (s) {
                   final preferences = s.data.genderPreferences;
+                  final gender = accountState.gender;
+                  final showGenderPreference = (gender == SexType.female || gender == SexType.male);
 
                   if (accountState.groupingState == UserGroupingState.grouped) {
                     return Column(
@@ -74,13 +77,14 @@ class GroupPreferencesForm extends StatelessWidget {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TappedItem(
-                        title: LocalizedTexts.genderPreference.tr(),
-                        subTitle: preferences != null ? preferences.label : '',
-                        onPressHandler: () => _onGenderPreferencesTap(context),
-                      ),
-                      const SizedBox(height: 16.0),
-                      const DividerLight(),
+                      if (showGenderPreference)
+                        TappedItem(
+                          title: LocalizedTexts.genderPreference.tr(),
+                          subTitle: preferences != null ? preferences.label : '',
+                          onPressHandler: () => _onGenderPreferencesTap(context),
+                        ),
+                      if (showGenderPreference) const SizedBox(height: 16.0),
+                      if (showGenderPreference) const DividerLight(),
                       const SizedBox(height: 16.0),
                       TappedItem(
                         title: LocalizedTexts.timezone,
