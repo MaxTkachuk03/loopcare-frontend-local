@@ -106,6 +106,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         SubscriptionState.loading(state.data.copyWith(isLoading: false)),
       );
     } catch (e) {
+      debugPrint('devcpp ERROR PURCHASE: ${e.toString()}');
       emit(
         SubscriptionState.error(
           state.data.copyWith(
@@ -182,10 +183,11 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     }
     response.fold((error) {
       add(SubscriptionEvent.errorVerifyPurchase(error));
-    }, (r) {
-      if (oldPurchaseDetails != null) {
-        inAppPurchaseService.completePurchase(oldPurchaseDetails);
+    }, (r) async {
+      if (oldPurchaseDetails != null && oldPurchaseDetails.pendingCompletePurchase) {
+        await inAppPurchaseService.instance.completePurchase(oldPurchaseDetails);
       }
+
       r.valid ?? true
           ? add(SubscriptionEvent.buySubscription(product))
           : add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(generalMessage)));
