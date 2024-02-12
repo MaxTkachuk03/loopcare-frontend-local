@@ -575,8 +575,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       _setInactiveUserState();
     } else {
       _enablePortraitOrientation();
-      final a = await zoom.videoHelper.startVideo();
-      print(a);
+      await zoom.videoHelper.startVideo();
     }
 
     setState(() {
