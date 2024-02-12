@@ -12,7 +12,9 @@ import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_event_listener.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_user.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
@@ -240,6 +242,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
     _sessionJoinListener = emitter.on(EventType.onSessionJoin, (sessionUser) async {
       isInSession = true;
+
+      AnalyticsEventService.instance.logEvent(FirebaseEvents.userEntersSession);
 
       _startTimer();
 
@@ -492,6 +496,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   }
 
   _leaveSessionHandler() async {
+    AnalyticsEventService.instance.logEvent(FirebaseEvents.userLeaveSession);
+
     await zoom.leaveSession(false);
     if (context.mounted) {
       context.router.pop();

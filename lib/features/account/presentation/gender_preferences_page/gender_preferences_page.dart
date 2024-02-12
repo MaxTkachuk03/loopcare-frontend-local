@@ -4,6 +4,9 @@ import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -79,6 +82,14 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
       context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward());
     }
 
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.userFillsOutGenderPreferences,
+      parameters: {
+        CustomDefinitions.navigatedFrom: widget.fromLessonComplete ? 'Lesson content' : 'User profile',
+        CustomDefinitions.value: _selectedValue.toString(),
+      },
+    );
+
     if (groupPrefsMode == GroupPrefsMode.singlePage) {
       context.router.pop();
     } else {
@@ -136,7 +147,8 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
                           children: GenderPreferences.values.map(
                             (GenderPreferences value) {
                               final gender = context.read<AuthenticationCubit>().state.gender;
-                              final shouldRemoveMale = gender == SexType.male && value == GenderPreferences.femaleOnly;
+                              final shouldRemoveMale =
+                                  gender == SexType.male && value == GenderPreferences.femaleOnly;
                               final shouldRemoveFemale =
                                   gender == SexType.female && value == GenderPreferences.maleOnly;
 

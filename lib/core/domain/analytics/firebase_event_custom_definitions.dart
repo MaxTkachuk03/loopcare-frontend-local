@@ -9,15 +9,25 @@ class CustomDefinitions {
   static String get exerciseDuration => 'exerciseDuration';
   static String get exerciseLink => 'exerciseLink';
   static String get hated => 'hated';
-  static String get lessonId => 'lessonId';
   static String get lessonType => 'lessonType';
   static String get programDifficulty => 'programDifficulty';
   static String get programDuration => 'programDuration';
-  static String get programId => 'programId';
   static String get programName => 'programName';
-  static String get userId => 'userId';
 
-  //new
-  static String get timestamp => 'timestamp';
+  // id
+  static String get userId => 'userId';
+  static String get programId => 'programId';
+  static String get lessonId => 'lessonId';
+
+  //------------------------------------------------ new
+  static String get assignmentId => 'assignmentId';
   static String get sessionId => 'sessionId';
+
+  static String get assignmentTitle => 'assignmentTitle';
+  static String get navigatedFrom => 'navigatedFrom';
+  static String get value => 'value';
+  static String get weekTopic => 'weekTopic';
+  static String get timestamp => 'timestamp';
+  static String get confirmed => 'confirmed';
+  static String get decision => 'decision';
 }

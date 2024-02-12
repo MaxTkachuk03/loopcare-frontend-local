@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
+import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 
 class AnalyticsEventService {
   AuthenticationCubit? get _authenticationCubit => GetIt.instance<AuthenticationCubit>();
@@ -211,22 +212,70 @@ class AnalyticsEventService {
     );
   }
 
-  void openedSessionPreparationMaterialsEvent(int sessionId) async {
+  void openedSessionPreparationMaterialsEvent(int sessionId, String weekTopic) async {
     logEvent(
       FirebaseEvents.openedSessionPreparationMaterials,
       parameters: {
         CustomDefinitions.sessionId: sessionId.toString(),
+        CustomDefinitions.weekTopic: weekTopic,
         CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
       },
     );
   }
 
-  void closedSessionPreparationMaterialsEvent(int sessionId) async {
+  void closedSessionPreparationMaterialsEvent(int sessionId, String weekTopic) async {
     logEvent(
       FirebaseEvents.closedSessionPreparationMaterials,
       parameters: {
         CustomDefinitions.sessionId: sessionId.toString(),
+        CustomDefinitions.weekTopic: weekTopic,
         CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
+  }
+
+  void userOpenedAssignment(LessonQuestion question) async {
+    logEvent(
+      FirebaseEvents.userOpenedAssignment,
+      parameters: {
+        CustomDefinitions.assignmentId: question.id.toString(),
+        CustomDefinitions.assignmentTitle: question.title,
+        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
+  }
+
+  void finalizeAssignment(
+    String event,
+    String assignmentId,
+    String assignmentTitle,
+    bool fromDashboard,
+  ) async {
+    logEvent(
+      event,
+      parameters: {
+        CustomDefinitions.assignmentId: assignmentId,
+        CustomDefinitions.assignmentTitle: assignmentTitle,
+        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+        CustomDefinitions.navigatedFrom: fromDashboard ? 'Dashboard' : 'My assignments',
+      },
+    );
+  }
+
+  void assignmentMotivationScale(
+    String value,
+    String assignmentId,
+    String assignmentTitle,
+    bool fromDashboard,
+  ) async {
+    logEvent(
+      FirebaseEvents.assignmentMotivationScale,
+      parameters: {
+        CustomDefinitions.value: value,
+        CustomDefinitions.assignmentId: assignmentId,
+        CustomDefinitions.assignmentTitle: assignmentTitle,
+        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+        CustomDefinitions.navigatedFrom: fromDashboard ? 'Dashboard' : 'My assignments',
       },
     );
   }

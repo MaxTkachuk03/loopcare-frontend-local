@@ -111,12 +111,21 @@ class BookedSessionCard extends StatelessWidget {
           ),
         );
 
-    AnalyticsEventService.instance.openedSessionPreparationMaterialsEvent(sessionId);
+    AnalyticsEventService.instance.openedSessionPreparationMaterialsEvent(
+      sessionId,
+      groupSession.topic,
+    );
 
     context.router.pushNamed(AppRoutes.preparationMaterials);
   }
 
   _onCancelPressed(BuildContext context) {
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.userSignedOutFromSession,
+      parameters: {
+        CustomDefinitions.sessionId: groupSession.id.toString(),
+      },
+    );
     context.read<TopicsBloc>().add(TopicsEvent.signOutFromSession(groupSession.id));
   }
 }
