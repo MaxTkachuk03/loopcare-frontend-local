@@ -158,12 +158,14 @@ class TopicsData with _$TopicsData {
   String get thisWeekTopicsImage => _thisWeekTopic?.image ?? '';
 
   // TODO move to the GroupSession model
-  Duration get timePassedSinceSessionStart {
+  Future<Duration> get timePassedSinceSessionStart async {
     final startTime = signedGroupSessionStartTime;
 
     if (startTime == null) return Duration.zero;
 
-    return DateTime.now().difference(startTime);
+    final ntpTime = await TimeService.now;
+
+    return ntpTime.difference(startTime);
   }
 
   // TODO move to the GroupSession model
