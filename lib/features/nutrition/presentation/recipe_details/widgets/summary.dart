@@ -99,8 +99,9 @@ class Summary extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20.0),
-                  MainContainer(child: _getButton(context, fromRecommendation, s.recipe)),
-                  const SizedBox(height: 20.0)
+                  //Todo hide "Skip" button LOOPCARE-2175
+                  // MainContainer(child: _getButton(context, fromRecommendation, s.recipe)),
+                  // const SizedBox(height: 20.0)
                 ],
               ),
             );
