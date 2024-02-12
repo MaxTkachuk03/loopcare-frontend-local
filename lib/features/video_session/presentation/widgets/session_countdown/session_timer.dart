@@ -39,13 +39,19 @@ class _SessionTimerState extends State<SessionTimer> with WidgetsBindingObserver
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
 
+    _handleAppState(state);
+  }
+
+  Future<void> _handleAppState(AppLifecycleState state) async {
     if (state == AppLifecycleState.paused) {
       _sessionTimer.cancel();
     }
 
     if (state == AppLifecycleState.resumed) {
       _sessionTimer.cancel();
-      _timeBeforeStart = context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inSeconds;
+      final Duration duration = await context.read<TopicsBloc>().state.data.timeLeftToSessionStart;
+
+      _timeBeforeStart = duration.inSeconds;
       _sessionTimer = Timer.periodic(_timerPeriod, timerCb);
     }
   }
