@@ -47,26 +47,15 @@ abstract class Account implements _$Account {
   bool get isMixedGender => gender != SexType.female && gender != SexType.male;
 
   int get trainingFrequency {
-    final RegExpMatch? match = RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
+    final RegExpMatch? match =
+        RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
 
     return match != null ? int.parse(match[0] ?? '0') : 0;
   }
 
-  bool get disableGroupSessions {
-    final bool disableGroupSessions = _oneTestHasHighValues || _allTestsAreModerate;
+  bool get disableGroupSessions => mentalHealthTests != null && _isPhq8High ? true : false;
 
-    return mentalHealthTests != null && disableGroupSessions ? true : false;
-  }
-
-  bool get _oneTestHasHighValues =>
-      mentalHealthTests?.phq8 == InterpretationType.high.name ||
-      mentalHealthTests?.phq15 == InterpretationType.high.name ||
-      mentalHealthTests?.gad7 == InterpretationType.high.name;
-
-  bool get _allTestsAreModerate =>
-      mentalHealthTests?.phq8 == InterpretationType.moderate.name &&
-      mentalHealthTests?.phq15 == InterpretationType.moderate.name &&
-      mentalHealthTests?.gad7 == InterpretationType.moderate.name;
+  bool get _isPhq8High => mentalHealthTests?.phq8 == InterpretationType.high.name;
 
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 }
