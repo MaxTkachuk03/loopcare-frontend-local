@@ -168,6 +168,7 @@ class LocalizedTexts {
   static const String today = 'today';
   static const String physicalActivities = 'physicalActivities';
   static const String physicalActivitiesPreferences = 'physicalActivitiesPreferences';
+  static const String physicalActivitiesPreferencesLabel = 'physicalActivitiesPreferencesLabel';
   static const String trainingFrequency = 'trainingFrequency';
   static const String trainingFocus = 'trainingFocus';
   static const String physicalActivitiesPreferencesDesc = 'physicalActivitiesPreferencesDesc';
@@ -535,8 +536,7 @@ class LocalizedTexts {
   static const String appStore = "appStore";
   static const String googleMarket = "googleMarket";
   static const String cancelAccountSubscription = "cancelAccountSubscription";
-  static const String otherPurchaseVendorCancelAccountSubscription =
-      "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";

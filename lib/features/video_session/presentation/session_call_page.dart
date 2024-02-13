@@ -12,6 +12,7 @@ import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_event_listener.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_user.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
@@ -598,6 +599,14 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       time: formatSecondsToDurationString(timePassed),
     );
     ModalBottomSheet.reportAbuse(context: context, groupSession: sessionReport);
+
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.groupSessionReportedIssue,
+      parameters: {
+        CustomDefinitions.sessionId: signedSessionId,
+        CustomDefinitions.timePassed: formatSecondsToDurationString(timePassed),
+      },
+    );
   }
 
   @override

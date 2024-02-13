@@ -86,7 +86,7 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
       FirebaseEvents.userFillsOutGenderPreferences,
       parameters: {
         CustomDefinitions.navigatedFrom: widget.fromLessonComplete ? 'Lesson content' : 'User profile',
-        CustomDefinitions.value: _selectedValue.toString(),
+        CustomDefinitions.value: _selectedValue?.name,
       },
     );
 

@@ -42,4 +42,10 @@ class FirebaseEvents {
   static String get userFillsOutGroupPreferences => 'user_fills_out_group_preferences';
   static String get userFillsOutTimezonePreferences => 'user_fills_out_timezone_preferences';
   static String get userFillsOutNicknamePreferences => 'user_fills_out_nickname_preferences';
+  static String get groupSessionReportedIssue => 'group_session_reported_issue';
+  static String get weightLogged => 'weight_logged';
+  static String get barcodeScanned => 'barcode_scanned';
+  static String get searchScreenOpened => 'search_screen_opened';
+  static String get searchScreenClosed => 'search_screen_closed';
+  static String get performedSearch => 'performe_search';
 }

@@ -13,12 +13,9 @@ class CustomDefinitions {
   static String get programDifficulty => 'programDifficulty';
   static String get programDuration => 'programDuration';
   static String get programName => 'programName';
-
-  // id
   static String get userId => 'userId';
   static String get programId => 'programId';
   static String get lessonId => 'lessonId';
-
   //------------------------------------------------ new
   static String get assignmentId => 'assignmentId';
   static String get sessionId => 'sessionId';
@@ -30,4 +27,8 @@ class CustomDefinitions {
   static String get timestamp => 'timestamp';
   static String get confirmed => 'confirmed';
   static String get decision => 'decision';
+  static String get timePassed => 'timePassed';
+  static String get measurementSystem => 'measurementSystem';
+  static String get failedAttempt => 'failedAttempt';
+  static String get filters => 'filters';
 }

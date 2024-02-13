@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
-import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -149,6 +147,11 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     });
   }
 
+  bool get _showEducationWidget {
+    final now = DateTime.now();
+    return _selectedDay.isBefore(now) || _selectedDay.isAtSameMomentAs(now);
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold.blue(
@@ -228,27 +231,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                           },
                         ),
                         const SizedBox(height: 19.0),
-                        BlocBuilder<DashboardEducationBloc, DashboardEducationState>(
-                          builder: (BuildContext context, state) {
-                            return state.maybeMap(
-                              error: (errorState) {
-                                final error = errorState.data.error;
-
-                                return ErrorScreen(
-                                  smallVersion: true,
-                                  error: error!,
-                                  onButtonPressed: () => context
-                                      .read<DashboardEducationBloc>()
-                                      .add(const DashboardEducationEvent.getDashboardLessons()),
-                                );
-                              },
-                              loading: (_) => const Loader(),
-                              orElse: () => state.isVisibleOnDashboard(_selectedDay)
-                                  ? Education(date: _selectedDay)
-                                  : const SizedBox.shrink(),
-                            );
-                          },
-                        ),
+                        if (_showEducationWidget) Education(date: _selectedDay),
                         BlocBuilder<AuthenticationCubit, AuthenticationState>(
                           builder: (context, state) {
                             if (!state.isAssignmentsUnlocked) {
