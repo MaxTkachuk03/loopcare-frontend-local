@@ -4,11 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/seek_bar.dart';
 import 'package:rxdart/rxdart.dart';
@@ -100,29 +100,37 @@ class ControlButtons extends StatelessWidget {
   const ControlButtons(this.player, this.muteNotifier, {super.key});
 
   _onPlayPressed(BuildContext context) {
-    final userId = context.read<AuthenticationCubit>().state.id;
     final lessonId = context.read<EducationLessonBloc>().state.data.lessonId;
 
-    AnalyticsEventService.instance.lessonAudioPlayEvent(lessonId, userId);
+    AnalyticsEventService.instance.lessonAudioPlayEvent(lessonId);
 
-    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.lessonAudioPlay, {
-          "lessonId": lessonId.toString(),
-          "timestamp": DateTime.now().toIso8601String(),
-        }));
+    context.read<AnalyticsBloc>().add(
+          AnalyticsEvent.sendAnalytics(
+            FirebaseEvents.lessonAudioPlay,
+            {
+              CustomDefinitions.lessonId: lessonId.toString(),
+              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+            },
+          ),
+        );
 
     player.play();
   }
 
   _onPlayPaused(BuildContext context) {
-    final userId = context.read<AuthenticationCubit>().state.id;
     final lessonId = context.read<EducationLessonBloc>().state.data.lessonId;
 
-    AnalyticsEventService.instance.lessonAudioStopEvent(lessonId, userId);
+    AnalyticsEventService.instance.lessonAudioStopEvent(lessonId);
 
-    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.lessonAudioStop, {
-          "lessonId": lessonId.toString(),
-          "timestamp": DateTime.now().toIso8601String(),
-        }));
+    context.read<AnalyticsBloc>().add(
+          AnalyticsEvent.sendAnalytics(
+            FirebaseEvents.lessonAudioStop,
+            {
+              CustomDefinitions.lessonId: lessonId.toString(),
+              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+            },
+          ),
+        );
 
     player.pause();
   }

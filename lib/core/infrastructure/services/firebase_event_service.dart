@@ -1,18 +1,32 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:get_it/get_it.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
 
 class AnalyticsEventService {
+  AuthenticationCubit? get _authenticationCubit => GetIt.instance<AuthenticationCubit>();
+
   static final instance = AnalyticsEventService._();
 
   AnalyticsEventService._();
 
-  void logEvent(String eventName, {Map<String, dynamic>? data}) async {
+  void logEvent(
+    String eventName, {
+    Map<String, dynamic>? parameters,
+  }) async {
+    final userId = _authenticationCubit?.state.id ?? -1;
+
+    Map<String, dynamic> tmpParameters = Map.from(parameters ?? {});
+    tmpParameters[CustomDefinitions.userId] = userId;
+
     await FirebaseAnalytics.instance.logEvent(
       name: eventName,
-      parameters: data,
+      parameters: tmpParameters,
     );
   }
 
@@ -32,8 +46,12 @@ class AnalyticsEventService {
     IList<String> selectedHatesNames,
   ) async {
     for (var item in selectedHatesNames) {
-      await FirebaseAnalytics.instance
-          .logEvent(name: '${eventName}_hated', parameters: {'hated': item.toString()});
+      logEvent(
+        '${eventName}_${CustomDefinitions.hated}',
+        parameters: {
+          CustomDefinitions.hated: item.toString(),
+        },
+      );
     }
   }
 
@@ -42,8 +60,12 @@ class AnalyticsEventService {
     IList<String> selectedAllergicNames,
   ) async {
     for (var item in selectedAllergicNames) {
-      await FirebaseAnalytics.instance
-          .logEvent(name: '${eventName}_allergic', parameters: {'allergic': item.toString()});
+      logEvent(
+        '${eventName}_${CustomDefinitions.allergic}',
+        parameters: {
+          CustomDefinitions.allergic: item.toString(),
+        },
+      );
     }
   }
 
@@ -52,155 +74,156 @@ class AnalyticsEventService {
     IList<String> selectedDislikeNames,
   ) async {
     for (var item in selectedDislikeNames) {
-      await FirebaseAnalytics.instance
-          .logEvent(name: '${eventName}_dislike', parameters: {'dislike': item.toString()});
+      logEvent(
+        '${eventName}_${CustomDefinitions.dislike}',
+        parameters: {
+          CustomDefinitions.dislike: item.toString(),
+        },
+      );
     }
   }
 
-  void logLessonCompletedEvent(String eventName, int lessonId) async {
-    FirebaseAnalytics.instance.logEvent(
-      name: eventName,
+  void logLessonCompletedEvent(
+    String eventName,
+    int lessonId,
+  ) async {
+    logEvent(
+      eventName,
       parameters: {
-        'lessonId': lessonId.toString(),
+        CustomDefinitions.lessonId: lessonId.toString(),
       },
     );
   }
 
-  void logLessonEvent(String eventName, int lessonId, LessonPage lesson, int userId) async {
-    await FirebaseAnalytics.instance.logEvent(
-      name: eventName,
+  void logLessonEvent(
+    String eventName,
+    int lessonId,
+    LessonPage lesson,
+  ) async {
+    logEvent(
+      eventName,
       parameters: {
-        'lessonId': lessonId.toString(),
-        'userId': userId.toString(),
-        'lessonType': lesson.type.name,
-        'timestamp': DateTime.now().toIso8601String(),
+        CustomDefinitions.lessonId: lessonId.toString(),
+        CustomDefinitions.lessonType: lesson.type.name,
+        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
       },
     );
   }
 
-  void leaveLessonEvent(int lessonId, String lessonType, int userId) async {
-    await FirebaseAnalytics.instance.logEvent(
-      name: 'leave_lesson_screen',
+  void openedTextLessonVersionEvent(int lessonId) async {
+    logEvent(
+      FirebaseEvents.openedTextLessonVersion,
       parameters: {
-        'lessonId': lessonId.toString(),
-        'lessonType': lessonType,
-        'userId': userId.toString(),
-        'timestamp': DateTime.now().toIso8601String(),
+        CustomDefinitions.lessonId: lessonId.toString(),
+        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
       },
     );
   }
 
-  void openedTextLessonVersionEvent(int lessonId, int userId) async {
-    await FirebaseAnalytics.instance.logEvent(
-      name: 'opened_text_lesson_version',
+  void closedTextLessonVersionEvent(int lessonId) async {
+    logEvent(
+      FirebaseEvents.closedTextLessonVersion,
       parameters: {
-        'lessonId': lessonId.toString(),
-        'userId': userId.toString(),
-        'timestamp': DateTime.now().toIso8601String(),
+        CustomDefinitions.lessonId: lessonId.toString(),
+        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
       },
     );
   }
 
-  void closedTextLessonVersionEvent(int lessonId, int userId) async {
-    await FirebaseAnalytics.instance.logEvent(
-      name: 'closed_text_lesson_version',
+  void lessonAudioPlayEvent(int lessonId) async {
+    logEvent(
+      FirebaseEvents.lessonAudioPlay,
       parameters: {
-        'lessonId': lessonId.toString(),
-        'userId': userId.toString(),
-        'timestamp': DateTime.now().toIso8601String(),
+        CustomDefinitions.lessonId: lessonId.toString(),
+        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
       },
     );
   }
 
-  void lessonAudioPlayEvent(int lessonId, int userId) async {
-    await FirebaseAnalytics.instance.logEvent(
-      name: 'lesson_audio_play',
+  void lessonAudioStopEvent(int lessonId) async {
+    logEvent(
+      FirebaseEvents.lessonAudioStop,
       parameters: {
-        'lessonId': lessonId.toString(),
-        'userId': userId.toString(),
-        'timestamp': DateTime.now().toIso8601String(),
+        CustomDefinitions.lessonId: lessonId.toString(),
+        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
       },
     );
   }
 
-  void lessonAudioStopEvent(int lessonId, int userId) async {
-    await FirebaseAnalytics.instance.logEvent(
-      name: 'lesson_audio_stop',
+  void lessonAudioFinishedEvent(int lessonId) async {
+    logEvent(
+      FirebaseEvents.lessonAudioFinished,
       parameters: {
-        'lessonId': lessonId.toString(),
-        'userId': userId.toString(),
-        'timestamp': DateTime.now().toIso8601String(),
+        CustomDefinitions.lessonId: lessonId.toString(),
+        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
       },
     );
   }
 
-  void lessonAudioFinishedEvent(int lessonId, int userId) async {
-    await FirebaseAnalytics.instance.logEvent(
-      name: 'lesson_audio_finished',
+  void logProgramAssessmentEvent(
+    String eventName,
+    int score,
+    String assessmentLike,
+  ) async {
+    logEvent(
+      eventName,
       parameters: {
-        'lessonId': lessonId.toString(),
-        'userId': userId.toString(),
-        'timestamp': DateTime.now().toIso8601String(),
+        CustomDefinitions.assessmentLevel: score,
+        CustomDefinitions.assessmentLike: assessmentLike,
       },
     );
   }
 
-  void logProgramAssessmentEvent(String eventName, int score, String assessmentLike) async {
-    await FirebaseAnalytics.instance.logEvent(
-      name: eventName,
+  void logPhysicalProgramEvent(
+    String eventName,
+    PhysicalProgram program,
+  ) async {
+    logEvent(
+      eventName,
       parameters: {
-        'assessmentLevel': score,
-        'assessmentLike': assessmentLike,
-      },
-    );
-  }
-
-  void logPhysicalProgramEvent(String eventName, PhysicalProgram program) async {
-    await FirebaseAnalytics.instance.logEvent(
-      name: eventName,
-      parameters: {
-        'programId': program.id,
-        'programName': program.name,
-        'programDuration': program.duration,
-        'programDifficulty': program.difficultyName,
+        CustomDefinitions.programId: program.id,
+        CustomDefinitions.programName: program.name,
+        CustomDefinitions.programDuration: program.duration,
+        CustomDefinitions.programDifficulty: program.difficultyName,
       },
     );
   }
 
   void logPhysicalActivityVideoEvent(
-      String eventName, PhysicalProgram program, PhysicalProgramExercise exercise) async {
-    await FirebaseAnalytics.instance.logEvent(
-      name: eventName,
+    String eventName,
+    PhysicalProgram program,
+    PhysicalProgramExercise exercise,
+  ) async {
+    logEvent(
+      eventName,
       parameters: {
-        'programId': program.id,
-        'programName': program.name,
-        'programDuration': program.duration,
-        'programDifficulty': program.difficultyName,
-        'exercise': exercise.name,
-        'exerciseDuration': exercise.duration,
-        'exerciseLink': exercise.video ?? '',
+        CustomDefinitions.programId: program.id,
+        CustomDefinitions.programName: program.name,
+        CustomDefinitions.programDuration: program.duration,
+        CustomDefinitions.programDifficulty: program.difficultyName,
+        CustomDefinitions.exercise: exercise.name,
+        CustomDefinitions.exerciseDuration: exercise.duration,
+        CustomDefinitions.exerciseLink: exercise.video ?? '',
       },
     );
   }
 
-  void openedSessionPreparationMaterialsEvent(int userId, int sessionId) async {
-    await FirebaseAnalytics.instance.logEvent(
-      name: "opened_session_preparation_materials",
+  void openedSessionPreparationMaterialsEvent(int sessionId) async {
+    logEvent(
+      FirebaseEvents.openedSessionPreparationMaterials,
       parameters: {
-        'userId': userId.toString(),
-        'sessionId': sessionId.toString(),
-        'timestamp': DateTime.now().toIso8601String(),
+        CustomDefinitions.sessionId: sessionId.toString(),
+        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
       },
     );
   }
 
-  void closedSessionPreparationMaterialsEvent(int userId, int sessionId) async {
-    await FirebaseAnalytics.instance.logEvent(
-      name: "closed_session_preparation_materials",
+  void closedSessionPreparationMaterialsEvent(int sessionId) async {
+    logEvent(
+      FirebaseEvents.closedSessionPreparationMaterials,
       parameters: {
-        'userId': userId.toString(),
-        'sessionId': sessionId.toString(),
-        'timestamp': DateTime.now().toIso8601String(),
+        CustomDefinitions.sessionId: sessionId.toString(),
+        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
       },
     );
   }

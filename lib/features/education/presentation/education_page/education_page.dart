@@ -174,6 +174,8 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
       ..add(EducationProgramEvent.getLessons(currentTab))
       ..add(EducationProgramEvent.setLessonWithCountdown(currentTab));
 
-    AnalyticsEventService.instance.logEvent('education_screen_${currentTab.label.toLowerCase()}');
+    AnalyticsEventService.instance.logEvent(
+      'education_screen_${currentTab.label.toLowerCase()}',
+    );
   }
 }
