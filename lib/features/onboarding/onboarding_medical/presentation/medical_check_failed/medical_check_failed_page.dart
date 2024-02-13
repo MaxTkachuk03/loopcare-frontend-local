@@ -84,15 +84,13 @@ class MedicalCheckFailedPage extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 30.0),
                                 Column(
-                                  children: state.data.diseasesList
-                                      .map((e) => e.enable
-                                          ? BulletListItem(
-                                              text: CustomText.w600(
-                                                e.diseases.label,
-                                                style: context.textTheme.bodyMedium,
-                                              ),
-                                              bulletSize: 18)
-                                          : const SizedBox.shrink())
+                                  children: state.data.listDiseasesEnabled
+                                      .map((e) => BulletListItem(
+                                          text: CustomText.w600(
+                                            e.diseases.label,
+                                            style: context.textTheme.bodyMedium,
+                                          ),
+                                          bulletSize: 18))
                                       .toList(),
                                 ),
                                 const SizedBox(height: 30.0),
