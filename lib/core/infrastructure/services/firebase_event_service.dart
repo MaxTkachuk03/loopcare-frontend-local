@@ -21,15 +21,12 @@ class AnalyticsEventService {
   }) async {
     final userId = _authenticationCubit?.state.id ?? -1;
 
-    if (parameters != null) {
-      parameters[CustomDefinitions.userId] = userId;
-    } else {
-      parameters = {CustomDefinitions.userId: userId};
-    }
+    Map<String, dynamic> tmpParameters = Map.from(parameters ?? {});
+    tmpParameters[CustomDefinitions.userId] = userId;
 
     await FirebaseAnalytics.instance.logEvent(
       name: eventName,
-      parameters: parameters,
+      parameters: tmpParameters,
     );
   }
 
