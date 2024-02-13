@@ -87,8 +87,8 @@ class AnalyticsEventService {
     String eventName,
     int lessonId,
   ) async {
-    FirebaseAnalytics.instance.logEvent(
-      name: eventName,
+    logEvent(
+      eventName,
       parameters: {
         CustomDefinitions.lessonId: lessonId.toString(),
       },
