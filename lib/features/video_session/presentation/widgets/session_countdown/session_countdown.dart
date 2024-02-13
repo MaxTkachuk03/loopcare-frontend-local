@@ -163,9 +163,17 @@ class _SessionCountdownState extends State<SessionCountdown> {
               onPressed: _onEnterSessionHandler,
               label: LocalizedTexts.joinSession.tr(),
             ),
-            sessionNotStarted: (_) => SessionTimer(
-              value: context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inSeconds,
-              onTimerEnds: _onTimerEndsHandler,
+            sessionNotStarted: (_) => FutureBuilder<Duration>(
+              future: context.read<TopicsBloc>().state.data.timeLeftToSessionStart,
+              builder: (context, snapshot) {
+                final data = snapshot.data;
+
+                if (snapshot.hasData && data != null) {
+                  return SessionTimer(value: data.inSeconds, onTimerEnds: _onTimerEndsHandler);
+                } else {
+                  return const SizedBox.shrink();
+                }
+              },
             ),
             sessionError: (_) => const SizedBox.shrink(),
             sessionEnded: (_) => const SizedBox.shrink(),
