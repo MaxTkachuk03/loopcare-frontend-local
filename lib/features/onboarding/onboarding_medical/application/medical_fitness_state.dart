@@ -25,6 +25,8 @@ class MedicalFitnessData with _$MedicalFitnessData {
     @Default(null) SexType? sexType,
   }) = _MedicalFitnessData;
 
+  List<DiseasesState> get listDiseasesEnabled => diseasesList.where((item) => item.enable).toList();
+
   bool get hasAtLeastOneDisease => diseasesList.where((item) => item.enable).isNotEmpty;
 
   bool get isTreatedByPsychologist => treatmentByTheDoctor == YesNoAnswer.yes;

@@ -76,7 +76,6 @@ class MedicalCheckFailedPage extends StatelessWidget {
                         ),
                         child: BlocBuilder<MedicalFitnessBloc, MedicalFitnessState>(
                           builder: (BuildContext context, state) {
-                            print(state.data);
                             return Column(
                               children: [
                                 CustomText.w400(
@@ -85,7 +84,7 @@ class MedicalCheckFailedPage extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 30.0),
                                 Column(
-                                  children: state.data.diseasesList
+                                  children: state.data.listDiseasesEnabled
                                       .map((e) => BulletListItem(
                                           text: CustomText.w600(
                                             e.diseases.label,
