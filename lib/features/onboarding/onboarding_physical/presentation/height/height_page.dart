@@ -1,6 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -240,6 +243,14 @@ class _NextButton extends StatelessWidget {
           height: getHeight(),
           measurementSystemType: measurementSystemType,
         ),
+      );
+
+      AnalyticsEventService.instance.logEvent(
+        FirebaseEvents.userHeight,
+        parameters: {
+          CustomDefinitions.value: getHeight(),
+          CustomDefinitions.measurementSystem: measurementSystemType.name,
+        },
       );
 
       final physicalFitnessNavigationState = StepNavigationState.of(context);

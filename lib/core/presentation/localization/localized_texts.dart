@@ -464,16 +464,6 @@ class LocalizedTexts {
   static const String sessionAlreadyEnded = "sessionAlreadyEnded";
   static const String duration = "duration";
   static const String badConnectionMessage = "badConnectionMessage";
-
-  // Mental Health
-  static const String weWouldLikeToSupportYou = "weWouldLikeToSupportYou";
-  static const String feelLimitedByAnxietyOrPhysicalSymptoms = "feelLimitedByAnxietyOrPhysicalSymptoms";
-  static const String feelLimitedByPhysicalSymptoms = "feelLimitedByPhysicalSymptoms";
-  static const String feelLimitedByAnxietySymptoms = "feelLimitedByAnxietySymptoms";
-  static const String youHaveBurdenInSeveralFields = "youHaveBurdenInSeveralFields";
-  static const String theFollowingAreasAreUnlocked = "theFollowingAreasAreUnlocked";
-  static const String weWillGuideYou = "weWillGuideYou";
-  static const String findBuddyAndGetIntoSupportGroup = "findBuddyAndGetIntoSupportGroup";
   static const String exercise = "exercise";
 
   // Book a seat
@@ -536,7 +526,8 @@ class LocalizedTexts {
   static const String appStore = "appStore";
   static const String googleMarket = "googleMarket";
   static const String cancelAccountSubscription = "cancelAccountSubscription";
-  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription =
+      "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";
@@ -770,14 +761,24 @@ class LocalizedTexts {
   static const String phq8ResultMedium = "phq8ResultMedium";
   static const String phq8ResultHigh = "phq8ResultHigh";
   static const String phq8ResultHighest = "phq8ResultHighest";
-  static const String phq8ResultHighFinal1 = "phq8ResultHighFinal1";
-  static const String phq8ResultHighFinal2 = "phq8ResultHighFinal2";
-  static const String phq8ResultHighFinal3 = "phq8ResultHighFinal3";
-  static const String phq8ResultHighFinal4 = "phq8ResultHighFinal4";
-  static const String tailorProgramToYouPersonally = "tailorProgramToYouPersonally";
+  // Mental final results
+  static const String phq8FinalResultHigh1 = "phq8FinalResultHigh1";
+  static const String phq8FinalResultHigh2 = "phq8FinalResultHigh2";
+  static const String phq8FinalResultHigh3 = "phq8FinalResultHigh3";
+  static const String phq8FinalResultHigh4 = "phq8FinalResultHigh4";
+  static const String personalProgram = "personalProgram";
+  static const String supportMessage = "supportMessage";
+  static const String feelLimited1 = "feelLimited1";
+  static const String feelLimited2 = "feelLimited2";
+  static const String feelLimited3 = "feelLimited3";
+  static const String feelLimited4 = "feelLimited4";
+  static const String notATherapy = "notATherapy";
   static const String learnManyThings = "learnManyThings";
   static const String unlockAllSections = "unlockAllSections";
-  static const String notATherapy = "notATherapy";
+  static const String awailableAreas = "awailableAreas";
+  static const String unlockBuddyMessage = "unlockBuddyMessage";
+  static const String weWillGuideYou = "weWillGuideYou";
+
   static const String phq8Fail = "phq8Fail";
   static const String generalWellBeingSummary = "generalWellBeingSummary";
   static const String bodyAndMindBalanceSummary = "bodyAndMindBalanceSummary";

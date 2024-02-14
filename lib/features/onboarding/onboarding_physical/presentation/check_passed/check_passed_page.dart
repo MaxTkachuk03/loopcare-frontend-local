@@ -2,6 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -111,11 +114,11 @@ class CheckPassedPage extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    CustomText.w400(LocalizedTexts.age),
-                                    CustomText.w400(LocalizedTexts.sex),
-                                    CustomText.w400(LocalizedTexts.height),
-                                    CustomText.w400(LocalizedTexts.weight),
-                                    CustomText.w400(LocalizedTexts.bmi),
+                                    CustomText.w400(LocalizedTexts.age.tr()),
+                                    CustomText.w400(LocalizedTexts.sex.tr()),
+                                    CustomText.w400(LocalizedTexts.height.tr()),
+                                    CustomText.w400(LocalizedTexts.weight.tr()),
+                                    CustomText.w400(LocalizedTexts.bmi.tr()),
                                   ],
                                 ),
                                 const SizedBox(width: 50),
@@ -129,6 +132,13 @@ class CheckPassedPage extends StatelessWidget {
                                   final heightValue = _getHeightValue(isHeightMetric, state.heightInCm ?? '');
 
                                   final weightValue = _getWeightValue(isWeightMetric, state.weightInKg ?? '');
+
+                                  AnalyticsEventService.instance.logEvent(
+                                    FirebaseEvents.userBmi,
+                                    parameters: {
+                                      CustomDefinitions.value: '${state.bmi}',
+                                    },
+                                  );
 
                                   return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                                     CustomText.w600(
@@ -156,8 +166,10 @@ class CheckPassedPage extends StatelessWidget {
                               ],
                             ),
                             const SizedBox(height: 32),
-                            CustomText.w400(LocalizedTexts.bmiDescription,
-                                style: context.textTheme.bodyMedium),
+                            CustomText.w400(
+                              LocalizedTexts.bmiDescription.tr(),
+                              style: context.textTheme.bodyMedium,
+                            ),
                           ],
                         ),
                       ),
@@ -170,7 +182,7 @@ class CheckPassedPage extends StatelessWidget {
                     children: [
                       CustomElevatedButton.blueFullWidth(
                         onPressed: () => _onContinuePressed(context),
-                        label: LocalizedTexts.letsMoveOn,
+                        label: LocalizedTexts.letsMoveOn.tr(),
                       ),
                       const SizedBox(height: 30.0),
                     ],

@@ -50,7 +50,12 @@ class MentalHealthQuestionForm extends StatelessWidget {
 
   void _onSelected(int value, int currentQuestionId, BuildContext context) {
     context.read<MentalHealthBloc>().add(
-          MentalHealthEvent.setAnswer(MentalHealthAnswer(questionId: currentQuestionId, optionId: value)),
+          MentalHealthEvent.setAnswer(
+            MentalHealthAnswer(
+              questionId: currentQuestionId,
+              optionId: value,
+            ),
+          ),
         );
 
     final isLastQuestion = context.read<MentalHealthBloc>().state.data.isLastQuestionInTest;

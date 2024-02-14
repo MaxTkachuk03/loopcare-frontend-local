@@ -48,4 +48,17 @@ class FirebaseEvents {
   static String get searchScreenOpened => 'search_screen_opened';
   static String get searchScreenClosed => 'search_screen_closed';
   static String get performedSearch => 'performe_search';
+  static String get userCompleteQuiz => 'user_complete_quiz';
+  static String get userBirthday => 'user_birthday';
+  static String get userSex => 'user_sex';
+  static String get userBiologicalSex => 'user_biological_sex';
+  static String get userHeight => 'user_height';
+  static String get userWeight => 'user_weight';
+  static String get userBmi => 'user_bmi';
+  static String get userPregnancy => 'user_pregnancy';
+  static String get userMentalHealthTest => 'user_mental_health_test';
+  static String get showPopupAboutExceededTime => 'show_popup_about_exceeded_time';
+  static String get legalStatement => 'legal_statement';
+  static String get userName => 'user_name';
+  static String get userEmail => 'user_email';
 }

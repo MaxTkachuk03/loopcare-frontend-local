@@ -2,6 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -125,6 +128,16 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
           question.id,
           lessonQuestionOptionIds: selectLessonValueId != null ? [selectLessonValueId] : [],
         ),
+      );
+
+      AnalyticsEventService.instance.logEvent(
+        FirebaseEvents.userCompleteQuiz,
+        parameters: {
+          CustomDefinitions.lessonId: lessonId,
+          CustomDefinitions.title: question.title,
+          CustomDefinitions.questionId: question.id.toString(),
+          CustomDefinitions.value: selectLessonValueId?.toString() ?? '',
+        },
       );
     } else {
       _onNextHandler();

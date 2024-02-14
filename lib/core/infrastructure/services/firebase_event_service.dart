@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_de
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
+import 'package:loopcare_frontend/features/education/domain/education_lesson_page_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
@@ -22,15 +23,12 @@ class AnalyticsEventService {
   }) async {
     final userId = _authenticationCubit?.state.id ?? -1;
 
-    if (parameters != null) {
-      parameters[CustomDefinitions.userId] = userId;
-    } else {
-      parameters = {CustomDefinitions.userId: userId};
-    }
+    Map<String, dynamic> tmpParameters = Map.from(parameters ?? {});
+    tmpParameters[CustomDefinitions.userId] = userId;
 
     await FirebaseAnalytics.instance.logEvent(
       name: eventName,
-      parameters: parameters,
+      parameters: tmpParameters,
     );
   }
 
@@ -91,8 +89,8 @@ class AnalyticsEventService {
     String eventName,
     int lessonId,
   ) async {
-    FirebaseAnalytics.instance.logEvent(
-      name: eventName,
+    logEvent(
+      eventName,
       parameters: {
         CustomDefinitions.lessonId: lessonId.toString(),
       },
@@ -103,12 +101,17 @@ class AnalyticsEventService {
     String eventName,
     int lessonId,
     LessonPage lesson,
+    String lessonTitle,
+    bool withQuiz,
   ) async {
     logEvent(
       eventName,
       parameters: {
         CustomDefinitions.lessonId: lessonId.toString(),
         CustomDefinitions.lessonType: lesson.type.name,
+        CustomDefinitions.title: lessonTitle,
+        CustomDefinitions.withAudio: lesson.type == EducationLessonPageType.audio ? 'true' : 'false',
+        CustomDefinitions.withQuiz: withQuiz ? 'true' : 'false',
         CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
       },
     );

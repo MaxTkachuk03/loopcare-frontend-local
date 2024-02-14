@@ -19,6 +19,7 @@ class CustomDefinitions {
   //------------------------------------------------ new
   static String get assignmentId => 'assignmentId';
   static String get sessionId => 'sessionId';
+  static String get questionId => 'questionId';
 
   static String get assignmentTitle => 'assignmentTitle';
   static String get navigatedFrom => 'navigatedFrom';
@@ -31,4 +32,11 @@ class CustomDefinitions {
   static String get measurementSystem => 'measurementSystem';
   static String get failedAttempt => 'failedAttempt';
   static String get filters => 'filters';
+  static String get title => 'title';
+  static String get withAudio => 'withAudio';
+  static String get withQuiz => 'withQuiz';
+  static String get exclusion => 'exclusion';
+  static String get testType => 'testType';
+  static String get itemInterpretation => 'itemInterpretation';
+  static String get totalScore => 'totalScore';
 }
