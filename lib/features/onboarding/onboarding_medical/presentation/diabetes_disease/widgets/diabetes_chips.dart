@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/diabetes_types.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_medical/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/diseases.dart';
@@ -62,6 +65,14 @@ class _DiabetesChipsState extends State<DiabetesChips> {
     if (value == DiabetesTypes.typeTwo) {
       bloc.add(const MedicalFitnessEvent.addDisease(Diseases.diabetesTypeII));
     }
+
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.userDiabetes,
+      parameters: {
+        CustomDefinitions.value: value == DiabetesTypes.no ? 'false' : 'true',
+        CustomDefinitions.type: value.name,
+      },
+    );
 
     final medicalFitnessNavigationState = StepNavigationState.of(context);
 
