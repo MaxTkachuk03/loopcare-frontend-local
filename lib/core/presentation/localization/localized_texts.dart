@@ -681,7 +681,6 @@ class LocalizedTexts {
   static const String wegovy = 'wegovy';
   static const String otherBrand = 'otherBrand';
   static const String lessThanMonth = 'lessThanMonth';
-  static const String lessThanAMonth = 'lessThanAMonth';
   static const String lessThanCertainMonths = 'lessThanCertainMonths';
   static const String treatmentByTheDoctorQuestion = 'treatmentByTheDoctorQuestion';
   static const String twelveMonthsOrLonger = 'twelveMonthsOrLonger';

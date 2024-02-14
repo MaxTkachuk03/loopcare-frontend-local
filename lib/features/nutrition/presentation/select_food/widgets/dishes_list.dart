@@ -114,9 +114,22 @@ class _DishesListState extends State<DishesList> with AutomaticKeepAliveClientMi
                         selectFoodState.dishes.isEmpty
                             ? Padding(
                                 padding: const EdgeInsets.only(top: 16.0),
-                                child: EmptyListWidget(
-                                  type: EmptyListType.myDishes,
-                                  typeText: title,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    EmptyListWidget(
+                                      type: EmptyListType.myDishes,
+                                      typeText: title,
+                                    ),
+                                    const SizedBox(height: 20.0),
+                                    if (_canCreateDishWithSelectedMealCategory)
+                                      MainContainer(
+                                        child: CustomOutlinedButton.blueSmall(
+                                          label: LocalizedTexts.createMyDish.tr(),
+                                          onPressed: _onCreateDish,
+                                        ),
+                                      ),
+                                  ],
                                 ),
                               )
                             : Expanded(
