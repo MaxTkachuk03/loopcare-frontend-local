@@ -16,14 +16,12 @@ class CustomDefinitions {
   static String get userId => 'userId';
   static String get programId => 'programId';
   static String get lessonId => 'lessonId';
-  //------------------------------------------------ new
   static String get assignmentId => 'assignmentId';
   static String get sessionId => 'sessionId';
   static String get questionId => 'questionId';
   static String get groupId => 'groupId';
   static String get mealId => 'mealId';
   static String get servingId => 'servingId';
-
   static String get assignmentTitle => 'assignmentTitle';
   static String get navigatedFrom => 'navigatedFrom';
   static String get value => 'value';
