@@ -27,15 +27,12 @@ class CheckPassedPage extends StatelessWidget {
   const CheckPassedPage({super.key});
 
   String _getHeightValue(bool useMetric, String heightInCm) {
-    final heightFt = HeightConversionUtils.convertCMtoFT(
-      int.parse(heightInCm),
-    );
+    final int heightFt = HeightConversionUtils.doubleConvertCMtoFT(double.parse(heightInCm)).round();
 
-    final heightInches = HeightConversionUtils.convertCMtoFtIn(
-      int.parse(heightInCm),
-    );
+    final int heightInches = HeightConversionUtils.doubleConvertCMtoFtIn(double.parse(heightInCm)).round();
+    final int intHeightInCm = double.parse(heightInCm).round();
 
-    final heightValue = useMetric ? '$heightInCm cm' : '$heightFt ft $heightInches in';
+    final heightValue = useMetric ? '$intHeightInCm cm' : '$heightFt ft $heightInches in';
 
     return heightValue;
   }
