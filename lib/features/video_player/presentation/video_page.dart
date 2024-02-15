@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/aws_cookies_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
@@ -150,82 +151,97 @@ class _VideoPageState extends State<VideoPage> {
     _videoPlayerController?.seekTo(Duration(seconds: skipTime));
   }
 
+  Future<bool> _onWillPop(BuildContext context) {
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.programClosed,
+      parameters: {
+        CustomDefinitions.programId: widget.program.id,
+        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
+
+    return Future.value(true);
+  }
+
   @override
   Widget build(BuildContext context) {
     final controller = _videoPlayerController;
-    return BlocConsumer<VideoPlayerBloc, VideoPlayerState>(
-      listenWhen: (prev, cur) => cur is CookiesLoaded,
-      listener: _cookiesLoadedListener,
-      builder: (BuildContext context, state) {
-        return state.maybeMap(
-          loading: (_) => const Loader(),
-          orElse: () => const SizedBox.shrink(),
-          cookiesLoaded: (s) {
-            return OrientationBuilder(builder: (BuildContext context, Orientation orientation) {
-              final bool isPortrait = orientation == Orientation.portrait;
+    return WillPopScope(
+      onWillPop: () => _onWillPop(context),
+      child: BlocConsumer<VideoPlayerBloc, VideoPlayerState>(
+        listenWhen: (prev, cur) => cur is CookiesLoaded,
+        listener: _cookiesLoadedListener,
+        builder: (BuildContext context, state) {
+          return state.maybeMap(
+            loading: (_) => const Loader(),
+            orElse: () => const SizedBox.shrink(),
+            cookiesLoaded: (s) {
+              return OrientationBuilder(builder: (BuildContext context, Orientation orientation) {
+                final bool isPortrait = orientation == Orientation.portrait;
 
-              _videoPageController.setOrientation(orientation);
+                _videoPageController.setOrientation(orientation);
 
-              return CustomScaffold.blueDarkest(
-                appBar: isPortrait
-                    ? CustomAppBar.transparent(leading: CustomFilledIconButton.leadingBlueLighter())
-                    : null,
-                body: SafeArea(
-                  bottom: isPortrait,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      if (isPortrait) const Expanded(child: RotateDeviceMessage()),
-                      Expanded(
-                        child: VideoPlayerWidget(
-                          controller: controller,
-                          orientation: orientation,
-                          isLastVideo: _isLastExercise,
-                          programType: widget.program.typeName,
-                          programDifficulty: widget.program.difficultyName,
-                          programLength: widget.program.exercises.length,
-                          exercise: widget.program.exercises[_videoIndex],
-                          onVideoEnds: _onVideoEnds,
-                          onPrevPressed: _videoIndex == 0 ? null : _onPrevPressed,
-                          countDownController: _countDownController,
-                          videoPageController: _videoPageController,
-                        ),
-                      ),
-                      if (isPortrait)
+                return CustomScaffold.blueDarkest(
+                  appBar: isPortrait
+                      ? CustomAppBar.transparent(leading: CustomFilledIconButton.leadingBlueLighter())
+                      : null,
+                  body: SafeArea(
+                    bottom: isPortrait,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        if (isPortrait) const Expanded(child: RotateDeviceMessage()),
                         Expanded(
-                          child: controller != null
-                              ? ValueListenableBuilder(
-                                  valueListenable: controller,
-                                  builder: (BuildContext context, VideoPlayerValue value, child) {
-                                    final bool isVisible = value.position.inSeconds <
-                                        widget.program.exercises[_videoIndex].explanationSkipTime;
-
-                                    return Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Visibility(
-                                          visible: isVisible,
-                                          child: CustomElevatedButton.yellow(
-                                            onPressed: _onSkipExplanationHandler,
-                                            label: LocalizedTexts.skipExplanation.tr(),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 30.0),
-                                      ],
-                                    );
-                                  },
-                                )
-                              : const SizedBox.shrink(),
+                          child: VideoPlayerWidget(
+                            controller: controller,
+                            orientation: orientation,
+                            isLastVideo: _isLastExercise,
+                            programType: widget.program.typeName,
+                            programDifficulty: widget.program.difficultyName,
+                            programLength: widget.program.exercises.length,
+                            exercise: widget.program.exercises[_videoIndex],
+                            onVideoEnds: _onVideoEnds,
+                            onPrevPressed: _videoIndex == 0 ? null : _onPrevPressed,
+                            countDownController: _countDownController,
+                            videoPageController: _videoPageController,
+                          ),
                         ),
-                    ],
+                        if (isPortrait)
+                          Expanded(
+                            child: controller != null
+                                ? ValueListenableBuilder(
+                                    valueListenable: controller,
+                                    builder: (BuildContext context, VideoPlayerValue value, child) {
+                                      final bool isVisible = value.position.inSeconds <
+                                          widget.program.exercises[_videoIndex].explanationSkipTime;
+
+                                      return Column(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          Visibility(
+                                            visible: isVisible,
+                                            child: CustomElevatedButton.yellow(
+                                              onPressed: _onSkipExplanationHandler,
+                                              label: LocalizedTexts.skipExplanation.tr(),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 30.0),
+                                        ],
+                                      );
+                                    },
+                                  )
+                                : const SizedBox.shrink(),
+                          ),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            });
-          },
-        );
-      },
+                );
+              });
+            },
+          );
+        },
+      ),
     );
   }
 

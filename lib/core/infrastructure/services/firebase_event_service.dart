@@ -171,12 +171,14 @@ class AnalyticsEventService {
     String eventName,
     int score,
     String assessmentLike,
+    int programId,
   ) async {
     logEvent(
       eventName,
       parameters: {
         CustomDefinitions.assessmentLevel: score,
         CustomDefinitions.assessmentLike: assessmentLike,
+        CustomDefinitions.programId: programId.toString(),
       },
     );
   }

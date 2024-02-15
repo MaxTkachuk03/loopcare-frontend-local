@@ -21,6 +21,8 @@ class CustomDefinitions {
   static String get sessionId => 'sessionId';
   static String get questionId => 'questionId';
   static String get groupId => 'groupId';
+  static String get mealId => 'mealId';
+  static String get servingId => 'servingId';
 
   static String get assignmentTitle => 'assignmentTitle';
   static String get navigatedFrom => 'navigatedFrom';
@@ -40,9 +42,12 @@ class CustomDefinitions {
   static String get testType => 'testType';
   static String get itemInterpretation => 'itemInterpretation';
   static String get totalScore => 'totalScore';
-
   static String get foodItem => 'foodItem';
   static String get proteinScore => 'proteinScore';
   static String get calorieDensity => 'calorieDensity';
   static String get type => 'type';
+  static String get numberOfUnits => 'numberOfUnits';
+  static String get isDishes => 'isDishes';
+  static String get isRecipe => 'isRecipe';
+  static String get isMeal => 'isMeal';
 }

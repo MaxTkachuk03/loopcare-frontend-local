@@ -67,7 +67,6 @@ class FirebaseEvents {
   static String get userMedicines => 'user_medicines';
   static String get userSemaglutide => 'user_semaglutide';
   static String get userLengthSemaglutideIntake => 'user_length_semaglutide_intake';
-
   static String get userSemaglutideTreatmentSupposedLength => 'user_semaglutide_treatment_supposed_length';
   static String get userSecondaryFormOfObesity => 'user_secondary_form_of_obesity';
   static String get userMetabolicDisease => 'user_metabolic_disease';
@@ -81,4 +80,11 @@ class FirebaseEvents {
   static String get userSleepApnea => 'user_sleep_apnea';
   static String get userLocomotorSystem => 'user_locomotor_system';
   static String get userInTherapy => 'user_in_therapy';
+  static String get programStarted => 'program_started';
+  static String get programClosed => 'program_closed';
+  static String get programLike => 'program_like';
+  static String get programCompletedWithLogging => 'program_completed_with_logging';
+  static String get programCompletedWithoutLogging => 'program_completed_without_logging';
+  static String get userOpenedChat => 'user_opened_chat';
+  static String get userLeavesChat => 'user_leaves_chat';
 }
