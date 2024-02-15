@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 
 class SubscriptionDateUtils {
   static bool isPassDate(String? timeStamp) {
@@ -8,7 +7,7 @@ class SubscriptionDateUtils {
     }
 
     final date = DateFormat('yyyy-MM-ddTHH:mm:sssZ').parseUtc(timeStamp).toLocal();
-    return date.isBefore(DateTime.now()) || date.isSameDate(DateTime.now());
+    return date.isBefore(DateTime.now());
   }
 
   static String getTransactionDate(String? timeStamp) {
