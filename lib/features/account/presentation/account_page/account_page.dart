@@ -52,7 +52,7 @@ class _AccountPageState extends State<AccountPage> {
                 // PersonalDetailsSection(),
                 // SizedBox(height: 24.0),
                 // const TestResultsSection(),
-                // const SizedBox(height: 24.0),
+                // SizedBox(height: 24.0),
                 PreferencesSection(),
                 SizedBox(height: 24.0),
                 ReportAbuseSection(),

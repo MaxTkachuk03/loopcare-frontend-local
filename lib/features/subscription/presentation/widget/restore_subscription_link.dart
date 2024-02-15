@@ -14,40 +14,74 @@ class RestoreSubscriptionLink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-        children: <InlineSpan>[
-          TextSpan(
-            recognizer: TapGestureRecognizer()..onTap = () => onRestoreTap(),
-            text: LocalizedTexts.subscriptionRestoreLabel.tr(),
-            style: context.textTheme.bodyMedium?.copyWith(
-              fontSize: ThemeConstants.fontSize14,
-              fontFamily: ThemeConstants.openSansFontFamily,
-              color: AppColors.blueDarker,
-              decoration: TextDecoration.underline,
-              fontWeight: FontWeight.w700,
-            ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            children: <InlineSpan>[
+              const WidgetSpan(
+                child: Padding(
+                  padding: EdgeInsets.only(top: 16.0),
+                ),
+              ),
+              TextSpan(
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () => launchUrl(Uri.parse(termsAndConditionsUrl), mode: LaunchMode.externalApplication),
+                text: LocalizedTexts.subscriptionTermsLabel.tr(),
+                style: context.textTheme.bodyMedium?.copyWith(
+                  fontSize: ThemeConstants.fontSize14,
+                  fontFamily: ThemeConstants.openSansFontFamily,
+                  color: AppColors.blueDarker,
+                  decoration: TextDecoration.underline,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const WidgetSpan(
+                child: Padding(
+                  padding: EdgeInsets.only(left: 16.0),
+                ),
+              ),
+              TextSpan(
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () => launchUrl(Uri.parse(privacyPolicyUrl), mode: LaunchMode.externalApplication),
+                text: LocalizedTexts.subscriptionPrivacyLabel.tr(),
+                style: context.textTheme.bodyMedium?.copyWith(
+                  fontSize: ThemeConstants.fontSize14,
+                  fontFamily: ThemeConstants.openSansFontFamily,
+                  color: AppColors.blueDarker,
+                  decoration: TextDecoration.underline,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
           ),
-          const WidgetSpan(
-            child: Padding(
-              padding: EdgeInsets.only(left: 16.0),
-            ),
+        ),
+        RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            children: <InlineSpan>[
+              TextSpan(
+                recognizer: TapGestureRecognizer()..onTap = () => onRestoreTap(),
+                text: LocalizedTexts.subscriptionRestoreLabel.tr(),
+                style: context.textTheme.bodyMedium?.copyWith(
+                  fontSize: ThemeConstants.fontSize14,
+                  fontFamily: ThemeConstants.openSansFontFamily,
+                  color: AppColors.blueDarker,
+                  decoration: TextDecoration.underline,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const WidgetSpan(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                ),
+              ),
+            ],
           ),
-          TextSpan(
-            recognizer: TapGestureRecognizer()
-              ..onTap = () => launchUrl(Uri.parse(termsAndConditionsUrl), mode: LaunchMode.externalApplication),
-            text: LocalizedTexts.subscriptionTermsLabel.tr(),
-            style: context.textTheme.bodyMedium?.copyWith(
-              fontSize: ThemeConstants.fontSize14,
-              fontFamily: ThemeConstants.openSansFontFamily,
-              color: AppColors.blueDarker,
-              decoration: TextDecoration.underline,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
