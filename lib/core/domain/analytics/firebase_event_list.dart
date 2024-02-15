@@ -23,10 +23,7 @@ class FirebaseEvents {
   static String get closedSessionPreparationMaterials => 'closed_session_preparation_materials';
   static String get lessonCompletedScreen => 'lesson_completed_screen';
 
-  //new
-
   static String get deleteAccount => 'delete_account';
-  // static String get unlockedAssignment => 'unlocked_assignment';
   static String get userOpenedAssignment => 'user_opened_assignment';
   static String get userCompleteAssignment => 'user_complete_assignment';
   static String get userLeftAssignment => 'user_left_assignment';
@@ -35,7 +32,6 @@ class FirebaseEvents {
   static String get userEntersSession => 'user_enter_session';
   static String get userSignedUpForSession => 'user_signed_up_for_session';
   static String get userSignedOutFromSession => 'user_signed_out_from_session';
-
   static String get unlockedSupportGroupFeature => 'unlocked_support_group_feature';
   static String get iWantToJoinToGroup => 'i_want_to_join_to_group';
   static String get userFillsOutGenderPreferences => 'user_fills_out_gender_preferences';
