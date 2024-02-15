@@ -120,11 +120,17 @@ class TopicsData with _$TopicsData {
     return sessionsAvailableOnThisWeek > 0;
   }
 
-  bool get isCanJoin =>
-      (timeLeftToSessionStart > const Duration(minutes: 0) &&
-          timeLeftToSessionStart < const Duration(minutes: 10)) ||
-      (DateTime.now().isAfter(signedGroupSessionStartTime ?? DateTime.now()) &&
-          DateTime.now().isBefore(signedGroupSessionsEndTime ?? DateTime.now()));
+  Future<bool> get isCanJoin async {
+    final timeToSessionStart = await timeLeftToSessionStart;
+    final ntpTime = await TimeService.now;
+    final isMoreThanTenMinutesLeft =
+        timeToSessionStart > const Duration(minutes: 0) && timeToSessionStart < const Duration(minutes: 10);
+
+    final isSessionIsInProgress = ntpTime.isAfter(signedGroupSessionStartTime ?? ntpTime) &&
+        ntpTime.isBefore(signedGroupSessionsEndTime ?? ntpTime);
+
+    return isMoreThanTenMinutesLeft || isSessionIsInProgress;
+  }
 
   // TODO move to the GroupSession model
   bool get timeSlotsAvailable {
@@ -152,21 +158,23 @@ class TopicsData with _$TopicsData {
   String get thisWeekTopicsImage => _thisWeekTopic?.image ?? '';
 
   // TODO move to the GroupSession model
-  Duration get timePassedSinceSessionStart {
+  Future<Duration> get timePassedSinceSessionStart async {
     final startTime = signedGroupSessionStartTime;
 
     if (startTime == null) return Duration.zero;
 
-    return DateTime.now().difference(startTime);
+    final ntpTime = await TimeService.now;
+
+    return ntpTime.difference(startTime);
   }
 
   // TODO move to the GroupSession model
-  Duration get timeLeftToSessionStart {
+  Future<Duration> get timeLeftToSessionStart async {
     final startTime = signedGroupSessionStartTime;
 
     if (startTime == null) return Duration.zero;
 
-    return startTime.difference(DateTime.now());
+    return startTime.difference(await TimeService.now);
   }
 
   List<GroupSessionProgramEvent> get textEvents {

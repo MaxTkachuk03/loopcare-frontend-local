@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
@@ -32,8 +33,20 @@ class EducationCard extends StatelessWidget {
       return Row(
         children: [
           LessonState.locked(),
-          const SizedBox(width: 4.0),
-          CustomText.w700(LocalizedTexts.locked, style: context.textTheme.bodySmall),
+          const SizedBox(width: 6.0),
+          if (!showCountdown) CustomText.w700(LocalizedTexts.locked, style: context.textTheme.bodySmall),
+          if (showCountdown)
+            Expanded(
+              child: Wrap(
+                children: [
+                  CustomText.w600(
+                    '${LocalizedTexts.availableIn.tr()}: ',
+                    style: context.textTheme.bodySmall,
+                  ),
+                  EducationCountDown(seconds: lessonWithCountdown.timeRemaining),
+                ],
+              ),
+            )
         ],
       );
     }
@@ -73,8 +86,6 @@ class EducationCard extends StatelessWidget {
               final isLessonWithCountDown =
                   lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
               final isLocked = lesson.isLocked || isLessonWithCountDown;
-
-              final showCountdown = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
 
               return GestureDetector(
                 onTap: isLocked ? null : () => _onTapHandler(context),
@@ -128,19 +139,8 @@ class EducationCard extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                SizedBox(height: showCountdown ? 6 : 8.0),
+                                const SizedBox(height: 8.0),
                                 _getLessonAction(context),
-                                SizedBox(height: showCountdown ? 6 : 8.0),
-                                if (showCountdown)
-                                  Wrap(
-                                    children: [
-                                      CustomText.w600(
-                                        '${LocalizedTexts.availableIn.translation}: ',
-                                        style: context.textTheme.bodySmall,
-                                      ),
-                                      EducationCountDown(seconds: lessonWithCountdown.timeRemaining),
-                                    ],
-                                  ),
                               ],
                             ),
                           ),

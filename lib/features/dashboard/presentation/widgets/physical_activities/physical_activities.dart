@@ -45,7 +45,9 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
   }
 
   void _updateData() {
-    context.read<PhysicalActivitiesBloc>().add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
+    context
+        .read<PhysicalActivitiesBloc>()
+        .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
 
     context.read<ProgramsInProgressBloc>().add(const ProgramsInProgressEvent.removeExpiredPrograms());
   }
@@ -57,7 +59,9 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
   get _isActive => widget.selectedDay.midnightTime == DateTime.now().midnightTime;
 
   void _programLogged(BuildContext context, PhysicalProgramsState state) {
-    context.read<PhysicalActivitiesBloc>().add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
+    context
+        .read<PhysicalActivitiesBloc>()
+        .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
   }
 
   @override
@@ -114,15 +118,15 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                             return ErrorScreen(
                               smallVersion: true,
                               error: error!,
-                              onButtonPressed: () => context
-                                  .read<PhysicalActivitiesBloc>()
-                                  .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay)),
+                              onButtonPressed: () => context.read<PhysicalActivitiesBloc>().add(
+                                  PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay)),
                             );
                           },
-                          loading: (_) => const Loader(),
+                          loading: (_) => const SizedBox(height: 100, child: Loader()),
                           orElse: () => const SizedBox.shrink(),
                           activitiesLoaded: (s) {
-                            final int timesPerWeek = context.read<AuthenticationCubit>().state.trainingFrequency!;
+                            final int timesPerWeek =
+                                context.read<AuthenticationCubit>().state.trainingFrequency!;
 
                             return isAvailable
                                 ? FilledActivitiesList(

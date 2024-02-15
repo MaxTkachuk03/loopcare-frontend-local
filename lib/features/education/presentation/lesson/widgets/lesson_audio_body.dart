@@ -4,7 +4,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
@@ -19,12 +20,13 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/subtitle/image_subtitle_controller.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/audio_block.dart';
 import 'package:loopcare_frontend/injection.dart';
+
+const kHeightPadding = 20.0;
 
 // TODO refactor _subtitleController
 class LessonAudioBody extends StatefulWidget {
@@ -110,14 +112,17 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
   }
 
   _setIsComplete() {
-    final userId = context.read<AuthenticationCubit>().state.id;
+    context.read<AnalyticsBloc>().add(
+          AnalyticsEvent.sendAnalytics(
+            FirebaseEvents.lessonAudioFinished,
+            {
+              CustomDefinitions.lessonId: lessonId.toString(),
+              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+            },
+          ),
+        );
 
-    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.lessonAudioFinished, {
-          "lessonId": lessonId.toString(),
-          "timestamp": DateTime.now().toIso8601String(),
-        }));
-
-    AnalyticsEventService.instance.lessonAudioFinishedEvent(lessonId, userId);
+    AnalyticsEventService.instance.lessonAudioFinishedEvent(lessonId);
     widget.onNextPressed();
   }
 
@@ -128,25 +133,31 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
   }
 
   void onCompleteModalHandler() {
-    final userId = context.read<AuthenticationCubit>().state.id;
+    context.read<AnalyticsBloc>().add(
+          AnalyticsEvent.sendAnalytics(
+            FirebaseEvents.closedTextLessonVersion,
+            {
+              CustomDefinitions.lessonId: lessonId.toString(),
+              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+            },
+          ),
+        );
 
-    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.closedTextLessonVersion, {
-          "lessonId": lessonId.toString(),
-          "timestamp": DateTime.now().toIso8601String(),
-        }));
-
-    AnalyticsEventService.instance.closedTextLessonVersionEvent(lessonId, userId);
+    AnalyticsEventService.instance.closedTextLessonVersionEvent(lessonId);
   }
 
   void _onReadText() {
-    final userId = context.read<AuthenticationCubit>().state.id;
+    context.read<AnalyticsBloc>().add(
+          AnalyticsEvent.sendAnalytics(
+            FirebaseEvents.openedTextLessonVersion,
+            {
+              CustomDefinitions.lessonId: lessonId.toString(),
+              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+            },
+          ),
+        );
 
-    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.openedTextLessonVersion, {
-          "lessonId": lessonId.toString(),
-          "timestamp": DateTime.now().toIso8601String(),
-        }));
-
-    AnalyticsEventService.instance.openedTextLessonVersionEvent(lessonId, userId);
+    AnalyticsEventService.instance.openedTextLessonVersionEvent(lessonId);
 
     ModalBottomSheet.readTextVersion(
       context: context,
@@ -170,88 +181,96 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
             leading: CustomFilledIconButton.leadingPetrolLighter(onPressed: widget.onPrevPressed),
           ),
           body: SafeArea(
-            child: ScrollableContainer(
-              child: MainContainer(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
+            child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+              return ScrollableContainer(
+                child: ConstrainedBox(
+                  constraints: constraints.copyWith(
+                    maxHeight: constraints.maxHeight,
+                    maxWidth: constraints.maxWidth,
+                  ),
+                  child: MainContainer(
+                    child: Column(
                       children: [
-                        const SizedBox(height: 50),
-                        Stack(
+                        const SizedBox(height: kHeightPadding),
+                        Flexible(
+                          flex: 4,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Stack(
+                                children: [
+                                  // TODO 18.01.2024 sync with Diana, decided to remove subtitle images logic for now
+                                  // AnimatedOpacity(
+                                  //   opacity: isPlay ? 0.0 : 1.0,
+                                  //   duration: const Duration(milliseconds: 300),
+                                  //   child: SizedBox(
+                                  //     height: 410,
+                                  //     child: imageUrl != null && imageUrl != ''
+                                  //         ? isSvg
+                                  //             ? state.data.isSvgLoaded
+                                  //                 ? SvgPicture.file(i.File(state.data.svgFile))
+                                  //                 : null
+                                  //             : NetworkImageWithCache(
+                                  //                 withPlaceholder: false,
+                                  //                 url: imageUrl!,
+                                  //                 imageBoxFit: BoxFit.contain,
+                                  //               )
+                                  //         : null,
+                                  //   ),
+                                  // ),
+                                  AnimatedOpacity(
+                                    opacity: isPlay ? 0.0 : 1.0,
+                                    duration: const Duration(milliseconds: 300),
+                                    child: SizedBox(
+                                        height: (constraints.maxHeight) / 2 - kHeightPadding,
+                                        child: NetworkImageWithCache(url: state.data.lessonImage)),
+                                  ),
+                                  AnimatedOpacity(
+                                    opacity: isPlay ? 1.0 : 0.0,
+                                    duration: const Duration(milliseconds: 300),
+                                    child: SizedBox(
+                                      height: (constraints.maxHeight) / 2 - kHeightPadding,
+                                      child: const RiveAnimationRenderer(),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // TODO 18.01.2024 sync with Diana, decided to remove subtitle images logic for now
-                            // AnimatedOpacity(
-                            //   opacity: isPlay ? 0.0 : 1.0,
-                            //   duration: const Duration(milliseconds: 300),
-                            //   child: SizedBox(
-                            //     height: 410,
-                            //     child: imageUrl != null && imageUrl != ''
-                            //         ? isSvg
-                            //             ? state.data.isSvgLoaded
-                            //                 ? SvgPicture.file(i.File(state.data.svgFile))
-                            //                 : null
-                            //             : NetworkImageWithCache(
-                            //                 withPlaceholder: false,
-                            //                 url: imageUrl!,
-                            //                 imageBoxFit: BoxFit.contain,
-                            //               )
-                            //         : null,
-                            //   ),
-                            // ),
-
-                            AnimatedOpacity(
-                              opacity: isPlay ? 0.0 : 1.0,
-                              duration: const Duration(milliseconds: 300),
-                              child: SizedBox(
-                                height: 420,
-                                child: NetworkImageWithCache(url: state.data.lessonImage),
-                              ),
+                            const SizedBox(height: 17),
+                            getLabelByCategory(state.data.lessonCategory),
+                            const SizedBox(height: 17),
+                            CustomText.bitter600(
+                              state.data.lessonTitle,
+                              style: context.textTheme.displayLarge,
                             ),
-                            AnimatedOpacity(
-                              opacity: isPlay ? 1.0 : 0.0,
-                              duration: const Duration(milliseconds: 300),
-                              child: const SizedBox(
-                                height: 420,
-                                width: double.infinity,
-                                child: RiveAnimationRenderer(),
-                              ),
+                            const SizedBox(height: 17),
+                            CustomOutlinedButton.blueSmall(
+                              onPressed: _onReadText,
+                              label: LocalizedTexts.readText,
                             ),
+                            if (state.data.currentPage.content.audioFilePath.isNotEmpty)
+                              AudioBlock(
+                                url: state.data.currentPage.content.audioFilePath,
+                                duration: state.data.lessonDuration,
+                                onDurationChanged: _setDuration,
+                                onPositionChanged: _setPosition,
+                                onPlayingChanged: _setIsPlay,
+                                onPlayerComplete: _setIsComplete,
+                              ),
+                            const SizedBox(height: 14),
                           ],
                         ),
                       ],
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 24),
-                        getLabelByCategory(state.data.lessonCategory),
-                        const SizedBox(height: 16),
-                        CustomText.bitter600(
-                          state.data.lessonTitle,
-                          style: context.textTheme.displayLarge,
-                        ),
-                        const SizedBox(height: 16),
-                        CustomOutlinedButton.blueSmall(
-                          onPressed: _onReadText,
-                          label: LocalizedTexts.readText,
-                        ),
-                        if (state.data.currentPage.content.audioFilePath.isNotEmpty)
-                          AudioBlock(
-                            url: state.data.currentPage.content.audioFilePath,
-                            duration: state.data.lessonDuration,
-                            onDurationChanged: _setDuration,
-                            onPositionChanged: _setPosition,
-                            onPlayingChanged: _setIsPlay,
-                            onPlayerComplete: _setIsComplete,
-                          ),
-                        const SizedBox(height: 14),
-                      ],
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
+              );
+            }),
           ),
         );
       },
