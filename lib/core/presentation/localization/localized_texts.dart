@@ -873,6 +873,16 @@ class LocalizedTexts {
   static const String updateRequired = 'updateRequired';
   static const String updateRequiredBodyText1 = 'updateRequiredBodyText1';
   static const String updateRequiredBodyText2 = 'updateRequiredBodyText2';
+
+  // Buddy
+  static const String buddy = 'buddy';
+  static const String buddyUnlocked = 'buddyUnlocked';
+  static const String buddyUnlockedBody = 'buddyUnlockedBody';
+  static const String goToBuddyPreferences = 'goToBuddyPreferences';
+  static const String buddyIntroTitle = 'buddyIntroTitle';
+  static const String buddyIntroBody = 'buddyIntroBody';
+  static const String buddyIntroYesBtn = 'buddyIntroYesBtn';
+  static const String buddyIntroNoBtn = 'buddyIntroNoBtn';
 }
 
 extension StringX on String {

@@ -31,6 +31,8 @@ import 'package:loopcare_frontend/features/authentication/presentation/name/name
 import 'package:loopcare_frontend/features/authentication/presentation/password/password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/waiting_for_confirmation/waiting_for_confirmation_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/welcome/sign_up_welcome_page.dart';
+import 'package:loopcare_frontend/features/buddy/presentation/buddy_description_page.dart';
+import 'package:loopcare_frontend/features/buddy/presentation/buddy_intro_page.dart';
 import 'package:loopcare_frontend/features/chat/presentation/group_chat_page.dart';
 import 'package:loopcare_frontend/features/chat/presentation/group_users_page.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/dashboard_page.dart';
@@ -603,6 +605,16 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.manageSubscription,
       page: ManageSubscriptionPage,
+    ), // added
+
+    // Buddy
+    AutoRoute(
+      path: AppRoutes.buddyIntro,
+      page: BuddyIntroPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.buddyDescription,
+      page: BuddyDescriptionPage,
     ), // added
   ],
 )

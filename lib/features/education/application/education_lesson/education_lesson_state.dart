@@ -51,9 +51,17 @@ class EducationLessonData with _$EducationLessonData {
     return "$temporaryDirectory/${urls[urls.length - 2]}/${urls.last}";
   }
 
-  bool get isLessonCompleted {
-    return lessonCompletedDate != null;
-  }
+  bool get isBuddyUnlocked => extraAction == ExtraActionTypes.unlockBuddy;
+
+  bool get isFoodLoggingUnlocked => extraAction == ExtraActionTypes.unlockMeals;
+
+  bool get isPhysicalActivitiesUnlocked => extraAction == ExtraActionTypes.unlockPhysicalActivities;
+
+  bool get isAssignmentsUnlocked => extraAction == ExtraActionTypes.unlockAssignments;
+
+  bool get isGroupPreferencesUnlocked => extraAction == ExtraActionTypes.setupGroupingPreferences;
+
+  bool get isLessonCompleted => lessonCompletedDate != null;
 
   bool get isLastPage => currentPageIndex == pages.length - 1;
 

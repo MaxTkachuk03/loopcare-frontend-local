@@ -24,6 +24,7 @@ import 'package:loopcare_frontend/features/education/domain/extra_action_types.d
 import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/save_assignment.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_assignment.dart';
+import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_buddy_feature.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_food_logging_feature.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_group_session_feature.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
@@ -164,8 +165,12 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                     MainContainer(
                       child: BlocBuilder<EducationLessonBloc, EducationLessonState>(
                         builder: (BuildContext context, state) {
-                          if (state.data.extraAction == ExtraActionTypes.unlockMeals) {
+                          if (state.data.isFoodLoggingUnlocked) {
                             return const UnlockFoodLoggingFeature();
+                          }
+
+                          if (state.data.isBuddyUnlocked) {
+                            return const UnlockBuddyFeature();
                           }
 
                           if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&

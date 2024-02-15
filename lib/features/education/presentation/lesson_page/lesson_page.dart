@@ -21,7 +21,6 @@ import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart'
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson_page_type.dart';
-import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_audio_body.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_text_body.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_type.dart';
@@ -49,10 +48,10 @@ class _LessonPageState extends State<LessonPage> {
     lessonBloc.add(const EducationLessonEvent.progressForward());
 
     if (lessonBloc.state.data.isLastPage) {
-      final extraAction = lessonBloc.state.data.extraAction;
+      final lessonBlocData = lessonBloc.state.data;
       final unlockedFeatures = context.read<AuthenticationCubit>().state.unlockedFeatures;
 
-      if (extraAction == ExtraActionTypes.setupGroupingPreferences &&
+      if (lessonBlocData.isGroupPreferencesUnlocked &&
           !unlockedFeatures.contains(UnlockedFeatureType.grouping)) {
         context
           ..read<GroupPreferencesBloc>()
@@ -62,33 +61,37 @@ class _LessonPageState extends State<LessonPage> {
         return;
       }
 
-      if (extraAction == ExtraActionTypes.unlockMeals) {
+      if (lessonBlocData.isFoodLoggingUnlocked) {
         context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.meals);
         context.router.pushNamed(AppRoutes.lessonCompleteFoodPreferences);
 
         return;
       }
 
-      if (extraAction == ExtraActionTypes.unlockPhysicalActivities &&
+      if (lessonBlocData.isPhysicalActivitiesUnlocked &&
           !unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {
         context.router.pushNamed(AppRoutes.physicalActivitiesPreferences);
 
         return;
       }
 
-      if (extraAction == ExtraActionTypes.unlockAssignments) {
+      if (lessonBlocData.isAssignmentsUnlocked) {
         context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.assignments);
       }
 
-      if (lessonBloc.state.data.questions.isEmpty ||
-          lessonBloc.state.data.questions.first.type != LessonQuestionType.quiz) {
+      if (lessonBlocData.isBuddyUnlocked && !unlockedFeatures.contains(UnlockedFeatureType.buddy)) {
+        context
+          ..read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.buddy)
+          ..router.pushNamed(AppRoutes.buddyIntro);
+
+        return;
+      }
+
+      if (lessonBlocData.questions.isEmpty ||
+          lessonBlocData.questions.first.type != LessonQuestionType.quiz) {
         context.router.pushNamed(AppRoutes.lessonComplete);
       } else {
-        context.router.push(
-          QuizzesIntroRoute(
-            lessonId: widget.lessonId,
-          ),
-        );
+        context.router.push(QuizzesIntroRoute(lessonId: widget.lessonId));
       }
 
       return;

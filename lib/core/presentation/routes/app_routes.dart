@@ -151,5 +151,9 @@ class AppRoutes {
   static const String groupChat = 'chat';
   static const String groupChatUsers = '/chat_users';
 
+  // Buddy
+  static const String buddyIntro = '/buddy-intro';
+  static const String buddyDescription = '/buddy-description';
+
   AppRoutes._();
 }
