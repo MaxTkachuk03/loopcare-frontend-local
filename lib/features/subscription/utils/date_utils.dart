@@ -23,6 +23,6 @@ class SubscriptionDateUtils {
     DateTime date = DateTime.fromMillisecondsSinceEpoch(
       int.parse(transactionDate),
     );
-    return DateFormat('dd MMM yyyy').format(date);
+    return DateFormat('dd/MM/yyyy HH:mm').format(date);
   }
 }
