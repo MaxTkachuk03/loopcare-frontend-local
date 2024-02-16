@@ -43,12 +43,13 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
   QuestionsPageMode mode = const QuestionsPageMode.askQuestion();
   late AnswerWidgetType widgetType;
   int _totalSteps = 1;
-  late LessonQuestion question;
-  bool isNotSaved = true;
+  bool isAnswerNotSaved = true;
   late int lessonId;
 
   @override
   void initState() {
+    isAnswerNotSaved = true;
+
     final questionsState = context.read<AssignmentsBloc>().state;
     lessonId = questionsState.data.lessonId;
 
@@ -109,7 +110,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
 
   void _saveTextField(int lessonId) {
     var questionsBloc = context.read<AssignmentsBloc>();
-    question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
+    var question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
 
     if (!question.isEditable) {
       _onNextHandler();
@@ -137,7 +138,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
 
   void _saveOptionsField(int lessonId) {
     var questionsBloc = context.read<AssignmentsBloc>();
-    question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
+    var question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
 
     if (!question.isEditable) {
       _onNextHandler();
@@ -165,7 +166,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
 
   void _saveScaleField(int lessonId) {
     var questionsBloc = context.read<AssignmentsBloc>();
-    question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
+    var question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
 
     if (!question.isEditable) {
       _onNextHandler();
@@ -207,12 +208,12 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
   }
 
   void _onUpdateHandler(AssignmentsState state) {
-    isNotSaved = false;
+    isAnswerNotSaved = false;
     _onNextHandler();
   }
 
   bool _nextStepListenWhen(AssignmentsState previous, AssignmentsState current) {
-    return previous is AssignmentsStateLoading && current is AssignmentsStateUpdated && isNotSaved;
+    return previous is AssignmentsStateLoading && current is AssignmentsStateUpdated && isAnswerNotSaved;
   }
 
   void _onStepChangeListener(BuildContext context, AssignmentsState state) {
@@ -238,7 +239,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
   void setStep(int currStep) {
     setState(() {
       var questionsBloc = context.read<AssignmentsBloc>();
-      question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
+      var question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
 
       mode = question.questionAnswer != null
           ? const QuestionsPageMode.showAnswer()
@@ -265,23 +266,24 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
           child: CustomText('multipleChoiceValidation'),
         ),
         scale: (_) => AnswerScale(
-          isEditable: question.isEditable,
+          isEditable: state.data.questionForStep(lessonId, widget.step).isEditable,
           controller: _controller,
-          question: question,
-          onNextPressed: () => question.isEditable
+          question: state.data.questionForStep(lessonId, widget.step),
+          onNextPressed: () => state.data.questionForStep(lessonId, widget.step).isEditable
               ? _controller.isScaleChoiceValid
                   ? _saveScaleField(state.data.lessonId)
                   : null
               : _onNextHandler(isEditable: false),
           onSelectValue: _onSelectScaleHandler,
           selectedScore: _controller.selectScaleValue.value,
-          feedbackText: _feedbackText(_controller.selectScaleValue.value, question),
+          feedbackText: _feedbackText(
+              _controller.selectScaleValue.value, state.data.questionForStep(lessonId, widget.step)),
         ),
         multipleChoiceMultiple: (_) => AnswerOption(
-          isEditable: question.isEditable,
+          isEditable: state.data.questionForStep(lessonId, widget.step).isEditable,
           controller: _controller,
-          question: question,
-          onNextPressed: () => question.isEditable
+          question: state.data.questionForStep(lessonId, widget.step),
+          onNextPressed: () => state.data.questionForStep(lessonId, widget.step).isEditable
               ? _controller.isOptionChoiceValid
                   ? _saveOptionsField(state.data.lessonId)
                   : null
@@ -289,10 +291,10 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
           onSelectOptionValue: _onSelectOptionHandler,
         ),
         multipleChoiceSingle: (_) => AnswerOption(
-          isEditable: question.isEditable,
+          isEditable: state.data.questionForStep(lessonId, widget.step).isEditable,
           controller: _controller,
-          question: question,
-          onNextPressed: () => question.isEditable
+          question: state.data.questionForStep(lessonId, widget.step),
+          onNextPressed: () => state.data.questionForStep(lessonId, widget.step).isEditable
               ? _controller.isOptionChoiceValid
                   ? _saveOptionsField(state.data.lessonId)
                   : null
@@ -300,11 +302,13 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
           onSelectOptionValue: _onSelectOptionHandler,
         ),
         text: (_) => AnswerText(
-          isEditable: question.isEditable,
-          mode: question.isEditable ? mode : const QuestionsPageMode.showAnswer(),
+          isEditable: state.data.questionForStep(lessonId, widget.step).isEditable,
+          mode: state.data.questionForStep(lessonId, widget.step).isEditable
+              ? mode
+              : const QuestionsPageMode.showAnswer(),
           controller: _controller,
-          question: question,
-          onNextPressed: (int lessonId) => question.isEditable
+          question: state.data.questionForStep(lessonId, widget.step),
+          onNextPressed: (int lessonId) => state.data.questionForStep(lessonId, widget.step).isEditable
               ? _controller.isOpenTextValid
                   ? _saveTextField(state.data.lessonId)
                   : null
