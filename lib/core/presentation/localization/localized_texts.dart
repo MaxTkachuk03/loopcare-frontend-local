@@ -398,7 +398,6 @@ class LocalizedTexts {
   static const String timeslotCancelled = 'timeslotCancelled';
   static const String timeslotMissed = 'timeslotMissed';
   static const String chooseAnotherTimeslot = 'chooseAnotherTimeslot';
-  static const String noTimeslotsOnThisWeek = 'noTimeslotsOnThisWeek';
   static const String noMinMemberCount = 'noMinMemberCount';
   static const String bookedForYou = 'bookedForYou';
   static const String cancelBooking = 'cancelBooking';
@@ -527,7 +526,8 @@ class LocalizedTexts {
   static const String googleMarket = "googleMarket";
   static const String cancelAccountSubscription = "cancelAccountSubscription";
   static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
-  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription =
+      "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";

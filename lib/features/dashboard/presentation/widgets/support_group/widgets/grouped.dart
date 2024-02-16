@@ -7,9 +7,9 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/dashboard_no_group_this_week.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped_no_timeslots.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped_not_signed.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/no_group.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/session_card.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 
@@ -61,7 +61,7 @@ class Grouped extends StatelessWidget {
                     topicName: state.data.weekTopicName,
                     image: state.data.thisWeekTopicsImage,
                   ),
-                if (!state.data.isGroupsOnWeekAvailable) const NoGroup(),
+                if (!state.data.isGroupsOnWeekAvailable) const DashboardNoGroupThisWeek(),
                 if (state.data.isSigned && state.data.isGroupsOnWeekAvailable)
                   SessionCard(
                     topicName: state.data.weekTopicName,
