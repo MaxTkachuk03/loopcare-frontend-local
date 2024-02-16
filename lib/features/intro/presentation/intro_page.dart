@@ -69,7 +69,8 @@ class _IntroPageState extends State<IntroPage> {
   }
 
   void _onGetStarted(BuildContext context) {
-    context.router.pushNamed(AppRoutes.accessCode);
+    // Todo hide register code LOOPCARE-2196
+    context.router.pushNamed(AppRoutes.joinUs);
   }
 
   void _onLoginTap(BuildContext context) {

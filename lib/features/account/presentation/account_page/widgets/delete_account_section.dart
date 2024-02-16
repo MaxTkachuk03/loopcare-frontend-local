@@ -60,21 +60,26 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
   @override
   Widget build(BuildContext context) {
     return AccountContainer(
-      child: BlocListener<SubscriptionBloc, SubscriptionState>(
-        listener: (context, state) => state.maybeMap(
-          error: (state) => _errorListener,
-          gotAccountSubscription: (state) => _onDeleteAccountPressed(context, !state.data.hasSubscription, state),
-          orElse: () => null,
-        ),
-        child: Column(
-          children: [
-            CustomOutlinedButton.coralFullWidth(
-              onPressed: () => context.read<SubscriptionBloc>().add(const SubscriptionEvent.getAccountSubscription()),
-              label: LocalizedTexts.deleteAccount.tr(),
-            ),
-          ],
-        ),
+      child:
+          //Todo hide subscription flow LOOPCARE-2197
+          // BlocListener<SubscriptionBloc, SubscriptionState>(
+          //   listener: (context, state) => state.maybeMap(
+          //     error: (state) => _errorListener,
+          //     gotAccountSubscription: (state) => _onDeleteAccountPressed(context, !state.data.hasSubscription, state),
+          //     orElse: () => null,
+          //   ),
+          //   child:
+          Column(
+        children: [
+          CustomOutlinedButton.coralFullWidth(
+            onPressed: () => context.read<AuthenticationCubit>().deleteAccount(),
+            //Todo hide subscription flow LOOPCARE-2197
+            // context.read<SubscriptionBloc>().add(const SubscriptionEvent.getAccountSubscription()),
+            label: LocalizedTexts.deleteAccount.tr(),
+          ),
+        ],
       ),
+      // ),
     );
   }
 
