@@ -56,6 +56,8 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
         context.router.pop();
       }
     } else {
+      context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.physicalActivities);
+
       context.router.push(
         QuizzesIntroRoute(
           lessonId: lessonBloc.state.data.lessonId,
@@ -65,7 +67,9 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
   }
 
   void _onNext(BuildContext context) {
-    context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.savePreferences());
+    context
+        .read<PhysicalActivitiesPreferencesBloc>()
+        .add(const PhysicalActivitiesPreferencesEvent.savePreferences());
   }
 
   @override
@@ -97,7 +101,9 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
                         style: context.textTheme.displayMedium,
                       ),
                       const SizedBox(height: 28.0),
-                      widget.profileInvoke ? const ActivityTypeChips.coral() : const ActivityTypeChips.green(),
+                      widget.profileInvoke
+                          ? const ActivityTypeChips.coral()
+                          : const ActivityTypeChips.green(),
                       const SizedBox(height: 28.0),
                       CustomText.w400(
                         LocalizedTexts.youCanAlsoOptionally.translation,
