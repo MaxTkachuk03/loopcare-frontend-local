@@ -44,7 +44,12 @@ class PurchaseDetailsStreamSubscription {
         }
         if (events.every((element) => element.status == PurchaseStatus.restored)) {
           debugPrint('devcpp RESTORED: ${events.length} ');
+
           events.sort((a, b) => int.parse(a.transactionDate!).compareTo(int.parse(b.transactionDate!)));
+          for (var element in events) {
+            debugPrint(
+                'devcpp purchase:${SubscriptionDateUtils.getTransactionFromMillisecondsSinceEpoch(element.transactionDate!)}');
+          }
           debugPrint(
               'devcpp RESTORED PURCHASE: ${SubscriptionDateUtils.getTransactionFromMillisecondsSinceEpoch(events.last.transactionDate!)} ');
           onRestored?.call(events.last);
