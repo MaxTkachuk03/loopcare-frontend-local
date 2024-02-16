@@ -45,9 +45,10 @@ class _MealPageState extends State<MealPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory = DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
-        ? state.currentMealCategory?.toLowerCase()
-        : MealCategory.breakfast.originalValue;
+    final mealCategory =
+        DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
+            ? state.currentMealCategory?.toLowerCase()
+            : MealCategory.breakfast.originalValue;
 
     final mealId = state.getCurrentMealId;
 
@@ -296,7 +297,7 @@ class _MealPageState extends State<MealPage> {
                               nutritionValuesList: mealsState.currentMeal?.serving.list ?? <NutritionItem>[],
                               onNutritionFactSelect: _onNutritionFactSelect,
                             ),
-                            MealsList(isActive: currentDate.isTodayOrFuture),
+                            MealsList(isActive: currentDate.laterThanWeekAgo),
                             NutritionBlock(
                               proteinDegree: state.currentMealProteinDegree,
                               calorieDensity: state.currentMealCalorieDensity,
