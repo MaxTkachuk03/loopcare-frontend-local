@@ -143,6 +143,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         if (accessTokenUpdated) {
           add(
             SubscriptionEvent.purchasedSubscription(
+              r,
               PurchasedProduct(
                 purchaseDetails: purchaseDetails,
                 memberSince: SubscriptionDateUtils.getTransactionDate(r.purchasedAt),
@@ -262,11 +263,16 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   FutureOr<void> _onPurchasedSubscription(
     PurchasedSubscription event,
     Emitter<SubscriptionState> emit,
-  ) async =>
-      emit(SubscriptionState.purchasedSubscription(state.data.copyWith(
-        purchased: event.purchasedProduct,
-        isLoading: false,
-      )));
+  ) async {
+    emit(
+      SubscriptionState.loading(state.data.copyWith(isLoading: false)),
+    );
+    emit(SubscriptionState.purchasedSubscription(state.data.copyWith(
+      purchased: event.purchasedProduct,
+      subscription: event.subscription,
+      isLoading: false,
+    )));
+  }
 
   FutureOr<void> _onErrorVerifyPurchase(
     ErrorVerifyPurchase event,

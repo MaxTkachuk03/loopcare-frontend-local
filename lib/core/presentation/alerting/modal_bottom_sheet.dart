@@ -122,6 +122,45 @@ class ModalBottomSheet {
     );
   }
 
+  static void restoreSubscription({
+    required BuildContext context,
+    required void Function() onSubscriptionPref,
+  }) {
+    showModalBottomSheet<void>(
+      showDragHandle: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      context: context,
+      builder: (BuildContext context) {
+        return FractionallySizedBox(
+          heightFactor: 0.75,
+          child: ScrollableContainer(
+            child: MainContainer(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CustomText.w400(
+                    '${LocalizedTexts.restoreSubscriptionFromSettings.tr()}.',
+                    style: context.textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 32.0),
+                  CustomElevatedButton.blueFullWidth(
+                    onPressed: context.router.pop,
+                    label: LocalizedTexts.cancel.tr(),
+                  ),
+                  const SizedBox(height: 12.0),
+                  CustomOutlinedButton.blueFullWidth(
+                    onPressed: onSubscriptionPref,
+                    label: LocalizedTexts.manageSubscription.tr(),
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   static void deleteAccount({
     required BuildContext context,
     required bool noActiveSubscription,
