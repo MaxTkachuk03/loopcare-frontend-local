@@ -3,7 +3,7 @@ version: 1.0.30+150
 publish_to: none
 description: Lean on me
 environment:
-  sdk: '>=2.18.4 <4.0.0'
+  sdk: '>=3.2.3 <4.0.0'
 
 dependencies:
   auto_route: 5.0.4
