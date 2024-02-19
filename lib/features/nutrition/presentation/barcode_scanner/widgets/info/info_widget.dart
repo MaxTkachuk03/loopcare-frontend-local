@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/barcode_scanner_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/info/no_information.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/info/product_information.dart';
@@ -22,6 +25,15 @@ class _QRCodeInfoWidgetState extends State<QRCodeInfoWidget> {
     context.read<BarcodeScannerBloc>().add(
           (BarcodeScannerEvent.getInformation(widget.code)),
         );
+
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.barcodeScanned,
+      parameters: {
+        CustomDefinitions.value: widget.code,
+        CustomDefinitions.failedAttempt: widget.code.isEmpty ? 'true' : 'false',
+      },
+    );
+
     super.initState();
   }
 

@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/overlay_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -46,12 +48,16 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
+
+    AnalyticsEventService.instance.logEvent(FirebaseEvents.userOpenedChat);
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+
+    AnalyticsEventService.instance.logEvent(FirebaseEvents.userLeavesChat);
   }
 
   @override
@@ -149,32 +155,36 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
               bubbleBuilder: _bubbleBuilder,
               avatarBuilder: (user) => GroupChatUserAvatar(author: user),
               onSendPressed: (message) {
-                return message.text.length > _maxMessageLength ? _showPopover() : controller.handleSendPressed(message);
+                return message.text.length > _maxMessageLength
+                    ? _showPopover()
+                    : controller.handleSendPressed(message);
               },
-              onMessageLongPress: (BuildContext context, dynamic message) => serviceLocator.get<OverlayService>().show(
-                    OverlayEvent.chatPopCard(
-                      context: context,
-                      needOffset: controller.user.id == message.author.id,
-                      mode: OverlayServiceMode.chat(
-                        canRemove: controller.user.id == message.author.id,
-                        onCopy: () => _copy(context, message.text),
-                        onReport: () => _onPressHandler(
-                            context,
-                            GroupChatReport(
-                              accountId: int.parse(message.author.id),
-                              groupId: _getGroupId,
-                              messageId: int.parse(message.id),
-                              text: message.text,
-                            )),
-                        onRemove: () => controller.removedMessage(fromMessageId: message.id),
+              onMessageLongPress: (BuildContext context, dynamic message) =>
+                  serviceLocator.get<OverlayService>().show(
+                        OverlayEvent.chatPopCard(
+                          context: context,
+                          needOffset: controller.user.id == message.author.id,
+                          mode: OverlayServiceMode.chat(
+                            canRemove: controller.user.id == message.author.id,
+                            onCopy: () => _copy(context, message.text),
+                            onReport: () => _onPressHandler(
+                                context,
+                                GroupChatReport(
+                                  accountId: int.parse(message.author.id),
+                                  groupId: _getGroupId,
+                                  messageId: int.parse(message.id),
+                                  text: message.text,
+                                )),
+                            onRemove: () => controller.removedMessage(fromMessageId: message.id),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
               onEndReached: !state.data.isLoading ? controller.handleEndReached : null,
               showUserAvatars: true,
               showUserNames: true,
               user: controller.user,
-              customDateHeaderText: (date) => date.isToday ? LocalizedTexts.today.tr().capitalize() : date.dayWithMonth,
+              customDateHeaderText: (date) =>
+                  date.isToday ? LocalizedTexts.today.tr().capitalize() : date.dayWithMonth,
               theme: chatTheme,
             ),
           );
@@ -252,7 +262,8 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
       message.text.isEmpty
           ? Container(
               height: avatarSize,
-              alignment: controller.user.id != message.author.id ? Alignment.centerLeft : Alignment.centerRight,
+              alignment:
+                  controller.user.id != message.author.id ? Alignment.centerLeft : Alignment.centerRight,
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: CustomText.w400(
                 LocalizedTexts.messageRemoved.tr(),

@@ -1,5 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/medication_past_period_answer.dart';
@@ -19,6 +22,14 @@ class _MedicationPastPeriodChipsState extends State<MedicationPastPeriodChips> {
       _selectedValue = value;
     });
 
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.userLengthSemaglutideIntake,
+      parameters: {
+        CustomDefinitions.value: value.name,
+      },
+    );
+
+// TODO: No need save value to block/backend?
     context.router.pushNamed(AppRoutes.medicationFuturePeriod);
   }
 

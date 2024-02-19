@@ -116,14 +116,14 @@ class _LessonPageState extends State<LessonPage> {
   }
 
   Future<bool> _onWillPop() {
-    final currentPage = context.read<EducationLessonBloc>().state.data.currentPage;
+    final stateData = context.read<EducationLessonBloc>().state.data;
 
     context.read<AnalyticsBloc>().add(
           AnalyticsEvent.sendAnalytics(
             FirebaseEvents.leaveLessonScreen,
             {
               CustomDefinitions.lessonId: widget.lessonId.toString(),
-              CustomDefinitions.lessonType: currentPage.type.name,
+              CustomDefinitions.lessonType: stateData.currentPage.type.name,
               CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
             },
           ),
@@ -132,7 +132,9 @@ class _LessonPageState extends State<LessonPage> {
     AnalyticsEventService.instance.logLessonEvent(
       FirebaseEvents.leaveLessonScreen,
       widget.lessonId,
-      currentPage,
+      stateData.currentPage,
+      stateData.lessonTitle,
+      stateData.questions.isNotEmpty && stateData.questions.first.type == LessonQuestionType.quiz,
     );
 
     return Future.value(true);
@@ -196,6 +198,8 @@ class _LessonPageState extends State<LessonPage> {
                 FirebaseEvents.lessonScreen,
                 widget.lessonId,
                 currentPage,
+                s.data.lessonTitle,
+                s.data.questions.isNotEmpty && s.data.questions.first.type == LessonQuestionType.quiz,
               );
 
               if (currentPage.type == EducationLessonPageType.text) {

@@ -63,7 +63,11 @@ class MentalHealthQuestionPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 28.0),
-                    const Expanded(child: MainContainer(child: MentalHealthQuestionForm()))
+                    const Expanded(
+                      child: MainContainer(
+                        child: MentalHealthQuestionForm(),
+                      ),
+                    )
                   ],
                 );
               },
