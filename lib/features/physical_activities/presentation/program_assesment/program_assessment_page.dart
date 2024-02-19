@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
@@ -110,15 +111,25 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
                     Column(
                       children: [
                         CustomOutlinedButton.blueFullWidth(
-                          onPressed: () => context.router.popUntilRouteWithName(HomeRoute.name),
-                          label: LocalizedTexts.backToTodayNotLogged.translation,
+                          onPressed: () {
+                            final programId = state.data.currentProgram?.id ?? -1;
+                            AnalyticsEventService.instance.logEvent(
+                              FirebaseEvents.programCompletedWithoutLogging,
+                              parameters: {
+                                CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+                                CustomDefinitions.programId: programId.toString(),
+                              },
+                            );
+                            context.router.popUntilRouteWithName(HomeRoute.name);
+                          },
+                          label: LocalizedTexts.backToTodayNotLogged.tr(),
                         ),
                         const SizedBox(height: 12),
                         CustomElevatedButton.blueFullWidth(
                           onPressed: assessmentLike != null && assessmentScore != null
-                              ? () => logAssessment()
+                              ? () => logAssessment(state.data.currentProgram?.id ?? -1)
                               : null,
-                          label: LocalizedTexts.logActivity.translation,
+                          label: LocalizedTexts.logActivity.tr(),
                         ),
                         const SizedBox(height: 24),
                       ],
@@ -142,7 +153,7 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
     super.dispose();
   }
 
-  void logAssessment() {
+  void logAssessment(int programId) {
     final assessmentScoreValue = assessmentScore;
     final assessmentLikeValue = assessmentLike;
     if (assessmentScoreValue == null || assessmentLikeValue == null) return;
@@ -151,6 +162,15 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
       FirebaseEvents.programAssessmentScreen,
       assessmentScore!,
       '${assessmentLike!}',
+      programId,
+    );
+
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.programCompletedWithLogging,
+      parameters: {
+        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+        CustomDefinitions.programId: programId.toString(),
+      },
     );
 
     context.read<PhysicalProgramsBloc>().add(
@@ -180,10 +200,10 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
       final errorMessage = error.maybeMap(
         conflict: (error) {
           return error.error.message == physicalProgramAlreadyLogged
-              ? LocalizedTexts.physicalProgramAlreadyLogged.translation
-              : LocalizedTexts.somethingIsIncorrect.translation;
+              ? LocalizedTexts.physicalProgramAlreadyLogged.tr()
+              : LocalizedTexts.somethingIsIncorrect.tr();
         },
-        orElse: () => LocalizedTexts.somethingIsIncorrect.translation,
+        orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
       );
       context.showError(content: Text(errorMessage));
     }

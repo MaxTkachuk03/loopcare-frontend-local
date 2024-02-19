@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -30,6 +32,9 @@ class AssignmentsIntroPage extends StatefulWidget {
 }
 
 class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
+  String questionId = '';
+  String questionTitle = '';
+
   @override
   void initState() {
     super.initState();
@@ -49,79 +54,98 @@ class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
     context.router.push(AssignmentsQuestionsRoute(step: 0, fromDashboard: widget.fromDashboard));
   }
 
+  Future<bool> _onPreviousPage(BuildContext context) {
+    AnalyticsEventService.instance.finalizeAssignment(
+      FirebaseEvents.userLeftAssignment,
+      questionId,
+      questionTitle,
+      widget.fromDashboard,
+    );
+
+    return Future.value(true);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.petrolLightest(
-      appBar: CustomAppBar.petrol(
-        title: LocalizedTexts.assignment.tr(),
-        subtitle: LocalizedTexts.introduction.tr(),
-        leading: CustomFilledIconButton.leadingPetrolLighter(),
-      ),
-      body: SafeArea(
-        child: ScrollableContainer(
-          child: BlocBuilder<AssignmentsBloc, AssignmentsState>(
-            builder: (context, state) {
-              return state.maybeMap(
-                loading: (_) => const Loader(),
-                orElse: () => const SizedBox.shrink(),
-                updated: (s) {
-                  final questions = s.data.questionsForLesson(widget.lessonId);
-                  return MainContainer(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            const SizedBox(height: 30.0),
-                            SizedBox(
-                              height: 365,
-                              child: NetworkImageWithCache(url: questions.first.visual ?? ''),
-                            ),
-                            const SizedBox(height: 30.0),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CategoryLabel.assignment(),
-                            const SizedBox(height: 18.0),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CustomText.bitter600(
-                                  questions.isNotEmpty ? questions.first.title : '',
-                                  style: context.textTheme.displayLarge,
-                                ),
-                                const SizedBox(height: 18.0),
-                                CustomText.w400(
-                                  questions.isNotEmpty ? questions.first.instruction : '',
-                                  style: context.textTheme.bodyMedium,
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 18.0),
-                            CustomOutlinedButton.blueSmall(
-                              onPressed: () => _seeLessonBtnPressed(context),
-                              label: LocalizedTexts.seeLesson,
-                            ),
-                            const SizedBox(height: 18.0),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            CustomElevatedButton.blueFullWidth(
-                              onPressed: () => _onStart(context),
-                              label: LocalizedTexts.letsGo,
-                            ),
-                            const SizedBox(height: 30),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              );
-            },
+    return WillPopScope(
+      onWillPop: () => _onPreviousPage(context),
+      child: CustomScaffold.petrolLightest(
+        appBar: CustomAppBar.petrol(
+          title: LocalizedTexts.assignment.tr(),
+          subtitle: LocalizedTexts.introduction.tr(),
+          leading: CustomFilledIconButton.leadingPetrolLighter(),
+        ),
+        body: SafeArea(
+          child: ScrollableContainer(
+            child: BlocBuilder<AssignmentsBloc, AssignmentsState>(
+              builder: (context, state) {
+                return state.maybeMap(
+                  loading: (_) => const Loader(),
+                  orElse: () => const SizedBox.shrink(),
+                  updated: (s) {
+                    final questions = s.data.questionsForLesson(widget.lessonId);
+                    questionId = questions.first.id.toString();
+                    questionTitle = questions.first.title;
+
+                    AnalyticsEventService.instance.userOpenedAssignment(questions.first);
+
+                    return MainContainer(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              const SizedBox(height: 30.0),
+                              SizedBox(
+                                height: 365,
+                                child: NetworkImageWithCache(url: questions.first.visual ?? ''),
+                              ),
+                              const SizedBox(height: 30.0),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CategoryLabel.assignment(),
+                              const SizedBox(height: 18.0),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CustomText.bitter600(
+                                    questions.isNotEmpty ? questions.first.title : '',
+                                    style: context.textTheme.displayLarge,
+                                  ),
+                                  const SizedBox(height: 18.0),
+                                  CustomText.w400(
+                                    questions.isNotEmpty ? questions.first.instruction : '',
+                                    style: context.textTheme.bodyMedium,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 18.0),
+                              CustomOutlinedButton.blueSmall(
+                                onPressed: () => _seeLessonBtnPressed(context),
+                                label: LocalizedTexts.seeLesson,
+                              ),
+                              const SizedBox(height: 18.0),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              CustomElevatedButton.blueFullWidth(
+                                onPressed: () => _onStart(context),
+                                label: LocalizedTexts.letsGo,
+                              ),
+                              const SizedBox(height: 30),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
           ),
         ),
       ),

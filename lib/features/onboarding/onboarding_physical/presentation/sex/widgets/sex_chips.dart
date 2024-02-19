@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
@@ -38,6 +41,13 @@ class _SexChipsState extends State<SexChips> {
 
     bloc.add(PhysicalFitnessEvent.sexChanged(sex));
     medicalBloc.add(MedicalFitnessEvent.handleSexType(sex));
+
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.userSex,
+      parameters: {
+        CustomDefinitions.value: sex.name,
+      },
+    );
 
     if (_selectedValue == SexType.intersex) {
       context.router.pushNamed(AppRoutes.biologicalGender);

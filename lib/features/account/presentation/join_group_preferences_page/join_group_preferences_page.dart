@@ -2,7 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -46,6 +49,13 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
     if (_selectedValue == YesNoAnswer.no) {
       context.router.pop();
     } else {
+      AnalyticsEventService.instance.logEvent(
+        FirebaseEvents.iWantToJoinToGroup,
+        parameters: {
+          CustomDefinitions.navigatedFrom: widget.fromLessonComplete ? 'Lesson content' : 'User profile',
+        },
+      );
+
       context.router.push(GenderPreferencesRoute(fromLessonComplete: widget.fromLessonComplete));
     }
 

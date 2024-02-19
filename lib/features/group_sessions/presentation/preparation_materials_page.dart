@@ -17,7 +17,9 @@ class PreparationMaterialsPage extends StatelessWidget {
   const PreparationMaterialsPage({super.key});
 
   Future<bool> _onWillPop(BuildContext context) {
-    final sessionId = context.read<TopicsBloc>().state.data.signedGroupSessionId ?? 0;
+    final topicState = context.read<TopicsBloc>().state;
+    final sessionId = topicState.data.signedGroupSessionId ?? 0;
+    final weekTopic = topicState.data.weekTopicName;
 
     context.read<AnalyticsBloc>().add(
           AnalyticsEvent.sendAnalytics(
@@ -28,7 +30,7 @@ class PreparationMaterialsPage extends StatelessWidget {
           ),
         );
 
-    AnalyticsEventService.instance.closedSessionPreparationMaterialsEvent(sessionId);
+    AnalyticsEventService.instance.closedSessionPreparationMaterialsEvent(sessionId, weekTopic);
 
     return Future.value(true);
   }

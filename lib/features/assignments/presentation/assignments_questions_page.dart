@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -79,6 +81,12 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
 
   void _onNextHandler({bool isEditable = true}) {
     if (widget.step == (_totalSteps - 1)) {
+      AnalyticsEventService.instance.finalizeAssignment(
+        FirebaseEvents.userCompleteAssignment,
+        question.id.toString(),
+        question.title,
+        widget.fromDashboard,
+      );
       if (isEditable) {
         final authState = context.read<AuthenticationCubit>().state;
         var emailApproveDate = authState.emailApproveDate ?? DateTime.now();
@@ -175,6 +183,13 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
 
     if (selectScaleIndex != null) {
       var lessonQuestionOptionId = question.lessonQuestionOptions.elementAt(selectScaleIndex).id;
+
+      AnalyticsEventService.instance.finalizeAssignment(
+        lessonQuestionOptionId.toString(),
+        question.id.toString(),
+        question.title,
+        widget.fromDashboard,
+      );
 
       if (question.questionAnswer != null) {
         questionsBloc.add(
