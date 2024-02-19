@@ -399,7 +399,6 @@ class LocalizedTexts {
   static const String timeslotCancelled = 'timeslotCancelled';
   static const String timeslotMissed = 'timeslotMissed';
   static const String chooseAnotherTimeslot = 'chooseAnotherTimeslot';
-  static const String noTimeslotsOnThisWeek = 'noTimeslotsOnThisWeek';
   static const String noMinMemberCount = 'noMinMemberCount';
   static const String bookedForYou = 'bookedForYou';
   static const String cancelBooking = 'cancelBooking';

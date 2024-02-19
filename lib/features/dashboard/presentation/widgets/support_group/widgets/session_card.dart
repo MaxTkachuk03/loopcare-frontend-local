@@ -131,7 +131,7 @@ class SessionCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: CustomText.w400(
-                    LocalizedTexts.noTimeslotsOnThisWeek.tr(),
+                    LocalizedTexts.noOtherTimeslotsAvailable.tr(),
                     style: context.textTheme.bodySmall,
                   ),
                 ),
