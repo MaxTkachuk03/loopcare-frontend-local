@@ -21,6 +21,7 @@ Follow these steps to set up a project:
 12. Put `GoogleService-Info.plist` to the `ios/config<env_name>` (ex. `ios/config/dev`) folder, if there is no such folder, you have to create it. Project has custom build script that will copy right plist file to the runner folder during the build process.
 13. Create `.env.dev`, `.env.stag` and `.env.prod` files in the root directory. 
 14. File `.env.example` contains needed variable names, copy it to the `.env.dev`, `.env.stag` and `.env.prod`.You can find env file variable values in the project [documentation](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/53739539/Environment+variables). Also firebase variables you can get from the `google-services.json` and `GoogleService-Info.plist` respectively.
+15. Add [keystore.properties](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/285540355/Keystore.properties) and [loopcare_cert.jks](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/285605897/loopcare+cert.jks) into android app project folder.
 
 ## Application development
 
