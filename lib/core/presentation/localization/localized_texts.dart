@@ -526,8 +526,7 @@ class LocalizedTexts {
   static const String googleMarket = "googleMarket";
   static const String cancelAccountSubscription = "cancelAccountSubscription";
   static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
-  static const String otherPurchaseVendorCancelAccountSubscription =
-      "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";
@@ -834,6 +833,7 @@ class LocalizedTexts {
   static const String register = 'register';
   static const String emailAlreadyTaken = 'emailAlreadyTaken';
   static const String somethingIsIncorrect = 'somethingIsIncorrect';
+  static const String registrationNotAllow = 'registrationNotAllow';
 
   //Waiting for confirmation page
   static const String waitingForConfirmationTitle = 'waitingForConfirmationTitle';

@@ -167,6 +167,7 @@
   "register": "Register",
   "emailAlreadyTaken": "Email already taken",
   "somethingIsIncorrect": "Something is incorrect or missing",
+  "registrationNotAllow": "Sorry, you are not allowed to register int the app",
   "waitingForConfirmationTitle": "You’ve got mail",
   "resendConfirmationMessage": "We've just sent another email to you",
   "waitingForConfirmationBody1": "You signed up with the following email address",

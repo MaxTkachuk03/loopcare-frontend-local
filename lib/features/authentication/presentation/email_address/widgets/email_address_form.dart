@@ -20,6 +20,7 @@ import 'package:loopcare_frontend/features/onboarding/onboarding_physical/applic
 import 'package:url_launcher/url_launcher.dart';
 
 const accountAlreadyExists = 'account_with_this_email_already_exists';
+const accountInvitationNotFound = 'account_invitation_not_found';
 
 class EmailAddressForm extends StatefulWidget {
   const EmailAddressForm({super.key});
@@ -206,6 +207,9 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
 
                   return LocalizedTexts.somethingIsIncorrect.tr();
                 },
+                forbidden: (error) => (error.error.message == accountInvitationNotFound)
+                    ? LocalizedTexts.registrationNotAllow.tr()
+                    : LocalizedTexts.somethingIsIncorrect.tr(),
                 orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
               );
               context.showError(content: Text(errorMessage));
