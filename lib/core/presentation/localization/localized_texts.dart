@@ -510,6 +510,7 @@ class LocalizedTexts {
   static const String subscriptionRenewedLabel = "subscriptionRenewedLabel";
   static const String subscriptionRestoreLabel = "subscriptionRestoreLabel";
   static const String subscriptionTermsLabel = "subscriptionTermsLabel";
+  static const String subscriptionPrivacyLabel = "subscriptionPrivacyLabel";
   static const String subscriptionAnnual = "subscriptionAnnual";
   static const String subscriptionMonthly = "subscriptionMonthly";
   static const String subscriptionSubscribe = "subscriptionSubscribe";
@@ -525,6 +526,7 @@ class LocalizedTexts {
   static const String appStore = "appStore";
   static const String googleMarket = "googleMarket";
   static const String cancelAccountSubscription = "cancelAccountSubscription";
+  static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
   static const String otherPurchaseVendorCancelAccountSubscription =
       "otherPurchaseVendorCancelAccountSubscription";
 

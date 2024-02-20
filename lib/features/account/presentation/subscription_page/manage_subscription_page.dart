@@ -6,6 +6,7 @@ import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -19,6 +20,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
+import 'package:loopcare_frontend/features/subscription/application/subscription_service.dart';
 import 'package:loopcare_frontend/injection.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -32,6 +34,8 @@ class ManageSubscriptionPage extends StatefulWidget {
 }
 
 class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
+  final AppSubscriptionService inAppPurchaseService = getIt<AppSubscriptionService>();
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -115,6 +119,15 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
                     label: LocalizedTexts.manageSubscription.tr(),
                   ),
                 ),
+                if (Platform.isIOS)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+                    child: CustomElevatedButton.blueFullWidth(
+                        onPressed: () => inAppPurchaseService.instance
+                            .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>()
+                            .presentCodeRedemptionSheet(),
+                        label: LocalizedTexts.subscriptionRedeem),
+                  ),
               ],
             ),
           ),

@@ -298,7 +298,7 @@ class _MealPageState extends State<MealPage> {
                               nutritionValuesList: mealsState.currentMeal?.serving.list ?? <NutritionItem>[],
                               onNutritionFactSelect: _onNutritionFactSelect,
                             ),
-                            MealsList(isActive: currentDate.isTodayOrFuture),
+                            MealsList(isActive: currentDate.laterThanWeekAgo),
                             NutritionBlock(
                               proteinDegree: state.currentMealProteinDegree,
                               calorieDensity: state.currentMealCalorieDensity,
