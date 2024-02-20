@@ -9,7 +9,7 @@ import 'package:loopcare_frontend/features/group_sessions/application/dto/sign_t
 import 'package:loopcare_frontend/features/group_sessions/application/topics_service.dart';
 
 // TODO import mock data
-import 'topic_mock.dart';
+// import 'topic_mock.dart';
 
 @Injectable(as: TopicsService)
 class APITopicsService implements TopicsService {
