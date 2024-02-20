@@ -81,6 +81,8 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
   }
 
   void _onNextHandler({bool isEditable = true}) {
+    var question = context.read<AssignmentsBloc>().state.data.questionForStep(lessonId, widget.step);
+
     if (widget.step == (_totalSteps - 1)) {
       AnalyticsEventService.instance.finalizeAssignment(
         FirebaseEvents.userCompleteAssignment,

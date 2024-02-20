@@ -43,7 +43,8 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
             },
             onSubscriptionPref: () => Platform.isIOS
                 ? launchUrl(Uri.parse(appConfig.appStoreSettingsLink), mode: LaunchMode.externalApplication)
-                : launchUrl(Uri.parse(appConfig.playMarketSettingsLink), mode: LaunchMode.externalApplication),
+                : launchUrl(Uri.parse(appConfig.playMarketSettingsLink),
+                    mode: LaunchMode.externalApplication),
           )
         : _showPopover();
   }
