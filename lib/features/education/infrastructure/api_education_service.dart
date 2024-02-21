@@ -12,6 +12,10 @@ import 'package:loopcare_frontend/features/education/domain/questions/lesson_ans
 import 'package:loopcare_frontend/features/education/domain/questions/lesson_questions_response.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 
+// TODO mock files
+// import 'package:loopcare_frontend/features/education/infrastructure/lesson_mock.dart';
+// import 'package:loopcare_frontend/features/education/infrastructure/lessons_mock.dart';
+
 @Injectable(as: EducationService)
 class APIEducationService implements EducationService {
   DioClient client;
@@ -98,6 +102,9 @@ class APIEducationService implements EducationService {
   Future<Either<RequestError, GetLessonContentResponse>> getLessonContent(
     int lessonId,
   ) async {
+    // TODO lesson mock
+    // return right(GetLessonContentResponse.fromJson(lesson));
+
     return client.get('/education/lessons/$lessonId').then(parseResponse(GetLessonContentResponse.fromJson));
   }
 
