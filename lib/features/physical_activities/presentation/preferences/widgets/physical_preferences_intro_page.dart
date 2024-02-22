@@ -17,8 +17,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 
-class PhysicalActivitiesPreferencesPage extends StatelessWidget {
-  const PhysicalActivitiesPreferencesPage({super.key});
+class PhysicalPreferencesIntroPage extends StatelessWidget {
+  const PhysicalPreferencesIntroPage({super.key});
 
   void _onStart(BuildContext context) {
     context.router.pushNamed(AppRoutes.physicalActivitiesFrequency);

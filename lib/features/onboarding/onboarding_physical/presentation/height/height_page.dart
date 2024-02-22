@@ -45,17 +45,17 @@ class _HeightPageState extends State<HeightPage> {
   final FocusNode cmFieldFocusNode = FocusNode();
   final FocusNode ftFieldFocusNode = FocusNode();
   MeasurementSystemType activeMeasurementType = getMeasurementSystem();
-  int? heightInCm;
-  int heightFT = 0;
-  int heightIN = 0;
+  double? heightInCm;
+  double heightFT = 0;
+  double heightIN = 0;
 
   @override
   void initState() {
     final bloc = context.read<PhysicalFitnessBloc>();
     if (bloc.state.heightInCm != null) {
-      heightInCm = int.parse(bloc.state.heightInCm ?? "0");
-      heightFT = HeightConversionUtils.convertCMtoFT(heightInCm ?? 0);
-      heightIN = HeightConversionUtils.convertCMtoFtIn(heightInCm ?? 0);
+      heightInCm = double.parse(bloc.state.heightInCm ?? "0");
+      heightFT = HeightConversionUtils.doubleConvertCMtoFT(heightInCm ?? 0);
+      heightIN = HeightConversionUtils.doubleConvertCMtoFtIn(heightInCm ?? 0);
       cmController = TextEditingController(text: heightInCm.toString());
       ftController = TextEditingController(text: heightFT.toString());
       inController = TextEditingController(text: heightIN.toString());
@@ -166,28 +166,28 @@ class _HeightPageState extends State<HeightPage> {
   void _setCM(String value) {
     if (value == '') value = "0";
     setState(() {
-      heightInCm = int.parse(value);
+      heightInCm = double.parse(value);
 
-      heightFT = HeightConversionUtils.convertCMtoFT(heightInCm ?? 0);
-      heightIN = HeightConversionUtils.convertCMtoFtIn(heightInCm ?? 0);
+      heightFT = HeightConversionUtils.doubleConvertCMtoFT(heightInCm ?? 0);
+      heightIN = HeightConversionUtils.doubleConvertCMtoFtIn(heightInCm ?? 0);
     });
   }
 
   void _setFT(String value) {
     if (value == '') value = "0";
     setState(() {
-      heightFT = int.parse(value);
+      heightFT = double.parse(value);
 
-      heightInCm = HeightConversionUtils.convertFeetAndInchesToCM(heightFT, heightIN);
+      heightInCm = HeightConversionUtils.doubleConvertFeetAndInchesToCM(heightFT, heightIN);
     });
   }
 
   void _setIN(String value) {
     if (value == '') value = "0";
     setState(() {
-      heightIN = int.parse(value);
+      heightIN = double.parse(value);
 
-      heightInCm = HeightConversionUtils.convertFeetAndInchesToCM(heightFT, heightIN);
+      heightInCm = HeightConversionUtils.doubleConvertFeetAndInchesToCM(heightFT, heightIN);
     });
   }
 
@@ -201,12 +201,13 @@ class _HeightPageState extends State<HeightPage> {
     if (unitType == MeasurementSystemType.metric) {
       cmFieldFocusNode.requestFocus();
       if (heightInCm == null) return;
-      cmController.text = heightInCm.toString();
+      var roundHeightInCm = heightInCm?.round();
+      cmController.text = roundHeightInCm.toString();
     } else {
       ftFieldFocusNode.requestFocus();
       if (heightInCm == null) return;
-      ftController.text = '${HeightConversionUtils.convertCMtoFT(heightInCm ?? 0)}';
-      inController.text = '${HeightConversionUtils.convertCMtoFtIn(heightInCm ?? 0)}';
+      ftController.text = '${HeightConversionUtils.doubleConvertCMtoFT(heightInCm ?? 0).round()}';
+      inController.text = '${HeightConversionUtils.doubleConvertCMtoFtIn(heightInCm ?? 0).round()}';
     }
   }
 }

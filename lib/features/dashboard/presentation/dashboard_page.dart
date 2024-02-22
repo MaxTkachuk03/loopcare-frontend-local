@@ -21,7 +21,6 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/slider
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/support_group.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/weight/weight_block.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
-import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/mood/application/mood_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
@@ -77,8 +76,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
         .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
 
     context.read<EducationProgramBloc>()
-      ..add(const EducationProgramEvent.getLessons(LessonCategory.all))
-      ..add(const EducationProgramEvent.setLessonWithCountdown(LessonCategory.all));
+      ..add(const EducationProgramEvent.getLessons())
+      ..add(const EducationProgramEvent.setLessonWithCountdown());
 
 // TODO: /LOOPCARE-1893
     // if (context.read<AuthenticationCubit>().state.isFoodLoggingUnlocked) {
@@ -105,8 +104,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
         .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
 
     context.read<EducationProgramBloc>()
-      ..add(const EducationProgramEvent.getLessons(LessonCategory.all))
-      ..add(const EducationProgramEvent.setLessonWithCountdown(LessonCategory.all));
+      ..add(const EducationProgramEvent.getLessons())
+      ..add(const EducationProgramEvent.setLessonWithCountdown());
 
     if (context.read<AuthenticationCubit>().state.isFoodLoggingUnlocked) {
       context.read<MealsBloc>().add(const MealsEvent.fetchMeals());

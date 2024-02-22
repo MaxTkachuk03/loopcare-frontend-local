@@ -45,8 +45,6 @@
 	<string>This app needs camera access to scan QR codes</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>We need your microphone access to allow you to speak in the group session meeting</string>
-	<key>NSUserTrackingUsageDescription</key>
-    <string>This identifier will be used to deliver new offers for you.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>Upload images for screen background</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

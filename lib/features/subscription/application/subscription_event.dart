@@ -20,7 +20,8 @@ class SubscriptionEvent with _$SubscriptionEvent {
 
   const factory SubscriptionEvent.logout() = SubscriptionLogout;
 
-  const factory SubscriptionEvent.purchasedSubscription(PurchasedProduct purchasedProduct) = PurchasedSubscription;
+  const factory SubscriptionEvent.purchasedSubscription(Subscription subscription, PurchasedProduct purchasedProduct) =
+      PurchasedSubscription;
 
   const factory SubscriptionEvent.restorePurchased() = RestorePurchased;
 

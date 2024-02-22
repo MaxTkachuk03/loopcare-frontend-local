@@ -82,12 +82,13 @@ class _LoginFormState extends State<LoginForm> {
   void _navigationListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(
       authenticated: (state) {
-        String route;
-        if (state.hasActiveSubscription) {
-          route = AppRoutes.home;
-        } else {
-          route = AppRoutes.subscription;
-        }
+        String route = AppRoutes.home;
+        //Todo hide subscription flow LOOPCARE-2197
+        // if (state.hasActiveSubscription) {
+        //   route = AppRoutes.home;
+        // } else {
+        //   route = AppRoutes.subscription;
+        // }
         MixpanelEventService.instance.track(
           AppMixpanelEvents.loginSuccess,
           {

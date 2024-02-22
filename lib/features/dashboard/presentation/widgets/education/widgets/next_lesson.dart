@@ -23,9 +23,15 @@ class NextLesson extends StatelessWidget {
 
   const NextLesson({super.key, required this.lesson});
 
+  void _onLessonsLoaded(BuildContext context, EducationProgramState state) {
+    context.read<EducationProgramBloc>().add(const EducationProgramEvent.setLessonWithCountdown());
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EducationProgramBloc, EducationProgramState>(
+    return BlocConsumer<EducationProgramBloc, EducationProgramState>(
+      listenWhen: (prev, cur) => cur is EducationProgramStateLoaded,
+      listener: _onLessonsLoaded,
       builder: (context, state) {
         final lessonWithCountdown = state.data.lessonWithCountdown;
         final isBlocked = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;

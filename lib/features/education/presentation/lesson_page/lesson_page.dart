@@ -62,7 +62,8 @@ class _LessonPageState extends State<LessonPage> {
         return;
       }
 
-      if (extraAction == ExtraActionTypes.unlockMeals) {
+      if (extraAction == ExtraActionTypes.unlockMeals &&
+          !unlockedFeatures.contains(UnlockedFeatureType.meals)) {
         context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.meals);
         context.router.pushNamed(AppRoutes.lessonCompleteFoodPreferences);
 
@@ -71,7 +72,8 @@ class _LessonPageState extends State<LessonPage> {
 
       if (extraAction == ExtraActionTypes.unlockPhysicalActivities &&
           !unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {
-        context.router.pushNamed(AppRoutes.physicalActivitiesPreferences);
+        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.physicalActivities);
+        context.router.pushNamed(AppRoutes.physicalPreferencesIntro);
 
         return;
       }

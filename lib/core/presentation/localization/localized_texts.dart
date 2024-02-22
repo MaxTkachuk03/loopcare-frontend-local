@@ -399,7 +399,6 @@ class LocalizedTexts {
   static const String timeslotCancelled = 'timeslotCancelled';
   static const String timeslotMissed = 'timeslotMissed';
   static const String chooseAnotherTimeslot = 'chooseAnotherTimeslot';
-  static const String noTimeslotsOnThisWeek = 'noTimeslotsOnThisWeek';
   static const String noMinMemberCount = 'noMinMemberCount';
   static const String bookedForYou = 'bookedForYou';
   static const String cancelBooking = 'cancelBooking';
@@ -511,6 +510,7 @@ class LocalizedTexts {
   static const String subscriptionRenewedLabel = "subscriptionRenewedLabel";
   static const String subscriptionRestoreLabel = "subscriptionRestoreLabel";
   static const String subscriptionTermsLabel = "subscriptionTermsLabel";
+  static const String subscriptionPrivacyLabel = "subscriptionPrivacyLabel";
   static const String subscriptionAnnual = "subscriptionAnnual";
   static const String subscriptionMonthly = "subscriptionMonthly";
   static const String subscriptionSubscribe = "subscriptionSubscribe";
@@ -526,6 +526,7 @@ class LocalizedTexts {
   static const String appStore = "appStore";
   static const String googleMarket = "googleMarket";
   static const String cancelAccountSubscription = "cancelAccountSubscription";
+  static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
   static const String otherPurchaseVendorCancelAccountSubscription =
       "otherPurchaseVendorCancelAccountSubscription";
 
@@ -681,7 +682,6 @@ class LocalizedTexts {
   static const String wegovy = 'wegovy';
   static const String otherBrand = 'otherBrand';
   static const String lessThanMonth = 'lessThanMonth';
-  static const String lessThanAMonth = 'lessThanAMonth';
   static const String lessThanCertainMonths = 'lessThanCertainMonths';
   static const String treatmentByTheDoctorQuestion = 'treatmentByTheDoctorQuestion';
   static const String twelveMonthsOrLonger = 'twelveMonthsOrLonger';

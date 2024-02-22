@@ -5,12 +5,12 @@ import 'package:test/test.dart';
 
 void main() {
   test('5 ft 9 inches', () {
-    const ft = 5;
-    const inch = 9;
+    const ft = 5.0;
+    const inch = 9.0;
     const lbs = 272.0;
     const expectedBMI = 40.3;
 
-    var cm = HeightConversionUtils.convertFeetAndInchesToCM(ft, inch);
+    var cm = HeightConversionUtils.doubleConvertFeetAndInchesToCM(ft, inch);
     var kg = WeightConversionUtils.convertLbsToKg(lbs);
 
     var result = BmiCalculator.getUserBmiIndex(cm.toString(), kg.toString());
