@@ -47,6 +47,7 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold.blue(
+      needBottomFacture: true,
       appBar: CustomAppBar.blue(
         leading: CustomFilledIconButton.leadingBlueLighter(),
         title: LocalizedTexts.groupPreferences.translation,
