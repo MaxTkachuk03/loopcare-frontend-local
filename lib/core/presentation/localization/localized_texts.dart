@@ -866,6 +866,7 @@ class LocalizedTexts {
 
   // Group session
   static const String groupSession = 'groupSession';
+  static const String notEnrolledInGroup = 'notEnrolledInGroup';
   static const String supportGroupPaidSubscriptionNotGrouped = 'supportGroupPaidSubscriptionNotGrouped';
   static const String supportGroupTrialSubscriptionNotGrouped = 'supportGroupTrialSubscriptionNotGrouped';
   static const String nextWeekTopic = 'nextWeekTopic';

@@ -672,6 +672,7 @@
   "cancel": "Cancel",
   "missed": "Missed",
   "saved": "Saved!",
+  "notEnrolledInGroup": "You are currently not enrolled in a group",
   "supportGroupPaidSubscriptionNotGrouped": "You have a paid subscription, but are currently not enrolled in a group",
   "supportGroupTrialSubscriptionNotGrouped": "You are currently in your free trial period. This feature will be available with a paid subscription. Once your free trial is over, you can enrol here or in your profile",
   "updateRequired": "Update required",
