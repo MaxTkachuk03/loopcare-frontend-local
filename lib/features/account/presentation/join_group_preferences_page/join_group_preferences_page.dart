@@ -16,8 +16,11 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/education/domain/consult_doctor_page_mode.dart';
 
 class JoinGroupPreferencesPage extends StatefulWidget {
+  // TODO route is called only from one place with false value, so we don't need it as a param cause it always the same
   final bool fromLessonComplete;
 
   const JoinGroupPreferencesPage({
@@ -55,6 +58,11 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
           CustomDefinitions.navigatedFrom: widget.fromLessonComplete ? 'Lesson content' : 'User profile',
         },
       );
+
+      if (context.read<AuthenticationCubit>().state.isTreatedByPsychiatrist) {
+        context.router.push(ConsultDoctorRoute(mode: const ConsultDoctorPageMode.userProfile()));
+        return;
+      }
 
       context.router.push(GenderPreferencesRoute(fromLessonComplete: widget.fromLessonComplete));
     }

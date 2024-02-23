@@ -863,6 +863,14 @@ class LocalizedTexts {
   static const String unlockFeatureDescription = 'unlockFeatureDescription';
   static const String lessonCompleteDescription = 'lessonCompleteDescription';
   static const String assignmentCompleted = 'assignmentCompleted';
+  static const String consultYourTherapist = 'consultYourTherapist';
+  static const String consultYourTherapistBody1 = 'consultYourTherapistBody1';
+  static const String consultYourTherapistBody2 = 'consultYourTherapistBody2';
+  static const String consultYourTherapistBody3 = 'consultYourTherapistBody3';
+  static const String consultYourTherapistBody4 = 'consultYourTherapistBody4';
+  static const String completeLesson = 'completeLesson';
+  static const String didYouCheckWithSpecialist = 'didYouCheckWithSpecialist';
+  static const String iConsultedTherapist = 'iConsultedTherapist';
 
   // Group session
   static const String groupSession = 'groupSession';

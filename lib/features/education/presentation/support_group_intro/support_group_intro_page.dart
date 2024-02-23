@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -24,6 +23,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/education/domain/consult_doctor_page_mode.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 
 class SupportGroupIntroPage extends StatelessWidget {
@@ -104,8 +104,6 @@ class SupportGroupIntroPage extends StatelessWidget {
   }
 
   _onJoinPressed(BuildContext context) {
-    AnalyticsEventService.instance.logEvent(FirebaseEvents.unlockedSupportGroupFeature);
-
     AnalyticsEventService.instance.logEvent(
       FirebaseEvents.iWantToJoinToGroup,
       parameters: {
@@ -114,15 +112,18 @@ class SupportGroupIntroPage extends StatelessWidget {
       },
     );
 
+    if (context.read<AuthenticationCubit>().state.isTreatedByPsychiatrist) {
+      context.router.push(ConsultDoctorRoute(mode: const ConsultDoctorPageMode.afterLesson()));
+      return;
+    }
+
     context
-      ..read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.grouping)
       ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.setWouldLikeJoinGroup(YesNoAnswer.yes))
       ..read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward())
       ..router.push(GenderPreferencesRoute(fromLessonComplete: true));
   }
 
   _onDoNotJoinPressed(BuildContext context) {
-    AnalyticsEventService.instance.logEvent(FirebaseEvents.unlockedSupportGroupFeature);
     AnalyticsEventService.instance.logEvent(
       FirebaseEvents.iWantToJoinToGroup,
       parameters: {
@@ -130,8 +131,6 @@ class SupportGroupIntroPage extends StatelessWidget {
         CustomDefinitions.decision: LocalizedTexts.joinLater.tr()
       },
     );
-
-    context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.grouping);
 
     context.router.pushNamed(AppRoutes.lessonComplete);
   }
