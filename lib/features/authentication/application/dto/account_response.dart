@@ -38,6 +38,7 @@ class AccountResponse {
   final List<UnlockedFeatureType> unlockedFeatures;
   final MentalHealthTests? mentalHealthTests;
   final PhysicalActivitiesPreferences? physicalActivitiesPreferences;
+  final bool treatedByPsychiatrist;
 
   const AccountResponse({
     required this.id,
@@ -61,6 +62,7 @@ class AccountResponse {
     required this.mentalHealthTests,
     required this.physicalActivitiesPreferences,
     required this.subscription,
+    required this.treatedByPsychiatrist,
   });
 
   factory AccountResponse.fromJson(Map<String, dynamic> json) => _$AccountResponseFromJson(json);
