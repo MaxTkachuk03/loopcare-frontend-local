@@ -13,19 +13,8 @@ class APITransparencyService implements TransparencyService {
 
   APITransparencyService(this.client);
 
-//Todo update endpoints
-  @override
-  Future<Either<RequestError, dynamic>> saveUUID(dynamic data) async {
-    return client.post('/device/ids', data: data).then(parseResponse(Subscription.fromJson));
-  }
-
-  @override
-  Future<Either<RequestError, dynamic>> saveAdvertiseId(dynamic data) async {
-    return client.post('/device/ids', data: data).then(parseResponse(Subscription.fromJson));
-  }
-
   @override
   Future<Either<RequestError, dynamic>> saveDeviceInfo(DeviceInfo data) async {
-    return client.post('/device/ids', data: data).then(parseResponse(Subscription.fromJson));
+    return client.post('/analytics/device-info', data: data).then(parseResponse(Subscription.fromJson));
   }
 }

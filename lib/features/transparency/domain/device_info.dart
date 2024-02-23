@@ -6,11 +6,11 @@ part 'device_info.g.dart';
 @immutable
 @JsonSerializable()
 class DeviceInfo {
-  final String advertiseId;
+  final String advertisingId;
   final String deviceId;
 
   const DeviceInfo({
-    required this.advertiseId,
+    required this.advertisingId,
     required this.deviceId,
   });
 

@@ -33,8 +33,8 @@ class TransparencyBloc extends Bloc<TransparencyEvent, TransparencyState> {
     SaveDeviceInfo event,
     Emitter<TransparencyState> emit,
   ) async {
-    final response =
-        await apiPurchaseService.saveDeviceInfo(DeviceInfo(advertiseId: event.advertisingId, deviceId: event.deviceId));
+    final response = await apiPurchaseService
+        .saveDeviceInfo(DeviceInfo(advertisingId: event.advertisingId, deviceId: event.deviceId));
     response.fold(
       (error) {
         emit(
@@ -77,23 +77,22 @@ class TransparencyBloc extends Bloc<TransparencyEvent, TransparencyState> {
     String? advertisingId;
     bool isLimitAdTrackingEnabled = false;
     if (Platform.isIOS) {
-      final uuid = await AppTrackingTransparency.getAdvertisingIdentifier();
-      debugPrint("devcpp IDFA : $uuid");
-    }
-    try {
-      advertisingId = await AdvertisingId.id(true);
-      debugPrint('devcpp advertisingId: $advertisingId');
-    } on PlatformException {
-      advertisingId = 'Failed to get platform version.';
+      advertisingId = await AppTrackingTransparency.getAdvertisingIdentifier();
+      debugPrint("devcpp IDFA : $advertisingId");
+    } else {
+      try {
+        advertisingId = await AdvertisingId.id(true);
+        debugPrint('devcpp AAID: $advertisingId');
+      } on PlatformException {
+        advertisingId = 'Failed to get platform version.';
+      }
     }
     try {
       isLimitAdTrackingEnabled = await AdvertisingId.isLimitAdTrackingEnabled ?? false;
       debugPrint('devcpp isLimitAdTrackingEnabled: $isLimitAdTrackingEnabled');
     } on PlatformException {
-      isLimitAdTrackingEnabled = false;
+      isLimitAdTrackingEnabled = true;
     }
-    add(const TransparencyEvent.requestDeviceId());
-
     emit(
       TransparencyState.gotAdvertisingIdentifier(
         state.data.copyWith(
@@ -102,22 +101,8 @@ class TransparencyBloc extends Bloc<TransparencyEvent, TransparencyState> {
         ),
       ),
     );
-    if ((state.data.trackingStatus == TrackingStatus.authorized || !state.data.isLimitAdTrackingEnabled) &&
-        hasAdvertisingId) {
-      final response = await apiPurchaseService.saveAdvertiseId(state.data.advertisingId);
-      response.fold(
-        (error) {
-          emit(
-            TransparencyState.error(
-              state.data.copyWith(
-                error: error,
-                isLoading: false,
-              ),
-            ),
-          );
-        },
-        (r) => emit(TransparencyState.successSaveAdvertisingId(state.data.copyWith(isLoading: false))),
-      );
+    if (approvedTrackingAdvertising) {
+      add(const TransparencyEvent.requestDeviceId());
     }
   }
 
@@ -128,15 +113,16 @@ class TransparencyBloc extends Bloc<TransparencyEvent, TransparencyState> {
     String? deviceId;
     try {
       deviceId = await FlutterUdid.udid;
-      debugPrint("devcpp DeviceId : $deviceId");
+      debugPrint("devcpp  FlutterUdid DeviceId : $deviceId");
     } on PlatformException {
       deviceId = null;
     }
 
-    emit(TransparencyState.gotDeviceId(state.data.copyWith(uuid: deviceId)));
-    if ((state.data.trackingStatus == TrackingStatus.authorized || !state.data.isLimitAdTrackingEnabled) &&
-        hasDeviceId) {
-      final response = await apiPurchaseService.saveUUID(state.data.uuid);
+    emit(TransparencyState.gotDeviceId(state.data.copyWith(deviceId: deviceId)));
+
+    if (approvedTrackingDeviceId) {
+      final response = await apiPurchaseService
+          .saveDeviceInfo(DeviceInfo(advertisingId: state.data.advertisingId!, deviceId: state.data.deviceId!));
       response.fold(
         (error) {
           emit(
@@ -148,12 +134,22 @@ class TransparencyBloc extends Bloc<TransparencyEvent, TransparencyState> {
             ),
           );
         },
-        (r) => emit(TransparencyState.successSaveUUID(state.data.copyWith(isLoading: false))),
+        (r) => emit(TransparencyState.success(state.data.copyWith(isLoading: false))),
       );
     }
   }
 
   bool get hasAdvertisingId => state.data.advertisingId != null;
 
-  bool get hasDeviceId => state.data.uuid != null;
+  bool get hasDeviceId => state.data.deviceId != null;
+
+  bool get approvedTrackingAdvertising => Platform.isIOS
+      ? state.data.trackingStatus == TrackingStatus.authorized &&
+          !state.data.isLimitAdTrackingEnabled &&
+          hasAdvertisingId
+      : !state.data.isLimitAdTrackingEnabled && hasAdvertisingId;
+
+  bool get approvedTrackingDeviceId => Platform.isIOS
+      ? state.data.trackingStatus == TrackingStatus.authorized && !state.data.isLimitAdTrackingEnabled && hasDeviceId
+      : !state.data.isLimitAdTrackingEnabled && hasDeviceId;
 }

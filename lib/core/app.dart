@@ -19,7 +19,6 @@ import 'package:loopcare_frontend/features/consent_confirmation/application/cons
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
-import 'package:loopcare_frontend/features/transparency/applictation/transparency_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
 import 'package:provider/provider.dart';
 
@@ -81,7 +80,6 @@ class _AppState extends State<_App> {
     final authTokenManager = GetIt.instance<AuthTokenManager>();
     authBloc.connectSockets();
     context.read<AppUpdateBloc>().add(const AppUpdateEvent.getVersion());
-    context.read<TransparencyBloc>().add(const TransparencyEvent.requestTrackingAuthorization());
 
     _appRouter = AppRouter(
       navigatorKey: kNavigatorKey,

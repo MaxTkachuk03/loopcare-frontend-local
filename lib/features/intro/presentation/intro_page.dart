@@ -19,6 +19,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/transparency/applictation/transparency_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -36,7 +37,7 @@ class _IntroPageState extends State<IntroPage> {
   @override
   void initState() {
     super.initState();
-
+    context.read<TransparencyBloc>().add(const TransparencyEvent.requestTrackingAuthorization());
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _initPackageInfo();
     });
