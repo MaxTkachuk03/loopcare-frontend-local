@@ -10,6 +10,7 @@ import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
@@ -452,6 +453,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     await _authenticationService.logout();
     await authTokenManager.removeAccessToken();
     await authTokenManager.removeRefreshToken();
+    CustomerIoService.logOut();
     _socketService.disconnect();
     emit(
       SubscriptionState.loading(state.data.copyWith(isLoading: false)),

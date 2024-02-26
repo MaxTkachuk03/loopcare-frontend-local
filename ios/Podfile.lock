@@ -4,6 +4,26 @@ PODS:
   - connectivity_plus (0.0.1):
     - Flutter
     - ReachabilitySwift
+  - customer_io (1.3.1):
+    - CustomerIO/MessagingInApp (~> 2)
+    - CustomerIO/Tracking (~> 2)
+    - Flutter
+  - CustomerIO/MessagingInApp (2.12.1):
+    - CustomerIOMessagingInApp (= 2.12.1)
+  - CustomerIO/MessagingPushFCM (2.12.1):
+    - CustomerIOMessagingPushFCM (= 2.12.1)
+  - CustomerIO/Tracking (2.12.1):
+    - CustomerIOTracking (= 2.12.1)
+  - CustomerIOCommon (2.12.1)
+  - CustomerIOMessagingInApp (2.12.1):
+    - CustomerIOTracking (= 2.12.1)
+  - CustomerIOMessagingPush (2.12.1):
+    - CustomerIOTracking (= 2.12.1)
+  - CustomerIOMessagingPushFCM (2.12.1):
+    - CustomerIOMessagingPush (= 2.12.1)
+    - FirebaseMessaging (< 11, >= 8.7.0)
+  - CustomerIOTracking (2.12.1):
+    - CustomerIOCommon (= 2.12.1)
   - device_info_plus (0.0.1):
     - Flutter
   - Firebase/Analytics (10.12.0):
@@ -16,6 +36,9 @@ PODS:
   - Firebase/Crashlytics (10.12.0):
     - Firebase/CoreOnly
     - FirebaseCrashlytics (~> 10.12.0)
+  - Firebase/Messaging (10.12.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 10.12.0)
   - Firebase/Performance (10.12.0):
     - Firebase/CoreOnly
     - FirebasePerformance (~> 10.12.0)
@@ -23,11 +46,15 @@ PODS:
     - Firebase/Analytics (= 10.12.0)
     - firebase_core
     - Flutter
-  - firebase_core (2.24.2):
+  - firebase_core (2.25.4):
     - Firebase/CoreOnly (= 10.12.0)
     - Flutter
   - firebase_crashlytics (3.4.8):
     - Firebase/Crashlytics (= 10.12.0)
+    - firebase_core
+    - Flutter
+  - firebase_messaging (14.7.16):
+    - Firebase/Messaging (= 10.12.0)
     - firebase_core
     - Flutter
   - firebase_performance (0.9.3-8):
@@ -75,6 +102,15 @@ PODS:
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/UserDefaults (~> 7.8)
     - PromisesObjC (~> 2.1)
+  - FirebaseMessaging (10.12.0):
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleDataTransport (~> 9.2)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/Reachability (~> 7.8)
+    - GoogleUtilities/UserDefaults (~> 7.8)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
   - FirebasePerformance (10.12.0):
     - FirebaseCore (~> 10.5)
     - FirebaseInstallations (~> 10.0)
@@ -213,10 +249,13 @@ PODS:
 DEPENDENCIES:
   - audio_session (from `.symlinks/plugins/audio_session/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
+  - customer_io (from `.symlinks/plugins/customer_io/ios`)
+  - CustomerIO/MessagingPushFCM (~> 2.12.1)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_crashlytics (from `.symlinks/plugins/firebase_crashlytics/ios`)
+  - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - firebase_performance (from `.symlinks/plugins/firebase_performance/ios`)
   - Flutter (from `Flutter`)
   - flutter_zoom_videosdk (from `.symlinks/plugins/flutter_zoom_videosdk/ios`)
@@ -240,6 +279,12 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - CustomerIO
+    - CustomerIOCommon
+    - CustomerIOMessagingInApp
+    - CustomerIOMessagingPush
+    - CustomerIOMessagingPushFCM
+    - CustomerIOTracking
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -248,6 +293,7 @@ SPEC REPOS:
     - FirebaseCoreInternal
     - FirebaseCrashlytics
     - FirebaseInstallations
+    - FirebaseMessaging
     - FirebasePerformance
     - FirebaseRemoteConfig
     - FirebaseSessions
@@ -270,6 +316,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/audio_session/ios"
   connectivity_plus:
     :path: ".symlinks/plugins/connectivity_plus/ios"
+  customer_io:
+    :path: ".symlinks/plugins/customer_io/ios"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
   firebase_analytics:
@@ -278,6 +326,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   firebase_crashlytics:
     :path: ".symlinks/plugins/firebase_crashlytics/ios"
+  firebase_messaging:
+    :path: ".symlinks/plugins/firebase_messaging/ios"
   firebase_performance:
     :path: ".symlinks/plugins/firebase_performance/ios"
   Flutter:
@@ -322,11 +372,19 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   audio_session: 4f3e461722055d21515cf3261b64c973c062f345
   connectivity_plus: bf0076dd84a130856aa636df1c71ccaff908fa1d
+  customer_io: 01b3a765e7273ed5990481be212dcfd7dc79fae7
+  CustomerIO: 89249909bce5f1ecba43721bda800dea79341085
+  CustomerIOCommon: 8e3a003b3daf5096d56f193140a0eadf1fdce2b4
+  CustomerIOMessagingInApp: b160de4b0bed0a5b511ee20830acc695512d09af
+  CustomerIOMessagingPush: c49222a62f9885c18a6779fe50458ad54d8d7cd5
+  CustomerIOMessagingPushFCM: 5883d85134abe0eba91cb213cd6a673fe7f21680
+  CustomerIOTracking: d062619ac968b5b2c2d413d1c8586e25747e161f
   device_info_plus: e5c5da33f982a436e103237c0c85f9031142abed
   Firebase: 07150e75d142fb9399f6777fa56a187b17f833a0
   firebase_analytics: 74df36ac5dc28b0bfd80ed54a2319be6b55f773f
-  firebase_core: 4a1b6b94d416a975e603f03226be200ea10463b5
+  firebase_core: ea236d6b3ffc021631a95bcb5e3a52269e111152
   firebase_crashlytics: bea04751ea9131068311457057206f13483fea3e
+  firebase_messaging: 54084c1be83049786501e39f27bdfd8a14f98ecf
   firebase_performance: 57982bb3a885fa00bd214a3d23fc6d400a548767
   FirebaseABTesting: d8b10ff4c6d1a9d6b11f02a08463ad5fd9fc6b1b
   FirebaseAnalytics: 0270389efbe3022b54ec4588862dabec3477ee98
@@ -335,13 +393,14 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: 8eb002e564b533bdcf1ba011f33f2b5c10e2ed4a
   FirebaseCrashlytics: c4d111b7430c49744c74bcc6346ea00868661ac8
   FirebaseInstallations: e842042ec6ac1fd2e37d7706363ebe7f662afea4
+  FirebaseMessaging: bb2c4f6422a753038fe137d90ae7c1af57251316
   FirebasePerformance: 1a63c51c9d14fc1190b0970d5aab96672cb0bce6
   FirebaseRemoteConfig: bbd42790a4e84fde6aab7eae810b608e7b5c0bf6
   FirebaseSessions: f90fe9212ee2818641eda051c0835c9c4e30d9ae
   FirebaseSharedSwift: 62e248642c0582324d0390706cadd314687c116b
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_zoom_videosdk: 6cfe5ed4a015adaf8c2bc57e50261914f1ddd38b
-  fluttertoast: 31b00dabfa7fb7bacd9e7dbee580d7a2ff4bf265
+  fluttertoast: fafc4fa4d01a6a9e4f772ecd190ffa525e9e2d9c
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   GoogleAppMeasurement: 2d800fab85e7848b1e66a6f8ce5bca06c5aad892
   GoogleDataTransport: 57c22343ab29bc686febbf7cbb13bad167c2d8fe
@@ -371,6 +430,6 @@ SPEC CHECKSUMS:
   webview_flutter_wkwebview: 2e2d318f21a5e036e2c3f26171342e95908bd60a
   ZoomVideoSDK: 3b25f88d6278249cd6c291b513dab8e8faf3c4b5
 
-PODFILE CHECKSUM: d24ff7fe11aa91b9b53564cd5dacd78fb3c26766
+PODFILE CHECKSUM: 7e17af7951140443ad98ebc0134520387354fc01
 
 COCOAPODS: 1.15.2

@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/application/socket_service_chat/chat_socket_service.dart';
 import 'package:loopcare_frontend/core/domain/account/account.dart';
@@ -80,6 +81,12 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
         authTokenManager.setRefreshToken(response.refreshToken);
 
         connectSockets();
+
+        CustomerIoService.userAuthenticated(
+          email: response.email,
+          id: response.id,
+          name: response.name,
+        );
 
         emit(
           AuthenticationState.authenticated(
@@ -195,6 +202,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     await _authenticationService.logout();
     await authTokenManager.removeAccessToken();
     await authTokenManager.removeRefreshToken();
+    CustomerIoService.logOut();
     emit(const AuthenticationState.guest());
     _socketService.disconnect();
     _chatSocketService.disconnect();
@@ -246,6 +254,12 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
             emit(state.copyWith(error: error));
           },
           (response) {
+            CustomerIoService.userRegistered(
+              email: data.email,
+              id: response.id,
+              name: state.name,
+            );
+
             emit(
               AuthenticationState.waitedForConfirmation(
                 email: data.email,
