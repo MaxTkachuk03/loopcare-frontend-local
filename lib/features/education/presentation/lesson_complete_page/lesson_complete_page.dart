@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -57,7 +58,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
     context.showError(content: Text(errorMessage));
   }
 
-  _startLessonQuestion(BuildContext context, int lessonId) {
+  _startLessonQuestion(int lessonId) {
     context.router.push(AssignmentsIntroRoute(lessonId: lessonId, fromDashboard: false));
 
     setState(() {
@@ -136,7 +137,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                                 final lesson = state.data;
                                 if (state.data.isLessonCompleted) {
                                   AnalyticsEventService.instance.logLessonCompletedEvent(
-                                    'lesson_completed_screen',
+                                    FirebaseEvents.lessonCompletedScreen,
                                     context.read<EducationLessonBloc>().state.data.lessonId,
                                   );
                                 }
@@ -188,7 +189,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                                 ? const SavedAssignment()
                                 : UnlockAssignment(
                                     completedAt: state.data.lessonCompletedDate ?? DateTime.now(),
-                                    onBtnPressed: () => _startLessonQuestion(context, state.data.lessonId),
+                                    onBtnPressed: () => _startLessonQuestion(state.data.lessonId),
                                   );
                           }
 

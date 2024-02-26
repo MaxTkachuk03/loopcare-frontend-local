@@ -6,6 +6,9 @@ import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -28,10 +31,20 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
         ? ModalBottomSheet.deleteAccount(
             context: context,
             noActiveSubscription: noActiveSubscription,
-            onDeleted: () => context.read<AuthenticationCubit>().deleteAccount(),
+            onDeleted: () {
+              context.read<AuthenticationCubit>().deleteAccount();
+              AnalyticsEventService.instance.logEvent(
+                FirebaseEvents.deleteAccount,
+                parameters: {
+                  CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+                  CustomDefinitions.confirmed: true,
+                },
+              );
+            },
             onSubscriptionPref: () => Platform.isIOS
                 ? launchUrl(Uri.parse(appConfig.appStoreSettingsLink), mode: LaunchMode.externalApplication)
-                : launchUrl(Uri.parse(appConfig.playMarketSettingsLink), mode: LaunchMode.externalApplication),
+                : launchUrl(Uri.parse(appConfig.playMarketSettingsLink),
+                    mode: LaunchMode.externalApplication),
           )
         : _showPopover();
   }

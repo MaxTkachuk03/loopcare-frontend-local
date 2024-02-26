@@ -1,7 +1,9 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/tab_bar/custom_underlined_tab_bar.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
@@ -28,7 +30,6 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
   String? searchMode = '';
   late TabController _tabController;
   late List<String> tabs;
-  Timer? _debounce;
 
   SearchMode get searchType => SearchMode.values.toList()[_tabController.index];
 
@@ -63,7 +64,6 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
 
     _tabController.removeListener(_tabsChangeListener);
     _tabController.dispose();
-    _debounce?.cancel();
   }
 
   @override
@@ -108,6 +108,15 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
         widget.onTabChanged!(searchMode);
       }
 
+      final filters = [searchMode, widget.mode?.searchModeValue].toString();
+      AnalyticsEventService.instance.logEvent(
+        FirebaseEvents.performedSearch,
+        parameters: {
+          CustomDefinitions.value: widget.searchController.text,
+          CustomDefinitions.filters: widget.mode == null ? searchMode : filters,
+        },
+      );
+
       context.read<SearchBloc>().add(
             SearchEvent.search(
               widget.searchController.text,
@@ -124,9 +133,22 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
       return;
     }
 
-    context
-        .read<SearchBloc>()
-        .add(SearchEvent.search(value, mode: searchMode, filteredMode: widget.mode?.searchModeValue));
+    final filters = [searchMode, widget.mode?.searchModeValue].toString();
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.performedSearch,
+      parameters: {
+        CustomDefinitions.value: widget.searchController.text,
+        CustomDefinitions.filters: widget.mode == null ? searchMode : filters,
+      },
+    );
+
+    context.read<SearchBloc>().add(
+          SearchEvent.search(
+            value,
+            mode: searchMode,
+            filteredMode: widget.mode?.searchModeValue,
+          ),
+        );
   }
 
   void _onCleared() => context.read<SearchBloc>().add(SearchEvent.resetData(mode: searchType));

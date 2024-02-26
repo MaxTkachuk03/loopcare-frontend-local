@@ -98,7 +98,7 @@ class SessionCard extends StatelessWidget {
                             if (_categoryLabel() != null)
                               CategoryLabel(label: _categoryLabel() ?? '', color: AppColors.coralRegular),
                             const SizedBox(height: 10.0),
-                            CustomText.w700(
+                            CustomText.bitter700(
                               topicName,
                               style: context.textTheme.bodySmall,
                             ),
@@ -106,7 +106,7 @@ class SessionCard extends StatelessWidget {
                             _dateText(context),
                             const SizedBox(height: 10.0),
                             if (preparationMaterialsAvailable && !isCanJoin)
-                              CustomOutlinedButton.coral(
+                              CustomOutlinedButton.coralSmall(
                                 label: LocalizedTexts.prepareForSession.tr(),
                                 onPressed: () => _onBookSeatPressed(context),
                               ),
@@ -116,7 +116,7 @@ class SessionCard extends StatelessWidget {
                                 onPressed: () => _onJoinPressed(context),
                               ),
                             if (isCancelledOrMissed && timeSlotsAvailable)
-                              CustomOutlinedButton.coral(
+                              CustomOutlinedButton.coralSmall(
                                 label: LocalizedTexts.chooseAnotherTimeslot.tr(),
                                 onPressed: () => _onBookSeatPressed(context),
                               ),

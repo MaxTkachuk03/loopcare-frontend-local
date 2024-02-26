@@ -45,28 +45,27 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
   }
 
   void _onUpdateHandler(PhysicalActivitiesPreferencesState state) {
+    if (widget.profileInvoke) {
+      context.router.pop();
+      return;
+    }
+
     final lessonBloc = context.read<EducationLessonBloc>();
-    if (lessonBloc.state.data.questions.isEmpty ||
-        lessonBloc.state.data.questions.first.type != LessonQuestionType.quiz) {
-      final bloc = context.read<AuthenticationCubit>();
 
-      if (!bloc.state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {
-        context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
-      } else {
-        context.router.pop();
-      }
-    } else {
-      context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.physicalActivities);
+    if (lessonBloc.state.data.hasQuiz) {
+      context.router.push(QuizzesIntroRoute(lessonId: lessonBloc.state.data.lessonId));
+      return;
+    }
 
-      context.router.push(
-        QuizzesIntroRoute(
-          lessonId: lessonBloc.state.data.lessonId,
-        ),
-      );
+    final isPhysicalActivitiesUnlocked =
+        context.read<AuthenticationCubit>().state.isPhysicalActivitiesUnlocked;
+
+    if (lessonBloc.state.data.questions.isEmpty && isPhysicalActivitiesUnlocked) {
+      context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
     }
   }
 
-  void _onNext(BuildContext context) {
+  void _onNext() {
     context
         .read<PhysicalActivitiesPreferencesBloc>()
         .add(const PhysicalActivitiesPreferencesEvent.savePreferences());
@@ -126,7 +125,7 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
                       BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
                         builder: (context, state) {
                           return CustomElevatedButton.blueFullWidth(
-                            onPressed: () => state.data.isTargetsSet ? _onNext(context) : null,
+                            onPressed: state.data.isTargetsSet ? _onNext : null,
                             label: LocalizedTexts.confirm.tr(),
                           );
                         },

@@ -3,6 +3,9 @@ import 'package:collection/collection.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
@@ -84,6 +87,13 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
     if (groupPrefsMode == GroupPrefsMode.groupingLesson) {
       context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward());
     }
+
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.userFillsOutTimezonePreferences,
+      parameters: {
+        CustomDefinitions.navigatedFrom: widget.fromLessonComplete ? 'Lesson content' : 'User profile',
+      },
+    );
 
     if (groupPrefsMode == GroupPrefsMode.singlePage) {
       context.router.pop();

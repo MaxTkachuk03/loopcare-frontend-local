@@ -1,7 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
@@ -30,6 +33,13 @@ class _PregnancyChipsState extends State<PregnancyChips> {
     setState(() {
       _selectedValue = value;
     });
+
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.userPregnancy,
+      parameters: {
+        CustomDefinitions.value: value.name,
+      },
+    );
 
     if (value == YesNoAnswer.yes) {
       context.router.pushNamed(AppRoutes.pregnancyFailed);

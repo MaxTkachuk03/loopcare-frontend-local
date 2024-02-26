@@ -168,6 +168,7 @@ class LocalizedTexts {
   static const String today = 'today';
   static const String physicalActivities = 'physicalActivities';
   static const String physicalActivitiesPreferences = 'physicalActivitiesPreferences';
+  static const String physicalActivitiesPreferencesLabel = 'physicalActivitiesPreferencesLabel';
   static const String trainingFrequency = 'trainingFrequency';
   static const String trainingFocus = 'trainingFocus';
   static const String physicalActivitiesPreferencesDesc = 'physicalActivitiesPreferencesDesc';
@@ -377,7 +378,7 @@ class LocalizedTexts {
   static const String at = 'at';
   static const String joinAGroup = 'joinAGroup';
   static const String unavailableGroupPrefsLabel = 'unavailableGroupPrefsLabel';
-  static const String weWillNotifyYouAboutGroup = 'weWillNotifyYouAboutGroup';
+  static const String findingMatchingGroup = 'findingMatchingGroup';
   static const String moreInformationInPreferences = 'moreInformationInPreferences';
   static const String bookYourSeatNow = 'bookYourSeatNow';
   static const String comingUpThisWeek = 'comingUpThisWeek';
@@ -864,6 +865,7 @@ class LocalizedTexts {
 
   // Group session
   static const String groupSession = 'groupSession';
+  static const String notEnrolledInGroup = 'notEnrolledInGroup';
   static const String supportGroupPaidSubscriptionNotGrouped = 'supportGroupPaidSubscriptionNotGrouped';
   static const String supportGroupTrialSubscriptionNotGrouped = 'supportGroupTrialSubscriptionNotGrouped';
   static const String nextWeekTopic = 'nextWeekTopic';

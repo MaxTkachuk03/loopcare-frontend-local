@@ -2,8 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_numbers.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/widgets/already_planned_card.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
@@ -187,14 +190,26 @@ class ModalBottomSheet {
                   ),
                   const SizedBox(height: 32.0),
                   CustomElevatedButton.blueFullWidth(
-                    onPressed: context.router.pop,
+                    onPressed: () {
+                      //12.02.2024 Discussed with Diana
+                      AnalyticsEventService.instance.logEvent(
+                        FirebaseEvents.deleteAccount,
+                        parameters: {
+                          CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+                          CustomDefinitions.confirmed: false,
+                        },
+                      );
+
+                      context.router.pop;
+                    },
                     label: LocalizedTexts.cancel.tr(),
                   ),
                   const SizedBox(height: 12.0),
                   CustomOutlinedButton.blueFullWidth(
                     onPressed: noActiveSubscription ? onDeleted : onSubscriptionPref,
-                    label:
-                        noActiveSubscription ? LocalizedTexts.yesDelete.tr() : LocalizedTexts.manageSubscription.tr(),
+                    label: noActiveSubscription
+                        ? LocalizedTexts.yesDelete.tr()
+                        : LocalizedTexts.manageSubscription.tr(),
                   )
                 ],
               ),

@@ -2,6 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/checkbox/custom_checkbox.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -63,7 +66,7 @@ class _LegalStatementConfirmationBoxState extends State<LegalStatementConfirmati
           const SizedBox(height: 18.0),
           CustomElevatedButton.blueFullWidth(
             onPressed: isChecked ? _onConfirm : null,
-            label: LocalizedTexts.confirm,
+            label: LocalizedTexts.confirm.tr(),
           ),
         ],
       ),
@@ -77,6 +80,13 @@ class _LegalStatementConfirmationBoxState extends State<LegalStatementConfirmati
   }
 
   void _onConfirm() {
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.legalStatement,
+      parameters: {
+        CustomDefinitions.value: 'true',
+      },
+    );
+
     context
       ..read<LegalStatementBloc>().add(const LegalStatementEvent.passageChanged(true))
       ..router.replaceNamed(AppRoutes.signUpWelcome);

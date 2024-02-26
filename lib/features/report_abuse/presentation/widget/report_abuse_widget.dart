@@ -1,6 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -63,6 +66,14 @@ class _ReportAbuseWidgetState extends State<ReportAbuseWidget> {
 
   _onSendPressed() {
     controller.isEnableSend.value = false;
+
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.reportIssue,
+      parameters: {
+        CustomDefinitions.value: controller.reportController.value.text,
+      },
+    );
+
     context.read<ReportAbuseBloc>().add(ReportAbuseEvent.sendReport(
           controller.subjectController.value.text,
           controller.reportController.value.text,

@@ -39,7 +39,7 @@ class Grouped extends StatelessWidget {
               ),
             );
           },
-          loading: (_) => const Loader(),
+          loading: (_) => const SizedBox(height: 100, child: Loader()),
           orElse: () {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,22 +63,32 @@ class Grouped extends StatelessWidget {
                   ),
                 if (!state.data.isGroupsOnWeekAvailable) const DashboardNoGroupThisWeek(),
                 if (state.data.isSigned && state.data.isGroupsOnWeekAvailable)
-                  SessionCard(
-                    topicName: state.data.weekTopicName,
-                    startDate: state.data.signedGroupSessionStartTime ?? DateTime.now(),
-                    endDate: state.data.signedGroupSessionsEndTime ?? DateTime.now(),
-                    preparationMaterialsAvailable: !state.data.signedGroupSessionsCancelled,
-                    isCancelledOrMissed: state.data.signedGroupSessionsCancelledOrMissed,
-                    isCancelled: state.data.signedGroupSessionsCancelled,
-                    isMissed: state.data.signedGroupSessionsMissed,
-                    image: state.data.thisWeekTopicsImage,
-                    isFinished: state.data.signedGroupSessionFinished,
-                    timeSlotsAvailable: state.data.timeSlotsAvailable,
-                    sessionMightBeCancelled: state.data.signedGroupSessionsMightBeCancelled,
-                    isHappeningNow: state.data.isHappeningNow,
-                    isCanJoin: state.data.isCanJoin,
-                    minMemberCount: state.data.signedGroupSession?.minMemberCount ?? 0,
-                  ),
+                  FutureBuilder<bool>(
+                      future: state.data.isCanJoin,
+                      builder: (context, snapshot) {
+                        final data = snapshot.data;
+
+                        if (snapshot.hasData && data != null) {
+                          return SessionCard(
+                            topicName: state.data.weekTopicName,
+                            startDate: state.data.signedGroupSessionStartTime ?? DateTime.now(),
+                            endDate: state.data.signedGroupSessionsEndTime ?? DateTime.now(),
+                            preparationMaterialsAvailable: !state.data.signedGroupSessionsCancelled,
+                            isCancelledOrMissed: state.data.signedGroupSessionsCancelledOrMissed,
+                            isCancelled: state.data.signedGroupSessionsCancelled,
+                            isMissed: state.data.signedGroupSessionsMissed,
+                            image: state.data.thisWeekTopicsImage,
+                            isFinished: state.data.signedGroupSessionFinished,
+                            timeSlotsAvailable: state.data.timeSlotsAvailable,
+                            sessionMightBeCancelled: state.data.signedGroupSessionsMightBeCancelled,
+                            isHappeningNow: state.data.isHappeningNow,
+                            isCanJoin: data,
+                            minMemberCount: state.data.signedGroupSession?.minMemberCount ?? 0,
+                          );
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      }),
               ],
             );
           },

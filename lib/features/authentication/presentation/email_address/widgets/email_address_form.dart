@@ -3,8 +3,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/url_constants.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/responce_error_text.dart';
+import 'package:loopcare_frontend/core/infrastructure/dio_client/response_error_text.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -19,6 +22,8 @@ import 'package:loopcare_frontend/features/authentication/domain/email/email.dar
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/application/physical_fitness_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+const accountAlreadyExists = 'account_with_this_email_already_exists';
 
 class EmailAddressForm extends StatefulWidget {
   const EmailAddressForm({super.key});
@@ -122,8 +127,9 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
   }
 
   _onChangedForm() {
-    final isValidForm =
-        Email.create(_emailController.text).isRight() && termsAndConditionsAreChecked && privatePolicyAccepted;
+    final isValidForm = Email.create(_emailController.text).isRight() &&
+        termsAndConditionsAreChecked &&
+        privatePolicyAccepted;
 
     setState(() {
       _isDisabled = !isValidForm;
@@ -134,9 +140,18 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
     setState(() {
       emailErrorText = null;
     });
-    final registrationPhysicalFitnessData = context.read<PhysicalFitnessBloc>().state.registrationPhysicalFitnessData;
+    final registrationPhysicalFitnessData =
+        context.read<PhysicalFitnessBloc>().state.registrationPhysicalFitnessData;
 
     final mentalHealthTest = context.read<MentalHealthBloc>().state.data.answers;
+
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.userEmail,
+      parameters: {
+        CustomDefinitions.value: _emailController.text,
+        CustomDefinitions.confirmed: 'false',
+      },
+    );
 
     context.read<AuthenticationCubit>().signUp(
           _emailController.text,
@@ -190,7 +205,6 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
     state.mapOrNull(
       emailAddress: (state) {
         final error = state.error;
-
         if (error != null) {
           error.mapOrNull(
             badRequest: (error) {

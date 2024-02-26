@@ -2,6 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
@@ -17,6 +20,7 @@ import 'package:loopcare_frontend/features/account/presentation/group_preference
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 
 class GroupPreferencesForm extends StatelessWidget {
   const GroupPreferencesForm({super.key});
@@ -46,6 +50,8 @@ class GroupPreferencesForm extends StatelessWidget {
                 },
                 updated: (s) {
                   final preferences = s.data.genderPreferences;
+                  final gender = accountState.gender;
+                  final showGenderPreference = (gender == SexType.female || gender == SexType.male);
 
                   if (accountState.groupingState == UserGroupingState.grouped) {
                     return Column(
@@ -74,13 +80,14 @@ class GroupPreferencesForm extends StatelessWidget {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TappedItem(
-                        title: LocalizedTexts.genderPreference.tr(),
-                        subTitle: preferences != null ? preferences.label : '',
-                        onPressHandler: () => _onGenderPreferencesTap(context),
-                      ),
-                      const SizedBox(height: 16.0),
-                      const DividerLight(),
+                      if (showGenderPreference)
+                        TappedItem(
+                          title: LocalizedTexts.genderPreference.tr(),
+                          subTitle: preferences != null ? preferences.label : '',
+                          onPressHandler: () => _onGenderPreferencesTap(context),
+                        ),
+                      if (showGenderPreference) const SizedBox(height: 16.0),
+                      if (showGenderPreference) const DividerLight(),
                       const SizedBox(height: 16.0),
                       TappedItem(
                         title: LocalizedTexts.timezone,
@@ -139,6 +146,17 @@ class GroupPreferencesForm extends StatelessWidget {
   }
 
   _onLeaveGroupPressed(BuildContext context) {
+    final authState = context.read<AuthenticationCubit>().state;
+    final groupId = authState.groupId ?? -1;
+
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.userLeaveGroup,
+      parameters: {
+        CustomDefinitions.groupId: groupId.toString(),
+        CustomDefinitions.type: authState.genderPreferences?.name ?? '',
+        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
     context.read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.leaveGroup());
   }
 

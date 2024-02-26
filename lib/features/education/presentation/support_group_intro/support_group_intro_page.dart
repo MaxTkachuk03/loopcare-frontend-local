@@ -2,8 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -37,7 +40,8 @@ class SupportGroupIntroPage extends StatelessWidget {
           leading: CustomFilledIconButton.leadingPetrolLighter(),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(60),
-            child: SimpleProgressBar.petrol(progress: context.read<EducationLessonBloc>().state.data.lessonProgress),
+            child: SimpleProgressBar.petrol(
+                progress: context.read<EducationLessonBloc>().state.data.lessonProgress),
           ),
         ),
         body: SafeArea(
@@ -100,6 +104,16 @@ class SupportGroupIntroPage extends StatelessWidget {
   }
 
   _onJoinPressed(BuildContext context) {
+    AnalyticsEventService.instance.logEvent(FirebaseEvents.unlockedSupportGroupFeature);
+
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.iWantToJoinToGroup,
+      parameters: {
+        CustomDefinitions.navigatedFrom: 'Lesson content',
+        CustomDefinitions.decision: LocalizedTexts.yesILikeToJoin.tr()
+      },
+    );
+
     context
       ..read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.grouping)
       ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.setWouldLikeJoinGroup(YesNoAnswer.yes))
@@ -108,6 +122,15 @@ class SupportGroupIntroPage extends StatelessWidget {
   }
 
   _onDoNotJoinPressed(BuildContext context) {
+    AnalyticsEventService.instance.logEvent(FirebaseEvents.unlockedSupportGroupFeature);
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.iWantToJoinToGroup,
+      parameters: {
+        CustomDefinitions.navigatedFrom: 'Lesson content',
+        CustomDefinitions.decision: LocalizedTexts.joinLater.tr()
+      },
+    );
+
     context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.grouping);
 
     context.router.pushNamed(AppRoutes.lessonComplete);

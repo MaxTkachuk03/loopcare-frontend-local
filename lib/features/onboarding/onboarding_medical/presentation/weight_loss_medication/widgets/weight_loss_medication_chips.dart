@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_medical/application/medical_fitness_bloc.dart';
@@ -34,6 +37,13 @@ class _WeightLossMedicationChipsState extends State<WeightLossMedicationChips> {
     final bloc = context.read<MedicalFitnessBloc>();
 
     bloc.add(MedicalFitnessEvent.weightLossMedicationChanged(value));
+
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.userSemaglutide,
+      parameters: {
+        CustomDefinitions.value: value.name,
+      },
+    );
 
     if (value != WeightLossMedicationAnswer.no) {
       context.router.pushNamed(AppRoutes.medicationPastPeriod);

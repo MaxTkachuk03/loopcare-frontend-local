@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -20,7 +19,6 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/frequency_chips.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_type.dart';
 
 class PhysicalActivitiesFrequencyPage extends StatefulWidget {
   final bool profileInvoke;
@@ -52,30 +50,32 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
   }
 
   void _onUpdateHandler(PhysicalActivitiesPreferencesState state) {
-    if (!widget.profileInvoke && state.data.needActivitiesType) {
-      context.router.pushNamed(AppRoutes.physicalActivitiesActivityType);
-    } else {
-      final lessonBloc = context.read<EducationLessonBloc>();
-      if (lessonBloc.state.data.questions.isEmpty ||
-          lessonBloc.state.data.questions.first.type != LessonQuestionType.quiz) {
-        final bloc = context.read<AuthenticationCubit>();
+    if (widget.profileInvoke) {
+      context.router.pop();
+      return;
+    }
 
-        if (!bloc.state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {
-          context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
-        } else {
-          context.router.pop();
-        }
-      } else {
-        context.router.push(
-          QuizzesIntroRoute(
-            lessonId: lessonBloc.state.data.lessonId,
-          ),
-        );
-      }
+    if (state.data.needActivitiesType) {
+      context.router.pushNamed(AppRoutes.physicalActivitiesActivityType);
+      return;
+    }
+
+    final lessonBloc = context.read<EducationLessonBloc>();
+
+    if (lessonBloc.state.data.hasQuiz) {
+      context.router.push(QuizzesIntroRoute(lessonId: lessonBloc.state.data.lessonId));
+      return;
+    }
+
+    final isPhysicalActivitiesUnlocked =
+        context.read<AuthenticationCubit>().state.isPhysicalActivitiesUnlocked;
+
+    if (lessonBloc.state.data.questions.isEmpty && !isPhysicalActivitiesUnlocked) {
+      context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
     }
   }
 
-  void _onNext(BuildContext context) {
+  void _onNext() {
     context
         .read<PhysicalActivitiesPreferencesBloc>()
         .add(const PhysicalActivitiesPreferencesEvent.savePreferences());
@@ -121,7 +121,7 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
                       BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
                         builder: (context, state) {
                           return CustomElevatedButton.blueFullWidth(
-                            onPressed: () => state.data.isFrequencySet ? _onNext(context) : null,
+                            onPressed: state.data.isFrequencySet ? _onNext : null,
                             label: LocalizedTexts.confirm.tr(),
                           );
                         },

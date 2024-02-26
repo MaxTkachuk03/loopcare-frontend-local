@@ -59,6 +59,8 @@ class EducationLessonData with _$EducationLessonData {
 
   bool get isFirstPage => currentPageIndex == 0;
 
+  bool get hasQuiz => questions.first.type == LessonQuestionType.quiz;
+
   String? get errorMessage => error?.maybeMap(conflict: (s) => s.error.message, orElse: () => null);
 
   List<LessonQuestion> get assignmentsQuestions =>

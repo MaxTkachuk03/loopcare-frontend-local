@@ -100,7 +100,7 @@ import 'package:loopcare_frontend/features/physical_activities/presentation/phys
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_activity_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_completed_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_frequency_page.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_preferences_page.dart';
+import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_preferences_intro_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_preferences_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/program_assessment_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_details/program_details_page.dart';
@@ -533,8 +533,8 @@ const groupLessonRoutes = [
       page: PreparationMaterialsPage,
     ), // added
     AutoRoute(
-      path: AppRoutes.physicalActivitiesPreferences,
-      page: PhysicalActivitiesPreferencesPage,
+      path: AppRoutes.physicalPreferencesIntro,
+      page: PhysicalPreferencesIntroPage,
     ), // added
     AutoRoute(
       path: AppRoutes.physicalActivitiesFrequency,

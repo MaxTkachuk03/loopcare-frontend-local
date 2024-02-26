@@ -3,7 +3,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
@@ -14,7 +15,6 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 
@@ -100,21 +100,32 @@ class BookedSessionCard extends StatelessWidget {
   }
 
   _onPrepareInfoPressed(BuildContext context) {
-    final userId = context.read<AuthenticationCubit>().state.id;
     final sessionId = context.read<TopicsBloc>().state.data.signedGroupSessionId ?? 0;
 
-    context
-        .read<AnalyticsBloc>()
-        .add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.openedSessionPreparationMaterials, {
-          "timestamp": DateTime.now().toIso8601String(),
-        }));
+    context.read<AnalyticsBloc>().add(
+          AnalyticsEvent.sendAnalytics(
+            FirebaseEvents.openedSessionPreparationMaterials,
+            {
+              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+            },
+          ),
+        );
 
-    AnalyticsEventService.instance.openedSessionPreparationMaterialsEvent(userId, sessionId);
+    AnalyticsEventService.instance.openedSessionPreparationMaterialsEvent(
+      sessionId,
+      groupSession.topic,
+    );
 
     context.router.pushNamed(AppRoutes.preparationMaterials);
   }
 
   _onCancelPressed(BuildContext context) {
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.userSignedOutFromSession,
+      parameters: {
+        CustomDefinitions.sessionId: groupSession.id.toString(),
+      },
+    );
     context.read<TopicsBloc>().add(TopicsEvent.signOutFromSession(groupSession.id));
   }
 }
