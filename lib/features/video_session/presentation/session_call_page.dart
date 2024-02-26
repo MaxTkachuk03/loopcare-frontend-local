@@ -12,7 +12,10 @@ import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_event_listener.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_user.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
@@ -221,15 +224,15 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     });
   }
 
-  void _startTimer() {
+  void _startTimer() async {
     if (_timer != null) _timer?.cancel();
 
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      context.read<SessionCallBloc>().add(
-            SessionCallEvent.setTimerValue(
-              context.read<TopicsBloc>().state.data.timePassedSinceSessionStart.inSeconds,
-            ),
-          );
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
+      final Duration passedTime = await context.read<TopicsBloc>().state.data.timePassedSinceSessionStart;
+
+      if (mounted) {
+        context.read<SessionCallBloc>().add(SessionCallEvent.setTimerValue(passedTime.inSeconds));
+      }
     });
   }
 
@@ -240,6 +243,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
     _sessionJoinListener = emitter.on(EventType.onSessionJoin, (sessionUser) async {
       isInSession = true;
+
+      AnalyticsEventService.instance.logEvent(FirebaseEvents.userEntersSession);
 
       _startTimer();
 
@@ -492,6 +497,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   }
 
   _leaveSessionHandler() async {
+    AnalyticsEventService.instance.logEvent(FirebaseEvents.userLeaveSession);
+
     await zoom.leaveSession(false);
     if (context.mounted) {
       context.router.pop();
@@ -570,9 +577,13 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   bool get userJoinedToSession => isInSession && _sessionParticipants.isNotEmpty;
 
   void _onVideoPlayingHandler(bool isVideoPlaying) async {
-    isVideoPlaying ? _enableLandscapeOrientation() : _enablePortraitOrientation();
-
-    isVideoPlaying ? _setInactiveUserState() : _setActiveUserState(isVideoPlaying);
+    if (isVideoPlaying) {
+      _enableLandscapeOrientation();
+      _setInactiveUserState();
+    } else {
+      _enablePortraitOrientation();
+      await zoom.videoHelper.startVideo();
+    }
 
     setState(() {
       _isVideoPlaying = isVideoPlaying;
@@ -581,17 +592,27 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
   Future<void> _onReportIssueHandler() async {
     final signedSessionId = context.read<TopicsBloc>().state.data.signedGroupSessionId;
-    if (signedSessionId == null) {
-      return;
-    }
+    if (signedSessionId == null) return;
+
     context.read<ReportAbuseBloc>().add(const ReportAbuseEvent.init());
-    final timePassed = context.read<TopicsBloc>().state.data.timePassedSinceSessionStart.inSeconds;
+    final Duration timePassed = await context.read<TopicsBloc>().state.data.timePassedSinceSessionStart;
 
     final sessionReport = GroupSessionReport(
       id: signedSessionId,
-      time: formatSecondsToDurationString(timePassed),
+      time: formatSecondsToDurationString(timePassed.inSeconds),
     );
-    ModalBottomSheet.reportAbuse(context: context, groupSession: sessionReport);
+
+    if (mounted) {
+      ModalBottomSheet.reportAbuse(context: context, groupSession: sessionReport);
+    }
+
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.groupSessionReportedIssue,
+      parameters: {
+        CustomDefinitions.sessionId: signedSessionId,
+        CustomDefinitions.timePassed: formatSecondsToDurationString(timePassed.inSeconds),
+      },
+    );
   }
 
   @override
@@ -675,11 +696,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                   height: Platform.isIOS ? 160 : 100,
                   child: Column(
                     children: [
-                      if (Platform.isIOS)
-                        ReportIssue(
-                          minutesLeft: context.read<TopicsBloc>().state.data.timeLeftToSessionStart.inMinutes,
-                          onReportIssueHandler: _onReportIssueHandler,
-                        ),
+                      if (Platform.isIOS) ReportIssue(onReportIssueHandler: _onReportIssueHandler),
                       Expanded(
                         child: CallControls(
                           onMuteHandler: onPressAudio,

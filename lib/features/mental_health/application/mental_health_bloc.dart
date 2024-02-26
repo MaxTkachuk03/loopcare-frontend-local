@@ -207,11 +207,13 @@ class MentalHealthBloc extends HydratedBloc<MentalHealthEvent, MentalHealthState
       newAnswers[existingQuestionIndex] = event.answer;
     }
 
-    emit(state.copyWith(
-      data: state.data.copyWith(
-        answers: newAnswers,
+    emit(
+      state.copyWith(
+        data: state.data.copyWith(
+          answers: newAnswers,
+        ),
       ),
-    ));
+    );
   }
 
   FutureOr<void> _onGetTestResults(_GetTestResults event, Emitter<MentalHealthState> emit) async {

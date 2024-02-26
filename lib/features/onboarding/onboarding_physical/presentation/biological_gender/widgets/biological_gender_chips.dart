@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/application/physical_fitness_bloc.dart';
@@ -34,6 +37,13 @@ class _BiologicalGenderChipsState extends State<BiologicalGenderChips> {
     final bloc = context.read<PhysicalFitnessBloc>();
 
     bloc.add(PhysicalFitnessEvent.biologicalGenderChanged(gender));
+
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.userBiologicalSex,
+      parameters: {
+        CustomDefinitions.value: gender.name,
+      },
+    );
 
     final physicalFitnessNavigationState = StepNavigationState.of(context);
 

@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
@@ -56,8 +59,8 @@ class RecipeList extends StatelessWidget {
     final mealId = mealState.getCurrentMealId;
     final recipeId = !isMealRecipe
         ? mealState.currentFoodItems
-            .firstWhere(
-                (element) => element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
+            .firstWhere((element) =>
+                element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
             .id
         : recipeState.recipeId;
 
@@ -92,7 +95,8 @@ class RecipeList extends StatelessWidget {
           final recipeId = !isMealRecipe
               ? mealState.currentFoodItems
                   .firstWhere((element) =>
-                      element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
+                      element.type == MealItemType.recipe &&
+                      element.externalId == recipeState.externalRecipeId)
                   .id
               : recipeState.recipeId;
 
@@ -107,6 +111,18 @@ class RecipeList extends StatelessWidget {
                   servingId: servingId,
                 ),
               );
+
+          AnalyticsEventService.instance.logEvent(
+            FirebaseEvents.foodLogged,
+            parameters: {
+              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+              CustomDefinitions.mealId: mealId.toString(),
+              CustomDefinitions.foodItem: item.id,
+              CustomDefinitions.servingId: servingId,
+              CustomDefinitions.numberOfUnits: numberOfUnits.toString(),
+              CustomDefinitions.isRecipe: 'true',
+            },
+          );
         },
       ),
     );

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/medication_future_period_answer.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
@@ -18,6 +21,14 @@ class _MedicationFuturePeriodChipsState extends State<MedicationFuturePeriodChip
       _selectedValue = value;
     });
 
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.userSemaglutideTreatmentSupposedLength,
+      parameters: {
+        CustomDefinitions.value: value.name,
+      },
+    );
+
+// TODO: No need save this value in backend?
     final medicalFitnessNavigationState = StepNavigationState.of(context);
 
     medicalFitnessNavigationState.onNextPage();

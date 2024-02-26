@@ -6,11 +6,11 @@ var topics = [
         "minMemberCount": 1,
         "maxMemberCount": 9,
         "status": "finished",
-        "signed": true,
+        "signed": false,
         "groupSessionMembers": [],
         "id": 78,
         "topic": "Mindfulness",
-        "startDate": "2024-01-26T17:16:00.000Z",
+        "startDate": "2024-02-15T17:16:00.000Z",
         "endDate": "2024-01-26T18:16:00.000Z",
         "password": "f73d4ef553",
         "groupSessionKey": "78-ENV:develop-GROUP_ID:13196"
@@ -138,7 +138,8 @@ var topics = [
         "id": 24,
         "event": "TEXT",
         "timestamp": 2100,
-        "text": "If there is time left, discuss the following: For what could I use this exercise in my daily life?",
+        "text":
+            "If there is time left, discuss the following: For what could I use this exercise in my daily life?",
         "videoPath": null,
         "duration": null
       },

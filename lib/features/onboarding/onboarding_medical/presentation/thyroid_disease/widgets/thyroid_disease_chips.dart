@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_medical/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/diseases.dart';
@@ -37,6 +40,13 @@ class _ThyroidDiseaseChipsState extends State<ThyroidDiseaseChips> {
     value == YesNoAnswer.yes
         ? bloc.add(const MedicalFitnessEvent.addDisease(Diseases.thyroidDisease))
         : bloc.add(const MedicalFitnessEvent.removeDisease(Diseases.thyroidDisease));
+
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.userSecondaryFormOfObesity,
+      parameters: {
+        CustomDefinitions.value: value == YesNoAnswer.yes ? 'true' : 'false',
+      },
+    );
 
     final medicalFitnessNavigationState = StepNavigationState.of(context);
 

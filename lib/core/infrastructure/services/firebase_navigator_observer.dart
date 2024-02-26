@@ -24,14 +24,13 @@ class FirebaseNavigatorObserver extends AutoRouterObserver {
     final String? screenName = screenNames[nameExtractor(settings)] ?? nameExtractor(settings);
 
     if (screenName != null) {
-      // TODO new event to test every screen change with userID
-      analytics.logScreenView(screenName: screenName, parameters: {'userId': userId}).catchError(
-          catchErrorOnErrorCb,
-          test: (Object error) => error is PlatformException);
-
-      analytics
-          .setCurrentScreen(screenName: screenName)
-          .catchError(catchErrorOnErrorCb, test: (Object error) => error is PlatformException);
+      analytics.logEvent(
+        name: 'screen_view',
+        parameters: {
+          'userId': userId,
+          'screenName': screenName,
+        },
+      ).catchError(catchErrorOnErrorCb, test: (Object error) => error is PlatformException);
     }
   }
 

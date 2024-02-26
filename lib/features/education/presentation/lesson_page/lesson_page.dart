@@ -3,8 +3,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
+
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -113,19 +115,25 @@ class _LessonPageState extends State<LessonPage> {
   }
 
   Future<bool> _onWillPop() {
-    final lessonType = context.read<EducationLessonBloc>().state.data.currentPage.type.name;
-    final userId = context.read<AuthenticationCubit>().state.id;
+    final stateData = context.read<EducationLessonBloc>().state.data;
 
-    context.read<AnalyticsBloc>().add(AnalyticsEvent.sendAnalytics(AnalyticsEvents.leaveLessonScreen, {
-          "lessonId": widget.lessonId.toString(),
-          "lessonType": lessonType,
-          "timestamp": DateTime.now().toIso8601String(),
-        }));
+    context.read<AnalyticsBloc>().add(
+          AnalyticsEvent.sendAnalytics(
+            FirebaseEvents.leaveLessonScreen,
+            {
+              CustomDefinitions.lessonId: widget.lessonId.toString(),
+              CustomDefinitions.lessonType: stateData.currentPage.type.name,
+              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+            },
+          ),
+        );
 
-    AnalyticsEventService.instance.leaveLessonEvent(
+    AnalyticsEventService.instance.logLessonEvent(
+      FirebaseEvents.leaveLessonScreen,
       widget.lessonId,
-      lessonType,
-      userId,
+      stateData.currentPage,
+      stateData.lessonTitle,
+      stateData.questions.isNotEmpty && stateData.questions.first.type == LessonQuestionType.quiz,
     );
 
     return Future.value(true);
@@ -184,13 +192,13 @@ class _LessonPageState extends State<LessonPage> {
             },
             contentLoaded: (s) {
               final currentPage = s.data.currentPage;
-              final userId = context.read<AuthenticationCubit>().state.id;
 
               AnalyticsEventService.instance.logLessonEvent(
-                'lesson_screen',
+                FirebaseEvents.lessonScreen,
                 widget.lessonId,
                 currentPage,
-                userId,
+                s.data.lessonTitle,
+                s.data.questions.isNotEmpty && s.data.questions.first.type == LessonQuestionType.quiz,
               );
 
               if (currentPage.type == EducationLessonPageType.text) {
