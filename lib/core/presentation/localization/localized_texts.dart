@@ -833,7 +833,6 @@ class LocalizedTexts {
   static const String register = 'register';
   static const String emailAlreadyTaken = 'emailAlreadyTaken';
   static const String somethingIsIncorrect = 'somethingIsIncorrect';
-  static const String registrationNotAllow = 'registrationNotAllow';
 
   //Waiting for confirmation page
   static const String waitingForConfirmationTitle = 'waitingForConfirmationTitle';
