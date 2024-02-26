@@ -192,10 +192,11 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
     state.mapOrNull(
       emailAddress: (state) {
         final error = state.error;
+
         if (error != null) {
           error.mapOrNull(
             badRequest: (error) {
-              final errorMessage = error.maybeMap(
+              error.maybeMap(
                 badRequest: (error) {
                   final message = error.error.message;
 
@@ -207,11 +208,13 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
 
                   return LocalizedTexts.somethingIsIncorrect.tr();
                 },
-                forbidden: (error) => (error.error.message == accountInvitationNotFound)
-                    ? LocalizedTexts.registrationNotAllow.tr()
-                    : LocalizedTexts.somethingIsIncorrect.tr(),
                 orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
               );
+            },
+            forbidden: (error) {
+              final errorMessage = (error.error.message == accountInvitationNotFound)
+                  ? LocalizedTexts.registrationNotAllow.tr()
+                  : LocalizedTexts.somethingIsIncorrect.tr();
               context.showError(content: Text(errorMessage));
             },
           );

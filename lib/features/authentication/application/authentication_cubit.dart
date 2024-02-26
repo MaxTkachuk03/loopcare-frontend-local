@@ -7,8 +7,6 @@ import 'package:loopcare_frontend/core/application/socket_service_chat/chat_sock
 import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
@@ -249,24 +247,13 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
           },
           (response) {
             emit(
-              state.copyWith(
-                error: const RequestError.forbidden(
-                  ServerErrorData(
-                    statusCode: 403,
-                    error: 'Sorry, you are not allowed to register int the app',
-                    message: "account_invitation_not_found",
-                  ),
-                ),
+              AuthenticationState.waitedForConfirmation(
+                email: data.email,
+                accountId: response.id,
+                name: state.name,
+                password: state.password,
               ),
             );
-            // emit(
-            //   AuthenticationState.waitedForConfirmation(
-            //     email: data.email,
-            //     accountId: response.id
-            //     name: state.name,
-            //     password: state.password,
-            //   ),
-            // );
           },
         );
       },
