@@ -63,9 +63,6 @@ class _App extends StatefulWidget {
 
 class _AppState extends State<_App> {
   late final AppRouter _appRouter;
-  String advertisingId = '';
-  String authStatus = 'Unknown';
-  bool? isLimitAdTrackingEnabled;
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   static final FirebaseAnalyticsObserver _analyticsObserver = FirebaseAnalyticsObserver(analytics: analytics);
 

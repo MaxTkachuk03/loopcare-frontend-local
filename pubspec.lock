@@ -28,7 +28,7 @@ packages:
   advertising_id:
     dependency: "direct main"
     description:
-      path: advertising_id
+      path: "local_plugins/advertising_id"
       relative: true
     source: path
     version: "2.6.0"
