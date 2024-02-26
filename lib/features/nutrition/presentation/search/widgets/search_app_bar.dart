@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,7 +30,6 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
   String? searchMode = '';
   late TabController _tabController;
   late List<String> tabs;
-  Timer? _debounce;
 
   SearchMode get searchType => SearchMode.values.toList()[_tabController.index];
 
@@ -66,7 +64,6 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
 
     _tabController.removeListener(_tabsChangeListener);
     _tabController.dispose();
-    _debounce?.cancel();
   }
 
   @override
