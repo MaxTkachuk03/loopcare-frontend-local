@@ -378,7 +378,7 @@ class LocalizedTexts {
   static const String at = 'at';
   static const String joinAGroup = 'joinAGroup';
   static const String unavailableGroupPrefsLabel = 'unavailableGroupPrefsLabel';
-  static const String weWillNotifyYouAboutGroup = 'weWillNotifyYouAboutGroup';
+  static const String findingMatchingGroup = 'findingMatchingGroup';
   static const String moreInformationInPreferences = 'moreInformationInPreferences';
   static const String bookYourSeatNow = 'bookYourSeatNow';
   static const String comingUpThisWeek = 'comingUpThisWeek';
