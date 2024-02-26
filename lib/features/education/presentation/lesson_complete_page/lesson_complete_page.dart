@@ -58,7 +58,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
     context.showError(content: Text(errorMessage));
   }
 
-  _startLessonQuestion(BuildContext context, int lessonId) {
+  _startLessonQuestion(int lessonId) {
     context.router.push(AssignmentsIntroRoute(lessonId: lessonId, fromDashboard: false));
 
     setState(() {
@@ -189,7 +189,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                                 ? const SavedAssignment()
                                 : UnlockAssignment(
                                     completedAt: state.data.lessonCompletedDate ?? DateTime.now(),
-                                    onBtnPressed: () => _startLessonQuestion(context, state.data.lessonId),
+                                    onBtnPressed: () => _startLessonQuestion(state.data.lessonId),
                                   );
                           }
 

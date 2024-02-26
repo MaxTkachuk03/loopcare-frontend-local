@@ -60,13 +60,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     _sharedStorageService.findOrAddRecentUser(userId, RecentSearchData(type: type, query: query));
   }
 
-  Future<List<String>> _getRecentSearch(bool needHeader, {SearchMode? type}) async {
+  List<String> _getRecentSearch({SearchMode? type}) {
     var list = <String>[];
     final userId = _authenticationCubit.state.id;
     List<String> savedList = _sharedStorageService.searchValues(userId, type: type);
-    if (needHeader) {
-      list.add('header');
-    }
+
+    list.add('header');
+
     list.addAll(savedList);
     return list;
   }
@@ -83,7 +83,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     var searchMode = <String>[];
 
     if (mode != null && mode.isNotEmpty) {
-      searchMode = <String>[mode];
+      searchMode = mode == SearchMode.dish.name ? [SearchMode.dish.name, SearchMode.favorite.name] : [mode];
     }
     if (filteredMode != null) {
       searchMode = [
@@ -198,17 +198,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     );
   }
 
-  FutureOr<void> _onResetData(
-    ResetData event,
-    Emitter<SearchState> emit,
-  ) async {
-    final list = await _getRecentSearch(true, type: event.mode);
-    emit(
-      SearchState.initial(
-        state.data.copyWith(
-          recentSearch: list,
-        ),
-      ),
-    );
+  FutureOr<void> _onResetData(ResetData event, Emitter<SearchState> emit) async {
+    emit(SearchState.initial(state.data.copyWith(recentSearch: _getRecentSearch(type: event.mode))));
   }
 }

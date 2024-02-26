@@ -36,7 +36,7 @@ class PastAssignments extends StatelessWidget {
               isOpen: question.isEditable,
               onDashboard: false,
               item: question,
-              onBtnPressed: (int lessonId) => onBtnPressed(lessonId),
+              onBtnPressed: onBtnPressed,
             );
           },
         ),

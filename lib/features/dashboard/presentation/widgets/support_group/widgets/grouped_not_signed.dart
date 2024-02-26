@@ -49,12 +49,12 @@ class GroupedNotSigned extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 10.0),
-                  CustomText.w700(
+                  CustomText.bitter700(
                     topicName,
                     style: context.textTheme.bodySmall,
                   ),
                   const SizedBox(height: 10.0),
-                  CustomOutlinedButton.coral(
+                  CustomOutlinedButton.coralSmall(
                     label: LocalizedTexts.bookYourSeatNow.tr(),
                     onPressed: () => _onBookSeatPressed(context),
                   ),
