@@ -50,7 +50,7 @@ class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
     context.router.pushNamed('/lesson/${widget.lessonId}/page/0');
   }
 
-  void _onStart(BuildContext context) {
+  void _onStart() {
     context.router.push(AssignmentsQuestionsRoute(step: 0, fromDashboard: widget.fromDashboard));
   }
 
@@ -133,7 +133,7 @@ class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
                           Column(
                             children: [
                               CustomElevatedButton.blueFullWidth(
-                                onPressed: () => _onStart(context),
+                                onPressed: _onStart,
                                 label: LocalizedTexts.letsGo,
                               ),
                               const SizedBox(height: 30),

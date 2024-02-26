@@ -1,142 +1,132 @@
 var lesson = {
-  "extraAction": 'unlockPhysicalActivities',
+  "extraAction": "unlockAssignments",
   "completedAt": null,
   "isLocked": false,
   "nextStepUnlockDelay": 0,
   "questions": [
     {
-      "introduction": null,
-      "explanationCorrect":
-          "A BMI of ≥ 25 is considered overweight. A BMI over 30 is considered obese and a BMI of 18-24.9 is considered 'normal' weight.",
-      "explanationIncorrect":
-          "A BMI of > 18 is considered 'normal' weight and > 30 is considered obese. A BMI of >25 is considered overweight.",
-      "lowestText": null,
-      "highestText": null,
-      "question": "From what BMI onward is someone considered obese?",
-      "openedAt": "2024-02-07T08:22:07.782Z",
-      "answeredAt": "2024-02-07T08:22:04.301Z",
-      "completedAt": "2024-02-07T08:22:07.567Z",
+      "introduction":
+          "Take a look at your personal reasons and indicate how motivated you are right now on a scale of 1 to 10:",
+      "explanationCorrect": null,
+      "explanationIncorrect": null,
+      "lowestText": "not very motivated",
+      "highestText": "very motivated",
+      "question": "How motivated are you to change your behavior in order to achieve these goals?",
+      "openedAt": "2024-02-19T08:22:46.521Z",
+      "answeredAt": null,
+      "completedAt": null,
       "lessonQuestionOptions": [
-        {"value": null, "isCorrect": null, "id": 1, "label": "> 18", "lessonQuestionId": 1},
-        {"value": null, "isCorrect": true, "id": 2, "label": "≥ 25", "lessonQuestionId": 1},
-        {"value": null, "isCorrect": null, "id": 3, "label": "> 30", "lessonQuestionId": 1}
+        {"value": "1", "isCorrect": null, "id": 268, "label": "1", "lessonQuestionId": 93},
+        {"value": "2", "isCorrect": null, "id": 269, "label": "2", "lessonQuestionId": 93},
+        {"value": "3", "isCorrect": null, "id": 270, "label": "3", "lessonQuestionId": 93},
+        {"value": "4", "isCorrect": null, "id": 271, "label": "4", "lessonQuestionId": 93},
+        {"value": "5", "isCorrect": null, "id": 272, "label": "5", "lessonQuestionId": 93},
+        {"value": "6", "isCorrect": null, "id": 273, "label": "6", "lessonQuestionId": 93},
+        {"value": "7", "isCorrect": null, "id": 274, "label": "7", "lessonQuestionId": 93},
+        {"value": "8", "isCorrect": null, "id": 275, "label": "8", "lessonQuestionId": 93},
+        {"value": "9", "isCorrect": null, "id": 276, "label": "9", "lessonQuestionId": 93},
+        {"value": "10", "isCorrect": null, "id": 277, "label": "10", "lessonQuestionId": 93}
       ],
-      "lessonQuestionFeedbacks": [],
-      "lessonQuestionAnswers": [
+      "lessonQuestionFeedbacks": [
         {
-          "lessonQuestionOptionId": 2,
-          "text": null,
-          "lessonQuestionFeedbackId": null,
-          "id": 149,
-          "accountId": 1222,
-          "lessonQuestionId": 1,
-          "createdAt": "2024-02-07T08:22:04.301Z"
+          "id": 1,
+          "minValue": 1,
+          "maxValue": 1,
+          "text":
+              " Oh, your motivation is still at a low point, don't get discouraged, just keep going in the program and don't let yourself sabotage your plan.",
+          "lessonQuestionId": 93
+        },
+        {
+          "id": 2,
+          "minValue": 2,
+          "maxValue": 3,
+          "text":
+              "You need a little motivation boost, don't get discouraged, all beginnings are hard, just go for it!",
+          "lessonQuestionId": 93
+        },
+        {
+          "id": 3,
+          "minValue": 4,
+          "maxValue": 7,
+          "text": "You have gained some courage and you will surely manage to reach your goal!",
+          "lessonQuestionId": 93
+        },
+        {
+          "id": 4,
+          "minValue": 8,
+          "maxValue": 10,
+          "text":
+              "Fantastic. Nothing stands in the way of your plans. You are highly motivated and have the strength and confidence tackle things.",
+          "lessonQuestionId": 93
         }
       ],
-      "id": 1,
-      "answerType": "multipleChoiceValidation",
-      "type": "quiz",
-      "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
-      "visual": "https://dev.loopcare.app/education/content/1/images/lesson.png",
-      "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
-      "lessonId": 1
+      "lessonQuestionAnswers": [],
+      "id": 93,
+      "answerType": "scale",
+      "type": "assignment",
+      "title": "Reasons to lose weight and motivation check",
+      "visual": "https://dev.loopcare.app/education/content/4/images/lesson.png",
+      "instruction":
+          "Think about why you want to lose weight. What are the benefits and disadvantages that come with joining this program?\n\nThis assignment is part of the Mind article 'What keeps you going'.",
+      "lessonId": 4
     },
     {
       "introduction": null,
-      "explanationCorrect":
-          "Waist circumference is an indicator of health risk and risk of diseases related to body weight.",
-      "explanationIncorrect":
-          "Thigh circumference and chest circumference are not good indicators of physical health. The circumference of a person's waist is also considered important in addition to BMI when assessing the health risks.",
+      "explanationCorrect": null,
+      "explanationIncorrect": null,
       "lowestText": null,
       "highestText": null,
       "question":
-          "What else is measured beside BMI to assess health risks that are often accompanied with overweight and obesity?",
-      "openedAt": "2024-02-07T08:22:07.782Z",
-      "answeredAt": "2024-02-07T08:22:05.838Z",
-      "completedAt": "2024-02-07T08:22:07.567Z",
-      "lessonQuestionOptions": [
-        {"value": null, "isCorrect": true, "id": 128, "label": "Waist circumference", "lessonQuestionId": 43},
-        {"value": null, "isCorrect": null, "id": 129, "label": "Thigh circumference", "lessonQuestionId": 43},
-        {"value": null, "isCorrect": null, "id": 130, "label": "Chest circumference", "lessonQuestionId": 43}
-      ],
+          "Write down what benefits a change in behavior will have for you in terms of your weight and well-being. Make sure to also distinguish between short-term and long-term advantages and disadvantages. Take a few minutes to reflect on this before moving on to the next task.",
+      "openedAt": "2024-02-19T08:22:46.521Z",
+      "answeredAt": null,
+      "completedAt": null,
+      "lessonQuestionOptions": [],
       "lessonQuestionFeedbacks": [],
-      "lessonQuestionAnswers": [
-        {
-          "lessonQuestionOptionId": 129,
-          "text": null,
-          "lessonQuestionFeedbackId": null,
-          "id": 150,
-          "accountId": 1222,
-          "lessonQuestionId": 43,
-          "createdAt": "2024-02-07T08:22:05.838Z"
-        }
-      ],
-      "id": 43,
-      "answerType": "multipleChoiceValidation",
-      "type": "quiz",
-      "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
-      "visual": "https://dev.loopcare.app/education/content/1/images/lesson.png",
-      "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
-      "lessonId": 1
+      "lessonQuestionAnswers": [],
+      "id": 91,
+      "answerType": "text",
+      "type": "assignment",
+      "title": "Reasons to lose weight and motivation check",
+      "visual": "https://dev.loopcare.app/education/content/4/images/lesson.png",
+      "instruction":
+          "Think about why you want to lose weight. What are the benefits and disadvantages that come with joining this program?\n\nThis assignment is part of the Mind article 'What keeps you going'.",
+      "lessonId": 4
     },
     {
       "introduction": null,
-      "explanationCorrect":
-          "The three factors that influence weight are lack of exercise, psychological factors and one's environment.",
-      "explanationIncorrect": "Salary does not influence your weight directly.",
+      "explanationCorrect": null,
+      "explanationIncorrect": null,
       "lowestText": null,
       "highestText": null,
-      "question": "What are three factors that can influence your weight?",
-      "openedAt": "2024-02-07T08:22:07.782Z",
-      "answeredAt": "2024-02-07T08:22:07.567Z",
-      "completedAt": "2024-02-07T08:22:07.567Z",
-      "lessonQuestionOptions": [
-        {
-          "value": null,
-          "isCorrect": true,
-          "id": 248,
-          "label": "Lack of exercise, psychological factors, environment",
-          "lessonQuestionId": 84
-        },
-        {
-          "value": null,
-          "isCorrect": null,
-          "id": 249,
-          "label": "Psychological factors, lack of exercise, salary",
-          "lessonQuestionId": 84
-        }
-      ],
+      "question":
+          "Now think about why you want to lose weight. Your personal reasons for wanting to lose weight are your motivation. Whenever you falter or encounter obstacles during your weight loss journey, remind yourself why you're doing it. This will help you get through the tough times and keep going.\nWrite down three personal reasons. My three reasons to loose weight are ...",
+      "openedAt": "2024-02-19T08:22:46.521Z",
+      "answeredAt": null,
+      "completedAt": null,
+      "lessonQuestionOptions": [],
       "lessonQuestionFeedbacks": [],
-      "lessonQuestionAnswers": [
-        {
-          "lessonQuestionOptionId": 249,
-          "text": null,
-          "lessonQuestionFeedbackId": null,
-          "id": 151,
-          "accountId": 1222,
-          "lessonQuestionId": 84,
-          "createdAt": "2024-02-07T08:22:07.567Z"
-        }
-      ],
-      "id": 84,
-      "answerType": "multipleChoiceValidation",
-      "type": "quiz",
-      "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
-      "visual": "https://dev.loopcare.app/education/content/1/images/lesson.png",
-      "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
-      "lessonId": 1
+      "lessonQuestionAnswers": [],
+      "id": 92,
+      "answerType": "text",
+      "type": "assignment",
+      "title": "Reasons to lose weight and motivation check",
+      "visual": "https://dev.loopcare.app/education/content/4/images/lesson.png",
+      "instruction":
+          "Think about why you want to lose weight. What are the benefits and disadvantages that come with joining this program?\n\nThis assignment is part of the Mind article 'What keeps you going'.",
+      "lessonId": 4
     }
   ],
-  "id": 1,
+  "id": 4,
   "category": "general",
-  "title": "Understanding obesity",
-  "image": "https://dev.loopcare.app/education/content/1/images/lesson.png",
-  "cardImage": "https://dev.loopcare.app/education/content/1/images/lesson-card@3x.png",
-  "duration": 420,
+  "title": "What keeps you going?",
+  "image": "https://dev.loopcare.app/education/content/4/images/lesson.png",
+  "cardImage": "https://dev.loopcare.app/education/content/4/images/lesson-card@3x.png",
+  "duration": 120,
   "pageCounter": 1,
-  "step": 1,
-  "order": 1,
-  "externalId": 2,
+  "step": 2,
+  "order": 4,
+  "externalId": 6,
   "pages": [
     {
       "type": "text",
