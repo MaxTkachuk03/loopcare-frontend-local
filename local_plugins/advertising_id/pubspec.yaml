@@ -1,0 +1,23 @@
+name: advertising_id
+description: A Flutter plugin to access advertising ID.Wraps ASIdentifierManager.advertisingIdentifier (on iOS) and advertising ID (on Android).
+version: 2.6.0
+homepage: https://github.com/operando/advertising_id
+repository: https://github.com/operando/advertising_id
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.os.operando.advertisingid
+        pluginClass: AdvertisingIdPlugin
+      ios:
+        pluginClass: AdvertisingIdPlugin
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+environment:
+  sdk: '>=2.12.0 <4.0.0'
+  flutter: ">=1.10.0"
