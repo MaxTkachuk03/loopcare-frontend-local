@@ -169,7 +169,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
     if (selectScaleIndex != null) {
       var lessonQuestionOptionId = question.lessonQuestionOptions.elementAt(selectScaleIndex).id;
 
-      AnalyticsEventService.instance.finalizeAssignment(
+      AnalyticsEventService.instance.assignmentMotivationScale(
         lessonQuestionOptionId.toString(),
         question.id.toString(),
         question.title,
