@@ -155,8 +155,8 @@ class AuthenticationState with _$AuthenticationState {
 
   bool get isFoodLoggingUnlocked => unlockedFeatures.contains(UnlockedFeatureType.meals);
 
-  bool get isTreatedByPsychiatrist =>
-      maybeWhen(orElse: () => false, authenticated: (state) => state.treatedByPsychiatrist);
+  bool get isTreatedByPsychiatrist => maybeWhen(
+      orElse: () => false, authenticated: (state) => state.medicalOnboarding?.treatedByPsychiatrist ?? false);
 
   bool get isGroupSessionsUnlocked =>
       unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;

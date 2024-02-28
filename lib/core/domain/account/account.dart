@@ -44,7 +44,6 @@ abstract class Account implements _$Account {
     MedicalOnboarding? medicalOnboarding,
     @Default(null) MentalHealthTests? mentalHealthTests,
     @Default(null) DateTime? emailApproveDate,
-    @Default(false) bool treatedByPsychiatrist,
   }) = _Account;
 
   bool get isMixedGender => gender != SexType.female && gender != SexType.male;
