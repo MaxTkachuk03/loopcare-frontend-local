@@ -55,9 +55,7 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
       ..add(const EducationProgramEvent.getLessons())
       ..add(const EducationProgramEvent.setLessonWithCountdown());
 
-    context
-        .read<DashboardEducationBloc>()
-        .add(DashboardEducationEvent.getDashboardLessons(currentDate: currentDate));
+    context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: currentDate));
   }
 
   _lessonsListener(BuildContext context, EducationProgramState state) {

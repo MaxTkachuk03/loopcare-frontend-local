@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -17,40 +18,40 @@ part 'education_program_state.dart';
 class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramState> {
   final EducationService _educationService;
 
-  EducationProgramBloc(this._educationService)
-      : super(const EducationProgramState.initial(EducationProgramData())) {
+  EducationProgramBloc(this._educationService) : super(const EducationProgramState.initial(EducationProgramData())) {
     on<_GetLessons>(_onGetLessons);
     on<_ResetLessonWithCountdown>(_onResetLessonWithCountdown);
     on<_SetLessonWithCountdown>(_onSetLessonWithCountdown);
   }
 
   Future<void> _onGetLessons(_GetLessons event, Emitter<EducationProgramState> emit) async {
-    emit(EducationProgramState.loading(state.data.copyWith(isLoading: true, error: null)));
+    emit(EducationProgramState.loading(
+        state.data.copyWith(isLoading: true, loadingCounterCalculation: true, error: null)));
 
     final response = await _educationService.getLessons();
 
     response.fold(
       (l) => emit(EducationProgramState.error(state.data.copyWith(isLoading: false, error: l))),
       (r) {
-        emit(EducationProgramState.educationProgram(
-            state.data.copyWith(isLoading: false, lessons: r.lessons)));
+        emit(EducationProgramState.educationProgram(state.data.copyWith(isLoading: false, lessons: r.lessons)));
       },
     );
   }
 
-  Future<void> _onSetLessonWithCountdown(
-      _SetLessonWithCountdown event, Emitter<EducationProgramState> emit) async {
+  Future<void> _onSetLessonWithCountdown(_SetLessonWithCountdown event, Emitter<EducationProgramState> emit) async {
     final lastCompletedLesson = state.data.lessons.lastWhereOrNull((element) => element.completedAt != null);
 
     if (lastCompletedLesson == null) {
-      emit(EducationProgramState.educationProgram(state.data.copyWith(lessonWithCountdown: null)));
+      emit(EducationProgramState.educationProgram(
+          state.data.copyWith(loadingCounterCalculation: !event.forSingleNextLesson, lessonWithCountdown: null)));
       return;
     }
 
     final currentActiveStep = lastCompletedLesson.step;
 
     if (currentActiveStep == null) {
-      emit(EducationProgramState.educationProgram(state.data.copyWith(lessonWithCountdown: null)));
+      emit(EducationProgramState.educationProgram(
+          state.data.copyWith(loadingCounterCalculation: !event.forSingleNextLesson, lessonWithCountdown: null)));
       return;
     }
 
@@ -59,15 +60,16 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
     final startDate = lessonsWithSameStep.first.completedAt?.toLocal();
 
     if (startDate == null) {
-      emit(EducationProgramState.educationProgram(state.data.copyWith(lessonWithCountdown: null)));
+      emit(EducationProgramState.educationProgram(
+          state.data.copyWith(loadingCounterCalculation: !event.forSingleNextLesson, lessonWithCountdown: null)));
       return;
     }
 
-    final lessonWithCountdown =
-        state.data.lessons.firstWhereOrNull((element) => element.step == currentActiveStep + 1);
+    final lessonWithCountdown = state.data.lessons.firstWhereOrNull((element) => element.step == currentActiveStep + 1);
 
     if (lessonWithCountdown == null) {
-      emit(EducationProgramState.educationProgram(state.data.copyWith(lessonWithCountdown: null)));
+      emit(EducationProgramState.educationProgram(
+          state.data.copyWith(loadingCounterCalculation: !event.forSingleNextLesson, lessonWithCountdown: null)));
       return;
     }
 
@@ -79,13 +81,15 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
         startDate.add(Duration(hours: nextStepUnlockDelayInHours)).difference(currentNtpDate).inSeconds;
 
     if (timeRemaining <= 0) {
-      emit(EducationProgramState.educationProgram(state.data.copyWith(lessonWithCountdown: null)));
+      emit(EducationProgramState.educationProgram(
+          state.data.copyWith(loadingCounterCalculation: !event.forSingleNextLesson, lessonWithCountdown: null)));
       return;
     }
 
     emit(
       EducationProgramState.educationProgram(
         state.data.copyWith(
+          loadingCounterCalculation: !event.forSingleNextLesson,
           lessonWithCountdown: LessonWithCountdown(timeRemaining: timeRemaining, lesson: lessonWithCountdown),
         ),
       ),
@@ -93,6 +97,7 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
   }
 
   FutureOr<void> _onResetLessonWithCountdown(event, Emitter<EducationProgramState> emit) async {
-    emit(EducationProgramState.educationProgram(state.data.copyWith(lessonWithCountdown: null)));
+    emit(EducationProgramState.educationProgram(
+        state.data.copyWith(loadingCounterCalculation: false, lessonWithCountdown: null)));
   }
 }

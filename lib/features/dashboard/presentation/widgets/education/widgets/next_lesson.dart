@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -24,7 +25,9 @@ class NextLesson extends StatelessWidget {
   const NextLesson({super.key, required this.lesson});
 
   void _onLessonsLoaded(BuildContext context, EducationProgramState state) {
-    context.read<EducationProgramBloc>().add(const EducationProgramEvent.setLessonWithCountdown());
+    context
+        .read<EducationProgramBloc>()
+        .add(const EducationProgramEvent.setLessonWithCountdown(forSingleNextLesson: true));
   }
 
   @override
@@ -36,7 +39,6 @@ class NextLesson extends StatelessWidget {
         final lessonWithCountdown = state.data.lessonWithCountdown;
         final isBlocked = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
         final isLocked = lesson.isLocked;
-
         return GestureDetector(
           onTap: isBlocked ? null : () => _onTapHandler(context),
           child: Container(
@@ -93,32 +95,35 @@ class NextLesson extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 10.0),
-                        if (isLocked || isBlocked)
-                          Row(
-                            children: [
-                              LessonState.locked(),
-                              const SizedBox(width: 4.0),
-                              if (!isBlocked)
-                                CustomText.w700(LocalizedTexts.locked, style: context.textTheme.bodySmall),
-                              if (isBlocked)
-                                Expanded(
-                                  child: Wrap(
+                        state.data.loadingCounterCalculation
+                            ? const Loader()
+                            : isLocked || isBlocked
+                                ? Row(
                                     children: [
-                                      CustomText.w600(
-                                        '${LocalizedTexts.availableIn.translation}: ',
-                                        style: context.textTheme.bodySmall,
-                                      ),
-                                      EducationCountDown(seconds: lessonWithCountdown.timeRemaining),
+                                      LessonState.locked(),
+                                      const SizedBox(width: 4.0),
+                                      if (!isBlocked)
+                                        CustomText.w700(LocalizedTexts.locked, style: context.textTheme.bodySmall),
+                                      if (isBlocked)
+                                        Expanded(
+                                          child: Wrap(
+                                            children: [
+                                              CustomText.w600(
+                                                '${LocalizedTexts.availableIn.translation}: ',
+                                                style: context.textTheme.bodySmall,
+                                              ),
+                                              EducationCountDown(seconds: lessonWithCountdown.timeRemaining),
+                                            ],
+                                          ),
+                                        )
                                     ],
-                                  ),
-                                )
-                            ],
-                          ),
-                        if (!isLocked && !isBlocked)
-                          CustomOutlinedButton.coralSmall(
-                            label: LocalizedTexts.start.tr(),
-                            onPressed: isBlocked ? null : () => _onTapHandler(context),
-                          )
+                                  )
+                                : !isLocked && !isBlocked
+                                    ? CustomOutlinedButton.coralSmall(
+                                        label: LocalizedTexts.start.tr(),
+                                        onPressed: isBlocked ? null : () => _onTapHandler(context),
+                                      )
+                                    : const SizedBox.shrink(),
                       ],
                     ),
                   ),

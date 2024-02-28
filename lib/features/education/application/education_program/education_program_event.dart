@@ -6,5 +6,6 @@ class EducationProgramEvent with _$EducationProgramEvent {
 
   const factory EducationProgramEvent.resetLessonWithCountdown() = _ResetLessonWithCountdown;
 
-  const factory EducationProgramEvent.setLessonWithCountdown() = _SetLessonWithCountdown;
+  const factory EducationProgramEvent.setLessonWithCountdown({@Default(false) bool forSingleNextLesson}) =
+      _SetLessonWithCountdown;
 }
