@@ -20,14 +20,6 @@ class MedicalFitnessEvent with _$MedicalFitnessEvent {
     WeightLossMedicationAnswer value,
   ) = WeightLossMedicationChanged;
 
-  const factory MedicalFitnessEvent.howLongTakeSemaglutideMedicationChanged(
-    MedicationPastPeriodAnswer value,
-  ) = HowLongTakeSemaglutideMedicationChanged;
-
-  const factory MedicalFitnessEvent.howLongSemaglutideTreatmentLast(
-    MedicationFuturePeriodAnswer value,
-  ) = HowLongSemaglutideTreatmentLast;
-
   const factory MedicalFitnessEvent.medicinesChanged(List<String> medicines) = MedicinesChanged;
 
   const factory MedicalFitnessEvent.addDisease(Diseases value) = AddDisease;

@@ -20,7 +20,6 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/application/physical_fitness_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -116,7 +115,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
             ),
             const SizedBox(height: 16.0),
             CustomElevatedButton.blueFullWidth(
-              onPressed: _isDisabled ? null : _onRegisterPressed,
+              onPressed: _isDisabled ? null : () => _onRegisterPressed(context),
               label: LocalizedTexts.register,
             ),
           ],
@@ -126,25 +125,21 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
   }
 
   _onChangedForm() {
-    final isValidForm = Email.create(_emailController.text).isRight() &&
-        termsAndConditionsAreChecked &&
-        privatePolicyAccepted;
+    final isValidForm =
+        Email.create(_emailController.text).isRight() && termsAndConditionsAreChecked && privatePolicyAccepted;
 
     setState(() {
       _isDisabled = !isValidForm;
     });
   }
 
-  void _onRegisterPressed() {
+  void _onRegisterPressed(BuildContext context) {
     setState(() {
       emailErrorText = null;
     });
-
-    final registrationPhysicalFitnessData =
-        context.read<PhysicalFitnessBloc>().state.registrationPhysicalFitnessData;
+    final registrationPhysicalFitnessData = context.read<PhysicalFitnessBloc>().state.registrationPhysicalFitnessData;
 
     final mentalHealthTest = context.read<MentalHealthBloc>().state.data.answers;
-    final medicalOnboardingData = context.read<MedicalFitnessBloc>().state.data;
 
     AnalyticsEventService.instance.logEvent(
       FirebaseEvents.userEmail,
@@ -158,7 +153,6 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
           _emailController.text,
           registrationPhysicalFitnessData,
           MentalHealthTestAnswer(answers: mentalHealthTest),
-          medicalOnboardingData.registrationData(),
         );
   }
 
@@ -226,9 +220,8 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
               );
             },
             forbidden: (error) {
-              final errorMessage = (error.error.message != null)
-                  ? error.error.message!
-                  : LocalizedTexts.somethingIsIncorrect.tr();
+              final errorMessage =
+                  (error.error.message != null) ? error.error.message! : LocalizedTexts.somethingIsIncorrect.tr();
               context.showError(content: Text(errorMessage));
             },
           );

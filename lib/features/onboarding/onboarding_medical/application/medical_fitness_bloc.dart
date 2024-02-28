@@ -5,16 +5,12 @@ import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/diseases.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/diseases_state.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/medication_future_period_answer.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/medication_past_period_answer.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/weight_loss_medication_answers.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/date_helpers.dart';
@@ -45,8 +41,6 @@ class MedicalFitnessBloc extends HydratedBloc<MedicalFitnessEvent, MedicalFitnes
     on<HandleSexType>(_onHandleSexType);
     on<HandleBirthday>(_onHandleBirthday);
     on<WeightLossMedicationChanged>(_onWeightLossMedicationChanged);
-    on<HowLongTakeSemaglutideMedicationChanged>(_onHowLongTakeSemaglutideMedicationChanged);
-    on<HowLongSemaglutideTreatmentLast>(_onHowLongSemaglutideTreatmentLast);
 
     _authBlocStreamSubscription = _authenticationCubit.stream.distinct().listen((s) {
       s.mapOrNull(
@@ -188,20 +182,6 @@ class MedicalFitnessBloc extends HydratedBloc<MedicalFitnessEvent, MedicalFitnes
     Emitter<MedicalFitnessState> emit,
   ) {
     emit(MedicalFitnessState.updated(state.data.copyWith(weightLossMedication: event.value)));
-  }
-
-  FutureOr<void> _onHowLongTakeSemaglutideMedicationChanged(
-    HowLongTakeSemaglutideMedicationChanged event,
-    Emitter<MedicalFitnessState> emit,
-  ) {
-    emit(MedicalFitnessState.updated(state.data.copyWith(howLongTakeSemaglutideMedication: event.value)));
-  }
-
-  FutureOr<void> _onHowLongSemaglutideTreatmentLast(
-    HowLongSemaglutideTreatmentLast event,
-    Emitter<MedicalFitnessState> emit,
-  ) {
-    emit(MedicalFitnessState.updated(state.data.copyWith(howLongSemaglutideTreatmentLast: event.value)));
   }
 
   FutureOr<void> _onAddDisease(

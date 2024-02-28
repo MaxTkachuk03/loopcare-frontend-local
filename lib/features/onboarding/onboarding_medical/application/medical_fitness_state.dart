@@ -18,8 +18,6 @@ class MedicalFitnessData with _$MedicalFitnessData {
     @Default(false) bool isCompletedSuccessfully,
     @Default(null) YesNoAnswer? pregnancy,
     @Default(null) WeightLossMedicationAnswer? weightLossMedication,
-    @Default(null) MedicationPastPeriodAnswer? howLongTakeSemaglutideMedication,
-    @Default(null) MedicationFuturePeriodAnswer? howLongSemaglutideTreatmentLast,
     @Default(null) YesNoAnswer? treatmentByTheDoctor,
     @Default([]) List<String> medicines,
     @Default({}) Set<DiseasesState> diseasesList,
@@ -36,53 +34,9 @@ class MedicalFitnessData with _$MedicalFitnessData {
   bool get hasCardiovascularDisease =>
       diseasesList.where((item) => item.diseases == Diseases.cardioVascularDisease && item.enable).isNotEmpty;
 
-  bool containsDisease(Diseases diseases) =>
-      diseasesList.where((item) => item.diseases == diseases).isNotEmpty;
+  bool containsDisease(Diseases diseases) => diseasesList.where((item) => item.diseases == diseases).isNotEmpty;
 
-  DiseasesState getContainedDisease(Diseases diseases) =>
-      diseasesList.where((item) => item.diseases == diseases).first;
-
-  String get diabetesType {
-    final hasTypeOneDiabete = containsDisease(Diseases.diabetesTypeI);
-    final hasTypeTwoDiabete = containsDisease(Diseases.diabetesTypeII);
-
-    if (!hasTypeOneDiabete && !hasTypeTwoDiabete) return LocalizedTexts.no;
-    if (hasTypeOneDiabete) return Diseases.diabetesTypeI.name;
-    if (hasTypeTwoDiabete) return Diseases.diabetesTypeII.name;
-
-    return LocalizedTexts.no;
-  }
-
-  MedicalOnboarding registrationData() {
-    final Map<String, bool> diseases = {};
-
-    for (var e in diseasesList) {
-      diseases[e.diseases.label] = e.enable;
-    }
-
-    final medicalOnboarding = MedicalOnboarding(
-      pregnant: pregnancy?.boolValue ?? false,
-      medicines: medicines,
-      useSemaglutideMedication: weightLossMedication?.label ?? '',
-      treatedByPsychiatrist: treatmentByTheDoctor?.boolValue ?? false,
-      howLongTakeSemaglutideMedication: howLongTakeSemaglutideMedication?.label ?? '',
-      howLongSemaglutideTreatmentLast: howLongSemaglutideTreatmentLast?.label ?? '',
-      diabetes: diabetesType,
-      obesity: diseases['obesity'] ?? false,
-      thyroidDesease: diseases['thyroidDesease'] ?? false,
-      metabolicDesease: diseases['metabolicDesease'] ?? false,
-      hypertension: diseases['hypertension'] ?? false,
-      cardiovascularDesease: diseases['cardioVascularDisease'] ?? false,
-      stomachReduction: diseases['stomachReductionDisease'] ?? false,
-      renalFailure: diseases['renalFailure'] ?? false,
-      asthma: diseases['asthma'] ?? false,
-      liverDesease: diseases['liverDesease'] ?? false,
-      sleepApneaSyndrome: diseases['sleepApneaSyndrome'] ?? false,
-      locomotorSystemDesease: diseases['locomotorSystemDesease'] ?? false,
-    );
-
-    return medicalOnboarding;
-  }
+  DiseasesState getContainedDisease(Diseases diseases) => diseasesList.where((item) => item.diseases == diseases).first;
 
   factory MedicalFitnessData.fromJson(Map<String, dynamic> json) => _$MedicalFitnessDataFromJson(json);
 }

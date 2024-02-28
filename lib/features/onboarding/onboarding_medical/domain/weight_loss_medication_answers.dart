@@ -2,7 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
-enum WeightLossMedicationAnswer { no, mounjaro, ozempic, rybelsus, wegovy, otherBrand }
+enum WeightLossMedicationAnswer {
+  no,
+  mounjaro,
+  ozempic,
+  rybelsus,
+  wegovy,
+  otherBrand
+}
 
 extension WeightLossMedicationAnswerX on WeightLossMedicationAnswer {
   String get label {
@@ -22,3 +29,4 @@ extension WeightLossMedicationAnswerX on WeightLossMedicationAnswer {
     }
   }
 }
+

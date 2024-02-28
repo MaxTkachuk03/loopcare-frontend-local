@@ -1,12 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/medication_past_period_answer.dart';
 
 class MedicationPastPeriodChips extends StatefulWidget {
@@ -19,23 +17,10 @@ class MedicationPastPeriodChips extends StatefulWidget {
 class _MedicationPastPeriodChipsState extends State<MedicationPastPeriodChips> {
   MedicationPastPeriodAnswer? _selectedValue;
 
-  @override
-  void initState() {
-    final bloc = context.read<MedicalFitnessBloc>();
-
-    _selectedValue = bloc.state.data.howLongTakeSemaglutideMedication;
-
-    super.initState();
-  }
-
   void _onSelectedMedicationPastPeriodHandler(MedicationPastPeriodAnswer value) {
     setState(() {
       _selectedValue = value;
     });
-
-    final bloc = context.read<MedicalFitnessBloc>();
-
-    bloc.add(MedicalFitnessEvent.howLongTakeSemaglutideMedicationChanged(value));
 
     AnalyticsEventService.instance.logEvent(
       FirebaseEvents.userLengthSemaglutideIntake,
@@ -44,6 +29,7 @@ class _MedicationPastPeriodChipsState extends State<MedicationPastPeriodChips> {
       },
     );
 
+// TODO: No need save value to block/backend?
     context.router.pushNamed(AppRoutes.medicationFuturePeriod);
   }
 
