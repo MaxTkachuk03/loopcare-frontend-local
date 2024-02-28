@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/application/socket_service_chat/chat_socket_service.dart';
 import 'package:loopcare_frontend/core/domain/account/account.dart';
+import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
@@ -165,6 +166,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
                   emailApproveDate: r.emailApproveDate,
                   mentalHealthTests: r.mentalHealthTests,
                   subscription: r.subscription,
+                  medicalOnboarding: r.medicalOnboarding,
                 ),
               ),
             );
@@ -221,6 +223,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     String email,
     RegistrationPhysicalFitnessData registrationPhysicalFitnessData,
     MentalHealthTestAnswer mentalHealthTest,
+    MedicalOnboarding medicalOnboarding,
   ) async {
     state.mapOrNull(
       emailAddress: (state) async {
@@ -237,6 +240,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
           bioGender: registrationPhysicalFitnessData.bioGender,
           gender: registrationPhysicalFitnessData.gender,
           mentalHealthTest: mentalHealthTest,
+          medicalOnboarding: medicalOnboarding,
         );
 
         final response = await _authenticationService.signUp(data);
