@@ -47,6 +47,8 @@ class PersonMood extends StatelessWidget {
               final List<Mood> moodValues = state.data.getSelectedDayMoods(date.isoStringWithoutTime);
               moodValues.sort((a, b) => a.time.compareTo(b.time));
 
+              final Color textColor = isEditable ? AppColors.blueDarker : AppColors.greyLabel;
+
               return Column(
                 children: [
                   Row(
@@ -58,7 +60,7 @@ class PersonMood extends StatelessWidget {
                           const SizedBox(width: 24.0),
                           CustomText.bitter600(
                             LocalizedTexts.mood.tr(),
-                            style: context.textTheme.headlineSmall,
+                            style: context.textTheme.headlineSmall?.copyWith(color: textColor),
                           ),
                         ],
                       ),
@@ -73,6 +75,7 @@ class PersonMood extends StatelessWidget {
                   const Divider(color: AppColors.blueOffRegular),
                   MoodList(
                     list: moodValues,
+                    isEditable: isEditable,
                     onPressItem: (Mood item) => _onMoodItemPressedHandler(context, item),
                   ),
                 ],

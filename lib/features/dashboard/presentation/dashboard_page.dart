@@ -190,7 +190,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                                 BlocBuilder<MealsBloc, MealsState>(
                                   builder: (BuildContext context, state) {
                                     return state.isNeedToHideOnDashboard
-                                        ? const SizedBox(height: 0.0)
+                                        ? const SizedBox.shrink()
                                         : const LogMeal();
                                   },
                                 ),

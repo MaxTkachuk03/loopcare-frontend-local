@@ -126,9 +126,8 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
   }
 
   _onChangedForm() {
-    final isValidForm = Email.create(_emailController.text).isRight() &&
-        termsAndConditionsAreChecked &&
-        privatePolicyAccepted;
+    final isValidForm =
+        Email.create(_emailController.text).isRight() && termsAndConditionsAreChecked && privatePolicyAccepted;
 
     setState(() {
       _isDisabled = !isValidForm;
@@ -139,7 +138,6 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
     setState(() {
       emailErrorText = null;
     });
-
     final registrationPhysicalFitnessData =
         context.read<PhysicalFitnessBloc>().state.registrationPhysicalFitnessData;
 
@@ -226,9 +224,8 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
               );
             },
             forbidden: (error) {
-              final errorMessage = (error.error.message != null)
-                  ? error.error.message!
-                  : LocalizedTexts.somethingIsIncorrect.tr();
+              final errorMessage =
+                  (error.error.message != null) ? error.error.message! : LocalizedTexts.somethingIsIncorrect.tr();
               context.showError(content: Text(errorMessage));
             },
           );

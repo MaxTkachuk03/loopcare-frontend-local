@@ -39,7 +39,7 @@ class ThisWeekAssignmentsOpen extends StatelessWidget {
               isComplete: questions[index].completedAt != null,
               onDashboard: onDashboard,
               item: questions[index],
-              onBtnPressed: (int lessonId) => onBtnPressed(lessonId),
+              onBtnPressed: onBtnPressed,
             );
           },
         ),

@@ -1,0 +1,1 @@
+enum AudioLessonContentType { audio, subtitles }

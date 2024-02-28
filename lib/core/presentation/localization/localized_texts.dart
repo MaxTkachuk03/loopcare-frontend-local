@@ -378,7 +378,7 @@ class LocalizedTexts {
   static const String at = 'at';
   static const String joinAGroup = 'joinAGroup';
   static const String unavailableGroupPrefsLabel = 'unavailableGroupPrefsLabel';
-  static const String weWillNotifyYouAboutGroup = 'weWillNotifyYouAboutGroup';
+  static const String findingMatchingGroup = 'findingMatchingGroup';
   static const String moreInformationInPreferences = 'moreInformationInPreferences';
   static const String bookYourSeatNow = 'bookYourSeatNow';
   static const String comingUpThisWeek = 'comingUpThisWeek';
@@ -527,8 +527,7 @@ class LocalizedTexts {
   static const String googleMarket = "googleMarket";
   static const String cancelAccountSubscription = "cancelAccountSubscription";
   static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
-  static const String otherPurchaseVendorCancelAccountSubscription =
-      "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";
