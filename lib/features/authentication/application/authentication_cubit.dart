@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/application/socket_service_chat/chat_socket_service.dart';
 import 'package:loopcare_frontend/core/domain/account/account.dart';
+import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
@@ -140,32 +141,33 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
             emit(
               state.copyWith(
                 account: Account(
-                    id: r.id,
-                    name: r.name,
-                    email: r.email,
-                    country: r.country,
-                    gender: r.gender,
-                    bioGender: r.bioGender,
-                    height: r.physicalFitness.height,
-                    weight: r.physicalFitness.weight,
-                    bmi: r.physicalFitness.bmi,
-                    birthDate: r.physicalFitness.birthDate,
-                    groupingState: r.groupingState,
-                    groupId: r.groupId,
-                    groupingStartedAt: r.groupingStartedAt,
-                    nickname: r.groupingPreferences?.nickname,
-                    genderPreference: r.groupingPreferences?.genderPreference,
-                    timezone: r.groupingPreferences?.timezone,
-                    diabetes: r.diabetes?.name ?? '',
-                    foodPreferencesHates: r.foodPreferences?.hates,
-                    foodPreferencesDislikes: r.foodPreferences?.dislike,
-                    foodPreferencesAllergic: r.foodPreferences?.allergic,
-                    unlockedFeatures: r.unlockedFeatures,
-                    physicalActivitiesPreferences: r.physicalActivitiesPreferences,
-                    emailApproveDate: r.emailApproveDate,
-                    mentalHealthTests: r.mentalHealthTests,
-                    subscription: r.subscription,
-                    treatedByPsychiatrist: r.treatedByPsychiatrist),
+                  id: r.id,
+                  name: r.name,
+                  email: r.email,
+                  country: r.country,
+                  gender: r.gender,
+                  bioGender: r.bioGender,
+                  height: r.physicalFitness.height,
+                  weight: r.physicalFitness.weight,
+                  bmi: r.physicalFitness.bmi,
+                  birthDate: r.physicalFitness.birthDate,
+                  groupingState: r.groupingState,
+                  groupId: r.groupId,
+                  groupingStartedAt: r.groupingStartedAt,
+                  nickname: r.groupingPreferences?.nickname,
+                  genderPreference: r.groupingPreferences?.genderPreference,
+                  timezone: r.groupingPreferences?.timezone,
+                  diabetes: r.diabetes?.name ?? '',
+                  foodPreferencesHates: r.foodPreferences?.hates,
+                  foodPreferencesDislikes: r.foodPreferences?.dislike,
+                  foodPreferencesAllergic: r.foodPreferences?.allergic,
+                  unlockedFeatures: r.unlockedFeatures,
+                  physicalActivitiesPreferences: r.physicalActivitiesPreferences,
+                  emailApproveDate: r.emailApproveDate,
+                  mentalHealthTests: r.mentalHealthTests,
+                  subscription: r.subscription,
+                  medicalOnboarding: r.medicalOnboarding,
+                ),
               ),
             );
             syncChatState();
@@ -221,6 +223,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     String email,
     RegistrationPhysicalFitnessData registrationPhysicalFitnessData,
     MentalHealthTestAnswer mentalHealthTest,
+    MedicalOnboarding medicalOnboarding,
   ) async {
     state.mapOrNull(
       emailAddress: (state) async {
@@ -237,12 +240,14 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
           bioGender: registrationPhysicalFitnessData.bioGender,
           gender: registrationPhysicalFitnessData.gender,
           mentalHealthTest: mentalHealthTest,
+          medicalOnboarding: medicalOnboarding,
         );
 
         final response = await _authenticationService.signUp(data);
 
         response.fold(
           (error) {
+            emit(const AuthenticationState.init());
             emit(state.copyWith(error: error));
           },
           (response) {
