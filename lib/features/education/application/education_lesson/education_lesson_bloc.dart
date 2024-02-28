@@ -276,8 +276,6 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
 
     cache[cacheKey] = value;
 
-    print(cache);
-
     return cache;
   }
 
