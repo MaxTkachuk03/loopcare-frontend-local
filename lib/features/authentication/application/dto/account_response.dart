@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:loopcare_frontend/core/domain/food_preferences/food_preferences.dart';
 import 'package:loopcare_frontend/core/domain/grouping_preferences.dart';
+import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
 import 'package:loopcare_frontend/core/domain/physical_fitness/physical_fitness.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
@@ -38,6 +39,7 @@ class AccountResponse {
   final List<UnlockedFeatureType> unlockedFeatures;
   final MentalHealthTests? mentalHealthTests;
   final PhysicalActivitiesPreferences? physicalActivitiesPreferences;
+  final MedicalOnboarding medicalOnboarding;
 
   const AccountResponse({
     required this.id,
@@ -61,6 +63,7 @@ class AccountResponse {
     required this.mentalHealthTests,
     required this.physicalActivitiesPreferences,
     required this.subscription,
+    required this.medicalOnboarding,
   });
 
   factory AccountResponse.fromJson(Map<String, dynamic> json) => _$AccountResponseFromJson(json);
