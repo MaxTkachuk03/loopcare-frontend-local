@@ -38,6 +38,7 @@ class EducationLessonData with _$EducationLessonData {
     @Default(0) int currentPageIndex,
     @Default('') String svgFile,
     @Default(false) bool isSvgLoaded,
+    @Default({}) Map<String, Set<AudioLessonContentType>> audioFilesCache,
     RequestError? error,
     @Default([]) List<LessonQuestion> questions,
   }) = _EducationLessonData;
@@ -51,9 +52,19 @@ class EducationLessonData with _$EducationLessonData {
     return "$temporaryDirectory/${urls[urls.length - 2]}/${urls.last}";
   }
 
-  bool get isLessonCompleted {
-    return lessonCompletedDate != null;
+  bool get isAudioAlreadyInCache {
+    final cacheVal = audioFilesCache[lessonId.toString()];
+
+    return cacheVal != null ? cacheVal.contains(AudioLessonContentType.audio) : false;
   }
+
+  bool get isSubtitlesAlreadyInCache {
+    final cacheVal = audioFilesCache[lessonId.toString()];
+
+    return cacheVal != null ? cacheVal.contains(AudioLessonContentType.subtitles) : false;
+  }
+
+  bool get isLessonCompleted => lessonCompletedDate != null;
 
   bool get isLastPage => currentPageIndex == pages.length - 1;
 
