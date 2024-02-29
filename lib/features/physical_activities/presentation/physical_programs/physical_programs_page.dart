@@ -34,12 +34,12 @@ class PhysicalProgramsPage extends StatelessWidget {
             );
           },
           loading: (_) => CustomScaffold.yellowLightest(
-            appBar: CustomAppBar.yellow(title: state.data.programType?.title ?? ''),
+            appBar: CustomAppBar.yellow(title: state.data.programType.title),
             body: const Loader(),
           ),
           orElse: () => CustomScaffold.yellowLightest(
             appBar: CustomAppBar.yellow(
-              title: state.data.programType?.title ?? '',
+              title: state.data.programType.title,
               leading: CustomFilledIconButton.leadingYellowLighter(),
             ),
             body: SafeArea(

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mixpanel_analytics/mixpanel_analytics.dart' as analytic;
-import 'package:mixpanel_flutter/mixpanel_flutter.dart' as html;
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:uuid/uuid.dart';
@@ -13,14 +12,13 @@ String _kToken = '';
 class MixpanelManager {
   late analytic.MixpanelAnalytics _mixpanel;
   late PackageInfo packageInfo;
-  late html.Mixpanel _instance;
 
   String distinctId = const Uuid().v4();
   Map<String, dynamic> deviceData = <String, dynamic>{};
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
 
   Future<void> init() async {
-    _kToken =  dotenv.env['MIXPANEL_TOKEN'] ?? "";
+    _kToken = dotenv.env['MIXPANEL_TOKEN'] ?? "";
 
     if (!kIsWeb) {
       _initMobile();

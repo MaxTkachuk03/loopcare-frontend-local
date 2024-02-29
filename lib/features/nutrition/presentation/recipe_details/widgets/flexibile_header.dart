@@ -47,7 +47,7 @@ class FlexibleHeaderState extends State<FlexibleHeader> {
               );
             } else {
               background = NetworkImageWithCache(
-                url: images.first ?? '',
+                url: images.first,
                 imageBoxFit: BoxFit.cover,
               );
             }
