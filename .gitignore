@@ -66,3 +66,4 @@ app.*.map.json
 /ios/IAPTest.storekit
 /ios/StoreKitTestCertificate.cer
 /env.stag
+/local_plugins/advertising_id/example/

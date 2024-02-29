@@ -16,5 +16,13 @@ extension YesNoAnswerX on YesNoAnswer {
         return LocalizedTexts.no.tr().capitalize();
     }
   }
-}
 
+  bool get boolValue {
+    switch (this) {
+      case YesNoAnswer.yes:
+        return true;
+      case YesNoAnswer.no:
+        return false;
+    }
+  }
+}
