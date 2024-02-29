@@ -59,25 +59,19 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     context.read<AuthenticationCubit>().getAccount();
 
     if (!context.read<NutritionInstructionsBloc>().state.data.alreadyLoaded) {
-      context
-          .read<NutritionInstructionsBloc>()
-          .add(const NutritionInstructionsEvent.fetchValuesExplanation());
+      context.read<NutritionInstructionsBloc>().add(const NutritionInstructionsEvent.fetchValuesExplanation());
     }
 
     context
         .read<DashboardWeightBloc>()
         .add(DashboardWeightEvent.fetchWeights(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime));
 
-    context.read<MoodBloc>().add(MoodEvent.getMoods(
-        _selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime, DateTime.now().utcIsoStringFormat));
+    context.read<MoodBloc>().add(
+        MoodEvent.getMoods(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime, DateTime.now().utcIsoStringFormat));
 
-    context
-        .read<DashboardEducationBloc>()
-        .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
+    context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
 
-    context.read<EducationProgramBloc>()
-      ..add(const EducationProgramEvent.getLessons())
-      ..add(const EducationProgramEvent.setLessonWithCountdown());
+    context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons());
 
 // TODO: /LOOPCARE-1893
     // if (context.read<AuthenticationCubit>().state.isFoodLoggingUnlocked) {
@@ -126,9 +120,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
       context.read<DashboardWeightBloc>().add(DashboardWeightEvent.setDate(day));
       context.read<MealsBloc>().add(MealsEvent.setCurrentDate(day, updateOrigin: true));
       context.read<MoodBloc>().add(MoodEvent.setDate(day));
-      context
-          .read<DashboardEducationBloc>()
-          .add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
+      context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
 
       if (context.read<AuthenticationCubit>().state.isAssignmentsUnlocked) {
         context.read<AssignmentsBloc>().add(
@@ -184,9 +176,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                                 const SizedBox(height: 19.0),
                                 BlocBuilder<MealsBloc, MealsState>(
                                   builder: (BuildContext context, state) {
-                                    return state.isNeedToHideOnDashboard
-                                        ? const SizedBox.shrink()
-                                        : const LogMeal();
+                                    return state.isNeedToHideOnDashboard ? const SizedBox.shrink() : const LogMeal();
                                   },
                                 ),
                                 // const SizedBox(height: 10.0), //TODO: LOOPCARE-1798: Hide Meal planning block
