@@ -133,37 +133,39 @@ class LogMeal extends StatelessWidget {
                             const Divider(color: AppColors.blueOffRegular),
                             GestureDetector(
                               onTap: mealsState.isEnableOnDashboard ? () => _onIntakePressed(context) : null,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              child: Column(
                                 children: [
-                                  CustomText.w600(
-                                    LocalizedTexts.loggedMeals.translation.capitalize(),
-                                    style: context.textTheme.bodySmall,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      CustomText.w600(
+                                        LocalizedTexts.loggedMeals.translation.capitalize(),
+                                        style: context.textTheme.bodySmall,
+                                      ),
+                                      const SizedBox(width: 4.0),
+                                      if (mealsState.filledCategories.isNotEmpty)
+                                        CustomOutlinedRoundedButtonWithIcon(
+                                          onPressed:
+                                              mealsState.isEnableOnDashboard ? () => onPressHandler(context) : null,
+                                          icon: AppIcons.edit,
+                                        )
+                                    ],
                                   ),
-                                  const SizedBox(width: 4.0),
-                                  if (mealsState.filledCategories.isNotEmpty)
-                                    CustomOutlinedRoundedButtonWithIcon(
-                                      onPressed: mealsState.isEnableOnDashboard
-                                          ? () => onPressHandler(context)
-                                          : null,
-                                      icon: AppIcons.edit,
-                                    )
+                                  LoggedList(
+                                    categoryList: MealCategory.values
+                                        .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
+                                        .toList(),
+                                    categoryListRaw: MealCategory.values.map((e) => e.label ?? '').toList(),
+                                    filledList: mealsState.filledCategories,
+                                  ),
                                 ],
                               ),
-                            ),
-                            LoggedList(
-                              categoryList: MealCategory.values
-                                  .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
-                                  .toList(),
-                              categoryListRaw: MealCategory.values.map((e) => e.label ?? '').toList(),
-                              filledList: mealsState.filledCategories,
                             ),
                             const SizedBox(height: 16.0),
                             CalorieNutritionBlock(
                               proteinDegree: mealsState.selectedDayMealProteinDegreeSum,
                               calorieDensity: mealsState.selectedDayMealCalorieDensitySum,
-                              subtitle:
-                                  context.read<MealsBloc>().state.getCurrentDate.americanShortDateWithYear,
+                              subtitle: context.read<MealsBloc>().state.getCurrentDate.americanShortDateWithYear,
                             ),
                           ],
                         )
