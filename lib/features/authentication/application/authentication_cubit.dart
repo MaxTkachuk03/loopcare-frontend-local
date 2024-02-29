@@ -251,6 +251,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
 
         response.fold(
           (error) {
+            emit(const AuthenticationState.init());
             emit(state.copyWith(error: error));
           },
           (response) {
