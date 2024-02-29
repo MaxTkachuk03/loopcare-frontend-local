@@ -54,6 +54,10 @@ class _LessonPageState extends State<LessonPage> {
 
       if (extraAction == ExtraActionTypes.setupGroupingPreferences &&
           !unlockedFeatures.contains(UnlockedFeatureType.grouping)) {
+        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.grouping);
+
+        AnalyticsEventService.instance.logEvent(FirebaseEvents.unlockedSupportGroupFeature);
+
         context
           ..read<GroupPreferencesBloc>()
               .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupingLesson))
@@ -165,29 +169,14 @@ class _LessonPageState extends State<LessonPage> {
                   content: currentPage.content,
                 );
               }
+
               if (currentPage.type == EducationLessonPageType.audio) {
-                if (state.data.temporaryDirectory.isEmpty) {
-                  context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
-                }
-                if (!state.data.isAudioLoading &&
-                    state.data.currentPage.type == EducationLessonPageType.audio &&
-                    state.data.currentPage.content.audioFilePath.isEmpty) {
-                  context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadAudioFile(state.data.currentPage.content.url),
-                      );
-                }
-                if (!state.data.isSubtitleLoading &&
-                    state.data.currentPage.type == EducationLessonPageType.audio &&
-                    state.data.currentPage.content.subtitlesImages != null &&
-                    state.data.currentPage.content.subtitleFilePath.isEmpty) {
-                  context.read<EducationLessonBloc>().add(EducationLessonEvent.downloadSubtitlesFile(
-                      state.data.currentPage.content.subtitlesImages!));
-                }
                 return LessonAudioBody(
                   onNextPressed: _onNextPressed,
                   onPrevPressed: _onPrevPressed,
                 );
               }
+
               return const SizedBox.shrink();
             },
             contentLoaded: (s) {
@@ -208,31 +197,14 @@ class _LessonPageState extends State<LessonPage> {
                   content: currentPage.content,
                 );
               }
+
               if (currentPage.type == EducationLessonPageType.audio) {
-                if (state.data.temporaryDirectory.isEmpty) {
-                  context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
-                }
-                if (!state.data.isAudioLoading &&
-                    state.data.currentPage.type == EducationLessonPageType.audio &&
-                    state.data.currentPage.content.audioFilePath.isEmpty) {
-                  context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadAudioFile(state.data.currentPage.content.url),
-                      );
-                }
-                if (!state.data.isSubtitleLoading &&
-                    state.data.currentPage.type == EducationLessonPageType.audio &&
-                    state.data.currentPage.content.subtitlesImages != null &&
-                    state.data.currentPage.content.subtitleFilePath.isEmpty) {
-                  context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadSubtitlesFile(
-                            state.data.currentPage.content.subtitlesImages!),
-                      );
-                }
                 return LessonAudioBody(
                   onNextPressed: _onNextPressed,
                   onPrevPressed: _onPrevPressed,
                 );
               }
+
               return const SizedBox.shrink();
             },
             errorCompleteLesson: (s) {
@@ -245,31 +217,14 @@ class _LessonPageState extends State<LessonPage> {
                   content: currentPage.content,
                 );
               }
+
               if (currentPage.type == EducationLessonPageType.audio) {
-                if (state.data.temporaryDirectory.isEmpty) {
-                  context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
-                }
-                if (!state.data.isAudioLoading &&
-                    state.data.currentPage.type == EducationLessonPageType.audio &&
-                    state.data.currentPage.content.audioFilePath.isEmpty) {
-                  context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadAudioFile(state.data.currentPage.content.url),
-                      );
-                }
-                if (!state.data.isSubtitleLoading &&
-                    state.data.currentPage.type == EducationLessonPageType.audio &&
-                    state.data.currentPage.content.subtitlesImages != null &&
-                    state.data.currentPage.content.subtitleFilePath.isEmpty) {
-                  context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadSubtitlesFile(
-                            state.data.currentPage.content.subtitlesImages!),
-                      );
-                }
                 return LessonAudioBody(
                   onNextPressed: _onNextPressed,
                   onPrevPressed: _onPrevPressed,
                 );
               }
+
               return const SizedBox.shrink();
             },
             orElse: () => const SizedBox.shrink(),

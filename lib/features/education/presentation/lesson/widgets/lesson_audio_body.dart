@@ -60,6 +60,22 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
   @override
   void initState() {
     super.initState();
+
+    final state = context.read<EducationLessonBloc>().state.data;
+
+    if (state.temporaryDirectory.isEmpty) {
+      context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
+    }
+
+    context
+        .read<EducationLessonBloc>()
+        .add(EducationLessonEvent.downloadAudioFile(state.currentPage.content.url));
+
+    if (state.currentPage.content.subtitlesImages != null) {
+      context
+          .read<EducationLessonBloc>()
+          .add(EducationLessonEvent.downloadSubtitlesFile(state.currentPage.content.subtitlesImages!));
+    }
   }
 
   @override
