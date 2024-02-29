@@ -23,7 +23,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
-import 'package:loopcare_frontend/features/education/domain/consult_doctor_page_mode.dart';
+import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 
 class SupportGroupIntroPage extends StatelessWidget {
@@ -113,7 +113,12 @@ class SupportGroupIntroPage extends StatelessWidget {
     );
 
     if (context.read<AuthenticationCubit>().state.isTreatedByPsychiatrist) {
-      context.router.push(ConsultDoctorRoute(mode: const ConsultDoctorPageMode.afterLesson()));
+      context.router.push(ConsultDoctorRoute(mode: const ExtraActionPageMode.afterLesson()));
+      return;
+    }
+
+    if (!context.read<AuthenticationCubit>().state.hasSubscription) {
+      context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.afterLesson()));
       return;
     }
 

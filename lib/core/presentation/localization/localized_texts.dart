@@ -527,7 +527,8 @@ class LocalizedTexts {
   static const String googleMarket = "googleMarket";
   static const String cancelAccountSubscription = "cancelAccountSubscription";
   static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
-  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription =
+      "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";
@@ -870,6 +871,11 @@ class LocalizedTexts {
   static const String completeLesson = 'completeLesson';
   static const String didYouCheckWithSpecialist = 'didYouCheckWithSpecialist';
   static const String iConsultedTherapist = 'iConsultedTherapist';
+  static const String needSubscrionScreenTitle = 'needSubscrionScreenTitle';
+  static const String needSubscrionScreenBody1 = 'needSubscrionScreenBody1';
+  static const String needSubscrionScreenBody2 = 'needSubscrionScreenBody2';
+  static const String needSubscrionScreenBody3 = 'needSubscrionScreenBody3';
+  static const String needSubscrionScreenBody4 = 'needSubscrionScreenBody4';
 
   // Group session
   static const String groupSession = 'groupSession';

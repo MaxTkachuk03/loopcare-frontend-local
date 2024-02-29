@@ -80,7 +80,7 @@ class SocketService {
       _baseUrl,
       io.OptionBuilder()
           .setTransports(['websocket'])
-          .setQuery({'authorization': 'Bearer $token'})
+          .setQuery({'authorization': token})
           .enableReconnection()
           .enableAutoConnect()
           .build(),

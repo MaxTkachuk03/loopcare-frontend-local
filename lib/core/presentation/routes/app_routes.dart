@@ -93,6 +93,7 @@ class AppRoutes {
   static const String lesson = '/lesson/:lessonId/page/:pageIndex'; // added
   static const String supportGroupIntro = '/support-group-intro'; // added
   static const String consultDoctor = '/consult-doctor'; // added
+  static const String needPaidSubscription = '/need-paid-subscription'; // added
   static const String lessonComplete = '/lesson-complete'; // added
 
   // Physical activities

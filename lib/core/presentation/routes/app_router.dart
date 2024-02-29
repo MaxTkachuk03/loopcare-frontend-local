@@ -38,6 +38,7 @@ import 'package:loopcare_frontend/features/education/presentation/consult_doctor
 import 'package:loopcare_frontend/features/education/presentation/education_page/education_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/lesson_complete_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_page/lesson_page.dart';
+import 'package:loopcare_frontend/features/education/presentation/need_paid_subscription_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/support_group_intro/support_group_intro_page.dart';
 import 'package:loopcare_frontend/features/group_sessions/presentation/preparation_materials_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
@@ -518,6 +519,10 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.consultDoctor,
       page: ConsultDoctorPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.needPaidSubscription,
+      page: NeedPaidSubscriptionPage,
     ), // added
 
     // Zoom video sessions
