@@ -79,7 +79,11 @@ class FlexibleHeaderState extends State<FlexibleHeader> {
                     opacity: _getOpacity(constraints.maxHeight),
                     child: FlexibleSpaceBar(
                       centerTitle: true,
-                      title: background,
+                      stretchModes: const <StretchMode>[],
+                      background: Padding(
+                        padding: const EdgeInsets.only(top: kToolbarHeight),
+                        child: background,
+                      ),
                     ),
                   );
                 },
@@ -94,7 +98,7 @@ class FlexibleHeaderState extends State<FlexibleHeader> {
 }
 
 double _getOpacity(double currentHeight) {
-  const double offset = _kExpandedHeight / 3;
+  const double offset = _kExpandedHeight / 2;
   double opacity = (currentHeight - offset) / (_kExpandedHeight - offset);
   if (opacity < 0.1) {
     opacity = 0;
