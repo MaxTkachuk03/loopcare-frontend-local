@@ -29,9 +29,7 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
   void initState() {
     super.initState();
 
-    context.read<EducationProgramBloc>()
-      ..add(const EducationProgramEvent.getLessons())
-      ..add(const EducationProgramEvent.setLessonWithCountdown());
+    context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons());
 
     context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
   }
@@ -51,9 +49,7 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
   _lessonCompleteListener(BuildContext context, EducationLessonState state) {
     final currentDate = context.read<MealsBloc>().state.getCurrentDate;
 
-    context.read<EducationProgramBloc>()
-      ..add(const EducationProgramEvent.getLessons())
-      ..add(const EducationProgramEvent.setLessonWithCountdown());
+    context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons());
 
     context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: currentDate));
   }
@@ -79,7 +75,6 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
         child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
           builder: (BuildContext context, state) {
             final lessons = state.data.lessons;
-
             return Container(
               color: AppColors.blueLightest,
               child: CustomScrollView(

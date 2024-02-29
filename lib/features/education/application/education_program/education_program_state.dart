@@ -4,9 +4,11 @@ part of 'education_program_bloc.dart';
 class EducationProgramState with _$EducationProgramState {
   const factory EducationProgramState.initial(EducationProgramData data) = EducationProgramStateInitial;
 
-  const factory EducationProgramState.educationProgram(EducationProgramData data) = EducationProgramStateLoaded;
+  const factory EducationProgramState.educationProgram(EducationProgramData data) = GotLessonsState;
 
   const factory EducationProgramState.loading(EducationProgramData data) = EducationProgramStateLoading;
+
+  const factory EducationProgramState.loaded(EducationProgramData data) = EducationProgramStateLoaded;
 
   const factory EducationProgramState.error(EducationProgramData data) = EducationProgramStateError;
 }
@@ -19,7 +21,6 @@ class EducationProgramData with _$EducationProgramData {
     @Default([]) List<EducationLesson> lessons,
     LessonWithCountdown? lessonWithCountdown,
     @Default(false) bool isLoading,
-    @Default(true) bool loadingCounterCalculation,
     RequestError? error,
   }) = _EducationProgramData;
 

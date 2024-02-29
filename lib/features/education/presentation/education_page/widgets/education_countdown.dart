@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -57,8 +58,7 @@ class _EducationCountDownState extends State<EducationCountDown> {
             } else {
               context.read<EducationProgramBloc>()
                 ..add(const EducationProgramEvent.resetLessonWithCountdown())
-                ..add(const EducationProgramEvent.getLessons())
-                ..add(const EducationProgramEvent.setLessonWithCountdown());
+                ..add(const EducationProgramEvent.getLessons());
 
               _timer?.cancel();
             }

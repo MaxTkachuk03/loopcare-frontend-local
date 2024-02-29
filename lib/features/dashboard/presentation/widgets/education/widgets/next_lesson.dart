@@ -19,26 +19,31 @@ import 'package:loopcare_frontend/features/education/presentation/education_page
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/lesson_state.dart';
 import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 
-class NextLesson extends StatelessWidget {
+class NextLesson extends StatefulWidget {
   final EducationLesson lesson;
 
   const NextLesson({super.key, required this.lesson});
 
-  void _onLessonsLoaded(BuildContext context, EducationProgramState state) {
-    context
-        .read<EducationProgramBloc>()
-        .add(const EducationProgramEvent.setLessonWithCountdown(forSingleNextLesson: true));
+  @override
+  State<NextLesson> createState() => _NextLessonState();
+}
+
+class _NextLessonState extends State<NextLesson> {
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<EducationProgramBloc, EducationProgramState>(
-      listenWhen: (prev, cur) => cur is EducationProgramStateLoaded,
-      listener: _onLessonsLoaded,
+      buildWhen: (prev, cur) => cur is EducationProgramStateLoaded,
+      listener: (_, __) {},
       builder: (context, state) {
         final lessonWithCountdown = state.data.lessonWithCountdown;
-        final isBlocked = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
-        final isLocked = lesson.isLocked;
+        final isBlocked = lessonWithCountdown != null && widget.lesson.id == lessonWithCountdown.lesson.id;
+        final isLocked = widget.lesson.isLocked;
+
         return GestureDetector(
           onTap: isBlocked ? null : () => _onTapHandler(context),
           child: Container(
@@ -62,7 +67,7 @@ class NextLesson extends StatelessWidget {
                     child: SizedBox(
                       width: 130.0,
                       height: 200,
-                      child: NetworkImageWithCache(url: lesson.cardImage),
+                      child: NetworkImageWithCache(url: widget.lesson.cardImage),
                     ),
                   ),
                 ),
@@ -77,10 +82,10 @@ class NextLesson extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 10.0),
-                        getLabelByCategory(lesson.category),
+                        getLabelByCategory(widget.lesson.category),
                         const SizedBox(height: 10.0),
                         CustomText.bitter700(
-                          lesson.title,
+                          widget.lesson.title,
                           style: context.textTheme.bodySmall,
                         ),
                         const SizedBox(height: 10.0),
@@ -89,41 +94,43 @@ class NextLesson extends StatelessWidget {
                             AppIcons.clock,
                             const SizedBox(width: 6.0),
                             CustomText.w600(
-                              formatDuration(lesson.duration),
+                              formatDuration(widget.lesson.duration),
                               style: context.textTheme.bodySmall,
                             )
                           ],
                         ),
                         const SizedBox(height: 10.0),
-                        state.data.loadingCounterCalculation
-                            ? const Loader()
-                            : isLocked || isBlocked
-                                ? Row(
-                                    children: [
-                                      LessonState.locked(),
-                                      const SizedBox(width: 4.0),
-                                      if (!isBlocked)
-                                        CustomText.w700(LocalizedTexts.locked, style: context.textTheme.bodySmall),
-                                      if (isBlocked)
-                                        Expanded(
-                                          child: Wrap(
-                                            children: [
-                                              CustomText.w600(
-                                                '${LocalizedTexts.availableIn.translation}: ',
-                                                style: context.textTheme.bodySmall,
-                                              ),
-                                              EducationCountDown(seconds: lessonWithCountdown.timeRemaining),
-                                            ],
-                                          ),
-                                        )
-                                    ],
-                                  )
-                                : !isLocked && !isBlocked
-                                    ? CustomOutlinedButton.coralSmall(
-                                        label: LocalizedTexts.start.tr(),
-                                        onPressed: isBlocked ? null : () => _onTapHandler(context),
+                        state.maybeMap(
+                          initial: (_) => const Loader(),
+                          loading: (_) => const Loader(),
+                          orElse: () => isLocked || isBlocked
+                              ? Row(
+                                  children: [
+                                    LessonState.locked(),
+                                    const SizedBox(width: 4.0),
+                                    if (!isBlocked)
+                                      CustomText.w700(LocalizedTexts.locked, style: context.textTheme.bodySmall),
+                                    if (isBlocked)
+                                      Expanded(
+                                        child: Wrap(
+                                          children: [
+                                            CustomText.w600(
+                                              '${LocalizedTexts.availableIn.translation}: ',
+                                              style: context.textTheme.bodySmall,
+                                            ),
+                                            EducationCountDown(seconds: lessonWithCountdown.timeRemaining),
+                                          ],
+                                        ),
                                       )
-                                    : const SizedBox.shrink(),
+                                  ],
+                                )
+                              : !isLocked && !isBlocked
+                                  ? CustomOutlinedButton.coralSmall(
+                                      label: LocalizedTexts.start.tr(),
+                                      onPressed: isBlocked ? null : () => _onTapHandler(context),
+                                    )
+                                  : const SizedBox.shrink(),
+                        ),
                       ],
                     ),
                   ),
@@ -139,11 +146,11 @@ class NextLesson extends StatelessWidget {
   _onTapHandler(BuildContext context) {
     context.read<EducationLessonBloc>().add(
           EducationLessonEvent.getLessonContent(
-            lessonId: lesson.id,
+            lessonId: widget.lesson.id,
             pageIndex: 0,
           ),
         );
 
-    context.router.pushNamed('/lesson/${lesson.id}/page/0');
+    context.router.pushNamed('/lesson/${widget.lesson.id}/page/0');
   }
 }
