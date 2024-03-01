@@ -8,22 +8,22 @@ PODS:
     - CustomerIO/MessagingInApp (~> 2)
     - CustomerIO/Tracking (~> 2)
     - Flutter
-  - CustomerIO/MessagingInApp (2.12.1):
-    - CustomerIOMessagingInApp (= 2.12.1)
-  - CustomerIO/MessagingPushFCM (2.12.1):
-    - CustomerIOMessagingPushFCM (= 2.12.1)
-  - CustomerIO/Tracking (2.12.1):
-    - CustomerIOTracking (= 2.12.1)
-  - CustomerIOCommon (2.12.1)
-  - CustomerIOMessagingInApp (2.12.1):
-    - CustomerIOTracking (= 2.12.1)
-  - CustomerIOMessagingPush (2.12.1):
-    - CustomerIOTracking (= 2.12.1)
-  - CustomerIOMessagingPushFCM (2.12.1):
-    - CustomerIOMessagingPush (= 2.12.1)
+  - CustomerIO/MessagingInApp (2.12.2):
+    - CustomerIOMessagingInApp (= 2.12.2)
+  - CustomerIO/MessagingPushFCM (2.12.2):
+    - CustomerIOMessagingPushFCM (= 2.12.2)
+  - CustomerIO/Tracking (2.12.2):
+    - CustomerIOTracking (= 2.12.2)
+  - CustomerIOCommon (2.12.2)
+  - CustomerIOMessagingInApp (2.12.2):
+    - CustomerIOTracking (= 2.12.2)
+  - CustomerIOMessagingPush (2.12.2):
+    - CustomerIOTracking (= 2.12.2)
+  - CustomerIOMessagingPushFCM (2.12.2):
+    - CustomerIOMessagingPush (= 2.12.2)
     - FirebaseMessaging (< 11, >= 8.7.0)
-  - CustomerIOTracking (2.12.1):
-    - CustomerIOCommon (= 2.12.1)
+  - CustomerIOTracking (2.12.2):
+    - CustomerIOCommon (= 2.12.2)
   - device_info_plus (0.0.1):
     - Flutter
   - Firebase/Analytics (10.12.0):
@@ -250,7 +250,7 @@ DEPENDENCIES:
   - audio_session (from `.symlinks/plugins/audio_session/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - customer_io (from `.symlinks/plugins/customer_io/ios`)
-  - CustomerIO/MessagingPushFCM (~> 2.12.1)
+  - CustomerIO/MessagingPushFCM (~> 2.12.2)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
@@ -373,12 +373,12 @@ SPEC CHECKSUMS:
   audio_session: 4f3e461722055d21515cf3261b64c973c062f345
   connectivity_plus: bf0076dd84a130856aa636df1c71ccaff908fa1d
   customer_io: 01b3a765e7273ed5990481be212dcfd7dc79fae7
-  CustomerIO: 89249909bce5f1ecba43721bda800dea79341085
-  CustomerIOCommon: 8e3a003b3daf5096d56f193140a0eadf1fdce2b4
-  CustomerIOMessagingInApp: b160de4b0bed0a5b511ee20830acc695512d09af
-  CustomerIOMessagingPush: c49222a62f9885c18a6779fe50458ad54d8d7cd5
-  CustomerIOMessagingPushFCM: 5883d85134abe0eba91cb213cd6a673fe7f21680
-  CustomerIOTracking: d062619ac968b5b2c2d413d1c8586e25747e161f
+  CustomerIO: f33dc74e27cf2463adeeec7050f43923d4813a0e
+  CustomerIOCommon: 05e7cecb7e668b495d932020bc89e0eef833cb10
+  CustomerIOMessagingInApp: 0737b9bb5fbbfc29d2d6bdd50803405d01b87563
+  CustomerIOMessagingPush: d5d97ecf1c608954e4475033e573a3ffc3d7af52
+  CustomerIOMessagingPushFCM: e25b1767a67f460b833ea6c37586d4362ae720bf
+  CustomerIOTracking: 9ad6f4ab65df9ee08f8cfd593abe85da966f04c9
   device_info_plus: e5c5da33f982a436e103237c0c85f9031142abed
   Firebase: 07150e75d142fb9399f6777fa56a187b17f833a0
   firebase_analytics: 74df36ac5dc28b0bfd80ed54a2319be6b55f773f
@@ -398,7 +398,7 @@ SPEC CHECKSUMS:
   FirebaseRemoteConfig: bbd42790a4e84fde6aab7eae810b608e7b5c0bf6
   FirebaseSessions: f90fe9212ee2818641eda051c0835c9c4e30d9ae
   FirebaseSharedSwift: 62e248642c0582324d0390706cadd314687c116b
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_zoom_videosdk: 6cfe5ed4a015adaf8c2bc57e50261914f1ddd38b
   fluttertoast: fafc4fa4d01a6a9e4f772ecd190ffa525e9e2d9c
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
@@ -430,6 +430,6 @@ SPEC CHECKSUMS:
   webview_flutter_wkwebview: 2e2d318f21a5e036e2c3f26171342e95908bd60a
   ZoomVideoSDK: 3b25f88d6278249cd6c291b513dab8e8faf3c4b5
 
-PODFILE CHECKSUM: 7e17af7951140443ad98ebc0134520387354fc01
+PODFILE CHECKSUM: 3fb20ea0957f6f89992880b7704de6940eeab78d
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.12.1

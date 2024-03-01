@@ -6,7 +6,6 @@ import 'package:customer_io/customer_io_enums.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:loopcare_frontend/core/application/firebase/mesaging/firebase_messaging.dart';
-import 'package:loopcare_frontend/injection.dart';
 
 class CustomerIoService {
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
@@ -34,6 +33,7 @@ class CustomerIoService {
         'name': name,
         'id': id,
         'created_at': _timestamp,
+        'system_locale': Platform.localeName,
       },
     );
 
@@ -54,13 +54,13 @@ class CustomerIoService {
       attributes: {
         'id': id,
         'name': name,
-        'last_auth': _timestamp,
+        'system_locale': Platform.localeName,
       },
     );
 
     await _setDevice();
 
-    CustomerIO.track(name: 'authentication');
+    CustomerIO.track(name: 'authentication', attributes: {'last_auth': _timestamp,});
   }
 
   static void track({
@@ -73,7 +73,6 @@ class CustomerIoService {
       'operating_system': 'Android',
       'os_version': '${data.version.release} (SDK ${data.version.sdkInt})',
       'device': data.model,
-      'system_locale': Platform.localeName,
       'display_size': data.displayMetrics,
       'fingerprint': data.fingerprint,
       'hardware': data.hardware,
@@ -85,7 +84,6 @@ class CustomerIoService {
       'operating_system': 'iOS',
       'os_version': data.systemVersion,
       'device': data.model,
-      'system_locale': Platform.localeName,
     };
   }
 
@@ -97,7 +95,7 @@ class CustomerIoService {
       deviceData = _iosDeviceInfo(await deviceInfoPlugin.iosInfo);
     }
 
-    final deviceToken = await getIt<FirebaseMessagingService>().getToken();
+    final deviceToken = await FirebaseMessagingService().getToken();
 
     if (deviceToken != null) {
       CustomerIO.registerDeviceToken(deviceToken: deviceToken);
