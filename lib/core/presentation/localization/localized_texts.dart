@@ -527,7 +527,8 @@ class LocalizedTexts {
   static const String googleMarket = "googleMarket";
   static const String cancelAccountSubscription = "cancelAccountSubscription";
   static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
-  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription =
+      "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";
@@ -862,6 +863,19 @@ class LocalizedTexts {
   static const String unlockFeatureDescription = 'unlockFeatureDescription';
   static const String lessonCompleteDescription = 'lessonCompleteDescription';
   static const String assignmentCompleted = 'assignmentCompleted';
+  static const String consultYourTherapist = 'consultYourTherapist';
+  static const String consultYourTherapistBody1 = 'consultYourTherapistBody1';
+  static const String consultYourTherapistBody2 = 'consultYourTherapistBody2';
+  static const String consultYourTherapistBody3 = 'consultYourTherapistBody3';
+  static const String consultYourTherapistBody4 = 'consultYourTherapistBody4';
+  static const String completeLesson = 'completeLesson';
+  static const String didYouCheckWithSpecialist = 'didYouCheckWithSpecialist';
+  static const String iConsultedTherapist = 'iConsultedTherapist';
+  static const String needSubscrionScreenTitle = 'needSubscrionScreenTitle';
+  static const String needSubscrionScreenBody1 = 'needSubscrionScreenBody1';
+  static const String needSubscrionScreenBody2 = 'needSubscrionScreenBody2';
+  static const String needSubscrionScreenBody3 = 'needSubscrionScreenBody3';
+  static const String needSubscrionScreenBody4 = 'needSubscrionScreenBody4';
 
   // Group session
   static const String groupSession = 'groupSession';

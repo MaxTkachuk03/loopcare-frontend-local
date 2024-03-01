@@ -54,6 +54,10 @@ class _LessonPageState extends State<LessonPage> {
 
       if (extraAction == ExtraActionTypes.setupGroupingPreferences &&
           !unlockedFeatures.contains(UnlockedFeatureType.grouping)) {
+        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.grouping);
+
+        AnalyticsEventService.instance.logEvent(FirebaseEvents.unlockedSupportGroupFeature);
+
         context
           ..read<GroupPreferencesBloc>()
               .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupingLesson))

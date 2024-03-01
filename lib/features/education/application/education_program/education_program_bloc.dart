@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -17,82 +18,61 @@ part 'education_program_state.dart';
 class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramState> {
   final EducationService _educationService;
 
-  EducationProgramBloc(this._educationService)
-      : super(const EducationProgramState.initial(EducationProgramData())) {
+  EducationProgramBloc(this._educationService) : super(const EducationProgramState.initial(EducationProgramData())) {
     on<_GetLessons>(_onGetLessons);
     on<_ResetLessonWithCountdown>(_onResetLessonWithCountdown);
-    on<_SetLessonWithCountdown>(_onSetLessonWithCountdown);
   }
 
   Future<void> _onGetLessons(_GetLessons event, Emitter<EducationProgramState> emit) async {
     emit(EducationProgramState.loading(state.data.copyWith(isLoading: true, error: null)));
-
     final response = await _educationService.getLessons();
-
+    final currentNtpDate = await TimeService.now;
     response.fold(
       (l) => emit(EducationProgramState.error(state.data.copyWith(isLoading: false, error: l))),
       (r) {
+        final lessonWithCountdown = _onCalculateCountdown(currentNtpDate, r.lessons);
         emit(EducationProgramState.educationProgram(
-            state.data.copyWith(isLoading: false, lessons: r.lessons)));
+            state.data.copyWith(isLoading: false, lessons: r.lessons, lessonWithCountdown: lessonWithCountdown)));
+        emit(EducationProgramState.loaded(state.data.copyWith(isLoading: true, error: null)));
       },
     );
   }
 
-  Future<void> _onSetLessonWithCountdown(
-      _SetLessonWithCountdown event, Emitter<EducationProgramState> emit) async {
-    final lastCompletedLesson = state.data.lessons.lastWhereOrNull((element) => element.completedAt != null);
-
+  LessonWithCountdown? _onCalculateCountdown(DateTime currentNtpDate, List<EducationLesson> lessons) {
+    final lastCompletedLesson = lessons.lastWhereOrNull((element) => element.completedAt != null);
     if (lastCompletedLesson == null) {
-      emit(EducationProgramState.educationProgram(state.data.copyWith(lessonWithCountdown: null)));
-      return;
+      return null;
     }
 
     final currentActiveStep = lastCompletedLesson.step;
 
     if (currentActiveStep == null) {
-      emit(EducationProgramState.educationProgram(state.data.copyWith(lessonWithCountdown: null)));
-      return;
+      return null;
     }
 
-    final lessonsWithSameStep = state.data.lessons.where((l) => l.step == currentActiveStep);
+    final lessonsWithSameStep = lessons.where((l) => l.step == currentActiveStep);
 
     final startDate = lessonsWithSameStep.first.completedAt?.toLocal();
-
     if (startDate == null) {
-      emit(EducationProgramState.educationProgram(state.data.copyWith(lessonWithCountdown: null)));
-      return;
+      return null;
     }
 
-    final lessonWithCountdown =
-        state.data.lessons.firstWhereOrNull((element) => element.step == currentActiveStep + 1);
-
+    final lessonWithCountdown = lessons.firstWhereOrNull((element) => element.step == currentActiveStep + 1);
     if (lessonWithCountdown == null) {
-      emit(EducationProgramState.educationProgram(state.data.copyWith(lessonWithCountdown: null)));
-      return;
+      return null;
     }
 
     final nextStepUnlockDelayInHours = lessonsWithSameStep.last.nextStepUnlockDelay;
 
-    final currentNtpDate = await TimeService.now;
-
     final timeRemaining =
         startDate.add(Duration(hours: nextStepUnlockDelayInHours)).difference(currentNtpDate).inSeconds;
-
     if (timeRemaining <= 0) {
-      emit(EducationProgramState.educationProgram(state.data.copyWith(lessonWithCountdown: null)));
-      return;
+      return null;
     }
-
-    emit(
-      EducationProgramState.educationProgram(
-        state.data.copyWith(
-          lessonWithCountdown: LessonWithCountdown(timeRemaining: timeRemaining, lesson: lessonWithCountdown),
-        ),
-      ),
-    );
+    return LessonWithCountdown(timeRemaining: timeRemaining, lesson: lessonWithCountdown);
   }
 
   FutureOr<void> _onResetLessonWithCountdown(event, Emitter<EducationProgramState> emit) async {
-    emit(EducationProgramState.educationProgram(state.data.copyWith(lessonWithCountdown: null)));
+    emit(EducationProgramState.educationProgram(state.data.copyWith(isLoading: false, lessonWithCountdown: null)));
   }
 }

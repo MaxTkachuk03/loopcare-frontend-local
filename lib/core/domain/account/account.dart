@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
@@ -40,6 +41,7 @@ abstract class Account implements _$Account {
     @Default([]) List<FoodPreference>? foodPreferencesAllergic,
     @Default([]) List<UnlockedFeatureType> unlockedFeatures,
     PhysicalActivitiesPreferences? physicalActivitiesPreferences,
+    MedicalOnboarding? medicalOnboarding,
     @Default(null) MentalHealthTests? mentalHealthTests,
     @Default(null) DateTime? emailApproveDate,
   }) = _Account;
