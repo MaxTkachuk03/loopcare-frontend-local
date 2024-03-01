@@ -19,30 +19,19 @@ import 'package:loopcare_frontend/features/education/presentation/education_page
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/lesson_state.dart';
 import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 
-class NextLesson extends StatefulWidget {
+class NextLesson extends StatelessWidget {
   final EducationLesson lesson;
 
   const NextLesson({super.key, required this.lesson});
 
   @override
-  State<NextLesson> createState() => _NextLessonState();
-}
-
-class _NextLessonState extends State<NextLesson> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return BlocConsumer<EducationProgramBloc, EducationProgramState>(
+    return BlocBuilder<EducationProgramBloc, EducationProgramState>(
       buildWhen: (prev, cur) => cur is EducationProgramStateLoaded,
-      listener: (_, __) {},
       builder: (context, state) {
         final lessonWithCountdown = state.data.lessonWithCountdown;
-        final isBlocked = lessonWithCountdown != null && widget.lesson.id == lessonWithCountdown.lesson.id;
-        final isLocked = widget.lesson.isLocked;
+        final isBlocked = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
+        final isLocked = lesson.isLocked;
 
         return GestureDetector(
           onTap: isBlocked ? null : () => _onTapHandler(context),
@@ -67,7 +56,7 @@ class _NextLessonState extends State<NextLesson> {
                     child: SizedBox(
                       width: 130.0,
                       height: 200,
-                      child: NetworkImageWithCache(url: widget.lesson.cardImage),
+                      child: NetworkImageWithCache(url: lesson.cardImage),
                     ),
                   ),
                 ),
@@ -82,10 +71,10 @@ class _NextLessonState extends State<NextLesson> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 10.0),
-                        getLabelByCategory(widget.lesson.category),
+                        getLabelByCategory(lesson.category),
                         const SizedBox(height: 10.0),
                         CustomText.bitter700(
-                          widget.lesson.title,
+                          lesson.title,
                           style: context.textTheme.bodySmall,
                         ),
                         const SizedBox(height: 10.0),
@@ -94,43 +83,39 @@ class _NextLessonState extends State<NextLesson> {
                             AppIcons.clock,
                             const SizedBox(width: 6.0),
                             CustomText.w600(
-                              formatDuration(widget.lesson.duration),
+                              formatDuration(lesson.duration),
                               style: context.textTheme.bodySmall,
                             )
                           ],
                         ),
                         const SizedBox(height: 10.0),
                         state.maybeMap(
-                          initial: (_) => const Loader(),
-                          loading: (_) => const Loader(),
-                          orElse: () => isLocked || isBlocked
-                              ? Row(
-                                  children: [
-                                    LessonState.locked(),
-                                    const SizedBox(width: 4.0),
-                                    if (!isBlocked)
-                                      CustomText.w700(LocalizedTexts.locked, style: context.textTheme.bodySmall),
-                                    if (isBlocked)
-                                      Expanded(
-                                        child: Wrap(
-                                          children: [
-                                            CustomText.w600(
-                                              '${LocalizedTexts.availableIn.translation}: ',
-                                              style: context.textTheme.bodySmall,
-                                            ),
-                                            EducationCountDown(seconds: lessonWithCountdown.timeRemaining),
-                                          ],
-                                        ),
-                                      )
-                                  ],
-                                )
-                              : !isLocked && !isBlocked
-                                  ? CustomOutlinedButton.coralSmall(
-                                      label: LocalizedTexts.start.tr(),
-                                      onPressed: isBlocked ? null : () => _onTapHandler(context),
-                                    )
-                                  : const SizedBox.shrink(),
-                        ),
+                            initial: (_) => const Loader(),
+                            loading: (_) => const Loader(),
+                            orElse: () => !isLocked && !isBlocked
+                                ? CustomOutlinedButton.coralSmall(
+                                    label: LocalizedTexts.start.tr(),
+                                    onPressed: isBlocked ? null : () => _onTapHandler(context),
+                                  )
+                                : Row(
+                                    children: [
+                                      LessonState.locked(),
+                                      const SizedBox(width: 4.0),
+                                      isBlocked
+                                          ? Expanded(
+                                              child: Wrap(
+                                                children: [
+                                                  CustomText.w600(
+                                                    '${LocalizedTexts.availableIn.translation}: ',
+                                                    style: context.textTheme.bodySmall,
+                                                  ),
+                                                  EducationCountDown(seconds: lessonWithCountdown.timeRemaining),
+                                                ],
+                                              ),
+                                            )
+                                          : CustomText.w700(LocalizedTexts.locked, style: context.textTheme.bodySmall),
+                                    ],
+                                  )),
                       ],
                     ),
                   ),
@@ -146,11 +131,11 @@ class _NextLessonState extends State<NextLesson> {
   _onTapHandler(BuildContext context) {
     context.read<EducationLessonBloc>().add(
           EducationLessonEvent.getLessonContent(
-            lessonId: widget.lesson.id,
+            lessonId: lesson.id,
             pageIndex: 0,
           ),
         );
 
-    context.router.pushNamed('/lesson/${widget.lesson.id}/page/0');
+    context.router.pushNamed('/lesson/${lesson.id}/page/0');
   }
 }
