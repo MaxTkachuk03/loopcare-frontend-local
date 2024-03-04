@@ -71,7 +71,9 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
   bool get _isTreatedByPsychiatrist => context.read<AuthenticationCubit>().state.isTreatedByPsychiatrist;
 
   String _subText(EducationLessonState state) {
-    if (_isTreatedByPsychiatrist) {
+    if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
+        !_isGroupSessionsDisabled &&
+        _isTreatedByPsychiatrist) {
       return LocalizedTexts.treatedByTherapistLessonComplete.tr();
     }
 
