@@ -51,7 +51,7 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
       ),
       builder: (context, state) {
         return CustomScaffold.blue(
-          needBottomFacture: true,
+          withBg: true,
           appBar: CustomAppBar.blue(
             leading: CustomFilledIconButton.leadingBlueLighter(),
             title: LocalizedTexts.manageSubscription.tr(),
