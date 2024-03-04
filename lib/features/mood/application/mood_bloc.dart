@@ -32,7 +32,8 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
 
     response.fold(
       (l) => emit(MoodState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(MoodState.updated(state.data.copyWith(moods: _combineMoodsByDate(null, r.data), isLoading: false))),
+      (r) => emit(
+          MoodState.updated(state.data.copyWith(moods: _combineMoodsByDate(null, r.data), isLoading: false))),
     );
   }
 
@@ -69,8 +70,8 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
 
     response.fold(
       (l) => emit(MoodState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(
-          MoodState.updated(state.data.copyWith(moods: _combineMoodsByDate(state.data.moods, [r]), isLoading: false))),
+      (r) => emit(MoodState.updated(
+          state.data.copyWith(moods: _combineMoodsByDate(state.data.moods, [r]), isLoading: false))),
     );
   }
 
@@ -91,8 +92,8 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
     emit(MoodState.loading(state.data.copyWith(isLoading: true)));
 
     final response = await _moodService.getMoods(
-      startDate: event.date.toUtc().toIso8601String(),
-      endDate: event.date.toUtc().toIso8601String(),
+      startDate: event.date.beginDay.toIso8601String(),
+      endDate: event.date.beginDay.toIso8601String(),
     );
 
     response.fold(
