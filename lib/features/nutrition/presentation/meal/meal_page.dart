@@ -42,6 +42,20 @@ class _MealPageState extends State<MealPage> {
   static const double _defaultNumberOfUnitsForDish = 1.0;
   DateTime currentDate = DateTime.now();
 
+  @override
+  void initState() {
+    super.initState();
+    final mealState = context.read<MealsBloc>().state;
+    // FIXME very bad solution, need to change mealState.currentMealCategory type in the model to the enum value, could broke a lot of, thats why using temporary solution now
+    final mealCategory =
+        mealState.currentMealCategory == 'inbetweens & snacks' ? 'snack' : mealState.currentMealCategory;
+    if (mealCategory != null) {
+      context.read<RecipeBloc>().add(RecipeEvent.getRecommendations(mealCategory));
+    }
+    final state = context.read<MealsBloc>().state;
+    currentDate = state.getCurrentDate;
+  }
+
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
@@ -224,18 +238,6 @@ class _MealPageState extends State<MealPage> {
     _onBackToDashboardPressed(context);
 
     return Future.value(true);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    final mealState = context.read<MealsBloc>().state;
-    final mealCategory = mealState.currentMealCategory;
-    if (mealCategory != null) {
-      context.read<RecipeBloc>().add(RecipeEvent.getRecommendations(mealCategory));
-    }
-    final state = context.read<MealsBloc>().state;
-    currentDate = state.getCurrentDate;
   }
 
   @override
