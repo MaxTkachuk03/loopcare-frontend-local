@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -14,7 +14,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+// import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
 
 class ConsultDoctorPage extends StatefulWidget {
@@ -30,11 +30,14 @@ class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
   bool _isConsulted = false;
 
   _onCompleteHandler(Function action) {
-    if (!context.read<AuthenticationCubit>().state.hasSubscription) {
-      context.router.push(NeedPaidSubscriptionRoute(mode: widget.mode));
-    } else {
-      action();
-    }
+    action();
+
+    // TODO removed for now 04.03.2024 need to check all requirement after
+    // if (!context.read<AuthenticationCubit>().state.hasSubscription) {
+    //   context.router.push(NeedPaidSubscriptionRoute(mode: widget.mode));
+    // } else {
+    //   action();
+    // }
   }
 
   void _onCompleteLessonHandler() => widget.mode.map(
@@ -102,7 +105,7 @@ class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
         ),
         userProfile: (_) => CustomScaffold.blueLightest(
           appBar: CustomAppBar.blue(
-            title: LocalizedTexts.preferences.tr(),
+            title: LocalizedTexts.supportGroupPreferences.tr(),
             leading: CustomFilledIconButton.leadingBlueLighter(),
           ),
           body: body,

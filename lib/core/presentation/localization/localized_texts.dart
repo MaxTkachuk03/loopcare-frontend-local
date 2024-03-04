@@ -871,6 +871,7 @@ class LocalizedTexts {
   static const String completeLesson = 'completeLesson';
   static const String didYouCheckWithSpecialist = 'didYouCheckWithSpecialist';
   static const String iConsultedTherapist = 'iConsultedTherapist';
+  static const String treatedByTherapistLessonComplete = 'treatedByTherapistLessonComplete';
   static const String needSubscrionScreenTitle = 'needSubscrionScreenTitle';
   static const String needSubscrionScreenBody1 = 'needSubscrionScreenBody1';
   static const String needSubscrionScreenBody2 = 'needSubscrionScreenBody2';

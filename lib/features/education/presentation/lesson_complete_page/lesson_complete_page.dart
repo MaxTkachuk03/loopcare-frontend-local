@@ -68,7 +68,13 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
   bool get _isGroupSessionsDisabled => context.read<AuthenticationCubit>().state.disableGroupSessions;
 
+  bool get _isTreatedByPsychiatrist => context.read<AuthenticationCubit>().state.isTreatedByPsychiatrist;
+
   String _subText(EducationLessonState state) {
+    if (_isTreatedByPsychiatrist) {
+      return LocalizedTexts.treatedByTherapistLessonComplete.tr();
+    }
+
     if (state.data.extraAction == ExtraActionTypes.unlockMeals ||
         (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences && !_isGroupSessionsDisabled)) {
       return LocalizedTexts.unlockFeatureDescription.tr();
@@ -169,7 +175,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                           }
 
                           if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
-                              !_isGroupSessionsDisabled) {
+                              !_isGroupSessionsDisabled &&
+                              !_isTreatedByPsychiatrist) {
                             return const UnlockGroupSessionFeature();
                           }
 
