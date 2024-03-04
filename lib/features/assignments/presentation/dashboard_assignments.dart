@@ -62,7 +62,6 @@ class DashboardAssignments extends StatelessWidget {
                   final error = errorState.data.error;
 
                   return ErrorScreen(
-                    smallVersion: true,
                     error: error!,
                     onButtonPressed: () => context.read<AssignmentsBloc>().add(
                           AssignmentsEvent.getAllLessonQuestions(

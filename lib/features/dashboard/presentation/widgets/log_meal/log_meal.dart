@@ -83,7 +83,6 @@ class LogMeal extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
                 child: ErrorScreen(
-                  smallVersion: true,
                   error: error,
                   onButtonPressed: () => context.read<MealsBloc>().add(const MealsEvent.fetchMeals()),
                 ),
@@ -145,8 +144,9 @@ class LogMeal extends StatelessWidget {
                                       const SizedBox(width: 4.0),
                                       if (mealsState.filledCategories.isNotEmpty)
                                         CustomOutlinedRoundedButtonWithIcon(
-                                          onPressed:
-                                              mealsState.isEnableOnDashboard ? () => onPressHandler(context) : null,
+                                          onPressed: mealsState.isEnableOnDashboard
+                                              ? () => onPressHandler(context)
+                                              : null,
                                           icon: AppIcons.edit,
                                         )
                                     ],
@@ -165,7 +165,8 @@ class LogMeal extends StatelessWidget {
                             CalorieNutritionBlock(
                               proteinDegree: mealsState.selectedDayMealProteinDegreeSum,
                               calorieDensity: mealsState.selectedDayMealCalorieDensitySum,
-                              subtitle: context.read<MealsBloc>().state.getCurrentDate.americanShortDateWithYear,
+                              subtitle:
+                                  context.read<MealsBloc>().state.getCurrentDate.americanShortDateWithYear,
                             ),
                           ],
                         )

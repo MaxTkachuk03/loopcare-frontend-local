@@ -33,7 +33,6 @@ class Grouped extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
               child: ErrorScreen(
-                smallVersion: true,
                 error: error!,
                 onButtonPressed: () => context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics()),
               ),

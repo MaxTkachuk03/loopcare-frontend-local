@@ -67,7 +67,6 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
 
                 return Center(
                   child: ErrorScreen(
-                    smallVersion: false,
                     error: error,
                     onButtonPressed: () => context
                         .read<SelectFoodBloc>()
