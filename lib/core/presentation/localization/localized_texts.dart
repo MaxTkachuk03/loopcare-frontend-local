@@ -525,8 +525,7 @@ class LocalizedTexts {
   static const String appStore = "appStore";
   static const String googleMarket = "googleMarket";
   static const String cancelAccountSubscription = "cancelAccountSubscription";
-  static const String otherPurchaseVendorCancelAccountSubscription =
-      "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";
@@ -879,6 +878,8 @@ class LocalizedTexts {
   static const String buddyUnlockedBody = 'buddyUnlockedBody';
   static const String goToBuddyPreferences = 'goToBuddyPreferences';
   static const String buddyIntroTitle = 'buddyIntroTitle';
+  static const String buddyDescriptionTitle = 'buddyDescriptionTitle';
+  static const String buddyDescriptionContent = 'buddyDescriptionContent';
   static const String buddyIntroBody = 'buddyIntroBody';
   static const String buddyIntroYesBtn = 'buddyIntroYesBtn';
   static const String buddyIntroNoBtn = 'buddyIntroNoBtn';

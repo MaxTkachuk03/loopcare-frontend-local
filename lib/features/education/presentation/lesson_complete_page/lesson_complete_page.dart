@@ -38,6 +38,7 @@ class LessonCompletePage extends StatefulWidget {
 
 class _LessonCompletePageState extends State<LessonCompletePage> {
   bool showedAssignment = false;
+
   @override
   void initState() {
     super.initState();
@@ -132,6 +133,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                           borderRadius: BorderRadius.all(Radius.circular(16)),
                         ),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             BlocBuilder<EducationLessonBloc, EducationLessonState>(
                               builder: (context, state) {
@@ -152,7 +154,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                                       style: context.textTheme.displayLarge,
                                     ),
                                     const SizedBox(height: 10.0),
-                                    CustomText.w400(_subText(state), style: context.textTheme.bodyMedium),
+                                    if (state.data.extraAction != ExtraActionTypes.unlockBuddy)
+                                      CustomText.w400(_subText(state), style: context.textTheme.bodyMedium),
                                   ],
                                 );
                               },

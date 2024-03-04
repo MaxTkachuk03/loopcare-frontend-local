@@ -50,7 +50,6 @@ class BuddyIntroPage extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 18.0),
-                    // TODO waiting for content
                     CustomText.w400(
                       '${LocalizedTexts.buddyIntroBody.tr()}.',
                       style: context.textTheme.bodyMedium,

@@ -35,12 +35,17 @@ class BuddyDescriptionPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 32.0),
-                    // TODO waiting for content
-                    CustomText.bitter600(
-                      LocalizedTexts.buddyIntroTitle.tr(),
-                      style: context.textTheme.displayLarge,
+                    CustomText.bitter500(
+                      LocalizedTexts.buddyDescriptionTitle.tr(),
+                      style: context.textTheme.displayMedium,
                       textAlign: TextAlign.center,
                     ),
+                    const SizedBox(height: 6.0),
+                    CustomText.w400(
+                      '${LocalizedTexts.buddyDescriptionContent.tr()}.',
+                      style: context.textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: 6.0),
                   ],
                 ),
                 Column(

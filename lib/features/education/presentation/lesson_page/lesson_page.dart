@@ -6,7 +6,6 @@ import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
-
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -51,8 +50,7 @@ class _LessonPageState extends State<LessonPage> {
       final lessonBlocData = lessonBloc.state.data;
       final unlockedFeatures = context.read<AuthenticationCubit>().state.unlockedFeatures;
 
-      if (lessonBlocData.isGroupPreferencesUnlocked &&
-          !unlockedFeatures.contains(UnlockedFeatureType.grouping)) {
+      if (lessonBlocData.isGroupPreferencesUnlocked && !unlockedFeatures.contains(UnlockedFeatureType.grouping)) {
         context
           ..read<GroupPreferencesBloc>()
               .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupingLesson))
@@ -78,8 +76,8 @@ class _LessonPageState extends State<LessonPage> {
       if (lessonBlocData.isAssignmentsUnlocked) {
         context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.assignments);
       }
-
-      if (lessonBlocData.isBuddyUnlocked && !unlockedFeatures.contains(UnlockedFeatureType.buddy)) {
+//Todo && !unlockedFeatures.contains(UnlockedFeatureType.buddy)
+      if (lessonBlocData.isBuddyUnlocked) {
         context
           ..read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.buddy)
           ..router.pushNamed(AppRoutes.buddyIntro);
@@ -87,8 +85,7 @@ class _LessonPageState extends State<LessonPage> {
         return;
       }
 
-      if (lessonBlocData.questions.isEmpty ||
-          lessonBlocData.questions.first.type != LessonQuestionType.quiz) {
+      if (lessonBlocData.questions.isEmpty || lessonBlocData.questions.first.type != LessonQuestionType.quiz) {
         context.router.pushNamed(AppRoutes.lessonComplete);
       } else {
         context.router.push(QuizzesIntroRoute(lessonId: widget.lessonId));
@@ -181,8 +178,9 @@ class _LessonPageState extends State<LessonPage> {
                     state.data.currentPage.type == EducationLessonPageType.audio &&
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {
-                  context.read<EducationLessonBloc>().add(EducationLessonEvent.downloadSubtitlesFile(
-                      state.data.currentPage.content.subtitlesImages!));
+                  context
+                      .read<EducationLessonBloc>()
+                      .add(EducationLessonEvent.downloadSubtitlesFile(state.data.currentPage.content.subtitlesImages!));
                 }
                 return LessonAudioBody(
                   onNextPressed: _onNextPressed,
@@ -225,8 +223,7 @@ class _LessonPageState extends State<LessonPage> {
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadSubtitlesFile(
-                            state.data.currentPage.content.subtitlesImages!),
+                        EducationLessonEvent.downloadSubtitlesFile(state.data.currentPage.content.subtitlesImages!),
                       );
                 }
                 return LessonAudioBody(
@@ -262,8 +259,7 @@ class _LessonPageState extends State<LessonPage> {
                     state.data.currentPage.content.subtitlesImages != null &&
                     state.data.currentPage.content.subtitleFilePath.isEmpty) {
                   context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadSubtitlesFile(
-                            state.data.currentPage.content.subtitlesImages!),
+                        EducationLessonEvent.downloadSubtitlesFile(state.data.currentPage.content.subtitlesImages!),
                       );
                 }
                 return LessonAudioBody(
