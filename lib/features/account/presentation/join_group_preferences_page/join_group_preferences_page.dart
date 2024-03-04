@@ -64,10 +64,11 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
         return;
       }
 
-      if (!context.read<AuthenticationCubit>().state.hasSubscription) {
-        context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.userProfile()));
-        return;
-      }
+      // TODO removed for now 04.03.2024 need to check all requirement after
+      // if (!context.read<AuthenticationCubit>().state.hasSubscription) {
+      //   context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.userProfile()));
+      //   return;
+      // }
 
       context.router.push(GenderPreferencesRoute(fromLessonComplete: widget.fromLessonComplete));
     }
