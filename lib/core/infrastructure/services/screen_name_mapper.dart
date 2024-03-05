@@ -107,5 +107,12 @@ final screenNames = {
   'GroupChatRoute': 'Group Chat Screen', // added
   'GroupUsersRoute': 'Group Users Screen', // added
   'SubscriptionRoute': 'Subscription Screen',
-  'ManageSubscriptionRoute': 'Manage Subscription Screen'
+  'ManageSubscriptionRoute': 'Manage Subscription Screen',
+  'BuddyIntroRoute': 'Buddy Intro Screen',
+  'BuddyDescriptionRoute': 'Buddy Description Screen',
+  'BuddyPreferencesRoute': 'Buddy Preferences Screen',
+  'BuddyLiveTogetherRoute': 'Buddy Live Together Screen',
+  'BuddyRelationRoute': 'Buddy Relation Screen',
+  'BuddyEmailRoute': 'Buddy Email Screen',
+  'BuddyCompletedRoute': 'Buddy Completed Screen'
 };

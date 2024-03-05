@@ -155,6 +155,10 @@ class AppRoutes {
   static const String buddyIntro = '/buddy-intro';
   static const String buddyDescription = '/buddy-description';
   static const String buddyPreferences = '/buddy-preferences';
+  static const String buddyLiveTogether = '/buddy-together';
+  static const String buddyRelation = '/buddy-relation';
+  static const String buddyEmail = '/buddy-email';
+  static const String buddyCompleted = '/buddy-completed';
 
   AppRoutes._();
 }

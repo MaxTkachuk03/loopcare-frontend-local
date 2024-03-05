@@ -758,6 +758,7 @@ class LocalizedTexts {
   static const String phq8ResultMedium = "phq8ResultMedium";
   static const String phq8ResultHigh = "phq8ResultHigh";
   static const String phq8ResultHighest = "phq8ResultHighest";
+
   // Mental final results
   static const String phq8FinalResultHigh1 = "phq8FinalResultHigh1";
   static const String phq8FinalResultHigh2 = "phq8FinalResultHigh2";
@@ -886,6 +887,18 @@ class LocalizedTexts {
   static const String buddyIntroNoBtn = 'buddyIntroNoBtn';
   static const String buddyPreferences = 'buddyPreferences';
   static const String buddyNoPreferencesState = 'buddyNoPreferencesState';
+  static const String buddyCompleted = 'buddyCompleted';
+  static const String buddyCompletedContent = 'buddyCompletedContent';
+  static const String buddyLiveTogetherTitle = 'buddyLiveTogetherTitle';
+  static const String buddyRelationTitle = 'buddyRelationTitle';
+  static const String buddyEmailTitle = 'buddyEmailTitle';
+  static const String buddyEmailLabel = 'buddyEmailLabel';
+  static const String buddyEmailHint = 'buddyEmailHint';
+  static const String buddyPartner = 'buddyPartner';
+  static const String buddyChild = 'buddyChild';
+  static const String buddyParent = 'buddyParent';
+  static const String buddyFamily = 'buddyFamily';
+  static const String buddyFriend = 'buddyFriend';
 }
 
 extension StringX on String {

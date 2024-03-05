@@ -10,11 +10,22 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/profile_buddy_no_state.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 
-class BuddyPreferencesPage extends StatelessWidget {
+class BuddyPreferencesPage extends StatefulWidget {
   const BuddyPreferencesPage({super.key});
+
+  @override
+  State<BuddyPreferencesPage> createState() => _BuddyPreferencesPageState();
+}
+
+class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
+  @override
+  void didChangeDependencies() {
+    context.read<BuddyBloc>().add(const BuddyEvent.init());
+  }
 
   @override
   Widget build(BuildContext context) {

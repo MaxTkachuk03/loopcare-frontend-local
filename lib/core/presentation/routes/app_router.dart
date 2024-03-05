@@ -6,6 +6,10 @@ import 'package:loopcare_frontend/core/presentation/theme_components_theme/theme
 import 'package:loopcare_frontend/features/access_code/access_code_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/account_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/buddy_preferences_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/presentation/buddy_completed_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/presentation/buddy_email_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/presentation/buddy_live_together_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/presentation/buddy_relation_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/edit_food_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/food_preferences_page/food_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/food_preferences_page/lesson_complete_food_preferences_page.dart';
@@ -612,14 +616,30 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.buddyIntro,
       page: BuddyIntroPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.buddyDescription,
       page: BuddyDescriptionPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.buddyPreferences,
       page: BuddyPreferencesPage,
+    ), // added
+    AutoRoute(
+      path: AppRoutes.buddyLiveTogether,
+      page: BuddyLiveTogetherPage,
+    ), // added
+    AutoRoute(
+      path: AppRoutes.buddyRelation,
+      page: BuddyRelationPage,
+    ), // added
+    AutoRoute(
+      path: AppRoutes.buddyEmail,
+      page: BuddyEmailPage,
+    ), // added
+    AutoRoute(
+      path: AppRoutes.buddyCompleted,
+      page: BuddyCompletedPage,
     ), // added
   ],
 )

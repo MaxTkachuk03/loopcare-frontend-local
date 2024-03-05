@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_update_bloc.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
@@ -164,6 +165,9 @@ class AppBlocProvider {
         ),
         BlocProvider<AppUpdateBloc>(
           create: (_) => getIt<AppUpdateBloc>(),
+        ),
+        BlocProvider<BuddyBloc>(
+          create: (_) => getIt<BuddyBloc>(),
         ),
       ];
 }
