@@ -107,6 +107,11 @@ android {
             applicationIdSuffix ".stag"
             resValue "string", "app_name", "[STAG] LeanOnMe"
         }
+        uat {
+            dimension "env"
+            applicationIdSuffix ".uat"
+            resValue "string", "app_name", "[UAT] LeanOnMe"
+        }
         prod {
             dimension "env"
             resValue "string", "app_name", "LeanOnMe"
