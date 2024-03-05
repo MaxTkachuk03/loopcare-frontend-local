@@ -11,12 +11,33 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_email_controller.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/buddy_question_wrap.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_continue_widget.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_email_widget.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_progress_bar.dart';
 
-class BuddyEmailPage extends StatelessWidget {
+class BuddyEmailPage extends StatefulWidget {
   const BuddyEmailPage({super.key});
+
+  @override
+  State<BuddyEmailPage> createState() => _BuddyEmailPageState();
+}
+
+class _BuddyEmailPageState extends State<BuddyEmailPage> {
+  late BuddyEmailController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = BuddyEmailController();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,12 +73,17 @@ class BuddyEmailPage extends StatelessWidget {
                         style: context.textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 28),
+                      BuddyEmailWidget(controller: controller),
+                      const SizedBox(height: 28),
                     ],
                   ),
-                  BlocBuilder<BuddyBloc, BuddyState>(
-                    builder: (BuildContext context, state) {
+                  ValueListenableBuilder<bool>(
+                    valueListenable: controller.enableNotifier,
+                    builder: (context, isEnable, _) {
                       return BuddyContinueWidget(
-                        enable: state.data.email != null,
+                        enable: isEnable,
+                        handler: () =>
+                            context.read<BuddyBloc>().add(BuddyEvent.email(email: controller.emailController.text)),
                       );
                     },
                   ),

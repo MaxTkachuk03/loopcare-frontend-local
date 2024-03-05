@@ -34,14 +34,11 @@ class BuddyQuestionWrap extends StatelessWidget {
   void _onNextPage(BuildContext context) {
     final bloc = context.read<BuddyBloc>();
     final nextRoute = bloc.state.data.currentQuestion.getNextQuestion().route;
-    debugPrint('devcpp PUSh _onNextPage: ${nextRoute.toString()}');
     bloc.add(const BuddyEvent.nextQuestion());
-
     context.router.push(nextRoute);
   }
 
   Future<bool> _onPreviousPage(BuildContext context) {
-    debugPrint('devcpp PUSh _onPreviousPage');
     context.read<BuddyBloc>().add(const BuddyEvent.previousQuestion());
     return Future.value(true);
   }

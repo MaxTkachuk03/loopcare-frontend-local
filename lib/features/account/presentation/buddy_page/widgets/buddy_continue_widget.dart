@@ -6,8 +6,9 @@ import 'package:loopcare_frontend/features/onboarding/presentation/step_navigati
 
 class BuddyContinueWidget extends StatefulWidget {
   final bool enable;
+  final Function()? handler;
 
-  const BuddyContinueWidget({super.key, required this.enable});
+  const BuddyContinueWidget({super.key, required this.enable, this.handler});
 
   @override
   State<BuddyContinueWidget> createState() => _BuddyContinueState();
@@ -16,7 +17,7 @@ class BuddyContinueWidget extends StatefulWidget {
 class _BuddyContinueState extends State<BuddyContinueWidget> {
   void _onNextHandler() {
     final buddyNavigationState = StepNavigationState.of(context);
-
+    widget.handler?.call();
     buddyNavigationState.onNextPage();
   }
 
