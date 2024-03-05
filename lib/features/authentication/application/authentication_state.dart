@@ -161,6 +161,8 @@ class AuthenticationState with _$AuthenticationState {
 
   bool get isAssignmentsUnlocked => unlockedFeatures.contains(UnlockedFeatureType.assignments);
 
+  bool get isBuddyUnlocked => unlockedFeatures.contains(UnlockedFeatureType.buddy);
+
   bool get isUserGrouped => groupingState == UserGroupingState.grouped;
 
   bool get isMixedGender {
@@ -170,8 +172,7 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
-  bool get hasSubscription =>
-      maybeWhen(orElse: () => false, authenticated: (state) => state.subscription.isActive);
+  bool get hasSubscription => maybeWhen(orElse: () => false, authenticated: (state) => state.subscription.isActive);
 
   factory AuthenticationState.fromJson(Map<String, dynamic> json) => _$AuthenticationStateFromJson(json);
 }

@@ -19,7 +19,7 @@ class APIBuddyService implements BuddyService {
   }
 
   @override
-  Future<Either<RequestError, Buddy>> deleteBuddy() async {
+  Future<Either<RequestError, Buddy>> removeBuddy() async {
     return client.delete('/buddy/preferences').then(parseResponse(Buddy.fromJson));
   }
 

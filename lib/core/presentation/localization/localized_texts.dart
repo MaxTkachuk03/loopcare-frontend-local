@@ -873,6 +873,7 @@ class LocalizedTexts {
   static const String updateRequiredBodyText2 = 'updateRequiredBodyText2';
 
   // Buddy
+  static const String buddyTitle = 'buddyTitle';
   static const String buddy = 'buddy';
   static const String buddyUnlocked = 'buddyUnlocked';
   static const String buddyUnlockedBody = 'buddyUnlockedBody';
@@ -883,6 +884,8 @@ class LocalizedTexts {
   static const String buddyIntroBody = 'buddyIntroBody';
   static const String buddyIntroYesBtn = 'buddyIntroYesBtn';
   static const String buddyIntroNoBtn = 'buddyIntroNoBtn';
+  static const String buddyPreferences = 'buddyPreferences';
+  static const String buddyNoPreferencesState = 'buddyNoPreferencesState';
 }
 
 extension StringX on String {

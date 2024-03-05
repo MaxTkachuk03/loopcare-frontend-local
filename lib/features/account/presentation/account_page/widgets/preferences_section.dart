@@ -27,6 +27,10 @@ class PreferencesSection extends StatelessWidget {
     context.router.push(FoodPreferencesRoute(fromLessonComplete: false));
   }
 
+  void _onBuddyHandler(BuildContext context) {
+    context.router.pushNamed(AppRoutes.buddyPreferences);
+  }
+
   void _onPhysicalActivitiesHandler(BuildContext context) {
     context.router.pushNamed(AppRoutes.physicalPreferences);
   }
@@ -127,6 +131,15 @@ class PreferencesSection extends StatelessWidget {
                 return SectionItem(
                   title: LocalizedTexts.food.tr(),
                   onPressHandler: state.isFoodLoggingUnlocked ? () => _onFoodHandler(context) : null,
+                );
+              },
+            ),
+            const Divider(height: 1.0, color: AppColors.blueLighter),
+            BlocBuilder<AuthenticationCubit, AuthenticationState>(
+              builder: (context, state) {
+                return SectionItem(
+                  title: LocalizedTexts.buddyTitle.tr(),
+                  onPressHandler: state.isBuddyUnlocked ? () => _onBuddyHandler(context) : null,
                 );
               },
             ),

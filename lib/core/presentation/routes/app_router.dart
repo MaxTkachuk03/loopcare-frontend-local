@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
 import 'package:loopcare_frontend/core/presentation/theme_components_theme/theme_components_theme.dart';
 import 'package:loopcare_frontend/features/access_code/access_code_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/account_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/buddy_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/edit_food_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/food_preferences_page/food_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/food_preferences_page/lesson_complete_food_preferences_page.dart';
@@ -615,6 +616,10 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.buddyDescription,
       page: BuddyDescriptionPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.buddyPreferences,
+      page: BuddyPreferencesPage,
     ), // added
   ],
 )
