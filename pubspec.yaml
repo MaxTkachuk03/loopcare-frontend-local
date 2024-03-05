@@ -101,8 +101,9 @@ flutter:
     - assets/images/
     - assets/translations/
     - .env.dev
-    - .env.prod
     - .env.stag
+    - .env.uat
+    - .env.prod
   fonts:
     - 
       family: OpenSans

@@ -1,10 +1,9 @@
 import 'dart:io';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/auth_token_interceptor.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
@@ -48,9 +47,9 @@ class DioClient {
     dio.interceptors.add(_authTokenInterceptor);
     _configureRetryConnection();
 
-    if (dotenv.env['NEED_DIO_LOGGER'] == 'true') {
+    if (kDebugMode) {
       dio.interceptors.add(PrettyDioLogger(
-        responseBody: true,
+        responseBody: false,
         requestHeader: false,
         responseHeader: false,
         requestBody: true,

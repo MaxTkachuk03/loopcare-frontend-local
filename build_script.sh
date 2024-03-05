@@ -4,6 +4,8 @@ if [ "$1" == "prod" ]; then
   build_type="prod"
 elif [ "$1" == "stag" ]; then
   build_type="stag"
+elif [ "$1" == "uat" ]; then
+  build_type="uat"
 else
   build_type="dev"
 fi
