@@ -177,7 +177,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
     try {
       await launchUrl(launchUri, mode: LaunchMode.externalApplication);
     } catch (e) {
-      _showError(context);
+      if (context.mounted) _showError(context);
     }
   }
 
@@ -206,9 +206,8 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
       emailAddress: (state) {
         final error = state.error;
         if (error != null) {
-          error.mapOrNull(
-            badRequest: (error) {
-              error.maybeMap(
+          final errorMessage = error.mapOrNull(
+            badRequest: (error) => error.maybeMap(
                 badRequest: (error) {
                   final message = error.error.message;
 
@@ -217,18 +216,17 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
                       emailErrorText = LocalizedTexts.emailAlreadyTaken.tr();
                     });
                   }
-
                   return LocalizedTexts.somethingIsIncorrect.tr();
                 },
                 orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
-              );
-            },
-            forbidden: (error) {
-              final errorMessage =
-                  (error.error.message != null) ? error.error.message! : LocalizedTexts.somethingIsIncorrect.tr();
-              context.showError(content: Text(errorMessage));
-            },
+              ),
+            forbidden: (error) => (error.error.message != null)
+                  ? error.error.message!
+                  : LocalizedTexts.somethingIsIncorrect.tr(),
           );
+          if (errorMessage != null) {
+            context.showError(content: Text(errorMessage));
+          }
         }
       },
     );
