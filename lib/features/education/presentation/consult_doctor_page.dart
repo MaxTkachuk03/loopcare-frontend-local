@@ -38,9 +38,10 @@ class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
     final userId = context.read<AuthenticationCubit>().state.id;
 
     AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userLeavesChat,
+      FirebaseEvents.userConfirmedDoctorConsent,
       parameters: {
         CustomDefinitions.userId: userId,
+        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
       },
     );
 

@@ -249,6 +249,7 @@ class LocalizedTexts {
   static const String backToToday = 'backToToday';
   static const String backToEducation = 'backToEducation';
   static const String completed = 'completed';
+  static const String complete = 'complete';
 
   // Physical exercise
   static const String physicalActivity = 'physicalActivity';
@@ -863,6 +864,7 @@ class LocalizedTexts {
   static const String unlockFeatureDescription = 'unlockFeatureDescription';
   static const String lessonCompleteDescription = 'lessonCompleteDescription';
   static const String assignmentCompleted = 'assignmentCompleted';
+  static const String assignmentCompleteDescription = 'assignmentCompleteDescription';
   static const String consultYourTherapist = 'consultYourTherapist';
   static const String consultYourTherapistBody1 = 'consultYourTherapistBody1';
   static const String consultYourTherapistBody2 = 'consultYourTherapistBody2';
