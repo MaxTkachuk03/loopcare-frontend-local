@@ -37,7 +37,6 @@ class _BuddyEmailState extends State<BuddyEmailWidget> {
 
   void _onEmailChanged(String value) {
     if (widget.controller.emailErrorText == null) return;
-
     setState(() {
       widget.controller.emailErrorText = null;
     });
