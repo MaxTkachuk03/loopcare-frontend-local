@@ -14,10 +14,27 @@ import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.d
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/dashboard_assignments/this_week_assignments.dart';
 
-class DashboardAssignments extends StatelessWidget {
+class DashboardAssignments extends StatefulWidget {
   final DateTime date;
 
   const DashboardAssignments({super.key, required this.date});
+
+  @override
+  State<DashboardAssignments> createState() => _DashboardAssignmentsState();
+}
+
+class _DashboardAssignmentsState extends State<DashboardAssignments> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<AssignmentsBloc>().add(
+          AssignmentsEvent.getAllLessonQuestions(
+            widget.date.firstDayOfCurrentWeek.subtract(const Duration(days: 7)),
+            widget.date.lastDayOfCurrentWeek,
+          ),
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +83,8 @@ class DashboardAssignments extends StatelessWidget {
                       error: error!,
                       onButtonPressed: () => context.read<AssignmentsBloc>().add(
                             AssignmentsEvent.getAllLessonQuestions(
-                              date.beginDay,
-                              date.endDay,
+                              widget.date.beginDay,
+                              widget.date.endDay,
                             ),
                           ),
                     );
@@ -76,18 +93,18 @@ class DashboardAssignments extends StatelessWidget {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (state.data.questionsForCurrentWeek(date).isEmpty)
+                        if (state.data.questionsForCurrentWeek(widget.date).isEmpty)
                           CustomText.w400(
                             LocalizedTexts.allAssignmentsCompleted.tr(),
                             style: context.textTheme.bodyMedium,
                           ),
-                        if (state.data.questionsForCurrentWeek(date).isNotEmpty)
+                        if (state.data.questionsForCurrentWeek(widget.date).isNotEmpty)
                           ThisWeekAssignments(
                             weekQuestions: state.data.uniqueLessonsQuestions(
-                              state.data.openedQuestionsForCurrentWeek(date),
+                              state.data.openedQuestionsForCurrentWeek(widget.date),
                             ),
                             todayQuestions: state.data.uniqueLessonsQuestions(
-                              state.data.doneTodayQuestions(date),
+                              state.data.doneTodayQuestions(widget.date),
                             ),
                           ),
                       ],
