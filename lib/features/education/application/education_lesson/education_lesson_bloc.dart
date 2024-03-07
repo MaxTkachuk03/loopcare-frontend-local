@@ -45,7 +45,7 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
   ) async {
     var tempDir = await getTemporaryDirectory();
 
-    emit(EducationLessonState.contentLoaded(state.data.copyWith(temporaryDirectory: tempDir.path)));
+    emit(EducationLessonState.initial(state.data.copyWith(temporaryDirectory: tempDir.path)));
   }
 
   Future<void> _onDownloadSVGFile(
@@ -74,12 +74,13 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     DownloadAudioFile event,
     Emitter<EducationLessonState> emit,
   ) async {
-    emit(EducationLessonState.contentLoaded(state.data.copyWith(isAudioLoading: true)));
+    emit(EducationLessonState.loading(state.data.copyWith(isAudioLoading: true, isLoading: true)));
 
     if (state.data.isAudioAlreadyInCache) {
       emit(
         EducationLessonState.contentLoaded(state.data.copyWith(
           isAudioLoading: false,
+          isLoading: false,
           pages: _updateLessonPageAudioFilePath(state.data.filePath(event.url)),
         )),
       );
@@ -90,11 +91,15 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     final response = await _educationService.downloadFile(event.url, state.data.filePath(event.url));
 
     response.fold(
-      (l) => emit(EducationLessonState.contentLoaded(state.data.copyWith(error: l, isAudioLoading: false))),
+      (l) {
+        emit(EducationLessonState.contentLoaded(
+            state.data.copyWith(error: l, isAudioLoading: false, isLoading: false)));
+      },
       (r) {
         emit(
           EducationLessonState.contentLoaded(state.data.copyWith(
             isAudioLoading: false,
+            isLoading: false,
             pages: _updateLessonPageAudioFilePath(state.data.filePath(event.url)),
             audioFilesCache: _updateAudioCacheValue(AudioLessonContentType.audio),
           )),
@@ -107,12 +112,13 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     DownloadSubtitlesFile event,
     Emitter<EducationLessonState> emit,
   ) async {
-    emit(EducationLessonState.contentLoaded(state.data.copyWith(isSubtitleLoading: true)));
+    emit(EducationLessonState.loading(state.data.copyWith(isSubtitleLoading: true, isLoading: true)));
 
     if (state.data.isSubtitlesAlreadyInCache) {
       emit(
         EducationLessonState.contentLoaded(state.data.copyWith(
             isSubtitleLoading: false,
+            isLoading: false,
             pages: _updateLessonPageSubtitleFilePath(state.data.filePath(event.url)))),
       );
 
@@ -122,12 +128,12 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     final response = await _educationService.downloadFile(event.url, state.data.filePath(event.url));
 
     response.fold(
-        (l) =>
-            emit(EducationLessonState.contentLoaded(state.data.copyWith(error: l, isSubtitleLoading: false))),
-        (r) {
+        (l) => emit(EducationLessonState.contentLoaded(
+            state.data.copyWith(error: l, isSubtitleLoading: false, isLoading: false))), (r) {
       emit(
         EducationLessonState.contentLoaded(state.data.copyWith(
           isSubtitleLoading: false,
+          isLoading: false,
           pages: _updateLessonPageSubtitleFilePath(state.data.filePath(event.url)),
           audioFilesCache: _updateAudioCacheValue(AudioLessonContentType.subtitles),
         )),

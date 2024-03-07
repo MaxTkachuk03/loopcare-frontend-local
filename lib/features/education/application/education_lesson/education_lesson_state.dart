@@ -48,8 +48,8 @@ class EducationLessonData with _$EducationLessonData {
   }
 
   String filePath(String url) {
-    var urls = url.split('/');
-    return "$temporaryDirectory/${urls[urls.length - 2]}/${urls.last}";
+    var urlArr = url.split('/');
+    return "$temporaryDirectory/${urlArr[urlArr.length - 2]}/${urlArr.last}";
   }
 
   bool get isAudioAlreadyInCache {

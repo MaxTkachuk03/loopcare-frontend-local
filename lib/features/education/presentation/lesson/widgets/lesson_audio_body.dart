@@ -63,10 +63,6 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
 
     final state = context.read<EducationLessonBloc>().state.data;
 
-    if (state.temporaryDirectory.isEmpty) {
-      context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
-    }
-
     context
         .read<EducationLessonBloc>()
         .add(EducationLessonEvent.downloadAudioFile(state.currentPage.content.url));
@@ -76,11 +72,6 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
           .read<EducationLessonBloc>()
           .add(EducationLessonEvent.downloadSubtitlesFile(state.currentPage.content.subtitlesImages!));
     }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   prepareSubtitleController(String path) async {

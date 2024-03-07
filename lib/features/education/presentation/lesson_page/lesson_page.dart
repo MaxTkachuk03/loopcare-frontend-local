@@ -227,7 +227,13 @@ class _LessonPageState extends State<LessonPage> {
 
               return const SizedBox.shrink();
             },
-            orElse: () => const SizedBox.shrink(),
+            orElse: () => CustomScaffold.petrolLightest(
+              appBar: CustomAppBar.petrol(
+                title: LocalizedTexts.lesson.tr(),
+                leading: CustomFilledIconButton.leadingPetrolLighter(),
+              ),
+              body: const Loader(),
+            ),
           );
         },
       ),
