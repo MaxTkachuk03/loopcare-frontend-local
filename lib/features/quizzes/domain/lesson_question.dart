@@ -28,6 +28,7 @@ class LessonQuestion with _$LessonQuestion {
     required String? lowestText,
     required String? highestText,
     required String? question,
+    @Default('') String extraInstruction,
     required List<LessonQuestionOption> lessonQuestionOptions,
     required List<LessonQuestionFeedback> lessonQuestionFeedbacks,
     required List<LessonQuestionAnswer> lessonQuestionAnswers,
