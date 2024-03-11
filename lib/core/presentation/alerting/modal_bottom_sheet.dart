@@ -168,9 +168,8 @@ class ModalBottomSheet {
                   const SizedBox(height: 12.0),
                   CustomOutlinedButton.blueFullWidth(
                     onPressed: noActiveSubscription ? onDeleted : onSubscriptionPref,
-                    label: noActiveSubscription
-                        ? LocalizedTexts.yesDelete.tr()
-                        : LocalizedTexts.manageSubscription.tr(),
+                    label:
+                        noActiveSubscription ? LocalizedTexts.yesDelete.tr() : LocalizedTexts.manageSubscription.tr(),
                   )
                 ],
               ),
@@ -1195,6 +1194,53 @@ class ModalBottomSheet {
                     ),
                   ],
                 ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  static void inviteNewBuddy({
+    required BuildContext context,
+    required void Function() onInvite,
+  }) {
+    showModalBottomSheet<void>(
+      showDragHandle: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      context: context,
+      builder: (BuildContext context) {
+        return FractionallySizedBox(
+          heightFactor: 0.75,
+          child: ScrollableContainer(
+            child: MainContainer(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomText.w600(
+                    LocalizedTexts.buddyFindAnotherBuddyLabel.tr(),
+                    style: context.textTheme.bodyMedium?.copyWith(color: AppColors.orangeRegular),
+                  ),
+                  CustomText.w400(
+                    LocalizedTexts.buddyFindAnotherBuddyContent.tr(),
+                    style: context.textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 12.0),
+                  CustomElevatedButton.blueFullWidth(
+                    onPressed: () {
+                      context.router.pop.call();
+                      onInvite.call();
+                    },
+                    label: LocalizedTexts.buddyFindAnotherBuddy.tr(),
+                  ),
+                  const SizedBox(height: 12.0),
+                  CustomOutlinedButton.blueFullWidth(
+                    onPressed: () => context.router.pop.call(),
+                    label: LocalizedTexts.buddyNotNeedAnotherBuddy.tr(),
+                  ),
+                  const SizedBox(height: 12.0),
+                ],
               ),
             ),
           ),

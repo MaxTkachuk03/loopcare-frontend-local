@@ -7,10 +7,12 @@ part 'buddy.g.dart';
 @freezed
 abstract class Buddy implements _$Buddy {
   const Buddy._();
+
   const factory Buddy({
     required int id,
     required String username,
     required String? email,
+    @Default('invited') String state,
     required BuddyInvitation? invitation,
     required DateTime? createdAt,
     required DateTime? updatedAt,

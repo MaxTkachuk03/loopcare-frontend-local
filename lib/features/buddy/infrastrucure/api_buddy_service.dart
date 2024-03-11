@@ -32,4 +32,9 @@ class APIBuddyService implements BuddyService {
   Future<Either<RequestError, Buddy>> updateBuddy(RequestBuddy data) async {
     return client.patch('/buddy/preferences', data: data).then(parseResponse(Buddy.fromJson));
   }
+
+  @override
+  Future<Either<RequestError, Buddy>> resendBuddy() async {
+    return client.post('/buddy/resend', data: {}).then(parseResponse(Buddy.fromJson));
+  }
 }

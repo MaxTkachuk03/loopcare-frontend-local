@@ -4,15 +4,24 @@ import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_invitation_approved.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_invitation_pedding.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_invitation_reject.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_not_available.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/profile_buddy_no_state.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
+
+import '../../../../core/presentation/loader/loader.dart';
 
 class BuddyPreferencesPage extends StatefulWidget {
   const BuddyPreferencesPage({super.key});
@@ -24,14 +33,24 @@ class BuddyPreferencesPage extends StatefulWidget {
 class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
   @override
   void didChangeDependencies() {
-    context.read<BuddyBloc>().add(const BuddyEvent.init());
+    context.read<BuddyBloc>().add(const BuddyEvent.getBuddy());
   }
+
+  void _navigateRejectNotAvailableState() {
+    context.read<BuddyBloc>().add(const BuddyEvent.removeBuddy());
+  }
+
+  void _navigatePendingAcceptedState(BuildContext context) => ModalBottomSheet.inviteNewBuddy(
+        context: context,
+        onInvite: () => _navigateRejectNotAvailableState(),
+      );
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SubscriptionBloc, SubscriptionState>(
+    return BlocConsumer<BuddyBloc, BuddyState>(
       listener: (context, state) => state.maybeMap(
         error: (state) => _errorListener,
+        removedBuddy: (state) => context.router.pushNamed(AppRoutes.buddyLiveTogether),
         orElse: () => null,
       ),
       builder: (context, state) {
@@ -41,18 +60,56 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
             leading: CustomFilledIconButton.leadingBlueLighter(),
             title: LocalizedTexts.buddyPreferences.tr(),
           ),
-          body: const SafeArea(
-            child: ScrollableContainer(
-              child: MainContainer(
-                child: Column(
-                  children: [
-                    SizedBox(height: 40),
-                    ProfileNoBuddyState(),
-                    SizedBox(height: 40),
-                  ],
+          body: Stack(
+            children: [
+              SafeArea(
+                child: ScrollableContainer(
+                  child: MainContainer(
+                    child: state.maybeWhen(
+                      orElse: () {
+                        Widget content = const SizedBox.shrink();
+                        if (state.data.isInvitationApproved) {
+                          content = const BuddyInvitationApproved();
+                        } else if (state.data.isInvitationPending) {
+                          content = const BuddyInvitationPending();
+                        } else if (state.data.isInvitationRejected) {
+                          content = const BuddyInvitationReject();
+                        } else if (state.data.isBuddyNotAvailable) {
+                          content = const BuddyNotAvailable();
+                        } else {
+                          content = state.data.isLoading ? const Loader() : const ProfileNoBuddyState();
+                        }
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                const SizedBox(height: 40),
+                                content,
+                                const SizedBox(height: 40),
+                              ],
+                            ),
+                            if (state.data.showInviteAnotherBuddy)
+                              CustomElevatedButton.coralFullWidth(
+                                label: LocalizedTexts.buddyInviteAnotherBuddy.tr(),
+                                onPressed: state.data.navigateInviteAnotherBuddy
+                                    ? () => _navigateRejectNotAvailableState.call()
+                                    : () => _navigatePendingAcceptedState.call(context),
+                              )
+                          ],
+                        );
+                      },
+                    ),
+                  ),
                 ),
               ),
-            ),
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: state.data.isLoading ? const Loader() : const SizedBox.shrink(),
+                ),
+              ),
+            ],
           ),
         );
       },

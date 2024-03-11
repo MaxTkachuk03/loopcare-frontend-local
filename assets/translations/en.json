@@ -743,6 +743,23 @@
   "buddyParent": "parent",
   "buddyFamily": "family",
   "buddyFriend": "friend",
+  "buddyPendingTitle": "We’ve sent an invite to your Buddy",
+  "buddyPendingSubTitle": "We sent this invite on\n{date} at {time}.\n\nWe will notify you once your Buddy has responded.",
+  "buddyRejectTitle": "Your Buddy did not accept the invite",
+  "buddyRejectSubTitle": "Unfortunately, your friend cannot join you on your journey. There can be many different reasons why they couldn’t join you, but don’t let this discourage you! Try to find another Buddy.\n\nPlease talk to friends and loved ones about whether they are open to being your Buddy before you send the next invite. \n\nAre you having trouble finding a Buddy? The article “Finding a Buddy” can provide some insight on how to approach this topic with others.\n\nYou can easily invite another person to share in your journey.",
+  "buddyNotAvailableTitle": "Your Buddy is no longer able to support you",
+  "buddyNotAvailableSubTitle": "Unfortunately, your current Buddy cannot be there to support you in the way that a Buddy does. \n\nNo need to worry, there is another Buddy out there. Talk to your close friends and ask around whether one of them would like to join you.\n\nThe education lesson “Finding a Buddy” can also help you to find a new Buddy. \n\nYou can easily invite another person to share in your journey.",
+  "buddyResendInvitation": "Resend invitation",
+  "buddyInviteAnotherBuddy": "Invite another buddy",
+  "buddyFindAnotherBuddyLabel": "Are you sure you want a new buddy?",
+  "buddyFindAnotherBuddyContent": "Please note: if you do want a new Buddy. your current Buddy will be notified that you have made this request.",
+  "buddyFindAnotherBuddy": "Yes, I want another buddy",
+  "buddyNotNeedAnotherBuddy": "No, I would like to keep this buddy",
+  "buddyEmail": "Buddy email",
+  "buddyUserName": "Buddy username",
+  "buddySince": "Buddy since",
+
+
 
   "//comment": "mental tests final results",
   "phq8FinalResultHigh1": "The questionnaire results indicate that you are currently experiencing notable mental distress.",

@@ -899,6 +899,21 @@ class LocalizedTexts {
   static const String buddyParent = 'buddyParent';
   static const String buddyFamily = 'buddyFamily';
   static const String buddyFriend = 'buddyFriend';
+  static const String buddyPendingTitle = 'buddyPendingTitle';
+  static const String buddyPendingSubTitle = 'buddyPendingSubTitle';
+  static const String buddyNotAvailableTitle = 'buddyNotAvailableTitle';
+  static const String buddyNotAvailableSubTitle = 'buddyNotAvailableSubTitle';
+  static const String buddyRejectTitle = 'buddyRejectTitle';
+  static const String buddyRejectSubTitle = 'buddyRejectSubTitle';
+  static const String buddyResendInvitation = 'buddyResendInvitation';
+  static const String buddyInviteAnotherBuddy = 'buddyInviteAnotherBuddy';
+  static const String buddyFindAnotherBuddyLabel = 'buddyFindAnotherBuddyLabel';
+  static const String buddyFindAnotherBuddyContent = 'buddyFindAnotherBuddyContent';
+  static const String buddyFindAnotherBuddy = 'buddyFindAnotherBuddy';
+  static const String buddyNotNeedAnotherBuddy = 'buddyNotNeedAnotherBuddy';
+  static const String buddyEmail = 'buddyEmail';
+  static const String buddyUserName = 'buddyUserName';
+  static const String buddySince = 'buddySince';
 }
 
 extension StringX on String {
