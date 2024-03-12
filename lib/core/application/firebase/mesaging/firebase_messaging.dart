@@ -25,6 +25,8 @@ class FirebaseMessagingService {
   Future<String?> _getToken() async {
     String? token;
     try {
+      await _firebaseMessaging.requestPermission();
+
       token = await _firebaseMessaging.getToken();
     } on Exception catch (_) {
       // ignore
