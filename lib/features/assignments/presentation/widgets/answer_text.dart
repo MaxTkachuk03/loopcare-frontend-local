@@ -11,7 +11,7 @@ import 'package:loopcare_frontend/features/assignments/presentation/validators/a
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/quizzes_controller.dart';
 
-class AnswerText extends StatelessWidget {
+class AnswerText extends StatefulWidget {
   final QuizzesController controller;
   final LessonQuestion question;
   final Function(int lessonId) onNextPressed;
@@ -24,10 +24,24 @@ class AnswerText extends StatelessWidget {
   });
 
   @override
+  State<AnswerText> createState() => _AnswerTextState();
+}
+
+class _AnswerTextState extends State<AnswerText> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.controller.isAnswerTextValid;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
-      key: controller.formKey,
-      onChanged: () => controller.isAnswerTextValid,
+      key: widget.controller.formKey,
+      onChanged: () => widget.controller.isAnswerTextValid,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 30.0),
         child: Column(
@@ -35,22 +49,25 @@ class AnswerText extends StatelessWidget {
           children: [
             Column(
               children: [
-                CustomText.bitter600(question.question ?? '', style: context.textTheme.displayMedium),
+                CustomText.bitter600(widget.question.question ?? '', style: context.textTheme.displayMedium),
                 const SizedBox(height: 28.0),
-                CustomText.w400(question.extraInstruction, style: context.textTheme.bodyMedium),
+                CustomText.w400(widget.question.extraInstruction, style: context.textTheme.bodyMedium),
                 const SizedBox(height: 28.0),
                 SizedBox(
                   height: 200,
-                  child: AnswerTextFormLimitTextField.answerText(controller),
+                  child: AnswerTextFormLimitTextField.answerText(widget.controller),
                 ),
               ],
             ),
             Column(
               children: [
                 const SizedBox(height: 32),
-                CustomElevatedButton.blueFullWidth(
-                  onPressed: () => controller.isOpenTextValid ? onNextPressed(question.lessonId) : null,
-                  label: LocalizedTexts.next.tr(),
+                ValueListenableBuilder<bool>(
+                  valueListenable: widget.controller.isEnableSend,
+                  builder: (context, isValid, _) => CustomElevatedButton.blueFullWidth(
+                    onPressed: isValid ? () => widget.onNextPressed(widget.question.lessonId) : null,
+                    label: LocalizedTexts.next.tr(),
+                  ),
                 ),
               ],
             )
