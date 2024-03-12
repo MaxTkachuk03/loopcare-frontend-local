@@ -287,20 +287,11 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
           onSelectOptionValue: _onSelectOptionHandler,
         ),
         text: (_) => AnswerText(
-          isEditable: state.data.questionForStep(lessonId, widget.step).isEditable,
-          mode: state.data.questionForStep(lessonId, widget.step).isEditable
-              ? mode
-              : const QuestionsPageMode.showAnswer(),
           controller: _controller,
           question: state.data.questionForStep(lessonId, widget.step),
           onNextPressed: (int lessonId) {
             return _controller.isOpenTextValid ? _saveTextField(state.data.lessonId) : null;
           },
-          onAnswerPressed: () => setState(
-            () {
-              mode = const QuestionsPageMode.askQuestion();
-            },
-          ),
         ),
       );
 

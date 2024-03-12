@@ -9,32 +9,39 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/app_input_limit_field.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/validators/answer_text_field_validator.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
-import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page_mode.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/quizzes_controller.dart';
 
-class AnswerText extends StatelessWidget {
-  final QuestionsPageMode mode;
+class AnswerText extends StatefulWidget {
   final QuizzesController controller;
   final LessonQuestion question;
   final Function(int lessonId) onNextPressed;
-  final VoidCallback onAnswerPressed;
-  final bool isEditable;
 
   const AnswerText({
     super.key,
-    required this.mode,
     required this.controller,
     required this.question,
     required this.onNextPressed,
-    required this.onAnswerPressed,
-    required this.isEditable,
   });
+
+  @override
+  State<AnswerText> createState() => _AnswerTextState();
+}
+
+class _AnswerTextState extends State<AnswerText> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.controller.isAnswerTextValid;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: controller.formKey,
-      onChanged: () => controller.isAnswerTextValid,
+      key: widget.controller.formKey,
+      onChanged: () => widget.controller.isAnswerTextValid,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 30.0),
         child: Column(
@@ -42,33 +49,25 @@ class AnswerText extends StatelessWidget {
           children: [
             Column(
               children: [
-                CustomText.bitter600(question.question ?? '', style: context.textTheme.displayMedium),
+                CustomText.bitter600(widget.question.question ?? '', style: context.textTheme.displayMedium),
                 const SizedBox(height: 28.0),
-                mode.map(
-                  askQuestion: (_) => SizedBox(
-                    height: 200,
-                    child: AnswerTextFormLimitTextField.answerText(controller),
-                  ),
-                  showAnswer: (_) => InkWell(
-                    onTap: isEditable ? onAnswerPressed : null,
-                    child: CustomText.w600(
-                      question.questionAnswer?.text ?? '',
-                      style: context.textTheme.bodyLarge,
-                    ),
-                  ),
+                CustomText.w400(widget.question.extraInstruction, style: context.textTheme.bodyMedium),
+                const SizedBox(height: 28.0),
+                SizedBox(
+                  height: 200,
+                  child: AnswerTextFormLimitTextField.answerText(widget.controller),
                 ),
               ],
             ),
             Column(
               children: [
                 const SizedBox(height: 32),
-                CustomElevatedButton.blueFullWidth(
-                  onPressed: () => isEditable
-                      ? controller.isOpenTextValid
-                          ? onNextPressed(question.lessonId)
-                          : null
-                      : onNextPressed(question.lessonId),
-                  label: LocalizedTexts.next.tr(),
+                ValueListenableBuilder<bool>(
+                  valueListenable: widget.controller.isEnableSend,
+                  builder: (context, isValid, _) => CustomElevatedButton.blueFullWidth(
+                    onPressed: isValid ? () => widget.onNextPressed(widget.question.lessonId) : null,
+                    label: LocalizedTexts.next.tr(),
+                  ),
                 ),
               ],
             )
