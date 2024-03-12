@@ -15,7 +15,7 @@ class CustomerIoService {
       config: CustomerIOConfig(
         siteId: dotenv.env['CUSTOMER_IO_SITE_ID'] ?? '',
         apiKey: dotenv.env['CUSTOMER_IO_API_KEY'] ?? '',
-        region: Region.us,
+        region: Region.eu,
         autoTrackDeviceAttributes: true,
         enableInApp: true,
       ),
