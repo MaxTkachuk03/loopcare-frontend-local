@@ -68,7 +68,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
   }
 
   void login(String email, String password) async {
-    final data = LoginData(email: email, password: password);
+    final data = LoginData(email: email.toLowerCase(), password: password);
 
     final response = await _authenticationService.login(data);
 
@@ -237,7 +237,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
       emailAddress: (state) async {
         final data = SignUpData(
           name: state.name,
-          email: email,
+          email: email.toLowerCase(),
           password: state.password,
           isConsentApproved: true,
           isLegalApproved: true,
@@ -296,7 +296,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
       guest: (state) async {
         emit(state.copyWith(emailWasSend: false, error: null));
 
-        final data = ForgotPasswordData(email: email);
+        final data = ForgotPasswordData(email: email.toLowerCase());
 
         final response = await _authenticationService.forgotPassword(data);
 
