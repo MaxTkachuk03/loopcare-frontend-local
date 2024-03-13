@@ -36,8 +36,6 @@ class EducationLessonData with _$EducationLessonData {
     @Default(0) int lessonProgress,
     @Default(0) int currentProgressPageIndex,
     @Default(0) int currentPageIndex,
-    @Default('') String svgFile,
-    @Default(false) bool isSvgLoaded,
     @Default({}) Map<String, Set<AudioLessonContentType>> audioFilesCache,
     RequestError? error,
     @Default([]) List<LessonQuestion> questions,

@@ -4,15 +4,12 @@ import 'package:rive/rive.dart';
 class RiveAnimationRenderer extends StatelessWidget {
   final String? url;
 
-  const RiveAnimationRenderer({
-    super.key,
-    this.url,
-  });
+  const RiveAnimationRenderer({super.key, this.url});
 
   @override
   Widget build(BuildContext context) {
     return const RiveAnimation.asset(
-      'assets/animations/new_audio_lesson_animation.riv',
+      'assets/animations/default_animation_v2.riv',
       fit: BoxFit.fitHeight,
     );
   }

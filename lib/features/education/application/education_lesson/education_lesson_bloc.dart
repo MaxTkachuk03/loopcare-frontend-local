@@ -35,7 +35,6 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     on<CompleteLesson>(_onCompleteLesson);
     on<DownloadAudioFile>(_onDownloadAudioFile);
     on<DownloadSubtitlesFile>(_onDownloadSubtitlesFile);
-    on<DownloadSVGFile>(_onDownloadSVGFile);
     on<Init>(_onInit);
   }
 
@@ -46,28 +45,6 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     var tempDir = await getTemporaryDirectory();
 
     emit(EducationLessonState.initial(state.data.copyWith(temporaryDirectory: tempDir.path)));
-  }
-
-  Future<void> _onDownloadSVGFile(
-    DownloadSVGFile event,
-    Emitter<EducationLessonState> emit,
-  ) async {
-    emit(EducationLessonState.contentLoaded(state.data.copyWith(isSvgLoaded: false, svgFile: '')));
-
-    final response = await _educationService.downloadFile(
-      event.url,
-      state.data.filePath(event.url),
-    );
-    response.fold((l) {}, (r) {
-      emit(
-        EducationLessonState.contentLoaded(
-          state.data.copyWith(
-            isSvgLoaded: true,
-            svgFile: state.data.filePath(event.url),
-          ),
-        ),
-      );
-    });
   }
 
   Future<void> _onDownloadAudioFile(
