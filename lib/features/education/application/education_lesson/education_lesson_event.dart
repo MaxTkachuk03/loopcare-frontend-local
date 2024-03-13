@@ -21,7 +21,5 @@ class EducationLessonEvent with _$EducationLessonEvent {
 
   const factory EducationLessonEvent.downloadSubtitlesFile(String url) = DownloadSubtitlesFile;
 
-  const factory EducationLessonEvent.downloadSVGFile(String url) = DownloadSVGFile;
-
   const factory EducationLessonEvent.init() = Init;
 }

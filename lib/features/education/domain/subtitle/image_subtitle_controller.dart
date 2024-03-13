@@ -1,26 +1,30 @@
-import 'package:loopcare_frontend/features/education/domain/subtitle/image_subtitle_model.dart';
-import 'package:loopcare_frontend/features/education/domain/subtitle/image_subtitle_utils.dart';
+import 'dart:convert';
+import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/features/education/domain/subtitle/audio_subtitle.dart';
 
 class SubtitleController {
-  final String fileContents;
+  SubtitleController();
 
-  List<ImageSubtitle> get subtitles => _subtitles;
+  final ValueNotifier<List<AudioSubtitle>> _subTitles = ValueNotifier([]);
+  final ValueNotifier<int> audioPosition = ValueNotifier(0);
+  final ValueNotifier<AudioSubtitle?> activeSubtitleItem = ValueNotifier(null);
 
-  final List<ImageSubtitle> _subtitles;
+  bool get hasSubtitles => _subTitles.value.isNotEmpty;
 
-  bool get isEmpty => subtitles.isEmpty;
+  bool get hasActiveSubtitleItem => activeSubtitleItem.value != null;
 
-  bool get isNotEmpty => !isEmpty;
+  void setSubtitlesFile(String file) => _subTitles.value =
+      (jsonDecode(file) as List<dynamic>).map((item) => AudioSubtitle.fromJson(item)).toList();
 
-  SubtitleController.string(
-    this.fileContents,
-  ) : _subtitles = parseSubtitleString(fileContents);
+  void setAudioPosition(int position) => audioPosition.value = position;
 
-  String textFromMilliseconds(int milliseconds, List<ImageSubtitle> subtitls) {
-    final subtitle = subtitls.lastWhere(
-      (data) => milliseconds >= (data.start) && milliseconds <= (data.end),
-      orElse: () => ImageSubtitle.empty,
-    );
-    return subtitle.src;
+  void setActiveSubtitleItem(int position) => activeSubtitleItem.value =
+      _subTitles.value.lastWhereOrNull((s) => s.start <= position && position <= s.end);
+
+  void dispose() {
+    _subTitles.dispose();
+    audioPosition.dispose();
+    activeSubtitleItem.dispose();
   }
 }
