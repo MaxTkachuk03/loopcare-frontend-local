@@ -10,7 +10,6 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/rive_animation_renderer/rive_animation_renderer.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -21,7 +20,7 @@ import 'package:loopcare_frontend/features/education/application/education_lesso
 import 'package:loopcare_frontend/features/education/domain/subtitle/image_subtitle_controller.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/audio_block.dart';
-import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/image_subtitles.dart';
+import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/image_container.dart';
 
 const kHeightPadding = 20.0;
 
@@ -43,8 +42,6 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
   final SubtitleController _subtitleController = SubtitleController();
 
   late int lessonId;
-
-  bool isPlay = false;
 
   @override
   void initState() {
@@ -76,12 +73,6 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
 
     AnalyticsEventService.instance.lessonAudioFinishedEvent(lessonId);
     widget.onNextPressed();
-  }
-
-  _setIsPlay(bool state) {
-    setState(() {
-      isPlay = state;
-    });
   }
 
   void onCompleteModalHandler() {
@@ -142,34 +133,14 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
                       const RiveAnimationRenderer(),
                       MainContainer(
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const SizedBox(height: kHeightPadding),
                             Flexible(
                               flex: 4,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Stack(
-                                    children: [
-                                      AnimatedOpacity(
-                                        opacity: isPlay ? 0.0 : 1.0,
-                                        duration: const Duration(milliseconds: 300),
-                                        child: SizedBox(
-                                            height: (constraints.maxHeight) / 2 - kHeightPadding,
-                                            child: NetworkImageWithCache(url: state.data.lessonImage)),
-                                      ),
-                                      if (state.data.currentPage.content.subtitleFilePath.isNotEmpty)
-                                        AnimatedOpacity(
-                                          opacity: isPlay ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 300),
-                                          child: SizedBox(
-                                            height: (constraints.maxHeight) / 2 - kHeightPadding,
-                                            child: ImageSubtitles(controller: _subtitleController),
-                                          ),
-                                        ),
-                                    ],
-                                  ),
-                                ],
+                              child: ImageContainer(
+                                controller: _subtitleController,
+                                height: (constraints.maxHeight) / 2 - kHeightPadding,
                               ),
                             ),
                             Column(
@@ -192,7 +163,6 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
                                     url: state.data.currentPage.content.audioFilePath,
                                     duration: state.data.lessonDuration,
                                     controller: _subtitleController,
-                                    onPlayingChanged: _setIsPlay,
                                     onPlayerComplete: _setIsComplete,
                                   ),
                                 const SizedBox(height: 14),

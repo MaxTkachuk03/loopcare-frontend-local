@@ -9,10 +9,13 @@ class SubtitleController {
   final ValueNotifier<List<AudioSubtitle>> _subTitles = ValueNotifier([]);
   final ValueNotifier<int> audioPosition = ValueNotifier(0);
   final ValueNotifier<AudioSubtitle?> activeSubtitleItem = ValueNotifier(null);
+  final ValueNotifier<bool> isPlaying = ValueNotifier(false);
 
   bool get hasSubtitles => _subTitles.value.isNotEmpty;
 
   bool get hasActiveSubtitleItem => activeSubtitleItem.value != null;
+
+  void setIsPlaying(bool value) => isPlaying.value = value;
 
   void setSubtitlesFile(String file) => _subTitles.value =
       (jsonDecode(file) as List<dynamic>).map((item) => AudioSubtitle.fromJson(item)).toList();
@@ -26,5 +29,6 @@ class SubtitleController {
     _subTitles.dispose();
     audioPosition.dispose();
     activeSubtitleItem.dispose();
+    isPlaying.dispose();
   }
 }

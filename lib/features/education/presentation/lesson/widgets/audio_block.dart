@@ -5,7 +5,6 @@ import 'package:loopcare_frontend/features/education/domain/subtitle/image_subti
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/player_widget.dart';
 
 class AudioBlock extends StatefulWidget {
-  final void Function(bool isPlay) onPlayingChanged;
   final void Function() onPlayerComplete;
   final String url;
   final int duration;
@@ -13,7 +12,6 @@ class AudioBlock extends StatefulWidget {
 
   const AudioBlock({
     super.key,
-    required this.onPlayingChanged,
     required this.onPlayerComplete,
     required this.url,
     required this.duration,
@@ -44,7 +42,7 @@ class _AudioBlockState extends State<AudioBlock> {
     streams.add(
       audioPlayer.playerStateStream.listen(
         (v) {
-          widget.onPlayingChanged(v.playing);
+          widget.controller.setIsPlaying(v.playing);
         },
       ),
     );
