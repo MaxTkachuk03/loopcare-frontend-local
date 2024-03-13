@@ -32,6 +32,7 @@ class BuddyBloc extends Bloc<BuddyEvent, BuddyState> {
     on<GetBuddy>(_onGetBuddy);
     on<RemoveBuddy>(_onRemoveBuddy);
     on<ResendInvitation>(_onResendInvitation);
+    on<GetStatusBuddy>(_onGetStatusBuddy);
   }
 
   FutureOr<void> _onInitBuddy(
@@ -41,24 +42,43 @@ class BuddyBloc extends Bloc<BuddyEvent, BuddyState> {
     emit(const BuddyState.initial(BuddyStateData()));
   }
 
+  FutureOr<void> _onGetStatusBuddy(
+    GetStatusBuddy event,
+    Emitter<BuddyState> emit,
+  ) async {
+    final response = await _authenticationService.fetchAccount();
+    response.fold(
+      (l) => null,
+      (r) {
+        emit(
+          BuddyState.gotBuddy(
+            state.data.copyWith(
+                isLoading: false,
+                buddyState: r.buddyState,
+                buddy: r.buddy,
+                liveTogether: r.buddy?.invitation?.liveTogether,
+                relation: r.buddy?.invitation?.relation,
+                email: r.email),
+          ),
+        );
+        if (event.needNavigate) {
+          emit(BuddyState.removedBuddy(state.data.copyWith(isLoading: false)));
+        }
+      },
+    );
+  }
+
   FutureOr<void> _onRemoveBuddy(
     RemoveBuddy event,
     Emitter<BuddyState> emit,
   ) async {
     emit(BuddyState.loading(state.data.copyWith(isLoading: true)));
-    emit(const BuddyState.initial(BuddyStateData()));
     final response = await _buddyService.removeBuddy();
     response.fold(
       (l) {
         emit(BuddyState.error(state.data.copyWith(error: l, isLoading: false)));
       },
-      (r) {
-        emit(
-          BuddyState.removedBuddy(
-            state.data.copyWith(isLoading: false, buddy: null),
-          ),
-        );
-      },
+      (r) => add(const BuddyEvent.getStatusBuddy(needNavigate: true)),
     );
   }
 
@@ -67,25 +87,16 @@ class BuddyBloc extends Bloc<BuddyEvent, BuddyState> {
     Emitter<BuddyState> emit,
   ) async {
     emit(BuddyState.loading(state.data.copyWith(isLoading: true)));
-
     final response = await _buddyService.resendBuddy();
     response.fold(
       (l) {
         emit(BuddyState.error(state.data.copyWith(error: l, isLoading: false)));
       },
-      (r) => emit(
-        BuddyState.resentInvitation(
-          state.data.copyWith(
-              isLoading: false,
-              buddy: r,
-              liveTogether: r.invitation!.liveTogether,
-              relation: r.invitation!.relation,
-              email: r.email!),
-        ),
-      ),
+      (r) => add(const BuddyEvent.getStatusBuddy()),
     );
   }
 
+  //Todo currently not return buddyState
   FutureOr<void> _onGetBuddy(
     GetBuddy event,
     Emitter<BuddyState> emit,
@@ -104,7 +115,6 @@ class BuddyBloc extends Bloc<BuddyEvent, BuddyState> {
               buddy: r,
               liveTogether: r.invitation!.liveTogether,
               relation: r.invitation!.relation,
-              //Todo notify back-end
               email: r.email ?? ''),
         ),
       ),
@@ -124,16 +134,7 @@ class BuddyBloc extends Bloc<BuddyEvent, BuddyState> {
       ));
       response.fold(
         (l) => emit(BuddyState.error(state.data.copyWith(error: l, isLoading: false))),
-        (r) => emit(
-          BuddyState.sentBuddyInvitation(
-            state.data.copyWith(
-                isLoading: false,
-                buddy: r,
-                liveTogether: r.invitation!.liveTogether,
-                relation: r.invitation!.relation,
-                email: r.email!),
-          ),
-        ),
+        (r) => add(const BuddyEvent.getStatusBuddy()),
       );
     }
   }

@@ -32,6 +32,7 @@ class BuddyStateData with _$BuddyStateData {
     bool? liveTogether,
     String? email,
     String? relation,
+    String? buddyState,
     Buddy? buddy,
     @Default(0) int currentStepProgress,
   }) = _BuddyStateData;
@@ -40,15 +41,15 @@ class BuddyStateData with _$BuddyStateData {
 
   bool get gotAllNecessaryData => liveTogether != null && relation != null && email != null;
 
-  bool get isInvitationApproved => buddy?.state == BuddyStatus.approved.name;
+  bool get isInvitationApproved => buddyState == BuddyStatus.approved.name;
 
-  bool get isInvitationRejected => buddy?.state == BuddyStatus.rejected.name;
+  bool get isInvitationRejected => buddyState == BuddyStatus.rejected.name;
 
-  bool get isBuddyNotAvailable => buddy?.state == BuddyStatus.left.name;
+  bool get isBuddyNotAvailable => buddyState == BuddyStatus.left.name;
 
-  bool get isInvitationPending => buddy?.state == BuddyStatus.invited.name;
+  bool get isInvitationPending => buddyState == BuddyStatus.invited.name;
 
-  bool get navigateInviteAnotherBuddy => buddy != null && (isBuddyNotAvailable || isInvitationRejected);
+  bool get navigateInviteAnotherBuddy => isBuddyNotAvailable || isInvitationRejected;
 
-  bool get showInviteAnotherBuddy => buddy != null;
+  bool get showInviteAnotherBuddy => isInvitationApproved || navigateInviteAnotherBuddy || isInvitationPending;
 }

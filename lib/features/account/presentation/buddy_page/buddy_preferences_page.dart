@@ -33,10 +33,14 @@ class BuddyPreferencesPage extends StatefulWidget {
 class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
   @override
   void didChangeDependencies() {
-    context.read<BuddyBloc>().add(const BuddyEvent.getBuddy());
+    context.read<BuddyBloc>().add(const BuddyEvent.getStatusBuddy());
   }
 
-  void _navigateRejectNotAvailableState() {
+  void _navigateRejectNotAvailableState({bool notAvailable = false}) {
+    if (notAvailable) {
+      context.router.pushNamed(AppRoutes.buddyLiveTogether);
+      return;
+    }
     context.read<BuddyBloc>().add(const BuddyEvent.removeBuddy());
   }
 
@@ -76,8 +80,8 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
                           content = const BuddyInvitationReject();
                         } else if (state.data.isBuddyNotAvailable) {
                           content = const BuddyNotAvailable();
-                        } else {
-                          content = state.data.isLoading ? const Loader() : const ProfileNoBuddyState();
+                        } else if (!state.data.isLoading) {
+                          content = const ProfileNoBuddyState();
                         }
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,7 +97,8 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
                               CustomElevatedButton.coralFullWidth(
                                 label: LocalizedTexts.buddyInviteAnotherBuddy.tr(),
                                 onPressed: state.data.navigateInviteAnotherBuddy
-                                    ? () => _navigateRejectNotAvailableState.call()
+                                    ? () => _navigateRejectNotAvailableState.call(
+                                        notAvailable: state.data.isBuddyNotAvailable)
                                     : () => _navigatePendingAcceptedState.call(context),
                               )
                           ],

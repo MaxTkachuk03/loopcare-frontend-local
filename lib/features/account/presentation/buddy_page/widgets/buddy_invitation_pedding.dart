@@ -44,7 +44,6 @@ class _BuddyInvitationPendingState extends State<BuddyInvitationPending> {
           const SizedBox(height: 17.0),
           CustomOutlinedButton.blueFullWidth(
             onPressed: () {
-              debugPrint('devcpp  BUDDY: inviteBuddy');
               context.read<BuddyBloc>().add(const BuddyEvent.resendInvitation());
             },
             label: LocalizedTexts.buddyResendInvitation.tr(),

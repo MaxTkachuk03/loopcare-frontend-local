@@ -150,6 +150,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
                   weight: r.physicalFitness.weight,
                   bmi: r.physicalFitness.bmi,
                   birthDate: r.physicalFitness.birthDate,
+                  buddyState: r.buddyState,
                   groupingState: r.groupingState,
                   groupId: r.groupId,
                   groupingStartedAt: r.groupingStartedAt,
@@ -165,6 +166,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
                   emailApproveDate: r.emailApproveDate,
                   mentalHealthTests: r.mentalHealthTests,
                   subscription: r.subscription,
+                  buddy: r.buddy,
                 ),
               ),
             );

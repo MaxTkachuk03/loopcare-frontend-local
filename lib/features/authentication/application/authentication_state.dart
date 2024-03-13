@@ -3,6 +3,7 @@ import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
+import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 
@@ -150,6 +151,18 @@ class AuthenticationState with _$AuthenticationState {
     return maybeMap(
       authenticated: (state) => state.account.disableGroupSessions,
       orElse: () => false,
+    );
+  }
+
+  String? get buddyState {
+    return mapOrNull(
+      authenticated: (state) => state.account.buddyState,
+    );
+  }
+
+  Buddy? get buddy {
+    return mapOrNull(
+      authenticated: (state) => state.account.buddy,
     );
   }
 

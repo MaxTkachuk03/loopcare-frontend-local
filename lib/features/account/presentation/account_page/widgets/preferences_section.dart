@@ -29,7 +29,7 @@ class PreferencesSection extends StatelessWidget {
   }
 
   void _onBuddyHandler(BuildContext context) {
-    context.read<BuddyBloc>().add(const BuddyEvent.getBuddy());
+    context.read<BuddyBloc>().add(const BuddyEvent.getStatusBuddy());
     context.router.pushNamed(AppRoutes.buddyPreferences);
   }
 

@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/domain/physical_fitness/physical_fitness.
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
+import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/diabetes/application/dto/diabetes_type.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_activities_preferences.dart';
@@ -29,11 +30,13 @@ class AccountResponse {
   final DateTime? groupingStartedAt;
   final SexType gender;
   final String bioGender;
+  final String? buddyState;
   final PhysicalFitness physicalFitness;
   final DiabetesType? diabetes;
   final FoodPreferences? foodPreferences;
   final GroupingPreferences? groupingPreferences;
   final Subscription subscription;
+  final Buddy? buddy;
   @JsonKey(unknownEnumValue: UnlockedFeatureType.unknown)
   final List<UnlockedFeatureType> unlockedFeatures;
   final MentalHealthTests? mentalHealthTests;
@@ -61,6 +64,8 @@ class AccountResponse {
     required this.mentalHealthTests,
     required this.physicalActivitiesPreferences,
     required this.subscription,
+    this.buddyState,
+    this.buddy,
   });
 
   factory AccountResponse.fromJson(Map<String, dynamic> json) => _$AccountResponseFromJson(json);
