@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:loopcare_frontend/features/education/domain/subtitle/image_subtitle_controller.dart';
@@ -22,10 +23,32 @@ class AudioBlock extends StatefulWidget {
   State<AudioBlock> createState() => _AudioBlockState();
 }
 
-class _AudioBlockState extends State<AudioBlock> {
+class _AudioBlockState extends State<AudioBlock> with AutoRouteAware {
+  AutoRouteObserver? _observer;
+
   AudioPlayer audioPlayer = AudioPlayer();
 
   List<StreamSubscription> streams = [];
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    _observer = RouterScope.of(context).firstObserverOfType<AutoRouteObserver>();
+    if (_observer != null) {
+      _observer?.subscribe(this, context.routeData);
+    }
+  }
+
+  @override
+  void didPushNext() {
+    _stopPlayer();
+  }
+
+  @override
+  void didPop() {
+    _stopPlayer();
+  }
 
   @override
   void initState() {
@@ -67,6 +90,7 @@ class _AudioBlockState extends State<AudioBlock> {
       s.cancel();
     }
     audioPlayer.stop();
+    _observer?.unsubscribe(this);
     audioPlayer.dispose();
     super.dispose();
   }
@@ -95,6 +119,10 @@ class _AudioBlockState extends State<AudioBlock> {
       // Fallback for all errors
       debugPrint('devcpp $e');
     }
+  }
+
+  void _stopPlayer() {
+    audioPlayer.stop();
   }
 
   @override
