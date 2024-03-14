@@ -38,7 +38,7 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
 
   void _navigateRejectNotAvailableState({bool notAvailable = false}) {
     if (notAvailable) {
-      context.router.pushNamed(AppRoutes.buddyLiveTogether);
+      context.read<BuddyBloc>().add(const BuddyEvent.getStatusBuddy(needNavigate: true));
       return;
     }
     context.read<BuddyBloc>().add(const BuddyEvent.removeBuddy());

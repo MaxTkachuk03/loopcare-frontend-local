@@ -58,11 +58,15 @@ class BuddyBloc extends Bloc<BuddyEvent, BuddyState> {
                 buddy: r.buddy,
                 liveTogether: r.buddy?.invitation?.liveTogether,
                 relation: r.buddy?.invitation?.relation,
-                email: r.email),
+                email: r.buddy?.email),
           ),
         );
         if (event.needNavigate) {
-          emit(BuddyState.removedBuddy(state.data.copyWith(isLoading: false)));
+          emit(BuddyState.removedBuddy(state.data.copyWith(
+            isLoading: false,
+            currentQuestion: BuddyQuestions.liveTogether,
+            currentStepProgress: 0,
+          )));
         }
       },
     );

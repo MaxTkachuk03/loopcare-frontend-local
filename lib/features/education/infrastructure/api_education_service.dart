@@ -10,6 +10,8 @@ import 'package:loopcare_frontend/features/education/application/education_servi
 import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
 import 'package:loopcare_frontend/features/education/domain/questions/lesson_answer_body.dart';
 import 'package:loopcare_frontend/features/education/domain/questions/lesson_questions_response.dart';
+import 'package:loopcare_frontend/features/education/infrastructure/lesson_mock.dart';
+import 'package:loopcare_frontend/features/education/infrastructure/lessons_mock.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 
 @Injectable(as: EducationService)
@@ -83,10 +85,11 @@ class APIEducationService implements EducationService {
     LessonCategory category,
   ) async {
     // TODO lessons mock
-    // return right(GetLessonsResponse.fromJson({'lessons': lessons}));
+    return right(GetLessonsResponse.fromJson({'lessons': lessons}));
 
-    final params = category == LessonCategory.all ? null : {'category': category.name};
-    return client.get('/education/lessons', queryParameters: params).then(parseResponse(GetLessonsResponse.fromJson));
+    // final params = category == LessonCategory.all ? null : {'category': category.name};
+    // return client.get('/education/lessons', queryParameters: params).then(parseResponse(GetLessonsResponse.fromJson));
+    //
   }
 
   @override
@@ -94,8 +97,8 @@ class APIEducationService implements EducationService {
     int lessonId,
   ) async {
     // TODO lesson mock
-    // return right(GetLessonContentResponse.fromJson(lessonMock));
-    return client.get('/education/lessons/$lessonId').then(parseResponse(GetLessonContentResponse.fromJson));
+    return right(GetLessonContentResponse.fromJson(lessonMock));
+    // return client.get('/education/lessons/$lessonId').then(parseResponse(GetLessonContentResponse.fromJson));
   }
 
   @override

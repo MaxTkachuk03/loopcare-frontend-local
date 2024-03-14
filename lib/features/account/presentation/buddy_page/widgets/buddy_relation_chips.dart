@@ -20,6 +20,15 @@ class _BuddyRelationChipsState extends State<BuddyRelationChips> {
       });
 
   @override
+  void initState() {
+    super.initState();
+    final relation = context.read<BuddyBloc>().state.data.relation;
+    if (relation != null) {
+      _selectedValue = getRelation(relation);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),

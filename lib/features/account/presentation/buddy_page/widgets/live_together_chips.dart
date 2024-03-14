@@ -20,6 +20,15 @@ class _LiveTogetherChipsState extends State<LiveTogetherChips> {
       });
 
   @override
+  void initState() {
+    super.initState();
+    final hasAnswer = context.read<BuddyBloc>().state.data.liveTogether;
+    if (hasAnswer != null) {
+      _selectedValue = hasAnswer ? YesNoAnswer.yes : YesNoAnswer.no;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
