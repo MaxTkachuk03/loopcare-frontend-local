@@ -74,7 +74,7 @@ String formatSecondsToEducationDurationString(int value) {
   Duration duration = Duration(seconds: value);
 
   int days = duration.inDays;
-  int hours = duration.inHours.remainder(60);
+  int hours = duration.inHours.remainder(24);
   int minutes = duration.inMinutes.remainder(60);
   int seconds = duration.inSeconds.remainder(60);
   String daysStr = days > 0 ? '${days}d ' : '';
