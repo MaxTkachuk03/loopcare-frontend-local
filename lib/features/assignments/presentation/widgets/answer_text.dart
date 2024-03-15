@@ -48,6 +48,7 @@ class _AnswerTextState extends State<AnswerText> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 CustomText.bitter600(widget.question.question ?? '', style: context.textTheme.displayMedium),
                 const SizedBox(height: 28.0),
