@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
@@ -6,12 +5,9 @@ import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_de
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
-import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
-import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/rive_animation_renderer/rive_animation_renderer.dart';
-import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -26,13 +22,8 @@ const kHeightPadding = 20.0;
 
 class LessonAudioBody extends StatefulWidget {
   final void Function() onNextPressed;
-  final void Function() onPrevPressed;
 
-  const LessonAudioBody({
-    super.key,
-    required this.onNextPressed,
-    required this.onPrevPressed,
-  });
+  const LessonAudioBody({super.key, required this.onNextPressed});
 
   @override
   State<LessonAudioBody> createState() => _LessonAudioBodyState();
@@ -48,6 +39,8 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
     super.initState();
 
     final state = context.read<EducationLessonBloc>().state.data;
+
+    lessonId = state.lessonId;
 
     context
         .read<EducationLessonBloc>()
@@ -111,75 +104,65 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EducationLessonBloc, EducationLessonState>(
-      builder: (context, state) {
-        lessonId = state.data.lessonId;
-
-        return CustomScaffold.petrolLightest(
-          appBar: CustomAppBar.petrol(
-            title: LocalizedTexts.lesson.tr(),
-            leading: CustomFilledIconButton.leadingPetrolLighter(onPressed: widget.onPrevPressed),
+    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+      return ScrollableContainer(
+        child: ConstrainedBox(
+          constraints: constraints.copyWith(
+            maxHeight: constraints.maxHeight,
+            maxWidth: constraints.maxWidth,
           ),
-          body: SafeArea(
-            child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-              return ScrollableContainer(
-                child: ConstrainedBox(
-                  constraints: constraints.copyWith(
-                    maxHeight: constraints.maxHeight,
-                    maxWidth: constraints.maxWidth,
-                  ),
-                  child: Stack(
-                    children: [
-                      const RiveAnimationRenderer(),
-                      MainContainer(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Stack(
+            children: [
+              const RiveAnimationRenderer(),
+              MainContainer(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(height: kHeightPadding),
+                    Flexible(
+                      flex: 4,
+                      child: ImageContainer(
+                        controller: _subtitleController,
+                        height: (constraints.maxHeight) / 2 - kHeightPadding,
+                      ),
+                    ),
+                    BlocBuilder<EducationLessonBloc, EducationLessonState>(
+                      builder: (context, state) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(height: kHeightPadding),
-                            Flexible(
-                              flex: 4,
-                              child: ImageContainer(
+                            const SizedBox(height: 17),
+                            getLabelByCategory(state.data.lessonCategory),
+                            const SizedBox(height: 17),
+                            CustomText.bitter600(
+                              state.data.lessonTitle,
+                              style: context.textTheme.displayLarge,
+                            ),
+                            const SizedBox(height: 17),
+                            CustomOutlinedButton.blueSmall(
+                              onPressed: _onReadText,
+                              label: LocalizedTexts.readText,
+                            ),
+                            if (state.data.currentPage.content.audioFilePath.isNotEmpty)
+                              AudioBlock(
+                                url: state.data.currentPage.content.audioFilePath,
+                                duration: state.data.lessonDuration,
                                 controller: _subtitleController,
-                                height: (constraints.maxHeight) / 2 - kHeightPadding,
+                                onPlayerComplete: _setIsComplete,
                               ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 17),
-                                getLabelByCategory(state.data.lessonCategory),
-                                const SizedBox(height: 17),
-                                CustomText.bitter600(
-                                  state.data.lessonTitle,
-                                  style: context.textTheme.displayLarge,
-                                ),
-                                const SizedBox(height: 17),
-                                CustomOutlinedButton.blueSmall(
-                                  onPressed: _onReadText,
-                                  label: LocalizedTexts.readText,
-                                ),
-                                if (state.data.currentPage.content.audioFilePath.isNotEmpty)
-                                  AudioBlock(
-                                    url: state.data.currentPage.content.audioFilePath,
-                                    duration: state.data.lessonDuration,
-                                    controller: _subtitleController,
-                                    onPlayerComplete: _setIsComplete,
-                                  ),
-                                const SizedBox(height: 14),
-                              ],
-                            ),
+                            const SizedBox(height: 14),
                           ],
-                        ),
-                      )
-                    ],
-                  ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
-              );
-            }),
+              )
+            ],
           ),
-        );
-      },
-    );
+        ),
+      );
+    });
   }
 
   @override
