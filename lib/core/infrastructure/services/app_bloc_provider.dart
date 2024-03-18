@@ -103,7 +103,7 @@ class AppBlocProvider {
           create: (_) => getIt<EducationProgramBloc>(),
         ),
         BlocProvider<EducationLessonBloc>(
-          create: (_) => getIt<EducationLessonBloc>(),
+          create: (_) => getIt<EducationLessonBloc>()..add(const EducationLessonEvent.init()),
         ),
         BlocProvider<DashboardEducationBloc>(
           create: (_) => getIt<DashboardEducationBloc>(),

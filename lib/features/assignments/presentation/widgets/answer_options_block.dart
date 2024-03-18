@@ -28,6 +28,8 @@ class AnswerOptionsBlock extends StatelessWidget {
       children: [
         CustomText.bitter600(question.question ?? '', style: context.textTheme.displayMedium),
         const SizedBox(height: 28.0),
+        CustomText.w400(question.extraInstruction, style: context.textTheme.bodyMedium),
+        const SizedBox(height: 28.0),
         ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,

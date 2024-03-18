@@ -74,13 +74,13 @@ String formatSecondsToEducationDurationString(int value) {
   Duration duration = Duration(seconds: value);
 
   int days = duration.inDays;
-  int hours = duration.inHours.remainder(60);
+  int hours = duration.inHours.remainder(24);
   int minutes = duration.inMinutes.remainder(60);
   int seconds = duration.inSeconds.remainder(60);
-  String daysStr = days > 0 ? '$days days ' : '';
-  String hoursStr = hours > 0 ? '${hours.toString().padLeft(2, '0')} hrs ' : '';
-  String minsStr = minutes > 0 ? '${minutes.toString().padLeft(2, '0')} mins ' : '';
-  String secStr = seconds > 0 ? '${seconds.toString().padLeft(2, '0')} s' : '';
+  String daysStr = days > 0 ? '${days}d ' : '';
+  String hoursStr = hours > 0 ? '${hours.toString().padLeft(2, '0')}h ' : '';
+  String minsStr = minutes > 0 ? '${minutes.toString().padLeft(2, '0')}m ' : '';
+  String secStr = seconds > 0 ? '${seconds.toString().padLeft(2, '0')}s' : '';
 
   return '$daysStr$hoursStr$minsStr$secStr';
 }

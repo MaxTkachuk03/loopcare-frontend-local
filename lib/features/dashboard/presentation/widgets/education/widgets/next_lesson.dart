@@ -103,17 +103,21 @@ class NextLesson extends StatelessWidget {
                                       const SizedBox(width: 4.0),
                                       isBlocked
                                           ? Expanded(
-                                              child: Wrap(
-                                                children: [
-                                                  CustomText.w600(
-                                                    '${LocalizedTexts.availableIn.translation}: ',
-                                                    style: context.textTheme.bodySmall,
-                                                  ),
-                                                  EducationCountDown(seconds: lessonWithCountdown.timeRemaining),
-                                                ],
+                                              child: FittedBox(
+                                                child: Row(
+                                                  children: [
+                                                    CustomText.w600(
+                                                      '${LocalizedTexts.availableIn.translation}: ',
+                                                      style: context.textTheme.bodySmall,
+                                                    ),
+                                                    EducationCountDown(
+                                                        seconds: lessonWithCountdown.timeRemaining),
+                                                  ],
+                                                ),
                                               ),
                                             )
-                                          : CustomText.w700(LocalizedTexts.locked, style: context.textTheme.bodySmall),
+                                          : CustomText.w700(LocalizedTexts.locked,
+                                              style: context.textTheme.bodySmall),
                                     ],
                                   )),
                       ],

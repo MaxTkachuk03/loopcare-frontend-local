@@ -136,6 +136,7 @@ class _ReportFormWidget extends StatelessWidget {
         ),
         Expanded(
           child: CustomScaffold(
+            withBg: false,
             color: AppColors.transparent,
             appBar: null,
             resizeToAvoidBottomInset: true,

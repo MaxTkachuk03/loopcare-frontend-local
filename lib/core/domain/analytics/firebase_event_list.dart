@@ -84,4 +84,6 @@ class FirebaseEvents {
   static String get programCompletedWithoutLogging => 'program_completed_without_logging';
   static String get userOpenedChat => 'user_opened_chat';
   static String get userLeavesChat => 'user_leaves_chat';
+
+  static String get userConfirmedDoctorConsent => 'user_confirmed_doctor_consent';
 }

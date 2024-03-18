@@ -88,6 +88,7 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
           prev is Saving && context.router.current.name == PhysicalActivitiesFrequencyRoute.name,
       listener: _onChangeListener,
       child: CustomScaffold(
+        withBg: false,
         color: widget.profileInvoke ? AppColors.blueLightest : AppColors.petrolLightest,
         appBar: CustomAppBar(
           title: LocalizedTexts.trainingFrequency.tr(),

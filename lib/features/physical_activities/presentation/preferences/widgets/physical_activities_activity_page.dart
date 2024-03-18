@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -21,7 +20,6 @@ import 'package:loopcare_frontend/features/education/application/education_lesso
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/activity_type_chips.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/flexibility_chips.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_type.dart';
 
 class PhysicalActivitiesActivityTypePage extends StatefulWidget {
   final bool profileInvoke;
@@ -78,6 +76,7 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
           prev is Saving && context.router.current.name == PhysicalActivitiesActivityTypeRoute.name,
       listener: _onChangeListener,
       child: CustomScaffold(
+        withBg: false,
         color: widget.profileInvoke ? AppColors.blueLightest : AppColors.petrolLightest,
         appBar: CustomAppBar(
           backgroundColor: widget.profileInvoke ? AppColors.blueRegular : AppColors.petrolRegular,

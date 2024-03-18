@@ -6,13 +6,15 @@ class EducationLessonState with _$EducationLessonState {
 
   const factory EducationLessonState.loading(EducationLessonData data) = Loading;
 
+  const factory EducationLessonState.contentIsLoading(EducationLessonData data) = ContentIsLoading;
+
+  const factory EducationLessonState.errorGettingContent(EducationLessonData data) = ErrorGettingContent;
+
   const factory EducationLessonState.contentLoaded(EducationLessonData data) = ContentLoaded;
 
   const factory EducationLessonState.lessonCompleted(EducationLessonData data) = LessonCompleted;
 
   const factory EducationLessonState.errorCompleteLesson(EducationLessonData data) = ErrorCompleteLesson;
-
-  const factory EducationLessonState.errorGettingLessons(EducationLessonData data) = ErrorGettingLessons;
 }
 
 @freezed
@@ -36,20 +38,20 @@ class EducationLessonData with _$EducationLessonData {
     @Default(0) int lessonProgress,
     @Default(0) int currentProgressPageIndex,
     @Default(0) int currentPageIndex,
-    @Default('') String svgFile,
-    @Default(false) bool isSvgLoaded,
     @Default({}) Map<String, Set<AudioLessonContentType>> audioFilesCache,
     RequestError? error,
     @Default([]) List<LessonQuestion> questions,
   }) = _EducationLessonData;
 
-  LessonPage get currentPage {
-    return pages[currentPageIndex];
-  }
+  LessonPage get currentPage => pages[currentPageIndex];
+
+  bool get isArticlePage => currentPage.type == EducationLessonPageType.text;
+
+  bool get isAudioPage => currentPage.type == EducationLessonPageType.audio;
 
   String filePath(String url) {
-    var urls = url.split('/');
-    return "$temporaryDirectory/${urls[urls.length - 2]}/${urls.last}";
+    var urlArr = url.split('/');
+    return "$temporaryDirectory/${urlArr[urlArr.length - 2]}/${urlArr.last}";
   }
 
   bool get isAudioAlreadyInCache {

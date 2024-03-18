@@ -1,45 +1,63 @@
 import 'dart:async';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:loopcare_frontend/features/education/domain/subtitle/image_subtitle_controller.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/player_widget.dart';
 
 class AudioBlock extends StatefulWidget {
-  final void Function(int duration) onDurationChanged;
-  final void Function(int position) onPositionChanged;
-  final void Function(bool isPlay) onPlayingChanged;
   final void Function() onPlayerComplete;
   final String url;
   final int duration;
+  final SubtitleController controller;
 
   const AudioBlock({
     super.key,
-    required this.onDurationChanged,
-    required this.onPositionChanged,
-    required this.onPlayingChanged,
     required this.onPlayerComplete,
     required this.url,
     required this.duration,
+    required this.controller,
   });
 
   @override
   State<AudioBlock> createState() => _AudioBlockState();
 }
 
-class _AudioBlockState extends State<AudioBlock> {
+class _AudioBlockState extends State<AudioBlock> with AutoRouteAware {
+  AutoRouteObserver? _observer;
+
   AudioPlayer audioPlayer = AudioPlayer();
 
   List<StreamSubscription> streams = [];
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    _observer = RouterScope.of(context).firstObserverOfType<AutoRouteObserver>();
+    if (_observer != null) {
+      _observer?.subscribe(this, context.routeData);
+    }
+  }
+
+  @override
+  void didPushNext() {
+    _stopPlayer();
+  }
+
+  @override
+  void didPop() {
+    _stopPlayer();
+  }
+
+  @override
   void initState() {
-    streams.add(audioPlayer.durationStream.listen((state) {
-      widget.onDurationChanged(state?.inMilliseconds ?? 0);
-    }));
+    streams.add(audioPlayer.durationStream.listen((state) {}));
 
     streams.add(
       audioPlayer.positionStream.listen(
         (v) {
-          widget.onPositionChanged(v.inMilliseconds);
+          widget.controller.setActiveSubtitleItem(v.inMilliseconds);
         },
       ),
     );
@@ -47,7 +65,7 @@ class _AudioBlockState extends State<AudioBlock> {
     streams.add(
       audioPlayer.playerStateStream.listen(
         (v) {
-          widget.onPlayingChanged(v.playing);
+          widget.controller.setIsPlaying(v.playing);
         },
       ),
     );
@@ -72,6 +90,7 @@ class _AudioBlockState extends State<AudioBlock> {
       s.cancel();
     }
     audioPlayer.stop();
+    _observer?.unsubscribe(this);
     audioPlayer.dispose();
     super.dispose();
   }
@@ -100,6 +119,10 @@ class _AudioBlockState extends State<AudioBlock> {
       // Fallback for all errors
       debugPrint('devcpp $e');
     }
+  }
+
+  void _stopPlayer() {
+    audioPlayer.stop();
   }
 
   @override

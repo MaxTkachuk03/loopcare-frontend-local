@@ -17,6 +17,8 @@ class LocalStorage extends StorageActions {
   @override
   T? getValue<T extends Object?>(String key) => _prefs.get(key) as T?;
 
+  String? getString(String key) => _prefs.getString(key);
+
   @override
   Future<bool> setValue<T extends Object?>(String key, T value) {
     if (value is bool) {

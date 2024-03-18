@@ -27,7 +27,7 @@ class _PhysicalPreferencesPageState extends State<PhysicalPreferencesPage> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold.blue(
-      needBottomFacture: true,
+      withBg: true,
       appBar: CustomAppBar.blue(
         title: LocalizedTexts.physicalActivitiesPreferences.tr(),
         leading: CustomFilledIconButton.leadingBlueLighter(),
