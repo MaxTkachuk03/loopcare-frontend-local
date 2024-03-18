@@ -1,12 +1,15 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
 import 'package:loopcare_frontend/features/education/domain/audio_lesson_content_type.dart';
+import 'package:loopcare_frontend/features/education/domain/education_lesson_page_type.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_type.dart';
@@ -22,7 +25,7 @@ part 'education_lesson_bloc.freezed.dart';
 class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonState> {
   final EducationService _educationService;
 
-  static const _defaultError = RequestError.unhandledError('Something went wrong, please try again');
+  final _defaultError = RequestError.unhandledError(LocalizedTexts.somethingWentWrong.tr());
 
   EducationLessonBloc(
     this._educationService,
@@ -122,19 +125,17 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     GetLessonContent event,
     Emitter<EducationLessonState> emit,
   ) async {
-    emit(EducationLessonState.loading(state.data.copyWith(isLoading: true, error: null)));
+    emit(EducationLessonState.contentIsLoading(state.data.copyWith(isLoading: true, error: null)));
 
     final response = await _educationService.getLessonContent(event.lessonId);
 
     response.fold(
-      (l) {
-        emit(EducationLessonState.errorGettingLessons(state.data.copyWith(error: l, isLoading: false)));
-      },
+      (l) => emit(EducationLessonState.errorGettingContent(state.data.copyWith(error: l, isLoading: false))),
       (r) async {
         r.pages.sort((a, b) => a.order.compareTo(b.order));
 
         if (r.pages.isEmpty) {
-          emit(EducationLessonState.errorGettingLessons(
+          emit(EducationLessonState.errorGettingContent(
               state.data.copyWith(error: _defaultError, isLoading: false)));
 
           return;
