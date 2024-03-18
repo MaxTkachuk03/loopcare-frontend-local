@@ -34,7 +34,16 @@ class ConsultDoctorPage extends StatefulWidget {
 class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
   bool _isConsulted = false;
 
-  _onCompleteHandler(Function action) {
+  void _onCompleteAfterLessonHandler(_) {
+    context.router.pushNamed(AppRoutes.lessonComplete);
+
+    // TODO removed for now 04.03.2024 need to check all requirement after
+    // if (!context.read<AuthenticationCubit>().state.hasSubscription) {
+    //   context.router.push(NeedPaidSubscriptionRoute(mode: widget.mode));
+    // }
+  }
+
+  void _onCompleteFromProfileHandler(_) {
     final userId = context.read<AuthenticationCubit>().state.id;
 
     AnalyticsEventService.instance.logEvent(
@@ -45,21 +54,12 @@ class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
       },
     );
 
-    action();
-
-    // TODO removed for now 04.03.2024 need to check all requirement after
-    // if (!context.read<AuthenticationCubit>().state.hasSubscription) {
-    //   context.router.push(NeedPaidSubscriptionRoute(mode: widget.mode));
-    // } else {
-    //   action();
-    // }
+    context.router.push(GenderPreferencesRoute(fromLessonComplete: false));
   }
 
   void _onCompleteLessonHandler() => widget.mode.map(
-        afterLesson: (_) => _onCompleteHandler(() => context.router.pushNamed(AppRoutes.lessonComplete)),
-        userProfile: (_) => _onCompleteHandler(
-          () => context.router.push(GenderPreferencesRoute(fromLessonComplete: false)),
-        ),
+        afterLesson: _onCompleteAfterLessonHandler,
+        userProfile: _onCompleteFromProfileHandler,
       );
 
   void _onConsentHandler(bool? value) {
