@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -19,7 +18,6 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-// import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
 
 class ConsultDoctorPage extends StatefulWidget {
@@ -35,12 +33,11 @@ class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
   bool _isConsulted = false;
 
   void _onCompleteAfterLessonHandler(_) {
-    context.router.pushNamed(AppRoutes.lessonComplete);
-
-    // TODO removed for now 04.03.2024 need to check all requirement after
-    // if (!context.read<AuthenticationCubit>().state.hasSubscription) {
-    //   context.router.push(NeedPaidSubscriptionRoute(mode: widget.mode));
-    // }
+    if (!context.read<AuthenticationCubit>().state.hasSubscription) {
+      context.router.push(NeedPaidSubscriptionRoute(mode: widget.mode));
+    } else {
+      context.router.pushNamed(AppRoutes.lessonComplete);
+    }
   }
 
   void _onCompleteFromProfileHandler(_) {
@@ -54,7 +51,11 @@ class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
       },
     );
 
-    context.router.push(GenderPreferencesRoute(fromLessonComplete: false));
+    if (!context.read<AuthenticationCubit>().state.hasSubscription) {
+      context.router.push(NeedPaidSubscriptionRoute(mode: widget.mode));
+    } else {
+      context.router.push(GenderPreferencesRoute(fromLessonComplete: false));
+    }
   }
 
   void _onCompleteLessonHandler() => widget.mode.map(

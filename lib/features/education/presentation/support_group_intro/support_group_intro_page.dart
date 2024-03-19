@@ -117,11 +117,10 @@ class SupportGroupIntroPage extends StatelessWidget {
       return;
     }
 
-    // TODO removed for now 04.03.2024 need to check all requirement after
-    // if (!context.read<AuthenticationCubit>().state.hasSubscription) {
-    //   context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.afterLesson()));
-    //   return;
-    // }
+    if (!context.read<AuthenticationCubit>().state.hasSubscription) {
+      context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.afterLesson()));
+      return;
+    }
 
     context
       ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.setWouldLikeJoinGroup(YesNoAnswer.yes))
