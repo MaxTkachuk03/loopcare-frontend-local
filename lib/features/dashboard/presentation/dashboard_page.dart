@@ -89,6 +89,10 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     //Need wait result this request
 
     context
+        .read<DashboardWeightBloc>()
+        .add(DashboardWeightEvent.fetchWeights(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime));
+
+    context
         .read<DashboardEducationBloc>()
         .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons());
