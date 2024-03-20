@@ -36,7 +36,7 @@ class NeedPaidSubscriptionPage extends StatelessWidget {
         ),
         userProfile: (_) => CustomScaffold.blueLightest(
           appBar: CustomAppBar.blue(
-            title: LocalizedTexts.preferences.tr(),
+            title: LocalizedTexts.supportGroupPreferences.tr(),
             leading: CustomFilledIconButton.leadingBlueLighter(),
           ),
           body: body,
