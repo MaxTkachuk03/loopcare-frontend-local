@@ -5,6 +5,7 @@ import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -16,7 +17,6 @@ import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/
 import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/medication_future_period_answer.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/medication_past_period_answer.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_medical/domain/weight_loss_medication_answers.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/date_helpers.dart';
 
 part 'medical_fitness_bloc.freezed.dart';

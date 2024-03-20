@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
+import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 
 part 'login_response.g.dart';
 
@@ -14,8 +15,8 @@ class LoginResponse {
   final String name;
   final String email;
   final String? country;
-  final SexType gender;
-  final String bioGender;
+  final GenderType gender;
+  final SexType sex;
   final Subscription subscription;
   final DateTime emailApproveDate;
 
@@ -27,7 +28,7 @@ class LoginResponse {
     required this.email,
     required this.country,
     required this.gender,
-    required this.bioGender,
+    required this.sex,
     required this.subscription,
     required this.emailApproveDate,
   });

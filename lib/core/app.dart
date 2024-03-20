@@ -90,7 +90,7 @@ class _AppState extends State<_App> {
         mentalHealthBloc,
         authTokenManager,
       ),
-      genderPrefsGuard: GenderPrefsGuard(authBloc),
+      genderPrefsGuard: GenderPrefsGuard(),
     );
   }
 

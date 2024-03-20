@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
@@ -19,8 +20,6 @@ import 'package:loopcare_frontend/features/account/presentation/group_preference
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/white_box.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 
 class GroupPreferencesForm extends StatelessWidget {
   const GroupPreferencesForm({super.key});
@@ -51,7 +50,7 @@ class GroupPreferencesForm extends StatelessWidget {
                 updated: (s) {
                   final preferences = s.data.genderPreferences;
                   final gender = accountState.gender;
-                  final showGenderPreference = (gender == SexType.female || gender == SexType.male);
+                  final showGenderPreference = (gender != GenderType.other);
 
                   if (accountState.groupingState == UserGroupingState.grouped) {
                     return Column(
@@ -83,7 +82,7 @@ class GroupPreferencesForm extends StatelessWidget {
                       if (showGenderPreference)
                         TappedItem(
                           title: LocalizedTexts.genderPreference.tr(),
-                          subTitle: preferences != null ? preferences.label : '',
+                          subTitle: preferences != null ? preferences.name : '',
                           onPressHandler: () => _onGenderPreferencesTap(context),
                         ),
                       if (showGenderPreference) const SizedBox(height: 16.0),
@@ -126,22 +125,19 @@ class GroupPreferencesForm extends StatelessWidget {
 
   void _onGenderPreferencesTap(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>()
-          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
       ..router.push(GenderPreferencesRoute(fromLessonComplete: false));
   }
 
   void _onTimezoneTap(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>()
-          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
       ..router.push(TimezonePreferencesRoute(fromLessonComplete: false));
   }
 
   void _onNicknamePreferencesTap(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>()
-          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
       ..router.push(NicknamePreferencesRoute(fromLessonComplete: false));
   }
 

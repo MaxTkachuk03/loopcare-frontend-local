@@ -311,6 +311,8 @@ class LocalizedTexts {
   static const String noPreference = 'noPreference';
   static const String femaleOnly = 'femaleOnly';
   static const String maleOnly = 'maleOnly';
+  static const String female = 'female';
+  static const String male = 'male';
   static const String mixed = 'mixed';
   static const String subjectReport = 'subjectReport';
   static const String descriptionReport = 'descriptionReport';
@@ -618,7 +620,10 @@ class LocalizedTexts {
   static const String sex = 'sex';
 
   // Bio gender
-  static const String biologicalGenderPageTitle = 'biologicalGenderPageTitle';
+  static const String genderPageTitle = 'biologicalGenderPageTitle';
+  static const String woman = "woman";
+  static const String man = "man";
+  static const String other = "other";
 
   // Height
   static const String yourHeight = 'yourHeight';

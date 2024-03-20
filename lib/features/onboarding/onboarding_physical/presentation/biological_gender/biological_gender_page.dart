@@ -35,7 +35,7 @@ class BiologicalGenderPage extends StatelessWidget {
                     children: [
                       const SizedBox(height: 80),
                       CustomText.bitter600(
-                        '${LocalizedTexts.biologicalGenderPageTitle.tr()}?',
+                        '${LocalizedTexts.genderPageTitle.tr()}?',
                         textAlign: TextAlign.center,
                         style: context.textTheme.displayMedium,
                       ),

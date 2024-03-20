@@ -1,6 +1,1 @@
-enum InterpretationType {
-  minimal,
-  mild,
-  moderate,
-  high
-}
+enum InterpretationType { minimal, mild, moderate, high }

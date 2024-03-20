@@ -3,13 +3,14 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/account/application/dto/group_preferences_body.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_service.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
 
 part 'group_preferences_bloc.freezed.dart';
 part 'group_preferences_event.dart';
@@ -181,8 +182,7 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
   FutureOr<void> _onAcceptRules(event, Emitter<GroupPreferencesState> emit) async {
     emit(GroupPreferencesState.loading(state.data.copyWith(isLoading: true)));
 
-    final response =
-        await _groupPreferencesService.savePreferences(const GroupPreferencesBody(rulesAccepted: true));
+    final response = await _groupPreferencesService.savePreferences(const GroupPreferencesBody(rulesAccepted: true));
 
     response.fold(
       (l) => emit(GroupPreferencesState.error(state.data.copyWith(error: l, isLoading: false))),

@@ -7,11 +7,9 @@ class PhysicalFitnessState with _$PhysicalFitnessState {
     @Default(false) bool isCompletedSuccessfully,
     @Default(false) bool isCompletedWithError,
     String? heightInCm,
-    @Default(MeasurementSystemType.metric)
-        MeasurementSystemType heightMeasurementSystemType,
+    @Default(MeasurementSystemType.metric) MeasurementSystemType heightMeasurementSystemType,
     String? weightInKg,
-    @Default(MeasurementSystemType.metric)
-        MeasurementSystemType weightMeasurementSystemType,
+    @Default(MeasurementSystemType.metric) MeasurementSystemType weightMeasurementSystemType,
     DateTime? birthday,
     int? age,
     num? bmi,
@@ -31,12 +29,9 @@ class PhysicalFitnessState with _$PhysicalFitnessState {
       height: double.parse(heightInCm ?? '0'),
       gender: describeEnum(sexType as SexType),
       weight: double.parse(weightInKg ?? '0'),
-      bioGender: biologicalGenderType != null
-          ? describeEnum(biologicalGenderType as BiologicalGenderType)
-          : 'preferNotToSay',
+      bioGender: biologicalGenderType != null ? describeEnum(biologicalGenderType as GenderType) : 'preferNotToSay',
     );
   }
 
-  factory PhysicalFitnessState.fromJson(Map<String, dynamic> json) =>
-      _$PhysicalFitnessStateFromJson(json);
+  factory PhysicalFitnessState.fromJson(Map<String, dynamic> json) => _$PhysicalFitnessStateFromJson(json);
 }

@@ -1,11 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/domain/account/account.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 
 part 'authentication_state.freezed.dart';
 part 'authentication_state.g.dart';
@@ -99,7 +99,7 @@ class AuthenticationState with _$AuthenticationState {
     );
   }
 
-  SexType? get gender {
+  GenderType? get gender {
     return mapOrNull(
       authenticated: (state) => state.account.gender,
     );
@@ -168,11 +168,10 @@ class AuthenticationState with _$AuthenticationState {
 
   bool get isFoodLoggingUnlocked => unlockedFeatures.contains(UnlockedFeatureType.meals);
 
-  bool get isTreatedByPsychiatrist => maybeWhen(
-      orElse: () => false, authenticated: (state) => state.medicalOnboarding?.treatedByPsychiatrist ?? false);
+  bool get isTreatedByPsychiatrist =>
+      maybeWhen(orElse: () => false, authenticated: (state) => state.medicalOnboarding?.treatedByPsychiatrist ?? false);
 
-  bool get isGroupSessionsUnlocked =>
-      unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;
+  bool get isGroupSessionsUnlocked => unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;
 
   bool get isPhysicalActivitiesUnlocked => unlockedFeatures.contains(UnlockedFeatureType.physicalActivities);
 

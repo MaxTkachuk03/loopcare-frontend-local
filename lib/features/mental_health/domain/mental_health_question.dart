@@ -1,8 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
+import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 
 part 'mental_health_question.freezed.dart';
-
 part 'mental_health_question.g.dart';
 
 @freezed

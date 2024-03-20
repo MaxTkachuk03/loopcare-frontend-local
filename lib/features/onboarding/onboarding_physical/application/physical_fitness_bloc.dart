@@ -1,9 +1,12 @@
 import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
+import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
@@ -12,20 +15,15 @@ import 'package:loopcare_frontend/features/onboarding/onboarding_physical/applic
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/application/dto/registration_physical_fitness_data.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/application/physical_service.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/biological_gender_type.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/bmi_calculator.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/bmi_validator.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/date_helpers.dart';
 
 part 'physical_fitness_bloc.freezed.dart';
-
 part 'physical_fitness_bloc.g.dart';
-
 part 'physical_fitness_event.dart';
-
-part 'physical_fitness_state.dart';
-
 part 'physical_fitness_questions.dart';
+part 'physical_fitness_state.dart';
 
 @singleton
 class PhysicalFitnessBloc extends HydratedBloc<PhysicalFitnessEvent, PhysicalFitnessState> {

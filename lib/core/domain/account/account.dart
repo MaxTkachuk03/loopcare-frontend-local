@@ -1,4 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
+import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
@@ -6,10 +8,10 @@ import 'package:loopcare_frontend/features/account/domain/user_grouping_state.da
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/mental_health/domain/interpretation_type.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_activities_preferences.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preference.dart';
+
+import 'gender_type.dart';
 
 part 'account.freezed.dart';
 part 'account.g.dart';
@@ -23,8 +25,8 @@ abstract class Account implements _$Account {
     required String name,
     required String email,
     required String? country,
-    required SexType gender,
-    required String bioGender,
+    required GenderType gender,
+    required SexType sex,
     required Subscription subscription,
     Buddy? buddy,
     @Default(null) UserGroupingState? groupingState,
@@ -49,7 +51,7 @@ abstract class Account implements _$Account {
     @Default(null) DateTime? emailApproveDate,
   }) = _Account;
 
-  bool get isMixedGender => gender != SexType.female && gender != SexType.male;
+  bool get isMixedGender => gender == GenderType.other;
 
   int get trainingFrequency {
     final RegExpMatch? match = RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
@@ -60,6 +62,10 @@ abstract class Account implements _$Account {
   bool get disableGroupSessions => mentalHealthTests != null && _isPhq8High ? true : false;
 
   bool get _isPhq8High => mentalHealthTests?.phq8 == InterpretationType.high.name;
+
+  bool get isUserGrouped => groupingState == UserGroupingState.grouped;
+
+  bool get isPhysicalActivitiesUnlocked => unlockedFeatures.contains(UnlockedFeatureType.physicalActivities);
 
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 }
