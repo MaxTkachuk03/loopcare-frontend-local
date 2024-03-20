@@ -49,11 +49,14 @@ app.*.map.json
 
 # firebase settings
 /android/app/src/dev/google-services.json
-/android/app/src/prod/google-services.json
 /android/app/src/stag/google-services.json
+/android/app/src/uat/google-services.json
+/android/app/src/prod/google-services.json
+
 /ios/config/dev/GoogleService-Info.plist
-/ios/config/prod/GoogleService-Info.plist
 /ios/config/stag/GoogleService-Info.plist
+/ios/config/uat/GoogleService-Info.plist
+/ios/config/prod/GoogleService-Info.plist
 
 # Code generated files
 *.freezed.dart*
@@ -66,3 +69,4 @@ app.*.map.json
 /ios/IAPTest.storekit
 /ios/StoreKitTestCertificate.cer
 /env.stag
+/local_plugins/advertising_id/example/

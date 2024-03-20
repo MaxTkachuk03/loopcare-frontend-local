@@ -58,7 +58,7 @@ class ChatSocketService {
   }
 
   void connect(String token) {
-    _socket?.io.options!['authorization'] = {'Bearer': token};
+    _socket?.io.options!['authorization'] = token;
     _socket?.connect();
   }
 
@@ -76,7 +76,7 @@ class ChatSocketService {
       _baseUrl,
       io.OptionBuilder()
           .setTransports(['websocket'])
-          .setQuery({'authorization': 'Bearer $token'})
+          .setQuery({'authorization': token})
           .enableReconnection()
           .enableAutoConnect()
           .build(),

@@ -58,7 +58,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
     context.showError(content: Text(errorMessage));
   }
 
-  _startLessonQuestion(BuildContext context, int lessonId) {
+  _startLessonQuestion(int lessonId) {
     context.router.push(AssignmentsIntroRoute(lessonId: lessonId, fromDashboard: false));
 
     setState(() {
@@ -68,7 +68,15 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
   bool get _isGroupSessionsDisabled => context.read<AuthenticationCubit>().state.disableGroupSessions;
 
+  bool get _isTreatedByPsychiatrist => context.read<AuthenticationCubit>().state.isTreatedByPsychiatrist;
+
   String _subText(EducationLessonState state) {
+    if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
+        !_isGroupSessionsDisabled &&
+        _isTreatedByPsychiatrist) {
+      return LocalizedTexts.treatedByTherapistLessonComplete.tr();
+    }
+
     if (state.data.extraAction == ExtraActionTypes.unlockMeals ||
         (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences && !_isGroupSessionsDisabled)) {
       return LocalizedTexts.unlockFeatureDescription.tr();
@@ -175,7 +183,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                           }
 
                           if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
-                              !_isGroupSessionsDisabled) {
+                              !_isGroupSessionsDisabled &&
+                              !_isTreatedByPsychiatrist) {
                             return const UnlockGroupSessionFeature();
                           }
 
@@ -195,7 +204,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                                 ? const SavedAssignment()
                                 : UnlockAssignment(
                                     completedAt: state.data.lessonCompletedDate ?? DateTime.now(),
-                                    onBtnPressed: () => _startLessonQuestion(context, state.data.lessonId),
+                                    onBtnPressed: () => _startLessonQuestion(state.data.lessonId),
                                   );
                           }
 

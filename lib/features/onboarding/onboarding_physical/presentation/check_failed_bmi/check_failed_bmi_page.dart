@@ -1,6 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -61,7 +64,12 @@ class CheckFailedBmiPage extends StatelessWidget {
                       BlocBuilder<PhysicalFitnessBloc, PhysicalFitnessState>(
                         builder: (BuildContext context, state) {
                           final bmiIndex = BmiCalculator.getUserBmiIndex(state.heightInCm, state.weightInKg);
-
+                          AnalyticsEventService.instance.logEvent(
+                            FirebaseEvents.userBmiExclusion,
+                            parameters: {
+                              CustomDefinitions.value: '$bmiIndex',
+                            },
+                          );
                           return CustomText.w600('$bmiIndex', style: context.textTheme.headlineLarge);
                         },
                       ),

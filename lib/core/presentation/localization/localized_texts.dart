@@ -249,6 +249,7 @@ class LocalizedTexts {
   static const String backToToday = 'backToToday';
   static const String backToEducation = 'backToEducation';
   static const String completed = 'completed';
+  static const String complete = 'complete';
 
   // Physical exercise
   static const String physicalActivity = 'physicalActivity';
@@ -378,7 +379,7 @@ class LocalizedTexts {
   static const String at = 'at';
   static const String joinAGroup = 'joinAGroup';
   static const String unavailableGroupPrefsLabel = 'unavailableGroupPrefsLabel';
-  static const String weWillNotifyYouAboutGroup = 'weWillNotifyYouAboutGroup';
+  static const String findingMatchingGroup = 'findingMatchingGroup';
   static const String moreInformationInPreferences = 'moreInformationInPreferences';
   static const String bookYourSeatNow = 'bookYourSeatNow';
   static const String comingUpThisWeek = 'comingUpThisWeek';
@@ -526,6 +527,9 @@ class LocalizedTexts {
   static const String googleMarket = "googleMarket";
   static const String cancelAccountSubscription = "cancelAccountSubscription";
   static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
+  static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
+  static const String otherPurchaseVendorCancelAccountSubscription =
+      "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";
@@ -758,7 +762,6 @@ class LocalizedTexts {
   static const String phq8ResultMedium = "phq8ResultMedium";
   static const String phq8ResultHigh = "phq8ResultHigh";
   static const String phq8ResultHighest = "phq8ResultHighest";
-
   // Mental final results
   static const String phq8FinalResultHigh1 = "phq8FinalResultHigh1";
   static const String phq8FinalResultHigh2 = "phq8FinalResultHigh2";
@@ -861,9 +864,25 @@ class LocalizedTexts {
   static const String unlockFeatureDescription = 'unlockFeatureDescription';
   static const String lessonCompleteDescription = 'lessonCompleteDescription';
   static const String assignmentCompleted = 'assignmentCompleted';
+  static const String assignmentCompleteDescription = 'assignmentCompleteDescription';
+  static const String consultYourTherapist = 'consultYourTherapist';
+  static const String consultYourTherapistBody1 = 'consultYourTherapistBody1';
+  static const String consultYourTherapistBody2 = 'consultYourTherapistBody2';
+  static const String consultYourTherapistBody3 = 'consultYourTherapistBody3';
+  static const String consultYourTherapistBody4 = 'consultYourTherapistBody4';
+  static const String completeLesson = 'completeLesson';
+  static const String didYouCheckWithSpecialist = 'didYouCheckWithSpecialist';
+  static const String iConsultedTherapist = 'iConsultedTherapist';
+  static const String treatedByTherapistLessonComplete = 'treatedByTherapistLessonComplete';
+  static const String needSubscrionScreenTitle = 'needSubscrionScreenTitle';
+  static const String needSubscrionScreenBody1 = 'needSubscrionScreenBody1';
+  static const String needSubscrionScreenBody2 = 'needSubscrionScreenBody2';
+  static const String needSubscrionScreenBody3 = 'needSubscrionScreenBody3';
+  static const String needSubscrionScreenBody4 = 'needSubscrionScreenBody4';
 
   // Group session
   static const String groupSession = 'groupSession';
+  static const String notEnrolledInGroup = 'notEnrolledInGroup';
   static const String supportGroupPaidSubscriptionNotGrouped = 'supportGroupPaidSubscriptionNotGrouped';
   static const String supportGroupTrialSubscriptionNotGrouped = 'supportGroupTrialSubscriptionNotGrouped';
   static const String nextWeekTopic = 'nextWeekTopic';

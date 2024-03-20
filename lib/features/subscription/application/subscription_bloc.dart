@@ -10,6 +10,7 @@ import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
@@ -143,6 +144,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         if (accessTokenUpdated) {
           add(
             SubscriptionEvent.purchasedSubscription(
+              r,
               PurchasedProduct(
                 purchaseDetails: purchaseDetails,
                 memberSince: SubscriptionDateUtils.getTransactionDate(r.purchasedAt),
@@ -182,9 +184,9 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     }
     response.fold((error) {
       add(SubscriptionEvent.errorVerifyPurchase(error));
-    }, (r) {
-      if (oldPurchaseDetails != null) {
-        inAppPurchaseService.completePurchase(oldPurchaseDetails);
+    }, (r) async {
+      if (oldPurchaseDetails != null && oldPurchaseDetails.pendingCompletePurchase) {
+        await inAppPurchaseService.instance.completePurchase(oldPurchaseDetails);
       }
       r.valid ?? true
           ? add(SubscriptionEvent.buySubscription(product))
@@ -262,11 +264,16 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   FutureOr<void> _onPurchasedSubscription(
     PurchasedSubscription event,
     Emitter<SubscriptionState> emit,
-  ) async =>
-      emit(SubscriptionState.purchasedSubscription(state.data.copyWith(
-        purchased: event.purchasedProduct,
-        isLoading: false,
-      )));
+  ) async {
+    emit(
+      SubscriptionState.loading(state.data.copyWith(isLoading: false)),
+    );
+    emit(SubscriptionState.purchasedSubscription(state.data.copyWith(
+      purchased: event.purchasedProduct,
+      subscription: event.subscription,
+      isLoading: false,
+    )));
+  }
 
   FutureOr<void> _onErrorVerifyPurchase(
     ErrorVerifyPurchase event,
@@ -446,6 +453,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     await _authenticationService.logout();
     await authTokenManager.removeAccessToken();
     await authTokenManager.removeRefreshToken();
+    CustomerIoService.logOut();
     _socketService.disconnect();
     emit(
       SubscriptionState.loading(state.data.copyWith(isLoading: false)),

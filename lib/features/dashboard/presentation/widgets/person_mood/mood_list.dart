@@ -10,17 +10,19 @@ import 'package:loopcare_frontend/features/mood/infrastructure/utils.dart';
 
 class MoodList extends StatelessWidget {
   final List<Mood> list;
+  final bool isEditable;
 
   final void Function(Mood item) onPressItem;
 
-  const MoodList({super.key, required this.list, required this.onPressItem});
+  const MoodList({super.key, required this.list, required this.onPressItem, required this.isEditable});
 
   @override
   Widget build(BuildContext context) {
     if (list.isEmpty) {
       return CustomText.w400(
         LocalizedTexts.noMoodRecords.tr(),
-        style: context.textTheme.bodySmall,
+        style: context.textTheme.bodySmall
+            ?.copyWith(color: isEditable ? AppColors.blueDarker : AppColors.greyLabel),
       );
     }
 
@@ -34,20 +36,29 @@ class MoodList extends StatelessWidget {
             '${item.dashboardTime} ${item.note.isEmpty ? item.location.map((e) => e).join(', ') : item.note}';
 
         return GestureDetector(
-          onTap: () => onPressItem(item),
-          child: Row(
+          onTap: isEditable ? () => onPressItem(item) : null,
+          child: Stack(
             children: [
-              MoodUtils.getMoodIconByValue(item.scale),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: CustomText.w400twoLineItalic(
-                    text,
-                    style: context.textTheme.bodySmall,
+              Row(
+                children: [
+                  MoodUtils.getMoodIconByValue(item.scale),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: CustomText.w400twoLineItalic(text, style: context.textTheme.bodySmall),
+                    ),
                   ),
-                ),
+                  const ImageIcon(AppIcons.arrow, color: AppColors.blueDarker),
+                ],
               ),
-              const ImageIcon(AppIcons.arrow, color: AppColors.blueDarker),
+              if (!isEditable)
+                Positioned(
+                  left: 0,
+                  top: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Container(color: AppColors.white.withOpacity(0.5)),
+                ),
             ],
           ),
         );

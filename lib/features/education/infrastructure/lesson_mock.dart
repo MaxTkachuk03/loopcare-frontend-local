@@ -1,14 +1,75 @@
-var lessonMock = {
-  "id": 10,
-  "category": "buddy",
-  "title": "Finding a Buddy",
-  "extraAction": "unlockBuddy",
-  "duration": 240,
-  "pageCounter": 1,
+var lesson = {
+  "extraAction": "unlockAssignments",
   "completedAt": null,
   "isLocked": false,
   "nextStepUnlockDelay": 0,
   "questions": [
+    {
+      "introduction":
+          "Take a look at your personal reasons and indicate how motivated you are right now on a scale of 1 to 10:",
+      "explanationCorrect": null,
+      "explanationIncorrect": null,
+      "lowestText": "not very motivated",
+      "highestText": "very motivated",
+      "question": "How motivated are you to change your behavior in order to achieve these goals?",
+      "openedAt": "2024-02-19T08:22:46.521Z",
+      "answeredAt": null,
+      "completedAt": null,
+      "lessonQuestionOptions": [
+        {"value": "1", "isCorrect": null, "id": 268, "label": "1", "lessonQuestionId": 93},
+        {"value": "2", "isCorrect": null, "id": 269, "label": "2", "lessonQuestionId": 93},
+        {"value": "3", "isCorrect": null, "id": 270, "label": "3", "lessonQuestionId": 93},
+        {"value": "4", "isCorrect": null, "id": 271, "label": "4", "lessonQuestionId": 93},
+        {"value": "5", "isCorrect": null, "id": 272, "label": "5", "lessonQuestionId": 93},
+        {"value": "6", "isCorrect": null, "id": 273, "label": "6", "lessonQuestionId": 93},
+        {"value": "7", "isCorrect": null, "id": 274, "label": "7", "lessonQuestionId": 93},
+        {"value": "8", "isCorrect": null, "id": 275, "label": "8", "lessonQuestionId": 93},
+        {"value": "9", "isCorrect": null, "id": 276, "label": "9", "lessonQuestionId": 93},
+        {"value": "10", "isCorrect": null, "id": 277, "label": "10", "lessonQuestionId": 93}
+      ],
+      "lessonQuestionFeedbacks": [
+        {
+          "id": 1,
+          "minValue": 1,
+          "maxValue": 1,
+          "text":
+              " Oh, your motivation is still at a low point, don't get discouraged, just keep going in the program and don't let yourself sabotage your plan.",
+          "lessonQuestionId": 93
+        },
+        {
+          "id": 2,
+          "minValue": 2,
+          "maxValue": 3,
+          "text":
+              "You need a little motivation boost, don't get discouraged, all beginnings are hard, just go for it!",
+          "lessonQuestionId": 93
+        },
+        {
+          "id": 3,
+          "minValue": 4,
+          "maxValue": 7,
+          "text": "You have gained some courage and you will surely manage to reach your goal!",
+          "lessonQuestionId": 93
+        },
+        {
+          "id": 4,
+          "minValue": 8,
+          "maxValue": 10,
+          "text":
+              "Fantastic. Nothing stands in the way of your plans. You are highly motivated and have the strength and confidence tackle things.",
+          "lessonQuestionId": 93
+        }
+      ],
+      "lessonQuestionAnswers": [],
+      "id": 93,
+      "answerType": "scale",
+      "type": "assignment",
+      "title": "Reasons to lose weight and motivation check",
+      "visual": "https://dev.loopcare.app/education/content/4/images/lesson.png",
+      "instruction":
+          "Think about why you want to lose weight. What are the benefits and disadvantages that come with joining this program?\n\nThis assignment is part of the Mind article 'What keeps you going'.",
+      "lessonId": 4
+    },
     {
       "introduction": null,
       "explanationCorrect": null,
@@ -16,31 +77,56 @@ var lessonMock = {
       "lowestText": null,
       "highestText": null,
       "question":
-          "Find a person close to you that you would be willing to share your journey with. Once you have and they want to join you, confirm this below.",
-      "openedAt": "2024-02-05T10:35:21.651Z",
+          "Write down what benefits a change in behavior will have for you in terms of your weight and well-being. Make sure to also distinguish between short-term and long-term advantages and disadvantages. Take a few minutes to reflect on this before moving on to the next task.",
+      "openedAt": "2024-02-19T08:22:46.521Z",
       "answeredAt": null,
       "completedAt": null,
-      "lessonQuestionOptions": [
-        {"value": null, "isCorrect": null, "id": 298, "label": "I have found a Buddy", "lessonQuestionId": 109},
-        {"value": null, "isCorrect": null, "id": 299, "label": "I am still searching", "lessonQuestionId": 109}
-      ],
+      "lessonQuestionOptions": [],
       "lessonQuestionFeedbacks": [],
       "lessonQuestionAnswers": [],
-      "id": 109,
-      "answerType": "multipleChoiceSingle",
+      "id": 91,
+      "answerType": "text",
       "type": "assignment",
-      "title": "Find a Buddy",
-      "visual": "https://dev.loopcare.app/education/content/10/images/lesson.png",
+      "title": "Reasons to lose weight and motivation check",
+      "visual": "https://dev.loopcare.app/education/content/4/images/lesson.png",
       "instruction":
-          "Share your journey with a Buddy.\n\nThis assignment is part of the Mind article 'Finding a Buddy'.",
-      "lessonId": 10
+          "Think about why you want to lose weight. What are the benefits and disadvantages that come with joining this program?\n\nThis assignment is part of the Mind article 'What keeps you going'.",
+      "lessonId": 4
+    },
+    {
+      "introduction": null,
+      "explanationCorrect": null,
+      "explanationIncorrect": null,
+      "lowestText": null,
+      "highestText": null,
+      "question":
+          "Now think about why you want to lose weight. Your personal reasons for wanting to lose weight are your motivation. Whenever you falter or encounter obstacles during your weight loss journey, remind yourself why you're doing it. This will help you get through the tough times and keep going.\nWrite down three personal reasons. My three reasons to loose weight are ...",
+      "openedAt": "2024-02-19T08:22:46.521Z",
+      "answeredAt": null,
+      "completedAt": null,
+      "lessonQuestionOptions": [],
+      "lessonQuestionFeedbacks": [],
+      "lessonQuestionAnswers": [],
+      "id": 92,
+      "answerType": "text",
+      "type": "assignment",
+      "title": "Reasons to lose weight and motivation check",
+      "visual": "https://dev.loopcare.app/education/content/4/images/lesson.png",
+      "instruction":
+          "Think about why you want to lose weight. What are the benefits and disadvantages that come with joining this program?\n\nThis assignment is part of the Mind article 'What keeps you going'.",
+      "lessonId": 4
     }
   ],
-  "image": "https://dev.loopcare.app/education/content/10/images/lesson.png",
-  "cardImage": "https://dev.loopcare.app/education/content/10/images/lesson-card@3x.png",
-  "step": 1,
-  "order": 1,
-  "externalId": 2,
+  "id": 4,
+  "category": "general",
+  "title": "What keeps you going?",
+  "image": "https://dev.loopcare.app/education/content/4/images/lesson.png",
+  "cardImage": "https://dev.loopcare.app/education/content/4/images/lesson-card@3x.png",
+  "duration": 120,
+  "pageCounter": 1,
+  "step": 2,
+  "order": 4,
+  "externalId": 6,
   "pages": [
     {
       "type": "text",
@@ -48,7 +134,7 @@ var lessonMock = {
       "content": {
         "url": null,
         "html":
-            "<html lang=\"en\">\n<body>\n\t<p>It's great to share your journey with a Buddy. Now let's look at finding a suitable match.</p> \n\n<h2>How to choose your Buddy</h2>  \n\n<p>Knowing who would be a good Buddy can be challenging. The first step in finding Buddy candidates is to be open and honest with friends and family about your decision to embark on this lifestyle-changing journey.</p>   \n\n<p>Maybe you usually prefer to keep your life private or don't like asking people for help. But opening up about what you want to achieve to others is a \"must\" when it comes to finding a Buddy.</p>   \n\n<p>So, in looking for a Buddy, you need a person with whom you can be completely frank. This also means it should be someone that you can accept tough love from at times to keep you on track.</p>  \n\n<p>Considering people in your immediate social circle is always a useful way to start. A supportive spouse or significant other may be a good choice. But be aware that this is not your only, or always the best, option. When your motivation drops, and cravings kick in, they may prefer to do what makes you happy in the short term rather than what is necessary to help your overall goals.</p>   \n\n<p>Essentially, your Buddy needs to be someone you trust to have your best interests at heart, enabling you to listen to what they say even if at times it can be difficult to hear. It is also good to choose a person who is literally close - perhaps they live with you or in the area - and you speak to frequently to add to the feeling of support.</p>  \n\n<h2>A Buddy's role</h2>    \n\n<p>In discussing with a friend or relative about becoming your Buddy, it is likely they will ask what they need to do.</p>   \n\n<p>A Buddy's role is to help provide you with support during your weight-loss journey, especially when the going gets tough, and you could use someone to lean on. This will help reduce the chance that you will fall back into old habits.</p>   \n\n<p>Optimally, your Buddy should be someone you can reach out to through regular meetings and from time to time between these meetings. The purpose is to discuss your progress, brainstorm together how you can best navigate recent challenges, and celebrate your successes.</p>    \n\n<p>While such meetings are not essential, time and availability are two of the major expectations to talk about with a potential Buddy to ensure you are both comfortable with the level of support.</p>   \n\n<p>What is also important is that both of you should have fun in sharing this journey together.</p>  \n\n<h2>The next step</h2>   \n\n<p>Think of a potential Buddy and reach out to them. You also need to be prepared to talk to more than one person about taking on this role before finding the right match. This is nothing to be discouraged about as you do both have to be ready and willing to go ahead and to be on the same page about expectations.</p>   \n\n</body>\n</html>\n",
+            "<html lang=\"en\">\n<body>\n\t<p>Now, let's talk more about obesity and how it is triggered to give you a good idea of what obesity means and some of\n    the key factors affecting its development.</p>\n\n<h2>What is obesity?</h2>\n<p>Obesity is a chronic disease - a long-lasting condition - that can reduce your quality of life, according to the World Health Organization. Obesity and being overweight occur when your body fat increases above \"normal\" levels.\n    Here, the body mass index, or BMI, is often used as a general guide:</p>\n\n\n\n\n<p>Importantly, BMI is best used as an initial screening tool. Consult your doctor so that your fat distribution,\n    fitness level, and genetics can be taken into account.</p>\n<p>In addition, body fat distribution is important. For example, a large amount of fat around the belly increases the\n    risk of heart disease and metabolic disorders, more than fat deposited on your thighs.</p>\n\n<p>Thus, the circumference of a person's waist is also considered important in addition to BMI when assessing the health\n    risks. To measure this, stand up straight and wrap a tape measure around your waist, starting from your belly\n    button. The circumference should be:\n<ul>\n    <li>34ins (88cm) or less for women</li>\n    <li>40ins (102cm) or less for men</li>\n</ul>\n</p>\n\n<p>As obesity is a chronic disease, it is likely to take time to make lasting changes to your lifestyle. What's\n    inspiring, though, is if you do make such changes, then it is possible. Always have this in mind for if the going\n    gets tough at some points during the program!</p>\n\n<h2>How does obesity or being overweight develop?</h2>\n\n<p>Many different factors come into play: genetics, environmental factors, eating behavior, lack of exercise,\n    psychological state, hormones, and medication. In most cases, one or more are involved in upsetting the balance\n    between eating and use of energy.</p>\n\n<!-- images/factors.svg -->\nn\n<h3>Genetic predisposition</h3>\n\n<p>Did you know there are certain genes that influence your feeling of being full, affect distribution of body fat, and\n    regulate your metabolism? Are you now thinking: \"OK, if it's genetic, I can't do anything about it.\"</p>\n\n<p>That's not the case.</p>\n\n<p>The rate of obesity was only 13.5% in 1980, and it's almost tripled in 40 short years. Our genetics simply could not\n    have changed fast enough to cause obesity to rise this quickly. What has changed is the environment, and how we\n    interact with it. This should be good news, because it means you aren't doomed to your genetics. Instead, you just\n    have to learn how to navigate a new food environment, which the LeanOnMe program will help you learn how to do.</p>\n\n\n<h3>Environmental factors</h3>\n\n<p>Have you ever asked yourself why you act the way you do? Your behavior is often shaped by your background, family and\n    friends, past experiences, work, advertisements, and social media. Yet many people are unaware of these\n    influences.</p>\n\n<h3>Eating behavior</h3>\n\n<p>Why is being overweight or obese so common in the US and other developed countries? One reason is there is too much\n    food. Another is the wide availability of fast food and processed products. If you frequently eat such\n    \"high-calorie\" food, you will take in a lot of sugar and fat. If you then sit down most of the day and don't\n    otherwise engage in much physical activity, this can upset the balance between your body's energy intake and how\n    much energy is used. Eating quickly, \"on-the-go\", or without taking the time to relax over your meal can also have\n    an impact as you may not even realize you feel full. Fortunately, you can change such behavior.</p>\n\n<h3>Lack of exercise</h3>\n\n<p>This is undoubtedly one of the main factors in the development of obesity. Nowadays, many people's work or what they\n    do in their spare time is carried out sitting down. While you will definitely need to move around more to reduce\n    your weight, try to look at this positively. Focus on the fact that the more you move, the greater number of\n    calories you burn. Exercise also leads to greater muscle mass. More muscle boosts your system's metabolic rate,\n    further increasing the calories used.</p>\n\n\n<h3>Psychological factors</h3>\n\n<p>Self-perception, behavior, and how you deal with your feelings can all affect your weight. In turn, these factors are\n    strongly influenced by your experiences. Perhaps you don't have many ways to cope with stress. But eating seems to\n    help you relax. So your body learns to associate eating with feeling better. You then start to deal with stress,\n    sadness, loneliness, or boredom by eating. Many other personal experiences can spur the development of obesity.\n    That's why it's definitely worth taking a closer look at such factors and why LeanOnMe pays great attention to\n    mental health throughout the program.</p>\n\n<h3>Hormonal disorders</h3>\n\n<p>Obesity can be caused by certain hormonal factors, such as an underactive thyroid or Cushing's syndrome. If you\n    suspect such a disorder, please consult your doctor.</p>\n\n<h3>Medications</h3>\n\n<p>Antidepressants, neuroleptics (antipsychotics), and antidiabetics are among the drugs that can influence your weight.\n    Even contraceptives can have an impact. Some medications stimulate your appetite. Others may slow down your\n    metabolism. It is best to talk to your doctor about this.</p>\n\n</body>\n</html>\n",
         "subtitlesText": null,
         "subtitlesImages": null,
         "backgroundAnimation": null

@@ -41,9 +41,11 @@ import 'package:loopcare_frontend/features/buddy/presentation/buddy_intro_page.d
 import 'package:loopcare_frontend/features/chat/presentation/group_chat_page.dart';
 import 'package:loopcare_frontend/features/chat/presentation/group_users_page.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/dashboard_page.dart';
+import 'package:loopcare_frontend/features/education/presentation/consult_doctor_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/education_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/lesson_complete_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_page/lesson_page.dart';
+import 'package:loopcare_frontend/features/education/presentation/need_paid_subscription_page.dart';
 import 'package:loopcare_frontend/features/education/presentation/support_group_intro/support_group_intro_page.dart';
 import 'package:loopcare_frontend/features/group_sessions/presentation/preparation_materials_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
@@ -107,7 +109,7 @@ import 'package:loopcare_frontend/features/physical_activities/presentation/phys
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_activity_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_completed_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_frequency_page.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_preferences_page.dart';
+import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_preferences_intro_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_preferences_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/program_assessment_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_details/program_details_page.dart';
@@ -520,6 +522,14 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.supportGroupIntro,
       page: SupportGroupIntroPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.consultDoctor,
+      page: ConsultDoctorPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.needPaidSubscription,
+      page: NeedPaidSubscriptionPage,
     ), // added
 
     // Zoom video sessions
@@ -540,8 +550,8 @@ const groupLessonRoutes = [
       page: PreparationMaterialsPage,
     ), // added
     AutoRoute(
-      path: AppRoutes.physicalActivitiesPreferences,
-      page: PhysicalActivitiesPreferencesPage,
+      path: AppRoutes.physicalPreferencesIntro,
+      page: PhysicalPreferencesIntroPage,
     ), // added
     AutoRoute(
       path: AppRoutes.physicalActivitiesFrequency,

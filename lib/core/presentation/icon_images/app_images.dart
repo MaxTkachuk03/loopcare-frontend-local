@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class AppImages {
   static const String imagesFilePath = 'assets/images';
@@ -42,8 +41,7 @@ class AppImages {
 
   static SvgPicture calorieDensityFoodB = SvgPicture.asset('$imagesFilePath/calorie_dencity_food_b.svg');
 
-  static SvgPicture bottomFrame = SvgPicture.asset('$imagesFilePath/bottom_frame.svg',
-      colorFilter: const ColorFilter.mode(AppColors.blueOffRegular, BlendMode.modulate));
+  static SvgPicture bottomFrame = SvgPicture.asset('$imagesFilePath/bottom_frame.svg');
 
   static const AssetImage educationPreview = AssetImage('$imagesFilePath/new_education_preview.png');
 

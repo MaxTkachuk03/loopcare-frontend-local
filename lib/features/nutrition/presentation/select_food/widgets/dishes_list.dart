@@ -89,7 +89,6 @@ class _DishesListState extends State<DishesList> with AutomaticKeepAliveClientMi
 
                   return Center(
                     child: ErrorScreen(
-                      smallVersion: false,
                       error: error,
                       onButtonPressed: () => context
                           .read<SelectFoodBloc>()

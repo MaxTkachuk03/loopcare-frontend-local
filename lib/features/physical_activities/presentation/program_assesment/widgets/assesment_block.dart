@@ -61,7 +61,7 @@ class _AssesmentBlockState extends State<AssesmentBlock> {
   void _onCellTap(int index) {
     setState(() {
       selectedScore = index;
-      widget.onScoreChange(index);
+      widget.onScoreChange(index + 1);
     });
   }
 }

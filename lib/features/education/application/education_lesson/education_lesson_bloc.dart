@@ -1,12 +1,15 @@
 import 'dart:async';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
+import 'package:loopcare_frontend/features/education/domain/audio_lesson_content_type.dart';
+import 'package:loopcare_frontend/features/education/domain/education_lesson_page_type.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_type.dart';
@@ -22,7 +25,7 @@ part 'education_lesson_bloc.freezed.dart';
 class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonState> {
   final EducationService _educationService;
 
-  static const _defaultError = RequestError.unhandledError('Something went wrong, please try again');
+  final _defaultError = RequestError.unhandledError(LocalizedTexts.somethingWentWrong.tr());
 
   EducationLessonBloc(
     this._educationService,
@@ -35,7 +38,6 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     on<CompleteLesson>(_onCompleteLesson);
     on<DownloadAudioFile>(_onDownloadAudioFile);
     on<DownloadSubtitlesFile>(_onDownloadSubtitlesFile);
-    on<DownloadSVGFile>(_onDownloadSVGFile);
     on<Init>(_onInit);
   }
 
@@ -45,91 +47,42 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
   ) async {
     var tempDir = await getTemporaryDirectory();
 
-    emit(
-      EducationLessonState.contentLoaded(
-        state.data.copyWith(
-          temporaryDirectory: tempDir.path,
-        ),
-      ),
-    );
-  }
-
-  Future<void> _onDownloadSVGFile(
-    DownloadSVGFile event,
-    Emitter<EducationLessonState> emit,
-  ) async {
-    emit(
-      EducationLessonState.contentLoaded(
-        state.data.copyWith(
-          isSvgLoaded: false,
-          svgFile: '',
-        ),
-      ),
-    );
-
-    final response = await _educationService.downloadFile(
-      event.url,
-      state.data.filePath(event.url),
-    );
-    response.fold((l) {}, (r) {
-      emit(
-        EducationLessonState.contentLoaded(
-          state.data.copyWith(
-            isSvgLoaded: true,
-            svgFile: state.data.filePath(event.url),
-          ),
-        ),
-      );
-    });
+    emit(EducationLessonState.initial(state.data.copyWith(temporaryDirectory: tempDir.path)));
   }
 
   Future<void> _onDownloadAudioFile(
     DownloadAudioFile event,
     Emitter<EducationLessonState> emit,
   ) async {
-    if (state.data.isAudioLoading) return;
+    emit(EducationLessonState.loading(state.data.copyWith(isAudioLoading: true, isLoading: true)));
 
-    emit(
-      EducationLessonState.contentLoaded(
-        state.data.copyWith(
-          isAudioLoading: true,
-        ),
-      ),
-    );
+    if (state.data.isAudioAlreadyInCache) {
+      emit(
+        EducationLessonState.contentLoaded(state.data.copyWith(
+          isAudioLoading: false,
+          isLoading: false,
+          pages: _updateLessonPageAudioFilePath(state.data.filePath(event.url)),
+        )),
+      );
 
-    final response = await _educationService.downloadFile(
-      event.url,
-      state.data.filePath(event.url),
-    );
+      return;
+    }
+
+    final response = await _educationService.downloadFile(event.url, state.data.filePath(event.url));
+
     response.fold(
-      (l) => emit(
-        EducationLessonState.contentLoaded(
-          state.data.copyWith(
-            error: l,
-            isAudioLoading: false,
-          ),
-        ),
-      ),
+      (l) {
+        emit(EducationLessonState.contentLoaded(
+            state.data.copyWith(error: l, isAudioLoading: false, isLoading: false)));
+      },
       (r) {
-        var pages = state.data.pages;
-        var localPages =
-            pages.map((e) => LessonPage(content: e.content, type: e.type, order: e.order)).toList();
-
-        var index = state.data.currentPageIndex;
-
-        localPages[index] = localPages[index].copyWith(
-          content: localPages[index].content.copyWith(
-                audioFilePath: state.data.filePath(event.url),
-              ),
-        );
-
         emit(
-          EducationLessonState.contentLoaded(
-            state.data.copyWith(
-              isAudioLoading: false,
-              pages: localPages,
-            ),
-          ),
+          EducationLessonState.contentLoaded(state.data.copyWith(
+            isAudioLoading: false,
+            isLoading: false,
+            pages: _updateLessonPageAudioFilePath(state.data.filePath(event.url)),
+            audioFilesCache: _updateAudioCacheValue(AudioLessonContentType.audio),
+          )),
         );
       },
     );
@@ -139,47 +92,31 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     DownloadSubtitlesFile event,
     Emitter<EducationLessonState> emit,
   ) async {
-    if (state.data.isSubtitleLoading) return;
+    emit(EducationLessonState.loading(state.data.copyWith(isSubtitleLoading: true, isLoading: true)));
 
-    emit(
-      EducationLessonState.contentLoaded(
-        state.data.copyWith(
-          isSubtitleLoading: true,
-        ),
-      ),
-    );
-
-    final response = await _educationService.downloadFile(
-      event.url,
-      state.data.filePath(event.url),
-    );
-    response.fold(
-        (l) => emit(
-              EducationLessonState.contentLoaded(
-                state.data.copyWith(
-                  error: l,
-                  isSubtitleLoading: false,
-                ),
-              ),
-            ), (r) {
-      var pages = state.data.pages;
-      var localPages =
-          pages.map((e) => LessonPage(content: e.content, type: e.type, order: e.order)).toList();
-      var index = state.data.currentPageIndex;
-
-      localPages[index] = localPages[index].copyWith(
-        content: localPages[index].content.copyWith(
-              subtitleFilePath: state.data.filePath(event.url),
-            ),
+    if (state.data.isSubtitlesAlreadyInCache) {
+      emit(
+        EducationLessonState.contentLoaded(state.data.copyWith(
+            isSubtitleLoading: false,
+            isLoading: false,
+            pages: _updateLessonPageSubtitleFilePath(state.data.filePath(event.url)))),
       );
 
+      return;
+    }
+
+    final response = await _educationService.downloadFile(event.url, state.data.filePath(event.url));
+
+    response.fold(
+        (l) => emit(EducationLessonState.contentLoaded(
+            state.data.copyWith(error: l, isSubtitleLoading: false, isLoading: false))), (r) {
       emit(
-        EducationLessonState.contentLoaded(
-          state.data.copyWith(
-            isSubtitleLoading: false,
-            pages: localPages,
-          ),
-        ),
+        EducationLessonState.contentLoaded(state.data.copyWith(
+          isSubtitleLoading: false,
+          isLoading: false,
+          pages: _updateLessonPageSubtitleFilePath(state.data.filePath(event.url)),
+          audioFilesCache: _updateAudioCacheValue(AudioLessonContentType.subtitles),
+        )),
       );
     });
   }
@@ -188,33 +125,18 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     GetLessonContent event,
     Emitter<EducationLessonState> emit,
   ) async {
-    emit(
-      EducationLessonState.loading(
-        state.data.copyWith(
-          isLoading: true,
-          error: null,
-        ),
-      ),
-    );
+    emit(EducationLessonState.contentIsLoading(state.data.copyWith(isLoading: true, error: null)));
 
     final response = await _educationService.getLessonContent(event.lessonId);
 
     response.fold(
-      (l) {
-        emit(EducationLessonState.errorGettingLessons(state.data.copyWith(error: l, isLoading: false)));
-      },
+      (l) => emit(EducationLessonState.errorGettingContent(state.data.copyWith(error: l, isLoading: false))),
       (r) async {
         r.pages.sort((a, b) => a.order.compareTo(b.order));
 
         if (r.pages.isEmpty) {
-          emit(
-            EducationLessonState.errorGettingLessons(
-              state.data.copyWith(
-                error: _defaultError,
-                isLoading: false,
-              ),
-            ),
-          );
+          emit(EducationLessonState.errorGettingContent(
+              state.data.copyWith(error: _defaultError, isLoading: false)));
 
           return;
         }
@@ -270,19 +192,13 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     CompleteLesson event,
     Emitter<EducationLessonState> emit,
   ) async {
-    emit(EducationLessonState.loading(state.data.copyWith(
-      isLoading: true,
-      error: null,
-    )));
+    emit(EducationLessonState.loading(state.data.copyWith(isLoading: true, error: null)));
 
     final response = await _educationService.completeLesson(state.data.lessonId);
 
     response.fold(
       (l) {
-        emit(EducationLessonState.errorCompleteLesson(state.data.copyWith(
-          error: l,
-          isLoading: false,
-        )));
+        emit(EducationLessonState.errorCompleteLesson(state.data.copyWith(error: l, isLoading: false)));
       },
       (r) {
         emit(
@@ -326,5 +242,42 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     emit(EducationLessonState.contentLoaded(state.data.copyWith(
         currentProgressPageIndex: newProgressIndexPage,
         lessonProgress: (100 * newProgressIndexPage) ~/ state.data.totalPagesLength)));
+  }
+
+  // FIXME cache to prevent multiple download request, the root of the issue wrong bloc structure and logic, could be fixed during education refactoring with chapters
+  Map<String, Set<AudioLessonContentType>> _updateAudioCacheValue(AudioLessonContentType newValue) {
+    final Map<String, Set<AudioLessonContentType>> cache = {...state.data.audioFilesCache};
+
+    final cacheKey = state.data.lessonId.toString();
+
+    var value = cache[cacheKey];
+
+    if (value != null) {
+      value.add(newValue);
+    } else {
+      value = {newValue};
+    }
+
+    cache[cacheKey] = value;
+
+    return cache;
+  }
+
+  List<LessonPage> _updateLessonPageSubtitleFilePath(String newValue) {
+    final List<LessonPage> pages = [...state.data.pages];
+
+    pages[state.data.currentPageIndex] =
+        pages[state.data.currentPageIndex].copyWith.content(subtitleFilePath: newValue);
+
+    return pages;
+  }
+
+  List<LessonPage> _updateLessonPageAudioFilePath(String newValue) {
+    final List<LessonPage> pages = [...state.data.pages];
+
+    pages[state.data.currentPageIndex] =
+        pages[state.data.currentPageIndex].copyWith.content(audioFilePath: newValue);
+
+    return pages;
   }
 }

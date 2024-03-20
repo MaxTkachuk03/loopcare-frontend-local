@@ -7,9 +7,9 @@ import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_de
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
-import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -19,6 +19,7 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson_page_type.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_audio_body.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_text_body.dart';
@@ -47,10 +48,15 @@ class _LessonPageState extends State<LessonPage> {
     lessonBloc.add(const EducationLessonEvent.progressForward());
 
     if (lessonBloc.state.data.isLastPage) {
-      final lessonBlocData = lessonBloc.state.data;
+      final extraAction = lessonBloc.state.data.extraAction;
       final unlockedFeatures = context.read<AuthenticationCubit>().state.unlockedFeatures;
 
-      if (lessonBlocData.isGroupPreferencesUnlocked && !unlockedFeatures.contains(UnlockedFeatureType.grouping)) {
+      if (extraAction == ExtraActionTypes.setupGroupingPreferences &&
+          !unlockedFeatures.contains(UnlockedFeatureType.grouping)) {
+        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.grouping);
+
+        AnalyticsEventService.instance.logEvent(FirebaseEvents.unlockedSupportGroupFeature);
+
         context
           ..read<GroupPreferencesBloc>()
               .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupingLesson))
@@ -59,21 +65,23 @@ class _LessonPageState extends State<LessonPage> {
         return;
       }
 
-      if (lessonBlocData.isFoodLoggingUnlocked) {
+      if (extraAction == ExtraActionTypes.unlockMeals &&
+          !unlockedFeatures.contains(UnlockedFeatureType.meals)) {
         context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.meals);
         context.router.pushNamed(AppRoutes.lessonCompleteFoodPreferences);
 
         return;
       }
 
-      if (lessonBlocData.isPhysicalActivitiesUnlocked &&
+      if (extraAction == ExtraActionTypes.unlockPhysicalActivities &&
           !unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {
-        context.router.pushNamed(AppRoutes.physicalActivitiesPreferences);
+        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.physicalActivities);
+        context.router.pushNamed(AppRoutes.physicalPreferencesIntro);
 
         return;
       }
 
-      if (lessonBlocData.isAssignmentsUnlocked) {
+      if (extraAction == ExtraActionTypes.unlockAssignments) {
         context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.assignments);
       }
 //Todo && !unlockedFeatures.contains(UnlockedFeatureType.buddy)
@@ -82,10 +90,8 @@ class _LessonPageState extends State<LessonPage> {
           ..read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.buddy)
           ..router.pushNamed(AppRoutes.buddyIntro);
 
-        return;
-      }
-
-      if (lessonBlocData.questions.isEmpty || lessonBlocData.questions.first.type != LessonQuestionType.quiz) {
+      if (lessonBloc.state.data.questions.isEmpty ||
+          lessonBloc.state.data.questions.first.type != LessonQuestionType.quiz) {
         context.router.pushNamed(AppRoutes.lessonComplete);
       } else {
         context.router.push(QuizzesIntroRoute(lessonId: widget.lessonId));
@@ -103,12 +109,6 @@ class _LessonPageState extends State<LessonPage> {
     context.read<EducationLessonBloc>().add(const EducationLessonEvent.prevPage());
     context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressBack());
 
-    context.router.pop();
-  }
-
-  _errorListener(BuildContext context, EducationLessonState state) {
-    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
-    context.showError(content: Text(errorMessage));
     context.router.pop();
   }
 
@@ -137,141 +137,57 @@ class _LessonPageState extends State<LessonPage> {
     return Future.value(true);
   }
 
+  void _onRetryHandler() => context
+      .read<EducationLessonBloc>()
+      .add(EducationLessonEvent.getLessonContent(lessonId: widget.lessonId, pageIndex: widget.pageIndex));
+
+  void _onContentLoaded(BuildContext context, EducationLessonState s) {
+    final state = s.data;
+
+    AnalyticsEventService.instance.logLessonEvent(
+      FirebaseEvents.lessonScreen,
+      widget.lessonId,
+      state.currentPage,
+      state.lessonTitle,
+      state.questions.isNotEmpty && state.questions.first.type == LessonQuestionType.quiz,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onWillPop,
-      child: BlocConsumer<EducationLessonBloc, EducationLessonState>(
-        listenWhen: (prev, cur) => cur is ErrorGettingLessons,
-        listener: _errorListener,
-        builder: (BuildContext context, state) {
-          return state.maybeMap(
-            loading: (_) => CustomScaffold.petrolLightest(
-              appBar: CustomAppBar.petrol(
-                title: LocalizedTexts.lesson.tr(),
-                leading: CustomFilledIconButton.leadingPetrolLighter(),
-              ),
-              body: const Loader(),
-            ),
-            lessonCompleted: (s) {
-              final currentPage = s.data.currentPage;
+      child: CustomScaffold.petrolLightest(
+        appBar: CustomAppBar.petrol(
+          title: LocalizedTexts.lesson.tr(),
+          leading: CustomFilledIconButton.leadingPetrolLighter(onPressed: _onPrevPressed),
+        ),
+        body: SafeArea(
+          child: BlocConsumer<EducationLessonBloc, EducationLessonState>(
+            listener: _onContentLoaded,
+            listenWhen: (prev, cur) => cur is ContentLoaded,
+            builder: (BuildContext context, state) {
+              return state.maybeMap(
+                initial: (_) => const Loader(),
+                contentIsLoading: (_) => const Loader(),
+                errorGettingContent: (s) =>
+                    ErrorScreen(error: s.data.error!, onButtonPressed: _onRetryHandler),
+                orElse: () {
+                  if (state.data.isArticlePage) {
+                    return LessonTextBody(
+                        onNextPressed: _onNextPressed, content: state.data.currentPage.content);
+                  }
 
-              if (currentPage.type == EducationLessonPageType.text) {
-                return LessonTextBody(
-                  onNextPressed: _onNextPressed,
-                  onPrevPressed: _onPrevPressed,
-                  content: currentPage.content,
-                );
-              }
-              if (currentPage.type == EducationLessonPageType.audio) {
-                if (state.data.temporaryDirectory.isEmpty) {
-                  context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
-                }
-                if (!state.data.isAudioLoading &&
-                    state.data.currentPage.type == EducationLessonPageType.audio &&
-                    state.data.currentPage.content.audioFilePath.isEmpty) {
-                  context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadAudioFile(state.data.currentPage.content.url),
-                      );
-                }
-                if (!state.data.isSubtitleLoading &&
-                    state.data.currentPage.type == EducationLessonPageType.audio &&
-                    state.data.currentPage.content.subtitlesImages != null &&
-                    state.data.currentPage.content.subtitleFilePath.isEmpty) {
-                  context
-                      .read<EducationLessonBloc>()
-                      .add(EducationLessonEvent.downloadSubtitlesFile(state.data.currentPage.content.subtitlesImages!));
-                }
-                return LessonAudioBody(
-                  onNextPressed: _onNextPressed,
-                  onPrevPressed: _onPrevPressed,
-                );
-              }
-              return const SizedBox.shrink();
-            },
-            contentLoaded: (s) {
-              final currentPage = s.data.currentPage;
+                  if (state.data.isAudioPage) {
+                    return LessonAudioBody(onNextPressed: _onNextPressed);
+                  }
 
-              AnalyticsEventService.instance.logLessonEvent(
-                FirebaseEvents.lessonScreen,
-                widget.lessonId,
-                currentPage,
-                s.data.lessonTitle,
-                s.data.questions.isNotEmpty && s.data.questions.first.type == LessonQuestionType.quiz,
+                  return const SizedBox.shrink();
+                },
               );
-
-              if (currentPage.type == EducationLessonPageType.text) {
-                return LessonTextBody(
-                  onNextPressed: _onNextPressed,
-                  onPrevPressed: _onPrevPressed,
-                  content: currentPage.content,
-                );
-              }
-              if (currentPage.type == EducationLessonPageType.audio) {
-                if (state.data.temporaryDirectory.isEmpty) {
-                  context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
-                }
-                if (!state.data.isAudioLoading &&
-                    state.data.currentPage.type == EducationLessonPageType.audio &&
-                    state.data.currentPage.content.audioFilePath.isEmpty) {
-                  context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadAudioFile(state.data.currentPage.content.url),
-                      );
-                }
-                if (!state.data.isSubtitleLoading &&
-                    state.data.currentPage.type == EducationLessonPageType.audio &&
-                    state.data.currentPage.content.subtitlesImages != null &&
-                    state.data.currentPage.content.subtitleFilePath.isEmpty) {
-                  context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadSubtitlesFile(state.data.currentPage.content.subtitlesImages!),
-                      );
-                }
-                return LessonAudioBody(
-                  onNextPressed: _onNextPressed,
-                  onPrevPressed: _onPrevPressed,
-                );
-              }
-              return const SizedBox.shrink();
             },
-            errorCompleteLesson: (s) {
-              final currentPage = s.data.currentPage;
-
-              if (currentPage.type == EducationLessonPageType.text) {
-                return LessonTextBody(
-                  onNextPressed: _onNextPressed,
-                  onPrevPressed: _onPrevPressed,
-                  content: currentPage.content,
-                );
-              }
-              if (currentPage.type == EducationLessonPageType.audio) {
-                if (state.data.temporaryDirectory.isEmpty) {
-                  context.read<EducationLessonBloc>().add(const EducationLessonEvent.init());
-                }
-                if (!state.data.isAudioLoading &&
-                    state.data.currentPage.type == EducationLessonPageType.audio &&
-                    state.data.currentPage.content.audioFilePath.isEmpty) {
-                  context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadAudioFile(state.data.currentPage.content.url),
-                      );
-                }
-                if (!state.data.isSubtitleLoading &&
-                    state.data.currentPage.type == EducationLessonPageType.audio &&
-                    state.data.currentPage.content.subtitlesImages != null &&
-                    state.data.currentPage.content.subtitleFilePath.isEmpty) {
-                  context.read<EducationLessonBloc>().add(
-                        EducationLessonEvent.downloadSubtitlesFile(state.data.currentPage.content.subtitlesImages!),
-                      );
-                }
-                return LessonAudioBody(
-                  onNextPressed: _onNextPressed,
-                  onPrevPressed: _onPrevPressed,
-                );
-              }
-              return const SizedBox.shrink();
-            },
-            orElse: () => const SizedBox.shrink(),
-          );
-        },
+          ),
+        ),
       ),
     );
   }

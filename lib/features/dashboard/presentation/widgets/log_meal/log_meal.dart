@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
@@ -69,6 +70,8 @@ class LogMeal extends StatelessWidget {
       ),
       child: BlocBuilder<MealsBloc, MealsState>(
         builder: (BuildContext context, mealsState) {
+          final Color textColor = mealsState.isEnableOnDashboard ? AppColors.blueDarker : AppColors.greyLabel;
+
           return mealsState.maybeMap(
             error: (errorState) {
               final error = errorState.fetchError;
@@ -80,7 +83,6 @@ class LogMeal extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
                 child: ErrorScreen(
-                  smallVersion: true,
                   error: error,
                   onButtonPressed: () => context.read<MealsBloc>().add(const MealsEvent.fetchMeals()),
                 ),
@@ -101,19 +103,15 @@ class LogMeal extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               CustomText.bitter600(
-                                LocalizedTexts.logYourMeals.translation,
-                                style: context.textTheme.headlineSmall?.copyWith(
-                                  color: AppColors.blueDarker,
-                                ),
+                                LocalizedTexts.logYourMeals.tr(),
+                                style: context.textTheme.headlineSmall?.copyWith(color: textColor),
                               ),
                               if (mealsState.filledCategories.isEmpty)
                                 CustomText.w400(
                                   mealsState.isEnableOnDashboard
-                                      ? LocalizedTexts.noMealsLoggedYet.translation
-                                      : LocalizedTexts.noMealsLogged.translation,
-                                  style: context.textTheme.bodySmall?.copyWith(
-                                    color: AppColors.blueDarker,
-                                  ),
+                                      ? LocalizedTexts.noMealsLoggedYet.tr()
+                                      : LocalizedTexts.noMealsLogged.tr(),
+                                  style: context.textTheme.bodySmall?.copyWith(color: textColor),
                                 ),
                             ],
                           ),
@@ -124,7 +122,7 @@ class LogMeal extends StatelessWidget {
                               onPressed: () => onPressHandler(context),
                               icon: AppIcons.plus,
                             )
-                          : const SizedBox(),
+                          : const SizedBox.shrink(),
                     ],
                   ),
                   mealsState.filledCategories.isNotEmpty
@@ -133,29 +131,35 @@ class LogMeal extends StatelessWidget {
                             const SizedBox(height: 8.0),
                             const Divider(color: AppColors.blueOffRegular),
                             GestureDetector(
-                              onTap: () => _onIntakePressed(context),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              onTap: mealsState.isEnableOnDashboard ? () => _onIntakePressed(context) : null,
+                              child: Column(
                                 children: [
-                                  CustomText.w600(
-                                    LocalizedTexts.loggedMeals.translation.capitalize(),
-                                    style: context.textTheme.bodySmall,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      CustomText.w600(
+                                        LocalizedTexts.loggedMeals.translation.capitalize(),
+                                        style: context.textTheme.bodySmall,
+                                      ),
+                                      const SizedBox(width: 4.0),
+                                      if (mealsState.filledCategories.isNotEmpty)
+                                        CustomOutlinedRoundedButtonWithIcon(
+                                          onPressed: mealsState.isEnableOnDashboard
+                                              ? () => onPressHandler(context)
+                                              : null,
+                                          icon: AppIcons.edit,
+                                        )
+                                    ],
                                   ),
-                                  const SizedBox(width: 4.0),
-                                  if (mealsState.filledCategories.isNotEmpty)
-                                    CustomOutlinedRoundedButtonWithIcon(
-                                      onPressed: () => onPressHandler(context),
-                                      icon: AppIcons.edit,
-                                    )
+                                  LoggedList(
+                                    categoryList: MealCategory.values
+                                        .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
+                                        .toList(),
+                                    categoryListRaw: MealCategory.values.map((e) => e.label ?? '').toList(),
+                                    filledList: mealsState.filledCategories,
+                                  ),
                                 ],
                               ),
-                            ),
-                            LoggedList(
-                              categoryList: MealCategory.values
-                                  .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
-                                  .toList(),
-                              categoryListRaw: MealCategory.values.map((e) => e.label ?? '').toList(),
-                              filledList: mealsState.filledCategories,
                             ),
                             const SizedBox(height: 16.0),
                             CalorieNutritionBlock(

@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_update_bloc.dart';
 import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
@@ -19,6 +20,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/transparency/applictation/device_info_service.dart';
 import 'package:loopcare_frontend/injection.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -36,6 +38,8 @@ class _IntroPageState extends State<IntroPage> {
   @override
   void initState() {
     super.initState();
+    final deviceInfoService = GetIt.instance<DeviceInfoService>();
+    deviceInfoService.onRequestTrackingAuthorization();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _initPackageInfo();
@@ -69,7 +73,8 @@ class _IntroPageState extends State<IntroPage> {
   }
 
   void _onGetStarted(BuildContext context) {
-    context.router.pushNamed(AppRoutes.accessCode);
+    // Todo hide register code LOOPCARE-2196
+    context.router.pushNamed(AppRoutes.joinUs);
   }
 
   void _onLoginTap(BuildContext context) {

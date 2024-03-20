@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -24,6 +23,8 @@ class AssignmentListItem extends StatelessWidget {
     required this.isComplete,
   });
 
+  Color get _checkIconColor => isComplete ? AppColors.greenRegular : AppColors.greyMid;
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -34,39 +35,39 @@ class AssignmentListItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 12.0),
           child: Row(
             children: [
-              SizedBox(
-                height: 20,
-                child: ImageIcon(
-                  AppIcons.iconCheckmark,
-                  color: isComplete ? AppColors.greenRegular : AppColors.greyMid,
-                  size: 14,
-                ),
-              ),
-              const SizedBox(width: 14.0),
               Expanded(
-                child: Column(
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomText.w600(item.title, style: context.textTheme.bodySmall),
-                    if (isComplete)
-                      CustomText.w400(
-                        LocalizedTexts.completedOn.tr(
-                          namedArgs: {'date': item.completedAt?.dayWithMonthWithoutLeadingZero ?? ''},
-                        ),
-                        style: context.textTheme.bodySmall,
+                    Icon(Icons.check, size: 20, color: _checkIconColor),
+                    const SizedBox(width: 12.0),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomText.w600(item.title, style: context.textTheme.bodySmall),
+                          if (isComplete)
+                            CustomText.w400(
+                              LocalizedTexts.completedOn.tr(
+                                namedArgs: {'date': item.completedAt?.dayWithMonthWithoutLeadingZero ?? ''},
+                              ),
+                              style: context.textTheme.bodySmall,
+                            ),
+                          if (!isComplete && isOpen)
+                            CustomText.w400(
+                              LocalizedTexts.completeBefore.tr(
+                                namedArgs: {'date': item.openedAt?.plusWeekShortVersion ?? ''},
+                              ),
+                              style: context.textTheme.bodySmall,
+                            ),
+                        ],
                       ),
-                    if (!isComplete && isOpen)
-                      CustomText.w400(
-                        LocalizedTexts.completeBefore.tr(
-                          namedArgs: {'date': item.openedAt?.plusWeekShortVersion ?? ''},
-                        ),
-                        style: context.textTheme.bodySmall,
-                      ),
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(width: 14.0),
-              const ImageIcon(AppIcons.arrow, color: AppColors.blueDarker),
+              const SizedBox(width: 12.0),
+              const Icon(Icons.chevron_right_rounded, color: AppColors.blueDarker, size: 24),
             ],
           ),
         ),

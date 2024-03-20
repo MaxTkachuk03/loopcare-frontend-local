@@ -51,6 +51,7 @@ class FirebaseEvents {
   static String get userHeight => 'user_height';
   static String get userWeight => 'user_weight';
   static String get userBmi => 'user_bmi';
+  static String get userBmiExclusion => 'user_bmi_exclusion';
   static String get userPregnancy => 'user_pregnancy';
   static String get userMentalHealthTest => 'user_mental_health_test';
   static String get showPopupAboutExceededTime => 'show_popup_about_exceeded_time';
@@ -83,4 +84,6 @@ class FirebaseEvents {
   static String get programCompletedWithoutLogging => 'program_completed_without_logging';
   static String get userOpenedChat => 'user_opened_chat';
   static String get userLeavesChat => 'user_leaves_chat';
+
+  static String get userConfirmedDoctorConsent => 'user_confirmed_doctor_consent';
 }

@@ -48,7 +48,7 @@ class AuthTokenInterceptor extends Interceptor {
 
   @override
   Future<void> onResponse(Response response, ResponseInterceptorHandler handler) async {
-//    debugPrint('devcpp RESPONSE  STATUS: ${response.statusCode}  PATH: ${response.realUri.path}');
+   debugPrint('devcpp RESPONSE  STATUS: ${response.statusCode}  PATH: ${response.realUri.path}');
     return handler.next(response);
   }
 

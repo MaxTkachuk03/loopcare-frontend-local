@@ -7,7 +7,6 @@ import 'package:loopcare_frontend/features/education/application/dto/calendar_le
 import 'package:loopcare_frontend/features/education/application/dto/get_lesson_content_response.dart';
 import 'package:loopcare_frontend/features/education/application/dto/get_lessons_response.dart';
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
-import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
 import 'package:loopcare_frontend/features/education/domain/questions/lesson_answer_body.dart';
 import 'package:loopcare_frontend/features/education/domain/questions/lesson_questions_response.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
@@ -19,7 +18,8 @@ class APIEducationService implements EducationService {
   APIEducationService(this.client);
 
   @override
-  Future<Either<RequestError, LessonQuestionsResponse>> getAllLessonQuestions(String? startDate, String? endDate) {
+  Future<Either<RequestError, LessonQuestionsResponse>> getAllLessonQuestions(
+      String? startDate, String? endDate) {
     final queryParameters = <String, dynamic>{};
     if (startDate != null && endDate != null) {
       queryParameters.addAll({
@@ -35,7 +35,9 @@ class APIEducationService implements EducationService {
 
   @override
   Future<Either<RequestError, LessonQuestion>> getLessonQuestions(int lessonQuestionId) {
-    return client.get('/education/lesson-questions/$lessonQuestionId').then(parseResponse(LessonQuestion.fromJson));
+    return client
+        .get('/education/lesson-questions/$lessonQuestionId')
+        .then(parseResponse(LessonQuestion.fromJson));
   }
 
   @override
@@ -79,14 +81,11 @@ class APIEducationService implements EducationService {
   }
 
   @override
-  Future<Either<RequestError, GetLessonsResponse>> getLessons(
-    LessonCategory category,
-  ) async {
+  Future<Either<RequestError, GetLessonsResponse>> getLessons() async {
     // TODO lessons mock
-    //return right(GetLessonsResponse.fromJson({'lessons': lessons}));
+    // return right(GetLessonsResponse.fromJson({'lessons': lessons}));
 
-    final params = category == LessonCategory.all ? null : {'category': category.name};
-    return client.get('/education/lessons', queryParameters: params).then(parseResponse(GetLessonsResponse.fromJson));
+    return client.get('/education/lessons').then(parseResponse(GetLessonsResponse.fromJson));
   }
 
   @override

@@ -11,14 +11,12 @@ class ErrorScreen extends StatelessWidget {
   final RequestError error;
   final String? buttonText;
   final VoidCallback? onButtonPressed;
-  final bool smallVersion;
 
   const ErrorScreen({
     super.key,
     required this.error,
     this.buttonText,
     this.onButtonPressed,
-    this.smallVersion = false,
   });
 
   Widget _getIcon() {
@@ -90,18 +88,12 @@ class ErrorScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
+          children: [
             _getIcon(),
-            SizedBox(height: smallVersion ? 0.0 : 16.0),
-            CustomText.bitter600(
-              _getTitle(),
-              style: smallVersion ? context.textTheme.bodyLarge : context.textTheme.displayLarge,
-            ),
-            SizedBox(height: smallVersion ? 8.0 : 16.0),
-            CustomText.w400(
-              _getDescription(),
-              style: context.textTheme.bodySmall,
-            ),
+            const SizedBox(height: 12.0),
+            CustomText.bitter600(_getTitle(), style: context.textTheme.displayLarge),
+            const SizedBox(height: 12.0),
+            CustomText.w400(_getDescription(), style: context.textTheme.bodySmall),
             onButtonPressed == null ? const SizedBox.shrink() : _getButton(),
           ],
         ),

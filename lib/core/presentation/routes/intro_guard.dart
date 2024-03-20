@@ -57,10 +57,16 @@ class IntroGuard extends AutoRouteGuard {
 
       if (!((accessTokenPresent?.isNotEmpty ?? false) && (refreshTokenPresent?.isNotEmpty ?? false))) {
         route = AppRoutes.login;
-      } else if (authenticationCubit.state.hasActiveSubscription) {
+      }
+      //Todo hide subscription flow LOOPCARE-2197
+      // else if (authenticationCubit.state.hasActiveSubscription) {
+      //   route = AppRoutes.home;
+      // } else {
+      //   route = AppRoutes.subscription;
+      // }
+      //remove else{..}
+      else {
         route = AppRoutes.home;
-      } else {
-        route = AppRoutes.subscription;
       }
       MixpanelEventService.instance.trackVisit(
         "${AppMixpanelEvents.appRote}:  $route",

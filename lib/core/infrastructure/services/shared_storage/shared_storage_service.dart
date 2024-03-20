@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/domain/recent_search_user/recent_search_l
 import 'package:loopcare_frontend/core/domain/recent_search_user/recent_search_user.dart';
 import 'package:loopcare_frontend/core/domain/recent_search_user/recent_search_user_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/local_storage.dart';
+import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 
 class SharedStorageService {
@@ -29,6 +30,8 @@ class SharedStorageService {
   bool containsKey(String key) => _prefs.containsKey(key);
 
   Future<bool> remove(String key) => _prefs.remove(key);
+
+  Set<String> get keys => _prefs.keys;
 
   set recentSearches(RecentSearchUserList list) {
     _prefs.setValue<String>('recent_search', json.encode(list));
@@ -89,5 +92,23 @@ class SharedStorageService {
     );
     _addRecentSearchData(recentUser, data);
     recentSearches = userList;
+  }
+
+  void setGroupPreferencesMessageVisibility(int userId, UserGroupingState state) {
+    final key = userId.toString();
+
+    final String jsonMap = _prefs.getString(key) ?? '[]';
+    List<dynamic> messages = jsonDecode(jsonMap);
+    final messagesSet = messages.toSet();
+    messagesSet.add(state.name);
+    _prefs.setValue(key, jsonEncode(messagesSet.toList()));
+  }
+
+  bool hasSawGroupPreferencesMessage(int userId, UserGroupingState state) {
+    final key = userId.toString();
+    final String jsonMap = _prefs.getString(key) ?? '[]';
+    List<dynamic> messages = jsonDecode(jsonMap);
+
+    return messages.contains(state.name);
   }
 }

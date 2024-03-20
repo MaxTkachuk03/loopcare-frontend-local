@@ -2,9 +2,11 @@ import 'package:get_it/get_it.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/application/socket_service_chat/chat_socket_service.dart';
 import 'package:loopcare_frontend/core/domain/account/account.dart';
+import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
@@ -66,7 +68,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
   }
 
   void login(String email, String password) async {
-    final data = LoginData(email: email, password: password);
+    final data = LoginData(email: email.toLowerCase(), password: password);
 
     final response = await _authenticationService.login(data);
 
@@ -80,6 +82,12 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
         authTokenManager.setRefreshToken(response.refreshToken);
 
         connectSockets();
+
+        CustomerIoService.userAuthenticated(
+          email: response.email,
+          id: response.id,
+          name: response.name,
+        );
 
         emit(
           AuthenticationState.authenticated(
@@ -166,6 +174,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
                   emailApproveDate: r.emailApproveDate,
                   mentalHealthTests: r.mentalHealthTests,
                   subscription: r.subscription,
+                  medicalOnboarding: r.medicalOnboarding,
                   buddy: r.buddy,
                 ),
               ),
@@ -197,6 +206,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     await _authenticationService.logout();
     await authTokenManager.removeAccessToken();
     await authTokenManager.removeRefreshToken();
+    CustomerIoService.logOut();
     emit(const AuthenticationState.guest());
     _socketService.disconnect();
     _chatSocketService.disconnect();
@@ -223,12 +233,13 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
     String email,
     RegistrationPhysicalFitnessData registrationPhysicalFitnessData,
     MentalHealthTestAnswer mentalHealthTest,
+    MedicalOnboarding medicalOnboarding,
   ) async {
     state.mapOrNull(
       emailAddress: (state) async {
         final data = SignUpData(
           name: state.name,
-          email: email,
+          email: email.toLowerCase(),
           password: state.password,
           isConsentApproved: true,
           isLegalApproved: true,
@@ -239,15 +250,23 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
           bioGender: registrationPhysicalFitnessData.bioGender,
           gender: registrationPhysicalFitnessData.gender,
           mentalHealthTest: mentalHealthTest,
+          medicalOnboarding: medicalOnboarding,
         );
 
         final response = await _authenticationService.signUp(data);
 
         response.fold(
           (error) {
+            emit(const AuthenticationState.init());
             emit(state.copyWith(error: error));
           },
           (response) {
+            CustomerIoService.userRegistered(
+              email: data.email,
+              id: response.id,
+              name: state.name,
+            );
+
             emit(
               AuthenticationState.waitedForConfirmation(
                 email: data.email,
@@ -279,7 +298,7 @@ class AuthenticationCubit extends HydratedCubit<AuthenticationState> {
       guest: (state) async {
         emit(state.copyWith(emailWasSend: false, error: null));
 
-        final data = ForgotPasswordData(email: email);
+        final data = ForgotPasswordData(email: email.toLowerCase());
 
         final response = await _authenticationService.forgotPassword(data);
 

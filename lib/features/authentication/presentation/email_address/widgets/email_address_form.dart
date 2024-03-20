@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/url_constants.dart';
+import 'package:loopcare_frontend/core/infrastructure/dio_client/response_error_const.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -19,10 +20,9 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/onboarding_medical/application/medical_fitness_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/onboarding_physical/application/physical_fitness_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-const accountAlreadyExists = 'account_with_this_email_already_exists';
 
 class EmailAddressForm extends StatefulWidget {
   const EmailAddressForm({
@@ -46,9 +46,8 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
 
   @override
   void dispose() {
-    super.dispose();
-
     _emailController.dispose();
+    super.dispose();
   }
 
   @override
@@ -119,7 +118,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
             ),
             const SizedBox(height: 16.0),
             CustomElevatedButton.blueFullWidth(
-              onPressed: _isDisabled ? null : () => _onRegisterPressed(context),
+              onPressed: _isDisabled ? null : _onRegisterPressed,
               label: LocalizedTexts.register,
             ),
           ],
@@ -137,13 +136,14 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
     });
   }
 
-  void _onRegisterPressed(BuildContext context) {
+  void _onRegisterPressed() {
     setState(() {
       emailErrorText = null;
     });
     final registrationPhysicalFitnessData = context.read<PhysicalFitnessBloc>().state.registrationPhysicalFitnessData;
 
     final mentalHealthTest = context.read<MentalHealthBloc>().state.data.answers;
+    final medicalOnboardingData = context.read<MedicalFitnessBloc>().state.data;
 
     AnalyticsEventService.instance.logEvent(
       FirebaseEvents.userEmail,
@@ -157,6 +157,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
           _emailController.text,
           registrationPhysicalFitnessData,
           MentalHealthTestAnswer(answers: mentalHealthTest),
+          medicalOnboardingData.registrationData(),
         );
   }
 
@@ -177,7 +178,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
     try {
       await launchUrl(launchUri, mode: LaunchMode.externalApplication);
     } catch (e) {
-      _showError(context);
+      if (context.mounted) _showError(context);
     }
   }
 
@@ -206,9 +207,8 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
       emailAddress: (state) {
         final error = state.error;
         if (error != null) {
-          error.mapOrNull(
-            badRequest: (error) {
-              final errorMessage = error.maybeMap(
+          final errorMessage = error.mapOrNull(
+            badRequest: (error) => error.maybeMap(
                 badRequest: (error) {
                   final message = error.error.message;
 
@@ -217,14 +217,17 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
                       emailErrorText = LocalizedTexts.emailAlreadyTaken.tr();
                     });
                   }
-
                   return LocalizedTexts.somethingIsIncorrect.tr();
                 },
                 orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
-              );
-              context.showError(content: Text(errorMessage));
-            },
+              ),
+            forbidden: (error) => (error.error.message != null)
+                  ? error.error.message!
+                  : LocalizedTexts.somethingIsIncorrect.tr(),
           );
+          if (errorMessage != null) {
+            context.showError(content: Text(errorMessage));
+          }
         }
       },
     );

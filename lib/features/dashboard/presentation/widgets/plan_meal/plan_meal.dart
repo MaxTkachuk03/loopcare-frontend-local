@@ -51,7 +51,6 @@ class _PlanMealState extends State<PlanMeal> {
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
               child: ErrorScreen(
-                smallVersion: true,
                 error: error,
                 onButtonPressed: () => context.read<MealsBloc>().add(const MealsEvent.fetchMeals()),
               ),
@@ -85,7 +84,9 @@ class _PlanMealState extends State<PlanMeal> {
                                 LocalizedTexts.planYourMeals.translation,
                                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                                       fontFamily: ThemeConstants.bitterFontFamily,
-                                      color: state.isPossibleToPlanMeal ? AppColors.darkGreen : AppColors.greyLabel,
+                                      color: state.isPossibleToPlanMeal
+                                          ? AppColors.darkGreen
+                                          : AppColors.greyLabel,
                                     ),
                               ),
                               if (currentPlannedMeals.isEmpty)
@@ -94,7 +95,9 @@ class _PlanMealState extends State<PlanMeal> {
                                       ? LocalizedTexts.noMealsPlannedYet.translation
                                       : LocalizedTexts.noMealsPlanned.translation,
                                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                        color: state.isPossibleToPlanMeal ? AppColors.darkGreen : AppColors.greyLabel,
+                                        color: state.isPossibleToPlanMeal
+                                            ? AppColors.darkGreen
+                                            : AppColors.greyLabel,
                                       ),
                                 ),
                             ],
@@ -150,7 +153,10 @@ class _PlanMealState extends State<PlanMeal> {
                                                       ),
                                                 ),
                                                 Text(
-                                                  currentPlannedMeals[index].mealItems.map((e) => e.name).join(', '),
+                                                  currentPlannedMeals[index]
+                                                      .mealItems
+                                                      .map((e) => e.name)
+                                                      .join(', '),
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .headlineSmall

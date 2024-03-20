@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/dashboard_assignments/this_week_assignments_open.dart';
@@ -66,22 +66,22 @@ class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
             loading: (_) => const Loader(),
             orElse: () {
               return SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 28,
-                    horizontal: 20,
-                  ),
+                child: ScrollableContainer(
                   child: (thisWeekQuestions.isNotEmpty || pastQuestions.isNotEmpty)
-                      ? ScrollableContainer(
+                      ? MainContainer(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CustomRoundedContainer(
-                                borderRadius: 16.0,
+                              const SizedBox(height: 28.0),
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 22.0),
+                                decoration: const BoxDecoration(
+                                  color: AppColors.white,
+                                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                                ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const SizedBox(height: 24.0),
                                     if (thisWeekQuestions.isNotEmpty)
                                       ThisWeekAssignmentsOpen(
                                         onDashboard: false,
@@ -90,7 +90,9 @@ class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
                                             _startLessonQuestion(context, lessonId),
                                       ),
                                     if (thisWeekQuestions.isNotEmpty && pastQuestions.isNotEmpty)
-                                      const Divider(color: AppColors.ff404040),
+                                      const Column(
+                                        children: [Divider(color: AppColors.ff404040), SizedBox(height: 18)],
+                                      ),
                                     if (pastQuestions.isNotEmpty)
                                       PastAssignments(
                                         questions: pastQuestions,

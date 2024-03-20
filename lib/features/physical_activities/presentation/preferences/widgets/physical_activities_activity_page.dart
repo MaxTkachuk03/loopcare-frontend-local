@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -21,7 +20,6 @@ import 'package:loopcare_frontend/features/education/application/education_lesso
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/activity_type_chips.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/flexibility_chips.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_type.dart';
 
 class PhysicalActivitiesActivityTypePage extends StatefulWidget {
   final bool profileInvoke;
@@ -45,27 +43,30 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
   }
 
   void _onUpdateHandler(PhysicalActivitiesPreferencesState state) {
-    final lessonBloc = context.read<EducationLessonBloc>();
-    if (lessonBloc.state.data.questions.isEmpty ||
-        lessonBloc.state.data.questions.first.type != LessonQuestionType.quiz) {
-      final bloc = context.read<AuthenticationCubit>();
+    if (widget.profileInvoke) {
+      context.router.pop();
+      return;
+    }
 
-      if (!bloc.state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {
-        context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
-      } else {
-        context.router.pop();
-      }
-    } else {
-      context.router.push(
-        QuizzesIntroRoute(
-          lessonId: lessonBloc.state.data.lessonId,
-        ),
-      );
+    final lessonBloc = context.read<EducationLessonBloc>();
+
+    if (lessonBloc.state.data.hasQuiz) {
+      context.router.push(QuizzesIntroRoute(lessonId: lessonBloc.state.data.lessonId));
+      return;
+    }
+
+    final isPhysicalActivitiesUnlocked =
+        context.read<AuthenticationCubit>().state.isPhysicalActivitiesUnlocked;
+
+    if (lessonBloc.state.data.questions.isEmpty && isPhysicalActivitiesUnlocked) {
+      context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
     }
   }
 
-  void _onNext(BuildContext context) {
-    context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.savePreferences());
+  void _onNext() {
+    context
+        .read<PhysicalActivitiesPreferencesBloc>()
+        .add(const PhysicalActivitiesPreferencesEvent.savePreferences());
   }
 
   @override
@@ -75,6 +76,7 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
           prev is Saving && context.router.current.name == PhysicalActivitiesActivityTypeRoute.name,
       listener: _onChangeListener,
       child: CustomScaffold(
+        withBg: false,
         color: widget.profileInvoke ? AppColors.blueLightest : AppColors.petrolLightest,
         appBar: CustomAppBar(
           backgroundColor: widget.profileInvoke ? AppColors.blueRegular : AppColors.petrolRegular,
@@ -97,7 +99,9 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
                         style: context.textTheme.displayMedium,
                       ),
                       const SizedBox(height: 28.0),
-                      widget.profileInvoke ? const ActivityTypeChips.coral() : const ActivityTypeChips.green(),
+                      widget.profileInvoke
+                          ? const ActivityTypeChips.coral()
+                          : const ActivityTypeChips.green(),
                       const SizedBox(height: 28.0),
                       CustomText.w400(
                         LocalizedTexts.youCanAlsoOptionally.translation,
@@ -120,7 +124,7 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
                       BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
                         builder: (context, state) {
                           return CustomElevatedButton.blueFullWidth(
-                            onPressed: () => state.data.isTargetsSet ? _onNext(context) : null,
+                            onPressed: state.data.isTargetsSet ? _onNext : null,
                             label: LocalizedTexts.confirm.tr(),
                           );
                         },

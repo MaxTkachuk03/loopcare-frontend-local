@@ -67,8 +67,13 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
 
+    if (state == AppLifecycleState.inactive || state == AppLifecycleState.paused) {
+      _videoPlayerController?.setVolume(0.0);
+    }
+
     if (state == AppLifecycleState.resumed) {
       _syncVideoState();
+      _videoPlayerController?.setVolume(1.0);
     }
   }
 

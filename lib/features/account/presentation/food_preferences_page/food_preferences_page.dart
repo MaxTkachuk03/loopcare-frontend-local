@@ -64,6 +64,7 @@ class _FoodPreferencesPageState extends State<FoodPreferencesPage> {
       );
     }
     return CustomScaffold.blue(
+      withBg: true,
       appBar: _getCustomAppBar(),
       body: body,
     );

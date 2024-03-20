@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_update_bloc.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
+import 'package:loopcare_frontend/core/infrastructure/route_observers/route_observer_utils.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_bloc_provider.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_navigator_observer.dart';
@@ -101,6 +102,7 @@ class _AppState extends State<_App> {
       theme: appThemeData,
       routerDelegate: _appRouter.delegate(
         navigatorObservers: () => [
+          RouteObserverUtils(),
           FirebaseNavigatorObserver(
             analytics: analytics,
             userId: context.read<AuthenticationCubit>().state.id,

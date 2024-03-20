@@ -3,7 +3,6 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/features/education/application/dto/calendar_lessons_response.dart';
 import 'package:loopcare_frontend/features/education/application/dto/get_lesson_content_response.dart';
 import 'package:loopcare_frontend/features/education/application/dto/get_lessons_response.dart';
-import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
 import 'package:loopcare_frontend/features/education/domain/questions/lesson_answer_body.dart';
 import 'package:loopcare_frontend/features/education/domain/questions/lesson_questions_response.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
@@ -38,9 +37,7 @@ abstract class EducationService {
     LessonAnswerOptionBody data,
   );
 
-  Future<Either<RequestError, GetLessonsResponse>> getLessons(
-    LessonCategory category,
-  );
+  Future<Either<RequestError, GetLessonsResponse>> getLessons();
 
   Future<Either<RequestError, GetLessonContentResponse>> getLessonContent(
     int lessonId,
