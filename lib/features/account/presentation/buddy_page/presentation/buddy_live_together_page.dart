@@ -23,6 +23,8 @@ class BuddyLiveTogetherPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BuddyQuestionWrap(
       child: CustomScaffold(
+        withBg: false,
+        color: AppColors.blueRegular,
         appBar: CustomAppBar.blue(
           title: LocalizedTexts.buddyPreferences.tr(),
           subtitle: LocalizedTexts.stepCounter.tr(args: ['1', '3']),

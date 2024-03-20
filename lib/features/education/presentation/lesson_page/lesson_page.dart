@@ -20,7 +20,6 @@ import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart'
 import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
-import 'package:loopcare_frontend/features/education/domain/education_lesson_page_type.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_audio_body.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_text_body.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_type.dart';
@@ -48,7 +47,8 @@ class _LessonPageState extends State<LessonPage> {
     lessonBloc.add(const EducationLessonEvent.progressForward());
 
     if (lessonBloc.state.data.isLastPage) {
-      final extraAction = lessonBloc.state.data.extraAction;
+      final lessonBlocData = lessonBloc.state.data;
+      final extraAction = lessonBlocData.extraAction;
       final unlockedFeatures = context.read<AuthenticationCubit>().state.unlockedFeatures;
 
       if (extraAction == ExtraActionTypes.setupGroupingPreferences &&
@@ -65,8 +65,7 @@ class _LessonPageState extends State<LessonPage> {
         return;
       }
 
-      if (extraAction == ExtraActionTypes.unlockMeals &&
-          !unlockedFeatures.contains(UnlockedFeatureType.meals)) {
+      if (extraAction == ExtraActionTypes.unlockMeals && !unlockedFeatures.contains(UnlockedFeatureType.meals)) {
         context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.meals);
         context.router.pushNamed(AppRoutes.lessonCompleteFoodPreferences);
 
@@ -89,6 +88,7 @@ class _LessonPageState extends State<LessonPage> {
         context
           ..read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.buddy)
           ..router.pushNamed(AppRoutes.buddyIntro);
+      }
 
       if (lessonBloc.state.data.questions.isEmpty ||
           lessonBloc.state.data.questions.first.type != LessonQuestionType.quiz) {
@@ -170,12 +170,10 @@ class _LessonPageState extends State<LessonPage> {
               return state.maybeMap(
                 initial: (_) => const Loader(),
                 contentIsLoading: (_) => const Loader(),
-                errorGettingContent: (s) =>
-                    ErrorScreen(error: s.data.error!, onButtonPressed: _onRetryHandler),
+                errorGettingContent: (s) => ErrorScreen(error: s.data.error!, onButtonPressed: _onRetryHandler),
                 orElse: () {
                   if (state.data.isArticlePage) {
-                    return LessonTextBody(
-                        onNextPressed: _onNextPressed, content: state.data.currentPage.content);
+                    return LessonTextBody(onNextPressed: _onNextPressed, content: state.data.currentPage.content);
                   }
 
                   if (state.data.isAudioPage) {

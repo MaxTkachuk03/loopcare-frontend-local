@@ -43,6 +43,8 @@ class _BuddyEmailPageState extends State<BuddyEmailPage> {
   Widget build(BuildContext context) {
     return BuddyQuestionWrap(
       child: CustomScaffold(
+        withBg: false,
+        color: AppColors.blueRegular,
         appBar: CustomAppBar.blue(
           title: LocalizedTexts.buddyPreferences.tr(),
           subtitle: LocalizedTexts.stepCounter.tr(args: ['3', '3']),

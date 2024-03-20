@@ -65,6 +65,7 @@ class EducationLessonData with _$EducationLessonData {
   bool get isGroupPreferencesUnlocked => extraAction == ExtraActionTypes.setupGroupingPreferences;
 
   bool get isLessonCompleted => lessonCompletedDate != null;
+
   bool get isAudioAlreadyInCache {
     final cacheVal = audioFilesCache[lessonId.toString()];
 
@@ -76,8 +77,6 @@ class EducationLessonData with _$EducationLessonData {
 
     return cacheVal != null ? cacheVal.contains(AudioLessonContentType.subtitles) : false;
   }
-
-  bool get isLessonCompleted => lessonCompletedDate != null;
 
   bool get isLastPage => currentPageIndex == pages.length - 1;
 

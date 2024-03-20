@@ -49,42 +49,45 @@ class ModalBottomSheet {
     required BuildContext context,
     required void Function() onContinuePressed,
   }) {
-    Size size = MediaQuery.of(context).size;
-
     showModalBottomSheet<void>(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
-          height: size.height * 0.45,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 50.0),
-              const CircleAvatar(
-                radius: 22.0,
-                backgroundColor: AppColors.greenRegular,
-                child: Icon(Icons.check, size: 30),
+        return FractionallySizedBox(
+          heightFactor: 0.75,
+          child: ScrollableContainer(
+            child: MainContainer(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 25.0),
+                  const CircleAvatar(
+                    radius: 22.0,
+                    backgroundColor: AppColors.greenRegular,
+                    child: Icon(Icons.check, size: 30),
+                  ),
+                  const SizedBox(height: 26.0),
+                  CustomText.w600(
+                    '${LocalizedTexts.emailConfirmedBottomSheetTitle.tr()}!',
+                    style: context.textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 20.0),
+                  CustomText.w400(
+                    '${LocalizedTexts.emailConfirmedBottomSheetContent.tr()}.',
+                    style: context.textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 40.0),
+                  CustomElevatedButton.blueFullWidth(
+                    label: LocalizedTexts.continueBtn.tr(),
+                    onPressed: () {
+                      context.router.pop();
+                    },
+                  ),
+                  const SizedBox(height: 30.0),
+                ],
               ),
-              const SizedBox(height: 26.0),
-              CustomText.w600(
-                '${LocalizedTexts.emailConfirmedBottomSheetTitle.tr()}!',
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.w400(
-                '${LocalizedTexts.emailConfirmedBottomSheetContent.tr()}.',
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 40.0),
-              CustomElevatedButton.blueFullWidth(
-                label: LocalizedTexts.continueBtn.tr(),
-                onPressed: () {
-                  context.router.pop();
-                },
-              ),
-            ],
+            ),
           ),
         );
       },
@@ -200,7 +203,7 @@ class ModalBottomSheet {
                         },
                       );
 
-                      context.router.pop;
+                      context.router.pop();
                     },
                     label: LocalizedTexts.cancel.tr(),
                   ),

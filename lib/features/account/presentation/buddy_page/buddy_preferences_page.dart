@@ -59,7 +59,7 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
       ),
       builder: (context, state) {
         return CustomScaffold.blue(
-          needBottomFacture: true,
+          withBg: true,
           appBar: CustomAppBar.blue(
             leading: CustomFilledIconButton.leadingBlueLighter(),
             title: LocalizedTexts.buddyPreferences.tr(),
