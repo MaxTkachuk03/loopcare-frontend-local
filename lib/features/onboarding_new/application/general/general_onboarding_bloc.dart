@@ -280,12 +280,6 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
       generalStep = GeneralOnboardingStep.medical;
       medicalStack = [MedicalQuestionStep.intro];
 
-      CustomerIoService.track(
-        event: CIOEvents.onboardingMedicalIntro,
-        attributes: {
-          'email': 'superAnton@gmail.com',
-        }
-      );
     } else if (isExclude) {
       if (physicalStep == PhysicalQuestionStep.birthday) {
         physicalQuestions = physicalQuestions.insertAfter(physicalStep, PhysicalQuestionStep.ageExclusion);
