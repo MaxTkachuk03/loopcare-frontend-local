@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
@@ -13,7 +14,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/dashboard_assignments/this_week_assignments_open.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/my_assignments/past_assignments.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class MyAssignmentsPage extends StatefulWidget {
   const MyAssignmentsPage({super.key});
@@ -29,8 +30,7 @@ class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
   void initState() {
     super.initState();
 
-    final authState = context.read<AuthenticationCubit>().state;
-    emailApproveDate = authState.emailApproveDate ?? DateTime.now();
+    final emailApproveDate = getIt<SharedStorageService>().account?.emailApproveDate ?? DateTime.now();
 
     context.read<AssignmentsBloc>().add(
           AssignmentsEvent.getAllLessonQuestions(

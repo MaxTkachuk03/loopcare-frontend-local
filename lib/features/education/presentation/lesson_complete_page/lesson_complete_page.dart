@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -18,7 +19,6 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
@@ -27,6 +27,7 @@ import 'package:loopcare_frontend/features/education/presentation/lesson_complet
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_food_logging_feature.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_group_session_feature.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class LessonCompletePage extends StatefulWidget {
   const LessonCompletePage({super.key});
@@ -66,9 +67,9 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
     });
   }
 
-  bool get _isGroupSessionsDisabled => context.read<AuthenticationCubit>().state.disableGroupSessions;
+  bool get _isGroupSessionsDisabled => getIt<SharedStorageService>().account!.disableGroupSessions;
 
-  bool get _isTreatedByPsychiatrist => context.read<AuthenticationCubit>().state.isTreatedByPsychiatrist;
+  bool get _isTreatedByPsychiatrist => getIt<SharedStorageService>().account!.medicalOnboarding!.treatedByPsychiatrist;
 
   String _subText(EducationLessonState state) {
     if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
@@ -184,8 +185,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
                           if (state.data.assignmentsQuestions.isNotEmpty &&
                               state.data.assignmentsQuestionsWithAnswers.isEmpty) {
-                            final authState = context.read<AuthenticationCubit>().state;
-                            var emailApproveDate = authState.emailApproveDate ?? DateTime.now();
+                            final emailApproveDate = getIt<SharedStorageService>()
+                                .account?.emailApproveDate ?? DateTime.now();
 
                             context.read<AssignmentsBloc>().add(
                                   AssignmentsEvent.getAllLessonQuestions(

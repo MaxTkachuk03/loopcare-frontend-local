@@ -1,8 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/mental_health/domain/mental_health_answer.dart';
+import 'package:loopcare_frontend/features/onboarding_new/domain/mental_health_answer/mental_health_answer.dart';
 
 part 'mental_health_test_answers.freezed.dart';
-
 part 'mental_health_test_answers.g.dart';
 
 @freezed

@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -17,8 +17,8 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class ConsultDoctorPage extends StatefulWidget {
   final ExtraActionPageMode mode;
@@ -33,7 +33,7 @@ class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
   bool _isConsulted = false;
 
   void _onCompleteAfterLessonHandler(_) {
-    if (!context.read<AuthenticationCubit>().state.hasSubscription) {
+    if (!getIt<SharedStorageService>().account!.subscription.isActive) {
       context.router.push(NeedPaidSubscriptionRoute(mode: widget.mode));
     } else {
       context.router.pushNamed(AppRoutes.lessonComplete);
@@ -41,7 +41,7 @@ class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
   }
 
   void _onCompleteFromProfileHandler(_) {
-    final userId = context.read<AuthenticationCubit>().state.id;
+    final userId = getIt<SharedStorageService>().account!.id;
 
     AnalyticsEventService.instance.logEvent(
       FirebaseEvents.userConfirmedDoctorConsent,
@@ -51,7 +51,7 @@ class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
       },
     );
 
-    if (!context.read<AuthenticationCubit>().state.hasSubscription) {
+    if (!getIt<SharedStorageService>().account!.subscription.isActive) {
       context.router.push(NeedPaidSubscriptionRoute(mode: widget.mode));
     } else {
       context.router.push(GenderPreferencesRoute(fromLessonComplete: false));

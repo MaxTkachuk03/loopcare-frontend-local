@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:loopcare_frontend/core/domain/aws_cookies_type.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
@@ -20,11 +21,11 @@ import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_countdown/session_countdown.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 const double bottomSheetHeight = 167;
 
@@ -102,7 +103,7 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CustomText.bitter600(
-                              '${LocalizedTexts.hey.tr()} ${context.read<AuthenticationCubit>().state.name.capitalizeOnlyFirstLetter()}',
+                              '${LocalizedTexts.hey.tr()} ${getIt<SharedStorageService>().account!.name.capitalizeOnlyFirstLetter()}',
                               style: context.textTheme.headlineSmall,
                             ),
                             const SizedBox(height: 18.0),

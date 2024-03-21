@@ -3,7 +3,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson_page_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
@@ -11,7 +11,7 @@ import 'package:loopcare_frontend/features/physical_activities/domain/physical_p
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 
 class AnalyticsEventService {
-  AuthenticationCubit? get _authenticationCubit => GetIt.instance<AuthenticationCubit>();
+  AuthenticationBloc? get _authBloc => GetIt.instance<AuthenticationBloc>();
 
   static final instance = AnalyticsEventService._();
 
@@ -21,7 +21,7 @@ class AnalyticsEventService {
     String eventName, {
     Map<String, dynamic>? parameters,
   }) async {
-    final userId = _authenticationCubit?.state.id ?? -1;
+    final userId = _authBloc?.state.data.accountId ?? -1;
 
     Map<String, dynamic> tmpParameters = Map.from(parameters ?? {});
     tmpParameters[CustomDefinitions.userId] = userId;

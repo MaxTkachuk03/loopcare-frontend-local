@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
 part 'consent_confirmation_bloc.freezed.dart';
 
@@ -16,7 +16,7 @@ part 'consent_confirmation_state.dart';
 @singleton
 class ConsentConfirmationBloc
     extends HydratedBloc<ConsentConfirmationEvent, ConsentConfirmationState> {
-  final AuthenticationCubit _authenticationCubit;
+  final AuthenticationBloc _authenticationCubit;
 
   late final StreamSubscription _authBlocStreamSubscription;
 

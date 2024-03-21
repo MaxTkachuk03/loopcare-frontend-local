@@ -4,9 +4,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -21,12 +18,11 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/application/medical_fitness_bloc.dart';
-import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/application/physical_fitness_bloc.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding_new/application/general/general_onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding_new/application/medical_questions/medical_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding_new/application/mental_questions/mental_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding_new/application/physical_questions/physical_questions_bloc.dart';
 
 class WaitingForConfirmationPage extends StatefulWidget {
   const WaitingForConfirmationPage({super.key});
@@ -41,17 +37,15 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
 
   @override
   void initState() {
+    super.initState();
     WidgetsBinding.instance.addObserver(this);
     setTimer();
-
-    super.initState();
   }
 
   @override
   void dispose() {
     timer?.cancel();
     WidgetsBinding.instance.removeObserver(this);
-
     super.dispose();
   }
 
@@ -60,7 +54,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
     timer = Timer.periodic(const Duration(seconds: 5), (_) async {
       if (!waitingForResponse) {
         waitingForResponse = true;
-        await context.read<AuthenticationCubit>().authenticatedCheck();
+        context.read<AuthenticationBloc>().add(const AuthenticationEvent.authenticatedCheck());
         waitingForResponse = false;
       }
     });
@@ -68,19 +62,21 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthenticationCubit, AuthenticationState>(
-      listenWhen: (previous, current) => previous is WaitedForConfirmation && current is Guest,
+    return BlocListener<AuthenticationBloc, AuthenticationState>(
+      listenWhen: (previous, current) => previous is WaitedConfirmationState && current is GuestAuthenticationState,
       listener: _authenticatedListener,
-      child: WillPopScope(
-        onWillPop: _onWillPop,
+      child: PopScope(
+        canPop: false,
         child: CustomScaffold.green(
+          key: const ValueKey('waiting_for_confirmation_page'),
           appBar: CustomAppBar.green(
             title: LocalizedTexts.createAccount.tr(),
-            leading: CustomFilledIconButton.leadingGreenLighter(),
+            leading: const SizedBox.shrink(),
           ),
           body: SafeArea(
             child: ScrollableContainer(
               child: Column(
+                key: const ValueKey('waiting_for_confirmation_page_body'),
                 children: [
                   UnderAppbar.green(
                     child: Center(
@@ -107,7 +103,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                       width: double.infinity,
                       padding: const EdgeInsets.all(32),
                       decoration: const BoxDecoration(
-                        color: AppColors.white,
+                        color: AppColors.greenLightest,
                         borderRadius: BorderRadius.all(Radius.circular(16)),
                       ),
                       child: Column(
@@ -118,12 +114,16 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                             style: context.textTheme.bodyMedium,
                           ),
                           const SizedBox(height: 20.0),
-                          BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                            builder: (BuildContext context, state) {
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                            key: const ValueKey('waiting_for_confirmation_email_line'),
+                            builder: (context, state) {
                               final email =
-                                  state.mapOrNull(waitedForConfirmation: (state) => state.email) ?? '';
+                                  state.mapOrNull(waitedForConfirmation: (state) => state.data.email) ?? '';
 
-                              return CustomText.w600(email, style: context.textTheme.bodyMedium);
+                              return CustomText.w600(
+                                email,
+                                style: context.textTheme.bodyMedium,
+                              );
                             },
                           ),
                           const SizedBox(height: 20.0),
@@ -142,15 +142,18 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                             style: context.textTheme.bodyMedium,
                           ),
                           const SizedBox(height: 50.0),
-                          CustomOutlinedButton.blueFullWidth(
+                          CustomOutlinedButton.petrolFullWidth(
+                            key: const ValueKey('resend_email_button'),
                             onPressed: _onResendPressed,
                             label: LocalizedTexts.resend,
                           ),
-                          const SizedBox(height: 12.0),
-                          CustomOutlinedButton.blueFullWidth(
-                            onPressed: () => _onChangeAddressPressed(context),
-                            label: LocalizedTexts.changeAddress,
-                          ),
+                          // todo: discuss with Diana
+                          // const SizedBox(height: 12.0),
+                          // CustomOutlinedButton.petrolFullWidth(
+                          //   key: const ValueKey('change_email_button'),
+                          //   onPressed: () => _onChangeAddressPressed(context),
+                          //   label: LocalizedTexts.changeAddress,
+                          // ),
                         ],
                       ),
                     ),
@@ -164,40 +167,24 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
     );
   }
 
-  Future<bool> _onWillPop() {
-    context.read<AuthenticationCubit>().previousStep();
-
-    return Future.value(true);
-  }
-
   void _onResendPressed() {
-    context.read<AuthenticationCubit>().resendEmail();
+    context.read<AuthenticationBloc>().add(const AuthenticationEvent.resendEmail());
     context.showSuccessBar(content: CustomText.w400(LocalizedTexts.resendConfirmationMessage.tr()));
   }
 
-  void _onChangeAddressPressed(BuildContext context) {
-    context.router.pop();
-  }
+  void _onChangeAddressPressed(BuildContext context) => context.router.pop();
 
   void _authenticatedListener(BuildContext context, state) {
     timer?.cancel();
-
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userEmail,
-      parameters: {
-        CustomDefinitions.value: context.read<AuthenticationCubit>().state.email,
-        CustomDefinitions.confirmed: 'true',
-      },
-    );
 
     ModalBottomSheet.emailConfirmed(
       context: context,
       onContinuePressed: () {
         context
-          ..read<OnboardingBloc>().add(const OnboardingEvent.resetData())
-          ..read<MedicalFitnessBloc>().add(const MedicalFitnessEvent.resetData())
-          ..read<PhysicalFitnessBloc>().add(const PhysicalFitnessEvent.resetData())
-          ..read<MentalHealthBloc>().add(const MentalHealthEvent.resetData())
+          ..read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.resetData())
+          ..read<MedicalQuestionsBloc>().add(const MedicalQuestionsEvent.resetData())
+          ..read<PhysicalQuestionsBloc>().add(const PhysicalQuestionsEvent.resetData())
+          ..read<MentalQuestionsBloc>().add(const MentalQuestionsEvent.resetData())
           ..router.replaceAll([const LoginRoute()]);
       },
     );

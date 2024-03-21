@@ -11,7 +11,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_button_with_icon.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/weight_conversion_utils.dart';
+import 'package:loopcare_frontend/features/onboarding_new/utils/weight_conversion_utils.dart';
 
 class WeightBlock extends StatelessWidget {
   final DateTime date;

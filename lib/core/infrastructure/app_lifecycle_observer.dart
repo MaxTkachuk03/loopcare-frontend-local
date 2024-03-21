@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/core/application/socket_service_chat/chat_sock
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart' as dioClient;
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
 class AppLifeCycleStateListener extends StatefulWidget {
   final Widget child;
@@ -21,16 +21,16 @@ class AppLifeCycleStateListener extends StatefulWidget {
 class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
   late final AppLifecycleListener lifeCycleListener;
   late AuthTokenManager authTokenManager;
-  AuthenticationCubit? get _authenticationCubit => GetIt.instance<AuthenticationCubit>();
+  AuthenticationBloc? get _authenticationBloc => GetIt.instance<AuthenticationBloc>();
 
   @override
   void initState() {
+    super.initState();
     authTokenManager = GetIt.instance<AuthTokenManager>();
     lifeCycleListener = AppLifecycleListener(
       onStateChange: _onLifeCycleChanged,
       onResume: _onResume,
     );
-    super.initState();
   }
 
   @override
@@ -70,14 +70,12 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
     final request = await dioClient
         .handleProcess(dioOptions.post('/auth/accessToken', data: {'refreshToken': token}))
         .then(parseResponse(UpdatedAccessTokenResponse.fromJson));
+
     request.fold(
-      (error) {
-        _authenticationCubit?.logout();
-      },
-      (response) {
-        authTokenManager.setAccessToken(response.accessToken);
-      },
+      (error) => _authenticationBloc?.add(const AuthenticationEvent.logout()),
+      (response) => authTokenManager.setAccessToken(response.accessToken),
     );
+
     return request.isRight();
   }
 
@@ -90,7 +88,7 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
     return accessTokenIsUpdated;
   }
 
-  void _syncChatState() => _authenticationCubit?.syncChatState();
+  void _syncChatState() => _authenticationBloc?.add(const AuthenticationEvent.syncChatState());
 
-  void _refreshTokenState() => _authenticationCubit?.state.mapOrNull(authenticated: (_) => _refreshToken());
+  void _refreshTokenState() => _authenticationBloc?.state.mapOrNull(authenticated: (_) => _refreshToken());
 }

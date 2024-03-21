@@ -15,8 +15,7 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
@@ -36,8 +35,9 @@ class PreferencesSection extends StatelessWidget {
   }
 
   String _groupSessionsSubtitle(AuthenticationState state) {
-    var grouped =
-        state.isUserGrouped ? LocalizedTexts.yes.translation.capitalize() : LocalizedTexts.no.translation.capitalize();
+    final grouped = state.data.isUserGrouped
+        ? LocalizedTexts.yes.translation.capitalize()
+        : LocalizedTexts.no.translation.capitalize();
 
     return "${LocalizedTexts.partOfGroup.translation}: $grouped";
   }
@@ -122,32 +122,32 @@ class PreferencesSection extends StatelessWidget {
         child: Column(
           children: [
             SectionTitle(title: LocalizedTexts.preferences.tr()),
-            BlocBuilder<AuthenticationCubit, AuthenticationState>(
+            BlocBuilder<AuthenticationBloc, AuthenticationState>(
               builder: (context, state) {
                 return SectionItem(
                   title: LocalizedTexts.food.tr(),
-                  onPressHandler: state.isFoodLoggingUnlocked ? () => _onFoodHandler(context) : null,
+                  onPressHandler: state.data.isFoodLoggingUnlocked ? () => _onFoodHandler(context) : null,
                 );
               },
             ),
             const Divider(height: 1.0, color: AppColors.blueLighter),
-            BlocBuilder<AuthenticationCubit, AuthenticationState>(
+            BlocBuilder<AuthenticationBloc, AuthenticationState>(
               builder: (context, state) {
                 return SectionItem(
                   title: LocalizedTexts.physicalExercises.tr(),
-                  onPressHandler: state.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)
+                  onPressHandler: state.data.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)
                       ? () => _onPhysicalActivitiesHandler(context)
                       : null,
                 );
               },
             ),
             const Divider(height: 1.0, color: AppColors.blueLighter),
-            BlocBuilder<AuthenticationCubit, AuthenticationState>(
+            BlocBuilder<AuthenticationBloc, AuthenticationState>(
               builder: (context, state) {
                 return SectionItem(
                   title: LocalizedTexts.groupSessions.tr(),
                   subTitle: _groupSessionsSubtitle(state),
-                  onPressHandler: state.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
+                  onPressHandler: state.data.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
                 );
               },
             ),

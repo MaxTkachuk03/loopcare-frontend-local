@@ -14,12 +14,13 @@ class SignUpData {
   final bool isConsentApproved;
   final bool isLegalApproved;
 
+  final int happiness;
   final double height;
   final double weight;
   final double bmi;
   final String birthDate;
   final String gender;
-  final String bioGender;
+  final String sex;
 
   final MentalHealthTestAnswer mentalHealthTest;
   final MedicalOnboarding medicalOnboarding;
@@ -30,12 +31,13 @@ class SignUpData {
     required this.password,
     required this.isConsentApproved,
     required this.isLegalApproved,
+    required this.happiness,
     required this.height,
     required this.weight,
     required this.bmi,
     required this.birthDate,
     required this.gender,
-    required this.bioGender,
+    required this.sex,
     required this.mentalHealthTest,
     required this.medicalOnboarding,
   });
