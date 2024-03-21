@@ -2,15 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 import 'package:loopcare_frontend/features/authentication/domain/login_password/login_password.dart';
 
@@ -25,36 +22,48 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  bool _isDisabled = true;
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _formValidationNotifier = ValueNotifier<bool>(false);
   final _formKey = GlobalKey<FormState>();
-
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
     _passwordController.dispose();
     _emailController.dispose();
+    _formValidationNotifier.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthenticationCubit, AuthenticationState>(
+    return BlocConsumer<AuthenticationBloc, AuthenticationState>(
       listener: _navigationListener,
-      builder: (BuildContext context, AuthenticationState state) {
+      builder: (context, state) {
         return Form(
           key: _formKey,
           onChanged: _onChangedForm,
           child: Column(
             children: [
-              CustomTextField.email(controller: _emailController),
+              CustomTextField.email(
+                key: const ValueKey('login_email_text_field'),
+                controller: _emailController,
+              ),
               const SizedBox(height: 12.0),
-              CustomTextField.password(controller: _passwordController),
+              CustomTextField.password(
+                key: const ValueKey('login_password_text_field'),
+                controller: _passwordController,
+              ),
               const SizedBox(height: 40.0),
-              CustomElevatedButton.blueFullWidth(
-                onPressed: _isDisabled ? null : _onLogin,
-                label: LocalizedTexts.login,
+              ValueListenableBuilder<bool>(
+                valueListenable: _formValidationNotifier,
+                builder: (context, isValid, _) {
+                  return CustomElevatedButton.blueFullWidth(
+                    key: const ValueKey('login_button'),
+                    onPressed: isValid ? _onLogin : null,
+                    label: LocalizedTexts.login,
+                  );
+                },
               ),
             ],
           ),
@@ -67,17 +76,15 @@ class _LoginFormState extends State<LoginForm> {
     final isValidForm =
         Email.create(_emailController.text).isRight() && LoginPassword.create(_passwordController.text).isRight();
 
-    setState(() {
-      _isDisabled = !isValidForm;
-    });
+    _formValidationNotifier.value = isValidForm;
   }
 
-  _onLogin() {
-    context.read<AuthenticationCubit>().login(
-          _emailController.text,
-          _passwordController.text,
-        );
-  }
+  _onLogin() => context.read<AuthenticationBloc>().add(
+    AuthenticationEvent.login(
+      email: _emailController.text,
+      password: _passwordController.text,
+    ),
+  );
 
   void _navigationListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(
@@ -89,18 +96,11 @@ class _LoginFormState extends State<LoginForm> {
         // } else {
         //   route = AppRoutes.subscription;
         // }
-        MixpanelEventService.instance.track(
-          AppMixpanelEvents.loginSuccess,
-          {
-            'userId': state.account.id,
-            'email': state.account.email,
-            'nextRoute': route.toString(),
-          },
-        );
+
         pushNamedAndClearStack(context, route);
       },
       guest: (state) {
-        final error = state.error;
+        final error = state.data.error;
         if (error != null) {
           final errorMessage = error.maybeMap(
             notFound: (error) {
@@ -124,14 +124,6 @@ class _LoginFormState extends State<LoginForm> {
             orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
           );
           context.showError(content: Text(errorMessage));
-          MixpanelEventService.instance.track(
-            AppMixpanelEvents.loginFail,
-            {
-              'userId': state.id,
-              'email': state.email,
-              'message': errorMessage,
-            },
-          );
         }
       },
     );

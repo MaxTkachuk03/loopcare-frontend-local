@@ -18,6 +18,17 @@ class CustomFilledIconButton extends StatelessWidget {
     this.iconSize = 28,
   });
 
+  factory CustomFilledIconButton.fromColor({
+    Key? key,
+    required Color color,
+    void Function()? onPressed,
+  }) => CustomFilledIconButton(
+    icon: const Icon(Icons.chevron_left_rounded),
+    onPressed: onPressed,
+    color: AppColors.blueDarker,
+    styles: IconButton.styleFrom(backgroundColor: color),
+  );
+
   factory CustomFilledIconButton.leadingCoralLighter({void Function()? onPressed}) => CustomFilledIconButton(
         icon: const Icon(Icons.chevron_left_rounded),
         onPressed: onPressed,

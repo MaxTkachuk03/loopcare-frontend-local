@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/core/application/analytics_service.dart';
 import 'package:loopcare_frontend/core/application/dto/send_analytics_event_body.dart';
 import 'package:loopcare_frontend/core/application/dto/send_analytics_event_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 part 'analytics_bloc.freezed.dart';
@@ -18,9 +18,9 @@ part 'analytics_state.dart';
 @singleton
 class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
   final AnalyticsService _analyticsService;
-  final AuthenticationCubit _authenticationCubit;
+  final SharedStorageService _storage;
 
-  AnalyticsBloc(this._analyticsService, this._authenticationCubit)
+  AnalyticsBloc(this._analyticsService, this._storage)
       : super(const AnalyticsState.initial(AnalyticsData())) {
     on<SendAnalytics>(_onSendAnalytics);
   }
@@ -36,8 +36,8 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
     final platform =
         'Platform - ${Platform.operatingSystem}(${Platform.operatingSystemVersion}) app version - ${packageInfo.version} ( ${packageInfo.buildNumber} )';
 
-    final userId = _authenticationCubit.state.id;
-    final userGroupId = _authenticationCubit.state.groupId;
+    final userId = _storage.account?.id ?? -1;
+    final userGroupId = _storage.account?.groupId;
 
     final data = SendAnalyticsEventBody(
       event: event.name,

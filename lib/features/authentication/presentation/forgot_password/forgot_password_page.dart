@@ -17,11 +17,13 @@ class ForgotPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold.greenLightest(
+      key: const ValueKey('forgot_password_page'),
       appBar: CustomAppBar.green(leading: CustomFilledIconButton.leadingGreenLighter()),
       body: SafeArea(
         child: ScrollableContainer(
           child: MainContainer(
             child: Column(
+              key: const ValueKey('forgot_password_page_body'),
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 54.0),
@@ -49,7 +51,9 @@ class ForgotPasswordPage extends StatelessWidget {
                   style: context.textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 44.0),
-                const ForgotPasswordForm(),
+                const ForgotPasswordForm(
+                  key: ValueKey('forgot_password_form'),
+                ),
               ],
             ),
           ),

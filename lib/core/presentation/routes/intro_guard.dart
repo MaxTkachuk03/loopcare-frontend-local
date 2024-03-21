@@ -2,25 +2,27 @@ import 'package:auto_route/auto_route.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/presentation/registration_restoring.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
-import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding_new/application/general/general_onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding_new/application/mental_questions/mental_questions_bloc.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class IntroGuard extends AutoRouteGuard {
-  AuthenticationCubit authenticationCubit;
-  OnboardingBloc onboardingBloc;
-  ConsentConfirmationBloc consentConfirmationBloc;
-  LegalStatementBloc legalStatementBloc;
-  MentalHealthBloc mentalHealthBloc;
-  AuthTokenManager authTokenManager;
+  final AuthenticationBloc authenticationBloc;
+  final SharedStorageService storage = getIt<SharedStorageService>();
+  final GeneralOnboardingBloc onboardingBloc;
+  final ConsentConfirmationBloc consentConfirmationBloc;
+  final LegalStatementBloc legalStatementBloc;
+  final MentalQuestionsBloc mentalHealthBloc;
+  final AuthTokenManager authTokenManager;
 
   IntroGuard(
-    this.authenticationCubit,
+    this.authenticationBloc,
     this.onboardingBloc,
     this.consentConfirmationBloc,
     this.legalStatementBloc,
@@ -28,30 +30,10 @@ class IntroGuard extends AutoRouteGuard {
     this.authTokenManager,
   );
 
-  List<PageRouteInfo> _getMentalHealthRoutes() {
-    final tests = mentalHealthBloc.state.data.tests;
-    if (tests.isEmpty) return [const MentalHealthIntroRoute()];
-
-    final mentalHealthRoutes = tests
-        .map((e) {
-          final questionRoutes = e.questions.map((e) => const MentalHealthQuestionRoute()).toList();
-
-          return [...questionRoutes, MentalCheckResultRoute(calculationResultsNotNeeded: true) as PageRouteInfo<void>];
-        })
-        .expand((element) => element)
-        .toList();
-
-    return [
-      const MentalHealthIntroRoute(),
-      ...mentalHealthRoutes,
-      MentalCheckResultRoute(calculationResultsNotNeeded: true)
-    ];
-  }
-
   @override
   Future<void> onNavigation(NavigationResolver resolver, StackRouter router) async {
     String route;
-    if (authenticationCubit.state.isAuthenticated) {
+    if (storage.account != null) {
       final accessTokenPresent = await authTokenManager.getAccessToken();
       final refreshTokenPresent = await authTokenManager.getRefreshToken();
 
@@ -68,45 +50,49 @@ class IntroGuard extends AutoRouteGuard {
       else {
         route = AppRoutes.home;
       }
+
       MixpanelEventService.instance.trackVisit(
         "${AppMixpanelEvents.appRote}:  $route",
-        userId: authenticationCubit.state.id,
+        userId: storage.account?.id ?? -1,
       );
       router.replaceNamed(route);
 
       return;
     }
 
+    final List<PageRouteInfo> needRoutes = [];
+
+    final authState = authenticationBloc.state;
     final onboardingState = onboardingBloc.state;
 
+    if (authState.data.name.isEmpty && !onboardingState.isCompleted && storage.account == null) {
+      router.replace(const IntroRoute());
+
+      return;
+    }
+
+    if (authState.data.name.isNotEmpty) {
+      needRoutes.addAll([
+        const IntroRoute(),
+        const JoinUsRoute(),
+        const NameRoute(),
+        const EmailAddressRoute(),
+      ]);
+    }
+
+    if (authState.data.email.isNotEmpty) {
+      needRoutes.add(const SuccessVerifiedEmailRoute());
+    }
+
     if (onboardingState.isStarted && !onboardingState.isCompleted) {
-      final currentStepIndex = onboardingState.currentStep.index;
-      final routes = OnboardingSteps.values
-          .getRange(0, currentStepIndex + 1)
-          .map((e) => e.stepRoutes)
-          .expand((element) => element)
-          .toList();
+      needRoutes.add(const OnboardingQuestionsRoute());
+      onboardingBloc.add(const GeneralOnboardingEvent.resumeTimer());
+    }
 
-      final isMentalFitness = onboardingState.currentStep == OnboardingSteps.mentalFitness;
+    if (needRoutes.isNotEmpty) {
+      router.pushAll(needRoutes);
 
-      final routeIndex = isMentalFitness
-          ? routes.length + mentalHealthBloc.state.data.currentPage
-          : routes.indexOf(onboardingState.currentStep.stepRoutes[onboardingState.currentQuestionIndex]);
-
-      final mentalHealthRoutes = isMentalFitness ? _getMentalHealthRoutes() : <PageRouteInfo>[];
-
-      routes.addAll(mentalHealthRoutes);
-
-      List<PageRouteInfo<dynamic>> needRoutes = [];
-
-      needRoutes.add(const IntroRoute());
-      needRoutes.add(const JoinUsRoute());
-
-      needRoutes.addAll(routes.take(routeIndex + 1).toList());
-      router.pushAll(
-        needRoutes,
-      );
-
+      authenticationBloc.add(const AuthenticationEvent.startTrackUser());
       return;
     }
 
@@ -118,17 +104,12 @@ class IntroGuard extends AutoRouteGuard {
       return;
     }
 
-    final isGuestMode = authenticationCubit.state.maybeWhen(
-      orElse: () => true,
-      authenticated: (_) => false,
-    );
-
-    if (onboardingState.isStarted && onboardingState.isCompleted && isGuestMode) {
-      registrationRestoring(router, authenticationCubit);
+    if (onboardingState.isCompleted && legalStatementWasPassed) {
+      router.replaceNamed(AppRoutes.password);
 
       return;
     }
 
-    resolver.next(true);
+    resolver.next(false);
   }
 }

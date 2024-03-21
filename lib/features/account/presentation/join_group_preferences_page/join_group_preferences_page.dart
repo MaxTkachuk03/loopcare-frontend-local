@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_de
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -16,8 +17,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class JoinGroupPreferencesPage extends StatefulWidget {
   // TODO route is called only from one place with false value, so we don't need it as a param cause it always the same
@@ -59,12 +60,12 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
         },
       );
 
-      if (context.read<AuthenticationCubit>().state.isTreatedByPsychiatrist) {
+      if (getIt<SharedStorageService>().account?.medicalOnboarding?.treatedByPsychiatrist ?? false) {
         context.router.push(ConsultDoctorRoute(mode: const ExtraActionPageMode.userProfile()));
         return;
       }
 
-      if (!context.read<AuthenticationCubit>().state.hasSubscription) {
+      if (!getIt<SharedStorageService>().account!.subscription.isActive) {
         context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.userProfile()));
         return;
       }

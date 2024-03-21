@@ -177,6 +177,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: Padding(padding: const EdgeInsets.all(6.0), child: leading ?? const BackButton()),
       actions: actions,
       bottom: bottom,
+      scrolledUnderElevation: 0,
     );
   }
 

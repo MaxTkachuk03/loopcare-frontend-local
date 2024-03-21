@@ -10,8 +10,7 @@ import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.d
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/group_preferences_form.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/white_box.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 final storage = getIt<SharedStorageService>();
@@ -29,7 +28,7 @@ class _CanNotFindGroupState extends State<CanNotFindGroup> {
   @override
   void initState() {
     super.initState();
-    final userId = context.read<AuthenticationCubit>().state.id;
+    final userId = context.read<AuthenticationBloc>().state.data.id;
 
     _shouldHideMessage =
         storage.hasSawGroupPreferencesMessage(userId, UserGroupingState.loopedOnGenderPreferences);
@@ -50,9 +49,9 @@ class _CanNotFindGroupState extends State<CanNotFindGroup> {
                   LocalizedTexts.update.tr(),
                   style: context.textTheme.bodyLarge?.copyWith(fontSize: ThemeConstants.fontSize20),
                 ),
-                BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                BlocBuilder<AuthenticationBloc, AuthenticationState>(
                   builder: (BuildContext context, state) {
-                    final groupingStartedAt = state.groupingStartedAt;
+                    final groupingStartedAt = state.data.groupingStartedAt;
 
                     if (groupingStartedAt == null) return const SizedBox.shrink();
 

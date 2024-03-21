@@ -34,6 +34,7 @@ import 'package:loopcare_frontend/features/authentication/presentation/forgot_pa
 import 'package:loopcare_frontend/features/authentication/presentation/login/login_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/name/name_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/password/password_page.dart';
+import 'package:loopcare_frontend/features/authentication/presentation/success_verified_email/success_verified_email_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/waiting_for_confirmation/waiting_for_confirmation_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/welcome/sign_up_welcome_page.dart';
 import 'package:loopcare_frontend/features/buddy/presentation/buddy_description_page.dart';
@@ -53,10 +54,6 @@ import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/pre_intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
 import 'package:loopcare_frontend/features/legal_statement/presentation/legal_statement_page.dart';
-import 'package:loopcare_frontend/features/mental_health/presentation/mental_check_result_page.dart';
-import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_intro_page.dart';
-import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_pre_intro_page.dart';
-import 'package:loopcare_frontend/features/mental_health/presentation/mental_health_question_page.dart';
 import 'package:loopcare_frontend/features/mood/presentation/create_mood_page.dart';
 import 'package:loopcare_frontend/features/mood/presentation/mood_option_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/barcode_scanner_page.dart';
@@ -75,36 +72,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/search/search_
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/select_food_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_serving_page/select_serving_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/week_planner/week_planner_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/asthma/asthma_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/cardiovascular_disease/cardiovascular_disease_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/diabetes_disease/diabetes_disease_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/hypertension/hypertension_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/liver_disease/liver_disease_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/locomotor_system_disease/locomotor_system_disease_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medical_check_failed/medical_check_failed_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medical_check_passed/medical_check_passed_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medical_intro/medical_intro_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medication_future_period/medication_future_period_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medication_past_period/medication_past_period_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/medicines/medicines_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/metabolic_disease/metabolic_disease_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/obesity/obesity_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/pregnancy/pregnancy_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/pregnancy_failed/pregnancy_failed.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/renal_failure/renal_failure_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/sleep_apnea_syndrome/sleep_apnea_syndrome_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/stomach_reduction/stomach_reduction_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/thyroid_disease/thyroid_disease_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/treatment_by_doctor/treatment_by_doctor_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_medical/presentation/weight_loss_medication/weight_loss_medication_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/presentation/biological_gender/biological_gender_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/presentation/birthday/birthday_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/presentation/check_failed_age/check_failed_age.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/presentation/height/height_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/presentation/physical_check_result/presentation/physical_check_result_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/presentation/sex/sex_page.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/presentation/weight/weight_page.dart';
-import 'package:loopcare_frontend/features/onboarding/presentation/physical_intro/physical_intro_page.dart';
+import 'package:loopcare_frontend/features/onboarding_new/presentation/onboarding_questions.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/physical_programs_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_activity_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_completed_page.dart';
@@ -173,6 +141,10 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.joinUs,
       page: JoinUsPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.successVerifiedEmail,
+      page: SuccessVerifiedEmailPage,
     ), // added
     AutoRoute(
       path: AppRoutes.login,
@@ -183,147 +155,11 @@ const groupLessonRoutes = [
       page: ForgotPasswordPage,
     ), // added
 
-    // Onboarding Physical
+    // Onboarding
     AutoRoute(
-      path: AppRoutes.physicalIntro,
-      page: PhysicalIntroPage,
+      path: AppRoutes.onboardingIntro,
+      page: OnboardingQuestionsPage,
     ),
-    AutoRoute(
-      path: AppRoutes.birthday,
-      page: BirthdayPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.checkFailedByAge,
-      page: CheckFailedAgePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.sex,
-      page: SexPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.biologicalGender,
-      page: BiologicalGenderPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.height,
-      page: HeightPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.weight,
-      page: WeightPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.physicalCheckResult,
-      page: PhysicalCheckResultPage,
-    ), // added
-
-    // Onboarding Medical
-    AutoRoute(
-      path: AppRoutes.medicalIntro,
-      page: MedicalIntroPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.pregnancy,
-      page: PregnancyPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.pregnancyFailed,
-      page: PregnancyFailedPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.medicines,
-      page: MedicinesPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.weightLossMedication,
-      page: WeightLossMedicationPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.medicationPastPeriod,
-      page: MedicationPastPeriodPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.medicationFuturePeriod,
-      page: MedicationFuturePeriodPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.obesity,
-      page: ObesityPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.thyroidDisease,
-      page: ThyroidDiseasePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.metabolicDisease,
-      page: MetabolicDiseasePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.hypertension,
-      page: HypertensionPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.cardiovascularDisease,
-      page: CardiovascularDiseasePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.stomachReduction,
-      page: StomachReductionPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.diabetesDisease,
-      page: DiabetesDiseasePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.renalFailure,
-      page: RenalFailurePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.asthma,
-      page: AsthmaPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.liverDisease,
-      page: LiverDiseasePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.sleepApneaSyndrome,
-      page: SleepApneaSyndromePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.locomotorSystemDisease,
-      page: LocomotorSystemDiseasePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.treatmentByDoctor,
-      page: TreatmentByDoctorPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.medicalCheckPassed,
-      page: MedicalCheckPassedPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.medicalCheckFailed,
-      page: MedicalCheckFailedPage,
-    ), // added
-
-    // Onboarding Mental
-    AutoRoute(
-      path: AppRoutes.mentalHealthPreIntro,
-      page: MentalHealthPreIntroPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.mentalHealthIntro,
-      page: MentalHealthIntroPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.mentalHealthQuestion,
-      page: MentalHealthQuestionPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.mentalCheckResult,
-      page: MentalCheckResultPage,
-    ), // added
 
     // Legal statement
     AutoRoute(

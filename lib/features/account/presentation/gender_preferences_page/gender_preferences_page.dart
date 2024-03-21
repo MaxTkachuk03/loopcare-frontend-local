@@ -4,8 +4,6 @@ import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
-import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
@@ -23,6 +21,8 @@ import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart'
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 class GenderPreferencesPage extends StatefulWidget {
@@ -174,7 +174,8 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
                       children: [
                         CustomElevatedButton.blueFullWidth(
                           onPressed: _selectedValue == null ? null : _onNextPressedHandler,
-                          label: widget.fromLessonComplete ? LocalizedTexts.next.tr() : LocalizedTexts.save.tr(),
+                          label:
+                              widget.fromLessonComplete ? LocalizedTexts.next.tr() : LocalizedTexts.save.tr(),
                         ),
                         const SizedBox(height: 30.0),
                       ],

@@ -55,12 +55,14 @@ class CustomTextField extends StatefulWidget {
   });
 
   factory CustomTextField.search({
+    Key? key,
     Color? fillColor,
     required TextEditingController controller,
     ValueChanged<String>? onChanged,
     VoidCallback? onCleared,
   }) =>
       CustomTextField(
+        key: key,
         hintText: LocalizedTexts.searchHint.tr(),
         controller: controller,
         prefixIcon: const Icon(Icons.search, size: 22),
@@ -71,12 +73,14 @@ class CustomTextField extends StatefulWidget {
       );
 
   factory CustomTextField.nickname({
+    Key? key,
     Color? fillColor,
     String? errorText,
     ValueChanged<String>? onChanged,
     required TextEditingController controller,
   }) =>
       CustomTextField(
+        key: key,
         maxLength: 64,
         hintText: LocalizedTexts.nicknamePlaceholder,
         controller: controller,
@@ -88,12 +92,14 @@ class CustomTextField extends StatefulWidget {
       );
 
   factory CustomTextField.email({
+    Key? key,
     Color? fillColor,
     String? errorText,
     ValueChanged<String>? onChanged,
     required TextEditingController controller,
   }) =>
       CustomTextField(
+        key: key,
         hintText: LocalizedTexts.yourEmail,
         controller: controller,
         validator: emailValidator(),
@@ -121,10 +127,12 @@ class CustomTextField extends StatefulWidget {
       );
 
   factory CustomTextField.password({
+    Key? key,
     Color? fillColor,
     required TextEditingController controller,
   }) =>
       CustomTextField(
+        key: key,
         hintText: LocalizedTexts.yourPassword,
         controller: controller,
         validator: loginPasswordValidator(),
@@ -134,11 +142,13 @@ class CustomTextField extends StatefulWidget {
       );
 
   factory CustomTextField.createPassword({
+    Key? key,
     Color? fillColor,
     ValueChanged<String>? onChanged,
     required TextEditingController controller,
   }) =>
       CustomTextField(
+        key: key,
         hintText: LocalizedTexts.yourPassword,
         controller: controller,
         isToggleEye: true,
@@ -147,6 +157,7 @@ class CustomTextField extends StatefulWidget {
       );
 
   factory CustomTextField.unit({
+    Key? key,
     Color? fillColor,
     required TextEditingController controller,
     FocusNode? focusNode,
@@ -158,6 +169,7 @@ class CustomTextField extends StatefulWidget {
     InputDecoration? decoration,
   }) =>
       CustomTextField(
+        key: key,
         hintText: '',
         controller: controller,
         maxLength: maxLength,
@@ -171,12 +183,14 @@ class CustomTextField extends StatefulWidget {
       );
 
   factory CustomTextField.registrationCode({
+    Key? key,
     Color? fillColor,
     String? errorText,
     ValueChanged<String>? onChanged,
     required TextEditingController controller,
   }) =>
       CustomTextField(
+        key: key,
         maxLength: 64,
         hintText: LocalizedTexts.registrationCodePlaceholder,
         controller: controller,
@@ -214,21 +228,34 @@ class _CustomTextFieldState extends State<CustomTextField> {
     widget.onCleared?.call();
   }
 
-  get _suffixIcon {
-    return widget.isToggleEye ?? false
-        ? IconButton(
-            icon: const Icon(Icons.remove_red_eye, size: 24),
-            color: _isObscureText ? AppColors.greyRegular : AppColors.blueDarker,
-            onPressed: _toggleEye,
-          )
-        : widget.isClearField ?? false
-            ? IconButton(
-                icon: const Icon(CupertinoIcons.clear_thick_circled, size: 24),
-                color: AppColors.greyRegular,
-                onPressed: _clearField,
-              )
-            : null;
+  Widget? get _suffixIcon {
+     if (widget.isToggleEye ?? false) {
+       return IconButton(
+         icon: const Icon(Icons.remove_red_eye, size: 24),
+         color: _isObscureText ? AppColors.greyRegular : AppColors.blueDarker,
+         onPressed: _toggleEye,
+       );
+     } else if (widget.isClearField ?? false) {
+       return IconButton(
+         icon: const Icon(CupertinoIcons.clear_thick_circled, size: 24),
+         color: AppColors.greyRegular,
+         onPressed: _clearField,
+       );
+     } else {
+       return const SizedBox.shrink();
+     }
   }
+
+  InputDecoration get _defaultDecoration => InputDecoration(
+    isDense: true,
+    fillColor: widget.fillColor ?? AppColors.white.withOpacity(0.7),
+    errorText: widget.errorText,
+    counterText: '',
+    errorMaxLines: 2,
+    hintText: widget.hintText.tr(),
+    prefixIcon: widget.prefixIcon,
+    suffixIcon: _suffixIcon,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -243,17 +270,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       textAlign: widget.textAlign,
       style: widget.style ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
       maxLength: widget.maxLength,
-      decoration: widget.decoration ??
-          InputDecoration(
-            isDense: true,
-            fillColor: widget.fillColor ?? AppColors.white.withOpacity(0.7),
-            errorText: widget.errorText,
-            counterText: '',
-            errorMaxLines: 2,
-            hintText: widget.hintText.tr(),
-            prefixIcon: widget.prefixIcon,
-            suffixIcon: _suffixIcon,
-          ),
+      decoration: widget.decoration ?? _defaultDecoration,
       validator: widget.validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       onChanged: widget.onChanged,

@@ -297,6 +297,7 @@ class LocalizedTexts {
   static const String testResults = 'testResults';
   static const String preferences = 'preferences';
   static const String name = 'name';
+  static const String email = 'email';
   static const String emailAddress = 'emailAddress';
   static const String changePassword = 'changePassword';
   static const String useFaceOrTouchId = 'useFaceOrTouchId';
@@ -580,6 +581,9 @@ class LocalizedTexts {
   static const String intro2Title = 'intro2Title';
   static const String intro2BodyTextFirst = 'intro2BodyTextFirst';
   static const String intro2BodyTextSecond = 'intro2BodyTextSecond';
+  static const String intro3Title = 'intro3Title';
+  static const String intro3BodyTextFirst = 'intro3BodyTextFirst';
+  static const String intro3BodyTextSecond = 'intro3BodyTextSecond';
 
   // Login
   static const String loginTitle = 'loginTitle';
@@ -617,13 +621,19 @@ class LocalizedTexts {
 
   // Sex
   static const String yourSex = 'yourSex';
+  static const String sexQuestionBody = 'sexQuestionBody';
   static const String sex = 'sex';
 
   // Bio gender
-  static const String genderPageTitle = 'biologicalGenderPageTitle';
+  static const String genderPageTitle = 'genderPageTitle';
   static const String woman = "woman";
   static const String man = "man";
   static const String other = "other";
+
+  // Happiness
+  static const String happinessTitle = 'happinessTitle';
+  static const String happinessBody1 = 'happinessBody1';
+  static const String happinessBody2 = 'happinessBody2';
 
   // Height
   static const String yourHeight = 'yourHeight';
@@ -708,6 +718,18 @@ class LocalizedTexts {
   static const String medicalCheckFailedTitle = 'medicalCheckFailedTitle';
   static const String medicalCheckFailedBody = 'medicalCheckFailedBody';
   static const String medicalCheckFailedBody2 = 'medicalCheckFailedBody2';
+
+  // Medication explanation
+  static const String medicationExplanationTitle = 'medicationTitle';
+  static const String medicationExplanationBody1 = 'medicationExplanationBody1';
+  static const String medicationExplanationBody2 = 'medicationExplanationBody2';
+  static const String medicationExplanationBody3 = 'medicationExplanationBody3';
+  static const String medicationExplanationBody4 = 'medicationExplanationBody4';
+  static const String medicationExplanationBody5 = 'medicationExplanationBody5';
+  static const String medicationExplanationBody6 = 'medicationExplanationBody6';
+  static const String medicationExplanationBody7 = 'medicationExplanationBody7';
+  static const String medicationExplanationBody8 = 'medicationExplanationBody8';
+  static const String medicationExplanationBody9 = 'medicationExplanationBody9';
 
   // Diseases
   static const String cardioVascularDisease = 'cardioVascularDisease';
@@ -816,7 +838,7 @@ class LocalizedTexts {
   static const String whatIsYourName = 'whatIsYourName';
 
   // Password screen
-  static const String enterPasswordTitle = 'enterPasswordTitle';
+  static const String niceToMeetYou = 'niceToMeetYou';
   static const String enterPasswordSubTitle = 'enterPasswordSubTitle';
   static const String confirmPassword = 'confirmPassword';
   static const String passwordStrengthToShort = 'passwordStrengthToShort';
@@ -840,6 +862,7 @@ class LocalizedTexts {
   static const String register = 'register';
   static const String emailAlreadyTaken = 'emailAlreadyTaken';
   static const String somethingIsIncorrect = 'somethingIsIncorrect';
+  static const String receiveEmailCheckboxLabel = 'receiveEmailCheckboxLabel';
 
   //Waiting for confirmation page
   static const String waitingForConfirmationTitle = 'waitingForConfirmationTitle';

@@ -1,7 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
-import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/core/domain/food_preferences/food_preferences.dart';
 import 'package:loopcare_frontend/core/domain/grouping_preferences.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
@@ -10,8 +8,9 @@ import 'package:loopcare_frontend/core/domain/physical_fitness/physical_fitness.
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
-import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/diabetes/application/dto/diabetes_type.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
+import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_activities_preferences.dart';
 
 part 'account_response.g.dart';
@@ -32,13 +31,13 @@ class AccountResponse {
   final DateTime? groupingStartedAt;
   final GenderType gender;
   final SexType sex;
-  final String? buddyState;
   final PhysicalFitness physicalFitness;
   final DiabetesType? diabetes;
   final FoodPreferences? foodPreferences;
   final GroupingPreferences? groupingPreferences;
   final Subscription subscription;
   final Buddy? buddy;
+  final String? buddyState;
   @JsonKey(unknownEnumValue: UnlockedFeatureType.unknown)
   final List<UnlockedFeatureType> unlockedFeatures;
   final MentalHealthTests? mentalHealthTests;

@@ -50,8 +50,9 @@ class SharedStorageService {
 
   set account(Account? account) => setString('account', json.encode(account));
 
-  Account? get account =>
-      containsKey('account') ? Account.fromJson(json.decode(getString('account') ?? '') as Map<String, dynamic>) : null;
+  Account? get account => containsKey('account')
+      ? Account.fromJson(json.decode(getString('account') ?? '') as Map<String, dynamic>)
+      : null;
 
   Future<bool> removeAccount() => _prefs.remove('account');
 

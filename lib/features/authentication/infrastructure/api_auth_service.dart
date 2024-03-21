@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/features/authentication/application/dto/report
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_response.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/unlock_feature_response.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/validate_email_data.dart';
 
 @Injectable(as: AuthenticationService)
 class APIAuthenticationService implements AuthenticationService {
@@ -71,5 +72,10 @@ class APIAuthenticationService implements AuthenticationService {
   @override
   Future<Either<RequestError, dynamic>> reportAbuse(ReportAbuseData data) async {
     return client.post('/accounts/report-issue', data: data.toJson());
+  }
+
+  @override
+  Future<Either<RequestError, dynamic>> checkEmail(ValidateEmailData data) async {
+    return client.post('/accounts/validate-email', data: data.toJson()).then(parseResponse((json) => json.isEmpty));
   }
 }

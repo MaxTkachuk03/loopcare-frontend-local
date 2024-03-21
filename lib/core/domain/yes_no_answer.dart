@@ -3,8 +3,12 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 enum YesNoAnswer {
-  yes,
-  no,
+  yes(value: true),
+  no(value: false);
+
+  const YesNoAnswer({required this.value});
+
+  final bool value;
 }
 
 extension YesNoAnswerX on YesNoAnswer {

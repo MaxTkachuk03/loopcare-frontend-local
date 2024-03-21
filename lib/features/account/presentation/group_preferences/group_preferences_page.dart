@@ -15,8 +15,7 @@ import 'package:loopcare_frontend/features/account/presentation/group_preference
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/grouped.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/not_grouped.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/waiting_in_pool.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
 class GroupPreferencesPage extends StatefulWidget {
   const GroupPreferencesPage({super.key});
@@ -29,17 +28,17 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
   @override
   void initState() {
     super.initState();
-    final authState = context.read<AuthenticationCubit>().state;
+    final authState = context.read<AuthenticationBloc>().state;
     final timezone = context.read<GroupPreferencesBloc>().state.data.timezone;
     final nickname = context.read<GroupPreferencesBloc>().state.data.nickname;
     final genderPreferences = context.read<GroupPreferencesBloc>().state.data.genderPreferences;
 
     context.read<GroupPreferencesBloc>().add(
           GroupPreferencesEvent.setInitialData(
-            value: authState.groupingState == UserGroupingState.grouped ? YesNoAnswer.yes : YesNoAnswer.no,
-            gender: genderPreferences ?? authState.genderPreferences,
-            nickname: nickname ?? authState.nickname,
-            timezone: timezone ?? authState.timezone,
+            value: authState.data.groupingState == UserGroupingState.grouped ? YesNoAnswer.yes : YesNoAnswer.no,
+            gender: genderPreferences ?? authState.data.genderPreferences,
+            nickname: nickname ?? authState.data.nickname,
+            timezone: timezone ?? authState.data.timezone,
           ),
         );
   }
@@ -72,22 +71,23 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
                     );
                   }
 
-                  return BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                      builder: (BuildContext context, state) {
-                    if (state.groupingState == null) return const SizedBox.shrink();
-                    if (state.groupingState == UserGroupingState.unlockedPreferences) {
-                      return const NotGrouped();
-                    }
-                    if (state.groupingState == UserGroupingState.refused) return const NotGrouped();
-                    if (state.groupingState == UserGroupingState.left) return const NotGrouped();
-                    if (state.groupingState == UserGroupingState.waitingInPool) return const WaitingInPool();
-                    if (state.groupingState == UserGroupingState.grouped) return const Grouped();
-                    if (state.groupingState == UserGroupingState.loopedOnGenderPreferences) {
-                      return const CanNotFindGroup();
-                    }
+                  return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                    builder: (context, state) {
+                      if (state.data.groupingState == null) return const SizedBox.shrink();
+                      if (state.data.groupingState == UserGroupingState.unlockedPreferences) {
+                        return const NotGrouped();
+                      }
+                      if (state.data.groupingState == UserGroupingState.refused) return const NotGrouped();
+                      if (state.data.groupingState == UserGroupingState.left) return const NotGrouped();
+                      if (state.data.groupingState == UserGroupingState.waitingInPool) return const WaitingInPool();
+                      if (state.data.groupingState == UserGroupingState.grouped) return const Grouped();
+                      if (state.data.groupingState == UserGroupingState.loopedOnGenderPreferences) {
+                        return const CanNotFindGroup();
+                      }
 
-                    return const SizedBox.shrink();
-                  });
+                      return const SizedBox.shrink();
+                    },
+                  );
                 },
               ),
             ),

@@ -47,13 +47,13 @@ class _LessonPageState extends State<LessonPage> {
     lessonBloc.add(const EducationLessonEvent.progressForward());
 
     if (lessonBloc.state.data.isLastPage) {
-      final lessonBlocData = lessonBloc.state.data;
-      final extraAction = lessonBlocData.extraAction;
-      final unlockedFeatures = context.read<AuthenticationCubit>().state.unlockedFeatures;
+      final extraAction = lessonBloc.state.data.extraAction;
+      final unlockedFeatures = getIt<SharedStorageService>().account?.unlockedFeatures ?? [];
 
       if (extraAction == ExtraActionTypes.setupGroupingPreferences &&
           !unlockedFeatures.contains(UnlockedFeatureType.grouping)) {
-        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.grouping);
+
+        context.read<AuthenticationBloc>().add(const AuthenticationEvent.unlockFeature(UnlockedFeatureType.grouping));
 
         AnalyticsEventService.instance.logEvent(FirebaseEvents.unlockedSupportGroupFeature);
 
@@ -65,8 +65,9 @@ class _LessonPageState extends State<LessonPage> {
         return;
       }
 
-      if (extraAction == ExtraActionTypes.unlockMeals && !unlockedFeatures.contains(UnlockedFeatureType.meals)) {
-        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.meals);
+      if (extraAction == ExtraActionTypes.unlockMeals &&
+          !unlockedFeatures.contains(UnlockedFeatureType.meals)) {
+        context.read<AuthenticationBloc>().add(const AuthenticationEvent.unlockFeature(UnlockedFeatureType.meals));
         context.router.pushNamed(AppRoutes.lessonCompleteFoodPreferences);
 
         return;
@@ -74,19 +75,19 @@ class _LessonPageState extends State<LessonPage> {
 
       if (extraAction == ExtraActionTypes.unlockPhysicalActivities &&
           !unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {
-        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.physicalActivities);
+        context.read<AuthenticationBloc>().add(const AuthenticationEvent.unlockFeature(UnlockedFeatureType.physicalActivities));
         context.router.pushNamed(AppRoutes.physicalPreferencesIntro);
 
         return;
       }
 
       if (extraAction == ExtraActionTypes.unlockAssignments) {
-        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.assignments);
+        context.read<AuthenticationBloc>().add(const AuthenticationEvent.unlockFeature(UnlockedFeatureType.assignments));
       }
 //Todo && !unlockedFeatures.contains(UnlockedFeatureType.buddy)
       if (lessonBlocData.isBuddyUnlocked) {
         context
-          ..read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.buddy)
+          ..read<AuthenticationBloc>().unlockFeature(UnlockedFeatureType.buddy)
           ..router.pushNamed(AppRoutes.buddyIntro);
       }
 
@@ -170,10 +171,12 @@ class _LessonPageState extends State<LessonPage> {
               return state.maybeMap(
                 initial: (_) => const Loader(),
                 contentIsLoading: (_) => const Loader(),
-                errorGettingContent: (s) => ErrorScreen(error: s.data.error!, onButtonPressed: _onRetryHandler),
+                errorGettingContent: (s) =>
+                    ErrorScreen(error: s.data.error!, onButtonPressed: _onRetryHandler),
                 orElse: () {
                   if (state.data.isArticlePage) {
-                    return LessonTextBody(onNextPressed: _onNextPressed, content: state.data.currentPage.content);
+                    return LessonTextBody(
+                        onNextPressed: _onNextPressed, content: state.data.currentPage.content);
                   }
 
                   if (state.data.isAudioPage) {
