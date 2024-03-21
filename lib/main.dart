@@ -27,6 +27,7 @@ Future<void> main() async {
   await dotenv.load(fileName: '.env.$environment');
 
   await Firebase.initializeApp(
+    name: 'LeanOnMe_$environment',
     options: DefaultFirebaseOptions.currentPlatform,
   );
 

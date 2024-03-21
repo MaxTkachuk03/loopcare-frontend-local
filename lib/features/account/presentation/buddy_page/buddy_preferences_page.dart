@@ -95,7 +95,7 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
                             ),
                             if (state.data.showInviteAnotherBuddy)
                               Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 30.0),
+                                padding: const EdgeInsets.symmetric(vertical: 16.0),
                                 child: CustomElevatedButton.coralFullWidth(
                                   label: LocalizedTexts.buddyInviteAnotherBuddy.tr(),
                                   onPressed: state.data.navigateInviteAnotherBuddy
