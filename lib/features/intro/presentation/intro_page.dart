@@ -84,6 +84,7 @@ class _IntroPageState extends State<IntroPage> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold.green(
+      key: const ValueKey('intro_page'),
       body: SafeArea(
         child: ScrollableContainer(
           child: MainContainer(
@@ -92,6 +93,7 @@ class _IntroPageState extends State<IntroPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
+                  key: const ValueKey('intro_page_body'),
                   children: [
                     const SizedBox(height: 8.0),
                     Container(alignment: Alignment.center, child: const Image(image: AppImages.intro)),
@@ -125,11 +127,13 @@ class _IntroPageState extends State<IntroPage> {
                 Column(
                   children: [
                     CustomElevatedButton.blueFullWidth(
+                      key: const ValueKey('intro_lets_go_button'),
                       label: LocalizedTexts.letsGo,
                       onPressed: () => _onGetStarted(context),
                     ),
                     const SizedBox(height: 21.0),
                     RichText(
+                      key: const ValueKey('intro_login_rich_text'),
                       textAlign: TextAlign.center,
                       text: TextSpan(
                         style: context.textTheme.bodyMedium,

@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_de
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -21,10 +22,10 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class SupportGroupIntroPage extends StatelessWidget {
   const SupportGroupIntroPage({super.key});
@@ -41,7 +42,8 @@ class SupportGroupIntroPage extends StatelessWidget {
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: SimpleProgressBar.petrol(
-                progress: context.read<EducationLessonBloc>().state.data.lessonProgress),
+              progress: context.read<EducationLessonBloc>().state.data.lessonProgress,
+            ),
           ),
         ),
         body: SafeArea(
@@ -112,12 +114,12 @@ class SupportGroupIntroPage extends StatelessWidget {
       },
     );
 
-    if (context.read<AuthenticationCubit>().state.isTreatedByPsychiatrist) {
+    if (getIt<SharedStorageService>().account!.medicalOnboarding!.treatedByPsychiatrist) {
       context.router.push(ConsultDoctorRoute(mode: const ExtraActionPageMode.afterLesson()));
       return;
     }
 
-    if (!context.read<AuthenticationCubit>().state.hasSubscription) {
+    if (!getIt<SharedStorageService>().account!.subscription.isActive) {
       context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.afterLesson()));
       return;
     }

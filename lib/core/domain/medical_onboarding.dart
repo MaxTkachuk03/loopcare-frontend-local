@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'medical_onboarding.freezed.dart';
-
 part 'medical_onboarding.g.dart';
 
 @freezed

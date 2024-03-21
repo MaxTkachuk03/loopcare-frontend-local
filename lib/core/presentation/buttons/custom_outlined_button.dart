@@ -2,10 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
-typedef OnPressed = void Function();
-
 class CustomOutlinedButton extends StatelessWidget {
-  final OnPressed? onPressed;
+  final VoidCallback? onPressed;
   final Color? color;
   final ButtonStyle? styles;
   final String label;
@@ -18,7 +16,13 @@ class CustomOutlinedButton extends StatelessWidget {
     this.styles,
   });
 
-  factory CustomOutlinedButton.coralFullWidth({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButton.coralFullWidth({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomOutlinedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
@@ -27,7 +31,13 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomOutlinedButton.coral({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButton.coral({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomOutlinedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
@@ -35,7 +45,13 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomOutlinedButton.coralSmall({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButton.coralSmall({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomOutlinedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
@@ -44,7 +60,13 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomOutlinedButton.orangeFullWidth({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButton.orangeFullWidth({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomOutlinedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
@@ -53,7 +75,13 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomOutlinedButton.orange({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButton.orange({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomOutlinedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
@@ -61,7 +89,13 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomOutlinedButton.orangeSmall({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButton.orangeSmall({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomOutlinedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
@@ -70,7 +104,13 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomOutlinedButton.yellowFullWidth({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButton.yellowFullWidth({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomOutlinedButton(
+        key: key,
         onPressed: onPressed,
         color: AppColors.blueDarker,
         label: label,
@@ -80,8 +120,14 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomOutlinedButton.yellow({OnPressed? onPressed, required String label, ButtonStyle? style}) =>
+  factory CustomOutlinedButton.yellow({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+    ButtonStyle? style,
+  }) =>
       CustomOutlinedButton(
+        key: key,
         onPressed: onPressed,
         color: AppColors.blueDarker,
         label: label,
@@ -91,7 +137,13 @@ class CustomOutlinedButton extends StatelessWidget {
             ),
       );
 
-  factory CustomOutlinedButton.yellowSmall({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButton.yellowSmall({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomOutlinedButton(
+        key: key,
         onPressed: onPressed,
         color: AppColors.blueDarker,
         label: label,
@@ -101,7 +153,13 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomOutlinedButton.greenFullWidth({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButton.greenFullWidth({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomOutlinedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
@@ -110,7 +168,13 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomOutlinedButton.green({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButton.green({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomOutlinedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
@@ -118,7 +182,13 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomOutlinedButton.greenSmall({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButton.greenSmall({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomOutlinedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
@@ -127,7 +197,13 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomOutlinedButton.petrolFullWidth({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButton.petrolFullWidth({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomOutlinedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
@@ -136,7 +212,13 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomOutlinedButton.petrol({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButton.petrol({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomOutlinedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
@@ -144,7 +226,13 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomOutlinedButton.petrolSmall({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButton.petrolSmall({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomOutlinedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
@@ -153,7 +241,13 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomOutlinedButton.blueFullWidth({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButton.blueFullWidth({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomOutlinedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
@@ -162,7 +256,13 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomOutlinedButton.blue({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButton.blue({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomOutlinedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
@@ -170,7 +270,13 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomOutlinedButton.blueSmall({OnPressed? onPressed, required String label}) => CustomOutlinedButton(
+  factory CustomOutlinedButton.blueSmall({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomOutlinedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(

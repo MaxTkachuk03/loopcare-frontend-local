@@ -7,6 +7,9 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:loopcare_frontend/core/application/firebase/mesaging/firebase_messaging.dart';
 
+export 'customer_io_attributes.dart';
+export 'customer_io_events.dart';
+
 class CustomerIoService {
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
 
@@ -40,6 +43,39 @@ class CustomerIoService {
     await _setDevice();
 
     CustomerIO.track(name: 'new_user');
+  }
+
+  static Future<void> onboardingStarted({
+    required String email,
+    required String name,
+    required bool receiveAnEmails,
+  }) async {
+    CustomerIO.identify(
+      identifier: email,
+      attributes: {
+        'name': name,
+        'created_at': _timestamp,
+        'system_locale': Platform.localeName,
+      },
+    );
+
+
+    CustomerIO.track(
+      name: 'onboarding_new_user',
+      attributes: {
+        'Consent to email': receiveAnEmails,
+      },
+    );
+
+    await _setDevice();
+  }
+
+  static Future<void> onboardingResume({
+    required String email,
+  }) async {
+    CustomerIO.identify(identifier: email);
+
+    await _setDevice();
   }
 
   static void logOut() => CustomerIO.clearIdentify();

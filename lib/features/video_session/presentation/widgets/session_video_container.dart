@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/duration_extensions.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session_program_event.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/group_session_video_error.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/rotate_device_message.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/video_block.dart';
+import 'package:loopcare_frontend/injection.dart';
 import 'package:video_player/video_player.dart';
 
 class SessionVideoContainer extends StatefulWidget {
@@ -41,17 +42,17 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
   bool _visibility = false;
   final List<int> _completedEventsIds = [];
 
-  int get userId => context.read<AuthenticationCubit>().state.id;
-  String get userName => context.read<AuthenticationCubit>().state.name;
-  String get userNickname => context.read<AuthenticationCubit>().state.nickname ?? '';
+  int get userId => getIt<SharedStorageService>().account!.id;
+  String get userName => getIt<SharedStorageService>().account!.name;
+  String get userNickname => getIt<SharedStorageService>().account!.nickname ?? '';
 
   bool get _shouldNotUpdate => _videoIsPlaying || _closedVideo;
 
   @override
   void initState() {
+    super.initState();
     WidgetsBinding.instance.addObserver(this);
     _checkIfHasVideoForCurrentTime();
-    super.initState();
   }
 
   @override
@@ -275,57 +276,58 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
             children: [
               if (_isPortrait) const Expanded(child: RotateDeviceMessage()),
               Expanded(
-                  child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  VideoBlock(
-                    controller: controller,
-                    orientation: widget.orientation,
-                    errorWidget: _errorWidgetCb,
-                  ),
-                  if (controller != null && controller.value.isInitialized)
-                    ValueListenableBuilder(
-                      valueListenable: controller,
-                      builder: (BuildContext context, VideoPlayerValue value, child) {
-                        final videoFinished = value.isInitialized && value.position == value.duration;
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    VideoBlock(
+                      controller: controller,
+                      orientation: widget.orientation,
+                      errorWidget: _errorWidgetCb,
+                    ),
+                    if (controller != null && controller.value.isInitialized)
+                      ValueListenableBuilder(
+                        valueListenable: controller,
+                        builder: (BuildContext context, VideoPlayerValue value, child) {
+                          final videoFinished = value.isInitialized && value.position == value.duration;
 
-                        if (videoFinished) _onVideoEnds();
+                          if (videoFinished) _onVideoEnds();
 
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: _isPortrait ? 20.0 : 60.0,
-                                vertical: 20.0,
-                              ),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: VideoProgressIndicator(
-                                      controller,
-                                      allowScrubbing: false,
-                                      colors: const VideoProgressColors(
-                                        playedColor: AppColors.anotherBlue,
-                                        bufferedColor: AppColors.c6c5c5,
-                                        backgroundColor: AppColors.d9d9d9,
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: _isPortrait ? 20.0 : 60.0,
+                                  vertical: 20.0,
+                                ),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: VideoProgressIndicator(
+                                        controller,
+                                        allowScrubbing: false,
+                                        colors: const VideoProgressColors(
+                                          playedColor: AppColors.anotherBlue,
+                                          bufferedColor: AppColors.c6c5c5,
+                                          backgroundColor: AppColors.d9d9d9,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  CustomText.w400(
-                                    (value.duration - value.position).toDurationString,
-                                    style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
-                                  ),
-                                ],
+                                    const SizedBox(width: 10),
+                                    CustomText.w400(
+                                      (value.duration - value.position).toDurationString,
+                                      style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        );
-                      },
-                    )
-                ],
-              )),
+                            ],
+                          );
+                        },
+                      ),
+                  ],
+                ),
+              ),
               if (_isPortrait) const Expanded(child: SizedBox()),
             ],
           ),

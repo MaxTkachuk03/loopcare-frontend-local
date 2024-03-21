@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/password_with_indicator/password_strength_indicator.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/reg_exp_utils.dart';
+import 'package:loopcare_frontend/features/onboarding_new/utils/reg_exp_utils.dart';
 
 class PasswordWithIndicator extends StatefulWidget {
   final TextEditingController controller;

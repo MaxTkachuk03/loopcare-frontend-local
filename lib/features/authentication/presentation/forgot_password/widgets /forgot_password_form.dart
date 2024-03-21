@@ -7,8 +7,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 
 class ForgotPasswordForm extends StatefulWidget {
@@ -19,21 +18,20 @@ class ForgotPasswordForm extends StatefulWidget {
 }
 
 class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
-  bool _isDisabled = true;
+  final _formValidationNotifier = ValueNotifier<bool>(false);
+  final _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
-  final TextEditingController _emailController = TextEditingController();
 
   @override
   void dispose() {
-    super.dispose();
-
     _emailController.dispose();
+    _formValidationNotifier.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthenticationCubit, AuthenticationState>(
+    return BlocListener<AuthenticationBloc, AuthenticationState>(
       listenWhen: _redirectListenWhen,
       listener: _redirectListener,
       child: Form(
@@ -41,11 +39,20 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
         onChanged: _onChangedForm,
         child: Column(
           children: [
-            CustomTextField.email(controller: _emailController),
+            CustomTextField.email(
+              key: const ValueKey('forgot_password_email_text_field'),
+              controller: _emailController,
+            ),
             const SizedBox(height: 28.0),
-            CustomElevatedButton.blueFullWidth(
-              onPressed: _isDisabled ? null : () => _onContinuePressed(context),
-              label: LocalizedTexts.continueBtn.tr(),
+            ValueListenableBuilder<bool>(
+              valueListenable: _formValidationNotifier,
+              builder: (context, isValid, _) {
+                return CustomElevatedButton.blueFullWidth(
+                  key: const ValueKey('forgot_password_continue_button'),
+                  onPressed: isValid ? _onContinuePressed : null,
+                  label: LocalizedTexts.continueBtn.tr(),
+                );
+              },
             ),
           ],
         ),
@@ -53,16 +60,12 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
     );
   }
 
-  void _onContinuePressed(BuildContext context) {
-    context.read<AuthenticationCubit>().forgotPassword(_emailController.text);
-  }
+  void _onContinuePressed() => context.read<AuthenticationBloc>()
+          .add(AuthenticationEvent.forgotPassword(_emailController.text));
 
   void _onChangedForm() {
     final isValidForm = Email.create(_emailController.text).isRight();
-
-    setState(() {
-      _isDisabled = !isValidForm;
-    });
+    _formValidationNotifier.value = isValidForm;
   }
 
   void _redirectListener(BuildContext context, AuthenticationState state) {
@@ -71,7 +74,10 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
         content: Text(
           LocalizedTexts.forgotEmailSuccessMessage.tr(
             namedArgs: {
-              'email': state.maybeMap(guest: (s) => s.email ?? '', orElse: () => ''),
+              'email': state.maybeWhen(
+                guest: (data) => data.email,
+                orElse: () => '',
+              ),
             },
           ),
         ),
@@ -83,9 +89,9 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   }
 
   bool _redirectListenWhen(AuthenticationState previous, AuthenticationState current) {
-    final previousEmail = previous.maybeMap(guest: (state) => state.emailWasSend, orElse: () => false);
-    final currentEmail = current.maybeMap(guest: (state) => state.emailWasSend, orElse: () => false);
-    final error = current.mapOrNull(guest: (state) => state.error);
+    final previousEmail = previous.maybeMap(guest: (state) => state.data.emailWasSend, orElse: () => false);
+    final currentEmail = current.maybeMap(guest: (state) => state.data.emailWasSend, orElse: () => false);
+    final error = current.mapOrNull(guest: (state) => state.data.error);
 
     return previousEmail != currentEmail && currentEmail && error == null;
   }

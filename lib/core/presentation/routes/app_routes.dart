@@ -6,11 +6,12 @@ class AppRoutes {
   static const String intro = '/intro'; // added
   static const String accessCode = '/access-code'; // added
   static const String joinUs = '/join-us'; // added
+  static const String successVerifiedEmail = '/success-verified-email'; // added
   static const String login = '/login'; //added
   static const String forgotPassword = '/forgot-password';
 
   // Onboarding Physical
-  static const String physicalIntro = '/physical-intro';
+  static const String onboardingIntro = '/physical-intro';
   static const String subscription = '/subscription';
   static const String manageSubscription = '/manage-subscription';
   static const String birthday = '/birthday'; // added

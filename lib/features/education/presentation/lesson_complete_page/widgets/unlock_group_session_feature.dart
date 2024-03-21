@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/feature_unlock.dart';
 
 class UnlockGroupSessionFeature extends StatelessWidget {
@@ -12,9 +11,9 @@ class UnlockGroupSessionFeature extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationCubit, AuthenticationState>(
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (context, state) {
-        final body = state.groupingState == UserGroupingState.waitingInPool
+        final body = state.data.groupingState == UserGroupingState.waitingInPool
             ? LocalizedTexts.waitingForGroupCompletedLesson
             : LocalizedTexts.notJoinedToGroupCompletedLesson;
 

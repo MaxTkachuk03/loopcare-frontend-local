@@ -9,7 +9,8 @@ import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/diabetes/application/dto/diabetes_type.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
+import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_activities_preferences.dart';
 
 part 'account_response.g.dart';
@@ -28,8 +29,8 @@ class AccountResponse {
   final bool isLegalApproved;
   final UserGroupingState groupingState;
   final DateTime? groupingStartedAt;
-  final SexType gender;
-  final String bioGender;
+  final GenderType gender;
+  final SexType sex;
   final PhysicalFitness physicalFitness;
   final DiabetesType? diabetes;
   final FoodPreferences? foodPreferences;
@@ -52,7 +53,7 @@ class AccountResponse {
     required this.isConsentApproved,
     required this.isLegalApproved,
     required this.gender,
-    required this.bioGender,
+    required this.sex,
     required this.groupingState,
     required this.groupingStartedAt,
     required this.physicalFitness,

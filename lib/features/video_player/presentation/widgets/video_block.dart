@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/injection.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoBlock extends StatelessWidget {
@@ -40,7 +40,7 @@ class VideoBlock extends StatelessWidget {
             valueListenable: controller!,
             builder: (BuildContext context, VideoPlayerValue value, child) {
               if (value.hasError) {
-                final userId = context.read<AuthenticationCubit>().state.id;
+                final userId = getIt<SharedStorageService>().account!.id;
                 MixpanelEventService.instance.track(
                   AppMixpanelEvents.videoBlockFail,
                   {

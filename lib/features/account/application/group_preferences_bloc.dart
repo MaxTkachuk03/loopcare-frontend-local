@@ -8,8 +8,8 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/features/account/application/dto/group_preferences_body.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_service.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
 
 part 'group_preferences_bloc.freezed.dart';
 part 'group_preferences_event.dart';
@@ -18,7 +18,7 @@ part 'group_preferences_state.dart';
 @singleton
 class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesState> {
   final GroupPreferencesService _groupPreferencesService;
-  final AuthenticationCubit _authBloc;
+  final AuthenticationBloc _authBloc;
 
   GroupPreferencesBloc(this._groupPreferencesService, this._authBloc)
       : super(const GroupPreferencesState.initial(GroupPreferencesData())) {
@@ -93,7 +93,7 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
   ) async {
     emit(GroupPreferencesState.loading(state.data.copyWith(isLoading: true)));
 
-    final data = _authBloc.state.isMixedGender
+    final data = _authBloc.state.data.isMixedGender
         ? GroupPreferencesBody(timezone: event.timezone, genderPreference: GenderPreferences.mixed)
         : GroupPreferencesBody(timezone: event.timezone);
 
@@ -138,7 +138,7 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
     response.fold(
       (l) => emit(GroupPreferencesState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
-        _authBloc.changeAccountGroupStatus(r.groupingState);
+        _authBloc.add(AuthenticationEvent.changeAccountGroupStatus(r.groupingState));
         emit(GroupPreferencesState.updated(state.data.copyWith(
           nickname: '',
           timezone: '',
@@ -159,7 +159,7 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
     response.fold(
       (l) => emit(GroupPreferencesState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
-        _authBloc.changeAccountGroupStatus(r.groupingState);
+        _authBloc.add(AuthenticationEvent.changeAccountGroupStatus(r.groupingState));
         emit(GroupPreferencesState.updated(state.data.copyWith(
           nickname: '',
           timezone: '',
@@ -187,7 +187,7 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
     response.fold(
       (l) => emit(GroupPreferencesState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
-        _authBloc.getAccount();
+        _authBloc.add(const AuthenticationEvent.getAccount());
         emit(GroupPreferencesState.updated(state.data.copyWith(
           isLoading: false,
           error: null,

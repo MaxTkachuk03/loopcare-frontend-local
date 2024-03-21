@@ -8,8 +8,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
 class LookingForGroup extends StatelessWidget {
   const LookingForGroup({super.key});
@@ -26,9 +25,9 @@ class LookingForGroup extends StatelessWidget {
           style: context.textTheme.bodyLarge,
         ),
         const SizedBox(height: 18.0),
-        BlocBuilder<AuthenticationCubit, AuthenticationState>(
+        BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
-            final groupingStartedAt = state.groupingStartedAt;
+            final groupingStartedAt = state.data.groupingStartedAt;
 
             if (groupingStartedAt == null) return const SizedBox.shrink();
             return Column(

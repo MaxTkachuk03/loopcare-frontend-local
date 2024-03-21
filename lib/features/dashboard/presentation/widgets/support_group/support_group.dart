@@ -8,8 +8,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/lessons_uncompleted.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/looking_for_group.dart';
@@ -83,9 +82,9 @@ class _SupportGroupState extends State<SupportGroup> {
             ),
             const SizedBox(height: 8.0),
             const Divider(color: AppColors.blueOffRegular),
-            BlocBuilder<AuthenticationCubit, AuthenticationState>(
+            BlocBuilder<AuthenticationBloc, AuthenticationState>(
               builder: (context, state) {
-                switch (state.groupingState) {
+                switch (state.data.groupingState) {
                   case UserGroupingState.locked:
                     return const LessonsUncompleted();
                   case UserGroupingState.refused:

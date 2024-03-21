@@ -11,8 +11,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/emergency_btn.dart';
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/dashboard_assignments.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/education.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/log_meal.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/person_mood/person_mood.dart';
@@ -56,7 +55,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
   }
 
   void _loadInitialData() {
-    context.read<AuthenticationCubit>().getAccount();
+    context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
 
     if (!context.read<NutritionInstructionsBloc>().state.data.alreadyLoaded) {
       context
@@ -81,10 +80,19 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     // if (context.read<AuthenticationCubit>().state.isFoodLoggingUnlocked) {
     context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
     // }
+
+    if (context.read<AuthenticationBloc>().state.data.isAssignmentsUnlocked) {
+      context.read<AssignmentsBloc>().add(
+        AssignmentsEvent.getAllLessonQuestions(
+          _selectedDay.firstDayOfCurrentWeek.subtract(const Duration(days: 7)),
+          _selectedDay.lastDayOfCurrentWeek,
+        ),
+      );
+    }
   }
 
   Future<void> _onRefresh() async {
-    context.read<AuthenticationCubit>().getAccount();
+    context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
     // TODO: /LOOPCARE-1893
     //Need wait result this request
 
@@ -97,21 +105,21 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
         .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons());
 
-    if (context.read<AuthenticationCubit>().state.isFoodLoggingUnlocked) {
+    if (context.read<AuthenticationBloc>().state.data.isFoodLoggingUnlocked) {
       context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
     }
 
-    if (context.read<AuthenticationCubit>().state.isGroupSessionsUnlocked) {
+    if (context.read<AuthenticationBloc>().state.data.isGroupSessionsUnlocked) {
       context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
     }
 
-    if (context.read<AuthenticationCubit>().state.isAssignmentsUnlocked) {
+    if (context.read<AuthenticationBloc>().state.data.isAssignmentsUnlocked) {
       context.read<AssignmentsBloc>().add(
-            AssignmentsEvent.getAllLessonQuestions(
-              _selectedDay.firstDayOfCurrentWeek.subtract(const Duration(days: 7)),
-              _selectedDay.lastDayOfCurrentWeek,
-            ),
-          );
+        AssignmentsEvent.getAllLessonQuestions(
+          _selectedDay.firstDayOfCurrentWeek.subtract(const Duration(days: 7)),
+          _selectedDay.lastDayOfCurrentWeek,
+        ),
+      );
     }
   }
 
@@ -125,13 +133,13 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
           .read<DashboardEducationBloc>()
           .add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
 
-      if (context.read<AuthenticationCubit>().state.isAssignmentsUnlocked) {
+      if (context.read<AuthenticationBloc>().state.data.isAssignmentsUnlocked) {
         context.read<AssignmentsBloc>().add(
-              AssignmentsEvent.getAllLessonQuestions(
-                _selectedDay.beginDay,
-                _selectedDay.endDay,
-              ),
-            );
+          AssignmentsEvent.getAllLessonQuestions(
+            _selectedDay.beginDay,
+            _selectedDay.endDay,
+          ),
+        );
       }
     });
   }
@@ -158,19 +166,19 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const SizedBox(height: 28),
-                        BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                          builder: (BuildContext context, state) {
+                        BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                          builder: (context, state) {
                             return CustomText.bitter600(
-                              '${LocalizedTexts.goodMorning.translation}, ${state.name}!',
+                              '${LocalizedTexts.goodMorning.translation}, ${state.data.accountName}!',
                               style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
                             );
                           },
                         ),
                         const SizedBox(height: 26.0),
                         WeightBlock(date: _selectedDay),
-                        BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                        BlocBuilder<AuthenticationBloc, AuthenticationState>(
                           builder: (BuildContext context, state) {
-                            if (!state.isFoodLoggingUnlocked) {
+                            if (!state.data.isFoodLoggingUnlocked) {
                               return const SizedBox.shrink();
                             }
                             return Column(
@@ -192,9 +200,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                         ),
                         const SizedBox(height: 19.0),
                         PersonMood(date: _selectedDay),
-                        BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                        BlocBuilder<AuthenticationBloc, AuthenticationState>(
                           builder: (BuildContext context, state) {
-                            if (!state.isPhysicalActivitiesUnlocked) {
+                            if (!state.data.isPhysicalActivitiesUnlocked) {
                               return const SizedBox.shrink();
                             }
 
@@ -204,9 +212,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                             );
                           },
                         ),
-                        BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                        BlocBuilder<AuthenticationBloc, AuthenticationState>(
                           builder: (context, state) {
-                            if (!state.isGroupSessionsUnlocked) {
+                            if (!state.data.isGroupSessionsUnlocked) {
                               return const SizedBox.shrink();
                             }
 
@@ -221,9 +229,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                         ),
                         const SizedBox(height: 19.0),
                         if (_showEducationWidget) Education(date: _selectedDay),
-                        BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                        BlocBuilder<AuthenticationBloc, AuthenticationState>(
                           builder: (context, state) {
-                            if (!state.isAssignmentsUnlocked) {
+                            if (!state.data.isAssignmentsUnlocked) {
                               return const SizedBox.shrink();
                             }
                             return Padding(
@@ -239,8 +247,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                     ),
                   ),
                 ),
-              ),
-            )
+              )
+            ),
           ],
         ),
       ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -21,11 +22,11 @@ import 'package:loopcare_frontend/features/assignments/infrastructure/answer_wid
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_option.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_scale.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_text.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_answer_type.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page_mode.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/quizzes_controller.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class AssignmentsQuestionsPage extends StatefulWidget {
   final int step;
@@ -89,8 +90,12 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
         widget.fromDashboard,
       );
 
-      final authState = context.read<AuthenticationCubit>().state;
-      var emailApproveDate = authState.emailApproveDate ?? DateTime.now();
+      if (widget.fromDashboard) {
+        context.router.popUntilRoot();
+        return;
+      }
+
+      final emailApproveDate = getIt<SharedStorageService>().account?.emailApproveDate ?? DateTime.now();
 
       context
         ..read<AssignmentsBloc>()

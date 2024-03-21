@@ -7,9 +7,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/overlay_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
@@ -24,7 +26,6 @@ import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.d
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/overlay_popup/overlay_service_mode.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_chat_report.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
 import 'package:loopcare_frontend/features/chat/presentation/group_chat_controller.dart';
@@ -32,6 +33,9 @@ import 'package:loopcare_frontend/features/chat/presentation/widget/bubble_widge
 import 'package:loopcare_frontend/features/chat/presentation/widget/group_chat_user_avatar.dart';
 import 'package:loopcare_frontend/features/chat/presentation/widget/hexagon_avatar.dart';
 import 'package:loopcare_frontend/features/report_abuse/application/report_abuse_bloc.dart';
+import 'package:loopcare_frontend/injection.dart';
+
+const int _maxMessageLength = 1024;
 
 class GroupChatPage extends StatefulWidget {
   const GroupChatPage({super.key});
@@ -41,8 +45,7 @@ class GroupChatPage extends StatefulWidget {
 }
 
 class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserver {
-  late GroupChatController controller;
-  final _maxMessageLength = 1024;
+  late GroupChatController _controller;
 
   @override
   void initState() {
@@ -63,8 +66,7 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    types.User user = _getUser();
-    controller = GroupChatController(bloc: context.read<GroupChatBloc>(), user: user)
+    _controller = GroupChatController(bloc: context.read<GroupChatBloc>(), user: _user)
       ..refreshMessages()
       ..refreshMembers();
   }
@@ -73,14 +75,18 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     if (state == AppLifecycleState.resumed) {
-      types.User user = _getUser();
-      controller = GroupChatController(bloc: context.read<GroupChatBloc>(), user: user)
+      _controller = GroupChatController(bloc: context.read<GroupChatBloc>(), user: _user)
         ..refreshMessages()
         ..refreshMembers();
     }
   }
+  Account get _account => getIt<SharedStorageService>().account!;
+  
+  int get _groupId => _account.groupId!;
 
-  DefaultChatTheme get chatTheme => DefaultChatTheme(
+  types.User get _user => types.User(id: '${_account.id}');
+  
+  DefaultChatTheme get _chatTheme => DefaultChatTheme(
         messageInsetsHorizontal: 10,
         messageInsetsVertical: 4,
         receivedMessageBodyTextStyle: context.textTheme.bodyMedium!.copyWith(
@@ -126,16 +132,6 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
         ),
       );
 
-  types.User _getUser() {
-    final id = context.read<AuthenticationCubit>().state.id;
-    types.User user = types.User(
-      id: '$id',
-    );
-    return user;
-  }
-
-  int get _getGroupId => context.read<AuthenticationCubit>().state.groupId!;
-
   @override
   Widget build(BuildContext context) {
     return KeyboardContainerListener(
@@ -145,47 +141,47 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
           return CustomScaffold.orangeLightest(
             appBar: CustomAppBar.orange(
               title: LocalizedTexts.groupChat.tr(),
-              subtitle: controller.getNames(state),
-              onTap: () => context.router.push(GroupUsersRoute(controller: controller)),
+              subtitle: _controller.getNames(state),
+              onTap: () => context.router.push(GroupUsersRoute(controller: _controller)),
               leading: const SizedBox.shrink(),
               actions: const [SizedBox(width: 30)],
             ),
             body: Chat(
-              messages: controller.getMessages(state.data.messages, state.data.members),
+              messages: _controller.getMessages(state.data.messages, state.data.members),
               bubbleBuilder: _bubbleBuilder,
               avatarBuilder: (user) => GroupChatUserAvatar(author: user),
               onSendPressed: (message) {
                 return message.text.length > _maxMessageLength
                     ? _showPopover()
-                    : controller.handleSendPressed(message);
+                    : _controller.handleSendPressed(message);
               },
               onMessageLongPress: (BuildContext context, dynamic message) =>
                   serviceLocator.get<OverlayService>().show(
                         OverlayEvent.chatPopCard(
                           context: context,
-                          needOffset: controller.user.id == message.author.id,
+                          needOffset: _controller.user.id == message.author.id,
                           mode: OverlayServiceMode.chat(
-                            canRemove: controller.user.id == message.author.id,
+                            canRemove: _controller.user.id == message.author.id,
                             onCopy: () => _copy(context, message.text),
                             onReport: () => _onPressHandler(
                                 context,
                                 GroupChatReport(
                                   accountId: int.parse(message.author.id),
-                                  groupId: _getGroupId,
+                                  groupId: _groupId,
                                   messageId: int.parse(message.id),
                                   text: message.text,
                                 )),
-                            onRemove: () => controller.removedMessage(fromMessageId: message.id),
+                            onRemove: () => _controller.removedMessage(fromMessageId: message.id),
                           ),
                         ),
                       ),
-              onEndReached: !state.data.isLoading ? controller.handleEndReached : null,
+              onEndReached: !state.data.isLoading ? _controller.handleEndReached : null,
               showUserAvatars: true,
               showUserNames: true,
-              user: controller.user,
+              user: _controller.user,
               customDateHeaderText: (date) =>
                   date.isToday ? LocalizedTexts.today.tr().capitalize() : date.dayWithMonth,
-              theme: chatTheme,
+              theme: _chatTheme,
             ),
           );
         },
@@ -238,8 +234,8 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
   void _setReadPointer(GroupChatState state) {
     if (state.data.messages.isNotEmpty &&
         context.tabsRouter.activeIndex == 2 &&
-        context.read<AuthenticationCubit>().state.isUserGrouped) {
-      controller.setReadPointer(fromMessageId: state.data.messages.first.id!);
+        _account.isUserGrouped) {
+      _controller.setReadPointer(fromMessageId: state.data.messages.first.id!);
     }
   }
 
@@ -262,8 +258,9 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
       message.text.isEmpty
           ? Container(
               height: avatarSize,
-              alignment:
-                  controller.user.id != message.author.id ? Alignment.centerLeft : Alignment.centerRight,
+              alignment: _controller.user.id != message.author.id
+                  ? Alignment.centerLeft
+                  : Alignment.centerRight,
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: CustomText.w400(
                 LocalizedTexts.messageRemoved.tr(),
@@ -275,7 +272,8 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
           : BubbleWidget(
               message: message,
               nextMessageInGroup: nextMessageInGroup,
-              controller: controller,
+              controller: _controller,
               child: child,
             );
 }
+
