@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 class SubscriptionPlane extends SubscriptionPlaneItem {
   const SubscriptionPlane.general({
     required super.title,
+    required super.description,
     super.offer,
     super.regularPrice,
     super.currency,
@@ -19,6 +20,7 @@ class SubscriptionPlane extends SubscriptionPlaneItem {
 
 class SubscriptionPlaneItem extends StatelessWidget {
   final String title;
+  final String description;
   final String? offer;
   final String? regularPrice;
   final String? currency;
@@ -28,6 +30,7 @@ class SubscriptionPlaneItem extends StatelessWidget {
   const SubscriptionPlaneItem({
     super.key,
     required this.title,
+    required this.description,
     required this.selected,
     this.offer,
     this.regularPrice,
@@ -58,22 +61,26 @@ class SubscriptionPlaneItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   CustomText.w600(
-                    title.tr(),
+                    LocalizedTexts.subscriptionTitlePrice.tr(
+                      namedArgs: {
+                        'title': title,
+                        'C': '${regularPrice!}$currency',
+                      },
+                    ),
                     // overflow: TextOverflow.ellipsis,
                     // maxLines: 1,
                     style: context.textTheme.bodyMedium?.copyWith(
                       color: AppColors.blueDarkest,
                     ),
                   ),
-                  if (regularPrice != null && currency != null)
-                    CustomText.w400(
-                      LocalizedTexts.subscriptionPrice2.tr(
-                        namedArgs: {'C': currency!},
-                      ),
-                      style: context.textTheme.bodyMedium?.copyWith(
-                        color: AppColors.blueDarkest,
-                      ),
+                  CustomText.w400(
+                    LocalizedTexts.subscriptionSubTitlePrice.tr(
+                      namedArgs: {'description': description},
                     ),
+                    style: context.textTheme.bodyMedium?.copyWith(
+                      color: AppColors.blueDarkest,
+                    ),
+                  ),
                 ],
               ),
             ),

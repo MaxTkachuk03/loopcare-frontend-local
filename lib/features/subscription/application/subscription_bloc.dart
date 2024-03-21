@@ -67,6 +67,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     )..init();
   }
 
+  // 1
   FutureOr<void> _onVerifyLastPurchase(
     VerifyLastPurchase event,
     Emitter<SubscriptionState> emit,
@@ -81,6 +82,48 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     _getOldPurchase(event.product);
   }
 
+  //2
+  void _getOldPurchase(ProductDetails product) async {
+    PurchaseDetails? oldPurchaseDetails;
+    if (Platform.isAndroid) {
+      {
+        final InAppPurchaseAndroidPlatformAddition androidAddition =
+            inAppPurchaseService.instance.getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+        final QueryPurchaseDetailsResponse oldPurchases = await androidAddition.queryPastPurchases();
+        if (oldPurchases.pastPurchases.isNotEmpty) {
+          oldPurchaseDetails = oldPurchases.pastPurchases.last;
+        }
+        await _verifyOldPurchase(oldPurchaseDetails, product);
+      }
+    } else {
+      isValidatePastIOSPurchase = true;
+      buyingProduct = product;
+      inAppPurchaseService.instance.restorePurchases();
+    }
+  }
+
+// 3
+  Future<void> _verifyOldPurchase(PurchaseDetails? oldPurchaseDetails, ProductDetails product) async {
+    isValidatePastIOSPurchase = false;
+    late Either<RequestError, ValidStatus> response;
+    if (oldPurchaseDetails == null) {
+      response = await _apiVerifiedEmpty();
+    } else {
+      response = await _apiVerified(oldPurchaseDetails);
+    }
+    response.fold((error) {
+      add(SubscriptionEvent.errorVerifyPurchase(error));
+    }, (r) async {
+      if (oldPurchaseDetails != null && oldPurchaseDetails.pendingCompletePurchase) {
+        await inAppPurchaseService.instance.completePurchase(oldPurchaseDetails);
+      }
+      r.valid ?? true
+          ? add(SubscriptionEvent.buySubscription(product))
+          : add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(generalMessage)));
+    });
+  }
+
+  // 4
   FutureOr<void> _onBuySubscription(
     BuySubscription event,
     Emitter<SubscriptionState> emit,
@@ -103,12 +146,12 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
           ),
         );
       }
+    } catch (e) {
       emit(
         SubscriptionState.loading(state.data.copyWith(isLoading: false)),
       );
-    } catch (e) {
       emit(
-        SubscriptionState.error(
+        SubscriptionState.purchaseDuplicateSubscription(
           state.data.copyWith(
             error: const RequestError.streamSubscription(purchaseErrorMessage),
             isLoading: false,
@@ -174,26 +217,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     return response;
   }
 
-  Future<void> _verifyOldPurchase(PurchaseDetails? oldPurchaseDetails, ProductDetails product) async {
-    isValidatePastIOSPurchase = false;
-    late Either<RequestError, ValidStatus> response;
-    if (oldPurchaseDetails == null) {
-      response = await _apiVerifiedEmpty();
-    } else {
-      response = await _apiVerified(oldPurchaseDetails);
-    }
-    response.fold((error) {
-      add(SubscriptionEvent.errorVerifyPurchase(error));
-    }, (r) async {
-      if (oldPurchaseDetails != null && oldPurchaseDetails.pendingCompletePurchase) {
-        await inAppPurchaseService.instance.completePurchase(oldPurchaseDetails);
-      }
-      r.valid ?? true
-          ? add(SubscriptionEvent.buySubscription(product))
-          : add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(generalMessage)));
-    });
-  }
-
   Future<Either<RequestError, ValidStatus>> _apiVerifiedEmpty() async {
     final vendor = Platform.isIOS ? 'ios' : 'android';
     var response = Platform.isIOS
@@ -228,25 +251,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       } else {
         await _verifyPurchasedOrRestore(purchaseDetails);
       }
-    }
-  }
-
-  void _getOldPurchase(ProductDetails product) async {
-    PurchaseDetails? oldPurchaseDetails;
-    if (Platform.isAndroid) {
-      {
-        final InAppPurchaseAndroidPlatformAddition androidAddition =
-            inAppPurchaseService.instance.getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
-        final QueryPurchaseDetailsResponse oldPurchases = await androidAddition.queryPastPurchases();
-        if (oldPurchases.pastPurchases.isNotEmpty) {
-          oldPurchaseDetails = oldPurchases.pastPurchases.last;
-        }
-        await _verifyOldPurchase(oldPurchaseDetails, product);
-      }
-    } else {
-      isValidatePastIOSPurchase = true;
-      buyingProduct = product;
-      inAppPurchaseService.instance.restorePurchases();
     }
   }
 

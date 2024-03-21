@@ -64,9 +64,11 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
           listener: (BuildContext context, SubscriptionState state) => state.maybeWhen(
             successInPlans: (data) => controller.setupPlans(data),
             subscriptionActive: (data) => context.router.replaceNamed(AppRoutes.home),
+            purchaseDuplicateSubscription: (data) => _onDuplicateSettings(context),
             purchasedSubscription: (data) => (data.subscription?.isActive ?? false)
                 ? context.router.replaceNamed(AppRoutes.home)
                 : _onRestoreFromSettings(context, state),
+            askRestoredSubscription: (data) => _showAskRestorePopover(),
             loading: (data) => controller.handleLoading(data.isLoading),
             logout: (_) => context.router.replaceAll([const IntroRoute()]),
             error: (_) => _errorListener(context, state),
@@ -111,6 +113,19 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     );
   }
 
+  _onDuplicateSettings(BuildContext context) => ModalBottomSheet.restoreSubscription(
+      context: context,
+      isDuplicate: true,
+      onSubscriptionPref: Platform.isIOS
+          ? () {
+              launchUrl(Uri.parse(appConfig.appStoreSettingsLink), mode: LaunchMode.externalApplication);
+              context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout());
+            }
+          : () {
+              launchUrl(Uri.parse(appConfig.playMarketSettingsLink), mode: LaunchMode.externalApplication);
+              context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout());
+            });
+
   _onRestoreFromSettings(BuildContext context, SubscriptionState state) {
     isVendorPlatform(state)
         ? ModalBottomSheet.restoreSubscription(
@@ -148,16 +163,32 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
         ),
       );
 
+  void _showAskRestorePopover() => showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          content: CustomText(LocalizedTexts.askRestoreSubscription.tr()),
+          actions: [
+            TextButton(
+              onPressed: () => context.router.pop(),
+              child: Text(LocalizedTexts.ok.toUpperCase()),
+            ),
+          ],
+        ),
+      );
+
   bool _listenerStates(prev, cur) =>
       cur is ErrorSubscriptionState ||
       cur is SuccessSubscriptionPlans ||
       cur is PurchasedSubscriptionState ||
       cur is SubscriptionActual ||
       cur is LoadingSubscriptionState ||
+      cur is PurchasedDuplicateSubscriptionState ||
+      cur is AskRestoredSubscriptionState ||
       cur is LogoutState;
 
   _errorListener(BuildContext context, SubscriptionState state) {
     final errorMessage = state.data.error?.error ?? LocalizedTexts.somethingWentWrong.tr();
+    debugPrint('devcpp ${state.data.error.toString()}');
     controller.resetState();
     context.showErrorBar(
       content: Text(errorMessage),

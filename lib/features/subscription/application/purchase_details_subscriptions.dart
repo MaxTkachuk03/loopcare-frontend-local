@@ -37,45 +37,48 @@ class PurchaseDetailsStreamSubscription {
       await iosPlatformAddition.setDelegate(AppPaymentQueueDelegate());
     }
     _streamSubscription = inAppPurchaseService.storeSubscription.listen(
-      (List<PurchaseDetails> events) {
+      (List<PurchaseDetails> events) async {
         if (events.isEmpty) {
           onError?.call(const RequestError.streamSubscription(purchaseServiceErrorMessage));
           return;
         }
         if (events.every((element) => element.status == PurchaseStatus.restored)) {
-          debugPrint('devcpp RESTORED: ${events.length} ');
-
           events.sort((a, b) => int.parse(a.transactionDate!).compareTo(int.parse(b.transactionDate!)));
-          for (var element in events) {
-            debugPrint(
-                'devcpp purchase:${SubscriptionDateUtils.getTransactionFromMillisecondsSinceEpoch(element.transactionDate!)}');
+
+          for (var purchaseDetails in events) {
+            if (purchaseDetails.pendingCompletePurchase) {
+              debugPrint(
+                  'devcpp RESTORED COMPLETED: purchase:${SubscriptionDateUtils.getTransactionFromMillisecondsSinceEpoch(purchaseDetails.transactionDate!)}');
+              await inAppPurchaseService.completePurchase(purchaseDetails);
+            }
           }
+
           debugPrint(
               'devcpp RESTORED PURCHASE: ${SubscriptionDateUtils.getTransactionFromMillisecondsSinceEpoch(events.last.transactionDate!)} ');
           onRestored?.call(events.last);
-        } else {
-          Future.forEach(
-            events,
-            (PurchaseDetails purchaseDetails) async {
-              switch (purchaseDetails.status) {
-                case PurchaseStatus.pending:
-                  onPending?.call();
-                  break;
-                case PurchaseStatus.purchased:
-                  onPurchased?.call(purchaseDetails);
-                  break;
-                case PurchaseStatus.canceled:
-                  onCanceled?.call();
-                  break;
-                case PurchaseStatus.restored:
-                  break;
-                case PurchaseStatus.error:
-                  onError?.call(const RequestError.streamSubscription(purchaseServiceErrorMessage));
-                  break;
-              }
-            },
-          );
+          return;
         }
+        Future.forEach(
+          events,
+          (PurchaseDetails purchaseDetails) async {
+            switch (purchaseDetails.status) {
+              case PurchaseStatus.pending:
+                await inAppPurchaseService.completePurchase(purchaseDetails);
+                break;
+              case PurchaseStatus.purchased:
+                onPurchased?.call(purchaseDetails);
+                break;
+              case PurchaseStatus.canceled:
+                onCanceled?.call();
+                break;
+              case PurchaseStatus.error:
+                onError?.call(const RequestError.streamSubscription(purchaseServiceErrorMessage));
+                break;
+              default:
+                break;
+            }
+          },
+        );
       },
       onDone: () => close(),
       onError: (e) {

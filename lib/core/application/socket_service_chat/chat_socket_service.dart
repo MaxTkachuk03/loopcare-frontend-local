@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/socket_service/events.dart';
@@ -114,7 +113,7 @@ class ChatSocketService {
   }
 
   void _debug(String data) {
-    debugPrint('devcpp ChatSocketIO -------: ${DateTime.now().toIso8601String()} on  $data');
+    // debugPrint('devcpp ChatSocketIO -------: ${DateTime.now().toIso8601String()} on  $data');
   }
 
   void _onDisconnect(dynamic data) {

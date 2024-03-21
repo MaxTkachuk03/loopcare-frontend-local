@@ -39,7 +39,7 @@ class AccountResponse {
   final List<UnlockedFeatureType> unlockedFeatures;
   final MentalHealthTests? mentalHealthTests;
   final PhysicalActivitiesPreferences? physicalActivitiesPreferences;
-  final MedicalOnboarding medicalOnboarding;
+  final MedicalOnboarding? medicalOnboarding;
 
   const AccountResponse({
     required this.id,
