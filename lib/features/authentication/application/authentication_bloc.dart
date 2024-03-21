@@ -9,6 +9,8 @@ import 'package:loopcare_frontend/core/application/customer_io_service/customer_
 import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/application/socket_service_chat/chat_socket_service.dart';
 import 'package:loopcare_frontend/core/domain/account/account.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
@@ -28,18 +30,20 @@ import 'package:loopcare_frontend/features/authentication/application/dto/login_
 import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/validate_email_data.dart';
+import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding_new/application/dto/registration_physical_fitness_data.dart';
-import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
-import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 
 part 'authentication_bloc.freezed.dart';
+
 part 'authentication_bloc.g.dart';
+
 part 'authentication_event.dart';
+
 part 'authentication_state.dart';
 
 @singleton
-class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, AuthenticationState>  {
+class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, AuthenticationState> {
   final AuthenticationService _authenticationService;
   final DioClient client;
   final AuthTokenManager authTokenManager;
@@ -100,8 +104,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
   }
 
   @override
-  Map<String, dynamic>? toJson(AuthenticationState state) =>
-      state.data.toJson();
+  Map<String, dynamic>? toJson(AuthenticationState state) => state.data.toJson();
 
   FutureOr<void> _onSyncChatState(
     SyncChatState event,
@@ -231,20 +234,20 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
 
     response.fold(
       (error) => emit(
-          AuthenticationState.error(
-            state.data.copyWith(error: error),
-          ),
+        AuthenticationState.error(
+          state.data.copyWith(error: error),
         ),
+      ),
       (response) => emit(
-          AuthenticationState.waitedForConfirmation(
-            state.data.copyWith(
-              email: data.email,
-              accountId: response.id,
-              name: state.data.name,
-              password: state.data.password,
-            ),
+        AuthenticationState.waitedForConfirmation(
+          state.data.copyWith(
+            email: data.email,
+            accountId: response.id,
+            name: state.data.name,
+            password: state.data.password,
           ),
         ),
+      ),
     );
   }
 
@@ -268,18 +271,18 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         final response = await _authenticationService.forgotPassword(data);
 
         response.fold(
-          (error) => emit(state.copyWith(
-              data: state.data.copyWith(error: error)),
-            ),
+          (error) => emit(
+            state.copyWith(data: state.data.copyWith(error: error)),
+          ),
           (response) => emit(
-              state.copyWith(
-                data: state.data.copyWith(
-                  emailWasSend: true,
-                  email: data.email,
-                  error: null,
-                ),
+            state.copyWith(
+              data: state.data.copyWith(
+                emailWasSend: true,
+                email: data.email,
+                error: null,
               ),
             ),
+          ),
         );
       },
     );
@@ -448,15 +451,14 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
 
     response.fold(
       (error) => emit(
-          state.copyWith(
-            data: state.data.copyWith(
-              email: event.email,
-              error: error,
-            ),
+        state.copyWith(
+          data: state.data.copyWith(
+            email: event.email,
+            error: error,
           ),
         ),
+      ),
       (result) {
-
         CustomerIoService.onboardingStarted(
           name: state.data.name,
           email: event.email,

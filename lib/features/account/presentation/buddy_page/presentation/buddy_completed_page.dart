@@ -75,9 +75,12 @@ class BuddyCompletedPage extends StatelessWidget {
                 ],
               ),
               MainContainer(
-                child: CustomElevatedButton.blueFullWidth(
-                  onPressed: () => _onNextHandler(context),
-                  label: LocalizedTexts.continueBtn.tr(),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 30.0),
+                  child: CustomElevatedButton.blueFullWidth(
+                    onPressed: () => _onNextHandler(context),
+                    label: LocalizedTexts.continueBtn.tr(),
+                  ),
                 ),
               ),
             ],

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_questions.dart';
-import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/step_navigation_state.dart';
 
 class BuddyQuestionWrap extends StatelessWidget {
   final Widget child;

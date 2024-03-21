@@ -29,17 +29,15 @@ class AuthenticationData with _$AuthenticationData {
     @Default(false) bool emailVerified,
     @Default(-1) int accountId,
     Account? account,
-    @JsonKey(includeFromJson: false, includeToJson: false)
-    RequestError? error,
+    @JsonKey(includeFromJson: false, includeToJson: false) RequestError? error,
   }) = _AuthenticationData;
 
-  factory AuthenticationData.fromJson(Map<String, dynamic> json) =>
-      _$AuthenticationDataFromJson(json);
+  factory AuthenticationData.fromJson(Map<String, dynamic> json) => _$AuthenticationDataFromJson(json);
 
   List<UnlockedFeatureType> get unlockedFeatures => account?.unlockedFeatures ?? [];
 
-  bool get hasActiveSubscription => (account?.subscription.isActive ?? false)
-      && account?.subscription.state == 'common';
+  bool get hasActiveSubscription =>
+      (account?.subscription.isActive ?? false) && account?.subscription.state == 'common';
 
   int get id => account?.id ?? -1;
 
@@ -69,14 +67,19 @@ class AuthenticationData with _$AuthenticationData {
 
   bool get disableGroupSessions => account?.disableGroupSessions ?? false;
 
+  String? get buddyState => account?.buddyState;
+
+  Buddy? get buddy => account?.buddy;
+
   bool get isFoodLoggingUnlocked => unlockedFeatures.contains(UnlockedFeatureType.meals);
 
-  bool get isGroupSessionsUnlocked =>
-      unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;
+  bool get isGroupSessionsUnlocked => unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;
 
   bool get isPhysicalActivitiesUnlocked => unlockedFeatures.contains(UnlockedFeatureType.physicalActivities);
 
   bool get isAssignmentsUnlocked => unlockedFeatures.contains(UnlockedFeatureType.assignments);
+
+  bool get isBuddyUnlocked => unlockedFeatures.contains(UnlockedFeatureType.buddy);
 
   bool get isUserGrouped => groupingState == UserGroupingState.grouped;
 

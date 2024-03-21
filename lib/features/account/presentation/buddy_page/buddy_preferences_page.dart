@@ -94,12 +94,15 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
                               ],
                             ),
                             if (state.data.showInviteAnotherBuddy)
-                              CustomElevatedButton.coralFullWidth(
-                                label: LocalizedTexts.buddyInviteAnotherBuddy.tr(),
-                                onPressed: state.data.navigateInviteAnotherBuddy
-                                    ? () => _navigateRejectNotAvailableState.call(
-                                        notAvailable: state.data.isBuddyNotAvailable)
-                                    : () => _navigatePendingAcceptedState.call(context),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 30.0),
+                                child: CustomElevatedButton.coralFullWidth(
+                                  label: LocalizedTexts.buddyInviteAnotherBuddy.tr(),
+                                  onPressed: state.data.navigateInviteAnotherBuddy
+                                      ? () => _navigateRejectNotAvailableState.call(
+                                          notAvailable: state.data.isBuddyNotAvailable)
+                                      : () => _navigatePendingAcceptedState.call(context),
+                                ),
                               )
                           ],
                         );

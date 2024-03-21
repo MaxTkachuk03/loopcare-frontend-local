@@ -15,10 +15,10 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
-import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
 
 class PreferencesSection extends StatelessWidget {
   const PreferencesSection({super.key});
@@ -141,7 +141,7 @@ class PreferencesSection extends StatelessWidget {
               builder: (context, state) {
                 return SectionItem(
                   title: LocalizedTexts.buddyTitle.tr(),
-                  onPressHandler: state.isBuddyUnlocked ? () => _onBuddyHandler(context) : null,
+                  onPressHandler: state.data.isBuddyUnlocked ? () => _onBuddyHandler(context) : null,
                 );
               },
             ),

@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/features/onboarding/presentation/step_navigation_state.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/step_navigation_state.dart';
 
 class BuddyContinueWidget extends StatefulWidget {
   final bool enable;
@@ -23,9 +23,12 @@ class _BuddyContinueState extends State<BuddyContinueWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomElevatedButton.blueFullWidth(
-      onPressed: widget.enable ? () => _onNextHandler() : null,
-      label: LocalizedTexts.continueBtn.tr(),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 30.0),
+      child: CustomElevatedButton.blueFullWidth(
+        onPressed: widget.enable ? () => _onNextHandler() : null,
+        label: LocalizedTexts.continueBtn.tr(),
+      ),
     );
   }
 }
