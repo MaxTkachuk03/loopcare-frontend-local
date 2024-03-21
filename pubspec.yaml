@@ -1,10 +1,9 @@
 name: loopcare_frontend
-version: 1.0.30+146
+version: 1.0.2+125
 publish_to: none
 description: Lean on me
 environment:
   sdk: '>=3.2.3 <4.0.0'
-
 dependencies:
   advertising_id:
     path: ./local_plugins/advertising_id

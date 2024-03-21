@@ -4,6 +4,8 @@
 <dict>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>FLTEnableImpeller</key>
+    <false/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -49,6 +51,8 @@
     <string>This identifier will be used to deliver new offers for you.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>Upload images for screen background</string>
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <false/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

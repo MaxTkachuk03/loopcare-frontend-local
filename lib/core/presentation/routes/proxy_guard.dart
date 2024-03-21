@@ -25,14 +25,10 @@ class ProxyGuard extends AutoRouteGuard {
         }
 
         //Todo hide subscription flow LOOPCARE-2197
-        //   else if (authenticationCubit.state.hasActiveSubscription) {
-        //     route = AppRoutes.home;
-        //   } else {
-        //     route = AppRoutes.subscription;
-        //   }
-        //remove else{..}
-        else {
+        else if (authenticationCubit.state.hasActiveSubscription) {
           route = AppRoutes.home;
+        } else {
+          route = AppRoutes.subscription;
         }
         MixpanelEventService.instance.trackVisit(
           "${AppMixpanelEvents.appRote}:  $route",

@@ -84,11 +84,11 @@ class _LoginFormState extends State<LoginForm> {
       authenticated: (state) {
         String route = AppRoutes.home;
         //Todo hide subscription flow LOOPCARE-2197
-        // if (state.hasActiveSubscription) {
-        //   route = AppRoutes.home;
-        // } else {
-        //   route = AppRoutes.subscription;
-        // }
+        if (state.hasActiveSubscription) {
+          route = AppRoutes.home;
+        } else {
+          route = AppRoutes.subscription;
+        }
         MixpanelEventService.instance.track(
           AppMixpanelEvents.loginSuccess,
           {
