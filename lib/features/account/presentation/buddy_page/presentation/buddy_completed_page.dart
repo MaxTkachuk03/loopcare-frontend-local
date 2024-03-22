@@ -15,7 +15,6 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
-import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_info_card.dart';
 import 'package:provider/provider.dart';
 
 class BuddyCompletedPage extends StatelessWidget {
@@ -39,6 +38,7 @@ class BuddyCompletedPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   UnderAppbar.blue(
                     child: Center(
@@ -66,8 +66,10 @@ class BuddyCompletedPage extends StatelessWidget {
                   const SizedBox(height: 24.0),
                   MainContainer(
                     child: AccountContainer(
-                      child: BuddyInfoCard(
-                        title: LocalizedTexts.buddyCompletedContent.tr(),
+                      child: CustomText.w400(
+                        LocalizedTexts.buddyCompletedContent.tr(),
+                        style: context.textTheme.bodyMedium,
+                        textAlign: TextAlign.start,
                       ),
                     ),
                   ),

@@ -25,13 +25,7 @@ class BuddyEmailPage extends StatefulWidget {
 }
 
 class _BuddyEmailPageState extends State<BuddyEmailPage> {
-  late BuddyEmailController controller;
-
-  @override
-  void initState() {
-    super.initState();
-    controller = BuddyEmailController();
-  }
+  final BuddyEmailController controller = BuddyEmailController();
 
   @override
   void dispose() {

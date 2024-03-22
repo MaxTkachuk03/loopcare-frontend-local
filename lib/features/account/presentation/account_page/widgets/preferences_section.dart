@@ -125,53 +125,41 @@ class PreferencesSection extends StatelessWidget {
         ),
       ],
       child: AccountContainer(
-        child: Column(
-          children: [
-            SectionTitle(title: LocalizedTexts.preferences.tr()),
-            BlocBuilder<AuthenticationBloc, AuthenticationState>(
-              builder: (context, state) {
-                return SectionItem(
+        child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (context, state) {
+            return Column(
+              children: [
+                SectionTitle(title: LocalizedTexts.preferences.tr()),
+                SectionItem(
                   title: LocalizedTexts.food.tr(),
                   onPressHandler: state.data.isFoodLoggingUnlocked ? () => _onFoodHandler(context) : null,
-                );
-              },
-            ),
-            const Divider(height: 1.0, color: AppColors.blueLighter),
-            BlocBuilder<AuthenticationBloc, AuthenticationState>(
-              builder: (context, state) {
-                return SectionItem(
+                ),
+                const Divider(height: 1.0, color: AppColors.blueLighter),
+                SectionItem(
                   title: LocalizedTexts.buddyTitle.tr(),
                   onPressHandler: state.data.isBuddyUnlocked ? () => _onBuddyHandler(context) : null,
-                );
-              },
-            ),
-            const Divider(height: 1.0, color: AppColors.blueLighter),
-            BlocBuilder<AuthenticationBloc, AuthenticationState>(
-              builder: (context, state) {
-                return SectionItem(
+                ),
+                const Divider(height: 1.0, color: AppColors.blueLighter),
+                SectionItem(
                   title: LocalizedTexts.physicalExercises.tr(),
                   onPressHandler: state.data.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)
                       ? () => _onPhysicalActivitiesHandler(context)
                       : null,
-                );
-              },
-            ),
-            const Divider(height: 1.0, color: AppColors.blueLighter),
-            BlocBuilder<AuthenticationBloc, AuthenticationState>(
-              builder: (context, state) {
-                return SectionItem(
+                ),
+                const Divider(height: 1.0, color: AppColors.blueLighter),
+                SectionItem(
                   title: LocalizedTexts.groupSessions.tr(),
                   subTitle: _groupSessionsSubtitle(state),
                   onPressHandler: state.data.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
-                );
-              },
-            ),
-            // Todo it's old part, need to check do we need it in future
-            // const SizedBox(height: 16.0),
-            // const Divider(height: 1.0, color: AppColors.blueLighter),
-            // const SizedBox(height: 16.0),
-            // SectionItem(title: LocalizedTexts.diabetes.tr(), onPressHandler: () {}),
-          ],
+                ),
+                // Todo it's old part, need to check do we need it in future
+                // const SizedBox(height: 16.0),
+                // const Divider(height: 1.0, color: AppColors.blueLighter),
+                // const SizedBox(height: 16.0),
+                // SectionItem(title: LocalizedTexts.diabetes.tr(), onPressHandler: () {}),
+              ],
+            );
+          },
         ),
       ),
     );
