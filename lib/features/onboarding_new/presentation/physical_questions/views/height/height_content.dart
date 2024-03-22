@@ -40,8 +40,8 @@ class _HeightContentState extends State<HeightContent> {
 
   MeasurementSystemType activeMeasurementType = getMeasurementSystem();
   double? heightInCm;
-  double heightFT = 0;
-  double heightIN = 0;
+  int heightFT = 0;
+  int heightIN = 0;
 
   @override
   void initState() {
@@ -50,8 +50,8 @@ class _HeightContentState extends State<HeightContent> {
     final bloc = context.read<PhysicalQuestionsBloc>();
     if (bloc.state.heightInCm != null) {
       heightInCm = double.parse(bloc.state.heightInCm ?? "0");
-      heightFT = HeightConversionUtils.doubleConvertCMtoFT(heightInCm ?? 0);
-      heightIN = HeightConversionUtils.doubleConvertCMtoFtIn(heightInCm ?? 0);
+      heightFT = HeightConversionUtils.doubleConvertCMtoFT(heightInCm ?? 0).round();
+      heightIN = HeightConversionUtils.doubleConvertCMtoFtIn(heightInCm ?? 0).round();
       cmController = TextEditingController(text: heightInCm.toString());
       ftController = TextEditingController(text: heightFT.toString());
       inController = TextEditingController(text: heightIN.toString());
@@ -149,8 +149,8 @@ class _HeightContentState extends State<HeightContent> {
     setState(() {
       heightInCm = double.parse(value);
 
-      heightFT = HeightConversionUtils.doubleConvertCMtoFT(heightInCm ?? 0);
-      heightIN = HeightConversionUtils.doubleConvertCMtoFtIn(heightInCm ?? 0);
+      heightFT = HeightConversionUtils.doubleConvertCMtoFT(heightInCm ?? 0).round();
+      heightIN = HeightConversionUtils.doubleConvertCMtoFtIn(heightInCm ?? 0).round();
     });
 
     _validateInput(value);
@@ -159,18 +159,18 @@ class _HeightContentState extends State<HeightContent> {
   void _setFT(String value) {
     if (value == '') value = "0";
     setState(() {
-      heightFT = double.parse(value);
+      heightFT = int.parse(value);
 
-      heightInCm = HeightConversionUtils.doubleConvertFeetAndInchesToCM(heightFT, heightIN);
+      heightInCm = HeightConversionUtils.doubleConvertFeetAndInchesToCM(heightFT.toDouble(), heightIN.toDouble());
     });
   }
 
   void _setIN(String value) {
     if (value == '') value = "0";
     setState(() {
-      heightIN = double.parse(value);
+      heightIN = int.parse(value);
 
-      heightInCm = HeightConversionUtils.doubleConvertFeetAndInchesToCM(heightFT, heightIN);
+      heightInCm = HeightConversionUtils.doubleConvertFeetAndInchesToCM(heightFT.toDouble(), heightIN.toDouble());
     });
   }
 
