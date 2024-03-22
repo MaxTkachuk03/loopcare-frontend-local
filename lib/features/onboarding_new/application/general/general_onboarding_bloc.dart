@@ -437,6 +437,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     List<PhysicalQuestionStep> physicalQuestions = state.physicalQuestions;
     if (state.currentPhysicalStep == PhysicalQuestionStep.ageExclusion) {
       physicalQuestions = List.from(state.physicalQuestions)..remove(PhysicalQuestionStep.ageExclusion);
+    } else if (state.currentPhysicalStep == PhysicalQuestionStep.bmiExclusion) {
+      physicalQuestions = List.from(state.physicalQuestions)..remove(PhysicalQuestionStep.bmiExclusion);
     }
 
     return state.copyWith(

@@ -35,6 +35,11 @@ class PhysicalQuestionsState with _$PhysicalQuestionsState {
     );
   }
 
+  bool validateBmi(String weight) {
+    final bmi = BmiCalculator.getUserBmiIndex(heightInCm, weight);
+    return BmiCalculator.validate(bmi, age);
+  }
+
   factory PhysicalQuestionsState.fromJson(Map<String, dynamic> json) =>
       _$PhysicalQuestionsStateFromJson(json);
 }
