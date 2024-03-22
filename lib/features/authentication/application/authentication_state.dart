@@ -80,8 +80,6 @@ class AuthenticationData with _$AuthenticationData {
 
   bool get isMixedGender => account?.isMixedGender ?? false;
 
-  bool get hasSubscription => account?.isMixedGender ?? false;
-
   bool get isAuthenticated => this is AuthenticatedState;
 
   String get nameCapitalised => name.isNotEmpty ? '${name.capitalize()}!' : '';

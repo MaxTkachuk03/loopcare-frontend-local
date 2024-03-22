@@ -43,6 +43,11 @@ class NeedPaidSubscriptionPage extends StatelessWidget {
         ),
       );
 
+  String get _buttonLabel => mode.map(
+        afterLesson: (s) => LocalizedTexts.completeLesson.tr(),
+        userProfile: (s) => LocalizedTexts.next.tr(),
+      );
+
   @override
   Widget build(BuildContext context) {
     return _getScaffold(SafeArea(
@@ -86,7 +91,7 @@ class NeedPaidSubscriptionPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   CustomElevatedButton.blueFullWidth(
-                    label: LocalizedTexts.completeLesson.tr(),
+                    label: _buttonLabel,
                     onPressed: () => _onCompleteLessonHandler(context),
                   ),
                   const SizedBox(height: 30.0),

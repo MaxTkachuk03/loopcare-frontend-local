@@ -18,7 +18,7 @@ class NotGrouped extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (context, state) {
-        final hasSubscription = state.data.hasSubscription;
+        final hasSubscription = state.data.hasActiveSubscription;
 
         final String title = hasSubscription
             ? LocalizedTexts.supportGroupPaidSubscriptionNotGrouped.tr()
