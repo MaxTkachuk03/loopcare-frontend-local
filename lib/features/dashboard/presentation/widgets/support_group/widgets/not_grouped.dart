@@ -18,28 +18,22 @@ class NotGrouped extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (context, state) {
-        // TODO removed during LOOPCARE-2260 task
-        // final hasSubscription = state.hasSubscription;
-        //
-        // final String title = hasSubscription
-        //     ? LocalizedTexts.supportGroupPaidSubscriptionNotGrouped
-        //     : LocalizedTexts.supportGroupTrialSubscriptionNotGrouped;
+        final hasSubscription = state.data.hasSubscription;
 
-        const String title = LocalizedTexts.notEnrolledInGroup;
+        final String title = hasSubscription
+            ? LocalizedTexts.supportGroupPaidSubscriptionNotGrouped.tr()
+            : LocalizedTexts.supportGroupTrialSubscriptionNotGrouped.tr();
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomText.w600(
-              '${title.tr()}.',
-              style: context.textTheme.bodySmall,
-            ),
+            CustomText.w600('$title.', style: context.textTheme.bodySmall),
             const SizedBox(height: 18.0),
-            // if (hasSubscription)
-            CustomOutlinedButton.blueSmall(
-              label: LocalizedTexts.joinAGroup.tr(),
-              onPressed: () => _onJoinGroupTap(context),
-            ),
+            if (hasSubscription)
+              CustomOutlinedButton.blueSmall(
+                label: LocalizedTexts.joinAGroup.tr(),
+                onPressed: () => _onJoinGroupTap(context),
+              ),
           ],
         );
       },

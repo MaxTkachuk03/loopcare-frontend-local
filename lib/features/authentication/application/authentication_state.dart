@@ -29,17 +29,15 @@ class AuthenticationData with _$AuthenticationData {
     @Default(false) bool emailVerified,
     @Default(-1) int accountId,
     Account? account,
-    @JsonKey(includeFromJson: false, includeToJson: false)
-    RequestError? error,
+    @JsonKey(includeFromJson: false, includeToJson: false) RequestError? error,
   }) = _AuthenticationData;
 
-  factory AuthenticationData.fromJson(Map<String, dynamic> json) =>
-      _$AuthenticationDataFromJson(json);
+  factory AuthenticationData.fromJson(Map<String, dynamic> json) => _$AuthenticationDataFromJson(json);
 
   List<UnlockedFeatureType> get unlockedFeatures => account?.unlockedFeatures ?? [];
 
-  bool get hasActiveSubscription => (account?.subscription.isActive ?? false)
-      && account?.subscription.state == 'common';
+  bool get hasActiveSubscription =>
+      (account?.subscription.isActive ?? false) && account?.subscription.state == 'common';
 
   int get id => account?.id ?? -1;
 
