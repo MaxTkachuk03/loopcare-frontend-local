@@ -54,12 +54,12 @@ class _HappinessContentState extends State<HappinessContent> {
                 style: context.textTheme.displayMedium,
               ),
               const SizedBox(height: 30),
-              CustomText.bitter600(
+              CustomText.w400(
                 '${LocalizedTexts.happinessBody1.tr()}.',
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20),
-              CustomText.bitter600(
+              CustomText.w400(
                 '${LocalizedTexts.happinessBody2.tr()}.',
                 style: context.textTheme.bodyMedium,
               ),

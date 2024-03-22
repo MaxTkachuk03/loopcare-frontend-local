@@ -156,6 +156,8 @@ class _WeightContentState extends State<WeightContent> {
       ),
     );
 
-    context.read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.nextStep());
+    final isValid = context.read<PhysicalQuestionsBloc>().state.validateBmi(weight);
+
+    context.read<GeneralOnboardingBloc>().add(GeneralOnboardingEvent.nextStep(excluded: !isValid));
   }
 }

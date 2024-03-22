@@ -39,7 +39,7 @@ class EmailAddressPage extends StatelessWidget {
                     style: context.textTheme.displayMedium,
                   ),
                   const SizedBox(height: 27.0),
-                  CustomText.bitter600(
+                  CustomText.w400(
                     '${LocalizedTexts.emailTitle.tr()}.',
                     style: context.textTheme.bodyMedium,
                   ),

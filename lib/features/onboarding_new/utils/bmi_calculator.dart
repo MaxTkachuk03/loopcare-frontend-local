@@ -1,8 +1,14 @@
 class BmiCalculator {
+  const BmiCalculator._();
+
   static const multiplyIndex = 10000;
 
   static const metricMultiplyIndex = 10000;
   static const empireMultiplyIndex = 703;
+
+  static const lowerLimitBmi = 25.0;
+  static const upperYoungLimitBmi = 38.5;
+  static const upperOldLimitBmi = 39.9;
 
   static num getUserBmiIndex(String? height, String? weight) {
     if (height == null || weight == null) return 0;
@@ -10,6 +16,17 @@ class BmiCalculator {
     return num.parse(
         ((num.parse(weight) / num.parse(height) / num.parse(height)) * multiplyIndex).toStringAsFixed(1));
   }
+
+  static bool validate(num? bmi, int? age) {
+    if (bmi == null || age == null) return false;
+
+    if (age <= 19) {
+      return bmi >= lowerLimitBmi && bmi <= upperYoungLimitBmi;
+    } else {
+      return bmi >= lowerLimitBmi && bmi <= upperOldLimitBmi;
+    }
+  }
+
 
 // Waiting approving from BA/customers.
 /*
@@ -26,6 +43,4 @@ class BmiCalculator {
         ((num.parse(weight) / num.parse(height) / num.parse(height)) * multiplyIndex).toStringAsFixed(1));
   }
   */
-
-  BmiCalculator._();
 }

@@ -57,7 +57,7 @@ class _SexContentState extends State<SexContent> {
                 style: context.textTheme.displayMedium,
               ),
               const SizedBox(height: 36),
-              CustomText.bitter600(
+              CustomText.w400(
                 '${LocalizedTexts.sexQuestionBody.tr()}.',
                 style: context.textTheme.bodyMedium,
               ),
