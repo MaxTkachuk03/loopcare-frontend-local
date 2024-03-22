@@ -23,9 +23,7 @@ class _CheckboxFormFieldState extends State<CheckboxFormField> {
   @override
   Widget build(BuildContext context) {
     return FormField<bool>(
-      validator: (newValue) {
-        return newValue != null && !newValue ? widget.errorText : null;
-      },
+      validator: (newValue) => newValue != null && !newValue ? widget.errorText : null,
       initialValue: false,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       builder: (state) {
@@ -55,15 +53,13 @@ class _CheckboxFormFieldState extends State<CheckboxFormField> {
                 Expanded(child: widget.text)
               ],
             ),
-            if (errorText != null)
-              Column(
-                children: [
-                  const SizedBox(height: 6.0),
-                  Text(
-                    errorText,
-                    style: Theme.of(context).inputDecorationTheme.errorStyle,
-                  ),
-                ],
+            if (errorText?.isNotEmpty ?? false)
+              Padding(
+                padding: const EdgeInsets.only(top: 6.0),
+                child: Text(
+                  errorText!,
+                  style: Theme.of(context).inputDecorationTheme.errorStyle,
+                ),
               ),
           ],
         );
