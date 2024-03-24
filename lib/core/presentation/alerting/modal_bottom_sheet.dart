@@ -1011,7 +1011,7 @@ class ModalBottomSheet {
                     child: ReportAbuseWidget(
                       groupSession: groupSession,
                       chatReport: chatReport,
-                      close: () => Navigator.of(context).pop(),
+                      close: () => context.router.pop(),
                     ),
                   ),
                 ),

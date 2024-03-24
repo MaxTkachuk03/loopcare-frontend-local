@@ -43,10 +43,10 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
   @override
   void initState() {
     super.initState();
-    // if (context.read<EducationLessonBloc>().state.data.isLessonCompleted) {
-    //   return;
-    // }
-    // context.read<EducationLessonBloc>().add(const EducationLessonEvent.completeLesson());
+    if (context.read<EducationLessonBloc>().state.data.isLessonCompleted) {
+      return;
+    }
+    context.read<EducationLessonBloc>().add(const EducationLessonEvent.completeLesson());
   }
 
   _onPressHandler(BuildContext context) {
@@ -191,8 +191,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
                           if (state.data.assignmentsQuestions.isNotEmpty &&
                               state.data.assignmentsQuestionsWithAnswers.isEmpty) {
-                            final emailApproveDate = getIt<SharedStorageService>()
-                                .account?.emailApproveDate ?? DateTime.now();
+                            final emailApproveDate =
+                                getIt<SharedStorageService>().account?.emailApproveDate ?? DateTime.now();
 
                             context.read<AssignmentsBloc>().add(
                                   AssignmentsEvent.getAllLessonQuestions(

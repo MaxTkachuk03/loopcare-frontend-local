@@ -19,7 +19,6 @@ import 'package:loopcare_frontend/features/account/presentation/buddy_page/widge
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_invitation_reject.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_not_available.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/profile_buddy_no_state.dart';
-import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 
 import '../../../../core/presentation/loader/loader.dart';
 
@@ -124,7 +123,7 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
     );
   }
 
-  _errorListener(BuildContext context, SubscriptionState state) {
+  _errorListener(BuildContext context, BuddyState state) {
     final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
     context.showErrorBar(
       content: Text(errorMessage),

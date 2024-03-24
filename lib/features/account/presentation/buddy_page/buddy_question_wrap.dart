@@ -22,9 +22,8 @@ class BuddyQuestionWrap extends StatelessWidget {
         canPop: false,
         onPopInvoked: (didPop) {
           if (didPop) return;
-          final NavigatorState navigator = Navigator.of(context);
           _onPreviousPage(context);
-          navigator.pop();
+          context.router.popForced();
         },
         child: child,
       ),

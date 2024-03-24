@@ -48,7 +48,7 @@ class BuddyBloc extends Bloc<BuddyEvent, BuddyState> {
   ) async {
     final response = await _authenticationService.fetchAccount();
     response.fold(
-      (l) => null,
+      (error) => emit(BuddyState.error(state.data.copyWith(error: error, isLoading: false))),
       (r) {
         emit(
           BuddyState.gotBuddy(
@@ -79,9 +79,7 @@ class BuddyBloc extends Bloc<BuddyEvent, BuddyState> {
     emit(BuddyState.loading(state.data.copyWith(isLoading: true)));
     final response = await _buddyService.removeBuddy();
     response.fold(
-      (l) {
-        emit(BuddyState.error(state.data.copyWith(error: l, isLoading: false)));
-      },
+      (l) => emit(BuddyState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) => add(const BuddyEvent.getStatusBuddy(needNavigate: true)),
     );
   }
@@ -93,9 +91,7 @@ class BuddyBloc extends Bloc<BuddyEvent, BuddyState> {
     emit(BuddyState.loading(state.data.copyWith(isLoading: true)));
     final response = await _buddyService.resendBuddy();
     response.fold(
-      (l) {
-        emit(BuddyState.error(state.data.copyWith(error: l, isLoading: false)));
-      },
+      (l) => emit(BuddyState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) => add(const BuddyEvent.getStatusBuddy()),
     );
   }
@@ -109,9 +105,7 @@ class BuddyBloc extends Bloc<BuddyEvent, BuddyState> {
 
     final response = await _buddyService.getBuddy();
     response.fold(
-      (l) {
-        emit(BuddyState.error(state.data.copyWith(error: l, isLoading: false)));
-      },
+      (l) => emit(BuddyState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(
         BuddyState.gotBuddy(
           state.data.copyWith(
@@ -185,8 +179,7 @@ class BuddyBloc extends Bloc<BuddyEvent, BuddyState> {
 
     final isCompleted = nextQuestion == BuddyQuestions.completed;
 
-    if (isCompleted) {
-    } else {
+    if (!isCompleted) {
       emit(
         BuddyState.stateQuestion(
           state.data.copyWith(
