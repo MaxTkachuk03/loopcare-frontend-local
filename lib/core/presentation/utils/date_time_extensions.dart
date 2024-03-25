@@ -192,6 +192,12 @@ extension DateTimeExtension on DateTime {
     return DateTime(date.year, date.month, date.day);
   }
 
+  get firstDayOfPreviousWeek {
+    final date = subtract(Duration(days: weekday - 1)).subtract(const Duration(days: 7));
+
+    return DateTime(date.year, date.month, date.day);
+  }
+
   bool get isLastDayOfWeek {
     return isSameDate(lastDayOfCurrentWeek);
   }

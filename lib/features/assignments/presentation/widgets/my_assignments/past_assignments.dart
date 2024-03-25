@@ -30,9 +30,10 @@ class PastAssignments extends StatelessWidget {
           shrinkWrap: true,
           itemCount: questions.length,
           itemBuilder: (BuildContext context, int index) {
-            var question = questions[index];
+            final question = questions[index];
+
             return AssignmentListItem(
-              isComplete: question.completedAt != null,
+              isComplete: question.isCompleted,
               isOpen: question.isEditable,
               onDashboard: false,
               item: question,

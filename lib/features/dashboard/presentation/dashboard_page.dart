@@ -83,11 +83,11 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
     if (context.read<AuthenticationBloc>().state.data.isAssignmentsUnlocked) {
       context.read<AssignmentsBloc>().add(
-        AssignmentsEvent.getAllLessonQuestions(
-          _selectedDay.firstDayOfCurrentWeek.subtract(const Duration(days: 7)),
-          _selectedDay.lastDayOfCurrentWeek,
-        ),
-      );
+            AssignmentsEvent.getAllLessonQuestions(
+              _selectedDay.firstDayOfPreviousWeek,
+              _selectedDay.lastDayOfCurrentWeek,
+            ),
+          );
     }
   }
 
@@ -115,11 +115,11 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
     if (context.read<AuthenticationBloc>().state.data.isAssignmentsUnlocked) {
       context.read<AssignmentsBloc>().add(
-        AssignmentsEvent.getAllLessonQuestions(
-          _selectedDay.firstDayOfCurrentWeek.subtract(const Duration(days: 7)),
-          _selectedDay.lastDayOfCurrentWeek,
-        ),
-      );
+            AssignmentsEvent.getAllLessonQuestions(
+              _selectedDay.firstDayOfPreviousWeek,
+              _selectedDay.lastDayOfCurrentWeek,
+            ),
+          );
     }
   }
 
@@ -135,11 +135,11 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
       if (context.read<AuthenticationBloc>().state.data.isAssignmentsUnlocked) {
         context.read<AssignmentsBloc>().add(
-          AssignmentsEvent.getAllLessonQuestions(
-            _selectedDay.beginDay,
-            _selectedDay.endDay,
-          ),
-        );
+              AssignmentsEvent.getAllLessonQuestions(
+                _selectedDay.beginDay,
+                _selectedDay.endDay,
+              ),
+            );
       }
     });
   }
@@ -157,98 +157,97 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
           children: [
             SliderCalendar(onSelectDay: _onDaySelected),
             Expanded(
-              child: RefreshIndicator(
-                onRefresh: _onRefresh,
-                child: ScrollableContainer(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  child: MainContainer(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        const SizedBox(height: 28),
-                        BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                          builder: (context, state) {
-                            return CustomText.bitter600(
-                              '${LocalizedTexts.goodMorning.translation}, ${state.data.accountName}!',
-                              style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
-                            );
-                          },
-                        ),
-                        const SizedBox(height: 26.0),
-                        WeightBlock(date: _selectedDay),
-                        BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                          builder: (BuildContext context, state) {
-                            if (!state.data.isFoodLoggingUnlocked) {
-                              return const SizedBox.shrink();
-                            }
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 19.0),
-                                BlocBuilder<MealsBloc, MealsState>(
-                                  builder: (BuildContext context, state) {
-                                    return state.isNeedToHideOnDashboard
-                                        ? const SizedBox.shrink()
-                                        : const LogMeal();
-                                  },
-                                ),
-                                // const SizedBox(height: 10.0), //TODO: LOOPCARE-1798: Hide Meal planning block
-                                // const PlanMeal(),
-                              ],
-                            );
-                          },
-                        ),
-                        const SizedBox(height: 19.0),
-                        PersonMood(date: _selectedDay),
-                        BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                          builder: (BuildContext context, state) {
-                            if (!state.data.isPhysicalActivitiesUnlocked) {
-                              return const SizedBox.shrink();
-                            }
+                child: RefreshIndicator(
+              onRefresh: _onRefresh,
+              child: ScrollableContainer(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: MainContainer(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const SizedBox(height: 28),
+                      BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                        builder: (context, state) {
+                          return CustomText.bitter600(
+                            '${LocalizedTexts.goodMorning.translation}, ${state.data.accountName}!',
+                            style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 26.0),
+                      WeightBlock(date: _selectedDay),
+                      BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                        builder: (BuildContext context, state) {
+                          if (!state.data.isFoodLoggingUnlocked) {
+                            return const SizedBox.shrink();
+                          }
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 19.0),
+                              BlocBuilder<MealsBloc, MealsState>(
+                                builder: (BuildContext context, state) {
+                                  return state.isNeedToHideOnDashboard
+                                      ? const SizedBox.shrink()
+                                      : const LogMeal();
+                                },
+                              ),
+                              // const SizedBox(height: 10.0), //TODO: LOOPCARE-1798: Hide Meal planning block
+                              // const PlanMeal(),
+                            ],
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 19.0),
+                      PersonMood(date: _selectedDay),
+                      BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                        builder: (BuildContext context, state) {
+                          if (!state.data.isPhysicalActivitiesUnlocked) {
+                            return const SizedBox.shrink();
+                          }
 
-                            return Padding(
-                              padding: const EdgeInsets.only(top: 19.0),
-                              child: PhysicalActivities(selectedDay: _selectedDay),
-                            );
-                          },
-                        ),
-                        BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                          builder: (context, state) {
-                            if (!state.data.isGroupSessionsUnlocked) {
-                              return const SizedBox.shrink();
-                            }
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 19.0),
+                            child: PhysicalActivities(selectedDay: _selectedDay),
+                          );
+                        },
+                      ),
+                      BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                        builder: (context, state) {
+                          if (!state.data.isGroupSessionsUnlocked) {
+                            return const SizedBox.shrink();
+                          }
 
-                            return const Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(height: 19.0),
-                                SupportGroup(),
-                              ],
-                            );
-                          },
-                        ),
-                        const SizedBox(height: 19.0),
-                        if (_showEducationWidget) Education(date: _selectedDay),
-                        BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                          builder: (context, state) {
-                            if (!state.data.isAssignmentsUnlocked) {
-                              return const SizedBox.shrink();
-                            }
-                            return Padding(
-                              padding: const EdgeInsets.only(top: 19.0),
-                              child: DashboardAssignments(date: _selectedDay),
-                            );
-                          },
-                        ),
-                        const SizedBox(height: 19.0),
-                        const EmergencyBtn(needBackgroundColor: true),
-                        const SizedBox(height: 19.0),
-                      ],
-                    ),
+                          return const Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 19.0),
+                              SupportGroup(),
+                            ],
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 19.0),
+                      if (_showEducationWidget) Education(date: _selectedDay),
+                      BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                        builder: (context, state) {
+                          if (!state.data.isAssignmentsUnlocked) {
+                            return const SizedBox.shrink();
+                          }
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 19.0),
+                            child: DashboardAssignments(date: _selectedDay),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 19.0),
+                      const EmergencyBtn(needBackgroundColor: true),
+                      const SizedBox(height: 19.0),
+                    ],
                   ),
                 ),
-              )
-            ),
+              ),
+            )),
           ],
         ),
       ),

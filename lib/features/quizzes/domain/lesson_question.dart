@@ -73,6 +73,14 @@ class LessonQuestion with _$LessonQuestion {
     return retList;
   }
 
+  bool isInDateRange(DateTime startDate, DateTime endDate) => openedAt?.inRange(startDate, endDate) ?? false;
+
+  bool get isCompleted => lessonQuestionAnswers.isNotEmpty;
+
+  bool get isNotCompleted => lessonQuestionAnswers.isEmpty;
+
+  bool isCompletedOnSelectedDate(DateTime date) => answeredAt?.isSameDate(date) ?? false;
+
   List<String> get lessonQuestionOptionsLabels => lessonQuestionOptions.map((e) => e.label).toList();
 
   factory LessonQuestion.fromJson(Map<String, dynamic> json) => _$LessonQuestionFromJson(json);
