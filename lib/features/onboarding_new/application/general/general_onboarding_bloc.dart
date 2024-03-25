@@ -448,7 +448,17 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
   }
 
   GeneralOnboardingState _previousMedicalStepState() {
+    GeneralOnboardingStep generalStep = state.generalStep;
     List<MedicalQuestionStep> medicalQuestions = state.medicalQuestions;
+    List<MedicalQuestionStep> medicalStack = state.medicalPassedStack;
+
+    if (state.currentMedicalStep == MedicalQuestionStep.intro) {
+      generalStep = GeneralOnboardingStep.physical;
+    } else {
+      medicalStack = List.from(state.medicalPassedStack)..removeLast();
+    }
+
+
     if (state.currentMedicalStep == MedicalQuestionStep.pregnancyExclusion) {
       medicalQuestions = List.from(state.medicalQuestions)..remove(MedicalQuestionStep.pregnancyExclusion);
     } else if (state.currentMedicalStep == MedicalQuestionStep.semaglutideTakingPeriod) {
@@ -461,24 +471,25 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     }
 
     return state.copyWith(
-      medicalPassedStack: List.from(state.medicalPassedStack)..removeLast(),
+      generalStep: generalStep,
+      medicalPassedStack: medicalStack,
       medicalQuestions: medicalQuestions,
     );
   }
 
   GeneralOnboardingState _previousMentalStepState() {
+    GeneralOnboardingStep generalStep = state.generalStep;
     MentalQuestionStep mentalStep = state.currentMentalStep;
-
     List<MentalQuestionStep> mentalStack = state.mentalPassedStack;
-
     List<MentalHealthTest> mentalTests = state.mentalTests;
-
     MentalHealthTest currentMentalTest = state.currentMentalTest
         ?? mentalTests.first;
     MentalHealthQuestion currentQuestion = state.currentMentalQuestion
         ?? currentMentalTest.questions.first;
 
-    if (mentalStep == MentalQuestionStep.test) {
+    if (mentalStep == MentalQuestionStep.introStepOne) {
+      generalStep = GeneralOnboardingStep.medical;
+    } else if (mentalStep == MentalQuestionStep.test) {
       if (currentMentalTest.questions.first == currentQuestion) {
         if (mentalTests.first != currentMentalTest) {
           currentMentalTest = mentalTests[mentalTests.indexOf(currentMentalTest) - 1];
@@ -495,6 +506,7 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     }
 
     return state.copyWith(
+      generalStep: generalStep,
       mentalPassedStack: mentalStack,
       currentMentalTest: currentMentalTest,
       currentMentalQuestion: currentQuestion,
