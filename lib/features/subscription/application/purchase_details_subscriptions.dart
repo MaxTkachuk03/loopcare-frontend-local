@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_error.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_service.dart';
-import 'package:loopcare_frontend/features/subscription/utils/date_utils.dart';
 
 import '../../../injection.dart';
 
@@ -47,14 +45,9 @@ class PurchaseDetailsStreamSubscription {
 
           for (var purchaseDetails in events) {
             if (purchaseDetails.pendingCompletePurchase) {
-              debugPrint(
-                  'devcpp RESTORED COMPLETED: purchase:${SubscriptionDateUtils.getTransactionFromMillisecondsSinceEpoch(purchaseDetails.transactionDate!)}');
               await inAppPurchaseService.completePurchase(purchaseDetails);
             }
           }
-
-          debugPrint(
-              'devcpp RESTORED PURCHASE: ${SubscriptionDateUtils.getTransactionFromMillisecondsSinceEpoch(events.last.transactionDate!)} ');
           onRestored?.call(events.last);
           return;
         }
