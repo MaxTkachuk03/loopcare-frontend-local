@@ -44,13 +44,13 @@ class _MedicationPastPeriodContentState extends State<MedicationPastPeriodConten
   Widget build(BuildContext context) {
     return MainContainer(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             children: [
               const SizedBox(height: 80.0),
               CustomText.bitter600(
                 '${LocalizedTexts.medicationPastPeriodQuestion.tr()}?',
-                textAlign: TextAlign.center,
                 style: context.textTheme.displayMedium,
               ),
               const SizedBox(height: 36.0),
