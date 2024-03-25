@@ -53,6 +53,7 @@ class SubscriptionStateData with _$SubscriptionStateData {
     @Default(<ProductDetails>[]) List<ProductDetails> plans,
     @Default(<ServerProduct>[]) List<ServerProduct> serverPlans,
     @Default(<PurchaseDetails>[]) List<PurchaseDetails> purchases,
+    @Default(false) bool isWaitTimeout,
     PurchasedProduct? purchased,
     Subscription? subscription,
   }) = _SubscriptionStateData;

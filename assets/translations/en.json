@@ -729,7 +729,7 @@
   "cancelAccountSubscription": "Before you delete your account with LeanOnMe, please take a moment to cancel your subscription. This will prevent any future charges. If you're ready to proceed, tap 'Manage Subscription' to go to your device settings",
   "otherPurchaseVendorCancelAccountSubscription": "Your subscription seems to be purchased from a different store. Before you delete your account with LeanOnMe, please take a moment to cancel your subscription.",
   "restoreSubscriptionFromSettings": "Please take a moment to resubscribe your subscription plan from Subscription Settings. If you're ready to proceed, tap 'Manage Subscription' to go to your device settings",
-  "askRestoreSubscription": "Sorry, please tap on Restore link to verify last purchase",
+  "askRestoreSubscription": "Sorry, your subscription seems to be purchased but is not verified, please, tap on Restore Purchase to verify it.",
   "duplicateSubscriptionFromSettings": "This subscription seems to be purchased before. Please take a moment to resubscribe your subscription plan from Subscription Settings. If you're ready to proceed, tap 'Manage Subscription' to go to your device settings",
   "registrationCodePlaceholder": "Your access code",
   "registrationCodeTitle": "Enter access code",

@@ -42,6 +42,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   final AuthTokenManager authTokenManager;
   final SocketService _socketService = SocketService.instance;
   bool isValidatePastIOSPurchase = false;
+
   ProductDetails? buyingProduct;
 
   SubscriptionBloc(this._authenticationService, this._purchaseService, this.authTokenManager, this.inAppPurchaseService)
@@ -51,6 +52,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     on<SubscriptionLogout>(_onLogout);
     on<GetPlansFromServer>(_onGetPlansFromServer);
     on<BuySubscription>(_onBuySubscription);
+    on<NotifyUser>(_notifyUser);
     on<VerifyLastPurchase>(_onVerifyLastPurchase);
     on<RestorePurchased>(_onRestorePurchased);
     on<PurchasedSubscription>(_onPurchasedSubscription);
@@ -145,6 +147,11 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
             ),
           ),
         );
+      } else {
+        emit(
+          SubscriptionState.loading(state.data.copyWith(isWaitTimeout: true)),
+        );
+        add(const SubscriptionEvent.notifyUser());
       }
     } catch (e) {
       emit(
@@ -161,9 +168,23 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     }
   }
 
+  FutureOr<void> _notifyUser(
+    NotifyUser event,
+    Emitter<SubscriptionState> emit,
+  ) async {
+    await Future.delayed(
+      const Duration(seconds: 20),
+      () {
+        if (state.data.isWaitTimeout) {
+          emit(SubscriptionState.askRestoredSubscription(state.data.copyWith(isLoading: false, isWaitTimeout: false)));
+        }
+      },
+    );
+  }
+
   Future<void> _handlePurchase(PurchaseDetails purchaseDetails) async {
     emit(
-      SubscriptionState.loading(state.data.copyWith(isLoading: true)),
+      SubscriptionState.loading(state.data.copyWith(isLoading: true, isWaitTimeout: false)),
     );
     try {
       if (purchaseDetails.pendingCompletePurchase) {
@@ -357,14 +378,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     );
     final response = await _authenticationService.fetchAccount();
     response.fold(
-      (error) {
-        emit(SubscriptionState.error(state.data.copyWith(error: error, isLoading: false)));
-      },
-      (r) {
-        emit(
-          SubscriptionState.gotAccountSubscription(state.data.copyWith(isLoading: false, subscription: r.subscription)),
-        );
-      },
+      (error) => emit(SubscriptionState.error(state.data.copyWith(error: error, isLoading: false))),
+      (r) => emit(
+        SubscriptionState.gotAccountSubscription(state.data.copyWith(isLoading: false, subscription: r.subscription)),
+      ),
     );
   }
 

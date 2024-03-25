@@ -163,18 +163,21 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
         ),
       );
 
-  void _showAskRestorePopover() => showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          content: CustomText(LocalizedTexts.askRestoreSubscription.tr()),
-          actions: [
-            TextButton(
-              onPressed: () => context.router.pop(),
-              child: Text(LocalizedTexts.ok.toUpperCase()),
-            ),
-          ],
-        ),
-      );
+  void _showAskRestorePopover() {
+    controller.loading.value = false;
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        content: CustomText(LocalizedTexts.askRestoreSubscription.tr()),
+        actions: [
+          TextButton(
+            onPressed: () => context.router.pop(),
+            child: Text(LocalizedTexts.ok.toUpperCase()),
+          ),
+        ],
+      ),
+    );
+  }
 
   bool _listenerStates(prev, cur) =>
       cur is ErrorSubscriptionState ||
@@ -188,7 +191,6 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
 
   _errorListener(BuildContext context, SubscriptionState state) {
     final errorMessage = state.data.error?.error ?? LocalizedTexts.somethingWentWrong.tr();
-    debugPrint('devcpp ${state.data.error.toString()}');
     controller.resetState();
     context.showErrorBar(
       content: Text(errorMessage),
