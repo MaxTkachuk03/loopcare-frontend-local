@@ -110,6 +110,22 @@ class CustomTextField extends StatefulWidget {
         onChanged: onChanged,
       );
 
+  factory CustomTextField.buddyEmail({
+    Color? fillColor,
+    String? errorText,
+    ValueChanged<String>? onChanged,
+    required TextEditingController controller,
+  }) =>
+      CustomTextField(
+        hintText: LocalizedTexts.buddyEmailHint,
+        controller: controller,
+        validator: emailValidator(),
+        keyboardType: TextInputType.emailAddress,
+        fillColor: fillColor,
+        errorText: errorText,
+        onChanged: onChanged,
+      );
+
   factory CustomTextField.password({
     Key? key,
     Color? fillColor,

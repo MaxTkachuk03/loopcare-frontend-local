@@ -5,7 +5,6 @@ import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 class GenderPrefsGuard extends AutoRouteGuard {
-
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
     final gender = getIt<SharedStorageService>().account?.gender;

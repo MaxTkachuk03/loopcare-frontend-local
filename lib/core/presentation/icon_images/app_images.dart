@@ -54,5 +54,7 @@ class AppImages {
   static const AssetImage trial = AssetImage('$imagesFilePath/trial.png');
   static const AssetImage ended = AssetImage('$imagesFilePath/ended.png');
 
+  static const AssetImage buddyIntro = AssetImage('$imagesFilePath/buddy_intro.png');
+
   AppImages._();
 }

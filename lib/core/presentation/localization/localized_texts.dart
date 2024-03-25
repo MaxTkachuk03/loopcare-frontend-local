@@ -530,9 +530,8 @@ class LocalizedTexts {
   static const String appStore = "appStore";
   static const String googleMarket = "googleMarket";
   static const String cancelAccountSubscription = "cancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
   static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
-  static const String otherPurchaseVendorCancelAccountSubscription =
-      "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";
@@ -920,6 +919,48 @@ class LocalizedTexts {
   static const String updateRequired = 'updateRequired';
   static const String updateRequiredBodyText1 = 'updateRequiredBodyText1';
   static const String updateRequiredBodyText2 = 'updateRequiredBodyText2';
+
+  // Buddy
+  static const String buddyTitle = 'buddyTitle';
+  static const String buddy = 'buddy';
+  static const String buddyUnlocked = 'buddyUnlocked';
+  static const String buddyUnlockedBody = 'buddyUnlockedBody';
+  static const String goToBuddyPreferences = 'goToBuddyPreferences';
+  static const String buddyIntroTitle = 'buddyIntroTitle';
+  static const String buddyDescriptionTitle = 'buddyDescriptionTitle';
+  static const String buddyDescriptionContent = 'buddyDescriptionContent';
+  static const String buddyIntroBody = 'buddyIntroBody';
+  static const String buddyIntroYesBtn = 'buddyIntroYesBtn';
+  static const String buddyIntroNoBtn = 'buddyIntroNoBtn';
+  static const String buddyPreferences = 'buddyPreferences';
+  static const String buddyNoPreferencesState = 'buddyNoPreferencesState';
+  static const String buddyCompleted = 'buddyCompleted';
+  static const String buddyCompletedContent = 'buddyCompletedContent';
+  static const String buddyLiveTogetherTitle = 'buddyLiveTogetherTitle';
+  static const String buddyRelationTitle = 'buddyRelationTitle';
+  static const String buddyEmailTitle = 'buddyEmailTitle';
+  static const String buddyEmailLabel = 'buddyEmailLabel';
+  static const String buddyEmailHint = 'buddyEmailHint';
+  static const String buddyPartner = 'buddyPartner';
+  static const String buddyChild = 'buddyChild';
+  static const String buddyParent = 'buddyParent';
+  static const String buddyFamily = 'buddyFamily';
+  static const String buddyFriend = 'buddyFriend';
+  static const String buddyPendingTitle = 'buddyPendingTitle';
+  static const String buddyPendingSubTitle = 'buddyPendingSubTitle';
+  static const String buddyNotAvailableTitle = 'buddyNotAvailableTitle';
+  static const String buddyNotAvailableSubTitle = 'buddyNotAvailableSubTitle';
+  static const String buddyRejectTitle = 'buddyRejectTitle';
+  static const String buddyRejectSubTitle = 'buddyRejectSubTitle';
+  static const String buddyResendInvitation = 'buddyResendInvitation';
+  static const String buddyInviteAnotherBuddy = 'buddyInviteAnotherBuddy';
+  static const String buddyFindAnotherBuddyLabel = 'buddyFindAnotherBuddyLabel';
+  static const String buddyFindAnotherBuddyContent = 'buddyFindAnotherBuddyContent';
+  static const String buddyFindAnotherBuddy = 'buddyFindAnotherBuddy';
+  static const String buddyNotNeedAnotherBuddy = 'buddyNotNeedAnotherBuddy';
+  static const String buddyEmail = 'buddyEmail';
+  static const String buddyUserName = 'buddyUserName';
+  static const String buddySince = 'buddySince';
 }
 
 extension StringX on String {
