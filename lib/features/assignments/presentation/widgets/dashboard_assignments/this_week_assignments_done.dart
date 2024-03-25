@@ -34,10 +34,10 @@ class ThisWeekAssignmentsDone extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return AssignmentListItem(
               isOpen: questions[index].isEditable,
-              isComplete: questions[index].completedAt != null,
+              isComplete: questions[index].isCompleted,
               onDashboard: onDashboard,
               item: questions[index],
-              onBtnPressed: (int lessonId) => onBtnPressed(lessonId),
+              onBtnPressed: onBtnPressed,
             );
           },
         ),

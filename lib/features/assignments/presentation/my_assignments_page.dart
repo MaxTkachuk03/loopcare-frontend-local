@@ -24,20 +24,15 @@ class MyAssignmentsPage extends StatefulWidget {
 }
 
 class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
-  late DateTime emailApproveDate;
+  DateTime emailApproveDate = getIt<SharedStorageService>().account?.emailApproveDate ?? DateTime.now();
 
   @override
   void initState() {
     super.initState();
 
-    final emailApproveDate = getIt<SharedStorageService>().account?.emailApproveDate ?? DateTime.now();
-
-    context.read<AssignmentsBloc>().add(
-          AssignmentsEvent.getAllLessonQuestions(
-            emailApproveDate,
-            DateTime.now(),
-          ),
-        );
+    context
+        .read<AssignmentsBloc>()
+        .add(AssignmentsEvent.getAllLessonQuestions(emailApproveDate, DateTime.now()));
   }
 
   _startLessonQuestion(BuildContext context, int lessonId) {
@@ -58,16 +53,15 @@ class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
       ),
       body: BlocBuilder<AssignmentsBloc, AssignmentsState>(
         builder: (context, state) {
-          var thisWeekQuestions =
-              state.data.uniqueLessonsQuestions(state.data.openedQuestionsForCurrentWeek(DateTime.now()));
-          var pastQuestions = state.data.uniqueLessonsQuestions(state.data.pastQuestions(emailApproveDate));
+          final thisWeekAssignments = state.data.currentWeekAssignments(DateTime.now());
+          final pastAssignments = state.data.pastAssignments(emailApproveDate);
 
           return state.maybeMap(
             loading: (_) => const Loader(),
             orElse: () {
               return SafeArea(
                 child: ScrollableContainer(
-                  child: (thisWeekQuestions.isNotEmpty || pastQuestions.isNotEmpty)
+                  child: (thisWeekAssignments.isNotEmpty || pastAssignments.isNotEmpty)
                       ? MainContainer(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,20 +76,20 @@ class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    if (thisWeekQuestions.isNotEmpty)
+                                    if (thisWeekAssignments.isNotEmpty)
                                       ThisWeekAssignmentsOpen(
                                         onDashboard: false,
-                                        questions: thisWeekQuestions,
+                                        questions: thisWeekAssignments,
                                         onBtnPressed: (int lessonId) =>
                                             _startLessonQuestion(context, lessonId),
                                       ),
-                                    if (thisWeekQuestions.isNotEmpty && pastQuestions.isNotEmpty)
+                                    if (thisWeekAssignments.isNotEmpty && pastAssignments.isNotEmpty)
                                       const Column(
                                         children: [Divider(color: AppColors.ff404040), SizedBox(height: 18)],
                                       ),
-                                    if (pastQuestions.isNotEmpty)
+                                    if (pastAssignments.isNotEmpty)
                                       PastAssignments(
-                                        questions: pastQuestions,
+                                        questions: pastAssignments,
                                         onBtnPressed: (int lessonId) =>
                                             _startLessonQuestion(context, lessonId),
                                       ),

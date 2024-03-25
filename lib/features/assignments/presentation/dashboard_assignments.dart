@@ -74,6 +74,8 @@ class _DashboardAssignmentsState extends State<DashboardAssignments> {
             const Divider(color: AppColors.blueOffRegular),
             BlocBuilder<AssignmentsBloc, AssignmentsState>(
               builder: (context, state) {
+                final hasQuestions = state.data.hasQuestionsForCurrentWeek(widget.date);
+
                 return state.maybeMap(
                   loading: (_) => const SizedBox(height: 100, child: Loader()),
                   error: (errorState) {
@@ -93,19 +95,15 @@ class _DashboardAssignmentsState extends State<DashboardAssignments> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (state.data.questionsForCurrentWeek(widget.date).isEmpty)
+                        if (!hasQuestions)
                           CustomText.w400(
                             LocalizedTexts.allAssignmentsCompleted.tr(),
                             style: context.textTheme.bodyMedium,
                           ),
-                        if (state.data.questionsForCurrentWeek(widget.date).isNotEmpty)
+                        if (hasQuestions)
                           ThisWeekAssignments(
-                            weekQuestions: state.data.uniqueLessonsQuestions(
-                              state.data.openedQuestionsForCurrentWeek(widget.date),
-                            ),
-                            todayQuestions: state.data.uniqueLessonsQuestions(
-                              state.data.doneTodayQuestions(widget.date),
-                            ),
+                            weekQuestions: state.data.currentWeekAssignments(widget.date),
+                            todayQuestions: state.data.todayDoneAssignments(widget.date),
                           ),
                       ],
                     );
