@@ -216,7 +216,7 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     Emitter<GeneralOnboardingState> emit,
   ) {
     
-    final containsPregnancyStep = !state.medicalQuestions.contains(MedicalQuestionStep.pregnancy);
+    final containsPregnancyStep = state.medicalQuestions.contains(MedicalQuestionStep.pregnancy);
     
     if (event.enable && !containsPregnancyStep) {
       emit(
