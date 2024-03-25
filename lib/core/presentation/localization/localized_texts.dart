@@ -756,6 +756,7 @@ class LocalizedTexts {
 
   static const String yourMentalHealth = "yourMentalHealth";
   static const String mentalHealthMoreInfo = "mentalHealthMoreInfo";
+  static const String mentalHealthMoreInfoBold = "mentalHealthMoreInfoBold";
   static const String mentalHealthIntroTextOne = "mentalHealthIntroTextOne";
   static const String mentalHealthIntroTextTwo = "mentalHealthIntroTextTwo";
   static const String mentalHealthIntroTextThree = "mentalHealthIntroTextThree";

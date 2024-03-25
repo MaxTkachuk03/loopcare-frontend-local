@@ -471,6 +471,11 @@ class ModalBottomSheet {
   static void mentalHealthMoreInfo({
     required BuildContext context,
   }) {
+    final boldText = LocalizedTexts.mentalHealthMoreInfoBold.tr();
+    final regularTexts = LocalizedTexts.mentalHealthMoreInfo.tr(
+      namedArgs: {'appName': appConfig.projectName},
+    ).split(boldText);
+
     showModalBottomSheet<void>(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
@@ -488,11 +493,18 @@ class ModalBottomSheet {
                   ),
                 ),
                 MainContainer(
-                  child: CustomText.w400(
-                    '${LocalizedTexts.mentalHealthMoreInfo.tr(namedArgs: {
-                          'appName': appConfig.projectName,
-                        })}.',
-                    style: context.textTheme.bodyMedium,
+                  child: RichText(
+                    text: TextSpan(
+                      style: context.textTheme.bodyMedium,
+                      children: [
+                        TextSpan(text: regularTexts[0]),
+                        TextSpan(
+                          text: boldText,
+                          style: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+                        ),
+                        TextSpan(text: regularTexts[1]),
+                      ],
+                    ),
                   ),
                 )
               ],
