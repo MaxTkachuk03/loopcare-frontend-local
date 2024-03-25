@@ -489,6 +489,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
 
     if (mentalStep == MentalQuestionStep.introStepOne) {
       generalStep = GeneralOnboardingStep.medical;
+
+      add(const GeneralOnboardingEvent.stopTimer());
     } else if (mentalStep == MentalQuestionStep.test) {
       if (currentMentalTest.questions.first == currentQuestion) {
         if (mentalTests.first != currentMentalTest) {

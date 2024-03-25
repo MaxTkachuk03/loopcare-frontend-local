@@ -233,29 +233,33 @@ class ModalBottomSheet {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          padding: const EdgeInsets.symmetric(vertical: 58.0, horizontal: 40.0),
-          child: FractionallySizedBox(
-            heightFactor: 0.32,
-            child: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomText.w600(
+          padding: const EdgeInsets.fromLTRB(20.0, 38.0, 20.0, 20.0),
+          child: SafeArea(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: CustomText.w600(
                     LocalizedTexts.youExceededTimeMessage,
                     style: context.textTheme.bodyMedium?.copyWith(color: AppColors.orangeRegular),
                   ),
-                  const SizedBox(height: 26.0),
-                  CustomText.w400(
+                ),
+                const SizedBox(height: 26.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: CustomText.w400(
                     LocalizedTexts.noWorriesYouCanDoItLater,
                     style: context.textTheme.bodyMedium,
                   ),
-                  const SizedBox(height: 40.0),
-                  CustomElevatedButton.blueFullWidth(
-                    onPressed: onStartAgain,
-                    label: LocalizedTexts.startAgain,
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 40.0),
+                CustomElevatedButton.blueFullWidth(
+                  onPressed: onStartAgain,
+                  label: LocalizedTexts.startAgain,
+                ),
+              ],
             ),
           ),
         );

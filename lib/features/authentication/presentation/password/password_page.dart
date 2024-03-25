@@ -129,7 +129,7 @@ class _PasswordPageState extends State<PasswordPage> {
                         return CustomElevatedButton.blueFullWidth(
                           key: const ValueKey('password_page_next_button'),
                           onPressed: isValid ? _onNextPressed : null,
-                          label: LocalizedTexts.confirmPassword,
+                          label: LocalizedTexts.register,
                         );
                       },
                     ),

@@ -2,8 +2,8 @@ part of 'general_onboarding_bloc.dart';
 
 enum GeneralOnboardingStep {
   physical(AppColors.yellowRegular, AppColors.blueRegular, AppColors.yellowLightest, AppColors.yellowOffRegular, AppColors.yellowLighter, LocalizedTexts.physicalIntroTitle),
-  medical(AppColors.blueRegular,  AppColors.coralRegular, AppColors.blueLightest, AppColors.blueOffRegular, AppColors.blueLighter, LocalizedTexts.physicalIntroTitle),
-  mental(AppColors.orangeRegular, AppColors.blueRegular, AppColors.orangeLightest, AppColors.orangeOffRegular, AppColors.orangeLighter,LocalizedTexts.physicalIntroTitle);
+  medical(AppColors.blueRegular,  AppColors.coralRegular, AppColors.blueLightest, AppColors.blueOffRegular, AppColors.blueLighter, LocalizedTexts.medicalIntroTitle),
+  mental(AppColors.orangeRegular, AppColors.blueRegular, AppColors.orangeLightest, AppColors.orangeOffRegular, AppColors.orangeLighter,LocalizedTexts.mentalHealth);
 
   const GeneralOnboardingStep(
     this.primaryColor,
