@@ -40,8 +40,13 @@ class _WeightContentState extends State<WeightContent> {
     final weightInKg = context.read<PhysicalQuestionsBloc>().state.weightInKg;
 
     kgController = TextEditingController(text: weightInKg ?? '');
-    lbsController = TextEditingController(
-        text: weightInKg != null ? '${WeightConversionUtils.convertKgToLbs(double.parse(weightInKg))}' : '');
+    if ( weightInKg != null) {
+      lbsController = TextEditingController(text: '${WeightConversionUtils.convertKgToLbs(double.parse(weightInKg))}');
+      valueNotifier.value = true;
+    } else {
+      lbsController = TextEditingController();
+    }
+
     kgFieldFocusNode.requestFocus();
     lbsFieldFocusNode.requestFocus();
   }

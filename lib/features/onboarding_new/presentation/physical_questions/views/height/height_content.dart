@@ -55,6 +55,7 @@ class _HeightContentState extends State<HeightContent> {
       cmController = TextEditingController(text: heightInCm.toString());
       ftController = TextEditingController(text: heightFT.toString());
       inController = TextEditingController(text: heightIN.toString());
+      valueNotifier.value = true;
     } else {
       cmController = TextEditingController(text: '');
       ftController = TextEditingController(text: '');
