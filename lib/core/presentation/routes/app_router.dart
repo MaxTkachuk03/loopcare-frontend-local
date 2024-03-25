@@ -5,6 +5,11 @@ import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
 import 'package:loopcare_frontend/core/presentation/theme_components_theme/theme_components_theme.dart';
 import 'package:loopcare_frontend/features/access_code/access_code_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/account_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/buddy_preferences_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/presentation/buddy_completed_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/presentation/buddy_email_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/presentation/buddy_live_together_page.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/presentation/buddy_relation_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/edit_food_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/food_preferences_page/food_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/food_preferences_page/lesson_complete_food_preferences_page.dart';
@@ -32,6 +37,8 @@ import 'package:loopcare_frontend/features/authentication/presentation/password/
 import 'package:loopcare_frontend/features/authentication/presentation/success_verified_email/success_verified_email_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/waiting_for_confirmation/waiting_for_confirmation_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/welcome/sign_up_welcome_page.dart';
+import 'package:loopcare_frontend/features/buddy/presentation/buddy_description_page.dart';
+import 'package:loopcare_frontend/features/buddy/presentation/buddy_intro_page.dart';
 import 'package:loopcare_frontend/features/chat/presentation/group_chat_page.dart';
 import 'package:loopcare_frontend/features/chat/presentation/group_users_page.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/dashboard_page.dart';
@@ -449,6 +456,36 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.manageSubscription,
       page: ManageSubscriptionPage,
+    ), // added
+
+    // Buddy
+    AutoRoute(
+      path: AppRoutes.buddyIntro,
+      page: BuddyIntroPage,
+    ), // added
+    AutoRoute(
+      path: AppRoutes.buddyDescription,
+      page: BuddyDescriptionPage,
+    ), // added
+    AutoRoute(
+      path: AppRoutes.buddyPreferences,
+      page: BuddyPreferencesPage,
+    ), // added
+    AutoRoute(
+      path: AppRoutes.buddyLiveTogether,
+      page: BuddyLiveTogetherPage,
+    ), // added
+    AutoRoute(
+      path: AppRoutes.buddyRelation,
+      page: BuddyRelationPage,
+    ), // added
+    AutoRoute(
+      path: AppRoutes.buddyEmail,
+      page: BuddyEmailPage,
+    ), // added
+    AutoRoute(
+      path: AppRoutes.buddyCompleted,
+      page: BuddyCompletedPage,
     ), // added
   ],
 )

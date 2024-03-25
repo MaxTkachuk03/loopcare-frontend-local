@@ -1,132 +1,158 @@
 var lessons = [
   {
-    "extraAction": null,
-    "completedAt": "2024-02-06T20:02:00.000Z",
+    "extraAction": 'null',
+    "completedAt": null,
     "isLocked": false,
     "nextStepUnlockDelay": 168,
     "questions": [
       {
         "introduction": null,
-        "explanationCorrect":
-            "A BMI of ≥ 25 is considered overweight. A BMI over 30 is considered obese and a BMI of 18-24.9 is considered 'normal' weight.",
-        "explanationIncorrect":
-            "A BMI of > 18 is considered 'normal' weight and > 30 is considered obese. A BMI of >25 is considered overweight.",
-        "lowestText": null,
-        "highestText": null,
-        "question": "From what BMI onward is someone considered obese?",
-        "openedAt": null,
-        "answeredAt": null,
-        "completedAt": null,
-        "lessonQuestionOptions": [
-          {"value": null, "isCorrect": null, "id": 1, "label": "> 18", "lessonQuestionId": 1},
-          {"value": null, "isCorrect": true, "id": 2, "label": "≥ 25", "lessonQuestionId": 1},
-          {"value": null, "isCorrect": null, "id": 3, "label": "> 30", "lessonQuestionId": 1}
-        ],
-        "lessonQuestionFeedbacks": [],
-        "lessonQuestionAnswers": [],
-        "id": 1,
-        "answerType": "multipleChoiceValidation",
-        "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
-        "visual": "https://dev.loopcare.app/education/content/1/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
-        "lessonId": 1
-      },
-      {
-        "introduction": null,
-        "explanationCorrect":
-            "Waist circumference is an indicator of health risk and risk of diseases related to body weight.",
-        "explanationIncorrect":
-            "Thigh circumference and chest circumference are not good indicators of physical health. The circumference of a person's waist is also considered important in addition to BMI when assessing the health risks.",
+        "explanationCorrect": null,
+        "explanationIncorrect": null,
         "lowestText": null,
         "highestText": null,
         "question":
-            "What else is measured beside BMI to assess health risks that are often accompanied with overweight and obesity?",
+            "Find a person close to you that you would be willing to share your journey with. Once you have and they want to join you, confirm this below.",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
         "lessonQuestionOptions": [
-          {
-            "value": null,
-            "isCorrect": true,
-            "id": 128,
-            "label": "Waist circumference",
-            "lessonQuestionId": 43
-          },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 129,
-            "label": "Thigh circumference",
-            "lessonQuestionId": 43
-          },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 130,
-            "label": "Chest circumference",
-            "lessonQuestionId": 43
-          }
+          {"value": null, "isCorrect": null, "id": 298, "label": "I have found a Buddy", "lessonQuestionId": 109},
+          {"value": null, "isCorrect": null, "id": 299, "label": "I am still searching", "lessonQuestionId": 109}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
-        "id": 43,
-        "answerType": "multipleChoiceValidation",
-        "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
-        "visual": "https://dev.loopcare.app/education/content/1/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
-        "lessonId": 1
-      },
-      {
-        "introduction": null,
-        "explanationCorrect":
-            "The three factors that influence weight are lack of exercise, psychological factors and one's environment.",
-        "explanationIncorrect": "Salary does not influence your weight directly.",
-        "lowestText": null,
-        "highestText": null,
-        "question": "What are three factors that can influence your weight?",
-        "openedAt": null,
-        "answeredAt": null,
-        "completedAt": null,
-        "lessonQuestionOptions": [
-          {
-            "value": null,
-            "isCorrect": true,
-            "id": 248,
-            "label": "Lack of exercise, psychological factors, environment",
-            "lessonQuestionId": 84
-          },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 249,
-            "label": "Psychological factors, lack of exercise, salary",
-            "lessonQuestionId": 84
-          }
-        ],
-        "lessonQuestionFeedbacks": [],
-        "lessonQuestionAnswers": [],
-        "id": 84,
-        "answerType": "multipleChoiceValidation",
-        "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
-        "visual": "https://dev.loopcare.app/education/content/1/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
-        "lessonId": 1
+        "id": 109,
+        "answerType": "multipleChoiceSingle",
+        "type": "assignment",
+        "title": "Find a Buddy",
+        "visual": "https://dev.loopcare.app/education/content/10/images/lesson.png",
+        "instruction":
+            "Share your journey with a Buddy.\n\nThis assignment is part of the Mind article 'Finding a Buddy'.",
+        "lessonId": 10
       }
     ],
-    "id": 1,
-    "category": "general",
-    "title": "Understanding obesity",
-    "image": "https://dev.loopcare.app/education/content/1/images/lesson.png",
-    "cardImage": "https://dev.loopcare.app/education/content/1/images/lesson-card@3x.png",
-    "duration": 420,
+    "id": 10,
+    "category": "buddy",
+    "title": "Finding a Buddy",
+    "image": "https://dev.loopcare.app/education/content/10/images/lesson.png",
+    "cardImage": "https://dev.loopcare.app/education/content/10/images/lesson-card@3x.png",
+    "duration": 240,
     "pageCounter": 1,
     "step": 1,
     "order": 1,
     "externalId": 2
   },
+  // {
+  //   "extraAction": 'unlockBuddy',
+  //   "completedAt": null,
+  //   "isLocked": false,
+  //   "nextStepUnlockDelay": 168,
+  //   "questions": [
+  //     {
+  //       "introduction": null,
+  //       "explanationCorrect":
+  //           "A BMI of ≥ 25 is considered overweight. A BMI over 30 is considered obese and a BMI of 18-24.9 is considered 'normal' weight.",
+  //       "explanationIncorrect":
+  //           "A BMI of > 18 is considered 'normal' weight and > 30 is considered obese. A BMI of >25 is considered overweight.",
+  //       "lowestText": null,
+  //       "highestText": null,
+  //       "question": "From what BMI onward is someone considered obese?",
+  //       "openedAt": null,
+  //       "answeredAt": null,
+  //       "completedAt": null,
+  //       "lessonQuestionOptions": [
+  //         {"value": null, "isCorrect": null, "id": 1, "label": "> 18", "lessonQuestionId": 1},
+  //         {"value": null, "isCorrect": true, "id": 2, "label": "≥ 25", "lessonQuestionId": 1},
+  //         {"value": null, "isCorrect": null, "id": 3, "label": "> 30", "lessonQuestionId": 1}
+  //       ],
+  //       "lessonQuestionFeedbacks": [],
+  //       "lessonQuestionAnswers": [],
+  //       "id": 1,
+  //       "answerType": "multipleChoiceValidation",
+  //       "type": "quiz",
+  //       "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+  //       "visual": "https://dev.loopcare.app/education/content/1/images/lesson.png",
+  //       "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+  //       "lessonId": 1
+  //     },
+  //     {
+  //       "introduction": null,
+  //       "explanationCorrect":
+  //           "Waist circumference is an indicator of health risk and risk of diseases related to body weight.",
+  //       "explanationIncorrect":
+  //           "Thigh circumference and chest circumference are not good indicators of physical health. The circumference of a person's waist is also considered important in addition to BMI when assessing the health risks.",
+  //       "lowestText": null,
+  //       "highestText": null,
+  //       "question":
+  //           "What else is measured beside BMI to assess health risks that are often accompanied with overweight and obesity?",
+  //       "openedAt": null,
+  //       "answeredAt": null,
+  //       "completedAt": null,
+  //       "lessonQuestionOptions": [
+  //         {"value": null, "isCorrect": true, "id": 128, "label": "Waist circumference", "lessonQuestionId": 43},
+  //         {"value": null, "isCorrect": null, "id": 129, "label": "Thigh circumference", "lessonQuestionId": 43},
+  //         {"value": null, "isCorrect": null, "id": 130, "label": "Chest circumference", "lessonQuestionId": 43}
+  //       ],
+  //       "lessonQuestionFeedbacks": [],
+  //       "lessonQuestionAnswers": [],
+  //       "id": 43,
+  //       "answerType": "multipleChoiceValidation",
+  //       "type": "quiz",
+  //       "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+  //       "visual": "https://dev.loopcare.app/education/content/1/images/lesson.png",
+  //       "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+  //       "lessonId": 1
+  //     },
+  //     {
+  //       "introduction": null,
+  //       "explanationCorrect":
+  //           "The three factors that influence weight are lack of exercise, psychological factors and one's environment.",
+  //       "explanationIncorrect": "Salary does not influence your weight directly.",
+  //       "lowestText": null,
+  //       "highestText": null,
+  //       "question": "What are three factors that can influence your weight?",
+  //       "openedAt": null,
+  //       "answeredAt": null,
+  //       "completedAt": null,
+  //       "lessonQuestionOptions": [
+  //         {
+  //           "value": null,
+  //           "isCorrect": true,
+  //           "id": 248,
+  //           "label": "Lack of exercise, psychological factors, environment",
+  //           "lessonQuestionId": 84
+  //         },
+  //         {
+  //           "value": null,
+  //           "isCorrect": null,
+  //           "id": 249,
+  //           "label": "Psychological factors, lack of exercise, salary",
+  //           "lessonQuestionId": 84
+  //         }
+  //       ],
+  //       "lessonQuestionFeedbacks": [],
+  //       "lessonQuestionAnswers": [],
+  //       "id": 84,
+  //       "answerType": "multipleChoiceValidation",
+  //       "type": "quiz",
+  //       "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+  //       "visual": "https://dev.loopcare.app/education/content/1/images/lesson.png",
+  //       "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+  //       "lessonId": 1
+  //     }
+  //   ],
+  //   "id": 1,
+  //   "category": "general",
+  //   "title": "Understanding obesity",
+  //   "image": "https://dev.loopcare.app/education/content/1/images/lesson.png",
+  //   "cardImage": "https://dev.loopcare.app/education/content/1/images/lesson-card@3x.png",
+  //   "duration": 420,
+  //   "pageCounter": 1,
+  //   "step": 1,
+  //   "order": 1,
+  //   "externalId": 2
+  // },
   {
     "extraAction": null,
     "completedAt": null,
@@ -141,8 +167,7 @@ var lessons = [
             "Although reduction in 7% and 12% of bodyweight do also reduce the risk of physical illness. The benefits of weight reduction start at 5%.",
         "lowestText": null,
         "highestText": null,
-        "question":
-            "How much body weight would need to be lost at least to reduce the risk of physical illnesses?",
+        "question": "How much body weight would need to be lost at least to reduce the risk of physical illnesses?",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
@@ -188,13 +213,7 @@ var lessons = [
             "label": "Families tell each other what they should eat.",
             "lessonQuestionId": 44
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 133,
-            "label": "It doesn't affect it at all.",
-            "lessonQuestionId": 44
-          }
+          {"value": null, "isCorrect": null, "id": 133, "label": "It doesn't affect it at all.", "lessonQuestionId": 44}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -241,24 +260,11 @@ var lessons = [
             "value": null,
             "isCorrect": true,
             "id": 7,
-            "label":
-                "Forcing yourself to adhere to unsustainable dietary practices for the sake of losing weight.",
+            "label": "Forcing yourself to adhere to unsustainable dietary practices for the sake of losing weight.",
             "lessonQuestionId": 3
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 8,
-            "label": "Not eating enough calories.",
-            "lessonQuestionId": 3
-          },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 9,
-            "label": "Not exercising enough.",
-            "lessonQuestionId": 3
-          }
+          {"value": null, "isCorrect": null, "id": 8, "label": "Not eating enough calories.", "lessonQuestionId": 3},
+          {"value": null, "isCorrect": null, "id": 9, "label": "Not exercising enough.", "lessonQuestionId": 3}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -456,13 +462,7 @@ var lessons = [
         "answeredAt": null,
         "completedAt": null,
         "lessonQuestionOptions": [
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 10,
-            "label": "It visualizes your progress.",
-            "lessonQuestionId": 4
-          },
+          {"value": null, "isCorrect": null, "id": 10, "label": "It visualizes your progress.", "lessonQuestionId": 4},
           {
             "value": null,
             "isCorrect": true,
@@ -540,19 +540,12 @@ var lessons = [
             "When your eyes take in sunlight in the morning, it activates specific nerves that run to your brain that sets your internal clock to the morning. This tells your brain that it's morning, which helps you wake up more easily in the morning and feel sleepy in the evening.",
         "lowestText": null,
         "highestText": null,
-        "question":
-            "Why is it important to get 10-20 minutes of natural sunlight each morning after you wake up?",
+        "question": "Why is it important to get 10-20 minutes of natural sunlight each morning after you wake up?",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
         "lessonQuestionOptions": [
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 13,
-            "label": "It will reduce your appetite.",
-            "lessonQuestionId": 5
-          },
+          {"value": null, "isCorrect": null, "id": 13, "label": "It will reduce your appetite.", "lessonQuestionId": 5},
           {
             "value": null,
             "isCorrect": true,
@@ -560,13 +553,7 @@ var lessons = [
             "label": "It aligns your circadian rhythm, which sets your wake time.",
             "lessonQuestionId": 5
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 15,
-            "label": "It improves your blood sugar.",
-            "lessonQuestionId": 5
-          },
+          {"value": null, "isCorrect": null, "id": 15, "label": "It improves your blood sugar.", "lessonQuestionId": 5},
           {
             "value": null,
             "isCorrect": null,
@@ -676,13 +663,7 @@ var lessons = [
             "label": "It aligns your circadian rhythm, which sets your sleep time.",
             "lessonQuestionId": 6
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 18,
-            "label": "It will reduce your appetite.",
-            "lessonQuestionId": 6
-          },
+          {"value": null, "isCorrect": null, "id": 18, "label": "It will reduce your appetite.", "lessonQuestionId": 6},
           {
             "value": null,
             "isCorrect": null,
@@ -799,20 +780,8 @@ var lessons = [
         "answeredAt": null,
         "completedAt": null,
         "lessonQuestionOptions": [
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 298,
-            "label": "I have found a Buddy",
-            "lessonQuestionId": 109
-          },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 299,
-            "label": "I am still searching",
-            "lessonQuestionId": 109
-          }
+          {"value": null, "isCorrect": null, "id": 298, "label": "I have found a Buddy", "lessonQuestionId": 109},
+          {"value": null, "isCorrect": null, "id": 299, "label": "I am still searching", "lessonQuestionId": 109}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -827,7 +796,7 @@ var lessons = [
       }
     ],
     "id": 10,
-    "category": "mind",
+    "category": "buddy",
     "title": "Finding a Buddy",
     "image": "https://dev.loopcare.app/education/content/10/images/lesson.png",
     "cardImage": "https://dev.loopcare.app/education/content/10/images/lesson-card@3x.png",
@@ -891,28 +860,10 @@ var lessons = [
         "answeredAt": null,
         "completedAt": null,
         "lessonQuestionOptions": [
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 21,
-            "label": "Between 6:00am and 9:00am",
-            "lessonQuestionId": 7
-          },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 22,
-            "label": "Between 8:00am adn 10:00am",
-            "lessonQuestionId": 7
-          },
+          {"value": null, "isCorrect": null, "id": 21, "label": "Between 6:00am and 9:00am", "lessonQuestionId": 7},
+          {"value": null, "isCorrect": null, "id": 22, "label": "Between 8:00am adn 10:00am", "lessonQuestionId": 7},
           {"value": null, "isCorrect": null, "id": 23, "label": "Exactly at 9:00am", "lessonQuestionId": 7},
-          {
-            "value": null,
-            "isCorrect": true,
-            "id": 24,
-            "label": "Between 8:30am and 9:30am",
-            "lessonQuestionId": 7
-          }
+          {"value": null, "isCorrect": true, "id": 24, "label": "Between 8:30am and 9:30am", "lessonQuestionId": 7}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -939,13 +890,7 @@ var lessons = [
         "lessonQuestionOptions": [
           {"value": null, "isCorrect": null, "id": 145, "label": "3 meals a day.", "lessonQuestionId": 49},
           {"value": null, "isCorrect": null, "id": 146, "label": "2 meals a day.", "lessonQuestionId": 49},
-          {
-            "value": null,
-            "isCorrect": true,
-            "id": 147,
-            "label": "Personal preference",
-            "lessonQuestionId": 49
-          },
+          {"value": null, "isCorrect": true, "id": 147, "label": "Personal preference", "lessonQuestionId": 49},
           {"value": null, "isCorrect": null, "id": 148, "label": "5 meals a day.", "lessonQuestionId": 49}
         ],
         "lessonQuestionFeedbacks": [],
@@ -1003,13 +948,7 @@ var lessons = [
             "label": "It strengthens the heart and supports blood circulation.",
             "lessonQuestionId": 8
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 27,
-            "label": "It builds up muscles.",
-            "lessonQuestionId": 8
-          }
+          {"value": null, "isCorrect": null, "id": 27, "label": "It builds up muscles.", "lessonQuestionId": 8}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -1041,20 +980,8 @@ var lessons = [
             "label": "Promotion of mental strength",
             "lessonQuestionId": 50
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 150,
-            "label": "Improved endurance",
-            "lessonQuestionId": 50
-          },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 151,
-            "label": "A decrease in bone density",
-            "lessonQuestionId": 50
-          }
+          {"value": null, "isCorrect": null, "id": 150, "label": "Improved endurance", "lessonQuestionId": 50},
+          {"value": null, "isCorrect": null, "id": 151, "label": "A decrease in bone density", "lessonQuestionId": 50}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -1110,13 +1037,7 @@ var lessons = [
             "label": "It improves your overall health",
             "lessonQuestionId": 9
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 30,
-            "label": "It's bad for your knees",
-            "lessonQuestionId": 9
-          }
+          {"value": null, "isCorrect": null, "id": 30, "label": "It's bad for your knees", "lessonQuestionId": 9}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -1452,13 +1373,7 @@ var lessons = [
             "label": "To improve self-control and willpower.",
             "lessonQuestionId": 11
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 36,
-            "label": "To achieve quick results.",
-            "lessonQuestionId": 11
-          },
+          {"value": null, "isCorrect": null, "id": 36, "label": "To achieve quick results.", "lessonQuestionId": 11},
           {
             "value": null,
             "isCorrect": true,
@@ -1597,13 +1512,7 @@ var lessons = [
         "answeredAt": null,
         "completedAt": null,
         "lessonQuestionOptions": [
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 160,
-            "label": "To accelerate progress.",
-            "lessonQuestionId": 54
-          },
+          {"value": null, "isCorrect": null, "id": 160, "label": "To accelerate progress.", "lessonQuestionId": 54},
           {
             "value": null,
             "isCorrect": true,
@@ -1694,13 +1603,7 @@ var lessons = [
             "label": "Promoting general well-being and inner peace",
             "lessonQuestionId": 55
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 164,
-            "label": "Competing at an elite level",
-            "lessonQuestionId": 55
-          },
+          {"value": null, "isCorrect": null, "id": 164, "label": "Competing at an elite level", "lessonQuestionId": 55},
           {
             "value": null,
             "isCorrect": null,
@@ -1768,13 +1671,7 @@ var lessons = [
         "lessonQuestionOptions": [
           {"value": null, "isCorrect": null, "id": 300, "label": "Time pressure", "lessonQuestionId": 110},
           {"value": null, "isCorrect": null, "id": 301, "label": "Stress", "lessonQuestionId": 110},
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 302,
-            "label": "Eating with other people",
-            "lessonQuestionId": 110
-          },
+          {"value": null, "isCorrect": null, "id": 302, "label": "Eating with other people", "lessonQuestionId": 110},
           {"value": null, "isCorrect": null, "id": 303, "label": "Argument", "lessonQuestionId": 110},
           {"value": null, "isCorrect": null, "id": 304, "label": "Tiredness", "lessonQuestionId": 110},
           {"value": null, "isCorrect": null, "id": 305, "label": "Being bored", "lessonQuestionId": 110},
@@ -1795,13 +1692,7 @@ var lessons = [
             "label": "Giving in to pressure from others",
             "lessonQuestionId": 110
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 311,
-            "label": "Shopping while hungry",
-            "lessonQuestionId": 110
-          }
+          {"value": null, "isCorrect": null, "id": 311, "label": "Shopping while hungry", "lessonQuestionId": 110}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -1833,20 +1724,8 @@ var lessons = [
             "label": "Make sure you eat regular meals",
             "lessonQuestionId": 112
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 313,
-            "label": "Check your time management",
-            "lessonQuestionId": 112
-          },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 314,
-            "label": "Drink a lot of water",
-            "lessonQuestionId": 112
-          },
+          {"value": null, "isCorrect": null, "id": 313, "label": "Check your time management", "lessonQuestionId": 112},
+          {"value": null, "isCorrect": null, "id": 314, "label": "Drink a lot of water", "lessonQuestionId": 112},
           {
             "value": null,
             "isCorrect": null,
@@ -1854,13 +1733,7 @@ var lessons = [
             "label": "Don’t eat after you stop feeling hungry",
             "lessonQuestionId": 112
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 316,
-            "label": "Have small portions",
-            "lessonQuestionId": 112
-          },
+          {"value": null, "isCorrect": null, "id": 316, "label": "Have small portions", "lessonQuestionId": 112},
           {
             "value": null,
             "isCorrect": null,
@@ -1868,28 +1741,10 @@ var lessons = [
             "label": "Take your time and sit at a properly set table",
             "lessonQuestionId": 112
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 318,
-            "label": "Don’t eat between meals",
-            "lessonQuestionId": 112
-          },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 319,
-            "label": "Eat mindfully and slowly",
-            "lessonQuestionId": 112
-          },
+          {"value": null, "isCorrect": null, "id": 318, "label": "Don’t eat between meals", "lessonQuestionId": 112},
+          {"value": null, "isCorrect": null, "id": 319, "label": "Eat mindfully and slowly", "lessonQuestionId": 112},
           {"value": null, "isCorrect": null, "id": 320, "label": "Make a meal plan", "lessonQuestionId": 112},
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 321,
-            "label": "Prepare food for the day",
-            "lessonQuestionId": 112
-          },
+          {"value": null, "isCorrect": null, "id": 321, "label": "Prepare food for the day", "lessonQuestionId": 112},
           {
             "value": null,
             "isCorrect": null,
@@ -1897,13 +1752,7 @@ var lessons = [
             "label": "Think about an alternative before going to a restaurant",
             "lessonQuestionId": 112
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 323,
-            "label": "Have healthy snacks ready",
-            "lessonQuestionId": 112
-          },
+          {"value": null, "isCorrect": null, "id": 323, "label": "Have healthy snacks ready", "lessonQuestionId": 112},
           {
             "value": null,
             "isCorrect": null,
@@ -1966,8 +1815,7 @@ var lessons = [
         "explanationIncorrect": null,
         "lowestText": null,
         "highestText": null,
-        "question":
-            "Next, also think what other scenarios or feelings affect your eating behavior and add them here.",
+        "question": "Next, also think what other scenarios or feelings affect your eating behavior and add them here.",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
@@ -2199,16 +2047,14 @@ var lessons = [
             "value": null,
             "isCorrect": null,
             "id": 45,
-            "label":
-                "More calories from protein are burned during digestion compared to carbohydrates or fats.",
+            "label": "More calories from protein are burned during digestion compared to carbohydrates or fats.",
             "lessonQuestionId": 14
           },
           {
             "value": null,
             "isCorrect": null,
             "id": 46,
-            "label":
-                "Protein intake can help reduce muscle loss and increase fat loss when in a calorie deficit.",
+            "label": "Protein intake can help reduce muscle loss and increase fat loss when in a calorie deficit.",
             "lessonQuestionId": 14
           },
           {"value": null, "isCorrect": true, "id": 47, "label": "All of the above.", "lessonQuestionId": 14}
@@ -2346,13 +2192,7 @@ var lessons = [
             "label": "It helps to cope with hot summer weather",
             "lessonQuestionId": 57
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 172,
-            "label": "Just to improve your mood",
-            "lessonQuestionId": 57
-          }
+          {"value": null, "isCorrect": null, "id": 172, "label": "Just to improve your mood", "lessonQuestionId": 57}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -2408,13 +2248,7 @@ var lessons = [
             "label": "The correct execution of the exercises",
             "lessonQuestionId": 16
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 53,
-            "label": "The number of repetitions",
-            "lessonQuestionId": 16
-          }
+          {"value": null, "isCorrect": null, "id": 53, "label": "The number of repetitions", "lessonQuestionId": 16}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -2439,13 +2273,7 @@ var lessons = [
         "answeredAt": null,
         "completedAt": null,
         "lessonQuestionOptions": [
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 173,
-            "label": "The muscles grow faster.",
-            "lessonQuestionId": 58
-          },
+          {"value": null, "isCorrect": null, "id": 173, "label": "The muscles grow faster.", "lessonQuestionId": 58},
           {
             "value": null,
             "isCorrect": null,
@@ -2935,32 +2763,28 @@ var lessons = [
             "value": null,
             "isCorrect": true,
             "id": 61,
-            "label":
-                "Fats – 10g; Carbohydrates – 20g; added sugar – 10g; Fiber – 1g; Protein – 0g; sodium – 500mg",
+            "label": "Fats – 10g; Carbohydrates – 20g; added sugar – 10g; Fiber – 1g; Protein – 0g; sodium – 500mg",
             "lessonQuestionId": 20
           },
           {
             "value": null,
             "isCorrect": null,
             "id": 62,
-            "label":
-                "Fats – 3g; Carbohydrates – 15g; added sugar – 0g; Fiber – 5g; Protein – 15g; sodium – 150mg",
+            "label": "Fats – 3g; Carbohydrates – 15g; added sugar – 0g; Fiber – 5g; Protein – 15g; sodium – 150mg",
             "lessonQuestionId": 20
           },
           {
             "value": null,
             "isCorrect": null,
             "id": 63,
-            "label":
-                "Fats – 9g; Carbohydrates – 20g; added sugar – 4g; Fiber – 2g; Protein – 5g; sodium – 800mg",
+            "label": "Fats – 9g; Carbohydrates – 20g; added sugar – 4g; Fiber – 2g; Protein – 5g; sodium – 800mg",
             "lessonQuestionId": 20
           },
           {
             "value": null,
             "isCorrect": null,
             "id": 64,
-            "label":
-                "Fats – 7g; Carbohydrates – 10g; added sugar – 8g; Fiber – 0g; Protein – 2g; sodium – 1000mg",
+            "label": "Fats – 7g; Carbohydrates – 10g; added sugar – 8g; Fiber – 0g; Protein – 2g; sodium – 1000mg",
             "lessonQuestionId": 20
           }
         ],
@@ -3190,13 +3014,7 @@ var lessons = [
             "label": "Take time to relax and regenerate",
             "lessonQuestionId": 124
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 332,
-            "label": "Do things you enjoy",
-            "lessonQuestionId": 124
-          },
+          {"value": null, "isCorrect": null, "id": 332, "label": "Do things you enjoy", "lessonQuestionId": 124},
           {
             "value": null,
             "isCorrect": null,
@@ -3272,20 +3090,8 @@ var lessons = [
         "completedAt": null,
         "lessonQuestionOptions": [
           {"value": null, "isCorrect": null, "id": 65, "label": "Strength training", "lessonQuestionId": 21},
-          {
-            "value": null,
-            "isCorrect": true,
-            "id": 66,
-            "label": "Endurance activities",
-            "lessonQuestionId": 21
-          },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 67,
-            "label": "Competitive activities",
-            "lessonQuestionId": 21
-          }
+          {"value": null, "isCorrect": true, "id": 66, "label": "Endurance activities", "lessonQuestionId": 21},
+          {"value": null, "isCorrect": null, "id": 67, "label": "Competitive activities", "lessonQuestionId": 21}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -3310,13 +3116,7 @@ var lessons = [
         "answeredAt": null,
         "completedAt": null,
         "lessonQuestionOptions": [
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 186,
-            "label": "Intense physical activity",
-            "lessonQuestionId": 63
-          },
+          {"value": null, "isCorrect": null, "id": 186, "label": "Intense physical activity", "lessonQuestionId": 63},
           {
             "value": null,
             "isCorrect": null,
@@ -3324,13 +3124,7 @@ var lessons = [
             "label": "Competitive and challenging activities",
             "lessonQuestionId": 63
           },
-          {
-            "value": null,
-            "isCorrect": true,
-            "id": 188,
-            "label": "light to moderate movements",
-            "lessonQuestionId": 63
-          }
+          {"value": null, "isCorrect": true, "id": 188, "label": "light to moderate movements", "lessonQuestionId": 63}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -3362,8 +3156,7 @@ var lessons = [
     "questions": [
       {
         "introduction": null,
-        "explanationCorrect":
-            "The recommended method for beginners to burn a lot of calories is the duration method.",
+        "explanationCorrect": "The recommended method for beginners to burn a lot of calories is the duration method.",
         "explanationIncorrect":
             "The repetition method is meant for experienced athletes who want to test their limits. The interval method is suited to increasing performance. The duration method is especially good for beginners and burns a lot of calories.",
         "lowestText": null,
@@ -3389,8 +3182,7 @@ var lessons = [
       },
       {
         "introduction": null,
-        "explanationCorrect":
-            "Walking and jogging are the ideal activities in which to use the duration method.",
+        "explanationCorrect": "Walking and jogging are the ideal activities in which to use the duration method.",
         "explanationIncorrect":
             "The duration method is not suited for intense activities such as weightlifting and sprinting. Rather it is most useful for consistent activities that last long periods of time.",
         "lowestText": null,
@@ -3402,13 +3194,7 @@ var lessons = [
         "lessonQuestionOptions": [
           {"value": null, "isCorrect": null, "id": 189, "label": "Sprinting", "lessonQuestionId": 64},
           {"value": null, "isCorrect": null, "id": 190, "label": "Weightlifting", "lessonQuestionId": 64},
-          {
-            "value": null,
-            "isCorrect": true,
-            "id": 191,
-            "label": "Walking and jogging",
-            "lessonQuestionId": 64
-          }
+          {"value": null, "isCorrect": true, "id": 191, "label": "Walking and jogging", "lessonQuestionId": 64}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -3475,20 +3261,8 @@ var lessons = [
         "answeredAt": null,
         "completedAt": null,
         "lessonQuestionOptions": [
-          {
-            "value": null,
-            "isCorrect": true,
-            "id": 192,
-            "label": "Harder on the joints",
-            "lessonQuestionId": 65
-          },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 193,
-            "label": "Gentler on the joints",
-            "lessonQuestionId": 65
-          },
+          {"value": null, "isCorrect": true, "id": 192, "label": "Harder on the joints", "lessonQuestionId": 65},
+          {"value": null, "isCorrect": null, "id": 193, "label": "Gentler on the joints", "lessonQuestionId": 65},
           {"value": null, "isCorrect": null, "id": 194, "label": "Easier", "lessonQuestionId": 65}
         ],
         "lessonQuestionFeedbacks": [],
@@ -3513,20 +3287,8 @@ var lessons = [
         "completedAt": null,
         "lessonQuestionOptions": [
           {"value": null, "isCorrect": null, "id": 256, "label": "More strenuous", "lessonQuestionId": 87},
-          {
-            "value": null,
-            "isCorrect": true,
-            "id": 257,
-            "label": "Gentler on the joints",
-            "lessonQuestionId": 87
-          },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 258,
-            "label": "More attractively designed",
-            "lessonQuestionId": 87
-          }
+          {"value": null, "isCorrect": true, "id": 257, "label": "Gentler on the joints", "lessonQuestionId": 87},
+          {"value": null, "isCorrect": null, "id": 258, "label": "More attractively designed", "lessonQuestionId": 87}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -3700,8 +3462,7 @@ var lessons = [
     "questions": [
       {
         "introduction": null,
-        "explanationCorrect":
-            "Dynamic stretching is used as pre-workout to increase flexibility and body temperature.",
+        "explanationCorrect": "Dynamic stretching is used as pre-workout to increase flexibility and body temperature.",
         "explanationIncorrect":
             "As the stretching is dynamic it does not involve holding a certain position. And as dynamic stretching is meant to prepare for exercise it should be done before.",
         "lowestText": null,
@@ -3769,13 +3530,7 @@ var lessons = [
             "label": "To raise the body temperature.",
             "lessonQuestionId": 67
           },
-          {
-            "value": null,
-            "isCorrect": true,
-            "id": 201,
-            "label": "To support regeneration.",
-            "lessonQuestionId": 67
-          }
+          {"value": null, "isCorrect": true, "id": 201, "label": "To support regeneration.", "lessonQuestionId": 67}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -3976,8 +3731,7 @@ var lessons = [
             "Not only does high quality carbohydrates keep your blood sugar stable, so does protein and healthy fats. They dilute the sugar in the meal, and slow down the speed glucose is absorbed into your blood stream, preventing it from spiking your blood sugar.",
         "lowestText": null,
         "highestText": null,
-        "question":
-            "Looking at the nutritional information, which meal is least likely to spike your blood sugar?",
+        "question": "Looking at the nutritional information, which meal is least likely to spike your blood sugar?",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
@@ -4344,13 +4098,7 @@ var lessons = [
             "label": "Only individual training sessions",
             "lessonQuestionId": 30
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 94,
-            "label": "Daily training duration",
-            "lessonQuestionId": 30
-          }
+          {"value": null, "isCorrect": null, "id": 94, "label": "Daily training duration", "lessonQuestionId": 30}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -4620,27 +4368,14 @@ var lessons = [
             "Research has shown that both increasing potassium or reducing sodium intake can significantly improve your blood pressure. Instead of prioritizing one over the other, being aware of both will give you more options and flexibility!",
         "lowestText": null,
         "highestText": null,
-        "question":
-            "Is reducing sodium, or increasing potassium more effective at lowering your blood pressure?",
+        "question": "Is reducing sodium, or increasing potassium more effective at lowering your blood pressure?",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
         "lessonQuestionOptions": [
           {"value": null, "isCorrect": null, "id": 98, "label": "Reducing sodium", "lessonQuestionId": 32},
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 99,
-            "label": "Increasing potassium",
-            "lessonQuestionId": 32
-          },
-          {
-            "value": null,
-            "isCorrect": true,
-            "id": 100,
-            "label": "They are equally effective",
-            "lessonQuestionId": 32
-          },
+          {"value": null, "isCorrect": null, "id": 99, "label": "Increasing potassium", "lessonQuestionId": 32},
+          {"value": null, "isCorrect": true, "id": 100, "label": "They are equally effective", "lessonQuestionId": 32},
           {
             "value": null,
             "isCorrect": null,
@@ -4656,8 +4391,7 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two quiz questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/54/images/lesson.png",
-        "instruction":
-            "Let's do a short knowledge quiz with two quiz questions to see what you have learned!",
+        "instruction": "Let's do a short knowledge quiz with two quiz questions to see what you have learned!",
         "lessonId": 54
       },
       {
@@ -4684,8 +4418,7 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two quiz questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/54/images/lesson.png",
-        "instruction":
-            "Let's do a short knowledge quiz with two quiz questions to see what you have learned!",
+        "instruction": "Let's do a short knowledge quiz with two quiz questions to see what you have learned!",
         "lessonId": 54
       }
     ],
@@ -4718,13 +4451,7 @@ var lessons = [
         "answeredAt": null,
         "completedAt": null,
         "lessonQuestionOptions": [
-          {
-            "value": null,
-            "isCorrect": true,
-            "id": 102,
-            "label": "Improved heart function",
-            "lessonQuestionId": 33
-          },
+          {"value": null, "isCorrect": true, "id": 102, "label": "Improved heart function", "lessonQuestionId": 33},
           {"value": null, "isCorrect": null, "id": 103, "label": "Strong arms", "lessonQuestionId": 33},
           {"value": null, "isCorrect": null, "id": 104, "label": "Better libido", "lessonQuestionId": 33}
         ],
@@ -4757,13 +4484,7 @@ var lessons = [
             "label": "Improvement of fat metabolism",
             "lessonQuestionId": 74
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 222,
-            "label": "Stress development",
-            "lessonQuestionId": 74
-          },
+          {"value": null, "isCorrect": null, "id": 222, "label": "Stress development", "lessonQuestionId": 74},
           {"value": null, "isCorrect": null, "id": 223, "label": "Muscle building", "lessonQuestionId": 74}
         ],
         "lessonQuestionFeedbacks": [],
@@ -4797,8 +4518,7 @@ var lessons = [
       {
         "introduction": null,
         "explanationCorrect": "Weight training increases metabolism.",
-        "explanationIncorrect":
-            "Weight training does affect your metabolism by increasing it, NOT decreasing it.",
+        "explanationIncorrect": "Weight training does affect your metabolism by increasing it, NOT decreasing it.",
         "lowestText": null,
         "highestText": null,
         "question": "How does weight training affect metabolism?",
@@ -4806,13 +4526,7 @@ var lessons = [
         "answeredAt": null,
         "completedAt": null,
         "lessonQuestionOptions": [
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 105,
-            "label": "It slows down metabolism.",
-            "lessonQuestionId": 34
-          },
+          {"value": null, "isCorrect": null, "id": 105, "label": "It slows down metabolism.", "lessonQuestionId": 34},
           {
             "value": null,
             "isCorrect": null,
@@ -4820,13 +4534,7 @@ var lessons = [
             "label": "It has no effect on metabolism.",
             "lessonQuestionId": 34
           },
-          {
-            "value": null,
-            "isCorrect": true,
-            "id": 107,
-            "label": "It increases the metabolism.",
-            "lessonQuestionId": 34
-          }
+          {"value": null, "isCorrect": true, "id": 107, "label": "It increases the metabolism.", "lessonQuestionId": 34}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -4858,13 +4566,7 @@ var lessons = [
             "label": "It trains the cardiovascular system effectively.",
             "lessonQuestionId": 75
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 225,
-            "label": "It defines the body.",
-            "lessonQuestionId": 75
-          },
+          {"value": null, "isCorrect": null, "id": 225, "label": "It defines the body.", "lessonQuestionId": 75},
           {
             "value": null,
             "isCorrect": null,
@@ -5059,13 +4761,7 @@ var lessons = [
         "answeredAt": null,
         "completedAt": null,
         "lessonQuestionOptions": [
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 110,
-            "label": "To load the stomach.",
-            "lessonQuestionId": 36
-          },
+          {"value": null, "isCorrect": null, "id": 110, "label": "To load the stomach.", "lessonQuestionId": 36},
           {
             "value": null,
             "isCorrect": true,
@@ -5073,13 +4769,7 @@ var lessons = [
             "label": "To improve muscle function and prepare the body.",
             "lessonQuestionId": 36
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 112,
-            "label": "To increase endurance.",
-            "lessonQuestionId": 36
-          }
+          {"value": null, "isCorrect": null, "id": 112, "label": "To increase endurance.", "lessonQuestionId": 36}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -5093,8 +4783,7 @@ var lessons = [
       },
       {
         "introduction": null,
-        "explanationCorrect":
-            "Drinking too much liquid at once during training can put a strain on your stomach.",
+        "explanationCorrect": "Drinking too much liquid at once during training can put a strain on your stomach.",
         "explanationIncorrect":
             "Drinking too much water does not increase endurance nor does it improve muscle function. What it will do is strain your stomach.",
         "lowestText": null,
@@ -5111,20 +4800,8 @@ var lessons = [
             "label": "Improvement in muscle function",
             "lessonQuestionId": 77
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 230,
-            "label": "Increase in endurance",
-            "lessonQuestionId": 77
-          },
-          {
-            "value": null,
-            "isCorrect": true,
-            "id": 231,
-            "label": "Strain on the stomach",
-            "lessonQuestionId": 77
-          }
+          {"value": null, "isCorrect": null, "id": 230, "label": "Increase in endurance", "lessonQuestionId": 77},
+          {"value": null, "isCorrect": true, "id": 231, "label": "Strain on the stomach", "lessonQuestionId": 77}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -5308,8 +4985,7 @@ var lessons = [
             "Family sporting activities create bonding memories, enhance motivation for exercise and do not need any financial benefits.",
         "lowestText": null,
         "highestText": null,
-        "question":
-            "How can participating in sporting activities with the family promote stronger family bonds?",
+        "question": "How can participating in sporting activities with the family promote stronger family bonds?",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
@@ -5468,13 +5144,7 @@ var lessons = [
             "label": "Replace targeted progressive training.",
             "lessonQuestionId": 80
           },
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 238,
-            "label": "Recover your body and mind.",
-            "lessonQuestionId": 80
-          },
+          {"value": null, "isCorrect": null, "id": 238, "label": "Recover your body and mind.", "lessonQuestionId": 80},
           {
             "value": null,
             "isCorrect": null,
@@ -5710,8 +5380,7 @@ var lessons = [
             "Initially, it might taste more bland. However, your sense of taste becomes more sensitive as you eat lower concentrations of salt, sugar, and fat. Eventually, these foods won’t taste bland since your sense of taste has strengthened!",
         "lowestText": null,
         "highestText": null,
-        "question":
-            "True or false: In order to eat healthier, you have to get used to eating food that tastes bland.",
+        "question": "True or false: In order to eat healthier, you have to get used to eating food that tastes bland.",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
@@ -5870,21 +5539,9 @@ var lessons = [
         "answeredAt": null,
         "completedAt": null,
         "lessonQuestionOptions": [
-          {
-            "value": null,
-            "isCorrect": null,
-            "id": 125,
-            "label": "Train again straight away",
-            "lessonQuestionId": 42
-          },
+          {"value": null, "isCorrect": null, "id": 125, "label": "Train again straight away", "lessonQuestionId": 42},
           {"value": null, "isCorrect": null, "id": 126, "label": "Never train again", "lessonQuestionId": 42},
-          {
-            "value": null,
-            "isCorrect": true,
-            "id": 127,
-            "label": "Fully recover and then train",
-            "lessonQuestionId": 42
-          }
+          {"value": null, "isCorrect": true, "id": 127, "label": "Fully recover and then train", "lessonQuestionId": 42}
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -5909,13 +5566,7 @@ var lessons = [
         "completedAt": null,
         "lessonQuestionOptions": [
           {"value": null, "isCorrect": null, "id": 245, "label": "The normal state", "lessonQuestionId": 83},
-          {
-            "value": null,
-            "isCorrect": true,
-            "id": 246,
-            "label": "Microtrauma in the muscle",
-            "lessonQuestionId": 83
-          },
+          {"value": null, "isCorrect": true, "id": 246, "label": "Microtrauma in the muscle", "lessonQuestionId": 83},
           {"value": null, "isCorrect": null, "id": 247, "label": "Muscle disease", "lessonQuestionId": 83}
         ],
         "lessonQuestionFeedbacks": [],

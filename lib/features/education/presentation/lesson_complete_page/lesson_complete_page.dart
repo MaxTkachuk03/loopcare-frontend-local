@@ -24,6 +24,7 @@ import 'package:loopcare_frontend/features/education/domain/extra_action_types.d
 import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/save_assignment.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_assignment.dart';
+import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_buddy_feature.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_food_logging_feature.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_group_session_feature.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
@@ -38,14 +39,13 @@ class LessonCompletePage extends StatefulWidget {
 
 class _LessonCompletePageState extends State<LessonCompletePage> {
   bool showedAssignment = false;
+
   @override
   void initState() {
     super.initState();
-
     if (context.read<EducationLessonBloc>().state.data.isLessonCompleted) {
       return;
     }
-
     context.read<EducationLessonBloc>().add(const EducationLessonEvent.completeLesson());
   }
 
@@ -140,6 +140,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                           borderRadius: BorderRadius.all(Radius.circular(16)),
                         ),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             BlocBuilder<EducationLessonBloc, EducationLessonState>(
                               builder: (context, state) {
@@ -160,7 +161,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                                       style: context.textTheme.displayLarge,
                                     ),
                                     const SizedBox(height: 10.0),
-                                    CustomText.w400(_subText(state), style: context.textTheme.bodyMedium),
+                                    if (state.data.extraAction != ExtraActionTypes.unlockBuddy)
+                                      CustomText.w400(_subText(state), style: context.textTheme.bodyMedium),
                                   ],
                                 );
                               },
@@ -173,8 +175,12 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                     MainContainer(
                       child: BlocBuilder<EducationLessonBloc, EducationLessonState>(
                         builder: (BuildContext context, state) {
-                          if (state.data.extraAction == ExtraActionTypes.unlockMeals) {
+                          if (state.data.isFoodLoggingUnlocked) {
                             return const UnlockFoodLoggingFeature();
+                          }
+
+                          if (state.data.isBuddyUnlocked) {
+                            return const UnlockBuddyFeature();
                           }
 
                           if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
@@ -185,8 +191,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
                           if (state.data.assignmentsQuestions.isNotEmpty &&
                               state.data.assignmentsQuestionsWithAnswers.isEmpty) {
-                            final emailApproveDate = getIt<SharedStorageService>()
-                                .account?.emailApproveDate ?? DateTime.now();
+                            final emailApproveDate =
+                                getIt<SharedStorageService>().account?.emailApproveDate ?? DateTime.now();
 
                             context.read<AssignmentsBloc>().add(
                                   AssignmentsEvent.getAllLessonQuestions(

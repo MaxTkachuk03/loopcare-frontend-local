@@ -92,15 +92,14 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
     );
   }
 
-  _onChangedForm() => _formValidNotifier.value =
-      Email.create(_emailController.text).isRight();
+  _onChangedForm() => _formValidNotifier.value = Email.create(_emailController.text).isRight();
 
   void _onNextPressed() => context.read<AuthenticationBloc>().add(
-      AuthenticationEvent.updateEmail(
-        email: _emailController.text,
-        receiveAnEmails: _receiveAnEmails,
-      ),
-    );
+        AuthenticationEvent.updateEmail(
+          email: _emailController.text,
+          receiveAnEmails: _receiveAnEmails,
+        ),
+      );
 
   void _onReceiveEmailChanged(bool? value) => _receiveAnEmails = value!;
 
@@ -123,9 +122,8 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
             return LocalizedTexts.somethingIsIncorrect.tr();
           }
         },
-        forbidden: (forbidden) => (forbidden.error.message != null)
-            ? forbidden.error.message!
-            : LocalizedTexts.somethingIsIncorrect.tr(),
+        forbidden: (forbidden) =>
+            (forbidden.error.message != null) ? forbidden.error.message! : LocalizedTexts.somethingIsIncorrect.tr(),
         orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
       );
 

@@ -9,6 +9,8 @@ import 'package:loopcare_frontend/core/application/customer_io_service/customer_
 import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/application/socket_service_chat/chat_socket_service.dart';
 import 'package:loopcare_frontend/core/domain/account/account.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
@@ -28,14 +30,16 @@ import 'package:loopcare_frontend/features/authentication/application/dto/login_
 import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/validate_email_data.dart';
+import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding_new/application/dto/registration_physical_fitness_data.dart';
-import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
-import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 
 part 'authentication_bloc.freezed.dart';
+
 part 'authentication_bloc.g.dart';
+
 part 'authentication_event.dart';
+
 part 'authentication_state.dart';
 
 @singleton

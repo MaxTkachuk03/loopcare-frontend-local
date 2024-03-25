@@ -43,6 +43,9 @@ class CategoryLabel extends StatelessWidget {
   factory CategoryLabel.physicalActivity() =>
       CategoryLabel(label: LocalizedTexts.physicalActivity.tr(), color: AppColors.yellowRegular);
 
+  factory CategoryLabel.buddy() =>
+      CategoryLabel(label: LocalizedTexts.buddy.tr(), color: AppColors.coralRegular);
+
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -54,6 +54,18 @@ class EducationLessonData with _$EducationLessonData {
     return "$temporaryDirectory/${urlArr[urlArr.length - 2]}/${urlArr.last}";
   }
 
+  bool get isBuddyUnlocked => extraAction == ExtraActionTypes.unlockBuddy;
+
+  bool get isFoodLoggingUnlocked => extraAction == ExtraActionTypes.unlockMeals;
+
+  bool get isPhysicalActivitiesUnlocked => extraAction == ExtraActionTypes.unlockPhysicalActivities;
+
+  bool get isAssignmentsUnlocked => extraAction == ExtraActionTypes.unlockAssignments;
+
+  bool get isGroupPreferencesUnlocked => extraAction == ExtraActionTypes.setupGroupingPreferences;
+
+  bool get isLessonCompleted => lessonCompletedDate != null;
+
   bool get isAudioAlreadyInCache {
     final cacheVal = audioFilesCache[lessonId.toString()];
 
@@ -65,8 +77,6 @@ class EducationLessonData with _$EducationLessonData {
 
     return cacheVal != null ? cacheVal.contains(AudioLessonContentType.subtitles) : false;
   }
-
-  bool get isLessonCompleted => lessonCompletedDate != null;
 
   bool get isLastPage => currentPageIndex == pages.length - 1;
 

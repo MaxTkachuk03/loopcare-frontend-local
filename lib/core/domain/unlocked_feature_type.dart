@@ -4,5 +4,6 @@ enum UnlockedFeatureType {
   meals,
   assignments,
   allowGroupSessions,
+  buddy,
   unknown,
 }
