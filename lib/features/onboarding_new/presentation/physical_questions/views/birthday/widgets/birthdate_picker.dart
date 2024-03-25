@@ -23,7 +23,7 @@ class BirthDatePicker extends StatelessWidget {
         ),
         child: CupertinoDatePicker(
           mode: CupertinoDatePickerMode.date,
-          initialDateTime: DateTime.now(),
+          initialDateTime: value,
           onDateTimeChanged: (dateTime) => selectedDate(dateTime),
           backgroundColor: AppColors.datePickerBg,
         ),
