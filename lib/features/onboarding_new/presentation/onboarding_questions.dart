@@ -59,14 +59,11 @@ class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with 
       ],
       child: BlocBuilder<GeneralOnboardingBloc, GeneralOnboardingState>(
         builder: (context, state) {
-          Widget? backButton = const SizedBox.square();
-          if (state.hasBackButton) {
-            backButton = CustomFilledIconButton.fromColor(
-              key: const ValueKey('onboarding_back_button'),
-              color: state.generalStep.appBarComponentsColor,
-              onPressed: () => _onPop(context, state.currentPhysicalStep.isIntro),
-            );
-          }
+          Widget backButton = CustomFilledIconButton.fromColor(
+            key: const ValueKey('onboarding_back_button'),
+            color: state.generalStep.appBarComponentsColor,
+            onPressed: () => _onPop(context, state.currentPhysicalStep.isIntro),
+          );
 
           String subtitle = '';
           if (state.hasSubtitle) {
@@ -84,7 +81,11 @@ class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with 
                   ? CustomAppBarTextTheme.light
                   : CustomAppBarTextTheme.dark,
               backgroundColor: state.generalStep.primaryColor,
-              leading: backButton,
+              leading: CustomFilledIconButton.fromColor(
+                key: const ValueKey('onboarding_back_button'),
+                color: state.generalStep.appBarComponentsColor,
+                onPressed: () => _onPop(context, state.currentPhysicalStep.isIntro),
+              ),
               bottom: ProgressBar(
                 backgroundColor: state.generalStep.primaryColor,
                 progressFillColor: state.generalStep.secondaryColor,

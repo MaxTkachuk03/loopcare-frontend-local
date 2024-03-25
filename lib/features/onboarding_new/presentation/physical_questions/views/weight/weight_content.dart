@@ -111,23 +111,26 @@ class _WeightContentState extends State<WeightContent> {
   void validateInput(value) => valueNotifier.value = value.isNotEmpty && value != '0';
 
   void onTabChanged(MeasurementSystemType unitType) {
-    setState(() {
-      activeMeasurementType = unitType;
-      if (!valueNotifier.value) {
-        lbsController.clear();
-        kgController.clear();
-      }
-    });
+    activeMeasurementType = unitType;
+    if (!valueNotifier.value) {
+      lbsController.clear();
+      kgController.clear();
+    }
 
     if (unitType == MeasurementSystemType.metric) {
-      kgController.text = metricWeight;
+      final lbsText = lbsController.text;
+      if (lbsText.isEmpty) return;
       kgFieldFocusNode.requestFocus();
+      kgController.text = '${WeightConversionUtils.convertLbsToKg(double.parse(lbsText))}';
+
     } else {
       final kgText = kgController.text;
-      if (kgText == '') return;
+      if (kgText.isEmpty) return;
       lbsFieldFocusNode.requestFocus();
       lbsController.text = '${WeightConversionUtils.convertKgToLbs(double.parse(kgText))}';
     }
+
+    setState(() {});
   }
 
   String get weight => activeMeasurementType == MeasurementSystemType.metric ? metricWeight : imperialWeight;

@@ -139,12 +139,6 @@ class GeneralOnboardingState with _$GeneralOnboardingState {
     GeneralOnboardingStep.mental => currentMentalStep.content,
   };
 
-  bool get hasBackButton => switch(generalStep) {
-    GeneralOnboardingStep.physical => true,
-    GeneralOnboardingStep.medical => !currentMedicalStep.isIntro,
-    GeneralOnboardingStep.mental => !currentMentalStep.isIntro,
-  };
-
   bool get hasSubtitle => switch(generalStep) {
     GeneralOnboardingStep.physical => !currentPhysicalStep.isExclusionOrResult,
     GeneralOnboardingStep.medical => !currentMedicalStep.isExclusionOrResult,

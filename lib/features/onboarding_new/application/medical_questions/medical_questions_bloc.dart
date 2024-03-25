@@ -196,9 +196,13 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
         _cIOAttributesFromDisease(event.diseases): event.value,
       },
     );
+    Map<Diseases, bool> map = Map.from(state.diseases);
+
+    if (event.diseases.isDiabetes) {
+      map = map..removeWhere((key, value) => key.isDiabetes);
+    }
 
     final isContains = state.containsDisease(event.diseases);
-    Map<Diseases, bool> map = Map.from(state.diseases);
 
     if (isContains ?? false) {
       map = map..removeWhere((key, value) => key == event.diseases);
