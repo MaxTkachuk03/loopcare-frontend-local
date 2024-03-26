@@ -78,11 +78,13 @@ String formatSecondsToEducationDurationString(int value) {
   int minutes = duration.inMinutes.remainder(60);
   int seconds = duration.inSeconds.remainder(60);
   String daysStr = days > 0 ? '${days}d ' : '';
-  String hoursStr = hours > 0 ? '${hours.toString().padLeft(2, '0')}h ' : '';
-  String minsStr = minutes > 0 ? '${minutes.toString().padLeft(2, '0')}m ' : '';
-  String secStr = seconds > 0 ? '${seconds.toString().padLeft(2, '0')}s' : '';
+  String hoursStr = hours > 0 ? '${hours}h ' : '';
+  String minsStr = minutes > 0 ? '${minutes}m ' : '';
+  String secStr = seconds > 0 ? '${seconds}s' : '';
 
-  return '$daysStr$hoursStr$minsStr$secStr';
+  return daysStr.isEmpty && hoursStr.isEmpty && minsStr.isEmpty
+      ? '$daysStr$hoursStr$minsStr$secStr'
+      : '$daysStr$hoursStr$minsStr';
 }
 
 DateTime findFirstDateOfTheWeek(DateTime dateTime) {

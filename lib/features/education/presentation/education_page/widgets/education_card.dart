@@ -37,16 +37,11 @@ class EducationCard extends StatelessWidget {
           if (!showCountdown) CustomText.w700(LocalizedTexts.locked, style: context.textTheme.bodySmall),
           if (showCountdown)
             Expanded(
-              child: FittedBox(
-                child: Row(
-                  children: [
-                    CustomText.w600(
-                      '${LocalizedTexts.availableIn.tr()}: ',
-                      style: context.textTheme.bodySmall,
-                    ),
-                    EducationCountDown(seconds: lessonWithCountdown.timeRemaining),
-                  ],
-                ),
+              child: Wrap(
+                children: [
+                  CustomText.w600('${LocalizedTexts.availableIn.tr()}: ', style: context.textTheme.bodySmall),
+                  EducationCountDown(seconds: lessonWithCountdown.timeRemaining),
+                ],
               ),
             )
         ],
