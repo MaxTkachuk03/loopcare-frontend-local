@@ -57,7 +57,7 @@ class _BuddyEmailPageState extends State<BuddyEmailPage> {
                   Column(
                     children: [
                       const SizedBox(height: 35),
-                      CustomText.bitter600(
+                      CustomText.bitter500(
                         LocalizedTexts.buddyEmailTitle.tr(),
                         textAlign: TextAlign.start,
                         style: context.textTheme.displayMedium,
