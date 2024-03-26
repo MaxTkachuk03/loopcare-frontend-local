@@ -71,6 +71,16 @@ class IntroGuard extends AutoRouteGuard {
       return;
     }
 
+    final legalStatementWasPassed = legalStatementBloc.state.pageWasPassed;
+    if (onboardingState.isCompleted && legalStatementWasPassed) {
+      router.replaceAll([
+        const SignUpWelcomeRoute(),
+        const PasswordRoute(),
+      ]);
+
+      return;
+    }
+
     if (authState.data.name.isNotEmpty) {
       needRoutes.addAll([
         const IntroRoute(),
@@ -89,24 +99,14 @@ class IntroGuard extends AutoRouteGuard {
       onboardingBloc.add(const GeneralOnboardingEvent.resumeTimer());
     }
 
+    if (onboardingState.isCompleted && !legalStatementWasPassed) {
+      needRoutes.add(const LegalStatementRoute());
+    }
+
     if (needRoutes.isNotEmpty) {
       router.pushAll(needRoutes);
 
       authenticationBloc.add(const AuthenticationEvent.startTrackUser());
-      return;
-    }
-
-    final legalStatementWasPassed = legalStatementBloc.state.pageWasPassed;
-
-    if (onboardingState.isCompleted && !legalStatementWasPassed) {
-      router.replaceNamed(AppRoutes.legalStatement);
-
-      return;
-    }
-
-    if (onboardingState.isCompleted && legalStatementWasPassed) {
-      router.replaceNamed(AppRoutes.password);
-
       return;
     }
 
