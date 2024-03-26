@@ -88,10 +88,10 @@ class _LessonPageState extends State<LessonPage> {
             .add(const AuthenticationEvent.unlockFeature(UnlockedFeatureType.assignments));
       }
 
-      //Todo && !unlockedFeatures.contains(UnlockedFeatureType.buddy)
-      if (lessonBloc.state.data.isBuddyUnlocked) {
+      if (lessonBloc.state.data.isBuddyUnlocked && !unlockedFeatures.contains(UnlockedFeatureType.buddy)) {
         context.read<AuthenticationBloc>().add(const AuthenticationEvent.unlockFeature(UnlockedFeatureType.buddy));
         context.router.pushNamed(AppRoutes.buddyIntro);
+        return;
       }
 
       if (lessonBloc.state.data.questions.isEmpty ||
