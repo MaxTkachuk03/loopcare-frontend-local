@@ -16,7 +16,7 @@ class SubscribeButton extends StatelessWidget {
       builder: (context, isEnableSubscribe, _) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-          child: CustomElevatedButton.coralFullWidth(
+          child: CustomElevatedButton.blueFullWidth(
               onPressed: isEnableSubscribe ? controller.onSubscribe : null,
               label: LocalizedTexts.subscriptionSubscribe),
         );
@@ -34,7 +34,7 @@ class RenewButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
-      child: CustomElevatedButton.coral(onPressed: onTap, label: LocalizedTexts.ok.tr().toUpperCase()),
+      child: CustomElevatedButton.blueFullWidth(onPressed: onTap, label: LocalizedTexts.ok.tr().toUpperCase()),
     );
   }
 }

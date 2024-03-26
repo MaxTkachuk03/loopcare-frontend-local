@@ -28,11 +28,10 @@ class _FooterSubscriptionState extends State<FooterSubscription> {
             ...widget.controller.products
                 .map(
                   (product) => Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
+                    padding: const EdgeInsets.only(top: 16.0),
                     child: SubscriptionPlane.general(
                       title: product.details?.title ?? '',
                       description: product.details?.description ?? '',
-                      recommended: product.recommended,
                       regularPrice:
                           Platform.isAndroid ? product.details?.price ?? '' : '${product.details?.rawPrice ?? ''}',
                       currency: product.currency,
