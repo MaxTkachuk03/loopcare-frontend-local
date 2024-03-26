@@ -87,5 +87,5 @@ class AuthenticationData with _$AuthenticationData {
 
   bool get isAuthenticated => this is AuthenticatedState;
 
-  String get nameCapitalised => name.isNotEmpty ? '${name.capitalize()}!' : '';
+  String get nameCapitalised => name.isNotEmpty ? name.capitalize() : '';
 }
