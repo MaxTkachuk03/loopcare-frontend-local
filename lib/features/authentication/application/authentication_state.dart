@@ -36,8 +36,7 @@ class AuthenticationData with _$AuthenticationData {
 
   List<UnlockedFeatureType> get unlockedFeatures => account?.unlockedFeatures ?? [];
 
-  bool get hasActiveSubscription =>
-      (account?.subscription.isActive ?? false) && account?.subscription.state == 'common';
+  bool get hasActiveSubscription => (account?.hasActiveSubscription ?? false);
 
   int get id => account?.id ?? -1;
 
@@ -73,7 +72,8 @@ class AuthenticationData with _$AuthenticationData {
 
   bool get isFoodLoggingUnlocked => unlockedFeatures.contains(UnlockedFeatureType.meals);
 
-  bool get isGroupSessionsUnlocked => unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;
+  bool get isGroupSessionsUnlocked =>
+      unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;
 
   bool get isPhysicalActivitiesUnlocked => unlockedFeatures.contains(UnlockedFeatureType.physicalActivities);
 

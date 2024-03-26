@@ -106,6 +106,8 @@ class SupportGroupIntroPage extends StatelessWidget {
   }
 
   _onJoinPressed(BuildContext context) {
+    final account = getIt<SharedStorageService>().account;
+
     AnalyticsEventService.instance.logEvent(
       FirebaseEvents.iWantToJoinToGroup,
       parameters: {
@@ -114,12 +116,12 @@ class SupportGroupIntroPage extends StatelessWidget {
       },
     );
 
-    if (!getIt<SharedStorageService>().account!.subscription.isActive) {
+    if (!account!.hasActiveSubscription || account.isOnTrial) {
       context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.afterLesson()));
       return;
     }
 
-    if (getIt<SharedStorageService>().account!.medicalOnboarding!.treatedByPsychiatrist) {
+    if (account.medicalOnboarding!.treatedByPsychiatrist) {
       context.router.push(ConsultDoctorRoute(mode: const ExtraActionPageMode.afterLesson()));
       return;
     }

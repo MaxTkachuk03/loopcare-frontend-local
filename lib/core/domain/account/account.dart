@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/features/authentication/domain/subscription/su
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/onboarding_new/domain/interpretation_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_activities_preferences.dart';
+import 'package:loopcare_frontend/features/subscription/donain/subscription_state.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preference.dart';
 
 import 'gender_type.dart';
@@ -54,7 +55,8 @@ abstract class Account implements _$Account {
   bool get isMixedGender => gender == GenderType.other;
 
   int get trainingFrequency {
-    final RegExpMatch? match = RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
+    final RegExpMatch? match =
+        RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
 
     return match != null ? int.parse(match[0] ?? '0') : 0;
   }
@@ -66,6 +68,10 @@ abstract class Account implements _$Account {
   bool get isUserGrouped => groupingState == UserGroupingState.grouped;
 
   bool get isPhysicalActivitiesUnlocked => unlockedFeatures.contains(UnlockedFeatureType.physicalActivities);
+
+  bool get hasActiveSubscription => subscription.isActive;
+
+  bool get isOnTrial => subscription.isActive && subscription.state != SubscriptionStatus.trialPeriod;
 
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 }

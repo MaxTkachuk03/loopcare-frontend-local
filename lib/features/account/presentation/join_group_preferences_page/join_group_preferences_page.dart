@@ -34,6 +34,7 @@ class JoinGroupPreferencesPage extends StatefulWidget {
 }
 
 class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
+  final account = getIt<SharedStorageService>().account;
   YesNoAnswer? _selectedValue;
 
   @override
@@ -60,12 +61,12 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
         },
       );
 
-      if (!getIt<SharedStorageService>().account!.subscription.isActive) {
+      if (!account!.hasActiveSubscription || account!.isOnTrial) {
         context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.userProfile()));
         return;
       }
 
-      if (getIt<SharedStorageService>().account?.medicalOnboarding?.treatedByPsychiatrist ?? false) {
+      if (account?.medicalOnboarding?.treatedByPsychiatrist ?? false) {
         context.router.push(ConsultDoctorRoute(mode: const ExtraActionPageMode.userProfile()));
         return;
       }

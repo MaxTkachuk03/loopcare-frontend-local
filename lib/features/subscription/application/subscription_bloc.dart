@@ -44,7 +44,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   bool isValidatePastIOSPurchase = false;
   ProductDetails? buyingProduct;
 
-  SubscriptionBloc(this._authenticationService, this._purchaseService, this.authTokenManager, this.inAppPurchaseService)
+  SubscriptionBloc(
+      this._authenticationService, this._purchaseService, this.authTokenManager, this.inAppPurchaseService)
       : super(const SubscriptionState.initial(SubscriptionStateData())) {
     on<SubscriptionInit>(_onInitSubscription);
     on<SubscriptionDispose>(_onSubscriptionDispose);
@@ -358,7 +359,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       },
       (r) {
         emit(
-          SubscriptionState.gotAccountSubscription(state.data.copyWith(isLoading: false, subscription: r.subscription)),
+          SubscriptionState.gotAccountSubscription(
+              state.data.copyWith(isLoading: false, subscription: r.subscription)),
         );
       },
     );
@@ -378,11 +380,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       },
       (r) {
         final subscription = r.subscription;
-        final status = SubscriptionStatusUtil.parse(subscription.state);
         emit(
           SubscriptionState.loading(state.data.copyWith(isLoading: false)),
         );
-        switch (status) {
+        switch (subscription.state) {
           case SubscriptionStatus.trialPeriod:
             if (subscription.isActive) {
               emit(SubscriptionState.subscriptionActive(state.data.copyWith(subscription: subscription)));
