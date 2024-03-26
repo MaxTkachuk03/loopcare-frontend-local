@@ -44,7 +44,7 @@ class SuccessVerifiedEmailPage extends StatelessWidget {
                     Container(alignment: Alignment.center, child: const Image(image: AppImages.intro2)),
                     const SizedBox(height: 28.0),
                     CustomText.bitter700(
-                      '${LocalizedTexts.intro3Title.tr()}! $userName!',
+                      '${LocalizedTexts.intro3Title.tr()}, $userName!',
                       textAlign: TextAlign.center,
                       style: context.textTheme.displayMedium,
                     ),
