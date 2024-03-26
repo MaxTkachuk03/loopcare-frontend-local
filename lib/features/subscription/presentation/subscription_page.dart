@@ -53,7 +53,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: CustomScaffold.yellow(
+      child: CustomScaffold(
+        color: AppColors.blueRegular,
         appBar: CustomAppBar.transparent(
           leading: const SizedBox.shrink(),
           actions: [_LogoutWidget()],
@@ -78,34 +79,34 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
             orElse: () => content,
             trial: (s) => content = SubscriptionStateView.trial(
               controller: controller,
-              topCover: AppImages.trial,
-              bottomCover: AppColors.coralRegular,
+              topCover: AppImages.subscriptionTop,
+              bottomCover: AppColors.blueRegular,
             ),
             trialExpired: (_) => content = SubscriptionStateView.trialExpired(
               controller: controller,
-              topCover: AppImages.ended,
-              bottomCover: AppColors.petrolRegular,
+              topCover: AppImages.subscriptionTop,
+              bottomCover: AppColors.blueRegular,
             ),
             subscriptionEnded: (_) => content = SubscriptionStateView.endedSubscription(
               controller: controller,
-              topCover: AppImages.ended,
-              bottomCover: AppColors.petrolRegular,
+              topCover: AppImages.subscriptionTop,
+              bottomCover: AppColors.blueRegular,
             ),
             subscriptionCancelled: (_) => content = SubscriptionStateView.cancelledSubscription(
               controller: controller,
-              topCover: AppImages.ended,
-              bottomCover: AppColors.petrolRegular,
+              topCover: AppImages.subscriptionTop,
+              bottomCover: AppColors.blueRegular,
             ),
             subscriptionUnRenewed: (_) => content = SubscriptionStateView.notRenewSubscription(
               controller: controller,
               onTap: () => context.router.replaceNamed(AppRoutes.home),
-              topCover: AppImages.ended,
-              bottomCover: AppColors.petrolRegular,
+              topCover: AppImages.subscriptionTop,
+              bottomCover: AppColors.blueRegular,
             ),
             serviceSubscriptionUnavailable: (_) => content = SubscriptionStateView.serviceUnavailable(
               controller: controller,
-              topCover: AppImages.ended,
-              bottomCover: AppColors.petrolRegular,
+              topCover: AppImages.subscriptionTop,
+              bottomCover: AppColors.blueRegular,
             ),
           ),
         ),
@@ -206,7 +207,7 @@ class _LogoutWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: CircleAvatar(
         radius: 22,
-        backgroundColor: AppColors.yellowLighter,
+        backgroundColor: AppColors.blueLight,
         child: IconButton(
           icon: const Icon(
             Icons.logout,
