@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -40,32 +41,34 @@ class _LoginFormState extends State<LoginForm> {
     return BlocConsumer<AuthenticationBloc, AuthenticationState>(
       listener: _navigationListener,
       builder: (context, state) {
-        return Form(
-          key: _formKey,
-          onChanged: _onChangedForm,
-          child: Column(
-            children: [
-              CustomTextField.email(
-                key: const ValueKey('login_email_text_field'),
-                controller: _emailController,
-              ),
-              const SizedBox(height: 12.0),
-              CustomTextField.password(
-                key: const ValueKey('login_password_text_field'),
-                controller: _passwordController,
-              ),
-              const SizedBox(height: 40.0),
-              ValueListenableBuilder<bool>(
-                valueListenable: _formValidationNotifier,
-                builder: (context, isValid, _) {
-                  return CustomElevatedButton.blueFullWidth(
-                    key: const ValueKey('login_button'),
-                    onPressed: isValid ? _onLogin : null,
-                    label: LocalizedTexts.login,
-                  );
-                },
-              ),
-            ],
+        return AutofillGroup(
+          child: Form(
+            key: _formKey,
+            onChanged: _onChangedForm,
+            child: Column(
+              children: [
+                CustomTextField.loginEmail(
+                  key: const ValueKey('login_email_text_field'),
+                  controller: _emailController,
+                ),
+                const SizedBox(height: 12.0),
+                CustomTextField.password(
+                  key: const ValueKey('login_password_text_field'),
+                  controller: _passwordController,
+                ),
+                const SizedBox(height: 40.0),
+                ValueListenableBuilder<bool>(
+                  valueListenable: _formValidationNotifier,
+                  builder: (context, isValid, _) {
+                    return CustomElevatedButton.blueFullWidth(
+                      key: const ValueKey('login_button'),
+                      onPressed: isValid ? _onLogin : null,
+                      label: LocalizedTexts.login,
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -79,12 +82,16 @@ class _LoginFormState extends State<LoginForm> {
     _formValidationNotifier.value = isValidForm;
   }
 
-  _onLogin() => context.read<AuthenticationBloc>().add(
-    AuthenticationEvent.login(
-      email: _emailController.text,
-      password: _passwordController.text,
-    ),
-  );
+  _onLogin() {
+    TextInput.finishAutofillContext();
+
+    context.read<AuthenticationBloc>().add(
+      AuthenticationEvent.login(
+        email: _emailController.text,
+        password: _passwordController.text,
+      ),
+    );
+  }
 
   void _navigationListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(

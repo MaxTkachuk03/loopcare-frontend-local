@@ -113,8 +113,8 @@ class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with 
               body: SafeArea(
                 bottom: false,
                 child: ScrollableContainer(
-                    physics: const ClampingScrollPhysics(),
-                    child: state.currentStepContent
+                  physics: const ClampingScrollPhysics(),
+                  child: state.currentStepContent,
                 ),
               ),
             ),

@@ -30,6 +30,7 @@ class CustomTextField extends StatefulWidget {
   final InputDecoration? decoration;
   final TextStyle? style;
   final TextAlign textAlign;
+  final Iterable<String>? autofillHints;
 
   const CustomTextField({
     super.key,
@@ -52,6 +53,7 @@ class CustomTextField extends StatefulWidget {
     this.decoration,
     this.style,
     this.textAlign = TextAlign.start,
+    this.autofillHints,
   });
 
   factory CustomTextField.search({
@@ -126,6 +128,26 @@ class CustomTextField extends StatefulWidget {
         onChanged: onChanged,
       );
 
+  factory CustomTextField.loginEmail({
+    Key? key,
+    Color? fillColor,
+    String? errorText,
+    ValueChanged<String>? onChanged,
+    required TextEditingController controller,
+  }) =>
+      CustomTextField(
+        key: key,
+        hintText: LocalizedTexts.yourEmail,
+        controller: controller,
+        validator: emailValidator(),
+        prefixIcon: const Icon(Icons.mail, size: 24),
+        keyboardType: TextInputType.emailAddress,
+        autofillHints: const [AutofillHints.email],
+        fillColor: fillColor,
+        errorText: errorText,
+        onChanged: onChanged,
+      );
+
   factory CustomTextField.password({
     Key? key,
     Color? fillColor,
@@ -136,6 +158,7 @@ class CustomTextField extends StatefulWidget {
         hintText: LocalizedTexts.yourPassword,
         controller: controller,
         validator: loginPasswordValidator(),
+        autofillHints: const [AutofillHints.password],
         prefixIcon: const Icon(Icons.lock, size: 24),
         isToggleEye: true,
         obscureText: true,
@@ -261,6 +284,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       autofocus: widget.autofocus ?? false,
+      autofillHints: widget.autofillHints,
       controller: widget.controller,
       enableIMEPersonalizedLearning: false,
       enableSuggestions: false,
