@@ -652,6 +652,13 @@ class LocalizedTexts {
   static const String yourBodyMassIndex = 'yourBodyMassIndex';
   static const String fitnessCheckFailedInformationText = 'fitnessCheckFailedInformationText';
   static const String fitnessCheckFailedInformationText2 = 'fitnessCheckFailedInformationText2';
+  static const String bmiExclusionBodyTitle = 'bmiExclusionBodyTitle';
+  static const String bmiExclusionBodyOlder19LowBmi = 'bmiExclusionBodyOlder19LowBmi';
+  static const String bmiExclusionBodyOlder19HighBmi = 'bmiExclusionBodyOlder19HighBmi';
+  static const String bmiExclusionBodyYounger19LowBmi = 'bmiExclusionBodyYounger19LowBmi';
+  static const String bmiExclusionBodyYounger19HighBmi = 'bmiExclusionBodyYounger19HighBmi';
+  static const String bmiExclusionBodyHighBmiEnding = 'bmiExclusionBodyHighBmiEnding';
+  static const String bmiExclusionBodyLowBmiEnding = 'bmiExclusionBodyLowBmiEnding';
 
   // Physical check completed
   static const String physicalCheckPassedTitle = 'physicalCheckPassedTitle';
