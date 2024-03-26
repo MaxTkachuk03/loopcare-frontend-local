@@ -27,14 +27,14 @@ class RestoreSubscriptionLink extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                recognizer: TapGestureRecognizer()..onTap = () => onRestoreTap(),
-                text: LocalizedTexts.subscriptionRestoreLabel.tr(),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () => launchUrl(Uri.parse(termsAndConditionsUrl), mode: LaunchMode.externalApplication),
+                text: LocalizedTexts.subscriptionTermsLabel.tr(),
                 style: context.textTheme.bodyMedium?.copyWith(
                   fontSize: ThemeConstants.fontSize14,
                   fontFamily: ThemeConstants.openSansFontFamily,
-                  color: AppColors.white,
+                  color: AppColors.blueDarker,
                   decoration: TextDecoration.underline,
-                  decorationColor: AppColors.white,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -50,9 +50,8 @@ class RestoreSubscriptionLink extends StatelessWidget {
                 style: context.textTheme.bodyMedium?.copyWith(
                   fontSize: ThemeConstants.fontSize14,
                   fontFamily: ThemeConstants.openSansFontFamily,
-                  color: AppColors.white,
+                  color: AppColors.blueDarker,
                   decoration: TextDecoration.underline,
-                  decorationColor: AppColors.white,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -64,15 +63,13 @@ class RestoreSubscriptionLink extends StatelessWidget {
           text: TextSpan(
             children: <InlineSpan>[
               TextSpan(
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () => launchUrl(Uri.parse(termsAndConditionsUrl), mode: LaunchMode.externalApplication),
-                text: LocalizedTexts.subscriptionTermsLabel.tr(),
+                recognizer: TapGestureRecognizer()..onTap = () => onRestoreTap(),
+                text: LocalizedTexts.subscriptionRestoreLabel.tr(),
                 style: context.textTheme.bodyMedium?.copyWith(
                   fontSize: ThemeConstants.fontSize14,
                   fontFamily: ThemeConstants.openSansFontFamily,
-                  color: AppColors.white,
+                  color: AppColors.blueDarker,
                   decoration: TextDecoration.underline,
-                  decorationColor: AppColors.white,
                   fontWeight: FontWeight.w700,
                 ),
               ),

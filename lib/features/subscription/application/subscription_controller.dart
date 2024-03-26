@@ -25,7 +25,7 @@ class SubscriptionController {
 
     final map = data.plans.groupBy((plan) => plan.id);
 
-    List<ProductDetails> list = map.entries
+    final list = map.entries
         .map((list) => list.value.reduce((curr, next) => curr.rawPrice.toInt() < next.rawPrice.toInt() ? curr : next))
         .toList();
     return list;
@@ -35,9 +35,7 @@ class SubscriptionController {
     if (data.plans.isEmpty) {
       return;
     }
-    List<ProductDetails> list = [...(Platform.isAndroid ? _getUniquePlans() : data.plans)];
-    list.sort((a, b) => a.rawPrice.compareTo(b.rawPrice));
-    final lastId = list.isNotEmpty ? list.last.id : -1;
+    List<ProductDetails> list = Platform.isAndroid ? _getUniquePlans() : data.plans;
 
     for (var plan in list) {
       products.add(PurchasableProduct(
@@ -45,7 +43,6 @@ class SubscriptionController {
         offer: _getPricePerMonth(plan.rawPrice),
         regularPrice: plan.rawPrice,
         currency: _getCurrency(plan.currencyCode),
-        recommended: plan.id == lastId,
       ));
     }
   }

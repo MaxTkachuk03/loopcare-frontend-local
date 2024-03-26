@@ -49,7 +49,7 @@ class SubscriptionHeaderLabel extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-          SizedBox(height: subTitle != null ? 11 : 16.0),
+          SizedBox(height: subTitle != null ? 27 : 16.0),
           CustomText(
             label.tr(),
             textAlign: TextAlign.center,
@@ -65,7 +65,7 @@ class SubscriptionHeaderLabel extends StatelessWidget {
 }
 
 class SubscriptionTitle extends SubscriptionHeaderTitle {
-  const SubscriptionTitle.trial({super.key})
+ const SubscriptionTitle.trial({super.key})
       : super(
           title: LocalizedTexts.subscriptionTrialTitle,
         );
@@ -125,8 +125,8 @@ class SubscriptionLabel extends SubscriptionHeaderLabel {
           label: LocalizedTexts.subscriptionRenewedLabel,
         );
 
-  SubscriptionLabel.serviceUnavailable({super.key})
+  const SubscriptionLabel.serviceUnavailable({super.key})
       : super(
-          label: LocalizedTexts.serviceUnavailable.tr(),
+          label: '',
         );
 }

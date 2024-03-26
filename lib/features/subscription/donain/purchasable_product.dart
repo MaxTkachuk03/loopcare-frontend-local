@@ -5,13 +5,11 @@ class PurchasableProduct {
   final double offer;
   final double regularPrice;
   final String currency;
-  final bool recommended;
 
   const PurchasableProduct({
     this.details,
     required this.offer,
     required this.regularPrice,
     required this.currency,
-    this.recommended = false,
   });
 }
