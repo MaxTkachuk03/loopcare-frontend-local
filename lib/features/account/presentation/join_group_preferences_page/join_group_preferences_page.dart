@@ -61,7 +61,7 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
         },
       );
 
-      if (!account!.hasActiveSubscription || account!.isOnTrial) {
+      if (account!.isOnTrial) {
         context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.userProfile()));
         return;
       }

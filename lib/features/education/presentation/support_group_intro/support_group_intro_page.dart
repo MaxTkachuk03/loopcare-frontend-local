@@ -116,7 +116,7 @@ class SupportGroupIntroPage extends StatelessWidget {
       },
     );
 
-    if (!account!.hasActiveSubscription || account.isOnTrial) {
+    if (account!.isOnTrial) {
       context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.afterLesson()));
       return;
     }

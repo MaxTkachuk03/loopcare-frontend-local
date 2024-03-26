@@ -1,45 +1,26 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
-import 'package:loopcare_frontend/injection.dart';
 
 class NeedPaidSubscriptionPage extends StatelessWidget {
   final ExtraActionPageMode mode;
 
   const NeedPaidSubscriptionPage({super.key, required this.mode});
 
-  void _onCompleteAfterLessonHandler(BuildContext context) {
-    if (!getIt<SharedStorageService>().account!.medicalOnboarding!.treatedByPsychiatrist) {
-      context.router.push(ConsultDoctorRoute(mode: mode));
-    } else {
-      context.router.pushNamed(AppRoutes.lessonComplete);
-    }
-  }
-
-  void _onCompleteFromProfileHandler(BuildContext context) {
-    if (!getIt<SharedStorageService>().account!.medicalOnboarding!.treatedByPsychiatrist) {
-      context.router.push(ConsultDoctorRoute(mode: mode));
-    } else {
-      context.router.push(GenderPreferencesRoute(fromLessonComplete: false));
-    }
-  }
-
   void _onCompleteHandler(BuildContext context) => mode.map(
-        afterLesson: (_) => _onCompleteAfterLessonHandler(context),
-        userProfile: (_) => _onCompleteFromProfileHandler(context),
+        afterLesson: (_) => context.router.pushNamed(AppRoutes.lessonComplete),
+        userProfile: (_) => null,
       );
 
   _getScaffold(Widget body) => mode.map(
@@ -57,11 +38,6 @@ class NeedPaidSubscriptionPage extends StatelessWidget {
           ),
           body: body,
         ),
-      );
-
-  String get _buttonLabel => mode.map(
-        afterLesson: (s) => LocalizedTexts.completeLesson.tr(),
-        userProfile: (s) => LocalizedTexts.next.tr(),
       );
 
   @override
@@ -103,15 +79,18 @@ class NeedPaidSubscriptionPage extends StatelessWidget {
                   const SizedBox(height: 30.0),
                 ],
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  CustomElevatedButton.blueFullWidth(
-                    label: _buttonLabel,
-                    onPressed: () => _onCompleteHandler(context),
-                  ),
-                  const SizedBox(height: 30.0),
-                ],
+              mode.map(
+                afterLesson: (s) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    CustomElevatedButton.blueFullWidth(
+                      label: LocalizedTexts.completeLesson.tr(),
+                      onPressed: () => _onCompleteHandler(context),
+                    ),
+                    const SizedBox(height: 30.0),
+                  ],
+                ),
+                userProfile: (s) => const SizedBox.shrink(),
               ),
             ],
           ),
