@@ -43,7 +43,7 @@ class BuddyLiveTogetherPage extends StatelessWidget {
                   Column(
                     children: [
                       const SizedBox(height: 35),
-                      CustomText.bitter600(
+                      CustomText.bitter500(
                         LocalizedTexts.buddyLiveTogetherTitle.tr(),
                         textAlign: TextAlign.start,
                         style: context.textTheme.displayMedium,

@@ -6,9 +6,14 @@ import 'package:loopcare_frontend/features/account/presentation/buddy_page/widge
 
 class BuddyContinueWidget extends StatefulWidget {
   final bool enable;
+
   final Function()? handler;
 
-  const BuddyContinueWidget({super.key, required this.enable, this.handler});
+  const BuddyContinueWidget({
+    super.key,
+    required this.enable,
+    this.handler,
+  });
 
   @override
   State<BuddyContinueWidget> createState() => _BuddyContinueState();
@@ -27,7 +32,7 @@ class _BuddyContinueState extends State<BuddyContinueWidget> {
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: CustomElevatedButton.blueFullWidth(
         onPressed: widget.enable ? () => _onNextHandler() : null,
-        label: LocalizedTexts.continueBtn.tr(),
+        label: LocalizedTexts.next.tr(),
       ),
     );
   }

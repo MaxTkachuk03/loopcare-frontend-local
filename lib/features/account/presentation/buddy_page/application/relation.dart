@@ -3,7 +3,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 enum Relation {
-  husbandOrWife,
+  husband_or_wife,
   child,
   parent,
   family,
@@ -13,7 +13,7 @@ enum Relation {
 extension RelationX on Relation {
   String get label {
     switch (this) {
-      case Relation.husbandOrWife:
+      case Relation.husband_or_wife:
         return LocalizedTexts.buddyPartner.tr().capitalize();
       case Relation.child:
         return LocalizedTexts.buddyChild.tr().capitalize();
@@ -28,8 +28,8 @@ extension RelationX on Relation {
 }
 
 Relation getRelation(String name) {
-  if (name == 'Husband or wife') {
-    return Relation.husbandOrWife;
+  if (name == Relation.husband_or_wife.name) {
+    return Relation.husband_or_wife;
   } else if (name == Relation.child.name) {
     return Relation.child;
   } else if (name == Relation.parent.name) {

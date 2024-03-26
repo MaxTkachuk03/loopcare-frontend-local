@@ -42,7 +42,7 @@ class BuddyDescriptionPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 6.0),
                     CustomText.w400(
-                      '${LocalizedTexts.buddyDescriptionContent.tr()}.',
+                      LocalizedTexts.buddyDescriptionContent.tr(),
                       style: context.textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 6.0),
