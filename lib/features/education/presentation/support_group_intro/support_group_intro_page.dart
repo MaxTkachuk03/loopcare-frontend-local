@@ -114,13 +114,13 @@ class SupportGroupIntroPage extends StatelessWidget {
       },
     );
 
-    if (getIt<SharedStorageService>().account!.medicalOnboarding!.treatedByPsychiatrist) {
-      context.router.push(ConsultDoctorRoute(mode: const ExtraActionPageMode.afterLesson()));
+    if (!getIt<SharedStorageService>().account!.subscription.isActive) {
+      context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.afterLesson()));
       return;
     }
 
-    if (!getIt<SharedStorageService>().account!.subscription.isActive) {
-      context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.afterLesson()));
+    if (getIt<SharedStorageService>().account!.medicalOnboarding!.treatedByPsychiatrist) {
+      context.router.push(ConsultDoctorRoute(mode: const ExtraActionPageMode.afterLesson()));
       return;
     }
 

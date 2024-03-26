@@ -32,13 +32,7 @@ class ConsultDoctorPage extends StatefulWidget {
 class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
   bool _isConsulted = false;
 
-  void _onCompleteAfterLessonHandler(_) {
-    if (!getIt<SharedStorageService>().account!.subscription.isActive) {
-      context.router.push(NeedPaidSubscriptionRoute(mode: widget.mode));
-    } else {
-      context.router.pushNamed(AppRoutes.lessonComplete);
-    }
-  }
+  void _onCompleteAfterLessonHandler(_) => context.router.pushNamed(AppRoutes.lessonComplete);
 
   void _onCompleteFromProfileHandler(_) {
     final userId = getIt<SharedStorageService>().account!.id;
@@ -51,11 +45,7 @@ class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
       },
     );
 
-    if (!getIt<SharedStorageService>().account!.subscription.isActive) {
-      context.router.push(NeedPaidSubscriptionRoute(mode: widget.mode));
-    } else {
-      context.router.push(GenderPreferencesRoute(fromLessonComplete: false));
-    }
+    context.router.push(GenderPreferencesRoute(fromLessonComplete: false));
   }
 
   void _onCompleteLessonHandler() => widget.mode.map(

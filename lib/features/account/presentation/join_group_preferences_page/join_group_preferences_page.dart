@@ -60,13 +60,13 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
         },
       );
 
-      if (getIt<SharedStorageService>().account?.medicalOnboarding?.treatedByPsychiatrist ?? false) {
-        context.router.push(ConsultDoctorRoute(mode: const ExtraActionPageMode.userProfile()));
+      if (!getIt<SharedStorageService>().account!.subscription.isActive) {
+        context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.userProfile()));
         return;
       }
 
-      if (!getIt<SharedStorageService>().account!.subscription.isActive) {
-        context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.userProfile()));
+      if (getIt<SharedStorageService>().account?.medicalOnboarding?.treatedByPsychiatrist ?? false) {
+        context.router.push(ConsultDoctorRoute(mode: const ExtraActionPageMode.userProfile()));
         return;
       }
 
