@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/text_with_accents/text_with_accents.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
@@ -477,11 +478,6 @@ class ModalBottomSheet {
   static void mentalHealthMoreInfo({
     required BuildContext context,
   }) {
-    final boldText = LocalizedTexts.mentalHealthMoreInfoBold.tr();
-    final regularTexts = LocalizedTexts.mentalHealthMoreInfo.tr(
-      namedArgs: {'appName': appConfig.projectName},
-    ).split(boldText);
-
     showModalBottomSheet<void>(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
@@ -499,20 +495,16 @@ class ModalBottomSheet {
                   ),
                 ),
                 MainContainer(
-                  child: RichText(
-                    text: TextSpan(
-                      style: context.textTheme.bodyMedium,
-                      children: [
-                        TextSpan(text: regularTexts[0]),
-                        TextSpan(
-                          text: boldText,
-                          style: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
-                        ),
-                        TextSpan(text: regularTexts[1]),
-                      ],
+                  child: TextWithAccents(
+                    LocalizedTexts.mentalHealthMoreInfo.tr(
+                      namedArgs: {'appName': appConfig.projectName},
                     ),
+                    accents: [
+                      LocalizedTexts.mentalHealthMoreInfoBold1.tr(),
+                      LocalizedTexts.mentalHealthMoreInfoBold2.tr(),
+                    ],
                   ),
-                )
+                ),
               ],
             ),
           ),

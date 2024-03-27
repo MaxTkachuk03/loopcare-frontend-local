@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/text_with_accents/text_with_accents.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/onboarding_new/application/general/general_onboarding_bloc.dart';
@@ -24,7 +25,7 @@ class MentalHealthIntroContent extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 24.0),
-              CustomText.w600(
+              CustomText.bitter600(
                 LocalizedTexts.yourMentalHealth,
                 style: context.textTheme.displayMedium,
               ),
@@ -34,14 +35,14 @@ class MentalHealthIntroContent extends StatelessWidget {
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),
-              CustomText.w400(
+              TextWithAccents(
                 '${LocalizedTexts.mentalHealthIntroTextTwo.tr()}.',
-                style: context.textTheme.bodyMedium,
+                accents: [LocalizedTexts.mentalHealthIntroTextTwoAccent.tr()],
               ),
               const SizedBox(height: 20.0),
-              CustomText.w400(
+              TextWithAccents(
                 '${LocalizedTexts.mentalHealthIntroTextThree.tr()}.',
-                style: context.textTheme.bodyMedium,
+                accents: [LocalizedTexts.mentalHealthIntroTextThreeAccent.tr()],
               ),
               const SizedBox(height: 20.0),
               CustomText.w400(
