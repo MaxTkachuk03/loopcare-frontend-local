@@ -72,13 +72,13 @@ class _MentalCheckResultFinalContentState extends State<MentalCheckResultFinalCo
                     child: FinalResultsText(onLinkPressed: onUrlHandler),
                   ),
                 ),
+                const SizedBox(height: 30.0),
               ],
             ),
             if (!state.isPhq8TestHigh)
             MainContainer(
               child: Column(
                 children: [
-                  const SizedBox(height: 30.0),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 30.0),
                     child: CustomElevatedButton.blueFullWidth(
