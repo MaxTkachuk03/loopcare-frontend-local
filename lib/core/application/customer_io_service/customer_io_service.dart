@@ -70,6 +70,18 @@ class CustomerIoService {
     await _setDevice();
   }
 
+
+  static Future<void> changeUserEmail({
+    required String email,
+  }) async {
+    CustomerIO.track(
+      name: 'update_user_email',
+      attributes: {
+        'New email': email,
+      },
+    );
+  }
+
   static Future<void> onboardingResume({
     required String email,
   }) async {

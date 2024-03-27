@@ -60,6 +60,7 @@ class AppRoutes {
   static const String password = '/password'; // added
   static const String emailAddress = '/email-address'; // added
   static const String waitingForConfirmation = '/waiting-for-confirmation'; // added
+  static const String changeEmail = '/change-email-address'; // added
 
   static const String legalStatement = '/legal-statement'; // added
   static const String preparationMaterials = '/preparation-materials'; // added

@@ -244,7 +244,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
             email: data.email,
             accountId: response.id,
             name: state.data.name,
-            password: state.data.password,
+            password: event.password,
+            emailWasSend: true,
           ),
         ),
       ),
@@ -441,6 +442,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         data: state.data.copyWith(
           email: '',
           emailVerified: false,
+          emailWasSend: false,
           error: null,
         ),
       ),
@@ -459,11 +461,18 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         ),
       ),
       (result) {
-        CustomerIoService.onboardingStarted(
-          name: state.data.name,
-          email: event.email,
-          receiveAnEmails: event.receiveAnEmails,
-        );
+        if (event.update) {
+          CustomerIoService.changeUserEmail(
+            email: event.email,
+          );
+        } else {
+          CustomerIoService.onboardingStarted(
+            name: state.data.name,
+            email: event.email,
+            receiveAnEmails: event.receiveAnEmails,
+          );
+        }
+
         emit(
           state.copyWith(
             data: state.data.copyWith(
