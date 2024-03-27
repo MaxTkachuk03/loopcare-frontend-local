@@ -77,7 +77,7 @@ class CustomerIoService {
     CustomerIO.track(
       name: 'update_user_email',
       attributes: {
-        'CNew email': email,
+        'New email': email,
       },
     );
   }
