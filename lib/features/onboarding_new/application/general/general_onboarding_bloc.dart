@@ -383,6 +383,10 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     MentalHealthQuestion currentQuestion = state.currentMentalQuestion
         ?? currentMentalTest.questions.first;
 
+    if (mentalStep == MentalQuestionStep.testSummery && mentalTests.last == currentMentalTest) {
+      add(const GeneralOnboardingEvent.stopTimer());
+    }
+
     if (mentalStep == MentalQuestionStep.result) {
       return state;
 
@@ -486,6 +490,10 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
         ?? mentalTests.first;
     MentalHealthQuestion currentQuestion = state.currentMentalQuestion
         ?? currentMentalTest.questions.first;
+
+    if (mentalStep == MentalQuestionStep.testSummery && mentalTests.last == currentMentalTest) {
+      add(const GeneralOnboardingEvent.resumeTimer());
+    }
 
     if (mentalStep == MentalQuestionStep.introStepOne) {
       generalStep = GeneralOnboardingStep.medical;
