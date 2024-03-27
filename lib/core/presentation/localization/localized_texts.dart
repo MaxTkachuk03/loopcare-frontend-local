@@ -887,6 +887,10 @@ class LocalizedTexts {
   static const String emailConfirmedBottomSheetTitle = 'emailConfirmedBottomSheetTitle';
   static const String emailConfirmedBottomSheetContent = 'emailConfirmedBottomSheetContent';
 
+  // Change Email
+  static const String changeEmail = 'changeEmail';
+  static const String changeEmailAddressTitle = 'changeEmailAddressTitle';
+
   // Mood
   static const String logMood = 'logMood';
   static const String yourNote = 'yourNote';

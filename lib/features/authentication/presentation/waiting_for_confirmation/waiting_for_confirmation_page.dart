@@ -7,9 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
-import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
@@ -117,11 +117,8 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             key: const ValueKey('waiting_for_confirmation_email_line'),
                             builder: (context, state) {
-                              final email =
-                                  state.mapOrNull(waitedForConfirmation: (state) => state.data.email) ?? '';
-
                               return CustomText.w600(
-                                email,
+                                state.data.email,
                                 style: context.textTheme.bodyMedium,
                               );
                             },
@@ -147,13 +144,12 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                             onPressed: _onResendPressed,
                             label: LocalizedTexts.resend,
                           ),
-                          // todo: discuss with Diana
-                          // const SizedBox(height: 12.0),
-                          // CustomOutlinedButton.petrolFullWidth(
-                          //   key: const ValueKey('change_email_button'),
-                          //   onPressed: () => _onChangeAddressPressed(context),
-                          //   label: LocalizedTexts.changeAddress,
-                          // ),
+                          const SizedBox(height: 12.0),
+                          CustomOutlinedButton.petrolFullWidth(
+                            key: const ValueKey('change_email_button'),
+                            onPressed: () => _onChangeAddressPressed(context),
+                            label: LocalizedTexts.changeAddress,
+                          ),
                         ],
                       ),
                     ),
@@ -172,7 +168,10 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
     context.showSuccessBar(content: CustomText.w400(LocalizedTexts.resendConfirmationMessage.tr()));
   }
 
-  void _onChangeAddressPressed(BuildContext context) => context.router.pop();
+  void _onChangeAddressPressed(BuildContext context) {
+    timer?.cancel();
+    context.router.pushNamed(AppRoutes.changeEmail).whenComplete(setTimer);
+  }
 
   void _authenticatedListener(BuildContext context, state) {
     timer?.cancel();

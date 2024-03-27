@@ -204,6 +204,8 @@
   "waitingForConfirmationBody4": "No message in your inbox? Please click the button below",
   "resend": "Resend confirmation email",
   "changeAddress": "Change email address",
+  "changeEmail": "Change email",
+  "changeEmailAddressTitle": "Please write down the new email address",
   "emailConfirmedBottomSheetTitle": "Email address is confirmed",
   "emailConfirmedBottomSheetContent": "Thanks for confirming your email address. You can now start using the app",
   "logMood": "Log Mood",

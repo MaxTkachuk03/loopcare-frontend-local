@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +5,6 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/response_error_
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -15,7 +13,11 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 
 class EmailAddressForm extends StatefulWidget {
-  const EmailAddressForm({super.key});
+  const EmailAddressForm({super.key}) : _isUpdate = false;
+
+  const EmailAddressForm.update({super.key}) : _isUpdate = true;
+
+  final bool _isUpdate;
 
   @override
   State<EmailAddressForm> createState() => _EmailAddressFormState();
@@ -45,8 +47,8 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
           listener: _errorListener,
         ),
         BlocListener<AuthenticationBloc, AuthenticationState>(
-          listenWhen: (previous, current) => !previous.data.emailVerified && current.data.emailVerified,
-          listener: _navigationListener,
+          listenWhen: (previous, current) => !previous.data.emailWasSend && current.data.emailWasSend,
+          listener: _blockButtonListener,
         ),
       ],
       child: Form(
@@ -65,24 +67,30 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
                 );
               },
             ),
-            const SizedBox(height: 8.0),
-            CheckboxFormField(
-              key: const ValueKey('registration_receive_email_checkbox'),
-              errorText: '',
-              text: CustomText(
-                '${LocalizedTexts.receiveEmailCheckboxLabel.tr()} ',
-                style: context.textTheme.bodyMedium,
+            if (!widget._isUpdate) ...[
+              const SizedBox(height: 8.0),
+              CheckboxFormField(
+                key: const ValueKey('registration_receive_email_checkbox'),
+                errorText: '',
+                text: CustomText(
+                  '${LocalizedTexts.receiveEmailCheckboxLabel.tr()} ',
+                  style: context.textTheme.bodyMedium,
+                ),
+                onChanged: _onReceiveEmailChanged,
               ),
-              onChanged: _onReceiveEmailChanged,
-            ),
+            ],
             const SizedBox(height: 16.0),
             ValueListenableBuilder(
               valueListenable: _formValidNotifier,
               builder: (context, isValid, _) {
+                final label = widget._isUpdate
+                    ? LocalizedTexts.update.tr()
+                    : LocalizedTexts.next.tr();
+
                 return CustomElevatedButton.blueFullWidth(
                   key: const ValueKey('registration_next_button'),
                   onPressed: isValid ? _onNextPressed : null,
-                  label: LocalizedTexts.next.tr(),
+                  label: label,
                 );
               },
             ),
@@ -98,6 +106,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
         AuthenticationEvent.updateEmail(
           email: _emailController.text,
           receiveAnEmails: _receiveAnEmails,
+          update: widget._isUpdate,
         ),
       );
 
@@ -133,6 +142,6 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
     }
   }
 
-  void _navigationListener(BuildContext context, AuthenticationState state) =>
-      context.router.pushNamed(AppRoutes.successVerifiedEmail);
+  void _blockButtonListener(BuildContext context, AuthenticationState state) =>
+      _formValidNotifier.value = false;
 }

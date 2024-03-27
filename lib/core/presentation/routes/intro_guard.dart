@@ -76,6 +76,7 @@ class IntroGuard extends AutoRouteGuard {
       router.replaceAll([
         const SignUpWelcomeRoute(),
         const PasswordRoute(),
+        if (authState.data.emailWasSend) const WaitingForConfirmationRoute(),
       ]);
 
       return;

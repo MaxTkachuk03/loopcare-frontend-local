@@ -29,6 +29,7 @@ import 'package:loopcare_frontend/features/assignments/presentation/assignments_
 import 'package:loopcare_frontend/features/assignments/presentation/assignments_questions_page.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/assignments_saved_page.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/my_assignments_page.dart';
+import 'package:loopcare_frontend/features/authentication/presentation/email_address/change_email_address_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/email_address/email_address_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/forgot_password/forgot_password_page.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/login/login_page.dart';
@@ -187,6 +188,10 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.waitingForConfirmation,
       page: WaitingForConfirmationPage,
+    ), // added
+    AutoRoute(
+      path: AppRoutes.changeEmail,
+      page: ChangeEmailAddressPage,
     ), // added
 
     // Barcode scanner

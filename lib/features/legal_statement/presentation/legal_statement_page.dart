@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -113,7 +114,7 @@ class _LegalStatementPageState extends State<LegalStatementPage> {
 
     context
       ..read<LegalStatementBloc>().add(const LegalStatementEvent.passageChanged(true))
-      ..router.replaceNamed(AppRoutes.signUpWelcome);
+      ..router.replaceAll([const SignUpWelcomeRoute()]);
   }
 
   Future<bool> onWillPop() async {
