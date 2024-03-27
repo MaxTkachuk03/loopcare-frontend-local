@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -18,7 +17,6 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_audio_body.dart';
@@ -43,6 +41,7 @@ class LessonPage extends StatefulWidget {
 class _LessonPageState extends State<LessonPage> {
   _onNextPressed() {
     final lessonBloc = context.read<EducationLessonBloc>();
+    final account = getIt<SharedStorageService>().account;
 
     lessonBloc.add(const EducationLessonEvent.nextPage());
 
@@ -50,46 +49,28 @@ class _LessonPageState extends State<LessonPage> {
 
     if (lessonBloc.state.data.isLastPage) {
       final extraAction = lessonBloc.state.data.extraAction;
-      final unlockedFeatures = getIt<SharedStorageService>().account?.unlockedFeatures ?? [];
-
-      if (extraAction == ExtraActionTypes.setupGroupingPreferences &&
-          !unlockedFeatures.contains(UnlockedFeatureType.grouping)) {
-        context.read<AuthenticationBloc>().add(const AuthenticationEvent.unlockFeature(UnlockedFeatureType.grouping));
-
+      if (extraAction == ExtraActionTypes.setupGroupingPreferences && !(account?.isGroupSessionsUnlocked ?? false)) {
         AnalyticsEventService.instance.logEvent(FirebaseEvents.unlockedSupportGroupFeature);
 
         context
           ..read<GroupPreferencesBloc>()
               .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupingLesson))
           ..router.pushNamed(AppRoutes.supportGroupIntro);
-
         return;
       }
 
-      if (extraAction == ExtraActionTypes.unlockMeals && !unlockedFeatures.contains(UnlockedFeatureType.meals)) {
-        context.read<AuthenticationBloc>().add(const AuthenticationEvent.unlockFeature(UnlockedFeatureType.meals));
+      if (extraAction == ExtraActionTypes.unlockMeals && !(account?.isFoodLoggingUnlocked ?? false)) {
         context.router.pushNamed(AppRoutes.lessonCompleteFoodPreferences);
-
         return;
       }
 
       if (extraAction == ExtraActionTypes.unlockPhysicalActivities &&
-          !unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {
-        context
-            .read<AuthenticationBloc>()
-            .add(const AuthenticationEvent.unlockFeature(UnlockedFeatureType.physicalActivities));
+          !(account?.isPhysicalActivitiesUnlocked ?? false)) {
         context.router.pushNamed(AppRoutes.physicalPreferencesIntro);
         return;
       }
 
-      if (extraAction == ExtraActionTypes.unlockAssignments) {
-        context
-            .read<AuthenticationBloc>()
-            .add(const AuthenticationEvent.unlockFeature(UnlockedFeatureType.assignments));
-      }
-
-      if (lessonBloc.state.data.isBuddyUnlocked && !unlockedFeatures.contains(UnlockedFeatureType.buddy)) {
-        context.read<AuthenticationBloc>().add(const AuthenticationEvent.unlockFeature(UnlockedFeatureType.buddy));
+      if (lessonBloc.state.data.isBuddyUnlocked && !(account?.isBuddyUnlocked ?? false)) {
         context.router.pushNamed(AppRoutes.buddyIntro);
         return;
       }
@@ -100,7 +81,6 @@ class _LessonPageState extends State<LessonPage> {
       } else {
         context.router.push(QuizzesIntroRoute(lessonId: widget.lessonId));
       }
-
       return;
     }
 

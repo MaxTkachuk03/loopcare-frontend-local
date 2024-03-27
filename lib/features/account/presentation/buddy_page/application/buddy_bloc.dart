@@ -96,7 +96,6 @@ class BuddyBloc extends Bloc<BuddyEvent, BuddyState> {
     );
   }
 
-  //Todo currently not return buddyState
   FutureOr<void> _onGetBuddy(
     GetBuddy event,
     Emitter<BuddyState> emit,

@@ -34,7 +34,8 @@ class AuthenticationData with _$AuthenticationData {
 
   factory AuthenticationData.fromJson(Map<String, dynamic> json) => _$AuthenticationDataFromJson(json);
 
-  List<UnlockedFeatureType> get unlockedFeatures => account?.unlockedFeatures ?? [];
+  List<UnlockedFeatureType> get unlockedFeatures =>
+      (account?.features.where((e) => e.unlocked).toList() ?? []).map((e) => e.feature).toList();
 
   bool get hasActiveSubscription => (account?.hasActiveSubscription ?? false);
 

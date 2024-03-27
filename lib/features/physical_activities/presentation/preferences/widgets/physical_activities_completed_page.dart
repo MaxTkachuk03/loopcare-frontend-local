@@ -2,7 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/unlock_config/feature/feature.dart';
+import 'package:loopcare_frontend/core/domain/unlock_config/unlock_lock_feature/set_feature.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -19,6 +22,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_physical_activities_feature.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class PhysicalActivitiesCompletePage extends StatefulWidget {
   const PhysicalActivitiesCompletePage({super.key});
@@ -31,7 +35,22 @@ class _PhysicalActivitiesCompletePageState extends State<PhysicalActivitiesCompl
   @override
   void initState() {
     super.initState();
-    context.read<AuthenticationBloc>().add(const AuthenticationEvent.unlockFeature(UnlockedFeatureType.physicalActivities));
+    final accountId = getIt<SharedStorageService>().account?.id;
+    if (accountId == null) {
+      return;
+    }
+    context.read<AuthenticationBloc>().add(
+          AuthenticationEvent.unlockFeature(
+            SetFeature(
+              accountId: accountId,
+              feature: const Feature(
+                feature: UnlockedFeatureType.physicalActivities,
+                unlocked: true,
+                subFeatures: null,
+              ),
+            ),
+          ),
+        );
   }
 
   _onPressHandler(BuildContext context) {
