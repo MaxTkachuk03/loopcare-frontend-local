@@ -399,11 +399,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       },
       (r) {
         final subscription = r.subscription;
-        final status = SubscriptionStatusUtil.parse(subscription.state);
         emit(
           SubscriptionState.loading(state.data.copyWith(isLoading: false)),
         );
-        switch (status) {
+        switch (subscription.state) {
           case SubscriptionStatus.trialPeriod:
             if (subscription.isActive) {
               emit(SubscriptionState.subscriptionActive(state.data.copyWith(subscription: subscription)));
