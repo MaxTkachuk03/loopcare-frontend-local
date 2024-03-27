@@ -86,14 +86,16 @@ class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with 
                 color: state.generalStep.appBarComponentsColor,
                 onPressed: () => _onPop(context, state.currentPhysicalStep.isIntro),
               ),
-              bottom: ProgressBar(
-                backgroundColor: state.generalStep.primaryColor,
-                progressFillColor: state.generalStep.secondaryColor,
-                progressEmptyColor: state.generalStep.appBarComponentsColor,
-                segments: GeneralOnboardingStep.values.length,
-                value: state.generalStep.index,
-                progress: state.progress,
-              ),
+              bottom: state.showProgressBar
+                  ? ProgressBar(
+                      backgroundColor: state.generalStep.primaryColor,
+                      progressFillColor: state.generalStep.secondaryColor,
+                      progressEmptyColor: state.generalStep.appBarComponentsColor,
+                      segments: GeneralOnboardingStep.values.length,
+                      value: state.generalStep.index,
+                      progress: state.progress,
+                    )
+                  : null,
             );
           } else {
             appBar = CustomAppBar(

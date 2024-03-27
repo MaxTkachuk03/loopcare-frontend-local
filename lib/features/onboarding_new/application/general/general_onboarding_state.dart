@@ -33,6 +33,8 @@ class GeneralOnboardingState with _$GeneralOnboardingState {
       ? mentalPassedStack.last
       : MentalQuestionStep.introStepOne;
 
+  bool get showProgressBar => currentMentalStep != MentalQuestionStep.result;
+
   int get stepCount => switch(generalStep) {
     GeneralOnboardingStep.physical => PhysicalQuestionStep.result.progress,
     GeneralOnboardingStep.medical => _medicalStepCount,
