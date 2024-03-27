@@ -5,6 +5,7 @@ enum UnlockedFeatureType {
   assignments,
   allowGroupSessions,
   buddy,
+  smartGoals,
   unknown,
 }
 

@@ -83,6 +83,9 @@ abstract class Account implements _$Account {
   bool get isBuddyUnlocked =>
       features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.buddy)?.unlocked ?? false;
 
+  bool get isSmartGoalsUnlocked =>
+      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.smartGoals)?.unlocked ?? false;
+
   bool get disableGroupSessions => mentalHealthTests != null && _isPhq8High ? true : false;
 
   bool get _isPhq8High => mentalHealthTests?.phq8 == InterpretationType.high.name;
