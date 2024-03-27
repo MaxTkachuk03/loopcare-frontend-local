@@ -7,3 +7,9 @@ enum UnlockedFeatureType {
   buddy,
   unknown,
 }
+
+enum UnlockedSubFeatureType {
+  sleep,
+  calories,
+  unknown,
+}

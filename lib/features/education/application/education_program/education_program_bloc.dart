@@ -27,6 +27,7 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
     emit(EducationProgramState.loading(state.data.copyWith(isLoading: true, error: null)));
     final response = await _educationService.getLessons();
     final currentNtpDate = await TimeService.now;
+
     response.fold(
       (l) => emit(EducationProgramState.error(state.data.copyWith(isLoading: false, error: l))),
       (r) {
@@ -62,7 +63,7 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
       return null;
     }
 
-    final nextStepUnlockDelayInHours = lessonsWithSameStep.last.nextStepUnlockDelay;
+    final nextStepUnlockDelayInHours = lessonsWithSameStep.last.unlockingConfig.nextStepUnlockDelay;
 
     final timeRemaining =
         startDate.add(Duration(hours: nextStepUnlockDelayInHours)).difference(currentNtpDate).inSeconds;

@@ -79,9 +79,8 @@ class APIEducationService implements EducationService {
 
   @override
   Future<Either<RequestError, GetLessonsResponse>> getLessons() async {
-    // TODO lessons mock
-    // return right(GetLessonsResponse.fromJson({'lessons': lessons}));
-
+    // TODO mock
+    //return right(GetLessonsResponse.fromJson({'lessons': lessons}));
     return client.get('/education/lessons').then(parseResponse(GetLessonsResponse.fromJson));
   }
 
@@ -89,8 +88,8 @@ class APIEducationService implements EducationService {
   Future<Either<RequestError, GetLessonContentResponse>> getLessonContent(
     int lessonId,
   ) async {
-    // TODO lesson mock
-    // return right(GetLessonContentResponse.fromJson(lessonMock));
+    // TODO mock
+    //return right(GetLessonContentResponse.fromJson(lesson));
     return client.get('/education/lessons/$lessonId').then(parseResponse(GetLessonContentResponse.fromJson));
   }
 

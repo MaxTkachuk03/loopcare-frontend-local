@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
+import 'package:loopcare_frontend/core/domain/unlock_config/unlock_lock_feature/set_feature.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -35,11 +36,8 @@ import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat
 import 'package:loopcare_frontend/features/onboarding_new/application/dto/registration_physical_fitness_data.dart';
 
 part 'authentication_bloc.freezed.dart';
-
 part 'authentication_bloc.g.dart';
-
 part 'authentication_event.dart';
-
 part 'authentication_state.dart';
 
 @singleton
@@ -370,13 +368,13 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
   ) async {
     await state.whenOrNull(
       authenticated: (data) async {
-        final response = await _authenticationService.unlockFeature(event.feature.name);
+        final response = await _authenticationService.unlockFeature(event.feature);
 
         response.fold(
           (l) => null,
           (r) {
             final account = _sharedPref.account = _sharedPref.account?.copyWith(
-              unlockedFeatures: r.unlockedFeatures,
+              features: r.features.where((feature) => feature.unlocked).toList(),
             );
 
             emit(
@@ -387,7 +385,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
               ),
             );
 
-            if (event.feature == UnlockedFeatureType.grouping) {
+            if (event.feature.feature.feature == UnlockedFeatureType.grouping) {
               add(const AuthenticationEvent.changeAccountGroupStatus(UserGroupingState.unlockedPreferences));
             }
           },
@@ -523,7 +521,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
               foodPreferencesHates: r.foodPreferences?.hates,
               foodPreferencesDislikes: r.foodPreferences?.dislike,
               foodPreferencesAllergic: r.foodPreferences?.allergic,
-              unlockedFeatures: r.unlockedFeatures,
+              features: r.features.where((feature) => feature.unlocked).toList(),
               physicalActivitiesPreferences: r.physicalActivitiesPreferences,
               emailApproveDate: r.emailApproveDate,
               mentalHealthTests: r.mentalHealthTests,

@@ -40,9 +40,10 @@ class AuthenticationEvent with _$AuthenticationEvent {
 
   const factory AuthenticationEvent.connectSockets() = ConnectSockets;
 
-  const factory AuthenticationEvent.changeAccountGroupStatus(UserGroupingState groupingState) = ChangeAccountGroupStatus;
+  const factory AuthenticationEvent.changeAccountGroupStatus(UserGroupingState groupingState) =
+      ChangeAccountGroupStatus;
 
-  const factory AuthenticationEvent.unlockFeature(UnlockedFeatureType feature) = UnlockFeature;
+  const factory AuthenticationEvent.unlockFeature(SetFeature feature) = UnlockFeature;
 
   const factory AuthenticationEvent.syncChatState() = SyncChatState;
 

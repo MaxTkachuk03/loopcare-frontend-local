@@ -19,6 +19,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
@@ -86,6 +87,9 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
     }
   }
 
+  _lessonCompleteListener(BuildContext context, EducationLessonState state) =>
+      context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -93,6 +97,10 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
         BlocListener<EducationLessonBloc, EducationLessonState>(
           listenWhen: (prev, cur) => cur is ErrorCompleteLesson,
           listener: _onErrorListener,
+        ),
+        BlocListener<EducationLessonBloc, EducationLessonState>(
+          listenWhen: (prev, cur) => cur is LessonCompleted,
+          listener: _lessonCompleteListener,
         ),
       ],
       child: CustomScaffold.petrol(

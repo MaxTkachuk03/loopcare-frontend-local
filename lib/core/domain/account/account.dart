@@ -1,8 +1,10 @@
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
 import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
+import 'package:loopcare_frontend/core/domain/unlock_config/feature/feature.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
@@ -45,7 +47,7 @@ abstract class Account implements _$Account {
     @Default([]) List<FoodPreference>? foodPreferencesHates,
     @Default([]) List<FoodPreference>? foodPreferencesDislikes,
     @Default([]) List<FoodPreference>? foodPreferencesAllergic,
-    @Default([]) List<UnlockedFeatureType> unlockedFeatures,
+    @Default([]) List<Feature> features,
     PhysicalActivitiesPreferences? physicalActivitiesPreferences,
     MedicalOnboarding? medicalOnboarding,
     @Default(null) MentalHealthTests? mentalHealthTests,
@@ -55,19 +57,37 @@ abstract class Account implements _$Account {
   bool get isMixedGender => gender == GenderType.other;
 
   int get trainingFrequency {
-    final RegExpMatch? match =
-        RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
+    final RegExpMatch? match = RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
 
     return match != null ? int.parse(match[0] ?? '0') : 0;
   }
+
+  bool get isPhysicalActivitiesUnlocked =>
+      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.physicalActivities)?.unlocked ??
+      false;
+
+  bool get isFoodLoggingUnlocked =>
+      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.meals)?.unlocked ?? false;
+
+  bool get isGroupSessionsUnlocked =>
+      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.grouping)?.unlocked ?? false;
+
+  bool get isAssignmentsUnlocked =>
+      features
+          .firstWhereOrNull(
+            (feature) => feature.feature == UnlockedFeatureType.assignments,
+          )
+          ?.unlocked ??
+      false;
+
+  bool get isBuddyUnlocked =>
+      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.buddy)?.unlocked ?? false;
 
   bool get disableGroupSessions => mentalHealthTests != null && _isPhq8High ? true : false;
 
   bool get _isPhq8High => mentalHealthTests?.phq8 == InterpretationType.high.name;
 
   bool get isUserGrouped => groupingState == UserGroupingState.grouped;
-
-  bool get isPhysicalActivitiesUnlocked => unlockedFeatures.contains(UnlockedFeatureType.physicalActivities);
 
   bool get hasActiveSubscription => subscription.isActive;
 
