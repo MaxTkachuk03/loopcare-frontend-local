@@ -494,54 +494,45 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     GetAccount event,
     Emitter<AuthenticationState> emit,
   ) async {
-    await state.mapOrNull(
-      authenticated: (state) async {
-        final response = await _authenticationService.fetchAccount();
-        response.fold(
-          (_) => null,
-          (r) {
-            final account = Account(
-              id: r.id,
-              name: r.name,
-              email: r.email,
-              country: r.country,
-              gender: r.gender,
-              sex: r.sex,
-              height: r.physicalFitness.height,
-              weight: r.physicalFitness.weight,
-              bmi: r.physicalFitness.bmi,
-              birthDate: r.physicalFitness.birthDate,
-              groupingState: r.groupingState,
-              groupId: r.groupId,
-              groupingStartedAt: r.groupingStartedAt,
-              nickname: r.groupingPreferences?.nickname,
-              genderPreference: r.groupingPreferences?.genderPreference,
-              timezone: r.groupingPreferences?.timezone,
-              diabetes: r.diabetes?.name ?? '',
-              foodPreferencesHates: r.foodPreferences?.hates,
-              foodPreferencesDislikes: r.foodPreferences?.dislike,
-              foodPreferencesAllergic: r.foodPreferences?.allergic,
-              features: r.features.where((feature) => feature.unlocked).toList(),
-              physicalActivitiesPreferences: r.physicalActivitiesPreferences,
-              emailApproveDate: r.emailApproveDate,
-              mentalHealthTests: r.mentalHealthTests,
-              subscription: r.subscription,
-              medicalOnboarding: r.medicalOnboarding,
-            );
+    final response = await _authenticationService.fetchAccount();
 
-            _sharedPref.account = account;
-
-            emit(
-              state.copyWith(
-                data: state.data.copyWith(
-                  account: account,
-                ),
-              ),
-            );
-
-            add(const AuthenticationEvent.syncChatState());
-          },
+    response.fold(
+      (_) => null,
+      (r) {
+        final account = Account(
+          id: r.id,
+          name: r.name,
+          email: r.email,
+          country: r.country,
+          gender: r.gender,
+          sex: r.sex,
+          height: r.physicalFitness.height,
+          weight: r.physicalFitness.weight,
+          bmi: r.physicalFitness.bmi,
+          birthDate: r.physicalFitness.birthDate,
+          groupingState: r.groupingState,
+          groupId: r.groupId,
+          groupingStartedAt: r.groupingStartedAt,
+          nickname: r.groupingPreferences?.nickname,
+          genderPreference: r.groupingPreferences?.genderPreference,
+          timezone: r.groupingPreferences?.timezone,
+          diabetes: r.diabetes?.name ?? '',
+          foodPreferencesHates: r.foodPreferences?.hates,
+          foodPreferencesDislikes: r.foodPreferences?.dislike,
+          foodPreferencesAllergic: r.foodPreferences?.allergic,
+          features: r.features.where((feature) => feature.unlocked).toList(),
+          physicalActivitiesPreferences: r.physicalActivitiesPreferences,
+          emailApproveDate: r.emailApproveDate,
+          mentalHealthTests: r.mentalHealthTests,
+          subscription: r.subscription,
+          medicalOnboarding: r.medicalOnboarding,
         );
+
+        _sharedPref.account = account;
+
+        emit(AuthenticationState.authenticated(state.data.copyWith(account: account)));
+
+        add(const AuthenticationEvent.syncChatState());
       },
     );
   }

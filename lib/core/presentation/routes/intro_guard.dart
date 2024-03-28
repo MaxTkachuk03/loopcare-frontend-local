@@ -33,11 +33,12 @@ class IntroGuard extends AutoRouteGuard {
   @override
   Future<void> onNavigation(NavigationResolver resolver, StackRouter router) async {
     String route;
-    if (storage.account != null) {
-      final accessTokenPresent = await authTokenManager.getAccessToken();
-      final refreshTokenPresent = await authTokenManager.getRefreshToken();
 
-      if (!((accessTokenPresent?.isNotEmpty ?? false) && (refreshTokenPresent?.isNotEmpty ?? false))) {
+    if (storage.account != null) {
+      final accessToken = await authTokenManager.getAccessToken() ?? '';
+      final refreshToken = await authTokenManager.getRefreshToken() ?? '';
+
+      if (accessToken.isEmpty || refreshToken.isEmpty) {
         route = AppRoutes.login;
       }
       //Todo hide subscription flow LOOPCARE-2197
