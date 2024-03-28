@@ -11,7 +11,7 @@ abstract class Feature implements _$Feature {
   const factory Feature({
     required UnlockedFeatureType feature,
     required bool unlocked,
-    required List<UnlockedSubFeatureType>? subFeatures,
+    required List<String>? subFeatures,
   }) = _Feature;
 
   factory Feature.fromJson(Map<String, dynamic> json) => _$FeatureFromJson(json);
