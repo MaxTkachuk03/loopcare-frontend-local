@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/response_error_const.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
@@ -24,6 +25,8 @@ class EmailAddressForm extends StatefulWidget {
 }
 
 class _EmailAddressFormState extends State<EmailAddressForm> {
+  late TextEditingController _passwordController;
+
   final _formValidNotifier = ValueNotifier<bool>(false);
   final _emailErrorTextNotifier = ValueNotifier<String?>(null);
   final _emailController = TextEditingController();
@@ -32,8 +35,16 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
   bool _receiveAnEmails = false;
 
   @override
+  void initState() {
+    super.initState();
+    final password = context.read<AuthenticationBloc>().state.data.password;
+    _passwordController = TextEditingController(text: password);
+  }
+
+  @override
   void dispose() {
     _emailController.dispose();
+    _passwordController.dispose();
     _formValidNotifier.dispose();
     _emailErrorTextNotifier.dispose();
     super.dispose();
@@ -54,47 +65,62 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
       child: Form(
         key: _formKey,
         onChanged: _onChangedForm,
-        child: Column(
-          children: [
-            ValueListenableBuilder<String?>(
-              valueListenable: _emailErrorTextNotifier,
-              builder: (context, error, _) {
-                return CustomTextField.email(
-                  key: const ValueKey('registration_email_text_field'),
-                  controller: _emailController,
-                  errorText: error,
-                  onChanged: _onEmailChanged,
-                );
-              },
-            ),
-            if (!widget._isUpdate) ...[
-              const SizedBox(height: 8.0),
-              CheckboxFormField(
-                key: const ValueKey('registration_receive_email_checkbox'),
-                errorText: '',
-                text: CustomText(
-                  '${LocalizedTexts.receiveEmailCheckboxLabel.tr()} ',
-                  style: context.textTheme.bodyMedium,
+        child: AutofillGroup(
+          onDisposeAction: widget._isUpdate
+              ? AutofillContextAction.commit
+              : AutofillContextAction.cancel,
+          child: Column(
+            children: [
+              ValueListenableBuilder<String?>(
+                valueListenable: _emailErrorTextNotifier,
+                builder: (context, error, _) {
+                  return CustomTextField.email(
+                    key: const ValueKey('registration_email_text_field'),
+                    controller: _emailController,
+                    errorText: error,
+                    onChanged: _onEmailChanged,
+                  );
+                },
+              ),
+              if (!widget._isUpdate) ...[
+                const SizedBox(height: 8.0),
+                CheckboxFormField(
+                  key: const ValueKey('registration_receive_email_checkbox'),
+                  errorText: '',
+                  text: CustomText(
+                    '${LocalizedTexts.receiveEmailCheckboxLabel.tr()} ',
+                    style: context.textTheme.bodyMedium,
+                  ),
+                  onChanged: _onReceiveEmailChanged,
                 ),
-                onChanged: _onReceiveEmailChanged,
+              ],
+              if (widget._isUpdate)
+                SizedBox(
+                  height: 16.0,
+                  child: Opacity(
+                    opacity: 0.0,
+                    child: CustomTextField.hiddenPassword(
+                      key: const ValueKey('registration_hidden_password'),
+                      controller: _passwordController,
+                    ),
+                  ),
+                ),
+              ValueListenableBuilder(
+                valueListenable: _formValidNotifier,
+                builder: (context, isValid, _) {
+                  final label = widget._isUpdate
+                      ? LocalizedTexts.update.tr()
+                      : LocalizedTexts.next.tr();
+
+                  return CustomElevatedButton.blueFullWidth(
+                    key: const ValueKey('registration_next_button'),
+                    onPressed: isValid ? _onNextPressed : null,
+                    label: label,
+                  );
+                },
               ),
             ],
-            const SizedBox(height: 16.0),
-            ValueListenableBuilder(
-              valueListenable: _formValidNotifier,
-              builder: (context, isValid, _) {
-                final label = widget._isUpdate
-                    ? LocalizedTexts.update.tr()
-                    : LocalizedTexts.next.tr();
-
-                return CustomElevatedButton.blueFullWidth(
-                  key: const ValueKey('registration_next_button'),
-                  onPressed: isValid ? _onNextPressed : null,
-                  label: label,
-                );
-              },
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -102,13 +128,19 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
 
   _onChangedForm() => _formValidNotifier.value = Email.create(_emailController.text).isRight();
 
-  void _onNextPressed() => context.read<AuthenticationBloc>().add(
+  void _onNextPressed() {
+    if (widget._isUpdate) {
+      TextInput.finishAutofillContext();
+    }
+
+    context.read<AuthenticationBloc>().add(
         AuthenticationEvent.updateEmail(
           email: _emailController.text,
           receiveAnEmails: _receiveAnEmails,
           update: widget._isUpdate,
         ),
       );
+  }
 
   void _onReceiveEmailChanged(bool? value) => _receiveAnEmails = value!;
 

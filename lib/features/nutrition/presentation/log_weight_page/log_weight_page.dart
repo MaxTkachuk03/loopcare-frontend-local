@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -21,8 +20,6 @@ import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measuremen
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_field.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding_new/utils/weight_conversion_utils.dart';
-import 'package:loopcare_frontend/injection.dart';
-import 'package:moment_dart/moment_dart.dart';
 
 class LogWeightPage extends StatefulWidget {
   final DateTime selectedDay;
@@ -51,12 +48,6 @@ class _LogWeightPageState extends State<LogWeightPage> {
   }
 
   String _getInputInitialValue() {
-    final date = getIt<SharedStorageService>().account?.emailApproveDate;
-
-    if (date?.isAtSameDayAs(DateTime.now()) ?? false) {
-      return getIt<SharedStorageService>().account?.weight.toStringAsFixed(1) ?? '';
-    }
-
     final state = context.read<DashboardWeightBloc>().state;
 
     double? selectedDayWeightValue = state.data.getSelectedDayWeight(widget.selectedDay.isoStringWithoutTime);

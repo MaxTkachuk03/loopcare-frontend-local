@@ -526,6 +526,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           mentalHealthTests: r.mentalHealthTests,
           subscription: r.subscription,
           medicalOnboarding: r.medicalOnboarding,
+          createdAt: r.physicalFitness.createdAt,
         );
 
         _sharedPref.account = account;
