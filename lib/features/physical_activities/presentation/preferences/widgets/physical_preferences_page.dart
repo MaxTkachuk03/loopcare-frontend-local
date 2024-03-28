@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/domain/physical_activities_frequency.dart
 import 'package:loopcare_frontend/core/domain/physical_activities_type.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
@@ -32,7 +33,7 @@ class _PhysicalPreferencesPageState extends State<PhysicalPreferencesPage> {
         title: LocalizedTexts.physicalActivitiesPreferences.tr(),
         leading: CustomFilledIconButton.leadingBlueLighter(),
       ),
-      body: SafeArea(
+      body: CustomSafeArea(
         child: ScrollableContainer(
           child: MainContainer(
             child: Column(

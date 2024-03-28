@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/checkbox/custom_checkbox.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/html_renderer/html_renderer.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -211,8 +212,9 @@ class ModalBottomSheet {
                   const SizedBox(height: 12.0),
                   CustomOutlinedButton.blueFullWidth(
                     onPressed: noActiveSubscription ? onDeleted : onSubscriptionPref,
-                    label:
-                        noActiveSubscription ? LocalizedTexts.yesDelete.tr() : LocalizedTexts.manageSubscription.tr(),
+                    label: noActiveSubscription
+                        ? LocalizedTexts.yesDelete.tr()
+                        : LocalizedTexts.manageSubscription.tr(),
                   )
                 ],
               ),
@@ -235,7 +237,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return Container(
           padding: const EdgeInsets.fromLTRB(20.0, 38.0, 20.0, 20.0),
-          child: SafeArea(
+          child: CustomSafeArea(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -282,7 +284,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
-          child: SafeArea(
+          child: CustomSafeArea(
             top: false,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -397,7 +399,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
-          child: SafeArea(
+          child: CustomSafeArea(
             top: false,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -482,7 +484,7 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
       builder: (BuildContext context) {
-        return SafeArea(
+        return CustomSafeArea(
           child: FractionallySizedBox(
             heightFactor: 0.5,
             child: Column(
@@ -527,7 +529,7 @@ class ModalBottomSheet {
           constraints: BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height - 100,
           ),
-          child: SafeArea(
+          child: CustomSafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -612,7 +614,7 @@ class ModalBottomSheet {
           builder: (context, state) {
             return FractionallySizedBox(
               heightFactor: 0.8,
-              child: SafeArea(
+              child: CustomSafeArea(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
                   child: Column(
@@ -858,7 +860,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return FractionallySizedBox(
           heightFactor: 0.45,
-          child: SafeArea(
+          child: CustomSafeArea(
             child: Container(
               padding: const EdgeInsets.only(
                 top: 32.0,
@@ -1013,7 +1015,7 @@ class ModalBottomSheet {
             return FractionallySizedBox(
               heightFactor: 0.93,
               child: KeyboardContainerListener(
-                child: SafeArea(
+                child: CustomSafeArea(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
                     child: ReportAbuseWidget(

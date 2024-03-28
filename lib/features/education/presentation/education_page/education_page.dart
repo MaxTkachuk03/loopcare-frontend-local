@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/scroll_controller_extensions.dart';
@@ -51,7 +52,9 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
 
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons());
 
-    context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: currentDate));
+    context
+        .read<DashboardEducationBloc>()
+        .add(DashboardEducationEvent.getDashboardLessons(currentDate: currentDate));
   }
 
   _lessonsListener(BuildContext context, EducationProgramState state) {
@@ -71,7 +74,7 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
           listener: _lessonsListener,
         ),
       ],
-      child: SafeArea(
+      child: CustomSafeArea(
         child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
           builder: (BuildContext context, state) {
             final lessons = state.data.lessons;

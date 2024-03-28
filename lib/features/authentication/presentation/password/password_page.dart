@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.d
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
@@ -59,7 +60,8 @@ class _PasswordPageState extends State<PasswordPage> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
-      listenWhen: (previous, current) => previous is GuestAuthenticationState && current is WaitedConfirmationState,
+      listenWhen: (previous, current) =>
+          previous is GuestAuthenticationState && current is WaitedConfirmationState,
       listener: _navigationListener,
       child: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
@@ -69,7 +71,7 @@ class _PasswordPageState extends State<PasswordPage> {
             title: LocalizedTexts.createAccount.tr(),
             leading: CustomFilledIconButton.leadingGreenLighter(),
           ),
-          body: SafeArea(
+          body: CustomSafeArea(
             child: ScrollableContainer(
               child: MainContainer(
                 child: AutofillGroup(
@@ -173,13 +175,13 @@ class _PasswordPageState extends State<PasswordPage> {
     final mentalData = context.read<MentalQuestionsBloc>().state.registrationData;
 
     context.read<AuthenticationBloc>().add(
-      AuthenticationEvent.signUp(
-        password: _passwordController.text,
-        registrationPhysicalFitnessData: physicalData,
-        medicalOnboarding: medicalData,
-        mentalHealthTest: mentalData,
-      ),
-    );
+          AuthenticationEvent.signUp(
+            password: _passwordController.text,
+            registrationPhysicalFitnessData: physicalData,
+            medicalOnboarding: medicalData,
+            mentalHealthTest: mentalData,
+          ),
+        );
   }
 
   void _onPasswordChanged(String password, double passwordStrength) {
@@ -188,15 +190,11 @@ class _PasswordPageState extends State<PasswordPage> {
   }
 
   void _validateForm() => _formValidationNotifier.value =
-      _passwordValidationPassed &&
-          _termsAndConditionsAreChecked &&
-          _privatePolicyAccepted;
+      _passwordValidationPassed && _termsAndConditionsAreChecked && _privatePolicyAccepted;
 
-  void _onTermsAndConditionsTap() =>
-      _launchInBrowser(termsAndConditionsUrl);
+  void _onTermsAndConditionsTap() => _launchInBrowser(termsAndConditionsUrl);
 
-  void _onPrivacyPolicyTap() =>
-      _launchInBrowser(privacyPolicyUrl);
+  void _onPrivacyPolicyTap() => _launchInBrowser(privacyPolicyUrl);
 
   void _showError(BuildContext context) =>
       context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.translation));

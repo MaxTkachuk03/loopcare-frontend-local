@@ -8,8 +8,8 @@ import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_se
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -45,7 +45,7 @@ class _LegalStatementPageState extends State<LegalStatementPage> {
           title: LocalizedTexts.legalStatement.tr(),
           leading: CustomFilledIconButton.leadingBlueLighter(),
         ),
-        body: SafeArea(
+        body: CustomSafeArea(
           child: ScrollableContainer(
             child: MainContainer(
               child: Column(

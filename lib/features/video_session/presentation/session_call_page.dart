@@ -20,6 +20,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_se
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -631,7 +632,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
               ),
         body: Container(
           color: AppColors.black,
-          child: SafeArea(
+          child: CustomSafeArea(
             bottom: !hideAppBar,
             child: Stack(
               children: [

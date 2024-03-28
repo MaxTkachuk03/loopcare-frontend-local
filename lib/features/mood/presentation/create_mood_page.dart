@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.d
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
@@ -122,7 +123,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
         subtitle: widget.date.shortDateWithYear,
         leading: CustomFilledIconButton.leadingOrangeLighter(),
       ),
-      body: SafeArea(
+      body: CustomSafeArea(
         child: ScrollableContainer(
           child: BlocListener<MoodBloc, MoodState>(
             listener: _onChangeListener,
@@ -152,7 +153,8 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                           ValueListenableBuilder<MoodPickerListItem?>(
                             valueListenable: _moodPageController.moodValue,
                             builder: (context, moodValue, _) => MoodPicker(
-                                onItemPressed: isEditable ? _onMoodValueChangeHandler : null, value: moodValue),
+                                onItemPressed: isEditable ? _onMoodValueChangeHandler : null,
+                                value: moodValue),
                           ),
                           const SizedBox(height: 12.0),
                           MoodOptions(controller: _moodPageController, isEditable: isEditable),

@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -81,7 +82,7 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
         padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 32),
         child: const SessionCountdown(),
       ),
-      body: SafeArea(
+      body: CustomSafeArea(
         child: MainContainer(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

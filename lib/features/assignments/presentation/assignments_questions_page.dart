@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/sh
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -314,7 +315,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
           child: SimpleProgressBar.petrol(progress: _percent),
         ),
       ),
-      body: SafeArea(
+      body: CustomSafeArea(
         child: ScrollableContainer(
           child: MainContainer(
             child: BlocListener<AssignmentsBloc, AssignmentsState>(
