@@ -79,8 +79,6 @@ class _AppState extends State<_App> {
     authBloc.add(const AuthenticationEvent.connectSockets());
     context.read<AppUpdateBloc>().add(const AppUpdateEvent.getVersion());
 
-    print(authBloc.state.data);
-
     _appRouter = AppRouter(
       navigatorKey: kNavigatorKey,
       proxyGuard: ProxyGuard(authTokenManager),
