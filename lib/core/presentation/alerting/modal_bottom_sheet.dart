@@ -236,7 +236,7 @@ class ModalBottomSheet {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          padding: const EdgeInsets.fromLTRB(20.0, 38.0, 20.0, 20.0),
+          padding: const EdgeInsets.fromLTRB(20.0, 38.0, 20.0, 30.0),
           child: CustomSafeArea(
             child: Column(
               mainAxisSize: MainAxisSize.min,

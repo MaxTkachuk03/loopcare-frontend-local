@@ -136,7 +136,9 @@ class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with 
     ModalBottomSheet.timeWasExceeded(
       context: context,
       onStartAgain: () {
-        context.read<MentalQuestionsBloc>().add(const MentalQuestionsEvent.startTestFromBeginning());
+        context
+            .read<MentalQuestionsBloc>()
+            .add(const MentalQuestionsEvent.startTestFromBeginning());
         context
             .read<GeneralOnboardingBloc>()
             .add(const GeneralOnboardingEvent.startMentalTestFromBeginning());

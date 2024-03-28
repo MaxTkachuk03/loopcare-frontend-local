@@ -48,7 +48,7 @@ class _MedicationFuturePeriodContentState extends State<MedicationFuturePeriodCo
         children: [
           Column(
             children: [
-              const SizedBox(height: 80.0),
+              const SizedBox(height: 50.0),
               CustomText.bitter600(
                 '${LocalizedTexts.medicationPastPeriodQuestion2.tr()}?',
                 style: context.textTheme.displayMedium,
