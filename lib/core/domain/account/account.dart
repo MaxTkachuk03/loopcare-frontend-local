@@ -58,20 +58,24 @@ abstract class Account implements _$Account {
   bool get isMixedGender => gender == GenderType.other;
 
   int get trainingFrequency {
-    final RegExpMatch? match = RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
+    final RegExpMatch? match =
+        RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
 
     return match != null ? int.parse(match[0] ?? '0') : 0;
   }
 
   bool get isPhysicalActivitiesUnlocked =>
-      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.physicalActivities)?.unlocked ??
+      features
+          .firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.physicalActivities)
+          ?.unlocked ??
       false;
 
   bool get isFoodLoggingUnlocked =>
       features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.meals)?.unlocked ?? false;
 
   bool get isGroupSessionsUnlocked =>
-      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.grouping)?.unlocked ?? false;
+      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.grouping)?.unlocked ??
+      false;
 
   bool get isAssignmentsUnlocked =>
       features
@@ -85,7 +89,8 @@ abstract class Account implements _$Account {
       features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.buddy)?.unlocked ?? false;
 
   bool get isSmartGoalsUnlocked =>
-      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.smartGoals)?.unlocked ?? false;
+      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.smartGoals)?.unlocked ??
+      false;
 
   bool get disableGroupSessions => mentalHealthTests != null && _isPhq8High ? true : false;
 
@@ -95,7 +100,7 @@ abstract class Account implements _$Account {
 
   bool get hasActiveSubscription => subscription.isActive;
 
-  bool get isOnTrial => subscription.isActive && subscription.state != SubscriptionStatus.trialPeriod;
+  bool get isOnTrial => subscription.isActive && subscription.state == SubscriptionStatus.trialPeriod;
 
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 }
