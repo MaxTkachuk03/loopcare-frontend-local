@@ -667,7 +667,9 @@ class LocalizedTexts {
   static const String weight = 'weight';
   static const String bmi = 'bmi';
   static const String years = 'years';
-  static const String bmiDescription = 'bmiDescription';
+  static const String bmiDescription1 = 'bmiDescription1';
+  static const String bmiDescription2 = 'bmiDescription2';
+  static const String bmiDescriptionAccent = 'bmiDescriptionAccent';
   static const String letsMoveOn = 'letsMoveOn';
 
   // Profile screen
