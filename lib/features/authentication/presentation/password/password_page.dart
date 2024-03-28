@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_form_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -32,6 +33,7 @@ class PasswordPage extends StatefulWidget {
 }
 
 class _PasswordPageState extends State<PasswordPage> {
+  late TextEditingController _emailController;
   final _passwordController = TextEditingController();
   final _formValidationNotifier = ValueNotifier<bool>(false);
 
@@ -40,7 +42,15 @@ class _PasswordPageState extends State<PasswordPage> {
   bool _passwordValidationPassed = false;
 
   @override
+  void initState() {
+    super.initState();
+    final email = context.read<AuthenticationBloc>().state.data.email;
+    _emailController = TextEditingController(text: email);
+  }
+
+  @override
   void dispose() {
+    _emailController.dispose();
     _passwordController.dispose();
     _formValidationNotifier.dispose();
     super.dispose();
@@ -62,79 +72,90 @@ class _PasswordPageState extends State<PasswordPage> {
           body: SafeArea(
             child: ScrollableContainer(
               child: MainContainer(
-                child: Column(
-                  key: const ValueKey('password_page_body'),
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const SizedBox(height: 35.0),
-                    CustomText.bitter600(
-                      '${LocalizedTexts.enterPasswordSubTitle.tr()}?',
-                      style: context.textTheme.displayMedium,
-                    ),
-                    const SizedBox(height: 30.0),
-                    PasswordWithIndicator(
-                      key: const ValueKey('password_page_with_indicator'),
-                      controller: _passwordController,
-                      onChange: _onPasswordChanged,
-                    ),
-                    const SizedBox(height: 20.0),
-                    CheckboxFormField(
-                      key: const ValueKey('registration_terms_conditions_checkbox'),
-                      errorText: '${LocalizedTexts.pleaseAcceptTOC.tr()}.',
-                      text: RichText(
-                        maxLines: 2,
-                        overflow: TextOverflow.visible,
-                        text: TextSpan(
-                          text: '${LocalizedTexts.iAcceptThe.tr()} ',
-                          style: context.textTheme.bodyMedium,
-                          children: [
-                            TextSpan(
-                              recognizer: TapGestureRecognizer()..onTap = _onTermsAndConditionsTap,
-                              text: LocalizedTexts.termsAndConditions.tr(),
-                              style: context.textTheme.bodyMedium?.copyWith(
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ],
+                child: AutofillGroup(
+                  child: Column(
+                    key: const ValueKey('password_page_body'),
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const SizedBox(height: 35.0),
+                      CustomText.bitter600(
+                        '${LocalizedTexts.enterPasswordSubTitle.tr()}?',
+                        style: context.textTheme.displayMedium,
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                        child: Opacity(
+                          opacity: 0.0,
+                          child: CustomTextField.hiddenEmail(
+                            key: const ValueKey('password_page_hidden_email'),
+                            controller: _emailController,
+                          ),
                         ),
                       ),
-                      onChanged: _onTermsAndConditionsChanged,
-                    ),
-                    const SizedBox(height: 10),
-                    CheckboxFormField(
-                      key: const ValueKey('registration_privacy_policy_checkbox'),
-                      errorText: '${LocalizedTexts.pleaseAcceptPrivacyPolicy.tr()}.',
-                      text: RichText(
-                        maxLines: 2,
-                        overflow: TextOverflow.visible,
-                        text: TextSpan(
-                          text: '${LocalizedTexts.iAcceptThe.tr()} ',
-                          style: context.textTheme.bodyMedium,
-                          children: [
-                            TextSpan(
-                              recognizer: TapGestureRecognizer()..onTap = _onPrivacyPolicyTap,
-                              text: LocalizedTexts.privacyPolicy.tr(),
-                              style: context.textTheme.bodyMedium?.copyWith(
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ],
-                        ),
+                      PasswordWithIndicator(
+                        key: const ValueKey('password_page_with_indicator'),
+                        controller: _passwordController,
+                        onChange: _onPasswordChanged,
                       ),
-                      onChanged: _onPrivacyPolicyChanged,
-                    ),
-                    const SizedBox(height: 24.0),
-                    ValueListenableBuilder<bool>(
-                      valueListenable: _formValidationNotifier,
-                      builder: (context, isValid, _) {
-                        return CustomElevatedButton.blueFullWidth(
-                          key: const ValueKey('password_page_next_button'),
-                          onPressed: isValid ? _onNextPressed : null,
-                          label: LocalizedTexts.register,
-                        );
-                      },
-                    ),
-                  ],
+                      const SizedBox(height: 20.0),
+                      CheckboxFormField(
+                        key: const ValueKey('registration_terms_conditions_checkbox'),
+                        errorText: '${LocalizedTexts.pleaseAcceptTOC.tr()}.',
+                        text: RichText(
+                          maxLines: 2,
+                          overflow: TextOverflow.visible,
+                          text: TextSpan(
+                            text: '${LocalizedTexts.iAcceptThe.tr()} ',
+                            style: context.textTheme.bodyMedium,
+                            children: [
+                              TextSpan(
+                                recognizer: TapGestureRecognizer()..onTap = _onTermsAndConditionsTap,
+                                text: LocalizedTexts.termsAndConditions.tr(),
+                                style: context.textTheme.bodyMedium?.copyWith(
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        onChanged: _onTermsAndConditionsChanged,
+                      ),
+                      const SizedBox(height: 10),
+                      CheckboxFormField(
+                        key: const ValueKey('registration_privacy_policy_checkbox'),
+                        errorText: '${LocalizedTexts.pleaseAcceptPrivacyPolicy.tr()}.',
+                        text: RichText(
+                          maxLines: 2,
+                          overflow: TextOverflow.visible,
+                          text: TextSpan(
+                            text: '${LocalizedTexts.iAcceptThe.tr()} ',
+                            style: context.textTheme.bodyMedium,
+                            children: [
+                              TextSpan(
+                                recognizer: TapGestureRecognizer()..onTap = _onPrivacyPolicyTap,
+                                text: LocalizedTexts.privacyPolicy.tr(),
+                                style: context.textTheme.bodyMedium?.copyWith(
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        onChanged: _onPrivacyPolicyChanged,
+                      ),
+                      const SizedBox(height: 24.0),
+                      ValueListenableBuilder<bool>(
+                        valueListenable: _formValidationNotifier,
+                        builder: (context, isValid, _) {
+                          return CustomElevatedButton.blueFullWidth(
+                            key: const ValueKey('password_page_next_button'),
+                            onPressed: isValid ? _onNextPressed : null,
+                            label: LocalizedTexts.register,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -145,6 +166,8 @@ class _PasswordPageState extends State<PasswordPage> {
   }
 
   void _onNextPressed() {
+    TextInput.finishAutofillContext();
+
     final physicalData = context.read<PhysicalQuestionsBloc>().state.registrationPhysicalQuestionsData;
     final medicalData = context.read<MedicalQuestionsBloc>().state.registrationData;
     final mentalData = context.read<MentalQuestionsBloc>().state.registrationData;

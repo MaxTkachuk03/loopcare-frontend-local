@@ -30,6 +30,7 @@ class CustomTextField extends StatefulWidget {
   final InputDecoration? decoration;
   final TextStyle? style;
   final TextAlign textAlign;
+  final bool readOnly;
   final Iterable<String>? autofillHints;
 
   const CustomTextField({
@@ -54,6 +55,7 @@ class CustomTextField extends StatefulWidget {
     this.style,
     this.textAlign = TextAlign.start,
     this.autofillHints,
+    this.readOnly = false,
   });
 
   factory CustomTextField.search({
@@ -107,6 +109,7 @@ class CustomTextField extends StatefulWidget {
         validator: emailValidator(),
         prefixIcon: const Icon(Icons.mail, size: 24),
         keyboardType: TextInputType.emailAddress,
+        autofillHints: const [AutofillHints.email],
         fillColor: fillColor,
         errorText: errorText,
         onChanged: onChanged,
@@ -164,6 +167,34 @@ class CustomTextField extends StatefulWidget {
         obscureText: true,
       );
 
+  factory CustomTextField.hiddenEmail({
+    Key? key,
+    required TextEditingController controller,
+  }) =>
+      CustomTextField(
+        key: key,
+        hintText: LocalizedTexts.yourEmail,
+        controller: controller,
+        keyboardType: TextInputType.emailAddress,
+        autofillHints: const [AutofillHints.email],
+        readOnly: true,
+      );
+
+  factory CustomTextField.hiddenPassword({
+    Key? key,
+    required TextEditingController controller,
+  }) =>
+      CustomTextField(
+        key: key,
+        hintText: LocalizedTexts.yourPassword,
+        controller: controller,
+        keyboardType: TextInputType.visiblePassword,
+        autofillHints: const [AutofillHints.password],
+        isToggleEye: true,
+        obscureText: true,
+        readOnly: true,
+      );
+
   factory CustomTextField.createPassword({
     Key? key,
     Color? fillColor,
@@ -173,6 +204,7 @@ class CustomTextField extends StatefulWidget {
       CustomTextField(
         key: key,
         hintText: LocalizedTexts.yourPassword,
+        autofillHints: const [AutofillHints.password],
         controller: controller,
         isToggleEye: true,
         obscureText: true,
@@ -278,6 +310,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     hintText: widget.hintText.tr(),
     prefixIcon: widget.prefixIcon,
     suffixIcon: _suffixIcon,
+    enabled: !widget.readOnly,
   );
 
   @override
@@ -300,6 +333,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       onChanged: widget.onChanged,
       focusNode: widget.focusNode,
       inputFormatters: widget.inputFormatters,
+      readOnly: widget.readOnly,
     );
   }
 }
