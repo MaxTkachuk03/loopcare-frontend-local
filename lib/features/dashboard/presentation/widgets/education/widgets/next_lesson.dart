@@ -60,6 +60,7 @@ class NextLesson extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(width: 14),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
