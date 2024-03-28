@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -125,8 +126,7 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
           },
           calendar: (s) {
             return Scaffold(
-              body: SafeArea(
-                top: false,
+              body: CustomSafeArea(
                 child: ScrollableContainer(
                   child: Column(
                     children: [

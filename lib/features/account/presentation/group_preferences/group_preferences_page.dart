@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -35,7 +36,8 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
 
     context.read<GroupPreferencesBloc>().add(
           GroupPreferencesEvent.setInitialData(
-            value: authState.data.groupingState == UserGroupingState.grouped ? YesNoAnswer.yes : YesNoAnswer.no,
+            value:
+                authState.data.groupingState == UserGroupingState.grouped ? YesNoAnswer.yes : YesNoAnswer.no,
             gender: genderPreferences ?? authState.data.genderPreferences,
             nickname: nickname ?? authState.data.nickname,
             timezone: timezone ?? authState.data.timezone,
@@ -51,7 +53,7 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
         leading: CustomFilledIconButton.leadingBlueLighter(),
         title: LocalizedTexts.groupPreferences.translation,
       ),
-      body: SafeArea(
+      body: CustomSafeArea(
         child: ScrollableContainer(
           child: MainContainer(
             child: Padding(
@@ -79,7 +81,8 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
                       }
                       if (state.data.groupingState == UserGroupingState.refused) return const NotGrouped();
                       if (state.data.groupingState == UserGroupingState.left) return const NotGrouped();
-                      if (state.data.groupingState == UserGroupingState.waitingInPool) return const WaitingInPool();
+                      if (state.data.groupingState == UserGroupingState.waitingInPool)
+                        return const WaitingInPool();
                       if (state.data.groupingState == UserGroupingState.grouped) return const Grouped();
                       if (state.data.groupingState == UserGroupingState.loopedOnGenderPreferences) {
                         return const CanNotFindGroup();

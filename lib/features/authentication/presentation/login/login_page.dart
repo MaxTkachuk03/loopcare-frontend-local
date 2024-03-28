@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -18,19 +19,17 @@ import 'package:loopcare_frontend/injection.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
-  void _onForgotMyPassword(BuildContext context) =>
-      context.router.pushNamed(AppRoutes.forgotPassword);
+  void _onForgotMyPassword(BuildContext context) => context.router.pushNamed(AppRoutes.forgotPassword);
 
   @override
   Widget build(BuildContext context) {
     return CustomScaffold.green(
       key: const ValueKey('login_page'),
       appBar: CustomAppBar.transparent(
-        leading: context.router.canPop()
-            ? CustomFilledIconButton.leadingGreenLighter()
-            : const SizedBox.shrink(),
+        leading:
+            context.router.canPop() ? CustomFilledIconButton.leadingGreenLighter() : const SizedBox.shrink(),
       ),
-      body: SafeArea(
+      body: CustomSafeArea(
         child: ScrollableContainer(
           child: MainContainer(
             child: Column(
@@ -41,7 +40,9 @@ class LoginPage extends StatelessWidget {
                 Container(alignment: Alignment.center, child: const Image(image: AppImages.intro)),
                 const SizedBox(height: 24.0),
                 CustomText.bitter600(
-                  '${LocalizedTexts.loginTitle.tr(namedArgs: {'projectName': getIt<AppConfig>().projectName})}!',
+                  '${LocalizedTexts.loginTitle.tr(namedArgs: {
+                        'projectName': getIt<AppConfig>().projectName
+                      })}!',
                   style: context.textTheme.displayLarge,
                   textAlign: TextAlign.center,
                 ),

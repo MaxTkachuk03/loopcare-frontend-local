@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -40,7 +41,7 @@ class ChangeEmailAddressPage extends StatelessWidget {
             title: LocalizedTexts.changeEmail.tr(),
             leading: CustomFilledIconButton.leadingGreenLighter(),
           ),
-          body: SafeArea(
+          body: CustomSafeArea(
             child: ScrollableContainer(
               child: MainContainer(
                 child: Column(
@@ -87,6 +88,5 @@ class ChangeEmailAddressPage extends StatelessWidget {
     );
   }
 
-  void _navigationListener(BuildContext context, AuthenticationState state) =>
-      context.router.pop();
+  void _navigationListener(BuildContext context, AuthenticationState state) => context.router.pop();
 }

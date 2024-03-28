@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -63,7 +64,8 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
-      listenWhen: (previous, current) => previous is WaitedConfirmationState && current is GuestAuthenticationState,
+      listenWhen: (previous, current) =>
+          previous is WaitedConfirmationState && current is GuestAuthenticationState,
       listener: _authenticatedListener,
       child: PopScope(
         canPop: false,
@@ -73,7 +75,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
             title: LocalizedTexts.createAccount.tr(),
             leading: const SizedBox.shrink(),
           ),
-          body: SafeArea(
+          body: CustomSafeArea(
             child: ScrollableContainer(
               child: Column(
                 key: const ValueKey('waiting_for_confirmation_page_body'),

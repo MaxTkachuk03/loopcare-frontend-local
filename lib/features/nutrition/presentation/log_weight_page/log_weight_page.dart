@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_se
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -109,7 +110,7 @@ class _LogWeightPageState extends State<LogWeightPage> {
         leading: CustomFilledIconButton.leadingCoralLighter(),
         title: _isToday ? LocalizedTexts.todaysWeight.translation : LocalizedTexts.yourWeight.translation,
       ),
-      body: SafeArea(
+      body: CustomSafeArea(
         child: ScrollableContainer(
           child: MainContainer(
             child: Column(

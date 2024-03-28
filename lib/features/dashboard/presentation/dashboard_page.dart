@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -78,9 +79,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
         .read<DashboardWeightBloc>()
         .add(DashboardWeightEvent.fetchWeights(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime));
 
-    context
-        .read<MoodBloc>()
-        .add(
+    context.read<MoodBloc>().add(
           MoodEvent.getMoods(
             _selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime,
             DateTime.now().utcIsoStringFormat,
@@ -144,17 +143,15 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     context.read<DashboardWeightBloc>().add(DashboardWeightEvent.setDate(day));
     context.read<MealsBloc>().add(MealsEvent.setCurrentDate(day, updateOrigin: true));
     context.read<MoodBloc>().add(MoodEvent.setDate(day));
-    context
-        .read<DashboardEducationBloc>()
-        .add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
+    context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
 
     if (context.read<AuthenticationBloc>().state.data.isAssignmentsUnlocked) {
       context.read<AssignmentsBloc>().add(
-        AssignmentsEvent.getAllLessonQuestions(
-          _selectedDay.beginDay,
-          _selectedDay.endDay,
-        ),
-      );
+            AssignmentsEvent.getAllLessonQuestions(
+              _selectedDay.beginDay,
+              _selectedDay.endDay,
+            ),
+          );
     }
 
     setState(() {
@@ -180,10 +177,11 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
   @override
   Widget build(BuildContext context) {
     return BlocListener<DashboardWeightBloc, DashboardWeightState>(
-      listenWhen: (previous, current) => previous is DashboardWeightStateLoading && current is DashboardWeightStateUpdated,
+      listenWhen: (previous, current) =>
+          previous is DashboardWeightStateLoading && current is DashboardWeightStateUpdated,
       listener: _weightListener,
       child: CustomScaffold.blue(
-        body: SafeArea(
+        body: CustomSafeArea(
           child: Column(
             children: [
               SliderCalendar(onSelectDay: _onDaySelected),

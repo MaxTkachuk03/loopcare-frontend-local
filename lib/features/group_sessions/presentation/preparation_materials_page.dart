@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/html_renderer/html_renderer.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
@@ -49,7 +50,7 @@ class PreparationMaterialsPage extends StatelessWidget {
               subtitle: state.data.weekTopicName,
               leading: CustomFilledIconButton.leadingBlueLighter(),
             ),
-            body: SafeArea(
+            body: CustomSafeArea(
               child: ScrollableContainer(
                 child: Column(
                   children: [

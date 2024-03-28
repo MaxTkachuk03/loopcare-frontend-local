@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -59,7 +60,7 @@ class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
           return state.maybeMap(
             loading: (_) => const Loader(),
             orElse: () {
-              return SafeArea(
+              return CustomSafeArea(
                 child: ScrollableContainer(
                   child: (thisWeekAssignments.isNotEmpty || pastAssignments.isNotEmpty)
                       ? MainContainer(

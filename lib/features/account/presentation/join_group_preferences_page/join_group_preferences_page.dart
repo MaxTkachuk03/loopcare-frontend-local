@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_se
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -81,7 +82,7 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
   Widget build(BuildContext context) {
     return GroupPrefsPageWrap(
       fromLessonComplete: widget.fromLessonComplete,
-      child: SafeArea(
+      child: CustomSafeArea(
         child: MainContainer(
           child: ScrollableContainer(
             child: Column(

@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_se
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -49,7 +50,8 @@ class _LessonPageState extends State<LessonPage> {
 
     if (lessonBloc.state.data.isLastPage) {
       final extraAction = lessonBloc.state.data.extraAction;
-      if (extraAction == ExtraActionTypes.setupGroupingPreferences && !(account?.isGroupSessionsUnlocked ?? false)) {
+      if (extraAction == ExtraActionTypes.setupGroupingPreferences &&
+          !(account?.isGroupSessionsUnlocked ?? false)) {
         AnalyticsEventService.instance.logEvent(FirebaseEvents.unlockedSupportGroupFeature);
 
         context
@@ -146,7 +148,7 @@ class _LessonPageState extends State<LessonPage> {
           title: LocalizedTexts.lesson.tr(),
           leading: CustomFilledIconButton.leadingPetrolLighter(onPressed: _onPrevPressed),
         ),
-        body: SafeArea(
+        body: CustomSafeArea(
           child: BlocConsumer<EducationLessonBloc, EducationLessonState>(
             listener: _onContentLoaded,
             listenWhen: (prev, cur) => cur is ContentLoaded,
@@ -154,10 +156,12 @@ class _LessonPageState extends State<LessonPage> {
               return state.maybeMap(
                 initial: (_) => const Loader(),
                 contentIsLoading: (_) => const Loader(),
-                errorGettingContent: (s) => ErrorScreen(error: s.data.error!, onButtonPressed: _onRetryHandler),
+                errorGettingContent: (s) =>
+                    ErrorScreen(error: s.data.error!, onButtonPressed: _onRetryHandler),
                 orElse: () {
                   if (state.data.isArticlePage) {
-                    return LessonTextBody(onNextPressed: _onNextPressed, content: state.data.currentPage.content);
+                    return LessonTextBody(
+                        onNextPressed: _onNextPressed, content: state.data.currentPage.content);
                   }
 
                   if (state.data.isAudioPage) {

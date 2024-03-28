@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -52,7 +53,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return CustomSafeArea(
       child: CustomScaffold.yellow(
         appBar: CustomAppBar.transparent(
           leading: const SizedBox.shrink(),
@@ -117,11 +118,13 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
             context: context,
             onSubscriptionPref: Platform.isIOS
                 ? () {
-                    launchUrl(Uri.parse(appConfig.appStoreSettingsLink), mode: LaunchMode.externalApplication);
+                    launchUrl(Uri.parse(appConfig.appStoreSettingsLink),
+                        mode: LaunchMode.externalApplication);
                     context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout());
                   }
                 : () {
-                    launchUrl(Uri.parse(appConfig.playMarketSettingsLink), mode: LaunchMode.externalApplication);
+                    launchUrl(Uri.parse(appConfig.playMarketSettingsLink),
+                        mode: LaunchMode.externalApplication);
                     context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout());
                   })
         : _showPopover();

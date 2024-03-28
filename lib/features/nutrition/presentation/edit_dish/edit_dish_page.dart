@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -332,7 +333,7 @@ class _EditDishPageState extends State<EditDishPage> {
                 ),
               ),
             ),
-            body: SafeArea(
+            body: CustomSafeArea(
               child: ScrollableContainer(
                 child: BlocBuilder<EditDishBloc, EditDishState>(
                   builder: (BuildContext context, state) {

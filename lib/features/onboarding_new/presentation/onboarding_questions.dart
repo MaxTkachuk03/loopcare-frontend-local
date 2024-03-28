@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -23,14 +24,11 @@ class OnboardingQuestionsPage extends StatefulWidget {
 }
 
 class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with WidgetsBindingObserver {
-
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     if (state == AppLifecycleState.resumed) {
-      context
-          .read<GeneralOnboardingBloc>()
-          .add(const GeneralOnboardingEvent.resumeTimer());
+      context.read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.resumeTimer());
     }
   }
 
@@ -38,9 +36,7 @@ class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with 
     if (isPhysicalIntro) {
       context.router.pop();
     } else {
-      context
-          .read<GeneralOnboardingBloc>()
-          .add(const GeneralOnboardingEvent.previousStep());
+      context.read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.previousStep());
     }
   }
 
@@ -49,11 +45,13 @@ class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with 
     return MultiBlocListener(
       listeners: [
         BlocListener<MedicalQuestionsBloc, MedicalQuestionsState>(
-          listenWhen: (previous, current) => previous.sexType != current.sexType || previous.age != current.age,
+          listenWhen: (previous, current) =>
+              previous.sexType != current.sexType || previous.age != current.age,
           listener: _pregnancyListener,
         ),
         BlocListener<GeneralOnboardingBloc, GeneralOnboardingState>(
-          listenWhen: (previous, current) => previous.mentalTimerState.isActive && current.mentalTimerState.isCompleted,
+          listenWhen: (previous, current) =>
+              previous.mentalTimerState.isActive && current.mentalTimerState.isCompleted,
           listener: _mentalTimerComplete,
         ),
       ],
@@ -112,7 +110,7 @@ class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with 
               withBg: false,
               color: state.backgroundColor,
               appBar: appBar,
-              body: SafeArea(
+              body: CustomSafeArea(
                 bottom: false,
                 child: ScrollableContainer(
                   physics: const ClampingScrollPhysics(),
@@ -130,8 +128,8 @@ class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with 
     final enablePregnancyQuestion = state.sexType == SexType.female && (state.age ?? 0) < 60;
 
     context.read<GeneralOnboardingBloc>().add(
-      GeneralOnboardingEvent.updatePregnancyQuestion(enable: enablePregnancyQuestion),
-    );
+          GeneralOnboardingEvent.updatePregnancyQuestion(enable: enablePregnancyQuestion),
+        );
   }
 
   void _mentalTimerComplete(BuildContext context, GeneralOnboardingState state) {
@@ -139,7 +137,9 @@ class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with 
       context: context,
       onStartAgain: () {
         context.read<MentalQuestionsBloc>().add(const MentalQuestionsEvent.startTestFromBeginning());
-        context.read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.startMentalTestFromBeginning());
+        context
+            .read<GeneralOnboardingBloc>()
+            .add(const GeneralOnboardingEvent.startMentalTestFromBeginning());
         context.router.pop();
       },
     );
