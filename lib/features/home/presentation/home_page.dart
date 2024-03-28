@@ -40,6 +40,13 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+
+  @override
+  void dispose() {
+    isChatEnable.dispose();
+    super.dispose();
+  }
+
   Future<void> _initPackageInfo() async {
     final info = await PackageInfo.fromPlatform();
 
@@ -69,30 +76,31 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthenticationBloc, AuthenticationState>(
-        listener: _logoutListener,
-        buildWhen: (context, state) => isChatEnable.value != state.data.isUserGrouped,
-        builder: (context, state) {
-          _chatEnable(state);
-          return AutoTabsScaffold(
-            animationDuration: Duration.zero,
-            routes: const [
-              DashboardRoute(),
-              EducationRoute(),
-              GroupChatRoute(),
-              AccountRoute(),
-            ],
-            appBarBuilder: (_, tabsRouter) => AppBar(
-              systemOverlayStyle: SystemUiOverlayStyle.light,
-              toolbarHeight: 0.0,
-              backgroundColor: DashboardNavbarItems.getColorByIndex(tabsRouter.activeIndex),
-            ),
-            bottomNavigationBuilder: (_, tabsRouter) => AppNavigationBar(
-              tabsRouter: tabsRouter,
-              userName: state.data.accountName,
-              isChatEnable: isChatEnable,
-            ),
-          );
-        });
+      listener: _logoutListener,
+      buildWhen: (context, state) => isChatEnable.value != state.data.isUserGrouped,
+      builder: (context, state) {
+        _chatEnable(state);
+        return AutoTabsScaffold(
+          animationDuration: Duration.zero,
+          routes: const [
+            DashboardRoute(),
+            EducationRoute(),
+            GroupChatRoute(),
+            AccountRoute(),
+          ],
+          appBarBuilder: (_, tabsRouter) => AppBar(
+            systemOverlayStyle: SystemUiOverlayStyle.light,
+            toolbarHeight: 0.0,
+            backgroundColor: DashboardNavbarItems.getColorByIndex(tabsRouter.activeIndex),
+          ),
+          bottomNavigationBuilder: (_, tabsRouter) => AppNavigationBar(
+            tabsRouter: tabsRouter,
+            userName: state.data.accountName,
+            isChatEnable: isChatEnable,
+          ),
+        );
+      },
+    );
   }
 
   void _chatEnable(AuthenticationState state) => isChatEnable.value = state.data.isUserGrouped;
