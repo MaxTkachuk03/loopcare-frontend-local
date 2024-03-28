@@ -2,8 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/unlock_config/feature/feature.dart';
-import 'package:loopcare_frontend/core/domain/unlock_config/unlock_lock_feature/set_feature.dart';
+import 'package:loopcare_frontend/core/domain/unlock_config/unlock_feature/unlock_feature.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -42,13 +41,10 @@ class _PhysicalActivitiesCompletePageState extends State<PhysicalActivitiesCompl
     }
     context.read<AuthenticationBloc>().add(
           AuthenticationEvent.unlockFeature(
-            SetFeature(
-              accountId: accountId,
-              feature: const Feature(
-                feature: UnlockedFeatureType.physicalActivities,
-                unlocked: true,
-                subFeatures: null,
-              ),
+            UnlockFeature(
+              feature: UnlockedFeatureType.physicalActivities.name,
+              unlocked: true,
+              subFeatures: null,
             ),
           ),
         );

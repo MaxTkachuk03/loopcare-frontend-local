@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:loopcare_frontend/core/domain/unlock_config/unlock_lock_feature/set_feature.dart';
+import 'package:loopcare_frontend/core/domain/unlock_config/unlock_feature/unlock_feature.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -58,7 +58,7 @@ class APIAuthenticationService implements AuthenticationService {
   }
 
   @override
-  Future<Either<RequestError, UnlockFeatureResponse>> unlockFeature(SetFeature data) async {
+  Future<Either<RequestError, UnlockFeatureResponse>> unlockFeature(UnlockFeature data) async {
     return client
         .patch(
           '/accounts/set-feature',
