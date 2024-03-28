@@ -43,7 +43,7 @@ class AuthenticationEvent with _$AuthenticationEvent {
   const factory AuthenticationEvent.changeAccountGroupStatus(UserGroupingState groupingState) =
       ChangeAccountGroupStatus;
 
-  const factory AuthenticationEvent.unlockFeature(SetFeature feature) = UnlockFeature;
+  const factory AuthenticationEvent.unlockFeature(UnlockFeature feature) = UnlockedFeature;
 
   const factory AuthenticationEvent.syncChatState() = SyncChatState;
 

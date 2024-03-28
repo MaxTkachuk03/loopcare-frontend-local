@@ -14,7 +14,7 @@ import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
-import 'package:loopcare_frontend/core/domain/unlock_config/unlock_lock_feature/set_feature.dart';
+import 'package:loopcare_frontend/core/domain/unlock_config/unlock_feature/unlock_feature.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -69,7 +69,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     on<DeleteAccount>(_onDeleteAccount);
     on<ConnectSockets>(_onConnectSockets);
     on<ChangeAccountGroupStatus>(_onChangeAccountGroupStatus);
-    on<UnlockFeature>(_onUnlockFeature);
+    on<UnlockedFeature>(_onUnlockFeature);
     on<SyncChatState>(_onSyncChatState);
     on<AuthenticatedCheck>(_onAuthenticatedCheck);
     on<StartTrackUser>(_onStartTrackUser);
@@ -363,7 +363,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
   }
 
   FutureOr<void> _onUnlockFeature(
-    UnlockFeature event,
+    UnlockedFeature event,
     Emitter<AuthenticationState> emit,
   ) async {
     await state.whenOrNull(
@@ -385,7 +385,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
               ),
             );
 
-            if (event.feature.feature.feature == UnlockedFeatureType.grouping) {
+            if (event.feature.feature == UnlockedFeatureType.grouping.name) {
               add(const AuthenticationEvent.changeAccountGroupStatus(UserGroupingState.unlockedPreferences));
             }
           },

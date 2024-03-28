@@ -5,11 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/domain/unlock_config/unlock_feature/unlock_feature.dart';
+import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
-import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -50,8 +51,9 @@ class _LessonPageState extends State<LessonPage> {
 
     if (lessonBloc.state.data.isLastPage) {
       final extraAction = lessonBloc.state.data.extraAction;
-      if (extraAction == ExtraActionTypes.setupGroupingPreferences &&
-          !(account?.isGroupSessionsUnlocked ?? false)) {
+      if (extraAction == ExtraActionTypes.setupGroupingPreferences && !(account?.isGroupSessionsUnlocked ?? false)) {
+        _unlockFeature(account, UnlockedFeatureType.grouping);
+
         AnalyticsEventService.instance.logEvent(FirebaseEvents.unlockedSupportGroupFeature);
 
         context
@@ -62,12 +64,14 @@ class _LessonPageState extends State<LessonPage> {
       }
 
       if (extraAction == ExtraActionTypes.unlockMeals && !(account?.isFoodLoggingUnlocked ?? false)) {
+        _unlockFeature(account, UnlockedFeatureType.meals);
         context.router.pushNamed(AppRoutes.lessonCompleteFoodPreferences);
         return;
       }
 
       if (extraAction == ExtraActionTypes.unlockPhysicalActivities &&
           !(account?.isPhysicalActivitiesUnlocked ?? false)) {
+        _unlockFeature(account, UnlockedFeatureType.physicalActivities);
         context.router.pushNamed(AppRoutes.physicalPreferencesIntro);
         return;
       }
@@ -89,6 +93,16 @@ class _LessonPageState extends State<LessonPage> {
     int pageIndex = widget.pageIndex + 1;
 
     context.router.pushNamed('/lesson/${widget.lessonId}/page/$pageIndex');
+  }
+
+  void _unlockFeature(Account? account, UnlockedFeatureType feature) {
+    context.read<AuthenticationBloc>().add(
+          AuthenticationEvent.unlockFeature(UnlockFeature(
+            feature: feature.name,
+            unlocked: true,
+            subFeatures: null,
+          )),
+        );
   }
 
   _onPrevPressed() {
@@ -156,12 +170,10 @@ class _LessonPageState extends State<LessonPage> {
               return state.maybeMap(
                 initial: (_) => const Loader(),
                 contentIsLoading: (_) => const Loader(),
-                errorGettingContent: (s) =>
-                    ErrorScreen(error: s.data.error!, onButtonPressed: _onRetryHandler),
+                errorGettingContent: (s) => ErrorScreen(error: s.data.error!, onButtonPressed: _onRetryHandler),
                 orElse: () {
                   if (state.data.isArticlePage) {
-                    return LessonTextBody(
-                        onNextPressed: _onNextPressed, content: state.data.currentPage.content);
+                    return LessonTextBody(onNextPressed: _onNextPressed, content: state.data.currentPage.content);
                   }
 
                   if (state.data.isAudioPage) {
