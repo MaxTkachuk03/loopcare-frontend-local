@@ -61,7 +61,7 @@ class _DiabetesDiseaseContentState extends State<DiabetesDiseaseContent> {
         children: [
           Column(
             children: [
-              const SizedBox(height: 80.0),
+              const SizedBox(height: 50.0),
               CustomText.bitter600(
                 '${LocalizedTexts.diabetesQuestion.tr()}?',
                 style: context.textTheme.displayMedium,

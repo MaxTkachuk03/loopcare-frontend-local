@@ -55,7 +55,7 @@ class _TreatmentByDoctorContentState extends State<TreatmentByDoctorContent> {
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(height: 80.0),
+              const SizedBox(height: 50.0),
               CustomText.bitter600(
                 '${LocalizedTexts.treatmentByTheDoctorQuestion.tr()}?',
                 style: context.textTheme.displayMedium,

@@ -47,7 +47,7 @@ class _PregnancyContentState extends State<PregnancyContent> {
         children: [
           Column(
             children: [
-              const SizedBox(height: 80.0),
+              const SizedBox(height: 50.0),
               CustomText.bitter600(
                 LocalizedTexts.areYouPregnant.tr(),
                 style: context.textTheme.displayMedium,
