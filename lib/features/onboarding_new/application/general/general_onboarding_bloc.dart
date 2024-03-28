@@ -7,7 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
-import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
+import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -135,7 +135,7 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
 
         emit(
           state.copyWith(
-            mentalTests: tests,
+            allMentalTests: tests,
             mentalQuestions: mentalSteps,
           ),
         );
@@ -237,9 +237,9 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     ExcludeMentalQuestionsByGender event,
     Emitter<GeneralOnboardingState> emit,
   ) {
-    final testsWithGenderExclusions = state.mentalTests
+    final testsWithGenderExclusions = state.allMentalTests
         .map((element) => element.copyWith(
-          questions: element.questions.where((e) => e.excludeGender != event.gender).toList(),
+          questions: element.questions.where((e) => e.excludeSex != event.sex).toList(),
         ))
         .toList();
 

@@ -20,5 +20,5 @@ class GeneralOnboardingEvent with _$GeneralOnboardingEvent {
 
   const factory GeneralOnboardingEvent.updatePregnancyQuestion({required bool enable}) = UpdatePregnancyQuestion;
 
-  const factory GeneralOnboardingEvent.excludeMentalQuestionsByGender({required GenderType gender}) = ExcludeMentalQuestionsByGender;
+  const factory GeneralOnboardingEvent.excludeMentalQuestionsByGender({required SexType sex}) = ExcludeMentalQuestionsByGender;
 }

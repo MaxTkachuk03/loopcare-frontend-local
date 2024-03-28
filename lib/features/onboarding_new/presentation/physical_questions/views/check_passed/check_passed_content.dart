@@ -38,7 +38,7 @@ class CheckPassedContent extends StatelessWidget {
   void _onContinuePressed(BuildContext context) {
     final state = context.read<PhysicalQuestionsBloc>().state;
     context.read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.nextStep());
-    context.read<GeneralOnboardingBloc>().add(GeneralOnboardingEvent.excludeMentalQuestionsByGender(gender: state.genderType!));
+    context.read<GeneralOnboardingBloc>().add(GeneralOnboardingEvent.excludeMentalQuestionsByGender(sex: state.sexType!));
   }
 
   @override

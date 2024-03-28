@@ -12,6 +12,7 @@ class GeneralOnboardingState with _$GeneralOnboardingState {
     @Default(_defaultMedicalQuestions) List<MedicalQuestionStep> medicalQuestions,
     @Default([]) List<MentalQuestionStep> mentalPassedStack,
     @Default(_defaultMentalQuestions) List<MentalQuestionStep> mentalQuestions,
+    @Default([]) List<MentalHealthTest> allMentalTests,
     @Default([]) List<MentalHealthTest> mentalTests,
     DateTime? mentalStartTime,
     @Default(TimerState.empty) TimerState mentalTimerState,
