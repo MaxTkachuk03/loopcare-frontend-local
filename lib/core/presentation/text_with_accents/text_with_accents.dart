@@ -16,7 +16,8 @@ class TextWithAccents extends StatelessWidget {
   final TextStyle? accentedStyle;
 
   List<String> _parts(String text, List<String> accents) {
-    if (accents.isNotEmpty) {
+    final pattern = accents.firstOrNull;
+    if (accents.isNotEmpty && pattern != null && text.contains(pattern)) {
       final parts = text.split(accents.first);
       final start = parts.first.length + accents.first.length;
       final secondPart = text.substring(start);

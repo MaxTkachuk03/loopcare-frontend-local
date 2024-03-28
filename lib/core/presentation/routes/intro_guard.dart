@@ -66,13 +66,28 @@ class IntroGuard extends AutoRouteGuard {
     final authState = authenticationBloc.state;
     final onboardingState = onboardingBloc.state;
 
-    if (authState.data.name.isEmpty && !onboardingState.isCompleted && storage.account == null) {
+    final legalStatementWasPassed = legalStatementBloc.state.pageWasPassed;
+
+    final onboardingNotStarted = authState.data.name.isEmpty && !onboardingState.isCompleted && storage.account == null;
+    final onboardingFinished = !authState.data.accountId.isNegative && !onboardingState.isCompleted;
+
+    if (onboardingNotStarted || onboardingFinished) {
       router.replace(const IntroRoute());
 
       return;
     }
 
-    final legalStatementWasPassed = legalStatementBloc.state.pageWasPassed;
+
+    if (!onboardingState.isCompleted && legalStatementWasPassed) {
+      router.replaceAll([
+        const SignUpWelcomeRoute(),
+        const PasswordRoute(),
+        if (authState.data.emailWasSend) const WaitingForConfirmationRoute(),
+      ]);
+
+      return;
+    }
+
     if (onboardingState.isCompleted && legalStatementWasPassed) {
       router.replaceAll([
         const SignUpWelcomeRoute(),

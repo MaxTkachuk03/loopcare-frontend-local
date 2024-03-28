@@ -56,7 +56,7 @@ class _MedicinesContentState extends State<MedicinesContent> {
         children: [
           Column(
             children: [
-              const SizedBox(height: 80.0),
+              const SizedBox(height: 50.0),
               CustomText.bitter600(
                 '${LocalizedTexts.medicinesTitle.tr()}?',
                 style: context.textTheme.displayMedium,
