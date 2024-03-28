@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
+import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 
 part 'mental_health_question.freezed.dart';
 part 'mental_health_question.g.dart';
@@ -11,7 +11,7 @@ abstract class MentalHealthQuestion implements _$MentalHealthQuestion {
   const factory MentalHealthQuestion({
     required int id,
     required String title,
-    required GenderType? excludeGender,
+    required SexType? excludeSex,
   }) = _MentalHealthQuestion;
 
   factory MentalHealthQuestion.fromJson(Map<String, dynamic> json) => _$MentalHealthQuestionFromJson(json);
