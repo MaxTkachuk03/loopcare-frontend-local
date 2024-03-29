@@ -50,8 +50,6 @@ class _LegalStatementPageState extends State<LegalStatementPage> {
             body: MainContainer(
               child: ListView(
                 physics: const ClampingScrollPhysics(),
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 32.0),
                   CustomText.bitter600(
