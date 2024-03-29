@@ -5,6 +5,8 @@ import 'package:customer_io/customer_io_config.dart';
 import 'package:customer_io/customer_io_enums.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_attributes.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
 import 'package:loopcare_frontend/core/application/firebase/mesaging/firebase_messaging.dart';
 
 export 'customer_io_attributes.dart';
@@ -25,26 +27,6 @@ class CustomerIoService {
     );
   }
 
-  static Future<void> userRegistered({
-    required String email,
-    required String name,
-    required int id,
-  }) async {
-    CustomerIO.identify(
-      identifier: email,
-      attributes: {
-        'name': name,
-        'id': id,
-        'created_at': _timestamp,
-        'system_locale': Platform.localeName,
-      },
-    );
-
-    await _setDevice();
-
-    CustomerIO.track(name: 'new_user');
-  }
-
   static Future<void> onboardingStarted({
     required String email,
     required String name,
@@ -59,11 +41,10 @@ class CustomerIoService {
       },
     );
 
-
     CustomerIO.track(
-      name: 'onboarding_new_user',
+      name: CIOEvents.onboardingNewUser,
       attributes: {
-        'Consent to email': receiveAnEmails,
+        CIOAttributes.consentToEmail: receiveAnEmails,
       },
     );
 
@@ -75,9 +56,9 @@ class CustomerIoService {
     required String email,
   }) async {
     CustomerIO.track(
-      name: 'update_user_email',
+      name: CIOEvents.onboardingEmailChanged,
       attributes: {
-        'New email': email,
+        CIOAttributes.updateEmail: email,
       },
     );
   }
@@ -108,7 +89,7 @@ class CustomerIoService {
 
     await _setDevice();
 
-    CustomerIO.track(name: 'authentication', attributes: {'last_auth': _timestamp,});
+    CustomerIO.track(name: CIOEvents.auth, attributes: {'last_auth': _timestamp});
   }
 
   static void track({

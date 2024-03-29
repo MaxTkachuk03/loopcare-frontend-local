@@ -2,7 +2,6 @@ class CIOEvents {
   const CIOEvents._();
 
   // Authentication
-  static const String newUser = 'new_user';
   static const String auth = 'authentication';
 
   // Onboarding
@@ -49,6 +48,8 @@ class CIOEvents {
   static const String onboardingTreatmentByTheDoctor = 'onboarding_treatment_by_doctor';
   static const String onboardingRegisterIntro = 'onboarding_register_intro';
   static const String onboardingPasswordCreated = 'onboarding_password_created';
+  static const String onboardingNewUser = 'onboarding_new_user';
   static const String onboardingNewUserCreated = 'onboarding_new_user_created';
   static const String onboardingNewUserVerified = 'onboarding_new_user_verified';
+  static const String onboardingEmailChanged = 'onboarding_email_changed';
 }
