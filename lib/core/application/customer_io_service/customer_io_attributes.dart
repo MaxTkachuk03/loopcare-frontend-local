@@ -31,4 +31,6 @@ class CIOAttributes {
   static const String testName = 'Test name';
   static const String question = 'Question';
   static const String selectedOption = 'Selected option';
+  static const String identifierOption = 'Subscription identifier';
+  static const String subscriptionExpirationDate = 'Subscription expiration date';
 }

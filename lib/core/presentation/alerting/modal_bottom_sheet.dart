@@ -133,6 +133,7 @@ class ModalBottomSheet {
   static void restoreSubscription({
     required BuildContext context,
     required void Function() onSubscriptionPref,
+    bool isDuplicate = false,
   }) {
     showModalBottomSheet<void>(
       showDragHandle: true,
@@ -147,7 +148,9 @@ class ModalBottomSheet {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CustomText.w400(
-                    '${LocalizedTexts.restoreSubscriptionFromSettings.tr()}.',
+                    isDuplicate
+                        ? '${LocalizedTexts.duplicateSubscriptionFromSettings.tr()}.'
+                        : '${LocalizedTexts.restoreSubscriptionFromSettings.tr()}.',
                     style: context.textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 32.0),
@@ -212,9 +215,8 @@ class ModalBottomSheet {
                   const SizedBox(height: 12.0),
                   CustomOutlinedButton.blueFullWidth(
                     onPressed: noActiveSubscription ? onDeleted : onSubscriptionPref,
-                    label: noActiveSubscription
-                        ? LocalizedTexts.yesDelete.tr()
-                        : LocalizedTexts.manageSubscription.tr(),
+                    label:
+                        noActiveSubscription ? LocalizedTexts.yesDelete.tr() : LocalizedTexts.manageSubscription.tr(),
                   )
                 ],
               ),
