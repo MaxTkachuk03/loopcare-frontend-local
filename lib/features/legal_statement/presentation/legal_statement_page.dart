@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_de
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
@@ -15,7 +16,6 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/presentation/widgets/legal_statement_confirmation_box.dart';
@@ -46,55 +46,49 @@ class _LegalStatementPageState extends State<LegalStatementPage> {
           leading: CustomFilledIconButton.leadingBlueLighter(),
         ),
         body: CustomSafeArea(
-          child: ScrollableContainer(
-            child: MainContainer(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
+          child: BottomPlacedButton.blueLightest(
+            body: MainContainer(
+              child: ListView(
+                physics: const ClampingScrollPhysics(),
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    children: [
-                      const SizedBox(height: 32.0),
-                      CustomText.bitter600(
-                        LocalizedTexts.legalStatement.tr(),
-                        style: context.textTheme.displayMedium,
-                      ),
-                      const SizedBox(height: 32.0),
-                      CustomText.w400(
-                        '${LocalizedTexts.legalStatementTextOne.tr()}.',
-                        style: context.textTheme.bodyMedium,
-                      ),
-                      // TODO removed during LOOPCARE-2000 task 25.01.2024
-                      // const SizedBox(height: 16.0),
-                      // CustomText.w400(
-                      //   '${LocalizedTexts.legalStatementTextTwo.tr()}.',
-                      //   style: context.textTheme.bodyMedium,
-                      // ),
-                      // const SizedBox(height: 38.0),
-                      // CustomElevatedButton.coralSmall(
-                      //   onPressed: () => _onReadLegalStatement(context),
-                      //   label: LocalizedTexts.readLegalStatement,
-                      // ),
-                      const SizedBox(height: 27.0),
-                      LegalStatementConfirmationBox(
-                        onChanged: onChanged,
-                      ),
-                    ],
+                  const SizedBox(height: 32.0),
+                  CustomText.bitter600(
+                    LocalizedTexts.legalStatement.tr(),
+                    style: context.textTheme.displayMedium,
                   ),
-                  ValueListenableBuilder<bool>(
-                    valueListenable: valueListener,
-                    builder: (context, value, _) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 42.0),
-                        child: CustomElevatedButton.blueFullWidth(
-                          onPressed: value ? onConfirm : null,
-                          label: LocalizedTexts.confirm.tr(),
-                        ),
-                      );
-                    },
+                  const SizedBox(height: 32.0),
+                  CustomText.w400(
+                    '${LocalizedTexts.legalStatementTextOne.tr()}.',
+                    style: context.textTheme.bodyMedium,
+                  ),
+                  // TODO removed during LOOPCARE-2000 task 25.01.2024
+                  // const SizedBox(height: 16.0),
+                  // CustomText.w400(
+                  //   '${LocalizedTexts.legalStatementTextTwo.tr()}.',
+                  //   style: context.textTheme.bodyMedium,
+                  // ),
+                  // const SizedBox(height: 38.0),
+                  // CustomElevatedButton.coralSmall(
+                  //   onPressed: () => _onReadLegalStatement(context),
+                  //   label: LocalizedTexts.readLegalStatement,
+                  // ),
+                  const SizedBox(height: 27.0),
+                  LegalStatementConfirmationBox(
+                    onChanged: onChanged,
                   ),
                 ],
               ),
+            ),
+            button: ValueListenableBuilder<bool>(
+              valueListenable: valueListener,
+              builder: (context, value, _) {
+                return CustomElevatedButton.blueFullWidth(
+                  onPressed: value ? onConfirm : null,
+                  label: LocalizedTexts.confirm.tr(),
+                );
+              },
             ),
           ),
         ),

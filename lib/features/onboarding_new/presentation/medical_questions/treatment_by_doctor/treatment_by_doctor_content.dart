@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -48,38 +49,37 @@ class _TreatmentByDoctorContentState extends State<TreatmentByDoctorContent> {
 
   @override
   Widget build(BuildContext context) {
-    return MainContainer(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 50.0),
-              CustomText.bitter600(
-                '${LocalizedTexts.treatmentByTheDoctorQuestion.tr()}?',
-                style: context.textTheme.displayMedium,
-              ),
-              const SizedBox(height: 36.0),
-              QuestionsChips(
-                initialValue: _valueListener.value,
-                onSelected: _onSelected,
-              ),
-            ],
-          ),
-          ValueListenableBuilder<bool?>(
-            valueListenable: _valueListener,
-            builder: (context, value, _) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 42.0),
-                child: CustomElevatedButton.coralFullWidth(
-                  label: LocalizedTexts.next.tr(),
-                  onPressed: value != null ? () => _onNextPressed(value) : null,
+    return BottomPlacedButton.blueLightest(
+      body: MainContainer(
+        child: ListView(
+          physics: const ClampingScrollPhysics(),
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 50.0),
+                CustomText.bitter600(
+                  '${LocalizedTexts.treatmentByTheDoctorQuestion.tr()}?',
+                  style: context.textTheme.displayMedium,
                 ),
-              );
-            },
-          ),
-        ],
+                const SizedBox(height: 36.0),
+                QuestionsChips(
+                  initialValue: _valueListener.value,
+                  onSelected: _onSelected,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      button: ValueListenableBuilder<bool?>(
+        valueListenable: _valueListener,
+        builder: (context, value, _) {
+          return CustomElevatedButton.coralFullWidth(
+            label: LocalizedTexts.next.tr(),
+            onPressed: value != null ? () => _onNextPressed(value) : null,
+          );
+        },
       ),
     );
   }

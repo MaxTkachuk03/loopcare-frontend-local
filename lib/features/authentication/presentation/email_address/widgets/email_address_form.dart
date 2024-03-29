@@ -1,24 +1,28 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/response_error_const.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
-import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/checkbox_form_field.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
-import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 
 class EmailAddressForm extends StatefulWidget {
-  const EmailAddressForm({super.key}) : _isUpdate = false;
+  const EmailAddressForm({
+    super.key,
+    required this.onFormChanged,
+  }) : _isUpdate = false;
 
-  const EmailAddressForm.update({super.key}) : _isUpdate = true;
+  const EmailAddressForm.update({
+    super.key,
+    required this.onFormChanged,
+  }) : _isUpdate = true;
 
   final bool _isUpdate;
+  final void Function(String email, bool value) onFormChanged;
 
   @override
   State<EmailAddressForm> createState() => _EmailAddressFormState();
@@ -27,7 +31,6 @@ class EmailAddressForm extends StatefulWidget {
 class _EmailAddressFormState extends State<EmailAddressForm> {
   late TextEditingController _passwordController;
 
-  final _formValidNotifier = ValueNotifier<bool>(false);
   final _emailErrorTextNotifier = ValueNotifier<String?>(null);
   final _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -45,23 +48,14 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
-    _formValidNotifier.dispose();
     _emailErrorTextNotifier.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<AuthenticationBloc, AuthenticationState>(
-          listener: _errorListener,
-        ),
-        BlocListener<AuthenticationBloc, AuthenticationState>(
-          listenWhen: (previous, current) => !previous.data.emailWasSend && current.data.emailWasSend,
-          listener: _blockButtonListener,
-        ),
-      ],
+    return BlocListener<AuthenticationBloc, AuthenticationState>(
+      listener: _errorListener,
       child: Form(
         key: _formKey,
         onChanged: _onChangedForm,
@@ -105,18 +99,6 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
                     ),
                   ),
                 ),
-              ValueListenableBuilder(
-                valueListenable: _formValidNotifier,
-                builder: (context, isValid, _) {
-                  final label = widget._isUpdate ? LocalizedTexts.update.tr() : LocalizedTexts.next.tr();
-
-                  return CustomElevatedButton.blueFullWidth(
-                    key: const ValueKey('registration_next_button'),
-                    onPressed: isValid ? _onNextPressed : null,
-                    label: label,
-                  );
-                },
-              ),
             ],
           ),
         ),
@@ -124,21 +106,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
     );
   }
 
-  _onChangedForm() => _formValidNotifier.value = Email.create(_emailController.text).isRight();
-
-  void _onNextPressed() {
-    if (widget._isUpdate) {
-      TextInput.finishAutofillContext();
-    }
-
-    context.read<AuthenticationBloc>().add(
-          AuthenticationEvent.updateEmail(
-            email: _emailController.text,
-            receiveAnEmails: _receiveAnEmails,
-            update: widget._isUpdate,
-          ),
-        );
-  }
+  _onChangedForm() => widget.onFormChanged(_emailController.text, _receiveAnEmails);
 
   void _onReceiveEmailChanged(bool? value) => _receiveAnEmails = value!;
 
@@ -172,7 +140,4 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
       }
     }
   }
-
-  void _blockButtonListener(BuildContext context, AuthenticationState state) =>
-      _formValidNotifier.value = false;
 }

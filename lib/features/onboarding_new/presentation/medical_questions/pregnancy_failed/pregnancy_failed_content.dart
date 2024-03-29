@@ -12,7 +12,8 @@ class PregnancyFailedContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
+      physics: const ClampingScrollPhysics(),
       children: [
         UnderAppbar.blue(
           child: Center(
@@ -29,7 +30,6 @@ class PregnancyFailedContent extends StatelessWidget {
         const SizedBox(height: 48),
         MainContainer(
           child: Container(
-            width: double.infinity,
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
             decoration: const BoxDecoration(
               color: AppColors.blueLightest,

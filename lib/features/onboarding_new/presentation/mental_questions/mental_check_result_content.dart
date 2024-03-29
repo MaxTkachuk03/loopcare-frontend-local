@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
@@ -38,7 +39,9 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
     try {
       await launchUrl(launchUri);
     } catch (e) {
-      _showError(context);
+      if (context.mounted) {
+        _showError(context);
+      }
     }
   }
 
@@ -73,78 +76,65 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
 
         final subText = _getSubText(currentTest);
 
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                UnderAppbar.orange(
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 80.0),
-                      child: CustomText.bitter600(
-                        _getTitleText(currentTest),
-                        style: context.textTheme.displayMedium,
-                        textAlign: TextAlign.center,
-                      ),
+        return BottomPlacedButton.orange(
+          body: ListView(
+            physics: const ClampingScrollPhysics(),
+            children: [
+              UnderAppbar.orange(
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                    child: CustomText.bitter600(
+                      _getTitleText(currentTest),
+                      style: context.textTheme.displayMedium,
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-                const SizedBox(height: 35.0),
-                MainContainer(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
+              ),
+              const SizedBox(height: 35.0),
+              MainContainer(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                      decoration: const BoxDecoration(
+                        color: AppColors.orangeLightest,
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          resultText,
+                          if (state.showEmergencyBtn(currentTest.type))
+                            ...[
+                              const SizedBox(height: 30.0),
+                              const EmergencyBtn(),
+                            ]
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 24.0),
+                    if (subText.isNotEmpty)
                       Container(
+                        margin: const EdgeInsets.only(bottom: 30.0),
                         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                         decoration: const BoxDecoration(
                           color: AppColors.orangeLightest,
                           borderRadius: BorderRadius.all(Radius.circular(16)),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            resultText,
-                            if (state.showEmergencyBtn(currentTest.type))
-                              ...[
-                                const SizedBox(height: 30.0),
-                                const EmergencyBtn(),
-                              ]
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 24.0),
-                      if (subText.isNotEmpty)
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                          decoration: const BoxDecoration(
-                            color: AppColors.orangeLightest,
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                          ),
-                          child: CustomText.w400(subText, style: context.textTheme.bodyMedium),
-                        )
-                    ],
-                  ),
+                        child: CustomText.w400(subText, style: context.textTheme.bodyMedium),
+                      )
+                  ],
                 ),
-              ],
-            ),
-            MainContainer(
-              child: Column(
-                children: [
-                  const SizedBox(height: 30.0),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 30.0),
-                    child: CustomElevatedButton.blueFullWidth(
-                      onPressed: () => _onNextPressed(context),
-                      label: LocalizedTexts.continueBtn.tr(),
-                    ),
-                  ),
-                  const SizedBox(height: 30.0),
-                ],
               ),
-            ),
-          ],
+            ],
+          ),
+          button: CustomElevatedButton.blueFullWidth(
+            onPressed: () => _onNextPressed(context),
+            label: LocalizedTexts.continueBtn.tr(),
+          ),
         );
       },
     );

@@ -12,7 +12,6 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/login/widgets/login_form.dart';
 import 'package:loopcare_frontend/injection.dart';
 
@@ -23,30 +22,32 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.green(
-      key: const ValueKey('login_page'),
-      appBar: CustomAppBar.transparent(
-        leading:
-            context.router.canPop() ? CustomFilledIconButton.leadingGreenLighter() : const SizedBox.shrink(),
-      ),
-      body: CustomSafeArea(
-        child: ScrollableContainer(
+    return GestureDetector(
+      onTap: FocusScope.of(context).unfocus,
+      child: CustomScaffold.green(
+        key: const ValueKey('login_page'),
+        appBar: CustomAppBar.transparent(
+          leading:
+              context.router.canPop() ? CustomFilledIconButton.leadingGreenLighter() : const SizedBox.shrink(),
+        ),
+        body: CustomSafeArea(
           child: MainContainer(
-            child: Column(
+            child: ListView(
               key: const ValueKey('login_page_body'),
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              physics: const ClampingScrollPhysics(),
               children: [
-                const SizedBox(height: 8.0),
-                Container(alignment: Alignment.center, child: const Image(image: AppImages.intro)),
+                const Center(
+                  child: Image(image: AppImages.intro),
+                ),
                 const SizedBox(height: 24.0),
                 CustomText.bitter600(
                   '${LocalizedTexts.loginTitle.tr(namedArgs: {
-                        'projectName': getIt<AppConfig>().projectName
-                      })}!',
+                    'projectName': getIt<AppConfig>().projectName
+                  })}!',
                   style: context.textTheme.displayLarge,
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 38.0),
+                const SizedBox(height: 36.0),
                 const LoginForm(
                   key: ValueKey('login_form'),
                 ),
@@ -60,7 +61,7 @@ class LoginPage extends StatelessWidget {
                       decorationThickness: 3.0,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -41,55 +42,50 @@ class _HappinessContentState extends State<HappinessContent> {
 
   @override
   Widget build(BuildContext context) {
-    return MainContainer(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            children: [
-              const SizedBox(height: 80),
-              CustomText.bitter600(
-                LocalizedTexts.happinessTitle,
-                textAlign: TextAlign.center,
-                style: context.textTheme.displayMedium,
-              ),
-              const SizedBox(height: 30),
-              CustomText.w400(
-                '${LocalizedTexts.happinessBody1.tr()}.',
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20),
-              CustomText.w400(
-                '${LocalizedTexts.happinessBody2.tr()}.',
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 30),
-              ValueListenableBuilder<MoodPickerListItem?>(
-                valueListenable: _selectMood,
-                builder: (context, mood, _) {
-                  return MoodPicker(
-                    value: mood,
-                    onItemPressed: (item) => _selectMood.value = item,
-                  );
-                },
-              ),
-            ],
-          ),
-          ValueListenableBuilder<MoodPickerListItem?>(
-            valueListenable: _selectMood,
-            builder: (context, mood, _) {
-              final enable =  mood != null;
+    return BottomPlacedButton.yellowLightest(
+      body: MainContainer(
+        child: ListView(
+          physics: const ClampingScrollPhysics(),
+          children: [
+            const SizedBox(height: 50.0),
+            CustomText.bitter600(
+              LocalizedTexts.happinessTitle,
+              textAlign: TextAlign.center,
+              style: context.textTheme.displayMedium,
+            ),
+            const SizedBox(height: 30.0),
+            CustomText.w400(
+              '${LocalizedTexts.happinessBody1.tr()}.',
+              style: context.textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 20.0),
+            CustomText.w400(
+              '${LocalizedTexts.happinessBody2.tr()}.',
+              style: context.textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 30.0),
+            ValueListenableBuilder<MoodPickerListItem?>(
+              valueListenable: _selectMood,
+              builder: (context, mood, _) {
+                return MoodPicker(
+                  value: mood,
+                  onItemPressed: (item) => _selectMood.value = item,
+                );
+              },
+            )
+          ],
+        ),
+      ),
+      button: ValueListenableBuilder<MoodPickerListItem?>(
+        valueListenable: _selectMood,
+        builder: (context, mood, _) {
+          final enable =  mood != null;
 
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 42.0),
-                child: CustomElevatedButton.blueFullWidth(
-                  onPressed: enable? _onNextPressed : null,
-                  label: LocalizedTexts.next.tr(),
-                ),
-              );
-            },
-          ),
-        ],
+          return CustomElevatedButton.blueFullWidth(
+            onPressed: enable? _onNextPressed : null,
+            label: LocalizedTexts.next.tr(),
+          );
+        },
       ),
     );
   }

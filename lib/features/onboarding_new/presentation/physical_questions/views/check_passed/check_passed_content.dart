@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
@@ -53,112 +54,110 @@ class CheckPassedContent extends StatelessWidget {
 
     final weightValue = _getWeightValue(isWeightMetric, state.weightInKg ?? '');
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        UnderAppbar.yellow(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 120.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CircleAvatar(
-                    radius: 22.0,
-                    backgroundColor: AppColors.blueDarker,
-                    child: Icon(Icons.check, size: 24),
-                  ),
-                  const SizedBox(height: 22.0),
-                  CustomText.bitter600(
-                    '${LocalizedTexts.physicalCheckPassedTitle.tr()}!',
-                    style: context.textTheme.displayMedium,
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        MainContainer(
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                decoration: const BoxDecoration(
-                  color: AppColors.yellowLightest,
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
+    return BottomPlacedButton.yellow(
+      body: ListView(
+        physics: const ClampingScrollPhysics(),
+        children: [
+          UnderAppbar.yellow(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 120.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomText.w400(LocalizedTexts.age.tr()),
-                            CustomText.w400(LocalizedTexts.sex.tr()),
-                            CustomText.w400(LocalizedTexts.height.tr()),
-                            CustomText.w400(LocalizedTexts.weight.tr()),
-                            CustomText.w400(LocalizedTexts.bmi.tr()),
-                          ],
-                        ),
-                        const SizedBox(width: 50),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomText.w600(
-                              '${state.age} ${LocalizedTexts.years.tr()}',
-                              style: context.textTheme.bodyMedium,
-                            ),
-                            CustomText.w600(
-                              '${state.sexType?.name.capitalize()}',
-                              style: context.textTheme.bodyMedium,
-                            ),
-                            CustomText.w600(
-                              heightValue,
-                              style: context.textTheme.bodyMedium,
-                            ),
-                            CustomText.w600(
-                              weightValue,
-                              style: context.textTheme.bodyMedium,
-                            ),
-                            CustomText.w600(
-                              '${state.bmi}',
-                              style: context.textTheme.bodyMedium,
-                            ),
-                          ],
-                        ),
-                      ],
+                    const CircleAvatar(
+                      radius: 22.0,
+                      backgroundColor: AppColors.blueDarker,
+                      child: Icon(Icons.check, size: 24),
                     ),
-                    const SizedBox(height: 32),
-                    TextWithAccents(
-                      LocalizedTexts.bmiDescription1.tr(),
-                      accents: [LocalizedTexts.bmiDescriptionAccent.tr()],
-                    ),
-                    const SizedBox(height: 20),
-                    CustomText.w400(
-                      LocalizedTexts.bmiDescription2.tr(),
-                      style: context.textTheme.bodyMedium,
+                    const SizedBox(height: 22.0),
+                    CustomText.bitter600(
+                      '${LocalizedTexts.physicalCheckPassedTitle.tr()}!',
+                      style: context.textTheme.displayMedium,
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 30.0),
-            ],
-          ),
-        ),
-        MainContainer(
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 42.0),
-            child: CustomElevatedButton.blueFullWidth(
-              onPressed: () => _onContinuePressed(context),
-              label: LocalizedTexts.letsMoveOn.tr(),
             ),
           ),
-        ),
-      ],
+          const SizedBox(height: 30.0),
+          MainContainer(
+            child: Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                  decoration: const BoxDecoration(
+                    color: AppColors.yellowLightest,
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomText.w400(LocalizedTexts.age.tr()),
+                              CustomText.w400(LocalizedTexts.sex.tr()),
+                              CustomText.w400(LocalizedTexts.height.tr()),
+                              CustomText.w400(LocalizedTexts.weight.tr()),
+                              CustomText.w400(LocalizedTexts.bmi.tr()),
+                            ],
+                          ),
+                          const SizedBox(width: 50),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomText.w600(
+                                '${state.age} ${LocalizedTexts.years.tr()}',
+                                style: context.textTheme.bodyMedium,
+                              ),
+                              CustomText.w600(
+                                '${state.sexType?.name.capitalize()}',
+                                style: context.textTheme.bodyMedium,
+                              ),
+                              CustomText.w600(
+                                heightValue,
+                                style: context.textTheme.bodyMedium,
+                              ),
+                              CustomText.w600(
+                                weightValue,
+                                style: context.textTheme.bodyMedium,
+                              ),
+                              CustomText.w600(
+                                '${state.bmi}',
+                                style: context.textTheme.bodyMedium,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 32),
+                      TextWithAccents(
+                        LocalizedTexts.bmiDescription1.tr(),
+                        accents: [LocalizedTexts.bmiDescriptionAccent.tr()],
+                      ),
+                      const SizedBox(height: 20),
+                      CustomText.w400(
+                        LocalizedTexts.bmiDescription2.tr(),
+                        style: context.textTheme.bodyMedium,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 30.0),
+              ],
+            ),
+          ),
+        ],
+      ),
+      button: CustomElevatedButton.blueFullWidth(
+        onPressed: () => _onContinuePressed(context),
+        label: LocalizedTexts.letsMoveOn.tr(),
+      ),
     );
   }
 }

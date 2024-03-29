@@ -9,7 +9,6 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_b
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/onboarding_new/application/general/general_onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding_new/application/medical_questions/medical_questions_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding_new/application/mental_questions/mental_questions_bloc.dart';
@@ -112,10 +111,7 @@ class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with 
               appBar: appBar,
               body: CustomSafeArea(
                 bottom: false,
-                child: ScrollableContainer(
-                  physics: const ClampingScrollPhysics(),
-                  child: state.currentStepContent,
-                ),
+                child: state.currentStepContent,
               ),
             ),
           );

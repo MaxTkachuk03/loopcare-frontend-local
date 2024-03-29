@@ -621,6 +621,7 @@ class LocalizedTexts {
 
   // Sex
   static const String yourSex = 'yourSex';
+  static const String whatYourSex = 'whatYourSex';
   static const String sexQuestionBody = 'sexQuestionBody';
   static const String sex = 'sex';
 

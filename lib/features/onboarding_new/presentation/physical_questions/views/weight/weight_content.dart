@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -64,51 +65,53 @@ class _WeightContentState extends State<WeightContent> {
 
   @override
   Widget build(BuildContext context) {
-    return MainContainer(
-      child: Column(
-        children: [
-          const SizedBox(height: 80.0),
-          CustomText.bitter600(
-            LocalizedTexts.yourWeight.tr(),
-            textAlign: TextAlign.center,
-            style: context.textTheme.displayMedium,
-          ),
-          const SizedBox(height: 36.0),
-          UnitTabs(
-            tabBarViewChildren: [
-              UnitField(
-                unit: _kg,
-                controller: kgController,
-                focusNode: kgFieldFocusNode,
-                maxLength: 3,
-                isDecimal: true,
-                counterText: '',
-                onChanged: validateInput,
-              ),
-              UnitField(
-                unit: _lbs,
-                isDecimal: true,
-                controller: lbsController,
-                focusNode: lbsFieldFocusNode,
-                maxLength: 3,
-                counterText: '',
-                onChanged: validateInput,
-              ),
-            ],
-            onTabChanged: onTabChanged,
-          ),
-          const SizedBox(height: 30.0),
-          ValueListenableBuilder<bool>(
-            valueListenable: valueNotifier,
-            builder: (context, enable, _) {
-              return CustomElevatedButton.blueFullWidth(
-                onPressed: enable ? onNextPressed : null,
-                label: LocalizedTexts.next.tr(),
-              );
-            },
-          ),
-          const SizedBox(height: 30.0),
-        ],
+    return BottomPlacedButton.yellowLightest(
+      body: MainContainer(
+        child: ListView(
+          physics: const ClampingScrollPhysics(),
+          children: [
+            const SizedBox(height: 80.0),
+            CustomText.bitter600(
+              LocalizedTexts.yourWeight.tr(),
+              textAlign: TextAlign.center,
+              style: context.textTheme.displayMedium,
+            ),
+            const SizedBox(height: 36.0),
+            UnitTabs(
+              tabBarViewChildren: [
+                UnitField(
+                  unit: _kg,
+                  controller: kgController,
+                  focusNode: kgFieldFocusNode,
+                  maxLength: 3,
+                  isDecimal: true,
+                  counterText: '',
+                  onChanged: validateInput,
+                ),
+                UnitField(
+                  unit: _lbs,
+                  isDecimal: true,
+                  controller: lbsController,
+                  focusNode: lbsFieldFocusNode,
+                  maxLength: 3,
+                  counterText: '',
+                  onChanged: validateInput,
+                ),
+              ],
+              onTabChanged: onTabChanged,
+            ),
+            const SizedBox(height: 30.0),
+          ],
+        ),
+      ),
+      button: ValueListenableBuilder<bool>(
+        valueListenable: valueNotifier,
+        builder: (context, enable, _) {
+          return CustomElevatedButton.blueFullWidth(
+            onPressed: enable ? onNextPressed : null,
+            label: LocalizedTexts.next.tr(),
+          );
+        },
       ),
     );
   }
