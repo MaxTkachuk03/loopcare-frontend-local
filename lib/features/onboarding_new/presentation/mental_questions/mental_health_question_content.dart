@@ -25,8 +25,8 @@ class MentalHealthQuestionContent extends StatelessWidget {
             .firstWhereOrNull((element) => element.questionId == currentQuestion?.id);
 
         return MainContainer(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
+            physics: const ClampingScrollPhysics(),
             children: [
               const SizedBox(height: 50.0),
               QuestionText(currentTest: currentTest),
@@ -47,6 +47,7 @@ class MentalHealthQuestionContent extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 30.0),
             ],
           ),
         );

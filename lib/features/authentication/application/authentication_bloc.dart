@@ -467,7 +467,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           CustomerIoService.onboardingStarted(
             name: state.data.name,
             email: event.email,
-            receiveAnEmails: event.receiveAnEmails,
+            receiveAnEmails: event.receiveAnEmails ?? false,
           );
         }
 

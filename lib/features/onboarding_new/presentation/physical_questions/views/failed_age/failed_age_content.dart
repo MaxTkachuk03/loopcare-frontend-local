@@ -12,8 +12,8 @@ class FailedAgeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+    return ListView(
+      physics: const ClampingScrollPhysics(),
       children: [
         UnderAppbar.yellow(
           child: Center(
