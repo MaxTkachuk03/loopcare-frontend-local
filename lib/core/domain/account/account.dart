@@ -100,7 +100,7 @@ abstract class Account implements _$Account {
 
   bool get hasActiveSubscription => subscription.isActive;
 
-  bool get isOnTrial => subscription.isActive && subscription.state == SubscriptionStatus.trialPeriod;
+  bool get isOnTrial => subscription.state == SubscriptionStatus.trialPeriod;
 
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 }

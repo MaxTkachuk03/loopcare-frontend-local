@@ -26,7 +26,8 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
 
   final _defaultError = RequestError.unhandledError(LocalizedTexts.somethingWentWrong.tr());
 
-  EducationLessonBloc(this._educationService) : super(const EducationLessonState.initial(EducationLessonData())) {
+  EducationLessonBloc(this._educationService)
+      : super(const EducationLessonState.initial(EducationLessonData())) {
     on<GetLessonContent>(_onGetLessonContent);
     on<NextPage>(_onNextPage);
     on<PrevPage>(_onPrevPage);
@@ -69,8 +70,8 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
 
     response.fold(
       (l) {
-        emit(
-            EducationLessonState.contentLoaded(state.data.copyWith(error: l, isAudioLoading: false, isLoading: false)));
+        emit(EducationLessonState.contentLoaded(
+            state.data.copyWith(error: l, isAudioLoading: false, isLoading: false)));
       },
       (r) {
         emit(
@@ -132,7 +133,8 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
         r.pages.sort((a, b) => a.order.compareTo(b.order));
 
         if (r.pages.isEmpty) {
-          emit(EducationLessonState.errorGettingContent(state.data.copyWith(error: _defaultError, isLoading: false)));
+          emit(EducationLessonState.errorGettingContent(
+              state.data.copyWith(error: _defaultError, isLoading: false)));
 
           return;
         }
@@ -170,7 +172,8 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
   ) async {
     if (state.data.isLastPage) return;
 
-    emit(EducationLessonState.contentLoaded(state.data.copyWith(currentPageIndex: state.data.currentPageIndex + 1)));
+    emit(EducationLessonState.contentLoaded(
+        state.data.copyWith(currentPageIndex: state.data.currentPageIndex + 1)));
   }
 
   Future<void> _onPrevPage(
@@ -179,7 +182,8 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
   ) async {
     if (state.data.currentPageIndex == 0) return;
 
-    emit(EducationLessonState.contentLoaded(state.data.copyWith(currentPageIndex: state.data.currentPageIndex - 1)));
+    emit(EducationLessonState.contentLoaded(
+        state.data.copyWith(currentPageIndex: state.data.currentPageIndex - 1)));
   }
 
   Future<void> _onCompleteLesson(
@@ -269,7 +273,8 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
   List<LessonPage> _updateLessonPageAudioFilePath(String newValue) {
     final List<LessonPage> pages = [...state.data.pages];
 
-    pages[state.data.currentPageIndex] = pages[state.data.currentPageIndex].copyWith.content(audioFilePath: newValue);
+    pages[state.data.currentPageIndex] =
+        pages[state.data.currentPageIndex].copyWith.content(audioFilePath: newValue);
 
     return pages;
   }
