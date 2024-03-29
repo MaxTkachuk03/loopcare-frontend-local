@@ -1,24 +1,34 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/feature_unlock.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class UnlockGroupSessionFeature extends StatelessWidget {
-  const UnlockGroupSessionFeature({super.key});
+  final bool wantJoinLater;
+
+  const UnlockGroupSessionFeature({super.key, required this.wantJoinLater});
+
+  String get _bodyText {
+    final account = getIt<SharedStorageService>().account!;
+    final isTreatedByPsychiatrist = account.medicalOnboarding!.treatedByPsychiatrist;
+
+    if (wantJoinLater) {
+      return LocalizedTexts.groupSessionsJoinLaterLessonComplete;
+    } else {
+      if (account.isOnTrial) {
+        return LocalizedTexts.trialSubscriptionLessonComplete;
+      } else if (isTreatedByPsychiatrist) {
+        return LocalizedTexts.treatedByTherapistLessonComplete;
+      } else {
+        return LocalizedTexts.unlockFeatureDescription;
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-      builder: (context, state) {
-        final body = state.data.groupingState == UserGroupingState.waitingInPool
-            ? LocalizedTexts.waitingForGroupCompletedLesson
-            : LocalizedTexts.notJoinedToGroupCompletedLesson;
-
-        return FeatureUnlock(title: LocalizedTexts.groupSessionsUnlocked.tr(), body: body);
-      },
-    );
+    return FeatureUnlock(title: LocalizedTexts.groupSessionsUnlocked.tr(), body: _bodyText.tr());
   }
 }

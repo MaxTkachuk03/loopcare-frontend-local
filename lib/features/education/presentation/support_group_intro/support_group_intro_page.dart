@@ -14,7 +14,6 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_butt
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -142,7 +141,7 @@ class SupportGroupIntroPage extends StatelessWidget {
       },
     );
 
-    context.router.pushNamed(AppRoutes.lessonComplete);
+    context.router.push(LessonCompleteRoute(joinSupportGroupLater: true));
   }
 
   Future<bool> _onWillPop(BuildContext context) {
