@@ -28,8 +28,8 @@ class AuthenticationEvent with _$AuthenticationEvent {
 
   const factory AuthenticationEvent.updateEmail({
     required String email,
-    required bool receiveAnEmails,
-    required bool update,
+    @Default(false) bool update,
+    bool? receiveAnEmails,
   }) = UpdateEmail;
 
   const factory AuthenticationEvent.startTrackUser() = StartTrackUser;

@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
@@ -14,7 +15,6 @@ import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/validators/name_validator.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/domain/name/name.dart';
 
@@ -51,7 +51,7 @@ class _NamePageState extends State<NamePage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: FocusScope.of(context).unfocus,
       child: CustomScaffold.greenLightest(
         key: const ValueKey('name_page'),
         appBar: CustomAppBar.green(
@@ -59,8 +59,8 @@ class _NamePageState extends State<NamePage> {
           leading: CustomFilledIconButton.leadingGreenLighter(),
         ),
         body: CustomSafeArea(
-          child: ScrollableContainer(
-            child: MainContainer(
+          child: BottomPlacedButton.greenLightest(
+            body: MainContainer(
               child: Column(
                 key: const ValueKey('name_page_body'),
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -70,35 +70,31 @@ class _NamePageState extends State<NamePage> {
                     '${LocalizedTexts.whatIsYourName.tr()}?',
                     style: context.textTheme.displayMedium,
                   ),
-                  const SizedBox(height: 92.0),
+                  const SizedBox(height: 35.0),
                   Form(
                     key: _formKey,
                     onChanged: _onChangedForm,
-                    child: Column(
-                      children: [
-                        CustomTextField(
-                          key: const ValueKey('name_page_text_field'),
-                          controller: _nameController,
-                          hintText: LocalizedTexts.yourName.tr(),
-                          validator: nameValidator(),
-                          maxLength: 64,
-                        ),
-                        const SizedBox(height: 24.0),
-                        ValueListenableBuilder<bool>(
-                          valueListenable: _formValidationNotifier,
-                          builder: (context, isValid, _) {
-                            return CustomElevatedButton.blueFullWidth(
-                              key: const ValueKey('name_page_next_button'),
-                              onPressed: isValid ? _onNextPressed : null,
-                              label: LocalizedTexts.next.tr(),
-                            );
-                          },
-                        ),
-                      ],
+                    child: CustomTextField(
+                      key: const ValueKey('name_page_text_field'),
+                      controller: _nameController,
+                      hintText: LocalizedTexts.yourName.tr(),
+                      validator: nameValidator(),
+                      maxLength: 64,
                     ),
                   ),
+                  const SizedBox(height: 24.0),
                 ],
               ),
+            ),
+            button: ValueListenableBuilder<bool>(
+              valueListenable: _formValidationNotifier,
+              builder: (context, isValid, _) {
+                return CustomElevatedButton.blueFullWidth(
+                  key: const ValueKey('name_page_next_button'),
+                  onPressed: isValid ? _onNextPressed : null,
+                  label: LocalizedTexts.next.tr(),
+                );
+              },
             ),
           ),
         ),

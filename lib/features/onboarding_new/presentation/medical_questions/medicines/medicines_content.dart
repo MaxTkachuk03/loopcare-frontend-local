@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -20,7 +21,7 @@ class MedicinesContent extends StatefulWidget {
 class _MedicinesContentState extends State<MedicinesContent> {
   final _formKey = GlobalKey();
 
-  final List<TextEditingController> controllers = [
+  final List<TextEditingController> _controllers = [
     TextEditingController(),
     TextEditingController(),
     TextEditingController(),
@@ -28,10 +29,25 @@ class _MedicinesContentState extends State<MedicinesContent> {
     TextEditingController(),
   ];
 
+  @override
+  void initState() {
+    super.initState();
+    _setupMedicines();
+  }
+
+  @override
+  void dispose() {
+    for (final element in _controllers) {
+      element.dispose();
+    }
+
+    super.dispose();
+  }
+
   void _onNextPressed(BuildContext context) {
     List<String> medicines = [];
 
-    for (final c in controllers) {
+    for (final c in _controllers) {
       if (c.text.isNotEmpty) medicines.add(c.text.trim());
     }
 
@@ -39,55 +55,49 @@ class _MedicinesContentState extends State<MedicinesContent> {
     context.read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.nextStep());
   }
 
-  @override
-  void dispose() {
-    for (final element in controllers) {
-      element.dispose();
-    }
+  void _setupMedicines() {
+    final medicines = context.read<MedicalQuestionsBloc>().state.medicines;
 
-    super.dispose();
+    for (int i = 0; i < medicines.length; i++) {
+      _controllers[i].text = medicines[i];
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return MainContainer(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            children: [
-              const SizedBox(height: 50.0),
-              CustomText.bitter600(
-                '${LocalizedTexts.medicinesTitle.tr()}?',
-                style: context.textTheme.displayMedium,
-              ),
-              const SizedBox(height: 28.0),
-              Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: controllers
-                      .map((controller) => Padding(
-                          padding: const EdgeInsets.only(bottom: 16.0),
-                          child: CustomTextField(
-                            controller: controller,
-                            hintText: LocalizedTexts.medicinesPlaceholder.tr(),
-                            maxLength: 30,
-                          ),
-                        ))
-                      .toList(),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 42.0),
-            child: CustomElevatedButton.coralFullWidth(
-              label: LocalizedTexts.next.tr(),
-              onPressed: () => _onNextPressed(context),
+    return BottomPlacedButton.blueLightest(
+      body: MainContainer(
+        child: ListView(
+          physics: const ClampingScrollPhysics(),
+          children: [
+            const SizedBox(height: 50.0),
+            CustomText.bitter600(
+              '${LocalizedTexts.medicinesTitle.tr()}?',
+              style: context.textTheme.displayMedium,
             ),
-          ),
-        ],
+            const SizedBox(height: 28.0),
+            Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: _controllers
+                    .map((controller) => Padding(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: CustomTextField(
+                        controller: controller,
+                        hintText: LocalizedTexts.medicinesPlaceholder.tr(),
+                        maxLength: 30,
+                      ),
+                    ))
+                    .toList(),
+              ),
+            ),
+          ],
+        ),
+      ),
+      button: CustomElevatedButton.coralFullWidth(
+        label: LocalizedTexts.next.tr(),
+        onPressed: () => _onNextPressed(context),
       ),
     );
   }

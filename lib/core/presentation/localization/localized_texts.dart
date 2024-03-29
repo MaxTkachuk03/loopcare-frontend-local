@@ -519,8 +519,8 @@ class LocalizedTexts {
   static const String subscriptionMonthly = "subscriptionMonthly";
   static const String subscriptionSubscribe = "subscriptionSubscribe";
   static const String subscriptionRedeem = "subscriptionRedeem";
-  static const String subscriptionPrice1 = "subscriptionPrice1";
-  static const String subscriptionPrice2 = "subscriptionPrice2";
+  static const String subscriptionSubTitlePrice = "subscriptionSubTitlePrice";
+  static const String subscriptionTitlePrice = "subscriptionTitlePrice";
   static const String subscriptionType = "subscriptionType";
   static const String subscriptionVia = "subscriptionVia";
   static const String memberSince = "memberSince";
@@ -530,8 +530,10 @@ class LocalizedTexts {
   static const String appStore = "appStore";
   static const String googleMarket = "googleMarket";
   static const String cancelAccountSubscription = "cancelAccountSubscription";
-  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
   static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
+  static const String askRestoreSubscription = "askRestoreSubscription";
+  static const String duplicateSubscriptionFromSettings = "duplicateSubscriptionFromSettings";
+  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";
@@ -621,6 +623,7 @@ class LocalizedTexts {
 
   // Sex
   static const String yourSex = 'yourSex';
+  static const String whatYourSex = 'whatYourSex';
   static const String sexQuestionBody = 'sexQuestionBody';
   static const String sex = 'sex';
 

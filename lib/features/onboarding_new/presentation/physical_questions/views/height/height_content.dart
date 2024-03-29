@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
+import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -82,63 +83,65 @@ class _HeightContentState extends State<HeightContent> {
 
   @override
   Widget build(BuildContext context) {
-    return MainContainer(
-      child: Column(
-        children: [
-          const SizedBox(height: 80),
-          CustomText.bitter600(
-            LocalizedTexts.yourHeight,
-            textAlign: TextAlign.center,
-            style: context.textTheme.displayMedium,
-          ),
-          const SizedBox(height: 36.0),
-          UnitTabs(
-            tabBarViewChildren: [
-              UnitField(
-                unit: _cm,
-                controller: cmController,
-                isDecimal: true,
-                focusNode: cmFieldFocusNode,
-                maxLength: Height.maxLengthMetric,
-                counterText: '',
-                onChanged: _setCM,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  UnitField(
-                    unit: _ft,
-                    controller: ftController,
-                    focusNode: ftFieldFocusNode,
-                    maxLength: Height.maxLengthImperial,
-                    counterText: '',
-                    onChanged: _setFT,
-                  ),
-                  const SizedBox(width: 12.0),
-                  UnitField(
-                    unit: _inches,
-                    controller: inController,
-                    maxLength: Height.maxLengthImperial,
-                    counterText: '',
-                    onChanged: _setIN,
-                  ),
-                ],
-              ),
-            ],
-            onTabChanged: _onTabChanged,
-          ),
-          const SizedBox(height: 30.0),
-          ValueListenableBuilder<bool>(
-            valueListenable: valueNotifier,
-            builder: (context, enable, _) {
-              return CustomElevatedButton.blueFullWidth(
-                onPressed: enable ? _onNextPressed : null,
-                label: LocalizedTexts.next.tr(),
-              );
-            },
-          ),
-          const SizedBox(height: 30.0),
-        ],
+    return BottomPlacedButton.yellowLightest(
+      body: MainContainer(
+        child: ListView(
+          physics: const ClampingScrollPhysics(),
+          children: [
+            const SizedBox(height: 50.0),
+            CustomText.bitter600(
+              LocalizedTexts.yourHeight,
+              textAlign: TextAlign.center,
+              style: context.textTheme.displayMedium,
+            ),
+            const SizedBox(height: 36.0),
+            UnitTabs(
+              tabBarViewChildren: [
+                UnitField(
+                  unit: _cm,
+                  controller: cmController,
+                  isDecimal: true,
+                  focusNode: cmFieldFocusNode,
+                  maxLength: Height.maxLengthMetric,
+                  counterText: '',
+                  onChanged: _setCM,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    UnitField(
+                      unit: _ft,
+                      controller: ftController,
+                      focusNode: ftFieldFocusNode,
+                      maxLength: Height.maxLengthImperial,
+                      counterText: '',
+                      onChanged: _setFT,
+                    ),
+                    const SizedBox(width: 12.0),
+                    UnitField(
+                      unit: _inches,
+                      controller: inController,
+                      maxLength: Height.maxLengthImperial,
+                      counterText: '',
+                      onChanged: _setIN,
+                    ),
+                  ],
+                ),
+              ],
+              onTabChanged: _onTabChanged,
+            ),
+            const SizedBox(height: 30.0),
+          ],
+        ),
+      ),
+      button: ValueListenableBuilder<bool>(
+        valueListenable: valueNotifier,
+        builder: (context, enable, _) {
+          return CustomElevatedButton.blueFullWidth(
+            onPressed: enable ? _onNextPressed : null,
+            label: LocalizedTexts.next.tr(),
+          );
+        },
       ),
     );
   }
@@ -164,6 +167,8 @@ class _HeightContentState extends State<HeightContent> {
 
       heightInCm = HeightConversionUtils.doubleConvertFeetAndInchesToCM(heightFT.toDouble(), heightIN.toDouble());
     });
+
+    _validateInput(value);
   }
 
   void _setIN(String value) {

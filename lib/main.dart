@@ -32,12 +32,7 @@ Future<void> main() async {
   );
 
   if (!kIsWeb) {
-    if (kDebugMode) {
-      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-    } else {
-      //Todo enable = true
-      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-    }
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(!kDebugMode);
   }
 
   FlutterError.onError = (errorDetails) {

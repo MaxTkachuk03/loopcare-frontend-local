@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/clippers/subscription_clipper.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_controller.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/widget/subscription_button.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/widget/subscription_footer.dart';
@@ -8,7 +11,7 @@ import 'package:loopcare_frontend/features/subscription/presentation/widget/subs
 
 class _SubscriptionWrapperPage extends StatefulWidget {
   final Widget child;
-  final AssetImage topCover;
+  final SvgPicture topCover;
   final Color bottomCover;
   final SubscriptionController controller;
 
@@ -32,26 +35,10 @@ class _SubscriptionWrapperPageState extends State<_SubscriptionWrapperPage> {
     return Stack(
       children: [
         Positioned.fill(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            width: double.infinity,
-          ),
-        ),
-        Positioned(
-          top: 0.0,
-          child: Image(image: widget.topCover),
-        ),
-        Positioned(
-          top: 250,
-          bottom: 0,
-          child: ClipPath(
-            clipper: SubscriptionClipper(),
-            child: Container(
-              padding: const EdgeInsets.only(top: 52),
-              color: widget.bottomCover,
-              width: MediaQuery.of(context).size.width,
-              child: widget.child,
-            ),
+          child: Container(
+            padding: EdgeInsets.zero,
+            color: widget.bottomCover,
+            child: widget.child,
           ),
         ),
         Positioned.fill(
@@ -70,98 +57,101 @@ class _SubscriptionWrapperPageState extends State<_SubscriptionWrapperPage> {
   }
 }
 
-class _SubscriptionStatusWidget extends Column {
+class _SubscriptionStatusWidget extends _ScrollColumn {
   _SubscriptionStatusWidget.trial({
     required SubscriptionController controller,
-  }) : super(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SubscriptionTitle.trial(),
-            _ScrollColumn(
-              widgets: [
-                const SubscriptionLabel.trial(),
-                FooterSubscription(
-                  controller: controller,
-                ),
-                SubscribeButton(controller: controller),
-              ],
-            ),
-          ],
-        );
+    required Widget topCover,
+  }) : super(widgets: [
+          Column(
+            children: [
+              topCover,
+              const SubscriptionTitle.trial(),
+              const SubscriptionLabel.trial(),
+              FooterSubscription(
+                controller: controller,
+              ),
+            ],
+          ),
+          SubscribeButton(controller: controller),
+        ]);
 
   _SubscriptionStatusWidget.trialExpired({
     required SubscriptionController controller,
-  }) : super(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SubscriptionTitle.trialExpired(),
-            _ScrollColumn(
-              widgets: [
-                const SubscriptionLabel.trialExpired(),
-                FooterSubscription(
-                  controller: controller,
-                ),
-                SubscribeButton(controller: controller),
-              ],
-            ),
-          ],
-        );
+    required Widget topCover,
+  }) : super(widgets: [
+          Column(
+            children: [
+              topCover,
+              const SubscriptionTitle.trialExpired(),
+              const SubscriptionLabel.trialExpired(),
+              FooterSubscription(
+                controller: controller,
+              ),
+            ],
+          ),
+          SubscribeButton(controller: controller),
+        ]);
 
   _SubscriptionStatusWidget.endedSubscription({
     required SubscriptionController controller,
+    required Widget topCover,
   }) : super(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SubscriptionTitle.endedSubscription(),
-            _ScrollColumn(
-              widgets: [
+          widgets: [
+            Column(
+              children: [
+                topCover,
+                const SubscriptionTitle.endedSubscription(),
                 const SubscriptionLabel.endedSubscription(),
                 FooterSubscription(
                   controller: controller,
                 ),
-                SubscribeButton(controller: controller),
               ],
             ),
+            SubscribeButton(controller: controller),
           ],
         );
 
   _SubscriptionStatusWidget.cancelledSubscription({
     required SubscriptionController controller,
+    required Widget topCover,
   }) : super(
-          children: [
-            const SubscriptionTitle.cancelledSubscription(),
-            _ScrollColumn(
-              widgets: [
+          widgets: [
+            Column(
+              children: [
+                topCover,
+                const SubscriptionTitle.cancelledSubscription(),
                 const SubscriptionLabel.cancelledSubscription(),
                 FooterSubscription(
                   controller: controller,
                 ),
-                SubscribeButton(controller: controller),
               ],
-            )
+            ),
+            SubscribeButton(controller: controller),
           ],
         );
 
   _SubscriptionStatusWidget.notRenewSubscription({
     Function()? onTap,
-  }) : super(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SubscriptionTitle.notRenewSubscription(),
-            const SubscriptionLabel.notRenewSubscription(),
-            RenewButton(
-              onTap: onTap,
-            ),
-          ],
-        );
+    required Widget topCover,
+  }) : super(widgets: [
+          Column(
+            children: [
+              topCover,
+              const SubscriptionTitle.notRenewSubscription(),
+              const SubscriptionLabel.notRenewSubscription(),
+            ],
+          ),
+          RenewButton(
+            onTap: onTap,
+          ),
+        ]);
 
   _SubscriptionStatusWidget.serviceUnavailable()
       : super(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Expanded(
-              child: SubscriptionLabel.serviceUnavailable(),
-            ),
+          widgets: [
+            const SizedBox(height: 10.0),
+            const SubscriptionTitle.serviceUnavailable(),
+            const SizedBox(height: 16.0),
           ],
         );
 }
@@ -173,17 +163,11 @@ class _ScrollColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: widgets),
-          ),
-        ],
+    return ScrollableContainer(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: widgets,
       ),
     );
   }
@@ -196,7 +180,10 @@ class SubscriptionStateView extends _SubscriptionWrapperPage {
     required super.bottomCover,
     required super.topCover,
   }) : super(
-          child: _SubscriptionStatusWidget.trial(controller: controller),
+          child: _SubscriptionStatusWidget.trial(
+            controller: controller,
+            topCover: topCover,
+          ),
         );
 
   SubscriptionStateView.trialExpired({
@@ -205,7 +192,10 @@ class SubscriptionStateView extends _SubscriptionWrapperPage {
     required super.bottomCover,
     required super.topCover,
   }) : super(
-          child: _SubscriptionStatusWidget.trialExpired(controller: controller),
+          child: _SubscriptionStatusWidget.trialExpired(
+            controller: controller,
+            topCover: topCover,
+          ),
         );
 
   SubscriptionStateView.endedSubscription({
@@ -214,7 +204,10 @@ class SubscriptionStateView extends _SubscriptionWrapperPage {
     required super.bottomCover,
     required super.topCover,
   }) : super(
-          child: _SubscriptionStatusWidget.endedSubscription(controller: controller),
+          child: _SubscriptionStatusWidget.endedSubscription(
+            controller: controller,
+            topCover: topCover,
+          ),
         );
 
   SubscriptionStateView.cancelledSubscription({
@@ -223,7 +216,10 @@ class SubscriptionStateView extends _SubscriptionWrapperPage {
     required super.bottomCover,
     required super.topCover,
   }) : super(
-          child: _SubscriptionStatusWidget.cancelledSubscription(controller: controller),
+          child: _SubscriptionStatusWidget.cancelledSubscription(
+            controller: controller,
+            topCover: topCover,
+          ),
         );
 
   SubscriptionStateView.notRenewSubscription({
@@ -233,7 +229,10 @@ class SubscriptionStateView extends _SubscriptionWrapperPage {
     required super.topCover,
     required super.controller,
   }) : super(
-          child: _SubscriptionStatusWidget.notRenewSubscription(onTap: onTap),
+          child: _SubscriptionStatusWidget.notRenewSubscription(
+            onTap: onTap,
+            topCover: topCover,
+          ),
         );
 
   SubscriptionStateView.serviceUnavailable({

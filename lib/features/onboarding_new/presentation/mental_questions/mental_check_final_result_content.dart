@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -47,50 +48,38 @@ class _MentalCheckResultFinalContentState extends State<MentalCheckResultFinalCo
       builder: (context, state) {
         if (state.isLoading) return const Loader();
 
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                UnderAppbar.orange(
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 80.0),
-                      child: _getTitle(state),
-                    ),
+        return BottomPlacedButton.orange(
+          body: ListView(
+            physics: const ClampingScrollPhysics(),
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              UnderAppbar.orange(
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                    child: _getTitle(state),
                   ),
                 ),
-                const SizedBox(height: 35.0),
-                MainContainer(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                    decoration: const BoxDecoration(
-                      color: AppColors.orangeLightest,
-                      borderRadius: BorderRadius.all(Radius.circular(16)),
-                    ),
-                    child: FinalResultsText(onLinkPressed: onUrlHandler),
-                  ),
-                ),
-                const SizedBox(height: 30.0),
-              ],
-            ),
-            if (!state.isPhq8TestHigh)
-            MainContainer(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 30.0),
-                    child: CustomElevatedButton.blueFullWidth(
-                      onPressed: () => _onNextPressed(context),
-                      label: LocalizedTexts.continueBtn.tr(),
-                    ),
-                  ),
-                  const SizedBox(height: 30.0),
-                ],
               ),
-            ),
-          ],
+              const SizedBox(height: 35.0),
+              MainContainer(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                  decoration: const BoxDecoration(
+                    color: AppColors.orangeLightest,
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                  ),
+                  child: FinalResultsText(onLinkPressed: onUrlHandler),
+                ),
+              ),
+              const SizedBox(height: 30.0),
+            ],
+          ),
+          enableButton: !state.isPhq8TestHigh,
+          button: CustomElevatedButton.blueFullWidth(
+            onPressed: () => _onNextPressed(context),
+            label: LocalizedTexts.continueBtn.tr(),
+          ),
         );
       },
     );

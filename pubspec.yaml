@@ -26,11 +26,11 @@ dependencies:
   easy_localization: ^3.0.3
   email_validator: 2.1.17
   fast_immutable_collections: ^9.2.0
-  firebase_analytics: 10.7.2
-  firebase_core: 2.24.0
-  firebase_crashlytics: 3.4.6
-  firebase_messaging: 14.7.6
-  firebase_performance: 0.9.3+6
+  firebase_analytics: 10.7.0
+  firebase_core: 2.27.2
+  firebase_crashlytics: 3.4.20
+  firebase_messaging: 14.7.21
+  firebase_performance: 0.9.3+19
   flutter_udid: ^3.0.0
   flash: ^3.1.0
   flutter_bloc: ^8.1.3

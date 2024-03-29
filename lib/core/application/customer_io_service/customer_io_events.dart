@@ -52,4 +52,9 @@ class CIOEvents {
   static const String onboardingNewUserCreated = 'onboarding_new_user_created';
   static const String onboardingNewUserVerified = 'onboarding_new_user_verified';
   static const String onboardingEmailChanged = 'onboarding_email_changed';
+
+  //Subscription
+  static const String subscriptionPage = 'subscription_page';
+  static const String subscriptionSelected = 'subscription_selected';
+  static const String subscriptionBought = 'subscription_bought';
 }
