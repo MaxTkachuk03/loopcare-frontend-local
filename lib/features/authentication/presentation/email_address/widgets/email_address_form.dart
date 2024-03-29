@@ -66,9 +66,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
         key: _formKey,
         onChanged: _onChangedForm,
         child: AutofillGroup(
-          onDisposeAction: widget._isUpdate
-              ? AutofillContextAction.commit
-              : AutofillContextAction.cancel,
+          onDisposeAction: widget._isUpdate ? AutofillContextAction.commit : AutofillContextAction.cancel,
           child: Column(
             children: [
               ValueListenableBuilder<String?>(
@@ -82,21 +80,23 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
                   );
                 },
               ),
-              if (!widget._isUpdate) ...[
-                const SizedBox(height: 8.0),
-                CheckboxFormField(
-                  key: const ValueKey('registration_receive_email_checkbox'),
-                  errorText: '',
-                  text: CustomText(
-                    '${LocalizedTexts.receiveEmailCheckboxLabel.tr()} ',
-                    style: context.textTheme.bodyMedium,
+              const SizedBox(height: 16),
+              if (!widget._isUpdate)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20.0),
+                  child: CheckboxFormField(
+                    key: const ValueKey('registration_receive_email_checkbox'),
+                    errorText: '',
+                    text: CustomText(
+                      '${LocalizedTexts.receiveEmailCheckboxLabel.tr()} ',
+                      style: context.textTheme.bodyMedium,
+                    ),
+                    onChanged: _onReceiveEmailChanged,
                   ),
-                  onChanged: _onReceiveEmailChanged,
                 ),
-              ],
               if (widget._isUpdate)
                 SizedBox(
-                  height: 16.0,
+                  height: 0.0,
                   child: Opacity(
                     opacity: 0.0,
                     child: CustomTextField.hiddenPassword(
@@ -108,9 +108,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
               ValueListenableBuilder(
                 valueListenable: _formValidNotifier,
                 builder: (context, isValid, _) {
-                  final label = widget._isUpdate
-                      ? LocalizedTexts.update.tr()
-                      : LocalizedTexts.next.tr();
+                  final label = widget._isUpdate ? LocalizedTexts.update.tr() : LocalizedTexts.next.tr();
 
                   return CustomElevatedButton.blueFullWidth(
                     key: const ValueKey('registration_next_button'),
@@ -134,12 +132,12 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
     }
 
     context.read<AuthenticationBloc>().add(
-        AuthenticationEvent.updateEmail(
-          email: _emailController.text,
-          receiveAnEmails: _receiveAnEmails,
-          update: widget._isUpdate,
-        ),
-      );
+          AuthenticationEvent.updateEmail(
+            email: _emailController.text,
+            receiveAnEmails: _receiveAnEmails,
+            update: widget._isUpdate,
+          ),
+        );
   }
 
   void _onReceiveEmailChanged(bool? value) => _receiveAnEmails = value!;
@@ -163,8 +161,9 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
             return LocalizedTexts.somethingIsIncorrect.tr();
           }
         },
-        forbidden: (forbidden) =>
-            (forbidden.error.message != null) ? forbidden.error.message! : LocalizedTexts.somethingIsIncorrect.tr(),
+        forbidden: (forbidden) => (forbidden.error.message != null)
+            ? forbidden.error.message!
+            : LocalizedTexts.somethingIsIncorrect.tr(),
         orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
       );
 
