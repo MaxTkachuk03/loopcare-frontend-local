@@ -7,15 +7,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_update_bloc.dart';
 import 'package:loopcare_frontend/core/domain/url_constants.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/home/presentation/widget/app_navigation_bar.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
+import 'package:loopcare_frontend/injection.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -32,11 +33,18 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    isChatEnable.value = context.read<AuthenticationCubit>().state.isUserGrouped;
+    isChatEnable.value = getIt<SharedStorageService>().account?.isUserGrouped ?? false;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _initPackageInfo();
     });
+  }
+
+
+  @override
+  void dispose() {
+    isChatEnable.dispose();
+    super.dispose();
   }
 
   Future<void> _initPackageInfo() async {
@@ -67,34 +75,35 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthenticationCubit, AuthenticationState>(
-        listener: _logoutListener,
-        buildWhen: (context, state) => isChatEnable.value != state.isUserGrouped,
-        builder: (context, state) {
-          _chatEnable(state);
-          return AutoTabsScaffold(
-            animationDuration: Duration.zero,
-            routes: const [
-              DashboardRoute(),
-              EducationRoute(),
-              GroupChatRoute(),
-              AccountRoute(),
-            ],
-            appBarBuilder: (_, tabsRouter) => AppBar(
-              systemOverlayStyle: SystemUiOverlayStyle.light,
-              toolbarHeight: 0.0,
-              backgroundColor: DashboardNavbarItems.getColorByIndex(tabsRouter.activeIndex),
-            ),
-            bottomNavigationBuilder: (_, tabsRouter) => AppNavigationBar(
-              tabsRouter: tabsRouter,
-              userName: state.name,
-              isChatEnable: isChatEnable,
-            ),
-          );
-        });
+    return BlocConsumer<AuthenticationBloc, AuthenticationState>(
+      listener: _logoutListener,
+      buildWhen: (context, state) => isChatEnable.value != state.data.isUserGrouped,
+      builder: (context, state) {
+        _chatEnable(state);
+        return AutoTabsScaffold(
+          animationDuration: Duration.zero,
+          routes: const [
+            DashboardRoute(),
+            EducationRoute(),
+            GroupChatRoute(),
+            AccountRoute(),
+          ],
+          appBarBuilder: (_, tabsRouter) => AppBar(
+            systemOverlayStyle: SystemUiOverlayStyle.light,
+            toolbarHeight: 0.0,
+            backgroundColor: DashboardNavbarItems.getColorByIndex(tabsRouter.activeIndex),
+          ),
+          bottomNavigationBuilder: (_, tabsRouter) => AppNavigationBar(
+            tabsRouter: tabsRouter,
+            userName: state.data.accountName,
+            isChatEnable: isChatEnable,
+          ),
+        );
+      },
+    );
   }
 
-  void _chatEnable(AuthenticationState state) => isChatEnable.value = state.isUserGrouped;
+  void _chatEnable(AuthenticationState state) => isChatEnable.value = state.data.isUserGrouped;
 
   void _logoutListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(

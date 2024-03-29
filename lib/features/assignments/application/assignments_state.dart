@@ -38,84 +38,59 @@ class AssignmentsStateData with _$AssignmentsStateData {
 
   LessonQuestion questionForStep(int lessonId, int step) => questionsForLesson(lessonId).get(step);
 
-  List<LessonQuestion> pastQuestions(DateTime selectedDay) {
-    var pastQuestions = questions
-        .where(
-          (element) =>
-              element.openedAt?.inRange(
-                selectedDay,
-                DateTime.now().subtract(const Duration(days: 7)),
-              ) ??
-              false,
-        )
-        .toList();
+  List<LessonQuestion> pastAssignments(DateTime date) {
+    final List<LessonQuestion> assignments = [];
+    final weekAgo = DateTime.now().subtract(const Duration(days: 7));
 
-    pastQuestions.addAll(
-      questions
-          .where(
-            (element) =>
-                element.openedAt?.inRange(
-                  DateTime.now().subtract(const Duration(days: 7)),
-                  DateTime.now(),
-                ) ??
-                false,
-          )
-          .toList()
-          .where((item) => item.completedAt != null)
-          .toList(),
-    );
-
-    return pastQuestions;
-  }
-
-  List<LessonQuestion> questionsForCurrentWeek(DateTime selectedDay) {
-    return questions
-        .where(
-          (element) =>
-              element.openedAt?.inRange(
-                selectedDay.firstDayOfCurrentWeek.subtract(const Duration(days: 7)),
-                selectedDay.lastDayOfCurrentWeek,
-              ) ??
-              false,
-        )
-        .toList();
-  }
-
-  List<LessonQuestion> openedQuestionsForCurrentWeek(DateTime selectedDay) {
-    return questions
-        .where(
-          (element) =>
-              (element.openedAt?.inRange(
-                    selectedDay.firstDayOfCurrentWeek.subtract(const Duration(days: 7)),
-                    selectedDay.lastDayOfCurrentWeek,
-                  ) ??
-                  false) &&
-              element.questionAnswer == null,
-        )
-        .toList();
-  }
-
-  List<LessonQuestion> doneTodayQuestions(DateTime selectedDay) {
-    return questions
-        .where(
-          (element) => element.answeredAt?.isSameDate(selectedDay) ?? false,
-        )
-        .toList();
-  }
-
-  List<LessonQuestion> uniqueLessonsQuestions(
-    List<LessonQuestion> data,
-  ) {
-    List<LessonQuestion> retList = [];
-    List<int> lessonsList = [];
-
-    for (var element in data) {
-      if (lessonsList.contains(element.lessonId)) continue;
-
-      lessonsList.add(element.lessonId);
-      retList.add(element);
+    for (var v in questionsByLessonId.values) {
+      if (v.every((e) => e.isCompleted || e.isInDateRange(date, weekAgo))) {
+        assignments.add(v.first);
+      }
     }
 
-    return retList;
+    return assignments;
+  }
+
+  bool hasQuestionsForCurrentWeek(DateTime selectedDay) => questions.any((e) =>
+      e.openedAt?.inRange(selectedDay.firstDayOfPreviousWeek, selectedDay.lastDayOfCurrentWeek) ?? false);
+
+  Map<int, List<LessonQuestion>> get questionsByLessonId {
+    final Map<int, List<LessonQuestion>> questionsByLessonId = {};
+
+    for (var element in questions) {
+      if (questionsByLessonId[element.lessonId] == null) {
+        questionsByLessonId[element.lessonId] = [element];
+      } else {
+        questionsByLessonId[element.lessonId]?.add(element);
+      }
+    }
+
+    return questionsByLessonId;
+  }
+
+  List<LessonQuestion> currentWeekAssignments(DateTime selectedDay) {
+    final List<LessonQuestion> assignments = [];
+
+    for (var v in questionsByLessonId.values) {
+      if (v.every(
+              (e) => e.isInDateRange(selectedDay.firstDayOfPreviousWeek, selectedDay.lastDayOfCurrentWeek)) &&
+          v.any((e) => !e.isCompleted)) {
+        assignments.add(v.first);
+      }
+    }
+
+    return assignments;
+  }
+
+  List<LessonQuestion> todayDoneAssignments(DateTime selectedDay) {
+    final List<LessonQuestion> assignments = [];
+
+    for (var v in questionsByLessonId.values) {
+      if (v.every((e) => e.isCompletedOnSelectedDate(selectedDay))) {
+        assignments.add(v.first);
+      }
+    }
+
+    return assignments;
   }
 }

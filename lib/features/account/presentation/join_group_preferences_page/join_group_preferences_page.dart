@@ -6,8 +6,10 @@ import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_de
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -16,8 +18,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class JoinGroupPreferencesPage extends StatefulWidget {
   // TODO route is called only from one place with false value, so we don't need it as a param cause it always the same
@@ -33,6 +35,7 @@ class JoinGroupPreferencesPage extends StatefulWidget {
 }
 
 class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
+  final account = getIt<SharedStorageService>().account;
   YesNoAnswer? _selectedValue;
 
   @override
@@ -59,16 +62,15 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
         },
       );
 
-      if (context.read<AuthenticationCubit>().state.isTreatedByPsychiatrist) {
-        context.router.push(ConsultDoctorRoute(mode: const ExtraActionPageMode.userProfile()));
+      if (account!.isOnTrial) {
+        context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.userProfile()));
         return;
       }
 
-      // TODO removed for now 04.03.2024 need to check all requirement after
-      // if (!context.read<AuthenticationCubit>().state.hasSubscription) {
-      //   context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.userProfile()));
-      //   return;
-      // }
+      if (account?.medicalOnboarding?.treatedByPsychiatrist ?? false) {
+        context.router.push(ConsultDoctorRoute(mode: const ExtraActionPageMode.userProfile()));
+        return;
+      }
 
       context.router.push(GenderPreferencesRoute(fromLessonComplete: widget.fromLessonComplete));
     }
@@ -80,7 +82,7 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
   Widget build(BuildContext context) {
     return GroupPrefsPageWrap(
       fromLessonComplete: widget.fromLessonComplete,
-      child: SafeArea(
+      child: CustomSafeArea(
         child: MainContainer(
           child: ScrollableContainer(
             child: Column(

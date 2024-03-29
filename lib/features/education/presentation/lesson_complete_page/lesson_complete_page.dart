@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
@@ -18,15 +20,17 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/save_assignment.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_assignment.dart';
+import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_buddy_feature.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_food_logging_feature.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_group_session_feature.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class LessonCompletePage extends StatefulWidget {
   const LessonCompletePage({super.key});
@@ -37,14 +41,13 @@ class LessonCompletePage extends StatefulWidget {
 
 class _LessonCompletePageState extends State<LessonCompletePage> {
   bool showedAssignment = false;
+
   @override
   void initState() {
     super.initState();
-
     if (context.read<EducationLessonBloc>().state.data.isLessonCompleted) {
       return;
     }
-
     context.read<EducationLessonBloc>().add(const EducationLessonEvent.completeLesson());
   }
 
@@ -66,9 +69,10 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
     });
   }
 
-  bool get _isGroupSessionsDisabled => context.read<AuthenticationCubit>().state.disableGroupSessions;
+  bool get _isGroupSessionsDisabled => getIt<SharedStorageService>().account!.disableGroupSessions;
 
-  bool get _isTreatedByPsychiatrist => context.read<AuthenticationCubit>().state.isTreatedByPsychiatrist;
+  bool get _isTreatedByPsychiatrist =>
+      getIt<SharedStorageService>().account!.medicalOnboarding!.treatedByPsychiatrist;
 
   String _subText(EducationLessonState state) {
     if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
@@ -85,6 +89,9 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
     }
   }
 
+  _lessonCompleteListener(BuildContext context, EducationLessonState state) =>
+      context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -93,13 +100,17 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
           listenWhen: (prev, cur) => cur is ErrorCompleteLesson,
           listener: _onErrorListener,
         ),
+        BlocListener<EducationLessonBloc, EducationLessonState>(
+          listenWhen: (prev, cur) => cur is LessonCompleted,
+          listener: _lessonCompleteListener,
+        ),
       ],
       child: CustomScaffold.petrol(
         appBar: CustomAppBar.petrol(
           title: LocalizedTexts.lesson.tr(),
           leading: CustomFilledIconButton.leadingPetrolLighter(),
         ),
-        body: SafeArea(
+        body: CustomSafeArea(
           child: ScrollableContainer(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -139,6 +150,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                           borderRadius: BorderRadius.all(Radius.circular(16)),
                         ),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             BlocBuilder<EducationLessonBloc, EducationLessonState>(
                               builder: (context, state) {
@@ -159,7 +171,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                                       style: context.textTheme.displayLarge,
                                     ),
                                     const SizedBox(height: 10.0),
-                                    CustomText.w400(_subText(state), style: context.textTheme.bodyMedium),
+                                    if (state.data.extraAction != ExtraActionTypes.unlockBuddy)
+                                      CustomText.w400(_subText(state), style: context.textTheme.bodyMedium),
                                   ],
                                 );
                               },
@@ -172,8 +185,12 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                     MainContainer(
                       child: BlocBuilder<EducationLessonBloc, EducationLessonState>(
                         builder: (BuildContext context, state) {
-                          if (state.data.extraAction == ExtraActionTypes.unlockMeals) {
+                          if (state.data.isFoodLoggingUnlocked) {
                             return const UnlockFoodLoggingFeature();
+                          }
+
+                          if (state.data.isBuddyUnlocked) {
+                            return const UnlockBuddyFeature();
                           }
 
                           if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
@@ -184,8 +201,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
                           if (state.data.assignmentsQuestions.isNotEmpty &&
                               state.data.assignmentsQuestionsWithAnswers.isEmpty) {
-                            final authState = context.read<AuthenticationCubit>().state;
-                            var emailApproveDate = authState.emailApproveDate ?? DateTime.now();
+                            final emailApproveDate =
+                                getIt<SharedStorageService>().account?.emailApproveDate ?? DateTime.now();
 
                             context.read<AssignmentsBloc>().add(
                                   AssignmentsEvent.getAllLessonQuestions(

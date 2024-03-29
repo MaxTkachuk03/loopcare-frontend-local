@@ -81,7 +81,7 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
   ) async {
     final moods = state.data.moods;
 
-    if (moods.isEmpty || event.date.isAfter(DateTime.now().toLocal())) return;
+    if (event.date.isAfter(DateTime.now().toLocal())) return;
 
     final isoStringDate = event.date.toLocal().isoStringWithoutTime;
 
@@ -93,7 +93,7 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
 
     final response = await _moodService.getMoods(
       startDate: event.date.beginDay.toIso8601String(),
-      endDate: event.date.beginDay.toIso8601String(),
+      endDate: event.date.endDay.toIso8601String(),
     );
 
     response.fold(

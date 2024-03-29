@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/domain/unlock_config/lesson_unlock_config/lesson_unlock_config.dart';
 
 part 'education_lesson.freezed.dart';
-
 part 'education_lesson.g.dart';
 
 @freezed
@@ -20,7 +20,7 @@ abstract class EducationLesson implements _$EducationLesson {
     required int order,
     required bool isLocked,
     required DateTime? completedAt,
-    required int nextStepUnlockDelay,
+    required LessonUnlockConfig unlockingConfig,
   }) = _EducationLesson;
 
   bool get isCompleted => completedAt != null;

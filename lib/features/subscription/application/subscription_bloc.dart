@@ -206,6 +206,13 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         await inAppPurchaseService.instance.completePurchase(purchaseDetails);
         final accessTokenUpdated = await authTokenManager.updateAccessToken();
         if (accessTokenUpdated) {
+          CustomerIoService.track(
+            event: CIOEvents.subscriptionBought,
+            attributes: {
+              CIOAttributes.identifierOption: purchaseDetails.productID,
+              CIOAttributes.subscriptionExpirationDate: r.expiresAt,
+            },
+          );
           add(
             SubscriptionEvent.purchasedSubscription(
               r,

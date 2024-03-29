@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_se
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -19,7 +20,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/get_measur
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_field.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/weight_conversion_utils.dart';
+import 'package:loopcare_frontend/features/onboarding_new/utils/weight_conversion_utils.dart';
 
 class LogWeightPage extends StatefulWidget {
   final DateTime selectedDay;
@@ -42,9 +43,9 @@ class _LogWeightPageState extends State<LogWeightPage> {
 
   @override
   void initState() {
+    super.initState();
     weightFieldController = TextEditingController(text: _getInputInitialValue());
     fieldFocusNode.requestFocus();
-    super.initState();
   }
 
   String _getInputInitialValue() {
@@ -109,7 +110,7 @@ class _LogWeightPageState extends State<LogWeightPage> {
         leading: CustomFilledIconButton.leadingCoralLighter(),
         title: _isToday ? LocalizedTexts.todaysWeight.translation : LocalizedTexts.yourWeight.translation,
       ),
-      body: SafeArea(
+      body: CustomSafeArea(
         child: ScrollableContainer(
           child: MainContainer(
             child: Column(

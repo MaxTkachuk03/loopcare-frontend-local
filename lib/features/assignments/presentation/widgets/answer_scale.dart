@@ -50,7 +50,9 @@ class AnswerScale extends StatelessWidget {
                 CustomText.w400(question.introduction ?? '', style: context.textTheme.bodyLarge),
                 const SizedBox(height: 28.0),
                 CustomText.bitter600(question.question ?? '', style: context.textTheme.displayMedium),
-                const SizedBox(height: 20.0),
+                const SizedBox(height: 28.0),
+                CustomText.bitter600(question.extraInstruction, style: context.textTheme.bodyMedium),
+                if (question.extraInstruction.isNotEmpty) const SizedBox(height: 28.0),
                 ScoringScale(
                   selectedColor: AppColors.greenRegular,
                   selectedScore: selectedScore,
@@ -74,7 +76,8 @@ class AnswerScale extends StatelessWidget {
                   ],
                 ),
                 if (feedbackText != null) const SizedBox(height: 24.0),
-                if (feedbackText != null) CustomText.w600(feedbackText ?? '', style: context.textTheme.bodyLarge),
+                if (feedbackText != null)
+                  CustomText.w600(feedbackText ?? '', style: context.textTheme.bodyLarge),
               ],
             ),
             Column(

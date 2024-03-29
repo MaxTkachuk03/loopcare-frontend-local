@@ -11,10 +11,6 @@ import 'package:loopcare_frontend/features/education/domain/questions/lesson_ans
 import 'package:loopcare_frontend/features/education/domain/questions/lesson_questions_response.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 
-// TODO mock files
-// import 'package:loopcare_frontend/features/education/infrastructure/lesson_mock.dart';
-// import 'package:loopcare_frontend/features/education/infrastructure/lessons_mock.dart';
-
 @Injectable(as: EducationService)
 class APIEducationService implements EducationService {
   DioClient client;
@@ -22,8 +18,7 @@ class APIEducationService implements EducationService {
   APIEducationService(this.client);
 
   @override
-  Future<Either<RequestError, LessonQuestionsResponse>> getAllLessonQuestions(
-      String? startDate, String? endDate) {
+  Future<Either<RequestError, LessonQuestionsResponse>> getAllLessonQuestions(String? startDate, String? endDate) {
     final queryParameters = <String, dynamic>{};
     if (startDate != null && endDate != null) {
       queryParameters.addAll({
@@ -39,9 +34,7 @@ class APIEducationService implements EducationService {
 
   @override
   Future<Either<RequestError, LessonQuestion>> getLessonQuestions(int lessonQuestionId) {
-    return client
-        .get('/education/lesson-questions/$lessonQuestionId')
-        .then(parseResponse(LessonQuestion.fromJson));
+    return client.get('/education/lesson-questions/$lessonQuestionId').then(parseResponse(LessonQuestion.fromJson));
   }
 
   @override
@@ -86,9 +79,8 @@ class APIEducationService implements EducationService {
 
   @override
   Future<Either<RequestError, GetLessonsResponse>> getLessons() async {
-    // TODO lessons mock
-    // return right(GetLessonsResponse.fromJson({'lessons': lessons}));
-
+    // TODO mock
+    //return right(GetLessonsResponse.fromJson({'lessons': lessons}));
     return client.get('/education/lessons').then(parseResponse(GetLessonsResponse.fromJson));
   }
 
@@ -96,9 +88,8 @@ class APIEducationService implements EducationService {
   Future<Either<RequestError, GetLessonContentResponse>> getLessonContent(
     int lessonId,
   ) async {
-    // TODO lesson mock
-    // return right(GetLessonContentResponse.fromJson(lesson));
-
+    // TODO mock
+    //return right(GetLessonContentResponse.fromJson(lesson));
     return client.get('/education/lessons/$lessonId').then(parseResponse(GetLessonContentResponse.fromJson));
   }
 

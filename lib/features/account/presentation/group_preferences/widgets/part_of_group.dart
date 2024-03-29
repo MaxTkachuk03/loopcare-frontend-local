@@ -10,19 +10,18 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
 class PartOfGroup extends StatelessWidget {
   const PartOfGroup({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationCubit, AuthenticationState>(
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (BuildContext context, state) {
-        if (state.groupingState == null) return const SizedBox.shrink();
+        if (state.data.groupingState == null) return const SizedBox.shrink();
 
-        if (state.isUserGrouped) {
+        if (state.data.isUserGrouped) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

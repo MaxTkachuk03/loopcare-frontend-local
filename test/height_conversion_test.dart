@@ -1,4 +1,4 @@
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/height_conversion_utils.dart';
+import 'package:loopcare_frontend/features/onboarding_new/utils/height_conversion_utils.dart';
 import 'package:test/test.dart';
 
 void main() {

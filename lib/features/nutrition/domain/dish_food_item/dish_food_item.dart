@@ -12,7 +12,7 @@ class DishFoodItem with _$DishFoodItem {
   const factory DishFoodItem({
     required int id,
     required String externalId,
-    required String foodName,
+    @Default('') String foodName,
     @Default('') String? brandName,
     required double calorieDensity,
     required double proteinDegree,

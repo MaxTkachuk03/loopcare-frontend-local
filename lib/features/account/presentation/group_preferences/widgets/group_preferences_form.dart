@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
@@ -17,10 +18,10 @@ import 'package:loopcare_frontend/features/account/domain/user_grouping_state.da
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/part_of_group.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/tapped_item.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/white_box.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class GroupPreferencesForm extends StatelessWidget {
   const GroupPreferencesForm({super.key});
@@ -28,9 +29,9 @@ class GroupPreferencesForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WhiteBox(
-      child: BlocBuilder<AuthenticationCubit, AuthenticationState>(
+      child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, accountState) {
-          if (accountState.groupingState == null) return const SizedBox.shrink();
+          if (accountState.data.groupingState == null) return const SizedBox.shrink();
 
           return BlocBuilder<GroupPreferencesBloc, GroupPreferencesState>(
             builder: (context, state) {
@@ -50,10 +51,10 @@ class GroupPreferencesForm extends StatelessWidget {
                 },
                 updated: (s) {
                   final preferences = s.data.genderPreferences;
-                  final gender = accountState.gender;
-                  final showGenderPreference = (gender == SexType.female || gender == SexType.male);
+                  final gender = accountState.data.gender;
+                  final showGenderPreference = (gender != GenderType.other);
 
-                  if (accountState.groupingState == UserGroupingState.grouped) {
+                  if (accountState.data.groupingState == UserGroupingState.grouped) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -126,34 +127,31 @@ class GroupPreferencesForm extends StatelessWidget {
 
   void _onGenderPreferencesTap(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>()
-          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
       ..router.push(GenderPreferencesRoute(fromLessonComplete: false));
   }
 
   void _onTimezoneTap(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>()
-          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
       ..router.push(TimezonePreferencesRoute(fromLessonComplete: false));
   }
 
   void _onNicknamePreferencesTap(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>()
-          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
       ..router.push(NicknamePreferencesRoute(fromLessonComplete: false));
   }
 
   _onLeaveGroupPressed(BuildContext context) {
-    final authState = context.read<AuthenticationCubit>().state;
-    final groupId = authState.groupId ?? -1;
+    final account = getIt<SharedStorageService>().account;
+    final groupId = account?.groupId ?? -1;
 
     AnalyticsEventService.instance.logEvent(
       FirebaseEvents.userLeaveGroup,
       parameters: {
         CustomDefinitions.groupId: groupId.toString(),
-        CustomDefinitions.type: authState.genderPreferences?.name ?? '',
+        CustomDefinitions.type: account?.genderPreference?.name ?? '',
         CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
       },
     );

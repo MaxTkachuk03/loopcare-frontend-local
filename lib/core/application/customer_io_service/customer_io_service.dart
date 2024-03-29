@@ -5,7 +5,12 @@ import 'package:customer_io/customer_io_config.dart';
 import 'package:customer_io/customer_io_enums.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_attributes.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
 import 'package:loopcare_frontend/core/application/firebase/mesaging/firebase_messaging.dart';
+
+export 'customer_io_attributes.dart';
+export 'customer_io_events.dart';
 
 class CustomerIoService {
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
@@ -15,31 +20,55 @@ class CustomerIoService {
       config: CustomerIOConfig(
         siteId: dotenv.env['CUSTOMER_IO_SITE_ID'] ?? '',
         apiKey: dotenv.env['CUSTOMER_IO_API_KEY'] ?? '',
-        region: Region.us,
+        region: Region.eu,
         autoTrackDeviceAttributes: true,
         enableInApp: true,
       ),
     );
   }
 
-  static Future<void> userRegistered({
+  static Future<void> onboardingStarted({
     required String email,
     required String name,
-    required int id,
+    required bool receiveAnEmails,
   }) async {
     CustomerIO.identify(
       identifier: email,
       attributes: {
         'name': name,
-        'id': id,
         'created_at': _timestamp,
         'system_locale': Platform.localeName,
       },
     );
 
-    await _setDevice();
+    CustomerIO.track(
+      name: CIOEvents.onboardingNewUser,
+      attributes: {
+        CIOAttributes.consentToEmail: receiveAnEmails,
+      },
+    );
 
-    CustomerIO.track(name: 'new_user');
+    await _setDevice();
+  }
+
+
+  static Future<void> changeUserEmail({
+    required String email,
+  }) async {
+    CustomerIO.track(
+      name: CIOEvents.onboardingEmailChanged,
+      attributes: {
+        CIOAttributes.updateEmail: email,
+      },
+    );
+  }
+
+  static Future<void> onboardingResume({
+    required String email,
+  }) async {
+    CustomerIO.identify(identifier: email);
+
+    await _setDevice();
   }
 
   static void logOut() => CustomerIO.clearIdentify();
@@ -60,7 +89,7 @@ class CustomerIoService {
 
     await _setDevice();
 
-    CustomerIO.track(name: 'authentication', attributes: {'last_auth': _timestamp,});
+    CustomerIO.track(name: CIOEvents.auth, attributes: {'last_auth': _timestamp});
   }
 
   static void track({

@@ -8,8 +8,7 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 
@@ -40,12 +39,12 @@ class _AccountSectionState extends State<AccountSection> {
     context.read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.initClear());
     context.read<PhysicalProgramsBloc>().add(const PhysicalProgramsEvent.init());
     context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.init());
-    context.read<AuthenticationCubit>().logout();
+    context.read<AuthenticationBloc>().add(const AuthenticationEvent.logout());
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationCubit, AuthenticationState>(
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (BuildContext context, state) {
         return AccountContainer(
           child: Column(
@@ -53,13 +52,13 @@ class _AccountSectionState extends State<AccountSection> {
               SectionTitle(title: LocalizedTexts.account.tr()),
               SectionItem(
                 title: LocalizedTexts.name.tr(),
-                subTitle: state.name,
+                subTitle: state.data.accountName,
                 onPressHandler: () {},
               ),
               const Divider(height: 1.0, color: AppColors.blueLighter),
               SectionItem(
                 title: LocalizedTexts.emailAddress.tr(),
-                subTitle: state.email,
+                subTitle: state.data.accountEmail,
                 onPressHandler: () {},
               ),
               const Divider(height: 1.0, color: AppColors.blueLighter),

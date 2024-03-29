@@ -6,6 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -140,7 +141,7 @@ class EditFoodPreferencesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _getCustomScaffold(
-      body: SafeArea(
+      body: CustomSafeArea(
         child: MainContainer(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

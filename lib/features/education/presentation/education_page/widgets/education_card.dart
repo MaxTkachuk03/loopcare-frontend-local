@@ -39,10 +39,7 @@ class EducationCard extends StatelessWidget {
             Expanded(
               child: Wrap(
                 children: [
-                  CustomText.w600(
-                    '${LocalizedTexts.availableIn.tr()}: ',
-                    style: context.textTheme.bodySmall,
-                  ),
+                  CustomText.w600('${LocalizedTexts.availableIn.tr()}: ', style: context.textTheme.bodySmall),
                   EducationCountDown(seconds: lessonWithCountdown.timeRemaining),
                 ],
               ),
@@ -115,6 +112,7 @@ class EducationCard extends StatelessWidget {
                               ),
                             ),
                           ),
+                          const SizedBox(width: 14),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

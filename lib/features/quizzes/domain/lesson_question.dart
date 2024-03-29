@@ -28,6 +28,7 @@ class LessonQuestion with _$LessonQuestion {
     required String? lowestText,
     required String? highestText,
     required String? question,
+    @Default('') String extraInstruction,
     required List<LessonQuestionOption> lessonQuestionOptions,
     required List<LessonQuestionFeedback> lessonQuestionFeedbacks,
     required List<LessonQuestionAnswer> lessonQuestionAnswers,
@@ -71,6 +72,14 @@ class LessonQuestion with _$LessonQuestion {
 
     return retList;
   }
+
+  bool isInDateRange(DateTime startDate, DateTime endDate) => openedAt?.inRange(startDate, endDate) ?? false;
+
+  bool get isCompleted => lessonQuestionAnswers.isNotEmpty;
+
+  bool get isNotCompleted => lessonQuestionAnswers.isEmpty;
+
+  bool isCompletedOnSelectedDate(DateTime date) => answeredAt?.isSameDate(date) ?? false;
 
   List<String> get lessonQuestionOptionsLabels => lessonQuestionOptions.map((e) => e.label).toList();
 

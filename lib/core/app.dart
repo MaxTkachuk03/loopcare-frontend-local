@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_update_bloc.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
+import 'package:loopcare_frontend/core/infrastructure/route_observers/route_observer_utils.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_bloc_provider.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_navigator_observer.dart';
@@ -14,11 +15,11 @@ import 'package:loopcare_frontend/core/presentation/routes/gender_prefs_guard.da
 import 'package:loopcare_frontend/core/presentation/routes/intro_guard.dart';
 import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
-import 'package:loopcare_frontend/features/mental_health/application/mental_health_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding/application/onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding_new/application/general/general_onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding_new/application/mental_questions/mental_questions_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
 import 'package:provider/provider.dart';
 
@@ -69,18 +70,18 @@ class _AppState extends State<_App> {
   @override
   void initState() {
     super.initState();
-    final authBloc = context.read<AuthenticationCubit>();
-    final onboardingBloc = context.read<OnboardingBloc>();
+    final authBloc = context.read<AuthenticationBloc>();
+    final onboardingBloc = context.read<GeneralOnboardingBloc>();
     final legalStatementBloc = context.read<LegalStatementBloc>();
     final consentConfirmationBloc = context.read<ConsentConfirmationBloc>();
-    final mentalHealthBloc = context.read<MentalHealthBloc>();
+    final mentalHealthBloc = context.read<MentalQuestionsBloc>();
     final authTokenManager = GetIt.instance<AuthTokenManager>();
-    authBloc.connectSockets();
+    authBloc.add(const AuthenticationEvent.connectSockets());
     context.read<AppUpdateBloc>().add(const AppUpdateEvent.getVersion());
 
     _appRouter = AppRouter(
       navigatorKey: kNavigatorKey,
-      proxyGuard: ProxyGuard(authBloc, authTokenManager),
+      proxyGuard: ProxyGuard(authTokenManager),
       introGuard: IntroGuard(
         authBloc,
         onboardingBloc,
@@ -89,7 +90,7 @@ class _AppState extends State<_App> {
         mentalHealthBloc,
         authTokenManager,
       ),
-      genderPrefsGuard: GenderPrefsGuard(authBloc),
+      genderPrefsGuard: GenderPrefsGuard(),
     );
   }
 
@@ -101,9 +102,10 @@ class _AppState extends State<_App> {
       theme: appThemeData,
       routerDelegate: _appRouter.delegate(
         navigatorObservers: () => [
+          RouteObserverUtils(),
           FirebaseNavigatorObserver(
             analytics: analytics,
-            userId: context.read<AuthenticationCubit>().state.id,
+            userId: context.read<AuthenticationBloc>().state.data.accountId,
           ),
         ],
       ),

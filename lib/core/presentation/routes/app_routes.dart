@@ -6,11 +6,12 @@ class AppRoutes {
   static const String intro = '/intro'; // added
   static const String accessCode = '/access-code'; // added
   static const String joinUs = '/join-us'; // added
+  static const String successVerifiedEmail = '/success-verified-email'; // added
   static const String login = '/login'; //added
   static const String forgotPassword = '/forgot-password';
 
   // Onboarding Physical
-  static const String physicalIntro = '/physical-intro';
+  static const String onboardingIntro = '/physical-intro';
   static const String subscription = '/subscription';
   static const String manageSubscription = '/manage-subscription';
   static const String birthday = '/birthday'; // added
@@ -59,6 +60,7 @@ class AppRoutes {
   static const String password = '/password'; // added
   static const String emailAddress = '/email-address'; // added
   static const String waitingForConfirmation = '/waiting-for-confirmation'; // added
+  static const String changeEmail = '/change-email-address'; // added
 
   static const String legalStatement = '/legal-statement'; // added
   static const String preparationMaterials = '/preparation-materials'; // added
@@ -152,6 +154,15 @@ class AppRoutes {
   // Group chat
   static const String groupChat = 'chat';
   static const String groupChatUsers = '/chat_users';
+
+  // Buddy
+  static const String buddyIntro = '/buddy-intro';
+  static const String buddyDescription = '/buddy-description';
+  static const String buddyPreferences = '/buddy-preferences';
+  static const String buddyLiveTogether = '/buddy-together';
+  static const String buddyRelation = '/buddy-relation';
+  static const String buddyEmail = '/buddy-email';
+  static const String buddyCompleted = '/buddy-completed';
 
   AppRoutes._();
 }

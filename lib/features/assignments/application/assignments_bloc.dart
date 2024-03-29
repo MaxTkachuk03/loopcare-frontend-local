@@ -166,27 +166,17 @@ class AssignmentsBloc extends Bloc<AssignmentsEvent, AssignmentsState> {
   ) async {
     emit(AssignmentsState.loading(state.data.copyWith(isLoading: true)));
 
-    LessonAnswerTextBody data = LessonAnswerTextBody(
-      text: event.text,
-    );
+    LessonAnswerTextBody data = LessonAnswerTextBody(text: event.text);
 
     final response = await _educationService.updateLessonAnswerText(event.lessonQuestionId, data);
 
     response.fold(
       (l) => emit(
-        AssignmentsState.error(state.data.copyWith(
-          error: l,
-          isLoading: false,
-        )),
+        AssignmentsState.error(state.data.copyWith(error: l, isLoading: false)),
       ),
       (r) {
         emit(
-          AssignmentsState.updated(
-            state.data.copyWith(
-              isLoading: false,
-              questions: _updatedQuestions(r),
-            ),
-          ),
+          AssignmentsState.updated(state.data.copyWith(isLoading: false, questions: _updatedQuestions(r))),
         );
       },
     );

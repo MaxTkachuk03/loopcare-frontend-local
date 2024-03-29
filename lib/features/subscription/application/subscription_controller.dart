@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/donain/purchasable_product.dart';
 import 'package:loopcare_frontend/features/subscription/utils/mapper_utils.dart';
@@ -60,6 +61,12 @@ class SubscriptionController {
   void setPlans(PurchasableProduct plan) {
     selectedPlan.value = plan;
     isEnableSubscribe.value = true;
+    CustomerIoService.track(
+      event: CIOEvents.subscriptionSelected,
+      attributes: {
+        CIOAttributes.identifierOption: plan.details?.id,
+      },
+    );
   }
 
   void resetState() {

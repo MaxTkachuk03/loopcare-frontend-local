@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
 
 part 'group_preferences_response.g.dart';
 
@@ -21,8 +21,7 @@ class GroupPreferencesResponse {
     this.nickname,
   );
 
-  static GroupPreferencesResponse fromJson(Map<String, dynamic> json) =>
-      _$GroupPreferencesResponseFromJson(json);
+  static GroupPreferencesResponse fromJson(Map<String, dynamic> json) => _$GroupPreferencesResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$GroupPreferencesResponseToJson(this);
 }

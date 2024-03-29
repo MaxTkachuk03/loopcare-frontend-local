@@ -6,6 +6,7 @@ import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
@@ -36,6 +37,9 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   void initState() {
     super.initState();
     controller = SubscriptionController(bloc: context.read<SubscriptionBloc>());
+    CustomerIoService.track(
+      event: CIOEvents.subscriptionPage,
+    );
   }
 
   @override
@@ -54,6 +58,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: CustomScaffold(
+        withBg: false,
         color: AppColors.blueRegular,
         appBar: CustomAppBar.transparent(
           leading: const SizedBox.shrink(),

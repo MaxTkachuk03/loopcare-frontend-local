@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/core/domain/recent_search_user/recent_search_d
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
@@ -26,7 +26,7 @@ part 'search_bloc.g.dart';
 
 @singleton
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  final AuthenticationCubit _authenticationCubit;
+  final AuthenticationBloc _authenticationBloc;
   final NutritionService nutritionService;
   final SharedStorageService _sharedStorageService;
   static const maxRecentSearchListSize = 10;
@@ -36,7 +36,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   SearchBloc(
     this.nutritionService,
-    this._authenticationCubit,
+    this._authenticationBloc,
     this._sharedStorageService,
   ) : super(const SearchState.initial(SearchData())) {
     on<Search>(_onSearch);
@@ -56,13 +56,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   Future<void> _addRecentSearch(String query, SearchMode type) async {
-    final userId = _authenticationCubit.state.id;
+    final userId = _authenticationBloc.state.data.id;
     _sharedStorageService.findOrAddRecentUser(userId, RecentSearchData(type: type, query: query));
   }
 
   List<String> _getRecentSearch({SearchMode? type}) {
     var list = <String>[];
-    final userId = _authenticationCubit.state.id;
+    final userId = _authenticationBloc.state.data.id;
     List<String> savedList = _sharedStorageService.searchValues(userId, type: type);
 
     list.add('header');

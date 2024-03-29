@@ -14,7 +14,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_butt
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -32,7 +32,7 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
             context: context,
             noActiveSubscription: noActiveSubscription,
             onDeleted: () {
-              context.read<AuthenticationCubit>().deleteAccount();
+              context.read<AuthenticationBloc>().add(const AuthenticationEvent.deleteAccount());
               AnalyticsEventService.instance.logEvent(
                 FirebaseEvents.deleteAccount,
                 parameters: {

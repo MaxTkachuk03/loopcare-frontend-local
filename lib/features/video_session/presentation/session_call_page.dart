@@ -17,16 +17,17 @@ import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_session_report.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/date_time_utils.dart';
+import 'package:loopcare_frontend/features/onboarding_new/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/report_abuse/application/report_abuse_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/application/session_call_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
@@ -38,6 +39,7 @@ import 'package:loopcare_frontend/features/video_session/presentation/widgets/se
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_video_container.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/settings_dialog.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/users_grid.dart';
+import 'package:loopcare_frontend/injection.dart';
 import 'package:wakelock/wakelock.dart';
 
 class SessionCallPage extends StatefulWidget {
@@ -51,7 +53,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   ZoomVideoSdk zoom = ZoomVideoSdk();
   ZoomVideoSdkEventListener eventListener = ZoomVideoSdkEventListener();
 
-  int get userId => context.read<AuthenticationCubit>().state.id;
+  int get userId => getIt<SharedStorageService>().account!.id;
 
   late final dynamic _sessionJoinListener;
   late final dynamic _userJoinListener;
@@ -185,8 +187,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
       log('session token = $token', name: 'zoomSessionLog');
 
-      final String userName = context.read<AuthenticationCubit>().state.nickname ??
-          context.read<AuthenticationCubit>().state.name;
+      final account = getIt<SharedStorageService>().account;
+      final String userName = account!.nickname ?? account.name;
 
       JoinSessionConfig joinSession = JoinSessionConfig(
         sessionName: sessionKey,
@@ -630,7 +632,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
               ),
         body: Container(
           color: AppColors.black,
-          child: SafeArea(
+          child: CustomSafeArea(
             bottom: !hideAppBar,
             child: Stack(
               children: [

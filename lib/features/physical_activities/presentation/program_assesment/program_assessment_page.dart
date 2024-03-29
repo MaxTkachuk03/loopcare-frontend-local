@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -61,7 +62,7 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
                 title: '${LocalizedTexts.didItWorkOutForYou.tr()}?',
                 leading: CustomFilledIconButton.leadingYellowLighter(),
               ),
-              body: const SafeArea(
+              body: const CustomSafeArea(
                 child: Loader(),
               ),
             );

@@ -14,6 +14,7 @@ abstract class PhysicalFitness implements _$PhysicalFitness {
     required double weight,
     required double bmi,
     required DateTime birthDate,
+    DateTime? createdAt,
   }) = _PhysicalFitness;
 
   factory PhysicalFitness.fromJson(Map<String, dynamic> json) => _$PhysicalFitnessFromJson(json);

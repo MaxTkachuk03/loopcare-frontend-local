@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -99,7 +100,7 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
           fromLessonComplete: widget.fromLessonComplete,
           child: GroupPrefsPageWrap(
             fromLessonComplete: widget.fromLessonComplete,
-            child: SafeArea(
+            child: CustomSafeArea(
               child: MainContainer(
                 child: ScrollableContainer(
                   child: Column(

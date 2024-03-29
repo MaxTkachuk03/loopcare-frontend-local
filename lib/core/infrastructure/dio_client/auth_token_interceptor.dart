@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/core/application/socket_service/socket_service
 import 'package:loopcare_frontend/core/application/socket_service_chat/chat_socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart' as dioClient;
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
 import 'parse_response.dart';
 
@@ -22,7 +22,7 @@ class AuthTokenInterceptor extends Interceptor {
 
   List<Map<dynamic, dynamic>> failedRequests = [];
 
-  AuthenticationCubit? get _authenticationCubit => GetIt.instance<AuthenticationCubit>();
+  AuthenticationBloc? get _authenticationBloc => GetIt.instance<AuthenticationBloc>();
   bool isRefreshing = false;
   int retries = 3;
 
@@ -89,7 +89,7 @@ class AuthTokenInterceptor extends Interceptor {
   void _clearBeforeLogout() {
     isRefreshing = false;
     failedRequests = [];
-    _authenticationCubit?.logout();
+    _authenticationBloc?.add(const AuthenticationEvent.logout());
   }
 
   FutureOr refreshToken(DioException err, ErrorInterceptorHandler handler) async {

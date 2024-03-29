@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
 part 'legal_statement_bloc.freezed.dart';
 
@@ -16,16 +16,16 @@ part 'legal_statement_state.dart';
 @singleton
 class LegalStatementBloc
     extends HydratedBloc<LegalStatementEvent, LegalStatementState> {
-  final AuthenticationCubit _authenticationCubit;
+  final AuthenticationBloc _authenticationBloc;
 
   late final StreamSubscription _authBlocStreamSubscription;
 
-  LegalStatementBloc(this._authenticationCubit)
+  LegalStatementBloc(this._authenticationBloc)
       : super(LegalStatementState.initial()) {
     on<PassageChanged>(_onPassageChanged);
 
     _authBlocStreamSubscription =
-        _authenticationCubit.stream.distinct().listen((s) {
+        _authenticationBloc.stream.distinct().listen((s) {
       s.mapOrNull(
         authenticated: (_) {
           add(const LegalStatementEvent.passageChanged(false));
