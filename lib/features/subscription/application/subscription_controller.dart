@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/donain/purchasable_product.dart';
 import 'package:loopcare_frontend/features/subscription/utils/mapper_utils.dart';
@@ -25,7 +26,7 @@ class SubscriptionController {
 
     final map = data.plans.groupBy((plan) => plan.id);
 
-    final list = map.entries
+    List<ProductDetails> list = map.entries
         .map((list) => list.value.reduce((curr, next) => curr.rawPrice.toInt() < next.rawPrice.toInt() ? curr : next))
         .toList();
     return list;
@@ -35,14 +36,17 @@ class SubscriptionController {
     if (data.plans.isEmpty) {
       return;
     }
-    List<ProductDetails> list = Platform.isAndroid ? _getUniquePlans() : data.plans;
+    List<ProductDetails> list = [...(Platform.isAndroid ? _getUniquePlans() : data.plans)];
+    list.sort((a, b) => a.rawPrice.compareTo(b.rawPrice));
+    final lastId = list.isNotEmpty ? list.last.id : -1;
 
     for (var plan in list) {
       products.add(PurchasableProduct(
         details: plan,
         offer: _getPricePerMonth(plan.rawPrice),
         regularPrice: plan.rawPrice,
-        currency: plan.price,
+        currency: _getCurrency(plan.currencyCode),
+        recommended: plan.id == lastId,
       ));
     }
   }
@@ -57,6 +61,12 @@ class SubscriptionController {
   void setPlans(PurchasableProduct plan) {
     selectedPlan.value = plan;
     isEnableSubscribe.value = true;
+    CustomerIoService.track(
+      event: CIOEvents.subscriptionSelected,
+      attributes: {
+        CIOAttributes.identifierOption: plan.details?.id,
+      },
+    );
   }
 
   void resetState() {
