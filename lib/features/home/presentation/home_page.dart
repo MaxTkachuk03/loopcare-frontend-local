@@ -40,7 +40,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-
   @override
   void dispose() {
     isChatEnable.dispose();
@@ -95,7 +94,6 @@ class _HomePageState extends State<HomePage> {
           ),
           bottomNavigationBuilder: (_, tabsRouter) => AppNavigationBar(
             tabsRouter: tabsRouter,
-            userName: state.data.accountName,
             isChatEnable: isChatEnable,
           ),
         );
