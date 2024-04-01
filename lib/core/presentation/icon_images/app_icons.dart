@@ -72,7 +72,8 @@ class AppIcons {
 
   static SvgPicture emojiWorried = SvgPicture.asset('$iconsFilePath/worried.svg', width: 30, height: 30);
 
-  static SvgPicture emojiEmbarrassed = SvgPicture.asset('$iconsFilePath/embarrassed.svg', width: 30, height: 30);
+  static SvgPicture emojiEmbarrassed =
+      SvgPicture.asset('$iconsFilePath/embarrassed.svg', width: 30, height: 30);
 
   static SvgPicture emojiBored = SvgPicture.asset('$iconsFilePath/bored.svg', width: 30, height: 30);
 
@@ -94,7 +95,8 @@ class AppIcons {
 
   static SvgPicture emojiContent = SvgPicture.asset('$iconsFilePath/content.svg', width: 30, height: 30);
 
-  static SvgPicture emojiOverwhelmed = SvgPicture.asset('$iconsFilePath/overwhelmed.svg', width: 30, height: 30);
+  static SvgPicture emojiOverwhelmed =
+      SvgPicture.asset('$iconsFilePath/overwhelmed.svg', width: 30, height: 30);
 
   static SvgPicture emojiHungry = SvgPicture.asset('$iconsFilePath/hungry.svg', width: 30, height: 30);
 
@@ -107,7 +109,8 @@ class AppIcons {
 
   static SvgPicture sos = SvgPicture.asset('$iconsFilePath/sos.svg');
 
-  static SvgPicture sessionUserDefaultAvatar = SvgPicture.asset('$iconsFilePath/session_user_default_avatar.svg');
+  static SvgPicture sessionUserDefaultAvatar =
+      SvgPicture.asset('$iconsFilePath/session_user_default_avatar.svg');
 
   static SvgPicture copy = SvgPicture.asset('$iconsFilePath/new_copy.svg', width: 24, height: 24);
 
@@ -134,7 +137,8 @@ class AppIcons {
 
   static SvgPicture dashboardChatActive = SvgPicture.asset('$iconsFilePath/dashboard_chat.svg');
 
-  static SvgPicture holderAvatar = SvgPicture.asset('$iconsFilePath/holder_avatar.svg', width: 30.0, height: 30.0);
+  static SvgPicture holderAvatar =
+      SvgPicture.asset('$iconsFilePath/holder_avatar.svg', width: 30.0, height: 30.0);
 
   static SvgPicture fruit = SvgPicture.asset('$iconsFilePath/fruit.svg', width: 24, height: 24);
   static SvgPicture restaurant = SvgPicture.asset('$iconsFilePath/restaurant.svg', width: 24, height: 24);
@@ -155,6 +159,8 @@ class AppIcons {
       SvgPicture.asset('$iconsFilePath/custom_education_dashboard.svg', width: 44, height: 44);
   static SvgPicture customDashboardMood =
       SvgPicture.asset('$iconsFilePath/custom_dashboard_mood.svg', width: 44, height: 44);
+  static SvgPicture customDashboardSmartGoals =
+      SvgPicture.asset('$iconsFilePath/custom_dashboard_smart_goals.svg', width: 44, height: 44);
 
   static SvgPicture customRedPhone = SvgPicture.asset('$iconsFilePath/custom_red_phone.svg');
   static SvgPicture microphoneOn = SvgPicture.asset('$iconsFilePath/icon_microphone_on.svg');
@@ -187,7 +193,9 @@ class AppIcons {
 
   static SvgPicture yesScore = SvgPicture.asset('$iconsFilePath/yes_score.svg', width: 22, height: 22);
   static SvgPicture noScore = SvgPicture.asset('$iconsFilePath/no_score.svg', width: 22, height: 22);
-  static SvgPicture yesScoreFilled = SvgPicture.asset('$iconsFilePath/yes_score_filled.svg', width: 22, height: 22);
-  static SvgPicture customInfo = SvgPicture.asset('$iconsFilePath/custom_icon_info.svg', width: 44, height: 44);
+  static SvgPicture yesScoreFilled =
+      SvgPicture.asset('$iconsFilePath/yes_score_filled.svg', width: 22, height: 22);
+  static SvgPicture customInfo =
+      SvgPicture.asset('$iconsFilePath/custom_icon_info.svg', width: 44, height: 44);
   AppIcons._();
 }

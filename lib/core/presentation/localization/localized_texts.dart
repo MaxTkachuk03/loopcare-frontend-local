@@ -984,6 +984,11 @@ class LocalizedTexts {
   static const String buddyEmail = 'buddyEmail';
   static const String buddyUserName = 'buddyUserName';
   static const String buddySince = 'buddySince';
+
+  // Smart goals
+  static const String myGoals = 'myGoals';
+  static const String noGoalsSelected = 'noGoalsSelected';
+  static const String chooseGoalsForUpcomingDays = 'chooseGoalsForUpcomingDays';
 }
 
 extension StringX on String {

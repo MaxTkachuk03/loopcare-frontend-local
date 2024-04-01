@@ -27,6 +27,7 @@ import 'package:loopcare_frontend/features/nutrition/application/dashboard_educa
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/smart_goals/dashboard_smart_goals.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -204,6 +205,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                             },
                           ),
                           const SizedBox(height: 26.0),
+                          const DashboardSmartGoals(),
+                          const SizedBox(height: 19.0),
                           WeightBlock(date: _selectedDay),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
