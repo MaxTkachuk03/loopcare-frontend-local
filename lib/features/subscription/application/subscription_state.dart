@@ -8,6 +8,9 @@ class SubscriptionState with _$SubscriptionState {
 
   const factory SubscriptionState.error(SubscriptionStateData data) = ErrorSubscriptionState;
 
+  const factory SubscriptionState.purchaseDuplicateSubscription(SubscriptionStateData data) =
+      PurchasedDuplicateSubscriptionState;
+
   const factory SubscriptionState.trial(SubscriptionStateData data) = Trial;
 
   const factory SubscriptionState.trialExpired(SubscriptionStateData data) = TtrialExpired;
@@ -25,6 +28,8 @@ class SubscriptionState with _$SubscriptionState {
   const factory SubscriptionState.purchasedSubscription(SubscriptionStateData data) = PurchasedSubscriptionState;
 
   const factory SubscriptionState.restoredSubscription(SubscriptionStateData data) = RestoredSubscriptionState;
+
+  const factory SubscriptionState.askRestoredSubscription(SubscriptionStateData data) = AskRestoredSubscriptionState;
 
   const factory SubscriptionState.subscriptionActive(SubscriptionStateData data) = SubscriptionActual;
 
@@ -48,6 +53,7 @@ class SubscriptionStateData with _$SubscriptionStateData {
     @Default(<ProductDetails>[]) List<ProductDetails> plans,
     @Default(<ServerProduct>[]) List<ServerProduct> serverPlans,
     @Default(<PurchaseDetails>[]) List<PurchaseDetails> purchases,
+    @Default(false) bool isWaitTimeout,
     PurchasedProduct? purchased,
     Subscription? subscription,
   }) = _SubscriptionStateData;

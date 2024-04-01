@@ -27,16 +27,12 @@ Future<void> main() async {
   await dotenv.load(fileName: '.env.$environment');
 
   await Firebase.initializeApp(
+    name: 'LeanOnMe_$environment',
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   if (!kIsWeb) {
-    if (kDebugMode) {
-      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-    } else {
-      //Todo enable = true
-      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-    }
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(!kDebugMode);
   }
 
   FlutterError.onError = (errorDetails) {

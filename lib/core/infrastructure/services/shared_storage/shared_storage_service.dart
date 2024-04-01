@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/domain/recent_search_user/recent_search_data.dart';
 import 'package:loopcare_frontend/core/domain/recent_search_user/recent_search_list.dart';
 import 'package:loopcare_frontend/core/domain/recent_search_user/recent_search_user.dart';
@@ -46,6 +47,13 @@ class SharedStorageService {
       return RecentSearchUserList(users: []);
     }
   }
+
+  set account(Account? account) => setString('account', json.encode(account));
+
+  Account? get account =>
+      containsKey('account') ? Account.fromJson(json.decode(getString('account') ?? '') as Map<String, dynamic>) : null;
+
+  Future<bool> removeAccount() => _prefs.remove('account');
 
   List<String> searchValues(int userId, {SearchMode? type}) {
     final list = <String>[];

@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_container.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/date_time_utils.dart';
+import 'package:loopcare_frontend/features/onboarding_new/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/video_session/application/session_call_bloc.dart';
 
 class SessionAppBar extends StatelessWidget implements PreferredSizeWidget {

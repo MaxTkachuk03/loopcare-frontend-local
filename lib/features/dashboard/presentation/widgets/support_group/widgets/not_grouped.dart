@@ -7,8 +7,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
 class NotGrouped extends StatelessWidget {
   const NotGrouped({super.key});
@@ -17,30 +16,25 @@ class NotGrouped extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationCubit, AuthenticationState>(
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (context, state) {
-        // TODO removed during LOOPCARE-2260 task
-        // final hasSubscription = state.hasSubscription;
-        //
-        // final String title = hasSubscription
-        //     ? LocalizedTexts.supportGroupPaidSubscriptionNotGrouped
-        //     : LocalizedTexts.supportGroupTrialSubscriptionNotGrouped;
+        final hasActiveSubscription = state.data.account?.hasActiveSubscription ?? false;
+        final isOnTrial = !hasActiveSubscription || (state.data.account?.isOnTrial ?? true);
 
-        const String title = LocalizedTexts.notEnrolledInGroup;
+        final String title = isOnTrial
+            ? LocalizedTexts.supportGroupTrialSubscriptionNotGrouped.tr()
+            : LocalizedTexts.supportGroupPaidSubscriptionNotGrouped.tr();
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomText.w600(
-              '${title.tr()}.',
-              style: context.textTheme.bodySmall,
-            ),
+            CustomText.w600('$title.', style: context.textTheme.bodySmall),
             const SizedBox(height: 18.0),
-            // if (hasSubscription)
-            CustomOutlinedButton.blueSmall(
-              label: LocalizedTexts.joinAGroup.tr(),
-              onPressed: () => _onJoinGroupTap(context),
-            ),
+            if (!isOnTrial)
+              CustomOutlinedButton.blueSmall(
+                label: LocalizedTexts.joinAGroup.tr(),
+                onPressed: () => _onJoinGroupTap(context),
+              ),
           ],
         );
       },

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -15,11 +16,9 @@ import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_type.dart';
 import 'package:path_provider/path_provider.dart';
 
-part 'education_lesson_event.dart';
-
-part 'education_lesson_state.dart';
-
 part 'education_lesson_bloc.freezed.dart';
+part 'education_lesson_event.dart';
+part 'education_lesson_state.dart';
 
 @singleton
 class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonState> {
@@ -27,9 +26,8 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
 
   final _defaultError = RequestError.unhandledError(LocalizedTexts.somethingWentWrong.tr());
 
-  EducationLessonBloc(
-    this._educationService,
-  ) : super(const EducationLessonState.initial(EducationLessonData())) {
+  EducationLessonBloc(this._educationService)
+      : super(const EducationLessonState.initial(EducationLessonData())) {
     on<GetLessonContent>(_onGetLessonContent);
     on<NextPage>(_onNextPage);
     on<PrevPage>(_onPrevPage);
@@ -144,9 +142,9 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
         emit(
           EducationLessonState.contentLoaded(
             state.data.copyWith(
-              extraAction: r.extraAction,
+              extraAction: r.unlockingConfig.extraAction,
               pages: r.pages,
-              totalPagesLength: r.extraAction == ExtraActionTypes.setupGroupingPreferences
+              totalPagesLength: r.unlockingConfig.extraAction == ExtraActionTypes.setupGroupingPreferences
                   ? r.pages.length + groupLessonRoutes.length
                   : r.pages.length,
               currentPageIndex: event.pageIndex,
@@ -204,9 +202,9 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
         emit(
           EducationLessonState.lessonCompleted(
             state.data.copyWith(
-              extraAction: r.extraAction,
+              extraAction: r.unlockingConfig.extraAction,
               pages: r.pages,
-              totalPagesLength: r.extraAction == ExtraActionTypes.setupGroupingPreferences
+              totalPagesLength: r.unlockingConfig.extraAction == ExtraActionTypes.setupGroupingPreferences
                   ? r.pages.length + groupLessonRoutes.length
                   : r.pages.length,
               lessonProgress: 0,

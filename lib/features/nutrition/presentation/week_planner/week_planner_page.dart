@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/slider_calendar/week_slider_calendar.dart';
@@ -90,7 +91,7 @@ class _WeekPlannerPageState extends State<WeekPlannerPage> {
                 )
               ],
             ),
-            body: SafeArea(
+            body: CustomSafeArea(
               child: Column(
                 children: [
                   WeekSliderCalendar(onSelectDay: _onSelectDay),

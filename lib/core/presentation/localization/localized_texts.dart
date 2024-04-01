@@ -297,6 +297,7 @@ class LocalizedTexts {
   static const String testResults = 'testResults';
   static const String preferences = 'preferences';
   static const String name = 'name';
+  static const String email = 'email';
   static const String emailAddress = 'emailAddress';
   static const String changePassword = 'changePassword';
   static const String useFaceOrTouchId = 'useFaceOrTouchId';
@@ -311,6 +312,8 @@ class LocalizedTexts {
   static const String noPreference = 'noPreference';
   static const String femaleOnly = 'femaleOnly';
   static const String maleOnly = 'maleOnly';
+  static const String female = 'female';
+  static const String male = 'male';
   static const String mixed = 'mixed';
   static const String subjectReport = 'subjectReport';
   static const String descriptionReport = 'descriptionReport';
@@ -516,8 +519,8 @@ class LocalizedTexts {
   static const String subscriptionMonthly = "subscriptionMonthly";
   static const String subscriptionSubscribe = "subscriptionSubscribe";
   static const String subscriptionRedeem = "subscriptionRedeem";
-  static const String subscriptionPrice1 = "subscriptionPrice1";
-  static const String subscriptionPrice2 = "subscriptionPrice2";
+  static const String subscriptionSubTitlePrice = "subscriptionSubTitlePrice";
+  static const String subscriptionTitlePrice = "subscriptionTitlePrice";
   static const String subscriptionType = "subscriptionType";
   static const String subscriptionVia = "subscriptionVia";
   static const String memberSince = "memberSince";
@@ -528,6 +531,8 @@ class LocalizedTexts {
   static const String googleMarket = "googleMarket";
   static const String cancelAccountSubscription = "cancelAccountSubscription";
   static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
+  static const String askRestoreSubscription = "askRestoreSubscription";
+  static const String duplicateSubscriptionFromSettings = "duplicateSubscriptionFromSettings";
   static const String otherPurchaseVendorCancelAccountSubscription =
       "otherPurchaseVendorCancelAccountSubscription";
 
@@ -579,6 +584,9 @@ class LocalizedTexts {
   static const String intro2Title = 'intro2Title';
   static const String intro2BodyTextFirst = 'intro2BodyTextFirst';
   static const String intro2BodyTextSecond = 'intro2BodyTextSecond';
+  static const String intro3Title = 'intro3Title';
+  static const String intro3BodyTextFirst = 'intro3BodyTextFirst';
+  static const String intro3BodyTextSecond = 'intro3BodyTextSecond';
 
   // Login
   static const String loginTitle = 'loginTitle';
@@ -616,10 +624,20 @@ class LocalizedTexts {
 
   // Sex
   static const String yourSex = 'yourSex';
+  static const String whatYourSex = 'whatYourSex';
+  static const String sexQuestionBody = 'sexQuestionBody';
   static const String sex = 'sex';
 
   // Bio gender
-  static const String biologicalGenderPageTitle = 'biologicalGenderPageTitle';
+  static const String genderPageTitle = 'genderPageTitle';
+  static const String woman = "woman";
+  static const String man = "man";
+  static const String other = "other";
+
+  // Happiness
+  static const String happinessTitle = 'happinessTitle';
+  static const String happinessBody1 = 'happinessBody1';
+  static const String happinessBody2 = 'happinessBody2';
 
   // Height
   static const String yourHeight = 'yourHeight';
@@ -638,6 +656,13 @@ class LocalizedTexts {
   static const String yourBodyMassIndex = 'yourBodyMassIndex';
   static const String fitnessCheckFailedInformationText = 'fitnessCheckFailedInformationText';
   static const String fitnessCheckFailedInformationText2 = 'fitnessCheckFailedInformationText2';
+  static const String bmiExclusionBodyTitle = 'bmiExclusionBodyTitle';
+  static const String bmiExclusionBodyOlder19LowBmi = 'bmiExclusionBodyOlder19LowBmi';
+  static const String bmiExclusionBodyOlder19HighBmi = 'bmiExclusionBodyOlder19HighBmi';
+  static const String bmiExclusionBodyYounger19LowBmi = 'bmiExclusionBodyYounger19LowBmi';
+  static const String bmiExclusionBodyYounger19HighBmi = 'bmiExclusionBodyYounger19HighBmi';
+  static const String bmiExclusionBodyHighBmiEnding = 'bmiExclusionBodyHighBmiEnding';
+  static const String bmiExclusionBodyLowBmiEnding = 'bmiExclusionBodyLowBmiEnding';
 
   // Physical check completed
   static const String physicalCheckPassedTitle = 'physicalCheckPassedTitle';
@@ -646,7 +671,9 @@ class LocalizedTexts {
   static const String weight = 'weight';
   static const String bmi = 'bmi';
   static const String years = 'years';
-  static const String bmiDescription = 'bmiDescription';
+  static const String bmiDescription1 = 'bmiDescription1';
+  static const String bmiDescription2 = 'bmiDescription2';
+  static const String bmiDescriptionAccent = 'bmiDescriptionAccent';
   static const String letsMoveOn = 'letsMoveOn';
 
   // Profile screen
@@ -705,6 +732,18 @@ class LocalizedTexts {
   static const String medicalCheckFailedBody = 'medicalCheckFailedBody';
   static const String medicalCheckFailedBody2 = 'medicalCheckFailedBody2';
 
+  // Medication explanation
+  static const String medicationExplanationTitle = 'medicationTitle';
+  static const String medicationExplanationBody1 = 'medicationExplanationBody1';
+  static const String medicationExplanationBody2 = 'medicationExplanationBody2';
+  static const String medicationExplanationBody3 = 'medicationExplanationBody3';
+  static const String medicationExplanationBody4 = 'medicationExplanationBody4';
+  static const String medicationExplanationBody5 = 'medicationExplanationBody5';
+  static const String medicationExplanationBody6 = 'medicationExplanationBody6';
+  static const String medicationExplanationBody7 = 'medicationExplanationBody7';
+  static const String medicationExplanationBody8 = 'medicationExplanationBody8';
+  static const String medicationExplanationBody9 = 'medicationExplanationBody9';
+
   // Diseases
   static const String cardioVascularDisease = 'cardioVascularDisease';
   static const String stomachReductionDisease = 'stomachReductionDisease';
@@ -729,9 +768,13 @@ class LocalizedTexts {
 
   static const String yourMentalHealth = "yourMentalHealth";
   static const String mentalHealthMoreInfo = "mentalHealthMoreInfo";
+  static const String mentalHealthMoreInfoBold1 = "mentalHealthMoreInfoBold1";
+  static const String mentalHealthMoreInfoBold2 = "mentalHealthMoreInfoBold2";
   static const String mentalHealthIntroTextOne = "mentalHealthIntroTextOne";
   static const String mentalHealthIntroTextTwo = "mentalHealthIntroTextTwo";
+  static const String mentalHealthIntroTextTwoAccent = "mentalHealthIntroTextTwoAccent";
   static const String mentalHealthIntroTextThree = "mentalHealthIntroTextThree";
+  static const String mentalHealthIntroTextThreeAccent = "mentalHealthIntroTextThreeAccent";
   static const String mentalHealthIntroTextFour = "mentalHealthIntroTextFour";
   static const String mentalHealthIntroTextFive = "mentalHealthIntroTextFive";
   static const String mentalHealthIntroTextSix = "mentalHealthIntroTextSix";
@@ -812,7 +855,7 @@ class LocalizedTexts {
   static const String whatIsYourName = 'whatIsYourName';
 
   // Password screen
-  static const String enterPasswordTitle = 'enterPasswordTitle';
+  static const String niceToMeetYou = 'niceToMeetYou';
   static const String enterPasswordSubTitle = 'enterPasswordSubTitle';
   static const String confirmPassword = 'confirmPassword';
   static const String passwordStrengthToShort = 'passwordStrengthToShort';
@@ -836,6 +879,7 @@ class LocalizedTexts {
   static const String register = 'register';
   static const String emailAlreadyTaken = 'emailAlreadyTaken';
   static const String somethingIsIncorrect = 'somethingIsIncorrect';
+  static const String receiveEmailCheckboxLabel = 'receiveEmailCheckboxLabel';
 
   //Waiting for confirmation page
   static const String waitingForConfirmationTitle = 'waitingForConfirmationTitle';
@@ -849,6 +893,10 @@ class LocalizedTexts {
   static const String emailConfirmedBottomSheetTitle = 'emailConfirmedBottomSheetTitle';
   static const String emailConfirmedBottomSheetContent = 'emailConfirmedBottomSheetContent';
 
+  // Change Email
+  static const String changeEmail = 'changeEmail';
+  static const String changeEmailAddressTitle = 'changeEmailAddressTitle';
+
   // Mood
   static const String logMood = 'logMood';
   static const String yourNote = 'yourNote';
@@ -860,6 +908,7 @@ class LocalizedTexts {
   static const String lessonCompleted = 'lessonCompleted';
   static const String groupSessionsUnlocked = 'groupSessionsUnlocked';
   static const String waitingForGroupCompletedLesson = 'waitingForGroupCompletedLesson';
+  static const String groupSessionUnlockOnTrialPeriod = 'groupSessionUnlockOnTrialPeriod';
   static const String notJoinedToGroupCompletedLesson = 'notJoinedToGroupCompletedLesson';
   static const String unlockFeatureDescription = 'unlockFeatureDescription';
   static const String lessonCompleteDescription = 'lessonCompleteDescription';
@@ -874,6 +923,8 @@ class LocalizedTexts {
   static const String didYouCheckWithSpecialist = 'didYouCheckWithSpecialist';
   static const String iConsultedTherapist = 'iConsultedTherapist';
   static const String treatedByTherapistLessonComplete = 'treatedByTherapistLessonComplete';
+  static const String trialSubscriptionLessonComplete = 'trialSubscriptionLessonComplete';
+  static const String groupSessionsJoinLaterLessonComplete = 'groupSessionsJoinLaterLessonComplete';
   static const String needSubscrionScreenTitle = 'needSubscrionScreenTitle';
   static const String needSubscrionScreenBody1 = 'needSubscrionScreenBody1';
   static const String needSubscrionScreenBody2 = 'needSubscrionScreenBody2';
@@ -891,6 +942,48 @@ class LocalizedTexts {
   static const String updateRequired = 'updateRequired';
   static const String updateRequiredBodyText1 = 'updateRequiredBodyText1';
   static const String updateRequiredBodyText2 = 'updateRequiredBodyText2';
+
+  // Buddy
+  static const String buddyTitle = 'buddyTitle';
+  static const String buddy = 'buddy';
+  static const String buddyUnlocked = 'buddyUnlocked';
+  static const String buddyUnlockedBody = 'buddyUnlockedBody';
+  static const String goToBuddyPreferences = 'goToBuddyPreferences';
+  static const String buddyIntroTitle = 'buddyIntroTitle';
+  static const String buddyDescriptionTitle = 'buddyDescriptionTitle';
+  static const String buddyDescriptionContent = 'buddyDescriptionContent';
+  static const String buddyIntroBody = 'buddyIntroBody';
+  static const String buddyIntroYesBtn = 'buddyIntroYesBtn';
+  static const String buddyIntroNoBtn = 'buddyIntroNoBtn';
+  static const String buddyPreferences = 'buddyPreferences';
+  static const String buddyNoPreferencesState = 'buddyNoPreferencesState';
+  static const String buddyCompleted = 'buddyCompleted';
+  static const String buddyCompletedContent = 'buddyCompletedContent';
+  static const String buddyLiveTogetherTitle = 'buddyLiveTogetherTitle';
+  static const String buddyRelationTitle = 'buddyRelationTitle';
+  static const String buddyEmailTitle = 'buddyEmailTitle';
+  static const String buddyEmailLabel = 'buddyEmailLabel';
+  static const String buddyEmailHint = 'buddyEmailHint';
+  static const String buddyPartner = 'buddyPartner';
+  static const String buddyChild = 'buddyChild';
+  static const String buddyParent = 'buddyParent';
+  static const String buddyFamily = 'buddyFamily';
+  static const String buddyFriend = 'buddyFriend';
+  static const String buddyPendingTitle = 'buddyPendingTitle';
+  static const String buddyPendingSubTitle = 'buddyPendingSubTitle';
+  static const String buddyNotAvailableTitle = 'buddyNotAvailableTitle';
+  static const String buddyNotAvailableSubTitle = 'buddyNotAvailableSubTitle';
+  static const String buddyRejectTitle = 'buddyRejectTitle';
+  static const String buddyRejectSubTitle = 'buddyRejectSubTitle';
+  static const String buddyResendInvitation = 'buddyResendInvitation';
+  static const String buddyInviteAnotherBuddy = 'buddyInviteAnotherBuddy';
+  static const String buddyFindAnotherBuddyLabel = 'buddyFindAnotherBuddyLabel';
+  static const String buddyFindAnotherBuddyContent = 'buddyFindAnotherBuddyContent';
+  static const String buddyFindAnotherBuddy = 'buddyFindAnotherBuddy';
+  static const String buddyNotNeedAnotherBuddy = 'buddyNotNeedAnotherBuddy';
+  static const String buddyEmail = 'buddyEmail';
+  static const String buddyUserName = 'buddyUserName';
+  static const String buddySince = 'buddySince';
 }
 
 extension StringX on String {

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -19,11 +19,9 @@ class NeedPaidSubscriptionPage extends StatelessWidget {
 
   const NeedPaidSubscriptionPage({super.key, required this.mode});
 
-  void _onCompleteLessonHandler(BuildContext context) => mode.map(
+  void _onCompleteHandler(BuildContext context) => mode.map(
         afterLesson: (_) => context.router.pushNamed(AppRoutes.lessonComplete),
-        userProfile: (_) => context.router.push(
-          GenderPreferencesRoute(fromLessonComplete: false),
-        ),
+        userProfile: (_) => null,
       );
 
   _getScaffold(Widget body) => mode.map(
@@ -36,7 +34,7 @@ class NeedPaidSubscriptionPage extends StatelessWidget {
         ),
         userProfile: (_) => CustomScaffold.blueLightest(
           appBar: CustomAppBar.blue(
-            title: LocalizedTexts.preferences.tr(),
+            title: LocalizedTexts.supportGroupPreferences.tr(),
             leading: CustomFilledIconButton.leadingBlueLighter(),
           ),
           body: body,
@@ -45,7 +43,7 @@ class NeedPaidSubscriptionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _getScaffold(SafeArea(
+    return _getScaffold(CustomSafeArea(
       child: ScrollableContainer(
         child: MainContainer(
           child: Column(
@@ -82,15 +80,18 @@ class NeedPaidSubscriptionPage extends StatelessWidget {
                   const SizedBox(height: 30.0),
                 ],
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  CustomElevatedButton.blueFullWidth(
-                    label: LocalizedTexts.completeLesson.tr(),
-                    onPressed: () => _onCompleteLessonHandler(context),
-                  ),
-                  const SizedBox(height: 30.0),
-                ],
+              mode.map(
+                afterLesson: (s) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    CustomElevatedButton.blueFullWidth(
+                      label: LocalizedTexts.completeLesson.tr(),
+                      onPressed: () => _onCompleteHandler(context),
+                    ),
+                    const SizedBox(height: 30.0),
+                  ],
+                ),
+                userProfile: (s) => const SizedBox.shrink(),
               ),
             ],
           ),

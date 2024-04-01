@@ -4,5 +4,13 @@ enum UnlockedFeatureType {
   meals,
   assignments,
   allowGroupSessions,
+  buddy,
+  smartGoals,
+  unknown,
+}
+
+enum UnlockedSubFeatureType {
+  sleep,
+  calories,
   unknown,
 }

@@ -11,6 +11,8 @@ Widget getLabelByCategory(String category) {
       return CategoryLabel.mind();
     case 'activity':
       return CategoryLabel.activity();
+    case 'buddy':
+      return CategoryLabel.buddy();
   }
 
   return CategoryLabel.general();

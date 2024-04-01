@@ -3,6 +3,7 @@ import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_watcher_bloc/chat_watcher_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
@@ -10,9 +11,8 @@ import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_
 class AppNavigationBar extends StatelessWidget {
   final TabsRouter tabsRouter;
   final ValueNotifier<bool> isChatEnable;
-  final String userName;
 
-  const AppNavigationBar({super.key, required this.tabsRouter, required this.isChatEnable, required this.userName});
+  const AppNavigationBar({super.key, required this.tabsRouter, required this.isChatEnable});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class AppNavigationBar extends StatelessWidget {
                 ),
               ),
               activeIcon: e.activeIcon,
-              label: e.label(userName),
+              label: e.label(context.watch<AuthenticationBloc>().state.data.accountName),
             ))
         .toList();
   }

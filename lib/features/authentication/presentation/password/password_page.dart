@@ -1,21 +1,30 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/url_constants.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/checkbox_form_field.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/password_with_indicator/password_with_indicator.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding_new/application/medical_questions/medical_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding_new/application/mental_questions/mental_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding_new/application/physical_questions/physical_questions_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PasswordPage extends StatefulWidget {
   const PasswordPage({super.key});
@@ -25,71 +34,131 @@ class PasswordPage extends StatefulWidget {
 }
 
 class _PasswordPageState extends State<PasswordPage> {
-  final TextEditingController _passwordController = TextEditingController();
+  late TextEditingController _emailController;
+  final _passwordController = TextEditingController();
+  final _formValidationNotifier = ValueNotifier<bool>(false);
 
-  bool _isDisabled = true;
+  bool _termsAndConditionsAreChecked = false;
+  bool _privatePolicyAccepted = false;
+  bool _passwordValidationPassed = false;
 
-  Future<bool> _onWillPop() {
-    context.read<AuthenticationCubit>().previousStep();
-
-    return Future.value(true);
+  @override
+  void initState() {
+    super.initState();
+    final email = context.read<AuthenticationBloc>().state.data.email;
+    _emailController = TextEditingController(text: email);
   }
 
-  void _onNextPressed() {
-    context
-      ..read<AuthenticationCubit>().changeToEmailState(_passwordController.text)
-      ..router.pushNamed(AppRoutes.emailAddress);
-  }
-
-  _onPasswordChanged(String password, double passwordStrength) {
-    setState(() {
-      _isDisabled = passwordStrength < 3 / 4;
-    });
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _formValidationNotifier.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
+    return BlocListener<AuthenticationBloc, AuthenticationState>(
+      listenWhen: (previous, current) =>
+          previous is GuestAuthenticationState && current is WaitedConfirmationState,
+      listener: _navigationListener,
       child: GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        onTap: FocusScope.of(context).unfocus,
         child: CustomScaffold.greenLightest(
+          key: const ValueKey('password_page'),
           appBar: CustomAppBar.green(
             title: LocalizedTexts.createAccount.tr(),
             leading: CustomFilledIconButton.leadingGreenLighter(),
           ),
-          body: SafeArea(
-            child: ScrollableContainer(
-              child: MainContainer(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const SizedBox(height: 35.0),
-                    BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                      builder: (BuildContext context, state) {
-                        return CustomText.bitter700(
-                          '${LocalizedTexts.enterPasswordTitle.tr()}, ${state.maybeMap(password: (state) => state.name.capitalize(), orElse: () => '')}!',
-                          style: context.textTheme.displayMedium,
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 27.0),
-                    CustomText.bitter600(
-                      '${LocalizedTexts.enterPasswordSubTitle.tr()}?',
-                      style: context.textTheme.displayMedium,
-                    ),
-                    const SizedBox(height: 100.0),
-                    PasswordWithIndicator(
-                      controller: _passwordController,
-                      onChange: _onPasswordChanged,
-                    ),
-                    const SizedBox(height: 24.0),
-                    CustomElevatedButton.blueFullWidth(
-                      onPressed: _isDisabled ? null : _onNextPressed,
-                      label: LocalizedTexts.confirmPassword,
-                    ),
-                  ],
+          body: CustomSafeArea(
+            child: BottomPlacedButton.greenLightest(
+              body: MainContainer(
+                child: AutofillGroup(
+                  child: ListView(
+                    key: const ValueKey('password_page_body'),
+                    physics: const ClampingScrollPhysics(),
+                    children: [
+                      const SizedBox(height: 35.0),
+                      CustomText.bitter600(
+                        '${LocalizedTexts.enterPasswordSubTitle.tr()}?',
+                        style: context.textTheme.displayMedium,
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                        child: Opacity(
+                          opacity: 0.0,
+                          child: CustomTextField.hiddenEmail(
+                            key: const ValueKey('password_page_hidden_email'),
+                            controller: _emailController,
+                          ),
+                        ),
+                      ),
+                      PasswordWithIndicator(
+                        key: const ValueKey('password_page_with_indicator'),
+                        controller: _passwordController,
+                        onChange: _onPasswordChanged,
+                      ),
+                      const SizedBox(height: 20.0),
+                      CheckboxFormField(
+                        key: const ValueKey('registration_terms_conditions_checkbox'),
+                        errorText: '${LocalizedTexts.pleaseAcceptTOC.tr()}.',
+                        text: RichText(
+                          maxLines: 2,
+                          overflow: TextOverflow.visible,
+                          text: TextSpan(
+                            text: '${LocalizedTexts.iAcceptThe.tr()} ',
+                            style: context.textTheme.bodyMedium,
+                            children: [
+                              TextSpan(
+                                recognizer: TapGestureRecognizer()..onTap = _onTermsAndConditionsTap,
+                                text: LocalizedTexts.termsAndConditions.tr(),
+                                style: context.textTheme.bodyMedium?.copyWith(
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        onChanged: _onTermsAndConditionsChanged,
+                      ),
+                      const SizedBox(height: 10),
+                      CheckboxFormField(
+                        key: const ValueKey('registration_privacy_policy_checkbox'),
+                        errorText: '${LocalizedTexts.pleaseAcceptPrivacyPolicy.tr()}.',
+                        text: RichText(
+                          maxLines: 2,
+                          overflow: TextOverflow.visible,
+                          text: TextSpan(
+                            text: '${LocalizedTexts.iAcceptThe.tr()} ',
+                            style: context.textTheme.bodyMedium,
+                            children: [
+                              TextSpan(
+                                recognizer: TapGestureRecognizer()..onTap = _onPrivacyPolicyTap,
+                                text: LocalizedTexts.privacyPolicy.tr(),
+                                style: context.textTheme.bodyMedium?.copyWith(
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        onChanged: _onPrivacyPolicyChanged,
+                      ),
+                      const SizedBox(height: 24.0),
+                    ],
+                  ),
                 ),
+              ),
+              button: ValueListenableBuilder<bool>(
+                valueListenable: _formValidationNotifier,
+                builder: (context, isValid, _) {
+                  return CustomElevatedButton.blueFullWidth(
+                    key: const ValueKey('password_page_next_button'),
+                    onPressed: isValid ? _onNextPressed : null,
+                    label: LocalizedTexts.register,
+                  );
+                },
               ),
             ),
           ),
@@ -98,10 +167,61 @@ class _PasswordPageState extends State<PasswordPage> {
     );
   }
 
-  @override
-  void dispose() {
-    _passwordController.dispose();
+  void _onNextPressed() {
+    TextInput.finishAutofillContext();
 
-    super.dispose();
+    final physicalData = context.read<PhysicalQuestionsBloc>().state.registrationPhysicalQuestionsData;
+    final medicalData = context.read<MedicalQuestionsBloc>().state.registrationData;
+    final mentalData = context.read<MentalQuestionsBloc>().state.registrationData;
+
+    context.read<AuthenticationBloc>().add(
+          AuthenticationEvent.signUp(
+            password: _passwordController.text,
+            registrationPhysicalFitnessData: physicalData,
+            medicalOnboarding: medicalData,
+            mentalHealthTest: mentalData,
+          ),
+        );
+  }
+
+  void _onPasswordChanged(String password, double passwordStrength) {
+    _passwordValidationPassed = passwordStrength >= 3 / 4;
+    _validateForm();
+  }
+
+  void _validateForm() => _formValidationNotifier.value =
+      _passwordValidationPassed && _termsAndConditionsAreChecked && _privatePolicyAccepted;
+
+  void _onTermsAndConditionsTap() => _launchInBrowser(termsAndConditionsUrl);
+
+  void _onPrivacyPolicyTap() => _launchInBrowser(privacyPolicyUrl);
+
+  void _showError(BuildContext context) =>
+      context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.translation));
+
+  Future<void> _launchInBrowser(String url) async {
+    final Uri launchUri = Uri.parse(url);
+
+    try {
+      await launchUrl(launchUri, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      if (context.mounted) {
+        _showError(context);
+      }
+    }
+  }
+
+  void _onTermsAndConditionsChanged(bool? value) {
+    _termsAndConditionsAreChecked = value!;
+    _validateForm();
+  }
+
+  void _onPrivacyPolicyChanged(bool? value) {
+    _privatePolicyAccepted = value!;
+    _validateForm();
+  }
+
+  void _navigationListener(BuildContext context, AuthenticationState state) {
+    context.router.pushNamed(AppRoutes.waitingForConfirmation);
   }
 }

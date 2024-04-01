@@ -9,8 +9,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_state.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_content.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
@@ -28,12 +27,12 @@ class LessonTextBody extends StatelessWidget {
     return ScrollableContainer(
       child: Column(
         children: [
-          BlocBuilder<AuthenticationCubit, AuthenticationState>(
+          BlocBuilder<AuthenticationBloc, AuthenticationState>(
             builder: (context, accountState) {
               return BlocBuilder<EducationLessonBloc, EducationLessonState>(
                 builder: (context, state) {
                   if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
-                      accountState.groupingState == UserGroupingState.locked) {
+                      accountState.data.groupingState == UserGroupingState.locked) {
                     return SimpleProgressBar(
                       progress: state.data.lessonProgress,
                       backgroundColor: AppColors.white,

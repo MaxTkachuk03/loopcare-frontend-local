@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/tab_bar/custom_tab_bar.dart';
@@ -67,7 +68,7 @@ class _SelectExercisePageState extends State<SelectExercisePage> with TickerProv
           title: LocalizedTexts.physicalActivity.translation,
           leading: CustomFilledIconButton.leadingYellowLighter(),
         ),
-        body: SafeArea(
+        body: CustomSafeArea(
           child: MainContainer(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

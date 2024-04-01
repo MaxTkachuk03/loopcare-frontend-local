@@ -2,10 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
-typedef OnPressed = void Function();
-
 class CustomElevatedButton extends StatelessWidget {
-  final OnPressed? onPressed;
+  final VoidCallback? onPressed;
   final Color? color;
   final ButtonStyle? styles;
   final String label;
@@ -18,7 +16,13 @@ class CustomElevatedButton extends StatelessWidget {
     this.styles,
   });
 
-  factory CustomElevatedButton.coralFullWidth({OnPressed? onPressed, required String label}) => CustomElevatedButton(
+  factory CustomElevatedButton.coralFullWidth({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomElevatedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ElevatedButton.styleFrom(
@@ -29,7 +33,13 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.coral({OnPressed? onPressed, required String label}) => CustomElevatedButton(
+  factory CustomElevatedButton.coral({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomElevatedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ElevatedButton.styleFrom(
@@ -38,7 +48,13 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.coralSmall({OnPressed? onPressed, required String label}) => CustomElevatedButton(
+  factory CustomElevatedButton.coralSmall({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+  }) =>
+      CustomElevatedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ElevatedButton.styleFrom(
@@ -48,8 +64,14 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.orangeFullWidth({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.orangeFullWidth({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+    bool fullWidth = false,
+  }) =>
       CustomElevatedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ElevatedButton.styleFrom(
@@ -60,8 +82,14 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.orange({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.orange({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+    bool fullWidth = false,
+  }) =>
       CustomElevatedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ElevatedButton.styleFrom(
@@ -70,8 +98,14 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.orangeSmall({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.orangeSmall({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+    bool fullWidth = false,
+  }) =>
       CustomElevatedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ElevatedButton.styleFrom(
@@ -81,8 +115,14 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.yellowFullWidth({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.yellowFullWidth({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+    bool fullWidth = false,
+  }) =>
       CustomElevatedButton(
+        key: key,
         onPressed: onPressed,
         color: AppColors.blueDarker,
         label: label,
@@ -95,11 +135,13 @@ class CustomElevatedButton extends StatelessWidget {
       );
 
   factory CustomElevatedButton.yellow({
-    OnPressed? onPressed,
+    Key? key,
+    VoidCallback? onPressed,
     required String label,
     bool fullWidth = false,
   }) =>
       CustomElevatedButton(
+        key: key,
         onPressed: onPressed,
         color: AppColors.blueDarker,
         label: label,
@@ -109,8 +151,14 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.yellowSmall({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.yellowSmall({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+    bool fullWidth = false,
+  }) =>
       CustomElevatedButton(
+        key: key,
         onPressed: onPressed,
         color: AppColors.blueDarker,
         label: label,
@@ -121,8 +169,14 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.greenFullWidth({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.greenFullWidth({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+    bool fullWidth = false,
+  }) =>
       CustomElevatedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ElevatedButton.styleFrom(
@@ -133,8 +187,14 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.green({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.green({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+    bool fullWidth = false,
+  }) =>
       CustomElevatedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ElevatedButton.styleFrom(
@@ -143,8 +203,14 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.greenSmall({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.greenSmall({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+    bool fullWidth = false,
+  }) =>
       CustomElevatedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ElevatedButton.styleFrom(
@@ -154,8 +220,14 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.petrolFullWidth({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.petrolFullWidth({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+    bool fullWidth = false,
+  }) =>
       CustomElevatedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ElevatedButton.styleFrom(
@@ -166,8 +238,14 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.petrol({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.petrol({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+    bool fullWidth = false,
+  }) =>
       CustomElevatedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ElevatedButton.styleFrom(
@@ -176,8 +254,14 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.petrolSmall({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.petrolSmall({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+    bool fullWidth = false,
+  }) =>
       CustomElevatedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ElevatedButton.styleFrom(
@@ -187,8 +271,14 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.blueFullWidth({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.blueFullWidth({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+    bool fullWidth = false,
+  }) =>
       CustomElevatedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ElevatedButton.styleFrom(
@@ -199,8 +289,14 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.blue({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.blue({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+    bool fullWidth = false,
+  }) =>
       CustomElevatedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ElevatedButton.styleFrom(
@@ -209,8 +305,14 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-  factory CustomElevatedButton.blueSmall({OnPressed? onPressed, required String label, bool fullWidth = false}) =>
+  factory CustomElevatedButton.blueSmall({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
+    bool fullWidth = false,
+  }) =>
       CustomElevatedButton(
+        key: key,
         onPressed: onPressed,
         label: label,
         styles: ElevatedButton.styleFrom(

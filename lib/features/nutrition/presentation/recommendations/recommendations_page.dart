@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -57,7 +58,7 @@ class RecommendationsPage extends StatelessWidget {
           },
           recipeInfo: (s) {
             return Scaffold(
-              body: SafeArea(
+              body: CustomSafeArea(
                 top: false,
                 child: ScrollableContainer(
                   child: Column(
@@ -95,7 +96,7 @@ class RecommendationsPage extends StatelessWidget {
             );
           },
           orElse: () => Scaffold(
-            body: SafeArea(
+            body: CustomSafeArea(
               top: false,
               child: ScrollableContainer(
                 child: Column(

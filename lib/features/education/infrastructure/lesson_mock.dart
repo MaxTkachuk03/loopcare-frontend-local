@@ -40,8 +40,7 @@ var lesson = {
           "id": 2,
           "minValue": 2,
           "maxValue": 3,
-          "text":
-              "You need a little motivation boost, don't get discouraged, all beginnings are hard, just go for it!",
+          "text": "You need a little motivation boost, don't get discouraged, all beginnings are hard, just go for it!",
           "lessonQuestionId": 93
         },
         {

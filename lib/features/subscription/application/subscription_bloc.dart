@@ -42,6 +42,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   final AuthTokenManager authTokenManager;
   final SocketService _socketService = SocketService.instance;
   bool isValidatePastIOSPurchase = false;
+
   ProductDetails? buyingProduct;
 
   SubscriptionBloc(this._authenticationService, this._purchaseService, this.authTokenManager, this.inAppPurchaseService)
@@ -51,6 +52,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     on<SubscriptionLogout>(_onLogout);
     on<GetPlansFromServer>(_onGetPlansFromServer);
     on<BuySubscription>(_onBuySubscription);
+    on<NotifyUser>(_notifyUser);
     on<VerifyLastPurchase>(_onVerifyLastPurchase);
     on<RestorePurchased>(_onRestorePurchased);
     on<PurchasedSubscription>(_onPurchasedSubscription);
@@ -67,6 +69,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     )..init();
   }
 
+  // 1
   FutureOr<void> _onVerifyLastPurchase(
     VerifyLastPurchase event,
     Emitter<SubscriptionState> emit,
@@ -81,6 +84,48 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     _getOldPurchase(event.product);
   }
 
+  //2
+  void _getOldPurchase(ProductDetails product) async {
+    PurchaseDetails? oldPurchaseDetails;
+    if (Platform.isAndroid) {
+      {
+        final InAppPurchaseAndroidPlatformAddition androidAddition =
+            inAppPurchaseService.instance.getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+        final QueryPurchaseDetailsResponse oldPurchases = await androidAddition.queryPastPurchases();
+        if (oldPurchases.pastPurchases.isNotEmpty) {
+          oldPurchaseDetails = oldPurchases.pastPurchases.last;
+        }
+        await _verifyOldPurchase(oldPurchaseDetails, product);
+      }
+    } else {
+      isValidatePastIOSPurchase = true;
+      buyingProduct = product;
+      inAppPurchaseService.instance.restorePurchases();
+    }
+  }
+
+// 3
+  Future<void> _verifyOldPurchase(PurchaseDetails? oldPurchaseDetails, ProductDetails product) async {
+    isValidatePastIOSPurchase = false;
+    late Either<RequestError, ValidStatus> response;
+    if (oldPurchaseDetails == null) {
+      response = await _apiVerifiedEmpty();
+    } else {
+      response = await _apiVerified(oldPurchaseDetails);
+    }
+    response.fold((error) {
+      add(SubscriptionEvent.errorVerifyPurchase(error));
+    }, (r) async {
+      if (oldPurchaseDetails != null && oldPurchaseDetails.pendingCompletePurchase) {
+        await inAppPurchaseService.instance.completePurchase(oldPurchaseDetails);
+      }
+      r.valid ?? true
+          ? add(SubscriptionEvent.buySubscription(product))
+          : add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(generalMessage)));
+    });
+  }
+
+  // 4
   FutureOr<void> _onBuySubscription(
     BuySubscription event,
     Emitter<SubscriptionState> emit,
@@ -102,13 +147,18 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
             ),
           ),
         );
+      } else {
+        emit(
+          SubscriptionState.loading(state.data.copyWith(isWaitTimeout: true)),
+        );
+        add(const SubscriptionEvent.notifyUser());
       }
+    } catch (e) {
       emit(
         SubscriptionState.loading(state.data.copyWith(isLoading: false)),
       );
-    } catch (e) {
       emit(
-        SubscriptionState.error(
+        SubscriptionState.purchaseDuplicateSubscription(
           state.data.copyWith(
             error: const RequestError.streamSubscription(purchaseErrorMessage),
             isLoading: false,
@@ -118,9 +168,23 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     }
   }
 
+  FutureOr<void> _notifyUser(
+    NotifyUser event,
+    Emitter<SubscriptionState> emit,
+  ) async {
+    await Future.delayed(
+      const Duration(seconds: 20),
+      () {
+        if (state.data.isWaitTimeout) {
+          emit(SubscriptionState.askRestoredSubscription(state.data.copyWith(isLoading: false, isWaitTimeout: false)));
+        }
+      },
+    );
+  }
+
   Future<void> _handlePurchase(PurchaseDetails purchaseDetails) async {
     emit(
-      SubscriptionState.loading(state.data.copyWith(isLoading: true)),
+      SubscriptionState.loading(state.data.copyWith(isLoading: true, isWaitTimeout: false)),
     );
     try {
       if (purchaseDetails.pendingCompletePurchase) {
@@ -142,6 +206,13 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         await inAppPurchaseService.instance.completePurchase(purchaseDetails);
         final accessTokenUpdated = await authTokenManager.updateAccessToken();
         if (accessTokenUpdated) {
+          CustomerIoService.track(
+            event: CIOEvents.subscriptionBought,
+            attributes: {
+              CIOAttributes.identifierOption: purchaseDetails.productID,
+              CIOAttributes.subscriptionExpirationDate: r.expiresAt,
+            },
+          );
           add(
             SubscriptionEvent.purchasedSubscription(
               r,
@@ -172,26 +243,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
                 receipt: purchaseDetails.verificationData.serverVerificationData, purchaseToken: identifier),
             vendor);
     return response;
-  }
-
-  Future<void> _verifyOldPurchase(PurchaseDetails? oldPurchaseDetails, ProductDetails product) async {
-    isValidatePastIOSPurchase = false;
-    late Either<RequestError, ValidStatus> response;
-    if (oldPurchaseDetails == null) {
-      response = await _apiVerifiedEmpty();
-    } else {
-      response = await _apiVerified(oldPurchaseDetails);
-    }
-    response.fold((error) {
-      add(SubscriptionEvent.errorVerifyPurchase(error));
-    }, (r) async {
-      if (oldPurchaseDetails != null && oldPurchaseDetails.pendingCompletePurchase) {
-        await inAppPurchaseService.instance.completePurchase(oldPurchaseDetails);
-      }
-      r.valid ?? true
-          ? add(SubscriptionEvent.buySubscription(product))
-          : add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(generalMessage)));
-    });
   }
 
   Future<Either<RequestError, ValidStatus>> _apiVerifiedEmpty() async {
@@ -228,25 +279,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       } else {
         await _verifyPurchasedOrRestore(purchaseDetails);
       }
-    }
-  }
-
-  void _getOldPurchase(ProductDetails product) async {
-    PurchaseDetails? oldPurchaseDetails;
-    if (Platform.isAndroid) {
-      {
-        final InAppPurchaseAndroidPlatformAddition androidAddition =
-            inAppPurchaseService.instance.getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
-        final QueryPurchaseDetailsResponse oldPurchases = await androidAddition.queryPastPurchases();
-        if (oldPurchases.pastPurchases.isNotEmpty) {
-          oldPurchaseDetails = oldPurchases.pastPurchases.last;
-        }
-        await _verifyOldPurchase(oldPurchaseDetails, product);
-      }
-    } else {
-      isValidatePastIOSPurchase = true;
-      buyingProduct = product;
-      inAppPurchaseService.instance.restorePurchases();
     }
   }
 
@@ -353,14 +385,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     );
     final response = await _authenticationService.fetchAccount();
     response.fold(
-      (error) {
-        emit(SubscriptionState.error(state.data.copyWith(error: error, isLoading: false)));
-      },
-      (r) {
-        emit(
-          SubscriptionState.gotAccountSubscription(state.data.copyWith(isLoading: false, subscription: r.subscription)),
-        );
-      },
+      (error) => emit(SubscriptionState.error(state.data.copyWith(error: error, isLoading: false))),
+      (r) => emit(
+        SubscriptionState.gotAccountSubscription(state.data.copyWith(isLoading: false, subscription: r.subscription)),
+      ),
     );
   }
 
@@ -378,11 +406,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       },
       (r) {
         final subscription = r.subscription;
-        final status = SubscriptionStatusUtil.parse(subscription.state);
         emit(
           SubscriptionState.loading(state.data.copyWith(isLoading: false)),
         );
-        switch (status) {
+        switch (subscription.state) {
           case SubscriptionStatus.trialPeriod:
             if (subscription.isActive) {
               emit(SubscriptionState.subscriptionActive(state.data.copyWith(subscription: subscription)));

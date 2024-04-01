@@ -12,11 +12,13 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/checkbox/custom_checkbox.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/html_renderer/html_renderer.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/text_with_accents/text_with_accents.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
@@ -49,42 +51,45 @@ class ModalBottomSheet {
     required BuildContext context,
     required void Function() onContinuePressed,
   }) {
-    Size size = MediaQuery.of(context).size;
-
     showModalBottomSheet<void>(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
-          height: size.height * 0.45,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 50.0),
-              const CircleAvatar(
-                radius: 22.0,
-                backgroundColor: AppColors.greenRegular,
-                child: Icon(Icons.check, size: 30),
+        return FractionallySizedBox(
+          heightFactor: 0.75,
+          child: ScrollableContainer(
+            child: MainContainer(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 25.0),
+                  const CircleAvatar(
+                    radius: 22.0,
+                    backgroundColor: AppColors.greenRegular,
+                    child: Icon(Icons.check, size: 30),
+                  ),
+                  const SizedBox(height: 26.0),
+                  CustomText.w600(
+                    '${LocalizedTexts.emailConfirmedBottomSheetTitle.tr()}!',
+                    style: context.textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 20.0),
+                  CustomText.w400(
+                    '${LocalizedTexts.emailConfirmedBottomSheetContent.tr()}.',
+                    style: context.textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 40.0),
+                  CustomElevatedButton.blueFullWidth(
+                    label: LocalizedTexts.continueBtn.tr(),
+                    onPressed: () {
+                      context.router.pop();
+                    },
+                  ),
+                  const SizedBox(height: 30.0),
+                ],
               ),
-              const SizedBox(height: 26.0),
-              CustomText.w600(
-                '${LocalizedTexts.emailConfirmedBottomSheetTitle.tr()}!',
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.w400(
-                '${LocalizedTexts.emailConfirmedBottomSheetContent.tr()}.',
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 40.0),
-              CustomElevatedButton.blueFullWidth(
-                label: LocalizedTexts.continueBtn.tr(),
-                onPressed: () {
-                  context.router.pop();
-                },
-              ),
-            ],
+            ),
           ),
         );
       },
@@ -128,6 +133,7 @@ class ModalBottomSheet {
   static void restoreSubscription({
     required BuildContext context,
     required void Function() onSubscriptionPref,
+    bool isDuplicate = false,
   }) {
     showModalBottomSheet<void>(
       showDragHandle: true,
@@ -142,7 +148,9 @@ class ModalBottomSheet {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CustomText.w400(
-                    '${LocalizedTexts.restoreSubscriptionFromSettings.tr()}.',
+                    isDuplicate
+                        ? '${LocalizedTexts.duplicateSubscriptionFromSettings.tr()}.'
+                        : '${LocalizedTexts.restoreSubscriptionFromSettings.tr()}.',
                     style: context.textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 32.0),
@@ -200,16 +208,15 @@ class ModalBottomSheet {
                         },
                       );
 
-                      context.router.pop;
+                      context.router.pop();
                     },
                     label: LocalizedTexts.cancel.tr(),
                   ),
                   const SizedBox(height: 12.0),
                   CustomOutlinedButton.blueFullWidth(
                     onPressed: noActiveSubscription ? onDeleted : onSubscriptionPref,
-                    label: noActiveSubscription
-                        ? LocalizedTexts.yesDelete.tr()
-                        : LocalizedTexts.manageSubscription.tr(),
+                    label:
+                        noActiveSubscription ? LocalizedTexts.yesDelete.tr() : LocalizedTexts.manageSubscription.tr(),
                   )
                 ],
               ),
@@ -231,29 +238,33 @@ class ModalBottomSheet {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          padding: const EdgeInsets.symmetric(vertical: 58.0, horizontal: 40.0),
-          child: FractionallySizedBox(
-            heightFactor: 0.32,
-            child: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomText.w600(
+          padding: const EdgeInsets.fromLTRB(20.0, 38.0, 20.0, 30.0),
+          child: CustomSafeArea(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: CustomText.w600(
                     LocalizedTexts.youExceededTimeMessage,
                     style: context.textTheme.bodyMedium?.copyWith(color: AppColors.orangeRegular),
                   ),
-                  const SizedBox(height: 26.0),
-                  CustomText.w400(
+                ),
+                const SizedBox(height: 26.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: CustomText.w400(
                     LocalizedTexts.noWorriesYouCanDoItLater,
                     style: context.textTheme.bodyMedium,
                   ),
-                  const SizedBox(height: 40.0),
-                  CustomElevatedButton.blueFullWidth(
-                    onPressed: onStartAgain,
-                    label: LocalizedTexts.startAgain,
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 40.0),
+                CustomElevatedButton.blueFullWidth(
+                  onPressed: onStartAgain,
+                  label: LocalizedTexts.startAgain,
+                ),
+              ],
             ),
           ),
         );
@@ -275,7 +286,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
-          child: SafeArea(
+          child: CustomSafeArea(
             top: false,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -390,7 +401,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
-          child: SafeArea(
+          child: CustomSafeArea(
             top: false,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -475,7 +486,7 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
       builder: (BuildContext context) {
-        return SafeArea(
+        return CustomSafeArea(
           child: FractionallySizedBox(
             heightFactor: 0.5,
             child: Column(
@@ -488,13 +499,16 @@ class ModalBottomSheet {
                   ),
                 ),
                 MainContainer(
-                  child: CustomText.w400(
-                    '${LocalizedTexts.mentalHealthMoreInfo.tr(namedArgs: {
-                          'appName': appConfig.projectName,
-                        })}.',
-                    style: context.textTheme.bodyMedium,
+                  child: TextWithAccents(
+                    LocalizedTexts.mentalHealthMoreInfo.tr(
+                      namedArgs: {'appName': appConfig.projectName},
+                    ),
+                    accents: [
+                      LocalizedTexts.mentalHealthMoreInfoBold1.tr(),
+                      LocalizedTexts.mentalHealthMoreInfoBold2.tr(),
+                    ],
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -517,7 +531,7 @@ class ModalBottomSheet {
           constraints: BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height - 100,
           ),
-          child: SafeArea(
+          child: CustomSafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -602,7 +616,7 @@ class ModalBottomSheet {
           builder: (context, state) {
             return FractionallySizedBox(
               heightFactor: 0.8,
-              child: SafeArea(
+              child: CustomSafeArea(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
                   child: Column(
@@ -848,7 +862,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return FractionallySizedBox(
           heightFactor: 0.45,
-          child: SafeArea(
+          child: CustomSafeArea(
             child: Container(
               padding: const EdgeInsets.only(
                 top: 32.0,
@@ -1003,13 +1017,13 @@ class ModalBottomSheet {
             return FractionallySizedBox(
               heightFactor: 0.93,
               child: KeyboardContainerListener(
-                child: SafeArea(
+                child: CustomSafeArea(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
                     child: ReportAbuseWidget(
                       groupSession: groupSession,
                       chatReport: chatReport,
-                      close: () => Navigator.of(context).pop(),
+                      close: () => context.router.pop(),
                     ),
                   ),
                 ),
@@ -1234,6 +1248,53 @@ class ModalBottomSheet {
                     ),
                   ],
                 ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  static void inviteNewBuddy({
+    required BuildContext context,
+    required void Function() onInvite,
+  }) {
+    showModalBottomSheet<void>(
+      showDragHandle: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      context: context,
+      builder: (BuildContext context) {
+        return FractionallySizedBox(
+          heightFactor: 0.75,
+          child: ScrollableContainer(
+            child: MainContainer(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomText.w600(
+                    LocalizedTexts.buddyFindAnotherBuddyLabel.tr(),
+                    style: context.textTheme.bodyMedium?.copyWith(color: AppColors.orangeRegular),
+                  ),
+                  CustomText.w400(
+                    LocalizedTexts.buddyFindAnotherBuddyContent.tr(),
+                    style: context.textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 12.0),
+                  CustomElevatedButton.blueFullWidth(
+                    onPressed: () {
+                      context.router.pop.call();
+                      onInvite.call();
+                    },
+                    label: LocalizedTexts.buddyFindAnotherBuddy.tr(),
+                  ),
+                  const SizedBox(height: 12.0),
+                  CustomOutlinedButton.blueFullWidth(
+                    onPressed: () => context.router.pop.call(),
+                    label: LocalizedTexts.buddyNotNeedAnotherBuddy.tr(),
+                  ),
+                  const SizedBox(height: 12.0),
+                ],
               ),
             ),
           ),

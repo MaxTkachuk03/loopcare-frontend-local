@@ -60,6 +60,7 @@ class NextLesson extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(width: 14),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -103,17 +104,16 @@ class NextLesson extends StatelessWidget {
                                       const SizedBox(width: 4.0),
                                       isBlocked
                                           ? Expanded(
-                                              child: FittedBox(
-                                                child: Row(
-                                                  children: [
-                                                    CustomText.w600(
-                                                      '${LocalizedTexts.availableIn.translation}: ',
-                                                      style: context.textTheme.bodySmall,
-                                                    ),
-                                                    EducationCountDown(
-                                                        seconds: lessonWithCountdown.timeRemaining),
-                                                  ],
-                                                ),
+                                              child: Wrap(
+                                                children: [
+                                                  CustomText.w600(
+                                                    '${LocalizedTexts.availableIn.tr()}: ',
+                                                    style: context.textTheme.bodySmall,
+                                                  ),
+                                                  EducationCountDown(
+                                                    seconds: lessonWithCountdown.timeRemaining,
+                                                  ),
+                                                ],
                                               ),
                                             )
                                           : CustomText.w700(LocalizedTexts.locked,

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
@@ -11,13 +12,13 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/dashboard/application/physical_activities_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/application/programs_in_progress_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/empty_activities_list.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/filled_activities_list.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class PhysicalActivities extends StatefulWidget {
   final DateTime selectedDay;
@@ -124,12 +125,12 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                           loading: (_) => const SizedBox(height: 100, child: Loader()),
                           orElse: () => const SizedBox.shrink(),
                           activitiesLoaded: (s) {
-                            final int timesPerWeek =
-                                context.read<AuthenticationCubit>().state.trainingFrequency!;
+                            final int timesPerWeek = getIt<SharedStorageService>().account!.trainingFrequency;
 
                             return isAvailable
                                 ? FilledActivitiesList(
-                                    programsList: [...activePrograms, ...s.data.activities(timesPerWeek)])
+                                    programsList: [...activePrograms, ...s.data.activities(timesPerWeek)],
+                                  )
                                 : const EmptyActivitiesList();
                           },
                         );

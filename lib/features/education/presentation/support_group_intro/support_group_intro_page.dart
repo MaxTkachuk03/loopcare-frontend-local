@@ -6,13 +6,14 @@ import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_de
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -21,10 +22,10 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class SupportGroupIntroPage extends StatelessWidget {
   const SupportGroupIntroPage({super.key});
@@ -41,10 +42,11 @@ class SupportGroupIntroPage extends StatelessWidget {
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: SimpleProgressBar.petrol(
-                progress: context.read<EducationLessonBloc>().state.data.lessonProgress),
+              progress: context.read<EducationLessonBloc>().state.data.lessonProgress,
+            ),
           ),
         ),
-        body: SafeArea(
+        body: CustomSafeArea(
           child: ScrollableContainer(
             child: MainContainer(
               child: Column(
@@ -104,6 +106,8 @@ class SupportGroupIntroPage extends StatelessWidget {
   }
 
   _onJoinPressed(BuildContext context) {
+    final account = getIt<SharedStorageService>().account;
+
     AnalyticsEventService.instance.logEvent(
       FirebaseEvents.iWantToJoinToGroup,
       parameters: {
@@ -112,16 +116,15 @@ class SupportGroupIntroPage extends StatelessWidget {
       },
     );
 
-    if (context.read<AuthenticationCubit>().state.isTreatedByPsychiatrist) {
-      context.router.push(ConsultDoctorRoute(mode: const ExtraActionPageMode.afterLesson()));
+    if (account!.isOnTrial) {
+      context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.afterLesson()));
       return;
     }
 
-    // TODO removed for now 04.03.2024 need to check all requirement after
-    // if (!context.read<AuthenticationCubit>().state.hasSubscription) {
-    //   context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.afterLesson()));
-    //   return;
-    // }
+    if (account.medicalOnboarding!.treatedByPsychiatrist) {
+      context.router.push(ConsultDoctorRoute(mode: const ExtraActionPageMode.afterLesson()));
+      return;
+    }
 
     context
       ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.setWouldLikeJoinGroup(YesNoAnswer.yes))
@@ -138,7 +141,7 @@ class SupportGroupIntroPage extends StatelessWidget {
       },
     );
 
-    context.router.pushNamed(AppRoutes.lessonComplete);
+    context.router.push(LessonCompleteRoute(joinSupportGroupLater: true));
   }
 
   Future<bool> _onWillPop(BuildContext context) {

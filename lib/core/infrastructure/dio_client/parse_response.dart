@@ -11,15 +11,19 @@ Either<RequestError, T> Function(Either<RequestError, Response<dynamic>>) parseR
     (resp) => resp.flatMap(
           (r) {
             try {
-              final json = r.data as Map<String, dynamic>;
+              // todo fix string parser
               switch (r.statusCode) {
                 case HttpStatus.ok:
                 case HttpStatus.noContent:
                 case HttpStatus.created:
                 case HttpStatus.accepted:
-                  return right(fromJson(json));
+                  if (r.data is String) {
+                    return right(r.data);
+                  } else {
+                    return right(fromJson(r.data));
+                  }
                 default:
-                  return left(handleResponseError(r.statusCode, json));
+                  return left(handleResponseError(r.statusCode, r.data));
               }
             } catch (error) {
               return left(RequestError.unhandledError(error));

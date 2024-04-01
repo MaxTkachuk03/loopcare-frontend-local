@@ -6,6 +6,7 @@ import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
@@ -36,6 +37,9 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   void initState() {
     super.initState();
     controller = SubscriptionController(bloc: context.read<SubscriptionBloc>());
+    CustomerIoService.track(
+      event: CIOEvents.subscriptionPage,
+    );
   }
 
   @override
@@ -53,7 +57,9 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: CustomScaffold.yellow(
+      child: CustomScaffold(
+        withBg: false,
+        color: AppColors.blueRegular,
         appBar: CustomAppBar.transparent(
           leading: const SizedBox.shrink(),
           actions: [_LogoutWidget()],
@@ -64,9 +70,11 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
           listener: (BuildContext context, SubscriptionState state) => state.maybeWhen(
             successInPlans: (data) => controller.setupPlans(data),
             subscriptionActive: (data) => context.router.replaceNamed(AppRoutes.home),
+            purchaseDuplicateSubscription: (data) => _onDuplicateSettings(context),
             purchasedSubscription: (data) => (data.subscription?.isActive ?? false)
                 ? context.router.replaceNamed(AppRoutes.home)
                 : _onRestoreFromSettings(context, state),
+            askRestoredSubscription: (data) => _showAskRestorePopover(),
             loading: (data) => controller.handleLoading(data.isLoading),
             logout: (_) => context.router.replaceAll([const IntroRoute()]),
             error: (_) => _errorListener(context, state),
@@ -76,40 +84,53 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
             orElse: () => content,
             trial: (s) => content = SubscriptionStateView.trial(
               controller: controller,
-              topCover: AppImages.trial,
-              bottomCover: AppColors.coralRegular,
+              topCover: AppImages.subscriptionTop,
+              bottomCover: AppColors.blueRegular,
             ),
             trialExpired: (_) => content = SubscriptionStateView.trialExpired(
               controller: controller,
-              topCover: AppImages.ended,
-              bottomCover: AppColors.petrolRegular,
+              topCover: AppImages.subscriptionTop,
+              bottomCover: AppColors.blueRegular,
             ),
             subscriptionEnded: (_) => content = SubscriptionStateView.endedSubscription(
               controller: controller,
-              topCover: AppImages.ended,
-              bottomCover: AppColors.petrolRegular,
+              topCover: AppImages.subscriptionTop,
+              bottomCover: AppColors.blueRegular,
             ),
             subscriptionCancelled: (_) => content = SubscriptionStateView.cancelledSubscription(
               controller: controller,
-              topCover: AppImages.ended,
-              bottomCover: AppColors.petrolRegular,
+              topCover: AppImages.subscriptionTop,
+              bottomCover: AppColors.blueRegular,
             ),
             subscriptionUnRenewed: (_) => content = SubscriptionStateView.notRenewSubscription(
               controller: controller,
               onTap: () => context.router.replaceNamed(AppRoutes.home),
-              topCover: AppImages.ended,
-              bottomCover: AppColors.petrolRegular,
+              topCover: AppImages.subscriptionTop,
+              bottomCover: AppColors.blueRegular,
             ),
             serviceSubscriptionUnavailable: (_) => content = SubscriptionStateView.serviceUnavailable(
               controller: controller,
-              topCover: AppImages.ended,
-              bottomCover: AppColors.petrolRegular,
+              topCover: AppImages.subscriptionTop,
+              bottomCover: AppColors.blueRegular,
             ),
           ),
         ),
       ),
     );
   }
+
+  _onDuplicateSettings(BuildContext context) => ModalBottomSheet.restoreSubscription(
+      context: context,
+      isDuplicate: true,
+      onSubscriptionPref: Platform.isIOS
+          ? () {
+              launchUrl(Uri.parse(appConfig.appStoreSettingsLink), mode: LaunchMode.externalApplication);
+              context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout());
+            }
+          : () {
+              launchUrl(Uri.parse(appConfig.playMarketSettingsLink), mode: LaunchMode.externalApplication);
+              context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout());
+            });
 
   _onRestoreFromSettings(BuildContext context, SubscriptionState state) {
     isVendorPlatform(state)
@@ -148,12 +169,30 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
         ),
       );
 
+  void _showAskRestorePopover() {
+    controller.loading.value = false;
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        content: CustomText(LocalizedTexts.askRestoreSubscription.tr()),
+        actions: [
+          TextButton(
+            onPressed: () => context.router.pop(),
+            child: Text(LocalizedTexts.ok.toUpperCase()),
+          ),
+        ],
+      ),
+    );
+  }
+
   bool _listenerStates(prev, cur) =>
       cur is ErrorSubscriptionState ||
       cur is SuccessSubscriptionPlans ||
       cur is PurchasedSubscriptionState ||
       cur is SubscriptionActual ||
       cur is LoadingSubscriptionState ||
+      cur is PurchasedDuplicateSubscriptionState ||
+      cur is AskRestoredSubscriptionState ||
       cur is LogoutState;
 
   _errorListener(BuildContext context, SubscriptionState state) {
@@ -173,7 +212,7 @@ class _LogoutWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: CircleAvatar(
         radius: 22,
-        backgroundColor: AppColors.yellowLighter,
+        backgroundColor: AppColors.blueLight,
         child: IconButton(
           icon: const Icon(
             Icons.logout,

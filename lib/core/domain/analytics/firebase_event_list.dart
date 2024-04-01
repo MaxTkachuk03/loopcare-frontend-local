@@ -48,6 +48,7 @@ class FirebaseEvents {
   static String get userBirthday => 'user_birthday';
   static String get userSex => 'user_sex';
   static String get userBiologicalSex => 'user_biological_sex';
+  static String get userHappiness => 'user_happiness';
   static String get userHeight => 'user_height';
   static String get userWeight => 'user_weight';
   static String get userBmi => 'user_bmi';
@@ -66,6 +67,7 @@ class FirebaseEvents {
   static String get userLengthSemaglutideIntake => 'user_length_semaglutide_intake';
   static String get userSemaglutideTreatmentSupposedLength => 'user_semaglutide_treatment_supposed_length';
   static String get userSecondaryFormOfObesity => 'user_secondary_form_of_obesity';
+  static String get userThyroidDisease => 'user_thyroid_disease';
   static String get userMetabolicDisease => 'user_metabolic_disease';
   static String get userHypertension => 'user_hypertension';
   static String get userHeartSurgery => 'user_heart_surgery';

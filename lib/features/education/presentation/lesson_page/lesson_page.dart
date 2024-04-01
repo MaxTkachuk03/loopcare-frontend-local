@@ -3,12 +3,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
+import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/domain/unlock_config/unlock_feature/unlock_feature.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -17,12 +21,13 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_audio_body.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_text_body.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_type.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class LessonPage extends StatefulWidget {
   final int lessonId;
@@ -41,6 +46,7 @@ class LessonPage extends StatefulWidget {
 class _LessonPageState extends State<LessonPage> {
   _onNextPressed() {
     final lessonBloc = context.read<EducationLessonBloc>();
+    final account = getIt<SharedStorageService>().account;
 
     lessonBloc.add(const EducationLessonEvent.nextPage());
 
@@ -48,11 +54,9 @@ class _LessonPageState extends State<LessonPage> {
 
     if (lessonBloc.state.data.isLastPage) {
       final extraAction = lessonBloc.state.data.extraAction;
-      final unlockedFeatures = context.read<AuthenticationCubit>().state.unlockedFeatures;
-
       if (extraAction == ExtraActionTypes.setupGroupingPreferences &&
-          !unlockedFeatures.contains(UnlockedFeatureType.grouping)) {
-        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.grouping);
+          !(account?.isGroupSessionsUnlocked ?? false)) {
+        _unlockFeature(account, UnlockedFeatureType.grouping);
 
         AnalyticsEventService.instance.logEvent(FirebaseEvents.unlockedSupportGroupFeature);
 
@@ -60,28 +64,25 @@ class _LessonPageState extends State<LessonPage> {
           ..read<GroupPreferencesBloc>()
               .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupingLesson))
           ..router.pushNamed(AppRoutes.supportGroupIntro);
-
         return;
       }
 
-      if (extraAction == ExtraActionTypes.unlockMeals &&
-          !unlockedFeatures.contains(UnlockedFeatureType.meals)) {
-        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.meals);
+      if (extraAction == ExtraActionTypes.unlockMeals && !(account?.isFoodLoggingUnlocked ?? false)) {
+        _unlockFeature(account, UnlockedFeatureType.meals);
         context.router.pushNamed(AppRoutes.lessonCompleteFoodPreferences);
-
         return;
       }
 
       if (extraAction == ExtraActionTypes.unlockPhysicalActivities &&
-          !unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)) {
-        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.physicalActivities);
+          !(account?.isPhysicalActivitiesUnlocked ?? false)) {
+        _unlockFeature(account, UnlockedFeatureType.physicalActivities);
         context.router.pushNamed(AppRoutes.physicalPreferencesIntro);
-
         return;
       }
 
-      if (extraAction == ExtraActionTypes.unlockAssignments) {
-        context.read<AuthenticationCubit>().unlockFeature(UnlockedFeatureType.assignments);
+      if (lessonBloc.state.data.isBuddyUnlocked && !(account?.isBuddyUnlocked ?? false)) {
+        context.router.pushNamed(AppRoutes.buddyIntro);
+        return;
       }
 
       if (lessonBloc.state.data.questions.isEmpty ||
@@ -90,13 +91,22 @@ class _LessonPageState extends State<LessonPage> {
       } else {
         context.router.push(QuizzesIntroRoute(lessonId: widget.lessonId));
       }
-
       return;
     }
 
     int pageIndex = widget.pageIndex + 1;
 
     context.router.pushNamed('/lesson/${widget.lessonId}/page/$pageIndex');
+  }
+
+  void _unlockFeature(Account? account, UnlockedFeatureType feature) {
+    context.read<AuthenticationBloc>().add(
+          AuthenticationEvent.unlockFeature(UnlockFeature(
+            feature: feature.name,
+            unlocked: true,
+            subFeatures: null,
+          )),
+        );
   }
 
   _onPrevPressed() {
@@ -156,7 +166,7 @@ class _LessonPageState extends State<LessonPage> {
           title: LocalizedTexts.lesson.tr(),
           leading: CustomFilledIconButton.leadingPetrolLighter(onPressed: _onPrevPressed),
         ),
-        body: SafeArea(
+        body: CustomSafeArea(
           child: BlocConsumer<EducationLessonBloc, EducationLessonState>(
             listener: _onContentLoaded,
             listenWhen: (prev, cur) => cur is ContentLoaded,

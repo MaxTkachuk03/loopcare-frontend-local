@@ -1,15 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
+import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/core/domain/food_preferences/food_preferences.dart';
 import 'package:loopcare_frontend/core/domain/grouping_preferences.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
 import 'package:loopcare_frontend/core/domain/physical_fitness/physical_fitness.dart';
-import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
+import 'package:loopcare_frontend/core/domain/unlock_config/feature/feature.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
+import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/diabetes/application/dto/diabetes_type.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_activities_preferences.dart';
 
 part 'account_response.g.dart';
@@ -28,15 +30,16 @@ class AccountResponse {
   final bool isLegalApproved;
   final UserGroupingState groupingState;
   final DateTime? groupingStartedAt;
-  final SexType gender;
-  final String bioGender;
+  final GenderType gender;
+  final SexType sex;
   final PhysicalFitness physicalFitness;
   final DiabetesType? diabetes;
   final FoodPreferences? foodPreferences;
   final GroupingPreferences? groupingPreferences;
   final Subscription subscription;
-  @JsonKey(unknownEnumValue: UnlockedFeatureType.unknown)
-  final List<UnlockedFeatureType> unlockedFeatures;
+  final Buddy? buddy;
+  final String? buddyState;
+  final List<Feature> features;
   final MentalHealthTests? mentalHealthTests;
   final PhysicalActivitiesPreferences? physicalActivitiesPreferences;
   final MedicalOnboarding medicalOnboarding;
@@ -52,18 +55,20 @@ class AccountResponse {
     required this.isConsentApproved,
     required this.isLegalApproved,
     required this.gender,
-    required this.bioGender,
+    required this.sex,
     required this.groupingState,
     required this.groupingStartedAt,
     required this.physicalFitness,
     required this.diabetes,
     required this.foodPreferences,
     required this.groupingPreferences,
-    required this.unlockedFeatures,
+    required this.features,
     required this.mentalHealthTests,
     required this.physicalActivitiesPreferences,
     required this.subscription,
     required this.medicalOnboarding,
+    this.buddyState,
+    this.buddy,
   });
 
   factory AccountResponse.fromJson(Map<String, dynamic> json) => _$AccountResponseFromJson(json);

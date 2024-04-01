@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/utils/date_time_utils.dart';
+import 'package:loopcare_frontend/features/onboarding_new/utils/date_time_utils.dart';
 
 class SessionTimer extends StatefulWidget {
   final int value;

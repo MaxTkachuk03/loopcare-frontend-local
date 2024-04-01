@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:loopcare_frontend/core/domain/aws_cookies_type.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -20,11 +22,11 @@ import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_countdown/session_countdown.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 const double bottomSheetHeight = 167;
 
@@ -80,7 +82,7 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
         padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 32),
         child: const SessionCountdown(),
       ),
-      body: SafeArea(
+      body: CustomSafeArea(
         child: MainContainer(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -102,7 +104,7 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CustomText.bitter600(
-                              '${LocalizedTexts.hey.tr()} ${context.read<AuthenticationCubit>().state.name.capitalizeOnlyFirstLetter()}',
+                              '${LocalizedTexts.hey.tr()} ${getIt<SharedStorageService>().account!.name.capitalizeOnlyFirstLetter()}',
                               style: context.textTheme.headlineSmall,
                             ),
                             const SizedBox(height: 18.0),

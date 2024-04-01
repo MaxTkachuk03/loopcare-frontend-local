@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -30,7 +31,7 @@ class SessionRulesPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 32),
         child: const SessionCountdown(),
       ),
-      body: SafeArea(
+      body: CustomSafeArea(
         child: ScrollableContainer(
           child: MainContainer(
             child: Column(
@@ -120,17 +121,20 @@ class SessionRulesPage extends StatelessWidget {
                                 text: TextSpan(
                                   style: context.textTheme.bodyLarge,
                                   children: [
-                                    TextSpan(text: '${LocalizedTexts.groupRulesFourParagraphOnePartOne.tr()} '),
+                                    TextSpan(
+                                        text: '${LocalizedTexts.groupRulesFourParagraphOnePartOne.tr()} '),
                                     TextSpan(
                                       text: '${LocalizedTexts.groupRulesFourParagraphOneItalicOne.tr()} ',
                                       style: const TextStyle(fontStyle: FontStyle.italic),
                                     ),
-                                    TextSpan(text: '${LocalizedTexts.groupRulesFourParagraphOnePartTwo.tr()} '),
+                                    TextSpan(
+                                        text: '${LocalizedTexts.groupRulesFourParagraphOnePartTwo.tr()} '),
                                     TextSpan(
                                       text: '${LocalizedTexts.groupRulesFourParagraphOneItalicTwo.tr()} ',
                                       style: const TextStyle(fontStyle: FontStyle.italic),
                                     ),
-                                    TextSpan(text: '${LocalizedTexts.groupRulesFourParagraphOnePartThree.tr()} '),
+                                    TextSpan(
+                                        text: '${LocalizedTexts.groupRulesFourParagraphOnePartThree.tr()} '),
                                     TextSpan(
                                       text: LocalizedTexts.groupRulesFourParagraphOneItalicThree.tr(),
                                       style: const TextStyle(fontStyle: FontStyle.italic),

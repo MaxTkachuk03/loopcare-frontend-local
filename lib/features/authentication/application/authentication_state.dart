@@ -1,162 +1,77 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/core/domain/account/account.dart';
-import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
+part of 'authentication_bloc.dart';
 
-part 'authentication_state.freezed.dart';
-part 'authentication_state.g.dart';
-
-@Freezed(unionKey: 'type', unionValueCase: FreezedUnionCase.pascal)
+@freezed
 class AuthenticationState with _$AuthenticationState {
   const AuthenticationState._();
 
-  const factory AuthenticationState.init() = Init;
+  const factory AuthenticationState.init(AuthenticationData data) = InitialAuthenticationState;
 
-  const factory AuthenticationState.authenticated(
-    Account account,
-  ) = Authenticated;
+  const factory AuthenticationState.error(AuthenticationData data) = ErrorAuthenticationState;
 
-  const factory AuthenticationState.name() = Name;
+  const factory AuthenticationState.logout(AuthenticationData data) = LogoutState;
 
-  const factory AuthenticationState.password({
-    required String name,
-  }) = Password;
+  const factory AuthenticationState.waitedForConfirmation(AuthenticationData data) = WaitedConfirmationState;
 
-  const factory AuthenticationState.emailAddress({
-    required String name,
-    required String password,
-    @JsonKey(ignore: true) RequestError? error,
-  }) = EmailAddress;
+  const factory AuthenticationState.guest(AuthenticationData data) = GuestAuthenticationState;
 
-  const factory AuthenticationState.waitedForConfirmation({
-    required String name,
-    required String password,
-    required String email,
-    required int accountId,
-    @JsonKey(ignore: true) RequestError? error,
-  }) = WaitedForConfirmation;
+  const factory AuthenticationState.authenticated(AuthenticationData data) = AuthenticatedState;
+}
 
-  const factory AuthenticationState.guest({
-    String? email,
-    @JsonKey(ignore: true) @Default(false) bool emailWasSend,
-    @JsonKey(ignore: true) RequestError? error,
-  }) = Guest;
+@freezed
+class AuthenticationData with _$AuthenticationData {
+  const AuthenticationData._();
 
-  bool get isAuthenticated {
-    return maybeWhen(
-      orElse: () => false,
-      authenticated: (_) => true,
-    );
-  }
+  const factory AuthenticationData({
+    @Default('') String email,
+    @Default('') String name,
+    @Default('') String password,
+    @Default(false) bool emailWasSend,
+    @Default(false) bool emailVerified,
+    @Default(-1) int accountId,
+    Account? account,
+    @JsonKey(includeFromJson: false, includeToJson: false) RequestError? error,
+  }) = _AuthenticationData;
 
-  List<UnlockedFeatureType> get unlockedFeatures {
-    return maybeWhen(
-      orElse: () => [],
-      authenticated: (state) => state.unlockedFeatures,
-    );
-  }
+  factory AuthenticationData.fromJson(Map<String, dynamic> json) => _$AuthenticationDataFromJson(json);
 
-  bool get hasActiveSubscription {
-    return maybeWhen(
-      orElse: () => false,
-      authenticated: (state) => state.subscription.isActive && state.subscription.state == 'common',
-    );
-  }
+  List<UnlockedFeatureType> get unlockedFeatures =>
+      (account?.features.where((e) => e.unlocked).toList() ?? []).map((e) => e.feature).toList();
 
-  int get id {
-    return maybeWhen(
-      orElse: () => -1,
-      authenticated: (state) => state.id,
-    );
-  }
+  bool get hasActiveSubscription => (account?.hasActiveSubscription ?? false);
 
-  String get name {
-    return maybeWhen(
-      orElse: () => '',
-      authenticated: (state) => state.name,
-    );
-  }
+  int get id => account?.id ?? -1;
 
-  DateTime? get emailApproveDate {
-    return mapOrNull(
-      authenticated: (state) => state.account.emailApproveDate,
-    );
-  }
+  String get accountName => account?.name ?? '';
 
-  String? get email {
-    return mapOrNull(
-      authenticated: (state) => state.account.email,
-    );
-  }
+  DateTime? get emailApproveDate => account?.emailApproveDate;
 
-  double? get height {
-    return mapOrNull(
-      authenticated: (state) => state.account.height,
-    );
-  }
+  String? get accountEmail => account?.email;
 
-  SexType? get gender {
-    return mapOrNull(
-      authenticated: (state) => state.account.gender,
-    );
-  }
+  double? get height => account?.height;
 
-  UserGroupingState? get groupingState {
-    return mapOrNull(
-      authenticated: (state) => state.account.groupingState,
-    );
-  }
+  GenderType? get gender => account?.gender;
 
-  String? get nickname {
-    return mapOrNull(
-      authenticated: (state) => state.account.nickname,
-    );
-  }
+  UserGroupingState? get groupingState => account?.groupingState;
 
-  GenderPreferences? get genderPreferences {
-    return mapOrNull(
-      authenticated: (state) => state.account.genderPreference,
-    );
-  }
+  String? get nickname => account?.nickname;
 
-  String? get timezone {
-    return mapOrNull(
-      authenticated: (state) => state.account.timezone,
-    );
-  }
+  GenderPreferences? get genderPreferences => account?.genderPreference;
 
-  DateTime? get groupingStartedAt {
-    return mapOrNull(
-      authenticated: (state) => state.account.groupingStartedAt,
-    );
-  }
+  String? get timezone => account?.timezone;
 
-  int? get groupId {
-    return mapOrNull(
-      authenticated: (state) => state.account.groupId,
-    );
-  }
+  DateTime? get groupingStartedAt => account?.groupingStartedAt;
 
-  int? get trainingFrequency {
-    return mapOrNull(
-      authenticated: (state) => state.account.trainingFrequency,
-    );
-  }
+  int? get groupId => account?.groupId;
 
-  bool get disableGroupSessions {
-    return maybeMap(
-      authenticated: (state) => state.account.disableGroupSessions,
-      orElse: () => false,
-    );
-  }
+  int? get trainingFrequency => account?.trainingFrequency;
+
+  bool get disableGroupSessions => account?.disableGroupSessions ?? false;
+
+  String? get buddyState => account?.buddyState;
+
+  Buddy? get buddy => account?.buddy;
 
   bool get isFoodLoggingUnlocked => unlockedFeatures.contains(UnlockedFeatureType.meals);
-
-  bool get isTreatedByPsychiatrist => maybeWhen(
-      orElse: () => false, authenticated: (state) => state.medicalOnboarding?.treatedByPsychiatrist ?? false);
 
   bool get isGroupSessionsUnlocked =>
       unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;
@@ -165,17 +80,13 @@ class AuthenticationState with _$AuthenticationState {
 
   bool get isAssignmentsUnlocked => unlockedFeatures.contains(UnlockedFeatureType.assignments);
 
+  bool get isBuddyUnlocked => unlockedFeatures.contains(UnlockedFeatureType.buddy);
+
   bool get isUserGrouped => groupingState == UserGroupingState.grouped;
 
-  bool get isMixedGender {
-    return maybeWhen(
-      orElse: () => false,
-      authenticated: (state) => state.isMixedGender,
-    );
-  }
+  bool get isMixedGender => account?.isMixedGender ?? false;
 
-  bool get hasSubscription =>
-      maybeWhen(orElse: () => false, authenticated: (state) => state.subscription.isActive);
+  bool get isAuthenticated => this is AuthenticatedState;
 
-  factory AuthenticationState.fromJson(Map<String, dynamic> json) => _$AuthenticationStateFromJson(json);
+  String get nameCapitalised => name.isNotEmpty ? name.capitalize() : '';
 }

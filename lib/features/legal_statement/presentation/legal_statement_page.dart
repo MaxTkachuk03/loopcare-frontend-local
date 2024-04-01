@@ -1,37 +1,55 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:loopcare_frontend/core/application/instructions_service.dart';
-// import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
-// import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
+import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/presentation/widgets/legal_statement_confirmation_box.dart';
 
-class LegalStatementPage extends StatelessWidget {
+class LegalStatementPage extends StatefulWidget {
   const LegalStatementPage({super.key});
+
+  @override
+  State<LegalStatementPage> createState() => _LegalStatementPageState();
+}
+
+class _LegalStatementPageState extends State<LegalStatementPage> {
+  final valueListener = ValueNotifier<bool>(false);
+
+  @override
+  void dispose() {
+    valueListener.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () => _onWillPop(context),
+      onWillPop: onWillPop,
       child: CustomScaffold.blueLightest(
         appBar: CustomAppBar.blue(
           title: LocalizedTexts.legalStatement.tr(),
           leading: CustomFilledIconButton.leadingBlueLighter(),
         ),
-        body: SafeArea(
-          child: ScrollableContainer(
-            child: MainContainer(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        body: CustomSafeArea(
+          child: BottomPlacedButton.blueLightest(
+            body: MainContainer(
+              child: ListView(
+                physics: const ClampingScrollPhysics(),
                 children: [
                   const SizedBox(height: 32.0),
                   CustomText.bitter600(
@@ -55,9 +73,20 @@ class LegalStatementPage extends StatelessWidget {
                   //   label: LocalizedTexts.readLegalStatement,
                   // ),
                   const SizedBox(height: 27.0),
-                  const LegalStatementConfirmationBox(),
+                  LegalStatementConfirmationBox(
+                    onChanged: onChanged,
+                  ),
                 ],
               ),
+            ),
+            button: ValueListenableBuilder<bool>(
+              valueListenable: valueListener,
+              builder: (context, value, _) {
+                return CustomElevatedButton.blueFullWidth(
+                  onPressed: value ? onConfirm : null,
+                  label: LocalizedTexts.confirm.tr(),
+                );
+              },
             ),
           ),
         ),
@@ -65,14 +94,22 @@ class LegalStatementPage extends StatelessWidget {
     );
   }
 
-  // Future<void> _onReadLegalStatement(BuildContext context) async {
-  //   InstructionsService.downloadInstructions(onErrorCb: _showError(context));
-  // }
+  void onChanged(bool value) => valueListener.value = value;
 
-  // _showError(BuildContext context) =>
-  //     context.showError(content: CustomText.w400(LocalizedTexts.openLinkErrorMessage.tr()));
+  void onConfirm() {
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.legalStatement,
+      parameters: {
+        CustomDefinitions.value: 'true',
+      },
+    );
 
-  Future<bool> _onWillPop(BuildContext context) async {
+    context
+      ..read<LegalStatementBloc>().add(const LegalStatementEvent.passageChanged(true))
+      ..router.replaceAll([const SignUpWelcomeRoute()]);
+  }
+
+  Future<bool> onWillPop() async {
     context.read<ConsentConfirmationBloc>().add(const ConsentConfirmationEvent.passageChanged(false));
 
     return Future.value(true);

@@ -4,11 +4,15 @@ import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -19,10 +23,8 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_cubit.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/gender_preferences.dart';
-import 'package:loopcare_frontend/features/onboarding/onboarding_physical/domain/sex_type.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class GenderPreferencesPage extends StatefulWidget {
   final bool fromLessonComplete;
@@ -127,7 +129,7 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
         fromLessonComplete: widget.fromLessonComplete,
         child: GroupPrefsPageWrap(
           fromLessonComplete: widget.fromLessonComplete,
-          child: SafeArea(
+          child: CustomSafeArea(
             child: MainContainer(
               child: ScrollableContainer(
                 child: Column(
@@ -146,11 +148,11 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
                         Column(
                           children: GenderPreferences.values.map(
                             (GenderPreferences value) {
-                              final gender = context.read<AuthenticationCubit>().state.gender;
+                              final gender = getIt<SharedStorageService>().account?.gender;
                               final shouldRemoveMale =
-                                  gender == SexType.male && value == GenderPreferences.femaleOnly;
+                                  gender == GenderType.man && value == GenderPreferences.femaleOnly;
                               final shouldRemoveFemale =
-                                  gender == SexType.female && value == GenderPreferences.maleOnly;
+                                  gender == GenderType.woman && value == GenderPreferences.maleOnly;
 
                               if (shouldRemoveMale || shouldRemoveFemale) return const SizedBox.shrink();
 

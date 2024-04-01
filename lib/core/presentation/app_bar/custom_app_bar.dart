@@ -135,6 +135,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     String? subtitle,
     Widget? leading,
     List<Widget>? actions,
+    PreferredSizeWidget? bottom,
   }) =>
       CustomAppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -144,6 +145,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         subtitle: subtitle,
         leading: leading,
         actions: actions,
+        bottom: bottom,
       );
 
   factory CustomAppBar.dark({
@@ -175,6 +177,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: Padding(padding: const EdgeInsets.all(6.0), child: leading ?? const BackButton()),
       actions: actions,
       bottom: bottom,
+      scrolledUnderElevation: 0,
     );
   }
 

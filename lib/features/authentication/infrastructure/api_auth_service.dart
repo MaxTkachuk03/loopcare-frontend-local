@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/domain/unlock_config/unlock_feature/unlock_feature.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -13,6 +14,7 @@ import 'package:loopcare_frontend/features/authentication/application/dto/report
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_response.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/unlock_feature_response.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/validate_email_data.dart';
 
 @Injectable(as: AuthenticationService)
 class APIAuthenticationService implements AuthenticationService {
@@ -56,11 +58,13 @@ class APIAuthenticationService implements AuthenticationService {
   }
 
   @override
-  Future<Either<RequestError, UnlockFeatureResponse>> unlockFeature(String feature) async {
-    return client.patch(
-      '/accounts/unlock-feature/$feature',
-      data: {},
-    ).then(parseResponse(UnlockFeatureResponse.fromJson));
+  Future<Either<RequestError, UnlockFeatureResponse>> unlockFeature(UnlockFeature data) async {
+    return client
+        .patch(
+          '/accounts/set-feature',
+          data: data.toJson(),
+        )
+        .then(parseResponse(UnlockFeatureResponse.fromJson));
   }
 
   @override
@@ -71,5 +75,10 @@ class APIAuthenticationService implements AuthenticationService {
   @override
   Future<Either<RequestError, dynamic>> reportAbuse(ReportAbuseData data) async {
     return client.post('/accounts/report-issue', data: data.toJson());
+  }
+
+  @override
+  Future<Either<RequestError, dynamic>> checkEmail(ValidateEmailData data) async {
+    return client.post('/accounts/validate-email', data: data.toJson()).then(parseResponse((json) => json.isEmpty));
   }
 }
