@@ -467,7 +467,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   }
 
   Future _enableLandscapeOrientation() async {
-    SystemService.hideSystemOverlays();
+    SystemService.hideBottomSystemOverlays();
     SystemService.allowBothOrientations();
   }
 
@@ -622,6 +622,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     return OrientationBuilder(builder: (BuildContext context, Orientation orientation) {
       final hideAppBar = _isVideoPlaying && orientation == Orientation.landscape;
 
+      _orientationListener(orientation);
+
       return Scaffold(
         backgroundColor: AppColors.orangeOffRegular,
         appBar: hideAppBar
@@ -636,36 +638,34 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
             bottom: !hideAppBar,
             child: Stack(
               children: [
-                if (!_isVideoPlaying)
-                  if (userJoinedToSession)
-                    Container(
-                      color: AppColors.ff313030,
-                      child: CustomScrollView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        slivers: [
-                          UsersGrid(
-                            users: _sessionParticipants,
-                            talkingUsers: _talkingUsers,
-                            usersWithCameraOff: _usersWithCameraOff,
-                          ),
-                          SliverFillRemaining(
-                            child: BlocBuilder<SessionCallBloc, SessionCallState>(
-                              builder: (context, state) {
-                                final textEvents = context.read<TopicsBloc>().state.data.textEvents;
+                if (!_isVideoPlaying && userJoinedToSession)
+                  Container(
+                    color: AppColors.ff313030,
+                    child: CustomScrollView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      slivers: [
+                        UsersGrid(
+                          users: _sessionParticipants,
+                          talkingUsers: _talkingUsers,
+                          usersWithCameraOff: _usersWithCameraOff,
+                        ),
+                        SliverFillRemaining(
+                          child: BlocBuilder<SessionCallBloc, SessionCallState>(
+                            builder: (context, state) {
+                              final textEvents = context.read<TopicsBloc>().state.data.textEvents;
 
-                                final text = textEvents
-                                        .lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)
-                                        ?.text ??
-                                    '';
+                              final text = textEvents
+                                  .lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)
+                                  ?.text ??
+                                  '';
 
-                                return PromptsContainer(text: text);
-                              },
-                            ),
+                              return PromptsContainer(text: text);
+                            },
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                if (!userJoinedToSession) const Loader(),
+                  ),
                 if (userJoinedToSession)
                   BlocBuilder<SessionCallBloc, SessionCallState>(
                     builder: (context, state) {
@@ -686,7 +686,9 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                         orElse: () => const SizedBox.shrink(),
                       );
                     },
-                  ),
+                  )
+                else
+                  const Loader()
               ],
             ),
           ),
@@ -745,5 +747,17 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     _inactivityTimer?.cancel();
 
     super.dispose();
+  }
+
+  void _orientationListener(Orientation orientation) {
+    if (!_isVideoPlaying) {
+      return;
+    }
+
+    if (orientation == Orientation.portrait) {
+      SystemService.hideBottomSystemOverlays();
+    } else {
+      SystemService.hideSystemOverlays();
+    }
   }
 }
