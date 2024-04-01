@@ -19,9 +19,9 @@ class NotGrouped extends StatelessWidget {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (context, state) {
         final hasActiveSubscription = state.data.account?.hasActiveSubscription ?? false;
-        final isOnTrial = state.data.account?.isOnTrial ?? true;
+        final isOnTrial = !hasActiveSubscription || (state.data.account?.isOnTrial ?? true);
 
-        final String title = !hasActiveSubscription || isOnTrial
+        final String title = isOnTrial
             ? LocalizedTexts.supportGroupTrialSubscriptionNotGrouped.tr()
             : LocalizedTexts.supportGroupPaidSubscriptionNotGrouped.tr();
 
@@ -30,7 +30,7 @@ class NotGrouped extends StatelessWidget {
           children: [
             CustomText.w600('$title.', style: context.textTheme.bodySmall),
             const SizedBox(height: 18.0),
-            if (!hasActiveSubscription || isOnTrial)
+            if (!isOnTrial)
               CustomOutlinedButton.blueSmall(
                 label: LocalizedTexts.joinAGroup.tr(),
                 onPressed: () => _onJoinGroupTap(context),
