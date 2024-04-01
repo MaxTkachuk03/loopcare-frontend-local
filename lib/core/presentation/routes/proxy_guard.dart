@@ -27,7 +27,7 @@ class ProxyGuard extends AutoRouteGuard {
         }
 
         //Todo hide subscription flow LOOPCARE-2197
-        else if (authenticationCubit.state.hasActiveSubscription) {
+        else if (account.hasActiveSubscription) {
           route = AppRoutes.home;
         } else {
           route = AppRoutes.subscription;
