@@ -33,7 +33,9 @@ import 'package:loopcare_frontend/features/nutrition/application/dashboard_educa
 import 'package:loopcare_frontend/injection.dart';
 
 class LessonCompletePage extends StatefulWidget {
-  const LessonCompletePage({super.key});
+  final bool joinSupportGroupLater;
+
+  const LessonCompletePage({super.key, this.joinSupportGroupLater = false});
 
   @override
   State<LessonCompletePage> createState() => _LessonCompletePageState();
@@ -71,14 +73,9 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
   bool get _isGroupSessionsDisabled => getIt<SharedStorageService>().account!.disableGroupSessions;
 
-  bool get _isTreatedByPsychiatrist =>
-      getIt<SharedStorageService>().account!.medicalOnboarding!.treatedByPsychiatrist;
-
   String _subText(EducationLessonState state) {
-    if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
-        !_isGroupSessionsDisabled &&
-        _isTreatedByPsychiatrist) {
-      return LocalizedTexts.treatedByTherapistLessonComplete.tr();
+    if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences && !_isGroupSessionsDisabled) {
+      return LocalizedTexts.lessonCompleteDescription.tr();
     }
 
     if (state.data.extraAction == ExtraActionTypes.unlockMeals ||
@@ -194,9 +191,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                           }
 
                           if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
-                              !_isGroupSessionsDisabled &&
-                              !_isTreatedByPsychiatrist) {
-                            return const UnlockGroupSessionFeature();
+                              !_isGroupSessionsDisabled) {
+                            return UnlockGroupSessionFeature(wantJoinLater: widget.joinSupportGroupLater);
                           }
 
                           if (state.data.assignmentsQuestions.isNotEmpty &&

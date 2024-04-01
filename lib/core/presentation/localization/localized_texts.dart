@@ -533,7 +533,8 @@ class LocalizedTexts {
   static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
   static const String askRestoreSubscription = "askRestoreSubscription";
   static const String duplicateSubscriptionFromSettings = "duplicateSubscriptionFromSettings";
-  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription =
+      "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";
@@ -907,6 +908,7 @@ class LocalizedTexts {
   static const String lessonCompleted = 'lessonCompleted';
   static const String groupSessionsUnlocked = 'groupSessionsUnlocked';
   static const String waitingForGroupCompletedLesson = 'waitingForGroupCompletedLesson';
+  static const String groupSessionUnlockOnTrialPeriod = 'groupSessionUnlockOnTrialPeriod';
   static const String notJoinedToGroupCompletedLesson = 'notJoinedToGroupCompletedLesson';
   static const String unlockFeatureDescription = 'unlockFeatureDescription';
   static const String lessonCompleteDescription = 'lessonCompleteDescription';
@@ -921,6 +923,8 @@ class LocalizedTexts {
   static const String didYouCheckWithSpecialist = 'didYouCheckWithSpecialist';
   static const String iConsultedTherapist = 'iConsultedTherapist';
   static const String treatedByTherapistLessonComplete = 'treatedByTherapistLessonComplete';
+  static const String trialSubscriptionLessonComplete = 'trialSubscriptionLessonComplete';
+  static const String groupSessionsJoinLaterLessonComplete = 'groupSessionsJoinLaterLessonComplete';
   static const String needSubscrionScreenTitle = 'needSubscrionScreenTitle';
   static const String needSubscrionScreenBody1 = 'needSubscrionScreenBody1';
   static const String needSubscrionScreenBody2 = 'needSubscrionScreenBody2';
