@@ -2,11 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_watcher_bloc/chat_watcher_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class AppNavigationBar extends StatelessWidget {
   final TabsRouter tabsRouter;
@@ -17,14 +18,15 @@ class AppNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
-        valueListenable: isChatEnable,
-        builder: (context, enable, _) {
-          return BottomNavigationBar(
-            onTap: (index) => _navigateTo(context, index, enable),
-            items: _getNavBarItems(context, enable),
-            currentIndex: getEffectiveTabIndex(enable),
-          );
-        });
+      valueListenable: isChatEnable,
+      builder: (context, enable, _) {
+        return BottomNavigationBar(
+          onTap: (index) => _navigateTo(context, index, enable),
+          items: _getNavBarItems(context, enable),
+          currentIndex: getEffectiveTabIndex(enable),
+        );
+      },
+    );
   }
 
   List<BottomNavigationBarItem> _getNavBarItems(BuildContext context, bool enable) {
@@ -40,17 +42,21 @@ class AppNavigationBar extends StatelessWidget {
                         badgeStyle: const badge.BadgeStyle(
                           badgeColor: AppColors.red,
                         ),
-                        badgeAnimation: const badge.BadgeAnimation.slide(toAnimate: false),
+                        badgeAnimation: const badge.BadgeAnimation.slide(
+                          toAnimate: false,
+                        ),
                         position: badge.BadgePosition.topEnd(
                           top: -11,
                         ),
-                        badgeContent: Text(state.data.amount.toString(),
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              color: AppColors.white,
-                              fontWeight: FontWeight.w400,
-                              fontSize: ThemeConstants.fontSize10,
-                            )),
+                        badgeContent: Text(
+                          state.data.amount.toString(),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w400,
+                            fontSize: ThemeConstants.fontSize10,
+                          ),
+                        ),
                         child: e.icon,
                       );
                     } else {
@@ -60,7 +66,7 @@ class AppNavigationBar extends StatelessWidget {
                 ),
               ),
               activeIcon: e.activeIcon,
-              label: e.label(context.watch<AuthenticationBloc>().state.data.accountName),
+              label: e.label(getIt<SharedStorageService>().account!.nameCapitalised),
             ))
         .toList();
   }

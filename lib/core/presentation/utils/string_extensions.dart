@@ -4,6 +4,11 @@ extension StringExtension on String {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
   }
 
+  String capitalizeName() {
+    if (this == '') return '';
+    return split(' ').map((w) => w.capitalizeOnlyFirstLetter()).join(' ');
+  }
+
   String capitalizeOnlyFirstLetter() {
     if (this == '') return '';
     return "${this[0].toUpperCase()}${substring(1)}";
