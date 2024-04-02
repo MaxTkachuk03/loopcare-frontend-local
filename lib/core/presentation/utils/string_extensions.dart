@@ -4,7 +4,7 @@ extension StringExtension on String {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
   }
 
-  String capitalizeName() {
+  String capitalizeEachWordFirstLetter() {
     if (this == '') return '';
     return split(' ').map((w) => w.capitalizeOnlyFirstLetter()).join(' ');
   }
