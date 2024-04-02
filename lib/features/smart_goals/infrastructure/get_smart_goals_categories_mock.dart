@@ -1,0 +1,51 @@
+var goalsCategories = [
+  {
+    "id": 1,
+    "externalId": 1,
+    "image": null,
+    "name": 'Sleep',
+    "isUnlocked": true,
+  },
+  {
+    "id": 2,
+    "externalId": 2,
+    "image": null,
+    "name": 'Meal timing',
+    "isUnlocked": true,
+  },
+  {
+    "id": 3,
+    "externalId": 3,
+    "image": null,
+    "name": 'Calorie density',
+    "isUnlocked": true,
+  },
+  {
+    "id": 4,
+    "externalId": 4,
+    "image": null,
+    "name": 'Protein',
+    "isUnlocked": true,
+  },
+  {
+    "id": 5,
+    "externalId": 5,
+    "image": null,
+    "name": 'Carbohydrates',
+    "isUnlocked": true,
+  },
+  {
+    "id": 6,
+    "externalId": 6,
+    "image": null,
+    "name": 'Fats',
+    "isUnlocked": false,
+  },
+  {
+    "id": 7,
+    "externalId": 7,
+    "image": null,
+    "name": 'Water',
+    "isUnlocked": false,
+  },
+];

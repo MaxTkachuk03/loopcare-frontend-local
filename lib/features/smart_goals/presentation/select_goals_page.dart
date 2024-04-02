@@ -10,10 +10,10 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/smart_goals/infrastructure/smart_goals_categories.dart';
+import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal_category.dart';
 
 class SelectGoalsPage extends StatelessWidget {
-  final SmartGoalsCategory category;
+  final SmartGoalCategory category;
 
   const SelectGoalsPage({super.key, required this.category});
 

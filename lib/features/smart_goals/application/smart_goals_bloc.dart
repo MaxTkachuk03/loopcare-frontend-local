@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_service.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal.dart';
+import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal_category.dart';
 
 part 'smart_goals_event.dart';
 part 'smart_goals_state.dart';
@@ -16,6 +17,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
   SmartGoalsBloc(this._smartGoalsService) : super(const SmartGoalsState.initial(SmartGoalsStateData())) {
     on<GetGoals>(_onGetGoals);
+    on<GetGoalsCategories>(_onGetGoalsCategories);
   }
 
   FutureOr<void> _onGetGoals(
@@ -29,6 +31,23 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     response.fold(
       (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(SmartGoalsState.goalsLoaded(state.data.copyWith(goals: r.data, isLoading: false))),
+    );
+  }
+
+  FutureOr<void> _onGetGoalsCategories(
+    GetGoalsCategories event,
+    Emitter<SmartGoalsState> emit,
+  ) async {
+    emit(SmartGoalsState.goalsCategoriesLoading(state.data.copyWith(isLoading: true)));
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    final response = await _smartGoalsService.getGoalsCategories();
+
+    response.fold(
+      (l) => emit(SmartGoalsState.goalsCategoriesError(state.data.copyWith(error: l, isLoading: false))),
+      (r) => emit(SmartGoalsState.goalsCategoriesLoaded(
+          state.data.copyWith(goalsCategories: r.data, isLoading: false))),
     );
   }
 }

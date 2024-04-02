@@ -11,13 +11,13 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/smart_goals/infrastructure/smart_goals_categories.dart';
+import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal_category.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/goals_categories_list.dart';
 
 class SelectGoalsCategoryPage extends StatelessWidget {
   const SelectGoalsCategoryPage({super.key});
 
-  void _onCategoryPressedHandler(BuildContext context, SmartGoalsCategory value) =>
+  void _onCategoryPressedHandler(BuildContext context, SmartGoalCategory value) =>
       context.router.push(SelectGoalsRoute(category: value));
 
   @override
@@ -44,7 +44,7 @@ class SelectGoalsCategoryPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 21.0),
                     GoalsCategoriesList(
-                      onPressed: (SmartGoalsCategory value) => _onCategoryPressedHandler(context, value),
+                      onPressed: (SmartGoalCategory value) => _onCategoryPressedHandler(context, value),
                     ),
                   ],
                 ),
