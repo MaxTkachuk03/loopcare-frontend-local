@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
@@ -30,7 +32,9 @@ class GoalsList extends StatelessWidget {
 class _EmptyGoalsList extends StatelessWidget {
   const _EmptyGoalsList();
 
-  void _onChooseGoalsHanler() {}
+  void _onChooseGoalsHanler(BuildContext context) {
+    context.router.pushNamed(AppRoutes.setWeeklyGoals);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +50,7 @@ class _EmptyGoalsList extends StatelessWidget {
         ),
         CustomElevatedButton.greenSmall(
           label: LocalizedTexts.chooseGoalsForUpcomingDays.tr(),
-          onPressed: _onChooseGoalsHanler,
+          onPressed: () => _onChooseGoalsHanler(context),
         ),
       ],
     );

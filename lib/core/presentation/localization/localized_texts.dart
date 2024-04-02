@@ -989,6 +989,13 @@ class LocalizedTexts {
   static const String myGoals = 'myGoals';
   static const String noGoalsSelected = 'noGoalsSelected';
   static const String chooseGoalsForUpcomingDays = 'chooseGoalsForUpcomingDays';
+  static const String upcomingGoals = 'upcomingGoals';
+  static const String upcomingGoalsTitle = 'upcomingGoalsTitle';
+  static const String upcomingGoalsDescription = 'upcomingGoalsDescription';
+  static const String addGoal = 'addGoal';
+  static const String confirmGoals = 'confirmGoals';
+  static const String selectGoalsCategoryTitle = 'selectGoalsCategoryTitle';
+  static const String selectGoalsTitle = 'selectGoalsTitle';
 }
 
 extension StringX on String {

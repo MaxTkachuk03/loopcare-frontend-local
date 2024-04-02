@@ -826,6 +826,13 @@
   "myGoals": "My goals",
   "noGoalsSelected": "No goals selected yet",
   "chooseGoalsForUpcomingDays": "Choose goals for upcoming 7 days",
+  "upcomingGoals": "Upcoming goals",
+  "upcomingGoalsTitle": "Let’s set goals",
+  "upcomingGoalsDescription": "You can choose up to 2 goals for the upcoming 7 days.",
+  "addGoal": "Add goal",
+  "confirmGoals": "Confirm goals",
+  "selectGoalsCategoryTitle": "Choose what kind of goal you want to work on",
+  "selectGoalsTitle": "Choose your {} goal",
 
 
 

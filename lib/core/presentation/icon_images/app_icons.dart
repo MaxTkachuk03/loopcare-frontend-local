@@ -102,6 +102,17 @@ class AppIcons {
 
   static SvgPicture emojiLonely = SvgPicture.asset('$iconsFilePath/lonely.svg', width: 30, height: 30);
 
+  static SvgPicture emojiSleep = SvgPicture.asset('$iconsFilePath/emoji_sleep.svg', width: 30, height: 30);
+  static SvgPicture emojiAlarmClock =
+      SvgPicture.asset('$iconsFilePath/emoji_alarm_clock.svg', width: 30, height: 30);
+  static SvgPicture emojiCarrot = SvgPicture.asset('$iconsFilePath/emoji_carrot.svg', width: 30, height: 30);
+  static SvgPicture emojiFlexedBiceps =
+      SvgPicture.asset('$iconsFilePath/emoji_flexed_biceps.svg', width: 30, height: 30);
+  static SvgPicture emojiPotato = SvgPicture.asset('$iconsFilePath/emoji_potato.svg', width: 30, height: 30);
+  static SvgPicture emojiButter = SvgPicture.asset('$iconsFilePath/emoji_butter.svg', width: 30, height: 30);
+  static SvgPicture emojiSweatDroplets =
+      SvgPicture.asset('$iconsFilePath/emoji_sweat_droplets.svg', width: 30, height: 30);
+
   static SvgPicture calendarWarning = SvgPicture.asset('$iconsFilePath/calendar.svg',
       colorFilter: const ColorFilter.mode(AppColors.darkGreen, BlendMode.srcIn));
 
