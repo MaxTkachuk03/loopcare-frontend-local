@@ -36,6 +36,10 @@ class SystemService {
     return SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   }
 
+  static Future<void> hideBottomSystemOverlays() async {
+    return SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.top]);
+  }
+
   static Future<void> showSystemOverlays() async {
     await SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.manual,

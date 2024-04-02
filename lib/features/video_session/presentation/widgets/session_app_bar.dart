@@ -26,7 +26,7 @@ class SessionAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: AppColors.orangeRegular,
       title: Padding(
-        padding: const EdgeInsets.only(bottom: 18.0),
+        padding: const EdgeInsets.only(bottom: 8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
