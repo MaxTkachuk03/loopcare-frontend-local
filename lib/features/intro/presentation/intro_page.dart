@@ -40,9 +40,7 @@ class _IntroPageState extends State<IntroPage> {
   void initState() {
     super.initState();
     final deviceInfoService = GetIt.instance<DeviceInfoService>();
-    //Todo Transparency request
-    // deviceInfoService.onRequestTrackingAuthorization();
-
+    deviceInfoService.onRequestTrackingAuthorization();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _initPackageInfo();
     });
