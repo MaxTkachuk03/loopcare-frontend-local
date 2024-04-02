@@ -52,7 +52,7 @@ class _AccountSectionState extends State<AccountSection> {
               SectionTitle(title: LocalizedTexts.account.tr()),
               SectionItem(
                 title: LocalizedTexts.name.tr(),
-                subTitle: state.data.accountName,
+                subTitle: state.data.nameCapitalised,
                 onPressHandler: () {},
               ),
               const Divider(height: 1.0, color: AppColors.blueLighter),
