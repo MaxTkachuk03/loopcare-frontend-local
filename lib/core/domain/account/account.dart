@@ -103,7 +103,7 @@ abstract class Account implements _$Account {
 
   bool get isOnTrial => subscription.state == SubscriptionStatus.trialPeriod;
 
-  String get nameCapitalised => name.isNotEmpty ? name.capitalizeName() : '';
+  String get nameCapitalised => name.isNotEmpty ? name.capitalizeEachWordFirstLetter() : '';
 
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 }
