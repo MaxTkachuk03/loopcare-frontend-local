@@ -42,6 +42,15 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
     setTimer();
   }
 
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      setTimer();
+    }
+  }
+
   @override
   void dispose() {
     timer?.cancel();
