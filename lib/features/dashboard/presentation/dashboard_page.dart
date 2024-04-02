@@ -198,7 +198,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (context, state) {
                               return CustomText.bitter600(
-                                '${LocalizedTexts.goodMorning.translation}, ${state.data.accountName}!',
+                                '${LocalizedTexts.goodMorning.translation}, ${state.data.nameCapitalised}!',
                                 style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
                               );
                             },
