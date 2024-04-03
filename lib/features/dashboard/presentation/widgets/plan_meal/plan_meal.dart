@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
@@ -81,7 +82,7 @@ class _PlanMealState extends State<PlanMeal> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                LocalizedTexts.planYourMeals.translation,
+                                LocalizedTexts.planYourMeals.tr(),
                                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                                       fontFamily: ThemeConstants.bitterFontFamily,
                                       color: state.isPossibleToPlanMeal
@@ -92,8 +93,8 @@ class _PlanMealState extends State<PlanMeal> {
                               if (currentPlannedMeals.isEmpty)
                                 Text(
                                   state.isPossibleToPlanMeal
-                                      ? LocalizedTexts.noMealsPlannedYet.translation
-                                      : LocalizedTexts.noMealsPlanned.translation,
+                                      ? LocalizedTexts.noMealsPlannedYet.tr()
+                                      : LocalizedTexts.noMealsPlanned.tr(),
                                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                         color: state.isPossibleToPlanMeal
                                             ? AppColors.darkGreen

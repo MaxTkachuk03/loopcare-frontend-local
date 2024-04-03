@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
@@ -239,7 +238,7 @@ class CustomOutlinedButtonWithIcon extends StatelessWidget {
       onPressed: onPressed,
       icon: icon,
       style: styles,
-      label: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis).tr(),
+      label: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
     );
   }
 }

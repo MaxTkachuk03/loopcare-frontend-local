@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -31,7 +32,7 @@ class DishListItem extends StatelessWidget {
                   style: context.textTheme.bodySmall,
                 ),
                 CustomText.w400(
-                  '${dishItem.numberOfServings} ${LocalizedTexts.serving.translation}',
+                  '${dishItem.numberOfServings} ${LocalizedTexts.serving.tr()}',
                   style: context.textTheme.bodySmall,
                 ),
               ],

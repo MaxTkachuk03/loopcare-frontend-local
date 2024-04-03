@@ -116,7 +116,7 @@ class NextLesson extends StatelessWidget {
                                                 ],
                                               ),
                                             )
-                                          : CustomText.w700(LocalizedTexts.locked,
+                                          : CustomText.w700(LocalizedTexts.locked.tr(),
                                               style: context.textTheme.bodySmall),
                                     ],
                                   )),

@@ -65,7 +65,7 @@ class SelectedListItem extends StatelessWidget {
             const SizedBox(width: 6),
             Column(
               children: [
-                CustomText.w400(LocalizedTexts.amount.translation, style: context.textTheme.bodySmall),
+                CustomText.w400(LocalizedTexts.amount.tr(), style: context.textTheme.bodySmall),
                 Expanded(
                   child: Center(
                     child: ServingInputField(
@@ -80,7 +80,7 @@ class SelectedListItem extends StatelessWidget {
             const SizedBox(width: 6),
             Column(
               children: [
-                CustomText.w400(LocalizedTexts.calories.translation, style: context.textTheme.bodySmall),
+                CustomText.w400(LocalizedTexts.calories.tr(), style: context.textTheme.bodySmall),
                 Expanded(
                   child: Center(
                     child: BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(

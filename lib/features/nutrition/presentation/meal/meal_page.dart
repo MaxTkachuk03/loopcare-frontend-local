@@ -70,7 +70,7 @@ class _MealPageState extends State<MealPage> {
     if (mealId == null || mealCategory == null) return;
 
     if (state.isContainsRecipeOrDish) {
-      context.showError(content: Text(LocalizedTexts.invalidCreateDishFromMealMessage.translation));
+      context.showError(content: Text(LocalizedTexts.invalidCreateDishFromMealMessage.tr()));
       return;
     }
 
@@ -104,7 +104,7 @@ class _MealPageState extends State<MealPage> {
       'meal_screen_type_${currentMealCategory.replaceAll(' ', '_').replaceFirst('&', 'and')}',
     );
 
-    return '${currentMealCategory.capitalizeOnlyFirstLetter()}${state.isPlanningMeals ? '' : ' ${LocalizedTexts.logList.translation}'}';
+    return '${currentMealCategory.capitalizeOnlyFirstLetter()}${state.isPlanningMeals ? '' : ' ${LocalizedTexts.logList.tr()}'}';
   }
 
   String get _appBarSubTitle {
@@ -323,14 +323,14 @@ class _MealPageState extends State<MealPage> {
                                     children: [
                                       Expanded(
                                         child: CustomOutlinedButton.blueSmall(
-                                          label: LocalizedTexts.saveToMyDishes,
+                                          label: LocalizedTexts.saveToMyDishes.tr(),
                                           onPressed: _onSaveToMyDishesHandler,
                                         ),
                                       ),
                                       const SizedBox(width: 10.0),
                                       Expanded(
                                         child: CustomOutlinedButton.blueSmall(
-                                          label: LocalizedTexts.clearMealList,
+                                          label: LocalizedTexts.clearMealList.tr(),
                                           onPressed: () => _onDeleteMealPressed(context),
                                         ),
                                       ),
@@ -344,7 +344,7 @@ class _MealPageState extends State<MealPage> {
                                           children: [
                                             Expanded(
                                               child: CustomOutlinedButton.blueSmall(
-                                                label: LocalizedTexts.recommendations,
+                                                label: LocalizedTexts.recommendations.tr(),
                                                 onPressed: () => recipeState.data.recommendationRecipe.isEmpty
                                                     ? null
                                                     : _onRecommendationsPressed(context),
@@ -367,7 +367,7 @@ class _MealPageState extends State<MealPage> {
                               CustomElevatedButton.blueFullWidth(
                                 onPressed: () => _onBackToDashboardPressed(context),
                                 //TODO confirm label text for back btn
-                                label: LocalizedTexts.backToTodayLogging,
+                                label: LocalizedTexts.backToTodayLogging.tr(),
                               ),
                               const SizedBox(height: 20.0)
                             ],

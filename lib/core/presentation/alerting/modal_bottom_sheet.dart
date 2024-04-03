@@ -115,13 +115,13 @@ class ModalBottomSheet {
                 style: context.textTheme.bodyMedium?.copyWith(color: AppColors.orangeDark),
               ),
               CustomText.w400(
-                LocalizedTexts.correctHeight,
+                LocalizedTexts.correctHeight.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 32.0),
               CustomElevatedButton.blueFullWidth(
                 onPressed: context.router.pop,
-                label: LocalizedTexts.changeYourHeight,
+                label: LocalizedTexts.changeYourHeight.tr(),
               ),
             ],
           ),
@@ -247,7 +247,7 @@ class ModalBottomSheet {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: CustomText.w600(
-                    LocalizedTexts.youExceededTimeMessage,
+                    LocalizedTexts.youExceededTimeMessage.tr(),
                     style: context.textTheme.bodyMedium?.copyWith(color: AppColors.orangeRegular),
                   ),
                 ),
@@ -255,14 +255,14 @@ class ModalBottomSheet {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: CustomText.w400(
-                    LocalizedTexts.noWorriesYouCanDoItLater,
+                    LocalizedTexts.noWorriesYouCanDoItLater.tr(),
                     style: context.textTheme.bodyMedium,
                   ),
                 ),
                 const SizedBox(height: 40.0),
                 CustomElevatedButton.blueFullWidth(
                   onPressed: onStartAgain,
-                  label: LocalizedTexts.startAgain,
+                  label: LocalizedTexts.startAgain.tr(),
                 ),
               ],
             ),
@@ -315,14 +315,14 @@ class ModalBottomSheet {
                           children: [
                             const SizedBox(height: 32.0),
                             Text(
-                              LocalizedTexts.deleteMultiDateMealModalMessage,
+                              LocalizedTexts.deleteMultiDateMealModalMessage.tr(),
                               style: Theme.of(context).textTheme.headlineSmall,
                             ).tr(namedArgs: {
                               'mealCategory': mealCategory,
                             }),
                             const SizedBox(height: 8.0),
                             Text(
-                              LocalizedTexts.deleteMultiDateMealModalExplain.translation,
+                              LocalizedTexts.deleteMultiDateMealModalExplain.tr(),
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
                             const SizedBox(height: 8.0),
@@ -336,7 +336,7 @@ class ModalBottomSheet {
                                 const SizedBox(width: 16.0),
                                 Expanded(
                                   child: Text(
-                                    LocalizedTexts.deleteMultiDateMealModalExplain2.translation,
+                                    LocalizedTexts.deleteMultiDateMealModalExplain2.tr(),
                                     style: Theme.of(context).textTheme.bodyMedium,
                                   ),
                                 ),
@@ -358,7 +358,7 @@ class ModalBottomSheet {
                                     ),
                                   ),
                               child: Text(
-                                LocalizedTexts.openDatepicker.translation,
+                                LocalizedTexts.openDatepicker.tr(),
                                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                       color: AppColors.blueDark,
                                     ),
@@ -369,7 +369,7 @@ class ModalBottomSheet {
                             ),
                             ElevatedButton(
                               onPressed: onDeleted,
-                              child: Text('${LocalizedTexts.remove.translation} $mealCategory'),
+                              child: Text('${LocalizedTexts.remove.tr()} $mealCategory'),
                             ),
                             const SizedBox(
                               height: 24.0,
@@ -429,7 +429,7 @@ class ModalBottomSheet {
                           children: [
                             const SizedBox(height: 32.0),
                             Text(
-                              LocalizedTexts.deleteMealModalMessage.translation,
+                              LocalizedTexts.deleteMealModalMessage.tr(),
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.headlineSmall,
                             ),
@@ -449,7 +449,7 @@ class ModalBottomSheet {
                                     ),
                                   ),
                               child: Text(
-                                LocalizedTexts.noCancel.translation,
+                                LocalizedTexts.noCancel.tr(),
                                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                       color: AppColors.blueDark,
                                     ),
@@ -460,7 +460,7 @@ class ModalBottomSheet {
                             ),
                             ElevatedButton(
                               onPressed: onDeleted,
-                              child: Text('${LocalizedTexts.remove.translation} $mealCategory'),
+                              child: Text('${LocalizedTexts.remove.tr()} $mealCategory'),
                             ),
                             const SizedBox(
                               height: 24.0,
@@ -551,7 +551,7 @@ class ModalBottomSheet {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        LocalizedTexts.showNutritionValue.translation,
+                        LocalizedTexts.showNutritionValue.tr(),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.w600,
                             ),
@@ -1168,7 +1168,7 @@ class ModalBottomSheet {
               ).tr(),
               const SizedBox(height: 16.0),
               Text(
-                LocalizedTexts.youAlreadyPlanned,
+                LocalizedTexts.youAlreadyPlanned.tr(),
                 style: Theme.of(context).textTheme.bodyMedium,
               ).tr(
                 namedArgs: {'mealCategory': mealCategory},
@@ -1181,7 +1181,7 @@ class ModalBottomSheet {
               ),
               const SizedBox(height: 24.0),
               Text(
-                LocalizedTexts.replaceWith,
+                LocalizedTexts.replaceWith.tr(),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: AppColors.blueDark,
                     ),

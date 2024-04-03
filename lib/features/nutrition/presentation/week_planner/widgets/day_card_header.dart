@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -27,7 +28,7 @@ class DayCardHeader extends StatelessWidget {
         ),
         if (date.isToday)
           Text(
-            LocalizedTexts.today.translation.toUpperCase(),
+            LocalizedTexts.today.tr().toUpperCase(),
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: AppColors.blueAppBar,
                   fontWeight: FontWeight.w600,

@@ -97,7 +97,7 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
                     children: [
                       const SizedBox(height: 30.0),
                       CustomText.bitter500(
-                        LocalizedTexts.whatWouldYouLikeToStartWorkingOn.translation,
+                        LocalizedTexts.whatWouldYouLikeToStartWorkingOn.tr(),
                         style: context.textTheme.displayMedium,
                       ),
                       const SizedBox(height: 28.0),
@@ -106,7 +106,7 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
                           : const ActivityTypeChips.green(),
                       const SizedBox(height: 28.0),
                       CustomText.w400(
-                        LocalizedTexts.youCanAlsoOptionally.translation,
+                        LocalizedTexts.youCanAlsoOptionally.tr(),
                         style: context.textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 28.0),

@@ -118,7 +118,7 @@ class _SelectServingPageState extends State<SelectServingPage> {
               padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
               child: CustomElevatedButton.blueFullWidth(
                 onPressed: () => _onConfirmPressed(context),
-                label: LocalizedTexts.confirm,
+                label: LocalizedTexts.confirm.tr(),
               )),
         ],
       ),
@@ -139,8 +139,8 @@ class _SelectServingPageState extends State<SelectServingPage> {
 
   String _getSnackBarText(bool isFavorite, bool hasActiveFilters) {
     return isFavorite && !hasActiveFilters
-        ? LocalizedTexts.removedFromFavorites.translation
-        : LocalizedTexts.addedToFavorites.translation;
+        ? LocalizedTexts.removedFromFavorites.tr()
+        : LocalizedTexts.addedToFavorites.tr();
   }
 
   _showSnackBar() {
@@ -206,8 +206,8 @@ class _SelectServingPageState extends State<SelectServingPage> {
     final state = context.read<FoodItemServingsBloc>().state;
 
     final title = state.selectedServingItem?.isSelectedFavorite ?? false
-        ? LocalizedTexts.removeFromFavorites.translation
-        : LocalizedTexts.addAsFavourite.translation;
+        ? LocalizedTexts.removeFromFavorites.tr()
+        : LocalizedTexts.addAsFavourite.tr();
 
     final subTitle = widget.foodItemName;
     final serving = state.selectedServingItem?.servingLabel;

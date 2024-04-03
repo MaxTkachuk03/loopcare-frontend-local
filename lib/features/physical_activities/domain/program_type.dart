@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
@@ -12,22 +13,22 @@ extension ProgramTypeX on ProgramType {
   String get label {
     switch (this) {
       case ProgramType.strength:
-        return LocalizedTexts.strength.translation.capitalize();
+        return LocalizedTexts.strength.tr().capitalize();
       case ProgramType.endurance:
-        return LocalizedTexts.endurance.translation.capitalize();
+        return LocalizedTexts.endurance.tr().capitalize();
       case ProgramType.mobility:
-        return LocalizedTexts.mobility.translation.capitalize();
+        return LocalizedTexts.mobility.tr().capitalize();
     }
   }
 
   String get title {
     switch (this) {
       case ProgramType.strength:
-        return LocalizedTexts.strengthPrograms.translation;
+        return LocalizedTexts.strengthPrograms.tr();
       case ProgramType.endurance:
-        return LocalizedTexts.endurance.translation;
+        return LocalizedTexts.endurance.tr();
       case ProgramType.mobility:
-        return LocalizedTexts.mobility.translation;
+        return LocalizedTexts.mobility.tr();
     }
   }
 

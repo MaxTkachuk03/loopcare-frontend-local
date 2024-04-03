@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
@@ -104,7 +105,7 @@ class RecommendationCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: SummaryItem(
-                        label: LocalizedTexts.cookingTime.translation,
+                        label: LocalizedTexts.cookingTime.tr(),
                         icon: AppIcons.clockGrey,
                         quantity: '${recommendation.cookingTimeMin}',
                         quantityLabel: 'min',
@@ -113,7 +114,7 @@ class RecommendationCard extends StatelessWidget {
                     const SizedBox(width: 20.0),
                     Expanded(
                       child: SummaryItem(
-                        label: LocalizedTexts.preparationTime.translation,
+                        label: LocalizedTexts.preparationTime.tr(),
                         icon: AppIcons.clockGrey,
                         quantity: '${recommendation.preparationTimeMin}',
                         quantityLabel: 'min',

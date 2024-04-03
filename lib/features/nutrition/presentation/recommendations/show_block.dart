@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -22,9 +23,10 @@ class ShowBlock extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Text(
-              LocalizedTexts.show.translation,
+              LocalizedTexts.show.tr(),
               textAlign: TextAlign.end,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 14.0, color: AppColors.blueDark),
+              style:
+                  Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 14.0, color: AppColors.blueDark),
             ),
           ),
           const SizedBox(

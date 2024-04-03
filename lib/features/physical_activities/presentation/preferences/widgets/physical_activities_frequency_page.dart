@@ -111,7 +111,7 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
                     children: [
                       const SizedBox(height: 30.0),
                       CustomText.bitter500(
-                        LocalizedTexts.physicalActivitiesFrequencyTitle.translation,
+                        LocalizedTexts.physicalActivitiesFrequencyTitle.tr(),
                         style: context.textTheme.displayMedium,
                       ),
                       const SizedBox(height: 28.0),

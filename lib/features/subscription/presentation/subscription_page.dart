@@ -138,11 +138,13 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
             context: context,
             onSubscriptionPref: Platform.isIOS
                 ? () {
-                    launchUrl(Uri.parse(appConfig.appStoreSettingsLink), mode: LaunchMode.externalApplication);
+                    launchUrl(Uri.parse(appConfig.appStoreSettingsLink),
+                        mode: LaunchMode.externalApplication);
                     context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout());
                   }
                 : () {
-                    launchUrl(Uri.parse(appConfig.playMarketSettingsLink), mode: LaunchMode.externalApplication);
+                    launchUrl(Uri.parse(appConfig.playMarketSettingsLink),
+                        mode: LaunchMode.externalApplication);
                     context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout());
                   })
         : _showPopover();
@@ -163,7 +165,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
           actions: [
             TextButton(
               onPressed: () => context.router.pop(),
-              child: Text(LocalizedTexts.ok.toUpperCase()),
+              child: Text(LocalizedTexts.ok.tr().toUpperCase()),
             ),
           ],
         ),
@@ -178,7 +180,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
         actions: [
           TextButton(
             onPressed: () => context.router.pop(),
-            child: Text(LocalizedTexts.ok.toUpperCase()),
+            child: Text(LocalizedTexts.ok.tr().toUpperCase()),
           ),
         ],
       ),

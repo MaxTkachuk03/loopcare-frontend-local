@@ -49,7 +49,7 @@ class _HappinessContentState extends State<HappinessContent> {
           children: [
             const SizedBox(height: 50.0),
             CustomText.bitter600(
-              LocalizedTexts.happinessTitle,
+              LocalizedTexts.happinessTitle.tr(),
               textAlign: TextAlign.center,
               style: context.textTheme.displayMedium,
             ),
@@ -79,10 +79,10 @@ class _HappinessContentState extends State<HappinessContent> {
       button: ValueListenableBuilder<MoodPickerListItem?>(
         valueListenable: _selectMood,
         builder: (context, mood, _) {
-          final enable =  mood != null;
+          final enable = mood != null;
 
           return CustomElevatedButton.blueFullWidth(
-            onPressed: enable? _onNextPressed : null,
+            onPressed: enable ? _onNextPressed : null,
             label: LocalizedTexts.next.tr(),
           );
         },
@@ -91,7 +91,9 @@ class _HappinessContentState extends State<HappinessContent> {
   }
 
   void _onNextPressed() {
-    context.read<PhysicalQuestionsBloc>().add(PhysicalQuestionsEvent.happinessChanged(_selectMood.value!.value));
+    context
+        .read<PhysicalQuestionsBloc>()
+        .add(PhysicalQuestionsEvent.happinessChanged(_selectMood.value!.value));
     context.read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.nextStep());
   }
 }

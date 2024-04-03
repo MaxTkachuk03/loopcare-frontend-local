@@ -54,7 +54,7 @@ class SignUpWelcomePage extends StatelessWidget {
           ),
           button: CustomElevatedButton.blueFullWidth(
             key: const ValueKey('lets_go_button'),
-            label: LocalizedTexts.letsGo,
+            label: LocalizedTexts.letsGo.tr(),
             onPressed: () => _onNextPressed(context),
           ),
         ),

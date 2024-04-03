@@ -25,7 +25,7 @@ class MentalHealthIntroContent extends StatelessWidget {
           children: [
             const SizedBox(height: 24.0),
             CustomText.bitter600(
-              LocalizedTexts.yourMentalHealth,
+              LocalizedTexts.yourMentalHealth.tr(),
               style: context.textTheme.displayMedium,
             ),
             const SizedBox(height: 28.0),
@@ -77,12 +77,10 @@ class MentalHealthIntroContent extends StatelessWidget {
     );
   }
 
-
   _onNextPressed(BuildContext context) {
     context.read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.nextStep());
     context.read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.startTimer());
   }
 
-  _onMoreInfoPressed(BuildContext context) =>
-      ModalBottomSheet.mentalHealthMoreInfo(context: context);
+  _onMoreInfoPressed(BuildContext context) => ModalBottomSheet.mentalHealthMoreInfo(context: context);
 }

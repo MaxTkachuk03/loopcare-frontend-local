@@ -45,11 +45,11 @@ class _AssesmentBlockState extends State<AssesmentBlock> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomText.w600(
-              LocalizedTexts.veryEasy.translation,
+              LocalizedTexts.veryEasy.tr(),
               style: context.textTheme.bodySmall,
             ),
             CustomText.w600(
-              LocalizedTexts.veryHard.translation,
+              LocalizedTexts.veryHard.tr(),
               style: context.textTheme.bodySmall,
             ),
           ],

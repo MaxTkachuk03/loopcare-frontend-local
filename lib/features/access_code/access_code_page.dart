@@ -61,13 +61,13 @@ class _AccessCodePageState extends State<AccessCodePage> {
                       Container(alignment: Alignment.center, child: const Image(image: AppImages.intro3)),
                       const SizedBox(height: 28.0),
                       CustomText.bitter600(
-                        LocalizedTexts.registrationCodeTitle,
+                        LocalizedTexts.registrationCodeTitle.tr(),
                         style: context.textTheme.displayLarge,
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 20.0),
                       CustomText.w400(
-                        LocalizedTexts.registrationCodeLabel,
+                        LocalizedTexts.registrationCodeLabel.tr(),
                         style: context.textTheme.bodyMedium,
                         textAlign: TextAlign.center,
                       ),
@@ -103,7 +103,7 @@ class _AccessCodePageState extends State<AccessCodePage> {
                         builder: (context, disable, _) {
                           return CustomElevatedButton.blueFullWidth(
                             onPressed: disable ? null : () => _onRegisterPressed(context),
-                            label: LocalizedTexts.checkAccessCode,
+                            label: LocalizedTexts.checkAccessCode.tr(),
                           );
                         },
                       ),
@@ -146,7 +146,7 @@ class _AccessCodePageState extends State<AccessCodePage> {
     try {
       await launchUrl(launchUri, mode: LaunchMode.externalApplication);
     } catch (e) {
-      context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.translation));
+      context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.tr()));
     }
   }
 

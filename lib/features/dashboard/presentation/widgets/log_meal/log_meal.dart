@@ -138,7 +138,7 @@ class LogMeal extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       CustomText.w600(
-                                        LocalizedTexts.loggedMeals.translation.capitalize(),
+                                        LocalizedTexts.loggedMeals.tr().capitalize(),
                                         style: context.textTheme.bodySmall,
                                       ),
                                       const SizedBox(width: 4.0),

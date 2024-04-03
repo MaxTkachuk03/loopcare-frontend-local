@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 
 enum ProgramDifficulty {
@@ -10,11 +11,11 @@ extension ProgramDifficultyX on ProgramDifficulty {
   String get label {
     switch (this) {
       case ProgramDifficulty.easy:
-        return LocalizedTexts.easy.translation;
+        return LocalizedTexts.easy.tr();
       case ProgramDifficulty.medium:
-        return LocalizedTexts.medium.translation;
+        return LocalizedTexts.medium.tr();
       case ProgramDifficulty.hard:
-        return LocalizedTexts.hard.translation;
+        return LocalizedTexts.hard.tr();
     }
   }
 

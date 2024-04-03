@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -31,15 +32,15 @@ extension MealCategoryExtension on MealCategory {
   String get name {
     switch (this) {
       case MealCategory.breakfast:
-        return LocalizedTexts.breakfast.translation;
+        return LocalizedTexts.breakfast.tr();
       case MealCategory.lunch:
-        return LocalizedTexts.lunch.translation;
+        return LocalizedTexts.lunch.tr();
       case MealCategory.dinner:
-        return LocalizedTexts.dinner.translation;
+        return LocalizedTexts.dinner.tr();
       case MealCategory.inbetweens:
-        return LocalizedTexts.inbetweens.translation;
+        return LocalizedTexts.inbetweens.tr();
       // case MealCategory.drinks:
-      //   return LocalizedTexts.drinks.translation;
+      //   return LocalizedTexts.drinks.tr();
       default:
         return '';
     }
@@ -48,15 +49,15 @@ extension MealCategoryExtension on MealCategory {
   String? get label {
     switch (this) {
       case MealCategory.breakfast:
-        return LocalizedTexts.breakfast.translation.toLowerCase();
+        return LocalizedTexts.breakfast.tr().toLowerCase();
       case MealCategory.lunch:
-        return LocalizedTexts.lunch.translation.toLowerCase();
+        return LocalizedTexts.lunch.tr().toLowerCase();
       case MealCategory.dinner:
-        return LocalizedTexts.dinner.translation.toLowerCase();
+        return LocalizedTexts.dinner.tr().toLowerCase();
       case MealCategory.inbetweens:
-        return LocalizedTexts.inbetweens.translation.toLowerCase();
+        return LocalizedTexts.inbetweens.tr().toLowerCase();
       // case MealCategory.drinks:
-      //   return LocalizedTexts.drinks.translation.toLowerCase();
+      //   return LocalizedTexts.drinks.tr().toLowerCase();
       default:
         return null;
     }
@@ -65,15 +66,15 @@ extension MealCategoryExtension on MealCategory {
   String? get shortLabel {
     switch (this) {
       case MealCategory.breakfast:
-        return LocalizedTexts.breakfast.translation.toLowerCase();
+        return LocalizedTexts.breakfast.tr().toLowerCase();
       case MealCategory.lunch:
-        return LocalizedTexts.lunch.translation.toLowerCase();
+        return LocalizedTexts.lunch.tr().toLowerCase();
       case MealCategory.dinner:
-        return LocalizedTexts.dinner.translation.toLowerCase();
+        return LocalizedTexts.dinner.tr().toLowerCase();
       case MealCategory.inbetweens:
-        return LocalizedTexts.inbetweensShort.translation.toLowerCase();
+        return LocalizedTexts.inbetweensShort.tr().toLowerCase();
       // case MealCategory.drinks:
-      //   return LocalizedTexts.drinks.translation.toLowerCase();
+      //   return LocalizedTexts.drinks.tr().toLowerCase();
       default:
         return null;
     }

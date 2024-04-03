@@ -70,8 +70,8 @@ class BookedSessionCard extends StatelessWidget {
                     style: context.textTheme.titleMedium,
                   ),
                   CustomText.w400(
-                    LocalizedTexts.numberOfAvailableSeats.translateWithNamedArgs(
-                      {
+                    LocalizedTexts.numberOfAvailableSeats.tr(
+                      namedArgs: {
                         'number': '${groupSession.availableSeatsAmount}',
                         'totalNumber': '${groupSession.maxMemberCount}',
                       },
@@ -91,7 +91,7 @@ class BookedSessionCard extends StatelessWidget {
           ),
           const SizedBox(height: 16.0),
           CustomOutlinedButton.coralFullWidth(
-            label: LocalizedTexts.cancelBooking.translation,
+            label: LocalizedTexts.cancelBooking.tr(),
             onPressed: () => _onCancelPressed(context),
           ),
         ],

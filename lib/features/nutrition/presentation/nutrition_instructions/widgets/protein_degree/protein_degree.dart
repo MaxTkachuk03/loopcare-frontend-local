@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/protein_degree_scale_values.dart';
@@ -81,17 +82,17 @@ class ProteinDegree extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               CustomText.bitter600(
-                '${LocalizedTexts.whatIsProtein.translation}?',
+                '${LocalizedTexts.whatIsProtein.tr()}?',
                 style: context.textTheme.displayMedium,
               ),
               const SizedBox(height: 8.0),
               CustomText.w400(
-                LocalizedTexts.calorieDensityExplanationOne.translation,
+                LocalizedTexts.calorieDensityExplanationOne.tr(),
                 style: context.textTheme.bodySmall,
               ),
               const SizedBox(height: 16.0),
               CustomText.w400(
-                LocalizedTexts.calorieDensityExplanationTwo.translation,
+                LocalizedTexts.calorieDensityExplanationTwo.tr(),
                 style: context.textTheme.bodySmall,
               ),
             ],

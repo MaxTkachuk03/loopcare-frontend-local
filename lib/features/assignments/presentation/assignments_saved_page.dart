@@ -102,7 +102,7 @@ class AssignmentsSavedPage extends StatelessWidget {
                                     ),
                                     const SizedBox(height: 20.0),
                                     CustomText.w400(
-                                      LocalizedTexts.assignmentCompleteDescription,
+                                      LocalizedTexts.assignmentCompleteDescription.tr(),
                                       style: context.textTheme.bodyMedium,
                                     ),
                                   ],
@@ -120,7 +120,7 @@ class AssignmentsSavedPage extends StatelessWidget {
                     children: [
                       CustomElevatedButton.blueFullWidth(
                         onPressed: () => _onPressHandler(context),
-                        label: LocalizedTexts.complete,
+                        label: LocalizedTexts.complete.tr(),
                       ),
                       const SizedBox(height: 30.0),
                     ],

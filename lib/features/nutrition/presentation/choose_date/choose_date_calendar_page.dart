@@ -64,7 +64,7 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
   _errorListener(BuildContext context, ChooseDateState state) {
     if (state.data.showSaveWarning) {
       context.showFlashBar(
-        text: LocalizedTexts.saveDateError.translation,
+        text: LocalizedTexts.saveDateError.tr(),
         leadIcon: Hexagon(
           width: 54,
           height: 54,
@@ -141,9 +141,9 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Text(
-                              LocalizedTexts.youCanChangeTheDate,
+                              LocalizedTexts.youCanChangeTheDate.tr(),
                               style: Theme.of(context).textTheme.bodyMedium,
-                            ).tr(),
+                            ),
                             const SizedBox(height: 26.0),
                             const ChooseDateCalendar(),
                             const SizedBox(height: 26.0),
@@ -161,7 +161,7 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
                                     },
                                   ),
                                 ),
-                                child: Text(LocalizedTexts.saveChanges.translation),
+                                child: Text(LocalizedTexts.saveChanges.tr()),
                               ),
                             ),
                           ],
@@ -194,11 +194,11 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
 
     context.router.pop();
     context.showSuccessBar(
-      content: Text(LocalizedTexts.changesSaved.translation),
+      content: Text(LocalizedTexts.changesSaved.tr()),
     );
 
     context.showFlashBar(
-      text: LocalizedTexts.changesSaved.translation,
+      text: LocalizedTexts.changesSaved.tr(),
       leadIcon: Hexagon(
         width: 54,
         height: 54,

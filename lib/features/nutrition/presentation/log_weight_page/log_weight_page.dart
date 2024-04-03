@@ -108,7 +108,7 @@ class _LogWeightPageState extends State<LogWeightPage> {
     return CustomScaffold.coralLightest(
       appBar: CustomAppBar.coral(
         leading: CustomFilledIconButton.leadingCoralLighter(),
-        title: _isToday ? LocalizedTexts.todaysWeight.translation : LocalizedTexts.yourWeight.translation,
+        title: _isToday ? LocalizedTexts.todaysWeight.tr() : LocalizedTexts.yourWeight.tr(),
       ),
       body: CustomSafeArea(
         child: ScrollableContainer(

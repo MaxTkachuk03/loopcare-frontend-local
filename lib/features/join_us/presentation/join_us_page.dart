@@ -66,7 +66,7 @@ class JoinUsPage extends StatelessWidget {
           ),
           button: CustomElevatedButton.blueFullWidth(
             key: const ValueKey('join_us_start_button'),
-            label: LocalizedTexts.start,
+            label: LocalizedTexts.start.tr(),
             onPressed: () => _onStartPressed(context),
           ),
         ),

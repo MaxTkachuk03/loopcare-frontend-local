@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -18,7 +19,7 @@ class FilledActivitiesList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          '${programsList.length} ${LocalizedTexts.activitiesForThisWeek.translation.toUpperCase()}',
+          '${programsList.length} ${LocalizedTexts.activitiesForThisWeek.tr().toUpperCase()}',
           style: const TextStyle(
             fontSize: 12.0,
             fontWeight: FontWeight.w600,

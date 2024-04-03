@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class GroupSessionVideoError extends StatelessWidget {
   final String? errorMessage;
@@ -40,10 +42,10 @@ class GroupSessionVideoError extends StatelessWidget {
                 width: 100,
                 child: ElevatedButton(
                   onPressed: onUpdate,
-                  child: const Text(
-                    LocalizedTexts.retry,
-                    style: TextStyle(color: AppColors.white, fontSize: 16.0),
-                  ).tr(),
+                  child: CustomText.w400(
+                    LocalizedTexts.retry.tr(),
+                    style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
+                  ),
                 ),
               ),
               const SizedBox(width: 16.0),
@@ -51,10 +53,10 @@ class GroupSessionVideoError extends StatelessWidget {
                 width: 100,
                 child: ElevatedButton(
                   onPressed: onClose,
-                  child: const Text(
-                    LocalizedTexts.close,
-                    style: TextStyle(color: AppColors.white, fontSize: 16.0),
-                  ).tr(),
+                  child: CustomText.w400(
+                    LocalizedTexts.close.tr(),
+                    style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
+                  ),
                 ),
               ),
             ],

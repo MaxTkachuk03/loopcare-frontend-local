@@ -86,7 +86,7 @@ class CustomTextField extends StatefulWidget {
       CustomTextField(
         key: key,
         maxLength: 64,
-        hintText: LocalizedTexts.nicknamePlaceholder,
+        hintText: LocalizedTexts.nicknamePlaceholder.tr(),
         controller: controller,
         validator: nameValidator(),
         keyboardType: TextInputType.name,
@@ -104,7 +104,7 @@ class CustomTextField extends StatefulWidget {
   }) =>
       CustomTextField(
         key: key,
-        hintText: LocalizedTexts.yourEmail,
+        hintText: LocalizedTexts.yourEmail.tr(),
         controller: controller,
         validator: emailValidator(),
         prefixIcon: const Icon(Icons.mail, size: 24),
@@ -122,7 +122,7 @@ class CustomTextField extends StatefulWidget {
     required TextEditingController controller,
   }) =>
       CustomTextField(
-        hintText: LocalizedTexts.buddyEmailHint,
+        hintText: LocalizedTexts.buddyEmailHint.tr(),
         controller: controller,
         validator: emailValidator(),
         keyboardType: TextInputType.emailAddress,
@@ -140,7 +140,7 @@ class CustomTextField extends StatefulWidget {
   }) =>
       CustomTextField(
         key: key,
-        hintText: LocalizedTexts.yourEmail,
+        hintText: LocalizedTexts.yourEmail.tr(),
         controller: controller,
         validator: emailValidator(),
         prefixIcon: const Icon(Icons.mail, size: 24),
@@ -158,7 +158,7 @@ class CustomTextField extends StatefulWidget {
   }) =>
       CustomTextField(
         key: key,
-        hintText: LocalizedTexts.yourPassword,
+        hintText: LocalizedTexts.yourPassword.tr(),
         controller: controller,
         validator: loginPasswordValidator(),
         autofillHints: const [AutofillHints.password],
@@ -173,7 +173,7 @@ class CustomTextField extends StatefulWidget {
   }) =>
       CustomTextField(
         key: key,
-        hintText: LocalizedTexts.yourEmail,
+        hintText: LocalizedTexts.yourEmail.tr(),
         controller: controller,
         keyboardType: TextInputType.emailAddress,
         autofillHints: const [AutofillHints.email],
@@ -186,7 +186,7 @@ class CustomTextField extends StatefulWidget {
   }) =>
       CustomTextField(
         key: key,
-        hintText: LocalizedTexts.yourPassword,
+        hintText: LocalizedTexts.yourPassword.tr(),
         controller: controller,
         keyboardType: TextInputType.visiblePassword,
         autofillHints: const [AutofillHints.password],
@@ -203,7 +203,7 @@ class CustomTextField extends StatefulWidget {
   }) =>
       CustomTextField(
         key: key,
-        hintText: LocalizedTexts.yourPassword,
+        hintText: LocalizedTexts.yourPassword.tr(),
         autofillHints: const [AutofillHints.password],
         controller: controller,
         isToggleEye: true,
@@ -247,7 +247,7 @@ class CustomTextField extends StatefulWidget {
       CustomTextField(
         key: key,
         maxLength: 64,
-        hintText: LocalizedTexts.registrationCodePlaceholder,
+        hintText: LocalizedTexts.registrationCodePlaceholder.tr(),
         controller: controller,
         validator: registrationCodeValidator(),
         keyboardType: TextInputType.number,
@@ -284,34 +284,34 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   Widget? get _suffixIcon {
-     if (widget.isToggleEye ?? false) {
-       return IconButton(
-         icon: const Icon(Icons.remove_red_eye, size: 24),
-         color: _isObscureText ? AppColors.greyRegular : AppColors.blueDarker,
-         onPressed: _toggleEye,
-       );
-     } else if (widget.isClearField ?? false) {
-       return IconButton(
-         icon: const Icon(CupertinoIcons.clear_thick_circled, size: 24),
-         color: AppColors.greyRegular,
-         onPressed: _clearField,
-       );
-     } else {
-       return const SizedBox.shrink();
-     }
+    if (widget.isToggleEye ?? false) {
+      return IconButton(
+        icon: const Icon(Icons.remove_red_eye, size: 24),
+        color: _isObscureText ? AppColors.greyRegular : AppColors.blueDarker,
+        onPressed: _toggleEye,
+      );
+    } else if (widget.isClearField ?? false) {
+      return IconButton(
+        icon: const Icon(CupertinoIcons.clear_thick_circled, size: 24),
+        color: AppColors.greyRegular,
+        onPressed: _clearField,
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 
   InputDecoration get _defaultDecoration => InputDecoration(
-    isDense: true,
-    fillColor: widget.fillColor ?? AppColors.white.withOpacity(0.7),
-    errorText: widget.errorText,
-    counterText: '',
-    errorMaxLines: 2,
-    hintText: widget.hintText.tr(),
-    prefixIcon: widget.prefixIcon,
-    suffixIcon: _suffixIcon,
-    enabled: !widget.readOnly,
-  );
+        isDense: true,
+        fillColor: widget.fillColor ?? AppColors.white.withOpacity(0.7),
+        errorText: widget.errorText,
+        counterText: '',
+        errorMaxLines: 2,
+        hintText: widget.hintText,
+        prefixIcon: widget.prefixIcon,
+        suffixIcon: _suffixIcon,
+        enabled: !widget.readOnly,
+      );
 
   @override
   Widget build(BuildContext context) {

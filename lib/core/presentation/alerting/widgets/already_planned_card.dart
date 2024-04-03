@@ -46,7 +46,7 @@ class AlreadyPlannedCard extends StatelessWidget {
                   ),
                 if (!active)
                   Text(
-                    LocalizedTexts.alreadyPlannedCategory,
+                    LocalizedTexts.alreadyPlannedCategory.tr(),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.greyLabel),
                   ).tr(
                     namedArgs: {'mealCategory': mealCategory.toUpperCase()},

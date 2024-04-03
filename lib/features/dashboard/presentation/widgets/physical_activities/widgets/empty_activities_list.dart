@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -24,7 +25,7 @@ class EmptyActivitiesList extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  LocalizedTexts.physicalActivitiesNoActivities.translation,
+                  LocalizedTexts.physicalActivitiesNoActivities.tr(),
                   style: const TextStyle(
                     fontSize: 14.0,
                     fontWeight: FontWeight.w600,
@@ -32,7 +33,7 @@ class EmptyActivitiesList extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  LocalizedTexts.physicalActivitiesFrequencyZero.translation,
+                  LocalizedTexts.physicalActivitiesFrequencyZero.tr(),
                   style: const TextStyle(
                     fontSize: 14.0,
                     fontWeight: FontWeight.w600,
