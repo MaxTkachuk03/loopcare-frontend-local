@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_response.dart';
 
 abstract class SmartGoalsService {
-  Future<Either<RequestError, GetGoalsResponse>> getGoals();
+  Future<Either<RequestError, GetGoalsResponse>> getGoals({required int categoryId});
 
   Future<Either<RequestError, GetGoalsCategoriesResponse>> getGoalsCategories();
 }

@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal_category.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/goals_list.dart';
 
 class SelectGoalsPage extends StatelessWidget {
   final SmartGoalCategory category;
@@ -21,7 +22,6 @@ class SelectGoalsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(category);
     return CustomScaffold.greenLightest(
       appBar: CustomAppBar.green(
         title: LocalizedTexts.addGoal.tr(),
@@ -43,6 +43,7 @@ class SelectGoalsPage extends StatelessWidget {
                       style: context.textTheme.displayMedium,
                     ),
                     const SizedBox(height: 26.0),
+                    GoalsList(categoryId: category.id),
                   ],
                 ),
                 Padding(

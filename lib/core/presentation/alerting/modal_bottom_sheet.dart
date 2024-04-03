@@ -215,8 +215,9 @@ class ModalBottomSheet {
                   const SizedBox(height: 12.0),
                   CustomOutlinedButton.blueFullWidth(
                     onPressed: noActiveSubscription ? onDeleted : onSubscriptionPref,
-                    label:
-                        noActiveSubscription ? LocalizedTexts.yesDelete.tr() : LocalizedTexts.manageSubscription.tr(),
+                    label: noActiveSubscription
+                        ? LocalizedTexts.yesDelete.tr()
+                        : LocalizedTexts.manageSubscription.tr(),
                   )
                 ],
               ),
@@ -1294,6 +1295,59 @@ class ModalBottomSheet {
                     label: LocalizedTexts.buddyNotNeedAnotherBuddy.tr(),
                   ),
                   const SizedBox(height: 12.0),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  static void goalFunFact({
+    required BuildContext context,
+    required String title,
+    required String content,
+  }) {
+    showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      builder: (BuildContext context) {
+        return FractionallySizedBox(
+          heightFactor: 0.9,
+          child: ScrollableContainer(
+            child: MainContainer(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Column(
+                    children: [
+                      CustomText.bitter600(title, style: context.textTheme.displayMedium),
+                      const SizedBox(height: 45),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const CircleAvatar(
+                            radius: 22.0,
+                            backgroundColor: AppColors.greenRegular,
+                            child: Icon(Icons.emoji_objects_rounded),
+                          ),
+                          const SizedBox(width: 16.0),
+                          Expanded(child: CustomText.w400(content, style: context.textTheme.bodyMedium)),
+                        ],
+                      ),
+                      const SizedBox(height: 45),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 30.0),
+                    child: CustomElevatedButton.blueFullWidth(
+                      label: LocalizedTexts.ok.tr().toUpperCase(),
+                      onPressed: context.router.pop,
+                    ),
+                  ),
                 ],
               ),
             ),

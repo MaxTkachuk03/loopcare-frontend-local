@@ -1,14 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/smart_goals/widgets/goals_list.dart';
-import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/smart_goals/widgets/dashboard_goals_list.dart';
 
 class DashboardSmartGoals extends StatelessWidget {
   const DashboardSmartGoals({super.key});
@@ -46,7 +43,7 @@ class DashboardSmartGoals extends StatelessWidget {
           ),
           const SizedBox(height: 8.0),
           const Divider(color: AppColors.blueOffRegular),
-          const GoalsList(),
+          const DashboardGoalsList(),
         ],
       ),
     );

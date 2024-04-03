@@ -9,7 +9,7 @@ class SmartGoalCategory with _$SmartGoalCategory {
 
   const factory SmartGoalCategory({
     required int id,
-    required int externalId,
+    required String externalId,
     @Default('') String image,
     @Default('') String name,
     @Default(false) bool isUnlocked,

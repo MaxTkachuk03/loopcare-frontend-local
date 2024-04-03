@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
+import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_categories_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal_category.dart';
 
 class GoalsCategoriesList extends StatefulWidget {
@@ -20,11 +20,11 @@ class _GoalsCategoriesListState extends State<GoalsCategoriesList> {
   void initState() {
     super.initState();
 
-    context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.getGoalsCategories());
+    context.read<SmartGoalsCategoriesBloc>().add(const SmartGoalsCategoriesEvent.getCategories());
   }
 
   void _onErrorRetryHandler() {
-    context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.getGoalsCategories());
+    context.read<SmartGoalsCategoriesBloc>().add(const SmartGoalsCategoriesEvent.getCategories());
   }
 
   @override
@@ -33,7 +33,7 @@ class _GoalsCategoriesListState extends State<GoalsCategoriesList> {
       builder: (BuildContext context, BoxConstraints constraints) {
         final width = constraints.maxWidth / 2 - 5;
 
-        return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
+        return BlocBuilder<SmartGoalsCategoriesBloc, SmartGoalsCategoriesState>(
           builder: (context, state) {
             return state.maybeMap(
               goalsCategoriesLoading: (_) => const Loader(),
@@ -51,7 +51,8 @@ class _GoalsCategoriesListState extends State<GoalsCategoriesList> {
                           width: width,
                           child: CustomChoiceChip.emoji(
                             label: e.name,
-                            avatar: Text(e.image),
+                            avatar: Text(e
+                                .image), // use when images will be on the server  NetworkImageWithCache(url: e.image),
                             selected: false,
                             value: e,
                             onSelected: e.isUnlocked ? widget.onPressed : null,

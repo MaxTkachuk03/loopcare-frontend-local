@@ -10,20 +10,21 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 
-class GoalsList extends StatelessWidget {
-  const GoalsList({super.key});
+class DashboardGoalsList extends StatelessWidget {
+  const DashboardGoalsList({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
       builder: (context, state) {
         return state.maybeMap(
-            loading: (_) => const Loader(),
-            orElse: () {
-              if (state.data.noGoalsSelected) return const _EmptyGoalsList();
+          loading: (_) => const Loader(),
+          orElse: () {
+            if (state.data.noGoalsSelected) return const _EmptyGoalsList();
 
-              return Text('filler');
-            });
+            return Text('filler');
+          },
+        );
       },
     );
   }
