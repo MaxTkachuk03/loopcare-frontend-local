@@ -16,6 +16,7 @@ class DishFoodItem with _$DishFoodItem {
     @Default('') String? brandName,
     required double calorieDensity,
     required double proteinDegree,
+    required bool excludedFromCalculations,
     required ServingSize serving,
   }) = _DishFoodItem;
 

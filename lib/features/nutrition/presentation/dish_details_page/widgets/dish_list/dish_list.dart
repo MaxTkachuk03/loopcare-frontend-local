@@ -38,6 +38,7 @@ class DishList extends StatelessWidget {
             foodDescription: null,
             serving: item.serving,
           ),
+          excludedFromCalculations: item.excludedFromCalculations,
           nutritionKey: nutritionKey,
           onDeletePressed: onDeleteHandler,
           onTap: (BuildContext context) => onListItemTapHandler(
