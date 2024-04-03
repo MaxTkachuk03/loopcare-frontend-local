@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutri
 class FoodListItem extends StatelessWidget {
   final String nutritionKey;
   final FoodItem foodItem;
+  final bool excludedFromCalculations;
   final void Function(BuildContext context)? onTap;
   final void Function(BuildContext context, FoodItem item)? onDeletePressed;
 
@@ -23,23 +24,24 @@ class FoodListItem extends StatelessWidget {
     required this.foodItem,
     this.onDeletePressed,
     this.onTap,
+    this.excludedFromCalculations = false,
   });
 
-  @override
-  Widget build(BuildContext context) {
-    final NutritionItem currentNutritionFact =
-        foodItem.serving.list.firstWhere((element) => element.key == nutritionKey);
+  NutritionItem get currentNutritionFact =>
+      foodItem.serving.list.firstWhere((element) => element.key == nutritionKey);
 
-    String label;
-
+  String get label {
     if (foodItem.foodType == MealItemType.recipe) {
       label = LocalizedTexts.recipe.tr();
     } else if (foodItem.foodType == MealItemType.dish) {
       label = LocalizedTexts.myDish.tr();
     } else {
-      label = foodItem.brandName ?? '';
+      return foodItem.brandName ?? '';
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       height: 70,
@@ -61,7 +63,9 @@ class FoodListItem extends StatelessWidget {
                     ),
                   CircleAvatar(
                     radius: 5,
-                    backgroundColor: getCalorieDensityColor(foodItem.calorieDensity),
+                    backgroundColor: excludedFromCalculations
+                        ? AppColors.grey
+                        : getCalorieDensityColor(foodItem.calorieDensity),
                   ),
                 ],
               ),

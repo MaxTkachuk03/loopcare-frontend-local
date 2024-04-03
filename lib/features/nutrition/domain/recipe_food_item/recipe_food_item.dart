@@ -19,6 +19,5 @@ abstract class RecipeFoodItem implements _$RecipeFoodItem {
     required ServingSize serving,
   }) = _RecipeFoodItem;
 
-  factory RecipeFoodItem.fromJson(Map<String, dynamic> json) =>
-      _$RecipeFoodItemFromJson(json);
+  factory RecipeFoodItem.fromJson(Map<String, dynamic> json) => _$RecipeFoodItemFromJson(json);
 }
