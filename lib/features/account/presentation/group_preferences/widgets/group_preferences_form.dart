@@ -63,7 +63,7 @@ class GroupPreferencesForm extends StatelessWidget {
                         const DividerLight(),
                         const SizedBox(height: 16.0),
                         TappedItem(
-                          title: LocalizedTexts.yourNickname,
+                          title: LocalizedTexts.yourNickname.tr(),
                           subTitle: s.data.nickname ?? '',
                           onPressHandler: () => _onNicknamePreferencesTap(context),
                         ),
@@ -91,7 +91,7 @@ class GroupPreferencesForm extends StatelessWidget {
                       if (showGenderPreference) const DividerLight(),
                       const SizedBox(height: 16.0),
                       TappedItem(
-                        title: LocalizedTexts.timezone,
+                        title: LocalizedTexts.timezone.tr(),
                         subTitle: s.data.timezone ?? '',
                         onPressHandler: () => _onTimezoneTap(context),
                       ),
@@ -99,7 +99,7 @@ class GroupPreferencesForm extends StatelessWidget {
                       const DividerLight(),
                       const SizedBox(height: 16.0),
                       TappedItem(
-                        title: LocalizedTexts.yourNickname,
+                        title: LocalizedTexts.yourNickname.tr(),
                         subTitle: s.data.nickname ?? '',
                         onPressHandler: () => _onNicknamePreferencesTap(context),
                       ),
@@ -127,19 +127,22 @@ class GroupPreferencesForm extends StatelessWidget {
 
   void _onGenderPreferencesTap(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..read<GroupPreferencesBloc>()
+          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
       ..router.push(GenderPreferencesRoute(fromLessonComplete: false));
   }
 
   void _onTimezoneTap(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..read<GroupPreferencesBloc>()
+          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
       ..router.push(TimezonePreferencesRoute(fromLessonComplete: false));
   }
 
   void _onNicknamePreferencesTap(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
+      ..read<GroupPreferencesBloc>()
+          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
       ..router.push(NicknamePreferencesRoute(fromLessonComplete: false));
   }
 

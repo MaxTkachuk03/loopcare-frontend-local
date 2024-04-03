@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -64,7 +65,7 @@ class RecommendationsPage extends StatelessWidget {
                   child: Column(
                     children: [
                       CustomAppBar.green(
-                        title: LocalizedTexts.recommended.translation,
+                        title: LocalizedTexts.recommended.tr(),
                         subtitle: '${mealCategory.capitalize()} ${date.shortDate}',
                       ),
                       SizedBox(
@@ -83,7 +84,7 @@ class RecommendationsPage extends StatelessWidget {
                             MainContainer(
                               child: ElevatedButton(
                                 onPressed: () => _onSkipPressed(context),
-                                child: Text(LocalizedTexts.skip.translation),
+                                child: Text(LocalizedTexts.skip.tr()),
                               ),
                             ),
                             const SizedBox(height: 20.0)
@@ -102,7 +103,7 @@ class RecommendationsPage extends StatelessWidget {
                 child: Column(
                   children: [
                     CustomAppBar.green(
-                      title: LocalizedTexts.recommended.translation,
+                      title: LocalizedTexts.recommended.tr(),
                       subtitle: '${mealCategory.capitalize()} ${date.shortDate}',
                     ),
                     Column(
@@ -111,7 +112,7 @@ class RecommendationsPage extends StatelessWidget {
                         MainContainer(
                           child: ElevatedButton(
                             onPressed: () => _onSkipPressed(context),
-                            child: Text(LocalizedTexts.skip.translation),
+                            child: Text(LocalizedTexts.skip.tr()),
                           ),
                         ),
                         const SizedBox(height: 20.0)

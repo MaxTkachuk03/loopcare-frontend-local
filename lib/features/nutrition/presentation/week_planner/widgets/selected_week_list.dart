@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:collection/collection.dart';
@@ -53,9 +54,9 @@ class SelectedWeekList extends StatelessWidget {
           showDialog<String>(
             context: context,
             builder: (BuildContext context) => InformationDialog(
-              content: LocalizedTexts.existMealText.translation,
-              okText: LocalizedTexts.createNew.translation.toUpperCase(),
-              cancelText: LocalizedTexts.updateExist.translation.toUpperCase(),
+              content: LocalizedTexts.existMealText.tr(),
+              okText: LocalizedTexts.createNew.tr().toUpperCase(),
+              cancelText: LocalizedTexts.updateExist.tr().toUpperCase(),
               onOkHandler: () {
                 createPlannedMeal(context, item, mealsBloc.state.getCurrentDate);
               },

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -33,7 +34,8 @@ class NutritionValuesBlock extends StatelessWidget {
     if (nutritionValuesList.isEmpty) {
       return const SizedBox.shrink();
     }
-    final nutritionItem = nutritionValuesList.firstWhere((element) => element.key == selectedNutritionType.name);
+    final nutritionItem =
+        nutritionValuesList.firstWhere((element) => element.key == selectedNutritionType.name);
     final totalValue = (numberOfPortions * nutritionItem.value).toStringAsFixed(2);
 
     return Container(
@@ -52,7 +54,7 @@ class NutritionValuesBlock extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText.w400(
-                LocalizedTexts.ingredientsBasedOn.translation.toUpperCase(),
+                LocalizedTexts.ingredientsBasedOn.tr().toUpperCase(),
                 style: context.textTheme.bodySmall?.copyWith(
                   fontSize: ThemeConstants.fontSize12,
                 ),
@@ -64,7 +66,7 @@ class NutritionValuesBlock extends StatelessWidget {
                 ),
               if (isPortionsEditable == null)
                 CustomText.w600(
-                  LocalizedTexts.portionMeal.translateWithNamedArgs({'numberOfPortion': '$numberOfPortions'}),
+                  LocalizedTexts.portionMeal.tr(namedArgs: {'numberOfPortion': '$numberOfPortions'}),
                   style: context.textTheme.bodySmall?.copyWith(
                     fontSize: ThemeConstants.fontSize12,
                   ),
@@ -77,7 +79,7 @@ class NutritionValuesBlock extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 CustomText.w400(
-                  '${LocalizedTexts.total.translation.toUpperCase()} ${selectedNutritionType.name.toUpperCase()}',
+                  '${LocalizedTexts.total.tr().toUpperCase()} ${selectedNutritionType.name.toUpperCase()}',
                   style: context.textTheme.bodySmall?.copyWith(
                     fontSize: ThemeConstants.fontSize12,
                   ),

@@ -33,9 +33,9 @@ class FoodListItem extends StatelessWidget {
     String label;
 
     if (foodItem.foodType == MealItemType.recipe) {
-      label = LocalizedTexts.recipe.translation;
+      label = LocalizedTexts.recipe.tr();
     } else if (foodItem.foodType == MealItemType.dish) {
-      label = LocalizedTexts.myDish.translation;
+      label = LocalizedTexts.myDish.tr();
     } else {
       label = foodItem.brandName ?? '';
     }
@@ -91,7 +91,8 @@ class FoodListItem extends StatelessWidget {
               const SizedBox(width: 6.0),
               Row(
                 children: [
-                  CustomText.w400('${currentNutritionFact.value.toStringAsFixed(2)} ${LocalizedTexts.kcal.tr()}',
+                  CustomText.w400(
+                      '${currentNutritionFact.value.toStringAsFixed(2)} ${LocalizedTexts.kcal.tr()}',
                       style: context.textTheme.bodySmall),
                   if (onTap != null)
                     const SizedBox(

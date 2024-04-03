@@ -18,7 +18,7 @@ class SubscribeButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
           child: CustomElevatedButton.coralFullWidth(
               onPressed: isEnableSubscribe ? controller.onSubscribe : null,
-              label: LocalizedTexts.subscriptionSubscribe),
+              label: LocalizedTexts.subscriptionSubscribe.tr()),
         );
       },
     );

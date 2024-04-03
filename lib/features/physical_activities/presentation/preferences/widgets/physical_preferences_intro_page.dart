@@ -94,7 +94,7 @@ class PhysicalPreferencesIntroPage extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 30.0),
                   child: CustomElevatedButton.blueFullWidth(
                     onPressed: () => _onStart(context),
-                    label: LocalizedTexts.start,
+                    label: LocalizedTexts.start.tr(),
                   ),
                 ),
               ],

@@ -56,7 +56,7 @@ class Summary extends StatelessWidget {
                         Row(
                           children: [
                             SummaryItem(
-                              label: LocalizedTexts.cookingTime.translation,
+                              label: LocalizedTexts.cookingTime.tr(),
                               icon: AppIcons.clockGrey,
                               quantity: '${s.recipe.cookingTimeMin}',
                               quantityLabel: 'min',
@@ -65,7 +65,7 @@ class Summary extends StatelessWidget {
                               width: 20.0,
                             ),
                             SummaryItem(
-                              label: LocalizedTexts.preparation.translation,
+                              label: LocalizedTexts.preparation.tr(),
                               icon: AppIcons.clockGrey,
                               quantity: '${s.recipe.preparationTimeMin}',
                               quantityLabel: 'min',
@@ -74,7 +74,7 @@ class Summary extends StatelessWidget {
                               width: 30.0,
                             ),
                             SummaryItem(
-                              label: LocalizedTexts.portions.translation,
+                              label: LocalizedTexts.portions.tr(),
                               icon: const Icon(
                                 Icons.person_outline_rounded,
                                 color: AppColors.blueDarker,
@@ -94,7 +94,7 @@ class Summary extends StatelessWidget {
                   const SizedBox(height: 20.0),
                   MainContainer(
                     child: CustomOutlinedButton.blueSmall(
-                      label: LocalizedTexts.addToMyDishes.translation,
+                      label: LocalizedTexts.addToMyDishes.tr(),
                       onPressed: onAddToDishPress,
                     ),
                   ),

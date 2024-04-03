@@ -75,13 +75,13 @@ class _TimeslotCardState extends State<TimeslotCard> {
       );
 
   String get description => _type.map(
-        available: (_) => LocalizedTexts.numberOfAvailableSeats.translateWithNamedArgs({
+        available: (_) => LocalizedTexts.numberOfAvailableSeats.tr(namedArgs: {
           'number': '${widget.groupSession.availableSeatsAmount}',
           'totalNumber': '${widget.groupSession.maxMemberCount}',
         }),
-        passed: (_) => LocalizedTexts.passedSession.translation,
-        cancelled: (_) => LocalizedTexts.cancelledSession.translation,
-        full: (_) => LocalizedTexts.noMoreSeatAvailable.translation,
+        passed: (_) => LocalizedTexts.passedSession.tr(),
+        cancelled: (_) => LocalizedTexts.cancelledSession.tr(),
+        full: (_) => LocalizedTexts.noMoreSeatAvailable.tr(),
       );
 
   @override

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -24,7 +25,7 @@ class GroupedMealList extends StatelessWidget {
         final item = mealItems[index];
         final type = item.type;
 
-        final recipeNotation = type == MealItemType.recipe ? ' (${LocalizedTexts.recipe.translation})' : '';
+        final recipeNotation = type == MealItemType.recipe ? ' (${LocalizedTexts.recipe.tr()})' : '';
 
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,

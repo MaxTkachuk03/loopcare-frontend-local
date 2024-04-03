@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
@@ -226,7 +227,7 @@ class _SearchResultListState extends State<SearchResultList> {
                   if (index == 0) {
                     // return the header
                     return SearchListTitleItem(
-                      text: LocalizedTexts.recentSearch.translation,
+                      text: LocalizedTexts.recentSearch.tr(),
                     );
                   }
 

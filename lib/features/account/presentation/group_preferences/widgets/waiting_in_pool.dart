@@ -55,7 +55,7 @@ class _WaitingInPoolState extends State<WaitingInPool> {
 
                     return RichText(
                       text: TextSpan(
-                        text: '${LocalizedTexts.weAreLookingForAGroupSince.translation}\n',
+                        text: '${LocalizedTexts.weAreLookingForAGroupSince.tr()}\n',
                         style: Theme.of(context).textTheme.bodyMedium,
                         children: <TextSpan>[
                           TextSpan(

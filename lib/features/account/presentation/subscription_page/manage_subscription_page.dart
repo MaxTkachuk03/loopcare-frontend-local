@@ -142,7 +142,7 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
           actions: [
             TextButton(
               onPressed: () => context.router.pop(),
-              child: Text(LocalizedTexts.ok.toUpperCase()),
+              child: Text(LocalizedTexts.ok.tr().toUpperCase()),
             ),
           ],
         ),

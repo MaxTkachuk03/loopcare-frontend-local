@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -24,7 +25,7 @@ class ThisWeekAssignmentsDone extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomText.bitter600(
-          LocalizedTexts.doneToday.translation.capitalize(),
+          LocalizedTexts.doneToday.tr().capitalize(),
           style: context.textTheme.bodyLarge,
         ),
         ListView.builder(

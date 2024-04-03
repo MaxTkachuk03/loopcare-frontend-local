@@ -126,7 +126,7 @@ class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
                               const SizedBox(height: 18.0),
                               CustomOutlinedButton.blueSmall(
                                 onPressed: () => _seeLessonBtnPressed(context),
-                                label: LocalizedTexts.seeLesson,
+                                label: LocalizedTexts.seeLesson.tr(),
                               ),
                               const SizedBox(height: 18.0),
                             ],
@@ -135,7 +135,7 @@ class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
                             children: [
                               CustomElevatedButton.blueFullWidth(
                                 onPressed: _onStart,
-                                label: LocalizedTexts.letsGo,
+                                label: LocalizedTexts.letsGo.tr(),
                               ),
                               const SizedBox(height: 30),
                             ],

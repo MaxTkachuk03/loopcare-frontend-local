@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/domain/input_formatters/serving_formatter.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -43,7 +44,7 @@ class ServingsAmount extends StatelessWidget {
             ),
             const SizedBox(width: 10),
             CustomText.w700(
-              LocalizedTexts.serving.translation.capitalize(),
+              LocalizedTexts.serving.tr().capitalize(),
               style: context.textTheme.bodySmall,
             ),
           ],

@@ -21,7 +21,7 @@
 //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
 //             children: [
 //               Text(
-//                 LocalizedTexts.calorieDensity.translation.toUpperCase(),
+//                 LocalizedTexts.calorieDensity.tr().toUpperCase(),
 //                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
 //                       fontSize: ThemeConstants.fontSize12,
 //                       fontWeight: FontWeight.w600,

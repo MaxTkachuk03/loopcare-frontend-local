@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/blue_app_bar.dart';
@@ -76,7 +77,7 @@ class _WeekPlannerPageState extends State<WeekPlannerPage> {
             appBar: BlueAppBar(
               isCustomLeading: false,
               isPlanningMeals: true,
-              title: LocalizedTexts.planYourMeals.translation,
+              title: LocalizedTexts.planYourMeals.tr(),
               actions: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),

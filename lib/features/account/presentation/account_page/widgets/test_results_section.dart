@@ -14,7 +14,7 @@ class TestResultsSection extends StatelessWidget {
       child: Column(
         children: [
           SectionTitle(title: LocalizedTexts.testResults.tr()),
-          SectionItem(title: LocalizedTexts.mentalHealth, onPressHandler: () {}),
+          SectionItem(title: LocalizedTexts.mentalHealth.tr(), onPressHandler: () {}),
         ],
       ),
     );

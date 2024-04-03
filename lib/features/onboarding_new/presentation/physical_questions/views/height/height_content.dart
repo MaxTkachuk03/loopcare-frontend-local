@@ -90,7 +90,7 @@ class _HeightContentState extends State<HeightContent> {
           children: [
             const SizedBox(height: 50.0),
             CustomText.bitter600(
-              LocalizedTexts.yourHeight,
+              LocalizedTexts.yourHeight.tr(),
               textAlign: TextAlign.center,
               style: context.textTheme.displayMedium,
             ),
@@ -165,7 +165,8 @@ class _HeightContentState extends State<HeightContent> {
     setState(() {
       heightFT = int.parse(value);
 
-      heightInCm = HeightConversionUtils.doubleConvertFeetAndInchesToCM(heightFT.toDouble(), heightIN.toDouble());
+      heightInCm =
+          HeightConversionUtils.doubleConvertFeetAndInchesToCM(heightFT.toDouble(), heightIN.toDouble());
     });
 
     _validateInput(value);
@@ -176,7 +177,8 @@ class _HeightContentState extends State<HeightContent> {
     setState(() {
       heightIN = int.parse(value);
 
-      heightInCm = HeightConversionUtils.doubleConvertFeetAndInchesToCM(heightFT.toDouble(), heightIN.toDouble());
+      heightInCm =
+          HeightConversionUtils.doubleConvertFeetAndInchesToCM(heightFT.toDouble(), heightIN.toDouble());
     });
   }
 
@@ -209,11 +211,11 @@ class _HeightContentState extends State<HeightContent> {
       ModalBottomSheet.physicalInvalidMessage(context: context, message: validationMessage);
     } else {
       context.read<PhysicalQuestionsBloc>().add(
-        PhysicalQuestionsEvent.heightChanged(
-          height: height,
-          measurementSystemType: activeMeasurementType,
-        ),
-      );
+            PhysicalQuestionsEvent.heightChanged(
+              height: height,
+              measurementSystemType: activeMeasurementType,
+            ),
+          );
 
       context.read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.nextStep());
     }

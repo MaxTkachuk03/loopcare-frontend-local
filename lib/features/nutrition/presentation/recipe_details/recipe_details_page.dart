@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
@@ -80,9 +81,9 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                           delegate: SliverRecipeAppBarDelegate(
                             TabBar(
                               tabs: [
-                                Tab(text: LocalizedTexts.summary.translation),
-                                Tab(text: LocalizedTexts.instructions.translation),
-                                Tab(text: LocalizedTexts.ingredients.translation),
+                                Tab(text: LocalizedTexts.summary.tr()),
+                                Tab(text: LocalizedTexts.instructions.tr()),
+                                Tab(text: LocalizedTexts.ingredients.tr()),
                               ],
                             ),
                           ),
@@ -128,14 +129,15 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory = DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
-        ? state.currentMealCategory
-        : MealCategory.breakfast.originalValue;
+    final mealCategory =
+        DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
+            ? state.currentMealCategory
+            : MealCategory.breakfast.originalValue;
 
     if (mealCategory == null) return;
 
     if (state.isContainsRecipeOrDish) {
-      context.showError(content: Text(LocalizedTexts.invalidCreateDishFromMealMessage.translation));
+      context.showError(content: Text(LocalizedTexts.invalidCreateDishFromMealMessage.tr()));
       return;
     }
 

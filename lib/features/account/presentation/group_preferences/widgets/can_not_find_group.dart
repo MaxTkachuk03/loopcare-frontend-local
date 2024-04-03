@@ -56,9 +56,9 @@ class _CanNotFindGroupState extends State<CanNotFindGroup> {
                     if (groupingStartedAt == null) return const SizedBox.shrink();
 
                     return CustomText.w400(
-                      LocalizedTexts.weHaveNotYetFound.translation.tr(namedArgs: {
+                      LocalizedTexts.weHaveNotYetFound.tr(namedArgs: {
                         'dateTime':
-                            '${groupingStartedAt.fullDateWithYear} ${LocalizedTexts.at.translation} ${groupingStartedAt.timeHoursMinutes}.'
+                            '${groupingStartedAt.fullDateWithYear} ${LocalizedTexts.at.tr()} ${groupingStartedAt.timeHoursMinutes}.'
                       }),
                       style: context.textTheme.bodyMedium,
                     );

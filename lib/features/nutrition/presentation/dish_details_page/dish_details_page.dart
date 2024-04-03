@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
@@ -115,7 +116,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
       },
     );
 
-    context.showSuccessBar(content: Text(LocalizedTexts.foodItemWasAddedToDish.translation));
+    context.showSuccessBar(content: Text(LocalizedTexts.foodItemWasAddedToDish.tr()));
     context.router.popUntilRouteWithName(SearchRoute.name);
   }
 
@@ -190,7 +191,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
           dishId: dishId,
           internalFoodItemId: int.parse(item.id),
         ));
-    context.showSuccessBar(content: Text(LocalizedTexts.foodItemWasDeletedFromDish.translation));
+    context.showSuccessBar(content: Text(LocalizedTexts.foodItemWasDeletedFromDish.tr()));
   }
 
   void _onFoodItemPressed(BuildContext context, DishFoodItem item) {
@@ -234,7 +235,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
           title: context.watch<DishBloc>().state.mapOrNull(
                 dish: (s) => s.selectedDish.name,
               ),
-          subtitle: LocalizedTexts.myDish.translation,
+          subtitle: LocalizedTexts.myDish.tr(),
         ),
         body: CustomSafeArea(
           child: BlocBuilder<DishBloc, DishState>(
@@ -295,7 +296,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                                     children: [
                                       Expanded(
                                         child: CustomOutlinedButton.blueFullWidth(
-                                          label: LocalizedTexts.addFoodItem.translation,
+                                          label: LocalizedTexts.addFoodItem.tr(),
                                           onPressed: _onAddFoodItemHandler,
                                         ),
                                       ),
@@ -303,7 +304,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                                       if (widget.canEditDish)
                                         Expanded(
                                           child: CustomOutlinedButton.blueFullWidth(
-                                              label: LocalizedTexts.editMyDish.translation,
+                                              label: LocalizedTexts.editMyDish.tr(),
                                               onPressed: _onEditDishHandler // disable for now,
                                               ),
                                         )
@@ -324,7 +325,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                                           dish: (dishState) {
                                             return CustomElevatedButton.blueFullWidth(
                                               onPressed: dishState.hasFoodItems ? _onLogDishHandler : null,
-                                              label: LocalizedTexts.logItem.translation,
+                                              label: LocalizedTexts.logItem.tr(),
                                             );
                                           },
                                           orElse: () => const SizedBox.shrink());

@@ -112,7 +112,7 @@ class _PhysicalActivitiesCompletePageState extends State<PhysicalActivitiesCompl
                           ),
                           const SizedBox(height: 10),
                           CustomText.w400(
-                            LocalizedTexts.physicalActivitiesCompletedDesc,
+                            LocalizedTexts.physicalActivitiesCompletedDesc.tr(),
                             style: context.textTheme.bodyMedium,
                           ),
                         ],
@@ -128,7 +128,7 @@ class _PhysicalActivitiesCompletePageState extends State<PhysicalActivitiesCompl
                   children: [
                     CustomElevatedButton.blueFullWidth(
                       onPressed: () => _onPressHandler(context),
-                      label: LocalizedTexts.backToToday,
+                      label: LocalizedTexts.backToToday.tr(),
                     ),
                     const SizedBox(height: 30.0),
                   ],
