@@ -68,7 +68,7 @@ class SuccessVerifiedEmailPage extends StatelessWidget {
           ),
           button: CustomElevatedButton.blueFullWidth(
             key: const ValueKey('success_verified_email_start_button'),
-            label: LocalizedTexts.start,
+            label: LocalizedTexts.start.tr(),
             onPressed: () => _onStartPressed(context),
           ),
         ),

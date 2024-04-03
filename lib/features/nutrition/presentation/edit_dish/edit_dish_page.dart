@@ -145,16 +145,16 @@ class _EditDishPageState extends State<EditDishPage> {
 
   String? _validationError() {
     if (_selectedMealCategories.isEmpty) {
-      return LocalizedTexts.invalidDishSelectedMealCategory.translation;
+      return LocalizedTexts.invalidDishSelectedMealCategory.tr();
     }
     if (_dishNameController.text.isEmpty) {
-      return LocalizedTexts.invalidDishNameMessage.translation;
+      return LocalizedTexts.invalidDishNameMessage.tr();
     }
     if (_portionsController.text.isEmpty) {
-      return LocalizedTexts.invalidDishPortionsAmountMessage.translation;
+      return LocalizedTexts.invalidDishPortionsAmountMessage.tr();
     }
     if (_servingController.text.isEmpty) {
-      return LocalizedTexts.invalidDishServingsAmountMessage.translation;
+      return LocalizedTexts.invalidDishServingsAmountMessage.tr();
     }
     return null;
   }
@@ -178,7 +178,7 @@ class _EditDishPageState extends State<EditDishPage> {
     setState(() {
       _isUserSaveChanges = true;
     });
-    context.showSuccessBar(content: Text(LocalizedTexts.dishWasSaved.translation));
+    context.showSuccessBar(content: Text(LocalizedTexts.dishWasSaved.tr()));
     context.router.pop();
   }
 

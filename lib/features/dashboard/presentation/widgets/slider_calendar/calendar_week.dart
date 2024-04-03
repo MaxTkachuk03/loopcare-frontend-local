@@ -62,7 +62,7 @@ class CalendarWeek extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              LocalizedTexts.capitalizeWeekWithNumber,
+              LocalizedTexts.capitalizeWeekWithNumber.tr(),
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     color: _getTextColor(),
                     fontWeight: FontWeight.w600,
@@ -72,7 +72,7 @@ class CalendarWeek extends StatelessWidget {
               namedArgs: {'number': weekNumber},
             ),
             Text(
-              LocalizedTexts.weekDates,
+              LocalizedTexts.weekDates.tr(),
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     color: _getTextColor(),
                     fontWeight: FontWeight.w400,

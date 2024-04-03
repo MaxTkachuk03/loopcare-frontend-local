@@ -130,7 +130,7 @@ class _IntroPageState extends State<IntroPage> {
             children: [
               CustomElevatedButton.blueFullWidth(
                 key: const ValueKey('intro_lets_go_button'),
-                label: LocalizedTexts.letsGo,
+                label: LocalizedTexts.letsGo.tr(),
                 onPressed: () => _onGetStarted(context),
               ),
               const SizedBox(height: 21.0),

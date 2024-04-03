@@ -160,7 +160,7 @@ class _RecipePageState extends State<RecipePage> {
           appBar: CustomAppBar.green(
             leading: CustomFilledIconButton.leadingGreenLighter(),
             title: widget.name,
-            subtitle: LocalizedTexts.recipe.translation,
+            subtitle: LocalizedTexts.recipe.tr(),
             actions: const [
               SizedBox(
                 width: 44,
@@ -263,7 +263,7 @@ class _RecipePageState extends State<RecipePage> {
                                   const SizedBox(height: 26.0),
                                   CustomElevatedButton.blueFullWidth(
                                     onPressed: _onLogRecipePressed,
-                                    label: LocalizedTexts.logItem.translation.tr(),
+                                    label: LocalizedTexts.logItem.tr(),
                                   ),
                                   const SizedBox(height: 20.0),
                                 ],

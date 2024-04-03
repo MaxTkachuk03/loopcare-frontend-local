@@ -34,7 +34,7 @@ class EducationCard extends StatelessWidget {
         children: [
           LessonState.locked(),
           const SizedBox(width: 6.0),
-          if (!showCountdown) CustomText.w700(LocalizedTexts.locked, style: context.textTheme.bodySmall),
+          if (!showCountdown) CustomText.w700(LocalizedTexts.locked.tr(), style: context.textTheme.bodySmall),
           if (showCountdown)
             Expanded(
               child: Wrap(
@@ -50,7 +50,7 @@ class EducationCard extends StatelessWidget {
 
     if (isAvailable) {
       return CustomOutlinedButton.orangeSmall(
-        label: LocalizedTexts.start,
+        label: LocalizedTexts.start.tr(),
         onPressed: () => _onTapHandler(context),
       );
     }
@@ -59,7 +59,7 @@ class EducationCard extends StatelessWidget {
       children: [
         LessonState.completed(),
         const SizedBox(width: 4.0),
-        CustomText.w700(LocalizedTexts.completed, style: context.textTheme.bodySmall),
+        CustomText.w700(LocalizedTexts.completed.tr(), style: context.textTheme.bodySmall),
       ],
     );
   }

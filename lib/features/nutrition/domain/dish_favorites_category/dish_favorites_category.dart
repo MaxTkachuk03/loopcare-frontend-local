@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 
 enum DishFavoritesCategory {
@@ -10,11 +11,11 @@ extension DishFavoritesCategoryExtension on DishFavoritesCategory {
   String get name {
     switch (this) {
       case DishFavoritesCategory.breakfast:
-        return '${LocalizedTexts.breakfast.translation} ${LocalizedTexts.dishes.translation}';
+        return '${LocalizedTexts.breakfast.tr()} ${LocalizedTexts.dishes.tr()}';
       case DishFavoritesCategory.lunch:
-        return '${LocalizedTexts.lunch.translation} ${LocalizedTexts.dishes.translation}';
+        return '${LocalizedTexts.lunch.tr()} ${LocalizedTexts.dishes.tr()}';
       case DishFavoritesCategory.dinner:
-        return '${LocalizedTexts.dinner.translation} ${LocalizedTexts.dishes.translation}';
+        return '${LocalizedTexts.dinner.tr()} ${LocalizedTexts.dishes.tr()}';
       default:
         return '';
     }
@@ -23,11 +24,11 @@ extension DishFavoritesCategoryExtension on DishFavoritesCategory {
   String? get label {
     switch (this) {
       case DishFavoritesCategory.breakfast:
-        return LocalizedTexts.breakfast.translation.toLowerCase();
+        return LocalizedTexts.breakfast.tr().toLowerCase();
       case DishFavoritesCategory.lunch:
-        return LocalizedTexts.lunch.translation.toLowerCase();
+        return LocalizedTexts.lunch.tr().toLowerCase();
       case DishFavoritesCategory.dinner:
-        return LocalizedTexts.dinner.translation.toLowerCase();
+        return LocalizedTexts.dinner.tr().toLowerCase();
       default:
         return null;
     }

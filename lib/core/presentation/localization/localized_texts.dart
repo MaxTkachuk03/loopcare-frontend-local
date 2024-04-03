@@ -1,5 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
-
 class LocalizedTexts {
   static const String getStarted = 'getStarted';
   static const String haveAnAccount = 'haveAnAccount';
@@ -996,10 +994,4 @@ class LocalizedTexts {
   static const String confirmGoals = 'confirmGoals';
   static const String selectGoalsCategoryTitle = 'selectGoalsCategoryTitle';
   static const String selectGoalsTitle = 'selectGoalsTitle';
-}
-
-extension StringX on String {
-  String get translation => this.tr();
-
-  String translateWithNamedArgs(Map<String, String> namedArgs) => this.tr(namedArgs: namedArgs);
 }

@@ -53,6 +53,7 @@ class MealsList extends StatelessWidget {
                           foodDescription: item.description,
                           serving: item.serving,
                         ),
+                        excludedFromCalculations: item.excludedFromCalculations,
                         nutritionKey: mealsState.currentNutritionType.name,
                         onDeletePressed: isActive ? _onDeletePressed : null,
                         onTap: isActive ? (BuildContext context) => _onTap(context, item) : null,

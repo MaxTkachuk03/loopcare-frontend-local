@@ -21,7 +21,7 @@ class SessionRulesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScaffold.orange(
       appBar: CustomAppBar.orange(
-        title: LocalizedTexts.groupRules.translation,
+        title: LocalizedTexts.groupRules.tr(),
         leading: CustomFilledIconButton.leadingOrangeLighter(),
       ),
       bottomSheet: Container(

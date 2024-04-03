@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
@@ -199,7 +200,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (context, state) {
                               return CustomText.bitter600(
-                                '${LocalizedTexts.goodMorning.translation}, ${state.data.nameCapitalised}!',
+                                '${LocalizedTexts.goodMorning.tr()}, ${state.data.nameCapitalised}!',
                                 style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
                               );
                             },

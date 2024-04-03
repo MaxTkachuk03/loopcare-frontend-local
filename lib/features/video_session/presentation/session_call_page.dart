@@ -162,7 +162,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
               LocalizedTexts.micState.tr(namedArgs: {"micState": micState}),
             ),
           )
-        : context.showError(content: Text(LocalizedTexts.somethingWentWrong.translation));
+        : context.showError(content: Text(LocalizedTexts.somethingWentWrong.tr()));
   }
 
   void _setInactivityTimer() {
@@ -390,7 +390,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       log('_networkStatusChangeListener - $networkUser ${data['status']}', name: 'zoomSessionLog');
 
       if (data['status'] == NetworkStatus.Bad) {
-        context.showError(content: Text(LocalizedTexts.badConnectionMessage.translation));
+        context.showError(content: Text(LocalizedTexts.badConnectionMessage.tr()));
       }
     });
 
@@ -512,7 +512,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
     if (context.mounted) {
       context.router.popUntilRouteWithPath(AppRoutes.home);
-      context.showSuccessBar(content: Text(LocalizedTexts.sessionEndDialogText.translation));
+      context.showSuccessBar(content: Text(LocalizedTexts.sessionEndDialogText.tr()));
     }
   }
 
@@ -566,8 +566,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     });
   }
 
-  void _showNotSupportSnack() =>
-      context.showError(content: Text(LocalizedTexts.toggleSpeakerError.translation));
+  void _showNotSupportSnack() => context.showError(content: Text(LocalizedTexts.toggleSpeakerError.tr()));
 
   void onSettingsHandler() {
     showDialog(

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -22,7 +23,7 @@ class PastAssignments extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomText.bitter600(
-          LocalizedTexts.pastAssignments.translation.capitalize(),
+          LocalizedTexts.pastAssignments.tr().capitalize(),
           style: context.textTheme.bodyLarge,
         ),
         ListView.builder(

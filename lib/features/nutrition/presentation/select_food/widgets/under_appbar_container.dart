@@ -66,7 +66,7 @@ class UnderAppBarContainer extends StatelessWidget {
                         context.router.pushNamed(AppRoutes.barcodeScanner);
                       },
                       icon: const ImageIcon(AppIcons.scan, color: AppColors.blueDarker),
-                      label: CustomText.w400(LocalizedTexts.scan.translation),
+                      label: CustomText.w400(LocalizedTexts.scan.tr()),
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.all(0),
                         minimumSize: const Size(0, 0),

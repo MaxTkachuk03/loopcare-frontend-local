@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -27,7 +28,7 @@ class NutritionInstructionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScaffold.greenLightest(
       appBar: CustomAppBar.green(
-        title: LocalizedTexts.nutritionSummary.translation,
+        title: LocalizedTexts.nutritionSummary.tr(),
         subtitle: subtitle,
         leading: CustomFilledIconButton.leadingGreenLighter(),
       ),

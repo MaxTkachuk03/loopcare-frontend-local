@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 
 enum SearchMode {
@@ -11,13 +12,13 @@ extension SearchModeX on SearchMode {
   String get label {
     switch (this) {
       case SearchMode.recipe:
-        return LocalizedTexts.searchFilterRecipes.translation;
+        return LocalizedTexts.searchFilterRecipes.tr();
       case SearchMode.food:
-        return LocalizedTexts.searchFilterProducts.translation;
+        return LocalizedTexts.searchFilterProducts.tr();
       case SearchMode.dish:
-        return LocalizedTexts.searchFilterMy.translation;
+        return LocalizedTexts.searchFilterMy.tr();
       case SearchMode.favorite:
-        return LocalizedTexts.favorite.translation;
+        return LocalizedTexts.favorite.tr();
     }
   }
 

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -41,10 +42,10 @@ class _LikeUnlikeBlockState extends State<LikeUnlikeBlock> {
             (selectedThumb == -1)
                 ? _SelectedButton(
                     icon: AppIcons.noScore,
-                    label: LocalizedTexts.notReally.translation,
+                    label: LocalizedTexts.notReally.tr(),
                   )
                 : _RegularButton(
-                    label: LocalizedTexts.notReally.translation,
+                    label: LocalizedTexts.notReally.tr(),
                     icon: AppIcons.noScore,
                     onTap: () => _onThumbsTap(-1),
                   ),
@@ -52,11 +53,11 @@ class _LikeUnlikeBlockState extends State<LikeUnlikeBlock> {
             (selectedThumb == 1)
                 ? _SelectedButton(
                     icon: AppIcons.yesScoreFilled,
-                    label: LocalizedTexts.yesYes.translation,
+                    label: LocalizedTexts.yesYes.tr(),
                   )
                 : _RegularButton(
                     isLeft: false,
-                    label: LocalizedTexts.yesYes.translation,
+                    label: LocalizedTexts.yesYes.tr(),
                     icon: AppIcons.yesScore,
                     onTap: () => _onThumbsTap(1),
                   ),

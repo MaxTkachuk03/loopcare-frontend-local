@@ -95,7 +95,7 @@ class _QuizzesIntroPageState extends State<QuizzesIntroPage> {
                           children: [
                             CustomElevatedButton.blueFullWidth(
                               onPressed: _onStart,
-                              label: LocalizedTexts.letsGo,
+                              label: LocalizedTexts.letsGo.tr(),
                             ),
                             const SizedBox(height: 30),
                           ],

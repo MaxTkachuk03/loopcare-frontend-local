@@ -63,7 +63,7 @@ class _LoginFormState extends State<LoginForm> {
                     return CustomElevatedButton.blueFullWidth(
                       key: const ValueKey('login_button'),
                       onPressed: isValid ? _onLogin : null,
-                      label: LocalizedTexts.login,
+                      label: LocalizedTexts.login.tr(),
                     );
                   },
                 ),
@@ -76,8 +76,8 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   _onChangedForm() {
-    final isValidForm =
-        Email.create(_emailController.text).isRight() && LoginPassword.create(_passwordController.text).isRight();
+    final isValidForm = Email.create(_emailController.text).isRight() &&
+        LoginPassword.create(_passwordController.text).isRight();
 
     _formValidationNotifier.value = isValidForm;
   }
@@ -86,11 +86,11 @@ class _LoginFormState extends State<LoginForm> {
     TextInput.finishAutofillContext();
 
     context.read<AuthenticationBloc>().add(
-      AuthenticationEvent.login(
-        email: _emailController.text,
-        password: _passwordController.text,
-      ),
-    );
+          AuthenticationEvent.login(
+            email: _emailController.text,
+            password: _passwordController.text,
+          ),
+        );
   }
 
   void _navigationListener(BuildContext context, AuthenticationState state) {

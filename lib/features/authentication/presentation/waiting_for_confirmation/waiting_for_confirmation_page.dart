@@ -42,7 +42,6 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
     setTimer();
   }
 
-
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
@@ -152,13 +151,13 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                         CustomOutlinedButton.petrolFullWidth(
                           key: const ValueKey('resend_email_button'),
                           onPressed: _onResendPressed,
-                          label: LocalizedTexts.resend,
+                          label: LocalizedTexts.resend.tr(),
                         ),
                         const SizedBox(height: 12.0),
                         CustomOutlinedButton.petrolFullWidth(
                           key: const ValueKey('change_email_button'),
                           onPressed: () => _onChangeAddressPressed(context),
-                          label: LocalizedTexts.changeAddress,
+                          label: LocalizedTexts.changeAddress.tr(),
                         ),
                       ],
                     ),

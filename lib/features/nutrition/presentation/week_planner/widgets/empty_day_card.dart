@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -39,7 +40,7 @@ class EmptyDayCard extends StatelessWidget {
             height: 2.0,
           ),
           const SizedBox(height: 6.0),
-          EmptyMeal(message: LocalizedTexts.nothingOnTheMenu.translation),
+          EmptyMeal(message: LocalizedTexts.nothingOnTheMenu.tr()),
           const SizedBox(height: 20.0),
           const Divider(
             color: AppColors.bgGreen,

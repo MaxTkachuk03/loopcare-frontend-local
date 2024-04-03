@@ -109,7 +109,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
   }
 
   _onErrorHandler(MoodState s) =>
-      context.showError(content: Text(s.data.errorMessage ?? LocalizedTexts.somethingWentWrong.translation));
+      context.showError(content: Text(s.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr()));
 
   _onUpdateHandler(MoodState s) {
     context.router.pop();
@@ -175,7 +175,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                             valueListenable: _moodPageController.isValid,
                             builder: (context, isValid, _) => CustomElevatedButton.blueFullWidth(
                               onPressed: isValid && isEditable ? _onConfirmPressed : null,
-                              label: LocalizedTexts.logMood,
+                              label: LocalizedTexts.logMood.tr(),
                             ),
                           ),
                           const SizedBox(height: 30.0),

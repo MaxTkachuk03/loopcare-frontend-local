@@ -75,7 +75,7 @@ class LogPlannedMealsPage extends StatelessWidget {
         ? state.getCurrentDate.shortDate
         : "Today's";
 
-    return '$date ${LocalizedTexts.plannedMeals.translation}';
+    return '$date ${LocalizedTexts.plannedMeals.tr()}';
   }
 
   String? _appBarSubtitle(BuildContext context) {

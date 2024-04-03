@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
@@ -141,7 +142,7 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
                             const SizedBox(height: 17),
                             CustomOutlinedButton.blueSmall(
                               onPressed: _onReadText,
-                              label: LocalizedTexts.readText,
+                              label: LocalizedTexts.readText.tr(),
                             ),
                             if (state.data.currentPage.content.audioFilePath.isNotEmpty)
                               AudioBlock(

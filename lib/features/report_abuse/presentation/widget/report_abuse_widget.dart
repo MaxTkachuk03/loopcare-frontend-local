@@ -162,7 +162,7 @@ class _ReportFormWidget extends StatelessWidget {
                     builder: (context, isEnableSend, _) {
                       return CustomElevatedButton.blueFullWidth(
                         onPressed: isEnableSend ? onSend : null,
-                        label: LocalizedTexts.send,
+                        label: LocalizedTexts.send.tr(),
                       );
                     },
                   ),

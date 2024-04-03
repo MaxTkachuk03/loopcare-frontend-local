@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
@@ -185,6 +184,6 @@ class CustomText extends StatelessWidget {
       overflow: overflow,
       style: style,
       maxLines: maxLines,
-    ).tr();
+    );
   }
 }

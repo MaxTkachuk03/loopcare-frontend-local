@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutri
 class FoodListItem extends StatelessWidget {
   final String nutritionKey;
   final FoodItem foodItem;
+  final bool excludedFromCalculations;
   final void Function(BuildContext context)? onTap;
   final void Function(BuildContext context, FoodItem item)? onDeletePressed;
 
@@ -23,23 +24,24 @@ class FoodListItem extends StatelessWidget {
     required this.foodItem,
     this.onDeletePressed,
     this.onTap,
+    this.excludedFromCalculations = false,
   });
+
+  NutritionItem get currentNutritionFact =>
+      foodItem.serving.list.firstWhere((element) => element.key == nutritionKey);
+
+  String get label {
+    if (foodItem.foodType == MealItemType.recipe) {
+      return LocalizedTexts.recipe.tr();
+    } else if (foodItem.foodType == MealItemType.dish) {
+      return LocalizedTexts.myDish.tr();
+    } else {
+      return foodItem.brandName ?? '';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final NutritionItem currentNutritionFact =
-        foodItem.serving.list.firstWhere((element) => element.key == nutritionKey);
-
-    String label;
-
-    if (foodItem.foodType == MealItemType.recipe) {
-      label = LocalizedTexts.recipe.translation;
-    } else if (foodItem.foodType == MealItemType.dish) {
-      label = LocalizedTexts.myDish.translation;
-    } else {
-      label = foodItem.brandName ?? '';
-    }
-
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       height: 70,
@@ -61,7 +63,9 @@ class FoodListItem extends StatelessWidget {
                     ),
                   CircleAvatar(
                     radius: 5,
-                    backgroundColor: getCalorieDensityColor(foodItem.calorieDensity),
+                    backgroundColor: excludedFromCalculations
+                        ? AppColors.grey
+                        : getCalorieDensityColor(foodItem.calorieDensity),
                   ),
                 ],
               ),
@@ -91,7 +95,8 @@ class FoodListItem extends StatelessWidget {
               const SizedBox(width: 6.0),
               Row(
                 children: [
-                  CustomText.w400('${currentNutritionFact.value.toStringAsFixed(2)} ${LocalizedTexts.kcal.tr()}',
+                  CustomText.w400(
+                      '${currentNutritionFact.value.toStringAsFixed(2)} ${LocalizedTexts.kcal.tr()}',
                       style: context.textTheme.bodySmall),
                   if (onTap != null)
                     const SizedBox(

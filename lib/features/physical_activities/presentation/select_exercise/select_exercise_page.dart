@@ -33,11 +33,11 @@ class _SelectExercisePageState extends State<SelectExercisePage> with TickerProv
 
   final List<ExerciseTypeTab> tabs = [
     ExerciseTypeTab(
-      text: '${appConfig.projectName} ${LocalizedTexts.program.translation}',
+      text: '${appConfig.projectName} ${LocalizedTexts.program.tr()}',
       type: ExerciseType.program,
     ),
     ExerciseTypeTab(
-      text: LocalizedTexts.yourOwnActivity.translation,
+      text: LocalizedTexts.yourOwnActivity.tr(),
       type: ExerciseType.custom,
     ),
   ];
@@ -65,7 +65,7 @@ class _SelectExercisePageState extends State<SelectExercisePage> with TickerProv
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: CustomScaffold.yellowLightest(
         appBar: CustomAppBar.yellow(
-          title: LocalizedTexts.physicalActivity.translation,
+          title: LocalizedTexts.physicalActivity.tr(),
           leading: CustomFilledIconButton.leadingYellowLighter(),
         ),
         body: CustomSafeArea(

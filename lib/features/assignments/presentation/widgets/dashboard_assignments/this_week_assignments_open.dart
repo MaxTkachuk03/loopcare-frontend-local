@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -24,9 +25,7 @@ class ThisWeekAssignmentsOpen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomText.bitter600(
-          onDashboard
-              ? LocalizedTexts.thisWeek.translation.capitalize()
-              : LocalizedTexts.todo.translation.capitalize(),
+          onDashboard ? LocalizedTexts.thisWeek.tr().capitalize() : LocalizedTexts.todo.tr().capitalize(),
           style: context.textTheme.bodyLarge,
         ),
         ListView.builder(

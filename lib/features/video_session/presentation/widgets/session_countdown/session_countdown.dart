@@ -139,7 +139,7 @@ class _SessionCountdownState extends State<SessionCountdown> {
   }
 
   void _onErrorListener(BuildContext context, TopicsState state) {
-    context.showError(content: Text(LocalizedTexts.somethingWentWrong.translation));
+    context.showError(content: Text(LocalizedTexts.somethingWentWrong.tr()));
     setState(() {
       _sessionTimerMode = const SessionTimerMode.sessionError();
     });
@@ -153,7 +153,7 @@ class _SessionCountdownState extends State<SessionCountdown> {
       child: Column(
         children: [
           CustomText.w400(
-            text,
+            text.tr(),
             style: textStyles,
             textAlign: TextAlign.center,
           ),

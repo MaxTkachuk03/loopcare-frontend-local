@@ -156,7 +156,7 @@ class _PasswordPageState extends State<PasswordPage> {
                   return CustomElevatedButton.blueFullWidth(
                     key: const ValueKey('password_page_next_button'),
                     onPressed: isValid ? _onNextPressed : null,
-                    label: LocalizedTexts.register,
+                    label: LocalizedTexts.register.tr(),
                   );
                 },
               ),
@@ -197,7 +197,7 @@ class _PasswordPageState extends State<PasswordPage> {
   void _onPrivacyPolicyTap() => _launchInBrowser(privacyPolicyUrl);
 
   void _showError(BuildContext context) =>
-      context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.translation));
+      context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.tr()));
 
   Future<void> _launchInBrowser(String url) async {
     final Uri launchUri = Uri.parse(url);

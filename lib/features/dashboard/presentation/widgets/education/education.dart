@@ -45,7 +45,7 @@ class Education extends StatelessWidget {
                     AppIcons.customEducationDashboard,
                     const SizedBox(width: 24.0),
                     CustomText.bitter600(
-                      LocalizedTexts.education.translation,
+                      LocalizedTexts.education.tr(),
                       style: context.textTheme.headlineSmall,
                     ),
                   ],
