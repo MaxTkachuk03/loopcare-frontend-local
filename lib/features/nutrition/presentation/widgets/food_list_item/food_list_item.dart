@@ -32,9 +32,9 @@ class FoodListItem extends StatelessWidget {
 
   String get label {
     if (foodItem.foodType == MealItemType.recipe) {
-      label = LocalizedTexts.recipe.tr();
+      return LocalizedTexts.recipe.tr();
     } else if (foodItem.foodType == MealItemType.dish) {
-      label = LocalizedTexts.myDish.tr();
+      return LocalizedTexts.myDish.tr();
     } else {
       return foodItem.brandName ?? '';
     }
