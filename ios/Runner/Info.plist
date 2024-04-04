@@ -51,8 +51,6 @@
     <string>This identifier will be used to deliver new offers for you.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>Upload images for screen background</string>
-    <key>ITSAppUsesNonExemptEncryption</key>
-    <false/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

@@ -42,7 +42,7 @@ class AccountResponse {
   final List<Feature> features;
   final MentalHealthTests? mentalHealthTests;
   final PhysicalActivitiesPreferences? physicalActivitiesPreferences;
-  final MedicalOnboarding? medicalOnboarding;
+  final MedicalOnboarding medicalOnboarding;
 
   const AccountResponse({
     required this.id,
