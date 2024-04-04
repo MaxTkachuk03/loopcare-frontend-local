@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:customer_io/customer_io.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -61,6 +63,9 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
       edit: (s) => MoodController()
         ..setMoodInitialValues(s.moodRecord)
         ..addFocusNodeListeners(),
+    );
+    CustomerIO.track(
+      name: CIOEvents.moodWidget,
     );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -153,8 +158,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                           ValueListenableBuilder<MoodPickerListItem?>(
                             valueListenable: _moodPageController.moodValue,
                             builder: (context, moodValue, _) => MoodPicker(
-                                onItemPressed: isEditable ? _onMoodValueChangeHandler : null,
-                                value: moodValue),
+                                onItemPressed: isEditable ? _onMoodValueChangeHandler : null, value: moodValue),
                           ),
                           const SizedBox(height: 12.0),
                           MoodOptions(controller: _moodPageController, isEditable: isEditable),
