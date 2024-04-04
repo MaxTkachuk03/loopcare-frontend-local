@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -13,13 +15,49 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 
-class SetWeeklyGoalsPage extends StatelessWidget {
+class SetWeeklyGoalsPage extends StatefulWidget {
   const SetWeeklyGoalsPage({super.key});
 
-  void _onConfirmGoalsHandler() {}
+  @override
+  State<SetWeeklyGoalsPage> createState() => _SetWeeklyGoalsPageState();
+}
+
+class _SetWeeklyGoalsPageState extends State<SetWeeklyGoalsPage> {
+  late SmartGoalsBloc goalsBloc;
+
+  @override
+  void initState() {
+    super.initState();
+
+    goalsBloc = context.read<SmartGoalsBloc>();
+  }
+
+  void _onConfirmGoalsHandler(BuildContext context) =>
+      context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.saveGoals());
 
   void _onAddGoalHandler(BuildContext context) => context.router.pushNamed(AppRoutes.selectGoalsCategory);
+
+  void _onSaveGoalsListener(BuildContext context, SmartGoalsState state) {
+    state.mapOrNull(
+      errorSaveGoals: (s) => _onErrorSaveWeeklyGoals(context, s),
+      weeklySessionSaved: (s) => _onSaveWeeklyGoals(context, s),
+    );
+  }
+
+  void _onErrorSaveWeeklyGoals(BuildContext context, SmartGoalsState state) {
+    final String? errorMessage = state.data.error?.maybeMap(
+      forbidden: (s) => s.error.message,
+      orElse: () => LocalizedTexts.somethingWentWrong.tr(),
+    );
+
+    context.showError(content: CustomText.w400(errorMessage ?? ''));
+  }
+
+  void _onSaveWeeklyGoals(BuildContext context, SmartGoalsState state) => context
+    ..showSuccessBar(content: CustomText.w400(LocalizedTexts.saveWeeklyGoalsSuccessMessage.tr()))
+    ..router.pop();
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +87,27 @@ class SetWeeklyGoalsPage extends StatelessWidget {
                       style: context.textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 50.0),
-                    CustomText.w400(
-                      LocalizedTexts.noGoalsSelected.tr(),
-                      style: context.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
+                    BlocConsumer<SmartGoalsBloc, SmartGoalsState>(
+                      listener: _onSaveGoalsListener,
+                      listenWhen: (prev, cur) =>
+                          cur is SmartGoalsStateErrorSaveGoals || cur is SmartGoalsStateWeeklySessionSaved,
+                      builder: (BuildContext context, SmartGoalsState state) {
+                        return state.maybeMap(
+                          orElse: () {
+                            if (!state.data.hasWeeklyGoals) {
+                              return CustomText.w400(
+                                LocalizedTexts.noGoalsSelected.tr(),
+                                style: context.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
+                              );
+                            } else {
+                              return CustomText.w400(
+                                'has goals',
+                                style: context.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
+                              );
+                            }
+                          },
+                        );
+                      },
                     ),
                     const SizedBox(height: 24.0),
                     CustomOutlinedButton.orange(
@@ -62,9 +118,11 @@ class SetWeeklyGoalsPage extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 30.0),
-                  child: CustomElevatedButton.blueFullWidth(
-                    label: LocalizedTexts.confirmGoals.tr(),
-                    onPressed: _onConfirmGoalsHandler,
+                  child: BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
+                    builder: (context, state) => CustomElevatedButton.blueFullWidth(
+                      label: LocalizedTexts.confirmGoals.tr(),
+                      onPressed: state.data.hasWeeklyGoals ? () => _onConfirmGoalsHandler(context) : null,
+                    ),
                   ),
                 )
               ],
@@ -73,5 +131,12 @@ class SetWeeklyGoalsPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    goalsBloc.add(const SmartGoalsEvent.resetSelected());
+
+    super.dispose();
   }
 }

@@ -16,12 +16,9 @@ class GoalsList extends StatefulWidget {
 }
 
 class _GoalsListState extends State<GoalsList> {
-  late SmartGoalsBloc goalsBloc;
   @override
   void initState() {
     super.initState();
-
-    goalsBloc = context.read<SmartGoalsBloc>();
 
     context.read<SmartGoalsBloc>().add(SmartGoalsEvent.getGoals(categoryId: widget.categoryId));
   }
@@ -58,12 +55,5 @@ class _GoalsListState extends State<GoalsList> {
         ),
       );
     });
-  }
-
-  @override
-  void dispose() {
-    goalsBloc.add(const SmartGoalsEvent.resetSelected());
-
-    super.dispose();
   }
 }

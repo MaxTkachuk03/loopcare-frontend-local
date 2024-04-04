@@ -25,9 +25,6 @@ class SmartGoalsCategoriesBloc extends Bloc<SmartGoalsCategoriesEvent, SmartGoal
   ) async {
     emit(SmartGoalsCategoriesState.goalsCategoriesLoading(state.data.copyWith(isLoading: true)));
 
-    // TODO delete after api will be ready
-    await Future.delayed(const Duration(seconds: 1));
-
     final response = await _smartGoalsService.getGoalsCategories();
 
     response.fold(

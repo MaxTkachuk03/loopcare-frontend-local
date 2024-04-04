@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -22,7 +24,8 @@ class SelectGoalsPage extends StatelessWidget {
 
   const SelectGoalsPage({super.key, required this.category});
 
-  void _onAddGoalHandler() {}
+  void _onAddGoalHandler(BuildContext context) =>
+      context.router.popUntilRouteWithName(SetWeeklyGoalsRoute.name);
 
   @override
   Widget build(BuildContext context) {
@@ -48,14 +51,10 @@ class SelectGoalsPage extends StatelessWidget {
             ),
           ),
           button: BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
-            builder: (context, state) {
-              final hasSelectedGoals = state.data.selectedGoals.isNotEmpty;
-
-              return CustomElevatedButton.blueFullWidth(
-                label: LocalizedTexts.addGoal.tr(),
-                onPressed: hasSelectedGoals ? _onAddGoalHandler : null,
-              );
-            },
+            builder: (context, state) => CustomElevatedButton.blueFullWidth(
+              label: LocalizedTexts.addGoal.tr(),
+              onPressed: state.data.hasWeeklyGoals ? () => _onAddGoalHandler(context) : null,
+            ),
           ),
         ),
       ),
