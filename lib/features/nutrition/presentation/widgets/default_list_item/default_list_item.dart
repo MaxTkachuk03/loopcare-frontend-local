@@ -28,27 +28,20 @@ class DefaultListItem extends StatelessWidget {
           vertical: 16.0,
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            const Icon(
+              Icons.check,
+              color: AppColors.greyLight,
+            ),
+            const SizedBox(width: 6.0),
             Expanded(
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.check,
-                    color: AppColors.greyLight,
-                  ),
-                  const SizedBox(width: 6.0),
-                  Expanded(
-                    child: CustomText.w600(
-                      item.servingLabel,
-                      maxLines: 2,
-                      style: context.textTheme.bodySmall?.copyWith(
-                        overflow: TextOverflow.ellipsis,
-                        color: AppColors.greyRegular,
-                      ),
-                    ),
-                  ),
-                ],
+              child: CustomText.w600(
+                item.servingLabel,
+                maxLines: 2,
+                style: context.textTheme.bodySmall?.copyWith(
+                  overflow: TextOverflow.ellipsis,
+                  color: AppColors.greyRegular,
+                ),
               ),
             ),
             AutoSizeText(

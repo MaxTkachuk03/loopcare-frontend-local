@@ -88,5 +88,13 @@ class AuthenticationData with _$AuthenticationData {
 
   bool get isAuthenticated => this is AuthenticatedState;
 
-  String get nameCapitalised => name.isNotEmpty ? name.capitalizeEachWordFirstLetter() : '';
+  String get nameCapitalised {
+    if (name.isNotEmpty) {
+      return name.capitalizeEachWordFirstLetter();
+    } else if (account != null) {
+      return account!.name.capitalizeEachWordFirstLetter();
+    } else {
+      return '';
+    }
+  }
 }

@@ -35,24 +35,25 @@ class _ServingListState extends State<ServingList> {
       child: BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(
         builder: (BuildContext context, state) {
           return state.maybeMap(
-              orElse: () => const SizedBox(),
-              loading: (_) => const Loader(),
-              foodItemServings: (foodItemServingsState) {
-                return ListView.builder(
-                  itemCount: foodItemServingsState.servingsIList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final ServingSize listItem = foodItemServingsState.servingsIList[index];
-                    final isSelected = foodItemServingsState.selectedServingItem?.servingId == listItem.servingId;
+            orElse: () => const SizedBox(),
+            loading: (_) => const Loader(),
+            foodItemServings: (foodItemServingsState) {
+              return ListView.builder(
+                itemCount: foodItemServingsState.servingsIList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final ServingSize listItem = foodItemServingsState.servingsIList[index];
+                  final isSelected = foodItemServingsState.selectedServingItem?.servingId == listItem.servingId;
 
-                    return ServingListItem(
-                      item: listItem,
-                      onPressed: _onListItemPressedHandler,
-                      isSelected: isSelected,
-                      inputController: _amountFieldController,
-                    );
-                  },
-                );
-              });
+                  return ServingListItem(
+                    item: listItem,
+                    onPressed: _onListItemPressedHandler,
+                    isSelected: isSelected,
+                    inputController: _amountFieldController,
+                  );
+                },
+              );
+            },
+          );
         },
       ),
     );
