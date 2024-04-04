@@ -19,7 +19,10 @@ class SmartGoalsStateData with _$SmartGoalsStateData {
     @Default(false) bool isLoading,
     RequestError? error,
     @Default([]) List<SmartGoal> goals,
+    @Default([]) List<SmartGoal> selectedGoals,
   }) = _SmartGoalsStateData;
+
+  bool get cantAddGoal => selectedGoals.length >= 2;
 
   bool get noGoalsSelected => goals.isEmpty;
 }

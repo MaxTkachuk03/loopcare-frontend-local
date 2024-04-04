@@ -21,8 +21,7 @@ class DashboardGoalsList extends StatelessWidget {
           loading: (_) => const Loader(),
           orElse: () {
             if (state.data.noGoalsSelected) return const _EmptyGoalsList();
-
-            return Text('filler');
+            return const _EmptyGoalsList();
           },
         );
       },

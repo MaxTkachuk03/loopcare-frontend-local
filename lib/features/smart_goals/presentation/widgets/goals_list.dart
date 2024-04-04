@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
+import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/goals_list_item.dart';
 
 class GoalsList extends StatefulWidget {
@@ -15,11 +16,12 @@ class GoalsList extends StatefulWidget {
 }
 
 class _GoalsListState extends State<GoalsList> {
-  final List<int> _selectedItems = [];
-
+  late SmartGoalsBloc goalsBloc;
   @override
   void initState() {
     super.initState();
+
+    goalsBloc = context.read<SmartGoalsBloc>();
 
     context.read<SmartGoalsBloc>().add(SmartGoalsEvent.getGoals(categoryId: widget.categoryId));
   }
@@ -28,11 +30,11 @@ class _GoalsListState extends State<GoalsList> {
     context.read<SmartGoalsBloc>().add(SmartGoalsEvent.getGoals(categoryId: widget.categoryId));
   }
 
-  void _onItemPressedHandler(int itemId, bool isSelected) {
-    if (!isSelected && _selectedItems.length >= 2) return;
+  void _onItemPressedHandler(SmartGoal item, bool isSelected) {
+    if (!isSelected && context.read<SmartGoalsBloc>().state.data.cantAddGoal) return;
 
-    isSelected ? _selectedItems.remove(itemId) : _selectedItems.add(itemId);
-    setState(() {});
+    final event = isSelected ? SmartGoalsEvent.unSelectGoal : SmartGoalsEvent.selectGoal;
+    context.read<SmartGoalsBloc>().add(event(goal: item));
   }
 
   @override
@@ -40,13 +42,8 @@ class _GoalsListState extends State<GoalsList> {
     return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(builder: (context, state) {
       return state.maybeMap(
         loading: (_) => const Loader(),
-        error: (s) => ErrorScreen(
-          error: s.data.error!,
-          onButtonPressed: _onErrorRetryHandler,
-        ),
+        error: (s) => ErrorScreen(error: s.data.error!, onButtonPressed: _onErrorRetryHandler),
         orElse: () => ListView.separated(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
           itemCount: state.data.goals.length,
           itemBuilder: (BuildContext context, int index) {
             final item = state.data.goals[index];
@@ -54,12 +51,19 @@ class _GoalsListState extends State<GoalsList> {
             return GoalsListItem(
               item: item,
               onItemPressed: _onItemPressedHandler,
-              isSelected: _selectedItems.contains(item.id),
+              isSelected: state.data.selectedGoals.contains(item),
             );
           },
           separatorBuilder: (_, __) => const SizedBox(height: 10.0),
         ),
       );
     });
+  }
+
+  @override
+  void dispose() {
+    goalsBloc.add(const SmartGoalsEvent.resetSelected());
+
+    super.dispose();
   }
 }

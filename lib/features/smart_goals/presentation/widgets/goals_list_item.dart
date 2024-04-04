@@ -9,12 +9,12 @@ import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal.dart';
 
 class GoalsListItem extends StatelessWidget {
   final SmartGoal item;
-  final void Function(int itemId, bool isSelected) onItemPressed;
+  final void Function(SmartGoal item, bool isSelected) onItemPressed;
   final bool isSelected;
 
   const GoalsListItem({super.key, required this.item, required this.onItemPressed, required this.isSelected});
 
-  void _onItemPressedHandler() => onItemPressed(item.id, isSelected);
+  void _onItemPressedHandler() => onItemPressed(item, isSelected);
 
   void _onInfoHandler(BuildContext context) =>
       ModalBottomSheet.goalFunFact(context: context, title: item.title, content: item.funFact);
@@ -30,7 +30,7 @@ class GoalsListItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomCheckbox.blue(value: isSelected),
+              CustomCheckbox.green(value: isSelected),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),

@@ -16,6 +16,9 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
   SmartGoalsBloc(this._smartGoalsService) : super(const SmartGoalsState.initial(SmartGoalsStateData())) {
     on<GetGoals>(_onGetGoals);
+    on<SelectGoal>(_onSelectGoal);
+    on<UnSelectGoal>(_onUnSelectGoal);
+    on<ResetSelected>(_onResetSelected);
   }
 
   FutureOr<void> _onGetGoals(
@@ -33,5 +36,30 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
       (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(SmartGoalsState.goalsLoaded(state.data.copyWith(goals: r.data, isLoading: false))),
     );
+  }
+
+  FutureOr<void> _onSelectGoal(
+    SelectGoal event,
+    Emitter<SmartGoalsState> emit,
+  ) async {
+    final goals = [...state.data.selectedGoals, event.goal];
+    emit(SmartGoalsState.goalsLoaded(state.data.copyWith(selectedGoals: goals)));
+  }
+
+  FutureOr<void> _onUnSelectGoal(
+    UnSelectGoal event,
+    Emitter<SmartGoalsState> emit,
+  ) async {
+    final goals = [...state.data.selectedGoals];
+    goals.remove(event.goal);
+
+    emit(SmartGoalsState.goalsLoaded(state.data.copyWith(selectedGoals: goals)));
+  }
+
+  FutureOr<void> _onResetSelected(
+    ResetSelected event,
+    Emitter<SmartGoalsState> emit,
+  ) async {
+    emit(SmartGoalsState.goalsLoaded(state.data.copyWith(selectedGoals: [])));
   }
 }

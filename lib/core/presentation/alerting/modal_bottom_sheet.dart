@@ -1309,48 +1309,46 @@ class ModalBottomSheet {
     required String title,
     required String content,
   }) {
+    // TODO all showModalBottomSheets should be refactored with such approach
     showModalBottomSheet<void>(
       context: context,
       showDragHandle: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
-        return FractionallySizedBox(
-          heightFactor: 0.9,
-          child: ScrollableContainer(
-            child: MainContainer(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Column(
+                  CustomText.bitter600(title, style: context.textTheme.displayMedium),
+                  const SizedBox(height: 45),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CustomText.bitter600(title, style: context.textTheme.displayMedium),
-                      const SizedBox(height: 45),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const CircleAvatar(
-                            radius: 22.0,
-                            backgroundColor: AppColors.greenRegular,
-                            child: Icon(Icons.emoji_objects_rounded),
-                          ),
-                          const SizedBox(width: 16.0),
-                          Expanded(child: CustomText.w400(content, style: context.textTheme.bodyMedium)),
-                        ],
+                      const CircleAvatar(
+                        radius: 22.0,
+                        backgroundColor: AppColors.greenRegular,
+                        child: Icon(Icons.emoji_objects_rounded),
                       ),
-                      const SizedBox(height: 45),
+                      const SizedBox(width: 16.0),
+                      Expanded(child: CustomText.w400(content, style: context.textTheme.bodyMedium)),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 30.0),
-                    child: CustomElevatedButton.blueFullWidth(
-                      label: LocalizedTexts.ok.tr().toUpperCase(),
-                      onPressed: context.router.pop,
-                    ),
-                  ),
+                  const SizedBox(height: 45),
                 ],
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 30.0),
+                child: CustomElevatedButton.blueFullWidth(
+                  label: LocalizedTexts.ok.tr().toUpperCase(),
+                  onPressed: context.router.pop,
+                ),
+              ),
+            ],
           ),
         );
       },
