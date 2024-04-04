@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/features/onboarding_new/application/general/me
 import 'package:loopcare_frontend/features/onboarding_new/domain/diseases.dart';
 import 'package:loopcare_frontend/features/onboarding_new/domain/mental_health_answer/mental_health_question.dart';
 import 'package:loopcare_frontend/features/onboarding_new/domain/mental_health_answer/mental_health_test.dart';
+import 'package:loopcare_frontend/features/onboarding_new/domain/onboarding_screen_name.dart';
 import 'package:loopcare_frontend/features/onboarding_new/domain/timer_state.dart';
 import 'package:loopcare_frontend/features/onboarding_new/presentation/medical_questions/diabetes_disease/diabetes_disease_content.dart';
 import 'package:loopcare_frontend/features/onboarding_new/presentation/medical_questions/medical_check_failed/medical_check_failed_content.dart';
@@ -312,6 +313,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
       }
     }
 
+    _sendScreenView(physicalStack.last.screenName);
+
     return state.copyWith(
       generalStep: generalStep,
       physicalPassedStack: physicalStack,
@@ -375,6 +378,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
       }
     }
 
+    _sendScreenView(medicalStack.last.screenName);
+
     return state.copyWith(
       generalStep: generalStep,
       medicalPassedStack: medicalStack,
@@ -424,6 +429,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
       mentalStack = [...mentalStack, nextStep];
     }
 
+    _sendScreenView(mentalStack.last.getScreenName(currentMentalTest.type.name.toUpperCase()));
+
     return state.copyWith(
       mentalPassedStack: mentalStack,
       currentMentalTest: currentMentalTest,
@@ -458,8 +465,11 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
       physicalQuestions = List.from(state.physicalQuestions)..remove(PhysicalQuestionStep.bmiExclusion);
     }
 
+    final List<PhysicalQuestionStep> physicalPassedStack = List.from(state.physicalPassedStack)..removeLast();
+    _sendScreenView(physicalPassedStack.last.screenName);
+
     return state.copyWith(
-      physicalPassedStack: List.from(state.physicalPassedStack)..removeLast(),
+      physicalPassedStack: physicalPassedStack,
       physicalQuestions: physicalQuestions,
     );
   }
@@ -486,6 +496,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     } else if (state.currentMedicalStep == MedicalQuestionStep.completedDisease) {
       medicalQuestions = List.from(state.medicalQuestions)..remove(MedicalQuestionStep.completedDisease);
     }
+
+    _sendScreenView(medicalStack.last.screenName);
 
     return state.copyWith(
       generalStep: generalStep,
@@ -528,11 +540,22 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
       mentalStack = List.from(mentalStack)..removeLast();
     }
 
+    _sendScreenView(mentalStack.last.getScreenName(currentMentalTest.type.name.toUpperCase()));
+
     return state.copyWith(
       generalStep: generalStep,
       mentalPassedStack: mentalStack,
       currentMentalTest: currentMentalTest,
       currentMentalQuestion: currentQuestion,
+    );
+  }
+
+  void _sendScreenView(String screenName) {
+    AnalyticsEventService.instance.logEvent(
+      'screen_view',
+      parameters: {
+        'screenName': screenName,
+      },
     );
   }
 }
