@@ -309,10 +309,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       var userListJson = jsonDecode(data['remoteUsers']) as List;
 
       setState(() {
-        _sessionParticipants = [
-          mySelf!,
-          ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))
-        ];
+        _sessionParticipants = [mySelf!, ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))];
       });
     });
 
@@ -566,8 +563,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     });
   }
 
-  void _showNotSupportSnack() =>
-      context.showError(content: Text(LocalizedTexts.toggleSpeakerError.translation));
+  void _showNotSupportSnack() => context.showError(content: Text(LocalizedTexts.toggleSpeakerError.translation));
 
   void onSettingsHandler() {
     showDialog(
@@ -653,10 +649,9 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                               builder: (context, state) {
                                 final textEvents = context.read<TopicsBloc>().state.data.textEvents;
 
-                                final text = textEvents
-                                        .lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)
-                                        ?.text ??
-                                    '';
+                                final text =
+                                    textEvents.lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)?.text ??
+                                        '';
 
                                 return PromptsContainer(text: text);
                               },

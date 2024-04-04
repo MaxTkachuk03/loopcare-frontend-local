@@ -42,12 +42,11 @@ class IntroGuard extends AutoRouteGuard {
         route = AppRoutes.login;
       }
       //Todo hide subscription flow LOOPCARE-2197
-      // else if (authenticationCubit.state.hasActiveSubscription) {
+      // else if (storage.account?.hasActiveSubscription ?? false) {
       //   route = AppRoutes.home;
       // } else {
       //   route = AppRoutes.subscription;
       // }
-      //remove else{..}
       else {
         route = AppRoutes.home;
       }
@@ -76,7 +75,6 @@ class IntroGuard extends AutoRouteGuard {
 
       return;
     }
-
 
     if (!onboardingState.isCompleted && legalStatementWasPassed) {
       router.replaceAll([

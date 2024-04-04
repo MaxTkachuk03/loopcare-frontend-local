@@ -33,6 +33,8 @@ part 'subscription_bloc.freezed.dart';
 part 'subscription_event.dart';
 part 'subscription_state.dart';
 
+const delayDuration = 40;
+
 @singleton
 class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   late PurchaseDetailsStreamSubscription purchaseDetailsStreamSubscription;
@@ -42,7 +44,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   final AuthTokenManager authTokenManager;
   final SocketService _socketService = SocketService.instance;
   bool isValidatePastIOSPurchase = false;
-
   ProductDetails? buyingProduct;
 
   SubscriptionBloc(this._authenticationService, this._purchaseService, this.authTokenManager, this.inAppPurchaseService)
@@ -173,7 +174,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     Emitter<SubscriptionState> emit,
   ) async {
     await Future.delayed(
-      const Duration(seconds: 20),
+      const Duration(seconds: delayDuration),
       () {
         if (state.data.isWaitTimeout) {
           emit(SubscriptionState.askRestoredSubscription(state.data.copyWith(isLoading: false, isWaitTimeout: false)));
