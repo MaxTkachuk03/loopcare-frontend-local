@@ -36,6 +36,8 @@ import 'package:loopcare_frontend/features/physical_activities/application/physi
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 import 'package:loopcare_frontend/features/quizzes/application/quizzes_bloc.dart';
 import 'package:loopcare_frontend/features/report_abuse/application/report_abuse_bloc.dart';
+import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
+import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_categories_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/application/session_call_bloc.dart';
@@ -168,6 +170,12 @@ class AppBlocProvider {
         ),
         BlocProvider<BuddyBloc>(
           create: (_) => getIt<BuddyBloc>(),
+        ),
+        BlocProvider<SmartGoalsBloc>(
+          create: (_) => getIt<SmartGoalsBloc>(),
+        ),
+        BlocProvider<SmartGoalsCategoriesBloc>(
+          create: (_) => getIt<SmartGoalsCategoriesBloc>(),
         ),
       ];
 }
