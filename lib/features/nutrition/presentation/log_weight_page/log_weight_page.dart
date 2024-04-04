@@ -1,7 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:customer_io/customer_io.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_attributes.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
@@ -46,6 +49,9 @@ class _LogWeightPageState extends State<LogWeightPage> {
     super.initState();
     weightFieldController = TextEditingController(text: _getInputInitialValue());
     fieldFocusNode.requestFocus();
+    CustomerIO.track(
+      name: CIOEvents.weightWidget,
+    );
   }
 
   String _getInputInitialValue() {
@@ -91,6 +97,14 @@ class _LogWeightPageState extends State<LogWeightPage> {
         CustomDefinitions.measurementSystem: _isMetricSystem ? 'metric' : 'imperial',
       },
     );
+    CustomerIO.track(
+      name: CIOEvents.weightLogged,
+      attributes: {
+        CIOAttributes.weightLogged: formattedWeight,
+        CIOAttributes.measurementSystem:
+            _isMetricSystem ? MeasurementSystemType.metric.name : MeasurementSystemType.imperial.name,
+      },
+    );
 
     context.router.pop();
   }
@@ -131,8 +145,7 @@ class _LogWeightPageState extends State<LogWeightPage> {
                       ),
                   ],
                 ),
-                BlocBuilder<DashboardWeightBloc, DashboardWeightState>(
-                    builder: (BuildContext context, state) {
+                BlocBuilder<DashboardWeightBloc, DashboardWeightState>(builder: (BuildContext context, state) {
                   return UnitField(
                     onChanged: _onWeightChangeHandler,
                     unit: state.userWeightUnits,
