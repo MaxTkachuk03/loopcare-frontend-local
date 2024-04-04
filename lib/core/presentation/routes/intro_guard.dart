@@ -38,6 +38,8 @@ class IntroGuard extends AutoRouteGuard {
       final accessToken = await authTokenManager.getAccessToken() ?? '';
       final refreshToken = await authTokenManager.getRefreshToken() ?? '';
 
+      authenticationBloc.add(const AuthenticationEvent.startTrackUser());
+
       if (accessToken.isEmpty || refreshToken.isEmpty) {
         route = AppRoutes.login;
       }
@@ -121,7 +123,6 @@ class IntroGuard extends AutoRouteGuard {
     if (needRoutes.isNotEmpty) {
       router.pushAll(needRoutes);
 
-      authenticationBloc.add(const AuthenticationEvent.startTrackUser());
       return;
     }
 
