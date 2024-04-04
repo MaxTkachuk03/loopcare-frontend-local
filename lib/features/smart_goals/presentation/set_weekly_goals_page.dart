@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/weekly_goals_list.dart';
 
 class SetWeeklyGoalsPage extends StatefulWidget {
   const SetWeeklyGoalsPage({super.key});
@@ -49,6 +50,7 @@ class _SetWeeklyGoalsPageState extends State<SetWeeklyGoalsPage> {
   void _onErrorSaveWeeklyGoals(BuildContext context, SmartGoalsState state) {
     final String? errorMessage = state.data.error?.maybeMap(
       forbidden: (s) => s.error.message,
+      notFound: (s) => s.error.message,
       orElse: () => LocalizedTexts.somethingWentWrong.tr(),
     );
 
@@ -100,19 +102,22 @@ class _SetWeeklyGoalsPageState extends State<SetWeeklyGoalsPage> {
                                 style: context.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
                               );
                             } else {
-                              return CustomText.w400(
-                                'has goals',
-                                style: context.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
-                              );
+                              return const WeeklyGoalsList();
                             }
                           },
                         );
                       },
                     ),
                     const SizedBox(height: 24.0),
-                    CustomOutlinedButton.orange(
-                      label: LocalizedTexts.addGoal.tr(),
-                      onPressed: () => _onAddGoalHandler(context),
+                    BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
+                      builder: (context, state) {
+                        if (state.data.cantAddGoal) return const SizedBox.shrink();
+
+                        return CustomOutlinedButton.orange(
+                          label: LocalizedTexts.addGoal.tr(),
+                          onPressed: () => _onAddGoalHandler(context),
+                        );
+                      },
                     ),
                   ],
                 ),

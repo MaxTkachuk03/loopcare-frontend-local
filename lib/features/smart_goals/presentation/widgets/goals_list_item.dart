@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/checkbox/custom_checkbox.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -42,7 +44,10 @@ class GoalsListItem extends StatelessWidget {
                         style: context.textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 10.0),
-                      CustomText.w600('Complete 7 times in 7 days'),
+                      // TODO check with Alexey what whould be there
+                      CustomText.w600(LocalizedTexts.completeCounter.tr(
+                        args: [item.requiredCompletions.toString(), item.requiredDays.toString()],
+                      )),
                     ],
                   ),
                 ),
