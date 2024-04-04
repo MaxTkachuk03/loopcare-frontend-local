@@ -157,6 +157,12 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           },
         );
 
+        CustomerIoService.userAuthenticated(
+          email: event.email,
+          id: response.id,
+          name: response.name,
+        );
+
         authTokenManager.setAccessToken(response.accessToken);
         authTokenManager.setRefreshToken(response.refreshToken);
 
@@ -236,17 +242,25 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           state.data.copyWith(error: error),
         ),
       ),
-      (response) => emit(
-        AuthenticationState.waitedForConfirmation(
-          state.data.copyWith(
-            email: data.email,
-            accountId: response.id,
-            name: state.data.name,
-            password: event.password,
-            emailWasSend: true,
+      (response) {
+        CustomerIoService.track(event: CIOEvents.onboardingTermsAndConditionsPrivacyPolicyAccept);
+        CustomerIoService.track(event: CIOEvents.onboardingPasswordCreated);
+        CustomerIoService.track(event: CIOEvents.onboardingNewUserCreated);
+        CustomerIoService.setUserVerifiedState(verified: false);
+        CustomerIoService.setUserId(id: response.id);
+
+        emit(
+          AuthenticationState.waitedForConfirmation(
+            state.data.copyWith(
+              email: data.email,
+              accountId: response.id,
+              name: state.data.name,
+              password: event.password,
+              emailWasSend: true,
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -328,7 +342,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
       id = state.data.accountId;
     }
 
-    if (!id.isNegative) {
+    if (state.data.account != null) {
       CustomerIoService.userAuthenticated(
         email: email,
         id: id,
@@ -411,6 +425,10 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
               CustomDefinitions.confirmed: 'true',
             },
           );
+
+          CustomerIoService.track(event: CIOEvents.onboardingEmailConfirmed);
+          CustomerIoService.track(event: CIOEvents.onboardingNewUserVerified);
+          CustomerIoService.setUserVerifiedState(verified: true);
 
           emit(AuthenticationState.guest(state.data));
         }

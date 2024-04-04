@@ -95,9 +95,9 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     );
 
     CustomerIoService.track(
-      event: CIOEvents.onboardingTreatmentByTheDoctor,
+      event: CIOEvents.onboardingPsychiatrist,
       attributes: {
-        CIOAttributes.pregnancy: event.value,
+        CIOAttributes.psychiatrist: event.value,
       },
     );
 

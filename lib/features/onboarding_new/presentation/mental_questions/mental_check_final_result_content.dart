@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
@@ -44,14 +45,14 @@ class _MentalCheckResultFinalContentState extends State<MentalCheckResultFinalCo
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MentalQuestionsBloc, MentalQuestionsState>(
+    return BlocConsumer<MentalQuestionsBloc, MentalQuestionsState>(
+      listener: _mentalTestsResultListener,
       builder: (context, state) {
         if (state.isLoading) return const Loader();
 
         return BottomPlacedButton.orange(
           body: ListView(
             physics: const ClampingScrollPhysics(),
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               UnderAppbar.orange(
                 child: Center(
@@ -113,5 +114,13 @@ class _MentalCheckResultFinalContentState extends State<MentalCheckResultFinalCo
 
   _onNextPressed(BuildContext context) {
     context.router.pushNamed(AppRoutes.legalStatement);
+  }
+
+  void _mentalTestsResultListener(BuildContext context, MentalQuestionsState state) {
+    if (state.isPhq8TestHigh) {
+      CustomerIoService.track(event: CIOEvents.onboardingFinalResultExclusion);
+    } else {
+      CustomerIoService.track(event: CIOEvents.onboardingFinalResult);
+    }
   }
 }

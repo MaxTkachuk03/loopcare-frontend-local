@@ -279,6 +279,9 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     if (physicalStep == PhysicalQuestionStep.result) {
       generalStep = GeneralOnboardingStep.medical;
       medicalStack = [MedicalQuestionStep.intro];
+      CustomerIoService.track(
+        event: CIOEvents.onboardingMedicalIntro,
+      );
 
     } else if (isExclude) {
       if (physicalStep == PhysicalQuestionStep.birthday) {
@@ -300,8 +303,13 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     } else {
       final nextStepIndex = state.physicalQuestions.indexWhere((e) => e == physicalStep) + 1;
       physicalStep = state.physicalQuestions[nextStepIndex];
-
       physicalStack = [...physicalStack, physicalStep];
+
+      if (physicalStep == PhysicalQuestionStep.result) {
+        CustomerIoService.track(
+          event: CIOEvents.onboardingBasicsCompleted,
+        );
+      }
     }
 
     return state.copyWith(
@@ -358,8 +366,13 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     } else {
       final nextStepIndex = state.medicalQuestions.indexWhere((e) => e == medicalStep) + 1;
       medicalStep = state.medicalQuestions[nextStepIndex];
-
       medicalStack = [...medicalStack, medicalStep];
+
+      if (medicalStep == MedicalQuestionStep.result) {
+        CustomerIoService.track(
+          event: CIOEvents.onboardingMedicalCompleted,
+        );
+      }
     }
 
     return state.copyWith(
