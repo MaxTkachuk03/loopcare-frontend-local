@@ -7,60 +7,29 @@ final screenNames = {
   'EducationRoute': 'Education Screen', // added
   'AccountRoute': 'User profile Screen', // added
   'JoinUsRoute': 'Join Us Screen', // added
-  'LoginRoute': 'Login Screen', //added
-  'ForgotPasswordRoute': 'Forgot Password Screen', //added
-  'PhysicalIntroRoute': 'Physical intro Screen', //added
-  'BirthdayRoute': 'Birthday Screen', // added
-  'CheckFailedAgeRoute': 'Check Failed Age Screen', // added
-  'SexRoute': 'Sex Screen', // added
-  'BiologicalGenderRoute': 'Biological Gender Screen', // added
-  'HeightRoute': 'Height Screen', // added
-  'WeightRoute': 'Weight Screen', // added
-  'PhysicalCheckResultRoute': 'Physical Check Result Screen', //added
-  'MedicalIntroRoute': 'Medical Intro Screen', // added
-  'PregnancyRoute': 'Pregnancy Screen', // added
-  'PregnancyFailedRoute': 'Pregnancy Failed Screen', // added
-  'MedicinesRoute': 'Medicines Screen', // added
-  'WeightLossMedicationRoute': 'Weight Loss Medication Screen', // added
-  'MedicationPastPeriodRoute': 'Medication Past Period Screen', // added
-  'MedicationFuturePeriodRoute': 'Medication Future Period Screen', // added
-  'ObesityRoute': 'Obesity Screen', // added
-  'ThyroidDiseaseRoute': 'Thyroid disease Screen', // added
-  'MetabolicDiseaseRoute': 'Metabolic disease Screen', // added
-  'HypertensionRoute': 'Hypertension Screen', // added
-  'CardiovascularDiseaseRoute': 'Cardiovascular Disease Screen', // added
-  'StomachReductionRoute': 'Stomach Reduction Screen', // added
-  'DiabetesDiseaseRoute': 'Diabetes disease Screen', // added
-  'RenalFailureRoute': 'Renal failure Screen', // added
-  'AsthmaRoute': 'Asthma Screen', // added
-  'LiverDiseaseRoute': 'Liver disease Screen', // added
-  'SleepApneaSyndromeRoute': 'Sleep apnea syndrome Screen', // added
-  'LocomotorSystemDiseaseRoute': 'Locomotor System Disease Screen', // added
-  'TreatmentByDoctorRoute': 'Treatment By Doctor Screen', // added
-  'MedicalCheckPassedRoute': 'Medical Check Passed Screen', // added
-  'MedicalCheckFailedRoute': 'Medical Check Failed Screen', // added
-  'MentalHealthPreIntroRoute': 'Mental Health Intro Screen', // added
-  'MentalHealthIntroRoute': 'Mental Health Description Screen', // added
-  'MentalHealthQuestionRoute': 'Mental Health Question Screen', // added
-  'MentalCheckResultRoute': 'Mental Check Result Screen', // added
-  'LegalStatementRoute': 'Legal Statement Screen', //added
-  'SignUpWelcomeRoute': 'Sign Up Screen', //added
-  'NameRoute': 'User Name Screen', //added
-  'PasswordRoute': 'User Password Screen', //added
-  'EmailAddressRoute': 'User Email Address Screen', //added
-  'WaitingForConfirmationRoute': 'User Confirmation Screen', //added
+  'LoginRoute': 'Login Screen', // added
+  'ForgotPasswordRoute': 'Forgot Password Screen', // added
+  'NameRoute': 'User Name Screen', // added
+  'SuccessVerifiedEmailRoute': 'Success Verified Email Screen', // added
+  'PhysicalIntroRoute': 'Physical intro Screen', // added
+  'LegalStatementRoute': 'Legal Statement Screen', // added
+  'SignUpWelcomeRoute': 'Sign Up Screen', // added
+  'PasswordRoute': 'User Password Screen', // added
+  'EmailAddressRoute': 'User Email Address Screen', // added
+  'WaitingForConfirmationRoute': 'User Confirmation Screen', // added
+  'ChangeEmailAddressRoute': 'Change User Email Address Screen', // added
   'BarcodeScannerRoute': 'Barcode Scanner Screen', // added
-  'NutritionInstructionsRoute': 'Nutrition Instructions Screen', //added
+  'NutritionInstructionsRoute': 'Nutrition Instructions Screen', // added
   'SelectFoodRoute': 'Select Food Screen', // added
   'SelectServingRoute': 'Select Serving Screen', // added
   'SearchRoute': 'Search Screen', // added
   'RecipeRoute': 'Recipe Screen', // added
-  'MealRoute': 'Meal Screen', //added
+  'MealRoute': 'Meal Screen', // added
   'LogPlannedMealsRoute': 'Log Planned Meals Screen',
-  'LogWeightRoute': 'Today\'s weight Screen', //added
+  'LogWeightRoute': 'Today\'s weight Screen', // added
   'RecipeDetailsRoute': 'Recipe Details Screen', // added
-  'ChooseDateCalendarRoute': 'Plan Meal Choose Date Screen', //added
-  'WeekPlannerRoute': 'Week Planner  Screen', //added
+  'ChooseDateCalendarRoute': 'Plan Meal Choose Date Screen', // added
+  'WeekPlannerRoute': 'Week Planner  Screen', // added
   'RecommendationsRoute': 'Recommendations Screen',
   'LessonRoute': 'Lesson Screen', // added
   'LessonCompleteRoute': 'Lesson Complete Screen', // added
