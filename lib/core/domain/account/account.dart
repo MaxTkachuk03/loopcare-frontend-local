@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
 import 'package:loopcare_frontend/core/domain/unlock_config/feature/feature.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
@@ -101,6 +102,8 @@ abstract class Account implements _$Account {
   bool get hasActiveSubscription => subscription.isActive;
 
   bool get isOnTrial => subscription.state == SubscriptionStatus.trialPeriod;
+
+  String get nameCapitalised => name.isNotEmpty ? name.capitalizeEachWordFirstLetter() : '';
 
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 }
