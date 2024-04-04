@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 
 const _defaultButtonPadding = EdgeInsets.fromLTRB(20.0, 24.0, 20.0, 30.0);
 

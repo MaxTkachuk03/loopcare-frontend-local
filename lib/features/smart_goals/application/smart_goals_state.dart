@@ -12,8 +12,9 @@ class SmartGoalsState with _$SmartGoalsState {
 
   const factory SmartGoalsState.errorSaveGoals(SmartGoalsStateData data) = SmartGoalsStateErrorSaveGoals;
 
-  const factory SmartGoalsState.weeklySessionSaved(SmartGoalsStateData data) =
-      SmartGoalsStateWeeklySessionSaved;
+  const factory SmartGoalsState.weeklySessionSaved(SmartGoalsStateData data) = SmartGoalsStateWeeklySessionSaved;
+
+  const factory SmartGoalsState.gotWeeklySession(SmartGoalsStateData data) = GotSmartGoalsStateWeeklySession;
 }
 
 @freezed
@@ -32,5 +33,7 @@ class SmartGoalsStateData with _$SmartGoalsStateData {
 
   bool get noGoalsSelected => goals.isEmpty;
 
-  bool get hasWeeklyGoals => selectedGoals.isNotEmpty;
+  bool get hasWeeklyGoals => selectedGoals.isNotEmpty || weeklyGoals.isNotEmpty;
+
+  List<SmartGoal> get weeklyGoals => weeklyGoalsSession?.goals ?? [];
 }

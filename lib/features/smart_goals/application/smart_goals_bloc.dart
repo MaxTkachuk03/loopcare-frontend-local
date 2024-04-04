@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -8,9 +9,9 @@ import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_s
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goals_session.dart';
 
+part 'smart_goals_bloc.freezed.dart';
 part 'smart_goals_event.dart';
 part 'smart_goals_state.dart';
-part 'smart_goals_bloc.freezed.dart';
 
 @singleton
 class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
@@ -18,6 +19,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
   SmartGoalsBloc(this._smartGoalsService) : super(const SmartGoalsState.initial(SmartGoalsStateData())) {
     on<GetGoals>(_onGetGoals);
+    on<GetWeeklyGoals>(_onGetWeeklyGoals);
     on<SaveGoals>(_onSaveGoals);
     on<SelectGoal>(_onSelectGoal);
     on<UnSelectGoal>(_onUnSelectGoal);
@@ -35,6 +37,20 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     response.fold(
       (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(SmartGoalsState.goalsLoaded(state.data.copyWith(goals: r.data, isLoading: false))),
+    );
+  }
+
+  FutureOr<void> _onGetWeeklyGoals(
+    GetWeeklyGoals event,
+    Emitter<SmartGoalsState> emit,
+  ) async {
+    emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
+
+    final response = await _smartGoalsService.getWeeklyGoals();
+
+    response.fold(
+      (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
+      (r) => emit(SmartGoalsState.gotWeeklySession(state.data.copyWith(weeklyGoalsSession: r, isLoading: false))),
     );
   }
 

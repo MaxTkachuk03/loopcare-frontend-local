@@ -73,14 +73,15 @@ class AuthenticationData with _$AuthenticationData {
 
   bool get isFoodLoggingUnlocked => unlockedFeatures.contains(UnlockedFeatureType.meals);
 
-  bool get isGroupSessionsUnlocked =>
-      unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;
+  bool get isGroupSessionsUnlocked => unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;
 
   bool get isPhysicalActivitiesUnlocked => unlockedFeatures.contains(UnlockedFeatureType.physicalActivities);
 
   bool get isAssignmentsUnlocked => unlockedFeatures.contains(UnlockedFeatureType.assignments);
 
   bool get isBuddyUnlocked => unlockedFeatures.contains(UnlockedFeatureType.buddy);
+
+  bool get isSmartGoalUnlocked => unlockedFeatures.contains(UnlockedFeatureType.smartGoals);
 
   bool get isUserGrouped => groupingState == UserGroupingState.grouped;
 

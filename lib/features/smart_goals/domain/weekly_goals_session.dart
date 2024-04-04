@@ -12,6 +12,7 @@ class WeeklyGoalsSession with _$WeeklyGoalsSession {
     required String startedAt,
     required String finishedAt,
     required List<SmartGoal> goals,
+    required bool isActive,
   }) = _WeeklyGoalsSession;
 
   factory WeeklyGoalsSession.fromJson(Map<String, dynamic> json) => _$WeeklyGoalsSessionFromJson(json);

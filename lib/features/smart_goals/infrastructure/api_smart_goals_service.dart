@@ -8,12 +8,12 @@ import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals
 import 'package:loopcare_frontend/features/smart_goals/application/dto/save_goals_body.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/save_goals_response.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_service.dart';
-
-// TODO use to mock goals categories server response
-import 'package:loopcare_frontend/features/smart_goals/infrastructure/get_smart_goals_categories_mock.dart';
-
+import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goals_session.dart';
 // TODO use to mock goals server response
 import 'package:loopcare_frontend/features/smart_goals/infrastructure/get_goals_list_mock.dart';
+// TODO use to mock goals categories server response
+import 'package:loopcare_frontend/features/smart_goals/infrastructure/get_smart_goals_categories_mock.dart';
+import 'package:loopcare_frontend/features/smart_goals/infrastructure/get_weekly_goals.dart';
 
 @Injectable(as: SmartGoalsService)
 class APISmartGoalsService implements SmartGoalsService {
@@ -45,5 +45,11 @@ class APISmartGoalsService implements SmartGoalsService {
     return right(GetGoalsCategoriesResponse.fromJson({'data': goalsCategories}));
 
     // return client.get('/smart-goal/categories').then(parseResponse(GetGoalsCategoriesResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, WeeklyGoalsSession>> getWeeklyGoals() async {
+    return right(WeeklyGoalsSession.fromJson(weeklyGoals));
+    // return client.get('/smart-goal/sessions/last').then(parseResponse(WeeklyGoalsSession.fromJson));
   }
 }

@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/upcoming_goal_list.dart';
 
 class DashboardGoalsList extends StatelessWidget {
   const DashboardGoalsList({super.key});
@@ -20,8 +21,8 @@ class DashboardGoalsList extends StatelessWidget {
         return state.maybeMap(
           loading: (_) => const Loader(),
           orElse: () {
-            if (state.data.noGoalsSelected) return const _EmptyGoalsList();
-            return const _EmptyGoalsList();
+            if (state.data.hasWeeklyGoals) return const _EmptyGoalsList();
+            return const UpcomingGoalsList();
           },
         );
       },
