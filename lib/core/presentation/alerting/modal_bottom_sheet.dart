@@ -134,6 +134,7 @@ class ModalBottomSheet {
     required BuildContext context,
     required void Function() onSubscriptionPref,
     bool isDuplicate = false,
+    required ValueNotifier<bool> sheetNotifier,
   }) {
     showModalBottomSheet<void>(
       showDragHandle: true,
@@ -169,7 +170,9 @@ class ModalBottomSheet {
           ),
         );
       },
-    );
+    ).whenComplete(() {
+      sheetNotifier.value = false;
+    });
   }
 
   static void deleteAccount({

@@ -43,7 +43,7 @@ class SubscriptionController {
     if (data.plans.isEmpty) {
       return [];
     }
-    List<ProductDetails> list = data.plans;
+    List<ProductDetails> list = [...data.plans];
     list.sort((a, b) => a.rawPrice.compareTo(b.rawPrice));
     return list;
   }
