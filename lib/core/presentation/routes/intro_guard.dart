@@ -75,7 +75,6 @@ class IntroGuard extends AutoRouteGuard {
       return;
     }
 
-
     if (!onboardingState.isCompleted && legalStatementWasPassed) {
       router.replaceAll([
         const SignUpWelcomeRoute(),
