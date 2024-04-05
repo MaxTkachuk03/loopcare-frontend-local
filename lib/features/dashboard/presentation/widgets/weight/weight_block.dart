@@ -18,9 +18,8 @@ class WeightBlock extends StatelessWidget {
 
   const WeightBlock({super.key, required this.date});
 
-  void onPressHandler(BuildContext context) {
-    context.router.push(LogWeightRoute(selectedDay: date));
-  }
+  void onPressHandler(BuildContext context) =>
+      context.router.push(LogWeightRoute(selectedDay: date));
 
   @override
   Widget build(BuildContext context) {
@@ -61,32 +60,28 @@ class WeightBlock extends StatelessWidget {
               final showSubText = !hasLog && isEditable;
 
               return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
+                  AppIcons.customDashboardWeight,
+                  const SizedBox(width: 24.0),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppIcons.customDashboardWeight,
-                      const SizedBox(width: 24.0),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomText.bitter600(
-                            text,
-                            style: context.textTheme.headlineSmall!.copyWith(
-                              color: isEditable ? AppColors.blueDarker : AppColors.greyLabel,
-                            ),
-                          ),
-                          if (showSubText)
-                            CustomText.w400(
-                              LocalizedTexts.preferableInTheMorning.translation,
-                              style: context.textTheme.bodySmall!.copyWith(
-                                color: isEditable ? AppColors.blueDarker : AppColors.greyLabel,
-                              ),
-                            )
-                        ],
+                      CustomText.bitter600(
+                        text,
+                        style: context.textTheme.headlineSmall!.copyWith(
+                          color: isEditable ? AppColors.blueDarker : AppColors.greyLabel,
+                        ),
                       ),
+                      if (showSubText)
+                        CustomText.w400(
+                          LocalizedTexts.preferableInTheMorning.translation,
+                          style: context.textTheme.bodySmall!.copyWith(
+                            color: isEditable ? AppColors.blueDarker : AppColors.greyLabel,
+                          ),
+                        )
                     ],
                   ),
+                  const Spacer(),
                   if (isEditable)
                     CustomOutlinedRoundedButtonWithIcon(
                       onPressed: () => onPressHandler(context),

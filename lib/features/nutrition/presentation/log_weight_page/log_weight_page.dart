@@ -105,10 +105,13 @@ class _LogWeightPageState extends State<LogWeightPage> {
 
   @override
   Widget build(BuildContext context) {
+    final title = _isToday ? LocalizedTexts.todaysWeight.translation : LocalizedTexts.yourWeight.translation;
+    final yourWeight = _isToday ? LocalizedTexts.yourWeight.tr() : '${LocalizedTexts.yourWeight.tr()} ${LocalizedTexts.on.tr()}';
+
     return CustomScaffold.coralLightest(
       appBar: CustomAppBar.coral(
         leading: CustomFilledIconButton.leadingCoralLighter(),
-        title: _isToday ? LocalizedTexts.todaysWeight.translation : LocalizedTexts.yourWeight.translation,
+        title: title,
       ),
       body: CustomSafeArea(
         child: ScrollableContainer(
@@ -120,29 +123,31 @@ class _LogWeightPageState extends State<LogWeightPage> {
                   children: [
                     const SizedBox(height: 70.0),
                     CustomText.bitter500(
-                      '${LocalizedTexts.yourWeight.tr()} ${LocalizedTexts.on.tr()}',
+                      yourWeight,
                       style: context.textTheme.displayMedium,
                     ),
-                    if (!_isToday) const SizedBox(height: 12.0),
-                    if (!_isToday)
+                    if (!_isToday) ...[
+                      const SizedBox(height: 12.0),
                       CustomText.bitter500(
                         widget.selectedDay.americanShortDateWithYear,
                         style: context.textTheme.displayMedium,
                       ),
+                    ],
                   ],
                 ),
                 BlocBuilder<DashboardWeightBloc, DashboardWeightState>(
-                    builder: (BuildContext context, state) {
-                  return UnitField(
-                    onChanged: _onWeightChangeHandler,
-                    unit: state.userWeightUnits,
-                    controller: weightFieldController,
-                    focusNode: fieldFocusNode,
-                    isDecimal: true,
-                    maxLength: 5,
-                    counterText: '',
-                  );
-                }),
+                  builder: (context, state) {
+                    return UnitField(
+                      onChanged: _onWeightChangeHandler,
+                      unit: state.userWeightUnits,
+                      controller: weightFieldController,
+                      focusNode: fieldFocusNode,
+                      isDecimal: true,
+                      maxLength: 5,
+                      counterText: '',
+                    );
+                  },
+                ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 30.0),
                   child: CustomElevatedButton.blueFullWidth(
