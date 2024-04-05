@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
@@ -50,7 +51,9 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MentalQuestionsBloc, MentalQuestionsState>(
+    return BlocConsumer<MentalQuestionsBloc, MentalQuestionsState>(
+      listenWhen: (previous, current) => previous.isLoading && !current.isLoading,
+      listener: _resultListener,
       builder: (context, state) {
         if (state.isLoading) return const Loader();
 
@@ -178,4 +181,20 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
       MentalHealthTestType.gad7 => GAD7ResultText(onLinkPressed: onUrlHandler),
       MentalHealthTestType.phq8 => PHQ8ResultText(onLinkPressed: onUrlHandler),
     };
+
+  void _resultListener(BuildContext context, MentalQuestionsState state) {
+    final test = context.read<GeneralOnboardingBloc>().state.currentMentalTest;
+    final result = state.results[test?.type];
+    
+    if (result != null) {
+      CustomerIoService.track(
+          event: CIOEvents.onboardingInterimResult,
+          attributes: {
+            CIOAttributes.testName: test!.title,
+            CIOAttributes.testScore: result.totalScore,
+            CIOAttributes.interpretation: result.interpretation.name,
+          }
+      );
+    }
+  }
 }

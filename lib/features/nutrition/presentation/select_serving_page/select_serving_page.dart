@@ -64,7 +64,7 @@ class _SelectServingPageState extends State<SelectServingPage> {
         leading: CustomFilledIconButton.leadingGreenLighter(),
         actions: [
           BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(
-            builder: (BuildContext context, state) {
+            builder: (context, state) {
               return state.maybeMap(
                 orElse: () => const SizedBox(
                   height: 48.0,
@@ -88,23 +88,17 @@ class _SelectServingPageState extends State<SelectServingPage> {
           ),
         ],
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(72),
+          preferredSize: const Size.fromHeight(_kBottomPreferredHeight),
           child: Container(
+            width: double.infinity,
             height: _kBottomPreferredHeight,
             color: AppColors.greenLighter,
+            alignment: Alignment.centerLeft,
             padding: const EdgeInsets.symmetric(horizontal: 18.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: CustomText.bitter600(
-                    widget.foodItemName,
-                    maxLines: 2,
-                    style: context.textTheme.titleLarge,
-                  ),
-                ),
-              ],
+            child: CustomText.bitter600(
+              widget.foodItemName,
+              maxLines: 2,
+              style: context.textTheme.titleLarge,
             ),
           ),
         ),
@@ -114,25 +108,29 @@ class _SelectServingPageState extends State<SelectServingPage> {
           const Expanded(
             child: ServingList(),
           ),
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
-              child: CustomElevatedButton.blueFullWidth(
-                onPressed: () => _onConfirmPressed(context),
-                label: LocalizedTexts.confirm,
-              )),
+          BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(
+            builder: (context, state) {
+              final servingAmount = double.parse(state.selectedServingAmount ?? '0');
+              final servingId = state.selectedServingItem?.servingId;
+              final enable = double.parse(state.selectedServingAmount ?? '0') != 0;
+
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
+                child: CustomElevatedButton.blueFullWidth(
+                  onPressed: enable ? () => _onConfirmPressed(context, servingAmount, servingId) : null,
+                  label: LocalizedTexts.confirm,
+                ),
+              );
+            }
+          ),
         ],
       ),
     );
   }
 
-  _onConfirmPressed(BuildContext context) {
-    final state = context.read<FoodItemServingsBloc>().state;
-
-    final servingAmount = state.selectedServingAmount;
-    final servingId = state.selectedServingItem?.servingId;
-
-    if (servingAmount != null && servingId != null) {
-      widget.onConfirm.call(double.parse(servingAmount), servingId);
+  _onConfirmPressed(BuildContext context, double amount, String? id) {
+    if (id != null) {
+      widget.onConfirm.call(amount, id);
     }
     context.router.pop();
   }
