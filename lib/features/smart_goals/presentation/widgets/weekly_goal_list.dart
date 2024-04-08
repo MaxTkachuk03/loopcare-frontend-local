@@ -3,29 +3,56 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/weekly_goal_item.dart';
 
-class DashboardGoalsList extends StatelessWidget {
-  const DashboardGoalsList({super.key});
+class WeeklyGoalsList extends StatefulWidget {
+  const WeeklyGoalsList({super.key});
+
+  @override
+  State<WeeklyGoalsList> createState() => _WeeklyGoalsListState();
+}
+
+class _WeeklyGoalsListState extends State<WeeklyGoalsList> {
+  @override
+  void initState() {
+    super.initState();
+    debugPrint('devcpp GET WEEKLY GOALS');
+    context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals());
+  }
+
+  void _onErrorRetryHandler() {
+    // context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals());
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
-      builder: (context, state) {
-        return state.maybeMap(
+    return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(builder: (context, state) {
+      return state.maybeMap(
           loading: (_) => const Loader(),
+          error: (s) => ErrorScreen(error: s.data.error!, onButtonPressed: _onErrorRetryHandler),
           orElse: () {
-            if (state.data.hasWeeklyGoals) return const _EmptyGoalsList();
-            return const _EmptyGoalsList();
-          },
-        );
-      },
-    );
+            debugPrint('devcpp HAS GOALS: ${state.data.hasWeeklyGoals}');
+            if (!state.data.hasWeeklyGoals) return const _EmptyGoalsList();
+            return ListView.builder(
+              shrinkWrap: true,
+              padding: EdgeInsets.zero,
+              itemCount: state.data.weeklyGoals.length,
+              itemBuilder: (BuildContext context, int index) {
+                final item = state.data.weeklyGoals[index];
+                return WeeklyGoalItem(
+                  item: item,
+                );
+              },
+            );
+          });
+    });
   }
 }
 

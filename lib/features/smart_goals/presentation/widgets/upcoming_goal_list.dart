@@ -41,7 +41,7 @@ class _UpcomingGoalsListState extends State<UpcomingGoalsList> {
                 }
                 final item = state.data.weeklyGoals[index - 1];
                 return UpcomingGoalItem(
-                  item: item,
+                  item: item.smartGoal,
                 );
               },
               separatorBuilder: (BuildContext context, int index) {

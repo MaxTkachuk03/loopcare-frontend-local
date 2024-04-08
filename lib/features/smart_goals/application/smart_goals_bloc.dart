@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/features/smart_goals/application/dto/save_goal
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_service.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goals_session.dart';
+import 'package:loopcare_frontend/features/smart_goals/domain/weekly_smart_goal.dart';
 
 part 'smart_goals_bloc.freezed.dart';
 part 'smart_goals_event.dart';

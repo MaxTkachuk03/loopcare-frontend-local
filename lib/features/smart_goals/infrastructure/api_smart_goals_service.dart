@@ -50,6 +50,6 @@ class APISmartGoalsService implements SmartGoalsService {
   @override
   Future<Either<RequestError, WeeklyGoalsSession>> getWeeklyGoals() async {
     return right(WeeklyGoalsSession.fromJson(weeklyGoals));
-    // return client.get('/smart-goal/sessions/last').then(parseResponse(WeeklyGoalsSession.fromJson));
+    // return client.get('/smart-goal/session/last').then(parseResponse(WeeklyGoalsSession.fromJson));
   }
 }

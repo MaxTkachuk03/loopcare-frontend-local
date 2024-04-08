@@ -16,7 +16,6 @@ class SmartGoal with _$SmartGoal {
     @Default('') String funFact,
     @Default(0) int requiredCompletions,
     @Default(0) int requiredDays,
-    List<SmartGoalProgress>? progressLogs,
   }) = _SmartGoal;
 
   factory SmartGoal.fromJson(Map<String, dynamic> json) => _$SmartGoalFromJson(json);

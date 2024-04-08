@@ -35,5 +35,5 @@ class SmartGoalsStateData with _$SmartGoalsStateData {
 
   bool get hasWeeklyGoals => selectedGoals.isNotEmpty || weeklyGoals.isNotEmpty;
 
-  List<SmartGoal> get weeklyGoals => weeklyGoalsSession?.goals ?? [];
+  List<WeeklySmartGoal> get weeklyGoals => weeklyGoalsSession?.goals ?? [];
 }

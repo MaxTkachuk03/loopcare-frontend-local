@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+
+const achieveRadius = 14.0;
 
 class GoalProgressIndicator extends StatelessWidget {
   final int steps;
@@ -8,40 +11,66 @@ class GoalProgressIndicator extends StatelessWidget {
   final double innerSize;
   final double progressSize;
   final double strokeWidth;
+  final bool isAchievedNotifier;
 
   const GoalProgressIndicator({
     super.key,
     required this.steps,
     required this.currentStep,
-    this.innerSize = 20.0,
-    this.progressSize = 50,
+    this.innerSize = 18.0,
+    this.progressSize = 47,
     this.strokeWidth = 12,
+    required this.isAchievedNotifier,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        CircleAvatar(
-          radius: innerSize,
-          backgroundColor: AppColors.blueDarkest,
-          child: _TextAccent(
-            currentStep: currentStep,
-            steps: steps,
+    return SizedBox(
+      width: progressSize,
+      height: isAchievedNotifier ? progressSize + innerSize + achieveRadius : progressSize + innerSize,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              SizedBox.square(
+                dimension: progressSize,
+                child: CircularProgressIndicator(
+                  strokeCap: StrokeCap.round,
+                  value: _calculateValue(),
+                  strokeWidth: strokeWidth,
+                  backgroundColor: AppColors.blueLightest,
+                  valueColor: const AlwaysStoppedAnimation<Color>(AppColors.greenRegular),
+                ),
+              ),
+              Positioned(
+                left: 0,
+                right: 0,
+                child: CircleAvatar(
+                  radius: innerSize,
+                  backgroundColor: AppColors.blueDarkest,
+                  child: _TextAccent(
+                    currentStep: currentStep,
+                    steps: steps,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-        SizedBox.square(
-          dimension: progressSize,
-          child: CircularProgressIndicator(
-            strokeCap: StrokeCap.round,
-            value: _calculateValue(),
-            strokeWidth: strokeWidth,
-            backgroundColor: AppColors.blueLightest,
-            valueColor: const AlwaysStoppedAnimation<Color>(AppColors.greenRegular),
+          Positioned(
+            top: 0,
+            child: Visibility(
+              visible: isAchievedNotifier,
+              child: CircleAvatar(
+                radius: achieveRadius,
+                backgroundColor: AppColors.yellowRegular,
+                child: AppIcons.achieve,
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

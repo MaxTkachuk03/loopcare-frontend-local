@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal.dart';
@@ -22,7 +24,12 @@ class UpcomingGoalItem extends StatelessWidget {
           ),
           const SizedBox(height: 10.0),
           CustomText.w400(
-            'Complete 7 times in 7 days',
+            LocalizedTexts.weeklyRequiredProgress.tr(
+              namedArgs: {
+                'requiredCompletions': '${item.requiredCompletions}',
+                'requiredDays': '${item.requiredDays}',
+              },
+            ),
             style: context.textTheme.bodyMedium,
           ),
           const SizedBox(height: 18.0),
