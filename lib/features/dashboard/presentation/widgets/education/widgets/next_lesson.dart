@@ -50,9 +50,8 @@ class NextLesson extends StatelessWidget {
                 ClipPath(
                   clipper: ImageClipper(),
                   child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
+                    borderRadius: const BorderRadius.horizontal(
+                      left: Radius.circular(9.0),
                     ),
                     child: SizedBox(
                       width: 130.0,
@@ -92,35 +91,39 @@ class NextLesson extends StatelessWidget {
                         ),
                         const SizedBox(height: 10.0),
                         state.maybeMap(
-                            initial: (_) => const Loader(),
-                            loading: (_) => const Loader(),
-                            orElse: () => !isLocked && !isBlocked
-                                ? CustomOutlinedButton.coralSmall(
-                                    label: LocalizedTexts.start.tr(),
-                                    onPressed: isBlocked ? null : () => _onTapHandler(context),
-                                  )
-                                : Row(
-                                    children: [
-                                      LessonState.locked(),
-                                      const SizedBox(width: 4.0),
-                                      isBlocked
-                                          ? Expanded(
-                                              child: Wrap(
-                                                children: [
-                                                  CustomText.w600(
-                                                    '${LocalizedTexts.availableIn.tr()}: ',
-                                                    style: context.textTheme.bodySmall,
-                                                  ),
-                                                  EducationCountDown(
-                                                    seconds: lessonWithCountdown.timeRemaining,
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          : CustomText.w700(LocalizedTexts.locked.tr(),
-                                              style: context.textTheme.bodySmall),
-                                    ],
-                                  )),
+                          initial: (_) => const Loader(),
+                          loading: (_) => const Loader(),
+                          orElse: () => !isLocked && !isBlocked
+                              ? CustomOutlinedButton.coralSmall(
+                                  label: LocalizedTexts.start.tr(),
+                                  onPressed: isBlocked ? null : () => _onTapHandler(context),
+                                )
+                              : Row(
+                                  children: [
+                                    LessonState.locked(),
+                                    const SizedBox(width: 4.0),
+                                    if (isBlocked)
+                                      Expanded(
+                                        child: Wrap(
+                                          children: [
+                                            CustomText.w600(
+                                              '${LocalizedTexts.availableIn.tr()}: ',
+                                              style: context.textTheme.bodySmall,
+                                            ),
+                                            EducationCountDown(
+                                              seconds: lessonWithCountdown.timeRemaining,
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    else
+                                      CustomText.w700(
+                                        LocalizedTexts.locked.tr(),
+                                        style: context.textTheme.bodySmall,
+                                      ),
+                                  ],
+                                ),
+                        ),
                       ],
                     ),
                   ),

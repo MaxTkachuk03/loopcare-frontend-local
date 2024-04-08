@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/application/physical_activities_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/application/programs_in_progress_bloc.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/empty_activities_list.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/filled_activities_list.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
@@ -71,7 +72,7 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
       listenWhen: (prev, cur) => cur is ProgramUpdated,
       listener: _programLogged,
       child: Container(
-        padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
+        padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 8.0, left: 8.0),
         decoration: const BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -82,61 +83,62 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
 
             return Column(
               children: [
-                InkWell(
+                DashboardCardTitle(
                   onTap: _isActive && isAvailable ? () => onPressHandler(context) : null,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          AppIcons.customPhysicalExercise,
-                          const SizedBox(width: 24.0),
-                          CustomText.bitter600(
-                            LocalizedTexts.physicalActivities.tr(),
-                            style: context.textTheme.headlineSmall!.copyWith(
-                              color: _isActive && isAvailable ? AppColors.blueDarker : AppColors.greyLabel,
-                            ),
-                          ),
-                        ],
-                      ),
-                      if (isAvailable) const ImageIcon(AppIcons.arrow, color: AppColors.blueDarker),
-                    ],
+                  highlightColor: AppColors.yellowLightest,
+                  leadingIcon: AppIcons.customPhysicalExercise,
+                  title: CustomText.bitter600(
+                    LocalizedTexts.physicalActivities.tr(),
+                    style: context.textTheme.headlineSmall!.copyWith(
+                      color: _isActive && isAvailable ? AppColors.blueDarker : AppColors.greyLabel,
+                    ),
                   ),
+                  actionIcon: AppIcons.arrow,
+                  editable: isAvailable,
+                  circleButton: false,
                 ),
-                const SizedBox(height: 8.0),
-                const Divider(color: AppColors.blueOffRegular),
-                const SizedBox(height: 6.0),
-                BlocBuilder<ProgramsInProgressBloc, ProgramsInProgressState>(
-                  builder: (BuildContext context, state) {
-                    final activePrograms = state.programsList;
+                const Divider(
+                  color: AppColors.blueOffRegular,
+                  height: 8,
+                  indent: 8.0,
+                  endIndent: 8.0,
+                ),
+                const SizedBox(height: 4.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: BlocBuilder<ProgramsInProgressBloc, ProgramsInProgressState>(
+                    builder: (context, state) {
+                      final activePrograms = state.programsList;
 
-                    return BlocBuilder<PhysicalActivitiesBloc, PhysicalActivitiesState>(
-                      builder: (BuildContext context, state) {
-                        return state.maybeMap(
-                          error: (errorState) {
-                            final error = errorState.data.error;
+                      return BlocBuilder<PhysicalActivitiesBloc, PhysicalActivitiesState>(
+                        builder: (BuildContext context, state) {
+                          return state.maybeMap(
+                            error: (errorState) {
+                              final error = errorState.data.error;
 
-                            return ErrorScreen(
-                              error: error!,
-                              onButtonPressed: () => context.read<PhysicalActivitiesBloc>().add(
-                                  PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay)),
-                            );
-                          },
-                          loading: (_) => const SizedBox(height: 100, child: Loader()),
-                          orElse: () => const SizedBox.shrink(),
-                          activitiesLoaded: (s) {
-                            final int timesPerWeek = getIt<SharedStorageService>().account!.trainingFrequency;
+                              return ErrorScreen(
+                                error: error!,
+                                onButtonPressed: () => context.read<PhysicalActivitiesBloc>().add(
+                                    PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay),
+                                  ),
+                              );
+                            },
+                            loading: (_) => const SizedBox(height: 100, child: Loader()),
+                            orElse: () => const SizedBox.shrink(),
+                            activitiesLoaded: (s) {
+                              final int timesPerWeek = getIt<SharedStorageService>().account!.trainingFrequency;
 
-                            return isAvailable
-                                ? FilledActivitiesList(
-                                    programsList: [...activePrograms, ...s.data.activities(timesPerWeek)],
-                                  )
-                                : const EmptyActivitiesList();
-                          },
-                        );
-                      },
-                    );
-                  },
+                              return isAvailable
+                                  ? FilledActivitiesList(
+                                      programsList: [...activePrograms, ...s.data.activities(timesPerWeek)],
+                                    )
+                                  : const EmptyActivitiesList();
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
                 ),
               ],
             );

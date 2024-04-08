@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/dashboard_assignments/this_week_assignments.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
 
 class DashboardAssignments extends StatefulWidget {
   final DateTime date;
@@ -44,34 +45,27 @@ class _DashboardAssignmentsState extends State<DashboardAssignments> {
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
+        padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 8.0, left: 8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            InkWell(
+            DashboardCardTitle(
               onTap: () => context.router.push(const MyAssignmentsRoute()),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      AppIcons.customDashboardAssignments,
-                      const SizedBox(width: 24.0),
-                      CustomText.bitter600(
-                        LocalizedTexts.assignments.tr(),
-                        style: context.textTheme.headlineSmall,
-                      ),
-                    ],
-                  ),
-                  const ImageIcon(
-                    AppIcons.arrow,
-                    color: AppColors.blueDarker,
-                  ),
-                ],
+              highlightColor: AppColors.petrolLightest,
+              leadingIcon: AppIcons.customDashboardAssignments,
+              title: CustomText.bitter600(
+                LocalizedTexts.assignments.tr(),
+                style: context.textTheme.headlineSmall,
               ),
+              actionIcon: AppIcons.arrow,
+              circleButton: false,
             ),
-            const SizedBox(height: 8.0),
-            const Divider(color: AppColors.blueOffRegular),
+            const Divider(
+              color: AppColors.blueOffRegular,
+              height: 8,
+              indent: 8.0,
+              endIndent: 8.0,
+            ),
             BlocBuilder<AssignmentsBloc, AssignmentsState>(
               builder: (context, state) {
                 final hasQuestions = state.data.hasQuestionsForCurrentWeek(widget.date);
@@ -91,23 +85,18 @@ class _DashboardAssignmentsState extends State<DashboardAssignments> {
                           ),
                     );
                   },
-                  orElse: () {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (!hasQuestions)
-                          CustomText.w400(
-                            LocalizedTexts.allAssignmentsCompleted.tr(),
-                            style: context.textTheme.bodyMedium,
-                          ),
-                        if (hasQuestions)
-                          ThisWeekAssignments(
-                            weekQuestions: state.data.currentWeekAssignments(widget.date),
-                            todayQuestions: state.data.todayDoneAssignments(widget.date),
-                          ),
-                      ],
-                    );
-                  },
+                  orElse: () => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: hasQuestions
+                          ? ThisWeekAssignments(
+                              weekQuestions: state.data.currentWeekAssignments(widget.date),
+                              todayQuestions: state.data.todayDoneAssignments(widget.date),
+                            )
+                          : CustomText.w400(
+                              LocalizedTexts.allAssignmentsCompleted.tr(),
+                              style: context.textTheme.bodyMedium,
+                            ),
+                    ),
                 );
               },
             ),
