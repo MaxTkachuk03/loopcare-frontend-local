@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -10,7 +12,7 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/smart_
 class DashboardSmartGoals extends StatelessWidget {
   const DashboardSmartGoals({super.key});
 
-  void onPressHandler() {}
+  void onPressHandler(BuildContext context) => context.router.pushNamed(AppRoutes.goalsStatistics);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class DashboardSmartGoals extends StatelessWidget {
       child: Column(
         children: [
           InkWell(
-            onTap: onPressHandler,
+            onTap: () => onPressHandler(context),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

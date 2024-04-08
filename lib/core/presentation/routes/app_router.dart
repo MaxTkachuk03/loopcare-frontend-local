@@ -86,6 +86,7 @@ import 'package:loopcare_frontend/features/physical_activities/presentation/sele
 import 'package:loopcare_frontend/features/proxy/proxy_page.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/quizzes_intro_page.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/quizzes_questions_page.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/goals_statistics_page.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals_category_page.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals_page.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/set_weekly_goals_page.dart';
@@ -508,6 +509,10 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.selectGoals,
       page: SelectGoalsPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.goalsStatistics,
+      page: GoalsStatisticsPage,
     ),
   ],
 )

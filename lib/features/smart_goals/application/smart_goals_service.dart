@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_categories_response.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_response.dart';
+import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_statistics_response.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/save_goals_body.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goals_session.dart';
 
@@ -13,4 +14,6 @@ abstract class SmartGoalsService {
   Future<Either<RequestError, WeeklyGoalsSession>> getWeeklyGoals();
 
   Future<Either<RequestError, GetGoalsCategoriesResponse>> getGoalsCategories();
+
+  Future<Either<RequestError, GetGoalsStatisticsResponse>> getGoalsStatistics();
 }
