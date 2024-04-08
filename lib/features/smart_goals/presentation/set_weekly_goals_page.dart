@@ -51,6 +51,7 @@ class _SetWeeklyGoalsPageState extends State<SetWeeklyGoalsPage> {
     final String? errorMessage = state.data.error?.maybeMap(
       forbidden: (s) => s.error.message,
       notFound: (s) => s.error.message,
+      badRequest: (s) => s.error.message,
       orElse: () => LocalizedTexts.somethingWentWrong.tr(),
     );
 
