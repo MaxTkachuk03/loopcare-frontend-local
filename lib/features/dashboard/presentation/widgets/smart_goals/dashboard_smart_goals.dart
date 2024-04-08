@@ -5,7 +5,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/smart_goals/widgets/dashboard_goals_list.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/smart_goals/widgets/dashboard_weekly_goal_list.dart';
 
 class DashboardSmartGoals extends StatelessWidget {
   const DashboardSmartGoals({super.key});
@@ -43,7 +43,7 @@ class DashboardSmartGoals extends StatelessWidget {
           ),
           const SizedBox(height: 8.0),
           const Divider(color: AppColors.blueOffRegular),
-          const DashboardGoalsList(),
+          const DashboardWeeklyGoalsList(),
         ],
       ),
     );

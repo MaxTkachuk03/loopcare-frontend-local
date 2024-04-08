@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -68,7 +69,13 @@ class EducationCard extends StatelessWidget {
     context
         .read<EducationLessonBloc>()
         .add(EducationLessonEvent.getLessonContent(lessonId: lesson.id, pageIndex: _initialLessonPageIndex));
-
+    CustomerIoService.track(
+      event: CIOEvents.educationArticleOpen,
+      attributes: {
+        CIOAttributes.articleId: lesson.id,
+        CIOAttributes.articleTitle: lesson.title,
+      },
+    );
     context.router.pushNamed('/lesson/${lesson.id}/page/$_initialLessonPageIndex');
   }
 
@@ -80,8 +87,7 @@ class EducationCard extends StatelessWidget {
           child: BlocBuilder<EducationProgramBloc, EducationProgramState>(
             builder: (BuildContext context, state) {
               final lessonWithCountdown = state.data.lessonWithCountdown;
-              final isLessonWithCountDown =
-                  lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
+              final isLessonWithCountDown = lessonWithCountdown != null && lesson.id == lessonWithCountdown.lesson.id;
               final isLocked = lesson.isLocked || isLessonWithCountDown;
 
               return GestureDetector(

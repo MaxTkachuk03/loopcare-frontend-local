@@ -531,8 +531,7 @@ class LocalizedTexts {
   static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
   static const String askRestoreSubscription = "askRestoreSubscription";
   static const String duplicateSubscriptionFromSettings = "duplicateSubscriptionFromSettings";
-  static const String otherPurchaseVendorCancelAccountSubscription =
-      "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";
@@ -996,4 +995,5 @@ class LocalizedTexts {
   static const String selectGoalsTitle = 'selectGoalsTitle';
   static const String completeCounter = 'completeCounter';
   static const String saveWeeklyGoalsSuccessMessage = 'saveWeeklyGoalsSuccessMessage';
+  static const String weeklyRequiredProgress = 'weeklyRequiredProgress';
 }

@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:customer_io/customer_io.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_attributes.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/list_extensions.dart';
@@ -32,8 +35,7 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
 
     response.fold(
       (l) => emit(MoodState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(
-          MoodState.updated(state.data.copyWith(moods: _combineMoodsByDate(null, r.data), isLoading: false))),
+      (r) => emit(MoodState.updated(state.data.copyWith(moods: _combineMoodsByDate(null, r.data), isLoading: false))),
     );
   }
 
@@ -68,11 +70,19 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
 
     final response = await _moodService.createMood(event.data);
 
-    response.fold(
-      (l) => emit(MoodState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(MoodState.updated(
-          state.data.copyWith(moods: _combineMoodsByDate(state.data.moods, [r]), isLoading: false))),
-    );
+    response.fold((l) => emit(MoodState.error(state.data.copyWith(error: l, isLoading: false))), (r) {
+      CustomerIO.track(
+        name: CIOEvents.moodLogged,
+        attributes: {
+          CIOAttributes.emotion: event.data.emotion,
+          CIOAttributes.companion: event.data.person,
+          CIOAttributes.place: event.data.location.toString(),
+          CIOAttributes.food: event.data.food,
+          CIOAttributes.note: event.data.note,
+        },
+      );
+      emit(MoodState.updated(state.data.copyWith(moods: _combineMoodsByDate(state.data.moods, [r]), isLoading: false)));
+    });
   }
 
   FutureOr<void> _onSetDate(

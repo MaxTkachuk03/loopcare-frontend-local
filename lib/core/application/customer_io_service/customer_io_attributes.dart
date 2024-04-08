@@ -35,4 +35,13 @@ class CIOAttributes {
   static const String updateEmail = 'New email address';
   static const String identifierOption = 'Subscription identifier';
   static const String subscriptionExpirationDate = 'Subscription expiration date';
+
+  static const String articleId = 'Article ID';
+  static const String articleTitle = 'Article title';
+  static const String weightLogged = 'Weight logged';
+  static const String emotion = 'Emotion';
+  static const String companion = 'Companion';
+  static const String place = 'Place';
+  static const String food = 'Food';
+  static const String note = 'Note';
 }

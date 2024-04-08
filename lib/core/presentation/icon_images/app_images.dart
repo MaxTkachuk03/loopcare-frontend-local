@@ -44,5 +44,9 @@ class AppImages {
   static SvgPicture subscriptionTop = SvgPicture.asset('$imagesFilePath/konfetti.svg');
   static const AssetImage buddyIntro = AssetImage('$imagesFilePath/buddy_intro.png');
 
+  static SvgPicture goalAchieve = SvgPicture.asset(
+    '$imagesFilePath/achievement.svg',
+  );
+
   AppImages._();
 }
