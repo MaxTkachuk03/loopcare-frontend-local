@@ -44,7 +44,6 @@ class GoalsListItem extends StatelessWidget {
                         style: context.textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 10.0),
-                      // TODO check with Alexey what whould be there
                       CustomText.w600(LocalizedTexts.completeCounter.tr(
                         args: [item.requiredCompletions.toString(), item.requiredDays.toString()],
                       )),

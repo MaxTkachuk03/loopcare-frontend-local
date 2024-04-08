@@ -24,7 +24,6 @@ class WeeklyGoalListItem extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: CustomText.w600(item.title, style: context.textTheme.bodyMedium),
           ),
-          // TODO check with Alexey what whould be there
           CustomText.w600(LocalizedTexts.completeCounter.tr(
             args: [item.requiredCompletions.toString(), item.requiredDays.toString()],
           )),
