@@ -6,13 +6,13 @@ import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_butto
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_smart_goal.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/goal_progress_indicator.dart';
 
-class WeeklyGoalItem extends StatelessWidget {
+class DashboardWeeklyGoalItem extends StatelessWidget {
   final WeeklySmartGoal item;
 
-  const WeeklyGoalItem({super.key, required this.item});
+  const DashboardWeeklyGoalItem({super.key, required this.item});
 
   void onPressHandler(BuildContext context) {
-    // context.router.push(LogWeightRoute(selectedDay: date));
+    // push route
   }
 
   @override
@@ -26,6 +26,7 @@ class WeeklyGoalItem extends StatelessWidget {
           GoalProgressIndicator(
             currentStep: item.progressLogs?.last.times ?? 0,
             steps: item.smartGoal.requiredDays,
+            //Todo add logic to calculate progress
             isAchievedNotifier: (item.progressLogs?.last.times ?? 0) >= item.smartGoal.requiredCompletions,
           ),
           const SizedBox(width: 16.0),

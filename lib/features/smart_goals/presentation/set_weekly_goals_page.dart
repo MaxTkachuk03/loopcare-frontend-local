@@ -16,7 +16,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
-import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/upcoming_goal_list.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/weekly_goals_list.dart';
 
 class SetWeeklyGoalsPage extends StatefulWidget {
   const SetWeeklyGoalsPage({super.key});
@@ -102,7 +102,7 @@ class _SetWeeklyGoalsPageState extends State<SetWeeklyGoalsPage> {
                                 style: context.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
                               );
                             } else {
-                              return const UpcomingGoalsList();
+                              return const WeeklyGoalsList();
                             }
                           },
                         );

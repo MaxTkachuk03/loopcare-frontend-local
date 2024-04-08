@@ -9,17 +9,17 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/smart_goals/widgets/dashboard_weekly_goal_item.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
-import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/weekly_goal_item.dart';
 
-class WeeklyGoalsList extends StatefulWidget {
-  const WeeklyGoalsList({super.key});
+class DashboardWeeklyGoalsList extends StatefulWidget {
+  const DashboardWeeklyGoalsList({super.key});
 
   @override
-  State<WeeklyGoalsList> createState() => _WeeklyGoalsListState();
+  State<DashboardWeeklyGoalsList> createState() => _DashboardWeeklyGoalsListState();
 }
 
-class _WeeklyGoalsListState extends State<WeeklyGoalsList> {
+class _DashboardWeeklyGoalsListState extends State<DashboardWeeklyGoalsList> {
   @override
   void initState() {
     super.initState();
@@ -44,7 +44,7 @@ class _WeeklyGoalsListState extends State<WeeklyGoalsList> {
               itemCount: state.data.weeklyGoals.length,
               itemBuilder: (BuildContext context, int index) {
                 final item = state.data.weeklyGoals[index];
-                return WeeklyGoalItem(
+                return DashboardWeeklyGoalItem(
                   item: item,
                 );
               },
@@ -57,7 +57,7 @@ class _WeeklyGoalsListState extends State<WeeklyGoalsList> {
 class _EmptyGoalsList extends StatelessWidget {
   const _EmptyGoalsList();
 
-  void _onChooseGoalsHanler(BuildContext context) {
+  void _onChooseGoalsHandler(BuildContext context) {
     context.router.pushNamed(AppRoutes.setWeeklyGoals);
   }
 
@@ -75,7 +75,7 @@ class _EmptyGoalsList extends StatelessWidget {
         ),
         CustomElevatedButton.greenSmall(
           label: LocalizedTexts.chooseGoalsForUpcomingDays.tr(),
-          onPressed: () => _onChooseGoalsHanler(context),
+          onPressed: () => _onChooseGoalsHandler(context),
         ),
       ],
     );
