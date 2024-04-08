@@ -53,7 +53,7 @@ class SelectGoalsPage extends StatelessWidget {
           button: BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
             builder: (context, state) => CustomElevatedButton.blueFullWidth(
               label: LocalizedTexts.addGoal.tr(),
-              onPressed: state.data.hasWeeklyGoals ? () => _onAddGoalHandler(context) : null,
+              onPressed: state.data.hasSeelctedGoals ? () => _onAddGoalHandler(context) : null,
             ),
           ),
         ),

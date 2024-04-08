@@ -97,7 +97,7 @@ class _SetWeeklyGoalsPageState extends State<SetWeeklyGoalsPage> {
                       builder: (BuildContext context, SmartGoalsState state) {
                         return state.maybeMap(
                           orElse: () {
-                            if (!state.data.hasWeeklyGoals) {
+                            if (!state.data.hasSeelctedGoals) {
                               return CustomText.w400(
                                 LocalizedTexts.noGoalsSelected.tr(),
                                 style: context.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),

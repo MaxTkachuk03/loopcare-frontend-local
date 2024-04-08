@@ -6,7 +6,6 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_categories_response.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_response.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/save_goals_body.dart';
-import 'package:loopcare_frontend/features/smart_goals/application/dto/save_goals_response.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_service.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goals_session.dart';
 import 'package:loopcare_frontend/features/smart_goals/infrastructure/get_weekly_goals.dart';
@@ -32,8 +31,9 @@ class APISmartGoalsService implements SmartGoalsService {
   }
 
   @override
-  Future<Either<RequestError, SaveGoalsResponse>> saveGoals({required List<SaveGoalsBody> goals}) async {
-    return client.post('/smart-goal/session', data: {"goals": goals}).then(parseResponse(SaveGoalsResponse.fromJson));
+  Future<Either<RequestError, WeeklyGoalsSession>> saveGoals({required List<SaveGoalsBody> goals}) async {
+    return client
+        .post('/smart-goal/session', data: {"goals": goals}).then(parseResponse(WeeklyGoalsSession.fromJson));
   }
 
   @override
