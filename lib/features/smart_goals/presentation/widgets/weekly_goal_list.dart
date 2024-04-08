@@ -23,7 +23,6 @@ class _WeeklyGoalsListState extends State<WeeklyGoalsList> {
   @override
   void initState() {
     super.initState();
-    debugPrint('devcpp GET WEEKLY GOALS');
     context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals());
   }
 
@@ -38,7 +37,6 @@ class _WeeklyGoalsListState extends State<WeeklyGoalsList> {
           loading: (_) => const Loader(),
           error: (s) => ErrorScreen(error: s.data.error!, onButtonPressed: _onErrorRetryHandler),
           orElse: () {
-            debugPrint('devcpp HAS GOALS: ${state.data.hasWeeklyGoals}');
             if (!state.data.hasWeeklyGoals) return const _EmptyGoalsList();
             return ListView.builder(
               shrinkWrap: true,
