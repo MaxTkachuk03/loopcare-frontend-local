@@ -833,6 +833,7 @@
   "confirmGoals": "Confirm goals",
   "selectGoalsCategoryTitle": "Choose what kind of goal you want to work on",
   "selectGoalsTitle": "Choose your {} goal",
+  "completeCounter": "Complete {} times in {} days",
   "saveWeeklyGoalsSuccessMessage": "Goals were added to your weekly list",
   "weeklyRequiredProgress": "Complete {requiredCompletions} times in {requiredDays} days.",
 

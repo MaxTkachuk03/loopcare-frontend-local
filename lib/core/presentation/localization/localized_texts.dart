@@ -993,6 +993,7 @@ class LocalizedTexts {
   static const String confirmGoals = 'confirmGoals';
   static const String selectGoalsCategoryTitle = 'selectGoalsCategoryTitle';
   static const String selectGoalsTitle = 'selectGoalsTitle';
+  static const String completeCounter = 'completeCounter';
   static const String saveWeeklyGoalsSuccessMessage = 'saveWeeklyGoalsSuccessMessage';
   static const String weeklyRequiredProgress = 'weeklyRequiredProgress';
 }
