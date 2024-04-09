@@ -49,7 +49,7 @@ class IntroGuard extends AutoRouteGuard {
       // else if (storage.account?.hasActiveSubscription ?? false) {
       //   route = AppRoutes.home;
       // } else {
-        route = AppRoutes.subscription;
+      //   route = AppRoutes.subscription;
       // }
 
       MixpanelEventService.instance.trackVisit(
