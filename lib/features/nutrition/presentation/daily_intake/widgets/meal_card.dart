@@ -27,10 +27,6 @@ class MealCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mealId = this.mealId;
-    final mealItems = this.mealItems;
-    final calorieDensity = this.calorieDensity;
-
     return Container(
       color: AppColors.white,
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 22.0),
@@ -39,7 +35,7 @@ class MealCard extends StatelessWidget {
           InkWell(
             onTap: mealId != null
                 ? () {
-                    context.read<MealsBloc>().add(MealsEvent.setMealId(mealId, title));
+                    context.read<MealsBloc>().add(MealsEvent.setMealId(mealId!, title));
                     context.router.pushNamed(AppRoutes.meal);
                   }
                 : null,
@@ -74,7 +70,7 @@ class MealCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 20.0),
                   child: GroupedMealList(
-                    mealItems: mealItems,
+                    mealItems: mealItems!,
                   ),
                 ),
               ],

@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_button_with_icon.dart';
 import 'package:loopcare_frontend/features/dashboard/domain/dashboard_utils.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/person_mood/mood_list.dart';
 import 'package:loopcare_frontend/features/mood/application/mood_bloc.dart';
 import 'package:loopcare_frontend/features/mood/domain/mood.dart';
@@ -33,7 +34,7 @@ class PersonMood extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 8.0, bottom: 24.0, right: 16.0, left: 16.0),
+      padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 8.0, left: 8.0),
       decoration: const BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -51,32 +52,31 @@ class PersonMood extends StatelessWidget {
 
               return Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          AppIcons.customDashboardMood,
-                          const SizedBox(width: 24.0),
-                          CustomText.bitter600(
-                            LocalizedTexts.mood.tr(),
-                            style: context.textTheme.headlineSmall?.copyWith(color: textColor),
-                          ),
-                        ],
-                      ),
-                      if (isEditable)
-                        CustomOutlinedRoundedButtonWithIcon(
-                          onPressed: () => onPressHandler(context),
-                          icon: AppIcons.plus,
-                        ),
-                    ],
+                  DashboardCardTitle(
+                    onTap: () => onPressHandler(context),
+                    highlightColor: AppColors.orangeLightest,
+                    leadingIcon: AppIcons.customDashboardMood,
+                    title: CustomText.bitter600(
+                      LocalizedTexts.mood.tr(),
+                      style: context.textTheme.headlineSmall?.copyWith(color: textColor),
+                    ),
+                    actionIcon: AppIcons.plus,
+                    editable: isEditable,
                   ),
-                  const SizedBox(height: 8.0),
-                  const Divider(color: AppColors.blueOffRegular),
-                  MoodList(
-                    list: moodValues,
-                    isEditable: isEditable,
-                    onPressItem: (Mood item) => _onMoodItemPressedHandler(context, item),
+                  const Divider(
+                    color: AppColors.blueOffRegular,
+                    height: 8,
+                    indent: 8.0,
+                    endIndent: 8.0,
+                  ),
+                  const SizedBox(height: 4.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: MoodList(
+                      list: moodValues,
+                      isEditable: isEditable,
+                      onPressItem: (Mood item) => _onMoodItemPressedHandler(context, item),
+                    ),
                   ),
                 ],
               );
