@@ -9,6 +9,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:loopcare_frontend/core/app.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
+import 'package:loopcare_frontend/core/application/permissions_service.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/app_lifecycle_observer.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
@@ -62,6 +63,9 @@ Future<void> main() async {
   MixpanelEventService.instance.trackVisit(
     "${AppMixpanelEvents.appStart} main",
   );
+
+  // Todo: move to Splash Screen
+  await PermissionsService.instance.requestNotificationPermissions();
 
   return runApp(
     EasyLocalization(

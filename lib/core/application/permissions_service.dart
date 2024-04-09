@@ -1,10 +1,19 @@
 import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 enum AppPlatforms { android, ios }
 
 class PermissionsService {
+  PermissionsService._();
+
+  static final PermissionsService _instance = PermissionsService._();
+
+  static PermissionsService get instance => _instance;
+
+  bool _isNotificationGranted = false;
+
   final Map<String, List<Permission>> _zoomCallsPermissions = {
     AppPlatforms.ios.name: [
       Permission.camera,
@@ -53,4 +62,12 @@ class PermissionsService {
 
   Future<bool> getZoomCallPermissions() =>
       _requestFilePermissions(_platformDependentZoomCallsPermissionsList);
+  
+  Future<bool> requestNotificationPermissions() async {
+    final settings = await FirebaseMessaging.instance.requestPermission(announcement: true);
+
+    return _isNotificationGranted = settings.authorizationStatus == AuthorizationStatus.authorized;
+  }
+  
+  bool get isNotificationGranted => _isNotificationGranted;
 }
