@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/auth_token_interceptor.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_request_error.dart';
@@ -59,7 +60,7 @@ class DioClient {
       ));
     }
 
-    if (const String.fromEnvironment('FLAVOR') == 'dev') {
+    if (kIsDev) {
       dio.httpClientAdapter = _createAdapter();
     }
   }

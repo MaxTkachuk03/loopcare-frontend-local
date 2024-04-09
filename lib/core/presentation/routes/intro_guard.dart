@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
@@ -42,15 +43,13 @@ class IntroGuard extends AutoRouteGuard {
 
       if (accessToken.isEmpty || refreshToken.isEmpty) {
         route = AppRoutes.login;
-      } else {
-        route = AppRoutes.home;
       }
       //Todo hide subscription flow LOOPCARE-2197
-      // else if (storage.account?.hasActiveSubscription ?? false) {
-      //   route = AppRoutes.home;
-      // } else {
-      //   route = AppRoutes.subscription;
-      // }
+      else if ((storage.account?.hasActiveSubscription ?? false) || !kIsProd) {
+        route = AppRoutes.home;
+      } else {
+        route = AppRoutes.subscription;
+      }
 
       MixpanelEventService.instance.trackVisit(
         "${AppMixpanelEvents.appRote}:  $route",
