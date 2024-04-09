@@ -32,6 +32,7 @@ class SubscriptionPage extends StatefulWidget {
 class _SubscriptionPageState extends State<SubscriptionPage> {
   late SubscriptionController controller;
   Widget content = const Loader();
+  final ValueNotifier<bool> sheetOpenedNotifier = ValueNotifier(false);
 
   @override
   void initState() {
@@ -67,20 +68,20 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
         ),
         body: BlocConsumer<SubscriptionBloc, SubscriptionState>(
           listenWhen: _listenerStates,
-          listener: (BuildContext context, SubscriptionState state) => state.maybeWhen(
+          listener: (context, state) => state.maybeWhen(
             successInPlans: (data) => controller.setupPlans(data),
             subscriptionActive: (data) => context.router.replaceNamed(AppRoutes.home),
             purchaseDuplicateSubscription: (data) => _onDuplicateSettings(context),
             purchasedSubscription: (data) => (data.subscription?.isActive ?? false)
                 ? context.router.replaceNamed(AppRoutes.home)
-                : _onRestoreFromSettings(context, state),
+                : _onRestoreFromSettings(data),
             askRestoredSubscription: (data) => _showAskRestorePopover(),
             loading: (data) => controller.handleLoading(data.isLoading),
             logout: (_) => context.router.replaceAll([const IntroRoute()]),
             error: (_) => _errorListener(context, state),
             orElse: () => null,
           ),
-          builder: (BuildContext context, SubscriptionState state) => state.maybeWhen(
+          builder: (context, state) => state.maybeWhen(
             orElse: () => content,
             trial: (s) => content = SubscriptionStateView.trial(
               controller: controller,
@@ -119,44 +120,42 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     );
   }
 
-  _onDuplicateSettings(BuildContext context) => ModalBottomSheet.restoreSubscription(
-      context: context,
-      isDuplicate: true,
-      onSubscriptionPref: Platform.isIOS
-          ? () {
-              launchUrl(Uri.parse(appConfig.appStoreSettingsLink), mode: LaunchMode.externalApplication);
-              context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout());
-            }
-          : () {
-              launchUrl(Uri.parse(appConfig.playMarketSettingsLink), mode: LaunchMode.externalApplication);
-              context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout());
-            });
-
-  _onRestoreFromSettings(BuildContext context, SubscriptionState state) {
-    isVendorPlatform(state)
-        ? ModalBottomSheet.restoreSubscription(
-            context: context,
-            onSubscriptionPref: Platform.isIOS
-                ? () {
-                    launchUrl(Uri.parse(appConfig.appStoreSettingsLink),
-                        mode: LaunchMode.externalApplication);
-                    context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout());
-                  }
-                : () {
-                    launchUrl(Uri.parse(appConfig.playMarketSettingsLink),
-                        mode: LaunchMode.externalApplication);
-                    context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout());
-                  })
-        : _showPopover();
-  }
-
-  bool isVendorPlatform(SubscriptionState state) {
-    if (Platform.isIOS && (state.data.subscription?.vendor == 'ios') ||
-        Platform.isAndroid && (state.data.subscription?.vendor == 'android')) {
-      return true;
+  _onDuplicateSettings(BuildContext context) {
+    if (!sheetOpenedNotifier.value) {
+      sheetOpenedNotifier.value = true;
+      _showRestoreSubscriptionBottomSheet(isDuplicate: true);
     }
-    return false;
   }
+
+  _onRestoreFromSettings(SubscriptionStateData data) {
+    if (!sheetOpenedNotifier.value) {
+      sheetOpenedNotifier.value = true;
+
+      if (isVendorPlatform(data.subscription?.vendor)) {
+        _showRestoreSubscriptionBottomSheet();
+      } else {
+        _showPopover();
+      }
+    }
+  }
+
+  void _showRestoreSubscriptionBottomSheet({bool isDuplicate = false}) {
+    final link = Platform.isIOS ? appConfig.appStoreSettingsLink : appConfig.playMarketSettingsLink;
+
+    ModalBottomSheet.restoreSubscription(
+      context: context,
+      isDuplicate: isDuplicate,
+      sheetNotifier: sheetOpenedNotifier,
+      onSubscriptionPref: () {
+        launchUrl(Uri.parse(link), mode: LaunchMode.externalApplication);
+        context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout());
+      },
+    );
+  }
+
+
+  bool isVendorPlatform(String? vendor) => Platform.isIOS && vendor == 'ios' ||
+        Platform.isAndroid && vendor == 'android';
 
   void _showPopover() => showDialog<String>(
         context: context,

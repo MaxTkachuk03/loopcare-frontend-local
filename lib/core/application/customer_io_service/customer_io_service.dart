@@ -38,6 +38,7 @@ class CustomerIoService {
         'name': name,
         'created_at': _timestamp,
         'system_locale': Platform.localeName,
+        'consent_to_email': receiveAnEmails,
       },
     );
 
@@ -81,13 +82,15 @@ class CustomerIoService {
     CustomerIO.identify(
       identifier: email,
       attributes: {
-        'id': id,
+        'user_id': id,
         'name': name,
         'system_locale': Platform.localeName,
       },
     );
 
     await _setDevice();
+
+
 
     CustomerIO.track(name: CIOEvents.auth, attributes: {'last_auth': _timestamp});
   }
@@ -96,6 +99,30 @@ class CustomerIoService {
     required String event,
     Map<String, dynamic>? attributes,
   }) => CustomerIO.track(name: event, attributes: attributes ?? {});
+
+  static Future<void> setUserVerifiedState({
+    required bool verified,
+  }) async {
+    CustomerIO.setProfileAttributes(
+      attributes: {'email_verified': verified},
+    );
+  }
+
+  static Future<void> setUserId({
+    required int id,
+  }) async {
+    CustomerIO.setProfileAttributes(
+      attributes: {'user_id': id},
+    );
+  }
+
+  static Future<void> changeUserAttributes({
+    required Map<String, dynamic> attributes,
+  }) async {
+    CustomerIO.setProfileAttributes(
+      attributes: attributes,
+    );
+  }
 
   static Map<String, dynamic> _androidDeviceData(AndroidDeviceInfo data) {
     return <String, dynamic>{

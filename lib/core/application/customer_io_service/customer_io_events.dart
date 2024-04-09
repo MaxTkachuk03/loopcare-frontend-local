@@ -39,17 +39,19 @@ class CIOEvents {
   static const String onboardingLocomotor = 'onboarding_locomotor';
   static const String onboardingPsychiatrist = 'onboarding_psychiatrist';
   static const String onboardingMedicalCompletedDisease = 'onboarding_medical_completed_disease';
+  static const String onboardingMedicalCompleted = 'onboarding_medical_completed';
   static const String onboardingMentalIntro = 'onboarding_mental_intro';
   static const String onboardingTestAnswer = 'onboarding_test_answer';
   static const String onboardingInterimResult = 'onboarding_interim_result';
   static const String onboardingFinalResult = 'onboarding_final_result';
   static const String onboardingFinalResultExclusion = 'onboarding_final_result_exclusion';
   static const String onboardingLegalStatement = 'onboarding_legal_statement';
-  static const String onboardingTreatmentByTheDoctor = 'onboarding_treatment_by_doctor';
   static const String onboardingRegisterIntro = 'onboarding_register_intro';
+  static const String onboardingTermsAndConditionsPrivacyPolicyAccept = 'onboarding_terms_and_conditions_privacy_policy_accepted';
   static const String onboardingPasswordCreated = 'onboarding_password_created';
   static const String onboardingNewUser = 'onboarding_new_user';
   static const String onboardingNewUserCreated = 'onboarding_new_user_created';
+  static const String onboardingEmailConfirmed = 'onboarding_email_confirmed';
   static const String onboardingNewUserVerified = 'onboarding_new_user_verified';
   static const String onboardingEmailChanged = 'onboarding_email_changed';
 

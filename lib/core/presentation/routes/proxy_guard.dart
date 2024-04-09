@@ -19,22 +19,18 @@ class ProxyGuard extends AutoRouteGuard {
       resolver.next(true);
     } else {
       if (account != null) {
-        final accessTokenPresent = await authTokenManager.getAccessToken();
-        final refreshTokenPresent = await authTokenManager.getRefreshToken();
+        final accessToken = await authTokenManager.getAccessToken() ?? '';
+        final refreshToken = await authTokenManager.getRefreshToken() ?? '';
         String route;
-        if (!((accessTokenPresent?.isNotEmpty ?? false) && (refreshTokenPresent?.isNotEmpty ?? false))) {
+        if (accessToken.isEmpty || refreshToken.isEmpty) {
           route = AppRoutes.login;
         }
 
         //Todo hide subscription flow LOOPCARE-2197
-        //   else if (authenticationCubit.state.hasActiveSubscription) {
-        //     route = AppRoutes.home;
-        //   } else {
-        //     route = AppRoutes.subscription;
-        //   }
-        //remove else{..}
-        else {
+        else if (account.hasActiveSubscription) {
           route = AppRoutes.home;
+        } else {
+          route = AppRoutes.subscription;
         }
 
         MixpanelEventService.instance.trackVisit(

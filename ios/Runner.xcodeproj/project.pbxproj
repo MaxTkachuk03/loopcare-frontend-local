@@ -15,6 +15,7 @@
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		9FB3CD51EDB6EA17FE563C87 /* libPods-Runner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 113DC3A7871EA8EA7739495D /* libPods-Runner.a */; };
 		CE56C241299442FD00C2D9C2 /* config in Resources */ = {isa = PBXBuildFile; fileRef = CE56C240299442FD00C2D9C2 /* config */; };
+		CE9385E42BC3F3F400D66721 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CE9385E32BC3F3F400D66721 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -84,6 +85,7 @@
 		982A605DC612B545623A16F3 /* Pods-Runner.profile-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile-prod.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile-prod.xcconfig"; sourceTree = "<group>"; };
 		C89CD2C19393A22F21466AF9 /* Pods-Runner.profile-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile-dev.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile-dev.xcconfig"; sourceTree = "<group>"; };
 		CE56C240299442FD00C2D9C2 /* config */ = {isa = PBXFileReference; lastKnownFileType = folder; path = config; sourceTree = "<group>"; };
+		CE9385E32BC3F3F400D66721 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		CEE2295A2B6804E80083D725 /* RunnerRelease-prod.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "RunnerRelease-prod.entitlements"; sourceTree = "<group>"; };
 		CEE2295B2B68055A0083D725 /* RunnerDebug-prod.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "RunnerDebug-prod.entitlements"; sourceTree = "<group>"; };
 		CEE2295C2B6805640083D725 /* RunnerDebug-dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "RunnerDebug-dev.entitlements"; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				CE9385E32BC3F3F400D66721 /* PrivacyInfo.xcprivacy */,
 				47C15E7C2BB2D44E006BE299 /* RunnerProfile-uat.entitlements */,
 				47C15E7B2BB2D429006BE299 /* RunnerRelease-uat.entitlements */,
 				47C15E7A2BB2D3B4006BE299 /* RunnerDebug-uat.entitlements */,
@@ -297,6 +300,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE9385E42BC3F3F400D66721 /* PrivacyInfo.xcprivacy in Resources */,
 				CE56C241299442FD00C2D9C2 /* config in Resources */,
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,

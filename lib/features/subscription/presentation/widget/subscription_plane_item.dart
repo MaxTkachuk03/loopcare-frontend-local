@@ -50,10 +50,10 @@ class SubscriptionPlaneItem extends StatelessWidget {
         recommended: recommended,
         child: InkWell(
           onTap: onTap,
-          highlightColor: AppColors.blueLightest,
+          highlightColor: AppColors.blueLighter,
           borderRadius: const BorderRadius.all(Radius.circular(12.0)),
           child: Card(
-            color: selected ? AppColors.blueLightest : AppColors.white,
+            color: selected ? AppColors.blueLighter : AppColors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),

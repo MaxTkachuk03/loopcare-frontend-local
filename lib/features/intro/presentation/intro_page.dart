@@ -41,7 +41,6 @@ class _IntroPageState extends State<IntroPage> {
     super.initState();
     final deviceInfoService = GetIt.instance<DeviceInfoService>();
     deviceInfoService.onRequestTrackingAuthorization();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _initPackageInfo();
     });
