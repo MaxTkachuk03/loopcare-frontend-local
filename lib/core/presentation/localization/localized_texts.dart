@@ -1001,4 +1001,9 @@ class LocalizedTexts {
   static const String goalsAccomplishedInTotal = 'goalsAccomplishedInTotal';
   static const String goalsAccomplishedEmptyMessage = 'goalsAccomplishedEmptyMessage';
   static const String goalsAccomplished = 'goalsAccomplished';
+  static const String goal = 'goal';
+  static const String yourCompletion = 'yourCompletion';
+  static const String timesInDays = 'timesInDays';
+  static const String howHardWasTheGoal = 'howHardWasTheGoal';
+  static const String wantToTryInFuture = 'wantToTryInFuture';
 }

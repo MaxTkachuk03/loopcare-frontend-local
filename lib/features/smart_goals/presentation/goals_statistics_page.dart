@@ -37,7 +37,7 @@ class _GoalsStatisticsPageState extends State<GoalsStatisticsPage> {
   Widget build(BuildContext context) {
     return CustomScaffold.greenLightest(
       appBar: CustomAppBar.green(
-        title: LocalizedTexts.upcomingGoals.tr(),
+        title: LocalizedTexts.myGoals.tr(),
         leading: CustomFilledIconButton.leadingGreenLighter(),
       ),
       body: CustomSafeArea(

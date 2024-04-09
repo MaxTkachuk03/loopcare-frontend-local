@@ -169,6 +169,7 @@ class AppRoutes {
   static const String selectGoalsCategory = '/select-goals-category';
   static const String selectGoals = '/select-goals';
   static const String goalsStatistics = '/goals-statistics';
+  static const String goalReview = '/goal-review';
 
   AppRoutes._();
 }

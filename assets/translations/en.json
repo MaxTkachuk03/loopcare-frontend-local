@@ -840,6 +840,11 @@
   "goalsAccomplishedInTotal": "goals accomplished in total.",
   "goalsAccomplishedEmptyMessage": "Once you start completing goals your favourite goal categories will appear here.",
   "goalsAccomplished": "goals accomplished",
+  "goal": "Goal",
+  "yourCompletion": "Your completion",
+  "timesInDays": "{} times in {} days",
+  "howHardWasTheGoal": "How hard was this goal for you?",
+  "wantToTryInFuture": "Want to try this again in the future?",
 
 
 

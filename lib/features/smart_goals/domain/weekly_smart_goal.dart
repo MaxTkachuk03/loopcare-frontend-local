@@ -17,5 +17,16 @@ class WeeklySmartGoal with _$WeeklySmartGoal {
     List<SmartGoalProgress>? progressLogs,
   }) = _WeeklySmartGoal;
 
+  String get title => smartGoal.title;
+
+  String get categoryName => smartGoal.category.name;
+
+  int get requiredCompletions => smartGoal.requiredCompletions;
+
+  int get requiredDays => smartGoal.requiredDays;
+
+  // TODO check what should be the logic  here
+  // int get completions => progressLogs.map((e) => e.times);
+
   factory WeeklySmartGoal.fromJson(Map<String, dynamic> json) => _$WeeklySmartGoalFromJson(json);
 }
