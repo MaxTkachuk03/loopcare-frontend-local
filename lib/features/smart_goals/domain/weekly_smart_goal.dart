@@ -19,6 +19,8 @@ class WeeklySmartGoal with _$WeeklySmartGoal {
 
   String get title => smartGoal.title;
 
+  String get titleShort => smartGoal.titleShort;
+
   String get categoryName => smartGoal.category.name;
 
   int get requiredCompletions => smartGoal.requiredCompletions;

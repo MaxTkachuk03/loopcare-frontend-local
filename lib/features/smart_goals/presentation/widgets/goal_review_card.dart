@@ -25,7 +25,7 @@ class GoalReviewCard extends StatelessWidget {
           CategoryLabel(label: item.categoryName, color: AppColors.greenRegular),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: CustomText.w600(item.title, style: context.textTheme.bodyLarge),
+            child: CustomText.w600(item.titleShort, style: context.textTheme.bodyLarge),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

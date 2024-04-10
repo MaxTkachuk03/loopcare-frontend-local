@@ -8,6 +8,8 @@ class SmartGoalsEvent with _$SmartGoalsEvent {
 
   const factory SmartGoalsEvent.saveGoals() = SaveGoals;
 
+  const factory SmartGoalsEvent.addReview(GoalReviewBody data) = AddReview;
+
   const factory SmartGoalsEvent.selectGoal({required SmartGoal goal}) = SelectGoal;
 
   const factory SmartGoalsEvent.unSelectGoal({required SmartGoal goal}) = UnSelectGoal;

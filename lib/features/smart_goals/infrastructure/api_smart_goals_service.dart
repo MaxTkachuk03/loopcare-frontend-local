@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_categories_response.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_response.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_statistics_response.dart';
+import 'package:loopcare_frontend/features/smart_goals/application/dto/goal_review_body.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/save_goals_body.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_service.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goals_session.dart';
@@ -60,5 +61,10 @@ class APISmartGoalsService implements SmartGoalsService {
     // return right(GetGoalsStatisticsResponse.fromJson({'data': goalsStats}));
 
     return client.get('/smart-goal/stats').then(parseResponse(GetGoalsStatisticsResponse.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, WeeklyGoalsSession>> addGoalReview(GoalReviewBody data) async {
+    return client.patch('/smart-goal/review', data: data).then(parseResponse(WeeklyGoalsSession.fromJson));
   }
 }

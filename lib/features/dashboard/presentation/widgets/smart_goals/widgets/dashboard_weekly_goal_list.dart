@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/smart_goals/widgets/dashboard_weekly_goal_item.dart';
@@ -37,6 +38,7 @@ class _DashboardWeeklyGoalsListState extends State<DashboardWeeklyGoalsList> {
           loading: (_) => const Loader(),
           error: (s) => ErrorScreen(error: s.data.error!, onButtonPressed: _onErrorRetryHandler),
           orElse: () {
+            return const _EmptyGoalsList();
             if (!state.data.hasWeeklyGoals) return const _EmptyGoalsList();
             return ListView.builder(
               shrinkWrap: true,
@@ -58,7 +60,13 @@ class _EmptyGoalsList extends StatelessWidget {
   const _EmptyGoalsList();
 
   void _onChooseGoalsHandler(BuildContext context) {
-    context.router.pushNamed(AppRoutes.setWeeklyGoals);
+    // context.router.pushNamed(AppRoutes.setWeeklyGoals);
+    // TODO for testing purposes goal review functionality
+    final goal = context.read<SmartGoalsBloc>().state.data.firstGoalForReview;
+    if (goal == null) return;
+    final isLast = context.read<SmartGoalsBloc>().state.data.isLastGoalInSession(goal);
+
+    context.router.push(GoalReviewRoute(goal: goal, isLast: isLast));
   }
 
   @override

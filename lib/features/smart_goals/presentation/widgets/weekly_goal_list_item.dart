@@ -22,7 +22,7 @@ class WeeklyGoalListItem extends StatelessWidget {
           CategoryLabel(label: item.category.name, color: AppColors.greenRegular),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: CustomText.w600(item.title, style: context.textTheme.bodyMedium),
+            child: CustomText.w600(item.titleShort, style: context.textTheme.bodyMedium),
           ),
           CustomText.w600(LocalizedTexts.completeCounter.tr(
             args: [item.requiredCompletions.toString(), item.requiredDays.toString()],

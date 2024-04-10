@@ -16,6 +16,11 @@ class SmartGoalsState with _$SmartGoalsState {
       SmartGoalsStateWeeklySessionSaved;
 
   const factory SmartGoalsState.gotWeeklySession(SmartGoalsStateData data) = GotSmartGoalsStateWeeklySession;
+
+  const factory SmartGoalsState.errorAddingReview(SmartGoalsStateData data) =
+      GotSmartGoalsStateErrorAddingReview;
+
+  const factory SmartGoalsState.reviewAdded(SmartGoalsStateData data) = GotSmartGoalsStateReviewAdded;
 }
 
 @freezed
@@ -39,4 +44,33 @@ class SmartGoalsStateData with _$SmartGoalsStateData {
   bool get hasSeelctedGoals => selectedGoals.isNotEmpty;
 
   List<WeeklySmartGoal> get weeklyGoals => weeklyGoalsSession?.goals ?? [];
+
+  WeeklySmartGoal? get firstGoalForReview {
+    final goals = weeklyGoals;
+
+    if (goals.isEmpty) return null;
+
+    return weeklyGoals.first;
+  }
+
+  WeeklySmartGoal? getNextGoalForReview(WeeklySmartGoal currentGoal) {
+    final goals = weeklyGoalsSession?.goals;
+
+    if (goals == null) return null;
+
+    final index = goals.indexOf(currentGoal);
+    final nextGoalIndex = index + 1;
+
+    if (index == -1 || nextGoalIndex > goals.length - 1) return null;
+
+    return goals[nextGoalIndex];
+  }
+
+  bool isLastGoalInSession(WeeklySmartGoal goal) {
+    final goals = weeklyGoals;
+
+    if (goals.isEmpty || goals.length == 1) return true;
+
+    return goal.id == goals.last.id;
+  }
 }

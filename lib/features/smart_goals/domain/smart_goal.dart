@@ -13,6 +13,7 @@ class SmartGoal with _$SmartGoal {
     required int id,
     required SmartGoalCategory category,
     @Default('') String title,
+    @Default('') String titleShort,
     @Default('') String funFact,
     @Default(0) int requiredCompletions,
     @Default(0) int requiredDays,

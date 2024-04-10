@@ -1006,4 +1006,5 @@ class LocalizedTexts {
   static const String timesInDays = 'timesInDays';
   static const String howHardWasTheGoal = 'howHardWasTheGoal';
   static const String wantToTryInFuture = 'wantToTryInFuture';
+  static const String goalReview = 'goalReview';
 }

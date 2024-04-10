@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/smart_goals/application/dto/goal_review_body.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/save_goals_body.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_service.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal.dart';
@@ -23,6 +25,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     on<GetWeeklyGoals>(_onGetWeeklyGoals);
     on<SaveGoals>(_onSaveGoals);
     on<SelectGoal>(_onSelectGoal);
+    on<AddReview>(_onAddReview);
     on<UnSelectGoal>(_onUnSelectGoal);
     on<ResetSelected>(_onResetSelected);
   }
@@ -51,7 +54,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
     response.fold(
       (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(SmartGoalsState.gotWeeklySession(state.data.copyWith(weeklyGoalsSession: r, isLoading: false))),
+      (r) => emit(
+          SmartGoalsState.gotWeeklySession(state.data.copyWith(weeklyGoalsSession: r, isLoading: false))),
     );
   }
 
@@ -72,8 +76,28 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
       },
       (r) {
         print(r);
-        emit(SmartGoalsState.weeklySessionSaved(
-            state.data.copyWith(weeklyGoalsSession: r as WeeklyGoalsSession, isLoading: false)));
+        emit(
+            SmartGoalsState.weeklySessionSaved(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
+      },
+    );
+  }
+
+  FutureOr<void> _onAddReview(
+    AddReview event,
+    Emitter<SmartGoalsState> emit,
+  ) async {
+    emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
+
+    final response = await _smartGoalsService.addGoalReview(event.data);
+
+    response.fold(
+      (l) {
+        print(l);
+        emit(SmartGoalsState.errorAddingReview(state.data.copyWith(error: l, isLoading: false)));
+      },
+      (r) {
+        print(r);
+        emit(SmartGoalsState.reviewAdded(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
       },
     );
   }
