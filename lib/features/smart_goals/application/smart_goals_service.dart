@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_statistics_response.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/goal_review_body.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/save_goals_body.dart';
+import 'package:loopcare_frontend/features/smart_goals/domain/progress_goal_data.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goals_session.dart';
 
 abstract class SmartGoalsService {
@@ -19,4 +20,6 @@ abstract class SmartGoalsService {
   Future<Either<RequestError, GetGoalsStatisticsResponse>> getGoalsStatistics();
 
   Future<Either<RequestError, WeeklyGoalsSession>> addGoalReview(GoalReviewBody data);
+
+  Future<Either<RequestError, dynamic>> confirmProgress({required ProgressGoalData progress});
 }

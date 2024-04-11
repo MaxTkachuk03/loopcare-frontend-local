@@ -20,6 +20,7 @@ class AppIcons {
   static const AssetImage starFilled = AssetImage('$iconsFilePath/icon_star_filled.png');
   static const AssetImage list = AssetImage('$iconsFilePath/list.png');
   static const AssetImage plus = AssetImage('$iconsFilePath/plus.png');
+  static const AssetImage minus = AssetImage('$iconsFilePath/minus.png');
   static const AssetImage scan = AssetImage('$iconsFilePath/scan.png');
   static SvgPicture clock = SvgPicture.asset('$iconsFilePath/clock.svg');
   static SvgPicture clockWhite = SvgPicture.asset('$iconsFilePath/clock.svg',

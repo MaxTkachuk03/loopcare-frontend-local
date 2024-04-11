@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals
 import 'package:loopcare_frontend/features/smart_goals/application/dto/goal_review_body.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/save_goals_body.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_service.dart';
+import 'package:loopcare_frontend/features/smart_goals/domain/progress_goal_data.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goals_session.dart';
 
 // TODO use to mock weekly goals server response
@@ -40,8 +41,7 @@ class APISmartGoalsService implements SmartGoalsService {
 
   @override
   Future<Either<RequestError, WeeklyGoalsSession>> saveGoals({required List<SaveGoalsBody> goals}) async {
-    return client
-        .post('/smart-goal/session', data: {"goals": goals}).then(parseResponse(WeeklyGoalsSession.fromJson));
+    return client.post('/smart-goal/session', data: {"goals": goals}).then(parseResponse(WeeklyGoalsSession.fromJson));
   }
 
   @override
@@ -71,5 +71,12 @@ class APISmartGoalsService implements SmartGoalsService {
   @override
   Future<Either<RequestError, WeeklyGoalsSession>> addGoalReview(GoalReviewBody data) async {
     return client.patch('/smart-goal/review', data: data).then(parseResponse(WeeklyGoalsSession.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, WeeklyGoalsSession>> confirmProgress({required ProgressGoalData progress}) async {
+    return client
+        .post('/smart-goal/progress', data: progress.toJson())
+        .then(parseResponse(WeeklyGoalsSession.fromJson));
   }
 }

@@ -9,11 +9,11 @@ class WeeklyGoalsSession with _$WeeklyGoalsSession {
   const WeeklyGoalsSession._();
 
   const factory WeeklyGoalsSession({
-    required int id,
-    required String startedAt,
-    required String finishedAt,
-    required List<WeeklySmartGoal> goals,
-    required bool isActive,
+    int? id,
+    DateTime? startedAt,
+    DateTime? finishedAt,
+    List<WeeklySmartGoal>? goals,
+    bool? isActive,
   }) = _WeeklyGoalsSession;
 
   factory WeeklyGoalsSession.fromJson(Map<String, dynamic> json) => _$WeeklyGoalsSessionFromJson(json);

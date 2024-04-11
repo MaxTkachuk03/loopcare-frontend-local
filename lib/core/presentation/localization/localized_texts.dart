@@ -531,8 +531,7 @@ class LocalizedTexts {
   static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
   static const String askRestoreSubscription = "askRestoreSubscription";
   static const String duplicateSubscriptionFromSettings = "duplicateSubscriptionFromSettings";
-  static const String otherPurchaseVendorCancelAccountSubscription =
-      "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";
@@ -996,7 +995,6 @@ class LocalizedTexts {
   static const String selectGoalsTitle = 'selectGoalsTitle';
   static const String completeCounter = 'completeCounter';
   static const String saveWeeklyGoalsSuccessMessage = 'saveWeeklyGoalsSuccessMessage';
-  static const String weeklyRequiredProgress = 'weeklyRequiredProgress';
   static const String goalsStatisticsTitle = 'goalsStatisticsTitle';
   static const String goalsAccomplishedInTotal = 'goalsAccomplishedInTotal';
   static const String goalsAccomplishedEmptyMessage = 'goalsAccomplishedEmptyMessage';
@@ -1007,4 +1005,16 @@ class LocalizedTexts {
   static const String howHardWasTheGoal = 'howHardWasTheGoal';
   static const String wantToTryInFuture = 'wantToTryInFuture';
   static const String goalReview = 'goalReview';
+  static const String weeklyQuickReview = 'weeklyQuickReview';
+  static const String weeklyCompletionDays = 'weeklyCompletionDays';
+  static const String weeklyDaysLeft = 'weeklyDaysLeft';
+  static const String weeklyCompleteTitle = 'weeklyCompleteTitle';
+  static const String weeklyDate = 'weeklyDate';
+  static const String weeklyCompletedFar = 'weeklyCompletedFar';
+  static const String weeklyAddCompletions = 'weeklyAddCompletions';
+  static const String weeklyOneTime = 'weeklyOneTime';
+  static const String weeklyTime = 'weeklyTime';
+  static const String weeklyTimes = 'weeklyTimes';
+  static const String weeklyMakeCorrections = 'weeklyMakeCorrections';
+  static const String weeklyShowGoalDetails = 'weeklyShowGoalDetails';
 }

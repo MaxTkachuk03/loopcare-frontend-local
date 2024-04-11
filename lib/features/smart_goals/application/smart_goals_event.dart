@@ -15,4 +15,10 @@ class SmartGoalsEvent with _$SmartGoalsEvent {
   const factory SmartGoalsEvent.unSelectGoal({required SmartGoal goal}) = UnSelectGoal;
 
   const factory SmartGoalsEvent.resetSelected() = ResetSelected;
+
+  const factory SmartGoalsEvent.updateLoggerTimes({required ProgressSmartGoalLog goalProgress}) = UpdateLoggerTimes;
+
+  const factory SmartGoalsEvent.resetLoggerTimes({required WeeklySmartGoal weeklyGoal}) = ResetLoggerTimes;
+
+  const factory SmartGoalsEvent.postCompletions({required int reviewId}) = PostCompletions;
 }

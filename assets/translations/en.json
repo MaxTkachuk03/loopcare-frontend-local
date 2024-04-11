@@ -835,7 +835,6 @@
   "selectGoalsTitle": "Choose your {} goal",
   "completeCounter": "Complete {} times in {} days",
   "saveWeeklyGoalsSuccessMessage": "Goals were added to your weekly list",
-  "weeklyRequiredProgress": "Complete {requiredCompletions} times in {requiredDays} days.",
   "goalsStatisticsTitle": "Your favourite goal categories",
   "goalsAccomplishedInTotal": "goals accomplished in total.",
   "goalsAccomplishedEmptyMessage": "Once you start completing goals your favourite goal categories will appear here.",
@@ -846,6 +845,19 @@
   "howHardWasTheGoal": "How hard was this goal for you?",
   "wantToTryInFuture": "Want to try this again in the future?",
   "goalReview": "Goal review",
+  "weeklyQuickReview" : "Quick goal review",
+  "weeklyCompletionDays": "{} days completion score",
+  "weeklyDaysLeft": "{} days left",
+  "weeklyCompleteTitle": "When did you complete this goal?",
+ "weeklyDate": "Date",
+  "weeklyCompletedFar":"Completed so far",
+  "weeklyAddCompletions": "Add completion(s)",
+  "weeklyOneTime":" 1 time",
+  "weeklyTime": "{} time",
+  "weeklyTimes": "{} times",
+  "weeklyMakeCorrections":"Make corrections",
+  "weeklyShowGoalDetails":"Show goal details",
+
 
 
 

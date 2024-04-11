@@ -24,8 +24,7 @@ class SelectGoalsPage extends StatelessWidget {
 
   const SelectGoalsPage({super.key, required this.category});
 
-  void _onAddGoalHandler(BuildContext context) =>
-      context.router.popUntilRouteWithName(SetWeeklyGoalsRoute.name);
+  void _onAddGoalHandler(BuildContext context) => context.router.popUntilRouteWithName(SetWeeklyGoalsRoute.name);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +52,7 @@ class SelectGoalsPage extends StatelessWidget {
           button: BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
             builder: (context, state) => CustomElevatedButton.blueFullWidth(
               label: LocalizedTexts.addGoal.tr(),
-              onPressed: state.data.hasSeelctedGoals ? () => _onAddGoalHandler(context) : null,
+              onPressed: state.data.hasSelectedGoals ? () => _onAddGoalHandler(context) : null,
             ),
           ),
         ),
