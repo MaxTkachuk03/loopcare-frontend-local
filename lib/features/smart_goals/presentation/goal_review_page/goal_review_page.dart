@@ -20,7 +20,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/smart_goals/application/dto/goal_review_body.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_smart_goal.dart';
-import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/goal_review_card.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/goal_review_page/widgets/goal_review_card.dart';
 
 class GoalReviewPage extends StatefulWidget {
   final WeeklySmartGoal goal;
@@ -40,7 +40,9 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
   void initState() {
     super.initState();
 
-    _scoreValue.value = widget.goal.difficulty;
+    final difficultyVal = widget.goal.difficulty ?? 0;
+
+    _scoreValue.value = difficultyVal - 1;
     _wantToTryValue.value = widget.goal.isTryAgain;
   }
 

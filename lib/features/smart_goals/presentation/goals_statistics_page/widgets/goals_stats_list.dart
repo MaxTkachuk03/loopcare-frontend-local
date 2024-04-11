@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_statistics_bloc.dart';
-import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/goals_stats_list_item.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/goals_statistics_page/widgets/goals_stats_list_item.dart';
 
 class GoalsStatsList extends StatelessWidget {
   const GoalsStatsList({super.key});

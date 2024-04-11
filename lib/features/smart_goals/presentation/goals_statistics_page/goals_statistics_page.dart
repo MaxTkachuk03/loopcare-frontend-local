@@ -13,7 +13,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_statistics_bloc.dart';
-import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/goals_stats_list.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/goals_statistics_page/widgets/goals_stats_list.dart';
 
 class GoalsStatisticsPage extends StatefulWidget {
   const GoalsStatisticsPage({super.key});

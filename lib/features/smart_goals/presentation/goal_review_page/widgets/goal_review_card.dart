@@ -42,7 +42,7 @@ class GoalReviewCard extends StatelessWidget {
             children: [
               CustomText.w400('${LocalizedTexts.yourCompletion.tr()}:', style: context.textTheme.bodyMedium),
               CustomText.w400(
-                LocalizedTexts.timesInDays.tr(args: ['${item.requiredCompletions}', '${item.requiredDays}']),
+                LocalizedTexts.timesInDays.tr(args: ['${item.completionsAmount}', '${item.requiredDays}']),
                 style: context.textTheme.bodyMedium,
               ),
             ],

@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal_statistics.dart';
-import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/goal_progress.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/goals_statistics_page/widgets/goal_progress.dart';
 
 class GoalsStatsListItem extends StatelessWidget {
   final SmartGoalStatistics item;

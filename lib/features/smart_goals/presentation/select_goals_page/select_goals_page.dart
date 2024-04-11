@@ -17,7 +17,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal_category.dart';
-import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/goals_list.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals_page/widgets/goals_list.dart';
 
 class SelectGoalsPage extends StatelessWidget {
   final SmartGoalCategory category;

@@ -27,8 +27,24 @@ class WeeklySmartGoal with _$WeeklySmartGoal {
 
   int get requiredDays => smartGoal.requiredDays;
 
-  // TODO check what should be the logic  here
-  // int get completions => progressLogs.map((e) => e.times);
+  int get completionsAmount {
+    int times = 0;
+    if (progressLogs == null) {
+      return 0;
+    }
+    for (var log in progressLogs!) {
+      times = times + log.times;
+    }
+    return times;
+  }
+
+  bool get isAchieved {
+    if (progressLogs == null) {
+      return false;
+    }
+    return completionsAmount >= smartGoal.requiredCompletions &&
+        progressLogs!.length >= smartGoal.requiredDays;
+  }
 
   factory WeeklySmartGoal.fromJson(Map<String, dynamic> json) => _$WeeklySmartGoalFromJson(json);
 }
