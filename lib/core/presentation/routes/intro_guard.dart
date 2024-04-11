@@ -77,26 +77,6 @@ class IntroGuard extends AutoRouteGuard {
       return;
     }
 
-    if (!onboardingState.isCompleted && legalStatementWasPassed) {
-      router.replaceAll([
-        const SignUpWelcomeRoute(),
-        const PasswordRoute(),
-        if (authState.data.emailWasSend) const WaitingForConfirmationRoute(),
-      ]);
-
-      return;
-    }
-
-    if (onboardingState.isCompleted && legalStatementWasPassed) {
-      router.replaceAll([
-        const SignUpWelcomeRoute(),
-        const PasswordRoute(),
-        if (authState.data.emailWasSend) const WaitingForConfirmationRoute(),
-      ]);
-
-      return;
-    }
-
     if (authState.data.name.isNotEmpty) {
       needRoutes.addAll([
         const IntroRoute(),
@@ -117,6 +97,17 @@ class IntroGuard extends AutoRouteGuard {
 
     if (onboardingState.isCompleted && !legalStatementWasPassed) {
       needRoutes.add(const LegalStatementRoute());
+    }
+
+    if (legalStatementWasPassed) {
+      needRoutes.addAll([
+        const SignUpWelcomeRoute(),
+        const PasswordRoute(),
+      ]);
+    }
+
+    if (authState.data.emailWasSend) {
+      needRoutes.add(const WaitingForConfirmationRoute());
     }
 
     if (needRoutes.isNotEmpty) {
