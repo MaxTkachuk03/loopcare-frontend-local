@@ -37,7 +37,6 @@ class PHQ15ResultText extends StatelessWidget {
             CustomDefinitions.testType: currentTestType.name,
             CustomDefinitions.itemInterpretation: interpretation?.name ?? '',
             CustomDefinitions.totalScore: currentResult?.totalScore ?? '',
-            CustomDefinitions.exclusion: interpretation == InterpretationType.high ? 'true' : 'false'
           },
         );
 
