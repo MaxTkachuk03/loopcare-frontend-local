@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal_category.dart';
-import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal_progress.dart';
 
 part 'smart_goal.freezed.dart';
 part 'smart_goal.g.dart';

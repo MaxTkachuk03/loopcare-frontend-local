@@ -29,6 +29,7 @@ import 'package:loopcare_frontend/features/nutrition/application/dashboard_educa
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
+import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -103,6 +104,11 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
             ),
           );
     }
+    if (context.read<AuthenticationBloc>().state.data.isSmartGoalUnlocked) {
+      context.read<SmartGoalsBloc>().add(
+            const SmartGoalsEvent.getWeeklyGoals(),
+          );
+    }
   }
 
   Future<void> _onRefresh() async {
@@ -131,6 +137,11 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
               _selectedDay.firstDayOfPreviousWeek,
               _selectedDay.lastDayOfCurrentWeek,
             ),
+          );
+    }
+    if (context.read<AuthenticationBloc>().state.data.isSmartGoalUnlocked) {
+      context.read<SmartGoalsBloc>().add(
+            const SmartGoalsEvent.getWeeklyGoals(),
           );
     }
   }

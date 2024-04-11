@@ -1,7 +1,20 @@
 var weeklyGoals = {
   "id": 1,
-  "startedAt": "2024-04-05",
-  "finishedAt": "2024-04-05",
+  // new session
+  // "startedAt": "2024-03-25",
+  // "finishedAt": "2024-04-01",
+  // "isActive": false,
+
+  // active session
+  "startedAt": "2024-04-04",
+  "finishedAt": "2024-04-12",
+  "isActive": true,
+
+  // inactive session delay
+  // "startedAt": "2024-04-01",
+  // "finishedAt": "2024-04-08",
+  // "isActive": false,
+
   "goals": [
     {
       "id": 1,
@@ -17,7 +30,8 @@ var weeklyGoals = {
       "difficulty": 2,
       "isTryAgain": true,
       "progressLogs": [
-        {"date": "2024-04-05", "times": 2}
+        {"date": "2024-04-04", "times": 1},
+        {"date": "2024-04-05", "times": 7}
       ]
     },
     {
@@ -38,5 +52,4 @@ var weeklyGoals = {
       ]
     }
   ],
-  "isActive": true
 };

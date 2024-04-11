@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal.dart';
-import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal_progress.dart';
+import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goal_progress_log.dart';
 
 part 'weekly_smart_goal.freezed.dart';
 part 'weekly_smart_goal.g.dart';
@@ -14,7 +14,7 @@ class WeeklySmartGoal with _$WeeklySmartGoal {
     required SmartGoal smartGoal,
     int? difficulty,
     bool? isTryAgain,
-    List<SmartGoalProgress>? progressLogs,
+    List<WeeklyGoalProgressLog>? progressLogs,
   }) = _WeeklySmartGoal;
 
   String get title => smartGoal.title;
@@ -42,9 +42,16 @@ class WeeklySmartGoal with _$WeeklySmartGoal {
     if (progressLogs == null) {
       return false;
     }
-    return completionsAmount >= smartGoal.requiredCompletions &&
-        progressLogs!.length >= smartGoal.requiredDays;
+    return completionsAmount >= smartGoal.requiredCompletions && progressLogs!.length >= smartGoal.requiredDays;
   }
 
   factory WeeklySmartGoal.fromJson(Map<String, dynamic> json) => _$WeeklySmartGoalFromJson(json);
+
+  int get completionsDays {
+    if (progressLogs == null) {
+      return 0;
+    }
+    //Todo need clarify log.times > 0&&smartGoal.requiredCompletions == log.times => day is completed and added in progress bar
+    return progressLogs!.where((log) => log.times > 0).toList().length;
+  }
 }

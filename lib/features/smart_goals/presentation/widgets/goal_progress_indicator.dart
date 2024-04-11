@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -91,33 +92,27 @@ class _TextAccent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
+    final style = context.textTheme.bodySmall?.copyWith(
+        fontFamily: ThemeConstants.openSansFontFamily,
+        color: AppColors.white,
+        fontWeight: FontWeight.w400,
+        letterSpacing: 1.54);
+    return AutoSizeText.rich(
+      maxLines: 1,
+      style: context.textTheme.bodySmall,
+      TextSpan(
         children: <InlineSpan>[
           TextSpan(
             text: '$currentStep',
-            style: context.textTheme.bodySmall?.copyWith(
-                fontFamily: ThemeConstants.openSansFontFamily,
-                color: AppColors.white,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 1.54),
+            style: style,
           ),
           TextSpan(
             text: '/',
-            style: context.textTheme.bodySmall?.copyWith(
-                fontFamily: ThemeConstants.openSansFontFamily,
-                color: AppColors.blueLightest,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 1.54),
+            style: style?.copyWith(color: AppColors.blueLightest),
           ),
           TextSpan(
             text: '$steps',
-            style: context.textTheme.bodySmall?.copyWith(
-              fontFamily: ThemeConstants.openSansFontFamily,
-              color: AppColors.white,
-              fontWeight: FontWeight.w400,
-            ),
+            style: style,
           ),
         ],
       ),
