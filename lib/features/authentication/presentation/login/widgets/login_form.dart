@@ -98,7 +98,7 @@ class _LoginFormState extends State<LoginForm> {
       authenticated: (state) {
         String route = AppRoutes.home;
         //Todo hide subscription flow LOOPCARE-2197
-        // if (state.hasActiveSubscription) {
+        // if (state.data.account?.hasActiveSubscription ?? false) {
         //   route = AppRoutes.home;
         // } else {
         //   route = AppRoutes.subscription;

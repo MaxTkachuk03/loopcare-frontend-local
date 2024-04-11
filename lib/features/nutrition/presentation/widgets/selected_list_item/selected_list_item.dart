@@ -40,32 +40,28 @@ class SelectedListItem extends StatelessWidget {
           vertical: 14.0,
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            const Icon(
+              Icons.check,
+              color: AppColors.greenRegular,
+            ),
+            const SizedBox(width: 8.0),
             Expanded(
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.check,
-                    color: AppColors.greenRegular,
-                  ),
-                  const SizedBox(width: 8.0),
-                  Expanded(
-                    child: CustomText.w600(
-                      item.servingLabel,
-                      maxLines: 2,
-                      style: context.textTheme.bodySmall?.copyWith(
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ),
-                ],
+              child: CustomText.w600(
+                item.servingLabel,
+                maxLines: 2,
+                style: context.textTheme.bodySmall?.copyWith(
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
             const SizedBox(width: 6),
             Column(
               children: [
-                CustomText.w400(LocalizedTexts.amount.tr(), style: context.textTheme.bodySmall),
+                CustomText.w400(
+                  LocalizedTexts.amount.tr(),
+                  style: context.textTheme.bodySmall,
+                ),
                 Expanded(
                   child: Center(
                     child: ServingInputField(
@@ -80,20 +76,24 @@ class SelectedListItem extends StatelessWidget {
             const SizedBox(width: 6),
             Column(
               children: [
-                CustomText.w400(LocalizedTexts.calories.tr(), style: context.textTheme.bodySmall),
+                CustomText.w400(
+                  LocalizedTexts.calories.tr(),
+                  style: context.textTheme.bodySmall,
+                ),
                 Expanded(
                   child: Center(
                     child: BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(
-                        builder: (BuildContext context, state) {
-                      return AutoSizeText(
-                        '${state.selectedServingCalories} ${LocalizedTexts.kcal.tr()}',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: context.textTheme.bodySmall?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      );
-                    }),
+                      builder: (context, state) {
+                        return AutoSizeText(
+                          '${state.selectedServingCalories} ${LocalizedTexts.kcal.tr()}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: context.textTheme.bodySmall?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],

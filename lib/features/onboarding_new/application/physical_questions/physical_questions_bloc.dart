@@ -202,7 +202,7 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     CustomerIoService.track(
       event: CIOEvents.onboardingSex,
       attributes: {
-        CIOAttributes.birthday: event.sexType.name,
+        CIOAttributes.sex: event.sexType.name,
       },
     );
 
@@ -227,7 +227,7 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     CustomerIoService.track(
       event: CIOEvents.onboardingGender,
       attributes: {
-        CIOAttributes.gender: event.gender,
+        CIOAttributes.gender: event.gender.name,
       },
     );
 

@@ -38,19 +38,19 @@ class IntroGuard extends AutoRouteGuard {
       final accessToken = await authTokenManager.getAccessToken() ?? '';
       final refreshToken = await authTokenManager.getRefreshToken() ?? '';
 
+      authenticationBloc.add(const AuthenticationEvent.startTrackUser());
+
       if (accessToken.isEmpty || refreshToken.isEmpty) {
         route = AppRoutes.login;
+      } else {
+        route = AppRoutes.home;
       }
       //Todo hide subscription flow LOOPCARE-2197
-      // else if (authenticationCubit.state.hasActiveSubscription) {
+      // else if (storage.account?.hasActiveSubscription ?? false) {
       //   route = AppRoutes.home;
       // } else {
       //   route = AppRoutes.subscription;
       // }
-      //remove else{..}
-      else {
-        route = AppRoutes.home;
-      }
 
       MixpanelEventService.instance.trackVisit(
         "${AppMixpanelEvents.appRote}:  $route",
@@ -76,7 +76,6 @@ class IntroGuard extends AutoRouteGuard {
 
       return;
     }
-
 
     if (!onboardingState.isCompleted && legalStatementWasPassed) {
       router.replaceAll([
@@ -123,7 +122,6 @@ class IntroGuard extends AutoRouteGuard {
     if (needRoutes.isNotEmpty) {
       router.pushAll(needRoutes);
 
-      authenticationBloc.add(const AuthenticationEvent.startTrackUser());
       return;
     }
 

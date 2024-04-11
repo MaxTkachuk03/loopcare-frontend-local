@@ -134,6 +134,7 @@ class ModalBottomSheet {
     required BuildContext context,
     required void Function() onSubscriptionPref,
     bool isDuplicate = false,
+    required ValueNotifier<bool> sheetNotifier,
   }) {
     showModalBottomSheet<void>(
       showDragHandle: true,
@@ -169,7 +170,9 @@ class ModalBottomSheet {
           ),
         );
       },
-    );
+    ).whenComplete(() {
+      sheetNotifier.value = false;
+    });
   }
 
   static void deleteAccount({
@@ -1208,48 +1211,47 @@ class ModalBottomSheet {
     );
   }
 
-  static void appUpdate({required BuildContext context, required Future<void> Function()? onUpdatePressed}) {
+  static void appUpdate({
+    required BuildContext context,
+    required Future<void> Function()? onUpdatePressed,
+  }) {
     showModalBottomSheet<void>(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       context: context,
       enableDrag: false,
       isDismissible: false,
-      builder: (BuildContext context) {
-        return FractionallySizedBox(
-          heightFactor: 0.7,
-          child: ScrollableContainer(
-            child: MainContainer(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 30.0),
-                child: Column(
-                  children: [
-                    const Icon(Icons.error, color: AppColors.coralRegular),
-                    const SizedBox(height: 24),
-                    CustomText.w600(
-                      LocalizedTexts.updateRequired.tr(),
-                      style: context.textTheme.displayMedium,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 12),
-                    CustomText.w400(
-                      LocalizedTexts.updateRequiredBodyText1.tr(),
-                      style: context.textTheme.bodyMedium,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 12),
-                    CustomText.w400(
-                      LocalizedTexts.updateRequiredBodyText2.tr(),
-                      style: context.textTheme.bodyMedium,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 24),
-                    CustomElevatedButton.blueFullWidth(
-                      label: LocalizedTexts.update.tr(),
-                      onPressed: onUpdatePressed,
-                    ),
-                  ],
+      builder: (context) {
+        return MainContainer(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.error, color: AppColors.coralRegular),
+                const SizedBox(height: 24),
+                CustomText.w600(
+                  LocalizedTexts.updateRequired.tr(),
+                  style: context.textTheme.displayMedium,
+                  textAlign: TextAlign.center,
                 ),
-              ),
+                const SizedBox(height: 12),
+                CustomText.w400(
+                  LocalizedTexts.updateRequiredBodyText1.tr(),
+                  style: context.textTheme.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 12),
+                CustomText.w400(
+                  LocalizedTexts.updateRequiredBodyText2.tr(),
+                  style: context.textTheme.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 24),
+                CustomElevatedButton.blueFullWidth(
+                  label: LocalizedTexts.update.tr(),
+                  onPressed: onUpdatePressed,
+                ),
+              ],
             ),
           ),
         );

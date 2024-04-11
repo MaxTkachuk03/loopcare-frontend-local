@@ -8,6 +8,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_attributes.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
 import 'package:loopcare_frontend/core/application/firebase/mesaging/firebase_messaging.dart';
+import 'package:loopcare_frontend/core/application/permissions_service.dart';
 
 export 'customer_io_attributes.dart';
 export 'customer_io_events.dart';
@@ -32,12 +33,22 @@ class CustomerIoService {
     required String name,
     required bool receiveAnEmails,
   }) async {
+    final isNotificationGranted = PermissionsService.instance.isNotificationGranted;
+
     CustomerIO.identify(
       identifier: email,
       attributes: {
         'name': name,
         'created_at': _timestamp,
         'system_locale': Platform.localeName,
+        'consent_to_email': receiveAnEmails,
+        'enable_push_notifications': isNotificationGranted,
+        'cio_subscription_preferences': {
+          'topics': {
+            'topic_1': receiveAnEmails,
+            'topic_2': isNotificationGranted,
+          },
+        },
       },
     );
 
@@ -81,13 +92,15 @@ class CustomerIoService {
     CustomerIO.identify(
       identifier: email,
       attributes: {
-        'id': id,
+        'user_id': id,
         'name': name,
         'system_locale': Platform.localeName,
       },
     );
 
     await _setDevice();
+
+
 
     CustomerIO.track(name: CIOEvents.auth, attributes: {'last_auth': _timestamp});
   }
@@ -97,13 +110,35 @@ class CustomerIoService {
     Map<String, dynamic>? attributes,
   }) => CustomerIO.track(name: event, attributes: attributes ?? {});
 
+  static Future<void> setUserVerifiedState({
+    required bool verified,
+  }) async {
+    CustomerIO.setProfileAttributes(
+      attributes: {'email_verified': verified},
+    );
+  }
+
+  static Future<void> setUserId({
+    required int id,
+  }) async {
+    CustomerIO.setProfileAttributes(
+      attributes: {'user_id': id},
+    );
+  }
+
+  static Future<void> changeUserAttributes({
+    required Map<String, dynamic> attributes,
+  }) async {
+    CustomerIO.setProfileAttributes(
+      attributes: attributes,
+    );
+  }
+
   static Map<String, dynamic> _androidDeviceData(AndroidDeviceInfo data) {
     return <String, dynamic>{
       'operating_system': 'Android',
       'os_version': '${data.version.release} (SDK ${data.version.sdkInt})',
       'device': data.model,
-      'display_size': data.displayMetrics,
-      'fingerprint': data.fingerprint,
       'hardware': data.hardware,
     };
   }

@@ -45,7 +45,7 @@ class DashboardCardTitle extends StatelessWidget {
     return  Material(
       color: AppColors.transparent,
       child: InkWell(
-        onTap: onTap,
+        onTap: editable ? onTap : null,
         highlightColor: highlightColor,
         borderRadius: const BorderRadius.all(Radius.circular(6)),
         child: Padding(

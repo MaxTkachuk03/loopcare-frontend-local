@@ -19,16 +19,32 @@ class SubscriptionController {
 
   SubscriptionController({required this.bloc});
 
-  List<ProductDetails> _getUniquePlans() {
+  List<ProductDetails> _getUniqueAndroidPlans() {
     if (data.plans.isEmpty) {
       return [];
     }
-
     final map = data.plans.groupBy((plan) => plan.id);
 
     List<ProductDetails> list = map.entries
         .map((list) => list.value.reduce((curr, next) => curr.rawPrice.toInt() < next.rawPrice.toInt() ? curr : next))
         .toList();
+    List<ProductDetails> orderList = [];
+    for (var serverPlan in data.serverPlans) {
+      for (var plan in list) {
+        if (serverPlan.productId == plan.id) {
+          orderList.add(plan);
+        }
+      }
+    }
+    return orderList;
+  }
+
+  List<ProductDetails> _getIosPlans() {
+    if (data.plans.isEmpty) {
+      return [];
+    }
+    List<ProductDetails> list = [...data.plans];
+    list.sort((a, b) => a.rawPrice.compareTo(b.rawPrice));
     return list;
   }
 
@@ -36,8 +52,7 @@ class SubscriptionController {
     if (data.plans.isEmpty) {
       return;
     }
-    List<ProductDetails> list = [...(Platform.isAndroid ? _getUniquePlans() : data.plans)];
-    list.sort((a, b) => a.rawPrice.compareTo(b.rawPrice));
+    List<ProductDetails> list = [...(Platform.isAndroid ? _getUniqueAndroidPlans() : _getIosPlans())];
     final lastId = list.isNotEmpty ? list.last.id : -1;
 
     for (var plan in list) {

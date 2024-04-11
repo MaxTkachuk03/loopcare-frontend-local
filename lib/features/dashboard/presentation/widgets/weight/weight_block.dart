@@ -19,9 +19,8 @@ class WeightBlock extends StatelessWidget {
 
   const WeightBlock({super.key, required this.date});
 
-  void onPressHandler(BuildContext context) {
-    context.router.push(LogWeightRoute(selectedDay: date));
-  }
+  void onPressHandler(BuildContext context) =>
+      context.router.push(LogWeightRoute(selectedDay: date));
 
   @override
   Widget build(BuildContext context) {

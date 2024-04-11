@@ -1,16 +1,10 @@
-import 'dart:io';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:loopcare_frontend/core/application/app_update/app_update_bloc.dart';
-import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
-import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
-import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/presentation/app_update/app_update_mixin.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
@@ -23,8 +17,6 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/transparency/applictation/device_info_service.dart';
 import 'package:loopcare_frontend/injection.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 AppConfig appConfig = getIt<AppConfig>();
 
@@ -35,42 +27,15 @@ class IntroPage extends StatefulWidget {
   State<IntroPage> createState() => _IntroPageState();
 }
 
-class _IntroPageState extends State<IntroPage> {
+class _IntroPageState extends State<IntroPage> with AppUpdateMixin {
   @override
   void initState() {
     super.initState();
     final deviceInfoService = GetIt.instance<DeviceInfoService>();
     deviceInfoService.onRequestTrackingAuthorization();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _initPackageInfo();
+      initPackageInfo(context);
     });
-  }
-
-  Future<void> _initPackageInfo() async {
-    final info = await PackageInfo.fromPlatform();
-
-    if (!mounted) return;
-
-    int platformMinVersion = Platform.isAndroid
-        ? context.read<AppUpdateBloc>().state.data.androidMinVersion
-        : context.read<AppUpdateBloc>().state.data.iosMinVersion;
-
-    if (int.parse(info.buildNumber) < platformMinVersion) {
-      ModalBottomSheet.appUpdate(context: context, onUpdatePressed: launchInBrowser);
-    }
-  }
-
-  void _showError() => context.showError(content: CustomText(LocalizedTexts.openLinkErrorMessage.tr()));
-
-  Future<void> launchInBrowser() async {
-    final Uri launchUri = Uri.parse(Platform.isAndroid ? playStoreAppUrl : appStoreAppUrl);
-
-    try {
-      await launchUrl(launchUri, mode: LaunchMode.externalApplication);
-    } catch (e) {
-      _showError();
-    }
   }
 
   void _onGetStarted(BuildContext context) {

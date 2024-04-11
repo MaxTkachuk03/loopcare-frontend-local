@@ -2,11 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
-import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
@@ -27,7 +27,17 @@ class MentalCheckResultFinalContent extends StatefulWidget {
 
 class _MentalCheckResultFinalContentState extends State<MentalCheckResultFinalContent> {
 
-  void onUrlHandler(BuildContext context) async {
+  @override
+  void initState() {
+    super.initState();
+    if (context.read<MentalQuestionsBloc>().state.isPhq8TestHigh) {
+      CustomerIoService.track(event: CIOEvents.onboardingFinalResultExclusion);
+    } else {
+      CustomerIoService.track(event: CIOEvents.onboardingFinalResult);
+    }
+  }
+
+  void _onUrlHandler(BuildContext context) async {
     final Uri launchUri = Uri.parse(psychologistConsultingLink);
 
     try {
@@ -42,16 +52,16 @@ class _MentalCheckResultFinalContentState extends State<MentalCheckResultFinalCo
   void _showError(BuildContext context) =>
       context.showError(content: CustomText.w400(LocalizedTexts.openLinkErrorMessage.tr()));
 
+  _onNextPressed(BuildContext context) =>
+      context.router.pushNamed(AppRoutes.legalStatement);
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MentalQuestionsBloc, MentalQuestionsState>(
       builder: (context, state) {
-        if (state.isLoading) return const Loader();
-
         return BottomPlacedButton.orange(
           body: ListView(
             physics: const ClampingScrollPhysics(),
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               UnderAppbar.orange(
                 child: Center(
@@ -69,7 +79,7 @@ class _MentalCheckResultFinalContentState extends State<MentalCheckResultFinalCo
                     color: AppColors.orangeLightest,
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                   ),
-                  child: FinalResultsText(onLinkPressed: onUrlHandler),
+                  child: FinalResultsText(onLinkPressed: _onUrlHandler),
                 ),
               ),
               const SizedBox(height: 30.0),
@@ -109,9 +119,5 @@ class _MentalCheckResultFinalContentState extends State<MentalCheckResultFinalCo
         ),
       ],
     );
-  }
-
-  _onNextPressed(BuildContext context) {
-    context.router.pushNamed(AppRoutes.legalStatement);
   }
 }
