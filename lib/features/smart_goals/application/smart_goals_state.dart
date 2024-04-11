@@ -58,7 +58,8 @@ class SmartGoalsStateData with _$SmartGoalsStateData {
 
     if (goals == null) return null;
 
-    final index = goals.indexOf(currentGoal);
+    final index = goals.indexWhere((g) => g.id == currentGoal.id);
+
     final nextGoalIndex = index + 1;
 
     if (index == -1 || nextGoalIndex > goals.length - 1) return null;

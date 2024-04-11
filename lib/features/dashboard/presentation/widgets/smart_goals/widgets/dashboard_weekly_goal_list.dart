@@ -66,7 +66,7 @@ class _EmptyGoalsList extends StatelessWidget {
     if (goal == null) return;
     final isLast = context.read<SmartGoalsBloc>().state.data.isLastGoalInSession(goal);
 
-    context.router.push(GoalReviewRoute(goal: goal, isLast: isLast));
+    context.router.push(GoalReviewRoute(goalId: goal.id, goal: goal, isLast: isLast));
   }
 
   @override

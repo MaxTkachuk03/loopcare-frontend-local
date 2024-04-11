@@ -25,8 +25,10 @@ import 'package:loopcare_frontend/features/smart_goals/presentation/goal_review_
 class GoalReviewPage extends StatefulWidget {
   final WeeklySmartGoal goal;
   final bool isLast;
+  final int goalId;
 
-  const GoalReviewPage({super.key, required this.goal, required this.isLast});
+  const GoalReviewPage(
+      {super.key, required this.goal, required this.isLast, @PathParam('goalId') required this.goalId});
 
   @override
   State<GoalReviewPage> createState() => _GoalReviewPageState();
@@ -40,9 +42,7 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
   void initState() {
     super.initState();
 
-    final difficultyVal = widget.goal.difficulty ?? 0;
-
-    _scoreValue.value = difficultyVal - 1;
+    _scoreValue.value = widget.goal.difficulty;
     _wantToTryValue.value = widget.goal.isTryAgain;
   }
 
@@ -50,7 +50,7 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
 
   void _onWantToTryChangeHandler(bool val) => _wantToTryValue.value = val;
 
-  void _onPressedHandler(BuildContext context) {
+  void _onPressedHandler() {
     final data = GoalReviewBody(
         id: widget.goal.id, difficulty: _scoreValue.value ?? 0, isTryAgain: _wantToTryValue.value ?? false);
 
@@ -59,14 +59,14 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
 
   String get _btnLabel => widget.isLast ? LocalizedTexts.confirm.tr() : LocalizedTexts.next.tr();
 
-  void _onReviewAddedListener(BuildContext context, SmartGoalsState state) {
+  void _onReviewAddedListener(_, SmartGoalsState state) {
     state.mapOrNull(
-      errorAddingReview: (s) => _onErrorAddingReview(context, s),
-      reviewAdded: (s) => _onReviewAdded(context, s),
+      errorAddingReview: _onErrorAddingReview,
+      reviewAdded: _onReviewAdded,
     );
   }
 
-  void _onErrorAddingReview(BuildContext context, SmartGoalsState state) {
+  void _onErrorAddingReview(SmartGoalsState state) {
     final String? errorMessage = state.data.error?.maybeMap(
       forbidden: (s) => s.error.message,
       notFound: (s) => s.error.message,
@@ -77,20 +77,27 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
     context.showError(content: CustomText.w400(errorMessage ?? ''));
   }
 
-  void _onReviewAdded(BuildContext context, SmartGoalsState state) {
-    final bloc = context.read<SmartGoalsBloc>();
-
+  void _onReviewAdded(SmartGoalsState state) {
     if (widget.isLast) {
       context.router.popUntilRoot();
-    } else {
-      final nextGoal = bloc.state.data.getNextGoalForReview(widget.goal);
-
-      if (nextGoal == null) return;
-
-      final isLast = context.read<SmartGoalsBloc>().state.data.isLastGoalInSession(nextGoal);
-
-      context.router.push(GoalReviewRoute(goal: nextGoal, isLast: isLast));
+      return;
     }
+
+    final nextGoal = state.data.getNextGoalForReview(widget.goal);
+
+    if (nextGoal == null) return;
+
+    final isLast = state.data.isLastGoalInSession(nextGoal);
+
+    context.router.push(GoalReviewRoute(goal: nextGoal, isLast: isLast, goalId: nextGoal.id));
+  }
+
+  bool _listenWhen(prev, cur) {
+    // Run listener only on the current route in the stack
+    final isCurrentRoute = widget.goal.id == context.router.current.pathParams.get('goalId');
+
+    return isCurrentRoute &&
+        (cur is GotSmartGoalsStateErrorAddingReview || cur is GotSmartGoalsStateReviewAdded);
   }
 
   @override
@@ -103,8 +110,7 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
       body: CustomSafeArea(
         child: ScrollableContainer(
           child: BlocListener<SmartGoalsBloc, SmartGoalsState>(
-            listenWhen: (prev, cur) =>
-                cur is GotSmartGoalsStateErrorAddingReview || cur is GotSmartGoalsStateReviewAdded,
+            listenWhen: _listenWhen,
             listener: _onReviewAddedListener,
             child: MainContainer(
               child: Column(
@@ -166,7 +172,7 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
 
                           return CustomElevatedButton.blueFullWidth(
                             label: _btnLabel,
-                            onPressed: canSend ? () => _onPressedHandler(context) : null,
+                            onPressed: canSend ? _onPressedHandler : null,
                           );
                         },
                       ),

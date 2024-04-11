@@ -71,11 +71,9 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
     response.fold(
       (l) {
-        print(l);
         emit(SmartGoalsState.errorSaveGoals(state.data.copyWith(error: l, isLoading: false)));
       },
       (r) {
-        print(r);
         emit(
             SmartGoalsState.weeklySessionSaved(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
       },
@@ -92,11 +90,9 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
     response.fold(
       (l) {
-        print(l);
         emit(SmartGoalsState.errorAddingReview(state.data.copyWith(error: l, isLoading: false)));
       },
       (r) {
-        print(r);
         emit(SmartGoalsState.reviewAdded(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
       },
     );
