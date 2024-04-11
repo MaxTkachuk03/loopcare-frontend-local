@@ -66,7 +66,7 @@ class AppNavigationBar extends StatelessWidget {
                 ),
               ),
               activeIcon: e.activeIcon,
-              label: e.label(getIt<SharedStorageService>().account!.nameCapitalised),
+              label: e.label(getIt<SharedStorageService>().account?.nameCapitalised ?? ''),
             ))
         .toList();
   }
@@ -89,7 +89,7 @@ class AppNavigationBar extends StatelessWidget {
   void _syncChatState(bool enable, int tabIndex, BuildContext context) {
     if (enable && tabIndex == 2) {
       final messages = context.read<GroupChatBloc>().state.data.messages;
-      if (messages.isNotEmpty) {
+      if (messages.isNotEmpty &&  messages.first.id != null) {
         context.read<GroupChatBloc>().add(GroupChatEvent.setReadPointer(fromMessageId: messages.first.id!));
       }
     }
