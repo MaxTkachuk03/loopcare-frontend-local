@@ -34,7 +34,6 @@ class CustomerIoService {
     required bool receiveAnEmails,
   }) async {
     final isNotificationGranted = PermissionsService.instance.isNotificationGranted;
-    print('devrt $isNotificationGranted');
 
     CustomerIO.identify(
       identifier: email,
