@@ -51,21 +51,10 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
   void _onWantToTryChangeHandler(bool val) => _wantToTryValue.value = val;
 
   void _onPressedHandler(BuildContext context) {
-    final bloc = context.read<SmartGoalsBloc>();
-    if (widget.isLast) {
-      context.router.popUntilRoot();
-    } else {
-      final nextGoal = bloc.state.data.getNextGoalForReview(widget.goal);
-      if (nextGoal == null) return;
-      final isLast = context.read<SmartGoalsBloc>().state.data.isLastGoalInSession(nextGoal);
+    final data = GoalReviewBody(
+        id: widget.goal.id, difficulty: _scoreValue.value ?? 0, isTryAgain: _wantToTryValue.value ?? false);
 
-      context.router.push(GoalReviewRoute(goal: nextGoal, isLast: isLast));
-    }
-
-    // final data = GoalReviewBody(
-    //     id: widget.goal.id, difficulty: _scoreValue.value ?? 0, isTryAgain: _wantToTryValue.value ?? false);
-    //
-    // context.read<SmartGoalsBloc>().add(SmartGoalsEvent.addReview(data));
+    context.read<SmartGoalsBloc>().add(SmartGoalsEvent.addReview(data));
   }
 
   String get _btnLabel => widget.isLast ? LocalizedTexts.confirm.tr() : LocalizedTexts.next.tr();
@@ -89,9 +78,19 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
   }
 
   void _onReviewAdded(BuildContext context, SmartGoalsState state) {
+    final bloc = context.read<SmartGoalsBloc>();
+
     if (widget.isLast) {
       context.router.popUntilRoot();
-    } else {}
+    } else {
+      final nextGoal = bloc.state.data.getNextGoalForReview(widget.goal);
+
+      if (nextGoal == null) return;
+
+      final isLast = context.read<SmartGoalsBloc>().state.data.isLastGoalInSession(nextGoal);
+
+      context.router.push(GoalReviewRoute(goal: nextGoal, isLast: isLast));
+    }
   }
 
   @override
