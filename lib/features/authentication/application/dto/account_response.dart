@@ -20,6 +20,7 @@ part 'account_response.g.dart';
 @JsonSerializable()
 class AccountResponse {
   final int id;
+  final String? customerIoId;
   final int? groupId;
   final String name;
   final String email;
@@ -46,6 +47,7 @@ class AccountResponse {
 
   const AccountResponse({
     required this.id,
+    required this.customerIoId,
     required this.groupId,
     required this.name,
     required this.email,

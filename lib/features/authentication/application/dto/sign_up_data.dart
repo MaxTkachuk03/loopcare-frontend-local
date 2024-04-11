@@ -8,6 +8,7 @@ part 'sign_up_data.g.dart';
 @immutable
 @JsonSerializable()
 class SignUpData {
+  final String customerIoId;
   final String name;
   final String email;
   final String password;
@@ -26,6 +27,7 @@ class SignUpData {
   final MedicalOnboarding medicalOnboarding;
 
   const SignUpData({
+    required this.customerIoId,
     required this.name,
     required this.email,
     required this.password,

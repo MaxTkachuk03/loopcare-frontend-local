@@ -11,6 +11,7 @@ part 'login_response.g.dart';
 @JsonSerializable()
 class LoginResponse {
   final String accessToken;
+  final String? customerIoId;
   final String refreshToken;
   final int id;
   final String name;
@@ -26,6 +27,7 @@ class LoginResponse {
     required this.accessToken,
     required this.refreshToken,
     required this.id,
+    required this.customerIoId,
     required this.name,
     required this.email,
     required this.country,
