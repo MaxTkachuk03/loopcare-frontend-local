@@ -140,8 +140,6 @@ class CustomerIoService {
       'operating_system': 'Android',
       'os_version': '${data.version.release} (SDK ${data.version.sdkInt})',
       'device': data.model,
-      'display_size': data.displayMetrics,
-      'fingerprint': data.fingerprint,
       'hardware': data.hardware,
     };
   }
