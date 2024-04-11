@@ -25,10 +25,8 @@ import 'package:loopcare_frontend/features/smart_goals/presentation/goal_review_
 class GoalReviewPage extends StatefulWidget {
   final WeeklySmartGoal goal;
   final bool isLast;
-  final int goalId;
 
-  const GoalReviewPage(
-      {super.key, required this.goal, required this.isLast, @PathParam('goalId') required this.goalId});
+  const GoalReviewPage({super.key, required this.goal, required this.isLast});
 
   @override
   State<GoalReviewPage> createState() => _GoalReviewPageState();
@@ -89,12 +87,11 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
 
     final isLast = state.data.isLastGoalInSession(nextGoal);
 
-    context.router.push(GoalReviewRoute(goal: nextGoal, isLast: isLast, goalId: nextGoal.id));
+    context.router.push(GoalReviewRoute(goal: nextGoal, isLast: isLast));
   }
 
   bool _listenWhen(prev, cur) {
-    // Run listener only on the current route in the stack
-    final isCurrentRoute = widget.goal.id == context.router.current.pathParams.get('goalId');
+    final isCurrentRoute = ModalRoute.of(context)?.isCurrent ?? false;
 
     return isCurrentRoute &&
         (cur is GotSmartGoalsStateErrorAddingReview || cur is GotSmartGoalsStateReviewAdded);

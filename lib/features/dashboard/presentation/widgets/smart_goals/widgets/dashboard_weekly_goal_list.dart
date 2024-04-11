@@ -38,7 +38,6 @@ class _DashboardWeeklyGoalsListState extends State<DashboardWeeklyGoalsList> {
           loading: (_) => const Loader(),
           error: (s) => ErrorScreen(error: s.data.error!, onButtonPressed: _onErrorRetryHandler),
           orElse: () {
-            return const _EmptyGoalsList();
             if (!state.data.hasWeeklyGoals) return const _EmptyGoalsList();
             return ListView.builder(
               shrinkWrap: true,
@@ -60,13 +59,7 @@ class _EmptyGoalsList extends StatelessWidget {
   const _EmptyGoalsList();
 
   void _onChooseGoalsHandler(BuildContext context) {
-    // context.router.pushNamed(AppRoutes.setWeeklyGoals);
-    // TODO for testing purposes goal review functionality
-    final goal = context.read<SmartGoalsBloc>().state.data.firstGoalForReview;
-    if (goal == null) return;
-    final isLast = context.read<SmartGoalsBloc>().state.data.isLastGoalInSession(goal);
-
-    context.router.push(GoalReviewRoute(goalId: goal.id, goal: goal, isLast: isLast));
+    context.router.pushNamed(AppRoutes.setWeeklyGoals);
   }
 
   @override
