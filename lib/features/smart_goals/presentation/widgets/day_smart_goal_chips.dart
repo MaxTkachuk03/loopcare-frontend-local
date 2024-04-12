@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/text_with_accents/text_with_accents.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
@@ -44,10 +45,20 @@ class _DaySmartGoalChipsState extends State<DaySmartGoalChips> {
                 return const SizedBox.shrink();
               }
               final item = state.data.logs[i];
+              final isToday = getDateOnly(item.date).isToday;
+
               return CustomChoiceChip.green(
-                label: getDateOnly(item.date).isToday
-                    ? '${getDateOnly(item.date).shortWeekdayWithMonth} - ${LocalizedTexts.today.tr().capitalize()}'
-                    : getDateOnly(item.date).shortWeekdayWithMonth,
+                label: isToday ? '' : getDateOnly(item.date).shortWeekdayWithMonth,
+                accent: isToday
+                    ? TextWithAccents(
+                        '${getDateOnly(item.date).shortWeekdayWithMonth} - ${LocalizedTexts.today.tr().capitalize()}',
+                        style: context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400),
+                        accentedStyle: context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
+                        accents: [
+                          LocalizedTexts.today.tr().capitalize(),
+                        ],
+                      )
+                    : null,
                 selected: item == widget.controller.selectedValueNotifier.value,
                 onSelected: _onSelected,
                 value: item,

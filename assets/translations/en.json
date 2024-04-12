@@ -852,7 +852,6 @@
  "weeklyDate": "Date",
   "weeklyCompletedFar":"Completed so far",
   "weeklyAddCompletions": "Add completion(s)",
-  "weeklyOneTime":" 1 time",
   "weeklyTime": "{} time",
   "weeklyTimes": "{} times",
   "weeklyMakeCorrections":"Make corrections",

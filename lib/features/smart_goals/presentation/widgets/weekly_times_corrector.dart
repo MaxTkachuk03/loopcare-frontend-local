@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_button_with_icon.dart';
 
 class WeeklyTimesCorrector extends StatelessWidget {
   final Function()? onIncrease;
@@ -15,14 +13,14 @@ class WeeklyTimesCorrector extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         _CircleButton(
-          icon: AppIcons.plus,
+          icon: Icons.add,
           onTap: onIncrease,
         ),
         const SizedBox(
           width: 8.0,
         ),
         _CircleButton(
-          icon: AppIcons.minus,
+          icon: Icons.remove,
           onTap: onDecreased,
         )
       ],
@@ -31,7 +29,7 @@ class WeeklyTimesCorrector extends StatelessWidget {
 }
 
 class _CircleButton extends StatelessWidget {
-  final AssetImage icon;
+  final IconData icon;
   final Function()? onTap;
 
   const _CircleButton({
@@ -41,10 +39,16 @@ class _CircleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomOutlinedRoundedButtonWithIcon(
-      onPressed: onTap,
-      icon: icon,
-      bgColor: AppColors.blueLightest,
+    return CircleAvatar(
+      radius: 22,
+      backgroundColor: AppColors.blueLightest,
+      child: IconButton(
+        icon: Icon(
+          icon,
+          color: onTap == null ? AppColors.greyLight : AppColors.blueDarker,
+        ),
+        onPressed: onTap,
+      ),
     );
   }
 }

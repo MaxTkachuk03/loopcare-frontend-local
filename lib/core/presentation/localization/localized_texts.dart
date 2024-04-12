@@ -1012,7 +1012,6 @@ class LocalizedTexts {
   static const String weeklyDate = 'weeklyDate';
   static const String weeklyCompletedFar = 'weeklyCompletedFar';
   static const String weeklyAddCompletions = 'weeklyAddCompletions';
-  static const String weeklyOneTime = 'weeklyOneTime';
   static const String weeklyTime = 'weeklyTime';
   static const String weeklyTimes = 'weeklyTimes';
   static const String weeklyMakeCorrections = 'weeklyMakeCorrections';
