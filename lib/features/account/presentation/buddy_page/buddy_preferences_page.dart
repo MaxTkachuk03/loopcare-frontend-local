@@ -51,6 +51,7 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return BlocConsumer<BuddyBloc, BuddyState>(
       listener: (context, state) => state.maybeMap(
         error: (state) => _errorListener,
@@ -64,60 +65,63 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
             leading: CustomFilledIconButton.leadingBlueLighter(),
             title: LocalizedTexts.buddyPreferences.tr(),
           ),
-          body: Stack(
-            children: [
-              CustomSafeArea(
-                child: ScrollableContainer(
-                  child: MainContainer(
-                    child: state.maybeWhen(
-                      orElse: () {
-                        Widget content = const SizedBox.shrink();
-                        if (state.data.isInvitationApproved) {
-                          content = const BuddyInvitationApproved();
-                        } else if (state.data.isInvitationPending) {
-                          content = const BuddyInvitationPending();
-                        } else if (state.data.isInvitationRejected) {
-                          content = const BuddyInvitationReject();
-                        } else if (state.data.isBuddyNotAvailable) {
-                          content = const BuddyNotAvailable();
-                        } else if (!state.data.isLoading) {
-                          content = const ProfileNoBuddyState();
-                        }
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                const SizedBox(height: 40),
-                                content,
-                                const SizedBox(height: 40),
-                              ],
-                            ),
-                            if (state.data.showInviteAnotherBuddy)
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                                child: CustomElevatedButton.coralFullWidth(
-                                  label: LocalizedTexts.buddyInviteAnotherBuddy.tr(),
-                                  onPressed: state.data.navigateInviteAnotherBuddy
-                                      ? () => _navigateRejectNotAvailableState.call(
-                                          notAvailable: state.data.isBuddyNotAvailable)
-                                      : () => _navigatePendingAcceptedState.call(context),
-                                ),
-                              )
-                          ],
-                        );
-                      },
+          body: SizedBox(
+            width: width,
+            child: Stack(
+              children: [
+                CustomSafeArea(
+                  child: ScrollableContainer(
+                    child: MainContainer(
+                      child: state.maybeWhen(
+                        orElse: () {
+                          Widget content = const SizedBox.shrink();
+                          if (state.data.isInvitationApproved) {
+                            content = const BuddyInvitationApproved();
+                          } else if (state.data.isInvitationPending) {
+                            content = const BuddyInvitationPending();
+                          } else if (state.data.isInvitationRejected) {
+                            content = const BuddyInvitationReject();
+                          } else if (state.data.isBuddyNotAvailable) {
+                            content = const BuddyNotAvailable();
+                          } else if (!state.data.isLoading) {
+                            content = const ProfileNoBuddyState();
+                          }
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: [
+                                  const SizedBox(height: 40),
+                                  content,
+                                  const SizedBox(height: 40),
+                                ],
+                              ),
+                              if (state.data.showInviteAnotherBuddy)
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                                  child: CustomElevatedButton.coralFullWidth(
+                                    label: LocalizedTexts.buddyInviteAnotherBuddy.tr(),
+                                    onPressed: state.data.navigateInviteAnotherBuddy
+                                        ? () => _navigateRejectNotAvailableState.call(
+                                            notAvailable: state.data.isBuddyNotAvailable)
+                                        : () => _navigatePendingAcceptedState.call(context),
+                                  ),
+                                )
+                            ],
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Positioned.fill(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: state.data.isLoading ? const Loader() : const SizedBox.shrink(),
+                Positioned.fill(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: state.data.isLoading ? const Loader() : const SizedBox.shrink(),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

@@ -40,7 +40,7 @@ class GoalsListItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       CustomText.w600(
-                        item.titleShort,
+                        item.title,
                         style: context.textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 10.0),
