@@ -47,30 +47,30 @@ class _DashboardWeeklyGoalsState extends State<DashboardWeeklyGoals> {
             if (!state.data.hasWeeklyGoals || !state.data.hasReviewDelay) {
               return const WeeklyGoalsEmptyState();
             }
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.zero,
-                    itemCount: state.data.weeklyGoals.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final item = state.data.weeklyGoals[index];
-                      return DashboardWeeklyGoalItem(
-                        item: item,
-                        editable: !state.data.hasQuickReviewWeeklyGoals,
-                      );
-                    },
-                  ),
-                  if (state.data.hasQuickReviewWeeklyGoals)
-                    CustomElevatedButton.greenSmall(
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  itemCount: state.data.weeklyGoals.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final item = state.data.weeklyGoals[index];
+                    return DashboardWeeklyGoalItem(
+                      item: item,
+                      editable: !state.data.hasQuickReviewWeeklyGoals,
+                    );
+                  },
+                ),
+                if (state.data.hasQuickReviewWeeklyGoals)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: CustomElevatedButton.greenSmall(
                       label: LocalizedTexts.weeklyQuickReview.tr(),
                       onPressed: _onQuickReviewHandler,
                     ),
-                ],
-              ),
+                  ),
+              ],
             );
           });
     });

@@ -20,8 +20,7 @@ class APIEducationService implements EducationService {
   APIEducationService(this.client);
 
   @override
-  Future<Either<RequestError, LessonQuestionsResponse>> getAllLessonQuestions(
-      String? startDate, String? endDate) {
+  Future<Either<RequestError, LessonQuestionsResponse>> getAllLessonQuestions(String? startDate, String? endDate) {
     final queryParameters = <String, dynamic>{};
     if (startDate != null && endDate != null) {
       queryParameters.addAll({
@@ -37,9 +36,7 @@ class APIEducationService implements EducationService {
 
   @override
   Future<Either<RequestError, LessonQuestion>> getLessonQuestions(int lessonQuestionId) {
-    return client
-        .get('/education/lesson-questions/$lessonQuestionId')
-        .then(parseResponse(LessonQuestion.fromJson));
+    return client.get('/education/lesson-questions/$lessonQuestionId').then(parseResponse(LessonQuestion.fromJson));
   }
 
   @override

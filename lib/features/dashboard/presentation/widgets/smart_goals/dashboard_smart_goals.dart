@@ -20,7 +20,8 @@ class DashboardSmartGoals extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 16.0, bottom: 24.0, right: 8.0, left: 8.0),
+      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
+      alignment: Alignment.center,
       decoration: const BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.all(Radius.circular(8)),

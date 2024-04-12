@@ -19,16 +19,22 @@ class WeeklyGoalsEmptyState extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 18.0),
-          child: CustomText.w400(
-            LocalizedTexts.noGoalsSelected.tr(),
-            style: context.textTheme.bodySmall,
-          ),
+        const SizedBox(
+          height: 18.0,
+        ),
+        CustomText.w400(
+          LocalizedTexts.noGoalsSelected.tr(),
+          style: context.textTheme.bodySmall,
+        ),
+        const SizedBox(
+          height: 18.0,
         ),
         CustomElevatedButton.greenSmall(
           label: LocalizedTexts.chooseGoalsForUpcomingDays.tr(),
           onPressed: () => _onChooseGoalsHandler(context),
+        ),
+        const SizedBox(
+          height: 8.0,
         ),
       ],
     );

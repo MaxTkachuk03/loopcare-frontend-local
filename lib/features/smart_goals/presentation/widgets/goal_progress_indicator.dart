@@ -18,9 +18,9 @@ class GoalProgressIndicator extends StatelessWidget {
     super.key,
     required this.steps,
     required this.currentStep,
-    this.innerSize = 18.0,
-    this.progressSize = 47,
-    this.strokeWidth = 12,
+    this.innerSize = 20.0,
+    this.progressSize = 48,
+    this.strokeWidth = 8,
     required this.isAchievedNotifier,
   });
 
@@ -28,7 +28,7 @@ class GoalProgressIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: progressSize,
-      height: isAchievedNotifier ? progressSize + innerSize + achieveRadius : progressSize + innerSize,
+      height: isAchievedNotifier ? progressSize + innerSize + achieveRadius : progressSize,
       child: Stack(
         alignment: Alignment.center,
         children: [
