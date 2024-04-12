@@ -62,6 +62,8 @@ class SmartGoalsStateData with _$SmartGoalsStateData {
 
   bool get hasQuickReviewWeeklyGoals => !isWeeklySessionPeriodActive && hasReviewDelay;
 
+  //Todo move to beck end sessionReviewDelay -> reviewDelayDays
+
   bool get hasReviewDelay => isWeeklySessionHasTimestamp ? daysReview <= sessionReviewDelay : false;
 
   int get daysLeft => weeklyGoalsSession!.finishedAt!.difference(DateTime.now().getDateOnly).inDays;
