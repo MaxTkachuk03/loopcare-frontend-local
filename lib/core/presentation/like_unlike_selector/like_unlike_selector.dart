@@ -1,12 +1,13 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/domain/like_unlike_options.dart';
+import 'package:loopcare_frontend/core/presentation/segmented_button/custom_segmented_button.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class LikeUnlikeSelector extends StatefulWidget {
-  final Function(bool val) onChange;
-  final bool value;
+  final Function(LikeUnlikeOptions val) onChange;
+  final LikeUnlikeOptions? value;
 
   const LikeUnlikeSelector({super.key, required this.onChange, required this.value});
 
@@ -14,74 +15,45 @@ class LikeUnlikeSelector extends StatefulWidget {
   State<LikeUnlikeSelector> createState() => _LikeUnlikeSelectorState();
 }
 
-class _LikeUnlikeSelectorState extends State<LikeUnlikeSelector> with TickerProviderStateMixin {
-  late TabController _tabController;
+class _LikeUnlikeSelectorState extends State<LikeUnlikeSelector> {
+  LikeUnlikeOptions? _selectedValue;
 
   @override
   void initState() {
     super.initState();
 
-    _tabController = TabController(
-      vsync: this,
-      length: 2,
-      initialIndex: widget.value ? 1 : 0,
-    );
+    _selectedValue = widget.value;
   }
 
-  void _onTabChangeHandler(int index) => widget.onChange(index == 0 ? false : true);
-
-  get _labelStyles => const TextStyle(color: AppColors.blueDarker, fontSize: 12, fontWeight: FontWeight.w500);
+  void _onChangedHandler(value) {
+    _selectedValue = value;
+    widget.onChange(value);
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 138,
-      height: 76,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            width: 130,
-            height: 68,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 2, color: AppColors.blueDarker),
-            ),
-          ),
-          TabBar(
-            onTap: _onTabChangeHandler,
-            controller: _tabController,
-            indicatorColor: AppColors.greenRegular,
-            dividerColor: AppColors.transparent,
-            dividerHeight: 0,
-            labelColor: AppColors.blueDarker,
-            labelStyle: _labelStyles,
-            unselectedLabelStyle: _labelStyles,
-            indicator: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: AppColors.greenRegular,
-            ),
-            splashBorderRadius: BorderRadius.circular(8),
-            indicatorSize: TabBarIndicatorSize.tab,
-            tabs: [
-              Tab(
-                text: LocalizedTexts.notReally.tr(),
-                icon: Icon(!widget.value ? Icons.thumb_down_alt_rounded : Icons.thumb_down_alt_outlined),
-              ),
-              Tab(
-                text: LocalizedTexts.yesYes.tr(),
-                icon: Icon(widget.value ? Icons.thumb_up_alt_rounded : Icons.thumb_up_alt_outlined),
-              ),
+      width: 146,
+      child: CustomSegmentedButton<LikeUnlikeOptions>(
+        values: LikeUnlikeOptions.values,
+        onChanged: _onChangedHandler,
+        initialValue: _selectedValue,
+        itemHeight: 67,
+        itemBuilder: (context, int i) {
+          final item = LikeUnlikeOptions.values[i];
+          final isSelected = item == _selectedValue;
+
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              isSelected ? item.iconSelected : item.icon,
+              const SizedBox(height: 8.0),
+              CustomText.w500(item.label,
+                  style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize12)),
             ],
-          ),
-        ],
+          );
+        },
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
   }
 }

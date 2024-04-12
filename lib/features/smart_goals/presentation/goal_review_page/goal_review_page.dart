@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/like_unlike_options.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -34,23 +35,33 @@ class GoalReviewPage extends StatefulWidget {
 
 class _GoalReviewPageState extends State<GoalReviewPage> {
   final _scoreValue = ValueNotifier<int?>(null);
-  final _wantToTryValue = ValueNotifier<bool?>(null);
+  final _wantToTryValue = ValueNotifier<LikeUnlikeOptions?>(null);
 
   @override
   void initState() {
     super.initState();
 
     _scoreValue.value = widget.goal.difficulty;
-    _wantToTryValue.value = widget.goal.isTryAgain;
+
+    final isTryAgaininitialValue = widget.goal.isTryAgain;
+
+    if (isTryAgaininitialValue == null) {
+      _wantToTryValue.value = null;
+    } else {
+      _wantToTryValue.value = isTryAgaininitialValue ? LikeUnlikeOptions.yes : LikeUnlikeOptions.no;
+    }
   }
 
   void _onScorePressedHadnler(int? val) => _scoreValue.value = val;
 
-  void _onWantToTryChangeHandler(bool val) => _wantToTryValue.value = val;
+  void _onWantToTryChangeHandler(LikeUnlikeOptions val) => _wantToTryValue.value = val;
 
   void _onPressedHandler() {
     final data = GoalReviewBody(
-        id: widget.goal.id, difficulty: _scoreValue.value ?? 0, isTryAgain: _wantToTryValue.value ?? false);
+      id: widget.goal.id,
+      difficulty: _scoreValue.value ?? 0,
+      isTryAgain: _wantToTryValue.value?.toBool ?? false,
+    );
 
     context.read<SmartGoalsBloc>().add(SmartGoalsEvent.addReview(data));
   }
@@ -77,7 +88,10 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
 
   void _onReviewAdded(SmartGoalsState state) {
     if (widget.isLast) {
-      context.router.popUntilRoot();
+      context
+        ..read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals())
+        ..router.popUntilRoot();
+
       return;
     }
 
@@ -153,7 +167,7 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
                         valueListenable: _wantToTryValue,
                         builder: (context, value, _) => LikeUnlikeSelector(
                           onChange: _onWantToTryChangeHandler,
-                          value: _wantToTryValue.value ?? false,
+                          value: _wantToTryValue.value,
                         ),
                       ),
                     ],
@@ -162,7 +176,7 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
                     padding: const EdgeInsets.symmetric(vertical: 30.0),
                     child: ValueListenableBuilder<int?>(
                       valueListenable: _scoreValue,
-                      builder: (_, score, __) => ValueListenableBuilder<bool?>(
+                      builder: (_, score, __) => ValueListenableBuilder<LikeUnlikeOptions?>(
                         valueListenable: _wantToTryValue,
                         builder: (_, wantToTry, __) {
                           final bool canSend = score != null && wantToTry != null;
