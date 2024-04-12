@@ -90,13 +90,14 @@ class _TextAccent extends StatelessWidget {
     required this.steps,
   });
 
+  TextStyle? getStyle(BuildContext context) => context.textTheme.bodySmall?.copyWith(
+      fontFamily: ThemeConstants.openSansFontFamily,
+      color: AppColors.white,
+      fontWeight: FontWeight.w400,
+      letterSpacing: 1.54);
+
   @override
   Widget build(BuildContext context) {
-    final style = context.textTheme.bodySmall?.copyWith(
-        fontFamily: ThemeConstants.openSansFontFamily,
-        color: AppColors.white,
-        fontWeight: FontWeight.w400,
-        letterSpacing: 1.54);
     return AutoSizeText.rich(
       maxLines: 1,
       style: context.textTheme.bodySmall,
@@ -104,15 +105,15 @@ class _TextAccent extends StatelessWidget {
         children: <InlineSpan>[
           TextSpan(
             text: '$currentStep',
-            style: style,
+            style: getStyle(context),
           ),
           TextSpan(
             text: '/',
-            style: style?.copyWith(color: AppColors.blueLightest),
+            style: getStyle(context)?.copyWith(color: AppColors.blueLightest),
           ),
           TextSpan(
             text: '$steps',
-            style: style,
+            style: getStyle(context),
           ),
         ],
       ),

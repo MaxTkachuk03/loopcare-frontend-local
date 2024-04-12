@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/text_with_accents/text_with_accents.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
@@ -7,6 +8,7 @@ typedef OnSelected<T> = void Function(T val);
 
 class CustomChoiceChip<T> extends StatelessWidget {
   final String label;
+  final TextWithAccents? accent;
   final bool selected;
   final T value;
   final void Function(T val)? onSelected;
@@ -27,6 +29,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
     required this.selected,
     required this.onSelected,
     required this.value,
+    this.accent,
     this.selectedColor,
     this.borderColor,
     this.avatar,
@@ -125,9 +128,11 @@ class CustomChoiceChip<T> extends StatelessWidget {
     required T value,
     required String label,
     Widget? action,
+    TextWithAccents? accent,
   }) =>
       CustomChoiceChip<T>(
         label: label,
+        accent: accent,
         selected: selected,
         onSelected: onSelected,
         value: value,
@@ -179,13 +184,15 @@ class CustomChoiceChip<T> extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Expanded(
-                child: AutoSizeText(
-                  label,
-                  textAlign: textAlign ?? TextAlign.start,
-                  style: selected
-                      ? context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600)
-                      : context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400),
-                ),
+                child: accent != null
+                    ? accent!
+                    : AutoSizeText(
+                        label,
+                        textAlign: textAlign ?? TextAlign.start,
+                        style: selected
+                            ? context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600)
+                            : context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400),
+                      ),
               ),
               if (action != null) action!,
             ],
@@ -195,9 +202,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
         onSelected: onSelected == null ? null : (_) => onSelected?.call(value),
         selectedColor: selectedColor,
         disabledColor: AppColors.greyLight,
-        side: ChipTheme.of(context)
-            .side
-            ?.copyWith(color: onSelected == null ? AppColors.greyLight : borderColor),
+        side: ChipTheme.of(context).side?.copyWith(color: onSelected == null ? AppColors.greyLight : borderColor),
         color: MaterialStateProperty.resolveWith((states) {
           const Set<MaterialState> interactiveStates = <MaterialState>{
             MaterialState.pressed,

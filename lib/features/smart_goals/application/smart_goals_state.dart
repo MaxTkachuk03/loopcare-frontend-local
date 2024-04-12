@@ -48,19 +48,21 @@ class SmartGoalsStateData with _$SmartGoalsStateData {
 
   bool get hasSelectedGoals => selectedGoals.isNotEmpty;
 
-  bool get enableSessionTimestamp => weeklyGoalsSession?.finishedAt != null && weeklyGoalsSession?.startedAt != null;
+  bool get isWeeklySessionHasTimestamp =>
+      weeklyGoalsSession?.finishedAt != null && weeklyGoalsSession?.startedAt != null;
 
-  bool get isActiveWeeklyGoals => weeklyGoalsSession?.isActive ?? false;
+  bool get isWeeklySessionActive => weeklyGoalsSession?.isActive ?? false;
 
-  bool get activeSessionPeriod => enableSessionTimestamp ? weeklyGoalsSession!.finishedAt!.isFuture : false;
+  bool get isWeeklySessionPeriodActive =>
+      isWeeklySessionHasTimestamp ? weeklyGoalsSession!.finishedAt!.isFuture : false;
 
-  bool get hasActiveSession => isActiveWeeklyGoals && activeSessionPeriod;
+  bool get hasActiveSession => isWeeklySessionActive && isWeeklySessionPeriodActive;
 
-  bool get hasFinishedSession => hasReviewDelay && !isActiveWeeklyGoals && !activeSessionPeriod;
+  bool get hasFinishedSession => hasReviewDelay && !isWeeklySessionActive && !isWeeklySessionPeriodActive;
 
-  bool get hasQuickReviewWeeklyGoals => !activeSessionPeriod && hasReviewDelay;
+  bool get hasQuickReviewWeeklyGoals => !isWeeklySessionPeriodActive && hasReviewDelay;
 
-  bool get hasReviewDelay => enableSessionTimestamp ? daysReview <= sessionReviewDelay : false;
+  bool get hasReviewDelay => isWeeklySessionHasTimestamp ? daysReview <= sessionReviewDelay : false;
 
   int get daysLeft => weeklyGoalsSession!.finishedAt!.difference(DateTime.now().getDateOnly).inDays;
 

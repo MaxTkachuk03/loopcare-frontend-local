@@ -41,18 +41,14 @@ class DashboardSmartGoals extends StatelessWidget {
                 ),
                 BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
                   builder: (context, state) {
-                    return state.maybeMap(
-                      orElse: () {
-                        final days = _getSubTitle(state);
-                        if (days.isNotEmpty) {
-                          return CustomText.w600(
-                            days,
-                            style: context.textTheme.bodySmall,
-                          );
-                        }
-                        return const SizedBox.shrink();
-                      },
-                    );
+                    final days = _getSubTitle(state);
+                    if (days.isNotEmpty) {
+                      return CustomText.w600(
+                        days,
+                        style: context.textTheme.bodySmall,
+                      );
+                    }
+                    return const SizedBox.shrink();
                   },
                 ),
               ],
@@ -76,7 +72,7 @@ class DashboardSmartGoals extends StatelessWidget {
   }
 
   String _getSubTitle(SmartGoalsState state) {
-    if (!state.data.enableSessionTimestamp) {
+    if (!state.data.isWeeklySessionHasTimestamp) {
       return '';
     }
     if (state.data.hasActiveSession) {
