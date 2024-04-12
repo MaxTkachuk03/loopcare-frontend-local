@@ -9,8 +9,8 @@ import 'package:loopcare_frontend/features/education/application/dto/get_lessons
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
 import 'package:loopcare_frontend/features/education/domain/questions/lesson_answer_body.dart';
 import 'package:loopcare_frontend/features/education/domain/questions/lesson_questions_response.dart';
-import 'package:loopcare_frontend/features/education/infrastructure/lesson_mock.dart';
-import 'package:loopcare_frontend/features/education/infrastructure/lessons_mock.dart';
+// import 'package:loopcare_frontend/features/education/infrastructure/lesson_mock.dart';
+// import 'package:loopcare_frontend/features/education/infrastructure/lessons_mock.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 
 @Injectable(as: EducationService)
@@ -20,7 +20,8 @@ class APIEducationService implements EducationService {
   APIEducationService(this.client);
 
   @override
-  Future<Either<RequestError, LessonQuestionsResponse>> getAllLessonQuestions(String? startDate, String? endDate) {
+  Future<Either<RequestError, LessonQuestionsResponse>> getAllLessonQuestions(
+      String? startDate, String? endDate) {
     final queryParameters = <String, dynamic>{};
     if (startDate != null && endDate != null) {
       queryParameters.addAll({
@@ -36,7 +37,9 @@ class APIEducationService implements EducationService {
 
   @override
   Future<Either<RequestError, LessonQuestion>> getLessonQuestions(int lessonQuestionId) {
-    return client.get('/education/lesson-questions/$lessonQuestionId').then(parseResponse(LessonQuestion.fromJson));
+    return client
+        .get('/education/lesson-questions/$lessonQuestionId')
+        .then(parseResponse(LessonQuestion.fromJson));
   }
 
   @override
@@ -82,8 +85,8 @@ class APIEducationService implements EducationService {
   @override
   Future<Either<RequestError, GetLessonsResponse>> getLessons() async {
     // TODO mock
-    return right(GetLessonsResponse.fromJson({'lessons': lessons}));
-    // return client.get('/education/lessons').then(parseResponse(GetLessonsResponse.fromJson));
+    // return right(GetLessonsResponse.fromJson({'lessons': lessons}));
+    return client.get('/education/lessons').then(parseResponse(GetLessonsResponse.fromJson));
   }
 
   @override
@@ -91,8 +94,8 @@ class APIEducationService implements EducationService {
     int lessonId,
   ) async {
     // TODO mock
-    return right(GetLessonContentResponse.fromJson(lesson));
-    // return client.get('/education/lessons/$lessonId').then(parseResponse(GetLessonContentResponse.fromJson));
+    // return right(GetLessonContentResponse.fromJson(lesson));
+    return client.get('/education/lessons/$lessonId').then(parseResponse(GetLessonContentResponse.fromJson));
   }
 
   @override
