@@ -22,6 +22,7 @@ class AuthenticationData with _$AuthenticationData {
   const AuthenticationData._();
 
   const factory AuthenticationData({
+    @Default('') String customerIoId,
     @Default('') String email,
     @Default('') String name,
     @Default('') String password,

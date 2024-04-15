@@ -34,6 +34,7 @@ import 'package:loopcare_frontend/features/authentication/application/dto/valida
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding_new/application/dto/registration_physical_fitness_data.dart';
+import 'package:uuid/uuid.dart';
 
 part 'authentication_bloc.freezed.dart';
 part 'authentication_bloc.g.dart';
@@ -157,7 +158,10 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           },
         );
 
+        final customerIoId = response.customerIoId ?? response.id.toString();
+
         CustomerIoService.userAuthenticated(
+          customerIoId: customerIoId,
           email: event.email,
           id: response.id,
           name: response.name,
@@ -170,6 +174,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
 
         final account = _sharedPref.account = Account(
           id: response.id,
+          customerIoId: response.customerIoId,
           name: response.name,
           email: response.email,
           country: response.country,
@@ -182,6 +187,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         emit(
           AuthenticationState.authenticated(
             state.data.copyWith(
+              customerIoId: response.customerIoId ?? '',
               accountId: response.id,
               account: account,
             ),
@@ -220,6 +226,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     final data = SignUpData(
       name: state.data.name,
       email: state.data.email.toLowerCase(),
+      customerIoId: state.data.customerIoId,
       password: event.password,
       isConsentApproved: true,
       isLegalApproved: true,
@@ -252,6 +259,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         emit(
           AuthenticationState.waitedForConfirmation(
             state.data.copyWith(
+              customerIoId: state.data.customerIoId,
               email: data.email,
               accountId: response.id,
               name: state.data.name,
@@ -323,6 +331,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     String email = '';
     String name = '';
     int id = -1;
+    String customerIoId = '';
 
     if (state.data.accountEmail != null) {
       email = state.data.accountEmail!;
@@ -342,15 +351,40 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
       id = state.data.accountId;
     }
 
+    if (state.data.customerIoId.isNotEmpty) {
+      customerIoId = state.data.customerIoId;
+    } else if (state.data.account?.customerIoId != null) {
+      customerIoId = state.data.account!.customerIoId!;
+    } else if (state.data.account != null) {
+      customerIoId = id.toString();
+    }
+
+
     if (state.data.account != null) {
       CustomerIoService.userAuthenticated(
+        customerIoId: customerIoId,
         email: email,
         id: id,
         name: name,
       );
-    } else if (email.isNotEmpty) {
+    } else if (customerIoId.isNotEmpty) {
       CustomerIoService.onboardingResume(
+        customerIoId: customerIoId,
+      );
+    } else if (email.isNotEmpty) {
+      customerIoId = const Uuid().v4();
+
+      CustomerIoService.onboardingResumeWithEmail(
+        customerIoId: customerIoId,
         email: email,
+      );
+
+      emit(
+        state.copyWith(
+          data: state.data.copyWith(
+            customerIoId: customerIoId,
+          ),
+        ),
       );
     }
   }
@@ -477,12 +511,19 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         ),
       ),
       (result) {
+        String cioId = state.data.customerIoId;
+
+        if (cioId.isEmpty) {
+          cioId = const Uuid().v4();
+        }
+
         if (event.update) {
           CustomerIoService.changeUserEmail(
             email: event.email,
           );
         } else {
           CustomerIoService.onboardingStarted(
+            id: cioId,
             name: state.data.name,
             email: event.email,
             receiveAnEmails: event.receiveAnEmails ?? false,
@@ -492,6 +533,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         emit(
           state.copyWith(
             data: state.data.copyWith(
+              customerIoId: cioId,
               email: event.email,
               emailVerified: true,
             ),
@@ -519,6 +561,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
       (r) {
         final account = Account(
           id: r.id,
+          customerIoId: r.customerIoId,
           name: r.name,
           email: r.email,
           country: r.country,

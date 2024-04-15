@@ -6,6 +6,7 @@ import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
@@ -73,24 +74,24 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
   Widget build(BuildContext context) {
     return AccountContainer(
       child:
-          //Todo hide subscription flow LOOPCARE-2197
-          // BlocListener<SubscriptionBloc, SubscriptionState>(
-          //   listener: (context, state) => state.maybeMap(
-          //     error: (state) => _errorListener,
-          //     gotAccountSubscription: (state) => _onDeleteAccountPressed(context, !state.data.hasSubscription, state),
-          //     orElse: () => null,
-          //   ),
-          //   child:
-      Column(
-        children: [
-          CustomOutlinedButton.coralFullWidth(
-            onPressed: () =>
-                context.read<AuthenticationBloc>().add(const AuthenticationEvent.deleteAccount()),
-            //Todo hide subscription flow LOOPCARE-2197
-            // context.read<SubscriptionBloc>().add(const SubscriptionEvent.getAccountSubscription()),
-            label: LocalizedTexts.deleteAccount.tr(),
-          ),
-        ],
+      //Todo hide subscription flow LOOPCARE-2197
+      BlocListener<SubscriptionBloc, SubscriptionState>(
+        listener: (context, state) => state.maybeMap(
+          error: (state) => _errorListener,
+          gotAccountSubscription: (state) => _onDeleteAccountPressed(context, !state.data.hasSubscription, state),
+          orElse: () => null,
+        ),
+        child: Column(
+          children: [
+            CustomOutlinedButton.coralFullWidth(
+              onPressed: () => kIsProd
+              //Todo hide subscription flow LOOPCARE-2197
+                  ? context.read<SubscriptionBloc>().add(const SubscriptionEvent.getAccountSubscription())
+                  : context.read<AuthenticationBloc>().add(const AuthenticationEvent.deleteAccount()),
+              label: LocalizedTexts.deleteAccount.tr(),
+            ),
+          ],
+        ),
       ),
     );
   }
