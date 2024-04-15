@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
@@ -69,12 +70,21 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
     });
   }
 
-  void _onContinue() => context
+  void _onContinue() {
+    PageRouteInfo route;
+    if (kIsProd) {
+      route = const SubscriptionRoute();
+    } else {
+      route = const HomeRoute();
+    }
+
+    context
       ..read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.resetData())
       ..read<MedicalQuestionsBloc>().add(const MedicalQuestionsEvent.resetData())
       ..read<PhysicalQuestionsBloc>().add(const PhysicalQuestionsEvent.resetData())
       ..read<MentalQuestionsBloc>().add(const MentalQuestionsEvent.resetData())
-      ..router.replaceAll([const HomeRoute()]);
+      ..router.replaceAll([route]);
+  }
 
   void _onChangeAddress() {
     timer?.cancel();
