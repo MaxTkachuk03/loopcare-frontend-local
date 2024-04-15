@@ -29,9 +29,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     on<GetGoals>(_onGetGoals);
     on<GetWeeklyGoals>(_onGetWeeklyGoals);
     on<SaveGoals>(_onSaveGoals);
-    on<SelectGoal>(_onSelectGoal);
     on<AddReview>(_onAddReview);
-    on<UnSelectGoal>(_onUnSelectGoal);
+    on<AddGoals>(_onAddGoals);
     on<ResetSelected>(_onResetSelected);
     on<UpdateLoggerTimes>(_onUpdateLoggerTimes);
     on<ResetLoggerTimes>(_onResetLoggerTimes);
@@ -62,7 +61,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
     response.fold(
       (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(SmartGoalsState.gotWeeklySession(state.data.copyWith(weeklyGoalsSession: r, isLoading: false))),
+      (r) => emit(
+          SmartGoalsState.gotWeeklySession(state.data.copyWith(weeklyGoalsSession: r, isLoading: false))),
     );
   }
 
@@ -81,7 +81,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
         emit(SmartGoalsState.errorSaveGoals(state.data.copyWith(error: l, isLoading: false)));
       },
       (r) {
-        emit(SmartGoalsState.weeklySessionSaved(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
+        emit(
+            SmartGoalsState.weeklySessionSaved(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
       },
     );
   }
@@ -104,22 +105,11 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     );
   }
 
-  FutureOr<void> _onSelectGoal(
-    SelectGoal event,
+  FutureOr<void> _onAddGoals(
+    AddGoals event,
     Emitter<SmartGoalsState> emit,
   ) async {
-    final goals = [...state.data.selectedGoals, event.goal];
-    emit(SmartGoalsState.goalsLoaded(state.data.copyWith(selectedGoals: goals)));
-  }
-
-  FutureOr<void> _onUnSelectGoal(
-    UnSelectGoal event,
-    Emitter<SmartGoalsState> emit,
-  ) async {
-    final goals = [...state.data.selectedGoals];
-    goals.remove(event.goal);
-
-    emit(SmartGoalsState.goalsLoaded(state.data.copyWith(selectedGoals: goals)));
+    emit(SmartGoalsState.goalsLoaded(state.data.copyWith(selectedGoals: event.goals)));
   }
 
   FutureOr<void> _onResetSelected(
@@ -140,7 +130,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
     response.fold(
       (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(SmartGoalsState.progressConfirmed(state.data.copyWith(weeklyGoalsSession: r, isLoading: false))),
+      (r) => emit(
+          SmartGoalsState.progressConfirmed(state.data.copyWith(weeklyGoalsSession: r, isLoading: false))),
     );
   }
 
@@ -150,7 +141,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
   ) async {
     final progressLogs = [...state.data.logs];
     final index = progressLogs.indexWhere((log) => log.date == event.goalProgress.date);
-    progressLogs[index] = ProgressSmartGoalLog(date: event.goalProgress.date, times: event.goalProgress.times);
+    progressLogs[index] =
+        ProgressSmartGoalLog(date: event.goalProgress.date, times: event.goalProgress.times);
     emit(SmartGoalsState.updatedLoggerTimes(state.data.copyWith(logs: progressLogs)));
   }
 

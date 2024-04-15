@@ -16,15 +16,33 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
+import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal_category.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals_page/widgets/goals_list.dart';
 
-class SelectGoalsPage extends StatelessWidget {
+class SelectGoalsPage extends StatefulWidget {
   final SmartGoalCategory category;
 
   const SelectGoalsPage({super.key, required this.category});
 
-  void _onAddGoalHandler(BuildContext context) => context.router.popUntilRouteWithName(SetWeeklyGoalsRoute.name);
+  @override
+  State<SelectGoalsPage> createState() => _SelectGoalsPageState();
+}
+
+class _SelectGoalsPageState extends State<SelectGoalsPage> {
+  final List<SmartGoal> _selectedGoals = [];
+
+  void _onAddGoalHandler(BuildContext context) => context
+    ..read<SmartGoalsBloc>().add(SmartGoalsEvent.addGoals(goals: _selectedGoals))
+    ..router.popUntilRouteWithName(SetWeeklyGoalsRoute.name);
+
+  void _onGoalSelectHandler(SmartGoal goal, bool isSelected) {
+    if (!isSelected && _selectedGoals.length >= 2) return;
+
+    isSelected ? _selectedGoals.remove(goal) : _selectedGoals.add(goal);
+
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,19 +59,23 @@ class SelectGoalsPage extends StatelessWidget {
               children: [
                 const SizedBox(height: 28.0),
                 CustomText.bitter600(
-                  LocalizedTexts.selectGoalsTitle.tr(args: [category.name]),
+                  LocalizedTexts.selectGoalsTitle.tr(args: [widget.category.name]),
                   style: context.textTheme.displayMedium,
                 ),
                 const SizedBox(height: 26.0),
-                Expanded(child: GoalsList(categoryId: category.id)),
+                Expanded(
+                  child: GoalsList(
+                    categoryId: widget.category.id,
+                    onGoalSelect: _onGoalSelectHandler,
+                    selectedGoals: _selectedGoals,
+                  ),
+                ),
               ],
             ),
           ),
-          button: BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
-            builder: (context, state) => CustomElevatedButton.blueFullWidth(
-              label: LocalizedTexts.addGoal.tr(),
-              onPressed: state.data.hasSelectedGoals ? () => _onAddGoalHandler(context) : null,
-            ),
+          button: CustomElevatedButton.blueFullWidth(
+            label: LocalizedTexts.addGoal.tr(),
+            onPressed: _selectedGoals.isNotEmpty ? () => _onAddGoalHandler(context) : null,
           ),
         ),
       ),

@@ -8,8 +8,11 @@ import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals
 
 class GoalsList extends StatefulWidget {
   final int categoryId;
+  final List<SmartGoal> selectedGoals;
+  final void Function(SmartGoal goal, bool isSelected) onGoalSelect;
 
-  const GoalsList({super.key, required this.categoryId});
+  const GoalsList(
+      {super.key, required this.categoryId, required this.onGoalSelect, required this.selectedGoals});
 
   @override
   State<GoalsList> createState() => _GoalsListState();
@@ -23,16 +26,8 @@ class _GoalsListState extends State<GoalsList> {
     context.read<SmartGoalsBloc>().add(SmartGoalsEvent.getGoals(categoryId: widget.categoryId));
   }
 
-  void _onErrorRetryHandler() {
-    context.read<SmartGoalsBloc>().add(SmartGoalsEvent.getGoals(categoryId: widget.categoryId));
-  }
-
-  void _onItemPressedHandler(SmartGoal item, bool isSelected) {
-    if (!isSelected && context.read<SmartGoalsBloc>().state.data.cantAddGoal) return;
-
-    final event = isSelected ? SmartGoalsEvent.unSelectGoal : SmartGoalsEvent.selectGoal;
-    context.read<SmartGoalsBloc>().add(event(goal: item));
-  }
+  void _onErrorRetryHandler() =>
+      context.read<SmartGoalsBloc>().add(SmartGoalsEvent.getGoals(categoryId: widget.categoryId));
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +37,13 @@ class _GoalsListState extends State<GoalsList> {
         error: (s) => ErrorScreen(error: s.data.error!, onButtonPressed: _onErrorRetryHandler),
         orElse: () => ListView.separated(
           itemCount: state.data.goals.length,
+          separatorBuilder: (_, __) => const SizedBox(height: 10.0),
           itemBuilder: (BuildContext context, int index) {
             final item = state.data.goals[index];
+            final isSelected = widget.selectedGoals.contains(item);
 
-            return GoalsListItem(
-              item: item,
-              onItemPressed: _onItemPressedHandler,
-              isSelected: state.data.selectedGoals.contains(item),
-            );
+            return GoalsListItem(item: item, onItemPressed: widget.onGoalSelect, isSelected: isSelected);
           },
-          separatorBuilder: (_, __) => const SizedBox(height: 10.0),
         ),
       );
     });
