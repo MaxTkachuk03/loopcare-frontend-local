@@ -34,11 +34,11 @@ class IntroGuard extends AutoRouteGuard {
   Future<void> onNavigation(NavigationResolver resolver, StackRouter router) async {
     String route;
 
+    authenticationBloc.add(const AuthenticationEvent.startTrackUser());
+
     if (storage.account != null) {
       final accessToken = await authTokenManager.getAccessToken() ?? '';
       final refreshToken = await authTokenManager.getRefreshToken() ?? '';
-
-      authenticationBloc.add(const AuthenticationEvent.startTrackUser());
 
       if (accessToken.isEmpty || refreshToken.isEmpty) {
         route = AppRoutes.login;
@@ -77,26 +77,6 @@ class IntroGuard extends AutoRouteGuard {
       return;
     }
 
-    if (!onboardingState.isCompleted && legalStatementWasPassed) {
-      router.replaceAll([
-        const SignUpWelcomeRoute(),
-        const PasswordRoute(),
-        if (authState.data.emailWasSend) const WaitingForConfirmationRoute(),
-      ]);
-
-      return;
-    }
-
-    if (onboardingState.isCompleted && legalStatementWasPassed) {
-      router.replaceAll([
-        const SignUpWelcomeRoute(),
-        const PasswordRoute(),
-        if (authState.data.emailWasSend) const WaitingForConfirmationRoute(),
-      ]);
-
-      return;
-    }
-
     if (authState.data.name.isNotEmpty) {
       needRoutes.addAll([
         const IntroRoute(),
@@ -110,13 +90,24 @@ class IntroGuard extends AutoRouteGuard {
       needRoutes.add(const SuccessVerifiedEmailRoute());
     }
 
-    if (onboardingState.isStarted && !onboardingState.isCompleted) {
+    if (onboardingState.isStarted) {
       needRoutes.add(const OnboardingQuestionsRoute());
       onboardingBloc.add(const GeneralOnboardingEvent.resumeTimer());
     }
 
     if (onboardingState.isCompleted && !legalStatementWasPassed) {
       needRoutes.add(const LegalStatementRoute());
+    }
+
+    if (legalStatementWasPassed) {
+      needRoutes.addAll([
+        const SignUpWelcomeRoute(),
+        const PasswordRoute(),
+      ]);
+    }
+
+    if (authState.data.emailWasSend) {
+      needRoutes.add(const WaitingForConfirmationRoute());
     }
 
     if (needRoutes.isNotEmpty) {

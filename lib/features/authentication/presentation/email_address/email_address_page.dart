@@ -42,7 +42,7 @@ class _EmailAddressPageState extends State<EmailAddressPage> {
     return MultiBlocListener(
       listeners: [
         BlocListener<AuthenticationBloc, AuthenticationState>(
-          listenWhen: (previous, current) => !previous.data.emailVerified && current.data.emailVerified,
+          listenWhen: _listenWhen,
           listener: _navigationListener,
         ),
         BlocListener<AuthenticationBloc, AuthenticationState>(
@@ -113,6 +113,11 @@ class _EmailAddressPageState extends State<EmailAddressPage> {
           update: false,
         ),
       );
+
+  bool _listenWhen(AuthenticationState previous, AuthenticationState current) =>
+      (ModalRoute.of(context)?.isCurrent ?? false) &&
+          !previous.data.emailVerified &&
+          current.data.emailVerified;
 
   void _navigationListener(BuildContext context, AuthenticationState state) =>
       context.router.pushNamed(AppRoutes.successVerifiedEmail);
