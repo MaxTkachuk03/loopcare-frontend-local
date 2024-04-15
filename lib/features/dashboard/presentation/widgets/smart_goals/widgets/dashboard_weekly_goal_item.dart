@@ -16,15 +16,18 @@ class DashboardWeeklyGoalItem extends StatelessWidget {
 
   const DashboardWeeklyGoalItem({super.key, required this.item, required this.editable});
 
-  void onPressHandler(BuildContext context, WeeklySmartGoal item) => ModalBottomSheet.smartGoalComplete(
-        context: context,
-        content: WeeklyGoalModal(
-          weeklyGoal: item,
-          onDone: () => context.read<SmartGoalsBloc>().add(
-                SmartGoalsEvent.postCompletions(reviewId: item.id),
-              ),
-        ),
-      );
+  void onPressHandler(BuildContext context, WeeklySmartGoal item) {
+    context.read<SmartGoalsBloc>().add(SmartGoalsEvent.resetLoggerTimes(weeklyGoal: item));
+    ModalBottomSheet.smartGoalComplete(
+      context: context,
+      content: WeeklyGoalModal(
+        weeklyGoal: item,
+        onDone: () => context.read<SmartGoalsBloc>().add(
+              SmartGoalsEvent.postCompletions(reviewId: item.id),
+            ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

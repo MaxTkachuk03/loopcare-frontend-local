@@ -29,7 +29,6 @@ class _WeeklyGoalModalState extends State<WeeklyGoalModal> with SingleTickerProv
   void initState() {
     super.initState();
     final bloc = context.read<SmartGoalsBloc>();
-    bloc.add(SmartGoalsEvent.resetLoggerTimes(weeklyGoal: widget.weeklyGoal));
     controller = GoalProgressController(
       bloc: bloc,
       weeklyGoal: widget.weeklyGoal,

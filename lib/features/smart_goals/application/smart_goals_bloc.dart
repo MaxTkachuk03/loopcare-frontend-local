@@ -150,10 +150,24 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     final response = await _smartGoalsService.confirmProgress(
         progress: ProgressGoalData(reviewId: event.reviewId, progress: state.data.logs));
 
-    response.fold(
-      (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(SmartGoalsState.progressConfirmed(state.data.copyWith(weeklyGoalsSession: r, isLoading: false))),
-    );
+    response.fold((l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))), (r) {
+      _logGoalAnalyticEvent();
+      emit(SmartGoalsState.progressConfirmed(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
+    });
+  }
+
+  void _logGoalAnalyticEvent() {
+    final userId = getIt<SharedStorageService>().account!.id;
+    for (var log in state.data.logs) {
+      AnalyticsEventService.instance.logEvent(
+        FirebaseEvents.userLogGoal,
+        parameters: {
+          CustomDefinitions.userId: userId,
+          CustomDefinitions.timestamp: log.date,
+          CustomDefinitions.value: log.times
+        },
+      );
+    }
   }
 
   FutureOr<void> _onUpdateLoggerTimes(
