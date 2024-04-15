@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
@@ -25,7 +26,7 @@ class ProgramFooterOverlay extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20.0, 16.0, 20.0, 30.0),
         child: CustomElevatedButton.blueFullWidth(
           onPressed: () => _onGetStarted(context),
-          label: LocalizedTexts.getStarted.translation,
+          label: LocalizedTexts.getStarted.tr(),
         ),
       ),
     );

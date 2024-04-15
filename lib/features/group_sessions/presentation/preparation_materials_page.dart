@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
@@ -46,7 +47,7 @@ class PreparationMaterialsPage extends StatelessWidget {
           onWillPop: () => _onWillPop(context),
           child: CustomScaffold.blueLightest(
             appBar: CustomAppBar.blue(
-              title: LocalizedTexts.preparation.translation,
+              title: LocalizedTexts.preparation.tr(),
               subtitle: state.data.weekTopicName,
               leading: CustomFilledIconButton.leadingBlueLighter(),
             ),

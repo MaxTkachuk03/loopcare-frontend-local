@@ -65,64 +65,64 @@ class SubscriptionHeaderLabel extends StatelessWidget {
 }
 
 class SubscriptionTitle extends SubscriptionHeaderTitle {
-  const SubscriptionTitle.trial({super.key})
+  SubscriptionTitle.trial({super.key})
       : super(
-          title: LocalizedTexts.subscriptionTrialTitle,
+          title: LocalizedTexts.subscriptionTrialTitle.tr(),
         );
 
-  const SubscriptionTitle.trialExpired({super.key})
+  SubscriptionTitle.trialExpired({super.key})
       : super(
-          title: LocalizedTexts.subscriptionTrialExpiredTitle,
+          title: LocalizedTexts.subscriptionTrialExpiredTitle.tr(),
         );
 
-  const SubscriptionTitle.endedSubscription({super.key})
+  SubscriptionTitle.endedSubscription({super.key})
       : super(
-          title: LocalizedTexts.subscriptionEndedTitle,
+          title: LocalizedTexts.subscriptionEndedTitle.tr(),
         );
 
-  const SubscriptionTitle.cancelledSubscription({super.key})
+  SubscriptionTitle.cancelledSubscription({super.key})
       : super(
-          title: LocalizedTexts.subscriptionCancelledTitle,
+          title: LocalizedTexts.subscriptionCancelledTitle.tr(),
         );
 
-  const SubscriptionTitle.notRenewSubscription({super.key})
+  SubscriptionTitle.notRenewSubscription({super.key})
       : super(
-          title: LocalizedTexts.subscriptionRenewedTitle,
+          title: LocalizedTexts.subscriptionRenewedTitle.tr(),
         );
 
-  const SubscriptionTitle.serviceUnavailable({super.key})
+  SubscriptionTitle.serviceUnavailable({super.key})
       : super(
-          title: LocalizedTexts.serviceUnavailable,
+          title: LocalizedTexts.serviceUnavailable.tr(),
         );
 }
 
 class SubscriptionLabel extends SubscriptionHeaderLabel {
-  const SubscriptionLabel.trial({super.key})
+  SubscriptionLabel.trial({super.key})
       : super(
-          label: LocalizedTexts.subscriptionTrialLabel,
+          label: LocalizedTexts.subscriptionTrialLabel.tr(),
         );
 
-  const SubscriptionLabel.trialExpired({super.key})
+  SubscriptionLabel.trialExpired({super.key})
       : super(
-          subTitle: LocalizedTexts.subscriptionTrialExpiredLabel1,
-          label: LocalizedTexts.subscriptionTrialExpiredLabel2,
+          subTitle: LocalizedTexts.subscriptionTrialExpiredLabel1.tr(),
+          label: LocalizedTexts.subscriptionTrialExpiredLabel2.tr(),
         );
 
-  const SubscriptionLabel.endedSubscription({super.key})
+  SubscriptionLabel.endedSubscription({super.key})
       : super(
-          subTitle: LocalizedTexts.subscriptionEndedLabel1,
-          label: LocalizedTexts.subscriptionEndedLabel2,
+          subTitle: LocalizedTexts.subscriptionEndedLabel1.tr(),
+          label: LocalizedTexts.subscriptionEndedLabel2.tr(),
         );
 
-  const SubscriptionLabel.cancelledSubscription({super.key})
+  SubscriptionLabel.cancelledSubscription({super.key})
       : super(
-          subTitle: LocalizedTexts.subscriptionCancelledLabel1,
-          label: LocalizedTexts.subscriptionCancelledLabel2,
+          subTitle: LocalizedTexts.subscriptionCancelledLabel1.tr(),
+          label: LocalizedTexts.subscriptionCancelledLabel2.tr(),
         );
 
-  const SubscriptionLabel.notRenewSubscription({super.key})
+  SubscriptionLabel.notRenewSubscription({super.key})
       : super(
-          label: LocalizedTexts.subscriptionRenewedLabel,
+          label: LocalizedTexts.subscriptionRenewedLabel.tr(),
         );
 
   SubscriptionLabel.serviceUnavailable({super.key})

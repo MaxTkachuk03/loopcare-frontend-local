@@ -59,7 +59,7 @@ class SelectedListItem extends StatelessWidget {
             Column(
               children: [
                 CustomText.w400(
-                  LocalizedTexts.amount.translation,
+                  LocalizedTexts.amount.tr(),
                   style: context.textTheme.bodySmall,
                 ),
                 Expanded(
@@ -77,7 +77,7 @@ class SelectedListItem extends StatelessWidget {
             Column(
               children: [
                 CustomText.w400(
-                  LocalizedTexts.calories.translation,
+                  LocalizedTexts.calories.tr(),
                   style: context.textTheme.bodySmall,
                 ),
                 Expanded(

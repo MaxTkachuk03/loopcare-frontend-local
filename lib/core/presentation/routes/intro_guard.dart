@@ -42,6 +42,8 @@ class IntroGuard extends AutoRouteGuard {
 
       if (accessToken.isEmpty || refreshToken.isEmpty) {
         route = AppRoutes.login;
+      } else {
+        route = AppRoutes.home;
       }
       //Todo hide subscription flow LOOPCARE-2197
       // else if (storage.account?.hasActiveSubscription ?? false) {
@@ -49,9 +51,6 @@ class IntroGuard extends AutoRouteGuard {
       // } else {
       //   route = AppRoutes.subscription;
       // }
-      else {
-        route = AppRoutes.home;
-      }
 
       MixpanelEventService.instance.trackVisit(
         "${AppMixpanelEvents.appRote}:  $route",
@@ -78,26 +77,6 @@ class IntroGuard extends AutoRouteGuard {
       return;
     }
 
-    if (!onboardingState.isCompleted && legalStatementWasPassed) {
-      router.replaceAll([
-        const SignUpWelcomeRoute(),
-        const PasswordRoute(),
-        if (authState.data.emailWasSend) const WaitingForConfirmationRoute(),
-      ]);
-
-      return;
-    }
-
-    if (onboardingState.isCompleted && legalStatementWasPassed) {
-      router.replaceAll([
-        const SignUpWelcomeRoute(),
-        const PasswordRoute(),
-        if (authState.data.emailWasSend) const WaitingForConfirmationRoute(),
-      ]);
-
-      return;
-    }
-
     if (authState.data.name.isNotEmpty) {
       needRoutes.addAll([
         const IntroRoute(),
@@ -118,6 +97,17 @@ class IntroGuard extends AutoRouteGuard {
 
     if (onboardingState.isCompleted && !legalStatementWasPassed) {
       needRoutes.add(const LegalStatementRoute());
+    }
+
+    if (legalStatementWasPassed) {
+      needRoutes.addAll([
+        const SignUpWelcomeRoute(),
+        const PasswordRoute(),
+      ]);
+    }
+
+    if (authState.data.emailWasSend) {
+      needRoutes.add(const WaitingForConfirmationRoute());
     }
 
     if (needRoutes.isNotEmpty) {

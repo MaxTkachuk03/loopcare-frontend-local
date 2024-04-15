@@ -19,7 +19,7 @@
 //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
 //             children: [
 //               Text(
-//                 LocalizedTexts.proteinDegree.translation.toUpperCase(),
+//                 LocalizedTexts.proteinDegree.tr().toUpperCase(),
 //                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
 //                       fontSize: ThemeConstants.fontSize12,
 //                       fontWeight: FontWeight.w600,

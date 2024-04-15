@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -25,11 +26,11 @@ class _NutritionTabsState extends State<NutritionTabs> with TickerProviderStateM
 
   final List<NutritionValueTab> tabs = [
     NutritionValueTab(
-      text: LocalizedTexts.calorieDensity.translation,
+      text: LocalizedTexts.calorieDensity.tr(),
       type: NutritionValueTabType.calorieDensity,
     ),
     NutritionValueTab(
-      text: LocalizedTexts.proteinDegree.translation,
+      text: LocalizedTexts.proteinDegree.tr(),
       type: NutritionValueTabType.proteinDegree,
     ),
   ];

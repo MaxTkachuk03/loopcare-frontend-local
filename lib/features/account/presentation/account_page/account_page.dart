@@ -1,6 +1,8 @@
+import 'package:customer_io/customer_io.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/app_version/app_version.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
@@ -12,6 +14,7 @@ import 'package:loopcare_frontend/features/account/presentation/account_page/wid
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/delete_account_section.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/preferences_section.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/report_abuse_section.dart';
+import 'package:loopcare_frontend/features/account/presentation/subscription_page/widgets/subscription_sactions.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
@@ -27,9 +30,10 @@ class _AccountPageState extends State<AccountPage> {
   void initState() {
     super.initState();
     context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.fetchFoodPreferences());
-    context
-        .read<PhysicalActivitiesPreferencesBloc>()
-        .add(const PhysicalActivitiesPreferencesEvent.getPreferences());
+    context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.getPreferences());
+    CustomerIO.track(
+      name: CIOEvents.profilePage,
+    );
   }
 
   @override
@@ -49,8 +53,8 @@ class _AccountPageState extends State<AccountPage> {
                 AccountSection(),
                 SizedBox(height: 24.0),
                 //Todo hide subscription flow LOOPCARE-2197
-                // SubscriptionSection(),
-                // SizedBox(height: 24.0),
+                SubscriptionSection(),
+                SizedBox(height: 24.0),
                 // TODO: LOOPCARE-1999: Remove "Personal details" section from user profile screen.
                 // PersonalDetailsSection(),
                 // SizedBox(height: 24.0),

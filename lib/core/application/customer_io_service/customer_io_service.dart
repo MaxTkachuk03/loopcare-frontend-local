@@ -8,6 +8,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_attributes.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
 import 'package:loopcare_frontend/core/application/firebase/mesaging/firebase_messaging.dart';
+import 'package:loopcare_frontend/core/application/permissions_service.dart';
 
 export 'customer_io_attributes.dart';
 export 'customer_io_events.dart';
@@ -32,6 +33,8 @@ class CustomerIoService {
     required String name,
     required bool receiveAnEmails,
   }) async {
+    final isNotificationGranted = PermissionsService.instance.isNotificationGranted;
+
     CustomerIO.identify(
       identifier: email,
       attributes: {
@@ -39,6 +42,13 @@ class CustomerIoService {
         'created_at': _timestamp,
         'system_locale': Platform.localeName,
         'consent_to_email': receiveAnEmails,
+        'enable_push_notifications': isNotificationGranted,
+        'cio_subscription_preferences': {
+          'topics': {
+            'topic_1': receiveAnEmails,
+            'topic_2': isNotificationGranted,
+          },
+        },
       },
     );
 
@@ -129,8 +139,6 @@ class CustomerIoService {
       'operating_system': 'Android',
       'os_version': '${data.version.release} (SDK ${data.version.sdkInt})',
       'device': data.model,
-      'display_size': data.displayMetrics,
-      'fingerprint': data.fingerprint,
       'hardware': data.hardware,
     };
   }

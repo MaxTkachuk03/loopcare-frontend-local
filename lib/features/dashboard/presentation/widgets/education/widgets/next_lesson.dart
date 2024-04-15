@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
@@ -49,9 +50,8 @@ class NextLesson extends StatelessWidget {
                 ClipPath(
                   clipper: ImageClipper(),
                   child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
+                    borderRadius: const BorderRadius.horizontal(
+                      left: Radius.circular(9.0),
                     ),
                     child: SizedBox(
                       width: 130.0,
@@ -91,35 +91,39 @@ class NextLesson extends StatelessWidget {
                         ),
                         const SizedBox(height: 10.0),
                         state.maybeMap(
-                            initial: (_) => const Loader(),
-                            loading: (_) => const Loader(),
-                            orElse: () => !isLocked && !isBlocked
-                                ? CustomOutlinedButton.coralSmall(
-                                    label: LocalizedTexts.start.tr(),
-                                    onPressed: isBlocked ? null : () => _onTapHandler(context),
-                                  )
-                                : Row(
-                                    children: [
-                                      LessonState.locked(),
-                                      const SizedBox(width: 4.0),
-                                      isBlocked
-                                          ? Expanded(
-                                              child: Wrap(
-                                                children: [
-                                                  CustomText.w600(
-                                                    '${LocalizedTexts.availableIn.tr()}: ',
-                                                    style: context.textTheme.bodySmall,
-                                                  ),
-                                                  EducationCountDown(
-                                                    seconds: lessonWithCountdown.timeRemaining,
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          : CustomText.w700(LocalizedTexts.locked,
-                                              style: context.textTheme.bodySmall),
-                                    ],
-                                  )),
+                          initial: (_) => const Loader(),
+                          loading: (_) => const Loader(),
+                          orElse: () => !isLocked && !isBlocked
+                              ? CustomOutlinedButton.coralSmall(
+                                  label: LocalizedTexts.start.tr(),
+                                  onPressed: isBlocked ? null : () => _onTapHandler(context),
+                                )
+                              : Row(
+                                  children: [
+                                    LessonState.locked(),
+                                    const SizedBox(width: 4.0),
+                                    if (isBlocked)
+                                      Expanded(
+                                        child: Wrap(
+                                          children: [
+                                            CustomText.w600(
+                                              '${LocalizedTexts.availableIn.tr()}: ',
+                                              style: context.textTheme.bodySmall,
+                                            ),
+                                            EducationCountDown(
+                                              seconds: lessonWithCountdown.timeRemaining,
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    else
+                                      CustomText.w700(
+                                        LocalizedTexts.locked.tr(),
+                                        style: context.textTheme.bodySmall,
+                                      ),
+                                  ],
+                                ),
+                        ),
                       ],
                     ),
                   ),
@@ -133,6 +137,13 @@ class NextLesson extends StatelessWidget {
   }
 
   _onTapHandler(BuildContext context) {
+    CustomerIoService.track(
+      event: CIOEvents.educationWidget,
+      attributes: {
+        CIOAttributes.articleId: lesson.id,
+        CIOAttributes.articleTitle: lesson.title,
+      },
+    );
     context.read<EducationLessonBloc>().add(
           EducationLessonEvent.getLessonContent(
             lessonId: lesson.id,

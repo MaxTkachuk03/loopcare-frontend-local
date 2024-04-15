@@ -63,7 +63,7 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
           actions: [
             TextButton(
               onPressed: () => context.router.pop(),
-              child: Text(LocalizedTexts.ok.toUpperCase()),
+              child: Text(LocalizedTexts.ok.tr().toUpperCase()),
             ),
           ],
         ),
@@ -81,17 +81,17 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
           //     orElse: () => null,
           //   ),
           //   child:
-          Column(
+      Column(
         children: [
           CustomOutlinedButton.coralFullWidth(
-            onPressed: () => context.read<AuthenticationBloc>().add(const AuthenticationEvent.deleteAccount()),
+            onPressed: () =>
+                context.read<AuthenticationBloc>().add(const AuthenticationEvent.deleteAccount()),
             //Todo hide subscription flow LOOPCARE-2197
             // context.read<SubscriptionBloc>().add(const SubscriptionEvent.getAccountSubscription()),
             label: LocalizedTexts.deleteAccount.tr(),
           ),
         ],
       ),
-      // ),
     );
   }
 

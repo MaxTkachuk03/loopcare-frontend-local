@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -20,7 +21,7 @@ class DailyIntakePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
-      builder: (BuildContext context, state) {
+      builder: (context, state) {
         return state.maybeMap(
           mealsInfo: (mealsState) {
             return CustomScaffold.greenLightest(
@@ -28,8 +29,8 @@ class DailyIntakePage extends StatelessWidget {
                 leading: CustomFilledIconButton.leadingGreenLighter(),
                 title: state.getCurrentDate.fullDate,
                 subtitle: state.isPlanningMeals
-                    ? LocalizedTexts.plannedMeals.translation.capitalizeOnlyFirstLetter()
-                    : LocalizedTexts.loggedMeals.translation.capitalizeOnlyFirstLetter(),
+                    ? LocalizedTexts.plannedMeals.tr().capitalizeOnlyFirstLetter()
+                    : LocalizedTexts.loggedMeals.tr().capitalizeOnlyFirstLetter(),
               ),
               body: CustomSafeArea(
                 child: Column(
@@ -37,7 +38,7 @@ class DailyIntakePage extends StatelessWidget {
                     Expanded(
                       child: ListView.separated(
                         itemCount: MealCategory.values.length,
-                        itemBuilder: (BuildContext context, index) {
+                        itemBuilder: (context, index) {
                           final selectedDayMeals =
                               mealsState.meals[mealsState.currentDate?.isoStringWithoutTime];
 
@@ -55,7 +56,7 @@ class DailyIntakePage extends StatelessWidget {
                             calorieDensity: isEnabled ? mealsState.calorieDensitySum(mealItems) : null,
                           );
                         },
-                        separatorBuilder: (BuildContext context, int index) {
+                        separatorBuilder: (context, index) {
                           return const Divider(
                             color: AppColors.blueLighter,
                             thickness: 1.0,
@@ -73,7 +74,11 @@ class DailyIntakePage extends StatelessWidget {
               ),
             );
           },
-          orElse: () => const SizedBox.shrink(),
+          orElse: () => CustomScaffold.greenLightest(
+            appBar: CustomAppBar.green(
+              leading: CustomFilledIconButton.leadingGreenLighter(),
+            ),
+          ),
         );
       },
     );

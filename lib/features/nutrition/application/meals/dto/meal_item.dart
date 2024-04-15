@@ -19,6 +19,7 @@ class MealItem with _$MealItem {
     required String name,
     required MealItemType type,
     required ServingSize serving,
+    required bool excludedFromCalculations,
     required DateTime createdAt,
     required DateTime updatedAt,
   }) = _MealItem;

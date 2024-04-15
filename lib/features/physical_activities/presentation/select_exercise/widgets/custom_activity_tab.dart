@@ -83,7 +83,7 @@ class _CustomActivityTabState extends State<CustomActivityTab> with AutomaticKee
                   padding: const EdgeInsets.symmetric(vertical: 24.0),
                   child: CustomElevatedButton.blueFullWidth(
                     onPressed: isEnableSend ? () => _onLogActivityPressed(context) : null,
-                    label: LocalizedTexts.confirm.translation,
+                    label: LocalizedTexts.confirm.tr(),
                   ),
                 );
               },

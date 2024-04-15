@@ -80,12 +80,13 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
         ..refreshMembers();
     }
   }
+
   Account get _account => getIt<SharedStorageService>().account!;
-  
+
   int get _groupId => _account.groupId!;
 
   types.User get _user => types.User(id: '${_account.id}');
-  
+
   DefaultChatTheme get _chatTheme => DefaultChatTheme(
         messageInsetsHorizontal: 10,
         messageInsetsVertical: 4,
@@ -196,7 +197,7 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
           actions: [
             TextButton(
               onPressed: () => context.router.pop(),
-              child: Text(LocalizedTexts.ok.toUpperCase()),
+              child: Text(LocalizedTexts.ok.tr().toUpperCase()),
             ),
           ],
         ),
@@ -232,9 +233,7 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
   }
 
   void _setReadPointer(GroupChatState state) {
-    if (state.data.messages.isNotEmpty &&
-        context.tabsRouter.activeIndex == 2 &&
-        _account.isUserGrouped) {
+    if (state.data.messages.isNotEmpty && context.tabsRouter.activeIndex == 2 && _account.isUserGrouped) {
       _controller.setReadPointer(fromMessageId: state.data.messages.first.id!);
     }
   }
@@ -258,9 +257,8 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
       message.text.isEmpty
           ? Container(
               height: avatarSize,
-              alignment: _controller.user.id != message.author.id
-                  ? Alignment.centerLeft
-                  : Alignment.centerRight,
+              alignment:
+                  _controller.user.id != message.author.id ? Alignment.centerLeft : Alignment.centerRight,
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: CustomText.w400(
                 LocalizedTexts.messageRemoved.tr(),
@@ -276,4 +274,3 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
               child: child,
             );
 }
-

@@ -59,5 +59,5 @@ class NotBookedSessionsModalContent extends StatelessWidget {
   }
 
   void _signUpFailureListener(BuildContext context, TopicsState state) =>
-      context.showError(content: Text(LocalizedTexts.somethingWentWrong.translation));
+      context.showError(content: Text(LocalizedTexts.somethingWentWrong.tr()));
 }

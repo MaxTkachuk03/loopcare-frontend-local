@@ -137,8 +137,8 @@ class _SelectServingPageState extends State<SelectServingPage> {
 
   String _getSnackBarText(bool isFavorite, bool hasActiveFilters) {
     return isFavorite && !hasActiveFilters
-        ? LocalizedTexts.removedFromFavorites.translation
-        : LocalizedTexts.addedToFavorites.translation;
+        ? LocalizedTexts.removedFromFavorites.tr()
+        : LocalizedTexts.addedToFavorites.tr();
   }
 
   _showSnackBar() {
@@ -204,8 +204,8 @@ class _SelectServingPageState extends State<SelectServingPage> {
     final state = context.read<FoodItemServingsBloc>().state;
 
     final title = state.selectedServingItem?.isSelectedFavorite ?? false
-        ? LocalizedTexts.removeFromFavorites.translation
-        : LocalizedTexts.addAsFavourite.translation;
+        ? LocalizedTexts.removeFromFavorites.tr()
+        : LocalizedTexts.addAsFavourite.tr();
 
     final subTitle = widget.foodItemName;
     final serving = state.selectedServingItem?.servingLabel;

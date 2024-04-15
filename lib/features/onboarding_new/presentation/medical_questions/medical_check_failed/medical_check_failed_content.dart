@@ -63,25 +63,25 @@ class MedicalCheckFailedContent extends StatelessWidget {
               child: Column(
                 children: [
                   CustomText.w400(
-                    LocalizedTexts.medicalCheckFailedBody,
+                    LocalizedTexts.medicalCheckFailedBody.tr(),
                     style: context.textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 30.0),
                   Column(
                     children: state.listDiseasesEnabled
                         .map((e) => BulletListItem(
-                      text: CustomText.w600(
-                        e.label,
-                        style: context.textTheme.bodyMedium,
-                      ),
-                      bulletSize: 18,
-                    ))
+                              text: CustomText.w600(
+                                e.label,
+                                style: context.textTheme.bodyMedium,
+                              ),
+                              bulletSize: 18,
+                            ))
                         .toList(),
                   ),
                   const SizedBox(height: 30.0),
                   if (state.treatmentByTheDoctor ?? false)
                     CustomText.w400(
-                      LocalizedTexts.medicalCheckFailedBody2,
+                      LocalizedTexts.medicalCheckFailedBody2.tr(),
                       style: context.textTheme.bodyMedium,
                     ),
                 ],

@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_button_with_icon.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/logged_list.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_block/calorie_nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
@@ -24,7 +25,7 @@ import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_
 class LogMeal extends StatelessWidget {
   const LogMeal({super.key});
 
-  void onPressHandler(BuildContext context) {
+  void _onPressHandler(BuildContext context) {
     ModalBottomSheet.selectAMealDialog(
       context: context,
       filledList: context.read<MealsBloc>().state.filledCategories,
@@ -60,19 +61,21 @@ class LogMeal extends StatelessWidget {
     );
   }
 
+  _onIntakePressed(BuildContext context) => context.router.pushNamed(AppRoutes.dailyIntake);
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
+      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
       decoration: const BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       child: BlocBuilder<MealsBloc, MealsState>(
-        builder: (BuildContext context, mealsState) {
-          final Color textColor = mealsState.isEnableOnDashboard ? AppColors.blueDarker : AppColors.greyLabel;
+        builder: (context, state) {
+          final Color textColor = state.isEnableOnDashboard ? AppColors.blueDarker : AppColors.greyLabel;
 
-          return mealsState.maybeMap(
+          return state.maybeMap(
             error: (errorState) {
               final error = errorState.fetchError;
 
@@ -91,86 +94,81 @@ class LogMeal extends StatelessWidget {
             orElse: () {
               return Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          AppIcons.customDashboardLogMeals,
-                          const SizedBox(width: 24.0),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              CustomText.bitter600(
-                                LocalizedTexts.logYourMeals.tr(),
-                                style: context.textTheme.headlineSmall?.copyWith(color: textColor),
-                              ),
-                              if (mealsState.filledCategories.isEmpty)
-                                CustomText.w400(
-                                  mealsState.isEnableOnDashboard
-                                      ? LocalizedTexts.noMealsLoggedYet.tr()
-                                      : LocalizedTexts.noMealsLogged.tr(),
-                                  style: context.textTheme.bodySmall?.copyWith(color: textColor),
-                                ),
-                            ],
+                  DashboardCardTitle(
+                    onTap: () => _onPressHandler(context),
+                    highlightColor: AppColors.greenLightest,
+                    leadingIcon: AppIcons.customDashboardLogMeals,
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomText.bitter600(
+                          LocalizedTexts.logYourMeals.tr(),
+                          style: context.textTheme.headlineSmall?.copyWith(color: textColor),
+                        ),
+                        if (state.filledCategories.isEmpty)
+                          CustomText.w400(
+                            state.isEnableOnDashboard
+                                ? LocalizedTexts.noMealsLoggedYet.tr()
+                                : LocalizedTexts.noMealsLogged.tr(),
+                            style: context.textTheme.bodySmall?.copyWith(color: textColor),
                           ),
+                      ],
+                    ),
+                    actionIcon: AppIcons.plus,
+                    editable: state.isEnableOnDashboard,
+                  ),
+                  if (state.filledCategories.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Column(
+                        children: [
+                          const Divider(
+                            color: AppColors.blueOffRegular,
+                            height: 8,
+                          ),
+                          const SizedBox(height: 4.0),
+                          GestureDetector(
+                            onTap: state.isEnableOnDashboard ? () => _onIntakePressed(context) : null,
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    CustomText.w600(
+                                      LocalizedTexts.loggedMeals.tr().capitalize(),
+                                      style: context.textTheme.bodySmall,
+                                    ),
+                                    const SizedBox(width: 4.0),
+                                    if (state.filledCategories.isNotEmpty)
+                                      CustomOutlinedRoundedButtonWithIcon(
+                                        onPressed: state.isEnableOnDashboard
+                                            ? () => _onPressHandler(context)
+                                            : null,
+                                        icon: AppIcons.edit,
+                                      )
+                                  ],
+                                ),
+                                LoggedList(
+                                  categoryList: MealCategory.values
+                                      .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
+                                      .toList(),
+                                  categoryListRaw: MealCategory.values.map((e) => e.label ?? '').toList(),
+                                  filledList: state.filledCategories,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 16.0),
+                          CalorieNutritionBlock(
+                            proteinDegree: state.selectedDayMealProteinDegreeSum,
+                            calorieDensity: state.selectedDayMealCalorieDensitySum,
+                            subtitle: state.getCurrentDate.americanShortDateWithYear,
+                          ),
+                          const SizedBox(height: 8.0),
                         ],
                       ),
-                      mealsState.isEnableOnDashboard
-                          ? CustomOutlinedRoundedButtonWithIcon(
-                              onPressed: () => onPressHandler(context),
-                              icon: AppIcons.plus,
-                            )
-                          : const SizedBox.shrink(),
-                    ],
-                  ),
-                  mealsState.filledCategories.isNotEmpty
-                      ? Column(
-                          children: [
-                            const SizedBox(height: 8.0),
-                            const Divider(color: AppColors.blueOffRegular),
-                            GestureDetector(
-                              onTap: mealsState.isEnableOnDashboard ? () => _onIntakePressed(context) : null,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      CustomText.w600(
-                                        LocalizedTexts.loggedMeals.translation.capitalize(),
-                                        style: context.textTheme.bodySmall,
-                                      ),
-                                      const SizedBox(width: 4.0),
-                                      if (mealsState.filledCategories.isNotEmpty)
-                                        CustomOutlinedRoundedButtonWithIcon(
-                                          onPressed: mealsState.isEnableOnDashboard
-                                              ? () => onPressHandler(context)
-                                              : null,
-                                          icon: AppIcons.edit,
-                                        )
-                                    ],
-                                  ),
-                                  LoggedList(
-                                    categoryList: MealCategory.values
-                                        .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
-                                        .toList(),
-                                    categoryListRaw: MealCategory.values.map((e) => e.label ?? '').toList(),
-                                    filledList: mealsState.filledCategories,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 16.0),
-                            CalorieNutritionBlock(
-                              proteinDegree: mealsState.selectedDayMealProteinDegreeSum,
-                              calorieDensity: mealsState.selectedDayMealCalorieDensitySum,
-                              subtitle:
-                                  context.read<MealsBloc>().state.getCurrentDate.americanShortDateWithYear,
-                            ),
-                          ],
-                        )
-                      : const SizedBox(),
+                    ),
                 ],
               );
             },
@@ -178,9 +176,5 @@ class LogMeal extends StatelessWidget {
         },
       ),
     );
-  }
-
-  _onIntakePressed(BuildContext context) {
-    context.router.pushNamed(AppRoutes.dailyIntake);
   }
 }

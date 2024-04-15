@@ -24,6 +24,8 @@ class ProxyGuard extends AutoRouteGuard {
         String route;
         if (accessToken.isEmpty || refreshToken.isEmpty) {
           route = AppRoutes.login;
+        } else {
+          route = AppRoutes.home;
         }
 
         //Todo hide subscription flow LOOPCARE-2197
@@ -32,9 +34,6 @@ class ProxyGuard extends AutoRouteGuard {
         // } else {
         //   route = AppRoutes.subscription;
         // }
-        else {
-          route = AppRoutes.home;
-        }
 
         MixpanelEventService.instance.trackVisit(
           "${AppMixpanelEvents.appRote}:  $route",

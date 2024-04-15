@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
@@ -9,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/lessons_uncompleted.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/looking_for_group.dart';
@@ -44,66 +46,53 @@ class _SupportGroupState extends State<SupportGroup> {
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
+        padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 8.0, left: 8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            InkWell(
+            DashboardCardTitle(
               onTap: () => onPressHandler(context),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        AppIcons.customSupportGroup,
-                        const SizedBox(width: 24.0),
-                        Flexible(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CustomText.bitter600(
-                                LocalizedTexts.supportGroup.translation,
-                                style: context.textTheme.headlineSmall,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const ImageIcon(
-                    AppIcons.arrow,
-                    color: AppColors.blueDarker,
-                  ),
-                ],
+              highlightColor: AppColors.orangeLightest,
+              leadingIcon: AppIcons.customSupportGroup,
+              title: CustomText.bitter600(
+                LocalizedTexts.supportGroup.tr(),
+                style: context.textTheme.headlineSmall,
               ),
+              actionIcon: AppIcons.arrow,
+              circleButton: false,
             ),
-            const SizedBox(height: 8.0),
-            const Divider(color: AppColors.blueOffRegular),
-            BlocBuilder<AuthenticationBloc, AuthenticationState>(
-              builder: (context, state) {
-                switch (state.data.groupingState) {
-                  case UserGroupingState.locked:
-                    return const LessonsUncompleted();
-                  case UserGroupingState.refused:
-                  case UserGroupingState.unlockedPreferences:
-                  case UserGroupingState.left:
-                    return const NotGrouped();
-                  case UserGroupingState.waitingInPool:
-                  case UserGroupingState.loopedOnGenderPreferences:
-                    return const LookingForGroup();
-                  case UserGroupingState.grouped:
-                    return const Grouped();
-                  case UserGroupingState.noTS:
-                    return const NoTimeslots();
-                  case UserGroupingState.noGroup:
-                    return const NoGroup();
-                  default:
-                    return const SizedBox.shrink();
-                }
-              },
+            const Divider(
+              color: AppColors.blueOffRegular,
+              height: 8,
+              indent: 8.0,
+              endIndent: 8.0,
+            ),
+            const SizedBox(height: 4.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                builder: (context, state) {
+                  switch (state.data.groupingState) {
+                    case UserGroupingState.locked:
+                      return const LessonsUncompleted();
+                    case UserGroupingState.refused:
+                    case UserGroupingState.unlockedPreferences:
+                    case UserGroupingState.left:
+                      return const NotGrouped();
+                    case UserGroupingState.waitingInPool:
+                    case UserGroupingState.loopedOnGenderPreferences:
+                      return const LookingForGroup();
+                    case UserGroupingState.grouped:
+                      return const Grouped();
+                    case UserGroupingState.noTS:
+                      return const NoTimeslots();
+                    case UserGroupingState.noGroup:
+                      return const NoGroup();
+                    default:
+                      return const SizedBox.shrink();
+                  }
+                },
+              ),
             )
           ],
         ),

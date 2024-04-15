@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
@@ -70,7 +71,7 @@ class _MealPageState extends State<MealPage> {
     if (mealId == null || mealCategory == null) return;
 
     if (state.isContainsRecipeOrDish) {
-      context.showError(content: Text(LocalizedTexts.invalidCreateDishFromMealMessage.translation));
+      context.showError(content: Text(LocalizedTexts.invalidCreateDishFromMealMessage.tr()));
       return;
     }
 
@@ -104,7 +105,7 @@ class _MealPageState extends State<MealPage> {
       'meal_screen_type_${currentMealCategory.replaceAll(' ', '_').replaceFirst('&', 'and')}',
     );
 
-    return '${currentMealCategory.capitalizeOnlyFirstLetter()}${state.isPlanningMeals ? '' : ' ${LocalizedTexts.logList.translation}'}';
+    return '${currentMealCategory.capitalizeOnlyFirstLetter()}${state.isPlanningMeals ? '' : ' ${LocalizedTexts.logList.tr()}'}';
   }
 
   String get _appBarSubTitle {
@@ -224,7 +225,7 @@ class _MealPageState extends State<MealPage> {
     }
   }
 
-  _onBackToDashboardPressed(BuildContext context) {
+  _onBackToDashboardPressed() {
     final state = context.read<MealsBloc>().state;
 
     if (state.currentFoodItems.isEmpty) {
@@ -232,11 +233,11 @@ class _MealPageState extends State<MealPage> {
     }
 
     _setOriginDate();
-    context.router.popUntilRouteWithName(HomeRoute.name);
+    context.router.pop();
   }
 
-  Future<bool> _onWillPop(BuildContext context) async {
-    _onBackToDashboardPressed(context);
+  Future<bool> _onWillPop() async {
+    _onBackToDashboardPressed();
 
     return Future.value(true);
   }
@@ -248,7 +249,7 @@ class _MealPageState extends State<MealPage> {
       listener: _onFilledListener,
       builder: (BuildContext context, state) {
         return WillPopScope(
-          onWillPop: () => _onWillPop(context),
+          onWillPop: _onWillPop,
           child: CustomScaffold.greenLightest(
             appBar: CustomAppBar.green(
               title: _appBarTitle,
@@ -323,14 +324,14 @@ class _MealPageState extends State<MealPage> {
                                     children: [
                                       Expanded(
                                         child: CustomOutlinedButton.blueSmall(
-                                          label: LocalizedTexts.saveToMyDishes,
+                                          label: LocalizedTexts.saveToMyDishes.tr(),
                                           onPressed: _onSaveToMyDishesHandler,
                                         ),
                                       ),
                                       const SizedBox(width: 10.0),
                                       Expanded(
                                         child: CustomOutlinedButton.blueSmall(
-                                          label: LocalizedTexts.clearMealList,
+                                          label: LocalizedTexts.clearMealList.tr(),
                                           onPressed: () => _onDeleteMealPressed(context),
                                         ),
                                       ),
@@ -344,7 +345,7 @@ class _MealPageState extends State<MealPage> {
                                           children: [
                                             Expanded(
                                               child: CustomOutlinedButton.blueSmall(
-                                                label: LocalizedTexts.recommendations,
+                                                label: LocalizedTexts.recommendations.tr(),
                                                 onPressed: () => recipeState.data.recommendationRecipe.isEmpty
                                                     ? null
                                                     : _onRecommendationsPressed(context),
@@ -365,9 +366,9 @@ class _MealPageState extends State<MealPage> {
                             children: [
                               const SizedBox(height: 26.0),
                               CustomElevatedButton.blueFullWidth(
-                                onPressed: () => _onBackToDashboardPressed(context),
+                                onPressed: () => _onBackToDashboardPressed(),
                                 //TODO confirm label text for back btn
-                                label: LocalizedTexts.backToTodayLogging,
+                                label: LocalizedTexts.backToTodayLogging.tr(),
                               ),
                               const SizedBox(height: 20.0)
                             ],

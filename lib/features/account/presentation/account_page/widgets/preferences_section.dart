@@ -41,11 +41,10 @@ class PreferencesSection extends StatelessWidget {
   }
 
   String _groupSessionsSubtitle(AuthenticationState state) {
-    final grouped = state.data.isUserGrouped
-        ? LocalizedTexts.yes.translation.capitalize()
-        : LocalizedTexts.no.translation.capitalize();
+    final grouped =
+        state.data.isUserGrouped ? LocalizedTexts.yes.tr().capitalize() : LocalizedTexts.no.tr().capitalize();
 
-    return "${LocalizedTexts.partOfGroup.translation}: $grouped";
+    return "${LocalizedTexts.partOfGroup.tr()}: $grouped";
   }
 
   bool _whenFoodUpdated(
@@ -150,7 +149,8 @@ class PreferencesSection extends StatelessWidget {
                 SectionItem(
                   title: LocalizedTexts.groupSessions.tr(),
                   subTitle: _groupSessionsSubtitle(state),
-                  onPressHandler: state.data.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
+                  onPressHandler:
+                      state.data.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
                 ),
                 // Todo it's old part, need to check do we need it in future
                 // const SizedBox(height: 16.0),

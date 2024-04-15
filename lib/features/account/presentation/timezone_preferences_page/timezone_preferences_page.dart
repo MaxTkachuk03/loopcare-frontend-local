@@ -157,7 +157,7 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
                       ),
                       const SizedBox(height: 20.0),
                       SearchField(
-                          hintText: LocalizedTexts.searchTimezone.translation,
+                          hintText: LocalizedTexts.searchTimezone.tr(),
                           contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16.0),
                           prefixIcon: const Icon(
                             Icons.search,

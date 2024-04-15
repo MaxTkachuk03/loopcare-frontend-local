@@ -59,4 +59,19 @@ class CIOEvents {
   static const String subscriptionPage = 'subscription_page';
   static const String subscriptionSelected = 'subscription_selected';
   static const String subscriptionBought = 'subscription_bought';
+
+  //Weight
+  static const String weightWidget = 'open_weight_widget';
+  static const String weightLogged = 'log_weight';
+
+  //Mood
+  static const String moodWidget = 'open_mood_widget';
+  static const String moodLogged = 'log_mood';
+
+  //Education
+  static const String educationWidget = 'open_education_widget';
+  static const String educationArticleOpen = 'open_article_direct';
+
+  // Profile
+  static const String profilePage = 'account_settings_page';
 }

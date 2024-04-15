@@ -65,8 +65,8 @@ class _SubscriptionStatusWidget extends _ScrollColumn {
           Column(
             children: [
               topCover,
-              const SubscriptionTitle.trial(),
-              const SubscriptionLabel.trial(),
+              SubscriptionTitle.trial(),
+              SubscriptionLabel.trial(),
               FooterSubscription(
                 controller: controller,
               ),
@@ -82,8 +82,8 @@ class _SubscriptionStatusWidget extends _ScrollColumn {
           Column(
             children: [
               topCover,
-              const SubscriptionTitle.trialExpired(),
-              const SubscriptionLabel.trialExpired(),
+              SubscriptionTitle.trialExpired(),
+              SubscriptionLabel.trialExpired(),
               FooterSubscription(
                 controller: controller,
               ),
@@ -100,8 +100,8 @@ class _SubscriptionStatusWidget extends _ScrollColumn {
             Column(
               children: [
                 topCover,
-                const SubscriptionTitle.endedSubscription(),
-                const SubscriptionLabel.endedSubscription(),
+                SubscriptionTitle.endedSubscription(),
+                SubscriptionLabel.endedSubscription(),
                 FooterSubscription(
                   controller: controller,
                 ),
@@ -119,8 +119,8 @@ class _SubscriptionStatusWidget extends _ScrollColumn {
             Column(
               children: [
                 topCover,
-                const SubscriptionTitle.cancelledSubscription(),
-                const SubscriptionLabel.cancelledSubscription(),
+                SubscriptionTitle.cancelledSubscription(),
+                SubscriptionLabel.cancelledSubscription(),
                 FooterSubscription(
                   controller: controller,
                 ),
@@ -137,8 +137,8 @@ class _SubscriptionStatusWidget extends _ScrollColumn {
           Column(
             children: [
               topCover,
-              const SubscriptionTitle.notRenewSubscription(),
-              const SubscriptionLabel.notRenewSubscription(),
+              SubscriptionTitle.notRenewSubscription(),
+              SubscriptionLabel.notRenewSubscription(),
             ],
           ),
           RenewButton(
@@ -150,7 +150,7 @@ class _SubscriptionStatusWidget extends _ScrollColumn {
       : super(
           widgets: [
             const SizedBox(height: 10.0),
-            const SubscriptionTitle.serviceUnavailable(),
+            SubscriptionTitle.serviceUnavailable(),
             const SizedBox(height: 16.0),
           ],
         );

@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/widgets/completed_lesson.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/widgets/next_lesson.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
@@ -28,101 +29,100 @@ class Education extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
+      padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 8.0, left: 8.0),
       decoration: const BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       child: Column(
         children: [
-          InkWell(
+          DashboardCardTitle(
             onTap: () => onPressHandler(context),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    AppIcons.customEducationDashboard,
-                    const SizedBox(width: 24.0),
-                    CustomText.bitter600(
-                      LocalizedTexts.education.translation,
-                      style: context.textTheme.headlineSmall,
-                    ),
-                  ],
-                ),
-                const ImageIcon(
-                  AppIcons.arrow,
-                  color: AppColors.blueDarker,
-                ),
-              ],
+            highlightColor: AppColors.petrolLightest,
+            leadingIcon: AppIcons.customEducationDashboard,
+            title: CustomText.bitter600(
+              LocalizedTexts.education.tr(),
+              style: context.textTheme.headlineSmall,
             ),
+            actionIcon: AppIcons.arrow,
+            circleButton: false,
           ),
-          const SizedBox(height: 8.0),
           BlocBuilder<DashboardEducationBloc, DashboardEducationState>(
-            builder: (BuildContext context, state) {
+            builder: (context, state) {
               final nextLesson = state.data.nextLesson;
               final completedLessons = state.data.completedLessons[date.isoStringWithoutTime];
 
-              return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                const Divider(color: AppColors.blueOffRegular),
-                const SizedBox(height: 10.0),
-                state.maybeMap(
-                    error: (errorState) {
-                      final error = errorState.data.error;
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Divider(
+                      color: AppColors.blueOffRegular,
+                      height: 8,
+                    ),
+                    const SizedBox(height: 8.0),
+                    state.maybeMap(
+                      error: (errorState) {
+                        final error = errorState.data.error;
 
-                      return ErrorScreen(
-                        error: error!,
-                        onButtonPressed: () => context
-                            .read<DashboardEducationBloc>()
-                            .add(const DashboardEducationEvent.getDashboardLessons()),
-                      );
-                    },
-                    loading: (_) => const SizedBox(height: 100.0, child: Loader()),
-                    orElse: () {
-                      if (nextLesson != null) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomText.bitter600(
-                              LocalizedTexts.todo.tr(),
-                              style: context.textTheme.titleLarge,
-                            ),
-                            const SizedBox(height: 12.0),
-                            NextLesson(
-                              lesson: nextLesson,
-                            ),
-                            const SizedBox(height: 14.0),
-                          ],
+                        return ErrorScreen(
+                          error: error!,
+                          onButtonPressed: () => context
+                              .read<DashboardEducationBloc>()
+                              .add(const DashboardEducationEvent.getDashboardLessons()),
                         );
-                      }
-                      if (completedLessons != null && completedLessons.isNotEmpty) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomText.bitter600(
-                              '${LocalizedTexts.done.tr()} ${_getDate(date)}',
-                              style: context.textTheme.titleLarge,
-                            ),
-                            const SizedBox(height: 20.0),
-                            ListView.separated(
-                              itemCount: completedLessons.length,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (BuildContext context, index) {
-                                return CompletedLesson(lesson: completedLessons[index]);
-                              },
-                              separatorBuilder: (BuildContext context, int index) {
-                                return const SizedBox(height: 20.0);
-                              },
-                            ),
-                            const SizedBox(height: 16.0),
-                          ],
-                        );
-                      }
+                      },
+                      loading: (_) => const SizedBox(height: 100.0, child: Loader()),
+                      orElse: () {
+                        if (nextLesson != null) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomText.bitter600(
+                                LocalizedTexts.todo.tr(),
+                                style: context.textTheme.titleLarge,
+                              ),
+                              const SizedBox(height: 8.0),
+                              NextLesson(
+                                lesson: nextLesson,
+                              ),
+                              const SizedBox(height: 14.0),
+                            ],
+                          );
+                        }
 
-                      return const SizedBox.shrink();
-                    }),
-              ]);
+                        if (completedLessons != null && completedLessons.isNotEmpty) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomText.bitter600(
+                                '${LocalizedTexts.done.tr()} ${_getDate(date)}',
+                                style: context.textTheme.titleLarge,
+                              ),
+                              const SizedBox(height: 20.0),
+                              ListView.separated(
+                                itemCount: completedLessons.length,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  return CompletedLesson(lesson: completedLessons[index]);
+                                },
+                                separatorBuilder: (context, index) {
+                                  return const SizedBox(height: 20.0);
+                                },
+                              ),
+                              const SizedBox(height: 16.0),
+                            ],
+                          );
+                        }
+
+                        return const SizedBox.shrink();
+                      },
+                    ),
+                  ],
+                ),
+              );
             },
           ),
         ],

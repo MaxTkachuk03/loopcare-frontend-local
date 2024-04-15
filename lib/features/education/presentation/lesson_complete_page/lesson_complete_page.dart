@@ -227,7 +227,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                       const SizedBox(height: 30),
                       CustomElevatedButton.blueFullWidth(
                         onPressed: () => _onPressHandler(context),
-                        label: LocalizedTexts.backToEducation,
+                        label: LocalizedTexts.backToEducation.tr(),
                       ),
                       const SizedBox(height: 30.0),
                     ],

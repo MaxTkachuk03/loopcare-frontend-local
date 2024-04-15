@@ -72,7 +72,7 @@ class _PhysicalPreferencesPageState extends State<PhysicalPreferencesPage> {
     if (state.data.currentTrainingFrequency != null) {
       frequency = state.data.currentTrainingFrequency?.label ?? "";
       if (state.data.currentTrainingFrequency != PhysicalActivitiesFrequency.notAble) {
-        perWeek = LocalizedTexts.perWeek.translation;
+        perWeek = LocalizedTexts.perWeek.tr();
       }
     }
     if (frequency.isEmpty && perWeek.isEmpty) return "";

@@ -66,11 +66,11 @@ class AnswerScale extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomText.w600(
-                      question.lowestText ?? LocalizedTexts.veryEasy.translation,
+                      question.lowestText ?? LocalizedTexts.veryEasy.tr(),
                       style: context.textTheme.bodySmall,
                     ),
                     CustomText.w600(
-                      question.highestText ?? LocalizedTexts.veryHard.translation,
+                      question.highestText ?? LocalizedTexts.veryHard.tr(),
                       style: context.textTheme.bodySmall,
                     ),
                   ],
