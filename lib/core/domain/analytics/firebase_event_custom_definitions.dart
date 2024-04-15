@@ -48,4 +48,9 @@ class CustomDefinitions {
   static String get isDishes => 'isDishes';
   static String get isRecipe => 'isRecipe';
   static String get isMeal => 'isMeal';
+
+  // Smart goals
+  static String get goalId => 'goalId';
+  static String get score => 'score';
+  static String get wantsToRepeat => 'wantsToRepeat';
 }
