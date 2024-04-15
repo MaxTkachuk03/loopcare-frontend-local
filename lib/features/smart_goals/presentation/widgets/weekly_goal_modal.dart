@@ -5,15 +5,34 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/goal_progress_controller.dart';
+import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_smart_goal.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/day_smart_goal_chips.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/weekly_add_completion.dart';
+import 'package:provider/provider.dart';
 
-class WeeklyDaysProgress extends StatelessWidget {
+class WeeklyDaysProgress extends StatefulWidget {
   final WeeklySmartGoal weeklyGoal;
-  final GoalProgressController controller;
 
-  const WeeklyDaysProgress({super.key, required this.weeklyGoal, required this.controller});
+  const WeeklyDaysProgress({super.key, required this.weeklyGoal});
+
+  @override
+  State<WeeklyDaysProgress> createState() => _WeeklyDaysProgressState();
+}
+
+class _WeeklyDaysProgressState extends State<WeeklyDaysProgress> {
+  late GoalProgressController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    final bloc = context.read<SmartGoalsBloc>();
+    bloc.add(SmartGoalsEvent.resetLoggerTimes(weeklyGoal: widget.weeklyGoal));
+    controller = GoalProgressController(
+      bloc: bloc,
+      weeklyGoal: widget.weeklyGoal,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
