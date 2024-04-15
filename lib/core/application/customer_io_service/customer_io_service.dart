@@ -29,6 +29,7 @@ class CustomerIoService {
   }
 
   static Future<void> onboardingStarted({
+    required String id,
     required String email,
     required String name,
     required bool receiveAnEmails,
@@ -36,9 +37,10 @@ class CustomerIoService {
     final isNotificationGranted = PermissionsService.instance.isNotificationGranted;
 
     CustomerIO.identify(
-      identifier: email,
+      identifier: id,
       attributes: {
         'name': name,
+        'email': email,
         'created_at': _timestamp,
         'system_locale': Platform.localeName,
         'consent_to_email': receiveAnEmails,
@@ -62,37 +64,25 @@ class CustomerIoService {
     await _setDevice();
   }
 
-
-  static Future<void> changeUserEmail({
-    required String email,
-  }) async {
-    CustomerIO.track(
-      name: CIOEvents.onboardingEmailChanged,
-      attributes: {
-        CIOAttributes.updateEmail: email,
-      },
-    );
-  }
-
   static Future<void> onboardingResume({
-    required String email,
+    required String customerIoId,
   }) async {
-    CustomerIO.identify(identifier: email);
+    CustomerIO.identify(identifier: customerIoId);
 
     await _setDevice();
   }
 
-  static void logOut() => CustomerIO.clearIdentify();
-
   static Future<void> userAuthenticated({
+    required String customerIoId,
     required String email,
     required String name,
     required int id,
   }) async {
     CustomerIO.identify(
-      identifier: email,
+      identifier: customerIoId,
       attributes: {
         'user_id': id,
+        'email': email,
         'name': name,
         'system_locale': Platform.localeName,
       },
@@ -100,15 +90,43 @@ class CustomerIoService {
 
     await _setDevice();
 
-
-
     CustomerIO.track(name: CIOEvents.auth, attributes: {'last_auth': _timestamp});
   }
+
+  static Future<void> onboardingResumeWithEmail({
+    required String customerIoId,
+    required String email,
+  }) async {
+    CustomerIO.identify(
+      identifier: email,
+      attributes: {
+        'id': customerIoId,
+      },
+    );
+
+    logOut();
+
+    onboardingResume(
+      customerIoId: customerIoId,
+    );
+  }
+
+  static void logOut() => CustomerIO.clearIdentify();
 
   static void track({
     required String event,
     Map<String, dynamic>? attributes,
   }) => CustomerIO.track(name: event, attributes: attributes ?? {});
+
+  static Future<void> changeUserEmail({
+    required String email,
+  }) async {
+    CustomerIO.setProfileAttributes(
+      attributes: {
+        CIOAttributes.updateEmail: email,
+      },
+    );
+  }
 
   static Future<void> setUserVerifiedState({
     required bool verified,
