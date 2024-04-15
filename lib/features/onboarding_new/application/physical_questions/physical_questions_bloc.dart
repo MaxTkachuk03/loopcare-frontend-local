@@ -8,7 +8,6 @@ import 'package:loopcare_frontend/core/application/customer_io_service/customer_
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
-import 'package:loopcare_frontend/core/presentation/validators/age_validator.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/features/onboarding_new/application/dto/add_physical_survey.dart';
 import 'package:loopcare_frontend/features/onboarding_new/application/dto/registration_physical_fitness_data.dart';
@@ -162,14 +161,10 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     BirthdayChanged event,
     Emitter<PhysicalQuestionsState> emit,
   ) {
-    final age = DateHelpers.calculateAge(event.birthday);
-    final ageValid = ageValidator(age);
-
     AnalyticsEventService.instance.logEvent(
       FirebaseEvents.userBirthday,
       parameters: {
         CustomDefinitions.value: event.birthday.toIso8601String(),
-        CustomDefinitions.exclusion: ageValid.toString(),
       },
     );
 

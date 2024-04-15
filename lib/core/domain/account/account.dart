@@ -28,6 +28,7 @@ abstract class Account implements _$Account {
     required int id,
     required String name,
     required String email,
+    required String? customerIoId,
     required String? country,
     required GenderType gender,
     required SexType sex,
