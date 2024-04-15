@@ -153,9 +153,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     );
   }
 
-
-  bool isVendorPlatform(String? vendor) => Platform.isIOS && vendor == 'ios' ||
-        Platform.isAndroid && vendor == 'android';
+  bool isVendorPlatform(String? vendor) =>
+      Platform.isIOS && vendor == 'ios' || Platform.isAndroid && vendor == 'android';
 
   void _showPopover() => showDialog<String>(
         context: context,
