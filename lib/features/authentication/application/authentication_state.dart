@@ -44,8 +44,6 @@ class AuthenticationData with _$AuthenticationData {
 
   String get accountName => account?.name ?? '';
 
-  DateTime? get emailApproveDate => account?.emailApproveDate;
-
   String? get accountEmail => account?.email;
 
   double? get height => account?.height;

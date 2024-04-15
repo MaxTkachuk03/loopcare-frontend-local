@@ -20,7 +20,8 @@ class LoginResponse {
   final GenderType gender;
   final SexType sex;
   final Subscription subscription;
-  final DateTime emailApproveDate;
+  final DateTime? emailApproveDate;
+  final DateTime createdAt;
   final List<Feature> features;
 
   const LoginResponse({
@@ -35,6 +36,7 @@ class LoginResponse {
     required this.sex,
     required this.subscription,
     required this.emailApproveDate,
+    required this.createdAt,
     required this.features,
   });
 

@@ -197,12 +197,12 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
                           if (state.data.assignmentsQuestions.isNotEmpty &&
                               state.data.assignmentsQuestionsWithAnswers.isEmpty) {
-                            final emailApproveDate =
-                                getIt<SharedStorageService>().account?.emailApproveDate ?? DateTime.now();
+                            final accountCreatedDate =
+                                getIt<SharedStorageService>().account?.createdAt ?? DateTime.now();
 
                             context.read<AssignmentsBloc>().add(
                                   AssignmentsEvent.getAllLessonQuestions(
-                                    emailApproveDate,
+                                    accountCreatedDate,
                                     DateTime.now(),
                                   ),
                                 );

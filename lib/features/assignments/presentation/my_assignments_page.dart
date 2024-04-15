@@ -26,7 +26,7 @@ class MyAssignmentsPage extends StatefulWidget {
 }
 
 class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
-  DateTime emailApproveDate = getIt<SharedStorageService>().account?.emailApproveDate ?? DateTime.now();
+  DateTime get accountCreatedDate => getIt<SharedStorageService>().account?.createdAt ?? DateTime.now();
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
 
     context
         .read<AssignmentsBloc>()
-        .add(AssignmentsEvent.getAllLessonQuestions(emailApproveDate, DateTime.now()));
+        .add(AssignmentsEvent.getAllLessonQuestions(accountCreatedDate, DateTime.now()));
   }
 
   _startLessonQuestion(BuildContext context, int lessonId) {
@@ -56,7 +56,7 @@ class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
       body: BlocBuilder<AssignmentsBloc, AssignmentsState>(
         builder: (context, state) {
           final thisWeekAssignments = state.data.currentWeekAssignments(DateTime.now());
-          final pastAssignments = state.data.pastAssignments(emailApproveDate);
+          final pastAssignments = state.data.pastAssignments(accountCreatedDate);
 
           return state.maybeMap(
             loading: (_) => const Loader(),
