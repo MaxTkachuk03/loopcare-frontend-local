@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
@@ -15,7 +16,7 @@ class ProxyGuard extends AutoRouteGuard {
   Future<void> onNavigation(NavigationResolver resolver, StackRouter router) async {
     final account = getIt<SharedStorageService>().account;
 
-    if (const String.fromEnvironment('FLAVOR', defaultValue: 'dev') == 'dev') {
+    if (EnvironmentType.currentType.isDev) {
       resolver.next(true);
     } else {
       if (account != null) {
@@ -24,16 +25,13 @@ class ProxyGuard extends AutoRouteGuard {
         String route;
         if (accessToken.isEmpty || refreshToken.isEmpty) {
           route = AppRoutes.login;
-        } else {
-          route = AppRoutes.home;
         }
-
         //Todo hide subscription flow LOOPCARE-2197
-        // else if (account.hasActiveSubscription) {
-        //   route = AppRoutes.home;
-        // } else {
-        //   route = AppRoutes.subscription;
-        // }
+        else if (account.hasActiveSubscription || !kIsProd) {
+          route = AppRoutes.home;
+        } else {
+          route = AppRoutes.subscription;
+        }
 
         MixpanelEventService.instance.trackVisit(
           "${AppMixpanelEvents.appRote}:  $route",
