@@ -39,7 +39,7 @@ class DashboardWeeklyGoalItem extends StatelessWidget {
         children: [
           GoalProgressIndicator(
             currentStep: item.completionsDays,
-            steps: item.smartGoal.requiredDays,
+            steps: item.smartGoal.requiredCompletions,
             isAchievedNotifier: item.isAchieved,
           ),
           const SizedBox(width: 16.0),

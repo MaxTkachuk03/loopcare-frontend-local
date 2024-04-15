@@ -60,7 +60,7 @@ class SmartGoalsStateData with _$SmartGoalsStateData {
 
   bool get hasFinishedSession => hasReviewDelay && !isWeeklySessionActive && !isWeeklySessionPeriodActive;
 
-  bool get hasQuickReviewWeeklyGoals => !isWeeklySessionPeriodActive && hasReviewDelay || goalsAchieved();
+  bool get hasQuickReviewWeeklyGoals => !isWeeklySessionPeriodActive && hasReviewDelay;
 
   bool get hasReviewDelay => isWeeklySessionHasTimestamp ? weeklyGoalsSession!.lastReviewDate!.isFuture : false;
 
@@ -71,13 +71,6 @@ class SmartGoalsStateData with _$SmartGoalsStateData {
   int get daysReview => DateTime.now().difference(weeklyGoalsSession!.finishedAt!).inDays;
 
   List<WeeklySmartGoal> get weeklyGoals => weeklyGoalsSession?.goals ?? [];
-
-  bool goalsAchieved() {
-    if (weeklyGoalsSession == null || weeklyGoalsSession?.goals == null) {
-      return false;
-    }
-    return weeklyGoalsSession!.goals!.firstWhereOrNull((goal) => !goal.isAchieved) == null;
-  }
 
   WeeklySmartGoal? get firstGoalForReview {
     final goals = weeklyGoals;
