@@ -54,48 +54,40 @@ class ModalBottomSheet {
     showModalBottomSheet<void>(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
-      builder: (BuildContext context) {
-        return FractionallySizedBox(
-          heightFactor: 0.75,
-          child: ScrollableContainer(
-            child: MainContainer(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 25.0),
-                  const CircleAvatar(
-                    radius: 22.0,
-                    backgroundColor: AppColors.greenRegular,
-                    child: Icon(Icons.check, size: 30),
-                  ),
-                  const SizedBox(height: 26.0),
-                  CustomText.w600(
-                    '${LocalizedTexts.emailConfirmedBottomSheetTitle.tr()}!',
-                    style: context.textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: 20.0),
-                  CustomText.w400(
-                    '${LocalizedTexts.emailConfirmedBottomSheetContent.tr()}.',
-                    style: context.textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: 40.0),
-                  CustomElevatedButton.blueFullWidth(
-                    label: LocalizedTexts.continueBtn.tr(),
-                    onPressed: () {
-                      context.router.pop();
-                    },
-                  ),
-                  const SizedBox(height: 30.0),
-                ],
+      builder: (context) {
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 25.0),
+              const CircleAvatar(
+                radius: 22.0,
+                backgroundColor: AppColors.greenRegular,
+                child: Icon(Icons.check, size: 30),
               ),
-            ),
+              const SizedBox(height: 26.0),
+              CustomText.w600(
+                '${LocalizedTexts.emailConfirmedBottomSheetTitle.tr()}!',
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w400(
+                '${LocalizedTexts.emailConfirmedBottomSheetContent.tr()}.',
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 40.0),
+              CustomElevatedButton.blueFullWidth(
+                label: LocalizedTexts.continueBtn.tr(),
+                onPressed: context.router.pop,
+              ),
+              const SizedBox(height: 30.0),
+            ],
           ),
         );
       },
-    ).whenComplete(() {
-      onContinuePressed();
-    });
+    ).whenComplete(onContinuePressed);
   }
 
   static void physicalInvalidMessage({required BuildContext context, required String message}) {

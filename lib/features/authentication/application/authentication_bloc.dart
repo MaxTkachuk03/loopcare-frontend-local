@@ -182,6 +182,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           sex: response.sex,
           emailApproveDate: response.emailApproveDate,
           subscription: response.subscription,
+          createdAt: response.createdAt,
         );
 
         emit(
@@ -256,6 +257,22 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         CustomerIoService.setUserVerifiedState(verified: false);
         CustomerIoService.setUserId(id: response.id);
 
+        authTokenManager.setAccessToken(response.accessToken);
+        authTokenManager.setRefreshToken(response.refreshToken);
+
+        final account = _sharedPref.account = Account(
+          id: response.id,
+          customerIoId: response.customerIoId,
+          name: response.name,
+          email: response.email,
+          country: response.country,
+          gender: response.gender,
+          sex: response.sex,
+          emailApproveDate: response.emailApproveDate,
+          subscription: response.subscription,
+          createdAt: response.createdAt,
+        );
+
         emit(
           AuthenticationState.waitedForConfirmation(
             state.data.copyWith(
@@ -265,6 +282,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
               name: state.data.name,
               password: event.password,
               emailWasSend: true,
+              account: account,
             ),
           ),
         );
