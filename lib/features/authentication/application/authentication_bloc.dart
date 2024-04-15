@@ -136,7 +136,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           AppMixpanelEvents.loginFail,
           {
             'email': event.email,
-            'message': error.error,
+            'message': error.error.toString(),
           },
         );
         emit(AuthenticationState.init(state.data));
