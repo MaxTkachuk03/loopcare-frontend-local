@@ -88,4 +88,8 @@ class FirebaseEvents {
   static String get userLeavesChat => 'user_leaves_chat';
 
   static String get userConfirmedDoctorConsent => 'user_confirmed_doctor_consent';
+
+  // Smart goals
+  static String get userSavedGoals => 'user_saved_goals';
+  static String get userAddedReview => 'user_added_review';
 }

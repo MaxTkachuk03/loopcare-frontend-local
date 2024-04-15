@@ -4,7 +4,11 @@ import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/goal_review_body.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/save_goals_body.dart';
@@ -14,6 +18,7 @@ import 'package:loopcare_frontend/features/smart_goals/domain/progress_smart_goa
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goals_session.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_smart_goal.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 part 'smart_goals_bloc.freezed.dart';
 part 'smart_goals_event.dart';
@@ -24,6 +29,7 @@ const sessionReviewDelay = 7;
 @singleton
 class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
   final SmartGoalsService _smartGoalsService;
+  final account = getIt<SharedStorageService>().account;
 
   SmartGoalsBloc(this._smartGoalsService) : super(const SmartGoalsState.initial(SmartGoalsStateData())) {
     on<GetGoals>(_onGetGoals);
@@ -81,6 +87,14 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
         emit(SmartGoalsState.errorSaveGoals(state.data.copyWith(error: l, isLoading: false)));
       },
       (r) {
+        AnalyticsEventService.instance.logEvent(
+          FirebaseEvents.userSavedGoals,
+          parameters: {
+            CustomDefinitions.userId: account?.id,
+            CustomDefinitions.timestamp: DateTime.now(),
+          },
+        );
+
         emit(
             SmartGoalsState.weeklySessionSaved(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
       },
@@ -100,6 +114,16 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
         emit(SmartGoalsState.errorAddingReview(state.data.copyWith(error: l, isLoading: false)));
       },
       (r) {
+        AnalyticsEventService.instance.logEvent(
+          FirebaseEvents.userAddedReview,
+          parameters: {
+            CustomDefinitions.userId: account?.id,
+            CustomDefinitions.goalId: event.data.id,
+            CustomDefinitions.score: event.data.difficulty,
+            CustomDefinitions.wantsToRepeat: event.data.isTryAgain,
+          },
+        );
+
         emit(SmartGoalsState.reviewAdded(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
       },
     );
