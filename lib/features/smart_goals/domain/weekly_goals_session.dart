@@ -12,6 +12,7 @@ class WeeklyGoalsSession with _$WeeklyGoalsSession {
     int? id,
     DateTime? startedAt,
     DateTime? finishedAt,
+    DateTime? lastReviewDate,
     List<WeeklySmartGoal>? goals,
     bool? isActive,
   }) = _WeeklyGoalsSession;

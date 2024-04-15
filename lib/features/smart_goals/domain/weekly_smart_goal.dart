@@ -43,7 +43,6 @@ class WeeklySmartGoal with _$WeeklySmartGoal {
       return false;
     }
     return completionsAmount >= smartGoal.requiredCompletions;
-    // && progressLogs!.length >= smartGoal.requiredDays;
   }
 
   factory WeeklySmartGoal.fromJson(Map<String, dynamic> json) => _$WeeklySmartGoalFromJson(json);
@@ -52,7 +51,6 @@ class WeeklySmartGoal with _$WeeklySmartGoal {
     if (progressLogs == null) {
       return 0;
     }
-    //Todo need clarify log.times > 0&&smartGoal.requiredCompletions == log.times => day is completed and added in progress bar
     return progressLogs!.where((log) => log.times > 0).toList().length;
   }
 }
