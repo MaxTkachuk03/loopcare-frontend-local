@@ -1016,4 +1016,6 @@ class LocalizedTexts {
   static const String weeklyTimes = 'weeklyTimes';
   static const String weeklyMakeCorrections = 'weeklyMakeCorrections';
   static const String weeklyShowGoalDetails = 'weeklyShowGoalDetails';
+  static const String weeklyModalProgress = 'weeklyModalProgress';
+  static const String weeklyModalInfo = 'weeklyModalInfo';
 }

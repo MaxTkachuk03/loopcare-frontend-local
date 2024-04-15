@@ -1,15 +1,13 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_button_with_icon.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_smart_goal.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/goal_progress_indicator.dart';
-import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/weekly_days_progress.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/weekly_goal_modal.dart';
 import 'package:provider/provider.dart';
 
 class DashboardWeeklyGoalItem extends StatelessWidget {
@@ -20,9 +18,12 @@ class DashboardWeeklyGoalItem extends StatelessWidget {
 
   void onPressHandler(BuildContext context, WeeklySmartGoal item) => ModalBottomSheet.smartGoalComplete(
         context: context,
-        title: LocalizedTexts.weeklyCompleteTitle.tr(),
-        content: WeeklyDaysProgress(weeklyGoal: item),
-        onDone: () => context.read<SmartGoalsBloc>().add(SmartGoalsEvent.postCompletions(reviewId: item.id)),
+        content: WeeklyGoalModal(
+          weeklyGoal: item,
+          onDone: () => context.read<SmartGoalsBloc>().add(
+                SmartGoalsEvent.postCompletions(reviewId: item.id),
+              ),
+        ),
       );
 
   @override

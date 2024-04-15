@@ -15,6 +15,10 @@ class GoalProgressController {
   final WeeklySmartGoal weeklyGoal;
 
   late ValueNotifier<ProgressSmartGoalLog?> selectedValueNotifier = ValueNotifier(null);
+  final List<String> tabs = [
+    LocalizedTexts.weeklyModalProgress.tr(),
+    LocalizedTexts.weeklyModalInfo.tr(),
+  ];
 
   GoalProgressController({required this.bloc, required this.weeklyGoal}) {
     if (bloc.state.data.logs.isNotEmpty) {

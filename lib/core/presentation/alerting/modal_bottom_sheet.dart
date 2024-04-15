@@ -218,9 +218,8 @@ class ModalBottomSheet {
                   const SizedBox(height: 12.0),
                   CustomOutlinedButton.blueFullWidth(
                     onPressed: noActiveSubscription ? onDeleted : onSubscriptionPref,
-                    label: noActiveSubscription
-                        ? LocalizedTexts.yesDelete.tr()
-                        : LocalizedTexts.manageSubscription.tr(),
+                    label:
+                        noActiveSubscription ? LocalizedTexts.yesDelete.tr() : LocalizedTexts.manageSubscription.tr(),
                   )
                 ],
               ),
@@ -1361,48 +1360,15 @@ class ModalBottomSheet {
 
   static void smartGoalComplete({
     required BuildContext context,
-    required String title,
     required Widget content,
-    required void Function() onDone,
   }) {
     showModalBottomSheet<void>(
       context: context,
       showDragHandle: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
-        return ScrollableContainer(
-          child: MainContainer(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomText.w600(
-                      title,
-                      textAlign: TextAlign.center,
-                      style: context.textTheme.bodyMedium,
-                    ),
-                    const SizedBox(height: 31),
-                    content,
-                    const SizedBox(height: 31),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 30.0),
-                  child: CustomElevatedButton.blueFullWidth(
-                    label: LocalizedTexts.done.tr().capitalize(),
-                    onPressed: () {
-                      context.router.pop.call();
-                      onDone.call();
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
+        return MainContainer(
+          child: content,
         );
       },
     );

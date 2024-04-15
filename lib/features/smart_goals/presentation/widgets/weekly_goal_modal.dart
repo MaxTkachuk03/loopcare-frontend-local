@@ -1,27 +1,29 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
-import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/tab_bar/custom_tab_bar.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/goal_progress_controller.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_smart_goal.dart';
-import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/day_smart_goal_chips.dart';
-import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/weekly_add_completion.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/weekly_days_progress.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/weekly_goal_info.dart';
 import 'package:provider/provider.dart';
 
-class WeeklyDaysProgress extends StatefulWidget {
+class WeeklyGoalModal extends StatefulWidget {
   final WeeklySmartGoal weeklyGoal;
+  final void Function() onDone;
 
-  const WeeklyDaysProgress({super.key, required this.weeklyGoal});
+  const WeeklyGoalModal({
+    super.key,
+    required this.weeklyGoal,
+    required this.onDone,
+  });
 
   @override
-  State<WeeklyDaysProgress> createState() => _WeeklyDaysProgressState();
+  State<WeeklyGoalModal> createState() => _WeeklyGoalModalState();
 }
 
-class _WeeklyDaysProgressState extends State<WeeklyDaysProgress> {
+class _WeeklyGoalModalState extends State<WeeklyGoalModal> with SingleTickerProviderStateMixin {
   late GoalProgressController controller;
+  late TabController _tabController;
 
   @override
   void initState() {
@@ -32,35 +34,47 @@ class _WeeklyDaysProgressState extends State<WeeklyDaysProgress> {
       bloc: bloc,
       weeklyGoal: widget.weeklyGoal,
     );
+    _tabController = TabController(
+      vsync: this,
+      length: controller.tabs.length,
+      animationDuration: Duration.zero,
+      initialIndex: 0,
+    )..addListener(_onTabsChanged);
+    ;
+  }
+
+  void _onTabsChanged() => setState(() {});
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _tabController.removeListener(_onTabsChanged);
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CustomText.w400(
-              LocalizedTexts.weeklyDate.tr(),
-              textAlign: TextAlign.start,
-              style: context.textTheme.bodySmall,
-            ),
-            CustomText.w400(
-              LocalizedTexts.weeklyCompletedFar.tr(),
-              textAlign: TextAlign.start,
-              style: context.textTheme.bodySmall,
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 25.0),
+          child: CustomTabBar.blue(
+            tabs: controller.tabs.map((e) => Tab(text: e)).toList(),
+            tabController: _tabController,
+          ),
         ),
-        const SizedBox(height: 16),
-        DaySmartGoalChips(controller: controller),
-        const SizedBox(height: 28),
-        WeeklyAddCompletion(controller: controller),
-        const SizedBox(height: 28),
-        // _CorrectionDetailsLinks(),
-        // const SizedBox(height: 28),
+        Flexible(
+          child: TabBarView(controller: _tabController, children: [
+            WeeklyDaysProgress(
+              weeklyGoal: widget.weeklyGoal,
+              controller: controller,
+              onDone: widget.onDone,
+            ),
+            WeeklyGoalInfo(weeklyGoal: widget.weeklyGoal),
+          ]),
+        ),
       ],
     );
   }
