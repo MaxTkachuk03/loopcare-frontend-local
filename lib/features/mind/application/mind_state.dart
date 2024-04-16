@@ -24,13 +24,15 @@ class MindStateData with _$MindStateData {
   const MindStateData._();
 
   const factory MindStateData({
-    @Default([]) List<MindTechnique> techniques,
+    MindTechniquesResponse? program,
     MindTechnique? currentTechnique,
     @Default([]) List<MindTechniqueExercise> exercises,
     MindTechniqueExercise? currentExercise,
     @Default(false) bool isLoading,
     RequestError? error,
   }) = _MindStateData;
+
+  List<MindTechnique> get techniques => program?.techniques ?? [];
 
   MindTechniqueExercise get nextExercise {
     if (isLastExercise) {

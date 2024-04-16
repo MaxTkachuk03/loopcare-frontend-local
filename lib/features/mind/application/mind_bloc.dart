@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique_exercise.dart';
+import 'package:loopcare_frontend/features/mind/application/dto/mind_techniques_response.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/technique_unlock_style.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_service.dart';
 
@@ -19,7 +20,7 @@ class MindBloc extends Bloc<MindEvent, MindState> {
 
   MindBloc(this._mindService) : super(const MindState.initial(MindStateData())) {
     on<GetTechniques>(_onGetTechniques);
-    on<GerExercises>(_onGerExercises);
+    on<GetExercises>(_onGetExercises);
     on<CompleteExercise>(_onCompleteExercise);
     on<UnlockNextExercise>(_onUnlockNextExercise);
     on<SelectExercise>(_onSelectExercise);
@@ -35,7 +36,7 @@ class MindBloc extends Bloc<MindEvent, MindState> {
       (r) => emit(
           MindState.gotTechniques(
             state.data.copyWith(
-              techniques: r.data,
+              program: r,
               isLoading: false,
             ),
           ),
@@ -43,7 +44,7 @@ class MindBloc extends Bloc<MindEvent, MindState> {
     );
   }
 
-  FutureOr<void> _onGerExercises(GerExercises event, Emitter<MindState> emit) async {
+  FutureOr<void> _onGetExercises(GetExercises event, Emitter<MindState> emit) async {
     emit(
       MindState.loading(
         state.data.copyWith(

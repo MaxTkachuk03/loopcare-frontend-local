@@ -4,7 +4,7 @@ part of 'mind_bloc.dart';
 class MindEvent with _$MindEvent {
   const factory MindEvent.getTechniques() = GetTechniques;
 
-  const factory MindEvent.gerExercises({required int techniqueId}) = GerExercises;
+  const factory MindEvent.getExercises({required int techniqueId}) = GetExercises;
 
   const factory MindEvent.completeExercise({required int techniqueId, required int exerciseId}) = CompleteExercise;
 

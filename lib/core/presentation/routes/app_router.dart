@@ -55,6 +55,7 @@ import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/pre_intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
 import 'package:loopcare_frontend/features/legal_statement/presentation/legal_statement_page.dart';
+import 'package:loopcare_frontend/features/mind/presentation/techniques_page/techniques_page.dart';
 import 'package:loopcare_frontend/features/mood/presentation/create_mood_page.dart';
 import 'package:loopcare_frontend/features/mood/presentation/mood_option_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/barcode_scanner_page.dart';
@@ -406,6 +407,12 @@ const groupLessonRoutes = [
       path: AppRoutes.physicalActivitiesComplete,
       page: PhysicalActivitiesCompletePage,
     ), // added
+
+    // Mind
+    AutoRoute(
+      path: AppRoutes.mindTechniques,
+      page: TechniquesPage,
+    ), //
 
     // Mood
     AutoRoute(

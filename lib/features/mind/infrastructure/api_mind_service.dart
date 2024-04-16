@@ -7,6 +7,9 @@ import 'package:loopcare_frontend/features/mind/application/dto/mind_technique_e
 import 'package:loopcare_frontend/features/mind/application/dto/mind_techniques_response.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_service.dart';
 
+// TODO import mock data
+import 'techniques_mock.dart';
+
 @Injectable(as: MindService)
 class APIMindService implements MindService {
   DioClient client;
@@ -14,17 +17,20 @@ class APIMindService implements MindService {
   APIMindService(this.client);
 
   @override
-  Future<Either<RequestError, MindTechniquesResponse>> getTechniques() {
-    return client.get('/mind/techniques').then(parseResponse(MindTechniquesResponse.fromJson));
+  Future<Either<RequestError, MindTechniquesResponse>> getTechniques() async {
+    // TODO use to mock program server response
+    return right(MindTechniquesResponse.fromJson(program));
+
+    // return client.get('/mind/techniques').then(parseResponse(MindTechniquesResponse.fromJson));
   }
 
   @override
-  Future<Either<RequestError, MindTechniqueExercisesResponse>> getTechniquesExercises(int techniqueId) {
+  Future<Either<RequestError, MindTechniqueExercisesResponse>> getTechniquesExercises(int techniqueId) async {
     return client.put('/mind/techniques/$techniqueId/exercises').then(parseResponse(MindTechniqueExercisesResponse.fromJson));
   }
 
   @override
-  Future<Either<RequestError, dynamic>> completeExercise(int techniqueId, int exerciseId) {
+  Future<Either<RequestError, dynamic>> completeExercise(int techniqueId, int exerciseId) async {
     return client.delete('/mind/techniques/$techniqueId/exercises/$exerciseId/complete');
   }
 }

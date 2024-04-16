@@ -136,6 +136,9 @@ class AppRoutes {
   static const String groupRulesFive = '/group-rules-five'; // added
   static const String groupRulesSix = '/group-rules-six'; // added
 
+  // Mind
+  static const String mindTechniques = '/mind-techniques';
+
   // Mood
   static const String createMood = '/create-mood';
   static const String moodOption = '/mood-option';
