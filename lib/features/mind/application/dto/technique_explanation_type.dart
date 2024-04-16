@@ -1,0 +1,4 @@
+enum TechniqueExplanationType {
+  text,
+  video,
+}

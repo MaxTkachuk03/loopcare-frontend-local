@@ -1,0 +1,4 @@
+enum TechniqueExerciseUnlockStyle {
+  allAvailable,
+  consecutive,
+}
