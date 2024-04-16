@@ -96,11 +96,11 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
         return;
       }
 
-      final emailApproveDate = getIt<SharedStorageService>().account?.emailApproveDate ?? DateTime.now();
+      final accountCreatedDate = getIt<SharedStorageService>().account?.createdAt ?? DateTime.now();
 
       context
         ..read<AssignmentsBloc>()
-            .add(AssignmentsEvent.getAllLessonQuestions(emailApproveDate, DateTime.now()))
+            .add(AssignmentsEvent.getAllLessonQuestions(accountCreatedDate, DateTime.now()))
         ..router.pushNamed(AppRoutes.assignmentsSaved);
     } else {
       context.router.push(

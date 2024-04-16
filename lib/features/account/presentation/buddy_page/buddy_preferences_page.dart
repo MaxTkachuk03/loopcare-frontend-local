@@ -32,7 +32,8 @@ class BuddyPreferencesPage extends StatefulWidget {
 
 class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
   @override
-  void didChangeDependencies() {
+  void initState() {
+    super.initState();
     context.read<BuddyBloc>().add(const BuddyEvent.getStatusBuddy());
   }
 
