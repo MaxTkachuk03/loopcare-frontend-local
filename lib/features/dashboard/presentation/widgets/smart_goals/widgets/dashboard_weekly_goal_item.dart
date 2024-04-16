@@ -45,7 +45,7 @@ class DashboardWeeklyGoalItem extends StatelessWidget {
           const SizedBox(width: 16.0),
           Expanded(
             child: CustomText.w400(
-              item.smartGoal.title,
+              item.title,
               style: context.textTheme.bodySmall,
             ),
           ),

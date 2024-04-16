@@ -39,14 +39,32 @@ class GoalsListItem extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      CustomText.w600(
-                        item.title,
-                        style: context.textTheme.bodyMedium,
+                      RichText(
+                        text: TextSpan(
+                          style: context.textTheme.bodyLarge,
+                          children: [
+                            TextSpan(
+                              text: '${item.shortTitle}: ',
+                              style: context.textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            TextSpan(
+                              text: item.description,
+                              style: context.textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       const SizedBox(height: 10.0),
-                      CustomText.w600(LocalizedTexts.completeCounter.tr(
-                        args: [item.requiredCompletions.toString(), item.requiredDays.toString()],
-                      )),
+                      CustomText.w400(
+                        LocalizedTexts.completeCounter.tr(
+                          args: [item.requiredCompletions.toString(), item.requiredDays.toString()],
+                        ),
+                        style: context.textTheme.bodyMedium,
+                      ),
                     ],
                   ),
                 ),
