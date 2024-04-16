@@ -15,7 +15,6 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
-import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
@@ -27,10 +26,7 @@ class PreferencesSection extends StatelessWidget {
     context.router.push(FoodPreferencesRoute(fromLessonComplete: false));
   }
 
-  void _onBuddyHandler(BuildContext context) {
-    context.read<BuddyBloc>().add(const BuddyEvent.getStatusBuddy());
-    context.router.pushNamed(AppRoutes.buddyPreferences);
-  }
+  void _onBuddyHandler(BuildContext context) => context.router.pushNamed(AppRoutes.buddyPreferences);
 
   void _onPhysicalActivitiesHandler(BuildContext context) {
     context.router.pushNamed(AppRoutes.physicalPreferences);
@@ -149,8 +145,7 @@ class PreferencesSection extends StatelessWidget {
                 SectionItem(
                   title: LocalizedTexts.groupSessions.tr(),
                   subTitle: _groupSessionsSubtitle(state),
-                  onPressHandler:
-                      state.data.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
+                  onPressHandler: state.data.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
                 ),
                 // Todo it's old part, need to check do we need it in future
                 // const SizedBox(height: 16.0),
