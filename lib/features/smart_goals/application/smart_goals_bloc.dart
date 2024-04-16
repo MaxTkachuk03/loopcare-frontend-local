@@ -198,7 +198,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     }
     if (event.weeklyGoal.progressLogs == null) {
       for (var day in dates) {
-        logs.add(ProgressSmartGoalLog(date: day.getDateStringOnly, times: 0));
+        logs.add(ProgressSmartGoalLog(date: day.dateStringOnly, times: 0));
       }
       return logs;
     }
@@ -207,7 +207,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
         return log.date == day;
       });
 
-      logs.add(ProgressSmartGoalLog(date: day.getDateStringOnly, times: log?.times ?? 0));
+      logs.add(ProgressSmartGoalLog(date: day.dateStringOnly, times: log?.times ?? 0));
     }
     return logs;
   }

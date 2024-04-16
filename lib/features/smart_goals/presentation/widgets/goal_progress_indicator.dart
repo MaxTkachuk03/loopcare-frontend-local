@@ -32,32 +32,27 @@ class GoalProgressIndicator extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              SizedBox.square(
-                dimension: progressSize,
-                child: CircularProgressIndicator(
-                  strokeCap: StrokeCap.round,
-                  value: _calculateValue(),
-                  strokeWidth: strokeWidth,
-                  backgroundColor: AppColors.blueLightest,
-                  valueColor: const AlwaysStoppedAnimation<Color>(AppColors.greenRegular),
-                ),
+          SizedBox.square(
+            dimension: progressSize,
+            child: CircularProgressIndicator(
+              strokeCap: StrokeCap.round,
+              value: _calculateValue(),
+              strokeWidth: strokeWidth,
+              backgroundColor: AppColors.blueLightest,
+              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.greenRegular),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            child: CircleAvatar(
+              radius: innerSize,
+              backgroundColor: AppColors.blueDarkest,
+              child: _TextAccent(
+                currentStep: currentStep,
+                steps: steps,
               ),
-              Positioned(
-                left: 0,
-                right: 0,
-                child: CircleAvatar(
-                  radius: innerSize,
-                  backgroundColor: AppColors.blueDarkest,
-                  child: _TextAccent(
-                    currentStep: currentStep,
-                    steps: steps,
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
           Positioned(
             top: 0,

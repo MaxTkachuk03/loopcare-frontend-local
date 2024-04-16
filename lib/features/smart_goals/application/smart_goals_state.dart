@@ -64,7 +64,7 @@ class SmartGoalsStateData with _$SmartGoalsStateData {
 
   bool get hasReviewDelay => isWeeklySessionHasTimestamp ? weeklyGoalsSession!.lastReviewDate!.isFuture : false;
 
-  int get daysLeft => weeklyGoalsSession!.finishedAt!.difference(DateTime.now().getDateOnly).inDays;
+  int get daysLeft => weeklyGoalsSession!.finishedAt!.difference(DateTime.now().dateOnly).inDays;
 
   int get daysUpper => DateTime.now().difference(weeklyGoalsSession!.startedAt!).inDays;
 

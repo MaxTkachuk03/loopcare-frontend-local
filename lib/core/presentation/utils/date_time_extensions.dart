@@ -35,11 +35,11 @@ extension DateTimeExtension on DateTime {
     return DateFormat('dd-MM-yyyy').format(this);
   }
 
-  String get getDateStringOnly {
+  String get dateStringOnly {
     return DateFormat('yyyy-MM-dd').format(this);
   }
 
-  DateTime get getDateOnly {
+  DateTime get dateOnly {
     return DateTime(this.year, this.month, this.day);
   }
 
@@ -261,7 +261,7 @@ List<DateTime> getDays({required DateTime start, required DateTime end}) {
 List<DateTime> getDaysOnly({required DateTime start, required DateTime end}) {
   final days = end.difference(start).inDays;
 
-  return [for (int i = 0; i < days; i++) start.add(Duration(days: i)).getDateOnly];
+  return [for (int i = 0; i < days; i++) start.add(Duration(days: i)).dateOnly];
 }
 
 DateTime getDateOnly(String date) => DateFormat("yyyy-MM-dd").parse(date);
