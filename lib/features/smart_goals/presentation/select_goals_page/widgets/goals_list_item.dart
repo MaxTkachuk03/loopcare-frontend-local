@@ -25,56 +25,54 @@ class GoalsListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: _onItemPressedHandler,
-      child: Ink(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomCheckbox.green(value: isSelected),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          style: context.textTheme.bodyLarge,
-                          children: [
-                            TextSpan(
-                              text: '${item.shortTitle}: ',
-                              style: context.textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.w600,
-                              ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 5.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomCheckbox.green(value: isSelected),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        style: context.textTheme.bodyLarge,
+                        children: [
+                          TextSpan(
+                            text: '${item.shortTitle}: ',
+                            style: context.textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.w600,
                             ),
-                            TextSpan(
-                              text: item.description,
-                              style: context.textTheme.bodySmall?.copyWith(
-                                fontWeight: FontWeight.w400,
-                              ),
+                          ),
+                          TextSpan(
+                            text: item.description,
+                            style: context.textTheme.bodySmall?.copyWith(
+                              fontWeight: FontWeight.w400,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 10.0),
-                      CustomText.w400(
-                        LocalizedTexts.completeCounter.tr(
-                          args: [item.requiredCompletionDays.toString(), item.lengthInDays.toString()],
-                        ),
-                        style: context.textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: 10.0),
+                    CustomText.w400(
+                      LocalizedTexts.completeCounter.tr(
+                        args: [item.requiredCompletionDays.toString(), item.lengthInDays.toString()],
                       ),
-                    ],
-                  ),
+                      style: context.textTheme.bodyMedium,
+                    ),
+                  ],
                 ),
               ),
-              CustomIconButton(
-                icon: const Icon(Icons.error_outline_outlined, color: AppColors.blueDarker),
-                onPressed: () => _onInfoHandler(context),
-              ),
-            ],
-          ),
+            ),
+            CustomIconButton(
+              icon: const Icon(Icons.error_outline_outlined, color: AppColors.blueDarker),
+              onPressed: () => _onInfoHandler(context),
+            ),
+          ],
         ),
       ),
     );

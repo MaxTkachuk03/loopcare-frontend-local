@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/set_weekly_goals_page/widgets/weekly_goal_list_item.dart';
-import 'package:loopcare_frontend/features/smart_goals/presentation/set_weekly_goals_page/widgets/weekly_goals_list_divider.dart';
 
 class WeeklyGoalsList extends StatelessWidget {
   const WeeklyGoalsList({super.key});
@@ -25,7 +24,8 @@ class WeeklyGoalsList extends StatelessWidget {
             itemCount: state.data.selectedGoals.length,
             itemBuilder: (BuildContext context, int index) =>
                 WeeklyGoalListItem(item: state.data.selectedGoals[index]),
-            separatorBuilder: (_, __) => const WeeklyGoalsListDivider(),
+            separatorBuilder: (_, __) =>
+                const Divider(height: 32, thickness: 1, color: AppColors.blueDarkest),
           );
         },
       ),
