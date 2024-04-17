@@ -23,10 +23,7 @@ class WeeklyGoalInfo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: CustomText.bitter600(weeklyGoal.title, style: context.textTheme.displayMedium),
-          ),
+          CustomText.bitter600(weeklyGoal.title, style: context.textTheme.displayMedium),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 25.0),
             child: Row(

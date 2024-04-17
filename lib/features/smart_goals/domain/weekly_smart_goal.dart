@@ -23,9 +23,9 @@ class WeeklySmartGoal with _$WeeklySmartGoal {
 
   String get categoryName => smartGoal.category.name;
 
-  int get requiredCompletions => smartGoal.requiredCompletions;
+  int get requiredCompletions => smartGoal.requiredCompletionDays;
 
-  int get requiredDays => smartGoal.requiredDays;
+  int get requiredDays => smartGoal.lengthInDays;
 
   int get completionsAmount {
     int times = 0;

@@ -61,7 +61,7 @@ class GoalsListItem extends StatelessWidget {
                       const SizedBox(height: 10.0),
                       CustomText.w400(
                         LocalizedTexts.completeCounter.tr(
-                          args: [item.requiredCompletions.toString(), item.requiredDays.toString()],
+                          args: [item.requiredCompletionDays.toString(), item.lengthInDays.toString()],
                         ),
                         style: context.textTheme.bodyMedium,
                       ),

@@ -43,7 +43,7 @@ class WeeklyGoalListItem extends StatelessWidget {
           ),
           CustomText.w400(
             LocalizedTexts.completeCounter.tr(
-              args: [item.requiredCompletions.toString(), item.requiredDays.toString()],
+              args: [item.requiredCompletionDays.toString(), item.lengthInDays.toString()],
             ),
             style: context.textTheme.bodyMedium,
           ),

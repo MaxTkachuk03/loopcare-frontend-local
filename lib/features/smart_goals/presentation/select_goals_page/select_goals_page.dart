@@ -37,7 +37,8 @@ class _SelectGoalsPageState extends State<SelectGoalsPage> {
     ..router.popUntilRouteWithName(SetWeeklyGoalsRoute.name);
 
   void _onGoalSelectHandler(SmartGoal goal, bool isSelected) {
-    if (!isSelected && _selectedGoals.length >= 2) return;
+    final otherCategoriesGoalsLength = context.read<SmartGoalsBloc>().state.data.selectedGoals.length;
+    if (!isSelected && _selectedGoals.length + otherCategoriesGoalsLength >= 2) return;
 
     isSelected ? _selectedGoals.remove(goal) : _selectedGoals.add(goal);
 

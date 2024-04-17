@@ -131,7 +131,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     AddGoals event,
     Emitter<SmartGoalsState> emit,
   ) async {
-    emit(SmartGoalsState.goalsLoaded(state.data.copyWith(selectedGoals: event.goals)));
+    emit(
+        SmartGoalsState.goalsLoaded(state.data.copyWith(selectedGoals: [...state.data.selectedGoals, ...event.goals])));
   }
 
   FutureOr<void> _onResetSelected(
