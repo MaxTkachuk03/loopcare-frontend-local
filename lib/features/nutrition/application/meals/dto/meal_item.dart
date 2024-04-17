@@ -28,6 +28,8 @@ class MealItem with _$MealItem {
 
   double get servingWeight => serving.metricServingAmount ?? 0.0;
 
+  double get servingProtein => serving.protein;
+
   bool get hasWeight => serving.metricServingAmount != 0 && serving.metricServingAmount != null;
 
   factory MealItem.fromJson(Map<String, dynamic> json) => _$MealItemFromJson(json);
