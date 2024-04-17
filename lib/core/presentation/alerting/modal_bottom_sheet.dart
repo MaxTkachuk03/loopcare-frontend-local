@@ -1354,14 +1354,14 @@ class ModalBottomSheet {
     required BuildContext context,
     required Widget content,
   }) {
-    showModalBottomSheet<void>(
+    showModalBottomSheet(
       context: context,
       showDragHandle: true,
+      isScrollControlled: true,
+      useSafeArea: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
-        return MainContainer(
-          child: content,
-        );
+        return SingleChildScrollView(child: MainContainer(child: content));
       },
     );
   }

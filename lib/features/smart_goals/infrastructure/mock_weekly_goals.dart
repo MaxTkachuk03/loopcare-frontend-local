@@ -6,8 +6,9 @@ var weeklyGoals = {
   // "isActive": false,
 
   // active session
-  "startedAt": "2024-04-04",
-  "finishedAt": "2024-04-12",
+  "startedAt": "2024-04-10",
+  "finishedAt": "2024-04-19",
+  "lastReviewDate": "2024-04-23",
   "isActive": true,
 
   // inactive session delay
@@ -24,8 +25,8 @@ var weeklyGoals = {
         "title": "Sleep in a room that is between 66-72°.",
         "funFact":
             "Sleeping in a cooler room is important to maintain good sleep. This is likely because your internal clock drops your core body temperature as you sleep. This means a cool room is helpful to keep you comfortable in your sleep, which improves your sleep quality.",
-        "requiredCompletions": 7,
-        "requiredDays": 7
+        "requiredCompletionDays": 7,
+        "lengthInDays": 7
       },
       "difficulty": 2,
       "isTryAgain": true,
@@ -42,8 +43,8 @@ var weeklyGoals = {
         "title": "Sleep in a room that is between 66-72°.",
         "funFact":
             "Sleeping in a cooler room is important to maintain good sleep. This is likely because your internal clock drops your core body temperature as you sleep. This means a cool room is helpful to keep you comfortable in your sleep, which improves your sleep quality.",
-        "requiredCompletions": 7,
-        "requiredDays": 7
+        "requiredCompletionDays": 5,
+        "lengthInDays": 7
       },
       "difficulty": 2,
       "isTryAgain": true,

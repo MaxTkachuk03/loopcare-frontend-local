@@ -1,3 +1,4 @@
+import 'package:autoscale_tabbarview/autoscale_tabbarview.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/tab_bar/custom_tab_bar.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/goal_progress_controller.dart';
@@ -53,9 +54,8 @@ class _WeeklyGoalModalState extends State<WeeklyGoalModal> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Wrap(
+      alignment: WrapAlignment.spaceBetween,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 25.0),
@@ -64,15 +64,16 @@ class _WeeklyGoalModalState extends State<WeeklyGoalModal> with SingleTickerProv
             tabController: _tabController,
           ),
         ),
-        Flexible(
-          child: TabBarView(controller: _tabController, children: [
+        AutoScaleTabBarView(
+          controller: _tabController,
+          children: [
             WeeklyDaysProgress(
               weeklyGoal: widget.weeklyGoal,
               controller: controller,
               onDone: widget.onDone,
             ),
             WeeklyGoalInfo(weeklyGoal: widget.weeklyGoal),
-          ]),
+          ],
         ),
       ],
     );
