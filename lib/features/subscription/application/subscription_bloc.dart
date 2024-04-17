@@ -341,9 +341,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     response.fold((error) {
       emit(SubscriptionState.serviceSubscriptionUnavailable(state.data));
     }, (r) {
-      debugPrint('devcpp SERVER PRODUCTS RESPONSE: ${r.data.toString()}');
+      List<ServerProduct> serverList = [...r.data];
+      serverList.sort((a, b) => a.price!.toInt().compareTo(b.price!.toInt()));
       emit(
-        SubscriptionState.loading(state.data.copyWith(isLoading: false, serverPlans: r.data)),
+        SubscriptionState.loading(state.data.copyWith(isLoading: false, serverPlans: serverList)),
       );
       add(const SubscriptionEvent.getSubscriptionPlans());
     });
