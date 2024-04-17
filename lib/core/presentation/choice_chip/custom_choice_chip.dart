@@ -88,14 +88,15 @@ class CustomChoiceChip<T> extends StatelessWidget {
     required bool selected,
     required T value,
     required OnSelected<T>? onSelected,
+    Color? color = AppColors.yellowRegular,
   }) =>
       CustomChoiceChip<T>(
         label: label,
         selected: selected,
         onSelected: onSelected,
         value: value,
-        selectedColor: AppColors.orangeRegular,
-        borderColor: AppColors.orangeRegular,
+        selectedColor: color,
+        borderColor: color,
         avatar: avatar,
         showCheckmark: false,
         padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
@@ -202,7 +203,9 @@ class CustomChoiceChip<T> extends StatelessWidget {
         onSelected: onSelected == null ? null : (_) => onSelected?.call(value),
         selectedColor: selectedColor,
         disabledColor: AppColors.greyLight,
-        side: ChipTheme.of(context).side?.copyWith(color: onSelected == null ? AppColors.greyLight : borderColor),
+        side: ChipTheme.of(context)
+            .side
+            ?.copyWith(color: onSelected == null ? AppColors.greyLight : borderColor),
         color: MaterialStateProperty.resolveWith((states) {
           const Set<MaterialState> interactiveStates = <MaterialState>{
             MaterialState.pressed,

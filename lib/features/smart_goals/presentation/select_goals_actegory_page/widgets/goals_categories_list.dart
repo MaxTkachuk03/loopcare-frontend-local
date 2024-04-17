@@ -4,6 +4,7 @@ import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_ch
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_categories_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal_category.dart';
 
@@ -52,6 +53,7 @@ class _GoalsCategoriesListState extends State<GoalsCategoriesList> {
                           width: width,
                           child: CustomChoiceChip.emoji(
                             label: e.name,
+                            color: AppColors.greenRegular,
                             avatar: SizedBox(
                               height: 30,
                               width: 30,
