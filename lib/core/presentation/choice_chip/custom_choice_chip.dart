@@ -88,14 +88,15 @@ class CustomChoiceChip<T> extends StatelessWidget {
     required bool selected,
     required T value,
     required OnSelected<T>? onSelected,
+    Color? color = AppColors.yellowRegular,
   }) =>
       CustomChoiceChip<T>(
         label: label,
         selected: selected,
         onSelected: onSelected,
         value: value,
-        selectedColor: AppColors.orangeRegular,
-        borderColor: AppColors.orangeRegular,
+        selectedColor: color,
+        borderColor: color,
         avatar: avatar,
         showCheckmark: false,
         padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
