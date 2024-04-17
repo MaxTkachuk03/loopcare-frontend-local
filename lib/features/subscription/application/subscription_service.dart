@@ -15,48 +15,42 @@ class AppSubscriptionService {
 
   Future<List<ProductDetails>> getSubscriptionPlans(Set<String> main) async {
     final bool isAvailable = await _inAppPurchase.isAvailable();
-
-    debugPrint('devcpp Get isAvailable: $isAvailable');
     if (!isAvailable) {
       return [];
     }
     final ProductDetailsResponse productDetailResponse = await _inAppPurchase.queryProductDetails(main);
-    debugPrint('devcpp  productDetails response: ${productDetailResponse.toString()}');
-    debugPrint('devcpp  productDetails notFoundIDs: ${productDetailResponse.notFoundIDs}');
-    debugPrint('devcpp  productDetails ERRROR: ${productDetailResponse.error}');
 
     if (productDetailResponse.error != null || productDetailResponse.productDetails.isEmpty) {
-      debugPrint('devcpp  productDetails: ${productDetailResponse.productDetails}');
       return [];
     }
-    for (final detail in productDetailResponse.productDetails) {
-      debugPrint('devcpp  id: ${detail.id}');
-      debugPrint('devcpp  title: ${detail.title}');
-      debugPrint('devcpp  description: ${detail.description}');
-      debugPrint('devcpp  price: ${detail.price}');
-      debugPrint('devcpp  rawPrice: ${detail.rawPrice}');
-      debugPrint('devcpp  currencySymbol: ${detail.currencySymbol}');
-      debugPrint('devcpp  currencyCode: ${detail.currencyCode}');
-    }
-
     return productDetailResponse.productDetails;
   }
 
   Future<bool> buyItemInStore(ProductDetails product) async {
     if (Platform.isIOS) {
-      final paymentWrapper = SKPaymentQueueWrapper();
-      final transactions = await paymentWrapper.transactions();
-      await Future.wait(transactions.map((transaction) => paymentWrapper.finishTransaction(transaction)));
+      await _finishTransactionIOS();
     }
     final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
-    debugPrint('devcpp start buyItemInStore ');
     final isBought = await instance.buyNonConsumable(purchaseParam: purchaseParam);
-    debugPrint('devcpp start isBought: $isBought ');
     return isBought;
   }
 
-  Future<void> completePurchase(PurchaseDetails purchaseDetails) async {
-    await instance.completePurchase(purchaseDetails);
+  Future<void> _finishTransactionIOS() async {
+    final paymentWrapper = SKPaymentQueueWrapper();
+    final transactions = await paymentWrapper.transactions();
+    await Future.wait(transactions.map((transaction) => paymentWrapper.finishTransaction(transaction)));
+  }
+
+  Future<void> completePurchase(PurchaseDetails? purchaseDetails) async {
+    if (purchaseDetails != null && purchaseDetails.pendingCompletePurchase) {
+      try {
+        await instance.completePurchase(purchaseDetails);
+      } catch (e) {
+        debugPrint('devcpp completePurchase: ${e.toString()} ');
+        return;
+      }
+    }
+    return;
   }
 
   Future<void> restorePurchase() async => await instance.restorePurchases();
