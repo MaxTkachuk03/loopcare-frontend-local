@@ -153,9 +153,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     );
   }
 
-
-  bool isVendorPlatform(String? vendor) => Platform.isIOS && vendor == 'ios' ||
-        Platform.isAndroid && vendor == 'android';
+  bool isVendorPlatform(String? vendor) =>
+      Platform.isIOS && vendor == 'ios' || Platform.isAndroid && vendor == 'android';
 
   void _showPopover() => showDialog<String>(
         context: context,
@@ -197,7 +196,10 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
       cur is LogoutState;
 
   _errorListener(BuildContext context, SubscriptionState state) {
-    final errorMessage = state.data.error?.error ?? LocalizedTexts.somethingWentWrong.tr();
+    var errorMessage = state.data.error?.error ?? LocalizedTexts.somethingWentWrong.tr();
+    if (errorMessage is! String) {
+      errorMessage = LocalizedTexts.somethingWentWrong.tr();
+    }
     controller.resetState();
     context.showErrorBar(
       content: Text(errorMessage),
