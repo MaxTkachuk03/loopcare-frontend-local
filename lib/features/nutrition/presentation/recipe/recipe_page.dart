@@ -206,8 +206,8 @@ class _RecipePageState extends State<RecipePage> {
                                   list: recipeState.data.recipe.ingredients,
                                   isMealRecipe: widget.isMealRecipe ?? false),
                               NutritionBlock(
-                                proteinDegree: recipeState.data.recipe.proteinDegree,
-                                calorieDensity: recipeState.data.recipe.calorieDensity,
+                                proteinDegree: recipeState.data.recipe.proteinDegreeVal,
+                                calorieDensity: recipeState.data.recipe.calorieDensityVal,
                               ),
                               const SizedBox(height: 15.0),
                               MainContainer(
