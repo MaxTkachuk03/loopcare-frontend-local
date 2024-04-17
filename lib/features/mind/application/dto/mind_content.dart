@@ -9,14 +9,16 @@ part 'mind_content.g.dart';
 class MindContent {
   final int duration;
   final String src;
-  final String? title;
+  final String? preview;
+  final String? question;
   final TechniqueExplanationType type;
 
 
   const MindContent({
     required this.duration,
     required this.src,
-    required this.title,
+    required this.preview,
+    required this.question,
     required this.type,
   });
 

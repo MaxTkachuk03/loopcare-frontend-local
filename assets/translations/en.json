@@ -498,6 +498,8 @@
   "unlocksOn": "Unlocks on {}",
   "intro": "Intro",
   "exercises": "Exercises",
+  "countMins": "{} mins",
+  "chooseAnExercise": "Choose an exercise",
   "selectMoodText": "How do you feel?",
   "selectMoodSubtext": "You can choose what information to fill.",
   "time": "Time",

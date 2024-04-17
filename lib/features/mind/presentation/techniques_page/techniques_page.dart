@@ -52,12 +52,13 @@ class _TechniquesPageState extends State<TechniquesPage> {
 
             return MindViewContent(
               isLoading: state.data.isLoading && state.data.techniques.isEmpty,
-              title: state.data.program?.title ?? '',
-              subtitle: state.data.program?.subtitle ?? '',
+              title: state.data.mindInfo?.title ?? '',
+              subtitle: state.data.mindInfo?.subtitle ?? '',
               textColor: AppColors.white,
-              description: state.data.program?.shortIntroduction ?? '',
-              onLearnMorePressed: () {
-                // state.data.program?.explanation.src;
+              description: state.data.mindInfo?.shortIntroduction ?? '',
+              isVideoExplanation: state.data.mindInfo?.explanation.type.isVideo ?? false,
+              onExplanationPressed: () {
+                // state.data.mindInfo?.explanation.src;
               },
               itemCount: state.data.techniques.length,
               itemBuilder: (context, index) {

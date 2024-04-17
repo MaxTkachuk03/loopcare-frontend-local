@@ -8,19 +8,10 @@ part 'mind_techniques_response.g.dart';
 @immutable
 @JsonSerializable()
 class MindTechniquesResponse {
-  final String title;
-  final String subtitle;
-  final String shortIntroduction;
-  final MindContent explanation;
-  final List<MindTechnique> techniques;
 
-  const MindTechniquesResponse({
-    required this.title,
-    required this.subtitle,
-    required this.shortIntroduction,
-    required this.explanation,
-    required this.techniques,
-  });
+  final List<MindTechnique> data;
+
+  const MindTechniquesResponse(this.data);
 
   static MindTechniquesResponse fromJson(Map<String, dynamic> json) =>
       _$MindTechniquesResponseFromJson(json);

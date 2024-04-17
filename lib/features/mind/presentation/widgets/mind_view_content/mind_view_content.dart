@@ -15,17 +15,18 @@ class MindViewContent extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.textColor,
+    required this.isVideoExplanation,
     required this.itemCount,
     required this.itemBuilder,
     this.isLoading = false,
     this.description,
     this.listTitle,
-    this.onLearnMorePressed,
+    this.onExplanationPressed,
     this.videoPreview,
-    this.onVideoPressed,
   });
 
   final bool isLoading;
+  final bool isVideoExplanation;
   final String title;
   final String subtitle;
   final String? description;
@@ -33,9 +34,8 @@ class MindViewContent extends StatelessWidget {
   final Color textColor;
   final int itemCount;
   final Widget Function(BuildContext context, int index) itemBuilder;
-  final void Function()? onLearnMorePressed;
+  final void Function()? onExplanationPressed;
   final String? videoPreview;
-  final void Function()? onVideoPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -78,38 +78,14 @@ class MindViewContent extends StatelessWidget {
             ),
           ),
           // Explanation button -->
-          if (videoPreview != null)
+          if (isVideoExplanation)
             SliverPadding(
               padding: const EdgeInsets.only(top: 20),
               sliver: SliverToBoxAdapter(
-                child: InkWell(
-                  onTap: onVideoPressed,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.horizontal(
-                      left: Radius.circular(10),
-                    ),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Positioned.fill(
-                          child: NetworkImageWithCache(url: videoPreview!),
-                        ),
-                        const DecoratedBox(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColors.yellowRegular,
-                          ),
-                          child: SizedBox.square(
-                            dimension: 54,
-                            child: Icon(
-                              Icons.play_arrow_rounded,
-                              size: 28,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                child: _VideoPreview(
+                  key: ValueKey('video_preview_$videoPreview'),
+                  onExplanationPressed: onExplanationPressed,
+                  videoPreview: videoPreview,
                 ),
               ),
             )
@@ -121,7 +97,7 @@ class MindViewContent extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: CustomElevatedButton.yellowSmall(
                     label: LocalizedTexts.learnMoreButton.tr(),
-                    onPressed: onLearnMorePressed,
+                    onPressed: onExplanationPressed,
                   ),
                 ),
               ),
@@ -148,6 +124,78 @@ class MindViewContent extends StatelessWidget {
           const SliverPadding(padding: EdgeInsets.only(top: 30)),
         ],
       ),
+    );
+  }
+}
+
+class _VideoPreview extends StatelessWidget {
+  const _VideoPreview({
+    super.key,
+    required this.onExplanationPressed,
+    required this.videoPreview,
+  });
+
+  final void Function()? onExplanationPressed;
+  final String? videoPreview;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
+        final height = 9 * constraints.maxWidth / 16;
+
+        return ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          child: SizedBox(
+            height: height,
+            width: width,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned.fill(
+                  child: ColorFiltered(
+                    colorFilter: const ColorFilter.mode(
+                      Colors.black45,
+                      BlendMode.darken,
+                    ),
+                    child: NetworkImageWithCache(
+                      url: videoPreview!,
+                      imageBoxFit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                const DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.yellowRegular,
+                  ),
+                  child: SizedBox.square(
+                    dimension: 54,
+                    child: Icon(
+                      Icons.play_arrow_rounded,
+                      size: 28,
+                    ),
+                  ),
+                ),
+                Positioned.fill(
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: onExplanationPressed,
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      child: SizedBox(
+                        height: height,
+                        width: width,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
     );
   }
 }

@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/mind/application/dto/mind_info_response.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique_exercise.dart';
-import 'package:loopcare_frontend/features/mind/application/dto/mind_techniques_response.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/technique_unlock_style.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_service.dart';
 
@@ -29,19 +29,31 @@ class MindBloc extends Bloc<MindEvent, MindState> {
   FutureOr<void> _onGetTechniques(GetTechniques event, Emitter<MindState> emit) async {
     emit(MindState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _mindService.getTechniques();
+    final responseInfo = await _mindService.getMindInfo();
 
-    response.fold(
-      (l) => emit(MindState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(
-          MindState.gotTechniques(
-            state.data.copyWith(
-              program: r,
-              isLoading: false,
-            ),
+    final responseTechniques = await _mindService.getTechniques();
+
+    if (responseTechniques.isLeft() || responseInfo.isLeft()) {
+      responseTechniques.fold(
+        (l) => emit(MindState.error(state.data.copyWith(error: l, isLoading: false))),
+        (r) => null,
+      );
+
+      responseInfo.fold(
+        (l) => emit(MindState.error(state.data.copyWith(error: l, isLoading: false))),
+        (r) => null,
+      );
+    } else {
+      emit(
+        MindState.gotTechniques(
+          state.data.copyWith(
+            mindInfo: responseInfo.foldRight(null, (r, _) => r),
+            techniques: responseTechniques.foldRight([], (r, _) => r.data),
+            isLoading: false,
           ),
         ),
-    );
+      );
+    }
   }
 
   FutureOr<void> _onGetExercises(GetExercises event, Emitter<MindState> emit) async {

@@ -489,6 +489,8 @@ class LocalizedTexts {
   static const String unlocksOn = "unlocksOn";
   static const String intro = "intro";
   static const String exercises = "exercises";
+  static const String countMins = "countMins";
+  static const String chooseAnExercise = "chooseAnExercise";
 
   // Mood
   static const String selectMoodText = "selectMoodText";
