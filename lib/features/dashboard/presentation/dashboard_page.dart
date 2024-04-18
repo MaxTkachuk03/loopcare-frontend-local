@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/features/assignments/presentation/dashboard_as
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/education.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/log_meal.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/mind/dashboard_mind_widget.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/person_mood/person_mood.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/physical_activities.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/slider_calendar/slider_calendar.dart';
@@ -71,9 +72,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
 
     if (!context.read<NutritionInstructionsBloc>().state.data.alreadyLoaded) {
-      context
-          .read<NutritionInstructionsBloc>()
-          .add(const NutritionInstructionsEvent.fetchValuesExplanation());
+      context.read<NutritionInstructionsBloc>().add(const NutritionInstructionsEvent.fetchValuesExplanation());
     }
 
     context
@@ -87,9 +86,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
           ),
         );
 
-    context
-        .read<DashboardEducationBloc>()
-        .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
+    context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
 
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons());
 
@@ -117,9 +114,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
         .read<DashboardWeightBloc>()
         .add(DashboardWeightEvent.fetchWeights(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime));
 
-    context
-        .read<DashboardEducationBloc>()
-        .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
+    context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons());
 
     if (context.read<AuthenticationBloc>().state.data.isFoodLoggingUnlocked) {
@@ -167,9 +162,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
         final isFreshUser = account?.createdAt != null && (account?.createdAt?.isToday ?? false);
 
         if (value.data.weights.isEmpty && isFreshUser) {
-          context
-              .read<DashboardWeightBloc>()
-              .add(DashboardWeightEvent.logWeight(DateTime.now(), account!.weight));
+          context.read<DashboardWeightBloc>().add(DashboardWeightEvent.logWeight(DateTime.now(), account!.weight));
         }
       },
     );
@@ -208,6 +201,22 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                           WeightBlock(date: _selectedDay),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
+                              if (state.data.account?.isMindUnlocked ?? false) {
+                                return const Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: 26.0),
+                                    DashboardMindWidget(),
+                                    SizedBox(height: 19.0),
+                                  ],
+                                );
+                              } else {
+                                return const SizedBox.shrink();
+                              }
+                            },
+                          ),
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                            builder: (BuildContext context, state) {
                               if (!state.data.isFoodLoggingUnlocked) {
                                 return const SizedBox.shrink();
                               }
@@ -217,9 +226,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                                   const SizedBox(height: 19.0),
                                   BlocBuilder<MealsBloc, MealsState>(
                                     builder: (BuildContext context, state) {
-                                      return state.isNeedToHideOnDashboard
-                                          ? const SizedBox.shrink()
-                                          : const LogMeal();
+                                      return state.isNeedToHideOnDashboard ? const SizedBox.shrink() : const LogMeal();
                                     },
                                   ),
                                   // const SizedBox(height: 10.0), //TODO: LOOPCARE-1798: Hide Meal planning block

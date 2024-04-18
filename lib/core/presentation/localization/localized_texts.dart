@@ -541,8 +541,7 @@ class LocalizedTexts {
   static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
   static const String askRestoreSubscription = "askRestoreSubscription";
   static const String duplicateSubscriptionFromSettings = "duplicateSubscriptionFromSettings";
-  static const String otherPurchaseVendorCancelAccountSubscription =
-      "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";
@@ -993,4 +992,8 @@ class LocalizedTexts {
   static const String buddyEmail = 'buddyEmail';
   static const String buddyUserName = 'buddyUserName';
   static const String buddySince = 'buddySince';
+
+  //Mind
+  static const String mindDashboardTitle = 'mindDashboardTitle';
+  static const String mindDashboardBtn = 'mindDashboardBtn';
 }
