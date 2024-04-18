@@ -68,8 +68,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
     response.fold(
       (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(
-          SmartGoalsState.gotWeeklySession(state.data.copyWith(weeklyGoalsSession: r, isLoading: false))),
+      (r) => emit(SmartGoalsState.gotWeeklySession(state.data.copyWith(weeklyGoalsSession: r, isLoading: false))),
     );
   }
 
@@ -95,8 +94,9 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
               CustomDefinitions.userId: account?.id,
               CustomDefinitions.title: e.title,
               CustomDefinitions.goalCategoryTitle: e.category.name,
-              if (r.finishedAt != null) CustomDefinitions.timestamp: r.finishedAt!.toIso8601String(),
-              if (r.lastReviewDate != null) CustomDefinitions.timePassed: r.finishedAt!.toIso8601String(),
+              //Todo need confirm with Diana, we used all possible dimension on Analytics
+              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+              if (r.finishedAt != null) CustomDefinitions.timePassed: r.finishedAt!.toIso8601String(),
             },
           );
 
@@ -112,8 +112,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
           );
         });
 
-        emit(
-            SmartGoalsState.weeklySessionSaved(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
+        emit(SmartGoalsState.weeklySessionSaved(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
       },
     );
   }
@@ -162,8 +161,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     AddGoals event,
     Emitter<SmartGoalsState> emit,
   ) async {
-    emit(SmartGoalsState.goalsLoaded(
-        state.data.copyWith(selectedGoals: [...state.data.selectedGoals, ...event.goals])));
+    emit(
+        SmartGoalsState.goalsLoaded(state.data.copyWith(selectedGoals: [...state.data.selectedGoals, ...event.goals])));
   }
 
   FutureOr<void> _onResetSelected(
@@ -194,8 +193,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
         FirebaseEvents.userLogGoal,
         parameters: {
           CustomDefinitions.userId: account?.id,
+          CustomDefinitions.value: log.times,
           CustomDefinitions.timestamp: log.date,
-          CustomDefinitions.value: log.times
         },
       );
       CustomerIoService.track(
@@ -215,8 +214,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
   ) async {
     final progressLogs = [...state.data.logs];
     final index = progressLogs.indexWhere((log) => log.date == event.goalProgress.date);
-    progressLogs[index] =
-        ProgressSmartGoalLog(date: event.goalProgress.date, times: event.goalProgress.times);
+    progressLogs[index] = ProgressSmartGoalLog(date: event.goalProgress.date, times: event.goalProgress.times);
     emit(SmartGoalsState.updatedLoggerTimes(state.data.copyWith(logs: progressLogs)));
   }
 
