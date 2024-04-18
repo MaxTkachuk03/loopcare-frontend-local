@@ -68,7 +68,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
     response.fold(
       (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(SmartGoalsState.gotWeeklySession(state.data.copyWith(weeklyGoalsSession: r, isLoading: false))),
+      (r) => emit(
+          SmartGoalsState.gotWeeklySession(state.data.copyWith(weeklyGoalsSession: r, isLoading: false))),
     );
   }
 
@@ -111,7 +112,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
           );
         });
 
-        emit(SmartGoalsState.weeklySessionSaved(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
+        emit(
+            SmartGoalsState.weeklySessionSaved(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
       },
     );
   }
@@ -136,7 +138,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
             CustomDefinitions.goalCategoryTitle: event.data.categoryTitle,
             CustomDefinitions.title: event.data.goalTitle,
             CustomDefinitions.score: event.data.difficulty,
-            CustomDefinitions.wantsToRepeat: event.data.isTryAgain,
+            CustomDefinitions.wantsToRepeat: event.data.isTryAgain.toString(),
           },
         );
 
@@ -160,8 +162,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     AddGoals event,
     Emitter<SmartGoalsState> emit,
   ) async {
-    emit(
-        SmartGoalsState.goalsLoaded(state.data.copyWith(selectedGoals: [...state.data.selectedGoals, ...event.goals])));
+    emit(SmartGoalsState.goalsLoaded(
+        state.data.copyWith(selectedGoals: [...state.data.selectedGoals, ...event.goals])));
   }
 
   FutureOr<void> _onResetSelected(
@@ -213,7 +215,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
   ) async {
     final progressLogs = [...state.data.logs];
     final index = progressLogs.indexWhere((log) => log.date == event.goalProgress.date);
-    progressLogs[index] = ProgressSmartGoalLog(date: event.goalProgress.date, times: event.goalProgress.times);
+    progressLogs[index] =
+        ProgressSmartGoalLog(date: event.goalProgress.date, times: event.goalProgress.times);
     emit(SmartGoalsState.updatedLoggerTimes(state.data.copyWith(logs: progressLogs)));
   }
 

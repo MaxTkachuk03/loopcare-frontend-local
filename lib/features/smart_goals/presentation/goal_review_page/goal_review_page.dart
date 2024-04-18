@@ -41,7 +41,9 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
   void initState() {
     super.initState();
 
-    _scoreValue.value = widget.goal.difficulty;
+    final difficulty = widget.goal.difficulty;
+
+    _scoreValue.value = difficulty == null ? difficulty : difficulty - 1;
 
     final isTryAgaininitialValue = widget.goal.isTryAgain;
 
@@ -52,14 +54,14 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
     }
   }
 
-  void _onScorePressedHadnler(int? val) => _scoreValue.value = val;
+  void _onScorePressedHandler(int? val) => _scoreValue.value = val;
 
   void _onWantToTryChangeHandler(LikeUnlikeOptions val) => _wantToTryValue.value = val;
 
   void _onPressedHandler() {
     final data = GoalReviewBody(
       id: widget.goal.id,
-      difficulty: _scoreValue.value ?? 0,
+      difficulty: (_scoreValue.value ?? 0) + 1,
       isTryAgain: _wantToTryValue.value?.toBool ?? false,
       categoryTitle: widget.goal.categoryName,
       goalTitle: widget.goal.title,
@@ -148,7 +150,7 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
                           scaleSize: 10,
                           borderColor: AppColors.blueDarker,
                           divColor: AppColors.blueLighter,
-                          onScoreTap: _onScorePressedHadnler,
+                          onScoreTap: _onScorePressedHandler,
                         ),
                       ),
                       Row(
