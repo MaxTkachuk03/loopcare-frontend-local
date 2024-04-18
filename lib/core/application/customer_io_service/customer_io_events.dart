@@ -47,7 +47,8 @@ class CIOEvents {
   static const String onboardingFinalResultExclusion = 'onboarding_final_result_exclusion';
   static const String onboardingLegalStatement = 'onboarding_legal_statement';
   static const String onboardingRegisterIntro = 'onboarding_register_intro';
-  static const String onboardingTermsAndConditionsPrivacyPolicyAccept = 'onboarding_terms_and_conditions_privacy_policy_accepted';
+  static const String onboardingTermsAndConditionsPrivacyPolicyAccept =
+      'onboarding_terms_and_conditions_privacy_policy_accepted';
   static const String onboardingPasswordCreated = 'onboarding_password_created';
   static const String onboardingNewUser = 'onboarding_new_user';
   static const String onboardingNewUserCreated = 'onboarding_new_user_created';
@@ -74,4 +75,9 @@ class CIOEvents {
 
   // Profile
   static const String profilePage = 'account_settings_page';
+
+  // Smart goals
+  static String get userSavedGoals => 'user_saved_goals';
+  static String get userAddedReview => 'user_added_review';
+  static String get userLogGoal => 'user_log_goal';
 }

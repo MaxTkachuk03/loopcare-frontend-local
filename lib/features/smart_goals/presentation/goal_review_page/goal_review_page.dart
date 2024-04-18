@@ -61,6 +61,8 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
       id: widget.goal.id,
       difficulty: _scoreValue.value ?? 0,
       isTryAgain: _wantToTryValue.value?.toBool ?? false,
+      categoryTitle: widget.goal.categoryName,
+      goalTitle: widget.goal.title,
     );
 
     context.read<SmartGoalsBloc>().add(SmartGoalsEvent.addReview(data));
@@ -107,8 +109,7 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
   bool _listenWhen(prev, cur) {
     final isCurrentRoute = ModalRoute.of(context)?.isCurrent ?? false;
 
-    return isCurrentRoute &&
-        (cur is GotSmartGoalsStateErrorAddingReview || cur is GotSmartGoalsStateReviewAdded);
+    return isCurrentRoute && (cur is GotSmartGoalsStateErrorAddingReview || cur is GotSmartGoalsStateReviewAdded);
   }
 
   @override

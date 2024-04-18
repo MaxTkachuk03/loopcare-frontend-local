@@ -93,5 +93,4 @@ class FirebaseEvents {
   static String get userSavedGoals => 'user_saved_goals';
   static String get userAddedReview => 'user_added_review';
   static String get userLogGoal => 'user_log_goal';
-  static String get goalEndLife => 'goal_end_life';
 }

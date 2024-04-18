@@ -50,7 +50,7 @@ class CustomDefinitions {
   static String get isMeal => 'isMeal';
 
   // Smart goals
-  static String get goalId => 'goalId';
+  static String get goalCategoryTitle => 'goalCategoryTitle';
   static String get score => 'score';
   static String get wantsToRepeat => 'wantsToRepeat';
 }

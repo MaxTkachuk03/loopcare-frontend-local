@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -86,13 +87,29 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
         emit(SmartGoalsState.errorSaveGoals(state.data.copyWith(error: l, isLoading: false)));
       },
       (r) {
-        AnalyticsEventService.instance.logEvent(
-          FirebaseEvents.userSavedGoals,
-          parameters: {
-            CustomDefinitions.userId: account?.id,
-            CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
-          },
-        );
+        state.data.selectedGoals.map((e) {
+          AnalyticsEventService.instance.logEvent(
+            FirebaseEvents.userSavedGoals,
+            parameters: {
+              CustomDefinitions.userId: account?.id,
+              CustomDefinitions.title: e.title,
+              CustomDefinitions.goalCategoryTitle: e.category.name,
+              if (r.finishedAt != null) CustomDefinitions.timestamp: r.finishedAt!.toIso8601String(),
+              if (r.lastReviewDate != null) CustomDefinitions.timePassed: r.finishedAt!.toIso8601String(),
+            },
+          );
+
+          CustomerIoService.track(
+            event: CIOEvents.userSavedGoals,
+            attributes: {
+              CIOAttributes.userId: account?.id,
+              CIOAttributes.goalTitle: e.title,
+              CIOAttributes.goalCategoryTitle: e.category.name,
+              if (r.finishedAt != null) CIOAttributes.finishDate: r.finishedAt!.toIso8601String(),
+              if (r.lastReviewDate != null) CIOAttributes.reviewLastDate: r.finishedAt!.toIso8601String(),
+            },
+          );
+        });
 
         emit(SmartGoalsState.weeklySessionSaved(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
       },
@@ -116,9 +133,21 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
           FirebaseEvents.userAddedReview,
           parameters: {
             CustomDefinitions.userId: account?.id,
-            CustomDefinitions.goalId: event.data.id,
+            CustomDefinitions.goalCategoryTitle: event.data.categoryTitle,
+            CustomDefinitions.title: event.data.goalTitle,
             CustomDefinitions.score: event.data.difficulty,
             CustomDefinitions.wantsToRepeat: event.data.isTryAgain,
+          },
+        );
+
+        CustomerIoService.track(
+          event: CIOEvents.userAddedReview,
+          attributes: {
+            CIOAttributes.userId: account?.id,
+            CIOAttributes.goalCategoryTitle: event.data.categoryTitle,
+            CIOAttributes.goalTitle: event.data.goalTitle,
+            CIOAttributes.score: event.data.difficulty,
+            CIOAttributes.wantsToRepeat: event.data.isTryAgain,
           },
         );
 
@@ -158,14 +187,21 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
   }
 
   void _logGoalAnalyticEvent() {
-    final userId = getIt<SharedStorageService>().account!.id;
     for (var log in state.data.logs) {
       AnalyticsEventService.instance.logEvent(
         FirebaseEvents.userLogGoal,
         parameters: {
-          CustomDefinitions.userId: userId,
+          CustomDefinitions.userId: account?.id,
           CustomDefinitions.timestamp: log.date,
           CustomDefinitions.value: log.times
+        },
+      );
+      CustomerIoService.track(
+        event: CIOEvents.userLogGoal,
+        attributes: {
+          CIOAttributes.userId: account?.id,
+          CIOAttributes.logValue: log.times,
+          CIOAttributes.dateLog: log.date,
         },
       );
     }
