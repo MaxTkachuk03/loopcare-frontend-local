@@ -1,7 +1,7 @@
 enum TechniqueExplanationType {
+  // rating,
   text,
-  video,
-  rating;
+  video;
 
   const TechniqueExplanationType();
 

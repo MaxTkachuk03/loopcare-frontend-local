@@ -1,17 +1,21 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique_exercise.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/technique_exercise_difficulty.dart';
+import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
+import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_difficulty_badge/mind_difficulty_badge.dart';
 
 class ExerciseListTile extends StatelessWidget {
   const ExerciseListTile({
@@ -20,12 +24,6 @@ class ExerciseListTile extends StatelessWidget {
   });
 
   final MindTechniqueExercise exercise;
-
-  Widget get _difficultyBadge => switch(exercise.difficulty) {
-    TechniqueExerciseDifficulty.easy => CategoryLabel.difficultyEasy(),
-    TechniqueExerciseDifficulty.medium => CategoryLabel.difficultyMedium(),
-    TechniqueExerciseDifficulty.hard => CategoryLabel.difficultyHard(),
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -80,13 +78,13 @@ class ExerciseListTile extends StatelessWidget {
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    _difficultyBadge,
+                    MindDifficultyBadge(exercise.difficulty),
                     const SizedBox(width: 16),
-                    const Icon(Icons.watch_later_outlined),
+                    const Icon(Icons.watch_later_outlined, size: 20),
                     const SizedBox(width: 6),
                     CustomText.w600(
                       LocalizedTexts.countMins.tr(
-                        args: [Duration(seconds: exercise.steps.map((s) => s.duration).sum).inMinutes.toString()],
+                        args: [Duration(seconds: exercise.stepsDuration).inMinutes.toString()],
                       ),
                       style: context.textTheme.bodySmall,
                     ),
@@ -108,7 +106,8 @@ class ExerciseListTile extends StatelessWidget {
                     CustomElevatedButton.yellowSmall(
                       label: LocalizedTexts.start.tr(),
                       onPressed: () {
-                        // exercise page
+                        context.read<MindBloc>().add(MindEvent.selectExercise(exercise: exercise));
+                        context.router.pushNamed(AppRoutes.mindExercise);
                         // exercise.exercise
                       },
                     ),

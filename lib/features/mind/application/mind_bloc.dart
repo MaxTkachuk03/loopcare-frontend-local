@@ -21,7 +21,7 @@ class MindBloc extends Bloc<MindEvent, MindState> {
   MindBloc(this._mindService) : super(const MindState.initial(MindStateData())) {
     on<GetTechniques>(_onGetTechniques);
     on<GetExercises>(_onGetExercises);
-    on<CompleteExercise>(_onCompleteExercise);
+    on<CompleteCurrentExercise>(_onCompleteCurrentExercise);
     on<UnlockNextExercise>(_onUnlockNextExercise);
     on<SelectExercise>(_onSelectExercise);
   }
@@ -81,8 +81,20 @@ class MindBloc extends Bloc<MindEvent, MindState> {
     );
   }
 
-  FutureOr<void> _onCompleteExercise(CompleteExercise event, Emitter<MindState> emit) async {
-    final response = await _mindService.completeExercise(event.techniqueId, event.exerciseId);
+  FutureOr<void> _onCompleteCurrentExercise(
+    CompleteCurrentExercise event,
+    Emitter<MindState> emit,
+  ) async {
+    print('devrt _onCompleteCurrentExercise');
+    final techniqueId = state.data.currentTechnique?.id;
+    final exerciseId = state.data.currentExercise?.id;
+
+    if (techniqueId == null || exerciseId == null ||
+        state.data.currentExercise?.completedAt != null) {
+      return;
+    }
+
+    final response = await _mindService.completeExercise(techniqueId, exerciseId);
 
     response.fold(
       (l) => emit(MindState.error(state.data.copyWith(error: l, isLoading: false))),

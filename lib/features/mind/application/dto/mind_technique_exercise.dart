@@ -25,5 +25,5 @@ class MindTechniqueExercise with _$MindTechniqueExercise {
   factory MindTechniqueExercise.fromJson(Map<String, dynamic> json) =>
       _$MindTechniqueExerciseFromJson(json);
 
-  // int get stepsDuration => steps.map((s) => s.duration).sum;
+  int get stepsDuration => steps.map((s) => s.duration).sum;
 }

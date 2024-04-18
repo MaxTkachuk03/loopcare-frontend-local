@@ -139,6 +139,7 @@ class AppRoutes {
   // Mind
   static const String mindTechniques = '/mind-techniques';
   static const String techniqueExercises = '/exercises';
+  static const String mindExercise = '/mind-exercise';
 
   // Mood
   static const String createMood = '/create-mood';

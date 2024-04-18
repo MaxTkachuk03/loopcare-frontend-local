@@ -9,9 +9,9 @@ import 'package:loopcare_frontend/features/mind/application/dto/mind_techniques_
 import 'package:loopcare_frontend/features/mind/application/mind_service.dart';
 
 // TODO import mock data
-// import 'techniques_mock.dart';
-// import 'mind_info_mock.dart';
-// import 'exercises_mock.dart';
+import 'techniques_mock.dart';
+import 'mind_info_mock.dart';
+import 'exercises_mock.dart';
 
 @Injectable(as: MindService)
 class APIMindService implements MindService {
@@ -22,29 +22,29 @@ class APIMindService implements MindService {
   @override
   Future<Either<RequestError, MindInfoResponse>> getMindInfo() async {
     // TODO use to mock info server response
-    // return right(MindInfoResponse.fromJson(program));
+    return right(MindInfoResponse.fromJson(program));
 
-    return client.get('/mind/info').then(parseResponse(MindInfoResponse.fromJson));
+    // return client.get('/mind/info').then(parseResponse(MindInfoResponse.fromJson));
   }
 
   @override
   Future<Either<RequestError, MindTechniquesResponse>> getTechniques() async {
     // TODO use to mock techniques server response
-    // return right(MindTechniquesResponse.fromJson({'data': techniques}));
+    return right(MindTechniquesResponse.fromJson({'data': techniques}));
 
-    return client.get('/mind/techniques').then(parseResponse(MindTechniquesResponse.fromJson));
+    // return client.get('/mind/techniques').then(parseResponse(MindTechniquesResponse.fromJson));
   }
 
   @override
   Future<Either<RequestError, MindTechniqueExercisesResponse>> getTechniquesExercises(int techniqueId) async {
     // TODO use to mock exercises server response
-    // return right(MindTechniqueExercisesResponse.fromJson({'data': exercises}));
+    return right(MindTechniqueExercisesResponse.fromJson({'data': exercises}));
 
-    return client.put('/mind/techniques/$techniqueId/exercises').then(parseResponse(MindTechniqueExercisesResponse.fromJson));
+    // return client.put('/mind/techniques/$techniqueId/exercises').then(parseResponse(MindTechniqueExercisesResponse.fromJson));
   }
 
   @override
   Future<Either<RequestError, dynamic>> completeExercise(int techniqueId, int exerciseId) async {
-    return client.delete('/mind/techniques/$techniqueId/exercises/$exerciseId/complete');
+    return client.put('/mind/techniques/$techniqueId/exercises/$exerciseId/complete');
   }
 }

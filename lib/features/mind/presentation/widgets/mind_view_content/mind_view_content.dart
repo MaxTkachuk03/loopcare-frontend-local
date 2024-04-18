@@ -174,6 +174,7 @@ class _VideoPreview extends StatelessWidget {
                     dimension: 54,
                     child: Icon(
                       Icons.play_arrow_rounded,
+                      color: AppColors.white,
                       size: 28,
                     ),
                   ),
