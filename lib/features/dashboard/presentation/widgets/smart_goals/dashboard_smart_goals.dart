@@ -80,10 +80,6 @@ class DashboardSmartGoals extends StatelessWidget {
       return LocalizedTexts.weeklyDaysLeft.tr(
         args: [state.data.daysLeft.toString()],
       );
-    } else if (state.data.hasFinishedSession) {
-      return LocalizedTexts.weeklyCompletionDays.tr(
-        args: [state.data.daysUpper.toString()],
-      );
     }
     return '';
   }

@@ -94,8 +94,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
               CustomDefinitions.userId: account?.id,
               CustomDefinitions.title: e.title,
               CustomDefinitions.goalCategoryTitle: e.category.name,
-              //Todo need confirm with Diana, we used all possible dimension on Analytics
-              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+              //Discussed with Souni and Paul  limit custom dimensions
+              CustomDefinitions.timestamp: r.startedAt!.toIso8601String(),
               if (r.finishedAt != null) CustomDefinitions.timePassed: r.finishedAt!.toIso8601String(),
             },
           );

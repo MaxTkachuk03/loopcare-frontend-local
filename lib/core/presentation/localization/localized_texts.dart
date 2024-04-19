@@ -1007,7 +1007,6 @@ class LocalizedTexts {
   static const String wantToTryInFuture = 'wantToTryInFuture';
   static const String goalReview = 'goalReview';
   static const String weeklyQuickReview = 'weeklyQuickReview';
-  static const String weeklyCompletionDays = 'weeklyCompletionDays';
   static const String weeklyDaysLeft = 'weeklyDaysLeft';
   static const String weeklyCompleteTitle = 'weeklyCompleteTitle';
   static const String weeklyDate = 'weeklyDate';
