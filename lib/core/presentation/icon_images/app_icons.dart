@@ -56,6 +56,7 @@ class AppIcons {
   static const AssetImage exclamationPoint = AssetImage('$iconsFilePath/exclamation_point.png');
   static const AssetImage cook = AssetImage('$iconsFilePath/icon_cook.png');
   static const AssetImage pan = AssetImage('$iconsFilePath/icon_pan.png');
+
   // -->
 
   static SvgPicture moodEmotionHappy = SvgPicture.asset('$iconsFilePath/mood_emotion_happy.svg');
@@ -155,6 +156,7 @@ class AppIcons {
       SvgPicture.asset('$iconsFilePath/custom_education_dashboard.svg', width: 44, height: 44);
   static SvgPicture customDashboardMood =
       SvgPicture.asset('$iconsFilePath/custom_dashboard_mood.svg', width: 44, height: 44);
+  static SvgPicture customDashboardMind = SvgPicture.asset('$iconsFilePath/mind.svg', width: 44, height: 44);
 
   static SvgPicture customRedPhone = SvgPicture.asset('$iconsFilePath/custom_red_phone.svg');
   static SvgPicture microphoneOn = SvgPicture.asset('$iconsFilePath/icon_microphone_on.svg');
@@ -191,5 +193,6 @@ class AppIcons {
   static SvgPicture customInfo = SvgPicture.asset('$iconsFilePath/custom_icon_info.svg', width: 44, height: 44);
 
   static SvgPicture locked = SvgPicture.asset('$iconsFilePath/lock.svg');
+
   AppIcons._();
 }
