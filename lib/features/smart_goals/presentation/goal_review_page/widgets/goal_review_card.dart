@@ -22,7 +22,7 @@ class GoalReviewCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CategoryLabel(label: item.categoryName, color: AppColors.greenRegular),
+          CategoryLabel.smartGoals(label: item.categoryName),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: CustomText.w600(item.title, style: context.textTheme.bodyLarge),
