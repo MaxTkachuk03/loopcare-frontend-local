@@ -77,6 +77,7 @@ dependencies:
     path: ./local_plugins/zoom_video_sdk_update
   bubble: ^1.2.1
   moment_dart: ^1.1.0
+  appsflyer_sdk: ^6.13.2
 
 dev_dependencies:
   analyzer: ^5.13.0

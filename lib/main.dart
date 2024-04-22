@@ -9,6 +9,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/app.dart';
+import 'package:loopcare_frontend/core/application/apps_flyer/apps_flyer_service.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/application/permissions_service.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
@@ -53,6 +54,7 @@ Future<void> main() async {
   SystemService.allowOnlyPortraitOrientation();
 
   await CustomerIoService.initialize();
+  await AppsFlyerService.init();
   await MixpanelManager().init();
 
   HydratedBloc.storage = await HydratedStorage.build(
