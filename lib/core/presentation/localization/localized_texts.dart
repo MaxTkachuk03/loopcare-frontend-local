@@ -329,6 +329,7 @@ class LocalizedTexts {
   // Video
   static const String rotateDevice = 'rotateDevice';
   static const String skipExplanation = 'skipExplanation';
+  static const String skipIntro = 'skipIntro';
   static const String repeat = 'repeat';
   static const String exerciseCompleteMessage = 'exerciseCompleteMessage';
   static const String breakBetweenExercises = 'breakBetweenExercises';
@@ -491,6 +492,11 @@ class LocalizedTexts {
   static const String exercises = "exercises";
   static const String countMins = "countMins";
   static const String chooseAnExercise = "chooseAnExercise";
+  static const String completedExerciseMessage1 = "completedExerciseMessage1";
+  static const String completedExerciseMessage2 = "completedExerciseMessage2";
+  static const String completedIntroductionMessage2 = "completedIntroductionMessage2";
+  static const String chooseTechnique = "chooseTechnique";
+  static const String chooseExercise = "chooseExercise";
 
   // Mood
   static const String selectMoodText = "selectMoodText";

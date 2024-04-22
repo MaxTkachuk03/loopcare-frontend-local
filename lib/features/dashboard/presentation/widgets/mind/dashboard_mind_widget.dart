@@ -28,21 +28,12 @@ class DashboardMindWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           DashboardCardTitle(
-            onTap: null,
             highlightColor: AppColors.petrolLightest,
             leadingIcon: AppIcons.customDashboardMind,
-            title: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomText.bitter600(
-                  LocalizedTexts.mindDashboardTitle.tr(),
-                  style: context.textTheme.headlineSmall,
-                ),
-              ],
+            title: CustomText.bitter600(
+              LocalizedTexts.mindDashboardTitle.tr(),
+              style: context.textTheme.headlineSmall,
             ),
-            circleButton: false,
-            actionIcon: AppIcons.arrow,
             editable: false,
           ),
           Padding(

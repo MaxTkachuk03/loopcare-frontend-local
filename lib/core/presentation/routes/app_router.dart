@@ -56,6 +56,9 @@ import 'package:loopcare_frontend/features/intro/presentation/pre_intro_page.dar
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
 import 'package:loopcare_frontend/features/legal_statement/presentation/legal_statement_page.dart';
 import 'package:loopcare_frontend/features/mind/presentation/exercise_page/exercise_page.dart';
+import 'package:loopcare_frontend/features/mind/presentation/explanation_page/explanation_page.dart';
+import 'package:loopcare_frontend/features/mind/presentation/explanation_technique_page/explanation_technique_page.dart';
+import 'package:loopcare_frontend/features/mind/presentation/intro_exercise_page/intro_exercise_page.dart';
 import 'package:loopcare_frontend/features/mind/presentation/technique_exercises_page/technique_exercises_page.dart';
 import 'package:loopcare_frontend/features/mind/presentation/techniques_page/techniques_page.dart';
 import 'package:loopcare_frontend/features/mood/presentation/create_mood_page.dart';
@@ -416,13 +419,25 @@ const groupLessonRoutes = [
       page: TechniquesPage,
     ),
     AutoRoute(
+      path: AppRoutes.mindExplanation,
+      page: ExplanationPage,
+    ),
+    AutoRoute(
       path: AppRoutes.techniqueExercises,
       page: TechniqueExercisesPage,
-    ), //
+    ),
+    AutoRoute(
+      path: AppRoutes.techniqueExplanation,
+      page: ExplanationTechniquePage,
+    ),
     AutoRoute(
       path: AppRoutes.mindExercise,
       page: ExercisePage,
-    ), //
+    ),
+    AutoRoute(
+      path: AppRoutes.mindIntroExercise,
+      page: IntroExercisePage,
+    ),
 
     // Mood
     AutoRoute(

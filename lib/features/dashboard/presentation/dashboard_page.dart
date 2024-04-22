@@ -205,9 +205,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                                 return const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(height: 26.0),
-                                    DashboardMindWidget(),
                                     SizedBox(height: 19.0),
+                                    DashboardMindWidget(),
                                   ],
                                 );
                               } else {

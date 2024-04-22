@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
-import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_content_view/mind_content_view.dart';
+import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_content_screen/mind_content_screen.dart';
 
 class ExercisePage extends StatelessWidget {
   const ExercisePage({super.key});
@@ -9,13 +9,18 @@ class ExercisePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<MindBloc>();
-    final title = bloc.state.data.currentTechnique?.title ?? '';
-    final steps = bloc.state.data.currentExercise?.steps ?? [];
+    final data = bloc.state.data;
+    final title = data.currentTechnique?.title ?? '';
+    final steps = data.currentExercise?.steps ?? [];
+    final exerciseTitle = data.currentExercise?.title ?? '';
+    final difficulty = data.currentExercise?.difficulty;
 
-    return MindContentView(
+    return MindContentScreen.exercise(
       title: title,
       steps: steps,
-      onComplete: () => bloc.add(const MindEvent.completeCurrentExercise()),
+      contentTitle: exerciseTitle,
+      difficulty: difficulty,
+      onExerciseCompleted: () => bloc.add(const MindEvent.completeCurrentExercise()),
     );
   }
 }

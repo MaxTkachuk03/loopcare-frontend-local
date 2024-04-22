@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class DashboardCardTitle extends StatelessWidget {
   const DashboardCardTitle({
     super.key,
-    required this.onTap,
     required this.leadingIcon,
     required this.title,
-    required this.actionIcon,
+    this.actionIcon = AppIcons.arrow,
+    this.onTap,
     this.highlightColor = AppColors.blueLightest,
     this.editable = true,
     this.circleButton = true,

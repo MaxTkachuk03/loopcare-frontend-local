@@ -6,7 +6,22 @@ const exercises = [
     "shortDescription": "Healthy breathing for everyday situations",
     "intro": {
       "type": "text",
-      "src": "explanation.html",
+      "src": """<html lang="en">
+<body>
+<p>There are a range of benefits from using pursed lip breathing. The technique is effective in reducing stress and improving shortness of breath. In addition, it can assist with slowing down your breathing and relaxation.</p>
+
+<p>Sit on a chair and relax your neck and shoulders.</p>
+
+<p>Inhale deeply through your nose while keeping your mouth closed.</p>
+
+<p>Purse your lips slightly together.</p>
+
+<p>Slowly exhale through your mouth, extend the exhalation, keeping your lips pursed. The exhalation should be about twice as long as the inhalation.</p>
+
+<p>Start with one minute of exercise time at the beginning and slowly increase the time to 3 minutes. At the beginning practice, this two to three times a day to get used to the pattern. Once you are comfortable with it, use the technique as often as you need. One example would be if you feel short of breath when climbing stairs.</p>
+</body>
+</html>
+ """,
       "duration": 30
     },
     "steps": [
