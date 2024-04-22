@@ -36,7 +36,7 @@ mixin AppUpdateMixin {
     if (const String.fromEnvironment('FLAVOR') == 'prod') {
       link = Platform.isAndroid ? playStoreAppUrl : appStoreAppUrl;
     } else {
-      link = Platform.isAndroid ? firebaseAndroidAppUrl : firebaseIosAppUrl;
+      link = Platform.isAndroid ? firebaseAndroidAppUrl : testFlightAppUrl;
     }
 
     final uri = Uri.parse(link);
