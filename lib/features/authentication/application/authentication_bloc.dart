@@ -216,14 +216,6 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     SignUp event,
     Emitter<AuthenticationState> emit,
   ) async {
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userEmail,
-      parameters: {
-        CustomDefinitions.value: state.data.email,
-        CustomDefinitions.confirmed: 'false',
-      },
-    );
-
     final data = SignUpData(
       name: state.data.name,
       email: state.data.email.toLowerCase(),
@@ -251,6 +243,14 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         ),
       ),
       (response) {
+        AnalyticsEventService.instance.logEvent(
+          CIOEvents.onboardingNewUserCreated,
+          parameters: {
+            CustomDefinitions.value: state.data.email,
+            CustomDefinitions.confirmed: 'false',
+          },
+        );
+
         CustomerIoService.track(event: CIOEvents.onboardingTermsAndConditionsPrivacyPolicyAccept);
         CustomerIoService.track(event: CIOEvents.onboardingPasswordCreated);
         CustomerIoService.track(event: CIOEvents.onboardingNewUserCreated);
@@ -492,6 +492,13 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     UpdateName event,
     Emitter<AuthenticationState> emit,
   ) async {
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.userName,
+      parameters: {
+        CustomDefinitions.value: event.name,
+      },
+    );
+
     emit(
       state.copyWith(
         data: state.data.copyWith(

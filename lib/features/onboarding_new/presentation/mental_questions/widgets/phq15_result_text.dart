@@ -2,10 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/url_constants.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -30,15 +27,6 @@ class PHQ15ResultText extends StatelessWidget {
         final interpretation = currentResult?.interpretation;
 
         final isHigh = interpretation == InterpretationType.high;
-
-        AnalyticsEventService.instance.logEvent(
-          FirebaseEvents.userMentalHealthTest,
-          parameters: {
-            CustomDefinitions.testType: currentTestType.name,
-            CustomDefinitions.itemInterpretation: interpretation?.name ?? '',
-            CustomDefinitions.totalScore: currentResult?.totalScore ?? '',
-          },
-        );
 
         return RichText(
           text: TextSpan(
@@ -65,18 +53,11 @@ class PHQ15ResultText extends StatelessWidget {
     );
   }
 
-  String _getText(InterpretationType? interpretation) {
-    switch (interpretation) {
-      case InterpretationType.minimal:
-        return LocalizedTexts.phq15ResultMinimal.tr();
-      case InterpretationType.mild:
-        return LocalizedTexts.phq15ResultMild.tr();
-      case InterpretationType.moderate:
-        return LocalizedTexts.phq15ResultMedium.tr();
-      case InterpretationType.high:
-        return LocalizedTexts.phq15ResultHigh.tr();
-      default:
-        return '';
-    }
-  }
+  String _getText(InterpretationType? interpretation) => switch (interpretation) {
+      InterpretationType.minimal => LocalizedTexts.phq15ResultMinimal.tr(),
+      InterpretationType.mild => LocalizedTexts.phq15ResultMild.tr(),
+      InterpretationType.moderate => LocalizedTexts.phq15ResultMedium.tr(),
+      InterpretationType.high => LocalizedTexts.phq15ResultHigh.tr(),
+      _ => '',
+    };
 }
