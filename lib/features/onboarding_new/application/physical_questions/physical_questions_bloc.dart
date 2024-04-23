@@ -70,7 +70,7 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     Emitter<PhysicalQuestionsState> emit,
   ) {
     AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userHappiness,
+      CIOEvents.onboardingHappiness,
       parameters: {
         CustomDefinitions.value: event.happiness,
       },
@@ -95,7 +95,7 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     Emitter<PhysicalQuestionsState> emit,
   ) {
     AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userHeight,
+      CIOEvents.onboardingHeight,
       parameters: {
         CustomDefinitions.value: event.height,
         CustomDefinitions.measurementSystem: event.measurementSystemType.name,
@@ -125,7 +125,7 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     final bmi = BmiCalculator.getUserBmiIndex(state.heightInCm, event.weight);
 
     AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userWeight,
+      CIOEvents.onboardingWeight,
       parameters: {
         CustomDefinitions.value: event.weight,
         CustomDefinitions.measurementSystem: event.measurementSystemType.name,
@@ -162,7 +162,7 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     Emitter<PhysicalQuestionsState> emit,
   ) {
     AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userBirthday,
+      CIOEvents.onboardingBirthday,
       parameters: {
         CustomDefinitions.value: event.birthday.toIso8601String(),
       },
@@ -188,7 +188,7 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     Emitter<PhysicalQuestionsState> emit,
   ) {
     AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userSex,
+      CIOEvents.onboardingSex,
       parameters: {
         CustomDefinitions.value: event.sexType.name,
       },
@@ -213,7 +213,7 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     Emitter<PhysicalQuestionsState> emit,
   ) {
     AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userBiologicalSex,
+      CIOEvents.onboardingGender,
       parameters: {
         CustomDefinitions.value: event.gender.name,
       },
