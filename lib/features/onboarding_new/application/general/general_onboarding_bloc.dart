@@ -288,16 +288,13 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
         physicalQuestions = physicalQuestions.insertAfter(physicalStep, PhysicalQuestionStep.ageExclusion);
         physicalStack = [...physicalStack, PhysicalQuestionStep.ageExclusion];
 
-        CustomerIoService.track(
-          event: CIOEvents.onboardingAgeExclusion,
-        );
+        _trackExclusion(CIOEvents.onboardingAgeExclusion);
+
       } else if (physicalStep == PhysicalQuestionStep.weight) {
         physicalQuestions = physicalQuestions.insertAfter(physicalStep, PhysicalQuestionStep.bmiExclusion);
         physicalStack = [...physicalStack, PhysicalQuestionStep.bmiExclusion];
 
-        CustomerIoService.track(
-          event: CIOEvents.onboardingBmiExclusion,
-        );
+        _trackExclusion(CIOEvents.onboardingBmiExclusion);
       }
     } else {
       final nextStepIndex = state.physicalQuestions.indexWhere((e) => e == physicalStep) + 1;
@@ -343,9 +340,7 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
         medicalQuestions = medicalQuestions.insertAfter(medicalStep, MedicalQuestionStep.pregnancyExclusion);
         medicalStack = [...medicalStack, MedicalQuestionStep.pregnancyExclusion];
 
-        CustomerIoService.track(
-          event: CIOEvents.onboardingPregnancyExclusion,
-        );
+        _trackExclusion(CIOEvents.onboardingPregnancyExclusion);
       } else if (medicalStep == MedicalQuestionStep.semaglutide) {
         medicalQuestions = medicalQuestions.insertAllAfter(
           [
@@ -549,5 +544,10 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
         'screenName': screenName,
       },
     );
+  }
+
+  void _trackExclusion(String eventName) {
+    AnalyticsEventService.instance.logEvent(eventName);
+    CustomerIoService.track(event: eventName);
   }
 }

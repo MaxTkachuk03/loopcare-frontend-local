@@ -83,8 +83,10 @@ enum MedicalQuestionStep {
 
   bool get isIntro => this == intro;
 
-  bool get isExclusionOrResult =>
-      this == pregnancyExclusion || this == semaglutideExplanation || this == completedDisease || this == result;
+  bool get isExclusionOrResult => this == pregnancyExclusion ||
+      this == semaglutideExplanation ||
+      this == completedDisease ||
+      this == result;
 }
 
 enum MentalQuestionStep {

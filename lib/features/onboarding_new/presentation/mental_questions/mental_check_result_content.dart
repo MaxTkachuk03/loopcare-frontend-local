@@ -2,7 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/url_constants.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -188,11 +191,23 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
     final result = state.results[test?.type];
 
     if (result != null) {
-      CustomerIoService.track(event: CIOEvents.onboardingInterimResult, attributes: {
-        CIOAttributes.testName: test!.title,
-        CIOAttributes.testScore: result.totalScore,
-        CIOAttributes.interpretation: result.interpretation.name,
-      });
+      AnalyticsEventService.instance.logEvent(
+        FirebaseEvents.userMentalHealthTest,
+        parameters: {
+          CustomDefinitions.testType: test!.type.name,
+          CustomDefinitions.itemInterpretation: result.interpretation.name,
+          CustomDefinitions.totalScore: result.totalScore,
+        },
+      );
+
+      CustomerIoService.track(
+        event: CIOEvents.onboardingInterimResult,
+        attributes: {
+          CIOAttributes.testName: test.title,
+          CIOAttributes.testScore: result.totalScore,
+          CIOAttributes.interpretation: result.interpretation.name,
+        },
+      );
     }
   }
 }
