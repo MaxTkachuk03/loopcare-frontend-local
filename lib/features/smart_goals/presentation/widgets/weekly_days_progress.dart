@@ -65,8 +65,8 @@ class WeeklyDaysProgress extends StatelessWidget {
           child: CustomElevatedButton.blueFullWidth(
             label: LocalizedTexts.done.tr().capitalize(),
             onPressed: () {
-              context.router.pop.call();
-              onDone.call();
+              onDone();
+              context.router.pop();
             },
           ),
         ),

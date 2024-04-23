@@ -11,8 +11,13 @@ import 'package:loopcare_frontend/features/smart_goals/domain/weekly_smart_goal.
 
 class WeeklyGoalInfo extends StatelessWidget {
   final WeeklySmartGoal weeklyGoal;
+  final void Function() onDone;
 
-  const WeeklyGoalInfo({super.key, required this.weeklyGoal});
+  const WeeklyGoalInfo({
+    super.key,
+    required this.weeklyGoal,
+    required this.onDone,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +51,10 @@ class WeeklyGoalInfo extends StatelessWidget {
           padding: const EdgeInsets.only(top: 16.0, bottom: 30.0),
           child: CustomElevatedButton.blueFullWidth(
             label: LocalizedTexts.done.tr().capitalize(),
-            onPressed: () => context.router.pop.call(),
+            onPressed: () {
+              onDone();
+              context.router.pop();
+            },
           ),
         ),
       ],

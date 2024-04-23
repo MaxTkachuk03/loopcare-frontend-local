@@ -40,7 +40,6 @@ class _WeeklyGoalModalState extends State<WeeklyGoalModal> with SingleTickerProv
       animationDuration: Duration.zero,
       initialIndex: 0,
     )..addListener(_onTabsChanged);
-    ;
   }
 
   void _onTabsChanged() => setState(() {});
@@ -72,7 +71,10 @@ class _WeeklyGoalModalState extends State<WeeklyGoalModal> with SingleTickerProv
               controller: controller,
               onDone: widget.onDone,
             ),
-            WeeklyGoalInfo(weeklyGoal: widget.weeklyGoal),
+            WeeklyGoalInfo(
+              weeklyGoal: widget.weeklyGoal,
+              onDone: widget.onDone,
+            ),
           ],
         ),
       ],
