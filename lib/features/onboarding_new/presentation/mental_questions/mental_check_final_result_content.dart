@@ -26,7 +26,6 @@ class MentalCheckResultFinalContent extends StatefulWidget {
 }
 
 class _MentalCheckResultFinalContentState extends State<MentalCheckResultFinalContent> {
-
   @override
   void initState() {
     super.initState();
@@ -52,8 +51,7 @@ class _MentalCheckResultFinalContentState extends State<MentalCheckResultFinalCo
   void _showError(BuildContext context) =>
       context.showError(content: CustomText.w400(LocalizedTexts.openLinkErrorMessage.tr()));
 
-  _onNextPressed(BuildContext context) =>
-      context.router.pushNamed(AppRoutes.legalStatement);
+  _onNextPressed(BuildContext context) => context.router.pushNamed(AppRoutes.legalStatement);
 
   @override
   Widget build(BuildContext context) {
