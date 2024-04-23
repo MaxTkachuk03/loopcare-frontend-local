@@ -130,7 +130,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
           MentalQuestionStep.introStepTwo,
         ];
 
-        mentalSteps.addAll(List.generate(tests.length * 2, (i) => (i + 1).isOdd ? MentalQuestionStep.test : MentalQuestionStep.testSummery));
+        mentalSteps.addAll(List.generate(
+            tests.length * 2, (i) => (i + 1).isOdd ? MentalQuestionStep.test : MentalQuestionStep.testSummery));
 
         mentalSteps.add(MentalQuestionStep.result);
 
@@ -188,8 +189,7 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     ResumeTimer event,
     Emitter<GeneralOnboardingState> emit,
   ) async {
-    if (state.generalStep != GeneralOnboardingStep.mental
-        || !state.currentMentalStep.isTests) {
+    if (state.generalStep != GeneralOnboardingStep.mental || !state.currentMentalStep.isTests) {
       return;
     }
 
@@ -216,13 +216,13 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     UpdatePregnancyQuestion event,
     Emitter<GeneralOnboardingState> emit,
   ) {
-    
     final containsPregnancyStep = state.medicalQuestions.contains(MedicalQuestionStep.pregnancy);
-    
+
     if (event.enable && !containsPregnancyStep) {
       emit(
         state.copyWith(
-          medicalQuestions: List.from(state.medicalQuestions).insertAfter(MedicalQuestionStep.intro, MedicalQuestionStep.pregnancy),
+          medicalQuestions:
+              List.from(state.medicalQuestions).insertAfter(MedicalQuestionStep.intro, MedicalQuestionStep.pregnancy),
         ),
       );
     } else if (!event.enable && containsPregnancyStep) {
@@ -240,8 +240,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
   ) {
     final testsWithGenderExclusions = state.allMentalTests
         .map((element) => element.copyWith(
-          questions: element.questions.where((e) => e.excludeSex != event.sex).toList(),
-        ))
+              questions: element.questions.where((e) => e.excludeSex != event.sex).toList(),
+            ))
         .toList();
 
     emit(
@@ -283,7 +283,6 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
       CustomerIoService.track(
         event: CIOEvents.onboardingMedicalIntro,
       );
-
     } else if (isExclude) {
       if (physicalStep == PhysicalQuestionStep.birthday) {
         physicalQuestions = physicalQuestions.insertAfter(physicalStep, PhysicalQuestionStep.ageExclusion);
@@ -390,35 +389,33 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
 
     List<MentalHealthTest> mentalTests = state.mentalTests;
 
-    MentalHealthTest currentMentalTest = state.currentMentalTest
-        ?? mentalTests.first;
-    MentalHealthQuestion currentQuestion = state.currentMentalQuestion
-        ?? currentMentalTest.questions.first;
+    MentalHealthTest currentMentalTest = state.currentMentalTest ?? mentalTests.first;
+    MentalHealthQuestion currentQuestion = state.currentMentalQuestion ?? currentMentalTest.questions.first;
 
     if (mentalStep == MentalQuestionStep.testSummery && mentalTests.last == currentMentalTest) {
       add(const GeneralOnboardingEvent.stopTimer());
     }
-
     if (mentalStep == MentalQuestionStep.result) {
       return state;
-
     } else if (mentalStep == MentalQuestionStep.test) {
       if (currentMentalTest.questions.isLast(currentQuestion)) {
         mentalStack = [...mentalStack, MentalQuestionStep.testSummery];
       } else {
         currentQuestion = currentMentalTest.questions[currentMentalTest.questions.indexOf(currentQuestion) + 1];
       }
-
     } else if (mentalStep == MentalQuestionStep.testSummery) {
       if (mentalTests.isLast(currentMentalTest)) {
-        mentalStack = [...mentalStack, MentalQuestionStep.result];
+        if (isExclude) {
+          mentalStack = [...mentalStack, MentalQuestionStep.resultFailed];
+        } else {
+          mentalStack = [...mentalStack, MentalQuestionStep.result];
+        }
       } else {
         mentalStack = [...mentalStack, MentalQuestionStep.test];
         currentMentalTest = mentalTests[mentalTests.indexOf(currentMentalTest) + 1];
         currentQuestion = currentMentalTest.questions.first;
       }
     } else {
-
       final nextStep = mentalQuestions[mentalQuestions.indexOf(mentalStack.last) + 1];
       mentalStack = [...mentalStack, nextStep];
     }
@@ -479,7 +476,6 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
       medicalStack = List.from(state.medicalPassedStack)..removeLast();
     }
 
-
     if (state.currentMedicalStep == MedicalQuestionStep.pregnancyExclusion) {
       medicalQuestions = List.from(state.medicalQuestions)..remove(MedicalQuestionStep.pregnancyExclusion);
     } else if (state.currentMedicalStep == MedicalQuestionStep.semaglutideTakingPeriod) {
@@ -505,10 +501,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     MentalQuestionStep mentalStep = state.currentMentalStep;
     List<MentalQuestionStep> mentalStack = state.mentalPassedStack;
     List<MentalHealthTest> mentalTests = state.mentalTests;
-    MentalHealthTest currentMentalTest = state.currentMentalTest
-        ?? mentalTests.first;
-    MentalHealthQuestion currentQuestion = state.currentMentalQuestion
-        ?? currentMentalTest.questions.first;
+    MentalHealthTest currentMentalTest = state.currentMentalTest ?? mentalTests.first;
+    MentalHealthQuestion currentQuestion = state.currentMentalQuestion ?? currentMentalTest.questions.first;
 
     if (mentalStep == MentalQuestionStep.testSummery && mentalTests.last == currentMentalTest) {
       add(const GeneralOnboardingEvent.resumeTimer());
@@ -529,7 +523,6 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
       } else {
         currentQuestion = currentMentalTest.questions[currentMentalTest.questions.indexOf(currentQuestion) - 1];
       }
-
     } else {
       mentalStack = List.from(mentalStack)..removeLast();
     }

@@ -36,7 +36,6 @@ class MentalCheckResultContent extends StatefulWidget {
 }
 
 class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
-
   void onUrlHandler(BuildContext context) async {
     final Uri launchUri = Uri.parse(psychologistConsultingLink);
 
@@ -71,10 +70,10 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
           return ErrorScreen(
             error: error,
             onButtonPressed: () => context.read<MentalQuestionsBloc>().add(
-              MentalQuestionsEvent.getTestResults(
-                test: currentTest,
-              ),
-            ),
+                  MentalQuestionsEvent.getTestResults(
+                    test: currentTest,
+                  ),
+                ),
           );
         }
 
@@ -113,11 +112,10 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           resultText,
-                          if (state.showEmergencyBtn(currentTest.type))
-                            ...[
-                              const SizedBox(height: 30.0),
-                              const EmergencyBtn(),
-                            ]
+                          if (state.showEmergencyBtn(currentTest.type)) ...[
+                            const SizedBox(height: 30.0),
+                            const EmergencyBtn(),
+                          ]
                         ],
                       ),
                     ),
@@ -173,22 +171,25 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
     }
   }
 
-  _onNextPressed(BuildContext context) =>
-      context.read<GeneralOnboardingBloc>().add(
-        const GeneralOnboardingEvent.nextStep(),
-      );
+  _onNextPressed(BuildContext context) {
+    final currentTest = context.read<GeneralOnboardingBloc>().state.currentMentalTest!;
+    final isPhq8TestHigh = context.read<MentalQuestionsBloc>().state.isPhq8TestHigh;
+    context.read<GeneralOnboardingBloc>().add(
+          GeneralOnboardingEvent.nextStep(excluded: currentTest.type == MentalHealthTestType.phq8 && isPhq8TestHigh),
+        );
+  }
 
-  Widget _getResultTextWidget(MentalHealthTest currentTest) => switch(currentTest.type) {
-      MentalHealthTestType.who5 => WHO5ResultText(onLinkPressed: onUrlHandler),
-      MentalHealthTestType.phq15 => PHQ15ResultText(onLinkPressed: onUrlHandler),
-      MentalHealthTestType.gad7 => GAD7ResultText(onLinkPressed: onUrlHandler),
-      MentalHealthTestType.phq8 => PHQ8ResultText(onLinkPressed: onUrlHandler),
-    };
+  Widget _getResultTextWidget(MentalHealthTest currentTest) => switch (currentTest.type) {
+        MentalHealthTestType.who5 => WHO5ResultText(onLinkPressed: onUrlHandler),
+        MentalHealthTestType.phq15 => PHQ15ResultText(onLinkPressed: onUrlHandler),
+        MentalHealthTestType.gad7 => GAD7ResultText(onLinkPressed: onUrlHandler),
+        MentalHealthTestType.phq8 => PHQ8ResultText(onLinkPressed: onUrlHandler),
+      };
 
   void _resultListener(BuildContext context, MentalQuestionsState state) {
     final test = context.read<GeneralOnboardingBloc>().state.currentMentalTest;
     final result = state.results[test?.type];
-    
+
     if (result != null) {
       AnalyticsEventService.instance.logEvent(
         FirebaseEvents.userMentalHealthTest,

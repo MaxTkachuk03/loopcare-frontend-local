@@ -49,6 +49,7 @@ extension MentalQuestionStepScreenName on MentalQuestionStep {
     MentalQuestionStep.introStepTwo => 'Onboarding Mental Health Description Screen',
     MentalQuestionStep.test => 'Onboarding Mental Health Test $testName Question Screen',
     MentalQuestionStep.testSummery => 'Mental Test $testName Result Screen',
-    MentalQuestionStep.result => 'Onboarding Medical Completed Screen',
+    MentalQuestionStep.result => 'Onboarding Medical Health Completed Screen',
+    MentalQuestionStep.resultFailed => 'Onboarding Mental Health Exclusion screen',
   };
 }
