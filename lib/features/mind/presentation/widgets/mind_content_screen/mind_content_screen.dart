@@ -36,6 +36,7 @@ class MindContentScreen extends StatefulWidget {
     required this.contentTitle,
     required this.difficulty,
     required this.onExerciseCompleted,
+    required this.onRepeat,
   }) : onComplete = null,
         url = null,
         _type = _MindContentScreenType.exercise;
@@ -47,6 +48,7 @@ class MindContentScreen extends StatefulWidget {
     required this.contentTitle,
     required this.onComplete,
   }) : onExerciseCompleted = null,
+        onRepeat = null,
         url = null,
         difficulty = null,
         _type = _MindContentScreenType.intro;
@@ -59,6 +61,7 @@ class MindContentScreen extends StatefulWidget {
     required this.contentTitle,
     required this.url,
   }) : onExerciseCompleted = null,
+        onRepeat = null,
         difficulty = null,
         _type = _MindContentScreenType.explanation;
 
@@ -66,6 +69,7 @@ class MindContentScreen extends StatefulWidget {
   final String? url;
   final List<MindContent> steps;
   final void Function()? onExerciseCompleted;
+  final void Function()? onRepeat;
   final void Function()? onComplete;
   final _MindContentScreenType _type;
   final String contentTitle;
@@ -112,6 +116,8 @@ class _MindContentScreenState extends State<MindContentScreen> {
   void onRepeat() {
     currentStepIndex = 0;
     isCompleted = false;
+
+    widget.onRepeat?.call();
 
     setState(() {});
   }

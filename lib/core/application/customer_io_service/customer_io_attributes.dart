@@ -1,6 +1,7 @@
 class CIOAttributes {
   const CIOAttributes._();
 
+  // Onboarding
   static const String birthday = 'Birth date';
   static const String gender = 'Gender';
   static const String sex = 'Sex';
@@ -35,9 +36,12 @@ class CIOAttributes {
   static const String interpretation = 'Interpretation';
   static const String consentToEmail = 'Consent to email';
   static const String updateEmail = 'New email address';
+
+  // Subscription
   static const String identifierOption = 'Subscription identifier';
   static const String subscriptionExpirationDate = 'Subscription expiration date';
 
+  // Education
   static const String articleId = 'Article ID';
   static const String articleTitle = 'Article title';
   static const String weightLogged = 'Weight logged';
@@ -46,4 +50,8 @@ class CIOAttributes {
   static const String place = 'Place';
   static const String food = 'Food';
   static const String note = 'Note';
+
+  // Mind
+  static const String techniqueId = 'Technique Id';
+  static const String exerciseId = 'Exercise Id';
 }

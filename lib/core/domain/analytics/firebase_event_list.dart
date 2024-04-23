@@ -88,4 +88,12 @@ class FirebaseEvents {
   static String get userLeavesChat => 'user_leaves_chat';
 
   static String get userConfirmedDoctorConsent => 'user_confirmed_doctor_consent';
+  static String get mindOpen => 'mind_open_section';
+  static String get mindClose => 'mind_close_section';
+  static String get mindSelectTechnique => 'mind_select_technique';
+  static String get mindCloseTechnique => 'mind_close_technique';
+  static String get mindExerciseIntro => 'mind_open_exercise_intro';
+  static String get mindCloseExerciseIntro => 'mind_close_exercise_intro';
+  static String get mindCompletedExercise => 'mind_completed_exercise';
+  static String get mindRepeatedExercise => 'mind_repeated_exercise';
 }

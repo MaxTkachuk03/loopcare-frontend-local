@@ -417,27 +417,27 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.mindTechniques,
       page: TechniquesPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.mindExplanation,
       page: ExplanationPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.techniqueExercises,
       page: TechniqueExercisesPage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.techniqueExplanation,
       page: ExplanationTechniquePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.mindExercise,
       page: ExercisePage,
-    ),
+    ), // added
     AutoRoute(
       path: AppRoutes.mindIntroExercise,
       page: IntroExercisePage,
-    ),
+    ), // added
 
     // Mood
     AutoRoute(

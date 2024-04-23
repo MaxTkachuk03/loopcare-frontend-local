@@ -4,7 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_info_response.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique_exercise.dart';
@@ -99,6 +103,23 @@ class MindBloc extends Bloc<MindEvent, MindState> {
     response.fold(
       (l) => emit(MindState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
+        AnalyticsEventService.instance.logEvent(
+          FirebaseEvents.mindCompletedExercise,
+          parameters: {
+            CustomDefinitions.techniqueId: techniqueId,
+            CustomDefinitions.exerciseId: exerciseId,
+            CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+          },
+        );
+
+        CustomerIoService.track(
+          event: CIOEvents.mindCompletedExercise,
+          attributes: {
+            CIOAttributes.techniqueId: techniqueId,
+            CIOAttributes.exerciseId: exerciseId,
+          },
+        );
+
         if (!state.data.isLastExercise && state.data.isConsecutiveUnlock) {
           add(MindEvent.unlockNextExercise(exerciseId: state.data.nextExercise.id));
         }

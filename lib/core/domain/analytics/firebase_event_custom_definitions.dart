@@ -48,4 +48,6 @@ class CustomDefinitions {
   static String get isDishes => 'isDishes';
   static String get isRecipe => 'isRecipe';
   static String get isMeal => 'isMeal';
+  static String get techniqueId => 'techniqueId';
+  static String get exerciseId => 'exerciseId';
 }

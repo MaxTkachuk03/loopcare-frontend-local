@@ -74,4 +74,8 @@ class CIOEvents {
 
   // Profile
   static const String profilePage = 'account_settings_page';
+
+  // Mind
+  static const String mindCompletedExercise = 'mind_completed_exercise';
+  static const String mindRepeatedExercise = 'mind_repeated_exercise';
 }

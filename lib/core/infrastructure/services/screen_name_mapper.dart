@@ -83,5 +83,11 @@ final screenNames = {
   'BuddyLiveTogetherRoute': 'Buddy Live Together Screen',
   'BuddyRelationRoute': 'Buddy Relation Screen',
   'BuddyEmailRoute': 'Buddy Email Screen',
-  'BuddyCompletedRoute': 'Buddy Completed Screen'
+  'BuddyCompletedRoute': 'Buddy Completed Screen',
+  'TechniquesRoute': 'Mind Techniques List Screen', // added
+  'TechniqueExercisesRoute': 'Mind Technique Exercises List Screen', // added
+  'IntroExerciseRoute': 'Mind Intro Screen', // added
+  'ExplanationTechniqueRoute': 'Mind Technique Explanation Screen', // added
+  'ExplanationRoute': 'Mind Explanation Screen', // added
+  'ExerciseRoute': 'Mind Technique Exercise Screen', // added
 };

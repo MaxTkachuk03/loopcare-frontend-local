@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -11,6 +12,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
+import 'package:loopcare_frontend/features/mind/domain/mind_analytics_mixin/mind_analytics_mixin.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_list_content/mind_list_content.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/techniques_list_tile/techniques_list_tile.dart';
 
@@ -21,7 +23,7 @@ class TechniquesPage extends StatefulWidget {
   State<TechniquesPage> createState() => _TechniquesPageState();
 }
 
-class _TechniquesPageState extends State<TechniquesPage> {
+class _TechniquesPageState extends State<TechniquesPage> with MindAnalyticsMixin {
 
   void listener(BuildContext context, MindState state) {
     state.mapOrNull(
@@ -36,6 +38,13 @@ class _TechniquesPageState extends State<TechniquesPage> {
   void initState() {
     super.initState();
     context.read<MindBloc>().add(const MindEvent.getTechniques());
+    track(FirebaseEvents.mindOpen);
+  }
+
+  @override
+  void dispose() {
+    track(FirebaseEvents.mindClose, forCIO: false);
+    super.dispose();
   }
 
   @override
