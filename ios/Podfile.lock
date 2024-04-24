@@ -3,6 +3,12 @@ PODS:
     - Flutter
   - app_tracking_transparency (0.0.1):
     - Flutter
+  - appsflyer_sdk (6.14.2):
+    - AppsFlyerFramework (= 6.14.2)
+    - Flutter
+  - AppsFlyerFramework (6.14.2):
+    - AppsFlyerFramework/Main (= 6.14.2)
+  - AppsFlyerFramework/Main (6.14.2)
   - audio_session (0.0.1):
     - Flutter
   - connectivity_plus (0.0.1):
@@ -254,6 +260,7 @@ PODS:
 DEPENDENCIES:
   - advertising_id (from `.symlinks/plugins/advertising_id/ios`)
   - app_tracking_transparency (from `.symlinks/plugins/app_tracking_transparency/ios`)
+  - appsflyer_sdk (from `.symlinks/plugins/appsflyer_sdk/ios`)
   - audio_session (from `.symlinks/plugins/audio_session/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - customer_io (from `.symlinks/plugins/customer_io/ios`)
@@ -287,6 +294,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AppsFlyerFramework
     - CustomerIO
     - CustomerIOCommon
     - CustomerIOMessagingInApp
@@ -324,6 +332,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/advertising_id/ios"
   app_tracking_transparency:
     :path: ".symlinks/plugins/app_tracking_transparency/ios"
+  appsflyer_sdk:
+    :path: ".symlinks/plugins/appsflyer_sdk/ios"
   audio_session:
     :path: ".symlinks/plugins/audio_session/ios"
   connectivity_plus:
@@ -386,6 +396,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   advertising_id: 31c738918c2e04d86d80c293357e61e06e87df74
   app_tracking_transparency: 5b1745ef9ade815f7455cb6a0848349589afb7c5
+  appsflyer_sdk: efd18b6346e0810b20326569a0d52f9d406d5961
+  AppsFlyerFramework: b3de9a49c6af8a8e38c44603e468b5e207f22466
   audio_session: 4f3e461722055d21515cf3261b64c973c062f345
   connectivity_plus: bf0076dd84a130856aa636df1c71ccaff908fa1d
   customer_io: 01b3a765e7273ed5990481be212dcfd7dc79fae7
