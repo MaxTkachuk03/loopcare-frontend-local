@@ -50,17 +50,11 @@ class _DashboardWeeklyGoalsState extends State<DashboardWeeklyGoals> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                ListView.builder(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.zero,
-                  itemCount: state.data.weeklyGoals.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final item = state.data.weeklyGoals[index];
-                    return DashboardWeeklyGoalItem(
-                      item: item,
-                      editable: !state.data.hasQuickReviewWeeklyGoals,
-                    );
-                  },
+                ...state.data.weeklyGoals.map(
+                  (goal) => DashboardWeeklyGoalItem(
+                    item: goal,
+                    editable: !state.data.hasQuickReviewWeeklyGoals,
+                  ),
                 ),
                 if (state.data.hasQuickReviewWeeklyGoals)
                   Padding(

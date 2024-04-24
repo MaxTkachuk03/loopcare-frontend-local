@@ -48,17 +48,16 @@ class _DaySmartGoalChipsState extends State<DaySmartGoalChips> {
               final isToday = getDateOnly(item.date).isToday;
 
               return CustomChoiceChip.green(
-                label: isToday ? '' : getDateOnly(item.date).shortWeekdayWithMonth,
-                accent: isToday
-                    ? TextWithAccents(
-                        '${getDateOnly(item.date).shortWeekdayWithMonth} - ${LocalizedTexts.today.tr().capitalize()}',
-                        style: context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400),
-                        accentedStyle: context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
-                        accents: [
-                          LocalizedTexts.today.tr().capitalize(),
-                        ],
-                      )
-                    : null,
+                accent: TextWithAccents(
+                  isToday
+                      ? '${getDateOnly(item.date).shortWeekdayWithMonth} - ${LocalizedTexts.today.tr().capitalize()}'
+                      : getDateOnly(item.date).shortWeekdayWithMonth,
+                  style: context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400),
+                  accentedStyle: context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
+                  accents: [
+                    if (isToday) LocalizedTexts.today.tr().capitalize(),
+                  ],
+                ),
                 selected: item == widget.controller.selectedValueNotifier.value,
                 onSelected: _onSelected,
                 value: item,

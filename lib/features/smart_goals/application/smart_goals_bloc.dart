@@ -87,34 +87,37 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
         emit(SmartGoalsState.errorSaveGoals(state.data.copyWith(error: l, isLoading: false)));
       },
       (r) {
-        state.data.selectedGoals.map((e) {
-          AnalyticsEventService.instance.logEvent(
-            FirebaseEvents.userSavedGoals,
-            parameters: {
-              CustomDefinitions.userId: account?.id,
-              CustomDefinitions.title: e.title,
-              CustomDefinitions.goalCategoryTitle: e.category.name,
-              //Discussed with Souni and Paul  limit custom dimensions
-              CustomDefinitions.timestamp: r.startedAt!.toIso8601String(),
-              if (r.finishedAt != null) CustomDefinitions.timePassed: r.finishedAt!.toIso8601String(),
-            },
-          );
-
-          CustomerIoService.track(
-            event: CIOEvents.userSavedGoals,
-            attributes: {
-              CIOAttributes.userId: account?.id,
-              CIOAttributes.goalTitle: e.title,
-              CIOAttributes.goalCategoryTitle: e.category.name,
-              if (r.finishedAt != null) CIOAttributes.finishDate: r.finishedAt!.toIso8601String(),
-              if (r.lastReviewDate != null) CIOAttributes.reviewLastDate: r.finishedAt!.toIso8601String(),
-            },
-          );
-        });
-
+        _addGoalAnalyticEvent(r);
         emit(SmartGoalsState.weeklySessionSaved(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
       },
     );
+  }
+
+  void _addGoalAnalyticEvent(WeeklyGoalsSession session) {
+    for (var goal in state.data.selectedGoals) {
+      AnalyticsEventService.instance.logEvent(
+        FirebaseEvents.userSavedGoals,
+        parameters: {
+          CustomDefinitions.userId: account?.id,
+          CustomDefinitions.title: goal.title,
+          CustomDefinitions.goalCategoryTitle: goal.category.name,
+          //Discussed with Souni and Paul  limit custom dimensions
+          CustomDefinitions.timestamp: session.startedAt!.toIso8601String(),
+          if (session.finishedAt != null) CustomDefinitions.timePassed: session.finishedAt!.toIso8601String(),
+        },
+      );
+
+      CustomerIoService.track(
+        event: CIOEvents.userSavedGoals,
+        attributes: {
+          CIOAttributes.userId: account?.id,
+          CIOAttributes.goalTitle: goal.title,
+          CIOAttributes.goalCategoryTitle: goal.category.name,
+          if (session.finishedAt != null) CIOAttributes.finishDate: session.finishedAt!.toIso8601String(),
+          if (session.lastReviewDate != null) CIOAttributes.reviewLastDate: session.finishedAt!.toIso8601String(),
+        },
+      );
+    }
   }
 
   FutureOr<void> _onAddReview(

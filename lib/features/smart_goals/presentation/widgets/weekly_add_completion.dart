@@ -17,36 +17,31 @@ class WeeklyAddCompletion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        CustomText.w600(
-          LocalizedTexts.weeklyAddCompletions.tr(),
-          textAlign: TextAlign.start,
-          style: context.textTheme.bodyMedium,
-        ),
-        const SizedBox(width: 4.0),
-        ValueListenableBuilder<ProgressSmartGoalLog?>(
-          valueListenable: controller.selectedValueNotifier,
-          builder: (context, day, _) {
-            return CustomText.w400(
+    return ValueListenableBuilder<ProgressSmartGoalLog?>(
+      valueListenable: controller.selectedValueNotifier,
+      builder: (context, log, _) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CustomText.w600(
+              LocalizedTexts.weeklyAddCompletions.tr(),
+              textAlign: TextAlign.start,
+              style: context.textTheme.bodyMedium,
+            ),
+            const SizedBox(width: 4.0),
+            CustomText.w400(
               controller.getTimesSelectedDay(),
               textAlign: TextAlign.start,
               style: context.textTheme.bodyMedium,
-            );
-          },
-        ),
-        const SizedBox(width: 8.0),
-        ValueListenableBuilder<ProgressSmartGoalLog?>(
-          valueListenable: controller.selectedValueNotifier,
-          builder: (context, day, _) {
-            return WeeklyTimesCorrector(
+            ),
+            const SizedBox(width: 8.0),
+            WeeklyTimesCorrector(
               onIncrease: controller.onIncrease,
-              onDecreased: (controller.selectedValueNotifier.value?.times ?? -1) > 0 ? controller.onDecrease : null,
-            );
-          },
-        ),
-      ],
+              onDecreased: (log?.times ?? -1) > 0 ? controller.onDecrease : null,
+            ),
+          ],
+        );
+      },
     );
   }
 }

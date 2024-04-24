@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 typedef OnSelected<T> = void Function(T val);
 
 class CustomChoiceChip<T> extends StatelessWidget {
-  final String label;
+  final String? label;
   final TextWithAccents? accent;
   final bool selected;
   final T value;
@@ -25,10 +25,10 @@ class CustomChoiceChip<T> extends StatelessWidget {
 
   const CustomChoiceChip({
     super.key,
-    required this.label,
     required this.selected,
     required this.onSelected,
     required this.value,
+    this.label,
     this.accent,
     this.selectedColor,
     this.borderColor,
@@ -40,7 +40,9 @@ class CustomChoiceChip<T> extends StatelessWidget {
     this.textAlign,
     this.chipHeight,
     this.borderRadius,
-  });
+  }) : assert(
+          (label == null && accent != null) || (label != null && accent == null),
+        );
 
   factory CustomChoiceChip.coral({
     required bool selected,
@@ -127,7 +129,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
     required bool selected,
     required OnSelected<T>? onSelected,
     required T value,
-    required String label,
+    String? label,
     Widget? action,
     TextWithAccents? accent,
   }) =>
@@ -188,7 +190,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
                 child: accent != null
                     ? accent!
                     : AutoSizeText(
-                        label,
+                        label ?? '',
                         textAlign: textAlign ?? TextAlign.start,
                         style: selected
                             ? context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600)
@@ -203,9 +205,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
         onSelected: onSelected == null ? null : (_) => onSelected?.call(value),
         selectedColor: selectedColor,
         disabledColor: AppColors.greyLight,
-        side: ChipTheme.of(context)
-            .side
-            ?.copyWith(color: onSelected == null ? AppColors.greyLight : borderColor),
+        side: ChipTheme.of(context).side?.copyWith(color: onSelected == null ? AppColors.greyLight : borderColor),
         color: MaterialStateProperty.resolveWith((states) {
           const Set<MaterialState> interactiveStates = <MaterialState>{
             MaterialState.pressed,
