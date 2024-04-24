@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -53,8 +52,10 @@ Future<void> main() async {
 
   SystemService.allowOnlyPortraitOrientation();
 
+  await AppsFlyerService.start();
+
   await CustomerIoService.initialize();
-  await AppsFlyerService.init();
+
   await MixpanelManager().init();
 
   HydratedBloc.storage = await HydratedStorage.build(
