@@ -155,8 +155,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     if (context.read<AuthenticationBloc>().state.data.isAssignmentsUnlocked) {
       context.read<AssignmentsBloc>().add(
             AssignmentsEvent.getAllLessonQuestions(
-              _selectedDay.beginDay,
-              _selectedDay.endDay,
+              day.beginDay,
+              day.endDay,
             ),
           );
     }
@@ -274,8 +274,10 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               );
                             },
                           ),
-                          const SizedBox(height: 19.0),
-                          if (_showEducationWidget) Education(date: _selectedDay),
+                          if (_showEducationWidget) ...[
+                            const SizedBox(height: 19.0),
+                            Education(date: _selectedDay),
+                          ],
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (context, state) {
                               if (!state.data.isAssignmentsUnlocked) {
